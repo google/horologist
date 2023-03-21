@@ -54,7 +54,7 @@ import androidx.wear.compose.material.ProgressIndicatorDefaults
  * is a normal square.
  * @param paddingDp This is the size of the gaps for each segment.
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun SquareSegmentedProgressIndicator(
     modifier: Modifier = Modifier,

@@ -15,9 +15,9 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistMediaUiApi::class,
-    ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistComposeToolsApi::class
+    ExperimentalHorologistApi::class,
+    ExperimentalHorologistApi::class,
+    ExperimentalHorologistApi::class
 )
 @file:Suppress("ObjectLiteralToLambda")
 
@@ -29,13 +29,13 @@ import app.cash.paparazzi.DeviceConfig
 import com.android.ide.common.rendering.api.SessionParams
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.a11y.TallPreview
 import com.google.android.horologist.compose.tools.a11y.forceState
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler

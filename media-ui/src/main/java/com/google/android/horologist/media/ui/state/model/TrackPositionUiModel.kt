@@ -17,10 +17,10 @@
 package com.google.android.horologist.media.ui.state.model
 
 import com.google.android.horologist.media.model.PositionPredictor
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlin.time.Duration
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public sealed class TrackPositionUiModel {
     public abstract val showProgress: Boolean
     public abstract val shouldAnimate: Boolean

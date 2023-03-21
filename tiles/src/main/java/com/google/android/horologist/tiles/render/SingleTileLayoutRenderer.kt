@@ -25,14 +25,14 @@ import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders
 import androidx.wear.tiles.material.Colors
-import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.util.UUID
 
 /**
  * A [TileLayoutRenderer] designed with typical but restrictive limitations, such as a single tile
  * in the timeline, and fixed resources that will be updated by changing ids instead of version.
  */
-@ExperimentalHorologistTilesApi
+@ExperimentalHorologistApi
 public abstract class SingleTileLayoutRenderer<T, R>(
     /**
      * The context to avoid passing in through each render method.

@@ -18,14 +18,14 @@ package com.google.android.horologist.media.data.database.mapper
 
 import android.annotation.SuppressLint
 import androidx.media3.exoplayer.offline.Download
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
 
 /**
  * Functions to map models from other layers and / or packages into a [MediaDownloadEntityStatus].
  */
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public object MediaDownloadEntityStatusMapper {
 
     /**

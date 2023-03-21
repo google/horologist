@@ -49,7 +49,7 @@ import androidx.wear.compose.material.rememberPlaceholderState
  * A placeholder chip to be displayed while the contents of the [Chip] is being loaded.
  */
 @OptIn(ExperimentalWearMaterialApi::class)
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun PlaceholderChip(
     modifier: Modifier = Modifier,

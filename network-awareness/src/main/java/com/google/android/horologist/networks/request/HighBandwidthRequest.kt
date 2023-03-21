@@ -18,7 +18,7 @@ package com.google.android.horologist.networks.request
 
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.RequestType
 import okhttp3.HttpUrl
@@ -27,7 +27,7 @@ import okhttp3.HttpUrl
  * A single request for high bandwidth networks, with specific usable transport types and
  * the originating request type.
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public data class HighBandwidthRequest(
     val type: Type = Type.All,
     val requestType: RequestType? = null,

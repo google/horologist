@@ -17,11 +17,11 @@
 package com.google.android.horologist.networks.logging
 
 import android.util.Log
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.RequestType
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public interface NetworkStatusLogger {
     public fun logNetworkEvent(event: String, error: Boolean = false)
     public fun logJobEvent(event: String, error: Boolean = false)
@@ -33,7 +33,7 @@ public interface NetworkStatusLogger {
         bytesTransferred: Long
     )
 
-    @ExperimentalHorologistNetworksApi
+    @ExperimentalHorologistApi
     public object Logging : NetworkStatusLogger {
         override fun logNetworkEvent(event: String, error: Boolean) {
             Log.println(if (error) Log.WARN else Log.INFO, "networks", event)
@@ -56,7 +56,7 @@ public interface NetworkStatusLogger {
         }
     }
 
-    @ExperimentalHorologistNetworksApi
+    @ExperimentalHorologistApi
     public class InMemory : NetworkStatusLogger {
         public val events: MutableList<String> = mutableListOf<String>()
 

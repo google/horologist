@@ -18,9 +18,9 @@ package com.google.android.horologist.media3
 
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.flow.MutableStateFlow
-@OptIn(ExperimentalHorologistAudioApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 open class FakeAudioOutputRepository : AudioOutputRepository {
     override val audioOutput: MutableStateFlow<AudioOutput> = MutableStateFlow(AudioOutput.None)
     override val available: MutableStateFlow<List<AudioOutput>> = MutableStateFlow(listOf())

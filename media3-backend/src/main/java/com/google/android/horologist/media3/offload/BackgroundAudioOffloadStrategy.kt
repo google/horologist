@@ -22,14 +22,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.media3.exoplayer.ExoPlayer
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 /**
  * Background Strategy for enabling or disabling the audio offload mode,
  * that is only enabled when backgrounded.

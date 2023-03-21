@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.ControlButtonLayout
 import com.google.android.horologist.media.ui.components.PlayPauseProgressButton
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
@@ -35,7 +35,7 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  * Standard media control buttons, showing [SeekToPreviousButton], [PlayPauseProgressButton] and
  * [SeekToNextButton].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun AnimatedMediaControlButtons(
     onPlayButtonClick: () -> Unit,

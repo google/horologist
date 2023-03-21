@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistComposablesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class, ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.screens.entity
 
@@ -62,10 +62,10 @@ import com.google.android.horologist.base.ui.components.StandardButtonType
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipIconWithProgress
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -76,7 +76,7 @@ import com.google.android.horologist.media.ui.util.ifNan
  * An implementation of [EntityScreen] using [PlaylistUiModel] and [DownloadMediaUiModel] as
  * models.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun PlaylistDownloadScreen(
     columnState: ScalingLazyColumnState,
@@ -411,7 +411,7 @@ private fun <Collection> FirstButton(
 /**
  * Represents the state of [PlaylistDownloadScreen].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public sealed class PlaylistDownloadScreenState<out Collection, out Media> {
 
     public object Loading : PlaylistDownloadScreenState<Nothing, Nothing>()
@@ -451,7 +451,7 @@ public sealed class PlaylistDownloadScreenState<out Collection, out Media> {
  * A helper function to build a [EntityScreenState.Loaded] with [PlaylistUiModel] and
  * [DownloadMediaUiModel], calculating the value of [PlaylistDownloadScreenState.Loaded.downloadMediaListState].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public fun createPlaylistDownloadScreenStateLoaded(
     playlistModel: PlaylistUiModel,
     downloadMediaList: List<DownloadMediaUiModel>

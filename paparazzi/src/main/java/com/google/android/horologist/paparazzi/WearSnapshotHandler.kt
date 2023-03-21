@@ -21,7 +21,7 @@ import app.cash.paparazzi.SnapshotHandler
 import java.awt.geom.Ellipse2D
 import java.awt.image.BufferedImage
 
-@ExperimentalHorologistPaparazziApi
+@ExperimentalHorologistApi
 public class WearSnapshotHandler(
     private val delegate: SnapshotHandler,
     private val round: Boolean = true

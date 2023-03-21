@@ -20,7 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
-import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
 import com.google.android.horologist.auth.ui.mapper.AccountUiModelMapper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
  * It checks if there is a user already signed in, and emits the appropriate
  * [states][StreamlineSignInScreenState] through the [uiState] property.
  */
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 public open class StreamlineSignInViewModel(
     private val authUserRepository: AuthUserRepository
 ) : ViewModel() {
@@ -79,7 +79,7 @@ public open class StreamlineSignInViewModel(
 /**
  * The states for a streamline sign-in screen.
  */
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 public sealed class StreamlineSignInScreenState {
 
     public object Idle : StreamlineSignInScreenState()

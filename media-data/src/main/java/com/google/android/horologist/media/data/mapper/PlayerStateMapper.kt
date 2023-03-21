@@ -17,13 +17,13 @@
 package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.Player
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.PlayerState
 
 /**
  * Maps a [Media3 player][Player] into a [PlayerState].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public object PlayerStateMapper {
     public fun map(player: Player): PlayerState = when (player.playbackState) {
         Player.STATE_IDLE -> idleOrEnded(player)

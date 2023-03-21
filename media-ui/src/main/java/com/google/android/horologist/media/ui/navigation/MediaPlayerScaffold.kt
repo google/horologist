@@ -15,7 +15,7 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistAudioUiApi::class,
+    ExperimentalHorologistApi::class,
     ExperimentalFoundationApi::class
 )
 
@@ -34,7 +34,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
-import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState

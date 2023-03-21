@@ -17,7 +17,7 @@
 package com.google.android.horologist.networks.okhttp.impl
 
 import androidx.tracing.Trace
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.DataRequest
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.NetworkInfo
@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * Internal [EventListener] that records estimated request and response sizes to
  * the [DataRequestRepository] as well as closing [High]
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public open class NetworkLoggingEventListenerFactory(
     private val logger: NetworkStatusLogger,
     private val networkRepository: NetworkRepository,

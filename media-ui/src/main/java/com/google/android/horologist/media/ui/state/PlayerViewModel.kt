@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.state
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.repository.PlayerRepository
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public open class PlayerViewModel(
     playerRepository: PlayerRepository
 ) : ViewModel() {

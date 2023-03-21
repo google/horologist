@@ -16,13 +16,13 @@
 
 package com.google.android.horologist.media3.offload
 
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.text.NumberFormat
 
 /**
  * A stats object for Audio Offload state.
  */
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public data class OffloadTimes(
     public val enabled: Long = 0L,
     public val disabled: Long = 0L,

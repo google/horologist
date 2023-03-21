@@ -39,7 +39,7 @@ import kotlinx.coroutines.launch
  * Also acts like a LifecycleService, allowing lifecycleScope,
  * and general lifecycle operations.
  */
-@ExperimentalHorologistTilesApi
+@ExperimentalHorologistApi
 public abstract class SuspendingTileService : TileService(), LifecycleOwner {
     // Code from LifecycleService
 

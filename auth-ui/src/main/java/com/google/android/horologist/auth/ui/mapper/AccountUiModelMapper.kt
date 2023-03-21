@@ -16,21 +16,21 @@
 
 package com.google.android.horologist.auth.ui.mapper
 
-import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Functions to map models from other layers and / or packages into a [AccountUiModel].
  */
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 public object AccountUiModelMapper {
 
     /**
      * Maps from a [AuthUser].
      */
-    @OptIn(ExperimentalHorologistAuthComposablesApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     public fun map(authUser: AuthUser, defaultEmail: String = ""): AccountUiModel = AccountUiModel(
         email = authUser.email ?: defaultEmail,
         name = authUser.displayName,

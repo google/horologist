@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaDataApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.data.repository
 
 import android.content.Context
 import android.os.Looper.getMainLooper
 import androidx.test.core.app.ApplicationProvider
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.common.truth.Truth.assertThat

@@ -16,10 +16,10 @@
 
 package com.google.android.horologist.media.ui.components.controls
 
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlin.time.Duration
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public sealed class SeekButtonIncrement {
     public object Unknown : SeekButtonIncrement() {
         override fun toString(): String = "SeekButtonIncrement(UNKNOWN)"

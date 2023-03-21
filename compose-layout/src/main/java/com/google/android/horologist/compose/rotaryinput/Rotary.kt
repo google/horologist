@@ -43,7 +43,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.util.fastSumBy
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -101,7 +101,7 @@ private inline fun debugLog(generateMsg: () -> String) {
  * @param reverseDirection Reverse the direction of scrolling. Should be aligned with
  * Scrollable `reverseDirection` parameter
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 @Suppress("ComposableModifierFactory")
 @Composable
 public fun Modifier.rotaryWithFling(
@@ -135,7 +135,7 @@ public fun Modifier.rotaryWithFling(
  * @param reverseDirection Reverse the direction of scrolling. Should be aligned with
  * Scrollable `reverseDirection` parameter
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 @Suppress("ComposableModifierFactory")
 @Composable
 public fun Modifier.rotaryWithScroll(
@@ -169,7 +169,7 @@ public fun Modifier.rotaryWithScroll(
  * @param reverseDirection Reverse the direction of scrolling. Should be aligned with
  * Scrollable `reverseDirection` parameter
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 @Suppress("ComposableModifierFactory")
 @Composable
 public fun Modifier.rotaryWithSnap(
@@ -188,14 +188,14 @@ public fun Modifier.rotaryWithSnap(
 /**
  * An extension function for creating [RotaryScrollAdapter] from [ScalingLazyListState]
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public fun ScalingLazyListState.toRotaryScrollAdapter(): RotaryScrollAdapter =
     ScalingLazyColumnRotaryScrollAdapter(this)
 
 /**
  * An implementation of rotary scroll adapter for [ScalingLazyColumn]
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public class ScalingLazyColumnRotaryScrollAdapter(
     override val scrollableState: ScalingLazyListState
 ) : RotaryScrollAdapter {
@@ -222,38 +222,38 @@ public class ScalingLazyColumnRotaryScrollAdapter(
 /**
  * An adapter which connects scrollableState to Rotary
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public interface RotaryScrollAdapter {
 
     /**
      * A scrollable state. Used for performing scroll when Rotary events received
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public val scrollableState: ScrollableState
 
     /**
      * Average size of an item. Used for estimating the scrollable distance
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public fun averageItemSize(): Float
 
     /**
      * A current item index. Used for scrolling
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public fun currentItemIndex(): Int
 
     /**
      * An offset from the centre or the border of the current item.
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public fun currentItemOffset(): Float
 }
 
 /**
  * Defaults for rotary modifiers
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public object RotaryDefaults {
 
     /**
@@ -262,7 +262,7 @@ public object RotaryDefaults {
      * @param flingBehavior Logic describing Fling behavior. If null - fling will not happen
      * @param isLowRes Whether the input is Low-res (a bezel) or high-res(a crown/rsb)
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     @Composable
     public fun rememberFlingHandler(
         scrollableState: ScrollableState,
@@ -303,7 +303,7 @@ public object RotaryDefaults {
      * @param rotaryScrollAdapter A connection between scrollable objects and rotary events
      * @param snapParameters Snap parameters
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     @Composable
     public fun rememberSnapHandler(
         rotaryScrollAdapter: RotaryScrollAdapter,
@@ -322,10 +322,10 @@ public object RotaryDefaults {
     /**
      * Returns default [SnapParameters]
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public fun snapParametersDefault(): SnapParameters = SnapParameters(snapOffset = 0)
 
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     @Composable
     private fun isLowResInput(): Boolean = LocalContext.current.packageManager
         .hasSystemFeature("android.hardware.rotaryencoder.lowres")
@@ -355,7 +355,7 @@ public class SnapParameters(public val snapOffset: Int) {
 /**
  * An interface for handling scroll events
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public interface RotaryScrollHandler {
     /**
      * Handles scrolling events
@@ -363,7 +363,7 @@ public interface RotaryScrollHandler {
      * @param event A scrollable event from rotary input, containing scrollable delta and timestamp
      * @param rotaryHaptics
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
@@ -374,19 +374,19 @@ public interface RotaryScrollHandler {
 /**
  * An interface for scrolling behavior
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public interface RotaryScrollBehavior {
     /**
      * Handles scroll event to [targetValue]
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public suspend fun handleEvent(targetValue: Float)
 }
 
 /**
  * Default implementation of [RotaryFlingBehavior]
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public class DefaultRotaryFlingBehavior(
     private val scrollableState: ScrollableState,
     private val flingBehavior: FlingBehavior,
@@ -412,20 +412,20 @@ public class DefaultRotaryFlingBehavior(
     private var flingVelocity: Float = 0f
     private var flingTimestamp: Long = 0
 
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     override fun startFlingTracking(timestamp: Long) {
         rotaryVelocityTracker.start(timestamp)
         latestEventTimestamp = timestamp
         previousVelocity = 0f
     }
 
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     override fun observeEvent(timestamp: Long, delta: Float) {
         rotaryVelocityTracker.move(timestamp, delta)
         latestEventTimestamp = timestamp
     }
 
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     override suspend fun trackFling(beforeFling: () -> Unit) {
         val currentVelocity = rotaryVelocityTracker.velocity
         debugLog { "currentVelocity: $currentVelocity" }
@@ -467,33 +467,33 @@ public class DefaultRotaryFlingBehavior(
 /**
  * An interface for flinging with rotary
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public interface RotaryFlingBehavior {
 
     /**
      * Observing new event within a fling tracking session with new timestamp and delta
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public fun observeEvent(timestamp: Long, delta: Float)
 
     /**
      * Performing fling if necessary and calling [beforeFling] lambda before it is triggered
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public suspend fun trackFling(beforeFling: () -> Unit)
 
     /**
      * Starts a new fling tracking session
      * with specified timestamp
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public fun startFlingTracking(timestamp: Long)
 }
 
 /**
  * An interface for snapping with rotary
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public interface RotarySnapBehavior {
 
     /**
@@ -515,7 +515,7 @@ public interface RotarySnapBehavior {
      * If it's set to false - then it'll snap to the element specified
      * in [prepareSnapForItems] method.
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public suspend fun startSnappingSession(toClosestItem: Boolean)
 
     /**
@@ -524,21 +524,21 @@ public interface RotarySnapBehavior {
      * During-snap threshold is usually longer than before-snap so that
      * the list will not scroll too fast.
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public fun snapThreshold(duringSnap: Boolean): Float
 }
 
 /**
  * A rotary event object which contains a [timestamp] of the rotary event and a scrolled [delta].
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public data class TimestampedDelta(val timestamp: Long, val delta: Float)
 
 /** Animation implementation of [RotaryScrollBehavior].
  * This class does a smooth animation when the scroll by N pixels is done.
  * This animation works well on Rsb(high-res) and Bezel(low-res) devices.
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public class AnimationScrollBehavior(
     private val scrollableState: ScrollableState
 ) : RotaryScrollBehavior {
@@ -546,7 +546,7 @@ public class AnimationScrollBehavior(
     private var scrollAnimation = AnimationState(0f)
     private var prevPosition = 0f
 
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     override suspend fun handleEvent(targetValue: Float) {
         scrollableState.scroll(MutatePriority.UserInput) {
             debugLog { "ScrollAnimation value before start: ${scrollAnimation.value}" }
@@ -570,7 +570,7 @@ public class AnimationScrollBehavior(
  * An animated implementation of [RotarySnapBehavior]. Uses animateScrollToItem
  * method for snapping to the Nth item
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public class DefaultSnapBehavior(
     private val rotaryScrollAdapter: RotaryScrollAdapter,
     private val snapParameters: SnapParameters
@@ -584,7 +584,7 @@ public class DefaultSnapBehavior(
     private val defaultStiffness = 200f
     private var snapTargetUpdated = true
 
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     override fun prepareSnapForItems(moveForElements: Int, sequentialSnap: Boolean) {
         this.sequentialSnap = sequentialSnap
         if (sequentialSnap) {
@@ -595,7 +595,7 @@ public class DefaultSnapBehavior(
         snapTargetUpdated = true
     }
 
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     override suspend fun startSnappingSession(toClosestItem: Boolean) {
         if (toClosestItem) {
             snapToClosestItem()
@@ -604,7 +604,7 @@ public class DefaultSnapBehavior(
         }
     }
 
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     override fun snapThreshold(duringSnap: Boolean): Float {
         val averageSize = rotaryScrollAdapter.averageItemSize()
         // it just looks better if it takes more scroll to trigger a snap second time.
@@ -734,7 +734,7 @@ public class DefaultSnapBehavior(
  * It accepts ScrollHandler as the input - a class where main logic about how
  * scroll should be handled is lying
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 @OptIn(ExperimentalComposeUiApi::class)
 public fun Modifier.rotaryHandler(
     rotaryScrollHandler: RotaryScrollHandler,
@@ -776,7 +776,7 @@ public fun Modifier.rotaryHandler(
  * Batching requests for scrolling events. This function combines all events together
  * (except first) within specified timeframe. Should help with performance on high-res devices.
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 @OptIn(ExperimentalCoroutinesApi::class)
 public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long): Flow<TimestampedDelta> {
     var delta = 0f
@@ -813,7 +813,7 @@ public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long):
  *
  * This scroll handler supports fling. It can be set with [RotaryFlingBehavior].
  */
-@OptIn(ExperimentalHorologistComposeLayoutApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 internal class HighResRotaryScrollHandler(
     private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
     private val scrollBehaviorFactory: () -> RotaryScrollBehavior,
@@ -913,7 +913,7 @@ internal class HighResRotaryScrollHandler(
  * A scroll handler for Bezel(low-res) without snapping.
  * This scroll handler supports fling. It can be set with RotaryFlingBehavior.
  */
-@OptIn(ExperimentalHorologistComposeLayoutApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 internal class LowResRotaryScrollHandler(
     private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
     private val scrollBehaviorFactory: () -> RotaryScrollBehavior
@@ -985,7 +985,7 @@ internal class LowResRotaryScrollHandler(
  *
  * This scroll handler doesn't support fling.
  */
-@OptIn(ExperimentalHorologistComposeLayoutApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 internal class RotaryScrollSnapHandler(
     val snapBehaviourFactory: () -> RotarySnapBehavior,
     val scrollBehaviourFactory: () -> RotaryScrollBehavior
@@ -1087,7 +1087,7 @@ internal class RotaryScrollSnapHandler(
     }
 }
 
-@OptIn(ExperimentalHorologistComposeLayoutApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 private fun rememberTimestampChannel() =
     remember {

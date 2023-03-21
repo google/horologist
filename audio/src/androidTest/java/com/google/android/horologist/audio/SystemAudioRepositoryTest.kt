@@ -29,7 +29,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalHorologistAudioApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalHorologistApi::class)
 @MediumTest
 class SystemAudioRepositoryTest {
     @Test

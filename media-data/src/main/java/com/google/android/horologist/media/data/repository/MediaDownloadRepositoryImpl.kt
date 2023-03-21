@@ -16,11 +16,11 @@
 
 package com.google.android.horologist.media.data.repository
 
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.datasource.Media3DownloadDataSource
 import com.google.android.horologist.media.repository.MediaDownloadRepository
 
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public class MediaDownloadRepositoryImpl(
     private val media3DownloadDataSource: Media3DownloadDataSource
 ) :

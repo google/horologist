@@ -42,14 +42,14 @@ import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults.mediaButtonDefaultColors
 import com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties.iconImageVector
 
 /**
  * A base button for media controls.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun MediaButton(
     onClick: () -> Unit,
@@ -92,7 +92,7 @@ public fun MediaButton(
     }
 }
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public object MediaButtonDefaults {
     public val mediaButtonDefaultColors: ButtonColors
         @Composable

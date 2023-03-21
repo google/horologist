@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.networks.highbandwidth
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.request.HighBandwidthRequest
 import kotlinx.coroutines.flow.Flow
@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.Flow
  * By default Wear will use BT connection when available, even when temporarily connecting
  * via Wifi or Cell would be more power efficient and performance.
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public interface HighBandwidthNetworkMediator {
     /**
      * The current resulting network specifically from high bandwidth requests.

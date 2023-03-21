@@ -96,7 +96,7 @@ private data class ElementWidths(
  * @param marqueeDpPerSecond the speed of scrolling in dp per second.
  * @param pauseTime the duration before initially scrolling and each additional scroll.
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun MarqueeText(
     text: String,

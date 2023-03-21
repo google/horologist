@@ -47,7 +47,7 @@ android {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
+            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistApi"
         )
     }
 
@@ -94,6 +94,8 @@ metalava {
 }
 
 dependencies {
+    api(projects.annotations)
+
     implementation(projects.composeLayout)
     implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.wear)

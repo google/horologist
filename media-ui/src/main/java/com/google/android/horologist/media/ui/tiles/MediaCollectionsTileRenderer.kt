@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistTilesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.tiles
 
@@ -37,14 +37,14 @@ import androidx.wear.tiles.material.ChipColors
 import androidx.wear.tiles.material.Colors
 import androidx.wear.tiles.material.CompactChip
 import androidx.wear.tiles.material.layouts.PrimaryLayout
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 
 /**
  * A tile template showing two media collections and a primary chip that links to playlists.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public class MediaCollectionsTileRenderer(
     context: Context,
     private val materialTheme: Colors,

@@ -17,10 +17,10 @@
 package com.google.android.horologist.media3
 
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 
-@OptIn(ExperimentalHorologistAudioApi::class, ExperimentalHorologistMedia3BackendApi::class)
+@OptIn(ExperimentalHorologistApi::class, ExperimentalHorologistApi::class)
 open class FakeAudioOutputSelector(
     private val newOutput: AudioOutput?,
     private val audioOutputRepository: FakeAudioOutputRepository

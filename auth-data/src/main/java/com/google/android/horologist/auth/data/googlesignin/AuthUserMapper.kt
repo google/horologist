@@ -17,13 +17,13 @@
 package com.google.android.horologist.auth.data.googlesignin
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.common.model.AuthUser
 
 /**
  * Functions to map models from other layers and / or packages into an [AuthUser].
  */
-@ExperimentalHorologistAuthDataApi
+@ExperimentalHorologistApi
 public object AuthUserMapper {
 
     /**

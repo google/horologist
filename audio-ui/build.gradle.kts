@@ -101,6 +101,7 @@ metalava {
 dependencies {
     api(projects.audio)
     api(libs.kotlin.stdlib)
+    api(projects.annotations)
     implementation(projects.composeLayout)
 
     api(libs.wearcompose.material)

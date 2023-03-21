@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data
-
 @RequiresOptIn(
-    message = "Horologist Auth Data is experimental. The API may be changed in the future."
+    message = "Horologist API is experimental. The API may be changed in the future."
 )
 @Retention(AnnotationRetention.BINARY)
-public annotation class ExperimentalHorologistAuthDataApi
+public annotation class ExperimentalHorologistApi

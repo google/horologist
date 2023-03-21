@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.data.mapper
 
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
 import com.google.android.horologist.media.model.MediaDownload
@@ -24,7 +24,7 @@ import com.google.android.horologist.media.model.MediaDownload
 /**
  * Functions to map models from other layers and / or packages into a [MediaDownload.Status].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public object MediaDownloadStatusMapper {
 
     /**

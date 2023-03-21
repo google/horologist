@@ -87,6 +87,8 @@ metalava {
 }
 
 dependencies {
+    api(projects.annotations)
+
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.startup)
     implementation(libs.androidx.tracing.ktx)

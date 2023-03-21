@@ -97,6 +97,7 @@ protobuf {
 }
 
 dependencies {
+    api(projects.annotations)
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.datastore)

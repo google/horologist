@@ -100,7 +100,7 @@ public data class ProgressIndicatorSegment(
  * @param trackColor The background track color. If a segment specifies [trackColor] then the
  * segment value takes preference. Defaults to [Color.Black]
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun SegmentedProgressIndicator(
     trackSegments: List<ProgressIndicatorSegment>,

@@ -50,7 +50,7 @@ import kotlinx.coroutines.flow.update
  * See [AudioManager.setStreamVolume]
  * See [AudioManager.STREAM_MUSIC]
  */
-@ExperimentalHorologistAudioUiApi
+@ExperimentalHorologistApi
 public open class VolumeViewModel(
     internal val volumeRepository: VolumeRepository,
     internal val audioOutputRepository: AudioOutputRepository,
@@ -123,7 +123,7 @@ public open class VolumeViewModel(
         }
     }
 
-    @ExperimentalHorologistAudioUiApi
+    @ExperimentalHorologistApi
     public companion object {
         private const val TAG = "VolumeViewModel"
 

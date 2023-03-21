@@ -17,7 +17,7 @@
 package com.google.android.horologist.networks.status
 
 import android.net.Network
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.Networks
 import kotlinx.coroutines.flow.StateFlow
@@ -26,7 +26,7 @@ import java.net.InetAddress
 /**
  * A repository with current network state.
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public interface NetworkRepository {
     /**
      * The StateFlow of network configuration.

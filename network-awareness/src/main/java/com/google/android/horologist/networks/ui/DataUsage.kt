@@ -38,14 +38,14 @@ import androidx.wear.compose.foundation.curvedComposable
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.curvedText
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public fun CurvedScope.curveDataUsage(
     modifier: Modifier = Modifier,
     networkStatus: Networks,
@@ -104,7 +104,7 @@ public fun CurvedScope.curveDataUsage(
     }
 }
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 @Composable
 public fun LinearDataUsage(
     networkStatus: Networks,
@@ -147,7 +147,7 @@ internal fun Long.toSize(context: Context): String {
     return Formatter.formatShortFileSize(context, this)
 }
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 private fun NetworkStatus.tint(active: Boolean): Color {
     return if (!active && this.status == Status.Available) {
         Color.Blue
@@ -159,7 +159,7 @@ private fun NetworkStatus.tint(active: Boolean): Color {
     }
 }
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 internal val NetworkType.icon
     get() = when (this) {
         NetworkType.Wifi -> Icons.Filled.Wifi

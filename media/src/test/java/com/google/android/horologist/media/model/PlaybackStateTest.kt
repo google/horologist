@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.model
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import kotlin.time.Duration

@@ -20,11 +20,11 @@ import app.cash.paparazzi.HtmlReportWriter
 import app.cash.paparazzi.SnapshotHandler
 import app.cash.paparazzi.SnapshotVerifier
 
-@ExperimentalHorologistPaparazziApi
+@ExperimentalHorologistApi
 public val isVerifying: Boolean =
     System.getProperty("paparazzi.test.verify")?.toBoolean() == true
 
-@ExperimentalHorologistPaparazziApi
+@ExperimentalHorologistApi
 public fun determineHandler(maxPercentDifference: Double): SnapshotHandler {
     return if (isVerifying) {
         SnapshotVerifier(maxPercentDifference)

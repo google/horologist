@@ -16,12 +16,12 @@
 
 package com.google.android.horologist.media.model
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Represents the state of the player.
  */
-@ExperimentalHorologistMediaApi
+@ExperimentalHorologistApi
 public enum class PlayerState {
 
     /**

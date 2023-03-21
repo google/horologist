@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistComposablesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class, ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.screens.entity
 
@@ -33,10 +33,10 @@ import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -45,7 +45,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
  * An implementation of [EntityScreen] using [PlaylistUiModel] and [DownloadMediaUiModel] as
  * models.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun PlaylistStreamingScreen(
     columnState: ScalingLazyColumnState,

@@ -40,7 +40,7 @@ import kotlinx.coroutines.withContext
  * @see [PlaybackRules]
  */
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public class WearConfiguredPlayer(
     player: Player,
     private val audioOutputRepository: AudioOutputRepository,

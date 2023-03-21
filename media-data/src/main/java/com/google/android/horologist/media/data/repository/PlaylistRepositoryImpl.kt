@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.data.repository
 
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource
 import com.google.android.horologist.media.data.mapper.PlaylistMapper
 import com.google.android.horologist.media.model.Playlist
@@ -24,7 +24,7 @@ import com.google.android.horologist.media.repository.PlaylistRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public class PlaylistRepositoryImpl(
     private val playlistLocalDataSource: PlaylistLocalDataSource,
     private val playlistMapper: PlaylistMapper

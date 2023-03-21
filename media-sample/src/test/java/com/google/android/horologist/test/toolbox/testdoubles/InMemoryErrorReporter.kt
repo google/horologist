@@ -16,14 +16,14 @@
 
 package com.google.android.horologist.test.toolbox.testdoubles
 
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import java.util.Collections
 
 /**
  * Test appropriate implementation of ErrorReporter.
  */
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public class InMemoryErrorReporter : ErrorReporter {
     public val logs = Collections.synchronizedList(mutableListOf<String>())
     public val messages = Collections.synchronizedList(mutableListOf<Int>())

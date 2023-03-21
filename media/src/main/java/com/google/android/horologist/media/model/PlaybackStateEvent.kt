@@ -16,10 +16,10 @@
 
 package com.google.android.horologist.media.model
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlin.time.Duration
 
-@ExperimentalHorologistMediaApi
+@ExperimentalHorologistApi
 public data class PlaybackStateEvent(
     public val playbackState: PlaybackState,
     public val cause: Cause,

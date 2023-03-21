@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.networks.data
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.Instant
@@ -25,7 +25,7 @@ import java.time.Instant
  * Simple In-memory implementation of Data Request Repository for recording network
  * data usage.
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public class InMemoryDataRequestRepository : DataRequestRepository {
     private val from = Instant.now()
     private var ble = 0L

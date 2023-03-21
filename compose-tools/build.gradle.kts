@@ -93,6 +93,8 @@ metalava {
 }
 
 dependencies {
+    api(projects.annotations)
+
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlin.reflect)
     implementation(projects.tiles)

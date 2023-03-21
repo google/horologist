@@ -15,7 +15,7 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistComposablesApi::class
+    ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.composables

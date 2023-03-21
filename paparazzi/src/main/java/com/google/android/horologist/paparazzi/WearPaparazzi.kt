@@ -24,7 +24,7 @@ import com.android.ide.common.rendering.api.SessionParams
 
 private const val DefaultMaxPercentDifference = 0.1
 
-@ExperimentalHorologistPaparazziApi
+@ExperimentalHorologistApi
 public fun WearPaparazzi(
     deviceConfig: DeviceConfig = DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE,
     theme: String = "android:ThemeOverlay.Material.Dark",

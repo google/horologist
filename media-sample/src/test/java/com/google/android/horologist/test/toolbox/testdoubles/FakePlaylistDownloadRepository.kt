@@ -16,13 +16,13 @@
 
 package com.google.android.horologist.test.toolbox.testdoubles
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.model.PlaylistDownload
 import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import kotlinx.coroutines.flow.Flow
 
-@OptIn(ExperimentalHorologistMediaApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 class FakePlaylistDownloadRepository(
     private val fakePlaylistDownloadDataSource: FakePlaylistDownloadDataSource
 ) : PlaylistDownloadRepository {

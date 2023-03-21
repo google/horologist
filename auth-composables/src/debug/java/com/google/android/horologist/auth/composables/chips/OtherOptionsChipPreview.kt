@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAuthComposablesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.auth.composables.chips
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @Preview(
     backgroundColor = 0xff000000,

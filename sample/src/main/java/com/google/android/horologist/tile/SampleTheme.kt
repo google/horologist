@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistTilesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.tile
 
@@ -24,7 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.wear.tiles.material.Colors
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
-import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.preview.ThemePreviewTileRenderer
 
 val SampleTheme =

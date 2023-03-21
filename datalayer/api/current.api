@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.data {
 
-  @kotlin.RequiresOptIn(message="Horologist Data Layer is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistDataLayerApi {
+  @kotlin.RequiresOptIn(message="Horologist Data Layer is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistApi {
   }
 
   public final class ProtoDataStoreHelper {
@@ -48,7 +48,7 @@ package com.google.android.horologist.data {
     field public static final com.google.android.horologist.data.TargetNodeId.ThisNodeId INSTANCE;
   }
 
-  @com.google.android.horologist.data.ExperimentalHorologistDataLayerApi public final class WearDataLayerRegistry {
+  @com.google.android.horologist.data.ExperimentalHorologistApi public final class WearDataLayerRegistry {
     ctor public WearDataLayerRegistry(com.google.android.gms.wearable.DataClient dataClient, com.google.android.gms.wearable.NodeClient nodeClient, com.google.android.gms.wearable.MessageClient messageClient, com.google.android.gms.wearable.CapabilityClient capabilityClient, kotlinx.coroutines.CoroutineScope coroutineScope);
     method public com.google.android.gms.wearable.CapabilityClient getCapabilityClient();
     method public com.google.android.gms.wearable.DataClient getDataClient();
@@ -201,7 +201,7 @@ package com.google.android.horologist.data.store.impl {
     property public final androidx.datastore.core.Serializer<T> serializer;
   }
 
-  @com.google.android.horologist.data.ExperimentalHorologistDataLayerApi public final class WearLocalDataStore<T> implements androidx.datastore.core.DataStore<T> {
+  @com.google.android.horologist.data.ExperimentalHorologistApi public final class WearLocalDataStore<T> implements androidx.datastore.core.DataStore<T> {
     ctor public WearLocalDataStore(com.google.android.horologist.data.WearDataLayerRegistry wearDataLayerRegistry, optional kotlinx.coroutines.flow.SharingStarted started, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<T> serializer, String path);
     method public kotlinx.coroutines.flow.Flow<T> getData();
     method public suspend Object? updateData(kotlin.jvm.functions.Function2<? super T,? super kotlin.coroutines.Continuation<? super T>,?> transform, kotlin.coroutines.Continuation<? super T>);

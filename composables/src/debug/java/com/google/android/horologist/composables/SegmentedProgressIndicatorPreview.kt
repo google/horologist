@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.tools.WearSmallRoundDevicePreview
 
-@OptIn(ExperimentalHorologistComposablesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @Preview(device = Devices.WEAR_OS_LARGE_ROUND, showSystemUi = true)
 @Composable
 private fun SegmentedProgressIndicatorRoundPreview() {
@@ -48,7 +48,7 @@ private fun SegmentedProgressIndicatorRoundPreview() {
     )
 }
 
-@OptIn(ExperimentalHorologistComposablesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @Preview(device = Devices.WEAR_OS_SQUARE, showSystemUi = true)
 @Composable
 private fun SegmentedProgressIndicatorSquarePreview() {
@@ -68,7 +68,7 @@ private fun SegmentedProgressIndicatorSquarePreview() {
     )
 }
 
-@OptIn(ExperimentalHorologistComposablesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @WearSmallRoundDevicePreview
 @Composable
 private fun SegmentedProgressIndicatorBrushPreview() {
@@ -101,7 +101,7 @@ private fun SegmentedProgressIndicatorBrushPreview() {
     )
 }
 
-@OptIn(ExperimentalHorologistComposablesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @WearSmallRoundDevicePreview
 @Composable
 private fun SegmentedProgressIndicatorBrushColorCombinedPreview() {

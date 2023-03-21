@@ -18,13 +18,13 @@ package com.google.android.horologist.media.ui.components.display
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
  * A simple text only display of [MediaUiModel] showing artist and title in two separated rows.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun TrackMediaDisplay(
     media: MediaUiModel,

@@ -35,7 +35,7 @@ import app.cash.paparazzi.Paparazzi
  * @param boxModifier Modifier for the box that the snapshot is wrapped in.
  * @param content Composable content that we want to snapshot.
  */
-@ExperimentalHorologistComposeToolsApi
+@ExperimentalHorologistApi
 public fun Paparazzi.snapshotInABox(
     boxModifier: Modifier = Modifier,
     content: @Composable BoxScope.() -> Unit

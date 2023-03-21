@@ -23,9 +23,9 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Confirmation
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 @Composable
 public fun TestSnackbar(
     data: SnackbarData,

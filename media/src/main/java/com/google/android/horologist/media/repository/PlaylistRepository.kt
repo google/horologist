@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.repository
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.Playlist
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * A repository of [Playlist].
  */
-@ExperimentalHorologistMediaApi
+@ExperimentalHorologistApi
 public interface PlaylistRepository {
 
     /**

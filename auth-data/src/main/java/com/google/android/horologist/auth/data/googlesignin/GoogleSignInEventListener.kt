@@ -17,14 +17,14 @@
 package com.google.android.horologist.auth.data.googlesignin
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A listener of events of the Google Sign-In authentication method.
  *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.signin.GoogleSignInEventListenerSample
  */
-@ExperimentalHorologistAuthDataApi
+@ExperimentalHorologistApi
 public interface GoogleSignInEventListener {
 
     /**
@@ -38,7 +38,7 @@ public interface GoogleSignInEventListener {
 /**
  * A no-op implementation of [GoogleSignInEventListener].
  */
-@ExperimentalHorologistAuthDataApi
+@ExperimentalHorologistApi
 public object GoogleSignInEventListenerNoOpImpl : GoogleSignInEventListener {
 
     override suspend fun onSignedIn(account: GoogleSignInAccount): Unit = Unit

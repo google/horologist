@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.state.mapper
 
 import androidx.compose.ui.graphics.Color
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
  * Map a [Media] into a [MediaUiModel]
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public object MediaUiModelMapper {
 
     public fun map(media: Media, defaultTitle: String = "", defaultArtist: String = ""): MediaUiModel {

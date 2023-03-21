@@ -16,9 +16,9 @@
 
 package com.google.android.horologist.auth.data.oauth.pkce
 
-import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistAuthDataApi
+@ExperimentalHorologistApi
 public interface PKCEConfigRepository<Config> {
 
     public suspend fun fetch(): Config

@@ -92,6 +92,8 @@ metalava {
 }
 
 dependencies {
+    api(projects.annotations)
+
     implementation(projects.composeLayout)
     implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.wear)

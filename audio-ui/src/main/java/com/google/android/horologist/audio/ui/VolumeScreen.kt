@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAudioUiApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.audio.ui
 
@@ -45,7 +45,7 @@ import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
 
 /**
@@ -61,8 +61,8 @@ import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulate
  * See [AudioManager.STREAM_MUSIC]
  */
 @Composable
-@ExperimentalHorologistAudioUiApi
-@OptIn(ExperimentalHorologistComposeLayoutApi::class)
+@ExperimentalHorologistApi
+@OptIn(ExperimentalHorologistApi::class)
 public fun VolumeScreen(
     modifier: Modifier = Modifier,
     volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),

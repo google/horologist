@@ -18,7 +18,7 @@ package com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.goo
 
 import android.util.Log
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantVerificationInfoRepository
-import com.google.android.horologist.auth.data.watch.oauth.ExperimentalHorologistAuthDataWatchOAuthApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.DeviceCodeResponse
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_INFO_PROFILE_SCOPE_VALUE
@@ -26,7 +26,7 @@ import com.google.android.horologist.auth.data.watch.oauth.common.logging.TAG
 import com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.DeviceGrantDefaultConfig
 import kotlinx.coroutines.CancellationException
 
-@ExperimentalHorologistAuthDataWatchOAuthApi
+@ExperimentalHorologistApi
 public class DeviceGrantVerificationInfoRepositoryGoogleImpl(
     private val googleOAuthService: GoogleOAuthService
 ) : DeviceGrantVerificationInfoRepository<DeviceGrantDefaultConfig, DeviceCodeResponse> {

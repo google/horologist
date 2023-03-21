@@ -22,7 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.Chip
-import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
@@ -32,7 +32,7 @@ import com.google.android.horologist.base.ui.components.StandardChipType
  *
  * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/create_account_chip.png" height="120" width="120" >
  */
-@ExperimentalHorologistAuthComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun CreateAccountChip(
     onClick: () -> Unit,

@@ -20,10 +20,10 @@ import android.annotation.SuppressLint
 import androidx.media3.exoplayer.offline.Download
 import androidx.media3.exoplayer.offline.DownloadManager
 import androidx.media3.exoplayer.scheduler.Requirements
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.logging.ErrorReporter.Category.Downloads
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.RequestType.MediaRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
@@ -36,8 +36,8 @@ import com.google.android.horologist.networks.rules.NetworkingRulesEngine
  * a required high bandwidth network. Also includes event logging.
  */
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMedia3BackendApi
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
+@ExperimentalHorologistApi
 public class NetworkAwareDownloadListener(
     private val appEventLogger: ErrorReporter,
     private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,

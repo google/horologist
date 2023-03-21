@@ -49,7 +49,7 @@ android {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi"
+            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistApi"
         )
     }
     packagingOptions {
@@ -106,6 +106,8 @@ metalava {
 }
 
 dependencies {
+    api(projects.annotations)
+
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
 

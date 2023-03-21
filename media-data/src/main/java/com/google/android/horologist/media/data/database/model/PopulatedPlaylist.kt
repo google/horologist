@@ -19,12 +19,12 @@ package com.google.android.horologist.media.data.database.model
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * [PlaylistEntity] populated with a list of [MediaEntity].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public data class PopulatedPlaylist(
     @Embedded val playlist: PlaylistEntity,
     @Relation(

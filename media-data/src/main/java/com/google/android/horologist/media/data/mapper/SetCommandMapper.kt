@@ -17,13 +17,13 @@
 package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.Player
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Command
 
 /**
  * Maps [Player.Commands] into a [Set] of [Command].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public object SetCommandMapper {
 
     public fun map(commands: Player.Commands): Set<Command> = buildSet {

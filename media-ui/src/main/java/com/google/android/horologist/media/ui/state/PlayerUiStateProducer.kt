@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.state
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.repository.PlayerRepository
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -32,7 +32,7 @@ import kotlin.time.Duration
  * This class should generally always be hosted inside a ViewModel to ensure it's tied to a
  * lifecycle that survives configuration changes.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public class PlayerUiStateProducer(
     playerRepository: PlayerRepository
 ) {

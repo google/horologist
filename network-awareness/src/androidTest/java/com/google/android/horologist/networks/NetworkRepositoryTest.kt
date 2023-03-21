@@ -16,7 +16,7 @@
 
 @file:OptIn(
     ExperimentalCoroutinesApi::class,
-    ExperimentalHorologistNetworksApi::class
+    ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.networks

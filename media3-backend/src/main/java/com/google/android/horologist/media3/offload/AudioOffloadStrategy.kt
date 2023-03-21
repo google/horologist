@@ -18,13 +18,13 @@ package com.google.android.horologist.media3.offload
 
 import android.annotation.SuppressLint
 import androidx.media3.exoplayer.ExoPlayer
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 /**
  * Strategy for enabling or disabling the audio offload mode.
  */

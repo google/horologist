@@ -23,7 +23,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A composable to streamline the sign in process.
@@ -50,7 +50,7 @@ import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
  *
  * - [onNoAccountsAvailable] should navigate the user to the sign in screen.
  */
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun StreamlineSignInScreen(
     onSingleAccountAvailable: (account: AccountUiModel) -> Unit,
@@ -71,7 +71,7 @@ public fun StreamlineSignInScreen(
     )
 }
 
-@OptIn(ExperimentalHorologistAuthUiApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 internal fun StreamlineSignInScreen(
     state: StreamlineSignInScreenState,

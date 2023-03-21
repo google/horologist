@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.MediaDownload
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 
 /**
  * Functions to map models from other layers and / or packages into a [DownloadMediaUiModel].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public object DownloadMediaUiModelMapper {
 
     private const val PROGRESS_WAITING = 0f

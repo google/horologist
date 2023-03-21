@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMedia3BackendApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media3.logging
 
@@ -23,7 +23,7 @@ import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.DataSpec
 import androidx.media3.datasource.TransferListener
 import androidx.media3.datasource.cache.CacheDataSource
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Simple implementation of TransferListener and EventListener for networking activity.
@@ -32,7 +32,7 @@ import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendA
  * investigating a playback issue.
  */
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public class TransferListener(
     private val appEventLogger: ErrorReporter
 ) : CacheDataSource.EventListener,

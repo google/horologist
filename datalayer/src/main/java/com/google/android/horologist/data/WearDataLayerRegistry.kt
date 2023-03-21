@@ -43,7 +43,7 @@ import kotlin.reflect.KClass
 
 // Workaround https://issuetracker.google.com/issues/239451111
 @SuppressLint("VisibleForTests")
-@ExperimentalHorologistDataLayerApi
+@ExperimentalHorologistApi
 /**
  * Implementation of Androidx Datastore for Proto and Preferences on top of the
  * Wearable DataClient.

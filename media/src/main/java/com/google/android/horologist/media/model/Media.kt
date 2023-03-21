@@ -16,12 +16,12 @@
 
 package com.google.android.horologist.media.model
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Representation of a media.
  */
-@ExperimentalHorologistMediaApi
+@ExperimentalHorologistApi
 public data class Media(
     val id: String,
     val uri: String,

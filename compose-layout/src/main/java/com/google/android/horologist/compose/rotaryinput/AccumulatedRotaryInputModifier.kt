@@ -25,7 +25,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.RotaryScrollEvent
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A focusable modifier that accumulates the scroll distances from [RotaryScrollEvent] and notifies
@@ -34,7 +34,7 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
  * @param focusRequester requests for focus for the rotary
  * @param onValueChange callback invoked once accumulated value is over the thresholds.
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public fun Modifier.onRotaryInputAccumulatedWithFocus(
     focusRequester: FocusRequester? = null,
     onValueChange: (Float) -> Unit
@@ -54,7 +54,7 @@ public fun Modifier.onRotaryInputAccumulatedWithFocus(
  * @param rateLimitCoolDownMs cool down time when rate limiting is enabled, negative value disables.
  * @param onValueChange callback invoked once accumulated value is over the thresholds.
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public fun Modifier.onRotaryInputAccumulated(
     eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
@@ -77,7 +77,7 @@ public fun Modifier.onRotaryInputAccumulated(
  *
  * @param event the [RotaryScrollEvent] to be processed.
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 internal fun RotaryInputAccumulator.onRotaryScrollEvent(event: RotaryScrollEvent): Boolean {
     onRotaryScroll(event.verticalScrollPixels, event.uptimeMillis)
     return true

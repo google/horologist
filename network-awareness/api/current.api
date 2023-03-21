@@ -1,14 +1,14 @@
 // Signature format: 4.0
 package com.google.android.horologist.networks {
 
-  @kotlin.RequiresOptIn(message="Horologist Network Awareness is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistNetworksApi {
+  @kotlin.RequiresOptIn(message="Horologist Network Awareness is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistApi {
   }
 
 }
 
 package com.google.android.horologist.networks.data {
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class DataRequest {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class DataRequest {
     ctor public DataRequest(com.google.android.horologist.networks.data.RequestType requestType, com.google.android.horologist.networks.data.NetworkInfo networkInfo, long dataBytes, optional java.time.Instant time);
     method public com.google.android.horologist.networks.data.RequestType component1();
     method public com.google.android.horologist.networks.data.NetworkInfo component2();
@@ -25,7 +25,7 @@ package com.google.android.horologist.networks.data {
     property public final java.time.Instant time;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface DataRequestRepository {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public interface DataRequestRepository {
     method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.data.DataUsageReport> currentPeriodUsage();
     method public void storeRequest(com.google.android.horologist.networks.data.DataRequest dataRequest);
   }
@@ -53,13 +53,13 @@ package com.google.android.horologist.networks.data {
   public final class IdKt {
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class InMemoryDataRequestRepository implements com.google.android.horologist.networks.data.DataRequestRepository {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class InMemoryDataRequestRepository implements com.google.android.horologist.networks.data.DataRequestRepository {
     ctor public InMemoryDataRequestRepository();
     method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.data.DataUsageReport> currentPeriodUsage();
     method public void storeRequest(com.google.android.horologist.networks.data.DataRequest dataRequest);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public sealed interface NetworkInfo {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public sealed interface NetworkInfo {
     method public Boolean? getHighBatteryUsage();
     method public Boolean? getMetered();
     method public String? getName();
@@ -70,7 +70,7 @@ package com.google.android.horologist.networks.data {
     property public abstract com.google.android.horologist.networks.data.NetworkType type;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class NetworkInfo.Bluetooth implements com.google.android.horologist.networks.data.NetworkInfo {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class NetworkInfo.Bluetooth implements com.google.android.horologist.networks.data.NetworkInfo {
     ctor public NetworkInfo.Bluetooth(String name);
     method public String component1();
     method public com.google.android.horologist.networks.data.NetworkInfo.Bluetooth copy(String name);
@@ -84,7 +84,7 @@ package com.google.android.horologist.networks.data {
     property public com.google.android.horologist.networks.data.NetworkType type;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class NetworkInfo.Cellular implements com.google.android.horologist.networks.data.NetworkInfo {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class NetworkInfo.Cellular implements com.google.android.horologist.networks.data.NetworkInfo {
     ctor public NetworkInfo.Cellular(String name, optional Boolean? metered);
     method public String component1();
     method public Boolean? component2();
@@ -99,7 +99,7 @@ package com.google.android.horologist.networks.data {
     property public com.google.android.horologist.networks.data.NetworkType type;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class NetworkInfo.Unknown implements com.google.android.horologist.networks.data.NetworkInfo {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class NetworkInfo.Unknown implements com.google.android.horologist.networks.data.NetworkInfo {
     ctor public NetworkInfo.Unknown(optional String? name, optional Boolean? metered);
     method public String? component1();
     method public Boolean? component2();
@@ -114,7 +114,7 @@ package com.google.android.horologist.networks.data {
     property public com.google.android.horologist.networks.data.NetworkType type;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class NetworkInfo.Wifi implements com.google.android.horologist.networks.data.NetworkInfo {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class NetworkInfo.Wifi implements com.google.android.horologist.networks.data.NetworkInfo {
     ctor public NetworkInfo.Wifi(String name, optional String? ssid);
     method public String component1();
     method public String? component2();
@@ -131,7 +131,7 @@ package com.google.android.horologist.networks.data {
     property public com.google.android.horologist.networks.data.NetworkType type;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkStatus {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class NetworkStatus {
     ctor public NetworkStatus(String id, com.google.android.horologist.networks.data.Status status, com.google.android.horologist.networks.data.NetworkInfo networkInfo, java.util.List<? extends java.net.InetAddress> addresses, android.net.NetworkCapabilities? capabilities, android.net.LinkProperties? linkProperties, kotlin.jvm.functions.Function1<? super java.net.Socket,kotlin.Unit> bindSocket);
     method public String component1();
     method public com.google.android.horologist.networks.data.Status component2();
@@ -168,7 +168,7 @@ package com.google.android.horologist.networks.data {
     enum_constant public static final com.google.android.horologist.networks.data.NetworkType Wifi;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class Networks {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class Networks {
     ctor public Networks(com.google.android.horologist.networks.data.NetworkStatus? activeNetwork, java.util.List<com.google.android.horologist.networks.data.NetworkStatus> networks);
     method public com.google.android.horologist.networks.data.NetworkStatus? component1();
     method public java.util.List<com.google.android.horologist.networks.data.NetworkStatus> component2();
@@ -182,22 +182,22 @@ package com.google.android.horologist.networks.data {
     property public final com.google.android.horologist.networks.data.Status status;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface RequestType {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public interface RequestType {
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class RequestType.ApiRequest implements com.google.android.horologist.networks.data.RequestType {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class RequestType.ApiRequest implements com.google.android.horologist.networks.data.RequestType {
     field public static final com.google.android.horologist.networks.data.RequestType.ApiRequest INSTANCE;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class RequestType.ImageRequest implements com.google.android.horologist.networks.data.RequestType {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class RequestType.ImageRequest implements com.google.android.horologist.networks.data.RequestType {
     field public static final com.google.android.horologist.networks.data.RequestType.ImageRequest INSTANCE;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class RequestType.LogsRequest implements com.google.android.horologist.networks.data.RequestType {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class RequestType.LogsRequest implements com.google.android.horologist.networks.data.RequestType {
     field public static final com.google.android.horologist.networks.data.RequestType.LogsRequest INSTANCE;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class RequestType.MediaRequest implements com.google.android.horologist.networks.data.RequestType {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class RequestType.MediaRequest implements com.google.android.horologist.networks.data.RequestType {
     ctor public RequestType.MediaRequest(com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType type);
     method public com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType component1();
     method public com.google.android.horologist.networks.data.RequestType.MediaRequest copy(com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType type);
@@ -225,30 +225,30 @@ package com.google.android.horologist.networks.data {
     enum_constant public static final com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType Stream;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class RequestType.UnknownRequest implements com.google.android.horologist.networks.data.RequestType {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class RequestType.UnknownRequest implements com.google.android.horologist.networks.data.RequestType {
     field public static final com.google.android.horologist.networks.data.RequestType.UnknownRequest INSTANCE;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public abstract sealed class Status {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public abstract sealed class Status {
     method public final int getOrder();
     property public final int order;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class Status.Available extends com.google.android.horologist.networks.data.Status {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class Status.Available extends com.google.android.horologist.networks.data.Status {
     field public static final com.google.android.horologist.networks.data.Status.Available INSTANCE;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class Status.Losing extends com.google.android.horologist.networks.data.Status {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class Status.Losing extends com.google.android.horologist.networks.data.Status {
     ctor public Status.Losing(java.time.Instant instant);
     method public java.time.Instant getInstant();
     property public final java.time.Instant instant;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class Status.Lost extends com.google.android.horologist.networks.data.Status {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class Status.Lost extends com.google.android.horologist.networks.data.Status {
     field public static final com.google.android.horologist.networks.data.Status.Lost INSTANCE;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class Status.Unknown extends com.google.android.horologist.networks.data.Status {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class Status.Unknown extends com.google.android.horologist.networks.data.Status {
     field public static final com.google.android.horologist.networks.data.Status.Unknown INSTANCE;
   }
 
@@ -256,7 +256,7 @@ package com.google.android.horologist.networks.data {
 
 package com.google.android.horologist.networks.db {
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class DBDataRequestRepository implements com.google.android.horologist.networks.data.DataRequestRepository {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class DBDataRequestRepository implements com.google.android.horologist.networks.data.DataRequestRepository {
     ctor public DBDataRequestRepository(com.google.android.horologist.networks.db.NetworkUsageDao networkUsageDao, kotlinx.coroutines.CoroutineScope coroutineScope);
     method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.data.DataUsageReport> currentPeriodUsage();
     method public kotlinx.coroutines.CoroutineScope getCoroutineScope();
@@ -318,13 +318,13 @@ package com.google.android.horologist.networks.highbandwidth {
     method public suspend Object? awaitGranted(long timeout, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface HighBandwidthNetworkMediator {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public interface HighBandwidthNetworkMediator {
     method public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> getPinned();
     method public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.request.HighBandwidthRequest request);
     property public abstract kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> pinned;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class StandardHighBandwidthNetworkMediator implements com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class StandardHighBandwidthNetworkMediator implements com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator {
     ctor public StandardHighBandwidthNetworkMediator(com.google.android.horologist.networks.logging.NetworkStatusLogger logger, com.google.android.horologist.networks.request.NetworkRequester networkRequester, kotlinx.coroutines.CoroutineScope coroutineScope, long delayToRelease);
     method public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> getPinned();
     method public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.request.HighBandwidthRequest request);
@@ -335,14 +335,14 @@ package com.google.android.horologist.networks.highbandwidth {
 
 package com.google.android.horologist.networks.logging {
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface NetworkStatusLogger {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public interface NetworkStatusLogger {
     method public void debugNetworkEvent(String event);
     method public void logJobEvent(String event, optional boolean error);
     method public void logNetworkEvent(String event, optional boolean error);
     method public void logNetworkResponse(com.google.android.horologist.networks.data.RequestType requestType, com.google.android.horologist.networks.data.NetworkInfo networkInfo, long bytesTransferred);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class NetworkStatusLogger.InMemory implements com.google.android.horologist.networks.logging.NetworkStatusLogger {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class NetworkStatusLogger.InMemory implements com.google.android.horologist.networks.logging.NetworkStatusLogger {
     ctor public NetworkStatusLogger.InMemory();
     method public void debugNetworkEvent(String event);
     method public java.util.List<java.lang.String> getEvents();
@@ -352,7 +352,7 @@ package com.google.android.horologist.networks.logging {
     property public final java.util.List<java.lang.String> events;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class NetworkStatusLogger.Logging implements com.google.android.horologist.networks.logging.NetworkStatusLogger {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class NetworkStatusLogger.Logging implements com.google.android.horologist.networks.logging.NetworkStatusLogger {
     method public void debugNetworkEvent(String event);
     method public void logJobEvent(String event, boolean error);
     method public void logNetworkEvent(String event, boolean error);
@@ -364,7 +364,7 @@ package com.google.android.horologist.networks.logging {
 
 package com.google.android.horologist.networks.okhttp {
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class AlwaysHttpsInterceptor implements okhttp3.Interceptor {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class AlwaysHttpsInterceptor implements okhttp3.Interceptor {
     method public okhttp3.Response intercept(okhttp3.Interceptor.Chain chain);
     field public static final com.google.android.horologist.networks.okhttp.AlwaysHttpsInterceptor INSTANCE;
   }
@@ -379,12 +379,12 @@ package com.google.android.horologist.networks.okhttp {
     method public void proxySelectEnd(okhttp3.Call call, okhttp3.HttpUrl url, java.util.List<? extends java.net.Proxy> proxies);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkAwareCallFactory implements okhttp3.Call.Factory {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class NetworkAwareCallFactory implements okhttp3.Call.Factory {
     ctor public NetworkAwareCallFactory(okhttp3.Call.Factory delegate, com.google.android.horologist.networks.data.RequestType defaultRequestType);
     method public okhttp3.Call newCall(okhttp3.Request request);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkSelectingCallFactory implements okhttp3.Call.Factory {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class NetworkSelectingCallFactory implements okhttp3.Call.Factory {
     ctor public NetworkSelectingCallFactory(com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine, com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator highBandwidthNetworkMediator, com.google.android.horologist.networks.status.NetworkRepository networkRepository, com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository, okhttp3.OkHttpClient rootClient, kotlinx.coroutines.CoroutineScope coroutineScope, optional long timeout);
     method public okhttp3.Call newCall(okhttp3.Request request);
   }
@@ -402,16 +402,16 @@ package com.google.android.horologist.networks.okhttp {
 
 package com.google.android.horologist.networks.okhttp.impl {
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkAwareEventListenerFactory extends com.google.android.horologist.networks.okhttp.impl.NetworkLoggingEventListenerFactory {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class NetworkAwareEventListenerFactory extends com.google.android.horologist.networks.okhttp.impl.NetworkLoggingEventListenerFactory {
     ctor public NetworkAwareEventListenerFactory(com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine, com.google.android.horologist.networks.status.NetworkRepository networkRepository, okhttp3.EventListener.Factory delegateEventListenerFactory, optional com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public class NetworkLoggingEventListenerFactory implements okhttp3.EventListener.Factory {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public class NetworkLoggingEventListenerFactory implements okhttp3.EventListener.Factory {
     ctor public NetworkLoggingEventListenerFactory(com.google.android.horologist.networks.logging.NetworkStatusLogger logger, com.google.android.horologist.networks.status.NetworkRepository networkRepository, okhttp3.EventListener.Factory delegateEventListenerFactory, optional com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository);
     method public okhttp3.EventListener create(okhttp3.Call call);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class RequestTypeHolder {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class RequestTypeHolder {
     ctor public RequestTypeHolder(optional com.google.android.horologist.networks.data.RequestType requestType, optional com.google.android.horologist.networks.data.NetworkInfo? networkInfo, optional com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? highBandwidthConnectionLease);
     method public com.google.android.horologist.networks.data.RequestType component1();
     method public com.google.android.horologist.networks.data.NetworkInfo? component2();
@@ -431,10 +431,10 @@ package com.google.android.horologist.networks.okhttp.impl {
 
   public static final class RequestTypeHolder.Companion {
     method public okhttp3.Request.Builder requestType(okhttp3.Request.Builder, com.google.android.horologist.networks.data.RequestType value);
-    method @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public okhttp3.Request withDefaultRequestType(okhttp3.Request, com.google.android.horologist.networks.data.RequestType defaultRequestType);
+    method @com.google.android.horologist.networks.ExperimentalHorologistApi public okhttp3.Request withDefaultRequestType(okhttp3.Request, com.google.android.horologist.networks.data.RequestType defaultRequestType);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class RequestVerifyingInterceptor implements okhttp3.Interceptor {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class RequestVerifyingInterceptor implements okhttp3.Interceptor {
     ctor public RequestVerifyingInterceptor(com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine);
     method public okhttp3.Response intercept(okhttp3.Interceptor.Chain chain);
   }
@@ -443,7 +443,7 @@ package com.google.android.horologist.networks.okhttp.impl {
 
 package com.google.android.horologist.networks.request {
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class HighBandwidthRequest {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class HighBandwidthRequest {
     ctor public HighBandwidthRequest(optional com.google.android.horologist.networks.request.HighBandwidthRequest.Type type, optional com.google.android.horologist.networks.data.RequestType? requestType, optional okhttp3.HttpUrl? url);
     method public com.google.android.horologist.networks.request.HighBandwidthRequest.Type component1();
     method public com.google.android.horologist.networks.data.RequestType? component2();
@@ -499,11 +499,11 @@ package com.google.android.horologist.networks.request {
     property public final com.google.android.horologist.networks.data.NetworkType type;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface NetworkRequester {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public interface NetworkRequester {
     method public com.google.android.horologist.networks.request.NetworkLease requestHighBandwidthNetwork(com.google.android.horologist.networks.request.HighBandwidthRequest request);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkRequesterImpl implements com.google.android.horologist.networks.request.NetworkRequester {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class NetworkRequesterImpl implements com.google.android.horologist.networks.request.NetworkRequester {
     ctor public NetworkRequesterImpl(android.net.ConnectivityManager connectivityManager);
     method public com.google.android.horologist.networks.request.NetworkLease requestHighBandwidthNetwork(com.google.android.horologist.networks.request.HighBandwidthRequest request);
   }
@@ -512,13 +512,13 @@ package com.google.android.horologist.networks.request {
 
 package com.google.android.horologist.networks.rules {
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class Allow implements com.google.android.horologist.networks.rules.RequestCheck {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class Allow implements com.google.android.horologist.networks.rules.RequestCheck {
     method public boolean isForbidden();
     property public boolean isForbidden;
     field public static final com.google.android.horologist.networks.rules.Allow INSTANCE;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class Fail implements com.google.android.horologist.networks.rules.RequestCheck {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class Fail implements com.google.android.horologist.networks.rules.RequestCheck {
     ctor public Fail(String reason);
     method public String component1();
     method public com.google.android.horologist.networks.rules.Fail copy(String reason);
@@ -532,27 +532,27 @@ package com.google.android.horologist.networks.rules {
     ctor public ForbiddenRequest(String message);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface NetworkingRules {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public interface NetworkingRules {
     method public com.google.android.horologist.networks.rules.RequestCheck checkValidRequest(com.google.android.horologist.networks.data.RequestType requestType, com.google.android.horologist.networks.data.NetworkInfo currentNetworkInfo);
     method public com.google.android.horologist.networks.data.NetworkStatus? getPreferredNetwork(com.google.android.horologist.networks.data.Networks networks, com.google.android.horologist.networks.data.RequestType requestType);
     method public boolean isHighBandwidthRequest(com.google.android.horologist.networks.data.RequestType requestType);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class NetworkingRules.Conservative implements com.google.android.horologist.networks.rules.NetworkingRules {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class NetworkingRules.Conservative implements com.google.android.horologist.networks.rules.NetworkingRules {
     method public com.google.android.horologist.networks.rules.RequestCheck checkValidRequest(com.google.android.horologist.networks.data.RequestType requestType, com.google.android.horologist.networks.data.NetworkInfo currentNetworkInfo);
     method public com.google.android.horologist.networks.data.NetworkStatus? getPreferredNetwork(com.google.android.horologist.networks.data.Networks networks, com.google.android.horologist.networks.data.RequestType requestType);
     method public boolean isHighBandwidthRequest(com.google.android.horologist.networks.data.RequestType requestType);
     field public static final com.google.android.horologist.networks.rules.NetworkingRules.Conservative INSTANCE;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class NetworkingRules.Lenient implements com.google.android.horologist.networks.rules.NetworkingRules {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public static final class NetworkingRules.Lenient implements com.google.android.horologist.networks.rules.NetworkingRules {
     method public com.google.android.horologist.networks.rules.RequestCheck checkValidRequest(com.google.android.horologist.networks.data.RequestType requestType, com.google.android.horologist.networks.data.NetworkInfo currentNetworkInfo);
     method public com.google.android.horologist.networks.data.NetworkStatus? getPreferredNetwork(com.google.android.horologist.networks.data.Networks networks, com.google.android.horologist.networks.data.RequestType requestType);
     method public boolean isHighBandwidthRequest(com.google.android.horologist.networks.data.RequestType requestType);
     field public static final com.google.android.horologist.networks.rules.NetworkingRules.Lenient INSTANCE;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkingRulesEngine {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class NetworkingRulesEngine {
     ctor public NetworkingRulesEngine(com.google.android.horologist.networks.status.NetworkRepository networkRepository, optional com.google.android.horologist.networks.logging.NetworkStatusLogger logger, optional com.google.android.horologist.networks.rules.NetworkingRules networkingRules);
     method public com.google.android.horologist.networks.rules.RequestCheck checkValidRequest(com.google.android.horologist.networks.data.RequestType requestType, com.google.android.horologist.networks.data.NetworkInfo? currentNetworkInfo);
     method public boolean isHighBandwidthRequest(com.google.android.horologist.networks.data.RequestType requestType);
@@ -564,7 +564,7 @@ package com.google.android.horologist.networks.rules {
     ctor public NoSuitableNetwork(String message);
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public sealed interface RequestCheck {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public sealed interface RequestCheck {
     method public boolean isForbidden();
     property public abstract boolean isForbidden;
   }
@@ -573,14 +573,14 @@ package com.google.android.horologist.networks.rules {
 
 package com.google.android.horologist.networks.status {
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface NetworkRepository {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public interface NetworkRepository {
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.Networks> getNetworkStatus();
     method public com.google.android.horologist.networks.data.NetworkStatus? networkByAddress(java.net.InetAddress localAddress);
     method public void updateNetworkAvailability(android.net.Network network);
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.Networks> networkStatus;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkRepositoryImpl implements com.google.android.horologist.networks.status.NetworkRepository {
+  @com.google.android.horologist.networks.ExperimentalHorologistApi public final class NetworkRepositoryImpl implements com.google.android.horologist.networks.status.NetworkRepository {
     ctor public NetworkRepositoryImpl(android.net.ConnectivityManager connectivityManager, kotlinx.coroutines.CoroutineScope coroutineScope);
     method public void close();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.Networks> getNetworkStatus();
@@ -591,7 +591,7 @@ package com.google.android.horologist.networks.status {
   }
 
   public static final class NetworkRepositoryImpl.Companion {
-    method @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public com.google.android.horologist.networks.status.NetworkRepositoryImpl fromContext(android.content.Context application, kotlinx.coroutines.CoroutineScope coroutineScope);
+    method @com.google.android.horologist.networks.ExperimentalHorologistApi public com.google.android.horologist.networks.status.NetworkRepositoryImpl fromContext(android.content.Context application, kotlinx.coroutines.CoroutineScope coroutineScope);
   }
 
 }
@@ -602,12 +602,12 @@ package com.google.android.horologist.networks.ui {
   }
 
   public final class DataUsageKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static void LinearDataUsage(com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, androidx.compose.ui.text.TextStyle style, android.content.Context context);
-    method @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static void curveDataUsage(androidx.wear.compose.foundation.CurvedScope, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, androidx.wear.compose.foundation.CurvedTextStyle style, android.content.Context context, java.util.Set<? extends com.google.android.horologist.networks.data.NetworkType> pinnedNetworks);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.networks.ExperimentalHorologistApi public static void LinearDataUsage(com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, androidx.compose.ui.text.TextStyle style, android.content.Context context);
+    method @com.google.android.horologist.networks.ExperimentalHorologistApi public static void curveDataUsage(androidx.wear.compose.foundation.CurvedScope, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, androidx.wear.compose.foundation.CurvedTextStyle style, android.content.Context context, java.util.Set<? extends com.google.android.horologist.networks.data.NetworkType> pinnedNetworks);
   }
 
   public final class DataUsageTimeTextKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static void DataUsageTimeText(boolean showData, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, optional androidx.compose.ui.Modifier modifier, optional java.util.Set<? extends com.google.android.horologist.networks.data.NetworkType> pinnedNetworks);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.networks.ExperimentalHorologistApi public static void DataUsageTimeText(boolean showData, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, optional androidx.compose.ui.Modifier modifier, optional java.util.Set<? extends com.google.android.horologist.networks.data.NetworkType> pinnedNetworks);
   }
 
 }

@@ -15,7 +15,7 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistComposablesApi::class
+    ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.composables
@@ -33,7 +33,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
  * A list component that is split into [sections][Section].
  * Each [Section] has its own [state][Section.State] controlled individually.
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun SectionedList(
     modifier: Modifier = Modifier,
@@ -51,7 +51,7 @@ public fun SectionedList(
  * A list component that is split into [sections][Section].
  * Each [Section] has its own [state][Section.State] controlled individually.
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun SectionedList(
     modifier: Modifier = Modifier,
@@ -112,7 +112,7 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
 /**
  * A section in [SectionedList].
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 public data class Section<T> constructor(
     val state: State<T>,
     val headerContent: (@Composable SectionContentScope.() -> Unit)? = null,
@@ -153,7 +153,7 @@ internal annotation class SectionScopeMarker
 /**
  * Receiver scope which is used by content parameter in [SectionedList].
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @SectionScopeMarker
 public class SectionedListScope {
 
@@ -211,7 +211,7 @@ public class SectionedListScope {
 /**
  * Receiver scope which is used by content parameter in [SectionedListScope] functions.
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @SectionScopeMarker
 public class SectionScope<T> {
 
@@ -275,6 +275,6 @@ public class SectionScope<T> {
 /**
  * Receiver scope which is used by content parameter in [SectionScope] functions.
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @SectionScopeMarker
 public object SectionContentScope

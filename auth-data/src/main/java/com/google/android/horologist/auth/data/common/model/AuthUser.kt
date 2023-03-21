@@ -16,9 +16,9 @@
 
 package com.google.android.horologist.auth.data.common.model
 
-import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistAuthDataApi
+@ExperimentalHorologistApi
 public data class AuthUser(
     val displayName: String? = null,
     val email: String? = null,

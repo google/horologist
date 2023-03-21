@@ -19,12 +19,12 @@ package com.google.android.horologist.media.data.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A table to store media information.
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 @Entity
 public data class MediaEntity(
     @PrimaryKey val mediaId: String,

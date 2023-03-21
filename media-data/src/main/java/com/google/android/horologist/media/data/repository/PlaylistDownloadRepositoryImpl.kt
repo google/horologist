@@ -17,7 +17,7 @@
 package com.google.android.horologist.media.data.repository
 
 import androidx.core.net.toUri
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.datasource.Media3DownloadDataSource
 import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource
@@ -33,7 +33,7 @@ import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public class PlaylistDownloadRepositoryImpl(
     private val coroutineScope: CoroutineScope,
     private val playlistLocalDataSource: PlaylistLocalDataSource,

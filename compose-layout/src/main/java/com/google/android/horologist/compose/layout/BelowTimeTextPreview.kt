@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposeLayoutApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @Composable
 public fun belowTimeTextPreview(): ScalingLazyColumnState {

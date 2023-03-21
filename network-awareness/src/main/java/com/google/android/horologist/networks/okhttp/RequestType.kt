@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistNetworksApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.networks.okhttp
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease

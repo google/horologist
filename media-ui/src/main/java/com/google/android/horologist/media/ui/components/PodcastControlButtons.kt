@@ -19,7 +19,7 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.ButtonColors
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.components.controls.SeekBackButton
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
@@ -33,7 +33,7 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  *
  * This version passes events to the provided [PlayerUiController].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun PodcastControlButtons(
     playerController: PlayerUiController,
@@ -62,7 +62,7 @@ public fun PodcastControlButtons(
  * Standard Podcast control buttons with no progress indicator, showing [SeekBackButton],
  * [PlayPauseProgressButton] and [SeekForwardButton].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun PodcastControlButtons(
     onPlayButtonClick: () -> Unit,
@@ -98,7 +98,7 @@ public fun PodcastControlButtons(
 /**
  * Standard Podcast control buttons showing [SeekBackButton], [PlayPauseProgressButton] and [SeekForwardButton].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun PodcastControlButtons(
     onPlayButtonClick: () -> Unit,

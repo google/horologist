@@ -21,7 +21,7 @@ import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaLibraryService.MediaLibrarySession
 import androidx.media3.session.MediaSession
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.ListenableFuture
@@ -33,7 +33,7 @@ import kotlinx.coroutines.guava.future
  *
  * Each metho is implemented like for like,
  */
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public abstract class SuspendingMediaLibrarySessionCallback(
     private val serviceScope: CoroutineScope,
     private val appEventLogger: ErrorReporter

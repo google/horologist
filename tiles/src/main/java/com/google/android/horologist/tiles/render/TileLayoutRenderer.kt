@@ -19,7 +19,7 @@ package com.google.android.horologist.tiles.render
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
-import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A base class for a synchronous tile and resource render phase.
@@ -29,7 +29,7 @@ import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
  *
  * This is designed to allow precise fast Android Studio previews as well as screenshot tests.
  */
-@ExperimentalHorologistTilesApi
+@ExperimentalHorologistApi
 public interface TileLayoutRenderer<T, R> {
     /**
      * Produce a Timeline for the given tile request and the given state.

@@ -22,7 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.Chip
-import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
@@ -34,7 +34,7 @@ import com.google.android.horologist.base.ui.components.StandardChipType
  *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
  */
-@ExperimentalHorologistAuthComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun SignInChip(
     onClick: () -> Unit,

@@ -16,12 +16,12 @@
 
 package com.google.android.horologist.auth.composables.model
 
-import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A UI model to represent an account.
  */
-@ExperimentalHorologistAuthComposablesApi
+@ExperimentalHorologistApi
 public data class AccountUiModel(
     val email: String,
     val name: String? = null,

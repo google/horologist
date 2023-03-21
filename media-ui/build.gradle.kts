@@ -47,13 +47,13 @@ android {
         jvmTarget = "11"
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + """
-            com.google.android.horologist.audio.ExperimentalHorologistAudioApi
-            com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
-            com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
-            com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
-            com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
-            com.google.android.horologist.media.ExperimentalHorologistMediaApi
-            com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+            com.google.android.horologist.audio.ExperimentalHorologistApi
+            com.google.android.horologist.audio.ui.ExperimentalHorologistApi
+            com.google.android.horologist.base.ui.ExperimentalHorologistApi
+            com.google.android.horologist.composables.ExperimentalHorologistApi
+            com.google.android.horologist.compose.navscaffold.ExperimentalHorologistApi
+            com.google.android.horologist.media.ExperimentalHorologistApi
+            com.google.android.horologist.tiles.ExperimentalHorologistApi
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
             """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
@@ -106,6 +106,8 @@ metalava {
 }
 
 dependencies {
+    api(projects.annotations)
+
     api(projects.media)
     api(projects.tiles)
     api(projects.composables)

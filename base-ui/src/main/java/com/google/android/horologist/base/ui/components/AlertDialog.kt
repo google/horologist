@@ -28,13 +28,13 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
-import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * This composable fulfils the redlines of the following components:
  * - AlertDialog - Title + body + buttons
  */
-@ExperimentalHorologistBaseUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun AlertDialog(
     body: String,
@@ -64,7 +64,7 @@ public fun AlertDialog(
     }
 }
 
-@ExperimentalHorologistBaseUiApi
+@ExperimentalHorologistApi
 @Composable
 internal fun AlertDialogAlert(
     title: String,

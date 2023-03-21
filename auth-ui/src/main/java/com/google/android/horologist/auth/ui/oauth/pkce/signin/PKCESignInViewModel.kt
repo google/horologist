@@ -24,13 +24,13 @@ import com.google.android.horologist.auth.data.oauth.pkce.PKCEOAuthCodeRepositor
 import com.google.android.horologist.auth.data.oauth.pkce.PKCETokenPayloadListener
 import com.google.android.horologist.auth.data.oauth.pkce.PKCETokenPayloadListenerNoOpImpl
 import com.google.android.horologist.auth.data.oauth.pkce.PKCETokenRepository
-import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 public open class PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload>(
     private val pkceConfigRepository: PKCEConfigRepository<PKCEConfig>,
     private val pkceOAuthCodeRepository: PKCEOAuthCodeRepository<PKCEConfig, OAuthCodePayload>,
@@ -80,7 +80,7 @@ public open class PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload
     }
 }
 
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 public sealed class PKCEScreenState {
     public object Idle : PKCEScreenState()
     public object Loading : PKCEScreenState()

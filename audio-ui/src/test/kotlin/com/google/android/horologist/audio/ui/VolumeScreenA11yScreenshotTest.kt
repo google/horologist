@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposeToolsApi::class, ExperimentalHorologistPaparazziApi::class)
+@file:OptIn(ExperimentalHorologistApi::class, ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.audio.ui
 
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.WearSnapshotHandler

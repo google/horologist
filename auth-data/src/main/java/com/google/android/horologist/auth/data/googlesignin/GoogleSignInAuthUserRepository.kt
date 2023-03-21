@@ -18,7 +18,7 @@ package com.google.android.horologist.auth.data.googlesignin
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +27,7 @@ import kotlinx.coroutines.withContext
 /**
  * An implementation of [AuthUserRepository] for the Google Sign-In authentication method.
  */
-@ExperimentalHorologistAuthDataApi
+@ExperimentalHorologistApi
 public class GoogleSignInAuthUserRepository(
     private val applicationContext: Context
 ) : AuthUserRepository {

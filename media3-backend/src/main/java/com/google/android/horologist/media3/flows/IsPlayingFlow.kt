@@ -17,7 +17,7 @@
 package com.google.android.horologist.media3.flows
 
 import androidx.media3.common.Player
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.trySendBlocking
@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.flowOn
 /**
  * Create a Flow for the isPlaying state of Player using callbacks.
  */
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public fun Player.isPlayingFlow(): Flow<Boolean> = callbackFlow {
     send(isPlaying)
 

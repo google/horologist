@@ -18,7 +18,7 @@ package com.google.android.horologist.media3.audio
 
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withTimeoutOrNull
@@ -27,7 +27,7 @@ import kotlinx.coroutines.withTimeoutOrNull
  * Implementation of audio output selection using bluetooth settings fragment
  * and waiting up to 15 seconds for a new output to be available.
  */
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public class BluetoothSettingsOutputSelector(
     private val audioOutputRepository: AudioOutputRepository
 ) : AudioOutputSelector {

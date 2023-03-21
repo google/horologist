@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposablesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.composables
 
@@ -51,7 +51,7 @@ enum class PreviewAnimationState(val target: Float) {
     Start(0f), End(1f)
 }
 
-@OptIn(ExperimentalHorologistComposablesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @WearSquareDevicePreview
 @Composable
 fun PreviewProgressAnimation() {
@@ -146,7 +146,7 @@ fun PreviewProgressAnimation() {
     }
 }
 
-@OptIn(ExperimentalHorologistComposablesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @WearSquareDevicePreview
 @Composable
 fun PreviewHighCornerRadius() {
@@ -166,7 +166,7 @@ fun PreviewHighCornerRadius() {
     }
 }
 
-@OptIn(ExperimentalHorologistComposablesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @WearSquareDevicePreview
 @Composable
 fun PreviewSquare() {
@@ -181,7 +181,7 @@ fun PreviewSquare() {
     )
 }
 
-@OptIn(ExperimentalHorologistComposablesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @WearSquareDevicePreview
 @Composable
 fun PreviewSquareWithBrushColors() {
@@ -196,7 +196,7 @@ fun PreviewSquareWithBrushColors() {
     )
 }
 
-@OptIn(ExperimentalHorologistComposablesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @WearSquareDevicePreview
 @Composable
 fun PreviewSquareWithBrushAndColorsCombined() {

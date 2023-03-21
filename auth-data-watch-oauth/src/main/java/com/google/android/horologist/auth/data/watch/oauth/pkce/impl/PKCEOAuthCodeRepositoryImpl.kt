@@ -24,7 +24,7 @@ import androidx.wear.phone.interactions.authentication.OAuthRequest
 import androidx.wear.phone.interactions.authentication.OAuthResponse
 import androidx.wear.phone.interactions.authentication.RemoteAuthClient
 import com.google.android.horologist.auth.data.oauth.pkce.PKCEOAuthCodeRepository
-import com.google.android.horologist.auth.data.watch.oauth.ExperimentalHorologistAuthDataWatchOAuthApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.watch.oauth.common.logging.TAG
 import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -32,7 +32,7 @@ import java.io.IOException
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 
-@ExperimentalHorologistAuthDataWatchOAuthApi
+@ExperimentalHorologistApi
 public class PKCEOAuthCodeRepositoryImpl(
     private val application: Application
 ) : PKCEOAuthCodeRepository<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload> {

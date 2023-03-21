@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalCoroutinesApi::class, ExperimentalHorologistComposeLayoutApi::class)
+@file:OptIn(ExperimentalCoroutinesApi::class, ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.compose.navscaffold
 

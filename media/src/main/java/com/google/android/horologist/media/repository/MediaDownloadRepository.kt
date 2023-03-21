@@ -16,14 +16,14 @@
 
 package com.google.android.horologist.media.repository
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.MediaDownload
 
 /**
  * A repository of [MediaDownload].
  */
-@ExperimentalHorologistMediaApi
+@ExperimentalHorologistApi
 public interface MediaDownloadRepository {
     /**
      * Request the download removal of the supplied [media][Media].

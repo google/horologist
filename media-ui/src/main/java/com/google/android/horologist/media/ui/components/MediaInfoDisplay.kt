@@ -18,7 +18,7 @@ package com.google.android.horologist.media.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.display.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay
 import com.google.android.horologist.media.ui.components.display.TrackMediaDisplay
@@ -27,7 +27,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 /**
  * A display implementation that shows the track information, loading or nothing playing.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun MediaInfoDisplay(
     media: MediaUiModel?,

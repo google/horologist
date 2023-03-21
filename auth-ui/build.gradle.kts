@@ -46,10 +46,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
         freeCompilerArgs = listOf(
-            "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
-            "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
-            "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
-            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi",
+            "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistApi",
+            "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistApi",
+            "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistApi",
+            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistApi",
             "-opt-in=kotlin.RequiresOptIn"
         )
     }

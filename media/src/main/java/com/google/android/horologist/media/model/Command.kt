@@ -16,12 +16,12 @@
 
 package com.google.android.horologist.media.model
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Commands that can be executed on a player.
  */
-@ExperimentalHorologistMediaApi
+@ExperimentalHorologistApi
 public enum class Command {
     PlayPause,
     SeekBack,

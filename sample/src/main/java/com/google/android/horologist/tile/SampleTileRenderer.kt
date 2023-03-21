@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposeToolsApi::class, ExperimentalHorologistTilesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class, ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.tile
 
@@ -38,7 +38,7 @@ import androidx.wear.tiles.material.Text
 import androidx.wear.tiles.material.Typography
 import androidx.wear.tiles.material.layouts.MultiButtonLayout
 import androidx.wear.tiles.material.layouts.PrimaryLayout
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.LayoutElementPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -48,7 +48,7 @@ import com.google.android.horologist.tile.SampleTileRenderer.Companion.Icon1
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.Image1
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.TileIcon
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.TileImage
-import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.components.NoOpClickable
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.toImageResource
@@ -122,7 +122,7 @@ class SampleTileRenderer(context: Context) :
     }
 }
 
-@OptIn(ExperimentalHorologistComposeToolsApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @WearPreviewDevices
 @WearPreviewFontSizes
 @Composable

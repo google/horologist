@@ -17,10 +17,10 @@
 package com.google.android.horologist.paparazzi.a11y
 
 import android.view.View
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.awt.Color
 
-@ExperimentalHorologistPaparazziApi
+@ExperimentalHorologistApi
 internal object RenderSettings {
     const val DEFAULT_RENDER_ALPHA = 40
     val DEFAULT_RENDER_COLORS = listOf(

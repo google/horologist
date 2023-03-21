@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.networks.rules.helpers
 

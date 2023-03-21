@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class, ExperimentalHorologistApi::class)
+@file:OptIn(ExperimentalHorologistApi::class::class)
 
 package com.google.android.horologist.audio.ui
 

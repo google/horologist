@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.data.datasource
 
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_END
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_START
@@ -29,7 +29,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Local data source of [MediaDownload].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public class MediaDownloadLocalDataSource(
     private val mediaDownloadDao: MediaDownloadDao
 ) {

@@ -22,10 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberAsyncImagePainter
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun MediaArtwork(
     media: MediaUiModel,
@@ -40,7 +40,7 @@ public fun MediaArtwork(
     )
 }
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun MediaArtwork(
     artworkUri: Any?,

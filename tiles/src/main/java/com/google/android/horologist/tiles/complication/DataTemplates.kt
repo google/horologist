@@ -30,9 +30,9 @@ import androidx.wear.watchface.complications.data.ShortTextComplicationData
 import androidx.wear.watchface.complications.data.SmallImage
 import androidx.wear.watchface.complications.data.SmallImageComplicationData
 import androidx.wear.watchface.complications.data.SmallImageType
-import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistTilesApi
+@ExperimentalHorologistApi
 public object DataTemplates {
     public fun ComplicationTemplate<*>.longText(
         icon: Icon?,

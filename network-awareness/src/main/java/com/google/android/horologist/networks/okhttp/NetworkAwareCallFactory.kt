@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.networks.okhttp
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.withDefaultRequestType
 import okhttp3.Call
@@ -27,7 +27,7 @@ import okhttp3.Request
  * [NetworkSelectingCallFactory] can make network decisions and bring up high bandwidth networks
  * based on the request type.
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public class NetworkAwareCallFactory(
     private val delegate: Call.Factory,
     private val defaultRequestType: RequestType

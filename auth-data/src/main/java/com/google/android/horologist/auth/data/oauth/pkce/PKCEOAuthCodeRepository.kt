@@ -17,9 +17,9 @@
 package com.google.android.horologist.auth.data.oauth.pkce
 
 import androidx.wear.phone.interactions.authentication.CodeVerifier
-import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistAuthDataApi
+@ExperimentalHorologistApi
 public interface PKCEOAuthCodeRepository<PKCEConfig, OAuthCodePayload> {
 
     public suspend fun fetch(

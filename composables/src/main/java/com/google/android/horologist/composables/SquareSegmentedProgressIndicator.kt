@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * SquareSegmentedProgressIndicator represents a segmented progress indicator with
@@ -54,7 +55,7 @@ import androidx.wear.compose.material.ProgressIndicatorDefaults
  * is a normal square.
  * @param paddingDp This is the size of the gaps for each segment.
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun SquareSegmentedProgressIndicator(
     modifier: Modifier = Modifier,

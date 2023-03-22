@@ -20,13 +20,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.model.MediaEntity
 
 /**
  * DAO for [MediaEntity].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 @Dao
 public interface MediaDao {
 

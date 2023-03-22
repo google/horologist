@@ -23,12 +23,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A standard visual design for a button on the Entity screen.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun EntityButton(
     onClick: () -> Unit,

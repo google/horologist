@@ -18,7 +18,7 @@ package com.google.android.horologist.media.data.datasource
 
 import androidx.room.RoomDatabase
 import androidx.room.withTransaction
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.dao.MediaDao
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
 import com.google.android.horologist.media.data.database.dao.PlaylistMediaDao
@@ -28,7 +28,7 @@ import com.google.android.horologist.media.model.Media
 /**
  * Local data source of [Media].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public class MediaLocalDataSource(
     private val roomDatabase: RoomDatabase,
     private val mediaDao: MediaDao,

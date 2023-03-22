@@ -28,8 +28,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**
  * Default layouts for ScalingLazyColumnState, based on UX guidance.
@@ -40,7 +40,7 @@ public object ScalingLazyColumnDefaults {
      * This is positioned from the top of the screen instead of the
      * center.
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public fun belowTimeText(
         rotaryMode: RotaryMode = RotaryMode.Fling,
         firstItemIsFullWidth: Boolean = false,
@@ -85,7 +85,7 @@ public object ScalingLazyColumnDefaults {
      * Layout the item [initialCenterIndex] at [initialCenterOffset] from the
      * center of the screen.
      */
-    @ExperimentalHorologistComposeLayoutApi
+    @ExperimentalHorologistApi
     public fun scalingLazyColumnDefaults(
         rotaryMode: RotaryMode = RotaryMode.Fling,
         initialCenterIndex: Int = 1,

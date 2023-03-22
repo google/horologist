@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.audio.SystemAudioRepository
@@ -50,7 +51,7 @@ import kotlinx.coroutines.flow.update
  * See [AudioManager.setStreamVolume]
  * See [AudioManager.STREAM_MUSIC]
  */
-@ExperimentalHorologistAudioUiApi
+@ExperimentalHorologistApi
 public open class VolumeViewModel(
     internal val volumeRepository: VolumeRepository,
     internal val audioOutputRepository: AudioOutputRepository,
@@ -123,7 +124,7 @@ public open class VolumeViewModel(
         }
     }
 
-    @ExperimentalHorologistAudioUiApi
+    @ExperimentalHorologistApi
     public companion object {
         private const val TAG = "VolumeViewModel"
 

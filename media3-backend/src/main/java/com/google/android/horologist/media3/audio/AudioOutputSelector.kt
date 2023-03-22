@@ -16,13 +16,13 @@
 
 package com.google.android.horologist.media3.audio
 
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 
 /**
  * Strategy interface for different audio output switchers.
  */
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public interface AudioOutputSelector {
     /**
      * Change from the current audio output, according to some sensible logic,

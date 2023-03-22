@@ -30,12 +30,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A loading state display.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun LoadingMediaDisplay(
     modifier: Modifier = Modifier

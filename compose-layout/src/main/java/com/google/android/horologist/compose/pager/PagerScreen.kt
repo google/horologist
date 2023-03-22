@@ -43,7 +43,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
 import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.PageIndicatorState
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A Wear Material Compliant Pager screen.
@@ -121,7 +121,7 @@ public class PageScreenIndicatorState(
         "androidx.wear.compose.foundation.RequestFocusWhenActive"
     )
 )
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 @Composable
 public fun FocusOnResume(focusRequester: FocusRequester) {
     val lifecycleOwner = LocalLifecycleOwner.current

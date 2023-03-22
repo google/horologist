@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.networks.okhttp.impl
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.requestType
 import okhttp3.Call
@@ -29,7 +29,7 @@ import okio.Timeout
  * A standard call Wrapper, that exists solely to ensure that the
  * [NetworkSelectingCallFactory] is used for [clone].
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 internal class StandardCall(
     private val callFactory: Call.Factory,
     private val delegate: Call

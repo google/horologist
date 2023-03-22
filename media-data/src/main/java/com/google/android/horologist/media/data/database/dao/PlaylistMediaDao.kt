@@ -18,13 +18,13 @@ package com.google.android.horologist.media.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.model.PlaylistMediaEntity
 
 /**
  * DAO for [PlaylistMediaEntity].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 @Dao
 public interface PlaylistMediaDao {
 

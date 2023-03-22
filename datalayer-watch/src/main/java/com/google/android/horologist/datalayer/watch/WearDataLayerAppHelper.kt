@@ -21,10 +21,10 @@ import android.content.Intent
 import android.net.Uri
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.watchface.complications.data.ComplicationType
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.ComplicationInfo
-import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
 import com.google.android.horologist.data.TileInfo
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
@@ -43,7 +43,7 @@ private const val TAG = "DataLayerAppHelper"
 /**
  * Subclass of [DataLayerAppHelper] for use on Wear devices.
  */
-@ExperimentalHorologistDataLayerApi
+@ExperimentalHorologistApi
 public class WearDataLayerAppHelper(
     context: Context,
     registry: WearDataLayerRegistry,

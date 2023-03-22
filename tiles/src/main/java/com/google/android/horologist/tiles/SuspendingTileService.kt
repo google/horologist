@@ -29,6 +29,7 @@ import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TileService
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ensureActive
@@ -39,7 +40,7 @@ import kotlinx.coroutines.launch
  * Also acts like a LifecycleService, allowing lifecycleScope,
  * and general lifecycle operations.
  */
-@ExperimentalHorologistTilesApi
+@ExperimentalHorologistApi
 public abstract class SuspendingTileService : TileService(), LifecycleOwner {
     // Code from LifecycleService
 

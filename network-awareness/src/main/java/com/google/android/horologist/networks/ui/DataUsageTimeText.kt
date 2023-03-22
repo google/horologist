@@ -22,12 +22,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.wear.compose.foundation.CurvedTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.TimeText
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 @Composable
 public fun DataUsageTimeText(
     showData: Boolean,

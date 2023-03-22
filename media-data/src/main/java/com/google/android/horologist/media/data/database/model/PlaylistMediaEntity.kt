@@ -18,12 +18,12 @@ package com.google.android.horologist.media.data.database.model
 
 import androidx.room.Entity
 import androidx.room.Index
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Cross-reference table that holds relationship between [PlaylistEntity] and [MediaEntity].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 @Entity(
     primaryKeys = ["playlistId", "mediaId"],
     indices = [

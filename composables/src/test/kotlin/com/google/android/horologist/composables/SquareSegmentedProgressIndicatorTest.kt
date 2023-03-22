@@ -26,17 +26,17 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 
 class SquareSegmentedProgressIndicatorTest {
-    @OptIn(ExperimentalHorologistPaparazziApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @get:Rule
     val paparazzi = WearPaparazzi(deviceConfig = DeviceConfig.WEAR_OS_SQUARE)
 
-    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorLowCornerRadius() {
         paparazzi.snapshot {
@@ -72,7 +72,7 @@ class SquareSegmentedProgressIndicatorTest {
         }
     }
 
-    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorHighCornerRadius() {
         paparazzi.snapshot {
@@ -108,7 +108,7 @@ class SquareSegmentedProgressIndicatorTest {
         }
     }
 
-    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorManySegments() {
         paparazzi.snapshot {
@@ -152,7 +152,7 @@ class SquareSegmentedProgressIndicatorTest {
         }
     }
 
-    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorFewSegments() {
         paparazzi.snapshot {
@@ -184,7 +184,7 @@ class SquareSegmentedProgressIndicatorTest {
         }
     }
 
-    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorFewSegmentsAndBrushColor() {
         paparazzi.snapshot {
@@ -224,7 +224,7 @@ class SquareSegmentedProgressIndicatorTest {
         }
     }
 
-    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorFewSegmentsAndBrushColorAndColorsCombined() {
         paparazzi.snapshot {

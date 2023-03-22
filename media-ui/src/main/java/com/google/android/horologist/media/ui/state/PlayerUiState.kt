@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.ui.state
 
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.PlayPauseButton
 import com.google.android.horologist.media.ui.components.controls.PauseButton
 import com.google.android.horologist.media.ui.components.controls.PlayButton
@@ -47,7 +47,7 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  * @param seekForwardButtonIncrement increment when seeking forward.
  * @param connected is the player screen connected.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public data class PlayerUiState(
     val playEnabled: Boolean,
     val pauseEnabled: Boolean,

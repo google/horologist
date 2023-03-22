@@ -50,14 +50,14 @@ import com.airbnb.lottie.compose.LottieClipSpec
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.PlayPauseButton
 import com.google.android.horologist.media.ui.state.ProgressStateHolder
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun AnimatedPlayPauseButton(
     onPlayClick: () -> Unit,
@@ -162,7 +162,7 @@ private fun animateLottieProgressAsState(
     return lottieProgress
 }
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun AnimatedPlayPauseProgressButton(
     onPlayClick: () -> Unit,

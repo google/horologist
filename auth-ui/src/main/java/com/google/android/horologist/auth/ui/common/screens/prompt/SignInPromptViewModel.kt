@@ -18,9 +18,9 @@ package com.google.android.horologist.auth.ui.common.screens.prompt
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
-import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
 import com.google.android.horologist.auth.ui.mapper.AccountUiModelMapper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
  * @sample com.google.android.horologist.auth.sample.screens.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
  * @sample com.google.android.horologist.auth.sample.screens.oauth.pkce.prompt.PKCESignInPromptScreen
  */
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 public open class SignInPromptViewModel(
     private val authUserRepository: AuthUserRepository
 ) : ViewModel() {
@@ -69,7 +69,7 @@ public open class SignInPromptViewModel(
 /**
  * The states for a sign-in prompt screen.
  */
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 public sealed class SignInPromptScreenState {
 
     public object Idle : SignInPromptScreenState()

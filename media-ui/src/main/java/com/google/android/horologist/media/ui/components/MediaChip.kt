@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
@@ -42,7 +42,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
  * @param placeholder A placeholder image to be displayed while
  * [artwork][MediaUiModel.artworkUri] is being loaded.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun MediaChip(
     media: MediaUiModel,
@@ -66,7 +66,7 @@ public fun MediaChip(
 /**
  * A rounded chip to show a single media title and its artwork.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun MediaChip(
     title: String,

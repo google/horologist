@@ -17,14 +17,14 @@
 package com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google
 
 import android.net.Uri
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.oauth.pkce.PKCEConfigRepository
-import com.google.android.horologist.auth.data.watch.oauth.ExperimentalHorologistAuthDataWatchOAuthApi
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService.Companion.SCOPE_KEY
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_AUTH_ENDPOINT
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_INFO_PROFILE_SCOPE_VALUE
 import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.PKCEDefaultConfig
 
-@ExperimentalHorologistAuthDataWatchOAuthApi
+@ExperimentalHorologistApi
 public class PKCEConfigRepositoryGoogleImpl(
     private val clientId: String,
     private val clientSecret: String,

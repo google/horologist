@@ -42,7 +42,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.DialogDefaults
 import coil.compose.rememberAsyncImagePainter
-import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.base.ui.components.ConfirmationDialog
@@ -59,7 +59,7 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
  *
  * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
-@ExperimentalHorologistAuthComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
@@ -89,7 +89,7 @@ public fun SignedInConfirmationDialog(
  *
  * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
-@ExperimentalHorologistAuthComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
@@ -107,7 +107,7 @@ public fun SignedInConfirmationDialog(
     )
 }
 
-@ExperimentalHorologistAuthComposablesApi
+@ExperimentalHorologistApi
 @Composable
 internal fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,

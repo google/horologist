@@ -23,7 +23,7 @@ import androidx.media3.common.Format
 import androidx.media3.exoplayer.DecoderReuseEvaluation
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.analytics.AnalyticsListener
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.util.shortDescription
 import kotlinx.coroutines.Dispatchers
@@ -44,7 +44,7 @@ import kotlinx.coroutines.withContext
  * Enables Audio Offload when in the background, and also logs key events.
  */
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public class AudioOffloadManager(
     private val errorReporter: ErrorReporter,
     private val audioOffloadStrategyFlow: Flow<AudioOffloadStrategy> =

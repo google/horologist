@@ -21,12 +21,12 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.wifi.WifiInfo
 import android.os.Build
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.Status
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 internal data class NetworkStatusBuilder(
     var id: String,
     var network: Network,

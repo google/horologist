@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistApi::class)
+
 package com.google.android.horologist.composables
 
 import android.content.Context
@@ -72,6 +74,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TouchExplorationStateProvider
 import androidx.wear.compose.material.rememberPickerGroupState
 import androidx.wear.compose.material.rememberPickerState
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import kotlinx.coroutines.launch
 import java.time.LocalTime

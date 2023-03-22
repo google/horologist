@@ -45,8 +45,7 @@ android {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi",
-            "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
         )
     }
     packagingOptions {
@@ -92,6 +91,8 @@ metalava {
 }
 
 dependencies {
+    api(projects.annotations)
+
     implementation(projects.audio)
     implementation(projects.media)
     implementation(projects.networkAwareness)

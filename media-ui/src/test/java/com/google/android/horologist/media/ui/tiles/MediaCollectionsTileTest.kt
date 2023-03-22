@@ -15,9 +15,7 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistComposeToolsApi::class,
-    ExperimentalHorologistMediaUiApi::class,
-    ExperimentalHorologistPaparazziApi::class
+    ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.media.ui.tiles
@@ -31,13 +29,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.wear.tiles.ActionBuilders
 import app.cash.paparazzi.DeviceConfig
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.uamp.UampColors
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import org.junit.Rule

@@ -54,7 +54,6 @@ android {
         }
     }
 
-
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
@@ -98,6 +97,7 @@ metalava {
 
 dependencies {
     implementation(libs.kotlin.stdlib)
+    api(projects.annotations)
 
     implementation(libs.androidx.mediarouter)
     implementation(libs.androidx.wear)

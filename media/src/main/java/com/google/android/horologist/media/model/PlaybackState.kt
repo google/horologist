@@ -16,14 +16,14 @@
 
 package com.google.android.horologist.media.model
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlin.time.Duration
 
 /**
  * Represents a state of playback, duration and playback speed. It can be used to determine whether
  * media is playing and to infer current and future position and duration.
  */
-@ExperimentalHorologistMediaApi
+@ExperimentalHorologistApi
 public data class PlaybackState(
     public val playerState: PlayerState,
     public val isLive: Boolean,

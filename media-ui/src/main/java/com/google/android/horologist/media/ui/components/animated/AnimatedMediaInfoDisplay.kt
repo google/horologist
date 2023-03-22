@@ -18,7 +18,7 @@ package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.display.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
@@ -26,7 +26,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 /**
  * Animated [MediaDisplay] implementation for [PlayerScreen] including player status.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun AnimatedMediaInfoDisplay(
     media: MediaUiModel?,

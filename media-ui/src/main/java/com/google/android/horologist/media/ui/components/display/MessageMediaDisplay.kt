@@ -25,12 +25,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A simple text-only display showing status information or a message.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun MessageMediaDisplay(
     modifier: Modifier = Modifier,

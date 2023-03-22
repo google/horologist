@@ -82,6 +82,7 @@ metalava {
 }
 
 dependencies {
+    api(projects.annotations)
 
     if (project.findProject(":media-lib-session") != null) {
         api(project(":media-lib-session"))

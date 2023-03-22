@@ -37,6 +37,7 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode
@@ -130,7 +131,7 @@ public open class NavScaffoldViewModel(
         return _scrollableState as ScalingLazyListState
     }
 
-    @OptIn(ExperimentalHorologistComposeLayoutApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     internal fun initializeScalingLazyListState(
         columnState: ScalingLazyColumnState
     ) {
@@ -238,7 +239,7 @@ public data class NonScrollableScaffoldContext(
  *
  * The [viewModel] can be used to customise the scaffold behaviour.
  */
-@OptIn(ExperimentalHorologistComposeLayoutApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 public data class ScrollableScaffoldContext(
     val backStackEntry: NavBackStackEntry,
     val columnState: ScalingLazyColumnState,

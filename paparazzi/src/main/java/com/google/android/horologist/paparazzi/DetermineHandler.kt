@@ -19,12 +19,13 @@ package com.google.android.horologist.paparazzi
 import app.cash.paparazzi.HtmlReportWriter
 import app.cash.paparazzi.SnapshotHandler
 import app.cash.paparazzi.SnapshotVerifier
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistPaparazziApi
+@ExperimentalHorologistApi
 public val isVerifying: Boolean =
     System.getProperty("paparazzi.test.verify")?.toBoolean() == true
 
-@ExperimentalHorologistPaparazziApi
+@ExperimentalHorologistApi
 public fun determineHandler(maxPercentDifference: Double): SnapshotHandler {
     return if (isVerifying) {
         SnapshotVerifier(maxPercentDifference)

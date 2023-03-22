@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistTilesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.tiles
 
@@ -28,6 +28,7 @@ import androidx.wear.tiles.ResourceBuilders
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders.Timeline
 import androidx.wear.tiles.TimelineBuilders.TimelineEntry
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 

@@ -21,7 +21,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.model.MediaEntity
 import com.google.android.horologist.media.data.database.model.PlaylistEntity
 import com.google.android.horologist.media.data.database.model.PlaylistMediaEntity
@@ -31,7 +31,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * DAO for [PlaylistEntity].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 @Dao
 public interface PlaylistDao {
 

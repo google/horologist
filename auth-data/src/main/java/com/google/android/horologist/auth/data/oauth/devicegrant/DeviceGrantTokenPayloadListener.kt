@@ -16,15 +16,15 @@
 
 package com.google.android.horologist.auth.data.oauth.devicegrant
 
-import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistAuthDataApi
+@ExperimentalHorologistApi
 public interface DeviceGrantTokenPayloadListener<TokenPayload> {
 
     public suspend fun onPayloadReceived(payload: TokenPayload): Unit
 }
 
-@ExperimentalHorologistAuthDataApi
+@ExperimentalHorologistApi
 public class DeviceGrantTokenPayloadListenerNoOpImpl<TokenPayload> :
     DeviceGrantTokenPayloadListener<TokenPayload> {
 

@@ -21,6 +21,8 @@ plugins {
 }
 
 dependencies {
+    api(projects.annotations)
+
     implementation(libs.kotlin.stdlib)
     api(libs.paparazzi)
 }

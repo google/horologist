@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.networks.okhttp.impl
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
@@ -28,7 +28,7 @@ import okhttp3.Request
  * Request object, for use by this libraries interceptors and event
  * listeners.
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public data class RequestTypeHolder(
     public var requestType: RequestType = RequestType.UnknownRequest,
     public var networkInfo: NetworkInfo? = null,
@@ -39,7 +39,7 @@ public data class RequestTypeHolder(
     }
 
     public companion object {
-        @ExperimentalHorologistNetworksApi
+        @ExperimentalHorologistApi
         public fun Request.withDefaultRequestType(defaultRequestType: RequestType): Request =
             if (requestTypeOrNull == null) {
                 newBuilder()

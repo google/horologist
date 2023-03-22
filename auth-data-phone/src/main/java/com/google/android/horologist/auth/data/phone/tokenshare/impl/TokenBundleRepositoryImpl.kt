@@ -21,7 +21,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.AvailabilityException
-import com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.phone.common.TAG
 import com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository
 import com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl.Companion.DEFAULT_TOKEN_BUNDLE_KEY
@@ -38,7 +38,7 @@ import kotlinx.coroutines.tasks.await
  *
  * @sample com.google.android.horologist.auth.sample.MainActivity
  */
-@ExperimentalHorologistAuthDataPhoneApi
+@ExperimentalHorologistApi
 public class TokenBundleRepositoryImpl<T>(
     private val registry: WearDataLayerRegistry,
     private val key: String = DEFAULT_TOKEN_BUNDLE_KEY,

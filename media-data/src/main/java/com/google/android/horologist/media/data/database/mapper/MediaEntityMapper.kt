@@ -16,14 +16,14 @@
 
 package com.google.android.horologist.media.data.database.mapper
 
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.model.MediaEntity
 import com.google.android.horologist.media.model.Media
 
 /**
  * Functions to map models from other layers and / or packages into a [MediaEntity].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public object MediaEntityMapper {
 
     /**

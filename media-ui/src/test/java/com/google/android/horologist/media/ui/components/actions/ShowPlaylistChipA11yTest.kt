@@ -15,20 +15,16 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistComposeToolsApi::class,
-    ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistMediaUiApi::class
+    ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.media.ui.components.actions
 
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler

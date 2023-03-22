@@ -15,7 +15,7 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistComposablesApi::class
+    ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.composables
@@ -38,6 +38,7 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @WearPreviewDevices

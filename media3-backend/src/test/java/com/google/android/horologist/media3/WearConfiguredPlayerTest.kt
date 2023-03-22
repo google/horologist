@@ -15,7 +15,7 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistMedia3BackendApi::class
+    ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.media3
@@ -26,6 +26,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.test.utils.TestExoPlayerBuilder
 import androidx.test.core.app.ApplicationProvider
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.common.truth.Truth.assertThat

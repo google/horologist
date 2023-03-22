@@ -16,14 +16,14 @@
 
 package com.google.android.horologist.networks.data
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.flow.Flow
 
 /**
  * A Data Request Repository for recording network data usage including [RequestType] and
  * [NetworkType].
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public interface DataRequestRepository {
     public fun storeRequest(dataRequest: DataRequest)
     public fun currentPeriodUsage(): Flow<DataUsageReport>

@@ -4,7 +4,7 @@ package com.google.android.horologist.media3 {
   @kotlin.RequiresOptIn(message="Horologist Media3 Backend is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistMedia3BackendApi {
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class WearConfiguredPlayer extends androidx.media3.common.ForwardingPlayer {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class WearConfiguredPlayer extends androidx.media3.common.ForwardingPlayer {
     ctor public WearConfiguredPlayer(androidx.media3.common.Player player, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository, com.google.android.horologist.media3.audio.AudioOutputSelector audioOutputSelector, com.google.android.horologist.media3.rules.PlaybackRules playbackRules, com.google.android.horologist.media3.logging.ErrorReporter errorReporter, kotlinx.coroutines.CoroutineScope coroutineScope);
     method public suspend Object? startNoiseDetection(kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
@@ -13,12 +13,12 @@ package com.google.android.horologist.media3 {
 
 package com.google.android.horologist.media3.audio {
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public interface AudioOutputSelector {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface AudioOutputSelector {
     method public void launchSelector();
     method public suspend Object? selectNewOutput(com.google.android.horologist.audio.AudioOutput currentAudioOutput, kotlin.coroutines.Continuation<? super com.google.android.horologist.audio.AudioOutput>);
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class BluetoothSettingsOutputSelector implements com.google.android.horologist.media3.audio.AudioOutputSelector {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class BluetoothSettingsOutputSelector implements com.google.android.horologist.media3.audio.AudioOutputSelector {
     ctor public BluetoothSettingsOutputSelector(com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository);
     method public void launchSelector();
     method public suspend Object? selectNewOutput(com.google.android.horologist.audio.AudioOutput currentAudioOutput, kotlin.coroutines.Continuation<? super com.google.android.horologist.audio.AudioOutput>);
@@ -40,15 +40,15 @@ package com.google.android.horologist.media3.config {
 package com.google.android.horologist.media3.flows {
 
   public final class BuildSuspendKt {
-    method @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static suspend Object? buildSuspend(androidx.media3.session.MediaBrowser.Builder, kotlin.coroutines.Continuation<? super androidx.media3.session.MediaBrowser>);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static suspend Object? buildSuspend(androidx.media3.session.MediaBrowser.Builder, kotlin.coroutines.Continuation<? super androidx.media3.session.MediaBrowser>);
   }
 
   public final class CurrentMediaItemFlowKt {
-    method @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static kotlinx.coroutines.flow.Flow<androidx.media3.common.MediaItem> currentMediaItemFlow(androidx.media3.common.Player);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static kotlinx.coroutines.flow.Flow<androidx.media3.common.MediaItem> currentMediaItemFlow(androidx.media3.common.Player);
   }
 
   public final class IsPlayingFlowKt {
-    method @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static kotlinx.coroutines.flow.Flow<java.lang.Boolean> isPlayingFlow(androidx.media3.common.Player);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static kotlinx.coroutines.flow.Flow<java.lang.Boolean> isPlayingFlow(androidx.media3.common.Player);
   }
 
   public final class WaitForPlayingKt {
@@ -60,11 +60,11 @@ package com.google.android.horologist.media3.flows {
 
 package com.google.android.horologist.media3.logging {
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class AnalyticsEventLogger extends androidx.media3.exoplayer.util.EventLogger {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class AnalyticsEventLogger extends androidx.media3.exoplayer.util.EventLogger {
     ctor public AnalyticsEventLogger(com.google.android.horologist.media3.logging.ErrorReporter appEventLogger);
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public interface ErrorReporter {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface ErrorReporter {
     method public void logMessage(String message, optional com.google.android.horologist.media3.logging.ErrorReporter.Category category, optional com.google.android.horologist.media3.logging.ErrorReporter.Level level);
     method public void showMessage(@StringRes int message);
   }
@@ -89,7 +89,7 @@ package com.google.android.horologist.media3.logging {
     enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Info;
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class TransferListener implements androidx.media3.datasource.cache.CacheDataSource.EventListener androidx.media3.datasource.TransferListener {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class TransferListener implements androidx.media3.datasource.cache.CacheDataSource.EventListener androidx.media3.datasource.TransferListener {
     ctor public TransferListener(com.google.android.horologist.media3.logging.ErrorReporter appEventLogger);
     method public void onBytesTransferred(androidx.media3.datasource.DataSource source, androidx.media3.datasource.DataSpec dataSpec, boolean isNetwork, int bytesTransferred);
     method public void onCacheIgnored(int reason);
@@ -132,7 +132,7 @@ package com.google.android.horologist.media3.offload {
     property public final long time;
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class AudioOffloadManager {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class AudioOffloadManager {
     ctor public AudioOffloadManager(com.google.android.horologist.media3.logging.ErrorReporter errorReporter, optional kotlinx.coroutines.flow.Flow<? extends com.google.android.horologist.media3.offload.AudioOffloadStrategy> audioOffloadStrategyFlow);
     method @RequiresApi(29) public suspend Object? connect(androidx.media3.exoplayer.ExoPlayer exoPlayer, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener getAudioOffloadListener();
@@ -142,7 +142,7 @@ package com.google.android.horologist.media3.offload {
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media3.offload.AudioOffloadStatus> offloadStatus;
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class AudioOffloadStatus {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class AudioOffloadStatus {
     ctor public AudioOffloadStatus(boolean offloadSchedulingEnabled, boolean sleepingForOffload, optional boolean trackOffload, androidx.media3.common.Format? format, boolean isPlaying, java.util.List<com.google.android.horologist.media3.offload.AudioError> errors, com.google.android.horologist.media3.offload.OffloadTimes offloadTimes, String? strategyStatus, com.google.android.horologist.media3.offload.AudioOffloadStrategy? strategy);
     method public boolean component1();
     method public boolean component2();
@@ -183,7 +183,7 @@ package com.google.android.horologist.media3.offload {
     property public final com.google.android.horologist.media3.offload.AudioOffloadStatus Disabled;
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public interface AudioOffloadStrategy {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface AudioOffloadStrategy {
     method public kotlinx.coroutines.flow.Flow<java.lang.String> applyIndefinitely(androidx.media3.exoplayer.ExoPlayer exoPlayer, com.google.android.horologist.media3.logging.ErrorReporter errorReporter);
     method public boolean getOffloadEnabled();
     property public abstract boolean offloadEnabled;
@@ -203,14 +203,14 @@ package com.google.android.horologist.media3.offload {
     field public static final com.google.android.horologist.media3.offload.AudioOffloadStrategy.Never INSTANCE;
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class BackgroundAudioOffloadStrategy implements com.google.android.horologist.media3.offload.AudioOffloadStrategy {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class BackgroundAudioOffloadStrategy implements com.google.android.horologist.media3.offload.AudioOffloadStrategy {
     method public kotlinx.coroutines.flow.Flow<java.lang.String> applyIndefinitely(androidx.media3.exoplayer.ExoPlayer exoPlayer, com.google.android.horologist.media3.logging.ErrorReporter errorReporter);
     method public boolean getOffloadEnabled();
     property public boolean offloadEnabled;
     field public static final com.google.android.horologist.media3.offload.BackgroundAudioOffloadStrategy INSTANCE;
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class OffloadTimes {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class OffloadTimes {
     ctor public OffloadTimes(optional long enabled, optional long disabled, optional long notPlaying, optional boolean isPlaying, optional long updated);
     method public long component1();
     method public long component2();
@@ -239,18 +239,18 @@ package com.google.android.horologist.media3.offload {
 
 package com.google.android.horologist.media3.rules {
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public interface PlaybackRules {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface PlaybackRules {
     method public suspend Object? canPlayItem(androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
     method public boolean canPlayWithOutput(com.google.android.horologist.audio.AudioOutput audioOutput);
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static final class PlaybackRules.Normal implements com.google.android.horologist.media3.rules.PlaybackRules {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public static final class PlaybackRules.Normal implements com.google.android.horologist.media3.rules.PlaybackRules {
     method public suspend Object? canPlayItem(androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
     method public boolean canPlayWithOutput(com.google.android.horologist.audio.AudioOutput audioOutput);
     field public static final com.google.android.horologist.media3.rules.PlaybackRules.Normal INSTANCE;
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static final class PlaybackRules.SpeakerAllowed implements com.google.android.horologist.media3.rules.PlaybackRules {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public static final class PlaybackRules.SpeakerAllowed implements com.google.android.horologist.media3.rules.PlaybackRules {
     method public suspend Object? canPlayItem(androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
     method public boolean canPlayWithOutput(com.google.android.horologist.audio.AudioOutput audioOutput);
     field public static final com.google.android.horologist.media3.rules.PlaybackRules.SpeakerAllowed INSTANCE;
@@ -271,11 +271,11 @@ package com.google.android.horologist.media3.service {
     property protected abstract androidx.media3.session.MediaLibraryService.MediaLibrarySession mediaLibrarySession;
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkAwareDownloadListener implements androidx.media3.exoplayer.offline.DownloadManager.Listener {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class NetworkAwareDownloadListener implements androidx.media3.exoplayer.offline.DownloadManager.Listener {
     ctor public NetworkAwareDownloadListener(com.google.android.horologist.media3.logging.ErrorReporter appEventLogger, com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator highBandwidthNetworkMediator, com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine);
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public abstract class SuspendingMediaLibrarySessionCallback implements androidx.media3.session.MediaLibraryService.MediaLibrarySession.Callback {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract class SuspendingMediaLibrarySessionCallback implements androidx.media3.session.MediaLibraryService.MediaLibrarySession.Callback {
     ctor public SuspendingMediaLibrarySessionCallback(kotlinx.coroutines.CoroutineScope serviceScope, com.google.android.horologist.media3.logging.ErrorReporter appEventLogger);
     method protected suspend Object? onAddMediaItemsInternal(androidx.media3.session.MediaSession mediaSession, androidx.media3.session.MediaSession.ControllerInfo controller, java.util.List<androidx.media3.common.MediaItem> mediaItems, kotlin.coroutines.Continuation<? super java.util.List<androidx.media3.common.MediaItem>>);
     method protected abstract suspend Object? onGetChildrenInternal(androidx.media3.session.MediaLibraryService.MediaLibrarySession session, androidx.media3.session.MediaSession.ControllerInfo browser, String parentId, int page, int pageSize, androidx.media3.session.MediaLibraryService.LibraryParams? params, kotlin.coroutines.Continuation<? super androidx.media3.session.LibraryResult<com.google.common.collect.ImmutableList<androidx.media3.common.MediaItem>>>);

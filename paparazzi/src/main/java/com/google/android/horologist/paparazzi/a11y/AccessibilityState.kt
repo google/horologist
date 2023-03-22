@@ -17,13 +17,13 @@
 package com.google.android.horologist.paparazzi.a11y
 
 import android.graphics.Rect
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Shared representation of the accessibility elements in a Compose view.
  * A bridge between the ComposeA11yExtension and A11ySnapshotHandler.
  */
-@ExperimentalHorologistPaparazziApi
+@ExperimentalHorologistApi
 public data class AccessibilityState(
     val width: Int,
     val height: Int,

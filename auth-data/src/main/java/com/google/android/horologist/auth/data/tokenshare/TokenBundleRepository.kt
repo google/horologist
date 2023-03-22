@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.auth.data.tokenshare
 
-import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.Flow
  * @sample com.google.android.horologist.auth.sample.screens.tokenshare.customkey.TokenShareCustomKeyViewModel
  * @sample com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.TokenShareDefaultKeyViewModel
  */
-@ExperimentalHorologistAuthDataApi
+@ExperimentalHorologistApi
 public interface TokenBundleRepository<T> {
 
     public val flow: Flow<T>

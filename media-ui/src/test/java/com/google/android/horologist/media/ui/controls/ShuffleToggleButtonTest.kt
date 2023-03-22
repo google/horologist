@@ -15,18 +15,14 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistMediaUiApi::class,
-    ExperimentalHorologistComposeToolsApi::class
+    ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.media.ui.controls
 
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.ShuffleToggleButton
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
@@ -46,7 +42,7 @@ class ShuffleToggleButtonTest {
         }
     }
 
-    @OptIn(ExperimentalHorologistComposeToolsApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun givenShuffleIsOff_thenIconIsShuffle() {
         paparazzi.snapshotInABox {

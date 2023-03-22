@@ -18,7 +18,7 @@
 
 package com.google.android.horologist.networks.highbandwidth
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.request.HighBandwidthRequest
@@ -48,7 +48,7 @@ import kotlin.time.Duration
  * The implementation of [HighBandwidthConnectionLease#awaitGranted] is from the time the lease
  * was granted, not from when the request is made.
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public class StandardHighBandwidthNetworkMediator(
     private val logger: NetworkStatusLogger,
     private val networkRequester: NetworkRequester,

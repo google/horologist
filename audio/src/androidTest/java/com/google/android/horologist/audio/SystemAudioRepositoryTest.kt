@@ -19,6 +19,7 @@ package com.google.android.horologist.audio
 import androidx.test.annotation.UiThreadTest
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,7 +30,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalHorologistAudioApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalHorologistApi::class)
 @MediumTest
 class SystemAudioRepositoryTest {
     @Test

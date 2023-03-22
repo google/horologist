@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Playlist
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 /**
  * Functions to map models from other layers and / or packages into a [PlaylistUiModel].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public object PlaylistUiModelMapper {
 
     /**

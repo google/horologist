@@ -15,22 +15,19 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistMediaUiApi::class,
-    ExperimentalHorologistComposeToolsApi::class,
-    ExperimentalHorologistPaparazziApi::class
+    ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.media.ui
 
 import app.cash.paparazzi.DeviceConfig
 import com.android.resources.ScreenRound
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler

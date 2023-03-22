@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.data.mapper
 
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.media.data.database.model.PopulatedPlaylist
 import com.google.android.horologist.media.model.PlaylistDownload
@@ -24,7 +24,7 @@ import com.google.android.horologist.media.model.PlaylistDownload
 /**
  * Functions to map models from other layers and / or packages into a [PlaylistDownload].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public class PlaylistDownloadMapper(
     private val playlistMapper: PlaylistMapper
 ) {

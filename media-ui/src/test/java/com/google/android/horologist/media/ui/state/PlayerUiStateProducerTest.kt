@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.state
 
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.MediaPositionPredictor
 import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel

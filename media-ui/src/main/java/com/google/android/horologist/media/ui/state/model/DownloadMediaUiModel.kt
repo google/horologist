@@ -16,9 +16,9 @@
 
 package com.google.android.horologist.media.ui.state.model
 
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public sealed class DownloadMediaUiModel(
     public open val id: String,
     public open val title: String? = null,

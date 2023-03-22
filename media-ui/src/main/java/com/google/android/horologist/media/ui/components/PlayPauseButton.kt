@@ -34,13 +34,13 @@ import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.PauseButton
 import com.google.android.horologist.media.ui.components.controls.PlayButton
 import com.google.android.horologist.media.ui.state.ProgressStateHolder
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun PlayPauseButton(
     onPlayClick: () -> Unit,
@@ -86,7 +86,7 @@ public fun PlayPauseButton(
     }
 }
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun PlayPauseProgressButton(
     onPlayClick: () -> Unit,

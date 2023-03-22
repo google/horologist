@@ -30,6 +30,7 @@ gradleEnterprise {
 rootProject.name = "horologist"
 
 include(":sample")
+include(":annotations")
 include(":compose-layout")
 include(":composables")
 include(":audio")

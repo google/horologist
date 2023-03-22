@@ -16,13 +16,13 @@
 
 package com.google.android.horologist.networks.rules.helpers
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import okhttp3.Interceptor
 import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 object DeadEndInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()

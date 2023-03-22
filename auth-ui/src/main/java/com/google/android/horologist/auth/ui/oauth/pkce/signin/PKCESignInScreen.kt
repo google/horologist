@@ -21,12 +21,12 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.CheckYourPhoneScreen
-import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
     failedContent: @Composable () -> Unit,
@@ -58,7 +58,7 @@ public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
     }
 }
 
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
     onAuthSucceed: () -> Unit,

@@ -25,13 +25,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.MarqueeText
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 /**
  * An animated text only display showing scrolling title and still artist in two separated rows.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun MarqueeTextMediaDisplay(
     modifier: Modifier = Modifier,

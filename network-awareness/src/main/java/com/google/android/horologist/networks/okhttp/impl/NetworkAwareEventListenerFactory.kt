@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.networks.okhttp.impl
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.okhttp.highBandwidthConnectionLease
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
@@ -28,7 +28,7 @@ import java.io.IOException
 /**
  * Internal [EventListener] that logs requests as well as closing High Bandwidth Requests.
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public class NetworkAwareEventListenerFactory(
     networkingRulesEngine: NetworkingRulesEngine,
     networkRepository: NetworkRepository,

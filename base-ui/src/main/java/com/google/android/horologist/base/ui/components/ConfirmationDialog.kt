@@ -29,7 +29,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.contentColorFor
 import androidx.wear.compose.material.dialog.Confirmation
 import androidx.wear.compose.material.dialog.DialogDefaults
-import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A wrapper for [Confirmation] component, that calculates the value passed to [durationMillis] for
@@ -37,7 +37,7 @@ import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
  *
  * This should be removed once https://issuetracker.google.com/issues/261385562 is addressed.
  */
-@ExperimentalHorologistBaseUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun ConfirmationDialog(
     onTimeout: () -> Unit,

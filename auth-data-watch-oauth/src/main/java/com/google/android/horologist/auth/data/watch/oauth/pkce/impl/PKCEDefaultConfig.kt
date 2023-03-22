@@ -17,9 +17,9 @@
 package com.google.android.horologist.auth.data.watch.oauth.pkce.impl
 
 import android.net.Uri
-import com.google.android.horologist.auth.data.watch.oauth.ExperimentalHorologistAuthDataWatchOAuthApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistAuthDataWatchOAuthApi
+@ExperimentalHorologistApi
 public data class PKCEDefaultConfig(
     val clientId: String,
     val clientSecret: String,

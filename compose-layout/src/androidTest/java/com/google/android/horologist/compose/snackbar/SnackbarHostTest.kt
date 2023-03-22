@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposeLayoutApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.compose.snackbar
 
@@ -34,7 +34,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.common.truth.Truth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob

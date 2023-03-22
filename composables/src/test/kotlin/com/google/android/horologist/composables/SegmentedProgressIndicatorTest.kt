@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistPaparazziApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.composables
 
@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
@@ -33,7 +33,7 @@ class SegmentedProgressIndicatorTest {
     @get:Rule
     val paparazzi = WearPaparazzi()
 
-    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun segmentedPicker() {
         paparazzi.snapshot {
@@ -61,7 +61,7 @@ class SegmentedProgressIndicatorTest {
         }
     }
 
-    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun segmentedPickerWithBrushColors() {
         paparazzi.snapshot {
@@ -95,7 +95,7 @@ class SegmentedProgressIndicatorTest {
         }
     }
 
-    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun segmentedPickerWithBrushColorsAndColorsCombined() {
         paparazzi.snapshot {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistHealthComposablesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.health.composables
 
@@ -36,6 +36,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.WearPreview
 import kotlinx.coroutines.delay
 import java.time.Duration
@@ -61,7 +62,7 @@ import java.time.Instant
  *     from [ExerciseClient].
  * @param content The content slot taking a duration.
  */
-@ExperimentalHorologistHealthComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun ActiveDurationText(
     checkpoint: ExerciseUpdate.ActiveDurationCheckpoint,

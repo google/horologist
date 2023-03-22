@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.health.composables
+package com.google.android.horologist.annotations
 
 @RequiresOptIn(
-    message = "Horologist Health Composables is experimental. The API may be changed in the future."
+    message = "Horologist API is experimental. The API may be changed in the future."
 )
 @Retention(AnnotationRetention.BINARY)
-public annotation class ExperimentalHorologistHealthComposablesApi
+public annotation class ExperimentalHorologistApi

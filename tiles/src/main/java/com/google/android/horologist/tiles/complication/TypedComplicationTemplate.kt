@@ -29,12 +29,12 @@ import androidx.wear.watchface.complications.data.PhotoImageComplicationData
 import androidx.wear.watchface.complications.data.RangedValueComplicationData
 import androidx.wear.watchface.complications.data.ShortTextComplicationData
 import androidx.wear.watchface.complications.data.SmallImageComplicationData
-import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A complication provider that support distinct render methods.
  */
-@ExperimentalHorologistTilesApi
+@ExperimentalHorologistApi
 public abstract class TypedComplicationTemplate<T>(override val context: Context) :
     ComplicationTemplate<T> {
     final override fun render(type: ComplicationType, data: T): ComplicationData {

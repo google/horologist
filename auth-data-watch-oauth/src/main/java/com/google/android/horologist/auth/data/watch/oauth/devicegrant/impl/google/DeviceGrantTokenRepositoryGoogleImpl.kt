@@ -21,8 +21,8 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import androidx.wear.remote.interactions.RemoteActivityHelper
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenRepository
-import com.google.android.horologist.auth.data.watch.oauth.ExperimentalHorologistAuthDataWatchOAuthApi
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.DeviceCodeResponse
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService.Companion.GRANT_TYPE_PARAM_AUTH_DEVICE_GRANT_VALUE
@@ -32,7 +32,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.guava.await
 
-@ExperimentalHorologistAuthDataWatchOAuthApi
+@ExperimentalHorologistApi
 public class DeviceGrantTokenRepositoryGoogleImpl(
     private val application: Application,
     private val googleOAuthService: GoogleOAuthService

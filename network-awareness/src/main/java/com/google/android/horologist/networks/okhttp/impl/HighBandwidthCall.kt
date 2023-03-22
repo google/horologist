@@ -17,7 +17,7 @@
 package com.google.android.horologist.networks.okhttp.impl
 
 import androidx.annotation.GuardedBy
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
 import com.google.android.horologist.networks.okhttp.highBandwidthConnectionLease
@@ -40,7 +40,7 @@ import java.io.IOException
  * time to bring up a high bandwidth network in response to an
  * OkHttp call.
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 internal class HighBandwidthCall(
     private val callFactory: NetworkSelectingCallFactory,
     private val request: Request

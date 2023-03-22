@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.screens.player
 
@@ -40,9 +40,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.MediaInfoDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiController
@@ -62,7 +62,7 @@ public typealias PlayerBackground = @Composable BoxScope.(playerUiState: PlayerU
  * control buttons.
  * This version listens to [PlayerUiState]s emitted from [PlayerViewModel] to update the screen.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun PlayerScreen(
     playerViewModel: PlayerViewModel,
@@ -97,7 +97,7 @@ public fun PlayerScreen(
 /**
  * Default [MediaDisplay] implementation for [PlayerScreen] including player status.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun DefaultMediaInfoDisplay(
     playerUiState: PlayerUiState,
@@ -113,7 +113,7 @@ public fun DefaultMediaInfoDisplay(
 /**
  * Default [ControlButtons] implementation for [PlayerScreen].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun DefaultPlayerScreenControlButtons(
     playerController: PlayerUiController,
@@ -135,7 +135,7 @@ public fun DefaultPlayerScreenControlButtons(
 /**
  * Media Player screen that offers slots for media display, control buttons, buttons and background.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun PlayerScreen(
     mediaDisplay: @Composable ColumnScope.() -> Unit,

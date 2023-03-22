@@ -18,10 +18,11 @@ package com.google.android.horologist.paparazzi
 
 import app.cash.paparazzi.Snapshot
 import app.cash.paparazzi.SnapshotHandler
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.awt.geom.Ellipse2D
 import java.awt.image.BufferedImage
 
-@ExperimentalHorologistPaparazziApi
+@ExperimentalHorologistApi
 public class WearSnapshotHandler(
     private val delegate: SnapshotHandler,
     private val round: Boolean = true

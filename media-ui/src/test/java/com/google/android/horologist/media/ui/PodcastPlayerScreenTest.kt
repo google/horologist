@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistPaparazziApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui
 
@@ -22,12 +22,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test

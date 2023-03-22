@@ -17,7 +17,7 @@ package com.google.android.horologist.compose.tools {
   }
 
   public final class SnapshotInABoxKt {
-    method @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void snapshotInABox(app.cash.paparazzi.Paparazzi, optional androidx.compose.ui.Modifier boxModifier, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void snapshotInABox(app.cash.paparazzi.Paparazzi, optional androidx.compose.ui.Modifier boxModifier, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
   }
 
   public final class ThemeValues {
@@ -42,7 +42,7 @@ package com.google.android.horologist.compose.tools {
   }
 
   public final class TilePreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void LayoutElementPreview(androidx.wear.tiles.LayoutElementBuilders.LayoutElement element, optional @ColorInt int windowBackgroundColor, optional kotlin.jvm.functions.Function1<? super androidx.wear.tiles.ResourceBuilders.Resources.Builder,kotlin.Unit> tileResourcesFn);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void LayoutElementPreview(androidx.wear.tiles.LayoutElementBuilders.LayoutElement element, optional @ColorInt int windowBackgroundColor, optional kotlin.jvm.functions.Function1<? super androidx.wear.tiles.ResourceBuilders.Resources.Builder,kotlin.Unit> tileResourcesFn);
     method @androidx.compose.runtime.Composable public static void LayoutRootPreview(androidx.wear.tiles.LayoutElementBuilders.LayoutElement root, optional kotlin.jvm.functions.Function1<? super androidx.wear.tiles.ResourceBuilders.Resources.Builder,kotlin.Unit> tileResourcesFn);
     method @androidx.compose.runtime.Composable public static <T, R> void TileLayoutPreview(T? state, R? resourceState, com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> renderer);
     method @androidx.compose.runtime.Composable public static void TilePreview(androidx.wear.tiles.TileBuilders.Tile tile, androidx.wear.tiles.ResourceBuilders.Resources tileResources);
@@ -84,7 +84,7 @@ package com.google.android.horologist.compose.tools {
 
 package com.google.android.horologist.compose.tools.a11y {
 
-  @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public final class ComposeA11yExtension implements app.cash.paparazzi.RenderExtension {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class ComposeA11yExtension implements app.cash.paparazzi.RenderExtension {
     ctor public ComposeA11yExtension();
     method public com.google.android.horologist.paparazzi.a11y.AccessibilityState getAccessibilityState();
     method public android.view.View renderView(android.view.View contentView);

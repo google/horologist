@@ -24,7 +24,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.activity.ComponentActivity
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.Networks
@@ -40,7 +40,7 @@ import java.time.Instant
 import java.util.concurrent.ConcurrentHashMap
 
 @SuppressLint("MissingPermission")
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public class NetworkRepositoryImpl(
     private val connectivityManager: ConnectivityManager,
     private val coroutineScope: CoroutineScope
@@ -210,7 +210,7 @@ public class NetworkRepositoryImpl(
     }
 
     public companion object {
-        @ExperimentalHorologistNetworksApi
+        @ExperimentalHorologistApi
         public fun fromContext(
             application: Context,
             coroutineScope: CoroutineScope

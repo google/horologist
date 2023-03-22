@@ -21,7 +21,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
 import kotlinx.coroutines.flow.Flow
@@ -29,7 +29,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * DAO for [MediaDownloadEntity].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 @Dao
 public interface MediaDownloadDao {
 

@@ -70,14 +70,7 @@ android {
 
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
-            "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
-            "-opt-in=com.google.android.horologist.auth.data.watch.oauth.ExperimentalHorologistAuthDataWatchOAuthApi",
-            "-opt-in=com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi",
-            "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
-            "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi",
-            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi",
-            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi",
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
         )
     }
 
@@ -89,6 +82,8 @@ android {
 }
 
 dependencies {
+    api(projects.annotations)
+
     implementation(projects.authComposables)
     implementation(projects.authData)
     implementation(projects.authDataWatchOauth)

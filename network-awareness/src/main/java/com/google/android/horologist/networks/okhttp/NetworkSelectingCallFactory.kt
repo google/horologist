@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.networks.okhttp
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.RequestType
@@ -41,7 +41,7 @@ import java.util.concurrent.ConcurrentHashMap
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public class NetworkSelectingCallFactory(
     internal val networkingRulesEngine: NetworkingRulesEngine,
     internal val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,

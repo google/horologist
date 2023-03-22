@@ -22,15 +22,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 /**
  * A screen that displays a media collection and allow actions to be taken on it.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun EntityScreen(
     columnState: ScalingLazyColumnState,
@@ -63,7 +63,7 @@ public fun EntityScreen(
 /**
  * A screen that displays a [Media] collection and allow actions to be taken on it.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun <Media> EntityScreen(
     columnState: ScalingLazyColumnState,
@@ -90,7 +90,7 @@ public fun <Media> EntityScreen(
  * A screen that displays a [Media] collection and allow actions to be taken on it.
  * The content displayed is based on the screen's [state][EntityScreenState].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun <Media> EntityScreen(
     columnState: ScalingLazyColumnState,
@@ -141,7 +141,7 @@ public fun <Media> EntityScreen(
 /**
  * Represents the state of [EntityScreen].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public sealed class EntityScreenState<out Media> {
     public object Loading : EntityScreenState<Nothing>()
 
@@ -155,7 +155,7 @@ public sealed class EntityScreenState<out Media> {
 /**
  * A default implementation of a header for [EntityScreen].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun DefaultEntityScreenHeader(
     title: String,

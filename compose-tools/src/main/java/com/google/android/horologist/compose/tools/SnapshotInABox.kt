@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import app.cash.paparazzi.Paparazzi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Paparazzi extension function to default wrap our snapshots in a box
@@ -35,7 +36,7 @@ import app.cash.paparazzi.Paparazzi
  * @param boxModifier Modifier for the box that the snapshot is wrapped in.
  * @param content Composable content that we want to snapshot.
  */
-@ExperimentalHorologistComposeToolsApi
+@ExperimentalHorologistApi
 public fun Paparazzi.snapshotInABox(
     boxModifier: Modifier = Modifier,
     content: @Composable BoxScope.() -> Unit

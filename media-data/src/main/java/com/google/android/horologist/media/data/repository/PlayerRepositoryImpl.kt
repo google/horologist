@@ -19,7 +19,7 @@ package com.google.android.horologist.media.data.repository
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
@@ -44,7 +44,7 @@ import kotlin.time.toDuration
  * The current implementation is available as soon as the ListenableFuture
  * to connect to the MediaSession completes.
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public class PlayerRepositoryImpl(
     private val mediaMapper: MediaMapper = MediaMapper(MediaExtrasMapperNoopImpl),
     private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl),

@@ -18,7 +18,7 @@ package com.google.android.horologist.paparazzi.a11y
 
 import app.cash.paparazzi.Snapshot
 import app.cash.paparazzi.SnapshotHandler
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.awt.AlphaComposite
 import java.awt.BasicStroke
 import java.awt.Color
@@ -31,7 +31,7 @@ import kotlin.math.max
  * A Paparazzi SnapshotHandler that renders the snapshot, with a light colored overlay,
  * and adjacent to a legend with matching colors.
  */
-@ExperimentalHorologistPaparazziApi
+@ExperimentalHorologistApi
 public class A11ySnapshotHandler(
     private val delegate: SnapshotHandler,
     private val accessibilityStateFn: () -> AccessibilityState,

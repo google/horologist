@@ -30,12 +30,12 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ToggleButton
 import androidx.wear.compose.material.ToggleButtonColors
 import androidx.wear.compose.material.ToggleButtonDefaults.toggleButtonColors
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties.iconImageVector
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun ShuffleToggleButton(
     shuffleOn: Boolean,

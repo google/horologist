@@ -21,8 +21,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.fillMaxRectangle
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @Composable
@@ -34,7 +34,7 @@ fun FillMaxRectangleScreen() {
     )
 }
 
-@OptIn(ExperimentalHorologistComposeToolsApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @WearPreviewDevices
 @Composable
 fun FillMaxRectanglePreview() {

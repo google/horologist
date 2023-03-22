@@ -73,20 +73,7 @@ android {
         freeCompilerArgs = freeCompilerArgs + """
             androidx.compose.ui.ExperimentalComposeUiApi
             androidx.wear.compose.material.ExperimentalWearMaterialApi
-            com.google.android.horologist.audio.ExperimentalHorologistAudioApi
-            com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
-            com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
-            com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
-            com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
-            com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
-            com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
-            com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
-            com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
-            com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
-            com.google.android.horologist.media.ExperimentalHorologistMediaApi
-            com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-            com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-            com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+            com.google.android.horologist.annotations.ExperimentalHorologistApi
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
             """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
@@ -136,6 +123,8 @@ protobuf {
 }
 
 dependencies {
+    api(projects.annotations)
+
     implementation(projects.baseUi)
     implementation(projects.composeLayout)
     implementation(projects.audio)

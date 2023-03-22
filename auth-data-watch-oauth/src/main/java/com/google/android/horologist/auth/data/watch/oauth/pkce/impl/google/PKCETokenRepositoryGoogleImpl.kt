@@ -17,8 +17,8 @@
 package com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google
 
 import android.util.Log
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.oauth.pkce.PKCETokenRepository
-import com.google.android.horologist.auth.data.watch.oauth.ExperimentalHorologistAuthDataWatchOAuthApi
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService.Companion.GRANT_TYPE_PARAM_AUTH_CODE_GRANT_VALUE
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.TokenResponse
@@ -26,7 +26,7 @@ import com.google.android.horologist.auth.data.watch.oauth.common.logging.TAG
 import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.PKCEDefaultConfig
 import kotlinx.coroutines.CancellationException
 
-@ExperimentalHorologistAuthDataWatchOAuthApi
+@ExperimentalHorologistApi
 public class PKCETokenRepositoryGoogleImpl(
     private val googleOAuthService: GoogleOAuthService
 ) : PKCETokenRepository<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse> {

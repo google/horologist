@@ -23,7 +23,7 @@ import android.net.Uri
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import com.google.android.gms.wearable.PutDataRequest
-import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearDataLayerRegistry.Companion.buildUri
@@ -41,7 +41,7 @@ import java.io.ByteArrayOutputStream
 
 // Workaround https://issuetracker.google.com/issues/239451111
 @SuppressLint("VisibleForTests")
-@ExperimentalHorologistDataLayerApi
+@ExperimentalHorologistApi
 public class WearLocalDataStore<T>(
     private val wearDataLayerRegistry: WearDataLayerRegistry,
     started: SharingStarted = SharingStarted.Eagerly,

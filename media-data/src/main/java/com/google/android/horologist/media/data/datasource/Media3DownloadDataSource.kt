@@ -21,14 +21,14 @@ import android.content.Context
 import android.net.Uri
 import androidx.media3.exoplayer.offline.DownloadRequest
 import androidx.media3.exoplayer.offline.DownloadService
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.MediaDownload
 
 /**
  * Media3 data source of [MediaDownload].
  */
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public class Media3DownloadDataSource(
     private val context: Context,
     private val downloadService: Class<out DownloadService>

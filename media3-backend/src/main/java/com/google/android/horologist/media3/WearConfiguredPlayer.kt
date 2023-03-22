@@ -21,6 +21,7 @@ import android.util.Log
 import androidx.media3.common.ForwardingPlayer
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.flows.isPlayingFlow
@@ -40,7 +41,7 @@ import kotlinx.coroutines.withContext
  * @see [PlaybackRules]
  */
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public class WearConfiguredPlayer(
     player: Player,
     private val audioOutputRepository: AudioOutputRepository,

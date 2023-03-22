@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposeLayoutApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.compose.navscaffold
 
@@ -53,6 +53,7 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
@@ -223,7 +224,7 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
  *
  * The [ScalingLazyColumnState] must be taken from the [ScrollableScaffoldContext].
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public fun NavGraphBuilder.scrollable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -319,7 +320,7 @@ public fun NavGraphBuilder.wearNavComposable(
  * [NavScaffoldViewModel] are passed into the [content] block so that
  * the Scaffold may be customised, such as disabling TimeText.
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public fun NavGraphBuilder.composable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),

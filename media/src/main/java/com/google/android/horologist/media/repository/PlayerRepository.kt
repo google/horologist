@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.repository
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlaybackState
@@ -24,7 +24,7 @@ import com.google.android.horologist.media.model.PlaybackStateEvent
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.time.Duration
 
-@ExperimentalHorologistMediaApi
+@ExperimentalHorologistApi
 public interface PlayerRepository {
 
     /**

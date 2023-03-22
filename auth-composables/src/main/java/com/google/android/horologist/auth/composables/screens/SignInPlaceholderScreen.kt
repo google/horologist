@@ -36,7 +36,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 
 private const val AVATAR_BACKGROUND_COLOR = 0xFF3C4043
@@ -49,7 +49,7 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
  *
  * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120"/>
  */
-@ExperimentalHorologistAuthComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun SignInPlaceholderScreen(
     modifier: Modifier = Modifier,

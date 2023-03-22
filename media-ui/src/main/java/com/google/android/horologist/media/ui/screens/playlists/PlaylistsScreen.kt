@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposablesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.screens.playlists
 
@@ -25,19 +25,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
-import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun <T> PlaylistsScreen(
     columnState: ScalingLazyColumnState,
@@ -53,7 +52,7 @@ public fun <T> PlaylistsScreen(
     )
 }
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun <T> PlaylistsScreen(
     columnState: ScalingLazyColumnState,
@@ -93,7 +92,7 @@ public fun <T> PlaylistsScreen(
     }
 }
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun PlaylistsScreen(
     columnState: ScalingLazyColumnState,
@@ -124,7 +123,7 @@ public fun PlaylistsScreen(
 /**
  * Represents the state of [PlaylistsScreen].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public sealed class PlaylistsScreenState<out T> {
 
     public object Loading : PlaylistsScreenState<Nothing>()

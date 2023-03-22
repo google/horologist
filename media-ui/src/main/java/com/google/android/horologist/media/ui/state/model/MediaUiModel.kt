@@ -17,9 +17,9 @@
 package com.google.android.horologist.media.ui.state.model
 
 import androidx.compose.ui.graphics.Color
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public data class MediaUiModel(
     val id: String,
     val title: String,

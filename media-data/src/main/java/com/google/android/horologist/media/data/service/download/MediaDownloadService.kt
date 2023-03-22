@@ -30,7 +30,7 @@ import androidx.media3.exoplayer.offline.DownloadNotificationHelper
 import androidx.media3.exoplayer.offline.DownloadService
 import androidx.media3.exoplayer.scheduler.Scheduler
 import androidx.media3.exoplayer.workmanager.WorkManagerScheduler
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Implementation of [DownloadService] that:
@@ -46,7 +46,7 @@ import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataA
  * @param notificationIcon see `smallIcon` in [DownloadNotificationHelper.buildProgressNotification].
  */
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public abstract class MediaDownloadService(
     foregroundNotificationId: Int,
     foregroundNotificationUpdateInterval: Long,

@@ -21,13 +21,13 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.CheckYourPhoneScreen
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
-import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> DeviceGrantSignInScreen(
     failedContent: @Composable () -> Unit,
@@ -63,7 +63,7 @@ public fun <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> DeviceGran
     }
 }
 
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> DeviceGrantSignInScreen(
     onAuthSucceed: () -> Unit,

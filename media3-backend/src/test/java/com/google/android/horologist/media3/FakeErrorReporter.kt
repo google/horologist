@@ -16,9 +16,10 @@
 
 package com.google.android.horologist.media3
 
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 
-@OptIn(ExperimentalHorologistMedia3BackendApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 open class FakeErrorReporter : ErrorReporter {
     val messages = mutableListOf<Int>()
     val logs = mutableListOf<String>()

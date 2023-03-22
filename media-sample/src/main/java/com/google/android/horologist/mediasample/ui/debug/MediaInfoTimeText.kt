@@ -26,8 +26,8 @@ import androidx.wear.compose.foundation.CurvedTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.offload.AudioOffloadStatus
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
@@ -84,7 +84,7 @@ public fun MediaInfoTimeText(
     )
 }
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public fun CurvedScope.offloadDataStatus(
     offloadStatus: AudioOffloadStatus?,
     style: CurvedTextStyle

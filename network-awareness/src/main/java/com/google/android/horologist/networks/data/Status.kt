@@ -16,27 +16,27 @@
 
 package com.google.android.horologist.networks.data
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.time.Instant
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public sealed class Status(public val order: Int) {
-    @ExperimentalHorologistNetworksApi
+    @ExperimentalHorologistApi
     public object Available : Status(order = 1) {
         override fun toString(): String = "Available"
     }
 
-    @ExperimentalHorologistNetworksApi
+    @ExperimentalHorologistApi
     public class Losing(public val instant: Instant) : Status(order = 2) {
         override fun toString(): String = "Losing"
     }
 
-    @ExperimentalHorologistNetworksApi
+    @ExperimentalHorologistApi
     public object Lost : Status(order = 3) {
         override fun toString(): String = "Lost"
     }
 
-    @ExperimentalHorologistNetworksApi
+    @ExperimentalHorologistApi
     public object Unknown : Status(order = 4) {
         override fun toString(): String = "Unknown"
     }

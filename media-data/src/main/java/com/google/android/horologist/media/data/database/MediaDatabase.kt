@@ -18,7 +18,7 @@ package com.google.android.horologist.media.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.dao.MediaDao
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
 import com.google.android.horologist.media.data.database.dao.PlaylistDao
@@ -28,7 +28,7 @@ import com.google.android.horologist.media.data.database.model.MediaEntity
 import com.google.android.horologist.media.data.database.model.PlaylistEntity
 import com.google.android.horologist.media.data.database.model.PlaylistMediaEntity
 
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 @Database(
     entities = [
         MediaDownloadEntity::class,

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAuthUiApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.auth.composables.screens
 
 import androidx.compose.runtime.Composable
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
-import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState
 import com.google.android.horologist.base.ui.components.StandardChipType

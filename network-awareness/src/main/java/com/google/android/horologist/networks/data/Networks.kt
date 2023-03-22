@@ -17,13 +17,13 @@
 package com.google.android.horologist.networks.data
 
 import android.net.ConnectivityManager
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.net.InetAddress
 
 /**
  * A data class for the full current state of the interesting parts of [ConnectivityManager].
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public data class Networks(
     val activeNetwork: NetworkStatus?,
     val networks: List<NetworkStatus>

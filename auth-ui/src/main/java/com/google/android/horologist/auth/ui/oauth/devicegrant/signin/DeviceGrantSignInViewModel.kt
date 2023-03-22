@@ -18,18 +18,18 @@ package com.google.android.horologist.auth.ui.oauth.devicegrant.signin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantConfigRepository
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenPayloadListener
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenPayloadListenerNoOpImpl
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenRepository
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantVerificationInfoRepository
-import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 public open class DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayload, TokenPayload>(
     private val deviceGrantConfigRepository: DeviceGrantConfigRepository<DeviceGrantConfig>,
     private val deviceGrantVerificationInfoRepository: DeviceGrantVerificationInfoRepository<DeviceGrantConfig, VerificationInfoPayload>,
@@ -76,7 +76,7 @@ public open class DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayloa
     }
 }
 
-@ExperimentalHorologistAuthUiApi
+@ExperimentalHorologistApi
 public sealed class DeviceGrantScreenState {
     public object Idle : DeviceGrantScreenState()
     public object Loading : DeviceGrantScreenState()

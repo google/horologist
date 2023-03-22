@@ -18,19 +18,19 @@ package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Media
 
 /**
  * Custom implementation to populate [Media.extras] with values from [MediaItem].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public interface MediaExtrasMapper {
 
     public fun map(mediaItem: MediaItem, mediaMetadata: MediaMetadata?): Map<String, Any>
 }
 
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public object MediaExtrasMapperNoopImpl : MediaExtrasMapper {
 
     override fun map(mediaItem: MediaItem, mediaMetadata: MediaMetadata?): Map<String, Any> = emptyMap()

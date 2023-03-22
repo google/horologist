@@ -20,7 +20,7 @@ import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import androidx.media3.exoplayer.offline.DownloadManager
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_START
 import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
 import kotlinx.coroutines.CoroutineScope
@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
  * the progress.
  */
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public class DownloadProgressMonitor(
     private val coroutineScope: CoroutineScope,
     private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource

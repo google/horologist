@@ -33,8 +33,8 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.ScalingParams
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
@@ -45,7 +45,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults as WearSc
  * A Config and State object wrapping up all configuration for a [ScalingLazyColumn].
  * This allows defaults such as [ScalingLazyColumnDefaults.belowTimeText].
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public class ScalingLazyColumnState(
     public val initialScrollPosition: ScrollPosition = ScrollPosition(1, 0),
     public val autoCentering: AutoCenteringParams? = AutoCenteringParams(
@@ -98,7 +98,7 @@ public class ScalingLazyColumnState(
     }
 }
 
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 @Composable
 public fun ScalingLazyColumn(
     columnState: ScalingLazyColumnState,

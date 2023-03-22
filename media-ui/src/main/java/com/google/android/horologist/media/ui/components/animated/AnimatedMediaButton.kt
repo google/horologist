@@ -35,14 +35,14 @@ import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieDynamicProperties
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.launch
 import androidx.compose.ui.semantics.contentDescription as contentDescriptionProperty
 
 /**
  * A base button for media controls.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun AnimatedMediaButton(
     onClick: () -> Unit,

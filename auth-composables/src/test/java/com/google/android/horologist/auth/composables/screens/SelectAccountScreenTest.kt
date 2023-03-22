@@ -15,20 +15,16 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistAuthComposablesApi::class,
-    ExperimentalHorologistComposeToolsApi::class
+    ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.auth.composables.screens
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
-import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.test.toolbox.positionedState
 import org.junit.Rule

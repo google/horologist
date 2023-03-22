@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaDataApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.data.repository
 
@@ -26,7 +26,7 @@ import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.playUntilPosit
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.runUntilPendingCommandsAreFullyHandled
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.runUntilPlaybackState
 import androidx.test.core.app.ApplicationProvider
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media.model.Command
@@ -57,7 +57,7 @@ class PlayerRepositoryImplTest {
 
     private lateinit var mediaItemMapper: MediaItemMapper
 
-    @OptIn(ExperimentalHorologistMediaDataApi::class)
+    @OptIn(ExperimentalHorologistApi::class)
     @Before
     fun setUp() {
         // execute all tasks posted to main looper

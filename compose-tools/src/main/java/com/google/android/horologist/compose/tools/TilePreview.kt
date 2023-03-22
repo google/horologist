@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistTilesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.compose.tools
 
@@ -44,7 +44,7 @@ import androidx.wear.tiles.ResourceBuilders
 import androidx.wear.tiles.StateBuilders.State
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TimelineBuilders
-import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.render.TileLayoutRenderer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
@@ -103,7 +103,7 @@ public fun TilePreview(
 /**
  * Preview a smaller tile component such as a Button, that is not full screen.
  */
-@ExperimentalHorologistComposeToolsApi
+@ExperimentalHorologistApi
 @Composable
 public fun LayoutElementPreview(
     element: LayoutElement,

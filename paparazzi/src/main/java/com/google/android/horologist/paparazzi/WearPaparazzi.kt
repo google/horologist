@@ -21,10 +21,11 @@ import app.cash.paparazzi.Paparazzi
 import app.cash.paparazzi.RenderExtension
 import app.cash.paparazzi.SnapshotHandler
 import com.android.ide.common.rendering.api.SessionParams
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 private const val DefaultMaxPercentDifference = 0.1
 
-@ExperimentalHorologistPaparazziApi
+@ExperimentalHorologistApi
 public fun WearPaparazzi(
     deviceConfig: DeviceConfig = DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE,
     theme: String = "android:ThemeOverlay.Material.Dark",

@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.networks.okhttp.impl
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.okhttp.networkInfo
 import com.google.android.horologist.networks.okhttp.requestType
 import com.google.android.horologist.networks.rules.ForbiddenRequest
@@ -32,7 +32,7 @@ import okhttp3.Response
  * No specific rules are implemented, instead deferring to
  * [com.google.android.horologist.networks.rules.NetworkingRules]
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public class RequestVerifyingInterceptor(
     private val networkingRulesEngine: NetworkingRulesEngine
 ) : Interceptor {

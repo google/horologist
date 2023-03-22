@@ -17,14 +17,14 @@
 package com.google.android.horologist.media3.rules
 
 import androidx.media3.common.MediaItem
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 
 /**
  * Configuration rules for how restrictive or permissive the app should
  * be for actions like playing live streams.
  */
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public interface PlaybackRules {
     /**
      * Can the given item be played with it's given state.
@@ -36,7 +36,7 @@ public interface PlaybackRules {
      */
     public fun canPlayWithOutput(audioOutput: AudioOutput): Boolean
 
-    @ExperimentalHorologistMedia3BackendApi
+    @ExperimentalHorologistApi
     public object Normal : PlaybackRules {
         override suspend fun canPlayItem(mediaItem: MediaItem): Boolean = true
 
@@ -44,7 +44,7 @@ public interface PlaybackRules {
             audioOutput is AudioOutput.BluetoothHeadset
     }
 
-    @ExperimentalHorologistMedia3BackendApi
+    @ExperimentalHorologistApi
     public object SpeakerAllowed : PlaybackRules {
         override suspend fun canPlayItem(mediaItem: MediaItem): Boolean = true
 

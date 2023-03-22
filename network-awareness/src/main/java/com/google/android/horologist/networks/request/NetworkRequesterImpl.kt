@@ -19,14 +19,14 @@ package com.google.android.horologist.networks.request
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkType.Unknown
 import com.google.android.horologist.networks.data.id
 import com.google.android.horologist.networks.data.networkType
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.Instant
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public class NetworkRequesterImpl(
     private val connectivityManager: ConnectivityManager
 ) : NetworkRequester {

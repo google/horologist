@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposeToolsApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.composables
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import java.time.LocalTime
@@ -27,7 +27,7 @@ import java.time.LocalTime
 @WearPreviewDevices
 @WearPreviewFontSizes
 @Composable
-@OptIn(ExperimentalHorologistComposablesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 fun TimePicker12hPreview() {
     // Due to a limitation with ScalingLazyColumn,
     // previews only work in interactive mode.

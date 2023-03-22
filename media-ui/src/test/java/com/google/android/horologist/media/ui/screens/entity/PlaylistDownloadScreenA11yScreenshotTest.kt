@@ -15,9 +15,7 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistMediaUiApi::class,
-    ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistComposeToolsApi::class
+    ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.media.ui.screens.entity
@@ -25,15 +23,13 @@ package com.google.android.horologist.media.ui.screens.entity
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.ui.graphics.Color
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.components.positionedState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.WearSnapshotHandler

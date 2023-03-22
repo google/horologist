@@ -17,7 +17,7 @@
 package com.google.android.horologist.networks.rules.helpers
 
 import android.net.Network
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkType
@@ -27,7 +27,7 @@ import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.net.InetAddress
 
-@OptIn(ExperimentalHorologistNetworksApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 class FakeNetworkRepository : NetworkRepository {
     private var defaultNetworks = listOf(BtNetwork)
     private var pinned: NetworkType? = null

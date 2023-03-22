@@ -19,7 +19,7 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.ButtonColors
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
@@ -29,7 +29,7 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  * Standard media control buttons with no progress indicator, showing [SeekToPreviousButton],
  * [PlayPauseButton] and [SeekToNextButton].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun MediaControlButtons(
     onPlayButtonClick: () -> Unit,
@@ -62,7 +62,7 @@ public fun MediaControlButtons(
  * Standard media control buttons, showing [SeekToPreviousButton], [PlayPauseProgressButton] and
  * [SeekToNextButton].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun MediaControlButtons(
     onPlayButtonClick: () -> Unit,

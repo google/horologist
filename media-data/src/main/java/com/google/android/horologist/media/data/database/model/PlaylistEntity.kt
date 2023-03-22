@@ -18,12 +18,12 @@ package com.google.android.horologist.media.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A table to store playlist information.
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 @Entity
 public data class PlaylistEntity(
     @PrimaryKey val playlistId: String,

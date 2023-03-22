@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMedia3BackendApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media3.logging
 
 import androidx.annotation.StringRes
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Simple API to allow switching logic for logging and showing user messages.
  */
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public interface ErrorReporter {
     public fun showMessage(@StringRes message: Int)
 

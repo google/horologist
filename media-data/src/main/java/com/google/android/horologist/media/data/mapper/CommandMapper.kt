@@ -23,13 +23,13 @@ import androidx.media3.common.Player.COMMAND_SEEK_FORWARD
 import androidx.media3.common.Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM
 import androidx.media3.common.Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM
 import androidx.media3.common.Player.COMMAND_SET_SHUFFLE_MODE
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Command
 
 /**
  * Maps [Player.Command] into a [Command].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public object CommandMapper {
 
     public fun map(@Player.Command command: Int): Command =

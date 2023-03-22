@@ -19,13 +19,13 @@ package com.google.android.horologist.media.ui.components.display
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.R
 
 /**
  * A media display indicating nothing is playing.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun NothingPlayingDisplay(modifier: Modifier = Modifier) {
     MessageMediaDisplay(

@@ -35,6 +35,8 @@ metalava {
 }
 
 dependencies {
+    api(projects.annotations)
+
     implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(libs.junit)

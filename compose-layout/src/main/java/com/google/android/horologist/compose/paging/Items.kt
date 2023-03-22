@@ -23,7 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.paging.compose.LazyPagingItems
 import androidx.wear.compose.foundation.lazy.ScalingLazyListItemScope
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Adds the [LazyPagingItems] and their content to the scope. The range from 0 (inclusive) to
@@ -45,7 +45,7 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
  * [itemContent] method should handle the logic of displaying a placeholder instead of the main
  * content displayed by an item which is not `null`.
  */
-@ExperimentalHorologistComposeLayoutApi
+@ExperimentalHorologistApi
 public fun <T : Any> ScalingLazyListScope.items(
     items: LazyPagingItems<T>,
     key: ((item: T) -> Any)? = null,

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistPaparazziApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.compose.tools.a11y
 
@@ -29,8 +29,7 @@ import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import app.cash.paparazzi.RenderExtension
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
-import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.paparazzi.a11y.AccessibilityState
 
 /**
@@ -42,7 +41,7 @@ import com.google.android.horologist.paparazzi.a11y.AccessibilityState
  * the [accessibilityState] list.
  */
 @SuppressLint("VisibleForTests")
-@ExperimentalHorologistComposeToolsApi
+@ExperimentalHorologistApi
 public class ComposeA11yExtension : RenderExtension {
     public lateinit var accessibilityState: AccessibilityState
 

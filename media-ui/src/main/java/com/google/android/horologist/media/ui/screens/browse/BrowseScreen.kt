@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposablesApi::class)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.media.ui.screens.browse
 
@@ -28,15 +28,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
-import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
@@ -51,7 +50,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
  * - a section to display user's list of [playlists][BrowseScreenScope.playlistsSection];
  * - a [button][BrowseScreenScope.button] to be used to navigate to another screen;
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun BrowseScreen(
     columnState: ScalingLazyColumnState,
@@ -68,7 +67,7 @@ public fun BrowseScreen(
 /**
  * Receiver scope which is used by content parameter in [BrowseScreen].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @BrowseScreenScopeMarker
 public class BrowseScreenScope {
 
@@ -195,7 +194,7 @@ internal annotation class BrowseScreenScopeMarker
 /**
  * Receiver scope which is used by content parameter in [BrowseScreenScope].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 @BrowseScreenScopeMarker
 public class BrowseScreenSectionScope<T> {
 
@@ -227,7 +226,7 @@ public class BrowseScreenSectionScope<T> {
 /**
  * Represents the state of [BrowseScreen].
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public sealed class BrowseScreenState {
 
     public object Loading : BrowseScreenState()
@@ -239,7 +238,7 @@ public sealed class BrowseScreenState {
     public object Failed : BrowseScreenState()
 }
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public data class BrowseScreenPlaylistsSectionButton(
     @StringRes val textId: Int,
     val icon: ImageVector,

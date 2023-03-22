@@ -17,10 +17,10 @@
 package com.google.android.horologist.media3.offload
 
 import androidx.media3.common.Format
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.util.shortDescription
 
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public data class AudioOffloadStatus(
     public val offloadSchedulingEnabled: Boolean,
     public val sleepingForOffload: Boolean,

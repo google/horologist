@@ -18,9 +18,9 @@ package com.google.android.horologist.media.ui.tiles
 
 import androidx.compose.ui.graphics.toArgb
 import androidx.wear.compose.material.Colors
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistApi
 public fun Colors.toTileColors(): androidx.wear.tiles.material.Colors {
     return androidx.wear.tiles.material.Colors(
         primary.toArgb(),

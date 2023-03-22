@@ -18,7 +18,7 @@ package com.google.android.horologist.media.data.datasource
 
 import androidx.room.RoomDatabase
 import androidx.room.withTransaction
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.dao.PlaylistDao
 import com.google.android.horologist.media.data.database.dao.PlaylistMediaDao
 import com.google.android.horologist.media.data.database.mapper.MediaEntityMapper
@@ -31,7 +31,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Local data source of [Playlist].
  */
-@ExperimentalHorologistMediaDataApi
+@ExperimentalHorologistApi
 public class PlaylistLocalDataSource(
     private val roomDatabase: RoomDatabase,
     private val playlistDao: PlaylistDao,

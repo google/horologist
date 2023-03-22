@@ -16,10 +16,10 @@
 
 package com.google.android.horologist.networks.data
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.time.Instant
 
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public data class DataRequest(
     public val requestType: RequestType,
     public val networkInfo: NetworkInfo,

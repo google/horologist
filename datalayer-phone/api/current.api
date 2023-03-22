@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.datalayer.phone {
 
-  @com.google.android.horologist.data.ExperimentalHorologistDataLayerApi public final class PhoneDataLayerAppHelper extends com.google.android.horologist.data.apphelper.DataLayerAppHelper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PhoneDataLayerAppHelper extends com.google.android.horologist.data.apphelper.DataLayerAppHelper {
     ctor public PhoneDataLayerAppHelper(android.content.Context context, com.google.android.horologist.data.WearDataLayerRegistry registry);
     method public suspend Object? installOnNode(String node, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? startCompanion(String node, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);

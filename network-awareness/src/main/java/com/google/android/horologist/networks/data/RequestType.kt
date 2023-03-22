@@ -16,18 +16,18 @@
 
 package com.google.android.horologist.networks.data
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * An open domain model for RequestTypes in a typical Wear application.
  * Allows decisions such as suitable networks to be made based on the traffic.
  */
-@ExperimentalHorologistNetworksApi
+@ExperimentalHorologistApi
 public interface RequestType {
     /**
      * A request for image, say via Coil.
      */
-    @ExperimentalHorologistNetworksApi
+    @ExperimentalHorologistApi
     public object ImageRequest : RequestType {
         override fun toString(): String {
             return "image"
@@ -37,7 +37,7 @@ public interface RequestType {
     /**
      * A request for media, likely via Media3.
      */
-    @ExperimentalHorologistNetworksApi
+    @ExperimentalHorologistApi
     public data class MediaRequest(public val type: MediaRequestType) : RequestType {
         public val name: String = "media-${type.toString().lowercase()}"
         public enum class MediaRequestType {
@@ -55,7 +55,7 @@ public interface RequestType {
     /**
      * An API request such as fetching playslists or login.
      */
-    @ExperimentalHorologistNetworksApi
+    @ExperimentalHorologistApi
     public object ApiRequest : RequestType {
         override fun toString(): String {
             return "api"
@@ -65,7 +65,7 @@ public interface RequestType {
     /**
      * A request to ship app logs to the server.
      */
-    @ExperimentalHorologistNetworksApi
+    @ExperimentalHorologistApi
     public object LogsRequest : RequestType {
         override fun toString(): String {
             return "logs"
@@ -75,7 +75,7 @@ public interface RequestType {
     /**
      * A request not tagged by the caller.
      */
-    @ExperimentalHorologistNetworksApi
+    @ExperimentalHorologistApi
     public object UnknownRequest : RequestType {
         override fun toString(): String {
             return "unknown"

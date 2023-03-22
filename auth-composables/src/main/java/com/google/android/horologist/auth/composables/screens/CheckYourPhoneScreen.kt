@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
@@ -50,7 +50,7 @@ private val progressBarStrokeWidth = 4.dp
  *
  * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/check_your_phone_screen.png"  height="120" width="120"/>
  */
-@ExperimentalHorologistAuthComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun CheckYourPhoneScreen(
     modifier: Modifier = Modifier
@@ -96,7 +96,7 @@ public fun CheckYourPhoneScreen(
  *
  * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/check_your_phone_screen_code.png"  height="120" width="120"/>
  */
-@ExperimentalHorologistAuthComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun CheckYourPhoneScreen(
     modifier: Modifier = Modifier,

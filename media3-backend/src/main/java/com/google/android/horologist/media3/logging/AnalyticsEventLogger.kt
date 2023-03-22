@@ -25,7 +25,7 @@ import androidx.media3.exoplayer.analytics.AnalyticsListener
 import androidx.media3.exoplayer.source.LoadEventInfo
 import androidx.media3.exoplayer.source.MediaLoadData
 import androidx.media3.exoplayer.util.EventLogger
-import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.io.IOException
 
 /**
@@ -34,7 +34,7 @@ import java.io.IOException
  * Most logging behaviour is inherited from EventLogger.
  */
 @SuppressLint("UnsafeOptInUsageError")
-@ExperimentalHorologistMedia3BackendApi
+@ExperimentalHorologistApi
 public class AnalyticsEventLogger(
     private val appEventLogger: ErrorReporter
 ) : EventLogger("ErrorReporter") {

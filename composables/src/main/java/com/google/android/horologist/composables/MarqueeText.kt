@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 import kotlin.time.Duration
@@ -96,7 +97,7 @@ private data class ElementWidths(
  * @param marqueeDpPerSecond the speed of scrolling in dp per second.
  * @param pauseTime the duration before initially scrolling and each additional scroll.
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun MarqueeText(
     text: String,

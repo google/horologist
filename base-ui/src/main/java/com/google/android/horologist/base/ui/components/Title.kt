@@ -26,12 +26,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * An alternative function to [Title] that allows a string resource id to be passed as text.
  */
-@ExperimentalHorologistBaseUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun Title(
     @StringRes textId: Int,
@@ -47,7 +47,7 @@ public fun Title(
  * This composable fulfils the redlines of the following components:
  * - Primary title;
  */
-@ExperimentalHorologistBaseUiApi
+@ExperimentalHorologistApi
 @Composable
 public fun Title(
     text: String,

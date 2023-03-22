@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlin.math.asin
 
 /**
@@ -100,7 +101,7 @@ public data class ProgressIndicatorSegment(
  * @param trackColor The background track color. If a segment specifies [trackColor] then the
  * segment value takes preference. Defaults to [Color.Black]
  */
-@ExperimentalHorologistComposablesApi
+@ExperimentalHorologistApi
 @Composable
 public fun SegmentedProgressIndicator(
     trackSegments: List<ProgressIndicatorSegment>,

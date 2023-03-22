@@ -112,12 +112,7 @@ public fun AnimatedPlayPauseButton(
                 stringResource(id = R.string.horologist_pause_button_content_description)
             val playContentDescription =
                 stringResource(id = R.string.horologist_play_button_content_description)
-
-            val contentDescription = if (playing) {
-                pauseContentDescription
-            } else {
-                playContentDescription
-            }
+            val contentDescription = if (playing) pauseContentDescription else playContentDescription
 
             Button(
                 onClick = { if (playing) onPauseClick() else onPlayClick() },

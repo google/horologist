@@ -1,6 +1,8 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 
+module:annotations
+com.google.android.horologist.annotations
 module:audio
 com.google.android.horologist.audio
 module:audio-ui
@@ -8,6 +10,7 @@ com.google.android.horologist.audio.ui
 com.google.android.horologist.audio.ui.components
 com.google.android.horologist.audio.ui.components.actions
 com.google.android.horologist.audio.ui.components.animated
+com.google.android.horologist.audio.ui.mapper
 com.google.android.horologist.audio.ui.semantics
 module:auth-composables
 com.google.android.horologist.auth.composables
@@ -20,19 +23,21 @@ com.google.android.horologist.auth.data
 com.google.android.horologist.auth.data.common.model
 com.google.android.horologist.auth.data.common.repository
 com.google.android.horologist.auth.data.googlesignin
-com.google.android.horologist.auth.data.oauth.common.impl.google.api
 com.google.android.horologist.auth.data.oauth.devicegrant
-com.google.android.horologist.auth.data.oauth.devicegrant.impl
-com.google.android.horologist.auth.data.oauth.devicegrant.impl.google
 com.google.android.horologist.auth.data.oauth.pkce
-com.google.android.horologist.auth.data.oauth.pkce.impl
-com.google.android.horologist.auth.data.oauth.pkce.impl.google
 com.google.android.horologist.auth.data.tokenshare
 com.google.android.horologist.auth.data.tokenshare.impl
 module:auth-data-phone
 com.google.android.horologist.auth.data.phone
 com.google.android.horologist.auth.data.phone.tokenshare
 com.google.android.horologist.auth.data.phone.tokenshare.impl
+module:auth-data-watch-oauth
+com.google.android.horologist.auth.data.watch.oauth
+com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api
+com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl
+com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.google
+com.google.android.horologist.auth.data.watch.oauth.pkce.impl
+com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google
 module:auth-ui
 com.google.android.horologist.auth.ui
 com.google.android.horologist.auth.ui.common.screens.prompt

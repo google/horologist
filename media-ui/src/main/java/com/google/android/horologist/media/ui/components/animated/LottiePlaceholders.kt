@@ -20,6 +20,12 @@ import androidx.compose.material.icons.materialIcon
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
 
+
+data class LottieButtonPlaceholder (
+    val isComposeReady: Boolean = false,
+    val placeholderImage: ImageVector? = null
+)
+
 internal object LottiePlaceholders {
     public val Next: ImageVector
         get() {

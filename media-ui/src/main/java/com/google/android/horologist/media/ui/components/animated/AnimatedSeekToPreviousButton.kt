@@ -17,8 +17,6 @@
 package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
@@ -29,10 +27,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.Icon
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -69,33 +65,20 @@ public fun AnimatedSeekToPreviousButton(
         val lottieAnimatable = rememberLottieAnimatable()
 
         Box(modifier = Modifier.graphicsLayer(scaleX = -1f)) {
-            if (isCompositionReady) {
-                AnimatedMediaButton(
-                    modifier = modifier,
-                    onClick = onClick,
-                    contentDescription = stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
-                    enabled = enabled,
-                    colors = colors,
-                    iconSize = iconSize,
-                    tapTargetSize = tapTargetSize,
-                    composition = composition.value,
-                    lottieAnimatable = lottieAnimatable,
-                    iconAlign = Alignment.End
-                )
-            } else {
-                Button(
-                    onClick = onClick,
-                    modifier = modifier.size(tapTargetSize),
-                    enabled = enabled,
-                    colors = colors
-                ) {
-                    Icon(
-                        modifier = Modifier.size(iconSize).offset(x = 7.5.dp),
-                        imageVector = LottiePlaceholders.Next,
-                        contentDescription = null
-                    )
-                }
-            }
+            AnimatedMediaButton(
+                modifier = modifier,
+                onClick = onClick,
+                contentDescription = stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
+                enabled = enabled,
+                colors = colors,
+                iconSize = iconSize,
+                tapTargetSize = tapTargetSize,
+                composition = composition.value,
+                lottieAnimatable = lottieAnimatable,
+                iconAlign = Alignment.End,
+                placeholder = LottieButtonPlaceholder(isComposeReady = isCompositionReady,
+                    placeholderImage = LottiePlaceholders.Next)
+            )
         }
     }
 }

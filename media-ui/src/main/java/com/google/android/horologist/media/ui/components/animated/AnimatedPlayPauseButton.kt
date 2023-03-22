@@ -113,37 +113,34 @@ public fun AnimatedPlayPauseButton(
             val playContentDescription =
                 stringResource(id = R.string.horologist_play_button_content_description)
 
+            val contentDescription = if (playing) {
+                pauseContentDescription
+            } else {
+                playContentDescription
+            }
+
             Button(
                 onClick = { if (playing) onPauseClick() else onPlayClick() },
                 modifier = modifier
                     .size(tapTargetSize)
-                    .semantics {
-                        contentDescription = if (playing) {
-                            pauseContentDescription
-                        } else {
-                            playContentDescription
-                        }
-                    },
+                    .semantics { contentDescription },
                 enabled = enabled,
                 colors = colors
             ) {
+                val contentModifier = Modifier
+                    .size(iconSize)
+                    .align(Alignment.Center)
+                    .graphicsLayer(alpha = LocalContentAlpha.current)
                 if (isCompositionReady) {
-
                     LottieAnimation(
-                        modifier = Modifier
-                            .size(iconSize)
-                            .align(Alignment.Center)
-                            .graphicsLayer(alpha = LocalContentAlpha.current),
+                        modifier = contentModifier,
                         composition = composition.value,
                         progress = { lottieProgress.value }
                     )
                 } else {
-                    Icon(
-                        modifier = Modifier
-                            .size(iconSize)
-                            .align(Alignment.Center),
+                    Icon(modifier = contentModifier,
                         imageVector = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
-                        contentDescription = null
+                        contentDescription = contentDescription
                     )
                 }
             }

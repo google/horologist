@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieAnimatable
@@ -55,14 +56,17 @@ public fun AnimatedMediaButton(
     dynamicProperties: LottieDynamicProperties? = null,
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
-    iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally
+    iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
+    placeholder: LottieButtonPlaceholder? = null
 ) {
     val scope = rememberCoroutineScope()
 
     Button(
         onClick = {
-            scope.launch {
-                lottieAnimatable.animate(composition = composition)
+            if (placeholder?.isComposeReady == true) {
+                scope.launch {
+                    lottieAnimatable.animate(composition = composition)
+                }
             }
             onClick()
         },
@@ -70,28 +74,37 @@ public fun AnimatedMediaButton(
         enabled = enabled,
         colors = colors
     ) {
-        LottieAnimation(
-            modifier = Modifier
-                .size(iconSize)
-                .run {
-                    when (iconAlign) {
-                        Alignment.Start -> {
-                            offset(x = -7.5.dp)
-                        }
-                        Alignment.End -> {
-                            offset(x = 7.5.dp)
-                        }
-                        else -> {
-                            this
-                        }
+        val contentModifier = Modifier
+            .size(iconSize)
+            .run {
+                when (iconAlign) {
+                    Alignment.Start -> {
+                        offset(x = -7.5.dp)
+                    }
+
+                    Alignment.End -> {
+                        offset(x = 7.5.dp)
+                    }
+
+                    else -> {
+                        this
                     }
                 }
-                .align(Alignment.Center)
-                .graphicsLayer(alpha = LocalContentAlpha.current)
-                .semantics { contentDescriptionProperty = contentDescription },
-            composition = composition,
-            progress = { lottieAnimatable.progress },
-            dynamicProperties = dynamicProperties
-        )
+            }
+            .align(Alignment.Center)
+            .graphicsLayer(alpha = LocalContentAlpha.current)
+            .semantics { contentDescriptionProperty = contentDescription }
+        if (placeholder?.isComposeReady == true) {
+            LottieAnimation(
+                modifier = contentModifier,
+                composition = composition,
+                progress = { lottieAnimatable.progress },
+                dynamicProperties = dynamicProperties
+            )
+        } else {
+            Icon(modifier = contentModifier,
+                imageVector = LottiePlaceholders.Next,
+                contentDescription = contentDescription)
+        }
     }
 }

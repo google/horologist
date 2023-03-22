@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
 @file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.tiles.preview
@@ -37,7 +36,6 @@ import androidx.wear.tiles.material.Colors
 import androidx.wear.tiles.material.CompactChip
 import androidx.wear.tiles.material.Text
 import androidx.wear.tiles.material.Typography
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.R
 import com.google.android.horologist.tiles.components.NoOpClickable
 import com.google.android.horologist.tiles.images.drawableResToImageResource

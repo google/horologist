@@ -16,7 +16,6 @@
 
 @file:OptIn(
     ExperimentalCoroutinesApi::class,
-    ExperimentalHorologistApi::class,
     ExperimentalFoundationApi::class,
     ExperimentalWearFoundationApi::class
 )
@@ -44,7 +43,6 @@ import androidx.test.filters.MediumTest
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.RequestFocusWhenActive
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers

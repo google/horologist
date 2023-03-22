@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.networks.rules.helpers
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkType.Cell
 import com.google.android.horologist.networks.data.NetworkType.Wifi
 import com.google.android.horologist.networks.request.HighBandwidthRequest
@@ -26,7 +25,6 @@ import com.google.android.horologist.networks.request.NetworkRequester
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.Instant
 
-@OptIn(ExperimentalHorologistApi::class)
 class FakeNetworkRequester(
     private val networkRepository: FakeNetworkRepository
 ) : NetworkRequester {

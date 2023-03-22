@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +22,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
@@ -33,7 +30,6 @@ class SegmentedProgressIndicatorTest : ScreenshotTest() {
         screenTimeText = {}
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun segmentedPicker() {
         takeScreenshot {
@@ -61,7 +57,6 @@ class SegmentedProgressIndicatorTest : ScreenshotTest() {
         }
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun segmentedPickerWithBrushColors() {
         takeScreenshot {
@@ -95,7 +90,6 @@ class SegmentedProgressIndicatorTest : ScreenshotTest() {
         }
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun segmentedPickerWithBrushColorsAndColorsCombined() {
         takeScreenshot {

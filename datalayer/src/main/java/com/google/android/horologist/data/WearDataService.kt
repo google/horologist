@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.data
 
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.WearableListenerService
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Base service class for applications wishing to be woken up to receive data layer events.

@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.auth.composables.chips
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test

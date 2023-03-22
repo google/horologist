@@ -72,7 +72,8 @@ public fun AnimatedSeekToNextButton(
             iconAlign = Alignment.End,
             placeholder = LottieButtonPlaceholder(
                 isComposeReady = isCompositionReady,
-                placeholderImage = LottiePlaceholders.Next)
+                placeholderImage = LottiePlaceholders.Next
+            )
         )
     }
 }

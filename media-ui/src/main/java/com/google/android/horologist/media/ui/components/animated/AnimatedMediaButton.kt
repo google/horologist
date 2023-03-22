@@ -102,9 +102,11 @@ public fun AnimatedMediaButton(
                 dynamicProperties = dynamicProperties
             )
         } else {
-            Icon(modifier = contentModifier,
+            Icon(
+                modifier = contentModifier,
                 imageVector = LottiePlaceholders.Next,
-                contentDescription = contentDescription)
+                contentDescription = contentDescription
+            )
         }
     }
 }

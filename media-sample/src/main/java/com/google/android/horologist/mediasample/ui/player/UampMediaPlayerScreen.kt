@@ -68,10 +68,10 @@ fun UampMediaPlayerScreen(
             )
         },
         controlButtons = { playerUiController, playerUiState ->
-//            if (settingsState.podcastControls) {
-//                PlayerScreenPodcastControlButtons(playerUiController, playerUiState)
-//            } else {
-//                if (settingsState.animated) {
+            if (settingsState.podcastControls) {
+                PlayerScreenPodcastControlButtons(playerUiController, playerUiState)
+            } else {
+                if (settingsState.animated) {
                     AnimatedMediaControlButtons(
                         onPlayButtonClick = { playerUiController.play() },
                         onPauseButtonClick = { playerUiController.pause() },
@@ -83,10 +83,10 @@ fun UampMediaPlayerScreen(
                         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
                         trackPositionUiModel = playerUiState.trackPositionUiModel
                     )
-//                } else {
-//                    DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
-//                }
-//            }
+                } else {
+                    DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
+                }
+            }
         },
         background = {
             val artworkUri = it.media?.artworkUri

@@ -131,7 +131,8 @@ public fun AnimatedPlayPauseButton(
                         progress = { lottieProgress.value }
                     )
                 } else {
-                    Icon(modifier = contentModifier,
+                    Icon(
+                        modifier = contentModifier,
                         imageVector = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
                         contentDescription = contentDescription
                     )

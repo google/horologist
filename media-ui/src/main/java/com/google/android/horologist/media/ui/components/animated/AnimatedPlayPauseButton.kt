@@ -92,13 +92,13 @@ public fun AnimatedPlayPauseButton(
                 "lottie/PlayPause.json"
             )
         )
-        val isCompositionReady by produceState(initialValue = false, producer = {
-            composition.await()
-            value = false
-        })
         val lottieProgress =
             animateLottieProgressAsState(playing = playing, composition = composition.value)
 
+        val isCompositionReady by produceState(initialValue = false, producer = {
+            composition.await()
+            value = true
+        })
         Box(
             modifier = modifier
                 .size(tapTargetSize)
@@ -108,20 +108,13 @@ public fun AnimatedPlayPauseButton(
             contentAlignment = Alignment.Center
         ) {
             progress()
-
             val pauseContentDescription =
                 stringResource(id = R.string.horologist_pause_button_content_description)
             val playContentDescription =
                 stringResource(id = R.string.horologist_play_button_content_description)
 
             Button(
-                onClick = {
-                    if (playing) {
-                        onPauseClick()
-                    } else {
-                        onPlayClick()
-                    }
-                },
+                onClick = { if (playing) onPauseClick() else onPlayClick() },
                 modifier = modifier
                     .size(tapTargetSize)
                     .semantics {
@@ -134,8 +127,8 @@ public fun AnimatedPlayPauseButton(
                 enabled = enabled,
                 colors = colors
             ) {
-                if (!composition.isLoading) {
-//                if (isCompositionReady) {
+                if (isCompositionReady) {
+
                     LottieAnimation(
                         modifier = Modifier
                             .size(iconSize)
@@ -163,7 +156,7 @@ private fun animateLottieProgressAsState(
     playing: Boolean,
     composition: LottieComposition?
 ): State<Float> {
-    val clipSpec = remember { LottieClipSpec.Frame(max = 14) }
+    val clipSpec = remember { LottieClipSpec.Frame(min = 20, max = 40) }
     val lottieProgress = animateLottieCompositionAsState(
         composition = composition,
         clipSpec = clipSpec

@@ -17,6 +17,7 @@
 package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -61,10 +62,14 @@ public fun AnimatedSeekToPreviousButton(
         val composition = rememberLottieComposition(
             spec = LottieCompositionSpec.Asset("lottie/Next.json")
         )
+        val isCompositionReady by produceState(initialValue = false, producer = {
+            composition.await()
+            value = true
+        })
         val lottieAnimatable = rememberLottieAnimatable()
 
         Box(modifier = Modifier.graphicsLayer(scaleX = -1f)) {
-            if (!composition.isLoading) {
+            if (isCompositionReady) {
                 AnimatedMediaButton(
                     modifier = modifier,
                     onClick = onClick,
@@ -85,7 +90,7 @@ public fun AnimatedSeekToPreviousButton(
                     colors = colors
                 ) {
                     Icon(
-                        modifier = Modifier.size(iconSize),
+                        modifier = Modifier.size(iconSize).offset(x = 7.5.dp),
                         imageVector = LottiePlaceholders.Next,
                         contentDescription = null
                     )

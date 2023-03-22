@@ -127,7 +127,7 @@ public fun UampSettingsButtons(
         )
 
         SettingsButtonsDefaults.BrandIcon(
-            iconId = R.drawable.ic_uamp,
+            iconId = R.drawable.horologist_logo,
             enabled = enabled
         )
 

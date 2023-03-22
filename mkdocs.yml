@@ -57,8 +57,7 @@ nav:
 theme:
   name: 'material'
   language: 'en'
-  icon:
-    logo: material/music-clef-treble
+  logo: logo/logo-white.svg
   palette:
     primary: 'black'
     accent: 'deep orange'

@@ -113,7 +113,7 @@ fun PlayerScreenPreview() {
                         onOutputClick = { },
                         brandIcon = {
                             SettingsButtonsDefaults.BrandIcon(
-                                R.drawable.ic_uamp,
+                                R.drawable.ic_stat_horologist,
                                 enabled = true
                             )
                         }
@@ -183,7 +183,7 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                         onOutputClick = { },
                         brandIcon = {
                             SettingsButtonsDefaults.BrandIcon(
-                                R.drawable.ic_uamp,
+                                R.drawable.ic_stat_horologist,
                                 enabled = true
                             )
                         }
@@ -251,7 +251,7 @@ fun PlayerScreenPreviewCustomBackground() {
                         onOutputClick = { },
                         brandIcon = {
                             SettingsButtonsDefaults.BrandIcon(
-                                R.drawable.ic_uamp,
+                                R.drawable.ic_stat_horologist,
                                 enabled = true
                             )
                         }
@@ -340,7 +340,7 @@ fun DefaultMediaPreview() {
                         onOutputClick = { },
                         brandIcon = {
                             SettingsButtonsDefaults.BrandIcon(
-                                R.drawable.ic_uamp,
+                                R.drawable.ic_stat_horologist,
                                 enabled = true
                             )
                         }
@@ -406,7 +406,7 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
                         onOutputClick = { },
                         brandIcon = {
                             SettingsButtonsDefaults.BrandIcon(
-                                R.drawable.ic_uamp,
+                                R.drawable.ic_stat_horologist,
                                 enabled = true
                             )
                         },

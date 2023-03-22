@@ -40,7 +40,7 @@ class ShowPlaylistChipTest {
         paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
-                    artworkUri = R.drawable.ic_uamp,
+                    artworkUri = R.drawable.horologist_logo,
                     name = "Playlists",
                     onClick = {}
                 )
@@ -66,7 +66,7 @@ class ShowPlaylistChipTest {
         paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
-                    artworkUri = R.drawable.ic_uamp,
+                    artworkUri = R.drawable.horologist_logo,
                     name = null,
                     onClick = {}
                 )
@@ -79,7 +79,7 @@ class ShowPlaylistChipTest {
         paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
-                    artworkUri = R.drawable.ic_uamp,
+                    artworkUri = R.drawable.horologist_logo,
                     name = "Very very very very very very very very very very very very very very very very very very very long title",
                     onClick = {}
                 )

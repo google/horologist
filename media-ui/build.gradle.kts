@@ -105,6 +105,7 @@ dependencies {
     api(projects.media)
     api(projects.tiles)
     api(projects.composables)
+    debugImplementation(projects.logo)
     implementation(projects.baseUi)
     implementation(projects.audio)
     implementation(projects.audioUi)
@@ -147,6 +148,7 @@ dependencies {
     testImplementation(projects.audioUi)
     testImplementation(projects.paparazzi)
     testImplementation(libs.paparazzi)
+    testImplementation(projects.logo)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.truth)

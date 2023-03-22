@@ -123,7 +123,7 @@ public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> Imag
             }
         }
 
-        @DrawableRes public val TestIconResource: Int = R.drawable.ic_uamp
+        @DrawableRes public val TestIconResource: Int = R.drawable.sample_image
         public const val TestUriPrefix: String = "android.resource://com.google.android.horologist.compose.tools/"
         public val TestIconResourceUri: String = TestUriPrefix + TestIconResource
     }

@@ -43,7 +43,7 @@ public fun UampSettingsButtons(
         FavoriteButton()
 
         SettingsButtonsDefaults.BrandIcon(
-            iconId = R.drawable.ic_uamp,
+            iconId = R.drawable.ic_stat_horologist,
             enabled = enabled
         )
 

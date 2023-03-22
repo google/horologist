@@ -26,7 +26,7 @@
         android:height="@dimen/flash_screen_icon_size"
         android:gravity="center">
         <bitmap
-            android:src="@drawable/ic_uamp"
+            android:src="@mipmap/ic_horologist"
             android:gravity="fill_horizontal|fill_vertical"/>
     </item>
 </layer-list>

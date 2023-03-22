@@ -92,7 +92,7 @@ class MediaCollectionsTileTest(
 
         val resourceState = remember {
             MediaCollectionsTileRenderer.ResourceState(
-                appIcon = R.drawable.ic_uamp,
+                appIcon = R.drawable.ic_stat_horologist,
                 images = mapOf(
                     "1" to drawableResToImageResource(R.drawable.ic_baseline_queue_music_24),
                     "2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24)

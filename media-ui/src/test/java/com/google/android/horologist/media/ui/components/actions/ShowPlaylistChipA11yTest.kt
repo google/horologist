@@ -55,7 +55,7 @@ class ShowPlaylistChipA11yTest {
         paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
-                    artworkUri = R.drawable.ic_uamp,
+                    artworkUri = R.drawable.horologist_logo,
                     name = "Playlists",
                     onClick = {}
                 )

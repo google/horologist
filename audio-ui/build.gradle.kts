@@ -103,6 +103,7 @@ dependencies {
     api(libs.kotlin.stdlib)
     api(projects.annotations)
     implementation(projects.composeLayout)
+    debugImplementation(projects.logo)
 
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)

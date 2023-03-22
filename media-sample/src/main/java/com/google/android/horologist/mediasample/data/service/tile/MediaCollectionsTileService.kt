@@ -145,7 +145,7 @@ class MediaCollectionsTileService : SuspendingTileService() {
 
         return renderer.produceRequestedResources(
             MediaCollectionsTileRenderer.ResourceState(
-                R.drawable.ic_uamp,
+                R.drawable.ic_stat_horologist,
                 mapOf(
                     firstSong.id to songResource,
                     lastPlaylist.id to albumResource
@@ -186,7 +186,7 @@ fun SampleTilePreview() {
         val kyoto = BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)
 
         MediaCollectionsTileRenderer.ResourceState(
-            appIcon = R.drawable.ic_uamp,
+            appIcon = R.drawable.ic_stat_horologist,
             images = mapOf(
                 "s1" to kyoto?.toImageResource(),
                 "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24)

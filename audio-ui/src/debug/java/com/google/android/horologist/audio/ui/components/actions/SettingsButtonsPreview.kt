@@ -41,7 +41,7 @@ fun SettingsButtonsWithBrandIconPreview() {
         onVolumeClick = {},
         onOutputClick = {},
         brandIcon = {
-            BrandIcon(R.drawable.ic_uamp, enabled = true)
+            BrandIcon(R.drawable.ic_stat_horologist, enabled = true)
         }
     )
 }
@@ -55,7 +55,7 @@ fun SettingsButtonsDisabledPreview() {
         onOutputClick = {},
         enabled = false,
         brandIcon = {
-            BrandIcon(R.drawable.ic_uamp, enabled = false)
+            BrandIcon(R.drawable.ic_stat_horologist, enabled = false)
         }
     )
 }

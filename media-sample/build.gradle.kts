@@ -154,6 +154,7 @@ dependencies {
     implementation(projects.mediaUi)
     implementation(projects.networkAwareness)
     implementation(projects.tiles)
+    implementation(projects.logo)
 
     implementation(
         project.findProject(":media-lib-datasource-okhttp") ?: libs.androidx.media3.datasourceokhttp

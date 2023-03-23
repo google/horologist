@@ -32,18 +32,18 @@ fun VolumeScreenTestCase(
     volumeState: VolumeState,
     audioOutput: AudioOutput
 ) {
+    val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
     RoundPreview {
         MaterialTheme(colors = colors) {
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
-                        autoHide = false
+                        volumeUiState = { volumeUiState }
                     )
                 }
             ) {
                 VolumeScreen(
-                    volume = { volumeState },
+                    volume = { volumeUiState },
                     audioOutputUi = audioOutput.toAudioOutputUi(),
                     increaseVolume = { },
                     decreaseVolume = { },

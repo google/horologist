@@ -40,7 +40,7 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.pager.PagerScreen
@@ -108,7 +108,7 @@ fun PlayerScreenPreview() {
                 },
                 buttons = {
                     SettingsButtons(
-                        volumeState = VolumeState(5, 10),
+                        volumeUiState = VolumeUiState(5, 10),
                         onVolumeClick = { },
                         onOutputClick = { },
                         brandIcon = {
@@ -178,7 +178,7 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                 },
                 buttons = {
                     SettingsButtons(
-                        volumeState = VolumeState(5, 10),
+                        volumeUiState = VolumeUiState(5, 10),
                         onVolumeClick = { },
                         onOutputClick = { },
                         brandIcon = {
@@ -246,7 +246,7 @@ fun PlayerScreenPreviewCustomBackground() {
                 },
                 buttons = {
                     SettingsButtons(
-                        volumeState = VolumeState(5, 10),
+                        volumeUiState = VolumeUiState(5, 10),
                         onVolumeClick = { },
                         onOutputClick = { },
                         brandIcon = {
@@ -335,7 +335,7 @@ fun DefaultMediaPreview() {
                 },
                 buttons = {
                     SettingsButtons(
-                        volumeState = VolumeState(5, 10),
+                        volumeUiState = VolumeUiState(5, 10),
                         onVolumeClick = { },
                         onOutputClick = { },
                         brandIcon = {
@@ -401,7 +401,7 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
                 },
                 buttons = {
                     SettingsButtons(
-                        volumeState = VolumeState(5, 10),
+                        volumeUiState = VolumeUiState(5, 10),
                         onVolumeClick = { },
                         onOutputClick = { },
                         brandIcon = {

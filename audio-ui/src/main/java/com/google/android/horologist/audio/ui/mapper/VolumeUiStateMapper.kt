@@ -23,12 +23,7 @@ import com.google.android.horologist.audio.ui.VolumeUiState
  * Functions to map a [VolumeUiState] from a [VolumeState].
  */
 public object VolumeUiStateMapper {
-    public fun map(
-        timestamp: Long = System.currentTimeMillis(),
-        volumeState: VolumeState
-    ): VolumeUiState = VolumeUiState(
-
-        timestamp = timestamp,
+    public fun map(volumeState: VolumeState): VolumeUiState = VolumeUiState(
         current = volumeState.current,
         max = volumeState.max,
         isMax = volumeState.isMax,

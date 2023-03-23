@@ -17,8 +17,8 @@
 package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.R
+import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults.BrandIcon
 import com.google.android.horologist.compose.tools.WearPreview
@@ -27,7 +27,7 @@ import com.google.android.horologist.compose.tools.WearPreview
 @Composable
 fun SettingsButtonsPreview() {
     SettingsButtons(
-        volumeState = VolumeState(4, 10),
+        volumeUiState = VolumeUiState(4, 10),
         onVolumeClick = {},
         onOutputClick = {}
     )
@@ -37,7 +37,7 @@ fun SettingsButtonsPreview() {
 @Composable
 fun SettingsButtonsWithBrandIconPreview() {
     SettingsButtons(
-        volumeState = VolumeState(5, 10),
+        volumeUiState = VolumeUiState(5, 10),
         onVolumeClick = {},
         onOutputClick = {},
         brandIcon = {
@@ -50,7 +50,7 @@ fun SettingsButtonsWithBrandIconPreview() {
 @Composable
 fun SettingsButtonsDisabledPreview() {
     SettingsButtons(
-        volumeState = VolumeState(5, 10),
+        volumeUiState = VolumeUiState(5, 10),
         onVolumeClick = {},
         onOutputClick = {},
         enabled = false,

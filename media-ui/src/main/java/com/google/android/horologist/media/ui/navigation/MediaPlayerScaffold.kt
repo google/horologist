@@ -114,6 +114,7 @@ public fun MediaPlayerScaffold(
             PlayerLibraryPagerScreen(
                 pagerState = pagerState,
                 volumeUiState = { volumeState },
+                displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
                 timeText = timeText,
                 playerScreen = {
                     playerScreen()

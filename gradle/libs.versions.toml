@@ -53,7 +53,7 @@ tracingPerfetto = "1.0"
 tracingPerfettoBinary = "1.0"
 truth = "1.1.3"
 versionCatalogUpdate = "0.7.0"
-wearcompose = "1.2.0-alpha05"
+wearcompose = "1.2.0-alpha07"
 
 [libraries]
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }

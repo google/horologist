@@ -15,6 +15,7 @@
  */
 
 @file:Suppress("ObjectLiteralToLambda")
+@file:OptIn(ExperimentalWearFoundationApi::class)
 
 package com.google.android.horologist.compose.layout
 
@@ -26,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType

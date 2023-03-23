@@ -22,7 +22,10 @@ import androidx.compose.material.icons.filled.VolumeMute
 import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.LayoutDirection
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.R
 import com.google.android.horologist.audio.ui.VolumeUiState
@@ -40,7 +43,12 @@ public fun SetVolumeButton(
     enabled: Boolean = true
 ) {
     SettingsButton(
-        modifier = modifier,
+        modifier = modifier
+            .scale(
+                // Mirror the icon in RTL layout
+                scaleX = if (LocalLayoutDirection.current == LayoutDirection.Rtl) -1f else 1f,
+                scaleY = 1f
+            ),
         onClick = onVolumeClick,
         enabled = enabled,
         imageVector = when {

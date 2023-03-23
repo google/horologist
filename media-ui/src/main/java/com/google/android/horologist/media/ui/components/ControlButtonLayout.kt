@@ -37,25 +37,23 @@ public fun ControlButtonLayout(
     rightButton: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-        Row(
-            modifier = modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Box(modifier = Modifier.padding(start = 17.dp)) {
-                leftButton()
-            }
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Absolute.Center
+    ) {
+        Box(modifier = Modifier.padding(start = 17.dp)) {
+            leftButton()
+        }
 
-            Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
 
-            middleButton()
+        middleButton()
 
-            Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
 
-            Box(modifier = Modifier.padding(end = 17.dp)) {
-                rightButton()
-            }
+        Box(modifier = Modifier.padding(end = 17.dp)) {
+            rightButton()
         }
     }
 }

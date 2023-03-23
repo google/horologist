@@ -22,6 +22,7 @@ import com.google.android.horologist.data.apphelper.DataLayerAppHelperService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 
 public class PhoneDataLayerListenerService : DataLayerAppHelperService() {
     private val serviceScope = CoroutineScope(Dispatchers.IO + Job())
@@ -29,5 +30,10 @@ public class PhoneDataLayerListenerService : DataLayerAppHelperService() {
     public override val appHelper: DataLayerAppHelper by lazy {
         val registry = WearDataLayerRegistry.fromContext(this, serviceScope)
         PhoneDataLayerAppHelper(this, registry)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        serviceScope.cancel()
     }
 }

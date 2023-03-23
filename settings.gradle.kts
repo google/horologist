@@ -62,9 +62,6 @@ include(":datalayer-phone")
 include(":health-composables")
 include(":logo")
 
-// Enable Gradle's version catalog support
-// https://docs.gradle.org/current/userguide/platforms.html
-enableFeaturePreview("VERSION_CATALOGS")
 // https://docs.gradle.org/7.4/userguide/declaring_dependencies.html#sec:type-safe-project-accessors
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 

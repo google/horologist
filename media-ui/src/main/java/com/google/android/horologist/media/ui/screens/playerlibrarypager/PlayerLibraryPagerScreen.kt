@@ -34,6 +34,7 @@ import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
+import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.CancellationException
 
 /**
@@ -45,6 +46,7 @@ import java.util.concurrent.CancellationException
 public fun PlayerLibraryPagerScreen(
     pagerState: PagerState,
     volumeUiState: () -> VolumeUiState,
+    displayVolumeIndicatorEvents: Flow<Unit>,
     timeText: @Composable (Modifier) -> Unit,
     playerScreen: @Composable () -> Unit,
     libraryScreen: @Composable (ScalingLazyColumnState) -> Unit,
@@ -77,7 +79,7 @@ public fun PlayerLibraryPagerScreen(
                         timeText(Modifier)
                     },
                     positionIndicator = {
-                        VolumePositionIndicator(volumeUiState = volumeUiState)
+                        VolumePositionIndicator(volumeUiState = volumeUiState, displayIndicatorEvents = displayVolumeIndicatorEvents)
                     }
                 ) {
                     playerScreen()

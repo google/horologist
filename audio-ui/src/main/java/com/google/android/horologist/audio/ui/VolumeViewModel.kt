@@ -32,14 +32,15 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.audio.VolumeRepository
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 
 /**
  * ViewModel for a Volume Control Screen.
@@ -58,41 +59,39 @@ public open class VolumeViewModel(
     private val onCleared: () -> Unit = {},
     private val vibrator: Vibrator
 ) : ViewModel() {
-    public val volumeState: StateFlow<VolumeState> = volumeRepository.volumeState
+    private val userActionEvents = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
-    // Keep a timestamp that always updates when we attempt to update volume (even when it's already
-    // at min/max)
-    private var timestamp = MutableStateFlow(System.currentTimeMillis())
     public val volumeUiState: StateFlow<VolumeUiState> =
-        combine(volumeRepository.volumeState, timestamp) { it, timestamp ->
-            VolumeUiStateMapper.map(timestamp = timestamp, volumeState = it)
-        }.stateIn(
+        volumeRepository.volumeState.map(VolumeUiStateMapper::map).stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = VolumeUiState()
         )
+
+    public val displayIndicatorEvents: Flow<Unit> = merge(userActionEvents, volumeUiState.drop(1)).map { }
+
     public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
     public fun increaseVolumeWithHaptics() {
         increaseVolume()
-        if (!volumeState.value.isMax) {
+        if (!volumeUiState.value.isMax) {
             performHaptics()
         }
     }
 
     public fun decreaseVolumeWithHaptics() {
         decreaseVolume()
-        if (!volumeState.value.isMin) {
+        if (!volumeUiState.value.isMin) {
             performHaptics()
         }
     }
 
     public fun increaseVolume() {
-        timestamp.update { System.currentTimeMillis() }
+        this.userActionEvents.tryEmit(Unit)
         volumeRepository.increaseVolume()
     }
 
     public fun decreaseVolume() {
-        timestamp.update { System.currentTimeMillis() }
+        this.userActionEvents.tryEmit(Unit)
         volumeRepository.decreaseVolume()
     }
 

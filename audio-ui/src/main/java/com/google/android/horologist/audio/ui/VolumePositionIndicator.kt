@@ -20,47 +20,39 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 
 /**
  * A PositionIndicator that is tied to the system audio volume.
  *
- * Shows on the left side to match Bezel behaviour and shows
- * for 2 seconds after any volume change, including when a new
- * output device is selected.
+ * Shows on the left side to match Bezel behaviour. If [displayIndicatorEvents] is non-null, the
+ * indicator is initially hidden and only displays when that flow emits, then auto-hides after two
+ * seconds.
  */
 @Composable
 public fun VolumePositionIndicator(
     volumeUiState: () -> VolumeUiState,
     modifier: Modifier = Modifier,
-    autoHide: Boolean = true
+    displayIndicatorEvents: Flow<Unit>? = null
 ) {
-    var actuallyVisible by remember { mutableStateOf(!autoHide) }
-    var isInitial by remember { mutableStateOf(true) }
-    val uiState = volumeUiState()
-
-    if (autoHide) {
-        LaunchedEffect(uiState.current, uiState.timestamp) {
-            if (isInitial) {
-                isInitial = false
-            } else {
-                actuallyVisible = true
-                delay(2000)
-                actuallyVisible = false
-            }
+    val visible by produceState(false) {
+        displayIndicatorEvents?.collectLatest {
+            value = true
+            delay(2000)
+            value = false
         }
     }
+    val uiState = volumeUiState()
 
     AnimatedVisibility(
-        visible = actuallyVisible,
+        visible = visible.takeIf { displayIndicatorEvents != null } ?: true,
         enter = fadeIn(),
         exit = fadeOut()
     ) {

@@ -21,7 +21,7 @@
 package com.google.android.horologist.audio.ui.components.actions
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -39,30 +39,27 @@ class SetVolumeButtonTest {
         paparazzi.snapshotInABox {
             SetVolumeButton(
                 onVolumeClick = {},
-                volumeState = VolumeState(current = currentVolume, max = 10)
+                volumeUiState = VolumeUiState(current = currentVolume, max = 10)
             )
         }
     }
 
     @Test
     fun givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
-        val currentVolume = 0
-
         paparazzi.snapshotInABox {
             SetVolumeButton(
                 onVolumeClick = {},
-                volumeState = VolumeState(current = currentVolume, max = 10)
+                volumeUiState = VolumeUiState(isMin = true)
             )
         }
     }
 
     @Test
     fun givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
-        val currentVolume = 10
         paparazzi.snapshotInABox {
             SetVolumeButton(
                 onVolumeClick = {},
-                volumeState = VolumeState(current = currentVolume, max = currentVolume)
+                volumeUiState = VolumeUiState(isMax = true)
             )
         }
     }

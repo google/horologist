@@ -22,9 +22,8 @@ package com.google.android.horologist.audio.ui
 * VolumePositionIndicator can pick up the change to make itself visible even at min or max volume.
 * */
 public data class VolumeUiState(
-    var timestamp: Long = System.currentTimeMillis(),
     val current: Int = 0,
-    val max: Int = 0,
+    val max: Int = 1,
     val isMax: Boolean = false,
     val isMin: Boolean = false
 )

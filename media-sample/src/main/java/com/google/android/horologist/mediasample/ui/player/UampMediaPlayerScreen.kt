@@ -42,7 +42,7 @@ fun UampMediaPlayerScreen(
     onVolumeClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val volumeState by volumeViewModel.volumeState.collectAsStateWithLifecycle()
+    val volumeUiState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
     val settingsState by mediaPlayerScreenViewModel.settingsState.collectAsStateWithLifecycle()
 
     PlayerScreen(
@@ -62,7 +62,7 @@ fun UampMediaPlayerScreen(
         },
         buttons = {
             UampSettingsButtons(
-                volumeState = volumeState,
+                volumeUiState = volumeUiState,
                 onVolumeClick = onVolumeClick,
                 enabled = it.connected && it.media != null
             )

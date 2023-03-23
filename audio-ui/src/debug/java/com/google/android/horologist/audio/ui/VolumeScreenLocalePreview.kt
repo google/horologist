@@ -34,13 +34,12 @@ fun VolumeScreenLocalePreview() {
     Scaffold(
         positionIndicator = {
             VolumePositionIndicator(
-                volumeUiState = { volumeUiState },
-                autoHide = false
+                volumeUiState = { volumeUiState }
             )
         }
     ) {
         VolumeScreen(
-            volume = { volume },
+            volume = { volumeUiState },
             audioOutputUi = AudioOutput.WatchSpeaker(
                 id = "1",
                 name = LocalConfiguration.current.locales.get(0).displayName

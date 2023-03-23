@@ -45,13 +45,12 @@ fun VolumeScreenGuideWithLongText() {
         Scaffold(
             positionIndicator = {
                 VolumePositionIndicator(
-                    volumeUiState = { volumeUiState },
-                    autoHide = false
+                    volumeUiState = { volumeUiState }
                 )
             }
         ) {
             VolumeScreen(
-                volume = { volume },
+                volume = { volumeUiState },
                 audioOutputUi = AudioOutput.BluetoothHeadset(id = "1", name = "Galaxy Watch 4")
                     .toAudioOutputUi(),
                 increaseVolume = { },
@@ -74,13 +73,12 @@ fun VolumeScreenPreview(
     Scaffold(
         positionIndicator = {
             VolumePositionIndicator(
-                volumeUiState = { volumeUiState },
-                autoHide = false
+                volumeUiState = { volumeUiState }
             )
         }
     ) {
         VolumeScreen(
-            volume = { volume },
+            volume = { volumeUiState },
             audioOutputUi = audioOutput.toAudioOutputUi(),
             increaseVolume = { },
             decreaseVolume = { },
@@ -102,13 +100,12 @@ fun VolumeScreenTheme(
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeUiState = { volumeUiState },
-                        autoHide = false
+                        volumeUiState = { volumeUiState }
                     )
                 }
             ) {
                 VolumeScreen(
-                    volume = { volume },
+                    volume = { volumeUiState },
                     audioOutputUi = AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds")
                         .toAudioOutputUi(),
                     increaseVolume = { },
@@ -131,13 +128,12 @@ fun VolumeScreenWithLabel() {
         Scaffold(
             positionIndicator = {
                 VolumePositionIndicator(
-                    volumeUiState = { volumeUiState },
-                    autoHide = false
+                    volumeUiState = { volumeUiState }
                 )
             }
         ) {
             VolumeWithLabelScreen(
-                volume = { volume },
+                volume = { volumeUiState },
                 increaseVolume = { },
                 decreaseVolume = { }
             )

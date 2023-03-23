@@ -62,7 +62,6 @@ public fun AnimatedMediaButton(
     Button(
         onClick = {
             scope.launch {
-                android.util.Log.d("lottie2", "animate")
                 lottieAnimatable.animate(composition = composition)
             }
             onClick()

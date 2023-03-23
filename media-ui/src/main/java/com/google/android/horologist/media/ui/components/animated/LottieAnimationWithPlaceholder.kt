@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.ui.components.animated
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState

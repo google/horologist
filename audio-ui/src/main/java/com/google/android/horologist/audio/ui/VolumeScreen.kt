@@ -28,11 +28,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Icon
@@ -45,6 +42,8 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.base.ui.components.IconRtlMode
+import com.google.android.horologist.base.ui.components.StandardIcon
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
 
 /**
@@ -197,31 +196,21 @@ internal fun VolumeScreen(
 public object VolumeScreenDefaults {
     @Composable
     public fun IncreaseIcon() {
-        Icon(
-            modifier = Modifier
-                .size(26.dp)
-                .scale(
-                    // Mirror the icon in RTL layout
-                    scaleX = if (LocalLayoutDirection.current == LayoutDirection.Rtl) -1f else 1f,
-                    scaleY = 1f
-                ),
+        StandardIcon(
+            modifier = Modifier.size(26.dp),
             imageVector = Icons.Default.VolumeUp,
-            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description)
+            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description),
+            rtlMode = IconRtlMode.Mirrored
         )
     }
 
     @Composable
     public fun DecreaseIcon() {
-        Icon(
-            modifier = Modifier
-                .size(26.dp)
-                .scale(
-                    // Mirror the icon in RTL layout
-                    scaleX = if (LocalLayoutDirection.current == LayoutDirection.Rtl) -1f else 1f,
-                    scaleY = 1f
-                ),
+        StandardIcon(
+            modifier = Modifier.size(26.dp),
             imageVector = Icons.Default.VolumeDown,
-            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description)
+            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description),
+            rtlMode = IconRtlMode.Mirrored
         )
     }
 }

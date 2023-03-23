@@ -133,10 +133,10 @@ package com.google.android.horologist.data.apphelper {
     property protected final androidx.wear.remote.interactions.RemoteActivityHelper remoteActivityHelper;
     field public static final String CAPABILITY_DEVICE_PREFIX = "data_layer_app_helper_device";
     field public static final com.google.android.horologist.data.apphelper.DataLayerAppHelper.Companion Companion;
-    field public static final String DATA_LAYER_APP_HELPER_CAPABILITY = "data_layer_app_helper";
-    field public static final String LAUNCH_APP = "/launch_app";
+    field public static final String DATA_LAYER_APP_HELPER = "data_layer_app_helper";
+    field public static final String LAUNCH_APP = "/data_layer_app_helper/launch_app";
     field public static final String PHONE_CAPABILITY = "data_layer_app_helper_device_phone";
-    field public static final String SURFACE_INFO_PATH = "/surface_info";
+    field public static final String SURFACE_INFO_PATH = "/data_layer_app_helper/surface_info";
     field public static final String WATCH_CAPABILITY = "data_layer_app_helper_device_watch";
   }
 

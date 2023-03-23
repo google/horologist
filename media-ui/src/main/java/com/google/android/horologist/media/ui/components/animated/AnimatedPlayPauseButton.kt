@@ -110,12 +110,18 @@ public fun AnimatedPlayPauseButton(
                 stringResource(id = R.string.horologist_pause_button_content_description)
             val playContentDescription =
                 stringResource(id = R.string.horologist_play_button_content_description)
-            val contentDescription = if (playing) pauseContentDescription else playContentDescription
 
             Button(
                 onClick = { if (playing) onPauseClick() else onPlayClick() },
                 modifier = modifier
-                    .size(tapTargetSize),
+                    .size(tapTargetSize)
+                    .semantics {
+                        contentDescription = if (playing) {
+                            pauseContentDescription
+                        } else {
+                            playContentDescription
+                        }
+                    },
                 enabled = enabled,
                 colors = colors
             ) {
@@ -123,6 +129,7 @@ public fun AnimatedPlayPauseButton(
                     .size(iconSize)
                     .align(Alignment.Center)
                     .graphicsLayer(alpha = LocalContentAlpha.current)
+
                 if (isCompositionReady) {
                     LottieAnimation(
                         modifier = contentModifier,
@@ -133,7 +140,7 @@ public fun AnimatedPlayPauseButton(
                     Icon(
                         modifier = contentModifier,
                         imageVector = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
-                        contentDescription = contentDescription
+                        contentDescription = if (playing) pauseContentDescription else playContentDescription
                     )
                 }
             }

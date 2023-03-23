@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalWearFoundationApi::class)
-
 package com.google.android.horologist.compose.focus
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.focus.FocusRequester
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
 import kotlinx.coroutines.CoroutineScope
 

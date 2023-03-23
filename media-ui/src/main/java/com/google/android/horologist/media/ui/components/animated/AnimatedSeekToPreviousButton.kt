@@ -19,7 +19,6 @@ package com.google.android.horologist.media.ui.components.animated
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
@@ -30,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
 import com.google.android.horologist.media.ui.R
@@ -53,15 +51,9 @@ public fun AnimatedSeekToPreviousButton(
             colors = colors
         )
     } else {
-        val composition = rememberLottieComposition(
+        val compositionResult = rememberLottieComposition(
             spec = LottieCompositionSpec.Asset("lottie/Next.json")
         )
-        val isCompositionReady by produceState(initialValue = false, producer = {
-            composition.await()
-            value = true
-        })
-        val lottieAnimatable = rememberLottieAnimatable()
-
         Box(modifier = Modifier.graphicsLayer(scaleX = -1f)) {
             AnimatedMediaButton(
                 modifier = modifier,
@@ -71,13 +63,8 @@ public fun AnimatedSeekToPreviousButton(
                 colors = colors,
                 iconSize = iconSize,
                 tapTargetSize = tapTargetSize,
-                composition = composition.value,
-                lottieAnimatable = lottieAnimatable,
-                iconAlign = Alignment.End,
-                placeholder = LottieButtonPlaceholder(
-                    isComposeReady = isCompositionReady,
-                    placeholderImage = LottiePlaceholders.Next
-                )
+                compositionResult = compositionResult,
+                iconAlign = Alignment.End
             )
         }
     }

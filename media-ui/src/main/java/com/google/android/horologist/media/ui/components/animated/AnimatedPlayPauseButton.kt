@@ -23,9 +23,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,12 +40,10 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
 import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieAnimatable
-import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieClipSpec
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -85,18 +81,12 @@ public fun AnimatedPlayPauseButton(
             backgroundColor = backgroundColor
         )
     } else {
-        val composition = rememberLottieComposition(
+        val compositionResult = rememberLottieComposition(
             spec = LottieCompositionSpec.Asset(
                 "lottie/PlayPause.json"
             )
         )
-        val lottieProgress =
-            animateLottieProgressAsState(playing = playing, composition = composition.value)
 
-        val isCompositionReady by produceState(initialValue = false, producer = {
-            composition.await()
-            value = true
-        })
         Box(
             modifier = modifier
                 .size(tapTargetSize)
@@ -130,19 +120,14 @@ public fun AnimatedPlayPauseButton(
                     .align(Alignment.Center)
                     .graphicsLayer(alpha = LocalContentAlpha.current)
 
-                if (isCompositionReady) {
-                    LottieAnimation(
-                        modifier = contentModifier,
-                        composition = composition.value,
-                        progress = { lottieProgress.value }
-                    )
-                } else {
-                    Icon(
-                        modifier = contentModifier,
-                        imageVector = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
-                        contentDescription = if (playing) pauseContentDescription else playContentDescription
-                    )
-                }
+                LottieAnimationWithPlaceholder(
+                    lottieCompositionResult = compositionResult,
+                    lottieAnimatable = animateLottieProgressAsState(playing = playing, composition = compositionResult.value),
+                    placeholder = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
+                    contentDescription = if (playing) pauseContentDescription else playContentDescription,
+                    modifier = contentModifier,
+                    lottieComposition = compositionResult.value
+                )
             }
         }
     }
@@ -152,7 +137,7 @@ public fun AnimatedPlayPauseButton(
 private fun animateLottieProgressAsState(
     playing: Boolean,
     composition: LottieComposition?
-): State<Float> {
+): LottieAnimatable {
     val clipSpec = remember { LottieClipSpec.Frame(min = 20, max = 40) }
     val lottieProgress = animateLottieCompositionAsState(
         composition = composition,

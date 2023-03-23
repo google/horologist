@@ -30,12 +30,10 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
-import com.airbnb.lottie.LottieComposition
-import com.airbnb.lottie.compose.LottieAnimatable
-import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieDynamicProperties
+import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.launch
 import androidx.compose.ui.semantics.contentDescription as contentDescriptionProperty
@@ -47,8 +45,7 @@ import androidx.compose.ui.semantics.contentDescription as contentDescriptionPro
 @Composable
 public fun AnimatedMediaButton(
     onClick: () -> Unit,
-    composition: LottieComposition?,
-    lottieAnimatable: LottieAnimatable,
+    compositionResult: LottieCompositionResult,
     contentDescription: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -56,17 +53,17 @@ public fun AnimatedMediaButton(
     dynamicProperties: LottieDynamicProperties? = null,
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
-    iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
-    placeholder: LottieButtonPlaceholder? = null
+    iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally
 ) {
     val scope = rememberCoroutineScope()
+    val composition = compositionResult.value
+    val lottieAnimatable = rememberLottieAnimatable()
 
     Button(
         onClick = {
-            if (placeholder?.isComposeReady == true) {
-                scope.launch {
-                    lottieAnimatable.animate(composition = composition)
-                }
+            scope.launch {
+                android.util.Log.d("lottie2", "animate")
+                lottieAnimatable.animate(composition = composition)
             }
             onClick()
         },
@@ -94,19 +91,15 @@ public fun AnimatedMediaButton(
             .align(Alignment.Center)
             .graphicsLayer(alpha = LocalContentAlpha.current)
             .semantics { contentDescriptionProperty = contentDescription }
-        if (placeholder?.isComposeReady == true) {
-            LottieAnimation(
-                modifier = contentModifier,
-                composition = composition,
-                progress = { lottieAnimatable.progress },
-                dynamicProperties = dynamicProperties
-            )
-        } else {
-            Icon(
-                modifier = contentModifier,
-                imageVector = LottiePlaceholders.Next,
-                contentDescription = contentDescription
-            )
-        }
+
+        LottieAnimationWithPlaceholder(
+            lottieCompositionResult = compositionResult,
+            lottieAnimatable = lottieAnimatable,
+            placeholder = LottiePlaceholders.Next,
+            contentDescription = contentDescription,
+            modifier = contentModifier,
+            lottieComposition = compositionResult.value,
+            dynamicProperties = dynamicProperties
+        )
     }
 }

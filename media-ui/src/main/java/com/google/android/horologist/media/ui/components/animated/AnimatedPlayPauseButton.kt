@@ -115,8 +115,7 @@ public fun AnimatedPlayPauseButton(
             Button(
                 onClick = { if (playing) onPauseClick() else onPlayClick() },
                 modifier = modifier
-                    .size(tapTargetSize)
-                    .semantics { contentDescription },
+                    .size(tapTargetSize),
                 enabled = enabled,
                 colors = colors
             ) {

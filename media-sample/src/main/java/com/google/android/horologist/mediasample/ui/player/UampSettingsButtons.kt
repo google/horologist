@@ -20,7 +20,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 import com.google.android.horologist.mediasample.R
@@ -31,7 +31,7 @@ import com.google.android.horologist.mediasample.R
  */
 @Composable
 public fun UampSettingsButtons(
-    volumeState: VolumeState,
+    volumeUiState: VolumeUiState,
     onVolumeClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true
@@ -49,7 +49,7 @@ public fun UampSettingsButtons(
 
         SetVolumeButton(
             onVolumeClick = onVolumeClick,
-            volumeState = volumeState
+            volumeUiState = volumeUiState
         )
     }
 }

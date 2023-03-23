@@ -39,11 +39,9 @@ import androidx.wear.compose.material.Stepper
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
-import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
 
 /**
@@ -67,14 +65,14 @@ public fun VolumeScreen(
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() }
 ) {
-    val volumeState by volumeViewModel.volumeState.collectAsState()
+    val volumeUiState by volumeViewModel.volumeUiState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
 
     VolumeScreen(
         modifier = modifier.onRotaryInputAccumulatedWithFocus(
             onValueChange = volumeViewModel::onVolumeChangeByScroll
         ),
-        volume = { volumeState },
+        volume = { volumeUiState },
         audioOutputUi = audioOutput.toAudioOutputUi(),
         increaseVolume = { volumeViewModel.increaseVolume() },
         decreaseVolume = { volumeViewModel.decreaseVolume() },
@@ -90,7 +88,7 @@ public fun VolumeScreen(
  */
 @Composable
 public fun VolumeScreen(
-    volume: () -> VolumeState,
+    volume: () -> VolumeUiState,
     audioOutputUi: AudioOutputUi,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
@@ -132,7 +130,7 @@ public fun VolumeScreen(
  */
 @Composable
 public fun VolumeWithLabelScreen(
-    volume: () -> VolumeState,
+    volume: () -> VolumeUiState,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
     modifier: Modifier = Modifier,
@@ -161,7 +159,7 @@ public fun VolumeWithLabelScreen(
 
 @Composable
 internal fun VolumeScreen(
-    volume: () -> VolumeState,
+    volume: () -> VolumeUiState,
     contentSlot: @Composable () -> Unit,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
@@ -188,8 +186,7 @@ internal fun VolumeScreen(
     }
     if (showVolumeIndicator) {
         VolumePositionIndicator(
-            volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
-            autoHide = false
+            volumeUiState = { volume() }
         )
     }
 }
@@ -217,9 +214,9 @@ public object VolumeScreenDefaults {
 }
 
 @Composable
-private fun volumeDescription(volumeState: VolumeState, isAudioOutputConnected: Boolean): String {
+private fun volumeDescription(volumeUiState: VolumeUiState, isAudioOutputConnected: Boolean): String {
     return if (isAudioOutputConnected) {
-        stringResource(id = R.string.horologist_volume_screen_connected_state, volumeState.current)
+        stringResource(id = R.string.horologist_volume_screen_connected_state, volumeUiState.current)
     } else {
         stringResource(id = R.string.horologist_volume_screen_not_connected_state)
     }

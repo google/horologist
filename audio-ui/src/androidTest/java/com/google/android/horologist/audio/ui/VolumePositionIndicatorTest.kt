@@ -29,6 +29,7 @@ import androidx.compose.ui.test.printToLog
 import androidx.test.filters.MediumTest
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
+import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
 
@@ -51,8 +52,7 @@ class VolumePositionIndicatorTest {
         composeTestRule.setContent {
             VolumePositionIndicator(
                 modifier = Modifier.testTag(TEST_TAG),
-                volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
-                autoHide = false
+                volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) }
             )
         }
 
@@ -67,7 +67,7 @@ class VolumePositionIndicatorTest {
             VolumePositionIndicator(
                 modifier = Modifier.testTag(TEST_TAG),
                 volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
-                autoHide = true
+                displayIndicatorEvents = flowOf(Unit)
             )
         }
 

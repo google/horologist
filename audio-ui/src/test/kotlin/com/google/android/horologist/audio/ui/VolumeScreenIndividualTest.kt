@@ -126,18 +126,18 @@ class VolumeScreenIndividualTest {
             current = 50,
             max = 100
         )
+        val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
 
         paparazzi.snapshot {
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
-                        autoHide = false
+                        volumeUiState = { volumeUiState }
                     )
                 }
             ) {
                 VolumeWithLabelScreen(
-                    volume = { volumeState },
+                    volume = { volumeUiState },
                     increaseVolume = { },
                     decreaseVolume = { },
                     showVolumeIndicator = false

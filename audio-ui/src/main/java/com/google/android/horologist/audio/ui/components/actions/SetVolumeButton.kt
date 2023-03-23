@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.R
+import com.google.android.horologist.audio.ui.VolumeUiState
 
 /**
  * Button to launch a screen to control the system volume.
@@ -34,7 +35,7 @@ import com.google.android.horologist.audio.ui.R
 @Composable
 public fun SetVolumeButton(
     onVolumeClick: () -> Unit,
-    volumeState: VolumeState,
+    volumeUiState: VolumeUiState,
     modifier: Modifier = Modifier,
     enabled: Boolean = true
 ) {
@@ -43,8 +44,8 @@ public fun SetVolumeButton(
         onClick = onVolumeClick,
         enabled = enabled,
         imageVector = when {
-            volumeState.isMin -> Icons.Default.VolumeMute
-            volumeState.isMax -> Icons.Default.VolumeUp
+            volumeUiState.isMin -> Icons.Default.VolumeMute
+            volumeUiState.isMax -> Icons.Default.VolumeUp
             else -> Icons.Default.VolumeDown
         },
         contentDescription = stringResource(R.string.horologist_set_volume_content_description)

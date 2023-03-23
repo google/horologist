@@ -36,6 +36,7 @@ import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
+import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
@@ -46,6 +47,7 @@ import com.google.android.horologist.media.ui.components.background.RadialBackgr
 import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
+import kotlinx.coroutines.flow.flowOf
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -69,7 +71,7 @@ fun MediaPlayerTestCase(
     },
     buttons: @Composable RowScope.() -> Unit = {
         SettingsButtons(
-            volumeState = VolumeState(5, 10),
+            volumeUiState = VolumeUiState(5, 10),
             onVolumeClick = { /*TODO*/ },
             onOutputClick = { },
             brandIcon = {
@@ -106,7 +108,8 @@ fun MediaPlayerTestCase(
                         VolumePositionIndicator(
                             volumeUiState = {
                                 VolumeUiStateMapper.map(volumeState = VolumeState(6, 10))
-                            }
+                            },
+                            displayIndicatorEvents = flowOf()
                         )
                     }
                 ) {

@@ -47,7 +47,7 @@ public fun LottieAnimationWithPlaceholder(
         LottieAnimation(
             modifier = modifier,
             composition = lottieCompositionResult.value,
-            progress = lottieAnimatable(),
+            progress = lottieAnimatable,
             dynamicProperties = dynamicProperties
         )
     } else {

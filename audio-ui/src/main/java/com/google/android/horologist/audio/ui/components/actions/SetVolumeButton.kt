@@ -30,7 +30,7 @@ import com.google.android.horologist.base.ui.components.IconRtlMode
 /**
  * Button to launch a screen to control the system volume.
  *
- * See [VolumeState]
+ * See [VolumeUiState]
  */
 @Composable
 public fun SetVolumeButton(

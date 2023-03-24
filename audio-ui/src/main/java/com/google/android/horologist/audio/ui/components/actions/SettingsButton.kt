@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
@@ -30,7 +29,6 @@ import androidx.wear.compose.material.ButtonDefaults.buttonColors
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.iconImageVector
 import com.google.android.horologist.base.ui.components.IconRtlMode
 import com.google.android.horologist.base.ui.components.StandardIcon
 
@@ -44,9 +42,9 @@ import com.google.android.horologist.base.ui.components.StandardIcon
 public fun SettingsButton(
     onClick: () -> Unit,
     imageVector: ImageVector,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     contentDescription: String,
     modifier: Modifier = Modifier,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true,
     iconSize: Dp = 26.dp,
     tapTargetSize: Dp = 52.dp
@@ -66,8 +64,7 @@ public fun SettingsButton(
             contentDescription = contentDescription,
             modifier = Modifier
                 .size(iconSize)
-                .align(Alignment.Center)
-                .semantics { iconImageVector = imageVector },
+                .align(Alignment.Center),
             rtlMode = iconRtlMode
         )
     }

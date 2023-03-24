@@ -21,9 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.Icon
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.base.ui.semantics.CustomSemanticsProperties.iconImageVector
 
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 public fun StandardIcon(
     imageVector: ImageVector,
@@ -33,10 +37,12 @@ public fun StandardIcon(
 ) {
     val shouldMirror = rtlMode == IconRtlMode.Mirrored && LocalLayoutDirection.current == LayoutDirection.Rtl
     Icon(
-        modifier = modifier.scale(
-            scaleX = if (shouldMirror) -1f else 1f,
-            scaleY = 1f
-        ),
+        modifier = modifier
+            .semantics { iconImageVector = imageVector }
+            .scale(
+                scaleX = if (shouldMirror) -1f else 1f,
+                scaleY = 1f
+            ),
         imageVector = imageVector,
         contentDescription = contentDescription
     )

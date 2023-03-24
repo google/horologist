@@ -23,9 +23,9 @@ import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.R
 import com.google.android.horologist.audio.ui.VolumeUiState
+import com.google.android.horologist.base.ui.components.IconRtlMode
 
 /**
  * Button to launch a screen to control the system volume.
@@ -48,6 +48,7 @@ public fun SetVolumeButton(
             volumeUiState.isMax -> Icons.Default.VolumeUp
             else -> Icons.Default.VolumeDown
         },
+        iconRtlMode = IconRtlMode.Mirrored,
         contentDescription = stringResource(R.string.horologist_set_volume_content_description)
     )
 }

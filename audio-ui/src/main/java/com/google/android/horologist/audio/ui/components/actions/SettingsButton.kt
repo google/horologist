@@ -27,11 +27,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults.buttonColors
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.iconImageVector
+import com.google.android.horologist.base.ui.components.IconRtlMode
+import com.google.android.horologist.base.ui.components.StandardIcon
 
 /**
  * Button to launch a screen to control the system volume.
@@ -43,6 +44,7 @@ import com.google.android.horologist.audio.ui.semantics.CustomSemanticsPropertie
 public fun SettingsButton(
     onClick: () -> Unit,
     imageVector: ImageVector,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     contentDescription: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -59,13 +61,14 @@ public fun SettingsButton(
         ),
         enabled = enabled
     ) {
-        Icon(
+        StandardIcon(
             imageVector = imageVector,
             contentDescription = contentDescription,
             modifier = Modifier
                 .size(iconSize)
                 .align(Alignment.Center)
-                .semantics { iconImageVector = imageVector }
+                .semantics { iconImageVector = imageVector },
+            rtlMode = iconRtlMode
         )
     }
 }

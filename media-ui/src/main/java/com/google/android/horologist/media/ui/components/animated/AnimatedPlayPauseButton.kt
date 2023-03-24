@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -86,7 +87,8 @@ public fun AnimatedPlayPauseButton(
                 "lottie/PlayPause.json"
             )
         )
-
+        val lottieProgress =
+            animateLottieProgressAsState(playing = playing, composition = compositionResult.value)
         Box(
             modifier = modifier
                 .size(tapTargetSize)
@@ -122,11 +124,10 @@ public fun AnimatedPlayPauseButton(
 
                 LottieAnimationWithPlaceholder(
                     lottieCompositionResult = compositionResult,
-                    lottieAnimatable = animateLottieProgressAsState(playing = playing, composition = compositionResult.value),
+                    lottieAnimatable = { lottieProgress.value },
                     placeholder = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
                     contentDescription = if (playing) pauseContentDescription else playContentDescription,
-                    modifier = contentModifier,
-                    lottieComposition = compositionResult.value
+                    modifier = contentModifier
                 )
             }
         }
@@ -137,7 +138,7 @@ public fun AnimatedPlayPauseButton(
 private fun animateLottieProgressAsState(
     playing: Boolean,
     composition: LottieComposition?
-): LottieAnimatable {
+): State<Float> {
     val clipSpec = remember { LottieClipSpec.Frame(min = 20, max = 40) }
     val lottieProgress = animateLottieCompositionAsState(
         composition = composition,

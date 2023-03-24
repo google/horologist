@@ -22,8 +22,6 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.wear.compose.material.Icon
-import com.airbnb.lottie.LottieComposition
-import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieDynamicProperties
@@ -34,11 +32,10 @@ import com.airbnb.lottie.compose.LottieDynamicProperties
 @Composable
 public fun LottieAnimationWithPlaceholder(
     lottieCompositionResult: LottieCompositionResult,
-    lottieAnimatable: LottieAnimatable,
+    lottieAnimatable: () -> Float,
     placeholder: ImageVector,
     contentDescription: String,
     modifier: Modifier = Modifier,
-    lottieComposition: LottieComposition?,
     dynamicProperties: LottieDynamicProperties? = null
 ) {
     val isCompositionReady by produceState(initialValue = false, producer = {
@@ -49,10 +46,8 @@ public fun LottieAnimationWithPlaceholder(
     if (isCompositionReady) {
         LottieAnimation(
             modifier = modifier,
-            composition = lottieComposition,
-            progress = {
-                lottieAnimatable.progress
-            },
+            composition = lottieCompositionResult.value,
+            progress = lottieAnimatable(),
             dynamicProperties = dynamicProperties
         )
     } else {

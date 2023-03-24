@@ -21,6 +21,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.MaterialTheme
@@ -41,7 +43,9 @@ public fun MarqueeTextMediaDisplay(
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         MarqueeText(
             text = title.orEmpty(),
-            modifier = Modifier.fillMaxWidth(0.7f),
+            modifier = Modifier.fillMaxWidth(0.7f).clearAndSetSemantics {
+                contentDescription = title.orEmpty()
+            },
             color = MaterialTheme.colors.onBackground,
             style = MaterialTheme.typography.button,
             textAlign = TextAlign.Center

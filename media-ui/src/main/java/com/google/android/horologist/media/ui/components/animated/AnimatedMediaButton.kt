@@ -31,10 +31,9 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.LocalContentAlpha
-import com.airbnb.lottie.LottieComposition
-import com.airbnb.lottie.compose.LottieAnimatable
-import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieDynamicProperties
+import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.launch
 import androidx.compose.ui.semantics.contentDescription as contentDescriptionProperty
@@ -46,8 +45,7 @@ import androidx.compose.ui.semantics.contentDescription as contentDescriptionPro
 @Composable
 public fun AnimatedMediaButton(
     onClick: () -> Unit,
-    composition: LottieComposition?,
-    lottieAnimatable: LottieAnimatable,
+    compositionResult: LottieCompositionResult,
     contentDescription: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -58,6 +56,8 @@ public fun AnimatedMediaButton(
     iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally
 ) {
     val scope = rememberCoroutineScope()
+    val composition = compositionResult.value
+    val lottieAnimatable = rememberLottieAnimatable()
 
     Button(
         onClick = {
@@ -70,27 +70,34 @@ public fun AnimatedMediaButton(
         enabled = enabled,
         colors = colors
     ) {
-        LottieAnimation(
-            modifier = Modifier
-                .size(iconSize)
-                .run {
-                    when (iconAlign) {
-                        Alignment.Start -> {
-                            offset(x = -7.5.dp)
-                        }
-                        Alignment.End -> {
-                            offset(x = 7.5.dp)
-                        }
-                        else -> {
-                            this
-                        }
+        val contentModifier = Modifier
+            .size(iconSize)
+            .run {
+                when (iconAlign) {
+                    Alignment.Start -> {
+                        offset(x = -7.5.dp)
+                    }
+
+                    Alignment.End -> {
+                        offset(x = 7.5.dp)
+                    }
+
+                    else -> {
+                        this
                     }
                 }
-                .align(Alignment.Center)
-                .graphicsLayer(alpha = LocalContentAlpha.current)
-                .semantics { contentDescriptionProperty = contentDescription },
-            composition = composition,
-            progress = { lottieAnimatable.progress },
+            }
+            .align(Alignment.Center)
+            .graphicsLayer(alpha = LocalContentAlpha.current)
+            .semantics { contentDescriptionProperty = contentDescription }
+
+        LottieAnimationWithPlaceholder(
+            lottieCompositionResult = compositionResult,
+            lottieAnimatable = lottieAnimatable,
+            placeholder = LottiePlaceholders.Next,
+            contentDescription = contentDescription,
+            modifier = contentModifier,
+            lottieComposition = compositionResult.value,
             dynamicProperties = dynamicProperties
         )
     }

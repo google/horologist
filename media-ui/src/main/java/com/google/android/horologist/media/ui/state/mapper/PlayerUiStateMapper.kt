@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.media.ui.state.mapper
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlaybackStateEvent
@@ -30,7 +27,6 @@ import kotlin.time.Duration
 /**
  * Map [PlayerState], [Command] plus other set of properties into a [PlayerUiState].
  */
-@ExperimentalHorologistApi
 public object PlayerUiStateMapper {
 
     public fun map(
@@ -44,7 +40,6 @@ public object PlayerUiStateMapper {
         seekForwardIncrement: Duration?
     ): PlayerUiState {
         val playPauseCommandAvailable = availableCommands.contains(Command.PlayPause) && currentState != PlayerState.Idle
-
         return PlayerUiState(
             playEnabled = playPauseCommandAvailable,
             pauseEnabled = playPauseCommandAvailable,

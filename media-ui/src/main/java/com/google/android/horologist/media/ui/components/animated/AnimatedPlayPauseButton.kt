@@ -46,7 +46,6 @@ import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
 import com.google.android.horologist.media.ui.R
@@ -123,7 +122,7 @@ public fun AnimatedPlayPauseButton(
 
                 LottieAnimationWithPlaceholder(
                     lottieCompositionResult = compositionResult,
-                    lottieAnimatable = { lottieProgress.value },
+                    progress = { lottieProgress.value },
                     placeholder = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
                     contentDescription = if (playing) pauseContentDescription else playContentDescription,
                     modifier = contentModifier

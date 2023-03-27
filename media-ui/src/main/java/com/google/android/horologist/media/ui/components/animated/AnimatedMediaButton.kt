@@ -56,13 +56,12 @@ public fun AnimatedMediaButton(
     iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally
 ) {
     val scope = rememberCoroutineScope()
-    val composition = compositionResult.value
     val lottieAnimatable = rememberLottieAnimatable()
 
     Button(
         onClick = {
             scope.launch {
-                lottieAnimatable.animate(composition = composition)
+                lottieAnimatable.animate(composition = compositionResult.value)
             }
             onClick()
         },
@@ -93,11 +92,10 @@ public fun AnimatedMediaButton(
 
         LottieAnimationWithPlaceholder(
             lottieCompositionResult = compositionResult,
-            lottieAnimatable = lottieAnimatable,
+            lottieAnimatable = { lottieAnimatable.progress },
             placeholder = LottiePlaceholders.Next,
             contentDescription = contentDescription,
             modifier = contentModifier,
-            lottieComposition = compositionResult.value,
             dynamicProperties = dynamicProperties
         )
     }

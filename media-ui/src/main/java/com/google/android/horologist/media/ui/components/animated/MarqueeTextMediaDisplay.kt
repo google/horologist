@@ -61,23 +61,6 @@ public fun MarqueeTextMediaDisplay(
                 textAlign = TextAlign.Center
             )
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
-        Text(
-            text = artist.orEmpty(),
-            modifier = Modifier.fillMaxWidth(0.8f),
-            color = MaterialTheme.colors.onBackground,
-            textAlign = TextAlign.Center,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1,
-            style = MaterialTheme.typography.body2
-        )
-=======
->>>>>>> bc556b24 (Added animation for artist and song name while clicking seek next/previous button)
-    }
-=======
->>>>>>> 133a3fd8 (Added animation for artist and song name while clicking seek next/previous button)
-
         AnimatedContent(
             targetState = artist,
             transitionSpec = {

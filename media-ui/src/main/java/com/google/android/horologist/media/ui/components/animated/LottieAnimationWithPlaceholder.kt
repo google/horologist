@@ -32,7 +32,7 @@ import com.airbnb.lottie.compose.LottieDynamicProperties
 @Composable
 public fun LottieAnimationWithPlaceholder(
     lottieCompositionResult: LottieCompositionResult,
-    lottieAnimatable: () -> Float,
+    progress: () -> Float,
     placeholder: ImageVector,
     contentDescription: String,
     modifier: Modifier = Modifier,
@@ -47,7 +47,7 @@ public fun LottieAnimationWithPlaceholder(
         LottieAnimation(
             modifier = modifier,
             composition = lottieCompositionResult.value,
-            progress = lottieAnimatable,
+            progress = progress,
             dynamicProperties = dynamicProperties
         )
     } else {

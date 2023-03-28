@@ -92,7 +92,7 @@ public fun AnimatedMediaButton(
 
         LottieAnimationWithPlaceholder(
             lottieCompositionResult = compositionResult,
-            lottieAnimatable = { lottieAnimatable.progress },
+            progress = { lottieAnimatable.progress },
             placeholder = LottiePlaceholders.Next,
             contentDescription = contentDescription,
             modifier = contentModifier,

@@ -78,7 +78,7 @@ public fun MarqueeTextMediaDisplay(
 =======
 >>>>>>> 133a3fd8 (Added animation for artist and song name while clicking seek next/previous button)
 
-    AnimatedContent(
+        AnimatedContent(
             targetState = artist,
             transitionSpec = {
                 slideInHorizontally { it } + fadeIn() with
@@ -96,5 +96,5 @@ public fun MarqueeTextMediaDisplay(
                 style = MaterialTheme.typography.body2
             )
         }
+    }
 }
-

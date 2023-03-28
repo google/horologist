@@ -34,6 +34,7 @@ import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.copy
 import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.tileInfo
+import com.google.protobuf.Timestamp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.tasks.await
@@ -59,6 +60,7 @@ public class WearDataLayerAppHelper(
             serializer = SurfaceInfoSerializer
         )
     }
+
     override suspend fun installOnNode(node: String) {
         if (appStoreUri != null &&
             PhoneTypeHelper.getPhoneDeviceType(context) == PhoneTypeHelper.DEVICE_TYPE_IOS
@@ -95,10 +97,9 @@ public class WearDataLayerAppHelper(
      * @param tileName The name of the tile.
      */
     public suspend fun markTileAsInstalled(tileName: String) {
-        surfaceInfoDataStore.updateData {
-                info ->
+        surfaceInfoDataStore.updateData { info ->
             val tile = tileInfo {
-                timestamp = System.currentTimeMillis()
+                timestamp = System.currentTimeMillis().toProtoTimestamp()
                 name = tileName
             }
             info.copy {
@@ -117,10 +118,9 @@ public class WearDataLayerAppHelper(
      * @param tileName The name of the tile.
      */
     public suspend fun markTileAsRemoved(tileName: String) {
-        surfaceInfoDataStore.updateData {
-                info ->
+        surfaceInfoDataStore.updateData { info ->
             val tile = tileInfo {
-                timestamp = System.currentTimeMillis()
+                timestamp = System.currentTimeMillis().toProtoTimestamp()
                 name = tileName
             }
             info.copy {
@@ -146,10 +146,9 @@ public class WearDataLayerAppHelper(
         complicationInstanceId: Int,
         complicationType: ComplicationType
     ) {
-        surfaceInfoDataStore.updateData {
-                info ->
+        surfaceInfoDataStore.updateData { info ->
             val complication = complicationInfo {
-                timestamp = System.currentTimeMillis()
+                timestamp = System.currentTimeMillis().toProtoTimestamp()
                 name = complicationName
                 instanceId = complicationInstanceId
                 type = complicationType.name
@@ -176,10 +175,10 @@ public class WearDataLayerAppHelper(
         complicationInstanceId: Int,
         complicationType: ComplicationType
     ) {
-        surfaceInfoDataStore.updateData {
-                info ->
+        surfaceInfoDataStore.updateData { info ->
             val complication = complicationInfo {
-                timestamp = System.currentTimeMillis()
+                timestamp = System.currentTimeMillis().toProtoTimestamp()
+
                 name = complicationName
                 instanceId = complicationInstanceId
                 type = complicationType.name
@@ -199,12 +198,25 @@ public class WearDataLayerAppHelper(
      * relevant.
      */
     private fun TileInfo.equalWithoutTimestamp(other: TileInfo): Boolean =
-        this.copy { timestamp = 0 } == other.copy { timestamp = 0 }
+        this.copy { timestamp = Timestamp.getDefaultInstance() } == other.copy {
+            timestamp = Timestamp.getDefaultInstance()
+        }
 
     /**
      * Compares equality of [ComplicationInfo] excluding timestamp, as when the Complication was
      * added is not relevant.
      */
     private fun ComplicationInfo.equalWithoutTimestamp(other: ComplicationInfo): Boolean =
-        this.copy { timestamp = 0 } == other.copy { timestamp = 0 }
+        this.copy { timestamp = Timestamp.getDefaultInstance() } == other.copy {
+            timestamp = Timestamp.getDefaultInstance()
+        }
+
+    internal companion object {
+        internal fun Long.toProtoTimestamp(): Timestamp {
+            return Timestamp.newBuilder()
+                .setSeconds(this / 1000)
+                .setNanos((this % 1000).toInt() * 1000000)
+                .build()
+        }
+    }
 }

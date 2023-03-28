@@ -5,6 +5,7 @@ package com.google.android.horologist.data;
 option java_package = "com.google.android.horologist.data";
 option java_multiple_files = true;
 
+import "google/protobuf/timestamp.proto";
 
 message AppHelperResult {
   AppHelperResultCode code = 1;
@@ -39,15 +40,17 @@ message ActivityConfig {
 }
 
 message ComplicationInfo {
+  reserved 4;
   string name = 1;
   int32 instanceId = 2;
   string type = 3;
-  int64 timestamp = 4;
+  .google.protobuf.Timestamp timestamp = 5;
 }
 
 message TileInfo {
-  int64 timestamp = 1;
+  reserved 1;
   string name = 2;
+  .google.protobuf.Timestamp timestamp = 3;
 }
 
 message SurfacesInfo {

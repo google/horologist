@@ -43,6 +43,7 @@ ktlint = "0.46.1"
 metalava = "0.3.3"
 moshi = "1.14.0"
 playServicesAuth = "20.4.1"
+protobuf = "3.21.12"
 room = "2.5.1"
 runtimeTracing = "1.0.0-alpha03"
 spotless = "6.17.0"
@@ -154,7 +155,7 @@ paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "app-cash-p
 paparazziPlugin = { module = "app.cash.paparazzi:paparazzi-gradle-plugin", version.ref = "app-cash-paparazzi" }
 playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 playservices-wearable = "com.google.android.gms:play-services-wearable:18.0.0"
-protobuf-kotlin-lite = "com.google.protobuf:protobuf-kotlin-lite:3.21.9"
+protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
 retrofit2-convertermoshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "com-squareup-retrofit2" }
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "com-squareup-retrofit2" }
 robolectric = "org.robolectric:robolectric:4.9.2"

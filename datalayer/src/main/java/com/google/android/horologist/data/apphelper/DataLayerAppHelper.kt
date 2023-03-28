@@ -22,7 +22,6 @@ import android.content.Context
 import android.net.Uri
 import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.gms.wearable.CapabilityClient
-import com.google.android.gms.wearable.CapabilityInfo
 import com.google.android.gms.wearable.Node
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.ActivityConfig
@@ -95,7 +94,8 @@ abstract class DataLayerAppHelper(
     public val connectedAndInstalledNodes = callbackFlow<Set<Node>> {
         val listener: CapabilityClient.OnCapabilityChangedListener =
             CapabilityClient.OnCapabilityChangedListener { capability ->
-                @Suppress("UNUSED_VARIABLE") val unused =
+                @Suppress("UNUSED_VARIABLE")
+                val unused =
                     trySend(capability.nodes.filter { it.isNearby }.toSet())
             }
 
@@ -106,7 +106,8 @@ abstract class DataLayerAppHelper(
         val installedCaps = allCaps.filter { it.key.startsWith(CAPABILITY_DEVICE_PREFIX) }
             .values.flatMap { it.nodes }.filter { it.isNearby }.toSet()
 
-        @Suppress("UNUSED_VARIABLE") val unused = trySend(installedCaps)
+        @Suppress("UNUSED_VARIABLE")
+        val unused = trySend(installedCaps)
         registry.capabilityClient.addListener(
             listener,
             Uri.parse(installedDeviceCapabilityUri),

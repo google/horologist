@@ -211,7 +211,7 @@ public class WearDataLayerAppHelper(
             timestamp = Timestamp.getDefaultInstance()
         }
 
-    companion object {
+    internal companion object {
         internal fun Long.toProtoTimestamp(): Timestamp {
             return Timestamp.newBuilder()
                 .setSeconds(this / 1000)

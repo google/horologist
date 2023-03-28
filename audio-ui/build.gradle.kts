@@ -29,7 +29,7 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 25
+        minSdk = 26
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -103,6 +103,7 @@ dependencies {
     api(libs.kotlin.stdlib)
     api(projects.annotations)
     implementation(projects.composeLayout)
+    implementation(projects.baseUi)
     debugImplementation(projects.logo)
 
     api(libs.wearcompose.material)

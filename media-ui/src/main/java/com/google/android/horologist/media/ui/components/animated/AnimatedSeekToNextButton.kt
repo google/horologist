@@ -27,14 +27,11 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 
-@ExperimentalHorologistApi
 @Composable
 public fun AnimatedSeekToNextButton(
     onClick: () -> Unit,
@@ -52,10 +49,9 @@ public fun AnimatedSeekToNextButton(
             colors = colors
         )
     } else {
-        val composition by rememberLottieComposition(
+        val compositionResult = rememberLottieComposition(
             spec = LottieCompositionSpec.Asset("lottie/Next.json")
         )
-        val lottieAnimatable = rememberLottieAnimatable()
 
         AnimatedMediaButton(
             modifier = modifier,
@@ -65,8 +61,7 @@ public fun AnimatedSeekToNextButton(
             colors = colors,
             iconSize = iconSize,
             tapTargetSize = tapTargetSize,
-            composition = composition,
-            lottieAnimatable = lottieAnimatable,
+            compositionResult = compositionResult,
             iconAlign = Alignment.End
         )
     }

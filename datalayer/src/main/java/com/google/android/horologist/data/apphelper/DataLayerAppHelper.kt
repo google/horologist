@@ -158,12 +158,12 @@ abstract class DataLayerAppHelper(
     }
 
     public companion object {
-        public const val DATA_LAYER_APP_HELPER_CAPABILITY: String = "data_layer_app_helper"
-        public const val CAPABILITY_DEVICE_PREFIX = "${DATA_LAYER_APP_HELPER_CAPABILITY}_device"
+        public const val DATA_LAYER_APP_HELPER: String = "data_layer_app_helper"
+        public const val CAPABILITY_DEVICE_PREFIX = "${DATA_LAYER_APP_HELPER}_device"
         public const val PHONE_CAPABILITY = "${CAPABILITY_DEVICE_PREFIX}_phone"
         public const val WATCH_CAPABILITY = "${CAPABILITY_DEVICE_PREFIX}_watch"
-        public const val LAUNCH_APP: String = "/launch_app"
-        public const val SURFACE_INFO_PATH: String = "/surface_info"
+        public const val LAUNCH_APP: String = "/$DATA_LAYER_APP_HELPER/launch_app"
+        public const val SURFACE_INFO_PATH: String = "/$DATA_LAYER_APP_HELPER/surface_info"
     }
 }
 

@@ -31,7 +31,7 @@
                 <action android:name="com.google.android.gms.wearable.REQUEST_RECEIVED" />
                 <data
                     android:host="*"
-                    android:path="/launch_app"
+                    android:path="/data_layer_app_helper/launch_app"
                     android:scheme="wear" />
             </intent-filter>
         </service>

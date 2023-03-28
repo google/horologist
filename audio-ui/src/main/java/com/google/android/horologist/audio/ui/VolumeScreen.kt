@@ -42,6 +42,8 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.base.ui.components.IconRtlMode
+import com.google.android.horologist.base.ui.components.StandardIcon
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
 
 /**
@@ -194,21 +196,21 @@ internal fun VolumeScreen(
 public object VolumeScreenDefaults {
     @Composable
     public fun IncreaseIcon() {
-        Icon(
-            modifier = Modifier
-                .size(26.dp),
+        StandardIcon(
+            modifier = Modifier.size(26.dp),
             imageVector = Icons.Default.VolumeUp,
-            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description)
+            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description),
+            rtlMode = IconRtlMode.Mirrored
         )
     }
 
     @Composable
     public fun DecreaseIcon() {
-        Icon(
-            modifier = Modifier
-                .size(26.dp),
+        StandardIcon(
+            modifier = Modifier.size(26.dp),
             imageVector = Icons.Default.VolumeDown,
-            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description)
+            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description),
+            rtlMode = IconRtlMode.Mirrored
         )
     }
 }

@@ -20,7 +20,7 @@ package com.google.android.horologist.audio.ui
 * A UI state for volume which contains the volume ui state info including a timestamp. The
 * timestamp is used for compose to know that a trigger has happened so @compose
 * VolumePositionIndicator can pick up the change to make itself visible even at min or max volume.
-* */
+*/
 public data class VolumeUiState(
     val current: Int = 0,
     val max: Int = 1,

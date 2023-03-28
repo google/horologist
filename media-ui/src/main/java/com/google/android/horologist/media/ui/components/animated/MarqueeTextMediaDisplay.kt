@@ -62,6 +62,7 @@ public fun MarqueeTextMediaDisplay(
             )
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
         Text(
             text = artist.orEmpty(),
             modifier = Modifier.fillMaxWidth(0.8f),
@@ -74,6 +75,8 @@ public fun MarqueeTextMediaDisplay(
 =======
 >>>>>>> bc556b24 (Added animation for artist and song name while clicking seek next/previous button)
     }
+=======
+>>>>>>> 133a3fd8 (Added animation for artist and song name while clicking seek next/previous button)
 
     AnimatedContent(
             targetState = artist,

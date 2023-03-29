@@ -21,10 +21,7 @@ package com.google.android.horologist.audio.ui
 */
 public data class VolumeUiState(
     val current: Int = 0,
-    val max: Int = 1
-) {
-    val isMax: Boolean
-        get() = current >= max
-    val isMin: Boolean
-        get() = current == 0
-}
+    val max: Int = 1,
+    val isMax: Boolean = current >= max,
+    val isMin: Boolean = current == 0
+)

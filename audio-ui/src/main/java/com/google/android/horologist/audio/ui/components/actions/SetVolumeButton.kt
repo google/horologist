@@ -28,6 +28,24 @@ import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.base.ui.components.IconRtlMode
 
 /**
+ * Button to launch a screen to control the system volume, using volume up image vector is icon as
+ * default.
+ */
+@Composable
+public fun SetVolumeButton(
+    onVolumeClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
+    SetVolumeButton(
+        onVolumeClick = onVolumeClick,
+        volumeUiState = VolumeUiState(isMax = true),
+        modifier = modifier,
+        enabled = enabled
+    )
+}
+
+/**
  * Button to launch a screen to control the system volume.
  *
  * See [VolumeUiState]

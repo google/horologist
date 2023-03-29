@@ -29,12 +29,10 @@ package com.google.android.horologist.audio.ui {
   }
 
   public final class VolumeUiState {
-    ctor public VolumeUiState(optional int current, optional int max, optional boolean isMax, optional boolean isMin);
+    ctor public VolumeUiState(optional int current, optional int max);
     method public int component1();
     method public int component2();
-    method public boolean component3();
-    method public boolean component4();
-    method public com.google.android.horologist.audio.ui.VolumeUiState copy(int current, int max, boolean isMax, boolean isMin);
+    method public com.google.android.horologist.audio.ui.VolumeUiState copy(int current, int max);
     method public int getCurrent();
     method public int getMax();
     method public boolean isMax();

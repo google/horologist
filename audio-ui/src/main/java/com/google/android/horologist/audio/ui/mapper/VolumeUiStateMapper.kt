@@ -25,6 +25,7 @@ import com.google.android.horologist.audio.ui.VolumeUiState
 public object VolumeUiStateMapper {
     public fun map(volumeState: VolumeState): VolumeUiState = VolumeUiState(
         current = volumeState.current,
-        max = volumeState.max
+        max = volumeState.max,
+        min = volumeState.min
     )
 }

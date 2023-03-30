@@ -44,15 +44,12 @@ public fun SetVolumeButton(
         modifier = modifier,
         onClick = onVolumeClick,
         enabled = enabled,
-        imageVector = if (volumeUiState == null) {
-            Icons.Default.VolumeUp
-        } else {
+        imageVector =
             when {
-                volumeUiState.isMin -> Icons.Default.VolumeMute
-                volumeUiState.isMax -> Icons.Default.VolumeUp
+                volumeUiState?.isMin == true -> Icons.Default.VolumeMute
+                volumeUiState?.isMax == true -> Icons.Default.VolumeUp
                 else -> Icons.Default.VolumeDown
-            }
-        },
+            },
         iconRtlMode = IconRtlMode.Mirrored,
         contentDescription = stringResource(R.string.horologist_set_volume_content_description)
     )

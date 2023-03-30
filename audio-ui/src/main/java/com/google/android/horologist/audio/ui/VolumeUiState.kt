@@ -16,12 +16,18 @@
 
 package com.google.android.horologist.audio.ui
 
-/*
-* A UI state for volume.
-*/
+/**
+ * A UI state for volume.
+ */
 public data class VolumeUiState(
     val current: Int = 0,
     val max: Int = 1,
-    val isMax: Boolean = current >= max,
-    val isMin: Boolean = current == 0
-)
+    val min: Int = 0
+) {
+
+    public val isMax: Boolean
+        get() = current >= max
+
+    public val isMin: Boolean
+        get() = current == min
+}

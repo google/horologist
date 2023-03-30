@@ -39,7 +39,7 @@ public fun SetVolumeButton(
 ) {
     SetVolumeButton(
         onVolumeClick = onVolumeClick,
-        volumeUiState = VolumeUiState(isMax = true),
+        volumeUiState = VolumeUiState(current = 1, max = 1),
         modifier = modifier,
         enabled = enabled
     )

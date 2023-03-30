@@ -111,8 +111,7 @@ package com.google.android.horologist.audio.ui.components.actions {
   }
 
   public final class SetVolumeButtonKt {
-    method @androidx.compose.runtime.Composable public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
-    method @androidx.compose.runtime.Composable public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.ui.VolumeUiState volumeUiState, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
+    method @androidx.compose.runtime.Composable public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, optional com.google.android.horologist.audio.ui.VolumeUiState? volumeUiState, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
   }
 
   public final class SettingsButtonKt {

@@ -61,7 +61,7 @@ public fun Modifier.onRotaryInputAccumulated(
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
     onValueChange: (change: Float) -> Unit
 ): Modifier = composed {
-    val rotaryInputAccumulator = remember {
+    val rotaryInputAccumulator = remember(onValueChange) {
         RotaryInputAccumulator(
             eventAccumulationThresholdMs = eventAccumulationThresholdMs,
             minValueChangeDistancePx = minValueChangeDistancePx,

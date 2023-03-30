@@ -36,8 +36,8 @@ import com.google.android.horologist.base.ui.components.IconRtlMode
 @Composable
 public fun SetVolumeButton(
     onVolumeClick: () -> Unit,
-    volumeUiState: VolumeUiState? = null,
     modifier: Modifier = Modifier,
+    volumeUiState: VolumeUiState? = null,
     enabled: Boolean = true
 ) {
     SettingsButton(
@@ -45,11 +45,11 @@ public fun SetVolumeButton(
         onClick = onVolumeClick,
         enabled = enabled,
         imageVector =
-            when {
-                volumeUiState?.isMin == true -> Icons.Default.VolumeMute
-                volumeUiState?.isMax == true -> Icons.Default.VolumeUp
-                else -> Icons.Default.VolumeDown
-            },
+        when {
+            volumeUiState?.isMin == true -> Icons.Default.VolumeMute
+            volumeUiState?.isMax == true -> Icons.Default.VolumeUp
+            else -> Icons.Default.VolumeDown
+        },
         iconRtlMode = IconRtlMode.Mirrored,
         contentDescription = stringResource(R.string.horologist_set_volume_content_description)
     )

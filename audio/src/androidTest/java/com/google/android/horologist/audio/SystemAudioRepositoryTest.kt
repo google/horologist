@@ -54,7 +54,7 @@ class SystemAudioRepositoryTest {
         withContext(Dispatchers.Main) {
             val context = InstrumentationRegistry.getInstrumentation().targetContext
             SystemAudioRepository.fromContext(context).use { repository ->
-                if (repository.volumeState.value.isMax) {
+                if (repository.volumeState.value.current == repository.volumeState.value.max) {
                     repository.decreaseVolume()
                 }
 

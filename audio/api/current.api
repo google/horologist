@@ -123,18 +123,17 @@ package com.google.android.horologist.audio {
   }
 
   public final class VolumeState {
-    ctor public VolumeState(int current, int max);
+    ctor public VolumeState(int current, int max, optional int min);
     method public int component1();
     method public int component2();
-    method public com.google.android.horologist.audio.VolumeState copy(int current, int max);
+    method public int component3();
+    method public com.google.android.horologist.audio.VolumeState copy(int current, int max, int min);
     method public int getCurrent();
     method public int getMax();
-    method public boolean isMax();
-    method public boolean isMin();
+    method public int getMin();
     property public final int current;
-    property public final boolean isMax;
-    property public final boolean isMin;
     property public final int max;
+    property public final int min;
   }
 
 }

@@ -46,20 +46,24 @@ class SetVolumeButtonTest {
 
     @Test
     fun givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
+        val currentVolume = 0
+
         paparazzi.snapshotInABox {
             SetVolumeButton(
                 onVolumeClick = {},
-                volumeUiState = VolumeUiState(isMin = true)
+                volumeUiState = VolumeUiState(current = currentVolume)
             )
         }
     }
 
     @Test
     fun givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
+        val currentVolume = 1
+
         paparazzi.snapshotInABox {
             SetVolumeButton(
                 onVolumeClick = {},
-                volumeUiState = VolumeUiState(isMax = true)
+                volumeUiState = VolumeUiState(current = currentVolume)
             )
         }
     }

@@ -90,7 +90,18 @@ metalava {
 
 dependencies {
     api(projects.annotations)
+    api(projects.composeTools)
+    api(projects.composeLayout)
 
-    implementation(libs.kotlin.stdlib)
+    api(libs.kotlin.stdlib)
+    api(libs.okio)
+    api(libs.snapshot.android)
+    api(libs.snapshot.jvm)
+    api(libs.compose.ui.test.junit4)
+    api(libs.robolectric)
+    implementation(libs.wearcompose.material)
+    implementation(libs.wearcompose.foundation)
+    implementation(libs.coil)
+
     testImplementation(libs.robolectric)
 }

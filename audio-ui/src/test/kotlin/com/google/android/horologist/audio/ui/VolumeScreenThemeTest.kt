@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.audio.ui
 
@@ -25,18 +23,19 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
+import org.robolectric.ParameterizedRobolectricTestRunner
 
-@RunWith(Parameterized::class)
+@RunWith(ParameterizedRobolectricTestRunner::class)
 class VolumeScreenThemeTest(
     private val themeValue: ThemeValues
-) {
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+): ScreenshotTest() {
+    init {
+        screenTimeText = {}
+        testLabel = themeValue.safeName.lowercase()
+    }
 
     @Test
     fun volumeScreenThemes() {
@@ -46,7 +45,7 @@ class VolumeScreenThemeTest(
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        paparazzi.snapshot(name = themeValue.safeName) {
+        takeScreenshot {
             VolumeScreenTestCase(
                 colors = themeValue.colors,
                 volumeState = volumeState,
@@ -57,7 +56,7 @@ class VolumeScreenThemeTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @ParameterizedRobolectricTestRunner.Parameters
         fun colors() = themeValues
     }
 }

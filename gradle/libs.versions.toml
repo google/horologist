@@ -42,10 +42,12 @@ ksp = "1.8.10-1.0.9"
 ktlint = "0.46.1"
 metalava = "0.3.3"
 moshi = "1.14.0"
+okio = "3.3.0"
 playServicesAuth = "20.4.1"
 protobuf = "3.21.12"
 room = "2.5.1"
 runtimeTracing = "1.0.0-alpha03"
+snapshot-android = "v1.0.2"
 spotless = "6.17.0"
 tracingPerfetto = "1.0"
 tracingPerfettoBinary = "1.0"
@@ -151,6 +153,7 @@ metalavaGradle = { module = "me.tylerbwong.gradle.metalava:plugin", version.ref 
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "app-cash-paparazzi" }
 paparazziPlugin = { module = "app.cash.paparazzi:paparazzi-gradle-plugin", version.ref = "app-cash-paparazzi" }
 playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
@@ -158,10 +161,12 @@ playservices-wearable = "com.google.android.gms:play-services-wearable:18.0.0"
 protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
 retrofit2-convertermoshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "com-squareup-retrofit2" }
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "com-squareup-retrofit2" }
-robolectric = "org.robolectric:robolectric:4.9.2"
+robolectric = "org.robolectric:robolectric:4.10-alpha-1"
 room-common = { module = "androidx.room:room-common", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+snapshot-android = { module = "com.github.QuickBirdEng.kotlin-snapshot-testing:snapshot-android", version.ref = "snapshot-android" }
+snapshot-jvm = { module = "com.github.QuickBirdEng.kotlin-snapshot-testing:snapshot-jvm", version.ref = "snapshot-android" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "app-cash-turbine" }
 wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }

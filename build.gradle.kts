@@ -102,6 +102,13 @@ allprojects {
         if (composeSnapshot.length > 1) {
             maven(url = uri("https://androidx.dev/snapshots/builds/$composeSnapshot/artifacts/repository/"))
         }
+
+        maven {
+            url = uri("https://jitpack.io")
+            content {
+                includeGroup("com.github.QuickBirdEng.kotlin-snapshot-testing")
+            }
+        }
     }
 
     plugins.withId("com.vanniktech.maven.publish") {

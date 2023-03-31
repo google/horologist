@@ -107,6 +107,7 @@ abstract class ScreenshotTest {
     val applicationContext: Context
         get() = ApplicationProvider.getApplicationContext<Application>()
 
+    @Suppress("DEPRECATION")
     @Composable
     fun FakeImageLoader.apply(content: @Composable () -> Unit) {
         // Not sure why this is needed, but Coil has improved

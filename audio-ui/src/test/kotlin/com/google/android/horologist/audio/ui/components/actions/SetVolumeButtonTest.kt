@@ -18,10 +18,10 @@
 
 package com.google.android.horologist.audio.ui.components.actions
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,10 +33,9 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
 class SetVolumeButtonTest: ScreenshotTest() {
-
     @Composable
     override fun ComponentDefaults(content: @Composable() (BoxScope.() -> Unit)) {
-        Box(modifier = Modifier.wrapContentSize().border(1.dp, Color.White).padding(10.dp)) {
+        Box(modifier = Modifier.wrapContentSize().background(Color.Black).border(1.dp, Color.White)) {
             content()
         }
     }

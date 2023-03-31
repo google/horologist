@@ -63,7 +63,7 @@ public fun VolumePositionIndicator(
             value = {
                 uiState.current.toFloat()
             },
-            range = 0F.rangeTo(
+            range = uiState.min.toFloat().rangeTo(
                 uiState.max.toFloat()
             )
         )

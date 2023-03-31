@@ -23,20 +23,21 @@ import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.R
 import com.google.android.horologist.audio.ui.VolumeUiState
+import com.google.android.horologist.base.ui.components.IconRtlMode
 
 /**
- * Button to launch a screen to control the system volume.
+ * Button to launch a screen to control the system volume, using volume up icon as
+ * default if no [volumeUiState] is passed in.
  *
- * See [VolumeState]
+ * See [VolumeUiState]
  */
 @Composable
 public fun SetVolumeButton(
     onVolumeClick: () -> Unit,
-    volumeUiState: VolumeUiState,
     modifier: Modifier = Modifier,
+    volumeUiState: VolumeUiState? = null,
     enabled: Boolean = true
 ) {
     SettingsButton(
@@ -44,10 +45,11 @@ public fun SetVolumeButton(
         onClick = onVolumeClick,
         enabled = enabled,
         imageVector = when {
-            volumeUiState.isMin -> Icons.Default.VolumeMute
-            volumeUiState.isMax -> Icons.Default.VolumeUp
+            volumeUiState?.isMin == true -> Icons.Default.VolumeMute
+            volumeUiState?.isMax == true -> Icons.Default.VolumeUp
             else -> Icons.Default.VolumeDown
         },
+        iconRtlMode = IconRtlMode.Mirrored,
         contentDescription = stringResource(R.string.horologist_set_volume_content_description)
     )
 }

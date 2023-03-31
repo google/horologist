@@ -20,12 +20,7 @@ package com.google.android.horologist.audio
  * Data class holding the current state of the volume system.
  */
 public data class VolumeState(
-    public val current: Int,
-    public val max: Int
-) {
-    public val isMax: Boolean
-        get() = current >= max
-
-    public val isMin: Boolean
-        get() = current == 0
-}
+    val current: Int,
+    val max: Int,
+    val min: Int = 0
+)

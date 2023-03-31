@@ -227,7 +227,7 @@ public fun DatePicker(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     PickerGroup(
-                        PickerGroupItemWithRSB(
+                        pickerGroupItemWithRSB(
                             pickerState = datePickerState.dayState,
                             modifier = Modifier.size(dayWidth, 100.dp),
                             onSelected = {
@@ -241,7 +241,7 @@ public fun DatePicker(
                                 "%d".format(datePickerState.currentDay(it))
                             }
                         ),
-                        PickerGroupItemWithRSB(
+                        pickerGroupItemWithRSB(
                             pickerState = datePickerState.monthState,
                             modifier = Modifier.size(monthWidth, 100.dp),
                             onSelected = {
@@ -255,7 +255,7 @@ public fun DatePicker(
                                 shortMonthNames[(datePickerState.currentMonth(it) - 1) % 12]
                             }
                         ),
-                        PickerGroupItemWithRSB(
+                        pickerGroupItemWithRSB(
                             pickerState = datePickerState.yearState,
                             modifier = Modifier.size(yearWidth, 100.dp),
                             onSelected = {

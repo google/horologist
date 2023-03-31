@@ -43,8 +43,8 @@ import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.base.ui.semantics.CustomSemanticsProperties.iconImageVector
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults.mediaButtonDefaultColors
-import com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties.iconImageVector
 
 /**
  * A base button for media controls.

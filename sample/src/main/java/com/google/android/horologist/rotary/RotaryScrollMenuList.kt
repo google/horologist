@@ -59,7 +59,7 @@ import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
-import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticFeedback
+import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
@@ -176,8 +176,9 @@ fun RotaryScrollWithFlingOrSnapScreen(
     val tenSmallOneBig: List<Int> = remember { (0..4).map { 1 }.plus(20).plus((0..4).map { 1 }) }
     if (showList) {
         val scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState()
-        val rotaryHapticFeedback =
-            if (hapticsEnabled) rememberRotaryHapticFeedback() else rememberDisabledHaptic()
+        val rotaryHapticHandler =
+            if (hapticsEnabled) rememberRotaryHapticHandler(scalingLazyListState)
+            else rememberDisabledHaptic()
         val focusRequester = rememberActiveFocusRequester()
         ItemsListWithModifier(
             modifier = Modifier
@@ -185,17 +186,17 @@ fun RotaryScrollWithFlingOrSnapScreen(
                     if (isSnap) it.rotaryWithSnap(
                         focusRequester,
                         scalingLazyListState.toRotaryScrollAdapter(),
-                        rotaryHapticFeedback
+                        rotaryHapticHandler
                     )
                     else if (isFling) it.rotaryWithFling(
                         focusRequester = focusRequester,
                         scrollableState = scalingLazyListState,
-                        rotaryHaptics = rotaryHapticFeedback
+                        rotaryHaptics = rotaryHapticHandler
                     )
                     else it.rotaryWithScroll(
                         focusRequester = focusRequester,
                         scrollableState = scalingLazyListState,
-                        rotaryHaptics = rotaryHapticFeedback
+                        rotaryHaptics = rotaryHapticHandler
                     )
                 }
                 .focusRequester(focusRequester)

@@ -108,7 +108,7 @@ public fun Modifier.rotaryWithFling(
     focusRequester: FocusRequester,
     scrollableState: ScrollableState,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
-    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback(),
+    rotaryHaptics: RotaryHapticHandler = rememberRotaryHapticHandler(scrollableState),
     reverseDirection: Boolean = false
 ): Modifier = rotaryHandler(
     rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, flingBehavior),
@@ -141,7 +141,7 @@ public fun Modifier.rotaryWithFling(
 public fun Modifier.rotaryWithScroll(
     focusRequester: FocusRequester,
     scrollableState: ScrollableState,
-    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback(),
+    rotaryHaptics: RotaryHapticHandler = rememberRotaryHapticHandler(scrollableState),
     reverseDirection: Boolean = false
 ): Modifier = rotaryHandler(
     rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, null),
@@ -175,7 +175,7 @@ public fun Modifier.rotaryWithScroll(
 public fun Modifier.rotaryWithSnap(
     focusRequester: FocusRequester,
     rotaryScrollAdapter: RotaryScrollAdapter,
-    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback(),
+    rotaryHaptics: RotaryHapticHandler = rememberRotaryHapticHandler(rotaryScrollAdapter.scrollableState),
     reverseDirection: Boolean = false
 ): Modifier = rotaryHandler(
     rotaryScrollHandler = RotaryDefaults.rememberSnapHandler(rotaryScrollAdapter),
@@ -367,7 +367,7 @@ public interface RotaryScrollHandler {
     public suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticFeedback
+        rotaryHaptics: RotaryHapticHandler
     )
 }
 
@@ -740,7 +740,7 @@ public fun Modifier.rotaryHandler(
     rotaryScrollHandler: RotaryScrollHandler,
     batchTimeframe: Long = 0L,
     reverseDirection: Boolean,
-    rotaryHaptics: RotaryHapticFeedback
+    rotaryHaptics: RotaryHapticHandler
 ): Modifier = composed {
     val channel = rememberTimestampChannel()
     val eventsFlow = remember(channel) { channel.receiveAsFlow() }
@@ -832,13 +832,10 @@ internal class HighResRotaryScrollHandler(
     private var rotaryFlingBehavior: RotaryFlingBehavior? = rotaryFlingBehaviorFactory()
     private var scrollBehavior: RotaryScrollBehavior = scrollBehaviorFactory()
 
-    private var prevHapticsPosition = 0f
-    private var currScrollPosition = 0f
-
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticFeedback
+        rotaryHaptics: RotaryHapticHandler
     ) {
         val time = event.timestamp
         val isOppositeScrollValue = isOppositeValueAfterScroll(event.delta)
@@ -861,7 +858,7 @@ internal class HighResRotaryScrollHandler(
 
         scrollJob.cancel()
 
-        handleHaptic(rotaryHaptics, event.delta)
+        rotaryHaptics.handleScrollHaptic(event.delta)
         debugLog { "Rotary scroll distance: $rotaryScrollDistance" }
 
         previousScrollEventTime = time
@@ -897,16 +894,6 @@ internal class HighResRotaryScrollHandler(
         rotaryFlingBehavior = rotaryFlingBehaviorFactory()
         rotaryFlingBehavior?.startFlingTracking(timestamp)
     }
-
-    private fun handleHaptic(rotaryHaptics: RotaryHapticFeedback, scrollDelta: Float) {
-        currScrollPosition += scrollDelta
-        val diff = abs(currScrollPosition - prevHapticsPosition)
-
-        if (diff >= hapticsThreshold) {
-            rotaryHaptics.performHapticFeedback(RotaryHapticsType.ScrollTick)
-            prevHapticsPosition = currScrollPosition
-        }
-    }
 }
 
 /**
@@ -932,7 +919,7 @@ internal class LowResRotaryScrollHandler(
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticFeedback
+        rotaryHaptics: RotaryHapticHandler
     ) {
         val time = event.timestamp
 
@@ -947,7 +934,7 @@ internal class LowResRotaryScrollHandler(
         scrollJob.cancel()
         flingJob.cancel()
 
-        rotaryHaptics.performHapticFeedback(RotaryHapticsType.ScrollItemFocus)
+        rotaryHaptics.handleScrollHaptic(event.delta)
         debugLog { "Rotary scroll distance: $rotaryScrollDistance" }
 
         previousScrollEventTime = time
@@ -1007,7 +994,7 @@ internal class RotaryScrollSnapHandler(
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticFeedback
+        rotaryHaptics: RotaryHapticHandler
     ) {
         val time = event.timestamp
 
@@ -1037,7 +1024,7 @@ internal class RotaryScrollSnapHandler(
             scrollJob.cancel()
 
             val snapDistance = sign(rotaryScrollDistance).toInt()
-            rotaryHaptics.performHapticFeedback(RotaryHapticsType.ScrollItemFocus)
+            rotaryHaptics.handleSnapHaptic(event.delta)
 
             val sequentialSnap = snapJob.isActive
             debugLog {

@@ -18,6 +18,7 @@ package com.google.android.horologist.compose.rotaryinput
 
 import android.view.HapticFeedbackConstants
 import android.view.View
+import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -32,6 +33,7 @@ import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.withContext
+import kotlin.math.abs
 
 private const val DEBUG = false
 
@@ -64,6 +66,79 @@ internal fun <T> Flow<T>.throttleLatest(timeframe: Long): Flow<T> =
             delay(timeframe)
         }
     }
+
+/**
+ * Handles haptics for rotary usage
+ */
+@ExperimentalHorologistApi
+public interface RotaryHapticHandler {
+
+    /**
+     * Handles haptics when scroll is used
+     */
+    @ExperimentalHorologistApi
+    public fun handleScrollHaptic(scrollDelta: Float)
+
+    /**
+     * Handles haptics when scroll with snap is used
+     */
+    @ExperimentalHorologistApi
+    public fun handleSnapHaptic(scrollDelta: Float)
+}
+
+/**
+ * Default implementation of [RotaryHapticHandler]. It handles haptic feedback based
+ * on the [scrollableState], scrolled pixels and [hapticsThreshold].
+ * Haptic is not fired in this class, instead it's sent to [hapticsChannel]
+ * where it'll performed later.
+ *
+ * @param scrollableState Haptic performed based on this state
+ * @param hapticsChannel Channel to which haptic events will be sent
+ * @param hapticsThreshold A scroll threshold after which haptic is produced.
+ */
+@OptIn(ExperimentalHorologistApi::class)
+public class DefaultRotaryHapticHandler(
+    private val scrollableState: ScrollableState,
+    private val hapticsChannel: Channel<RotaryHapticsType>,
+    private val hapticsThreshold: Long = 50
+) : RotaryHapticHandler {
+
+    private var overscrollHapticTriggered = false
+    private var currScrollPosition = 0f
+    private var prevHapticsPosition = 0f
+
+    override fun handleScrollHaptic(scrollDelta: Float) {
+        if ((scrollDelta > 0 && !scrollableState.canScrollForward) ||
+            (scrollDelta < 0 && !scrollableState.canScrollBackward)) {
+            if (!overscrollHapticTriggered) {
+                hapticsChannel.trySend(RotaryHapticsType.ScrollLimit)
+                overscrollHapticTriggered = true
+            }
+        } else {
+            overscrollHapticTriggered = false
+            currScrollPosition += scrollDelta
+            val diff = abs(currScrollPosition - prevHapticsPosition)
+
+            if (diff >= hapticsThreshold) {
+                hapticsChannel.trySend(RotaryHapticsType.ScrollTick)
+                prevHapticsPosition = currScrollPosition
+            }
+        }
+    }
+
+    override fun handleSnapHaptic(scrollDelta: Float) {
+        if ((scrollDelta > 0 && !scrollableState.canScrollForward) ||
+            (scrollDelta < 0 && !scrollableState.canScrollBackward)) {
+            if (!overscrollHapticTriggered) {
+                hapticsChannel.trySend(RotaryHapticsType.ScrollLimit)
+                overscrollHapticTriggered = true
+            }
+        } else {
+            overscrollHapticTriggered = false
+            hapticsChannel.trySend(RotaryHapticsType.ScrollItemFocus)
+        }
+    }
+}
 
 /**
  * Interface for Rotary haptic feedback
@@ -105,34 +180,36 @@ public value class RotaryHapticsType(private val type: Int) {
 }
 
 /**
- * Remember disabled haptics
+ * Remember disabled haptics handler
  */
 @ExperimentalHorologistApi
 @Composable
-public fun rememberDisabledHaptic(): RotaryHapticFeedback = remember {
-    object : RotaryHapticFeedback {
-        override fun performHapticFeedback(type: RotaryHapticsType) {
+public fun rememberDisabledHaptic(): RotaryHapticHandler = remember {
+    object : RotaryHapticHandler {
+
+        override fun handleScrollHaptic(scrollDelta: Float) {
+            // Do nothing
+        }
+
+        override fun handleSnapHaptic(scrollDelta: Float) {
             // Do nothing
         }
     }
 }
 
 /**
- * Remember rotary haptic feedback.
+ * Remember rotary haptic handler.
  */
 @ExperimentalHorologistApi
 @Composable
-public fun rememberRotaryHapticFeedback(
+public fun rememberRotaryHapticHandler(
+    scrollableState: ScrollableState,
     throttleThresholdMs: Long = 40,
     hapticsChannel: Channel<RotaryHapticsType> = rememberHapticChannel(),
     rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback()
-): RotaryHapticFeedback {
-    return remember(hapticsChannel, rotaryHaptics) {
-        object : RotaryHapticFeedback {
-            override fun performHapticFeedback(type: RotaryHapticsType) {
-                hapticsChannel.trySend(type)
-            }
-        }
+): RotaryHapticHandler {
+    return remember(scrollableState, hapticsChannel, rotaryHaptics) {
+        DefaultRotaryHapticHandler(scrollableState,hapticsChannel)
     }.apply {
         LaunchedEffect(hapticsChannel) {
             hapticsChannel.receiveAsFlow()

@@ -19,6 +19,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
+    id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -111,10 +112,11 @@ dependencies {
     debugImplementation(projects.composeTools)
     implementation(libs.compose.ui.toolingpreview)
 
-    testImplementation(projects.roboscreenshots)
+    testImplementation(projects.paparazzi)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.paparazzi)
     testImplementation(libs.robolectric)
     testImplementation(libs.truth)
 

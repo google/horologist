@@ -200,7 +200,6 @@ abstract class ScreenshotTest {
     }
 
     fun takeComponentScreenshot(
-        round: Boolean = true,
         checks: suspend () -> Unit = {},
         content: @Composable BoxScope.() -> Unit
     ) {
@@ -221,7 +220,7 @@ abstract class ScreenshotTest {
                     tolerance = tolerance,
                     colorDiffing = Diffing.highlightWithRed
                 ),
-                snapshot = { node: SemanticsNodeInteraction ->
+                snapshot = { _: SemanticsNodeInteraction ->
                     Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888).apply {
                         view.draw(Canvas(this))
                     }

@@ -24,7 +24,7 @@ fun interface SnapshotTransformer {
     fun transform(node: SemanticsNodeInteraction, bitmap: Bitmap): Bitmap
 
     companion object {
-        val None = SnapshotTransformer { node, bitmap ->
+        val None = SnapshotTransformer { _, bitmap ->
             bitmap
         }
     }

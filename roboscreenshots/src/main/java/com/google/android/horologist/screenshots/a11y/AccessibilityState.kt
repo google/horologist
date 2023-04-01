@@ -18,12 +18,12 @@ package com.google.android.horologist.screenshots.a11y
 
 import android.graphics.Rect
 
-data class AccessibilityState(
+internal data class AccessibilityState(
     val width: Int,
     val height: Int,
     val elements: List<Element>
 ) {
-    data class Element(
+    internal data class Element(
         val displayBounds: Rect,
         val touchBounds: Rect?,
         val text: List<String>?,
@@ -37,9 +37,9 @@ data class AccessibilityState(
         val progress: Progress?
     )
 
-    data class CustomAction(val label: String)
+    internal data class CustomAction(val label: String)
 
-    data class Progress(
+    internal data class Progress(
         val current: Float,
         val range: ClosedRange<Float>,
         val steps: Int,

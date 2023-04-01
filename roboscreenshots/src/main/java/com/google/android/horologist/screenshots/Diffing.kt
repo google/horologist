@@ -31,7 +31,7 @@ import okio.Buffer
 import okio.ByteString
 import java.io.File
 
-val Diffing.Companion.highlightWithRed
+internal val Diffing.Companion.highlightWithRed
     get() = Diffing<Color> { first, second ->
         if (first == second)
             first.copy(alpha = first.alpha / 3f)
@@ -39,10 +39,10 @@ val Diffing.Companion.highlightWithRed
             Color.Red
     }
 
-val Bitmap.size: Size
+internal val Bitmap.size: Size
     get() = Size(width, height)
 
-fun Bitmap.eachPixel(fn: (Int, Int) -> Unit) {
+internal fun Bitmap.eachPixel(fn: (Int, Int) -> Unit) {
     val size = this.size
     for (x in 0 until size.width) {
         for (y in 0 until size.height) {
@@ -51,7 +51,7 @@ fun Bitmap.eachPixel(fn: (Int, Int) -> Unit) {
     }
 }
 
-fun Diffing.Companion.bitmapWithTolerance(tolerance: Float, colorDiffing: Diffing<Color>) =
+internal fun Diffing.Companion.bitmapWithTolerance(tolerance: Float, colorDiffing: Diffing<Color>) =
     Diffing<Bitmap> { originalBitmap, newBitmap ->
         val originalBytes = originalBitmap.asByteString()
         val newBytes = newBitmap.asByteString()
@@ -84,18 +84,18 @@ fun Diffing.Companion.bitmapWithTolerance(tolerance: Float, colorDiffing: Diffin
         }
     }
 
-fun Bitmap.asByteString(): ByteString = Buffer().apply {
+internal fun Bitmap.asByteString(): ByteString = Buffer().apply {
     compress(Bitmap.CompressFormat.PNG, 0, outputStream())
 }.readByteString()
 
 
-fun Snapshotting<SemanticsNodeInteraction, Bitmap>.fileSnapshottingX() = FileSnapshotting(
+internal fun Snapshotting<SemanticsNodeInteraction, Bitmap>.fileSnapshottingX() = FileSnapshotting(
     fileStoring = FileStoring.bitmap,
     snapshotting = this
 )
 
 @SuppressLint("NewApi")
-suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.snapshot(
+internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.snapshot(
     value: SemanticsNodeInteraction,
     testClass: Class<*>,
     testName: String,
@@ -110,7 +110,7 @@ suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.snapshot(
 }
 
 @SuppressLint("NewApi")
-suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.paparazziCompatibleSnapshot(
+internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.paparazziCompatibleSnapshot(
     value: SemanticsNodeInteraction,
     record: Boolean = false,
     testClass: Class<*>,

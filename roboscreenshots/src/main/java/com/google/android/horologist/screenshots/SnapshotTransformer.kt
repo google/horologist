@@ -20,11 +20,11 @@ import androidx.compose.ui.test.SemanticsNodeInteraction
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
-fun interface SnapshotTransformer {
-    fun transform(node: SemanticsNodeInteraction, bitmap: Bitmap): Bitmap
+public fun interface SnapshotTransformer {
+    public fun transform(node: SemanticsNodeInteraction, bitmap: Bitmap): Bitmap
 
-    companion object {
-        val None = SnapshotTransformer { _, bitmap ->
+    public companion object {
+        public val None: SnapshotTransformer = SnapshotTransformer { _, bitmap ->
             bitmap
         }
     }

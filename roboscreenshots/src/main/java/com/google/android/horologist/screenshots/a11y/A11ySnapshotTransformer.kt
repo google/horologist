@@ -32,10 +32,10 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.SnapshotTransformer
 
 @ExperimentalHorologistApi
-class A11ySnapshotTransformer : SnapshotTransformer {
-    lateinit var elements: List<AccessibilityState.Element>
+public class A11ySnapshotTransformer : SnapshotTransformer {
+    private lateinit var elements: List<AccessibilityState.Element>
 
-    val colors = listOf(
+    private val colors = listOf(
         Color.Blue,
         Color.Cyan,
         Color.Green,
@@ -67,7 +67,7 @@ class A11ySnapshotTransformer : SnapshotTransformer {
         }
     }
 
-    fun drawImageWithOverlays(
+    private fun drawImageWithOverlays(
         canvas: Canvas,
         originalBitmap: Bitmap
     ) {
@@ -88,7 +88,7 @@ class A11ySnapshotTransformer : SnapshotTransformer {
         }
     }
 
-    fun drawLegend(
+    private fun drawLegend(
         canvas: Canvas,
         elements: List<AccessibilityState.Element>
     ) {

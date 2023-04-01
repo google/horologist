@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsNodeInteraction
+import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.test.core.app.ApplicationProvider
@@ -77,39 +78,39 @@ import org.robolectric.annotation.GraphicsMode.Mode.NATIVE
 )
 @GraphicsMode(NATIVE)
 @ExperimentalHorologistApi
-abstract class ScreenshotTest {
-    var tolerance: Float = 0.1f
+public abstract class ScreenshotTest {
+    public var tolerance: Float = 0.1f
 
     @get:Rule
-    val rule = createComposeRule()
+    public val rule: ComposeContentTestRule = createComposeRule()
 
     @get:Rule
-    val testName: TestName = TestName()
+    public val testName: TestName = TestName()
 
-    var testLabel: String? = null
+    public var testLabel: String? = null
 
     // Flip to true to record
-    var record = false
+    public var record: Boolean = false
 
-    var fakeImageLoader = FakeImageLoader.Never
+    public var fakeImageLoader: FakeImageLoader = FakeImageLoader.Never
 
-    var snapshotTransformer: SnapshotTransformer = SnapshotTransformer.None
+    public var snapshotTransformer: SnapshotTransformer = SnapshotTransformer.None
 
-    var screenTimeText: @Composable () -> Unit = {
+    public var screenTimeText: @Composable () -> Unit = {
         TimeText(
             timeSource = FixedTimeSource
         )
     }
 
-    val resources: Resources
+    public val resources: Resources
         get() = applicationContext.resources
 
-    val applicationContext: Context
+    public val applicationContext: Context
         get() = ApplicationProvider.getApplicationContext<Application>()
 
     @Suppress("DEPRECATION")
     @Composable
-    fun FakeImageLoader.apply(content: @Composable () -> Unit) {
+    internal fun FakeImageLoader.apply(content: @Composable () -> Unit) {
         // Not sure why this is needed, but Coil has improved
         // test support in next release
         this.override {
@@ -119,7 +120,7 @@ abstract class ScreenshotTest {
         }
     }
 
-    fun takeScreenshot(
+    public fun takeScreenshot(
         round: Boolean = resources.configuration.isScreenRound,
         timeText: @Composable () -> Unit = screenTimeText,
         positionIndicator: @Composable () -> Unit = {
@@ -164,7 +165,7 @@ abstract class ScreenshotTest {
     }
 
     @Composable
-    open fun ScreenshotDefaults(
+    public open fun ScreenshotDefaults(
         round: Boolean,
         timeText: @Composable () -> Unit,
         positionIndicator: @Composable () -> Unit,
@@ -199,7 +200,7 @@ abstract class ScreenshotTest {
         }
     }
 
-    fun takeComponentScreenshot(
+    public fun takeComponentScreenshot(
         checks: suspend () -> Unit = {},
         content: @Composable BoxScope.() -> Unit
     ) {
@@ -237,7 +238,7 @@ abstract class ScreenshotTest {
     }
 
     @Composable
-    open fun ComponentDefaults(content: @Composable BoxScope.() -> Unit) {
+    public open fun ComponentDefaults(content: @Composable BoxScope.() -> Unit) {
         fakeImageLoader.override {
             Box(
                 modifier = Modifier
@@ -252,11 +253,11 @@ abstract class ScreenshotTest {
     }
 
     @Composable
-    open fun DefaultTheme(content: @Composable () -> Unit) {
+    public open fun DefaultTheme(content: @Composable () -> Unit) {
         content()
     }
 
-    fun takeScrollableScreenshot(
+    public fun takeScrollableScreenshot(
         round: Boolean = resources.configuration.isScreenRound,
         timeTextMode: TimeTextMode,
         columnStateFactory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText(),
@@ -291,7 +292,7 @@ abstract class ScreenshotTest {
         }
     }
 
-    fun enableA11yTest() {
+    public fun enableA11yTest() {
         // allow more tolerance as A11y tests are mainly for illustrating the
         // current observable behaviour
         tolerance = 0.10f
@@ -299,14 +300,14 @@ abstract class ScreenshotTest {
         snapshotTransformer = A11ySnapshotTransformer()
     }
 
-    enum class TimeTextMode {
+    public enum class TimeTextMode {
         OnTop,
         Off,
         Scrolling
     }
 
-    companion object {
-        fun loadTestBitmap(path: Path): Bitmap = FileSystem.RESOURCES.read(path) {
+    public companion object {
+        public fun loadTestBitmap(path: Path): Bitmap = FileSystem.RESOURCES.read(path) {
             BitmapFactory.decodeStream(this.inputStream())
         }
     }

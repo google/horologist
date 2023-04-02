@@ -32,7 +32,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.SnapshotTransformer
 
 @ExperimentalHorologistApi
-public class A11ySnapshotTransformer : SnapshotTransformer {
+internal class A11ySnapshotTransformer : SnapshotTransformer {
     private lateinit var elements: List<AccessibilityState.Element>
 
     private val colors = listOf(
@@ -42,7 +42,7 @@ public class A11ySnapshotTransformer : SnapshotTransformer {
         Color.Gray,
         Color.Magenta,
         Color.LightGray,
-        Color.Yellow,
+        Color.Yellow
     )
 
     private fun colorForIndex(i: Int): Color {
@@ -75,7 +75,8 @@ public class A11ySnapshotTransformer : SnapshotTransformer {
             originalBitmap,
             0f,
             0f,
-            Paint().apply { alpha = 180 })
+            Paint().apply { alpha = 180 }
+        )
 
         elements.forEachIndexed { i, it ->
             val bounds = it.touchBounds ?: it.displayBounds
@@ -98,7 +99,8 @@ public class A11ySnapshotTransformer : SnapshotTransformer {
 
         canvas.drawRect(
             Rect(leftEdge, 0, width, height),
-            Paint().apply { color = Color.White.toArgb() })
+            Paint().apply { color = Color.White.toArgb() }
+        )
 
 //        font = font.deriveFont(20f)
 //        stroke = BasicStroke(3f)
@@ -155,7 +157,7 @@ public class A11ySnapshotTransformer : SnapshotTransformer {
                     10 + leftEdge,
                     start * 28 - 21,
                     width - 20,
-                    end * 28 - 21,
+                    end * 28 - 21
                 ),
                 paint
             )

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.google.android.horologist.screenshots
 
 import android.graphics.Bitmap
@@ -20,10 +21,10 @@ import androidx.compose.ui.test.SemanticsNodeInteraction
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
-public fun interface SnapshotTransformer {
+internal fun interface SnapshotTransformer {
     public fun transform(node: SemanticsNodeInteraction, bitmap: Bitmap): Bitmap
 
-    public companion object {
+    companion object {
         public val None: SnapshotTransformer = SnapshotTransformer { _, bitmap ->
             bitmap
         }

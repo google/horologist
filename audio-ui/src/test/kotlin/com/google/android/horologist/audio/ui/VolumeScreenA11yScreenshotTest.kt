@@ -26,7 +26,7 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import org.junit.Test
 
-class VolumeScreenA11yScreenshotTest: ScreenshotTest() {
+class VolumeScreenA11yScreenshotTest : ScreenshotTest() {
     init {
         snapshotTransformer = A11ySnapshotTransformer()
         tolerance = 3.0f

@@ -27,7 +27,7 @@ import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class VolumeScreenIndividualTest: ScreenshotTest() {
+class VolumeScreenIndividualTest : ScreenshotTest() {
     init {
         screenTimeText = {}
     }

@@ -32,10 +32,10 @@ import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class SetVolumeButtonTest: ScreenshotTest() {
+class SetVolumeButtonTest : ScreenshotTest() {
 
     @Composable
-    override fun ComponentDefaults(content: @Composable() (BoxScope.() -> Unit)) {
+    override fun ComponentDefaults(content: @Composable (BoxScope.() -> Unit)) {
         Box(modifier = Modifier.wrapContentSize().background(Color.Black.copy(alpha = 0.5f)).border(1.dp, Color.White)) {
             content()
         }

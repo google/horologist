@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 @file:OptIn(
-    ExperimentalCoroutinesApi::class, ExperimentalHorologistApi::class,
+    ExperimentalCoroutinesApi::class,
+    ExperimentalHorologistApi::class,
     ExperimentalTestApi::class
 )
 @file:Suppress("UnstableApiUsage")
@@ -94,7 +96,7 @@ public abstract class ScreenshotTest {
 
     public var fakeImageLoader: FakeImageLoader = FakeImageLoader.Never
 
-    public var snapshotTransformer: SnapshotTransformer = SnapshotTransformer.None
+    internal var snapshotTransformer: SnapshotTransformer = SnapshotTransformer.None
 
     public var screenTimeText: @Composable () -> Unit = {
         TimeText(
@@ -272,10 +274,11 @@ public abstract class ScreenshotTest {
                 if (timeTextMode != TimeTextMode.Off) {
                     TimeText(
                         timeSource = FixedTimeSource,
-                        modifier = if (timeTextMode == TimeTextMode.Scrolling)
+                        modifier = if (timeTextMode == TimeTextMode.Scrolling) {
                             Modifier.scrollAway(columnState.state)
-                        else
+                        } else {
                             Modifier
+                        }
                     )
                 }
             },

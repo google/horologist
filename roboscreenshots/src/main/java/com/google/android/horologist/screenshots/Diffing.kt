@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.google.android.horologist.screenshots
 
 import android.annotation.SuppressLint
@@ -33,10 +34,11 @@ import java.io.File
 
 internal val Diffing.Companion.highlightWithRed
     get() = Diffing<Color> { first, second ->
-        if (first == second)
+        if (first == second) {
             first.copy(alpha = first.alpha / 3f)
-        else
+        } else {
             Color.Red
+        }
     }
 
 internal val Bitmap.size: Size
@@ -88,7 +90,6 @@ internal fun Bitmap.asByteString(): ByteString = Buffer().apply {
     compress(Bitmap.CompressFormat.PNG, 0, outputStream())
 }.readByteString()
 
-
 internal fun Snapshotting<SemanticsNodeInteraction, Bitmap>.fileSnapshottingX() = FileSnapshotting(
     fileStoring = FileStoring.bitmap,
     snapshotting = this
@@ -105,7 +106,7 @@ internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.snapshot
         value = value,
         record = record,
         testName = testName,
-        testClass = testClass,
+        testClass = testClass
     )
 }
 
@@ -114,7 +115,7 @@ internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.paparazz
     value: SemanticsNodeInteraction,
     record: Boolean = false,
     testClass: Class<*>,
-    testName: String,
+    testName: String
 ) {
     val referenceDirectory = File("src/test/snapshots/images").apply {
         mkdirs()

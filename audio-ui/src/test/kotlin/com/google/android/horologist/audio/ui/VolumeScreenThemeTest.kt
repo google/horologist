@@ -31,7 +31,7 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class VolumeScreenThemeTest(
     private val themeValue: ThemeValues
-): ScreenshotTest() {
+) : ScreenshotTest() {
     init {
         screenTimeText = {}
         testLabel = themeValue.safeName.lowercase()

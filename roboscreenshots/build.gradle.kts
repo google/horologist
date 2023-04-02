@@ -96,7 +96,6 @@ dependencies {
     api(libs.kotlin.stdlib)
     api(libs.okio)
     api(libs.snapshot.android)
-    api(libs.snapshot.jvm)
     api(libs.compose.ui.test.junit4)
     api(libs.robolectric)
     implementation(libs.wearcompose.material)

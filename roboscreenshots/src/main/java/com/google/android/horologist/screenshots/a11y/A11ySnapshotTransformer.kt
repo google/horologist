@@ -32,7 +32,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.SnapshotTransformer
 
 @ExperimentalHorologistApi
-internal class A11ySnapshotTransformer : SnapshotTransformer {
+class A11ySnapshotTransformer : SnapshotTransformer {
     private lateinit var elements: List<AccessibilityState.Element>
 
     private val colors = listOf(

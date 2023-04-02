@@ -23,13 +23,13 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.screenshots.ScreenshotTest
-import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import org.junit.Test
 
 class VolumeScreenA11yScreenshotTest : ScreenshotTest() {
     init {
-        snapshotTransformer = A11ySnapshotTransformer()
-        tolerance = 3.0f
+        enableA11yTest()
+
+        tolerance = 1.0f
         screenTimeText = {}
     }
 
@@ -41,7 +41,7 @@ class VolumeScreenA11yScreenshotTest : ScreenshotTest() {
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        takeScreenshot(timeText = {}) {
+        takeScreenshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,

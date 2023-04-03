@@ -23,10 +23,10 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import java.time.LocalTime
 
-@Ignore("Waiting for interactive support for paparazzi")
-class TimePickerTest {
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class TimePickerTest: ScreenshotTest() {
+    init {
+        screenTimeText = {}
+    }
 
     @Test
     fun datePickerInitial() {

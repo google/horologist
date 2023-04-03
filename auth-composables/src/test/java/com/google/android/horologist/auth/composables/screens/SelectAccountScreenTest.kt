@@ -28,7 +28,7 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import com.google.android.horologist.test.toolbox.positionedState
 import org.junit.Test
 
-class SelectAccountScreenTest: ScreenshotTest() {
+class SelectAccountScreenTest : ScreenshotTest() {
     init {
         screenTimeText = {}
     }

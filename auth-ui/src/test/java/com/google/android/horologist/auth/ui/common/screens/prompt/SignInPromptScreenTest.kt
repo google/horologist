@@ -30,11 +30,10 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import com.google.android.horologist.test.toolbox.composables.positionedState
 import org.junit.Test
 
-class SignInPromptScreenTest: ScreenshotTest() {
+class SignInPromptScreenTest : ScreenshotTest() {
     init {
         screenTimeText = {}
     }
-
 
     @Test
     fun idle() {

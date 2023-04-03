@@ -28,14 +28,14 @@ import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class StandardChipIconWithProgressTest: ScreenshotTest() {
+class StandardChipIconWithProgressTest : ScreenshotTest() {
 
     @Test
     fun default() {
         fakeImageLoader = FakeImageLoader.NotFound
         takeComponentScreenshot {
-                StandardChipIconWithProgress(progress = 75f)
-       }
+            StandardChipIconWithProgress(progress = 75f)
+        }
     }
 
     @Test

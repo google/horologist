@@ -26,7 +26,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
 import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 
@@ -37,7 +36,7 @@ internal class StandardButtonTest(
     private val buttonType: StandardButtonType,
     private val buttonSize: StandardButtonSize,
     private val enabled: Boolean
-): ScreenshotTest() {
+) : ScreenshotTest() {
 
     @Test
     fun variants() {

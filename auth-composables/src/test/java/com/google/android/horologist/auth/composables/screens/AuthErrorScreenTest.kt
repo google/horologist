@@ -24,7 +24,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class AuthErrorScreenTest: ScreenshotTest() {
+class AuthErrorScreenTest : ScreenshotTest() {
     init {
         screenTimeText = {}
     }

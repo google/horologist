@@ -22,26 +22,21 @@ package com.google.android.horologist.auth.composables.chips
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class CreateAccountChipTest {
-
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class CreateAccountChipTest : ScreenshotTest() {
 
     @Test
     fun default() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             CreateAccountChip(onClick = {})
         }
     }
 
     @Test
     fun disabled() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             CreateAccountChip(
                 onClick = {},
                 enabled = false
@@ -51,7 +46,7 @@ class CreateAccountChipTest {
 
     @Test
     fun withSecondaryChipType() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             CreateAccountChip(
                 onClick = {},
                 chipType = StandardChipType.Secondary
@@ -61,7 +56,7 @@ class CreateAccountChipTest {
 
     @Test
     fun withSecondaryChipTypeDisabled() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             CreateAccountChip(
                 onClick = {},
                 chipType = StandardChipType.Secondary,

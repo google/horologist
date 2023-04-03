@@ -20,49 +20,50 @@
 
 package com.google.android.horologist.media.ui.tiles
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.wear.tiles.ActionBuilders
-import app.cash.paparazzi.DeviceConfig
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.uamp.UampColors
-import com.google.android.horologist.paparazzi.WearPaparazzi
+import com.google.android.horologist.screenshots.ScreenshotTest
 import com.google.android.horologist.tiles.images.drawableResToImageResource
-import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
+import org.robolectric.annotation.Config
 
-@RunWith(Parameterized::class)
-class MediaCollectionsTileTest(
-    private val deviceConfig: DeviceConfig
-) {
-    @get:Rule
-    val paparazzi = WearPaparazzi(deviceConfig = deviceConfig)
-
-    val name = when (deviceConfig) {
-        DeviceConfig.WEAR_OS_SQUARE -> "square"
-        DeviceConfig.WEAR_OS_SMALL_ROUND -> "small_round"
-        DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE -> "large_round"
-        else -> "unknown"
+class MediaCollectionsTileTest() : ScreenshotTest() {
+    init {
+        screenTimeText = {}
     }
 
     @Test
-    fun mediaCollectionsTile() {
-        paparazzi.snapshot(name = name) {
-            RoundPreview(round = deviceConfig != DeviceConfig.WEAR_OS_SQUARE) {
-                Box(modifier = Modifier.background(Color.Black)) {
-                    SampleTilePreview()
-                }
-            }
+    fun largeRound() {
+        tileScreenshot()
+    }
+
+    @Config(
+        sdk = [30],
+        qualifiers = "+w192dp-h192dp"
+    )
+    @Test
+    fun smallRound() {
+        tileScreenshot()
+    }
+
+    @Config(
+        sdk = [30],
+        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav"
+    )
+    @Test
+    fun square() {
+        tileScreenshot()
+    }
+
+    fun tileScreenshot() {
+        takeScreenshot {
+            SampleTilePreview()
         }
     }
 
@@ -112,16 +113,6 @@ class MediaCollectionsTileTest(
             tileState,
             resourceState,
             renderer
-        )
-    }
-
-    companion object {
-        @JvmStatic
-        @Parameterized.Parameters
-        fun devices() = listOf(
-            DeviceConfig.WEAR_OS_SQUARE,
-            DeviceConfig.WEAR_OS_SMALL_ROUND,
-            DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE
         )
     }
 }

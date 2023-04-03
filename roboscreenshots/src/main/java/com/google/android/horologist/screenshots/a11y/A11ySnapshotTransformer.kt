@@ -102,9 +102,6 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
             Paint().apply { color = Color.White.toArgb() }
         )
 
-//        font = font.deriveFont(20f)
-//        stroke = BasicStroke(3f)
-
         var index = 1
         val paint = Paint().apply {
             alpha = 80

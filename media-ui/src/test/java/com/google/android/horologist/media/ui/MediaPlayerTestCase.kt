@@ -27,12 +27,9 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.material.TimeSource
-import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
@@ -41,7 +38,6 @@ import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.pager.PagerScreen
-import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.background.RadialBackground
 import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
@@ -88,43 +84,29 @@ fun MediaPlayerTestCase(
         if (playerUiState.media != null) {
             RadialBackground(color = colors.primary)
         }
-    },
-    time: String = "10:10",
-    round: Boolean = true
+    }
 ) {
-    RoundPreview(round = round) {
-        Box(modifier = Modifier.background(Color.Black)) {
-            MaterialTheme(colors = colors) {
-                Scaffold(
-                    timeText = {
-                        TimeText(
-                            timeSource = object : TimeSource {
-                                override val currentTime: String
-                                    @Composable get() = time
-                            }
-                        )
+    MaterialTheme(colors = colors) {
+        Scaffold(
+            positionIndicator = {
+                VolumePositionIndicator(
+                    volumeUiState = {
+                        VolumeUiStateMapper.map(volumeState = VolumeState(6, 10))
                     },
-                    positionIndicator = {
-                        VolumePositionIndicator(
-                            volumeUiState = {
-                                VolumeUiStateMapper.map(volumeState = VolumeState(6, 10))
-                            },
-                            displayIndicatorEvents = flowOf()
+                    displayIndicatorEvents = flowOf()
+                )
+            }
+        ) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                PagerScreen(count = 2) {
+                    if (it == 0) {
+                        PlayerScreen(
+                            modifier = Modifier.fillMaxSize(),
+                            mediaDisplay = { mediaDisplay() },
+                            controlButtons = { controlButtons() },
+                            buttons = { buttons() },
+                            background = background
                         )
-                    }
-                ) {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        PagerScreen(count = 2) {
-                            if (it == 0) {
-                                PlayerScreen(
-                                    modifier = Modifier.fillMaxSize(),
-                                    mediaDisplay = { mediaDisplay() },
-                                    controlButtons = { controlButtons() },
-                                    buttons = { buttons() },
-                                    background = background
-                                )
-                            }
-                        }
                     }
                 }
             }

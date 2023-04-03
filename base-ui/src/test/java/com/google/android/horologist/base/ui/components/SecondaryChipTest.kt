@@ -273,7 +273,6 @@ class SecondaryChipTest : ScreenshotTest() {
                     enabled = false
                 )
             }
-
         }
     }
 

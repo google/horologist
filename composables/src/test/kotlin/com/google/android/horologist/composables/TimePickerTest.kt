@@ -23,7 +23,7 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import java.time.LocalTime
 
-class TimePickerTest: ScreenshotTest() {
+class TimePickerTest : ScreenshotTest() {
     init {
         screenTimeText = {}
     }

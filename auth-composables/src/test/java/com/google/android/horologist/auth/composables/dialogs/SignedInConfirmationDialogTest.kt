@@ -53,7 +53,6 @@ class SignedInConfirmationDialogTest : ScreenshotTest() {
         }
     }
 
-
     @Test
     fun signedInConfirmationDialogNoName() {
         this.fakeImageLoader = FakeImageLoader.Resources

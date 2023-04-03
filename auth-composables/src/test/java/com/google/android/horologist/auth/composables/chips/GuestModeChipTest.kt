@@ -25,7 +25,7 @@ import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class GuestModeChipTest: ScreenshotTest() {
+class GuestModeChipTest : ScreenshotTest() {
 
     @Test
     fun default() {

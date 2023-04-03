@@ -28,7 +28,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.screenshots.ScreenshotTest
-import org.junit.Ignore
 import org.junit.Test
 import org.robolectric.annotation.Config
 

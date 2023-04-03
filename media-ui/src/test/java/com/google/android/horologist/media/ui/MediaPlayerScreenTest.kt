@@ -40,7 +40,7 @@ import kotlin.time.Duration.Companion.seconds
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class MediaPlayerScreenTest(
     private val themeValue: ThemeValues
-): ScreenshotTest() {
+) : ScreenshotTest() {
 
     @Test
     fun mediaPlayerScreen() {

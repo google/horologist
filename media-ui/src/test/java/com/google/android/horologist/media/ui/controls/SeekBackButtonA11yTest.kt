@@ -30,7 +30,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class SeekBackButtonA11yTest: ScreenshotTest() {
+class SeekBackButtonA11yTest : ScreenshotTest() {
     init {
         enableA11yTest()
         screenTimeText = {}

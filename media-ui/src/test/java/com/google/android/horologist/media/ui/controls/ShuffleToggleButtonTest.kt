@@ -25,7 +25,7 @@ import com.google.android.horologist.media.ui.components.controls.ShuffleToggleB
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class ShuffleToggleButtonTest: ScreenshotTest() {
+class ShuffleToggleButtonTest : ScreenshotTest() {
 
     @Test
     fun givenShuffleIsOn_thenIconIsShuffleOn() {

@@ -32,7 +32,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class PlaylistDownloadScreenA11yScreenshotTest: ScreenshotTest() {
+class PlaylistDownloadScreenA11yScreenshotTest : ScreenshotTest() {
     init {
         enableA11yTest()
     }

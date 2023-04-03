@@ -30,7 +30,7 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Ignore
 import org.junit.Test
 
-class PlaylistDownloadBrowseScreenA11yScreenshotTest: ScreenshotTest() {
+class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotTest() {
 
     @Test
     fun browseScreen() {

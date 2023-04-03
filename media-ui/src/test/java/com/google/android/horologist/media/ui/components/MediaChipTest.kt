@@ -30,7 +30,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class MediaChipTest: ScreenshotTest() {
+class MediaChipTest : ScreenshotTest() {
 
     @Test
     fun givenMediaWithArtwork_thenDisplaysArtwork() {

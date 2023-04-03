@@ -20,7 +20,6 @@
 
 package com.google.android.horologist.media.ui
 
-import androidx.compose.runtime.Composable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
@@ -31,7 +30,7 @@ import org.junit.Test
 import org.robolectric.annotation.Config
 import kotlin.time.Duration.Companion.seconds
 
-class MediaPlayerA11yScreenshotTest: ScreenshotTest() {
+class MediaPlayerA11yScreenshotTest : ScreenshotTest() {
 
     @Test
     fun mediaPlayerLargeRound() {

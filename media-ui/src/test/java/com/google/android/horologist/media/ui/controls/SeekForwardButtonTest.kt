@@ -26,7 +26,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekForwardBut
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class SeekForwardButtonTest: ScreenshotTest() {
+class SeekForwardButtonTest : ScreenshotTest() {
 
     @Test
     fun givenIncrementIsFive_thenIconIsFive() {

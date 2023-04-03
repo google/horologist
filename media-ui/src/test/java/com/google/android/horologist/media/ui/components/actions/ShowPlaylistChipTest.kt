@@ -26,7 +26,7 @@ import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class ShowPlaylistChipTest: ScreenshotTest() {
+class ShowPlaylistChipTest : ScreenshotTest() {
 
     @Test
     fun givenArtwork_thenDisplaysArtwork() {

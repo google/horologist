@@ -33,7 +33,7 @@ import com.google.android.horologist.tiles.images.drawableResToImageResource
 import org.junit.Test
 import org.robolectric.annotation.Config
 
-class MediaCollectionsTileTest(): ScreenshotTest() {
+class MediaCollectionsTileTest() : ScreenshotTest() {
     init {
         screenTimeText = {}
         record = true

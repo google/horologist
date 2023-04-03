@@ -30,8 +30,7 @@ import org.junit.Test
 import org.robolectric.annotation.Config
 import kotlin.time.Duration.Companion.seconds
 
-class MediaPlayerDeviceScreenTest(): ScreenshotTest() {
-
+class MediaPlayerDeviceScreenTest() : ScreenshotTest() {
 
     @Test
     fun mediaPlayerLargeRound() {
@@ -85,7 +84,7 @@ class MediaPlayerDeviceScreenTest(): ScreenshotTest() {
         takeScreenshot {
             MediaPlayerTestCase(
                 colors = UampColors,
-                playerUiState = playerUiState,
+                playerUiState = playerUiState
             )
         }
     }

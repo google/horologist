@@ -19,20 +19,18 @@
 package com.google.android.horologist.composables
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Ignore
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import java.time.LocalDate
 
-@Ignore("Waiting for interactive support for paparazzi")
-class DatePickerTest {
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class DatePickerTest : ScreenshotTest() {
+    init {
+        screenTimeText = {}
+    }
 
     @Test
     fun datePickerInitial() {
-        paparazzi.snapshot {
+        takeScreenshot {
             DatePicker(
                 onDateConfirm = {},
                 date = LocalDate.of(2022, 4, 25)

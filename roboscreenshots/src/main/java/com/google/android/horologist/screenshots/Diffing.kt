@@ -31,6 +31,7 @@ import com.quickbird.snapshot.bitmap
 import okio.Buffer
 import okio.ByteString
 import java.io.File
+import kotlin.math.ceil
 
 internal val Diffing.Companion.highlightWithRed
     get() = Diffing<Color> { first, second ->
@@ -76,10 +77,12 @@ internal fun Diffing.Companion.bitmapWithTolerance(tolerance: Float, colorDiffin
                     setPixel(x, y, diffColor.toArgb())
                 }
             }
-            val diffPercent = differentCount.toDouble() / originalBytes.size
-            if (diffPercent < tolerance) {
+            val pixelCount = originalBitmap.width * originalBitmap.height
+            val toleratedDiffs = ceil(tolerance * pixelCount).toInt()
+            if (differentCount <= toleratedDiffs) {
                 null
             } else {
+                val diffPercent = differentCount.toDouble() / pixelCount
                 println("$diffPercent")
                 diffBitmap
             }

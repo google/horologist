@@ -28,7 +28,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class SegmentedProgressIndicatorTest: ScreenshotTest() {
+class SegmentedProgressIndicatorTest : ScreenshotTest() {
     init {
         screenTimeText = {}
     }

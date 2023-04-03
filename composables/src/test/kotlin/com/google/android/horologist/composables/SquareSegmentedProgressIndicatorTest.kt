@@ -30,12 +30,11 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 
-
 @Config(
     sdk = [30],
     qualifiers = "w227dp-h227dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
 )
-class SquareSegmentedProgressIndicatorTest: ScreenshotTest() {
+class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
     init {
         screenTimeText = {}
     }

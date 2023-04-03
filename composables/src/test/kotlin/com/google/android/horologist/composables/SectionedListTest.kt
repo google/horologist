@@ -54,7 +54,7 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Ignore
 import org.junit.Test
 
-class SectionedListTest: ScreenshotTest() {
+class SectionedListTest : ScreenshotTest() {
 
     @Test
     fun loadingSection() {

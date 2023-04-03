@@ -25,7 +25,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class PlaceholderChipTest: ScreenshotTest() {
+class PlaceholderChipTest : ScreenshotTest() {
 
     @Test
     fun default() {

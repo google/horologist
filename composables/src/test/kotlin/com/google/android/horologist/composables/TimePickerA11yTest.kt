@@ -35,7 +35,7 @@ class TimePickerA11yTest : ScreenshotTest() {
     fun initial() {
         takeScreenshot(
             checks = {
-                rule.onNodeWithContentDescription("Next")
+                rule.onNodeWithContentDescription("Confirm")
                     .assertHasClickAction()
             }
         ) {

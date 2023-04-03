@@ -93,7 +93,7 @@ public abstract class ScreenshotTest {
     public var testLabel: String? = null
 
     // Flip to true to record
-    public var record: Boolean = false
+    public var record: Boolean = true
 
     public var fakeImageLoader: FakeImageLoader = FakeImageLoader.Never
 

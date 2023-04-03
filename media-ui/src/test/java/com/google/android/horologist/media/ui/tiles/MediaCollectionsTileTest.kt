@@ -34,9 +34,8 @@ import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.uamp.UampColors
-import com.google.android.horologist.paparazzi.WearPaparazzi
+import com.google.android.horologist.screenshots.ScreenshotTest
 import com.google.android.horologist.tiles.images.drawableResToImageResource
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -44,20 +43,11 @@ import org.junit.runners.Parameterized
 @RunWith(Parameterized::class)
 class MediaCollectionsTileTest(
     private val deviceConfig: DeviceConfig
-) {
-    @get:Rule
-    val paparazzi = WearPaparazzi(deviceConfig = deviceConfig)
-
-    val name = when (deviceConfig) {
-        DeviceConfig.WEAR_OS_SQUARE -> "square"
-        DeviceConfig.WEAR_OS_SMALL_ROUND -> "small_round"
-        DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE -> "large_round"
-        else -> "unknown"
-    }
+): ScreenshotTest() {
 
     @Test
     fun mediaCollectionsTile() {
-        paparazzi.snapshot(name = name) {
+        takeScreenshot {
             RoundPreview(round = deviceConfig != DeviceConfig.WEAR_OS_SQUARE) {
                 Box(modifier = Modifier.background(Color.Black)) {
                     SampleTilePreview()

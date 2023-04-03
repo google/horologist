@@ -21,38 +21,16 @@
 package com.google.android.horologist.media.ui.components.actions
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class ShowPlaylistChipA11yTest {
-    private val maxPercentDifference = 1.0
-
-    private val composeA11yExtension = ComposeA11yExtension()
-
-    @get:Rule
-    val paparazzi = WearPaparazzi(
-        deviceConfig = RoundNonFullScreenDevice,
-        maxPercentDifference = maxPercentDifference,
-        renderExtensions = setOf(composeA11yExtension),
-        snapshotHandler = A11ySnapshotHandler(
-            delegate = determineHandler(
-                maxPercentDifference = maxPercentDifference
-            ),
-            accessibilityStateFn = { composeA11yExtension.accessibilityState }
-        )
-    )
+class ShowPlaylistChipA11yTest: ScreenshotTest() {
 
     @Test
     fun a11y() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,

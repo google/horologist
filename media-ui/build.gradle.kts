@@ -19,7 +19,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -146,8 +145,7 @@ dependencies {
     testImplementation(libs.robolectric)
     testImplementation(projects.audio)
     testImplementation(projects.audioUi)
-    testImplementation(projects.paparazzi)
-    testImplementation(libs.paparazzi)
+    testImplementation(projects.roboscreenshots)
     testImplementation(projects.logo)
 
     androidTestImplementation(libs.compose.ui.test.junit4)

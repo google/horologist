@@ -21,21 +21,16 @@
 package com.google.android.horologist.media.ui.controls
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.components.controls.SeekForwardButton
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class SeekForwardButtonTest {
-
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class SeekForwardButtonTest: ScreenshotTest() {
 
     @Test
     fun givenIncrementIsFive_thenIconIsFive() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             SeekForwardButton(
                 onClick = {},
                 seekButtonIncrement = SeekButtonIncrement.Five
@@ -45,7 +40,7 @@ class SeekForwardButtonTest {
 
     @Test
     fun givenIncrementIsTen_thenIconIsTen() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             SeekForwardButton(
                 onClick = {},
                 seekButtonIncrement = SeekButtonIncrement.Ten
@@ -55,7 +50,7 @@ class SeekForwardButtonTest {
 
     @Test
     fun givenIncrementIsThirty_thenIconIsThirty() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             SeekForwardButton(
                 onClick = {},
                 seekButtonIncrement = SeekButtonIncrement.Thirty
@@ -65,7 +60,7 @@ class SeekForwardButtonTest {
 
     @Test
     fun givenIncrementIsOtherValue_thenIconIsDefault() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             SeekForwardButton(
                 onClick = {},
                 seekButtonIncrement = SeekButtonIncrement.Known(15)
@@ -75,7 +70,7 @@ class SeekForwardButtonTest {
 
     @Test
     fun givenIncrementIsUnknown_thenIconIsDefault() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             SeekForwardButton(
                 onClick = {},
                 seekButtonIncrement = SeekButtonIncrement.Unknown

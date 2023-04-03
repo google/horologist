@@ -28,8 +28,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -38,9 +37,7 @@ import kotlin.time.Duration.Companion.seconds
 @RunWith(Parameterized::class)
 class MediaPlayerStatesScreenTest(
     private val state: State
-) {
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+): ScreenshotTest() {
 
     @Test
     fun mediaPlayerScreen() {
@@ -72,7 +69,7 @@ class MediaPlayerStatesScreenTest(
             connected = state.connected
         )
 
-        paparazzi.snapshot(name = state.name) {
+        takeScreenshot {
             Box(modifier = Modifier.background(Color.Black)) {
                 MediaPlayerTestCase(playerUiState = playerUiState)
             }

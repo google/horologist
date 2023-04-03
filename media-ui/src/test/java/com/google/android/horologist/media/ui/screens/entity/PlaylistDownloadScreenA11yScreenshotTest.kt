@@ -25,42 +25,18 @@ import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
-import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.components.positionedState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class PlaylistDownloadScreenA11yScreenshotTest {
-    private val maxPercentDifference = 1.0
-
-    private val composeA11yExtension = ComposeA11yExtension()
-
-    @get:Rule
-    val paparazzi = WearPaparazzi(
-        deviceConfig = RoundNonFullScreenDevice,
-        maxPercentDifference = maxPercentDifference,
-        renderExtensions = setOf(composeA11yExtension),
-        snapshotHandler = WearSnapshotHandler(
-            A11ySnapshotHandler(
-                delegate = determineHandler(
-                    maxPercentDifference = maxPercentDifference
-                ),
-                accessibilityStateFn = { composeA11yExtension.accessibilityState }
-            )
-        )
-    )
+class PlaylistDownloadScreenA11yScreenshotTest: ScreenshotTest() {
 
     @Test
     fun playlistDownloadScreenPreviewLoading() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -82,7 +58,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloaded() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -111,7 +87,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -140,7 +116,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloaded() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -169,7 +145,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -198,7 +174,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -227,7 +203,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedFullyDownloaded() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -256,7 +232,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
 
     @Test
     fun playlistDownloadScreenPreviewFailed() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {

@@ -28,22 +28,22 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
+import org.robolectric.ParameterizedRobolectricTestRunner
+import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 import kotlin.time.Duration.Companion.seconds
 
-@RunWith(Parameterized::class)
+@RunWith(ParameterizedRobolectricTestRunner::class)
 class PodcastPlayerScreenTest(
     private val options: PodcastOptions
-) {
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+) : ScreenshotTest() {
 
     @Test
     fun mediaPlayerScreen() {
+        testLabel = options.toString().lowercase()
+
         val playerUiState = PlayerUiState(
             playEnabled = true,
             pauseEnabled = true,
@@ -64,7 +64,7 @@ class PodcastPlayerScreenTest(
             connected = true
         )
 
-        paparazzi.snapshot(options.toString()) {
+        takeScreenshot {
             Box(modifier = Modifier.background(Color.Black)) {
                 MediaPlayerTestCase(playerUiState = playerUiState, controlButtons = {
                     PodcastControlButtons(
@@ -87,7 +87,7 @@ class PodcastPlayerScreenTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameters
         fun options(): List<PodcastOptions> = listOf(
             PodcastOptions(SeekButtonIncrement.Unknown, SeekButtonIncrement.Unknown),
             PodcastOptions(SeekButtonIncrement.Ten, SeekButtonIncrement.Ten),

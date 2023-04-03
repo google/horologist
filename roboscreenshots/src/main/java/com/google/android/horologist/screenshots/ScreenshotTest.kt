@@ -60,6 +60,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import com.quickbird.snapshot.Diffing
+import com.quickbird.snapshot.FileSnapshotting
 import com.quickbird.snapshot.Snapshotting
 import com.quickbird.snapshot.fileSnapshotting
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -158,12 +159,7 @@ public abstract class ScreenshotTest {
                 }
             ).fileSnapshotting
 
-            snapshotting.snapshot(
-                rule.onRoot(),
-                testName = testName.methodName + (if (testLabel != null) "_$testLabel" else ""),
-                record = record,
-                testClass = this@ScreenshotTest.javaClass
-            )
+            saveSnapshot(snapshotting)
         }
     }
 
@@ -231,13 +227,17 @@ public abstract class ScreenshotTest {
                 }
             ).fileSnapshotting
 
-            snapshotting.snapshot(
-                rule.onRoot(),
-                record = record,
-                testName = testName.methodName + (if (testLabel != null) "_$testLabel" else ""),
-                testClass = this@ScreenshotTest.javaClass
-            )
+            saveSnapshot(snapshotting)
         }
+    }
+
+    open suspend fun saveSnapshot(snapshotting: FileSnapshotting<SemanticsNodeInteraction, Bitmap>) {
+        snapshotting.snapshot(
+            rule.onRoot(),
+            testName = testName.methodName + (if (testLabel != null) "_$testLabel" else ""),
+            record = record,
+            testClass = this@ScreenshotTest.javaClass
+        )
     }
 
     @Composable

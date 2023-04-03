@@ -26,20 +26,19 @@ import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
+import com.google.android.horologist.screenshots.ScreenshotTest
 import com.google.android.horologist.test.toolbox.composables.positionedState
-import org.junit.Rule
 import org.junit.Test
 
-class SignInPromptScreenTest {
+class SignInPromptScreenTest: ScreenshotTest() {
+    init {
+        screenTimeText = {}
+    }
 
-    @get:Rule
-    val paparazzi = WearPaparazzi()
 
     @Test
     fun idle() {
-        paparazzi.snapshotInABox {
+        takeScreenshot {
             SignInPromptScreen(
                 state = SignInPromptScreenState.Idle,
                 title = "Sign in",
@@ -55,7 +54,7 @@ class SignInPromptScreenTest {
 
     @Test
     fun loading() {
-        paparazzi.snapshotInABox {
+        takeScreenshot {
             SignInPromptScreen(
                 state = SignInPromptScreenState.Loading,
                 title = "Sign in",
@@ -71,7 +70,7 @@ class SignInPromptScreenTest {
 
     @Test
     fun signedIn() {
-        paparazzi.snapshotInABox {
+        takeScreenshot {
             SignInPromptScreen(
                 state = SignInPromptScreenState.SignedIn(AccountUiModel("user@example.com")),
                 title = "Sign in",
@@ -87,7 +86,7 @@ class SignInPromptScreenTest {
 
     @Test
     fun signedOut() {
-        paparazzi.snapshotInABox {
+        takeScreenshot {
             SignInPromptScreen(
                 state = SignInPromptScreenState.SignedOut,
                 title = "Sign in",
@@ -103,7 +102,7 @@ class SignInPromptScreenTest {
 
     @Test
     fun signedOutTruncation() {
-        paparazzi.snapshotInABox {
+        takeScreenshot {
             SignInPromptScreen(
                 state = SignInPromptScreenState.SignedOut,
                 title = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",

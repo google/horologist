@@ -19,4 +19,16 @@
     <string name="token_share_button_update_token_default">Update token - default key</string>
     <string name="token_share_button_update_token_custom">Update token - custom key</string>
     <string name="token_share_message_api_unavailable">This device does not have capability to communicate to Wearable Data Layer API</string>
+
+    <string name="node_name_label">Node: %1$s</string>
+    <string name="node_id_label">ID: %1$s</string>
+    <string name="node_type_label">Type: %1$s</string>
+    <string name="is_app_installed_label">App installed: %1$s</string>
+    <string name="complications_label">Complications: %1$s</string>
+    <string name="tiles_label">Tiles: %1$s</string>
+    <string name="install_button_label">Install</string>
+    <string name="companion_button_label">Companion</string>
+    <string name="launch_button_label">Launch</string>
+
+    <string name="app_helper_button_list_nodes">List connected nodes</string>
 </resources>

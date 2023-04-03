@@ -32,15 +32,19 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import org.robolectric.ParameterizedRobolectricTestRunner
+import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 import kotlin.time.Duration.Companion.seconds
 
-@RunWith(Parameterized::class)
+@RunWith(ParameterizedRobolectricTestRunner::class)
 class MediaPlayerStatesScreenTest(
     private val state: State
 ): ScreenshotTest() {
 
     @Test
     fun mediaPlayerScreen() {
+        testLabel = state.name.lowercase()
+
         val playerUiState = PlayerUiState(
             playEnabled = state.connected,
             pauseEnabled = state.connected,
@@ -84,7 +88,7 @@ class MediaPlayerStatesScreenTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameters
         fun states() = listOf(
             State(connected = true, media = false, name = "NoMedia"),
             State(connected = false, media = false, name = "NotConnected")

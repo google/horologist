@@ -20,18 +20,27 @@
 
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class MediaChipA11yTest: ScreenshotTest() {
+class MediaChipA11yTest : ScreenshotTest() {
+    init {
+        enableA11yTest()
+        fakeImageLoader = FakeImageLoader.Resources
+        screenTimeText = {}
+    }
 
     @Test
     fun a11y() {
-        takeComponentScreenshot {
-            FakeImageLoader.Resources.override {
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 MediaChip(
                     media = MediaUiModel(
                         id = "id",

@@ -20,6 +20,10 @@
 
 package com.google.android.horologist.media.ui.controls
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.SeekBackButton
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
@@ -27,54 +31,68 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
 class SeekBackButtonA11yTest: ScreenshotTest() {
+    init {
+        enableA11yTest()
+        screenTimeText = {}
+    }
 
     @Test
     fun incrementIsFive() {
-        takeComponentScreenshot {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Five
-            )
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SeekBackButton(
+                    onClick = {},
+                    seekButtonIncrement = SeekButtonIncrement.Five
+                )
+            }
         }
     }
 
     @Test
     fun incrementIsTen() {
-        takeComponentScreenshot {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Ten
-            )
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SeekBackButton(
+                    onClick = {},
+                    seekButtonIncrement = SeekButtonIncrement.Ten
+                )
+            }
         }
     }
 
     @Test
     fun incrementIsThirty() {
-        takeComponentScreenshot {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Thirty
-            )
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SeekBackButton(
+                    onClick = {},
+                    seekButtonIncrement = SeekButtonIncrement.Thirty
+                )
+            }
         }
     }
 
     @Test
     fun incrementIsOther() {
-        takeComponentScreenshot {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Known(15)
-            )
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SeekBackButton(
+                    onClick = {},
+                    seekButtonIncrement = SeekButtonIncrement.Known(15)
+                )
+            }
         }
     }
 
     @Test
     fun incrementIsUnknown() {
-        takeComponentScreenshot {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Unknown
-            )
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SeekBackButton(
+                    onClick = {},
+                    seekButtonIncrement = SeekButtonIncrement.Unknown
+                )
+            }
         }
     }
 }

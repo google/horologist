@@ -32,15 +32,19 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import org.robolectric.ParameterizedRobolectricTestRunner
+import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 import kotlin.time.Duration.Companion.seconds
 
-@RunWith(Parameterized::class)
+@RunWith(ParameterizedRobolectricTestRunner::class)
 class PodcastPlayerScreenTest(
     private val options: PodcastOptions
 ): ScreenshotTest() {
 
     @Test
     fun mediaPlayerScreen() {
+        testLabel = options.toString().lowercase()
+
         val playerUiState = PlayerUiState(
             playEnabled = true,
             pauseEnabled = true,
@@ -84,7 +88,7 @@ class PodcastPlayerScreenTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameters
         fun options(): List<PodcastOptions> = listOf(
             PodcastOptions(SeekButtonIncrement.Unknown, SeekButtonIncrement.Unknown),
             PodcastOptions(SeekButtonIncrement.Ten, SeekButtonIncrement.Ten),

@@ -32,15 +32,20 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
-import org.junit.runners.Parameterized
+import org.junit.runner.RunWith
+import org.robolectric.ParameterizedRobolectricTestRunner
+import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 import kotlin.time.Duration.Companion.seconds
 
+@RunWith(ParameterizedRobolectricTestRunner::class)
 class MediaPlayerScreenTest(
     private val themeValue: ThemeValues
 ): ScreenshotTest() {
 
     @Test
     fun mediaPlayerScreen() {
+        testLabel = themeValue.safeName.lowercase()
+
         val playerUiState = PlayerUiState(
             playEnabled = true,
             pauseEnabled = true,
@@ -70,7 +75,7 @@ class MediaPlayerScreenTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameters
         fun colors() = themeValues
     }
 }

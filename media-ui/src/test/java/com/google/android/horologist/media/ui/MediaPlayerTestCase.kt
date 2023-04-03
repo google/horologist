@@ -89,42 +89,28 @@ fun MediaPlayerTestCase(
             RadialBackground(color = colors.primary)
         }
     },
-    time: String = "10:10",
-    round: Boolean = true
 ) {
-    RoundPreview(round = round) {
-        Box(modifier = Modifier.background(Color.Black)) {
-            MaterialTheme(colors = colors) {
-                Scaffold(
-                    timeText = {
-                        TimeText(
-                            timeSource = object : TimeSource {
-                                override val currentTime: String
-                                    @Composable get() = time
-                            }
-                        )
+    MaterialTheme(colors = colors) {
+        Scaffold(
+            positionIndicator = {
+                VolumePositionIndicator(
+                    volumeUiState = {
+                        VolumeUiStateMapper.map(volumeState = VolumeState(6, 10))
                     },
-                    positionIndicator = {
-                        VolumePositionIndicator(
-                            volumeUiState = {
-                                VolumeUiStateMapper.map(volumeState = VolumeState(6, 10))
-                            },
-                            displayIndicatorEvents = flowOf()
+                    displayIndicatorEvents = flowOf()
+                )
+            }
+        ) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                PagerScreen(count = 2) {
+                    if (it == 0) {
+                        PlayerScreen(
+                            modifier = Modifier.fillMaxSize(),
+                            mediaDisplay = { mediaDisplay() },
+                            controlButtons = { controlButtons() },
+                            buttons = { buttons() },
+                            background = background
                         )
-                    }
-                ) {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        PagerScreen(count = 2) {
-                            if (it == 0) {
-                                PlayerScreen(
-                                    modifier = Modifier.fillMaxSize(),
-                                    mediaDisplay = { mediaDisplay() },
-                                    controlButtons = { controlButtons() },
-                                    buttons = { buttons() },
-                                    background = background
-                                )
-                            }
-                        }
                     }
                 }
             }

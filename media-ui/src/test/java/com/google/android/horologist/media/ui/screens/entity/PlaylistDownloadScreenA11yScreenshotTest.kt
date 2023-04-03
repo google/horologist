@@ -33,6 +33,9 @@ import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
 class PlaylistDownloadScreenA11yScreenshotTest: ScreenshotTest() {
+    init {
+        enableA11yTest()
+    }
 
     @Test
     fun playlistDownloadScreenPreviewLoading() {

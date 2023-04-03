@@ -20,7 +20,6 @@
 
 package com.google.android.horologist.media.ui
 
-import app.cash.paparazzi.DeviceConfig
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
@@ -28,10 +27,34 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
-import org.junit.runners.Parameterized
+import org.robolectric.annotation.Config
 import kotlin.time.Duration.Companion.seconds
 
 class MediaPlayerDeviceScreenTest(): ScreenshotTest() {
+
+
+    @Test
+    fun mediaPlayerLargeRound() {
+        mediaPlayerScreen()
+    }
+
+    @Config(
+        sdk = [30],
+        qualifiers = "+w192dp-h192dp"
+    )
+    @Test
+    fun mediaPlayerSmallRound() {
+        mediaPlayerScreen()
+    }
+
+    @Config(
+        sdk = [30],
+        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav"
+    )
+    @Test
+    fun mediaPlayerSquare() {
+        mediaPlayerScreen()
+    }
 
     @Test
     fun mediaPlayerScreen() {
@@ -63,18 +86,7 @@ class MediaPlayerDeviceScreenTest(): ScreenshotTest() {
             MediaPlayerTestCase(
                 colors = UampColors,
                 playerUiState = playerUiState,
-                round = device != DeviceConfig.WEAR_OS_SQUARE
             )
         }
-    }
-
-    companion object {
-        @JvmStatic
-        @Parameterized.Parameters
-        fun devices() = listOf(
-            DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE,
-            DeviceConfig.WEAR_OS_SMALL_ROUND,
-            DeviceConfig.WEAR_OS_SQUARE
-        )
     }
 }

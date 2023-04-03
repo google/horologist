@@ -20,7 +20,7 @@
 
 package com.google.android.horologist.media.ui
 
-import app.cash.paparazzi.DeviceConfig
+import androidx.compose.runtime.Composable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
@@ -28,12 +28,35 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
+import org.robolectric.annotation.Config
 import kotlin.time.Duration.Companion.seconds
 
-class MediaPlayerA11yScreenshotTest(): ScreenshotTest() {
+class MediaPlayerA11yScreenshotTest: ScreenshotTest() {
 
     @Test
-    fun mediaPlayer() {
+    fun mediaPlayerLargeRound() {
+        mediaPlayerScreen()
+    }
+
+    @Config(
+        sdk = [30],
+        qualifiers = "+w192dp-h192dp"
+    )
+    @Test
+    fun mediaPlayerSmallRound() {
+        mediaPlayerScreen()
+    }
+
+    @Config(
+        sdk = [30],
+        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav"
+    )
+    @Test
+    fun mediaPlayerSquare() {
+        mediaPlayerScreen()
+    }
+
+    private fun mediaPlayerScreen() {
         val playerUiState = PlayerUiState(
             playEnabled = true,
             pauseEnabled = true,
@@ -50,15 +73,18 @@ class MediaPlayerA11yScreenshotTest(): ScreenshotTest() {
                 title = "Weather with You",
                 subtitle = "Crowded House"
             ),
-            trackPositionUiModel = TrackPositionUiModel.Actual(percent = 0.133f, position = 30.seconds, duration = 225.seconds),
+            trackPositionUiModel = TrackPositionUiModel.Actual(
+                percent = 0.133f,
+                position = 30.seconds,
+                duration = 225.seconds
+            ),
             connected = true
         )
 
         takeScreenshot {
             MediaPlayerTestCase(
                 colors = UampColors,
-                playerUiState = playerUiState,
-                round = device != DeviceConfig.WEAR_OS_SQUARE
+                playerUiState = playerUiState
             )
         }
     }

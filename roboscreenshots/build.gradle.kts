@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlin.kapt")
+    id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -28,7 +28,7 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 26
+        minSdk = 25
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -49,6 +49,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
+
     packagingOptions {
         resources {
             excludes += listOf(
@@ -65,21 +66,11 @@ android {
         animationsDisabled = true
     }
 
-    sourceSets.getByName("main") {
-        assets.srcDir("src/main/assets")
-    }
-
     lint {
-        disable += listOf("MissingTranslation", "ExtraTranslation")
         checkReleaseBuilds = false
         textReport = true
     }
-
-    namespace = "com.google.android.horologist.audio.ui"
-}
-
-kapt {
-    correctErrorTypes = true
+    namespace = "com.google.android.horologist.roboscreenshots"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -98,37 +89,18 @@ metalava {
 }
 
 dependencies {
-    api(projects.audio)
-    api(libs.kotlin.stdlib)
     api(projects.annotations)
-    implementation(projects.composeLayout)
-    implementation(projects.baseUi)
-    debugImplementation(projects.logo)
+    api(projects.composeTools)
+    api(projects.composeLayout)
 
-    api(libs.wearcompose.material)
-    api(libs.wearcompose.foundation)
-    implementation(libs.androidx.corektx)
+    api(libs.kotlin.stdlib)
+    api(libs.okio)
+    api(libs.snapshot.android)
+    api(libs.compose.ui.test.junit4)
+    api(libs.robolectric)
+    implementation(libs.wearcompose.material)
+    implementation(libs.wearcompose.foundation)
+    implementation(libs.coil)
 
-    implementation(libs.compose.material.iconscore)
-    implementation(libs.compose.material.iconsext)
-
-    implementation(libs.androidx.wear)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-    implementation(libs.lottie.compose)
-
-    implementation(libs.compose.ui.toolingpreview)
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(projects.composeTools)
-
-    testImplementation(libs.junit)
-    testImplementation(projects.roboscreenshots)
-
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    debugImplementation(libs.compose.ui.test.manifest)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.truth)
+    testImplementation(libs.robolectric)
 }
-
-apply(plugin = "com.vanniktech.maven.publish")

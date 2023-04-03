@@ -19,20 +19,18 @@
 package com.google.android.horologist.composables
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Ignore
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import java.time.LocalTime
 
-@Ignore("Waiting for interactive support for paparazzi")
-class TimePicker12hTest {
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class TimePicker12hTest: ScreenshotTest() {
+    init {
+        screenTimeText = {}
+    }
 
     @Test
     fun datePickerInitial() {
-        paparazzi.snapshot {
+        takeScreenshot {
             TimePickerWith12HourClock(
                 time = LocalTime.of(10, 10, 0),
                 onTimeConfirm = {}

@@ -34,6 +34,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -243,8 +244,7 @@ public abstract class ScreenshotTest {
     public open fun ComponentDefaults(content: @Composable BoxScope.() -> Unit) {
         fakeImageLoader.override {
             Box(
-                modifier = Modifier
-                    .background(Color.Transparent),
+                modifier = Modifier.wrapContentSize().background(Color.Black.copy(alpha = 0.5f)),
                 contentAlignment = Alignment.Center
             ) {
                 DefaultTheme {

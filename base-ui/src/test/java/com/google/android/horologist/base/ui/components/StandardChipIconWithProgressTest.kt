@@ -25,44 +25,36 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class StandardChipIconWithProgressTest {
-
-    @get:Rule
-    val paparazzi = WearPaparazzi(
-        maxPercentDifference = 0.1
-    )
+class StandardChipIconWithProgressTest: ScreenshotTest() {
 
     @Test
     fun default() {
-        paparazzi.snapshotInABox {
-            FakeImageLoader.NotFound.override {
+        fakeImageLoader = FakeImageLoader.NotFound
+        takeComponentScreenshot {
                 StandardChipIconWithProgress(progress = 75f)
-            }
-        }
+       }
     }
 
     @Test
     fun withProgressSmallIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChipIconWithProgress(progress = 75f, icon = Icon12dp)
         }
     }
 
     @Test
     fun withProgressMediumIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChipIconWithProgress(progress = 75f, icon = Icon32dp)
         }
     }
 
     @Test
     fun withProgressLargeIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChipIconWithProgress(
                 progress = 75f,
                 icon = Icon48dp,

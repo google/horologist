@@ -36,7 +36,6 @@ import org.robolectric.annotation.Config
 class MediaCollectionsTileTest() : ScreenshotTest() {
     init {
         screenTimeText = {}
-        record = true
     }
 
     @Test

@@ -25,21 +25,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import app.cash.paparazzi.DeviceConfig
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
+import org.robolectric.annotation.Config
 
-class SquareSegmentedProgressIndicatorTest {
-    @OptIn(ExperimentalHorologistApi::class)
-    @get:Rule
-    val paparazzi = WearPaparazzi(deviceConfig = DeviceConfig.WEAR_OS_SQUARE)
+
+@Config(
+    sdk = [30],
+    qualifiers = "w227dp-h227dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
+)
+class SquareSegmentedProgressIndicatorTest: ScreenshotTest() {
+    init {
+        screenTimeText = {}
+    }
 
     @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorLowCornerRadius() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
@@ -75,7 +79,7 @@ class SquareSegmentedProgressIndicatorTest {
     @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorHighCornerRadius() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
@@ -111,7 +115,7 @@ class SquareSegmentedProgressIndicatorTest {
     @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorManySegments() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
@@ -155,7 +159,7 @@ class SquareSegmentedProgressIndicatorTest {
     @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorFewSegments() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
@@ -187,7 +191,7 @@ class SquareSegmentedProgressIndicatorTest {
     @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorFewSegmentsAndBrushColor() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,
@@ -227,7 +231,7 @@ class SquareSegmentedProgressIndicatorTest {
     @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorFewSegmentsAndBrushColorAndColorsCombined() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,

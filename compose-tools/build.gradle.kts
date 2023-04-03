@@ -111,8 +111,6 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-
-    compileOnly(projects.paparazzi)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

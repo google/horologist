@@ -61,19 +61,19 @@ fun AppHelperNodeStatusCard(
                     .fillMaxWidth()
 
             ) {
-                Text(stringResource(R.string.node_name_label, nodeStatus.displayName))
+                Text(stringResource(R.string.app_helper_node_name_label, nodeStatus.displayName))
                 Text(
                     style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(R.string.node_id_label, nodeStatus.id)
+                    text = stringResource(R.string.app_helper_node_id_label, nodeStatus.id)
                 )
                 Text(
                     style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(R.string.node_type_label, nodeStatus.nodeType)
+                    text = stringResource(R.string.app_helper_node_type_label, nodeStatus.nodeType)
                 )
                 Text(
                     style = MaterialTheme.typography.labelMedium,
                     text = stringResource(
-                        R.string.is_app_installed_label,
+                        R.string.app_helper_is_app_installed_label,
                         nodeStatus.isAppInstalled
                     )
                 )
@@ -81,7 +81,7 @@ fun AppHelperNodeStatusCard(
                     Text(
                         style = MaterialTheme.typography.labelMedium,
                         text = stringResource(
-                            R.string.complications_label,
+                            R.string.app_helper_complications_label,
                             nodeStatus.surfacesInfo.complicationsList.joinToString { it.name }
                         )
                     )
@@ -90,7 +90,7 @@ fun AppHelperNodeStatusCard(
                     Text(
                         style = MaterialTheme.typography.labelMedium,
                         text = stringResource(
-                            R.string.tiles_label,
+                            R.string.app_helper_tiles_label,
                             nodeStatus.surfacesInfo.tilesList.joinToString { it.name }
                         )
                     )
@@ -105,19 +105,19 @@ fun AppHelperNodeStatusCard(
                         modifier = Modifier.wrapContentHeight(),
                         onClick = { onInstallClick(nodeStatus.id) }
                     ) {
-                        Text(stringResource(id = R.string.install_button_label))
+                        Text(stringResource(id = R.string.app_helper_install_button_label))
                     }
                     Button(
                         modifier = Modifier.wrapContentHeight(),
                         onClick = { onLaunchClick(nodeStatus.id) }
                     ) {
-                        Text(stringResource(id = R.string.launch_button_label))
+                        Text(stringResource(id = R.string.app_helper_launch_button_label))
                     }
                     Button(
                         modifier = Modifier.wrapContentHeight(),
                         onClick = { onCompanionClick(nodeStatus.id) }
                     ) {
-                        Text(stringResource(id = R.string.companion_button_label))
+                        Text(stringResource(id = R.string.app_helper_companion_button_label))
                     }
                 }
             }

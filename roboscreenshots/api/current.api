@@ -25,6 +25,7 @@ package com.google.android.horologist.screenshots {
     method public final String? getTestLabel();
     method @org.junit.Rule public final org.junit.rules.TestName getTestName();
     method public final float getTolerance();
+    method public suspend Object? saveSnapshot(com.quickbird.snapshot.FileSnapshotting<androidx.compose.ui.test.SemanticsNodeInteraction,android.graphics.Bitmap> snapshotting, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public final void setFakeImageLoader(com.google.android.horologist.compose.tools.coil.FakeImageLoader);
     method public final void setRecord(boolean);
     method public final void setScreenTimeText(kotlin.jvm.functions.Function0<kotlin.Unit>);

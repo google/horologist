@@ -231,7 +231,7 @@ public abstract class ScreenshotTest {
         }
     }
 
-    open suspend fun saveSnapshot(snapshotting: FileSnapshotting<SemanticsNodeInteraction, Bitmap>) {
+    public open suspend fun saveSnapshot(snapshotting: FileSnapshotting<SemanticsNodeInteraction, Bitmap>) {
         snapshotting.snapshot(
             rule.onRoot(),
             testName = testName.methodName + (if (testLabel != null) "_$testLabel" else ""),

@@ -27,39 +27,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class SignedInConfirmationDialogTest {
-
-    @get:Rule
-    val paparazzi = WearPaparazzi()
-
-    @Test
-    fun signedInConfirmationDialog() {
-        paparazzi.snapshot {
-            FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    SignedInConfirmationDialogContent(
-                        name = "Maggie",
-                        email = "maggie@example.com",
-                        avatar = android.R.drawable.sym_def_app_icon
-                    )
-                }
-            }
-        }
+class SignedInConfirmationDialogTest : ScreenshotTest() {
+    init {
+        screenTimeText = {}
     }
 
     @Test
-    fun signedInConfirmationDialogNoName() {
-        paparazzi.snapshotInABox {
-            FakeImageLoader.Resources.override {
+    fun signedInConfirmationDialog() {
+        this.fakeImageLoader = FakeImageLoader.Resources
+
+        takeScreenshot {
+            Box(
+                modifier = Modifier.background(Color.Black),
+                contentAlignment = Alignment.Center
+            ) {
                 SignedInConfirmationDialogContent(
+                    name = "Maggie",
                     email = "maggie@example.com",
                     avatar = android.R.drawable.sym_def_app_icon
                 )
@@ -67,9 +53,22 @@ class SignedInConfirmationDialogTest {
         }
     }
 
+
+    @Test
+    fun signedInConfirmationDialogNoName() {
+        this.fakeImageLoader = FakeImageLoader.Resources
+
+        takeScreenshot {
+            SignedInConfirmationDialogContent(
+                email = "maggie@example.com",
+                avatar = android.R.drawable.sym_def_app_icon
+            )
+        }
+    }
+
     @Test
     fun signedInConfirmationDialogNoNameNoAvatar() {
-        paparazzi.snapshotInABox {
+        takeScreenshot {
             SignedInConfirmationDialogContent(
                 email = "maggie@example.com"
             )
@@ -78,33 +77,33 @@ class SignedInConfirmationDialogTest {
 
     @Test
     fun signedInConfirmationDialogNoEmail() {
-        paparazzi.snapshotInABox {
-            FakeImageLoader.Resources.override {
-                SignedInConfirmationDialogContent(
-                    name = "Maggie",
-                    avatar = android.R.drawable.sym_def_app_icon
-                )
-            }
+        this.fakeImageLoader = FakeImageLoader.Resources
+
+        takeScreenshot {
+            SignedInConfirmationDialogContent(
+                name = "Maggie",
+                avatar = android.R.drawable.sym_def_app_icon
+            )
         }
     }
 
     @Test
     fun signedInConfirmationDialogNoInformation() {
-        paparazzi.snapshotInABox {
+        takeScreenshot {
             SignedInConfirmationDialogContent()
         }
     }
 
     @Test
     fun signedInConfirmationDialogTruncation() {
-        paparazzi.snapshotInABox {
-            FakeImageLoader.Resources.override {
-                SignedInConfirmationDialogContent(
-                    name = "Wolfeschlegelsteinhausenbergerdorff",
-                    email = "wolfeschlegelsteinhausenbergerdorff@example.com",
-                    avatar = android.R.drawable.sym_def_app_icon
-                )
-            }
+        this.fakeImageLoader = FakeImageLoader.Resources
+
+        takeScreenshot {
+            SignedInConfirmationDialogContent(
+                name = "Wolfeschlegelsteinhausenbergerdorff",
+                email = "wolfeschlegelsteinhausenbergerdorff@example.com",
+                avatar = android.R.drawable.sym_def_app_icon
+            )
         }
     }
 }

@@ -109,7 +109,8 @@ public class DefaultRotaryHapticHandler(
 
     override fun handleScrollHaptic(scrollDelta: Float) {
         if ((scrollDelta > 0 && !scrollableState.canScrollForward) ||
-            (scrollDelta < 0 && !scrollableState.canScrollBackward)) {
+            (scrollDelta < 0 && !scrollableState.canScrollBackward)
+        ) {
             if (!overscrollHapticTriggered) {
                 hapticsChannel.trySend(RotaryHapticsType.ScrollLimit)
                 overscrollHapticTriggered = true
@@ -128,7 +129,8 @@ public class DefaultRotaryHapticHandler(
 
     override fun handleSnapHaptic(scrollDelta: Float) {
         if ((scrollDelta > 0 && !scrollableState.canScrollForward) ||
-            (scrollDelta < 0 && !scrollableState.canScrollBackward)) {
+            (scrollDelta < 0 && !scrollableState.canScrollBackward)
+        ) {
             if (!overscrollHapticTriggered) {
                 hapticsChannel.trySend(RotaryHapticsType.ScrollLimit)
                 overscrollHapticTriggered = true
@@ -209,7 +211,7 @@ public fun rememberRotaryHapticHandler(
     rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback()
 ): RotaryHapticHandler {
     return remember(scrollableState, hapticsChannel, rotaryHaptics) {
-        DefaultRotaryHapticHandler(scrollableState,hapticsChannel)
+        DefaultRotaryHapticHandler(scrollableState, hapticsChannel)
     }.apply {
         LaunchedEffect(hapticsChannel) {
             hapticsChannel.receiveAsFlow()

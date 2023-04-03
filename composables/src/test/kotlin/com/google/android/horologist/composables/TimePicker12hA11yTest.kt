@@ -18,6 +18,8 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.onNodeWithContentDescription
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
@@ -31,7 +33,12 @@ class TimePicker12hA11yTest : ScreenshotTest() {
 
     @Test
     fun initial() {
-        takeScreenshot {
+        takeScreenshot(
+            checks = {
+                rule.onNodeWithContentDescription("Next")
+                    .assertHasClickAction()
+            }
+        ) {
             TimePickerWith12HourClock(
                 time = LocalTime.of(10, 10, 0),
                 onTimeConfirm = {}

@@ -18,6 +18,12 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertIsFocused
+import androidx.compose.ui.test.onAllNodesWithContentDescription
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.performClick
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
@@ -31,7 +37,36 @@ class DatePickerA11yTest : ScreenshotTest() {
 
     @Test
     fun initial() {
-        takeScreenshot {
+        takeScreenshot(
+            checks = {
+                rule.onNodeWithContentDescription("Next")
+                    .assertHasClickAction()
+
+                rule.onNodeWithContentDescription("Day, 25")
+                    .assertIsFocused()
+            }
+        ) {
+            DatePicker(
+                onDateConfirm = {},
+                date = LocalDate.of(2022, 4, 25)
+            )
+        }
+    }
+
+    @Test
+    fun next() {
+        takeScreenshot(
+            checks = {
+                rule.onNodeWithContentDescription("Next")
+                    .performClick()
+
+                rule.waitUntil {
+                    rule.onNodeWithContentDescription("April")
+                        .fetchSemanticsNode()
+                        .config[SemanticsProperties.Focused]
+                }
+            }
+        ) {
             DatePicker(
                 onDateConfirm = {},
                 date = LocalDate.of(2022, 4, 25)

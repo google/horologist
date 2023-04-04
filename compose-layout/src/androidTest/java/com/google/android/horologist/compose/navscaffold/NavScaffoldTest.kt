@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalCoroutinesApi::class, ExperimentalHorologistApi::class)
+@file:OptIn(
+    ExperimentalCoroutinesApi::class,
+    ExperimentalHorologistApi::class,
+    ExperimentalWearFoundationApi::class
+)
 
 package com.google.android.horologist.compose.navscaffold
 
@@ -41,6 +45,7 @@ import androidx.lifecycle.get
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.test.filters.MediumTest
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.RequestFocusWhenActive
 import androidx.wear.compose.foundation.curvedComposable
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn

@@ -761,7 +761,7 @@ public fun Modifier.rotaryHandler(
         }
         this
             .onRotaryScrollEvent {
-                channel.trySend(
+                val unused = channel.trySend(
                     TimestampedDelta(
                         it.uptimeMillis,
                         it.verticalScrollPixels * if (reverseDirection) -1f else 1f

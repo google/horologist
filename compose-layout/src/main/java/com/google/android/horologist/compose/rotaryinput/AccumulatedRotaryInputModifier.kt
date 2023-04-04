@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearFoundationApi::class)
+
 package com.google.android.horologist.compose.rotaryinput
 
 import androidx.compose.foundation.focusable
@@ -26,6 +28,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.RotaryScrollEvent
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 

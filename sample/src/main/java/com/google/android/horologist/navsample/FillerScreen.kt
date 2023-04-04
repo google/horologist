@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearFoundationApi::class)
+
 package com.google.android.horologist.navsample
 
 import androidx.compose.foundation.ScrollState
@@ -27,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.rememberActiveFocusRequester

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.tiles.render
 
 import android.content.Context

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.media.ui.tiles
 
 import androidx.compose.ui.graphics.toArgb

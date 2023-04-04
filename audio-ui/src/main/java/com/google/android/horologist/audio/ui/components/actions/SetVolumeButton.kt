@@ -17,6 +17,7 @@
 package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.VolumeDown
 import androidx.compose.material.icons.filled.VolumeMute
 import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
@@ -45,8 +46,8 @@ public fun SetVolumeButton(
         enabled = enabled,
         imageVector = when {
             volumeUiState?.isMin == true -> Icons.Default.VolumeMute
-            volumeUiState?.isMax == true -> Icons.Default.VolumeUp
-            else -> Icons.Default.VolumeUp
+            volumeUiState?.isMax == false -> Icons.Default.VolumeDown
+            else -> Icons.Default.VolumeUp // volumeUiState == null || volumeUiState.isMax == true
         },
         iconRtlMode = IconRtlMode.Mirrored,
         contentDescription = stringResource(R.string.horologist_set_volume_content_description)

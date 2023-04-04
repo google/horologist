@@ -17,7 +17,6 @@
 package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.VolumeDown
 import androidx.compose.material.icons.filled.VolumeMute
 import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable

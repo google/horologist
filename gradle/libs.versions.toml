@@ -11,18 +11,16 @@ androidx-media3 = "1.0.0"
 androidx-wear-watchface = "1.2.0-alpha07"
 androidxActivity = "1.7.0"
 androidxCore = "1.9.0"
-androidxFragment = "1.5.6"
 androidxLifecycle = "2.6.1"
-androidxNavigation = "2.6.0-alpha06"
+androidxNavigation = "2.6.0-alpha08"
 androidxPhoneInteractions = "1.1.0-alpha03"
 androidxRemoteInteractions = "1.0.0"
 androidxStartup = "1.1.1"
 androidxTracing = "1.2.0-beta02"
 androidxWear = "1.3.0-alpha04"
 androidxWork = "2.8.1"
-androidxtiles = "1.1.0"
+androidxtiles = "1.2.0-alpha02"
 annotation = "1.0.1"
-app-cash-paparazzi = "1.2.0"
 app-cash-turbine = "0.12.3"
 benManes = "0.46.0"
 com-squareup-okhttp3 = "4.10.0"
@@ -72,7 +70,6 @@ androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futu
 androidx-corektx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "androidx-datastore" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
-androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragment" }
 androidx-health-services = { module = "androidx.health:health-services-client", version.ref = "androidx-health-services" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
@@ -156,7 +153,6 @@ moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
-paparazziPlugin = { module = "app.cash.paparazzi:paparazzi-gradle-plugin", version.ref = "app-cash-paparazzi" }
 playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 playservices-wearable = "com.google.android.gms:play-services-wearable:18.0.0"
 protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }

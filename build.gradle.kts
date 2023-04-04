@@ -38,8 +38,6 @@ buildscript {
 
         classpath(libs.affectedmoduledetector)
 
-        classpath(libs.paparazziPlugin)
-
         classpath(libs.dagger.hiltandroidplugin)
 
         classpath(libs.googleSecretsGradlePlugin)

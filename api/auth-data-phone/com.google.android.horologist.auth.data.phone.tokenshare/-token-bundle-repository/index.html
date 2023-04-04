@@ -86,6 +86,12 @@ import com.google.android.horologist.auth.sample.shared.TokenBundleSerializer
 import com.google.android.horologist.auth.sample.shared.model.TokenBundleProto.TokenBundle
 import com.google.android.horologist.auth.sample.ui.theme.HorologistTheme
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
+import com.google.android.horologist.data.apphelper.AppHelperNodeType
+import com.google.android.horologist.data.complicationInfo
+import com.google.android.horologist.data.surfacesInfo
+import com.google.android.horologist.data.tileInfo
+import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import kotlinx.coroutines.launch
 fun main() { 
    //sampleStart 
@@ -93,6 +99,8 @@ fun main() {
 
     private lateinit var tokenBundleRepositoryDefaultKey: TokenBundleRepository&lt;TokenBundle?&gt;
     private lateinit var tokenBundleRepositoryCustomKey: TokenBundleRepository&lt;TokenBundle?&gt;
+
+    private lateinit var phoneDataLayerAppHelper: PhoneDataLayerAppHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,6 +123,11 @@ fun main() {
             key = TOKEN_BUNDLE_CUSTOM_KEY
         )
 
+        phoneDataLayerAppHelper = PhoneDataLayerAppHelper(
+            context = this,
+            registry = registry
+        )
+
         setContent {
             HorologistTheme {
                 // A surface container using the 'background' color from the theme
@@ -123,17 +136,40 @@ fun main() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val coroutineScope = rememberCoroutineScope()
+                    var nodeList by remember { mutableStateOf&lt;List&lt;AppHelperNodeStatus&gt;&gt;(emptyList()) }
                     var apiAvailable by remember { mutableStateOf(false) }
                     LaunchedEffect(Unit) {
                         coroutineScope.launch {
                             apiAvailable = tokenBundleRepositoryDefaultKey.isAvailable()
+                            nodeList = phoneDataLayerAppHelper.connectedNodes()
                         }
                     }
 
                     MainScreen(
                         apiAvailable = apiAvailable,
                         onUpdateTokenDefault = ::onUpdateTokenDefault,
-                        onUpdateTokenCustom = ::onUpdateTokenCustom
+                        onUpdateTokenCustom = ::onUpdateTokenCustom,
+                        nodeList = nodeList,
+                        onListNodes = {
+                            coroutineScope.launch {
+                                nodeList = phoneDataLayerAppHelper.connectedNodes()
+                            }
+                        },
+                        onLaunchClick = { nodeId -&gt;
+                            coroutineScope.launch {
+                                phoneDataLayerAppHelper.startRemoteOwnApp(nodeId)
+                            }
+                        },
+                        onCompanionClick = { nodeId -&gt;
+                            coroutineScope.launch {
+                                phoneDataLayerAppHelper.startCompanion(nodeId)
+                            }
+                        },
+                        onInstallClick = { nodeId -&gt;
+                            coroutineScope.launch {
+                                phoneDataLayerAppHelper.installOnNode(nodeId)
+                            }
+                        }
                     )
                 }
             }

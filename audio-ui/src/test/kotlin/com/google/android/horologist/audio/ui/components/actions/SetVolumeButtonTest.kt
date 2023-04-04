@@ -76,4 +76,11 @@ class SetVolumeButtonTest : ScreenshotTest() {
             )
         }
     }
+
+    @Test
+    fun givenNoVolumeUiState_thenIconIsVolumeUp() {
+        takeComponentScreenshot {
+            SetVolumeButton(onVolumeClick = {})
+        }
+    }
 }

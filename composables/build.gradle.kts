@@ -19,7 +19,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -113,7 +112,7 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(projects.composeTools)
-    testImplementation(projects.paparazzi)
+    testImplementation(projects.roboscreenshots)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.truth)

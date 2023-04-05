@@ -26,7 +26,6 @@ public object VolumeUiStateMapper {
     public fun map(volumeState: VolumeState): VolumeUiState = VolumeUiState(
         current = volumeState.current,
         max = volumeState.max,
-        isMax = volumeState.isMax,
-        isMin = volumeState.isMin
+        min = volumeState.min
     )
 }

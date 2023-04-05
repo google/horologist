@@ -15,6 +15,7 @@
  */
 
 @file:OptIn(ExperimentalHorologistApi::class)
+@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.tiles.preview
 

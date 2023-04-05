@@ -38,8 +38,6 @@ buildscript {
 
         classpath(libs.affectedmoduledetector)
 
-        classpath(libs.paparazziPlugin)
-
         classpath(libs.dagger.hiltandroidplugin)
 
         classpath(libs.googleSecretsGradlePlugin)
@@ -101,6 +99,13 @@ allprojects {
         val composeSnapshot = rootProject.libs.versions.composesnapshot.get()
         if (composeSnapshot.length > 1) {
             maven(url = uri("https://androidx.dev/snapshots/builds/$composeSnapshot/artifacts/repository/"))
+        }
+
+        maven {
+            url = uri("https://jitpack.io")
+            content {
+                includeGroup("com.github.QuickBirdEng.kotlin-snapshot-testing")
+            }
         }
     }
 

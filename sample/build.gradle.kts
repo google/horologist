@@ -152,7 +152,6 @@ dependencies {
     implementation(libs.wearcompose.navigation)
 
     implementation(libs.androidx.corektx)
-    implementation(libs.androidx.fragment)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)

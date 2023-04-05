@@ -14,29 +14,38 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
+@file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.audio.ui.components.actions
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.ui.VolumeUiState
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class SetVolumeButtonTest {
+class SetVolumeButtonTest : ScreenshotTest() {
 
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+    @Composable
+    override fun ComponentDefaults(content: @Composable (BoxScope.() -> Unit)) {
+        Box(modifier = Modifier.wrapContentSize().background(Color.Black.copy(alpha = 0.5f)).border(1.dp, Color.White)) {
+            content()
+        }
+    }
 
     @Test
     fun givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown() {
         val currentVolume = 5
 
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             SetVolumeButton(
                 onVolumeClick = {},
                 volumeUiState = VolumeUiState(current = currentVolume, max = 10)
@@ -46,21 +55,32 @@ class SetVolumeButtonTest {
 
     @Test
     fun givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
-        paparazzi.snapshotInABox {
+        val currentVolume = 0
+
+        takeComponentScreenshot {
             SetVolumeButton(
                 onVolumeClick = {},
-                volumeUiState = VolumeUiState(isMin = true)
+                volumeUiState = VolumeUiState(current = currentVolume)
             )
         }
     }
 
     @Test
     fun givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
-        paparazzi.snapshotInABox {
+        val currentVolume = 1
+
+        takeComponentScreenshot {
             SetVolumeButton(
                 onVolumeClick = {},
-                volumeUiState = VolumeUiState(isMax = true)
+                volumeUiState = VolumeUiState(current = currentVolume)
             )
+        }
+    }
+
+    @Test
+    fun givenNoVolumeUiState_thenIconIsVolumeUp() {
+        takeComponentScreenshot {
+            SetVolumeButton(onVolumeClick = {})
         }
     }
 }

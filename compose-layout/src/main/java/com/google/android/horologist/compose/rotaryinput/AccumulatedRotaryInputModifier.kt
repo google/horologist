@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearFoundationApi::class)
+
 package com.google.android.horologist.compose.rotaryinput
 
 import androidx.compose.foundation.focusable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.RotaryScrollEvent
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
@@ -61,12 +66,13 @@ public fun Modifier.onRotaryInputAccumulated(
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
     onValueChange: (change: Float) -> Unit
 ): Modifier = composed {
+    val updatedOnValueChange by rememberUpdatedState(onValueChange)
     val rotaryInputAccumulator = remember {
         RotaryInputAccumulator(
             eventAccumulationThresholdMs = eventAccumulationThresholdMs,
             minValueChangeDistancePx = minValueChangeDistancePx,
             rateLimitCoolDownMs = rateLimitCoolDownMs,
-            onValueChange = onValueChange
+            onValueChange = { updatedOnValueChange(it) }
         )
     }
     return@composed onRotaryScrollEvent(rotaryInputAccumulator::onRotaryScrollEvent)

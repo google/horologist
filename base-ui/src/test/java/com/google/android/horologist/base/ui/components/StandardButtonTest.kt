@@ -23,30 +23,24 @@ package com.google.android.horologist.base.ui.components
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
+import org.robolectric.ParameterizedRobolectricTestRunner
+import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 
-@RunWith(Parameterized::class)
+@RunWith(ParameterizedRobolectricTestRunner::class)
 internal class StandardButtonTest(
     @Suppress("unused") // it's used by junit to display the test name
     private val description: String,
     private val buttonType: StandardButtonType,
     private val buttonSize: StandardButtonSize,
     private val enabled: Boolean
-) {
-
-    @get:Rule
-    val paparazzi = WearPaparazzi(
-        maxPercentDifference = 0.1
-    )
+) : ScreenshotTest() {
 
     @Test
     fun variants() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardButton(
                 imageVector = Icons.Default.Check,
                 contentDescription = "contentDescription",
@@ -60,7 +54,7 @@ internal class StandardButtonTest(
 
     internal companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{0}")
+        @Parameters(name = "{0}")
         fun params() = listOf(
             arrayOf(
                 "Primary Default",

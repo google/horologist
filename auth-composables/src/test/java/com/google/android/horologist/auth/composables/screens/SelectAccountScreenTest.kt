@@ -24,20 +24,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
+import com.google.android.horologist.screenshots.ScreenshotTest
 import com.google.android.horologist.test.toolbox.positionedState
-import org.junit.Rule
 import org.junit.Test
 
-class SelectAccountScreenTest {
-
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class SelectAccountScreenTest : ScreenshotTest() {
+    init {
+        screenTimeText = {}
+    }
 
     @Test
     fun selectAccountScreen() {
-        paparazzi.snapshotInABox {
+        takeScreenshot {
             SelectAccountScreen(
                 accounts = listOf(
                     AccountUiModel(
@@ -54,7 +52,7 @@ class SelectAccountScreenTest {
 
     @Test
     fun selectAccountScreenNoAvatar() {
-        paparazzi.snapshotInABox {
+        takeScreenshot {
             SelectAccountScreen(
                 accounts = listOf(
                     AccountUiModel(email = "maggie@example.com"),

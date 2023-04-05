@@ -49,12 +49,20 @@ import com.google.android.horologist.auth.sample.shared.TokenBundleSerializer
 import com.google.android.horologist.auth.sample.shared.model.TokenBundleProto.TokenBundle
 import com.google.android.horologist.auth.sample.ui.theme.HorologistTheme
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
+import com.google.android.horologist.data.apphelper.AppHelperNodeType
+import com.google.android.horologist.data.complicationInfo
+import com.google.android.horologist.data.surfacesInfo
+import com.google.android.horologist.data.tileInfo
+import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
     private lateinit var tokenBundleRepositoryDefaultKey: TokenBundleRepository<TokenBundle?>
     private lateinit var tokenBundleRepositoryCustomKey: TokenBundleRepository<TokenBundle?>
+
+    private lateinit var phoneDataLayerAppHelper: PhoneDataLayerAppHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +85,11 @@ class MainActivity : ComponentActivity() {
             key = TOKEN_BUNDLE_CUSTOM_KEY
         )
 
+        phoneDataLayerAppHelper = PhoneDataLayerAppHelper(
+            context = this,
+            registry = registry
+        )
+
         setContent {
             HorologistTheme {
                 // A surface container using the 'background' color from the theme
@@ -85,17 +98,40 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val coroutineScope = rememberCoroutineScope()
+                    var nodeList by remember { mutableStateOf<List<AppHelperNodeStatus>>(emptyList()) }
                     var apiAvailable by remember { mutableStateOf(false) }
                     LaunchedEffect(Unit) {
                         coroutineScope.launch {
                             apiAvailable = tokenBundleRepositoryDefaultKey.isAvailable()
+                            nodeList = phoneDataLayerAppHelper.connectedNodes()
                         }
                     }
 
                     MainScreen(
                         apiAvailable = apiAvailable,
                         onUpdateTokenDefault = ::onUpdateTokenDefault,
-                        onUpdateTokenCustom = ::onUpdateTokenCustom
+                        onUpdateTokenCustom = ::onUpdateTokenCustom,
+                        nodeList = nodeList,
+                        onListNodes = {
+                            coroutineScope.launch {
+                                nodeList = phoneDataLayerAppHelper.connectedNodes()
+                            }
+                        },
+                        onLaunchClick = { nodeId ->
+                            coroutineScope.launch {
+                                phoneDataLayerAppHelper.startRemoteOwnApp(nodeId)
+                            }
+                        },
+                        onCompanionClick = { nodeId ->
+                            coroutineScope.launch {
+                                phoneDataLayerAppHelper.startCompanion(nodeId)
+                            }
+                        },
+                        onInstallClick = { nodeId ->
+                            coroutineScope.launch {
+                                phoneDataLayerAppHelper.installOnNode(nodeId)
+                            }
+                        }
                     )
                 }
             }
@@ -126,8 +162,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(
     apiAvailable: Boolean,
+    nodeList: List<AppHelperNodeStatus>,
     onUpdateTokenDefault: () -> Unit,
     onUpdateTokenCustom: () -> Unit,
+    onListNodes: () -> Unit,
+    onInstallClick: (String) -> Unit,
+    onLaunchClick: (String) -> Unit,
+    onCompanionClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -151,6 +192,23 @@ fun MainScreen(
             enabled = apiAvailable
         ) { Text(stringResource(R.string.token_share_button_update_token_custom)) }
 
+        Button(
+            onClick = {
+                onListNodes()
+            },
+            modifier = Modifier.wrapContentHeight(),
+            enabled = apiAvailable
+        ) { Text(stringResource(R.string.app_helper_button_list_nodes)) }
+
+        nodeList.forEach { nodeStatus ->
+            AppHelperNodeStatusCard(
+                nodeStatus = nodeStatus,
+                onInstallClick = onInstallClick,
+                onLaunchClick = onLaunchClick,
+                onCompanionClick = onCompanionClick
+            )
+        }
+
         if (!apiAvailable) {
             Text(
                 text = stringResource(R.string.token_share_message_api_unavailable),
@@ -165,11 +223,40 @@ fun MainScreen(
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
+    val nodeList = listOf(
+        AppHelperNodeStatus(
+            id = "a1b2c3d4",
+            displayName = "Pixel Watch",
+            isAppInstalled = true,
+            nodeType = AppHelperNodeType.WATCH,
+            surfacesInfo = surfacesInfo {
+                tiles.add(
+                    tileInfo {
+                        name = "MyTile"
+                        timestamp = System.currentTimeMillis().toProtoTimestamp()
+                    }
+                )
+                complications.add(
+                    complicationInfo {
+                        name = "MyComplication"
+                        instanceId = 101
+                        type = "SHORT_TEXT"
+                        timestamp = System.currentTimeMillis().toProtoTimestamp()
+                    }
+                )
+            }
+        )
+    )
     HorologistTheme {
         MainScreen(
             apiAvailable = true,
+            nodeList = nodeList,
             onUpdateTokenDefault = { },
-            onUpdateTokenCustom = { }
+            onUpdateTokenCustom = { },
+            onListNodes = { },
+            onInstallClick = { },
+            onLaunchClick = { },
+            onCompanionClick = { }
         )
     }
 }

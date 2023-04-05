@@ -205,7 +205,7 @@ public fun TimePicker(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     val pickerGroupItems = mutableListOf(
-                        PickerGroupItemWithRSB(
+                        pickerGroupItemWithRSB(
                             pickerState = hourState,
                             modifier = Modifier.size(40.dp, 100.dp),
                             onSelected = {
@@ -217,7 +217,7 @@ public fun TimePicker(
                             contentDescription = hourContentDescription,
                             option = pickerOption
                         ),
-                        PickerGroupItemWithRSB(
+                        pickerGroupItemWithRSB(
                             pickerState = minuteState,
                             modifier = Modifier.size(40.dp, 100.dp),
                             onSelected = {
@@ -233,7 +233,7 @@ public fun TimePicker(
                     )
                     if (showSeconds) {
                         pickerGroupItems.add(
-                            PickerGroupItemWithRSB(
+                            pickerGroupItemWithRSB(
                                 pickerState = secondState,
                                 modifier = Modifier.size(40.dp, 100.dp),
                                 onSelected = {
@@ -422,7 +422,7 @@ public fun TimePickerWith12HourClock(
                         }
                     Spacer(Modifier.width(8.dp))
                     PickerGroup(
-                        PickerGroupItemWithRSB(
+                        pickerGroupItemWithRSB(
                             pickerState = hourState,
                             modifier = Modifier.size(48.dp, 100.dp),
                             onSelected = {
@@ -434,7 +434,7 @@ public fun TimePickerWith12HourClock(
                             contentDescription = hoursContentDescription,
                             option = pickerTextOption(textStyle) { "%02d".format(it + 1) }
                         ),
-                        PickerGroupItemWithRSB(
+                        pickerGroupItemWithRSB(
                             pickerState = minuteState,
                             modifier = Modifier.size(48.dp, 100.dp),
                             onSelected = {
@@ -446,7 +446,7 @@ public fun TimePickerWith12HourClock(
                             contentDescription = minutesContentDescription,
                             option = pickerTextOption(textStyle) { "%02d".format(it) }
                         ),
-                        PickerGroupItemWithRSB(
+                        pickerGroupItemWithRSB(
                             pickerState = periodState,
                             modifier = Modifier.size(64.dp, 100.dp),
                             contentDescription = periodContentDescription,
@@ -519,7 +519,7 @@ private fun Separator(width: Dp, textStyle: TextStyle) {
 }
 
 @Composable
-internal fun PickerGroupItemWithRSB(
+internal fun pickerGroupItemWithRSB(
     pickerState: PickerState,
     modifier: Modifier,
     contentDescription: String?,

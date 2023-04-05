@@ -96,7 +96,6 @@ public interface RotaryHapticHandler {
  * @param hapticsChannel Channel to which haptic events will be sent
  * @param hapticsThreshold A scroll threshold after which haptic is produced.
  */
-@OptIn(ExperimentalHorologistApi::class)
 public class DefaultRotaryHapticHandler(
     private val scrollableState: ScrollableState,
     private val hapticsChannel: Channel<RotaryHapticsType>,

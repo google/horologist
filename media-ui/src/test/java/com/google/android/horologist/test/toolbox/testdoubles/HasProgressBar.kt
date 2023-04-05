@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.test.toolbox.matchers
+package com.google.android.horologist.test.toolbox.testdoubles
 
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher

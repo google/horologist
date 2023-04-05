@@ -41,7 +41,7 @@ import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media.ui.test.FakeAudioOutputRepository
 import com.google.android.horologist.media.ui.test.FakeVolumeRepository
-import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
+import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
@@ -63,7 +63,8 @@ class PlayerScreenTest {
     @Test
     fun givenShowProgressIsTrue_thenProgressBarIsDisplayed() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
         playerRepository.setPosition(1.minutes, 10.minutes)
@@ -75,14 +76,15 @@ class PlayerScreenTest {
         }
 
         // then
-        composeTestRule.onNode(hasProgressBar())
+        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar())
             .assertExists()
     }
 
     @Test
     fun givenShowProgressIsFalse_thenProgressBarIsNOTDisplayed() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
         playerRepository.setPosition(null, null)
         val playerViewModel = PlayerViewModel(playerRepository)
 
@@ -100,14 +102,15 @@ class PlayerScreenTest {
         }
 
         // then
-        composeTestRule.onNode(hasProgressBar())
+        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar())
             .assertDoesNotExist()
     }
 
     @Test
     fun givenPlayerRepoIsNOTPlaying_whenPlayIsClicked_thenPlayerRepoIsPlaying() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
         playerRepository.addCommand(Command.PlayPause)
 
         val playerViewModel = PlayerViewModel(playerRepository)
@@ -134,7 +137,8 @@ class PlayerScreenTest {
     @Test
     fun givenPlayerRepoIsPlaying_whenPauseIsClicked_thenPlayerRepoIsNOTPlaying() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
         playerRepository.addCommand(Command.PlayPause)
         playerRepository.play()
 
@@ -162,7 +166,8 @@ class PlayerScreenTest {
     @Test
     fun givenMediaList_whenSeekToPreviousIsClicked_thenPreviousItemIsPlaying() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
 
         val media1 = Media(id = "", uri = "", title = "", artist = "")
         val media2 = Media(id = "", uri = "", title = "", artist = "")
@@ -194,7 +199,8 @@ class PlayerScreenTest {
     @Test
     fun givenMediaList_whenSeekToNextIsClicked_thenNextItemIsPlaying() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
 
         val media1 = Media(id = "", uri = "", title = "", artist = "")
         val media2 = Media(id = "", uri = "", title = "", artist = "")
@@ -226,7 +232,8 @@ class PlayerScreenTest {
     @Test
     fun whenUpdatePosition_thenProgressIsUpdated() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
@@ -254,7 +261,8 @@ class PlayerScreenTest {
     @Test
     fun whenPlayPauseCommandBecomesAvailable_thenPlayPauseButtonGetsEnabled() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
         playerRepository.play()
 
         val playerViewModel = PlayerViewModel(playerRepository)
@@ -281,7 +289,8 @@ class PlayerScreenTest {
     @Test
     fun whenSeekToPreviousMediaCommandBecomesAvailable_thenSeekToPreviousButtonGetsEnabled() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
@@ -306,7 +315,8 @@ class PlayerScreenTest {
     @Test
     fun whenSeekToNextMediaCommandBecomesAvailable_thenSeekToNextButtonGetsEnabled() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
@@ -331,7 +341,8 @@ class PlayerScreenTest {
     @Test
     fun givenMedia_thenCorrectTitleAndArtistAndIsDisplayed() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
         val artist = "artist"
         val title = "title"
         val media = Media(id = "", uri = "", title = title, artist = artist)
@@ -355,7 +366,8 @@ class PlayerScreenTest {
     @Test
     fun givenCustomMediaDisplay_thenCustomIsDisplayed() {
         // given
-        val playerRepository = FakePlayerRepository()
+        val playerRepository =
+            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
         val artist = "artist"
         val title = "title"
         val media = Media(id = "", uri = "", title = title, artist = artist)
@@ -384,7 +396,7 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()),
                 controlButtons = { _, _ -> Text("Custom") },
                 volumeViewModel = volumeViewModel
             )
@@ -397,7 +409,7 @@ class PlayerScreenTest {
         composeTestRule.onNodeWithContentDescription("Next").assertDoesNotExist()
         composeTestRule.onNodeWithContentDescription("Play").assertDoesNotExist()
         composeTestRule.onNodeWithContentDescription("Pause").assertDoesNotExist()
-        composeTestRule.onNode(hasProgressBar()).assertDoesNotExist()
+        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar()).assertDoesNotExist()
     }
 
     @Test
@@ -405,7 +417,7 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()),
                 buttons = { Text("Custom") },
                 volumeViewModel = volumeViewModel
             )
@@ -420,7 +432,7 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()),
                 background = { Text("Custom") },
                 volumeViewModel = volumeViewModel
             )

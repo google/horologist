@@ -30,7 +30,7 @@ import androidx.test.filters.FlakyTest
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.MediaPositionPredictor
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
+import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
 import kotlin.time.Duration.Companion.seconds
@@ -56,7 +56,7 @@ class PlayPauseProgressButtonTest {
         }
 
         // then
-        composeTestRule.onNode(hasProgressBar())
+        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar())
             .assertExists()
 
         composeTestRule.onNode(hasAnyChild(hasContentDescription("Pause")))
@@ -85,7 +85,7 @@ class PlayPauseProgressButtonTest {
         }
 
         // then
-        composeTestRule.onNode(hasProgressBar())
+        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar())
             .assertExists()
 
         composeTestRule.onNode(hasAnyChild(hasContentDescription("Play")))

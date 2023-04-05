@@ -27,7 +27,7 @@ import androidx.compose.ui.test.performClick
 import androidx.test.filters.FlakyTest
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
-import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
+import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
 
@@ -217,7 +217,7 @@ class PodcastControlButtonsTest {
         }
 
         // then
-        composeTestRule.onNode(hasProgressBar())
+        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar())
             .assertDoesNotExist()
     }
 

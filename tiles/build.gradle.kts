@@ -120,13 +120,8 @@ dependencies {
     testImplementation(libs.robolectric)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.concurrent.future.ktx)
-
-    androidTestImplementation(libs.androidx.lifecycle.testing)
-    androidTestImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.truth)
+    testImplementation(libs.androidx.lifecycle.testing)
     debugImplementation(libs.compose.ui.test.manifest)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.junit)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

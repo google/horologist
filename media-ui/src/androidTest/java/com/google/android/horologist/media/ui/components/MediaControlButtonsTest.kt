@@ -25,7 +25,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
+import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
 
@@ -213,7 +213,7 @@ class MediaControlButtonsTest {
         }
 
         // then
-        composeTestRule.onNode(hasProgressBar())
+        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar())
             .assertDoesNotExist()
     }
 

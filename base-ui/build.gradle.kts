@@ -117,13 +117,6 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.truth)
     testImplementation(projects.roboscreenshots)
-
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    androidTestImplementation(libs.truth)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext)
-    androidTestImplementation(libs.androidx.test.ext.ktx)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

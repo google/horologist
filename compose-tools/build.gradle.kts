@@ -44,6 +44,7 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
     }
 
     composeOptions {
@@ -111,8 +112,6 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-
-    compileOnly(projects.paparazzi)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

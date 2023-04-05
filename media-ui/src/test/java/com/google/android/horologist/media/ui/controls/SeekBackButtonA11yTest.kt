@@ -14,90 +14,80 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.media.ui.controls
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
-import com.google.android.horologist.compose.tools.snapshotInABox
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.google.android.horologist.media.ui.components.controls.SeekBackButton
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
-import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class SeekBackButtonA11yTest {
-
-    private val maxPercentDifference = 1.0
-
-    private val composeA11yExtension = ComposeA11yExtension()
-
-    @get:Rule
-    val paparazzi = WearPaparazzi(
-        deviceConfig = RoundNonFullScreenDevice,
-        maxPercentDifference = maxPercentDifference,
-        renderExtensions = setOf(composeA11yExtension),
-        snapshotHandler = A11ySnapshotHandler(
-            delegate = determineHandler(
-                maxPercentDifference = maxPercentDifference
-            ),
-            accessibilityStateFn = { composeA11yExtension.accessibilityState }
-        )
-    )
+class SeekBackButtonA11yTest : ScreenshotTest() {
+    init {
+        enableA11yTest()
+        screenTimeText = {}
+    }
 
     @Test
     fun incrementIsFive() {
-        paparazzi.snapshotInABox {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Five
-            )
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SeekBackButton(
+                    onClick = {},
+                    seekButtonIncrement = SeekButtonIncrement.Five
+                )
+            }
         }
     }
 
     @Test
     fun incrementIsTen() {
-        paparazzi.snapshotInABox {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Ten
-            )
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SeekBackButton(
+                    onClick = {},
+                    seekButtonIncrement = SeekButtonIncrement.Ten
+                )
+            }
         }
     }
 
     @Test
     fun incrementIsThirty() {
-        paparazzi.snapshotInABox {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Thirty
-            )
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SeekBackButton(
+                    onClick = {},
+                    seekButtonIncrement = SeekButtonIncrement.Thirty
+                )
+            }
         }
     }
 
     @Test
     fun incrementIsOther() {
-        paparazzi.snapshotInABox {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Known(15)
-            )
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SeekBackButton(
+                    onClick = {},
+                    seekButtonIncrement = SeekButtonIncrement.Known(15)
+                )
+            }
         }
     }
 
     @Test
     fun incrementIsUnknown() {
-        paparazzi.snapshotInABox {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Unknown
-            )
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SeekBackButton(
+                    onClick = {},
+                    seekButtonIncrement = SeekButtonIncrement.Unknown
+                )
+            }
         }
     }
 }

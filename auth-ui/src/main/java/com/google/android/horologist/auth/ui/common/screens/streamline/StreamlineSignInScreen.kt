@@ -71,7 +71,6 @@ public fun StreamlineSignInScreen(
     )
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @Composable
 internal fun StreamlineSignInScreen(
     state: StreamlineSignInScreenState,

@@ -42,7 +42,7 @@ public fun VolumePositionIndicator(
     modifier: Modifier = Modifier,
     displayIndicatorEvents: Flow<Unit>? = null
 ) {
-    val visible by produceState(false) {
+    val visible by produceState(displayIndicatorEvents == null, displayIndicatorEvents) {
         displayIndicatorEvents?.collectLatest {
             value = true
             delay(2000)
@@ -52,7 +52,7 @@ public fun VolumePositionIndicator(
     val uiState = volumeUiState()
 
     AnimatedVisibility(
-        visible = visible.takeIf { displayIndicatorEvents != null } ?: true,
+        visible = visible,
         enter = fadeIn(),
         exit = fadeOut()
     ) {
@@ -63,7 +63,7 @@ public fun VolumePositionIndicator(
             value = {
                 uiState.current.toFloat()
             },
-            range = 0F.rangeTo(
+            range = uiState.min.toFloat().rangeTo(
                 uiState.max.toFloat()
             )
         )

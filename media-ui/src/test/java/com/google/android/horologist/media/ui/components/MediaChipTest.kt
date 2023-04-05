@@ -14,31 +14,22 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.media.ui.components
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class MediaChipTest {
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class MediaChipTest : ScreenshotTest() {
 
     @Test
     fun givenMediaWithArtwork_thenDisplaysArtwork() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     title = "Red Hot Chilli Peppers",
@@ -51,7 +42,7 @@ class MediaChipTest {
 
     @Test
     fun givenMediaWithNOArtwork_thenDoesNOTDisplayArtwork() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     title = "Red Hot Chilli Peppers",
@@ -64,7 +55,7 @@ class MediaChipTest {
 
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     title = "Very very very very very very very very very very very long title",
@@ -77,7 +68,7 @@ class MediaChipTest {
 
     @Test
     fun givenNOTitle_thenDisplaysDefaultTitle() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     media = MediaUiModel(
@@ -94,7 +85,7 @@ class MediaChipTest {
 
     @Test
     fun givenModifier_thenAppliesModifierCorrectly() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     media = MediaUiModel(

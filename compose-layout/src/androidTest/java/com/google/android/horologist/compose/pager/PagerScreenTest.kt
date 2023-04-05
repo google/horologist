@@ -16,8 +16,8 @@
 
 @file:OptIn(
     ExperimentalCoroutinesApi::class,
-    ExperimentalHorologistApi::class,
-    ExperimentalFoundationApi::class
+    ExperimentalFoundationApi::class,
+    ExperimentalWearFoundationApi::class
 )
 
 package com.google.android.horologist.compose.pager
@@ -40,9 +40,9 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onParent
 import androidx.test.filters.MediumTest
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.RequestFocusWhenActive
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers

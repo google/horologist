@@ -14,35 +14,23 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.base.ui.components
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class TitleTest {
-
-    @get:Rule
-    val paparazzi = WearPaparazzi(
-        maxPercentDifference = 0.0
-    )
+class TitleTest : ScreenshotTest() {
 
     @Test
     fun default() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             Title("Title")
         }
     }
 
     @Test
     fun withVeryLongText() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             Title("Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text")
         }
     }

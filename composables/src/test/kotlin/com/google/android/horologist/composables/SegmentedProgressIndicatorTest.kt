@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,19 +22,17 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class SegmentedProgressIndicatorTest {
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class SegmentedProgressIndicatorTest : ScreenshotTest() {
+    init {
+        screenTimeText = {}
+    }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun segmentedPicker() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val segments = listOf(
                 ProgressIndicatorSegment(1f, Color.Green),
                 ProgressIndicatorSegment(1f, Color.Cyan),
@@ -61,10 +57,9 @@ class SegmentedProgressIndicatorTest {
         }
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun segmentedPickerWithBrushColors() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,
@@ -95,10 +90,9 @@ class SegmentedProgressIndicatorTest {
         }
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun segmentedPickerWithBrushColorsAndColorsCombined() {
-        paparazzi.snapshot {
+        takeScreenshot {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,

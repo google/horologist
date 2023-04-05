@@ -307,6 +307,12 @@ package com.google.android.horologist.compose.rotaryinput {
   public static final class DefaultRotaryHapticFeedback.Companion {
   }
 
+  public final class DefaultRotaryHapticHandler implements com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler {
+    ctor public DefaultRotaryHapticHandler(androidx.compose.foundation.gestures.ScrollableState scrollableState, kotlinx.coroutines.channels.Channel<com.google.android.horologist.compose.rotaryinput.RotaryHapticsType> hapticsChannel, optional long hapticsThreshold);
+    method public void handleScrollHaptic(float scrollDelta);
+    method public void handleSnapHaptic(float scrollDelta);
+  }
+
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class DefaultSnapBehavior implements com.google.android.horologist.compose.rotaryinput.RotarySnapBehavior {
     ctor public DefaultSnapBehavior(com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter rotaryScrollAdapter, com.google.android.horologist.compose.rotaryinput.SnapParameters snapParameters);
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public void prepareSnapForItems(int moveForElements, boolean sequentialSnap);
@@ -321,8 +327,8 @@ package com.google.android.horologist.compose.rotaryinput {
 
   public final class HapticsKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rememberDefaultRotaryHapticFeedback();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rememberDisabledHaptic();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rememberRotaryHapticFeedback(optional long throttleThresholdMs, optional kotlinx.coroutines.channels.Channel<com.google.android.horologist.compose.rotaryinput.RotaryHapticsType> hapticsChannel, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler rememberDisabledHaptic();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler rememberRotaryHapticHandler(androidx.compose.foundation.gestures.ScrollableState scrollableState, optional long throttleThresholdMs, optional kotlinx.coroutines.channels.Channel<com.google.android.horologist.compose.rotaryinput.RotaryHapticsType> hapticsChannel, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class RotaryDefaults {
@@ -340,6 +346,11 @@ package com.google.android.horologist.compose.rotaryinput {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface RotaryHapticFeedback {
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public void performHapticFeedback(int type);
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface RotaryHapticHandler {
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public void handleScrollHaptic(float scrollDelta);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public void handleSnapHaptic(float scrollDelta);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi @kotlin.jvm.JvmInline public final value class RotaryHapticsType {
@@ -366,10 +377,10 @@ package com.google.android.horologist.compose.rotaryinput {
 
   public final class RotaryKt {
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static kotlinx.coroutines.flow.Flow<com.google.android.horologist.compose.rotaryinput.TimestampedDelta> batchRequestsWithinTimeframe(kotlinx.coroutines.flow.Flow<com.google.android.horologist.compose.rotaryinput.TimestampedDelta>, long timeframe);
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier rotaryHandler(androidx.compose.ui.Modifier, com.google.android.horologist.compose.rotaryinput.RotaryScrollHandler rotaryScrollHandler, optional long batchTimeframe, boolean reverseDirection, com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier rotaryWithFling(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.compose.foundation.gestures.ScrollableState scrollableState, optional androidx.compose.foundation.gestures.FlingBehavior flingBehavior, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics, optional boolean reverseDirection);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier rotaryWithScroll(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.compose.foundation.gestures.ScrollableState scrollableState, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics, optional boolean reverseDirection);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier rotaryWithSnap(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter rotaryScrollAdapter, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics, optional boolean reverseDirection);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier rotaryHandler(androidx.compose.ui.Modifier, com.google.android.horologist.compose.rotaryinput.RotaryScrollHandler rotaryScrollHandler, optional long batchTimeframe, boolean reverseDirection, com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler rotaryHaptics);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier rotaryWithFling(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.compose.foundation.gestures.ScrollableState scrollableState, optional androidx.compose.foundation.gestures.FlingBehavior flingBehavior, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler rotaryHaptics, optional boolean reverseDirection);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier rotaryWithScroll(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.compose.foundation.gestures.ScrollableState scrollableState, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler rotaryHaptics, optional boolean reverseDirection);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier rotaryWithSnap(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter rotaryScrollAdapter, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler rotaryHaptics, optional boolean reverseDirection);
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter toRotaryScrollAdapter(androidx.wear.compose.foundation.lazy.ScalingLazyListState);
   }
 
@@ -386,7 +397,7 @@ package com.google.android.horologist.compose.rotaryinput {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface RotaryScrollHandler {
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public suspend Object? handleScrollEvent(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.compose.rotaryinput.TimestampedDelta event, com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public suspend Object? handleScrollEvent(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.compose.rotaryinput.TimestampedDelta event, com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler rotaryHaptics, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface RotarySnapBehavior {

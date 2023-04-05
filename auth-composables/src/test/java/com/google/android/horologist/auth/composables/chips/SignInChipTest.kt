@@ -14,34 +14,24 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.auth.composables.chips
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class SignInChipTest {
-
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class SignInChipTest : ScreenshotTest() {
 
     @Test
     fun default() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             SignInChip(onClick = {})
         }
     }
 
     @Test
     fun disabled() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             SignInChip(
                 onClick = {},
                 enabled = false
@@ -51,7 +41,7 @@ class SignInChipTest {
 
     @Test
     fun withSecondaryChipType() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             SignInChip(
                 onClick = {},
                 chipType = StandardChipType.Secondary
@@ -61,7 +51,7 @@ class SignInChipTest {
 
     @Test
     fun withSecondaryChipTypeDisabled() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             SignInChip(
                 onClick = {},
                 chipType = StandardChipType.Secondary,

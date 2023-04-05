@@ -14,46 +14,28 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.media.ui.components.actions
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class ShowPlaylistChipA11yTest {
-    private val maxPercentDifference = 1.0
-
-    private val composeA11yExtension = ComposeA11yExtension()
-
-    @get:Rule
-    val paparazzi = WearPaparazzi(
-        deviceConfig = RoundNonFullScreenDevice,
-        maxPercentDifference = maxPercentDifference,
-        renderExtensions = setOf(composeA11yExtension),
-        snapshotHandler = A11ySnapshotHandler(
-            delegate = determineHandler(
-                maxPercentDifference = maxPercentDifference
-            ),
-            accessibilityStateFn = { composeA11yExtension.accessibilityState }
-        )
-    )
+class ShowPlaylistChipA11yTest : ScreenshotTest() {
+    init {
+        enableA11yTest()
+        fakeImageLoader = FakeImageLoader.Resources
+        screenTimeText = {}
+    }
 
     @Test
     fun a11y() {
-        paparazzi.snapshotInABox {
-            FakeImageLoader.Resources.override {
+        takeScreenshot {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,
                     name = "Playlists",

@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.media3.flows
 
 import androidx.media3.common.Player
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 

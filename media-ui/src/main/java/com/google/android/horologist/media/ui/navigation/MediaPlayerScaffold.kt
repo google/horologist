@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class,
-    ExperimentalFoundationApi::class
-)
+@file:OptIn(ExperimentalFoundationApi::class)
 
 package com.google.android.horologist.media.ui.navigation
 
@@ -34,7 +31,6 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState

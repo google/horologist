@@ -14,30 +14,18 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.media.ui.components.actions
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class ShowPlaylistChipTest {
-
-    @get:Rule
-    val paparazzi = WearPaparazzi(
-        maxPercentDifference = 0.3
-    )
+class ShowPlaylistChipTest : ScreenshotTest() {
 
     @Test
     fun givenArtwork_thenDisplaysArtwork() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,
@@ -50,7 +38,7 @@ class ShowPlaylistChipTest {
 
     @Test
     fun givenNOArtwork_thenDoesNOTDisplayArtwork() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
                     artworkUri = null,
@@ -63,7 +51,7 @@ class ShowPlaylistChipTest {
 
     @Test
     fun givenNOName_thenDoesDisplayArtwork() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,
@@ -76,7 +64,7 @@ class ShowPlaylistChipTest {
 
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,

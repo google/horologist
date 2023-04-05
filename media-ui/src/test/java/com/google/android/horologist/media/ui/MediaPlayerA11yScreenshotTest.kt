@@ -14,56 +14,43 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.media.ui
 
-import app.cash.paparazzi.DeviceConfig
-import com.android.resources.ScreenRound
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
+import org.robolectric.annotation.Config
 import kotlin.time.Duration.Companion.seconds
 
-@RunWith(Parameterized::class)
-class MediaPlayerA11yScreenshotTest(
-    private val device: DeviceConfig
-) {
-    private val maxPercentDifference = 1.0
-
-    val composeA11yExtension = ComposeA11yExtension()
-
-    @get:Rule
-    val paparazzi = WearPaparazzi(
-        deviceConfig = device.copy(screenRound = ScreenRound.NOTROUND),
-        maxPercentDifference = maxPercentDifference,
-        renderExtensions = setOf(composeA11yExtension),
-        snapshotHandler = WearSnapshotHandler(
-            A11ySnapshotHandler(
-                delegate = determineHandler(
-                    maxPercentDifference = maxPercentDifference
-                ),
-                accessibilityStateFn = { composeA11yExtension.accessibilityState }
-            ),
-            round = device != DeviceConfig.WEAR_OS_SQUARE
-        )
-    )
+class MediaPlayerA11yScreenshotTest : ScreenshotTest() {
 
     @Test
-    fun mediaPlayer() {
+    fun mediaPlayerLargeRound() {
+        mediaPlayerScreen()
+    }
+
+    @Config(
+        sdk = [30],
+        qualifiers = "+w192dp-h192dp"
+    )
+    @Test
+    fun mediaPlayerSmallRound() {
+        mediaPlayerScreen()
+    }
+
+    @Config(
+        sdk = [30],
+        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav"
+    )
+    @Test
+    fun mediaPlayerSquare() {
+        mediaPlayerScreen()
+    }
+
+    private fun mediaPlayerScreen() {
         val playerUiState = PlayerUiState(
             playEnabled = true,
             pauseEnabled = true,
@@ -80,26 +67,19 @@ class MediaPlayerA11yScreenshotTest(
                 title = "Weather with You",
                 subtitle = "Crowded House"
             ),
-            trackPositionUiModel = TrackPositionUiModel.Actual(percent = 0.133f, position = 30.seconds, duration = 225.seconds),
+            trackPositionUiModel = TrackPositionUiModel.Actual(
+                percent = 0.133f,
+                position = 30.seconds,
+                duration = 225.seconds
+            ),
             connected = true
         )
 
-        paparazzi.snapshot {
+        takeScreenshot {
             MediaPlayerTestCase(
                 colors = UampColors,
-                playerUiState = playerUiState,
-                round = device != DeviceConfig.WEAR_OS_SQUARE
+                playerUiState = playerUiState
             )
         }
-    }
-
-    companion object {
-        @JvmStatic
-        @Parameterized.Parameters
-        fun devices() = listOf(
-            DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE,
-            DeviceConfig.WEAR_OS_SMALL_ROUND,
-            DeviceConfig.WEAR_OS_SQUARE
-        )
     }
 }

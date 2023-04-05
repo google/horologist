@@ -14,38 +14,33 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.media.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
+import org.robolectric.ParameterizedRobolectricTestRunner
+import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 import kotlin.time.Duration.Companion.seconds
 
-@RunWith(Parameterized::class)
+@RunWith(ParameterizedRobolectricTestRunner::class)
 class MediaPlayerScreenTest(
     private val themeValue: ThemeValues
-) {
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+) : ScreenshotTest() {
 
     @Test
     fun mediaPlayerScreen() {
+        testLabel = themeValue.safeName.lowercase()
+
         val playerUiState = PlayerUiState(
             playEnabled = true,
             pauseEnabled = true,
@@ -66,7 +61,7 @@ class MediaPlayerScreenTest(
             connected = true
         )
 
-        paparazzi.snapshot(name = themeValue.safeName) {
+        takeScreenshot {
             Box(modifier = Modifier.background(Color.Black)) {
                 MediaPlayerTestCase(colors = themeValue.colors, playerUiState = playerUiState)
             }
@@ -75,7 +70,7 @@ class MediaPlayerScreenTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameters
         fun colors() = themeValues
     }
 }

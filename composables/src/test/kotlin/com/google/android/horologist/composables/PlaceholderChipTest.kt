@@ -14,33 +14,24 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.composables
 
 import androidx.wear.compose.material.ChipDefaults
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class PlaceholderChipTest {
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class PlaceholderChipTest : ScreenshotTest() {
 
     @Test
     fun default() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             PlaceholderChip()
         }
     }
 
     @Test
     fun secondaryColors() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
         }
     }

@@ -29,7 +29,6 @@ public object AccountUiModelMapper {
     /**
      * Maps from a [AuthUser].
      */
-    @OptIn(ExperimentalHorologistApi::class)
     public fun map(authUser: AuthUser, defaultEmail: String = ""): AccountUiModel = AccountUiModel(
         email = authUser.email ?: defaultEmail,
         name = authUser.displayName,

@@ -14,26 +14,19 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.auth.composables.screens
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class SignInPlaceholderScreenTest {
-
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class SignInPlaceholderScreenTest : ScreenshotTest() {
+    init {
+        screenTimeText = {}
+    }
 
     @Test
     fun signInPlaceholderScreen() {
-        paparazzi.snapshotInABox {
+        takeScreenshot {
             SignInPlaceholderScreen()
         }
     }

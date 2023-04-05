@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.media.ui.components.controls
 
 import androidx.compose.material.icons.Icons
@@ -23,7 +21,6 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @Preview(
     name = "Play - Enabled",

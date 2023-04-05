@@ -1,0 +1,62 @@
+// Signature format: 4.0
+package com.google.android.horologist.screenshots {
+
+  public final class DiffingKt {
+  }
+
+  public final class FixedTimeSource implements androidx.wear.compose.material.TimeSource {
+    method @androidx.compose.runtime.Composable public String getCurrentTime();
+    property @androidx.compose.runtime.Composable public String currentTime;
+    field public static final com.google.android.horologist.screenshots.FixedTimeSource INSTANCE;
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi @org.junit.runner.RunWith(RobolectricTestRunner::class) @org.robolectric.annotation.Config(sdk={30}, qualifiers="w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav") @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class ScreenshotTest {
+    ctor public ScreenshotTest();
+    method @androidx.compose.runtime.Composable public void ComponentDefaults(kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public void DefaultTheme(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public void ScreenshotDefaults(boolean round, kotlin.jvm.functions.Function0<kotlin.Unit> timeText, kotlin.jvm.functions.Function0<kotlin.Unit> positionIndicator, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public final void enableA11yTest();
+    method public final android.content.Context getApplicationContext();
+    method public final com.google.android.horologist.compose.tools.coil.FakeImageLoader getFakeImageLoader();
+    method public final boolean getRecord();
+    method public final android.content.res.Resources getResources();
+    method @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule getRule();
+    method public final kotlin.jvm.functions.Function0<kotlin.Unit> getScreenTimeText();
+    method public final String? getTestLabel();
+    method @org.junit.Rule public final org.junit.rules.TestName getTestName();
+    method public final float getTolerance();
+    method public suspend Object? saveSnapshot(com.quickbird.snapshot.FileSnapshotting<androidx.compose.ui.test.SemanticsNodeInteraction,android.graphics.Bitmap> snapshotting, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public final void setFakeImageLoader(com.google.android.horologist.compose.tools.coil.FakeImageLoader);
+    method public final void setRecord(boolean);
+    method public final void setScreenTimeText(kotlin.jvm.functions.Function0<kotlin.Unit>);
+    method public final void setTestLabel(String?);
+    method public final void setTolerance(float);
+    method public final void takeComponentScreenshot(optional kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> checks, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
+    method public final void takeScreenshot(optional boolean round, optional kotlin.jvm.functions.Function0<kotlin.Unit> timeText, optional kotlin.jvm.functions.Function0<kotlin.Unit> positionIndicator, optional kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> checks, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public final void takeScrollableScreenshot(optional boolean round, com.google.android.horologist.screenshots.ScreenshotTest.TimeTextMode timeTextMode, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory columnStateFactory, optional kotlin.jvm.functions.Function2<? super com.google.android.horologist.compose.layout.ScalingLazyColumnState,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> checks, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.layout.ScalingLazyColumnState,kotlin.Unit> content);
+    property public final android.content.Context applicationContext;
+    property public final com.google.android.horologist.compose.tools.coil.FakeImageLoader fakeImageLoader;
+    property public final boolean record;
+    property public final android.content.res.Resources resources;
+    property @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule rule;
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText;
+    property public final String? testLabel;
+    property @org.junit.Rule public final org.junit.rules.TestName testName;
+    property public final float tolerance;
+    field public static final com.google.android.horologist.screenshots.ScreenshotTest.Companion Companion;
+  }
+
+  public static final class ScreenshotTest.Companion {
+    method public android.graphics.Bitmap loadTestBitmap(okio.Path path);
+  }
+
+  public enum ScreenshotTest.TimeTextMode {
+    method public static com.google.android.horologist.screenshots.ScreenshotTest.TimeTextMode valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.screenshots.ScreenshotTest.TimeTextMode[] values();
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTest.TimeTextMode Off;
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTest.TimeTextMode OnTop;
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTest.TimeTextMode Scrolling;
+  }
+
+}
+

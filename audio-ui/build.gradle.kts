@@ -20,7 +20,6 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
-    id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -45,6 +44,7 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
     }
 
     composeOptions {
@@ -123,8 +123,7 @@ dependencies {
     debugImplementation(projects.composeTools)
 
     testImplementation(libs.junit)
-    testImplementation(projects.paparazzi)
-    testImplementation(libs.paparazzi)
+    testImplementation(projects.roboscreenshots)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)

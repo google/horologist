@@ -14,24 +14,20 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.audio.ui
 
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class VolumeScreenIndividualTest {
-    @OptIn(ExperimentalHorologistApi::class)
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class VolumeScreenIndividualTest : ScreenshotTest() {
+    init {
+        screenTimeText = {}
+    }
 
     @Test
     fun volumeScreenAtMinimum() {
@@ -41,7 +37,7 @@ class VolumeScreenIndividualTest {
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        paparazzi.snapshot {
+        takeScreenshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
@@ -58,7 +54,7 @@ class VolumeScreenIndividualTest {
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        paparazzi.snapshot {
+        takeScreenshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
@@ -75,7 +71,7 @@ class VolumeScreenIndividualTest {
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Galaxy Watch 4")
 
-        paparazzi.snapshot {
+        takeScreenshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
@@ -93,7 +89,7 @@ class VolumeScreenIndividualTest {
         // Media Router returns "Phone"
         val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", true)
 
-        paparazzi.snapshot {
+        takeScreenshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
@@ -111,7 +107,7 @@ class VolumeScreenIndividualTest {
         // Media Router returns "Phone"
         val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
 
-        paparazzi.snapshot {
+        takeScreenshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
@@ -128,7 +124,7 @@ class VolumeScreenIndividualTest {
         )
         val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
 
-        paparazzi.snapshot {
+        takeScreenshot {
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(

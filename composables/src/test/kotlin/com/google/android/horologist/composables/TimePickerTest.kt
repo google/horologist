@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.composables
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Ignore
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import java.time.LocalTime
 
-@Ignore("Waiting for interactive support for paparazzi")
-class TimePickerTest {
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class TimePickerTest : ScreenshotTest() {
+    init {
+        screenTimeText = {}
+    }
 
     @Test
     fun datePickerInitial() {
-        paparazzi.snapshot {
+        takeScreenshot {
             TimePicker(
                 time = LocalTime.of(10, 10, 0),
                 onTimeConfirm = {}

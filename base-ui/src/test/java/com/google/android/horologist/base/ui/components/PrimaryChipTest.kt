@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.base.ui.components
 
 import androidx.compose.material.icons.Icons
@@ -28,22 +24,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.paparazzi.WearPaparazzi
-import org.junit.Rule
+import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 
-class PrimaryChipTest {
-
-    @get:Rule
-    val paparazzi = WearPaparazzi()
+class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun default() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { }
@@ -53,7 +43,7 @@ class PrimaryChipTest {
 
     @Test
     fun withSecondaryLabel() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -64,7 +54,7 @@ class PrimaryChipTest {
 
     @Test
     fun withIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -75,7 +65,7 @@ class PrimaryChipTest {
 
     @Test
     fun withLargeIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -87,7 +77,7 @@ class PrimaryChipTest {
 
     @Test
     fun withSecondaryLabelAndIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -99,7 +89,7 @@ class PrimaryChipTest {
 
     @Test
     fun withSecondaryLabelAndLargeIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -112,7 +102,7 @@ class PrimaryChipTest {
 
     @Test
     fun disabled() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -125,7 +115,7 @@ class PrimaryChipTest {
 
     @Test
     fun withLongText() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 onClick = { }
@@ -135,7 +125,7 @@ class PrimaryChipTest {
 
     @Test
     fun withSecondaryLabelAndLongText() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
@@ -147,7 +137,7 @@ class PrimaryChipTest {
 
     @Test
     fun usingSmallIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -158,7 +148,7 @@ class PrimaryChipTest {
 
     @Test
     fun withLargeIconUsingSmallIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -170,7 +160,7 @@ class PrimaryChipTest {
 
     @Test
     fun usingExtraLargeIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -181,7 +171,7 @@ class PrimaryChipTest {
 
     @Test
     fun withLargeIconUsingExtraLargeIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -193,7 +183,7 @@ class PrimaryChipTest {
 
     @Test
     fun withPlaceholderIcon() {
-        paparazzi.snapshotInABox {
+        takeComponentScreenshot {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -204,22 +194,22 @@ class PrimaryChipTest {
 
     @Test
     fun disabledWithIconPlaceholder() {
-        paparazzi.snapshotInABox {
-            FakeImageLoader.Never.override {
-                // In inspection mode will jump to placeholder
-                CompositionLocalProvider(LocalInspectionMode.provides(true)) {
-                    StandardChip(
-                        label = "Primary label",
-                        onClick = { },
-                        secondaryLabel = "Secondary label",
-                        icon = "iconUri",
-                        placeholder = rememberVectorPainter(
-                            image = Icons.Default.Image,
-                            tintColor = Color.Black
-                        ),
-                        enabled = false
-                    )
-                }
+        fakeImageLoader = FakeImageLoader.Never
+
+        takeComponentScreenshot {
+            // In inspection mode will jump to placeholder
+            CompositionLocalProvider(LocalInspectionMode.provides(true)) {
+                StandardChip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = "iconUri",
+                    placeholder = rememberVectorPainter(
+                        image = Icons.Default.Image,
+                        tintColor = Color.Black
+                    ),
+                    enabled = false
+                )
             }
         }
     }

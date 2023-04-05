@@ -16,10 +16,8 @@
 
 package com.google.android.horologist.test.toolbox.testdoubles
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.repository.MediaDownloadRepository
 
-@OptIn(ExperimentalHorologistApi::class)
 class FakeMediaDownloadRepository(
     private val fakePlaylistDownloadDataSource: FakePlaylistDownloadDataSource
 ) : MediaDownloadRepository {

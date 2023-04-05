@@ -142,7 +142,7 @@ public class DefaultRotaryHapticHandler(
     }
 
     private fun trySendHaptic(rotaryHapticsType: RotaryHapticsType) {
-        // Ok to ignore the ChannelResult because we default to capacity = 2
+        // Ok to ignore the ChannelResult because we default to capacity = 2 and DROP_OLDEST
         @Suppress("UNUSED_VARIABLE")
         val unused = hapticsChannel.trySend(rotaryHapticsType)
     }

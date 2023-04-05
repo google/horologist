@@ -85,10 +85,72 @@ public class ScreenshotTestRule(
     private val resources: Resources =
         ApplicationProvider.getApplicationContext<Application>().resources
 
+    private var testContent: View? = null
+    private var snapshotCount: Int = 0
+
     override fun apply(base: Statement, description: Description): Statement {
-        return RuleChain.outerRule(testClassInfoRule)
-            .around(composeContentTestRule)
-            .apply(base, description)
+        return object : Statement() {
+            override fun evaluate() {
+                try {
+                    RuleChain.outerRule(testClassInfoRule)
+                        .around(composeContentTestRule)
+                        .apply(base, description)
+                        .evaluate()
+                } finally {
+                    testContent = null
+                    snapshotCount = 0
+                }
+            }
+        }
+    }
+
+    public fun setContent(
+        roundScreen: Boolean? = null,
+        timeText: @Composable () -> Unit = params.screenTimeText,
+        positionIndicator: @Composable () -> Unit = { },
+        fakeImageLoader: FakeImageLoader = FakeImageLoader.Never,
+        composable: @Composable () -> Unit
+    ) {
+        val round = roundScreen ?: resources.configuration.isScreenRound
+
+        composeContentTestRule.setContent {
+            testContent = LocalView.current
+            ScreenshotDefaults(fakeImageLoader, round, timeText, positionIndicator, composable)
+        }
+
+        runTest {
+            composeContentTestRule.awaitIdle()
+        }
+    }
+
+    private fun getView(): View = testContent!!
+
+    public fun takeScreenshot() {
+        val snapshotting = Snapshotting(
+            diffing = Diffing.bitmapWithTolerance(
+                tolerance = params.tolerance,
+                colorDiffing = Diffing.highlightWithRed
+            ),
+            snapshot = { node: SemanticsNodeInteraction ->
+                val view = getView()
+                val bitmap = Bitmap.createBitmap(
+                    view.width,
+                    view.height,
+                    Bitmap.Config.ARGB_8888
+                ).apply {
+                    view.draw(Canvas(this))
+                }
+                snapshotTransformer.transform(node, bitmap)
+            }
+        ).fileSnapshotting
+
+        runTest {
+            saveSnapshot(snapshotting)
+        }
+    }
+
+    public fun interact(block: ComposeContentTestRule.() -> Unit = {}) {
+        block(composeContentTestRule)
     }
 
     public fun takeScreenshot(
@@ -204,10 +266,21 @@ public class ScreenshotTestRule(
     private suspend fun saveSnapshot(snapshotting: FileSnapshotting<SemanticsNodeInteraction, Bitmap>) {
         snapshotting.snapshot(
             composeContentTestRule.onRoot(),
-            testName = testClassInfoRule.methodName + (if (params.testLabel != null) "_${params.testLabel}" else ""),
+            testName = getTestName(),
             record = params.record,
             testClass = checkNotNull(testClassInfoRule.testClass) { "Could not retrieve information from test class" }
         )
+        snapshotCount++
+    }
+
+    private fun getTestName(): String {
+        val label = if (params.testLabel != null) "_${params.testLabel}" else ""
+        val suffix = if (snapshotCount > 0) {
+            "_${snapshotCount + 1}"
+        } else {
+            ""
+        }
+        return testClassInfoRule.methodName + label + suffix
     }
 
     @Suppress("DEPRECATION")

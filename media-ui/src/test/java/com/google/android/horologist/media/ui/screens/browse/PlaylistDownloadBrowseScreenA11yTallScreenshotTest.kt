@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
 @file:Suppress("ObjectLiteralToLambda")
 
 package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.wear.compose.foundation.lazy.ScalingParams
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.a11y.forceState

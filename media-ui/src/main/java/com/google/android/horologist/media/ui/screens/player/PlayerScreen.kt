@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class, ExperimentalWearFoundationApi::class)
+@file:OptIn(ExperimentalWearFoundationApi::class)
 
 package com.google.android.horologist.media.ui.screens.player
 

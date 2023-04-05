@@ -16,7 +16,6 @@
 
 @file:OptIn(
     ExperimentalCoroutinesApi::class,
-    ExperimentalHorologistApi::class,
     ExperimentalTestApi::class
 )
 @file:Suppress("UnstableApiUsage")

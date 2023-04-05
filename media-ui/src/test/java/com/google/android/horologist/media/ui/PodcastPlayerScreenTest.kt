@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.media.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.PlayerUiState

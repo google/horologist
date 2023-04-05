@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.test.toolbox.testdoubles
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlaybackStateEvent
@@ -25,7 +24,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.time.Duration
 
-@OptIn(ExperimentalHorologistApi::class)
 class MockPlayerRepository(
     private val connectedValue: Boolean = false,
     private val availableCommandsValue: Set<Command> = emptySet(),

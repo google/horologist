@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.C
 import androidx.media3.common.Player
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.test.toolbox.testdoubles.FakeStatePlayer

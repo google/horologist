@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class,
-    ExperimentalCoroutinesApi::class
-)
+@file:OptIn(ExperimentalCoroutinesApi::class)
 
 package com.google.android.horologist.auth.ui.googlesignin.signin
 
@@ -26,7 +23,6 @@ import app.cash.turbine.test
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
 import com.google.android.horologist.test.toolbox.rules.MainDispatcherRule
 import com.google.common.truth.Truth.assertThat

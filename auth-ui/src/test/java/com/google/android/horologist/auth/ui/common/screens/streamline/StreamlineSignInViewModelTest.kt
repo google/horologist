@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class, ExperimentalCoroutinesApi::class)
+@file:OptIn(ExperimentalCoroutinesApi::class)
 
 package com.google.android.horologist.auth.ui.common.screens.streamline
 
 import app.cash.turbine.test
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.test.toolbox.rules.MainDispatcherRule

@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
@@ -41,7 +40,6 @@ import java.util.concurrent.CancellationException
  * A HorizontalPager with a player screen, using volume control on the left,
  * and library screen with column scrolling on the right.
  */
-@OptIn(ExperimentalHorologistApi::class)
 @Composable
 public fun PlayerLibraryPagerScreen(
     pagerState: PagerState,

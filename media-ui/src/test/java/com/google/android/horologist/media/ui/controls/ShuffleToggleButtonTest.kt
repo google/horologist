@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.media.ui.controls
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.ShuffleToggleButton
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
@@ -37,7 +32,6 @@ class ShuffleToggleButtonTest : ScreenshotTest() {
         }
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun givenShuffleIsOff_thenIconIsShuffle() {
         takeComponentScreenshot {

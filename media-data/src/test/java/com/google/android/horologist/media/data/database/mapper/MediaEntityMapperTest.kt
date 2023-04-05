@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.media.data.database.mapper
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.model.MediaEntity
 import com.google.android.horologist.media.model.Media
 import com.google.common.truth.Truth.assertThat

@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults.buttonColors
 import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.base.ui.components.IconRtlMode
 import com.google.android.horologist.base.ui.components.StandardIcon
@@ -37,7 +36,6 @@ import com.google.android.horologist.base.ui.components.StandardIcon
  *
  * See [VolumeState]
  */
-@OptIn(ExperimentalHorologistApi::class)
 @Composable
 public fun SettingsButton(
     onClick: () -> Unit,

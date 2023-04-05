@@ -16,12 +16,10 @@
 
 package com.google.android.horologist.networks.rules.helpers
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 
-@OptIn(ExperimentalHorologistApi::class)
 public class TestLogger : NetworkStatusLogger {
     public val events: MutableList<String> = mutableListOf()
 

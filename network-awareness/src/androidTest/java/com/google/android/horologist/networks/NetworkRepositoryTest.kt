@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalCoroutinesApi::class,
-    ExperimentalHorologistApi::class
-)
+@file:OptIn(ExperimentalCoroutinesApi::class)
 
 package com.google.android.horologist.networks
 
@@ -26,7 +23,6 @@ import android.net.ConnectivityManager
 import androidx.activity.ComponentActivity
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.id
 import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import com.google.common.truth.Truth

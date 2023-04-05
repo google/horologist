@@ -127,7 +127,7 @@ package com.google.android.horologist.media.ui.components.animated {
   }
 
   public final class MarqueeTextMediaDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MarqueeTextMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? title, optional String? artist);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MarqueeTextMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? title, optional String? artist, optional int enterTransitionDelay, optional int subtextTransitionDelay, optional @FloatRange(from=0.0, to=1.0) float transitionLength);
   }
 
 }

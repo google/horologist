@@ -761,7 +761,10 @@ public fun Modifier.rotaryHandler(
         }
         this
             .onRotaryScrollEvent {
-                channel.trySend(
+                // Okay to ignore the ChannelResult returned from trySend because it is conflated
+                // (see rememberTimestampChannel()).
+                @Suppress("UNUSED_VARIABLE")
+                val unused = channel.trySend(
                     TimestampedDelta(
                         it.uptimeMillis,
                         it.verticalScrollPixels * if (reverseDirection) -1f else 1f

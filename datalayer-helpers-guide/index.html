@@ -1061,11 +1061,11 @@ phone.</p>
 <p>For your watch and phone projects respectively.</p>
 </li>
 <li>
-<p>Initialize the client</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">appHelper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WearDataLayerAppHelper</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+<p>Initialize the client, including passing a <code>WearDataLayerRegistry</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">appHelper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WearDataLayerAppHelper</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">wearDataLayerRegistry</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="p">)</span>
 
 <span class="c1">// or</span>
-<span class="kd">val</span><span class="w"> </span><span class="nv">appHelper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PhoneDataLayerAppHelper</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">appHelper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PhoneDataLayerAppHelper</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">wearDataLayerRegistry</span><span class="p">)</span>
 </code></pre></div>
 </li>
 </ol>
@@ -1078,11 +1078,27 @@ phone.</p>
 </code></pre></div>
 <p>The resulting list might will contain entries such as:</p>
 <div class="highlight"><pre><span></span><code>AppHelperNodeStatus(
-    id=1e56d2,
-    displayName=Pixel Watch,
+    id=7cd1c38a,
+    displayName=Google Pixel Watch,
     isAppInstalled=true,
-    installedComplications=[GoalsComplication],
-    installedTiles=[SummaryTile]
+    nodeType=WATCH,
+    surfacesInfo=# SurfacesInfo@125fcbff
+        complications {
+            instance_id: 1234
+            name: &quot;MyComplication&quot;
+            timestamp {
+                nanos: 738000000
+                seconds: 1680015523
+            }
+            type: &quot;SHORT_TEXT&quot;
+        }
+        tiles {
+            name: &quot;MyTile&quot;
+            timestamp {
+                nanos: 364000000
+                seconds: 1680016845
+            }
+        }
 )
 </code></pre></div>
 </li>

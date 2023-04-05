@@ -19,16 +19,17 @@ package com.google.android.horologist.audio.ui
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 
-class VolumeScreenA11yScreenshotTest : ScreenshotTest() {
-    init {
-        enableA11yTest()
-
+class VolumeScreenA11yScreenshotTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
+        enableA11y = true
         tolerance = 1.0f
-        screenTimeText = {}
+        screenTimeText = { }
     }
+) {
 
     @Test
     fun volumeScreenAtMinimums() {
@@ -38,7 +39,7 @@ class VolumeScreenA11yScreenshotTest : ScreenshotTest() {
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        takeScreenshot {
+        screenshotTestRule.takeScreenshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,

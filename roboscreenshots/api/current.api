@@ -10,8 +10,8 @@ package com.google.android.horologist.screenshots {
     field public static final com.google.android.horologist.screenshots.FixedTimeSource INSTANCE;
   }
 
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi @org.junit.runner.RunWith(RobolectricTestRunner::class) @org.robolectric.annotation.Config(sdk={30}, qualifiers="w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav") @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class ScreenShotBaseTest {
-    ctor public ScreenShotBaseTest(optional com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams params);
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi @org.junit.runner.RunWith(RobolectricTestRunner::class) @org.robolectric.annotation.Config(sdk={30}, qualifiers="w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav") @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class ScreenshotBaseTest {
+    ctor public ScreenshotBaseTest(optional com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams params);
     method @org.junit.Rule public final com.google.android.horologist.screenshots.ScreenshotTestRule getScreenshotTestRule();
     property @org.junit.Rule public final com.google.android.horologist.screenshots.ScreenshotTestRule screenshotTestRule;
   }
@@ -66,8 +66,11 @@ package com.google.android.horologist.screenshots {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class ScreenshotTestRule implements org.junit.rules.TestRule {
     ctor public ScreenshotTestRule(optional com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams params);
+    method @androidx.compose.runtime.Composable public void ComponentDefaults(com.google.android.horologist.compose.tools.coil.FakeImageLoader fakeImageLoader, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
     method public org.junit.runners.model.Statement apply(org.junit.runners.model.Statement base, org.junit.runner.Description description);
+    method public void takeComponentScreenshot(optional com.google.android.horologist.compose.tools.coil.FakeImageLoader fakeImageLoader, optional kotlin.jvm.functions.Function2<? super androidx.compose.ui.test.junit4.ComposeContentTestRule,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> checks, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
     method public void takeScreenshot(optional Boolean? roundScreen, optional kotlin.jvm.functions.Function0<kotlin.Unit> timeText, optional kotlin.jvm.functions.Function0<kotlin.Unit> positionIndicator, optional com.google.android.horologist.compose.tools.coil.FakeImageLoader fakeImageLoader, optional kotlin.jvm.functions.Function2<? super androidx.compose.ui.test.junit4.ComposeContentTestRule,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> checks, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public void takeScrollableScreenshot(optional boolean round, com.google.android.horologist.screenshots.ScreenshotTestRule.TimeTextMode timeTextMode, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory columnStateFactory, optional kotlin.jvm.functions.Function2<? super com.google.android.horologist.compose.layout.ScalingLazyColumnState,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> checks, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.layout.ScalingLazyColumnState,kotlin.Unit> content);
     field public static final com.google.android.horologist.screenshots.ScreenshotTestRule.Companion Companion;
   }
 
@@ -113,6 +116,14 @@ package com.google.android.horologist.screenshots {
     property public final kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText;
     property public final String? testLabel;
     property public final float tolerance;
+  }
+
+  public enum ScreenshotTestRule.TimeTextMode {
+    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.TimeTextMode valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.TimeTextMode[] values();
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.TimeTextMode Off;
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.TimeTextMode OnTop;
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.TimeTextMode Scrolling;
   }
 
 }

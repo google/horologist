@@ -34,7 +34,7 @@ import org.robolectric.annotation.GraphicsMode
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @ExperimentalHorologistApi
-public abstract class ScreenShotBaseTest(
+public abstract class ScreenshotBaseTest(
     params: ScreenshotTestRule.ScreenshotTestRuleParams = screenshotTestRuleParams { }
 ) {
 

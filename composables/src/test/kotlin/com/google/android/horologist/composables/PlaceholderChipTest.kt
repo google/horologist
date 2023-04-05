@@ -17,21 +17,21 @@
 package com.google.android.horologist.composables
 
 import androidx.wear.compose.material.ChipDefaults
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class PlaceholderChipTest : ScreenshotTest() {
+class PlaceholderChipTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {
-        takeComponentScreenshot {
+        screenshotTestRule.takeComponentScreenshot {
             PlaceholderChip()
         }
     }
 
     @Test
     fun secondaryColors() {
-        takeComponentScreenshot {
+        screenshotTestRule.takeComponentScreenshot {
             PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
         }
     }

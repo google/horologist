@@ -25,7 +25,7 @@ import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.screenshots.ScreenShotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,7 +36,7 @@ import kotlin.time.Duration.Companion.seconds
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class MediaPlayerScreenTest(
     private val themeValue: ThemeValues
-) : ScreenShotBaseTest(
+) : ScreenshotBaseTest(
     screenshotTestRuleParams {
         testLabel = themeValue.safeName.lowercase()
     }

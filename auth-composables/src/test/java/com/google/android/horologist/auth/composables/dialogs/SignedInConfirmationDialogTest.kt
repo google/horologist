@@ -22,10 +22,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.screenshots.ScreenShotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class SignedInConfirmationDialogTest : ScreenShotBaseTest() {
+class SignedInConfirmationDialogTest :
+    ScreenshotBaseTest(
+        ScreenshotTestRule.screenshotTestRuleParams {
+            screenTimeText = { }
+        }
+    ) {
 
     @Test
     fun signedInConfirmationDialog() {

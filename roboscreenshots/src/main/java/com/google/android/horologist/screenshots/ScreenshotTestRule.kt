@@ -25,10 +25,13 @@ import android.graphics.Canvas
 import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -38,10 +41,14 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.test.core.app.ApplicationProvider
+import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.material.scrollAway
 import coil.compose.LocalImageLoader
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import com.quickbird.snapshot.Diffing
@@ -51,7 +58,6 @@ import com.quickbird.snapshot.fileSnapshotting
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.rules.RuleChain
-import org.junit.rules.TestName
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
@@ -61,14 +67,14 @@ import org.robolectric.RobolectricTestRunner
  * A [TestRule] that allows you to run screenshot tests of your composable components.
  *
  * This rule requires robolectric, so the test suite should run with [RobolectricTestRunner]. See
- * [ScreenShotBaseTest] for a basic configuration.
+ * [ScreenshotBaseTest] for a basic configuration.
  */
 @ExperimentalHorologistApi
 public class ScreenshotTestRule(
     private val params: ScreenshotTestRuleParams = screenshotTestRuleParams { }
 ) : TestRule {
 
-    private val testName: TestName = TestName()
+    private val testClassInfoRule: TestClassInfoRule = TestClassInfoRule()
     private val composeContentTestRule: ComposeContentTestRule = createComposeRule()
 
     private val snapshotTransformer: SnapshotTransformer = if (params.enableA11y) {
@@ -80,7 +86,7 @@ public class ScreenshotTestRule(
         ApplicationProvider.getApplicationContext<Application>().resources
 
     override fun apply(base: Statement, description: Description): Statement {
-        return RuleChain.outerRule(testName)
+        return RuleChain.outerRule(testClassInfoRule)
             .around(composeContentTestRule)
             .apply(base, description)
     }
@@ -126,12 +132,81 @@ public class ScreenshotTestRule(
         }
     }
 
+    public fun takeComponentScreenshot(
+        fakeImageLoader: FakeImageLoader = FakeImageLoader.Never,
+        checks: suspend ComposeContentTestRule.() -> Unit = {},
+        content: @Composable BoxScope.() -> Unit
+    ) {
+        runTest {
+            lateinit var view: View
+
+            composeContentTestRule.setContent {
+                view = LocalView.current
+                ComponentDefaults(fakeImageLoader, content)
+            }
+
+            composeContentTestRule.awaitIdle()
+
+            checks(composeContentTestRule)
+
+            val snapshotting = Snapshotting(
+                diffing = Diffing.bitmapWithTolerance(
+                    tolerance = params.tolerance,
+                    colorDiffing = Diffing.highlightWithRed
+                ),
+                snapshot = { _: SemanticsNodeInteraction ->
+                    Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888).apply {
+                        view.draw(Canvas(this))
+                    }
+                }
+            ).fileSnapshotting
+
+            saveSnapshot(snapshotting)
+        }
+    }
+
+    public fun takeScrollableScreenshot(
+        round: Boolean = resources.configuration.isScreenRound,
+        timeTextMode: TimeTextMode,
+        columnStateFactory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText(),
+        checks: suspend (columnState: ScalingLazyColumnState) -> Unit = {},
+        content: @Composable (columnState: ScalingLazyColumnState) -> Unit
+    ) {
+        lateinit var columnState: ScalingLazyColumnState
+
+        takeScreenshot(
+            round,
+            timeText = {
+                if (timeTextMode != TimeTextMode.Off) {
+                    TimeText(
+                        timeSource = FixedTimeSource,
+                        modifier = if (timeTextMode == TimeTextMode.Scrolling) {
+                            Modifier.scrollAway(columnState.state)
+                        } else {
+                            Modifier
+                        }
+                    )
+                }
+            },
+            positionIndicator = {
+                PositionIndicator(scalingLazyListState = columnState.state)
+            },
+            checks = {
+                checks(columnState)
+            }
+        ) {
+            columnState = columnStateFactory.create()
+
+            content(columnState)
+        }
+    }
+
     private suspend fun saveSnapshot(snapshotting: FileSnapshotting<SemanticsNodeInteraction, Bitmap>) {
         snapshotting.snapshot(
             composeContentTestRule.onRoot(),
-            testName = testName.methodName + (if (params.testLabel != null) "_${params.testLabel}" else ""),
+            testName = testClassInfoRule.methodName + (if (params.testLabel != null) "_${params.testLabel}" else ""),
             record = params.record,
-            testClass = this@ScreenshotTestRule.javaClass
+            testClass = checkNotNull(testClassInfoRule.testClass) { "Could not retrieve information from test class" }
         )
     }
 
@@ -185,6 +260,25 @@ public class ScreenshotTestRule(
     }
 
     @Composable
+    public fun ComponentDefaults(
+        fakeImageLoader: FakeImageLoader,
+        content: @Composable BoxScope.() -> Unit
+    ) {
+        fakeImageLoader.override {
+            Box(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .background(Color.Black.copy(alpha = 0.5f)),
+                contentAlignment = Alignment.Center
+            ) {
+                DefaultTheme {
+                    content()
+                }
+            }
+        }
+    }
+
+    @Composable
     private fun DefaultTheme(content: @Composable () -> Unit) {
         content()
     }
@@ -218,6 +312,12 @@ public class ScreenshotTestRule(
                 )
             }
         }
+    }
+
+    public enum class TimeTextMode {
+        OnTop,
+        Off,
+        Scrolling
     }
 
     public companion object {

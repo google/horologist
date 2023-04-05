@@ -18,13 +18,14 @@ package com.google.android.horologist.composables
 
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.onNodeWithContentDescription
-import com.google.android.horologist.screenshots.ScreenShotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import java.time.LocalTime
 
-class TimePickerA11yTest : ScreenShotBaseTest(
+class TimePickerA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
+        screenTimeText = {}
         enableA11y = true
     }
 ) {
@@ -33,7 +34,7 @@ class TimePickerA11yTest : ScreenShotBaseTest(
     fun initial() {
         screenshotTestRule.takeScreenshot(
             checks = {
-                onNodeWithContentDescription("Confirm1")
+                onNodeWithContentDescription("Confirm")
                     .assertHasClickAction()
             }
         ) {

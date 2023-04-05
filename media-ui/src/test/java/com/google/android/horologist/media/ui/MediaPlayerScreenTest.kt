@@ -25,7 +25,8 @@ import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenShotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -35,12 +36,14 @@ import kotlin.time.Duration.Companion.seconds
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class MediaPlayerScreenTest(
     private val themeValue: ThemeValues
-) : ScreenshotTest() {
+) : ScreenShotBaseTest(
+    screenshotTestRuleParams {
+        testLabel = themeValue.safeName.lowercase()
+    }
+) {
 
     @Test
     fun mediaPlayerScreen() {
-        testLabel = themeValue.safeName.lowercase()
-
         val playerUiState = PlayerUiState(
             playEnabled = true,
             pauseEnabled = true,
@@ -57,11 +60,15 @@ class MediaPlayerScreenTest(
                 title = "Weather with You",
                 subtitle = "Crowded House"
             ),
-            trackPositionUiModel = TrackPositionUiModel.Actual(percent = 0.1f, position = 30.seconds, duration = 300.seconds),
+            trackPositionUiModel = TrackPositionUiModel.Actual(
+                percent = 0.1f,
+                position = 30.seconds,
+                duration = 300.seconds
+            ),
             connected = true
         )
 
-        takeScreenshot {
+        screenshotTestRule.takeScreenshot {
             Box(modifier = Modifier.background(Color.Black)) {
                 MediaPlayerTestCase(colors = themeValue.colors, playerUiState = playerUiState)
             }

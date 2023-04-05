@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
 @file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.tile
@@ -39,7 +38,6 @@ import androidx.wear.tiles.material.Text
 import androidx.wear.tiles.material.Typography
 import androidx.wear.tiles.material.layouts.MultiButtonLayout
 import androidx.wear.tiles.material.layouts.PrimaryLayout
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.LayoutElementPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -122,7 +120,6 @@ class SampleTileRenderer(context: Context) :
     }
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @WearPreviewDevices
 @WearPreviewFontSizes
 @Composable

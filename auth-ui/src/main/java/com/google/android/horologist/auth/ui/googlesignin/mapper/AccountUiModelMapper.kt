@@ -29,7 +29,6 @@ public object AccountUiModelMapper {
     /**
      * Maps from a [GoogleSignInAccount].
      */
-    @OptIn(ExperimentalHorologistApi::class)
     public fun map(
         account: GoogleSignInAccount,
         defaultEmail: String = ""

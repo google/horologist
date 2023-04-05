@@ -233,7 +233,6 @@ public fun rememberRotaryHapticHandler(
     }
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @Composable
 private fun rememberHapticChannel() =
     remember {

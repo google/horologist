@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.media.ui.state.mapper
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi

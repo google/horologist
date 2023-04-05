@@ -47,6 +47,7 @@ android {
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + """
             kotlin.RequiresOptIn
+            com.google.android.horologist.annotations.ExperimentalHorologistApi
             """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
     }
 

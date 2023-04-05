@@ -813,7 +813,6 @@ public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long):
  *
  * This scroll handler supports fling. It can be set with [RotaryFlingBehavior].
  */
-@OptIn(ExperimentalHorologistApi::class)
 internal class HighResRotaryScrollHandler(
     private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
     private val scrollBehaviorFactory: () -> RotaryScrollBehavior,
@@ -900,7 +899,6 @@ internal class HighResRotaryScrollHandler(
  * A scroll handler for Bezel(low-res) without snapping.
  * This scroll handler supports fling. It can be set with RotaryFlingBehavior.
  */
-@OptIn(ExperimentalHorologistApi::class)
 internal class LowResRotaryScrollHandler(
     private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
     private val scrollBehaviorFactory: () -> RotaryScrollBehavior
@@ -972,7 +970,6 @@ internal class LowResRotaryScrollHandler(
  *
  * This scroll handler doesn't support fling.
  */
-@OptIn(ExperimentalHorologistApi::class)
 internal class RotaryScrollSnapHandler(
     val snapBehaviourFactory: () -> RotarySnapBehavior,
     val scrollBehaviourFactory: () -> RotaryScrollBehavior
@@ -1074,7 +1071,6 @@ internal class RotaryScrollSnapHandler(
     }
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @Composable
 private fun rememberTimestampChannel() =
     remember {

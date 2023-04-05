@@ -112,7 +112,7 @@ public class DefaultRotaryHapticHandler(
             (scrollDelta < 0 && !scrollableState.canScrollBackward)
         ) {
             if (!overscrollHapticTriggered) {
-                hapticsChannel.trySend(RotaryHapticsType.ScrollLimit)
+                trySendHaptic(RotaryHapticsType.ScrollLimit)
                 overscrollHapticTriggered = true
             }
         } else {
@@ -121,7 +121,7 @@ public class DefaultRotaryHapticHandler(
             val diff = abs(currScrollPosition - prevHapticsPosition)
 
             if (diff >= hapticsThreshold) {
-                hapticsChannel.trySend(RotaryHapticsType.ScrollTick)
+                trySendHaptic(RotaryHapticsType.ScrollTick)
                 prevHapticsPosition = currScrollPosition
             }
         }
@@ -132,13 +132,19 @@ public class DefaultRotaryHapticHandler(
             (scrollDelta < 0 && !scrollableState.canScrollBackward)
         ) {
             if (!overscrollHapticTriggered) {
-                hapticsChannel.trySend(RotaryHapticsType.ScrollLimit)
+                trySendHaptic(RotaryHapticsType.ScrollLimit)
                 overscrollHapticTriggered = true
             }
         } else {
             overscrollHapticTriggered = false
-            hapticsChannel.trySend(RotaryHapticsType.ScrollItemFocus)
+            trySendHaptic(RotaryHapticsType.ScrollItemFocus)
         }
+    }
+
+    private fun trySendHaptic(rotaryHapticsType: RotaryHapticsType) {
+        // Ok to ignore the ChannelResult because we default to capacity = 2
+        @Suppress("UNUSED_VARIABLE")
+        val unused = hapticsChannel.trySend(rotaryHapticsType)
     }
 }
 

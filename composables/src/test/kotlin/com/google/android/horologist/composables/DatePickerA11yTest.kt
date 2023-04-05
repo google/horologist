@@ -61,6 +61,7 @@ class DatePickerA11yTest : ScreenshotBaseTest(
                     .config[SemanticsProperties.Focused]
             }
         }
+
         screenshotTestRule.takeScreenshot()
     }
 }

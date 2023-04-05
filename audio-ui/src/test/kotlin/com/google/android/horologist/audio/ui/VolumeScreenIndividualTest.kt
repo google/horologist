@@ -21,14 +21,15 @@ import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class VolumeScreenIndividualTest : ScreenshotTest() {
-    init {
-        screenTimeText = {}
+class VolumeScreenIndividualTest : ScreenshotBaseTest(
+    ScreenshotTestRule.screenshotTestRuleParams {
+        screenTimeText = { }
     }
-
+) {
     @Test
     fun volumeScreenAtMinimum() {
         val volumeState = VolumeState(
@@ -37,13 +38,15 @@ class VolumeScreenIndividualTest : ScreenshotTest() {
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        takeScreenshot {
+        screenshotTestRule.setContent {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
                 audioOutput = audioOutput
             )
         }
+
+        screenshotTestRule.takeScreenshot()
     }
 
     @Test
@@ -54,13 +57,15 @@ class VolumeScreenIndividualTest : ScreenshotTest() {
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        takeScreenshot {
+        screenshotTestRule.setContent {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
                 audioOutput = audioOutput
             )
         }
+
+        screenshotTestRule.takeScreenshot()
     }
 
     @Test
@@ -71,13 +76,15 @@ class VolumeScreenIndividualTest : ScreenshotTest() {
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Galaxy Watch 4")
 
-        takeScreenshot {
+        screenshotTestRule.setContent {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
                 audioOutput = audioOutput
             )
         }
+
+        screenshotTestRule.takeScreenshot()
     }
 
     @Test
@@ -89,13 +96,15 @@ class VolumeScreenIndividualTest : ScreenshotTest() {
         // Media Router returns "Phone"
         val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", true)
 
-        takeScreenshot {
+        screenshotTestRule.setContent {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
                 audioOutput = audioOutput
             )
         }
+
+        screenshotTestRule.takeScreenshot()
     }
 
     @Test
@@ -107,13 +116,15 @@ class VolumeScreenIndividualTest : ScreenshotTest() {
         // Media Router returns "Phone"
         val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
 
-        takeScreenshot {
+        screenshotTestRule.setContent {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
                 audioOutput = audioOutput
             )
         }
+
+        screenshotTestRule.takeScreenshot()
     }
 
     @Test
@@ -124,7 +135,7 @@ class VolumeScreenIndividualTest : ScreenshotTest() {
         )
         val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
 
-        takeScreenshot {
+        screenshotTestRule.setContent {
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
@@ -140,5 +151,7 @@ class VolumeScreenIndividualTest : ScreenshotTest() {
                 )
             }
         }
+
+        screenshotTestRule.takeScreenshot()
     }
 }

@@ -139,7 +139,7 @@ private fun animateLottieProgressAsState(
 ): State<Float> {
     val lottieProgress = animateLottieCompositionAsState(
         composition = composition,
-        speed = 0f
+        isPlaying = false
     ) as LottieAnimatable
     LaunchedEffect(playing) {
         val targetValue = if (playing) 1f else 0f

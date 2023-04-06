@@ -18,14 +18,14 @@ package com.google.android.horologist.media.ui.controls
 
 import com.google.android.horologist.media.ui.components.controls.SeekBackButton
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class SeekBackButtonTest : ScreenshotTest() {
+class SeekBackButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun givenIncrementIsFive_thenIconIsFive() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SeekBackButton(
                 onClick = {},
                 seekButtonIncrement = SeekButtonIncrement.Five
@@ -35,7 +35,7 @@ class SeekBackButtonTest : ScreenshotTest() {
 
     @Test
     fun givenIncrementIsTen_thenIconIsTen() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SeekBackButton(
                 onClick = {},
                 seekButtonIncrement = SeekButtonIncrement.Ten
@@ -45,7 +45,7 @@ class SeekBackButtonTest : ScreenshotTest() {
 
     @Test
     fun givenIncrementIsThirty_thenIconIsThirty() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SeekBackButton(
                 onClick = {},
                 seekButtonIncrement = SeekButtonIncrement.Thirty
@@ -55,7 +55,7 @@ class SeekBackButtonTest : ScreenshotTest() {
 
     @Test
     fun givenIncrementIsOtherValue_thenIconIsDefault() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SeekBackButton(
                 onClick = {},
                 seekButtonIncrement = SeekButtonIncrement.Known(15)
@@ -65,7 +65,7 @@ class SeekBackButtonTest : ScreenshotTest() {
 
     @Test
     fun givenIncrementIsUnknown_thenIconIsDefault() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SeekBackButton(
                 onClick = {},
                 seekButtonIncrement = SeekButtonIncrement.Unknown

@@ -46,15 +46,15 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.a11y.forceState
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Ignore
 import org.junit.Test
 
-class SectionedListTest : ScreenshotTest() {
+class SectionedListTest : ScreenshotBaseTest() {
 
     @Test
     fun loadingSection() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, 0)
 
             SectionedListPreview(columnState.state) {
@@ -69,7 +69,7 @@ class SectionedListTest : ScreenshotTest() {
 
     @Test
     fun loadedSection() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, 0)
 
             SectionedListPreview(columnState.state) {
@@ -85,7 +85,7 @@ class SectionedListTest : ScreenshotTest() {
     @Test
     @Ignore("Failing with RNG")
     fun loadedSection_secondPage() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(4, 0)
 
             SectionedListPreview(columnState.state) {
@@ -100,7 +100,7 @@ class SectionedListTest : ScreenshotTest() {
 
     @Test
     fun failedSection() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, 0)
 
             SectionedListPreview(columnState.state) {
@@ -116,7 +116,7 @@ class SectionedListTest : ScreenshotTest() {
     @Test
     @Ignore("Failing with RNG")
     fun failedSection_secondPage() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(4, 0)
 
             SectionedListPreview(columnState.state) {
@@ -131,7 +131,7 @@ class SectionedListTest : ScreenshotTest() {
 
     @Test
     fun emptySection() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, 0)
 
             SectionedListPreview(columnState.state) {

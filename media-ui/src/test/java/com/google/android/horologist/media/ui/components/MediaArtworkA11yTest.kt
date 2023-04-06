@@ -25,19 +25,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class MediaArtworkA11yTest : ScreenshotTest() {
-    init {
-        enableA11yTest()
-        fakeImageLoader = FakeImageLoader.Resources
+class MediaArtworkA11yTest : ScreenshotBaseTest(
+    ScreenshotTestRule.screenshotTestRuleParams {
+        enableA11y = true
         screenTimeText = {}
+    }
+) {
+    init {
     }
 
     @Test
     fun a11y() {
-        takeScreenshot {
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
+            fakeImageLoader = FakeImageLoader.Resources
+        ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 MediaArtwork(
                     media = MediaUiModel(

@@ -17,14 +17,14 @@
 package com.google.android.horologist.media.ui.controls
 
 import com.google.android.horologist.media.ui.components.controls.ShuffleToggleButton
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class ShuffleToggleButtonTest : ScreenshotTest() {
+class ShuffleToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun givenShuffleIsOn_thenIconIsShuffleOn() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ShuffleToggleButton(
                 onToggle = {},
                 shuffleOn = true
@@ -34,7 +34,7 @@ class ShuffleToggleButtonTest : ScreenshotTest() {
 
     @Test
     fun givenShuffleIsOff_thenIconIsShuffle() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ShuffleToggleButton(
                 onToggle = {},
                 shuffleOn = false

@@ -138,7 +138,7 @@ internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.paparazz
     if (record) {
         fileStoring.store(snapshot, referenceFile)
         diffFileName.deleteRecursively()
-        throw AssertionError("Stored snapshot to: ${referenceFile.absolutePath}")
+        println("Stored snapshot to: ${referenceFile.absolutePath}")
     } else {
         val reference = fileStoring.load(referenceFile)
         val diff = snapshotting.diffing(reference, snapshot)

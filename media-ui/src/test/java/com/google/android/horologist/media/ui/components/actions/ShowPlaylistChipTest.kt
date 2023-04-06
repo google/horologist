@@ -18,14 +18,14 @@ package com.google.android.horologist.media.ui.components.actions
 
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class ShowPlaylistChipTest : ScreenshotTest() {
+class ShowPlaylistChipTest : ScreenshotBaseTest() {
 
     @Test
     fun givenArtwork_thenDisplaysArtwork() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,
@@ -38,7 +38,7 @@ class ShowPlaylistChipTest : ScreenshotTest() {
 
     @Test
     fun givenNOArtwork_thenDoesNOTDisplayArtwork() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
                     artworkUri = null,
@@ -51,7 +51,7 @@ class ShowPlaylistChipTest : ScreenshotTest() {
 
     @Test
     fun givenNOName_thenDoesDisplayArtwork() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,
@@ -64,7 +64,7 @@ class ShowPlaylistChipTest : ScreenshotTest() {
 
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,

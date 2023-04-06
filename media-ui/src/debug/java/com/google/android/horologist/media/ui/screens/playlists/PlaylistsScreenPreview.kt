@@ -20,11 +20,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @WearPreviewDevices

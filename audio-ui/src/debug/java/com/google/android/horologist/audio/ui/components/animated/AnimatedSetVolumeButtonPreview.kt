@@ -22,12 +22,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.wear.compose.material.Stepper
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
 import com.google.android.horologist.audio.ui.VolumeUiState
-import com.google.android.horologist.compose.tools.WearSmallRoundDevicePreview
 
-@WearSmallRoundDevicePreview
+@WearPreviewSmallRound
 @Composable
 fun AnimatedSetVolumeButtonPreview() {
     var volumeUiState by remember { mutableStateOf(VolumeUiState(3, 5)) }

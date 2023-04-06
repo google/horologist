@@ -22,17 +22,20 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class SegmentedProgressIndicatorTest : ScreenshotTest() {
-    init {
-        screenTimeText = {}
-    }
+class SegmentedProgressIndicatorTest :
+    ScreenshotBaseTest(
+        ScreenshotTestRule.screenshotTestRuleParams {
+            screenTimeText = {}
+        }
+    ) {
 
     @Test
     fun segmentedPicker() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val segments = listOf(
                 ProgressIndicatorSegment(1f, Color.Green),
                 ProgressIndicatorSegment(1f, Color.Cyan),
@@ -59,7 +62,7 @@ class SegmentedProgressIndicatorTest : ScreenshotTest() {
 
     @Test
     fun segmentedPickerWithBrushColors() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,
@@ -92,7 +95,7 @@ class SegmentedProgressIndicatorTest : ScreenshotTest() {
 
     @Test
     fun segmentedPickerWithBrushColorsAndColorsCombined() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,

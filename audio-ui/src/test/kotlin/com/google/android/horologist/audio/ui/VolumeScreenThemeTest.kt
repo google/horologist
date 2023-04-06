@@ -20,7 +20,8 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -28,11 +29,12 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class VolumeScreenThemeTest(
     private val themeValue: ThemeValues
-) : ScreenshotTest() {
-    init {
+) : ScreenshotBaseTest(
+    screenshotTestRuleParams {
         screenTimeText = {}
         testLabel = themeValue.safeName.lowercase()
     }
+) {
 
     @Test
     fun volumeScreenThemes() {
@@ -42,7 +44,7 @@ class VolumeScreenThemeTest(
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             VolumeScreenTestCase(
                 colors = themeValue.colors,
                 volumeState = volumeState,

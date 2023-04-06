@@ -16,18 +16,20 @@
 
 package com.google.android.horologist.composables
 
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import java.time.LocalDate
 
-class DatePickerTest : ScreenshotTest() {
-    init {
+class DatePickerTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
         screenTimeText = {}
     }
+) {
 
     @Test
     fun datePickerInitial() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             DatePicker(
                 onDateConfirm = {},
                 date = LocalDate.of(2022, 4, 25)

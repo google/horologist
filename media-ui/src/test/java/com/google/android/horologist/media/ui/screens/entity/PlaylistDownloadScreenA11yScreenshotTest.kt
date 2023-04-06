@@ -24,17 +24,19 @@ import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.components.positionedState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class PlaylistDownloadScreenA11yScreenshotTest : ScreenshotTest() {
-    init {
-        enableA11yTest()
-    }
-
+class PlaylistDownloadScreenA11yScreenshotTest :
+    ScreenshotBaseTest(
+        ScreenshotTestRule.screenshotTestRuleParams {
+            enableA11y = true
+        }
+    ) {
     @Test
     fun playlistDownloadScreenPreviewLoading() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -56,7 +58,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : ScreenshotTest() {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloaded() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -85,7 +87,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : ScreenshotTest() {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -114,7 +116,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : ScreenshotTest() {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloaded() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -143,7 +145,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : ScreenshotTest() {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -172,7 +174,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : ScreenshotTest() {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -201,7 +203,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : ScreenshotTest() {
 
     @Test
     fun playlistDownloadScreenPreviewLoadedFullyDownloaded() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -230,7 +232,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : ScreenshotTest() {
 
     @Test
     fun playlistDownloadScreenPreviewFailed() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {

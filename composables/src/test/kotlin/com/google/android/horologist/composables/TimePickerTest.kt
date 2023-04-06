@@ -16,18 +16,20 @@
 
 package com.google.android.horologist.composables
 
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 import java.time.LocalTime
 
-class TimePickerTest : ScreenshotTest() {
-    init {
+class TimePickerTest : ScreenshotBaseTest(
+    ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {}
     }
+) {
 
     @Test
     fun datePickerInitial() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             TimePicker(
                 time = LocalTime.of(10, 10, 0),
                 onTimeConfirm = {}

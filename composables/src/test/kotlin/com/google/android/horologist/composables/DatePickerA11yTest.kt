@@ -21,52 +21,47 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import java.time.LocalDate
 
-class DatePickerA11yTest : ScreenshotTest() {
-    init {
+class DatePickerA11yTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
         screenTimeText = {}
-        enableA11yTest()
+        enableA11y = true
     }
-
+) {
     @Test
-    fun initial() {
-        takeScreenshot(
-            checks = {
-                rule.onNodeWithContentDescription("Next")
-                    .assertHasClickAction()
-
-                rule.onNodeWithContentDescription("Day, 25")
-                    .assertIsFocused()
-            }
-        ) {
+    fun interactionTest() {
+        screenshotTestRule.setContent {
             DatePicker(
                 onDateConfirm = {},
                 date = LocalDate.of(2022, 4, 25)
             )
         }
-    }
 
-    @Test
-    fun next() {
-        takeScreenshot(
-            checks = {
-                rule.onNodeWithContentDescription("Next")
-                    .performClick()
+        screenshotTestRule.interact {
+            onNodeWithContentDescription("Next")
+                .assertHasClickAction()
 
-                rule.waitUntil {
-                    rule.onNodeWithContentDescription("April")
-                        .fetchSemanticsNode()
-                        .config[SemanticsProperties.Focused]
-                }
-            }
-        ) {
-            DatePicker(
-                onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25)
-            )
+            onNodeWithContentDescription("Day, 25")
+                .assertIsFocused()
         }
+
+        screenshotTestRule.takeScreenshot()
+
+        screenshotTestRule.interact {
+            onNodeWithContentDescription("Next")
+                .performClick()
+
+            waitUntil {
+                onNodeWithContentDescription("April")
+                    .fetchSemanticsNode()
+                    .config[SemanticsProperties.Focused]
+            }
+        }
+
+        screenshotTestRule.takeScreenshot()
     }
 }

@@ -16,17 +16,18 @@
 
 package com.google.android.horologist.auth.composables.screens
 
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 
-class AuthErrorScreenTest : ScreenshotTest() {
-    init {
+class AuthErrorScreenTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
         screenTimeText = {}
     }
-
+) {
     @Test
     fun authErrorScreen() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             AuthErrorScreen()
         }
     }

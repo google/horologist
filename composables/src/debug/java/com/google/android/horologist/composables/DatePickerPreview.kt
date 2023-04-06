@@ -17,12 +17,12 @@
 package com.google.android.horologist.composables
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.compose.tools.WearPreviewDevices
-import com.google.android.horologist.compose.tools.WearPreviewFontSizes
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import java.time.LocalDate
 
 @WearPreviewDevices
-@WearPreviewFontSizes
+@WearPreviewFontScales
 @Composable
 fun DatePickerPreview() {
     // Due to a limitation with ScalingLazyColumn,

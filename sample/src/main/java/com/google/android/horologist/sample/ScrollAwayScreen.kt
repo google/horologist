@@ -42,10 +42,10 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.scrollAway
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
-import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 
 @Composable
 fun ScrollScreenLazyColumn(scrollState: LazyListState) {
@@ -119,7 +119,7 @@ private fun ExampleCard(modifier: Modifier, i: Int) {
     }
 }
 
-@WearLargeRoundDevicePreview
+@WearPreviewLargeRound
 @Composable
 fun ScrollAwayScreenPreview() {
     ScrollScreenLazyColumn(rememberLazyListState())

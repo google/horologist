@@ -37,7 +37,7 @@ jobs:
       - name: Unit Tests
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: testDebug
+          arguments: cleanTest testDebug
 
       - name: Upload test results and reports
         if: always()

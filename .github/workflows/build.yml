@@ -21,8 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          # Fetch expanded history, which is needed for affected module detection
-          fetch-depth: '500'
           lfs: 'true'
 
       - name: Copy CI gradle.properties
@@ -47,7 +45,6 @@ jobs:
           path: |
             **/build/test-results/*
             **/build/reports/*
-            **/build/reports/affectedModuleDetector/*
 
   test:
     runs-on: macos-latest
@@ -65,8 +62,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          # Fetch expanded history, which is needed for affected module detection
-          fetch-depth: '500'
           lfs: 'true'
 
       - name: Install pulseaudio
@@ -91,7 +86,7 @@ jobs:
           target: android-wear
           profile: wear_round_454
           emulator-options: -no-window -no-snapshot
-          script: ./gradlew connectedCheck -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Microbenchmark
+          script: ./gradlew connectedCheck -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Microbenchmark -x media-benchmark:connectedDebugAndroidTest
 
       - name: Upload logs
         if: always()

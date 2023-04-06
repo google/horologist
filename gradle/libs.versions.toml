@@ -1,5 +1,4 @@
 [versions]
-affectedmoduledetector = "0.2.1"
 androidx-benchmark = "1.2.0-alpha12"
 androidx-complications-data = "1.2.0-alpha07"
 androidx-compose-material = "1.4.0"
@@ -55,7 +54,6 @@ versionCatalogUpdate = "0.8.0"
 wearcompose = "1.2.0-alpha07"
 
 [libraries]
-affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
@@ -171,7 +169,6 @@ wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", 
 wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wearcompose" }
 
 [plugins]
-affectedModulesDetector = { id = "com.dropbox.affectedmoduledetector", version.ref = "affectedmoduledetector" }
 benManes = { id = "com.github.ben-manes.versions", version.ref = "benManes" }
 gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = "gradlePublishPlugin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }

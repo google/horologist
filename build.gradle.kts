@@ -36,8 +36,6 @@ buildscript {
 
         classpath(libs.metalavaGradle)
 
-        classpath(libs.affectedmoduledetector)
-
         classpath(libs.dagger.hiltandroidplugin)
 
         classpath(libs.googleSecretsGradlePlugin)
@@ -52,43 +50,15 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.kapt) apply false
     alias(libs.plugins.protobuf) apply false
-    alias(libs.plugins.affectedModulesDetector)
     alias(libs.plugins.gradleMavenPublishPlugin)
 }
 
 apply(plugin = "org.jetbrains.dokka")
-apply(plugin = "com.dropbox.affectedmoduledetector")
 apply(plugin = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach {
     outputDirectory.set(rootProject.file("docs/api"))
     failOnWarning.set(true)
-}
-
-affectedModuleDetector {
-    baseDir = "${project.rootDir}"
-    pathsAffectingAllModules = setOf(
-        "gradle/libs.versions.toml",
-    )
-    excludedModules = setOf(
-        "sample",
-        "paparazzi",
-    )
-
-    logFilename = "output.log"
-    logFolder = "${rootProject.buildDir}/reports/affectedModuleDetector"
-
-    val baseRef: String? = findProperty("affected_base_ref") as? String
-    // If we have a base ref to diff against, extract the branch name and use it
-    if (!baseRef.isNullOrEmpty()) {
-        // Remove the prefix from the head.
-        // TODO: need to support other types of git refs
-        specifiedBranch = baseRef.replace("refs/heads/", "")
-        compareFrom = "SpecifiedBranchCommit"
-    } else {
-        // Otherwise we use the previous commit. This is mostly used for commits to main.
-        compareFrom = "PreviousCommit"
-    }
 }
 
 allprojects {

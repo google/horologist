@@ -73,7 +73,7 @@ class PlayerScreenTest {
         }
 
         // then
-        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar())
+        composeTestRule.onNode(hasProgressBar())
             .assertExists()
     }
 
@@ -99,7 +99,7 @@ class PlayerScreenTest {
         }
 
         // then
-        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar())
+        composeTestRule.onNode(hasProgressBar())
             .assertDoesNotExist()
     }
 
@@ -406,7 +406,7 @@ class PlayerScreenTest {
         composeTestRule.onNodeWithContentDescription("Next").assertDoesNotExist()
         composeTestRule.onNodeWithContentDescription("Play").assertDoesNotExist()
         composeTestRule.onNodeWithContentDescription("Pause").assertDoesNotExist()
-        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar()).assertDoesNotExist()
+        composeTestRule.onNode(hasProgressBar()).assertDoesNotExist()
     }
 
     @Test

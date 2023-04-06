@@ -214,7 +214,7 @@ class PodcastControlButtonsTest {
         }
 
         // then
-        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar())
+        composeTestRule.onNode(hasProgressBar())
             .assertDoesNotExist()
     }
 

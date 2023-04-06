@@ -53,7 +53,7 @@ class PlayPauseProgressButtonTest {
         }
 
         // then
-        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar())
+        composeTestRule.onNode(hasProgressBar())
             .assertExists()
 
         composeTestRule.onNode(hasAnyChild(hasContentDescription("Pause")))
@@ -82,7 +82,7 @@ class PlayPauseProgressButtonTest {
         }
 
         // then
-        composeTestRule.onNode(com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar())
+        composeTestRule.onNode(hasProgressBar())
             .assertExists()
 
         composeTestRule.onNode(hasAnyChild(hasContentDescription("Play")))

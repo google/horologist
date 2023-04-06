@@ -20,12 +20,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoading() {
     PlaylistDownloadScreen(
@@ -41,7 +42,7 @@ fun PlaylistDownloadScreenPreviewLoading() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
     PlaylistDownloadScreen(
@@ -64,7 +65,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
     PlaylistDownloadScreen(
@@ -87,7 +88,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
     PlaylistDownloadScreen(
@@ -110,7 +111,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize() {
     PlaylistDownloadScreen(
@@ -133,7 +134,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
     PlaylistDownloadScreen(
@@ -156,7 +157,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
     PlaylistDownloadScreen(
@@ -179,7 +180,7 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewFailed() {
     PlaylistDownloadScreen(

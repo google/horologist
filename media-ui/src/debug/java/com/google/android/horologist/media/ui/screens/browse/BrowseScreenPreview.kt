@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.Podcasts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
@@ -32,7 +33,7 @@ import com.google.android.horologist.composables.Section
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.media.ui.R
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun BrowseScreenPreview() {
     BrowseScreenPreviewSample(
@@ -48,7 +49,7 @@ fun BrowseScreenPreview() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun BrowseScreenPreviewLoading() {
     BrowseScreenPreviewSample(
@@ -57,7 +58,7 @@ fun BrowseScreenPreviewLoading() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun BrowseScreenPreviewFailed() {
     BrowseScreenPreviewSample(

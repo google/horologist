@@ -17,8 +17,9 @@
 package com.google.android.horologist.auth.composables.dialogs
 
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreview() {
     SignedInConfirmationDialogContent(
@@ -27,7 +28,7 @@ fun SignedInConfirmationDialogPreview() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreviewNoName() {
     SignedInConfirmationDialogContent(
@@ -35,7 +36,7 @@ fun SignedInConfirmationDialogPreviewNoName() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreviewNoEmail() {
     SignedInConfirmationDialogContent(
@@ -43,13 +44,13 @@ fun SignedInConfirmationDialogPreviewNoEmail() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreviewNoInformation() {
     SignedInConfirmationDialogContent()
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreviewTruncation() {
     SignedInConfirmationDialogContent(

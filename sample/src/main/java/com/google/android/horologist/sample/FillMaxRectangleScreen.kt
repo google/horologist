@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.fillMaxRectangle
 
 @Composable
@@ -32,7 +33,7 @@ fun FillMaxRectangleScreen() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun FillMaxRectanglePreview() {
     FillMaxRectangleScreen()

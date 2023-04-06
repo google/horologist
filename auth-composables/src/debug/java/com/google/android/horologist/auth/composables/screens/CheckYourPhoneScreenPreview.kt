@@ -17,14 +17,15 @@
 package com.google.android.horologist.auth.composables.screens
 
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun CheckYourPhoneScreenPreview() {
     CheckYourPhoneScreen()
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun CheckYourPhoneScreenPreviewWithMessage() {
     CheckYourPhoneScreen(message = "XXXX-YYYY")

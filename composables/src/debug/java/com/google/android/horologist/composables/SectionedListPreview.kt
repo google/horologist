@@ -34,8 +34,9 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun SectionedListPreviewLoadingSection() {
     SectionedList {
@@ -45,7 +46,7 @@ fun SectionedListPreviewLoadingSection() {
     }
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun SectionedListPreviewLoadedSection() {
     SectionedList {
@@ -55,7 +56,7 @@ fun SectionedListPreviewLoadedSection() {
     }
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun SectionedListPreviewFailedSection() {
     SectionedList {
@@ -65,7 +66,7 @@ fun SectionedListPreviewFailedSection() {
     }
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun SectionedListPreviewEmptySection() {
     SectionedList {

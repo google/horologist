@@ -20,6 +20,7 @@ import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import androidx.wear.tiles.ActionBuilders
 import androidx.wear.tiles.ActionBuilders.AndroidActivity
@@ -155,7 +156,7 @@ class MediaCollectionsTileService : SuspendingTileService() {
     }
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @WearPreviewFontScales
 @Composable
 fun SampleTilePreview() {

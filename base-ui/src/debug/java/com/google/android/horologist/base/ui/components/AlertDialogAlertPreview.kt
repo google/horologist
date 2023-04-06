@@ -17,8 +17,9 @@
 package com.google.android.horologist.base.ui.components
 
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun AlertDialogAlertPreview() {
     AlertDialogAlert(
@@ -31,7 +32,7 @@ fun AlertDialogAlertPreview() {
     )
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun AlertDialogAlertWithLongBodyPreview() {
     AlertDialogAlert(

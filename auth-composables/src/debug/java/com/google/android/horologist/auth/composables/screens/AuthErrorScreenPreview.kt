@@ -17,8 +17,9 @@
 package com.google.android.horologist.auth.composables.screens
 
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun AuthErrorScreenPreview() {
     AuthErrorScreen()

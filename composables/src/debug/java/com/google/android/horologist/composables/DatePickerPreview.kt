@@ -17,10 +17,11 @@
 package com.google.android.horologist.composables
 
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import java.time.LocalDate
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @WearPreviewFontScales
 @Composable
 fun DatePickerPreview() {

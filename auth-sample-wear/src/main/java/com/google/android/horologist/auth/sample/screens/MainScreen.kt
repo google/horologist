@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.base.ui.components.StandardChip
@@ -178,7 +179,7 @@ private fun SectionedListScope.commonScreensSection(navigateToRoute: (String) ->
     }
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun AuthMenuScreenPreview() {
     MainScreen(

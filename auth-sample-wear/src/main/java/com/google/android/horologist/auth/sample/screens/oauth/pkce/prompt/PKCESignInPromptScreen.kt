@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.sample.R
@@ -92,7 +93,7 @@ fun PKCESignInPromptScreen(
     }
 }
 
-@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewDevices
 @Composable
 fun PKCESignInPromptScreenPreview() {
     PKCESignInPromptScreen(navController = NavHostController(LocalContext.current), columnState = belowTimeTextPreview())

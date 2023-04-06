@@ -17,10 +17,10 @@
 package com.google.android.horologist.media.ui.screens.player
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.media.ui.uamp.UampTheme
 
-@WearLargeRoundDevicePreview
+@WearPreviewLargeRound
 @Composable
 fun PlayerScreenPreviewUamp() {
     UampTheme {

@@ -21,15 +21,15 @@ package com.google.android.horologist.tile
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.tiles.material.Colors
 import com.google.android.horologist.compose.tools.TileLayoutPreview
-import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 import com.google.android.horologist.tiles.preview.ThemePreviewTileRenderer
 
 val SampleTheme =
     Colors(0xFF981F68.toInt(), 0xFFFFFFFF.toInt(), 0xFF1C1B1F.toInt(), 0xFFFFFFFF.toInt())
 
-@WearLargeRoundDevicePreview
+@WearPreviewLargeRound
 @Composable
 public fun SampleThemePreview() {
     ThemePreviewTile(SampleTheme)

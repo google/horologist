@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
 @file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.media.ui.tiles

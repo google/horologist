@@ -44,4 +44,10 @@ dependencies {
     testImplementation(libs.robolectric)
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        freeCompilerArgs.add("-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi")
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

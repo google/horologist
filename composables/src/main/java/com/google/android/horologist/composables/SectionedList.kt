@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistApi::class
-)
-
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.fillMaxSize

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.media.ui.components
 
 import androidx.compose.ui.test.assertIsDisplayed
@@ -26,6 +24,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
+import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
 

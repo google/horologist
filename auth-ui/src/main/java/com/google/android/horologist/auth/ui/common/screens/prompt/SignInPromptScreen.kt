@@ -81,7 +81,6 @@ public fun SignInPromptScreen(
     )
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @Composable
 internal fun SignInPromptScreen(
     state: SignInPromptScreenState,

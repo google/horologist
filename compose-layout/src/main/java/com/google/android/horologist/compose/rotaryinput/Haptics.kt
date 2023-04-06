@@ -96,7 +96,6 @@ public interface RotaryHapticHandler {
  * @param hapticsChannel Channel to which haptic events will be sent
  * @param hapticsThreshold A scroll threshold after which haptic is produced.
  */
-@OptIn(ExperimentalHorologistApi::class)
 public class DefaultRotaryHapticHandler(
     private val scrollableState: ScrollableState,
     private val hapticsChannel: Channel<RotaryHapticsType>,
@@ -112,7 +111,7 @@ public class DefaultRotaryHapticHandler(
             (scrollDelta < 0 && !scrollableState.canScrollBackward)
         ) {
             if (!overscrollHapticTriggered) {
-                hapticsChannel.trySend(RotaryHapticsType.ScrollLimit)
+                trySendHaptic(RotaryHapticsType.ScrollLimit)
                 overscrollHapticTriggered = true
             }
         } else {
@@ -121,7 +120,7 @@ public class DefaultRotaryHapticHandler(
             val diff = abs(currScrollPosition - prevHapticsPosition)
 
             if (diff >= hapticsThreshold) {
-                hapticsChannel.trySend(RotaryHapticsType.ScrollTick)
+                trySendHaptic(RotaryHapticsType.ScrollTick)
                 prevHapticsPosition = currScrollPosition
             }
         }
@@ -132,13 +131,19 @@ public class DefaultRotaryHapticHandler(
             (scrollDelta < 0 && !scrollableState.canScrollBackward)
         ) {
             if (!overscrollHapticTriggered) {
-                hapticsChannel.trySend(RotaryHapticsType.ScrollLimit)
+                trySendHaptic(RotaryHapticsType.ScrollLimit)
                 overscrollHapticTriggered = true
             }
         } else {
             overscrollHapticTriggered = false
-            hapticsChannel.trySend(RotaryHapticsType.ScrollItemFocus)
+            trySendHaptic(RotaryHapticsType.ScrollItemFocus)
         }
+    }
+
+    private fun trySendHaptic(rotaryHapticsType: RotaryHapticsType) {
+        // Ok to ignore the ChannelResult because we default to capacity = 2 and DROP_OLDEST
+        @Suppress("UNUSED_VARIABLE")
+        val unused = hapticsChannel.trySend(rotaryHapticsType)
     }
 }
 
@@ -233,7 +238,6 @@ public fun rememberRotaryHapticHandler(
     }
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @Composable
 private fun rememberHapticChannel() =
     remember {

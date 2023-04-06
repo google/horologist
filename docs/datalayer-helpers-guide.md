@@ -25,13 +25,13 @@ phone.
 
     For your watch and phone projects respectively.
 
-1.  Initialize the client
+1.  Initialize the client, including passing a `WearDataLayerRegistry`.
 
     ```kotlin
-    val appHelper = WearDataLayerAppHelper(context)
+    val appHelper = WearDataLayerAppHelper(context, wearDataLayerRegistry, scope)
 
     // or
-    val appHelper = PhoneDataLayerAppHelper(context)
+    val appHelper = PhoneDataLayerAppHelper(context, wearDataLayerRegistry)
     ```
 
 ## Typical use cases:
@@ -48,11 +48,27 @@ phone.
 
     ```
     AppHelperNodeStatus(
-        id=1e56d2,
-        displayName=Pixel Watch,
+        id=7cd1c38a,
+        displayName=Google Pixel Watch,
         isAppInstalled=true,
-        installedComplications=[GoalsComplication],
-        installedTiles=[SummaryTile]
+        nodeType=WATCH,
+        surfacesInfo=# SurfacesInfo@125fcbff
+            complications {
+                instance_id: 1234
+                name: "MyComplication"
+                timestamp {
+                    nanos: 738000000
+                    seconds: 1680015523
+                }
+                type: "SHORT_TEXT"
+            }
+            tiles {
+                name: "MyTile"
+                timestamp {
+                    nanos: 364000000
+                    seconds: 1680016845
+                }
+            }
     )
     ```
 
@@ -143,3 +159,4 @@ phone.
     ```kotlin
     wearAppHelper.markComplicationAsDeactivated("GoalsComplication")
     ```
+    

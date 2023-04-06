@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.composables
 
 import androidx.compose.animation.core.LinearEasing
@@ -44,7 +42,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.WearSquareDevicePreview
 import kotlinx.coroutines.delay
 
@@ -52,7 +49,6 @@ enum class PreviewAnimationState(val target: Float) {
     Start(0f), End(1f)
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @WearSquareDevicePreview
 @Composable
 fun PreviewProgressAnimation() {
@@ -147,7 +143,6 @@ fun PreviewProgressAnimation() {
     }
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @WearSquareDevicePreview
 @Composable
 fun PreviewHighCornerRadius() {
@@ -167,7 +162,6 @@ fun PreviewHighCornerRadius() {
     }
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @WearSquareDevicePreview
 @Composable
 fun PreviewSquare() {
@@ -182,7 +176,6 @@ fun PreviewSquare() {
     )
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @WearSquareDevicePreview
 @Composable
 fun PreviewSquareWithBrushColors() {
@@ -197,7 +190,6 @@ fun PreviewSquareWithBrushColors() {
     )
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @WearSquareDevicePreview
 @Composable
 fun PreviewSquareWithBrushAndColorsCombined() {

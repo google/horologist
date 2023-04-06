@@ -25,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.ScreenshotTest
 import org.junit.Test
 import org.robolectric.annotation.Config
@@ -39,7 +38,6 @@ class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
         screenTimeText = {}
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorLowCornerRadius() {
         takeScreenshot {
@@ -75,7 +73,6 @@ class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
         }
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorHighCornerRadius() {
         takeScreenshot {
@@ -111,7 +108,6 @@ class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
         }
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorManySegments() {
         takeScreenshot {
@@ -155,7 +151,6 @@ class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
         }
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorFewSegments() {
         takeScreenshot {
@@ -187,7 +182,6 @@ class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
         }
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorFewSegmentsAndBrushColor() {
         takeScreenshot {
@@ -227,7 +221,6 @@ class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
         }
     }
 
-    @OptIn(ExperimentalHorologistApi::class)
     @Test
     fun squareSegmentedIndicatorFewSegmentsAndBrushColorAndColorsCombined() {
         takeScreenshot {

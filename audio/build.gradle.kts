@@ -58,7 +58,6 @@ android {
         unitTests {
             isIncludeAndroidResources = true
         }
-        animationsDisabled = true
     }
 
     sourceSets.getByName("test") {
@@ -104,13 +103,14 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.kotlinx.coroutines.android)
 
-    androidTestImplementation(libs.androidx.lifecycle.testing)
-    androidTestImplementation(libs.androidx.test.rules)
-    androidTestImplementation(libs.truth)
-    androidTestImplementation(libs.compose.ui.test.junit4)
+    testImplementation(libs.androidx.lifecycle.testing)
+    testImplementation(libs.androidx.test.rules)
+    testImplementation(libs.truth)
+    testImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.junit)
+    testImplementation(libs.espresso.core)
+    testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

@@ -113,9 +113,7 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(projects.composeTools)
     testImplementation(projects.roboscreenshots)
-
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    androidTestImplementation(libs.truth)
+    testImplementation(libs.robolectric)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

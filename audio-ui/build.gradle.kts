@@ -121,15 +121,14 @@ dependencies {
     implementation(libs.compose.ui.toolingpreview)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
+    debugImplementation(libs.compose.ui.test.manifest)
 
     testImplementation(libs.junit)
     testImplementation(projects.roboscreenshots)
-
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    debugImplementation(libs.compose.ui.test.manifest)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.truth)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.compose.ui.test.junit4)
+    testImplementation(libs.espresso.core)
+    testImplementation(libs.truth)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

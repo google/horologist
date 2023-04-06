@@ -34,32 +34,10 @@ jobs:
           distribution: 'zulu'
           java-version: 11
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-
-      - name: Build (Debug)
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: --stacktrace assembleDebug
-
-      - name: Metalava compatibility check
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: --stacktrace
-              metalavaCheckCompatibility metalavaCheckCompatibilityRelease
-
-      - name: Code analysis
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: --stacktrace
-              spotlessCheck
-              lintDebug
-
       - name: Unit Tests
-        run: |
-          ./scripts/run-unit-tests.sh \
-              --run-affected \
-              --affected-base-ref=$BASE_REF
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: testDebug
 
       - name: Upload test results and reports
         if: always()
@@ -106,12 +84,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Compile instrumentation tests
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: --stacktrace
-            compileDebugAndroidTestSources
-
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -119,7 +91,7 @@ jobs:
           target: android-wear
           profile: wear_round_454
           emulator-options: -no-window -no-snapshot
-          script: ./scripts/run-instrumented-tests.sh --log-file=logcat.txt --run-affected --affected-base-ref=$BASE_REF --shard-index=0 --shard-count=1 --macrobenchmark-rules=Microbenchmark
+          script: ./gradlew connectedCheck -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Microbenchmark
 
       - name: Upload logs
         if: always()
@@ -165,3 +137,16 @@ jobs:
       - name: Check GIT lfs images
         run: |
           ./scripts/git-lfs-check.sh
+
+      - name: Metalava compatibility check
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace
+            metalavaCheckCompatibility metalavaCheckCompatibilityRelease
+
+      - name: Code analysis
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace
+            spotlessCheck
+            lintDebug

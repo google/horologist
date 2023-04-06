@@ -19,30 +19,26 @@ package com.google.android.horologist.audio.ui.components.actions
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.ui.VolumeUiState
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class SetVolumeButtonTest : ScreenshotTest() {
-
-    @Composable
-    override fun ComponentDefaults(content: @Composable (BoxScope.() -> Unit)) {
-        Box(modifier = Modifier.wrapContentSize().background(Color.Black.copy(alpha = 0.5f)).border(1.dp, Color.White)) {
-            content()
-        }
-    }
+class SetVolumeButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown() {
         val currentVolume = 5
 
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(
+            isComponent = true,
+            componentDefaultContent = { ComponentDefaults(it) },
+            takeScreenshot = true
+        ) {
             SetVolumeButton(
                 onVolumeClick = {},
                 volumeUiState = VolumeUiState(current = currentVolume, max = 10)
@@ -54,7 +50,11 @@ class SetVolumeButtonTest : ScreenshotTest() {
     fun givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
         val currentVolume = 0
 
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(
+            isComponent = true,
+            componentDefaultContent = { ComponentDefaults(it) },
+            takeScreenshot = true
+        ) {
             SetVolumeButton(
                 onVolumeClick = {},
                 volumeUiState = VolumeUiState(current = currentVolume)
@@ -66,7 +66,11 @@ class SetVolumeButtonTest : ScreenshotTest() {
     fun givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
         val currentVolume = 1
 
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(
+            isComponent = true,
+            componentDefaultContent = { ComponentDefaults(it) },
+            takeScreenshot = true
+        ) {
             SetVolumeButton(
                 onVolumeClick = {},
                 volumeUiState = VolumeUiState(current = currentVolume)
@@ -76,8 +80,24 @@ class SetVolumeButtonTest : ScreenshotTest() {
 
     @Test
     fun givenNoVolumeUiState_thenIconIsVolumeUp() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(
+            isComponent = true,
+            componentDefaultContent = { ComponentDefaults(it) },
+            takeScreenshot = true
+        ) {
             SetVolumeButton(onVolumeClick = {})
+        }
+    }
+
+    @Composable
+    private fun ComponentDefaults(content: @Composable (() -> Unit)) {
+        Box(
+            modifier = Modifier
+                .wrapContentSize()
+                .background(Color.Black.copy(alpha = 0.5f))
+                .border(1.dp, Color.White)
+        ) {
+            content()
         }
     }
 }

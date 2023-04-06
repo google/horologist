@@ -37,7 +37,7 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : ScreenshotBaseTest() 
     fun browseScreen() {
         val screenState = BrowseScreenState.Loaded(downloadList)
 
-        screenshotTestRule.takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val scalingParams =
                 androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams(
                     edgeScale = 1f,

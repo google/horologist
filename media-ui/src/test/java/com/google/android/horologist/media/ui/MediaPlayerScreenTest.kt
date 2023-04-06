@@ -68,7 +68,7 @@ class MediaPlayerScreenTest(
             connected = true
         )
 
-        screenshotTestRule.takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             Box(modifier = Modifier.background(Color.Black)) {
                 MediaPlayerTestCase(colors = themeValue.colors, playerUiState = playerUiState)
             }

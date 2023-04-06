@@ -24,14 +24,20 @@ class PlaceholderChipTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.takeComponentScreenshot {
+        screenshotTestRule.setContent(
+            isComponent = true,
+            takeScreenshot = true
+        ) {
             PlaceholderChip()
         }
     }
 
     @Test
     fun secondaryColors() {
-        screenshotTestRule.takeComponentScreenshot {
+        screenshotTestRule.setContent(
+            isComponent = true,
+            takeScreenshot = true
+        ) {
             PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
         }
     }

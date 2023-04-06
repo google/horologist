@@ -16,21 +16,21 @@
 
 package com.google.android.horologist.base.ui.components
 
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class TitleTest : ScreenshotTest() {
+class TitleTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Title("Title")
         }
     }
 
     @Test
     fun withVeryLongText() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Title("Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text")
         }
     }

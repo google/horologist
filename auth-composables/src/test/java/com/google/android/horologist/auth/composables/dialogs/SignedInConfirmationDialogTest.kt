@@ -23,19 +23,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 
-class SignedInConfirmationDialogTest :
-    ScreenshotBaseTest(
-        ScreenshotTestRule.screenshotTestRuleParams {
-            screenTimeText = { }
-        }
-    ) {
+class SignedInConfirmationDialogTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
+        screenTimeText = { }
+    }
+) {
 
     @Test
     fun signedInConfirmationDialog() {
-        screenshotTestRule.takeScreenshot(
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
             fakeImageLoader = FakeImageLoader.Resources
         ) {
             Box(
@@ -53,7 +53,8 @@ class SignedInConfirmationDialogTest :
 
     @Test
     fun signedInConfirmationDialogNoName() {
-        screenshotTestRule.takeScreenshot(
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
             fakeImageLoader = FakeImageLoader.Resources
         ) {
             SignedInConfirmationDialogContent(
@@ -65,7 +66,7 @@ class SignedInConfirmationDialogTest :
 
     @Test
     fun signedInConfirmationDialogNoNameNoAvatar() {
-        screenshotTestRule.takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SignedInConfirmationDialogContent(
                 email = "maggie@example.com"
             )
@@ -74,7 +75,8 @@ class SignedInConfirmationDialogTest :
 
     @Test
     fun signedInConfirmationDialogNoEmail() {
-        screenshotTestRule.takeScreenshot(
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
             fakeImageLoader = FakeImageLoader.Resources
         ) {
             SignedInConfirmationDialogContent(
@@ -86,14 +88,15 @@ class SignedInConfirmationDialogTest :
 
     @Test
     fun signedInConfirmationDialogNoInformation() {
-        screenshotTestRule.takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SignedInConfirmationDialogContent()
         }
     }
 
     @Test
     fun signedInConfirmationDialogTruncation() {
-        screenshotTestRule.takeScreenshot(
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
             fakeImageLoader = FakeImageLoader.Resources
         ) {
             SignedInConfirmationDialogContent(

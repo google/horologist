@@ -25,7 +25,6 @@ import android.graphics.Canvas
 import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
@@ -38,17 +37,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
+import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.test.core.app.ApplicationProvider
-import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
-import androidx.wear.compose.material.scrollAway
 import coil.compose.LocalImageLoader
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import com.quickbird.snapshot.Diffing
@@ -87,6 +83,7 @@ public class ScreenshotTestRule(
 
     private var testContent: View? = null
     private var snapshotCount: Int = 0
+    private var isComponent: Boolean = false
 
     override fun apply(base: Statement, description: Description): Statement {
         return object : Statement() {
@@ -99,31 +96,53 @@ public class ScreenshotTestRule(
                 } finally {
                     testContent = null
                     snapshotCount = 0
+                    isComponent = false
                 }
             }
         }
     }
 
     public fun setContent(
+        isComponent: Boolean = false,
+        componentDefaultContent: (@Composable (content: @Composable (() -> Unit)) -> Unit)? = null,
+        takeScreenshot: Boolean = false,
         roundScreen: Boolean? = null,
         timeText: @Composable () -> Unit = params.screenTimeText,
         positionIndicator: @Composable () -> Unit = { },
         fakeImageLoader: FakeImageLoader = FakeImageLoader.Never,
         composable: @Composable () -> Unit
     ) {
+        this.isComponent = isComponent
         val round = roundScreen ?: resources.configuration.isScreenRound
 
         composeContentTestRule.setContent {
             testContent = LocalView.current
-            ScreenshotDefaults(fakeImageLoader, round, timeText, positionIndicator, composable)
+
+            if (isComponent) {
+                if (componentDefaultContent == null) {
+                    ComponentDefaults(fakeImageLoader, composable)
+                } else {
+                    componentDefaultContent(composable)
+                }
+            } else {
+                ScreenshotDefaults(fakeImageLoader, round, timeText, positionIndicator, composable)
+            }
         }
 
         runTest {
             composeContentTestRule.awaitIdle()
         }
+
+        if (takeScreenshot) {
+            takeScreenshot()
+        }
     }
 
-    private fun getView(): View = testContent!!
+    // should not give [ComposeContentTestRule] as scope, as we don't want clients to call
+    // [ComposeContentTestRule.setContent]
+    public fun interact(block: ComposeTestRule.() -> Unit = {}) {
+        block(composeContentTestRule)
+    }
 
     public fun takeScreenshot() {
         val snapshotting = Snapshotting(
@@ -140,7 +159,12 @@ public class ScreenshotTestRule(
                 ).apply {
                     view.draw(Canvas(this))
                 }
-                snapshotTransformer.transform(node, bitmap)
+
+                if (isComponent) {
+                    bitmap
+                } else {
+                    snapshotTransformer.transform(node, bitmap)
+                }
             }
         ).fileSnapshotting
 
@@ -149,119 +173,7 @@ public class ScreenshotTestRule(
         }
     }
 
-    public fun interact(block: ComposeContentTestRule.() -> Unit = {}) {
-        block(composeContentTestRule)
-    }
-
-    public fun takeScreenshot(
-        roundScreen: Boolean? = null,
-        timeText: @Composable () -> Unit = params.screenTimeText,
-        positionIndicator: @Composable () -> Unit = { },
-        fakeImageLoader: FakeImageLoader = FakeImageLoader.Never,
-        checks: suspend ComposeContentTestRule.() -> Unit = {},
-        content: @Composable () -> Unit
-    ) {
-        val round = roundScreen ?: resources.configuration.isScreenRound
-
-        runTest {
-            lateinit var view: View
-
-            composeContentTestRule.setContent {
-                view = LocalView.current
-                ScreenshotDefaults(fakeImageLoader, round, timeText, positionIndicator, content)
-            }
-
-            composeContentTestRule.awaitIdle()
-
-            checks(composeContentTestRule)
-
-            val snapshotting = Snapshotting(
-                diffing = Diffing.bitmapWithTolerance(
-                    tolerance = params.tolerance,
-                    colorDiffing = Diffing.highlightWithRed
-                ),
-                snapshot = { node: SemanticsNodeInteraction ->
-                    val bitmap =
-                        Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-                            .apply {
-                                view.draw(Canvas(this))
-                            }
-                    snapshotTransformer.transform(node, bitmap)
-                }
-            ).fileSnapshotting
-
-            saveSnapshot(snapshotting)
-        }
-    }
-
-    public fun takeComponentScreenshot(
-        fakeImageLoader: FakeImageLoader = FakeImageLoader.Never,
-        checks: suspend ComposeContentTestRule.() -> Unit = {},
-        content: @Composable BoxScope.() -> Unit
-    ) {
-        runTest {
-            lateinit var view: View
-
-            composeContentTestRule.setContent {
-                view = LocalView.current
-                ComponentDefaults(fakeImageLoader, content)
-            }
-
-            composeContentTestRule.awaitIdle()
-
-            checks(composeContentTestRule)
-
-            val snapshotting = Snapshotting(
-                diffing = Diffing.bitmapWithTolerance(
-                    tolerance = params.tolerance,
-                    colorDiffing = Diffing.highlightWithRed
-                ),
-                snapshot = { _: SemanticsNodeInteraction ->
-                    Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888).apply {
-                        view.draw(Canvas(this))
-                    }
-                }
-            ).fileSnapshotting
-
-            saveSnapshot(snapshotting)
-        }
-    }
-
-    public fun takeScrollableScreenshot(
-        round: Boolean = resources.configuration.isScreenRound,
-        timeTextMode: TimeTextMode,
-        columnStateFactory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText(),
-        checks: suspend (columnState: ScalingLazyColumnState) -> Unit = {},
-        content: @Composable (columnState: ScalingLazyColumnState) -> Unit
-    ) {
-        lateinit var columnState: ScalingLazyColumnState
-
-        takeScreenshot(
-            round,
-            timeText = {
-                if (timeTextMode != TimeTextMode.Off) {
-                    TimeText(
-                        timeSource = FixedTimeSource,
-                        modifier = if (timeTextMode == TimeTextMode.Scrolling) {
-                            Modifier.scrollAway(columnState.state)
-                        } else {
-                            Modifier
-                        }
-                    )
-                }
-            },
-            positionIndicator = {
-                PositionIndicator(scalingLazyListState = columnState.state)
-            },
-            checks = {
-                checks(columnState)
-            }
-        ) {
-            columnState = columnStateFactory.create()
-
-            content(columnState)
-        }
-    }
+    private fun getView(): View = testContent!!
 
     private suspend fun saveSnapshot(snapshotting: FileSnapshotting<SemanticsNodeInteraction, Bitmap>) {
         snapshotting.snapshot(
@@ -285,7 +197,7 @@ public class ScreenshotTestRule(
 
     @Suppress("DEPRECATION")
     @Composable
-    internal fun FakeImageLoader.apply(content: @Composable () -> Unit) {
+    private fun FakeImageLoader.apply(content: @Composable () -> Unit) {
         // Not sure why this is needed, but Coil has improved
         // test support in next release
         this.override {
@@ -333,9 +245,9 @@ public class ScreenshotTestRule(
     }
 
     @Composable
-    public fun ComponentDefaults(
+    private fun ComponentDefaults(
         fakeImageLoader: FakeImageLoader,
-        content: @Composable BoxScope.() -> Unit
+        content: @Composable () -> Unit
     ) {
         fakeImageLoader.override {
             Box(
@@ -385,12 +297,6 @@ public class ScreenshotTestRule(
                 )
             }
         }
-    }
-
-    public enum class TimeTextMode {
-        OnTop,
-        Off,
-        Scrolling
     }
 
     public companion object {

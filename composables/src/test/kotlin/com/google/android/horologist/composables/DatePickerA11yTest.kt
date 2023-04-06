@@ -33,7 +33,7 @@ class DatePickerA11yTest : ScreenshotBaseTest(
     }
 ) {
     @Test
-    fun initial() {
+    fun interactionTest() {
         screenshotTestRule.setContent {
             DatePicker(
                 onDateConfirm = {},

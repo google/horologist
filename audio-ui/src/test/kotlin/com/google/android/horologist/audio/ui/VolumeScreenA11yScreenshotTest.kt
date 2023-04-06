@@ -39,7 +39,7 @@ class VolumeScreenA11yScreenshotTest : ScreenshotBaseTest(
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        screenshotTestRule.takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,

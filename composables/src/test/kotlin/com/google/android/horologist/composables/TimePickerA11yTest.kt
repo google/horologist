@@ -32,16 +32,18 @@ class TimePickerA11yTest : ScreenshotBaseTest(
 
     @Test
     fun initial() {
-        screenshotTestRule.takeScreenshot(
-            checks = {
-                onNodeWithContentDescription("Confirm")
-                    .assertHasClickAction()
-            }
-        ) {
+        screenshotTestRule.setContent {
             TimePicker(
                 time = LocalTime.of(10, 10, 0),
                 onTimeConfirm = {}
             )
         }
+
+        screenshotTestRule.interact {
+            onNodeWithContentDescription("Confirm")
+                .assertHasClickAction()
+        }
+
+        screenshotTestRule.takeScreenshot()
     }
 }

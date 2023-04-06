@@ -23,14 +23,14 @@ class CheckYourPhoneScreenTest : ScreenshotBaseTest() {
 
     @Test
     fun checkYourPhoneScreen() {
-        screenshotTestRule.takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             CheckYourPhoneScreen()
         }
     }
 
     @Test
     fun checkYourPhoneScreenWithMessage() {
-        screenshotTestRule.takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             CheckYourPhoneScreen(message = "XXXX-YYYY")
         }
     }

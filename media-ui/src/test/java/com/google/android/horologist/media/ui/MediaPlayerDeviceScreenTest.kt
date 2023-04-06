@@ -76,7 +76,7 @@ class MediaPlayerDeviceScreenTest : ScreenshotBaseTest() {
             connected = true
         )
 
-        screenshotTestRule.takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             MediaPlayerTestCase(
                 colors = UampColors,
                 playerUiState = playerUiState

@@ -25,7 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 import org.robolectric.annotation.Config
 
@@ -33,14 +34,16 @@ import org.robolectric.annotation.Config
     sdk = [30],
     qualifiers = "w227dp-h227dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
 )
-class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
-    init {
-        screenTimeText = {}
-    }
+class SquareSegmentedProgressIndicatorTest :
+    ScreenshotBaseTest(
+        ScreenshotTestRule.screenshotTestRuleParams {
+            screenTimeText = {}
+        }
+    ) {
 
     @Test
     fun squareSegmentedIndicatorLowCornerRadius() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
@@ -75,7 +78,7 @@ class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
 
     @Test
     fun squareSegmentedIndicatorHighCornerRadius() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
@@ -110,7 +113,7 @@ class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
 
     @Test
     fun squareSegmentedIndicatorManySegments() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
@@ -153,7 +156,7 @@ class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
 
     @Test
     fun squareSegmentedIndicatorFewSegments() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
@@ -184,7 +187,7 @@ class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
 
     @Test
     fun squareSegmentedIndicatorFewSegmentsAndBrushColor() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,
@@ -223,7 +226,7 @@ class SquareSegmentedProgressIndicatorTest : ScreenshotTest() {
 
     @Test
     fun squareSegmentedIndicatorFewSegmentsAndBrushColorAndColorsCombined() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,

@@ -43,10 +43,10 @@ import androidx.wear.compose.material.TitleCard
 import androidx.wear.compose.material.placeholder
 import androidx.wear.compose.material.placeholderShimmer
 import androidx.wear.compose.material.rememberPlaceholderState
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSquare
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.paging.items
-import com.google.android.horologist.compose.tools.WearSquareDevicePreview
 import com.google.android.horologist.sample.R
 import kotlinx.coroutines.delay
 import java.time.LocalTime
@@ -223,7 +223,7 @@ data class PagingItem(
     }
 }
 
-@WearSquareDevicePreview
+@WearPreviewSquare
 @Composable
 fun PagingItemCardPreviewWithDelayedContent() {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -236,7 +236,7 @@ fun PagingItemCardPreviewWithDelayedContent() {
     }
 }
 
-@WearSquareDevicePreview
+@WearPreviewSquare
 @Composable
 fun PagingItemCardPreviewWithInitialContent() {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {

@@ -20,36 +20,39 @@ import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class StandardChipIconWithProgressTest : ScreenshotTest() {
+class StandardChipIconWithProgressTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {
-        fakeImageLoader = FakeImageLoader.NotFound
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(
+            isComponent = true,
+            takeScreenshot = true,
+            fakeImageLoader = FakeImageLoader.NotFound
+        ) {
             StandardChipIconWithProgress(progress = 75f)
         }
     }
 
     @Test
     fun withProgressSmallIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChipIconWithProgress(progress = 75f, icon = Icon12dp)
         }
     }
 
     @Test
     fun withProgressMediumIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChipIconWithProgress(progress = 75f, icon = Icon32dp)
         }
     }
 
     @Test
     fun withProgressLargeIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChipIconWithProgress(
                 progress = 75f,
                 icon = Icon48dp,

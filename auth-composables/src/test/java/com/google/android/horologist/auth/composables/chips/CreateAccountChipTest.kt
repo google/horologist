@@ -17,21 +17,21 @@
 package com.google.android.horologist.auth.composables.chips
 
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class CreateAccountChipTest : ScreenshotTest() {
+class CreateAccountChipTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CreateAccountChip(onClick = {})
         }
     }
 
     @Test
     fun disabled() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CreateAccountChip(
                 onClick = {},
                 enabled = false
@@ -41,7 +41,7 @@ class CreateAccountChipTest : ScreenshotTest() {
 
     @Test
     fun withSecondaryChipType() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CreateAccountChip(
                 onClick = {},
                 chipType = StandardChipType.Secondary
@@ -51,7 +51,7 @@ class CreateAccountChipTest : ScreenshotTest() {
 
     @Test
     fun withSecondaryChipTypeDisabled() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CreateAccountChip(
                 onClick = {},
                 chipType = StandardChipType.Secondary,

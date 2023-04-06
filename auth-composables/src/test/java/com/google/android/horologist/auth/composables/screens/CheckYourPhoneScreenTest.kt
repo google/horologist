@@ -16,24 +16,21 @@
 
 package com.google.android.horologist.auth.composables.screens
 
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class CheckYourPhoneScreenTest : ScreenshotTest() {
-    init {
-        screenTimeText = {}
-    }
+class CheckYourPhoneScreenTest : ScreenshotBaseTest() {
 
     @Test
     fun checkYourPhoneScreen() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             CheckYourPhoneScreen()
         }
     }
 
     @Test
     fun checkYourPhoneScreenWithMessage() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             CheckYourPhoneScreen(message = "XXXX-YYYY")
         }
     }

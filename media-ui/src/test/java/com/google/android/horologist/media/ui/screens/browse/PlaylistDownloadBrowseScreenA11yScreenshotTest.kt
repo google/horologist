@@ -21,17 +21,17 @@ import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.components.positionedState
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Ignore
 import org.junit.Test
 
-class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotTest() {
+class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest() {
 
     @Test
     fun browseScreen() {
         val screenState = BrowseScreenState.Loaded(downloadList)
 
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, -40)
 
             PlayerLibraryPreview(state = columnState.state) {
@@ -54,7 +54,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotTest() {
         FakeImageLoader.NotFound.override {
             val screenState = BrowseScreenState.Loaded(downloadList)
 
-            takeScreenshot {
+            screenshotTestRule.setContent(takeScreenshot = true) {
                 val columnState = positionedState(4, 0)
                 PlayerLibraryPreview(state = columnState.state) {
                     PlaylistDownloadBrowseScreen(

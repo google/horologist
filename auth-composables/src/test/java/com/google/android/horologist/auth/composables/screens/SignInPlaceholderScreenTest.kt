@@ -16,17 +16,18 @@
 
 package com.google.android.horologist.auth.composables.screens
 
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 
-class SignInPlaceholderScreenTest : ScreenshotTest() {
-    init {
+class SignInPlaceholderScreenTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
         screenTimeText = {}
     }
-
+) {
     @Test
     fun signInPlaceholderScreen() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SignInPlaceholderScreen()
         }
     }

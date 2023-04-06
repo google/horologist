@@ -25,7 +25,8 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -35,12 +36,15 @@ import kotlin.time.Duration.Companion.seconds
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class PodcastPlayerScreenTest(
     private val options: PodcastOptions
-) : ScreenshotTest() {
+) : ScreenshotBaseTest(
+    ScreenshotTestRule.screenshotTestRuleParams {
+        screenTimeText = {}
+        testLabel = options.toString().lowercase()
+    }
+) {
 
     @Test
     fun mediaPlayerScreen() {
-        testLabel = options.toString().lowercase()
-
         val playerUiState = PlayerUiState(
             playEnabled = true,
             pauseEnabled = true,
@@ -57,11 +61,15 @@ class PodcastPlayerScreenTest(
                 title = "The power of types",
                 subtitle = "Kotlinconf"
             ),
-            trackPositionUiModel = TrackPositionUiModel.Actual(percent = 0.1f, position = 30.seconds, duration = 300.seconds),
+            trackPositionUiModel = TrackPositionUiModel.Actual(
+                percent = 0.1f,
+                position = 30.seconds,
+                duration = 300.seconds
+            ),
             connected = true
         )
 
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             Box(modifier = Modifier.background(Color.Black)) {
                 MediaPlayerTestCase(playerUiState = playerUiState, controlButtons = {
                     PodcastControlButtons(

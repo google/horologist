@@ -22,14 +22,14 @@ import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class MediaChipTest : ScreenshotTest() {
+class MediaChipTest : ScreenshotBaseTest() {
 
     @Test
     fun givenMediaWithArtwork_thenDisplaysArtwork() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     title = "Red Hot Chilli Peppers",
@@ -42,7 +42,7 @@ class MediaChipTest : ScreenshotTest() {
 
     @Test
     fun givenMediaWithNOArtwork_thenDoesNOTDisplayArtwork() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     title = "Red Hot Chilli Peppers",
@@ -55,7 +55,7 @@ class MediaChipTest : ScreenshotTest() {
 
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     title = "Very very very very very very very very very very very long title",
@@ -68,7 +68,7 @@ class MediaChipTest : ScreenshotTest() {
 
     @Test
     fun givenNOTitle_thenDisplaysDefaultTitle() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     media = MediaUiModel(
@@ -85,7 +85,7 @@ class MediaChipTest : ScreenshotTest() {
 
     @Test
     fun givenModifier_thenAppliesModifierCorrectly() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     media = MediaUiModel(

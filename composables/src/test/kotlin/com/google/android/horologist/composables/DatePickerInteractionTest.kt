@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist
+package com.google.android.horologist.composables
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,8 +27,6 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.composables.DatePicker
-import com.google.android.horologist.composables.DatePickerState
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -38,7 +36,7 @@ import org.junit.Test
 import java.time.LocalDate
 
 @Ignore("Race condition in tests on beta02")
-class DatePickerTest {
+class DatePickerInteractionTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 

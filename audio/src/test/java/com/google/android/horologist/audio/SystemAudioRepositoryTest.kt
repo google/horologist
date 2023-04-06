@@ -16,28 +16,52 @@
 
 package com.google.android.horologist.audio
 
-import androidx.test.annotation.UiThreadTest
+import android.content.Context
+import android.media.AudioManager
+import androidx.mediarouter.media.MediaRouter
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
+import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows
+import org.robolectric.annotation.Config
+import kotlin.time.Duration.Companion.seconds
+import android.media.MediaRouter as MediaRouterLegacy
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalHorologistApi::class)
 @MediumTest
+@RunWith(RobolectricTestRunner::class)
+@Config(
+    sdk = [30]
+)
 class SystemAudioRepositoryTest {
-    @Test
-    @UiThreadTest
-    fun testAudioOutputRepository() {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
+    private lateinit var mediaRouter: MediaRouter
+    private lateinit var audioManager: AudioManager
+    private lateinit var mediaRouterLegacy: MediaRouterLegacy
+    private lateinit var context: Context
 
+    @Before
+    fun setUp() {
+        context = InstrumentationRegistry.getInstrumentation().targetContext
+        mediaRouterLegacy =
+            context.getSystemService(Context.MEDIA_ROUTER_SERVICE) as MediaRouterLegacy
+
+        audioManager =
+            context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+
+        mediaRouter = MediaRouter.getInstance(context)
+    }
+
+    @Test
+    fun testAudioOutputRepository() {
         SystemAudioRepository.fromContext(context).use { repository ->
             assertThat(repository.audioOutput.value).isNotNull()
             assertThat(repository.available.value).isNotEmpty()
@@ -50,26 +74,33 @@ class SystemAudioRepositoryTest {
     }
 
     @Test
-    fun testVolumeRepository() = runTest(dispatchTimeoutMs = 10000) {
-        withContext(Dispatchers.Main) {
-            val context = InstrumentationRegistry.getInstrumentation().targetContext
-            SystemAudioRepository.fromContext(context).use { repository ->
-                if (repository.volumeState.value.current >= repository.volumeState.value.max) {
-                    repository.decreaseVolume()
+    @Ignore("File robolectric bug for MediaRouter")
+    fun testVolumeRepository() {
+        Shadows.shadowOf(mediaRouterLegacy).addBluetoothRoute()
+        Shadows.shadowOf(audioManager).apply {
+            setStreamMaxVolume(5)
+            setStreamMaxVolume(10)
+        }
+
+        assertThat(mediaRouter.selectedRoute.deviceType)
+            .isEqualTo(MediaRouter.RouteInfo.DEVICE_TYPE_BLUETOOTH)
+
+        SystemAudioRepository.fromContext(context).use { repository ->
+            val startingVolume = repository.volumeState.value.current
+
+            repository.increaseVolume()
+
+            val newVolume = runBlocking {
+                withTimeout(2.seconds) {
+                    repository.volumeState
+                        .map { it.current }
+                        .filter { it > startingVolume }
+                        .first()
                 }
-
-                val startingVolume = repository.volumeState.value.current
-
-                repository.increaseVolume()
-
-                val newVolume = repository.volumeState
-                    .map { it.current }
-                    .filter { it > startingVolume }
-                    .first()
-
-                assertThat(newVolume).isGreaterThan(startingVolume)
-                repository.close()
             }
+
+            assertThat(newVolume).isGreaterThan(startingVolume)
+            repository.close()
         }
     }
 }

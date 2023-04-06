@@ -34,27 +34,38 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows
+import org.robolectric.annotation.Config
 
 @OptIn(ExperimentalTestApi::class)
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
+@Config(sdk = [33])
 class VolumeScreenTest {
+    private lateinit var vibrator: Vibrator
+
     @get:Rule
     val composeTestRule = createComposeRule()
+
+    @Before
+    fun setUp() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        vibrator =
+            context.applicationContext.getSystemService(Vibrator::class.java)
+
+        Shadows.shadowOf(vibrator).setHasVibrator(true)
+    }
 
     @Test
     fun testHaptics() = runTest {
         val rotaryPixelsForVolume = 136
         val volumeRepository = FakeVolumeRepository(VolumeState(50, 100))
         val audioOutputRepository = FakeAudioOutputRepository()
-
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val vibrator =
-            context.applicationContext.getSystemService(Vibrator::class.java)
 
         val model = VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {
             volumeRepository.close()

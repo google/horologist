@@ -58,7 +58,6 @@ android {
         unitTests {
             isIncludeAndroidResources = true
         }
-        animationsDisabled = true
     }
 
     sourceSets.getByName("test") {
@@ -111,6 +110,7 @@ dependencies {
     debugImplementation(libs.compose.ui.test.manifest)
     testImplementation(libs.espresso.core)
     testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

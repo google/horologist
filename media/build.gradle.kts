@@ -41,6 +41,7 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
+    testImplementation(libs.robolectric)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

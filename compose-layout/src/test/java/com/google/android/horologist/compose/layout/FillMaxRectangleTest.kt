@@ -31,20 +31,26 @@ import androidx.test.filters.MediumTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 @MediumTest
+@RunWith(RobolectricTestRunner::class)
 class FillMaxRectangleTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
     @Test
+    @Config(
+        sdk = [30],
+        qualifiers = "w227dp-h227dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
+    )
     fun testSquare() {
         composeTestRule.setContent {
-            ForceMode(isRound = false) {
-                Boxes()
-            }
+            Boxes()
         }
 
         val width = composeTestRule.onRoot().fetchSemanticsNode().size.width
@@ -54,11 +60,13 @@ class FillMaxRectangleTest {
     }
 
     @Test
+    @Config(
+        sdk = [30],
+        qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+    )
     fun testCircle() {
         composeTestRule.setContent {
-            ForceMode(isRound = true) {
-                Boxes()
-            }
+            Boxes()
         }
 
         val width = composeTestRule.onRoot().fetchSemanticsNode().size.width
@@ -66,22 +74,6 @@ class FillMaxRectangleTest {
 
         val expectedWidth = sqrt(2.0 * (width.toDouble() / 2).pow(2.0))
         assertEquals(expectedWidth, safeWidth.toDouble(), 1.0)
-    }
-
-    @Composable
-    fun ForceMode(isRound: Boolean, fn: @Composable () -> Unit) {
-        val oldConfiguration = LocalConfiguration.current
-        val newConfiguration = Configuration(oldConfiguration).apply {
-            screenLayout = if (isRound) {
-                screenLayout or Configuration.SCREENLAYOUT_ROUND_YES
-            } else {
-                screenLayout and Configuration.SCREENLAYOUT_ROUND_YES.inv()
-            }
-        }
-        CompositionLocalProvider(LocalConfiguration provides newConfiguration) {
-            assertEquals(isRound, LocalConfiguration.current.isScreenRound)
-            fn()
-        }
     }
 
     @Composable

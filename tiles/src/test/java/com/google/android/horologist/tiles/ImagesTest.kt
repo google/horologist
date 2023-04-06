@@ -28,8 +28,18 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.GraphicsMode
 
 @SmallTest
+@RunWith(RobolectricTestRunner::class)
+@Config(
+    sdk = [33],
+    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
 class ImagesTest {
     private lateinit var context: Context
 

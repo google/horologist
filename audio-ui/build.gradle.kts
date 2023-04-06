@@ -124,6 +124,7 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(projects.roboscreenshots)
+    testImplementation(libs.robolectric)
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.espresso.core)
     testImplementation(libs.truth)

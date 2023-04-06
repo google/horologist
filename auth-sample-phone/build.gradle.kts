@@ -111,6 +111,7 @@ dependencies {
     implementation(libs.playservices.wearable)
 
     testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)

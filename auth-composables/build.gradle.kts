@@ -112,6 +112,7 @@ dependencies {
     implementation(libs.compose.ui.toolingpreview)
 
     testImplementation(projects.roboscreenshots)
+    testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

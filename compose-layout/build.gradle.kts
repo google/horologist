@@ -115,6 +115,7 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.espresso.core)
+    testImplementation(libs.robolectric)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

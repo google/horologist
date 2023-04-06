@@ -113,6 +113,7 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(projects.composeTools)
     testImplementation(projects.roboscreenshots)
+    testImplementation(libs.robolectric)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

@@ -23,9 +23,8 @@ import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptS
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun SignInPromptScreenPreviewSignedOut() {
     SignInPromptScreen(
@@ -51,7 +50,7 @@ fun SignInPromptScreenPreviewSignedOut() {
     }
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun SignInPromptScreenPreviewLoading() {
     SignInPromptScreen(

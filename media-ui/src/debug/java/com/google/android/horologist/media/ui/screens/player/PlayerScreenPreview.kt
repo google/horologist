@@ -36,14 +36,13 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.ThemeValues
-import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
-import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.compose.tools.WearPreviewThemes
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
@@ -283,8 +282,8 @@ fun PlayerScreenPreviewCustomBackground() {
     }
 }
 
-@WearPreviewDevices
-@WearPreviewFontSizes
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewFontScales
 @Composable
 fun PlayerScreenPreviewDevices() {
     UampTheme {
@@ -292,7 +291,7 @@ fun PlayerScreenPreviewDevices() {
     }
 }
 
-@WearLargeRoundDevicePreview
+@WearPreviewLargeRound
 @Composable
 fun VolumeScreenTheme(
     @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues

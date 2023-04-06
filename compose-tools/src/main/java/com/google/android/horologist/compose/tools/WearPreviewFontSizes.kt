@@ -67,4 +67,5 @@ import androidx.compose.ui.tooling.preview.Preview
     group = "Fonts - Largest",
     fontScale = 1.24f
 )
+@Deprecated("Now in Wear Compose", replaceWith = ReplaceWith("WearPreviewFontScales", "androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales"))
 public annotation class WearPreviewFontSizes

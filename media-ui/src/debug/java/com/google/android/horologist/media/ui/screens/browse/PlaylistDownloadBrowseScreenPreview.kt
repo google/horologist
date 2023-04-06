@@ -22,12 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.media.ui.uamp.UampTheme
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun PlaylistDownloadBrowseScreenPreview() {
     PlaylistDownloadBrowseScreen(
@@ -44,7 +43,7 @@ fun PlaylistDownloadBrowseScreenPreview() {
     )
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
     PlaylistDownloadBrowseScreen(
@@ -57,7 +56,7 @@ fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
     )
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewLoading() {
     PlaylistDownloadBrowseScreen(
@@ -70,7 +69,7 @@ fun PlaylistDownloadBrowseScreenPreviewLoading() {
     )
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
     UampTheme {

@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import androidx.wear.tiles.ColorBuilders.argb
 import androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters
 import androidx.wear.tiles.LayoutElementBuilders
@@ -40,8 +41,6 @@ import androidx.wear.tiles.material.layouts.MultiButtonLayout
 import androidx.wear.tiles.material.layouts.PrimaryLayout
 import com.google.android.horologist.compose.tools.LayoutElementPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
-import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.Icon1
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.Image1
@@ -120,8 +119,8 @@ class SampleTileRenderer(context: Context) :
     }
 }
 
-@WearPreviewDevices
-@WearPreviewFontSizes
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewFontScales
 @Composable
 fun SampleTilePreview() {
     val context = LocalContext.current

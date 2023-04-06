@@ -30,10 +30,9 @@ import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.R
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun BrowseScreenPreview() {
     BrowseScreenPreviewSample(
@@ -49,7 +48,7 @@ fun BrowseScreenPreview() {
     )
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun BrowseScreenPreviewLoading() {
     BrowseScreenPreviewSample(
@@ -58,7 +57,7 @@ fun BrowseScreenPreviewLoading() {
     )
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun BrowseScreenPreviewFailed() {
     BrowseScreenPreviewSample(

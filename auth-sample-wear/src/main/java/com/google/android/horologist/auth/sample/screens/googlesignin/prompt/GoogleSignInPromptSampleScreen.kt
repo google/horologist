@@ -40,7 +40,6 @@ import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @Composable
 fun GoogleSignInPromptSampleScreen(
@@ -92,7 +91,7 @@ fun GoogleSignInPromptSampleScreen(
     }
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun GoogleSignInPromptSampleScreenPreview() {
     GoogleSignInPromptSampleScreen(

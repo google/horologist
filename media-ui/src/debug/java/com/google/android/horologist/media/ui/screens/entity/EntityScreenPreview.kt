@@ -47,9 +47,8 @@ import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun EntityScreenPreview() {
     EntityScreen(
@@ -105,7 +104,7 @@ fun EntityScreenPreview() {
     )
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun EntityScreenPreviewLoadedState() {
     EntityScreen(
@@ -118,7 +117,7 @@ fun EntityScreenPreviewLoadedState() {
     )
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun EntityScreenPreviewLoadingState() {
     EntityScreen(
@@ -131,7 +130,7 @@ fun EntityScreenPreviewLoadingState() {
     )
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun EntityScreenPreviewFailedState() {
     EntityScreen(

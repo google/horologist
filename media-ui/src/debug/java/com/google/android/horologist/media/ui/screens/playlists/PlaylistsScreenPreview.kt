@@ -24,10 +24,9 @@ import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun PlaylistsScreenPreview() {
     PlaylistsScreen(
@@ -58,7 +57,7 @@ fun PlaylistsScreenPreview() {
     )
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun PlaylistsScreenPreviewLoading() {
     PlaylistsScreen(
@@ -68,7 +67,7 @@ fun PlaylistsScreenPreviewLoading() {
     )
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun PlaylistsScreenPreviewFailed() {
     PlaylistsScreen(
@@ -78,7 +77,7 @@ fun PlaylistsScreenPreviewFailed() {
     )
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun PlaylistsScreenPreviewCustomLayout() {
     PlaylistsScreen(

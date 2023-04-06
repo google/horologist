@@ -25,9 +25,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun FillMaxRectanglePreview() {
     Box(modifier = Modifier.fillMaxSize()) {

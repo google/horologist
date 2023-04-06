@@ -24,18 +24,18 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.tools.ThemeValues
-import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
-import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.compose.tools.WearPreviewThemes
-import com.google.android.horologist.compose.tools.WearSmallRoundDevicePreview
 
-@WearSmallRoundDevicePreview
+@WearPreviewSmallRound
 @Composable
 fun VolumeScreenGuideWithLongText() {
     val volume = VolumeState(5, 10)
@@ -62,7 +62,7 @@ fun VolumeScreenGuideWithLongText() {
 }
 
 @WearPreviewDevices
-@WearPreviewFontSizes
+@WearPreviewFontScales
 @Composable
 fun VolumeScreenPreview(
     @PreviewParameter(AudioOutputProvider::class) audioOutput: AudioOutput
@@ -87,7 +87,7 @@ fun VolumeScreenPreview(
     }
 }
 
-@WearLargeRoundDevicePreview
+@WearPreviewLargeRound
 @Composable
 fun VolumeScreenTheme(
     @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues
@@ -118,7 +118,7 @@ fun VolumeScreenTheme(
 }
 
 @WearPreviewDevices
-@WearPreviewFontSizes
+@WearPreviewFontScales
 @Composable
 fun VolumeScreenWithLabel() {
     val volume = VolumeState(5, 10)

@@ -40,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
     showBackground = true,
     group = "Devices - Square"
 )
+@Deprecated("Now in Wear Compose", replaceWith = ReplaceWith("WearPreviewDevices", "androidx.wear.compose.ui.tooling.preview.WearPreviewDevices"))
 public annotation class WearPreviewDevices
 
 @Preview(
@@ -49,6 +50,7 @@ public annotation class WearPreviewDevices
     showBackground = true,
     group = "Devices - Small Round"
 )
+@Deprecated("Now in Wear Compose", replaceWith = ReplaceWith("WearPreviewSmallRound", "androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound"))
 public annotation class WearSmallRoundDevicePreview
 
 @Preview(
@@ -58,6 +60,7 @@ public annotation class WearSmallRoundDevicePreview
     showBackground = true,
     group = "Devices - Large Round"
 )
+@Deprecated("Now in Wear Compose", replaceWith = ReplaceWith("WearPreviewLargeRound", "androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound"))
 public annotation class WearLargeRoundDevicePreview
 
 @Preview(
@@ -67,6 +70,7 @@ public annotation class WearLargeRoundDevicePreview
     showBackground = true,
     group = "Devices - Square"
 )
+@Deprecated("Now in Wear Compose", replaceWith = ReplaceWith("WearPreviewSquare", "androidx.wear.compose.ui.tooling.preview.WearPreviewSquare"))
 public annotation class WearSquareDevicePreview
 
 @Preview(

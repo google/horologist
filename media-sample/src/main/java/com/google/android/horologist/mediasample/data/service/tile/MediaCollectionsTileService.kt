@@ -20,6 +20,7 @@ import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import androidx.wear.tiles.ActionBuilders
 import androidx.wear.tiles.ActionBuilders.AndroidActivity
 import androidx.wear.tiles.RequestBuilders.ResourcesRequest
@@ -28,8 +29,6 @@ import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import coil.ImageLoader
 import com.google.android.horologist.compose.tools.TileLayoutPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
-import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
@@ -156,8 +155,8 @@ class MediaCollectionsTileService : SuspendingTileService() {
     }
 }
 
-@WearPreviewDevices
-@WearPreviewFontSizes
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+@WearPreviewFontScales
 @Composable
 fun SampleTilePreview() {
     val context = LocalContext.current

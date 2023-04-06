@@ -51,7 +51,6 @@ import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 
 private val todayTasks = listOf(
@@ -199,7 +198,7 @@ private fun SectionHeader(
     }
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun SectionedListExpandableScreenPreview() {
     SectionedListExpandableScreen(columnState = belowTimeTextPreview())

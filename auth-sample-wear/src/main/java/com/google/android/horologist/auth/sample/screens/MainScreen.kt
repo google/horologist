@@ -30,7 +30,6 @@ import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @Composable
 fun MainScreen(
@@ -179,7 +178,7 @@ private fun SectionedListScope.commonScreensSection(navigateToRoute: (String) ->
     }
 }
 
-@WearPreviewDevices
+@androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @Composable
 fun AuthMenuScreenPreview() {
     MainScreen(

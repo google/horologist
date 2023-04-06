@@ -21,9 +21,8 @@ import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
+import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
 

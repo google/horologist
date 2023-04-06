@@ -38,8 +38,8 @@ import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media.ui.test.FakeAudioOutputRepository
 import com.google.android.horologist.media.ui.test.FakeVolumeRepository
-import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository
+import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test

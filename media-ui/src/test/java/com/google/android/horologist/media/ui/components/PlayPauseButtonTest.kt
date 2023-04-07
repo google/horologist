@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,24 +16,19 @@
 
 package com.google.android.horologist.media.ui.components
 
-import android.os.SystemClock
-import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasContentDescription
-import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
-import androidx.test.filters.FlakyTest
-import com.google.android.horologist.media.model.MediaPositionPredictor
-import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
-import kotlin.time.Duration.Companion.seconds
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
-@FlakyTest(detail = "https://github.com/google/horologist/issues/407")
-class PlayPauseProgressButtonTest {
+@RunWith(RobolectricTestRunner::class)
+class PlayPauseButtonTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -43,19 +38,15 @@ class PlayPauseProgressButtonTest {
         // given
         var clicked = false
         composeTestRule.setContent {
-            PlayPauseProgressButton(
+            PlayPauseButton(
                 onPlayClick = {},
                 onPauseClick = { clicked = true },
                 enabled = true,
-                playing = true,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds)
+                playing = true
             )
         }
 
         // then
-        composeTestRule.onNode(hasProgressBar())
-            .assertExists()
-
         composeTestRule.onNode(hasAnyChild(hasContentDescription("Pause")))
             .assertIsDisplayed()
             .performClick()
@@ -64,6 +55,9 @@ class PlayPauseProgressButtonTest {
         composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
 
         composeTestRule.onNode(hasAnyChild(hasContentDescription("Play")))
+            .assertDoesNotExist()
+
+        composeTestRule.onNode(hasProgressBar())
             .assertDoesNotExist()
     }
 
@@ -72,19 +66,15 @@ class PlayPauseProgressButtonTest {
         // given
         var clicked = false
         composeTestRule.setContent {
-            PlayPauseProgressButton(
+            PlayPauseButton(
                 onPlayClick = { clicked = true },
                 onPauseClick = {},
                 enabled = true,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds)
+                playing = false
             )
         }
 
         // then
-        composeTestRule.onNode(hasProgressBar())
-            .assertExists()
-
         composeTestRule.onNode(hasAnyChild(hasContentDescription("Play")))
             .assertIsDisplayed()
             .performClick()
@@ -94,49 +84,8 @@ class PlayPauseProgressButtonTest {
 
         composeTestRule.onNode(hasAnyChild(hasContentDescription("Pause")))
             .assertDoesNotExist()
-    }
 
-    @Test
-    fun givenMediaProgress_thenProgressIsCorrect() {
-        // given
-        composeTestRule.setContent {
-            PlayPauseProgressButton(
-                onPlayClick = {},
-                onPauseClick = {},
-                enabled = true,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds)
-            )
-        }
-
-        // then
-        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0.5f, 0.0f..1.0f)))
-            .assertIsDisplayed()
-    }
-
-    @Test
-    fun givenPredictiveMediaProgress_thenProgressIsChanging() {
-        // given
-        composeTestRule.mainClock.autoAdvance = false
-        val predictor = MediaPositionPredictor(
-            eventTimestamp = SystemClock.elapsedRealtime(),
-            currentPositionMs = 0,
-            durationMs = 5_000,
-            positionSpeed = 1f
-        )
-        composeTestRule.setContent {
-            PlayPauseProgressButton(
-                onPlayClick = {},
-                onPauseClick = {},
-                enabled = true,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Predictive(predictor)
-            )
-        }
-
-        // then
-        composeTestRule.mainClock.advanceTimeBy(10_000)
-        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(1f, 0.0f..1.0f)))
-            .assertIsDisplayed()
+        composeTestRule.onNode(hasProgressBar())
+            .assertDoesNotExist()
     }
 }

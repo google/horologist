@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,17 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
+import androidx.test.filters.FlakyTest
+import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
-class MediaControlButtonsTest {
+@FlakyTest(detail = "https://github.com/google/horologist/issues/407")
+@RunWith(RobolectricTestRunner::class)
+class PodcastControlButtonsTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -37,15 +43,15 @@ class MediaControlButtonsTest {
         val playing = true
 
         composeTestRule.setContent {
-            MediaControlButtons(
+            PodcastControlButtons(
                 onPlayButtonClick = {},
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = true,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -64,15 +70,15 @@ class MediaControlButtonsTest {
         var clicked = false
 
         composeTestRule.setContent {
-            MediaControlButtons(
+            PodcastControlButtons(
                 onPlayButtonClick = {},
                 onPauseButtonClick = { clicked = true },
                 playPauseButtonEnabled = true,
                 playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = true,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -91,15 +97,15 @@ class MediaControlButtonsTest {
         val playing = false
 
         composeTestRule.setContent {
-            MediaControlButtons(
+            PodcastControlButtons(
                 onPlayButtonClick = {},
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = true,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -118,15 +124,15 @@ class MediaControlButtonsTest {
         var clicked = false
 
         composeTestRule.setContent {
-            MediaControlButtons(
+            PodcastControlButtons(
                 onPlayButtonClick = { clicked = true },
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = true,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -140,25 +146,25 @@ class MediaControlButtonsTest {
     }
 
     @Test
-    fun whenSeekToPreviousIsClicked_thenCorrectEventIsTriggered() {
+    fun whenSeekBackIsClicked_thenCorrectEventIsTriggered() {
         // given
         var clicked = false
 
         composeTestRule.setContent {
-            MediaControlButtons(
+            PodcastControlButtons(
                 onPlayButtonClick = {},
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = false,
-                onSeekToPreviousButtonClick = { clicked = true },
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                onSeekBackButtonClick = { clicked = true },
+                seekBackButtonEnabled = true,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = true
             )
         }
 
         // when
-        composeTestRule.onNodeWithContentDescription("Previous")
+        composeTestRule.onNodeWithContentDescription("Rewind")
             .performClick()
 
         // then
@@ -167,25 +173,25 @@ class MediaControlButtonsTest {
     }
 
     @Test
-    fun whenSeekToNextIsClicked_thenCorrectEventIsTriggered() {
+    fun whenSeekForwardIsClicked_thenCorrectEventIsTriggered() {
         // given
         var clicked = false
 
         composeTestRule.setContent {
-            MediaControlButtons(
+            PodcastControlButtons(
                 onPlayButtonClick = {},
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = false,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = { clicked = true },
-                seekToNextButtonEnabled = true
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = true,
+                onSeekForwardButtonClick = { clicked = true },
+                seekForwardButtonEnabled = true
             )
         }
 
         // when
-        composeTestRule.onNodeWithContentDescription("Next")
+        composeTestRule.onNodeWithContentDescription("Forward")
             .performClick()
 
         // then
@@ -194,18 +200,19 @@ class MediaControlButtonsTest {
     }
 
     @Test
-    fun givenNOPercentParam_thenNOProgressBarIsDisplayed() {
+    fun givenNoPercentParam_thenNOProgressBarIsDisplayed() {
         // given
         composeTestRule.setContent {
-            MediaControlButtons(
+            PodcastControlButtons(
                 onPlayButtonClick = {},
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = false,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = true,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = true
+
             )
         }
 
@@ -221,15 +228,15 @@ class MediaControlButtonsTest {
         val playPauseButtonEnabled = true
 
         composeTestRule.setContent {
-            MediaControlButtons(
+            PodcastControlButtons(
                 onPlayButtonClick = {},
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = playPauseButtonEnabled,
                 playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = false,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = false
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = false,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = false
             )
         }
 
@@ -237,9 +244,9 @@ class MediaControlButtonsTest {
         composeTestRule.onNodeWithContentDescription("Pause")
             .assertIsEnabled()
 
-        composeTestRule.onNodeWithContentDescription("Previous")
+        composeTestRule.onNodeWithContentDescription("Rewind")
             .assertIsNotEnabled()
-        composeTestRule.onNodeWithContentDescription("Next")
+        composeTestRule.onNodeWithContentDescription("Forward")
             .assertIsNotEnabled()
     }
 
@@ -250,15 +257,15 @@ class MediaControlButtonsTest {
         val playPauseButtonEnabled = true
 
         composeTestRule.setContent {
-            MediaControlButtons(
+            PodcastControlButtons(
                 onPlayButtonClick = {},
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = playPauseButtonEnabled,
                 playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = false,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = false
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = false,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = false
             )
         }
 
@@ -266,65 +273,119 @@ class MediaControlButtonsTest {
         composeTestRule.onNodeWithContentDescription("Play")
             .assertIsEnabled()
 
-        composeTestRule.onNodeWithContentDescription("Previous")
+        composeTestRule.onNodeWithContentDescription("Rewind")
             .assertIsNotEnabled()
-        composeTestRule.onNodeWithContentDescription("Next")
+        composeTestRule.onNodeWithContentDescription("Forward")
             .assertIsNotEnabled()
     }
 
     @Test
-    fun givenSeekToPreviousButtonEnabledIsTrue_thenSeekToPreviousButtonIsEnabled() {
+    fun givenSeekBackButtonEnabledIsTrue_thenSeekBackButtonIsEnabled() {
         // given
-        val seekToPreviousButtonEnabled = true
+        val seekBackButtonEnabled = true
 
         composeTestRule.setContent {
-            MediaControlButtons(
+            PodcastControlButtons(
                 onPlayButtonClick = {},
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = false,
                 playing = false,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = false
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = seekBackButtonEnabled,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = false
             )
         }
 
         // then
-        composeTestRule.onNodeWithContentDescription("Previous")
+        composeTestRule.onNodeWithContentDescription("Rewind")
             .assertIsEnabled()
 
         composeTestRule.onNodeWithContentDescription("Play")
             .assertIsNotEnabled()
-        composeTestRule.onNodeWithContentDescription("Next")
+        composeTestRule.onNodeWithContentDescription("Forward")
             .assertIsNotEnabled()
     }
 
     @Test
-    fun givenSeekToNextButtonEnabledIsTrue_thenSeekToNextButtonIsEnabled() {
+    fun givenSeekForwardButtonEnabledIsTrue_thenSeekForwardButtonIsEnabled() {
         // given
-        val seekToNextButtonEnabled = true
+        val seekForwardButtonEnabled = true
 
         composeTestRule.setContent {
-            MediaControlButtons(
+            PodcastControlButtons(
                 onPlayButtonClick = {},
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = false,
                 playing = false,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = false,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = seekToNextButtonEnabled
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = false,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = seekForwardButtonEnabled
             )
         }
 
         // then
-        composeTestRule.onNodeWithContentDescription("Next")
+        composeTestRule.onNodeWithContentDescription("Forward")
             .assertIsEnabled()
 
-        composeTestRule.onNodeWithContentDescription("Previous")
-            .assertIsNotEnabled()
         composeTestRule.onNodeWithContentDescription("Play")
             .assertIsNotEnabled()
+        composeTestRule.onNodeWithContentDescription("Rewind")
+            .assertIsNotEnabled()
+    }
+
+    @Test
+    fun givenSeekBackIncrementIsFive_thenSeekBackDescriptionIsFive() {
+        // given
+        val seekBackButtonIncrement = SeekButtonIncrement.Five
+
+        composeTestRule.setContent {
+            PodcastControlButtons(
+                onPlayButtonClick = {},
+                onPauseButtonClick = {},
+                playPauseButtonEnabled = false,
+                playing = false,
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = false,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = false,
+                seekBackButtonIncrement = seekBackButtonIncrement
+            )
+        }
+
+        // then
+        composeTestRule.onNodeWithContentDescription("Rewind 5 seconds")
+            .assertExists()
+
+        composeTestRule.onNodeWithContentDescription("Forward")
+            .assertExists()
+    }
+
+    @Test
+    fun givenSeekForwardIncrementIsFive_thenSeekForwardDescriptionIsFive() {
+        // given
+        val seekForwardButtonIncrement = SeekButtonIncrement.Five
+
+        composeTestRule.setContent {
+            PodcastControlButtons(
+                onPlayButtonClick = {},
+                onPauseButtonClick = {},
+                playPauseButtonEnabled = false,
+                playing = false,
+                onSeekBackButtonClick = {},
+                seekBackButtonEnabled = false,
+                onSeekForwardButtonClick = {},
+                seekForwardButtonEnabled = false,
+                seekForwardButtonIncrement = seekForwardButtonIncrement
+            )
+        }
+
+        // then
+        composeTestRule.onNodeWithContentDescription("Forward 5 seconds")
+            .assertExists()
+
+        composeTestRule.onNodeWithContentDescription("Rewind")
+            .assertExists()
     }
 }

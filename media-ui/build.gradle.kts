@@ -147,13 +147,9 @@ dependencies {
     testImplementation(projects.audioUi)
     testImplementation(projects.roboscreenshots)
     testImplementation(projects.logo)
-
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    androidTestImplementation(libs.truth)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext)
-    androidTestImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.compose.ui.test.junit4)
+    testImplementation(libs.espresso.core)
+    testImplementation(libs.androidx.test.ext)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

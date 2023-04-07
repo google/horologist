@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.google.android.horologist.media.ui.screens.player
 
 import android.os.Vibrator
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
@@ -36,17 +37,22 @@ import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.media.ui.test.FakeAudioOutputRepository
-import com.google.android.horologist.media.ui.test.FakeVolumeRepository
+import com.google.android.horologist.test.toolbox.testdoubles.FakeAudioOutputRepository
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository
+import com.google.android.horologist.test.toolbox.testdoubles.FakeVolumeRepository
 import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import kotlin.time.Duration.Companion.minutes
 
 @FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 @LargeTest
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [33])
 class PlayerScreenTest {
 
     @get:Rule
@@ -54,14 +60,16 @@ class PlayerScreenTest {
 
     val volumeRepository = FakeVolumeRepository(VolumeState(5, 15))
     val audioOutputRepository = FakeAudioOutputRepository()
-    val vibrator = InstrumentationRegistry.getInstrumentation().context.getSystemService(Vibrator::class.java)
-    val volumeViewModel = VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {}, vibrator)
+    val vibrator =
+        InstrumentationRegistry.getInstrumentation().context.getSystemService(Vibrator::class.java)
+    val volumeViewModel =
+        VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {}, vibrator)
 
     @Test
     fun givenShowProgressIsTrue_thenProgressBarIsDisplayed() {
         // given
         val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+            FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
         playerRepository.setPosition(1.minutes, 10.minutes)
@@ -81,7 +89,7 @@ class PlayerScreenTest {
     fun givenShowProgressIsFalse_thenProgressBarIsNOTDisplayed() {
         // given
         val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+            FakePlayerRepository()
         playerRepository.setPosition(null, null)
         val playerViewModel = PlayerViewModel(playerRepository)
 
@@ -106,13 +114,15 @@ class PlayerScreenTest {
     @Test
     fun givenPlayerRepoIsNOTPlaying_whenPlayIsClicked_thenPlayerRepoIsPlaying() {
         // given
-        val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+        val playerRepository = FakePlayerRepository()
         playerRepository.addCommand(Command.PlayPause)
-
+        // Needed for play to be enabled
+        playerRepository.pause()
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isNotEqualTo(PlayerState.Playing)
+        assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isNotEqualTo(
+            PlayerState.Playing
+        )
 
         composeTestRule.setContent {
             PlayerScreen(
@@ -123,6 +133,8 @@ class PlayerScreenTest {
 
         // when
         composeTestRule.onNodeWithContentDescription("Play")
+            .assertHasClickAction()
+            .assertIsEnabled()
             .performClick()
 
         // then
@@ -135,13 +147,15 @@ class PlayerScreenTest {
     fun givenPlayerRepoIsPlaying_whenPauseIsClicked_thenPlayerRepoIsNOTPlaying() {
         // given
         val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+            FakePlayerRepository()
         playerRepository.addCommand(Command.PlayPause)
         playerRepository.play()
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
+        assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isEqualTo(
+            PlayerState.Playing
+        )
 
         composeTestRule.setContent {
             PlayerScreen(
@@ -152,6 +166,8 @@ class PlayerScreenTest {
 
         // when
         composeTestRule.onNodeWithContentDescription("Pause")
+            .assertHasClickAction()
+            .assertIsEnabled()
             .performClick()
 
         // then
@@ -164,7 +180,7 @@ class PlayerScreenTest {
     fun givenMediaList_whenSeekToPreviousIsClicked_thenPreviousItemIsPlaying() {
         // given
         val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+            FakePlayerRepository()
 
         val media1 = Media(id = "", uri = "", title = "", artist = "")
         val media2 = Media(id = "", uri = "", title = "", artist = "")
@@ -197,7 +213,7 @@ class PlayerScreenTest {
     fun givenMediaList_whenSeekToNextIsClicked_thenNextItemIsPlaying() {
         // given
         val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+            FakePlayerRepository()
 
         val media1 = Media(id = "", uri = "", title = "", artist = "")
         val media2 = Media(id = "", uri = "", title = "", artist = "")
@@ -230,7 +246,7 @@ class PlayerScreenTest {
     fun whenUpdatePosition_thenProgressIsUpdated() {
         // given
         val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+            FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
@@ -259,7 +275,7 @@ class PlayerScreenTest {
     fun whenPlayPauseCommandBecomesAvailable_thenPlayPauseButtonGetsEnabled() {
         // given
         val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+            FakePlayerRepository()
         playerRepository.play()
 
         val playerViewModel = PlayerViewModel(playerRepository)
@@ -287,7 +303,7 @@ class PlayerScreenTest {
     fun whenSeekToPreviousMediaCommandBecomesAvailable_thenSeekToPreviousButtonGetsEnabled() {
         // given
         val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+            FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
@@ -313,7 +329,7 @@ class PlayerScreenTest {
     fun whenSeekToNextMediaCommandBecomesAvailable_thenSeekToNextButtonGetsEnabled() {
         // given
         val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+            FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
@@ -339,7 +355,7 @@ class PlayerScreenTest {
     fun givenMedia_thenCorrectTitleAndArtistAndIsDisplayed() {
         // given
         val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+            FakePlayerRepository()
         val artist = "artist"
         val title = "title"
         val media = Media(id = "", uri = "", title = title, artist = artist)
@@ -364,7 +380,7 @@ class PlayerScreenTest {
     fun givenCustomMediaDisplay_thenCustomIsDisplayed() {
         // given
         val playerRepository =
-            com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()
+            FakePlayerRepository()
         val artist = "artist"
         val title = "title"
         val media = Media(id = "", uri = "", title = title, artist = artist)
@@ -393,7 +409,7 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(FakePlayerRepository()),
                 controlButtons = { _, _ -> Text("Custom") },
                 volumeViewModel = volumeViewModel
             )
@@ -414,7 +430,7 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(FakePlayerRepository()),
                 buttons = { Text("Custom") },
                 volumeViewModel = volumeViewModel
             )
@@ -429,7 +445,7 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(FakePlayerRepository()),
                 background = { Text("Custom") },
                 volumeViewModel = volumeViewModel
             )

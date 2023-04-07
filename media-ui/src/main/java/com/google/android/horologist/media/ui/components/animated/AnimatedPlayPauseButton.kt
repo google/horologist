@@ -145,6 +145,7 @@ private fun animateLottieProgressAsState(
 
     // Ensures lottie initializes to the correct progress with the playing state.
     LaunchedEffect(firstTime) {
+        firstTime = false
         if (playing) {
             lottieProgress.snapTo(progress = 1f)
         } else {
@@ -153,7 +154,6 @@ private fun animateLottieProgressAsState(
     }
 
     LaunchedEffect(playing) {
-        firstTime = false
         val targetValue = if (playing) 1f else 0f
         if (lottieProgress.progress < targetValue) {
             lottieProgress.animate(composition, speed = 1f)

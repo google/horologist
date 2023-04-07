@@ -137,11 +137,10 @@ public fun AnimatedPlayPauseButton(
 @Composable
 private fun animateLottieProgressAsState(
     playing: Boolean,
-    composition: LottieComposition?,
-    firstPlay: Boolean = true
+    composition: LottieComposition?
 ): State<Float> {
     val lottieProgress = rememberLottieAnimatable()
-    var firstTime by remember { mutableStateOf(firstPlay) }
+    var firstTime by remember { mutableStateOf(true) }
 
     // Ensures lottie initializes to the correct progress with the playing state.
     LaunchedEffect(firstTime) {
@@ -161,6 +160,7 @@ private fun animateLottieProgressAsState(
             lottieProgress.animate(composition, speed = -1f)
         }
     }
+
     return lottieProgress
 }
 

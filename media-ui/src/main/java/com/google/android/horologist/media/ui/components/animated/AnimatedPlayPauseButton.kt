@@ -25,6 +25,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,9 +46,8 @@ import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
 import com.airbnb.lottie.LottieComposition
-import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
 import com.google.android.horologist.media.ui.R
@@ -135,18 +137,28 @@ public fun AnimatedPlayPauseButton(
 @Composable
 private fun animateLottieProgressAsState(
     playing: Boolean,
-    composition: LottieComposition?
+    composition: LottieComposition?,
+    firstPlay: Boolean = true
 ): State<Float> {
-    val lottieProgress = animateLottieCompositionAsState(
-        composition = composition,
-        isPlaying = false
-    ) as LottieAnimatable
+    val lottieProgress = rememberLottieAnimatable()
+    var firstTime by remember { mutableStateOf(firstPlay) }
+
+    // Ensures lottie initializes to the correct progress with the playing state.
+    LaunchedEffect(firstTime) {
+        if (playing) {
+            lottieProgress.snapTo(progress = 1f)
+        } else {
+            lottieProgress.snapTo(progress = 0f)
+        }
+    }
+
     LaunchedEffect(playing) {
+        firstTime = false
         val targetValue = if (playing) 1f else 0f
         if (lottieProgress.progress < targetValue) {
-            lottieProgress.animate(composition, speed = 1f, initialProgress = 1f)
+            lottieProgress.animate(composition, speed = 1f)
         } else if (lottieProgress.progress > targetValue) {
-            lottieProgress.animate(composition, speed = -1f, initialProgress = 0f)
+            lottieProgress.animate(composition, speed = -1f)
         }
     }
     return lottieProgress

@@ -86,9 +86,7 @@ public fun MarqueeTextMediaDisplay(
         ) { currentArtist ->
             Text(
                 text = currentArtist.orEmpty(),
-                modifier = Modifier.fillMaxWidth(0.8f).clearAndSetSemantics {
-                    contentDescription = currentArtist.orEmpty()
-                },
+                modifier = Modifier.fillMaxWidth(0.8f),
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,

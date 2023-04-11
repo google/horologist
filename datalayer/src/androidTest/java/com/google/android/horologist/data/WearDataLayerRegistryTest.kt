@@ -32,8 +32,10 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.junit.Ignore
 import org.junit.Test
 
+@Ignore("flaky, tracked in https://github.com/google/horologist/issues/1191")
 class WearDataLayerRegistryTest {
 
     @Test

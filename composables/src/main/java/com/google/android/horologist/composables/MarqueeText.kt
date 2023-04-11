@@ -52,6 +52,7 @@ import kotlin.math.roundToInt
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
+// TODO: Deprecate this MarqueeText and replace with the Compose [Modifier.basicMarquee]. https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/foundation/foundation/src/commonMain/kotlin/androidx/compose/foundation/BasicMarquee.kt
 private enum class MarqueeComponents {
     First,
     Second,

@@ -17,7 +17,7 @@
 package com.google.android.horologist.auth.composables.screens
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.compose.tools.WearPreviewDevices
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 
 @WearPreviewDevices
 @Composable

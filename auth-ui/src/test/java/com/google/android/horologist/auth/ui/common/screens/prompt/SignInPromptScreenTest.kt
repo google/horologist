@@ -21,18 +21,20 @@ import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import com.google.android.horologist.test.toolbox.composables.positionedState
 import org.junit.Test
 
-class SignInPromptScreenTest : ScreenshotTest() {
-    init {
+class SignInPromptScreenTest : ScreenshotBaseTest(
+    ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {}
     }
+) {
 
     @Test
     fun idle() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SignInPromptScreen(
                 state = SignInPromptScreenState.Idle,
                 title = "Sign in",
@@ -48,7 +50,7 @@ class SignInPromptScreenTest : ScreenshotTest() {
 
     @Test
     fun loading() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SignInPromptScreen(
                 state = SignInPromptScreenState.Loading,
                 title = "Sign in",
@@ -64,7 +66,7 @@ class SignInPromptScreenTest : ScreenshotTest() {
 
     @Test
     fun signedIn() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SignInPromptScreen(
                 state = SignInPromptScreenState.SignedIn(AccountUiModel("user@example.com")),
                 title = "Sign in",
@@ -80,7 +82,7 @@ class SignInPromptScreenTest : ScreenshotTest() {
 
     @Test
     fun signedOut() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SignInPromptScreen(
                 state = SignInPromptScreenState.SignedOut,
                 title = "Sign in",
@@ -96,7 +98,7 @@ class SignInPromptScreenTest : ScreenshotTest() {
 
     @Test
     fun signedOutTruncation() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SignInPromptScreen(
                 state = SignInPromptScreenState.SignedOut,
                 title = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",

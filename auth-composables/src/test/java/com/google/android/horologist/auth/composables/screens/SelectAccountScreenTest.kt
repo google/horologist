@@ -19,18 +19,20 @@ package com.google.android.horologist.auth.composables.screens
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import com.google.android.horologist.test.toolbox.positionedState
 import org.junit.Test
 
-class SelectAccountScreenTest : ScreenshotTest() {
-    init {
+class SelectAccountScreenTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
         screenTimeText = {}
     }
+) {
 
     @Test
     fun selectAccountScreen() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SelectAccountScreen(
                 accounts = listOf(
                     AccountUiModel(
@@ -47,7 +49,7 @@ class SelectAccountScreenTest : ScreenshotTest() {
 
     @Test
     fun selectAccountScreenNoAvatar() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SelectAccountScreen(
                 accounts = listOf(
                     AccountUiModel(email = "maggie@example.com"),

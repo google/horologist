@@ -18,7 +18,7 @@ package com.google.android.horologist.base.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -31,11 +31,11 @@ internal class StandardButtonTest(
     private val buttonType: StandardButtonType,
     private val buttonSize: StandardButtonSize,
     private val enabled: Boolean
-) : ScreenshotTest() {
+) : ScreenshotBaseTest() {
 
     @Test
     fun variants() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardButton(
                 imageVector = Icons.Default.Check,
                 contentDescription = "contentDescription",

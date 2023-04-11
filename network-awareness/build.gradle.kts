@@ -119,6 +119,7 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.robolectric)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.espresso.core)

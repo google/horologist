@@ -41,6 +41,7 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
+    testImplementation(libs.robolectric)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

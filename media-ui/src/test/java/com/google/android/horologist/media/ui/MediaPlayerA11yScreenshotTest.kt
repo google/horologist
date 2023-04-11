@@ -20,12 +20,12 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 import kotlin.time.Duration.Companion.seconds
 
-class MediaPlayerA11yScreenshotTest : ScreenshotTest() {
+class MediaPlayerA11yScreenshotTest : ScreenshotBaseTest() {
 
     @Test
     fun mediaPlayerLargeRound() {
@@ -75,7 +75,7 @@ class MediaPlayerA11yScreenshotTest : ScreenshotTest() {
             connected = true
         )
 
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             MediaPlayerTestCase(
                 colors = UampColors,
                 playerUiState = playerUiState

@@ -22,19 +22,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 
-class SignedInConfirmationDialogTest : ScreenshotTest() {
-    init {
-        screenTimeText = {}
+class SignedInConfirmationDialogTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
+        screenTimeText = { }
     }
+) {
 
     @Test
     fun signedInConfirmationDialog() {
-        this.fakeImageLoader = FakeImageLoader.Resources
-
-        takeScreenshot {
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
+            fakeImageLoader = FakeImageLoader.Resources
+        ) {
             Box(
                 modifier = Modifier.background(Color.Black),
                 contentAlignment = Alignment.Center
@@ -50,9 +53,10 @@ class SignedInConfirmationDialogTest : ScreenshotTest() {
 
     @Test
     fun signedInConfirmationDialogNoName() {
-        this.fakeImageLoader = FakeImageLoader.Resources
-
-        takeScreenshot {
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
+            fakeImageLoader = FakeImageLoader.Resources
+        ) {
             SignedInConfirmationDialogContent(
                 email = "maggie@example.com",
                 avatar = android.R.drawable.sym_def_app_icon
@@ -62,7 +66,7 @@ class SignedInConfirmationDialogTest : ScreenshotTest() {
 
     @Test
     fun signedInConfirmationDialogNoNameNoAvatar() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SignedInConfirmationDialogContent(
                 email = "maggie@example.com"
             )
@@ -71,9 +75,10 @@ class SignedInConfirmationDialogTest : ScreenshotTest() {
 
     @Test
     fun signedInConfirmationDialogNoEmail() {
-        this.fakeImageLoader = FakeImageLoader.Resources
-
-        takeScreenshot {
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
+            fakeImageLoader = FakeImageLoader.Resources
+        ) {
             SignedInConfirmationDialogContent(
                 name = "Maggie",
                 avatar = android.R.drawable.sym_def_app_icon
@@ -83,16 +88,17 @@ class SignedInConfirmationDialogTest : ScreenshotTest() {
 
     @Test
     fun signedInConfirmationDialogNoInformation() {
-        takeScreenshot {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             SignedInConfirmationDialogContent()
         }
     }
 
     @Test
     fun signedInConfirmationDialogTruncation() {
-        this.fakeImageLoader = FakeImageLoader.Resources
-
-        takeScreenshot {
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
+            fakeImageLoader = FakeImageLoader.Resources
+        ) {
             SignedInConfirmationDialogContent(
                 name = "Wolfeschlegelsteinhausenbergerdorff",
                 email = "wolfeschlegelsteinhausenbergerdorff@example.com",

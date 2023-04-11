@@ -42,14 +42,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.tools.WearSquareDevicePreview
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSquare
 import kotlinx.coroutines.delay
 
 enum class PreviewAnimationState(val target: Float) {
     Start(0f), End(1f)
 }
 
-@WearSquareDevicePreview
+@WearPreviewSquare
 @Composable
 fun PreviewProgressAnimation() {
     var progressState by remember { mutableStateOf(PreviewAnimationState.Start) }
@@ -143,7 +143,7 @@ fun PreviewProgressAnimation() {
     }
 }
 
-@WearSquareDevicePreview
+@WearPreviewSquare
 @Composable
 fun PreviewHighCornerRadius() {
     Box(
@@ -162,7 +162,7 @@ fun PreviewHighCornerRadius() {
     }
 }
 
-@WearSquareDevicePreview
+@WearPreviewSquare
 @Composable
 fun PreviewSquare() {
     SquareSegmentedProgressIndicator(
@@ -176,7 +176,7 @@ fun PreviewSquare() {
     )
 }
 
-@WearSquareDevicePreview
+@WearPreviewSquare
 @Composable
 fun PreviewSquareWithBrushColors() {
     SquareSegmentedProgressIndicator(
@@ -190,7 +190,7 @@ fun PreviewSquareWithBrushColors() {
     )
 }
 
-@WearSquareDevicePreview
+@WearPreviewSquare
 @Composable
 fun PreviewSquareWithBrushAndColorsCombined() {
     SquareSegmentedProgressIndicator(

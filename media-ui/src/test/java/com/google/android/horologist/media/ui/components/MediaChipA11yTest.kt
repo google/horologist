@@ -22,19 +22,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class MediaChipA11yTest : ScreenshotTest() {
-    init {
-        enableA11yTest()
-        fakeImageLoader = FakeImageLoader.Resources
+class MediaChipA11yTest : ScreenshotBaseTest(
+    ScreenshotTestRule.screenshotTestRuleParams {
+        enableA11y = true
         screenTimeText = {}
     }
+) {
 
     @Test
     fun a11y() {
-        takeScreenshot {
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
+            fakeImageLoader = FakeImageLoader.Resources
+        ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 MediaChip(
                     media = MediaUiModel(

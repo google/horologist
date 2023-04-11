@@ -26,14 +26,14 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.screenshots.ScreenshotTest
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class PrimaryChipTest : ScreenshotTest() {
+class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { }
@@ -43,7 +43,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun withSecondaryLabel() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -54,7 +54,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun withIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -65,7 +65,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun withLargeIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -77,7 +77,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun withSecondaryLabelAndIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -89,7 +89,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun withSecondaryLabelAndLargeIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -102,7 +102,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun disabled() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -115,7 +115,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun withLongText() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 onClick = { }
@@ -125,7 +125,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun withSecondaryLabelAndLongText() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
@@ -137,7 +137,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun usingSmallIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -148,7 +148,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun withLargeIconUsingSmallIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -160,7 +160,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun usingExtraLargeIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -171,7 +171,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun withLargeIconUsingExtraLargeIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -183,7 +183,7 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun withPlaceholderIcon() {
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -194,9 +194,11 @@ class PrimaryChipTest : ScreenshotTest() {
 
     @Test
     fun disabledWithIconPlaceholder() {
-        fakeImageLoader = FakeImageLoader.Never
-
-        takeComponentScreenshot {
+        screenshotTestRule.setContent(
+            isComponent = true,
+            takeScreenshot = true,
+            fakeImageLoader = FakeImageLoader.Never
+        ) {
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
                 StandardChip(

@@ -71,7 +71,7 @@ public fun MarqueeTextMediaDisplay(
             MarqueeText(
                 text = currentTitle.orEmpty(),
                 modifier = Modifier.fillMaxWidth(0.7f).clearAndSetSemantics {
-                    contentDescription = title.orEmpty()
+                    contentDescription = currentTitle.orEmpty()
                 },
                 color = MaterialTheme.colors.onBackground,
                 style = MaterialTheme.typography.button,
@@ -87,7 +87,7 @@ public fun MarqueeTextMediaDisplay(
             Text(
                 text = currentArtist.orEmpty(),
                 modifier = Modifier.fillMaxWidth(0.8f).clearAndSetSemantics {
-                    contentDescription = title.orEmpty()
+                    contentDescription = currentArtist.orEmpty()
                 },
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,

@@ -19,7 +19,6 @@
 package com.google.android.horologist.media.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.ColumnScope
@@ -37,7 +36,7 @@ import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.pager.PagerScreen
-import com.google.android.horologist.media.ui.components.MediaControlButtons
+import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.background.RadialBackground
 import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
@@ -52,7 +51,7 @@ fun MediaPlayerTestCase(
         DefaultMediaInfoDisplay(playerUiState)
     },
     controlButtons: @Composable RowScope.() -> Unit = {
-        MediaControlButtons(
+        AnimatedMediaControlButtons(
             onPlayButtonClick = { },
             onPauseButtonClick = { },
             playPauseButtonEnabled = playerUiState.playPauseEnabled,

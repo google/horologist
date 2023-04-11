@@ -65,7 +65,7 @@ public fun MarqueeTextMediaDisplay(
         AnimatedContent(
             targetState = title,
             transitionSpec = { getTransitionAnimation() },
-            label = ""
+            label = "AnimatedTitle"
         ) {
                 currentTitle ->
             MarqueeText(
@@ -82,7 +82,7 @@ public fun MarqueeTextMediaDisplay(
         AnimatedContent(
             targetState = artist,
             transitionSpec = { getTransitionAnimation(subtextTransitionDelay) },
-            label = ""
+            label = "AnimatedArtist"
         ) { currentArtist ->
             Text(
                 text = currentArtist.orEmpty(),

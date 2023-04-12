@@ -129,6 +129,9 @@ public fun DatePicker(
                 datePickerState.monthState.numberOfOptions = datePickerState.numOfMonths
             }
             if (datePickerState.numOfDays != datePickerState.dayState.numberOfOptions) {
+                if (datePickerState.dayState.selectedOption >= datePickerState.numOfDays) {
+                    datePickerState.dayState.animateScrollToOption(datePickerState.numOfDays - 1)
+                }
                 datePickerState.dayState.numberOfOptions = datePickerState.numOfDays
             }
         }

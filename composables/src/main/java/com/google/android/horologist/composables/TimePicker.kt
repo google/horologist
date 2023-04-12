@@ -530,9 +530,9 @@ internal fun pickerGroupItemWithRSB(
         modifier = modifier.onRotaryInputAccumulated {
             coroutineScope.launch {
                 if (it > 0) {
-                    pickerState.scrollToOption(pickerState.selectedOption + 1)
+                    pickerState.animateScrollToOption(pickerState.selectedOption + 1)
                 } else {
-                    pickerState.scrollToOption(pickerState.selectedOption - 1)
+                    pickerState.animateScrollToOption(pickerState.selectedOption - 1)
                 }
             }
         },

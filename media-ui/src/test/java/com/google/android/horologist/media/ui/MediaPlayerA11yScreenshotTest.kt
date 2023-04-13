@@ -48,7 +48,7 @@ class MediaPlayerA11yScreenshotTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav"
+        qualifiers = "w180dp-h180dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
     )
     @Test
     fun mediaPlayerSquare() {

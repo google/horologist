@@ -206,17 +206,25 @@ public fun rememberDisabledHaptic(): RotaryHapticHandler = remember {
 
 /**
  * Remember rotary haptic handler.
+ * @param scrollableState A scrollableState, used to determine whether the end of the scrollable
+ * was reached or not.
+ * @param throttleThresholdMs Throttling events within specified timeframe.
+ * Only first and last events will be received. Check [throttleLatest] for more info.
+ * @param hapticsThreshold A scroll threshold after which haptic is produced.
+ * @param hapticsChannel Channel to which haptic events will be sent
+ * @param rotaryHaptics Interface for Rotary haptic feedback which performs haptics
  */
 @ExperimentalHorologistApi
 @Composable
 public fun rememberRotaryHapticHandler(
     scrollableState: ScrollableState,
     throttleThresholdMs: Long = 40,
+    hapticsThreshold: Long = 50,
     hapticsChannel: Channel<RotaryHapticsType> = rememberHapticChannel(),
     rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback()
 ): RotaryHapticHandler {
     return remember(scrollableState, hapticsChannel, rotaryHaptics) {
-        DefaultRotaryHapticHandler(scrollableState, hapticsChannel)
+        DefaultRotaryHapticHandler(scrollableState, hapticsChannel, hapticsThreshold)
     }.apply {
         LaunchedEffect(hapticsChannel) {
             hapticsChannel.receiveAsFlow()

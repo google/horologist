@@ -73,6 +73,7 @@ import androidx.wear.compose.material.TouchExplorationStateProvider
 import androidx.wear.compose.material.rememberPickerGroupState
 import androidx.wear.compose.material.rememberPickerState
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
+import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.time.temporal.ChronoField
@@ -525,13 +526,19 @@ internal fun pickerGroupItemWithRSB(
     option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit
 ): PickerGroupItem {
     val coroutineScope = rememberCoroutineScope()
+    val haptics = rememberRotaryHapticHandler(
+        scrollableState = pickerState,
+        throttleThresholdMs = 10
+    )
     return PickerGroupItem(
         pickerState = pickerState,
         modifier = modifier.onRotaryInputAccumulated {
             coroutineScope.launch {
                 if (it > 0) {
+                    haptics.handleSnapHaptic(1f)
                     pickerState.animateScrollToOption(pickerState.selectedOption + 1)
                 } else {
+                    haptics.handleSnapHaptic(-1f)
                     pickerState.animateScrollToOption(pickerState.selectedOption - 1)
                 }
             }

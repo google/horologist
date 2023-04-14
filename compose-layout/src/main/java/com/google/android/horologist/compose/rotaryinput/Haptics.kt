@@ -88,18 +88,18 @@ public interface RotaryHapticHandler {
 
 /**
  * Default implementation of [RotaryHapticHandler]. It handles haptic feedback based
- * on the [scrollableState], scrolled pixels and [hapticsThreshold].
+ * on the [scrollableState], scrolled pixels and [hapticsThresholdPx].
  * Haptic is not fired in this class, instead it's sent to [hapticsChannel]
  * where it'll performed later.
  *
  * @param scrollableState Haptic performed based on this state
  * @param hapticsChannel Channel to which haptic events will be sent
- * @param hapticsThreshold A scroll threshold after which haptic is produced.
+ * @param hapticsThresholdPx A scroll threshold after which haptic is produced.
  */
 public class DefaultRotaryHapticHandler(
     private val scrollableState: ScrollableState,
     private val hapticsChannel: Channel<RotaryHapticsType>,
-    private val hapticsThreshold: Long = 50
+    private val hapticsThresholdPx: Long = 50
 ) : RotaryHapticHandler {
 
     private var overscrollHapticTriggered = false
@@ -119,7 +119,7 @@ public class DefaultRotaryHapticHandler(
             currScrollPosition += scrollDelta
             val diff = abs(currScrollPosition - prevHapticsPosition)
 
-            if (diff >= hapticsThreshold) {
+            if (diff >= hapticsThresholdPx) {
                 trySendHaptic(RotaryHapticsType.ScrollTick)
                 prevHapticsPosition = currScrollPosition
             }
@@ -206,17 +206,25 @@ public fun rememberDisabledHaptic(): RotaryHapticHandler = remember {
 
 /**
  * Remember rotary haptic handler.
+ * @param scrollableState A scrollableState, used to determine whether the end of the scrollable
+ * was reached or not.
+ * @param throttleThresholdMs Throttling events within specified timeframe.
+ * Only first and last events will be received. Check [throttleLatest] for more info.
+ * @param hapticsThresholdPx A scroll threshold after which haptic is produced.
+ * @param hapticsChannel Channel to which haptic events will be sent
+ * @param rotaryHaptics Interface for Rotary haptic feedback which performs haptics
  */
 @ExperimentalHorologistApi
 @Composable
 public fun rememberRotaryHapticHandler(
     scrollableState: ScrollableState,
     throttleThresholdMs: Long = 40,
+    hapticsThresholdPx: Long = 50,
     hapticsChannel: Channel<RotaryHapticsType> = rememberHapticChannel(),
     rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback()
 ): RotaryHapticHandler {
     return remember(scrollableState, hapticsChannel, rotaryHaptics) {
-        DefaultRotaryHapticHandler(scrollableState, hapticsChannel)
+        DefaultRotaryHapticHandler(scrollableState, hapticsChannel, hapticsThresholdPx)
     }.apply {
         LaunchedEffect(hapticsChannel) {
             hapticsChannel.receiveAsFlow()

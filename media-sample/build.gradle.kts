@@ -181,6 +181,9 @@ dependencies {
     implementation(libs.androidx.datastore)
     implementation(libs.protobuf.kotlin.lite)
 
+    add("benchmarkImplementation", libs.androidx.tracing.perfetto)
+    add("benchmarkImplementation", libs.androidx.tracing.perfetto.binary)
+
     implementation(libs.androidx.complications.datasource.ktx)
 
     implementation(libs.coil)

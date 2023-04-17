@@ -21,7 +21,8 @@ package com.google.android.horologist.composables
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.MarqueeSpacing
 import androidx.compose.foundation.basicMarquee
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,6 +43,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
@@ -140,10 +142,17 @@ private class MarqueeController(edgeGradientWidth: Dp) {
             }
         }
 
-    val insideMarqueeModifier: Modifier = Modifier.offset {
-        val offset = if (needsScrolling) edgeGradientWidth.roundToPx() else 0
-        IntOffset(offset, 0)
+    private val padding = object : PaddingValues {
+        override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
+            if (layoutDirection == LayoutDirection.Ltr) edgeGradientWidth else 0.dp
+
+        override fun calculateRightPadding(layoutDirection: LayoutDirection): Dp =
+            if (layoutDirection == LayoutDirection.Ltr) 0.dp else edgeGradientWidth
+
+        override fun calculateTopPadding(): Dp = 0.dp
+        override fun calculateBottomPadding(): Dp = 0.dp
     }
+    val insideMarqueeModifier: Modifier = Modifier.padding(padding)
 
     private fun DrawScope.drawFadeGradient(
         leftEdge: Boolean,

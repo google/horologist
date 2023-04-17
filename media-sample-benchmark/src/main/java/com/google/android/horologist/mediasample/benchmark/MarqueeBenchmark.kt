@@ -28,8 +28,10 @@ import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.benchmark.MediaApp
 import com.google.android.horologist.media.benchmark.MediaControllerHelper
 import com.google.common.util.concurrent.ListenableFuture
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.junit.Rule
 import org.junit.Test
 import kotlin.time.Duration.Companion.seconds
@@ -44,8 +46,7 @@ class MarqueeBenchmark {
     public lateinit var mediaControllerFuture: ListenableFuture<MediaBrowser>
 
     @Test
-    public fun startup(): Unit = benchmarkRule.measureRepeated(
-        packageName = mediaApp.packageName,
+    public fun startup(): Unit = benchmarkRule.measureRepeated(packageName = mediaApp.packageName,
         metrics = metrics(),
         compilationMode = CompilationMode.Partial(),
         iterations = 3,
@@ -63,9 +64,11 @@ class MarqueeBenchmark {
 
         val mediaController = mediaControllerFuture.get()
 
-        mediaController.setMediaItem(TestMedia.Intro)
-
         runBlocking {
+            withContext(Dispatchers.Main) {
+                mediaController.setMediaItem(TestMedia.Intro)
+            }
+
             delay(15.seconds)
         }
     }

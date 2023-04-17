@@ -34,7 +34,6 @@ class PickerThemeTest(
     screenshotTestRuleParams {
         screenTimeText = {}
         testLabel = themeValue.safeName
-        record = true
     }
 ) {
 
@@ -53,20 +52,24 @@ class PickerThemeTest(
     @Test
     fun timePicker() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            TimePicker(
-                time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {}
-            )
+            MaterialTheme(colors = themeValue.colors) {
+                TimePicker(
+                    time = LocalTime.of(10, 10, 0),
+                    onTimeConfirm = {}
+                )
+            }
         }
     }
 
     @Test
     fun timePicker12h() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            TimePickerWith12HourClock(
-                time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {}
-            )
+            MaterialTheme(colors = themeValue.colors) {
+                TimePickerWith12HourClock(
+                    time = LocalTime.of(10, 10, 0),
+                    onTimeConfirm = {}
+                )
+            }
         }
     }
 

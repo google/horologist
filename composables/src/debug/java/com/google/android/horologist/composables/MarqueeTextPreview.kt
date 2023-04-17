@@ -18,8 +18,11 @@ package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.tools.WearPreview
 import kotlin.time.Duration.Companion.seconds
@@ -37,13 +40,36 @@ fun MarqueeTextTypicalPreview() {
 
 @WearPreview
 @Composable
-fun MarqueeTextShortTextPreview() {
+fun MarqueeTextShortTextCenterPreview() {
     MarqueeText(
         text = "A",
         modifier = Modifier
             .width(100.dp),
         textAlign = TextAlign.Center
     )
+}
+
+@WearPreview
+@Composable
+fun MarqueeTextShortTextRightPreview() {
+    MarqueeText(
+        text = "A",
+        modifier = Modifier
+            .width(100.dp),
+        textAlign = TextAlign.Right
+    )
+}
+
+@WearPreview
+@Composable
+fun MarqueeTextShortTextRtlPreview() {
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+        MarqueeText(
+            text = "A",
+            modifier = Modifier
+                .width(100.dp)
+        )
+    }
 }
 
 @WearPreview

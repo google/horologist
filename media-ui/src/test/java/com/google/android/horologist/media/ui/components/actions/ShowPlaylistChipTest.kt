@@ -17,7 +17,7 @@
 package com.google.android.horologist.media.ui.components.actions
 
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.logo.R
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 

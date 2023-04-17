@@ -48,7 +48,7 @@ android {
             "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
         )
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += listOf(
                 "/META-INF/AL2.0",

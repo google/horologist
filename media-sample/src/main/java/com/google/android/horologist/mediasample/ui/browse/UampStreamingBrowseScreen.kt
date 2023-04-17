@@ -22,9 +22,9 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenPlaylistsSectionButton
-import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampStreamingBrowseScreen(

@@ -148,15 +148,10 @@ internal fun SimpleMarqueeText(
     text: String,
     textAlign: TextAlign,
     color: Color,
-    style: TextStyle
+    style: TextStyle,
+    modifier: Modifier = Modifier,
 ) {
-    Box(modifier = Modifier.drawWithContent {
-        drawContent()
-
-        // Fade out the edges with a gradient
-        drawFadeGradient(leftEdge = true, edgeGradientWidth = edgeGradientWidth)
-        drawFadeGradient(leftEdge = false, edgeGradientWidth = edgeGradientWidth)
-    }) {
+    BoxWithEdgeFade(edgeGradientWidth = edgeGradientWidth, modifier = modifier) {
         StaticMarqueeText(
             modifier = Modifier
                 .basicMarquee(
@@ -178,6 +173,46 @@ internal fun SimpleMarqueeText(
 }
 
 @Composable
+internal fun BoxWithEdgeFade(
+    edgeGradientWidth: Dp,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    fun ContentDrawScope.drawFadeGradient(
+        leftEdge: Boolean,
+        edgeGradientWidth: Dp
+    ) {
+        val width = edgeGradientWidth.toPx()
+        drawRect(
+            size = Size(width, size.height),
+            topLeft = Offset(
+                if (leftEdge) 0f else size.width - width,
+                0f
+            ),
+            brush = Brush.horizontalGradient(
+                listOf(
+                    Color.Transparent,
+                    Color.Black
+                ),
+                startX = if (leftEdge) 0f else size.width,
+                endX = if (leftEdge) width else size.width - width
+            ),
+            blendMode = BlendMode.DstIn
+        )
+    }
+
+    Box(modifier = modifier.drawWithContent {
+        drawContent()
+
+        // Fade out the edges with a gradient
+        drawFadeGradient(leftEdge = true, edgeGradientWidth = edgeGradientWidth)
+        drawFadeGradient(leftEdge = false, edgeGradientWidth = edgeGradientWidth)
+    }) {
+        content()
+    }
+}
+
+@Composable
 internal fun StaticMarqueeText(
     text: String,
     textAlign: TextAlign,
@@ -192,29 +227,6 @@ internal fun StaticMarqueeText(
         color = color,
         style = style,
         maxLines = 1
-    )
-}
-
-private fun ContentDrawScope.drawFadeGradient(
-    leftEdge: Boolean,
-    edgeGradientWidth: Dp
-) {
-    val width = edgeGradientWidth.toPx()
-    drawRect(
-        size = Size(width, size.height),
-        topLeft = Offset(
-            if (leftEdge) 0f else size.width - width,
-            0f
-        ),
-        brush = Brush.horizontalGradient(
-            listOf(
-                Color.Transparent,
-                Color.Black
-            ),
-            startX = if (leftEdge) 0f else size.width,
-            endX = if (leftEdge) width else size.width - width
-        ),
-        blendMode = BlendMode.DstIn
     )
 }
 

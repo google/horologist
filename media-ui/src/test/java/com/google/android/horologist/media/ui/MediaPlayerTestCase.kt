@@ -70,7 +70,7 @@ fun MediaPlayerTestCase(
             onOutputClick = { },
             brandIcon = {
                 SettingsButtonsDefaults.BrandIcon(
-                    R.drawable.ic_stat_horologist,
+                    com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
                     enabled = playerUiState.connected
                 )
             },

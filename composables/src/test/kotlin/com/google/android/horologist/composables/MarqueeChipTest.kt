@@ -48,7 +48,7 @@ class MarqueeChipTest : ScreenshotBaseTest(
     private fun runMarqueeTest(text: String) {
         screenshotTestRule.setContent(
             isComponent = true,
-            takeScreenshot = true,
+            takeScreenshot = true
         ) {
             Box(modifier = Modifier.background(Color.Black)) {
                 MarqueeSample(text)

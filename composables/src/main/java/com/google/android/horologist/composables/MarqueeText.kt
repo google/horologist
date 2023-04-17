@@ -149,7 +149,7 @@ internal fun SimpleMarqueeText(
     textAlign: TextAlign,
     color: Color,
     style: TextStyle,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     BoxWithEdgeFade(edgeGradientWidth = edgeGradientWidth, modifier = modifier) {
         StaticMarqueeText(
@@ -167,7 +167,7 @@ internal fun SimpleMarqueeText(
             text = text,
             textAlign = textAlign,
             color = color,
-            style = style,
+            style = style
         )
     }
 }
@@ -201,13 +201,15 @@ internal fun BoxWithEdgeFade(
         )
     }
 
-    Box(modifier = modifier.drawWithContent {
-        drawContent()
+    Box(
+        modifier = modifier.drawWithContent {
+            drawContent()
 
-        // Fade out the edges with a gradient
-        drawFadeGradient(leftEdge = true, edgeGradientWidth = edgeGradientWidth)
-        drawFadeGradient(leftEdge = false, edgeGradientWidth = edgeGradientWidth)
-    }) {
+            // Fade out the edges with a gradient
+            drawFadeGradient(leftEdge = true, edgeGradientWidth = edgeGradientWidth)
+            drawFadeGradient(leftEdge = false, edgeGradientWidth = edgeGradientWidth)
+        }
+    ) {
         content()
     }
 }
@@ -218,7 +220,7 @@ internal fun StaticMarqueeText(
     textAlign: TextAlign,
     color: Color,
     style: TextStyle,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Text(
         text = text,

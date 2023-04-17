@@ -16,10 +16,12 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
@@ -33,6 +35,7 @@ fun MarqueeTextTypicalPreview() {
     MarqueeText(
         text = "A very long text strings",
         modifier = Modifier
+            .background(Color.DarkGray)
             .width(100.dp),
         textAlign = TextAlign.Center
     )
@@ -44,6 +47,7 @@ fun MarqueeTextShortTextCenterPreview() {
     MarqueeText(
         text = "A",
         modifier = Modifier
+            .background(Color.DarkGray)
             .width(100.dp),
         textAlign = TextAlign.Center
     )
@@ -55,6 +59,7 @@ fun MarqueeTextShortTextRightPreview() {
     MarqueeText(
         text = "A",
         modifier = Modifier
+            .background(Color.DarkGray)
             .width(100.dp),
         textAlign = TextAlign.Right
     )
@@ -67,6 +72,7 @@ fun MarqueeTextShortTextRtlPreview() {
         MarqueeText(
             text = "A",
             modifier = Modifier
+                .background(Color.DarkGray)
                 .width(100.dp)
         )
     }
@@ -78,6 +84,7 @@ fun MarqueeTextConstantScrollingPreview() {
     MarqueeText(
         text = "A very long text strings",
         modifier = Modifier
+            .background(Color.DarkGray)
             .width(100.dp),
         textAlign = TextAlign.Center,
         pauseTime = 0.seconds

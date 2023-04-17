@@ -34,8 +34,9 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -123,15 +124,19 @@ private class MarqueeController(edgeGradientWidth: Dp) {
                 placeable.placeRelative(IntOffset.Zero)
             }
         }
+        .graphicsLayer {
+            // Required to make the faded edges only clear the alpha for the marquee content's
+            // pixels and not punch a hole through whatever is beneath this composable.
+            compositingStrategy = CompositingStrategy.Offscreen
+            clip = true
+        }
         .drawWithContent {
-            clipRect {
-                this@drawWithContent.drawContent()
+            drawContent()
 
-                if (needsScrolling) {
-                    // Fade out the edges with a gradient
-                    drawFadeGradient(leftEdge = true, edgeGradientWidth = edgeGradientWidth)
-                    drawFadeGradient(leftEdge = false, edgeGradientWidth = edgeGradientWidth)
-                }
+            if (needsScrolling) {
+                // Fade out the edges with a gradient
+                drawFadeGradient(leftEdge = true, edgeGradientWidth = edgeGradientWidth)
+                drawFadeGradient(leftEdge = false, edgeGradientWidth = edgeGradientWidth)
             }
         }
 

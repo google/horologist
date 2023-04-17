@@ -23,8 +23,7 @@ import androidx.compose.ui.Modifier
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
-import com.google.android.horologist.logo.R.*
-import com.google.android.horologist.mediasample.R
+import com.google.android.horologist.logo.R
 
 /**
  * Settings buttons for the UAMP media app.
@@ -44,7 +43,7 @@ public fun UampSettingsButtons(
         FavoriteButton()
 
         SettingsButtonsDefaults.BrandIcon(
-            iconId = drawable.ic_stat_horologist,
+            iconId = R.drawable.ic_stat_horologist,
             enabled = enabled
         )
 

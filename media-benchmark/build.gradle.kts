@@ -41,7 +41,7 @@ android {
         freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes += listOf(
                 "/META-INF/AL2.0",

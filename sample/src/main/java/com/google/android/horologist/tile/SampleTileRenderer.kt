@@ -115,8 +115,8 @@ class SampleTileRenderer(context: Context) :
     companion object {
         const val Image1 = "image1"
         const val Icon1 = "icon1"
-        const val TileIcon = R.drawable.ic_android
-        const val TileImage = R.drawable.ic_tileicon
+        val TileIcon = R.drawable.ic_android
+        val TileImage = R.drawable.ic_tileicon
     }
 }
 

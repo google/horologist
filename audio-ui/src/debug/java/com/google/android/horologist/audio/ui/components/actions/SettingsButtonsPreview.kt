@@ -17,11 +17,11 @@
 package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.audio.ui.R
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults.BrandIcon
 import com.google.android.horologist.compose.tools.WearPreview
+import com.google.android.horologist.logo.R
 
 @WearPreview
 @Composable

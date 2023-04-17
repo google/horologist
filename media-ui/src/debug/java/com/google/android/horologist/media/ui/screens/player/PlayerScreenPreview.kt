@@ -45,7 +45,7 @@ import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.WearPreviewThemes
-import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.background.RadialBackground
 import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay

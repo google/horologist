@@ -22,10 +22,12 @@ import androidx.benchmark.macro.Metric
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+import androidx.media3.common.MediaItem
 import androidx.media3.session.MediaBrowser
 import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.benchmark.MediaApp
 import com.google.android.horologist.media.benchmark.MediaControllerHelper
+import com.google.android.horologist.media.benchmark.MediaItems.buildMediaItem
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -45,31 +47,58 @@ class MarqueeBenchmark {
     public lateinit var mediaControllerFuture: ListenableFuture<MediaBrowser>
 
     @Test
-    public fun startup(): Unit = benchmarkRule.measureRepeated(
-        packageName = mediaApp.packageName,
-        metrics = metrics(),
-        compilationMode = CompilationMode.Partial(),
-        iterations = 3,
-        startupMode = StartupMode.WARM,
-        setupBlock = {
-            mediaControllerFuture = MediaControllerHelper.lookupController(
-                mediaApp.playerComponentName
-            )
+    public fun marquee() {
+        val intro = buildMediaItem(
+            "1",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
+            "Intro - The Way Of Waking Up (feat. Alan Watts)",
+            "The Kyoto Connection"
+        )
 
-            // Wait for service
-            mediaControllerFuture.get()
-        }
-    ) {
-        startActivityAndWait()
+        measurePlayerScreen(intro)
+    }
 
-        val mediaController = mediaControllerFuture.get()
+    @Test
+    public fun noMarquee() {
+        val intro = buildMediaItem(
+            "1",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
+            "Intro",
+            "The Kyoto Connection"
+        )
 
-        runBlocking {
-            withContext(Dispatchers.Main) {
-                mediaController.setMediaItem(TestMedia.Intro)
+        measurePlayerScreen(intro)
+    }
+
+    private fun measurePlayerScreen(intro: MediaItem) {
+        benchmarkRule.measureRepeated(
+            packageName = mediaApp.packageName,
+            metrics = metrics(),
+            compilationMode = CompilationMode.Partial(),
+            iterations = 3,
+            startupMode = StartupMode.WARM,
+            setupBlock = {
+                mediaControllerFuture = MediaControllerHelper.lookupController(
+                    mediaApp.playerComponentName
+                )
+
+                // Wait for service
+                mediaControllerFuture.get()
             }
+        ) {
+            startActivityAndWait()
 
-            delay(15.seconds)
+            val mediaController = mediaControllerFuture.get()
+
+            runBlocking {
+                withContext(Dispatchers.Main) {
+                    mediaController.setMediaItem(intro)
+                }
+
+                delay(15.seconds)
+            }
         }
     }
 

@@ -32,7 +32,6 @@ import org.junit.Test
 
 class MarqueeChipTest : ScreenshotBaseTest(
     params = screenshotTestRuleParams {
-        record = true
     }
 ) {
     @Test

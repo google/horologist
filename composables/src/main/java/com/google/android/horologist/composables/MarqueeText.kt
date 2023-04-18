@@ -87,7 +87,7 @@ public fun MarqueeText(
     marqueeDpPerSecond: Dp = 64.dp,
     pauseTime: Duration = 4.seconds
 ) {
-    val controller = remember(text) { MarqueeController(edgeGradientWidth) }
+    val controller = remember(text, style) { MarqueeController(edgeGradientWidth) }
     controller.edgeGradientWidth = edgeGradientWidth
 
     Text(
@@ -147,10 +147,10 @@ class MarqueeController(edgeGradientWidth: Dp) {
 
     private val padding = object : PaddingValues {
         override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
-            if (layoutDirection == LayoutDirection.Ltr) edgeGradientWidth else 0.dp
+            if (needsScrolling && layoutDirection == LayoutDirection.Ltr) edgeGradientWidth else 0.dp
 
         override fun calculateRightPadding(layoutDirection: LayoutDirection): Dp =
-            if (layoutDirection == LayoutDirection.Ltr) 0.dp else edgeGradientWidth
+            if (needsScrolling && layoutDirection != LayoutDirection.Ltr) edgeGradientWidth else 0.dp
 
         override fun calculateTopPadding(): Dp = 0.dp
         override fun calculateBottomPadding(): Dp = 0.dp

@@ -21,26 +21,29 @@ package com.google.android.horologist.composables
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.MarqueeSpacing
 import androidx.compose.foundation.basicMarquee
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.ContentDrawScope
-import androidx.compose.ui.layout.SubcomposeLayout
-import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.semantics.text
+import androidx.compose.ui.graphics.CompositingStrategy
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
@@ -84,101 +87,74 @@ public fun MarqueeText(
     marqueeDpPerSecond: Dp = 64.dp,
     pauseTime: Duration = 4.seconds
 ) {
-    SubcomposeLayout(
-        modifier = modifier.clearAndSetSemantics {
-            this.text = buildAnnotatedString {
-                this.append(text)
-            }
-        }
-    ) { constraints ->
-        // Measure without any constraints to get the ideal unconstrained width
-        val textPlaceable = subcompose(MarqueeComponents.First) {
-            StaticMarqueeText(text = text, textAlign = textAlign, color = color, style = style)
-        }.first().measure(Constraints())
+    val controller = remember { MarqueeController(edgeGradientWidth) }
+    controller.edgeGradientWidth = edgeGradientWidth
 
-        val isScrollRequired = textPlaceable.width > constraints.maxWidth
-
-        if (isScrollRequired) {
-            // Render a marquee text since it's too wide
-
-            val marqueeTextPlaceable = subcompose(MarqueeComponents.Second) {
-                SimpleMarqueeText(
-                    pauseTime,
-                    followGap,
-                    marqueeDpPerSecond,
-                    edgeGradientWidth,
-                    text,
-                    textAlign,
-                    color,
-                    style
-                )
-            }.first().measure(constraints)
-
-            layout(
-                width = constraints.maxWidth,
-                height = textPlaceable.height
-            ) {
-                marqueeTextPlaceable.place(0, 0)
-            }
-        } else {
-            // Render a fixed position single text since it fits
-
-            val x = when (textAlign) {
-                TextAlign.Right -> constraints.maxWidth - textPlaceable.width
-                TextAlign.Center -> (constraints.maxWidth - textPlaceable.width) / 2
-                else -> 0
-            }
-
-            layout(
-                width = constraints.maxWidth,
-                height = textPlaceable.height
-            ) {
-                textPlaceable.place(x, 0)
-            }
-        }
-    }
+    Text(
+        text = text,
+        modifier = modifier
+            .then(controller.outsideMarqueeModifier)
+            .basicMarquee(
+                iterations = Int.MAX_VALUE,
+                delayMillis = pauseTime.inWholeMilliseconds.toInt(),
+                initialDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
+                spacing = MarqueeSpacing(followGap),
+                velocity = marqueeDpPerSecond
+            )
+            .then(controller.insideMarqueeModifier),
+        textAlign = textAlign,
+        color = color,
+        style = style,
+        maxLines = 1
+    )
 }
 
-@Composable
-internal fun SimpleMarqueeText(
-    pauseTime: Duration,
-    followGap: Dp,
-    marqueeDpPerSecond: Dp,
-    edgeGradientWidth: Dp,
-    text: String,
-    textAlign: TextAlign,
-    color: Color,
-    style: TextStyle,
-    modifier: Modifier = Modifier
-) {
-    BoxWithEdgeFade(edgeGradientWidth = edgeGradientWidth, modifier = modifier) {
-        StaticMarqueeText(
-            modifier = Modifier
-                .basicMarquee(
-                    iterations = Int.MAX_VALUE,
-                    delayMillis = pauseTime.inWholeMilliseconds.toInt(),
-                    initialDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
-                    spacing = MarqueeSpacing(followGap),
-                    velocity = marqueeDpPerSecond
-                )
-                // Start unobscured by the edge gradients and avoid painting past the gradients
-                .offset(edgeGradientWidth)
-                .clipToBounds(),
-            text = text,
-            textAlign = textAlign,
-            color = color,
-            style = style
-        )
-    }
-}
+private class MarqueeController(edgeGradientWidth: Dp) {
 
-@Composable
-internal fun BoxWithEdgeFade(
-    edgeGradientWidth: Dp,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
-) {
-    fun ContentDrawScope.drawFadeGradient(
+    var edgeGradientWidth: Dp by mutableStateOf(edgeGradientWidth)
+    private var needsScrolling by mutableStateOf(false)
+
+    val outsideMarqueeModifier: Modifier = Modifier
+        .layout { measurable, constraints ->
+            // The max intrinsic width is how long the text wants to be, if it had infinite width
+            // constraints. If that's larger than the available width, the marquee will scroll.
+            val contentWidth = measurable.maxIntrinsicWidth(0)
+            needsScrolling = contentWidth > constraints.maxWidth
+
+            val placeable = measurable.measure(constraints)
+            layout(placeable.width, placeable.height) {
+                placeable.placeRelative(IntOffset.Zero)
+            }
+        }
+        .graphicsLayer {
+            // Required to make the faded edges only clear the alpha for the marquee content's
+            // pixels and not punch a hole through whatever is beneath this composable.
+            compositingStrategy = CompositingStrategy.Offscreen
+            clip = true
+        }
+        .drawWithContent {
+            drawContent()
+
+            if (needsScrolling) {
+                // Fade out the edges with a gradient
+                drawFadeGradient(leftEdge = true, edgeGradientWidth = edgeGradientWidth)
+                drawFadeGradient(leftEdge = false, edgeGradientWidth = edgeGradientWidth)
+            }
+        }
+
+    private val padding = object : PaddingValues {
+        override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
+            if (layoutDirection == LayoutDirection.Ltr) edgeGradientWidth else 0.dp
+
+        override fun calculateRightPadding(layoutDirection: LayoutDirection): Dp =
+            if (layoutDirection == LayoutDirection.Ltr) 0.dp else edgeGradientWidth
+
+        override fun calculateTopPadding(): Dp = 0.dp
+        override fun calculateBottomPadding(): Dp = 0.dp
+    }
+    val insideMarqueeModifier: Modifier = Modifier.padding(padding)
+
+    private fun DrawScope.drawFadeGradient(
         leftEdge: Boolean,
         edgeGradientWidth: Dp
     ) {
@@ -200,39 +176,4 @@ internal fun BoxWithEdgeFade(
             blendMode = BlendMode.DstIn
         )
     }
-
-    Box(
-        modifier = modifier.drawWithContent {
-            drawContent()
-
-            // Fade out the edges with a gradient
-            drawFadeGradient(leftEdge = true, edgeGradientWidth = edgeGradientWidth)
-            drawFadeGradient(leftEdge = false, edgeGradientWidth = edgeGradientWidth)
-        }
-    ) {
-        content()
-    }
-}
-
-@Composable
-internal fun StaticMarqueeText(
-    text: String,
-    textAlign: TextAlign,
-    color: Color,
-    style: TextStyle,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        modifier = modifier,
-        textAlign = textAlign,
-        color = color,
-        style = style,
-        maxLines = 1
-    )
-}
-
-private enum class MarqueeComponents {
-    First,
-    Second,
 }

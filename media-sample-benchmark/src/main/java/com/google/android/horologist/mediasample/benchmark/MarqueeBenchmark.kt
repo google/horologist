@@ -46,7 +46,8 @@ class MarqueeBenchmark {
     public lateinit var mediaControllerFuture: ListenableFuture<MediaBrowser>
 
     @Test
-    public fun startup(): Unit = benchmarkRule.measureRepeated(packageName = mediaApp.packageName,
+    public fun startup(): Unit = benchmarkRule.measureRepeated(
+        packageName = mediaApp.packageName,
         metrics = metrics(),
         compilationMode = CompilationMode.Partial(),
         iterations = 3,

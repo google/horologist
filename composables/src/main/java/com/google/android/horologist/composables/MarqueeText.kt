@@ -109,7 +109,7 @@ public fun MarqueeText(
     )
 }
 
-class MarqueeController(edgeGradientWidth: Dp) {
+private class MarqueeController(edgeGradientWidth: Dp) {
 
     var edgeGradientWidth: Dp by mutableStateOf(edgeGradientWidth)
     private var needsScrolling by mutableStateOf(false)

@@ -87,7 +87,7 @@ public fun MarqueeText(
     marqueeDpPerSecond: Dp = 64.dp,
     pauseTime: Duration = 4.seconds
 ) {
-    val controller = remember { MarqueeController(edgeGradientWidth) }
+    val controller = remember(text, style) { MarqueeController(edgeGradientWidth) }
     controller.edgeGradientWidth = edgeGradientWidth
 
     Text(
@@ -113,13 +113,16 @@ private class MarqueeController(edgeGradientWidth: Dp) {
 
     var edgeGradientWidth: Dp by mutableStateOf(edgeGradientWidth)
     private var needsScrolling by mutableStateOf(false)
+    private var contentWidth: Int by mutableStateOf(-1)
 
     val outsideMarqueeModifier: Modifier = Modifier
         .layout { measurable, constraints ->
             // The max intrinsic width is how long the text wants to be, if it had infinite width
             // constraints. If that's larger than the available width, the marquee will scroll.
-            val contentWidth = measurable.maxIntrinsicWidth(0)
-            needsScrolling = contentWidth > constraints.maxWidth
+            if (contentWidth < 0) {
+                contentWidth = measurable.maxIntrinsicWidth(0)
+                needsScrolling = contentWidth > constraints.maxWidth
+            }
 
             val placeable = measurable.measure(constraints)
             layout(placeable.width, placeable.height) {
@@ -144,10 +147,10 @@ private class MarqueeController(edgeGradientWidth: Dp) {
 
     private val padding = object : PaddingValues {
         override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
-            if (layoutDirection == LayoutDirection.Ltr) edgeGradientWidth else 0.dp
+            if (needsScrolling && layoutDirection == LayoutDirection.Ltr) edgeGradientWidth else 0.dp
 
         override fun calculateRightPadding(layoutDirection: LayoutDirection): Dp =
-            if (layoutDirection == LayoutDirection.Ltr) 0.dp else edgeGradientWidth
+            if (needsScrolling && layoutDirection != LayoutDirection.Ltr) edgeGradientWidth else 0.dp
 
         override fun calculateTopPadding(): Dp = 0.dp
         override fun calculateBottomPadding(): Dp = 0.dp

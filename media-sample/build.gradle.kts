@@ -54,6 +54,8 @@ android {
         debug {
             applicationIdSuffix = ".debug"
             manifestPlaceholders["schemeSuffix"] = "-debug"
+
+            buildConfigField("boolean", "BENCHMARK", "false")
         }
         release {
             manifestPlaceholders["schemeSuffix"] = ""
@@ -66,6 +68,8 @@ android {
             )
 
             signingConfig = signingConfigs.getByName("debug")
+
+            buildConfigField("boolean", "BENCHMARK", "false")
         }
         create("benchmark") {
             initWith(buildTypes.getByName("release"))
@@ -80,6 +84,8 @@ android {
             )
 
             matchingFallbacks.add("release")
+
+            buildConfigField("boolean", "BENCHMARK", "true")
         }
     }
 

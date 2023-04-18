@@ -40,6 +40,7 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToSettings
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
+import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.ui.auth.prompt.GoogleSignInPromptScreen
 import com.google.android.horologist.mediasample.ui.auth.signin.UampGoogleSignInViewModel
 import com.google.android.horologist.mediasample.ui.auth.signout.GoogleSignOutScreen
@@ -254,28 +255,38 @@ fun UampWearApp(
         )
     }
 
-    LaunchedEffect(Unit) {
-        val collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
-        val mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)
-        val position = intent.getAndRemoveKey(MediaActivity.PositionKey)
+    if (!BuildConfig.BENCHMARK) {
+        LaunchedEffect(Unit) {
+            startupNavigation(intent, appViewModel, navController)
+        }
+    }
+}
 
-        if (collectionId != null) {
-            if (position != null) {
-                appViewModel.playItems(mediaId, collectionId, position.toLong())
-            } else {
-                appViewModel.playItems(mediaId, collectionId, 0)
-            }
+private suspend fun startupNavigation(
+    intent: Intent,
+    appViewModel: MediaPlayerAppViewModel,
+    navController: NavHostController
+) {
+    val collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
+    val mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)
+    val position = intent.getAndRemoveKey(MediaActivity.PositionKey)
+
+    if (collectionId != null) {
+        if (position != null) {
+            appViewModel.playItems(mediaId, collectionId, position.toLong())
         } else {
-            appViewModel.startupSetup(navigateToLibrary = {
-                navController.navigateToLibrary()
-            })
+            appViewModel.playItems(mediaId, collectionId, 0)
         }
+    } else {
+        appViewModel.startupSetup(navigateToLibrary = {
+            navController.navigateToLibrary()
+        })
+    }
 
-        if (appViewModel.shouldShowLoginPrompt()) {
-            // Allow screen to settle so it feels like a distinct step
-            delay(200)
-            navController.navigateToGoogleSignInPrompt()
-        }
+    if (appViewModel.shouldShowLoginPrompt()) {
+        // Allow screen to settle so it feels like a distinct step
+        delay(200)
+        navController.navigateToGoogleSignInPrompt()
     }
 }
 

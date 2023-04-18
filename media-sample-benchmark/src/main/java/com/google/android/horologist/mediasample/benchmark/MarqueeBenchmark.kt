@@ -16,9 +16,8 @@
 
 package com.google.android.horologist.mediasample.benchmark
 
-import android.content.Intent
-import android.net.Uri
 import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.Metric
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
@@ -61,7 +60,7 @@ class MarqueeBenchmark {
             mediaControllerFuture.get()
         }
     ) {
-        startActivityAndWait(Intent(Intent.ACTION_VIEW, Uri.parse("uamp://uamp/player?page=0")))
+        startActivityAndWait()
 
         val mediaController = mediaControllerFuture.get()
 
@@ -75,8 +74,8 @@ class MarqueeBenchmark {
     }
 
     public open fun metrics(): List<Metric> = listOf(
-        StartupTimingMetric()
-//        FrameTimingMetric(),
+        StartupTimingMetric(),
+        FrameTimingMetric(),
 //        PowerMetric(type = PowerMetric.Type.Energy()),
     )
 }

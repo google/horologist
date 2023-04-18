@@ -7,6 +7,8 @@ androidx-datastore = "1.0.0"
 androidx-health-services = "1.0.0-beta03"
 androidx-hilt = "1.0.0"
 androidx-media3 = "1.0.0"
+androidx-tracingPerfettoBinary = "1.0.0-alpha14"
+androidx-tracingPerfetto = "1.0.0-alpha14"
 androidx-wear-watchface = "1.2.0-alpha07"
 androidxActivity = "1.7.0"
 androidxCore = "1.10.0"
@@ -100,6 +102,8 @@ androidx-test-ext-ktx = "androidx.test.ext:junit-ktx:1.1.5"
 androidx-test-rules = "androidx.test:rules:1.5.0"
 androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.2.0"
 androidx-tracing-ktx = { module = "androidx.tracing:tracing-ktx", version.ref = "androidxTracing" }
+androidx-tracing-perfetto-binary = { module = "androidx.tracing:tracing-perfetto-binary", version.ref = "androidx-tracingPerfettoBinary" }
+androidx-tracing-perfetto = { module = "androidx.tracing:tracing-perfetto", version.ref = "androidx-tracingPerfetto" }
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
 androidx-wear-phone-interactions = { module = "androidx.wear:wear-phone-interactions", version.ref = "androidxPhoneInteractions" }
 androidx-wear-remote-interactions = { module = "androidx.wear:wear-remote-interactions", version.ref = "androidxRemoteInteractions" }

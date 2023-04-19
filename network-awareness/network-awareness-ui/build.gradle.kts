@@ -20,6 +20,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
+    id("com.google.devtools.ksp")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -29,6 +30,7 @@ android {
 
     defaultConfig {
         minSdk = 26
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -39,14 +41,17 @@ android {
 
     buildFeatures {
         buildConfig = false
+        compose = true
     }
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
-        )
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packaging {
         resources {
@@ -68,11 +73,8 @@ android {
         checkReleaseBuilds = false
         textReport = true
     }
-    namespace = "com.google.android.horologist.media3"
-}
 
-kapt {
-    correctErrorTypes = true
+    namespace = "com.google.android.horologist.network.awareness.ui"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -92,34 +94,34 @@ metalava {
 
 dependencies {
     api(projects.annotations)
+    api(projects.networkAwareness.networkAwareness)
 
-    implementation(projects.audio)
-    implementation(projects.media)
-    implementation(projects.networkAwareness.networkAwareness)
-    implementation(libs.kotlinx.coroutines.core)
-    api(project.findProject(":media-lib-common") ?: libs.androidx.media3.common)
-    api(libs.androidx.annotation)
-    api(project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer)
-    api(project.findProject(":media-lib-exoplayer-dash") ?: libs.androidx.media3.exoplayerdash)
-    api(project.findProject(":media-lib-exoplayer-hls") ?: libs.androidx.media3.exoplayerhls)
-    api(project.findProject(":media-lib-exoplayer-rtsp") ?: libs.androidx.media3.exoplayerrtsp)
-    api(project.findProject(":media-lib-session") ?: libs.androidx.media3.session)
-    implementation(libs.androidx.lifecycle.process)
-    implementation(libs.kotlinx.coroutines.guava)
-    implementation(libs.androidx.corektx)
-    implementation(libs.androidx.lifecycle.service)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.wear)
+    implementation(libs.wearcompose.material)
+    implementation(libs.wearcompose.foundation)
+    implementation(libs.compose.material.iconscore)
+    implementation(libs.compose.material.iconsext)
+
     implementation(libs.androidx.tracing.ktx)
+
+    implementation(libs.compose.ui.toolingpreview)
+
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
-    testImplementation(project.findProject(":media-test-utils") ?: libs.androidx.media3.testutils)
-    testImplementation(
-        project.findProject(":media-test-utils-robolectric")
-            ?: libs.androidx.media3.testutils.robolectric
-    )
+
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.ext.ktx)
+    androidTestImplementation(libs.truth)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

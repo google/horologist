@@ -109,6 +109,6 @@ class MarqueeBenchmark {
     public open fun metrics(): List<Metric> = listOf(
         StartupTimingMetric(),
         FrameTimingMetric(),
-        PowerMetric(type = PowerMetric.Type.Battery()),
+        PowerMetric(type = PowerMetric.Type.Battery())
     )
 }

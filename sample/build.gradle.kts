@@ -137,6 +137,8 @@ dependencies {
     implementation(projects.media)
     implementation(projects.mediaUi)
     implementation(projects.networkAwareness.networkAwareness)
+    implementation(projects.networkAwareness.networkAwarenessOkhttp)
+    implementation(projects.networkAwareness.networkAwarenessUi)
     implementation(projects.tiles)
     implementation(projects.datalayer)
     implementation(projects.datalayerWatch)

@@ -81,7 +81,8 @@ class NetworkSelectingCallFactoryTest {
         dataRequestRepository = dataRequestRepository,
         rootClient = rootClient,
         networkRepository = networkRepository,
-        coroutineScope = testScope
+        coroutineScope = testScope,
+        logger = logger
     )
 
     @Test

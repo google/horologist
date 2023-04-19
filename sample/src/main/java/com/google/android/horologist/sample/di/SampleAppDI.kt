@@ -99,7 +99,8 @@ object SampleAppDI {
             dataRequestRepository = dataRequestRepository,
             rootClient = okHttpClient,
             networkRepository = networkRepository,
-            coroutineScope = coroutineScope
+            coroutineScope = coroutineScope,
+            logger = networkLogger
         )
     }
 

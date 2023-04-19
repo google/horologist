@@ -159,7 +159,10 @@ dependencies {
     implementation(projects.mediaData)
     implementation(projects.mediaSync)
     implementation(projects.mediaUi)
-    implementation(projects.networkAwareness)
+    implementation(projects.networkAwareness.core)
+    implementation(projects.networkAwareness.ui)
+    implementation(projects.networkAwareness.okhttp)
+    implementation(projects.networkAwareness.db)
     implementation(projects.tiles)
     implementation(projects.logo)
 

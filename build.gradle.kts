@@ -230,9 +230,13 @@ subprojects {
 
                 val manifestDir = File(outputDirectory, "META-INF")
                 manifestDir.mkdirs()
+                val name = if (project.parent?.name == "horologist")
+                    project.name
+                else
+                    project.parent?.name + project.name
                 File(
                     manifestDir,
-                    "com.google.android.horologist_${project.name}.version"
+                    "com.google.android.horologist_$name.version"
                 ).writeText("${versionName}\n")
             }
         }

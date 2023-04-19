@@ -85,11 +85,11 @@ android {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.authComposables)
-    implementation(projects.authData)
-    implementation(projects.authDataWatchOauth)
-    implementation(projects.authSampleShared)
-    implementation(projects.authUi)
+    implementation(projects.auth.composables)
+    implementation(projects.auth.data)
+    implementation(projects.auth.dataWatchOauth)
+    implementation(projects.auth.sample.shared)
+    implementation(projects.auth.ui)
     implementation(projects.baseUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)

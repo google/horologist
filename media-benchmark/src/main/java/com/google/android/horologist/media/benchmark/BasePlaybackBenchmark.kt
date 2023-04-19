@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalMacrobenchmarkApi::class, ExperimentalMetricApi::class)
+@file:OptIn(ExperimentalMetricApi::class)
 
 package com.google.android.horologist.media.benchmark
 
 import androidx.benchmark.macro.CompilationMode
-import androidx.benchmark.macro.ExperimentalMacrobenchmarkApi
 import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.MacrobenchmarkScope

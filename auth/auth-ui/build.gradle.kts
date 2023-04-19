@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("com.google.devtools.ksp")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -40,14 +39,19 @@ android {
 
     buildFeatures {
         buildConfig = false
+        compose = true
     }
 
     kotlinOptions {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
+            "-opt-in=kotlin.RequiresOptIn"
         )
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
     packaging {
@@ -69,11 +73,12 @@ android {
     lint {
         checkReleaseBuilds = false
         textReport = true
+        disable += listOf("MissingTranslation", "ExtraTranslation")
     }
 
     resourcePrefix = "horologist_"
 
-    namespace = "com.google.android.horologist.auth.data.watch.oauth"
+    namespace = "com.google.android.horologist.auth.ui"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -92,23 +97,34 @@ metalava {
 }
 
 dependencies {
-    api(projects.annotations)
 
-    implementation(projects.authData)
+    implementation(projects.auth.authComposables)
+    implementation(projects.auth.authData)
+    implementation(projects.baseUi)
+    implementation(projects.composeLayout)
 
-    implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.wear)
     implementation(libs.androidx.wear.phone.interactions)
-    implementation(libs.androidx.wear.remote.interactions)
-    implementation(libs.retrofit2.retrofit)
-    implementation(libs.retrofit2.convertermoshi)
-    implementation(libs.moshi.kotlin)
-    ksp(libs.moshi.kotlin.codegen)
+    implementation(libs.compose.foundation.foundation)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.playservices.auth)
+    implementation(libs.wearcompose.material)
+    implementation(libs.wearcompose.foundation)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
+    debugImplementation(projects.composeTools)
+    implementation(libs.compose.ui.toolingpreview)
+
+    testImplementation(projects.composeTools)
+    testImplementation(projects.roboscreenshots)
     testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
+    testImplementation(libs.truth)
+    testImplementation(libs.turbine)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

@@ -230,9 +230,9 @@ dependencies {
 
     implementation(libs.androidx.tracing.ktx)
 
-    implementation(projects.authComposables)
-    implementation(projects.authData)
-    implementation(projects.authUi)
+    implementation(projects.auth.authComposables)
+    implementation(projects.auth.authData)
+    implementation(projects.auth.authUi)
     implementation(libs.playservices.auth)
     implementation(libs.kotlinx.coroutines.playservices)
 

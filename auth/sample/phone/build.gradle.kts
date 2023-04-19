@@ -18,7 +18,6 @@
 
 plugins {
     id("com.android.application")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     kotlin("android")
 }
 
@@ -27,14 +26,18 @@ android {
 
     defaultConfig {
         applicationId = "com.google.android.horologist.auth.sample"
-        // Min because of Tiles
-        minSdk = 26
-        targetSdk = 30
+
+        minSdk = 23
+        targetSdk = 33
 
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -42,6 +45,7 @@ android {
             applicationIdSuffix = ".debug"
             manifestPlaceholders["schemeSuffix"] = "-debug"
         }
+
         release {
             manifestPlaceholders["schemeSuffix"] = ""
 
@@ -63,7 +67,6 @@ android {
 
     buildFeatures {
         compose = true
-        buildConfig = true
     }
 
     kotlinOptions {
@@ -79,59 +82,37 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+
     namespace = "com.google.android.horologist.auth.sample"
 }
 
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.auth.composables)
-    implementation(projects.auth.data)
-    implementation(projects.auth.dataWatchOauth)
-    implementation(projects.auth.sampleShared)
-    implementation(projects.auth.ui)
-    implementation(projects.baseUi)
-    implementation(projects.composables)
-    implementation(projects.composeLayout)
+    implementation(projects.auth.dataPhone)
+    implementation(projects.auth.sample.shared)
     implementation(projects.datalayer)
-    implementation(projects.datalayerWatch)
+    implementation(projects.datalayerPhone)
 
+    implementation(libs.androidx.corektx)
+    implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.complications.data)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.wear)
-    implementation(libs.compose.foundation.foundation)
-    implementation(libs.compose.material.iconscore)
-    implementation(libs.compose.material.iconsext)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.toolingpreview)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.wearcompose.material)
-    implementation(libs.wearcompose.foundation)
-    implementation(libs.wearcompose.navigation)
-
-    implementation(libs.com.squareup.okhttp3.logging.interceptor)
-    implementation(libs.com.squareup.okhttp3.okhttp)
-    implementation(libs.kotlinx.coroutines.playservices)
-    implementation(libs.moshi.kotlin)
-    implementation(libs.playservices.auth)
+    implementation(libs.compose.material3)
     implementation(libs.playservices.wearable)
 
+    testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
+
     debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(projects.composeTools)
-    releaseCompileOnly(projects.composeTools)
-
-    constraints {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10") {
-            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
-        }
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10") {
-            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
-        }
-    }
-}
-
-secrets {
-    propertiesFileName = "$projectDir/secrets.properties"
-    defaultPropertiesFileName = "$projectDir/secrets.defaults.properties"
+    debugImplementation(libs.compose.ui.test.manifest)
 }

@@ -159,7 +159,10 @@ dependencies {
     implementation(projects.media.data)
     implementation(projects.media.sync)
     implementation(projects.media.ui)
-    implementation(projects.networkAwareness)
+    implementation(projects.networkAwareness.core)
+    implementation(projects.networkAwareness.ui)
+    implementation(projects.networkAwareness.okhttp)
+    implementation(projects.networkAwareness.db)
     implementation(projects.tiles)
     implementation(projects.logo)
 
@@ -230,9 +233,9 @@ dependencies {
 
     implementation(libs.androidx.tracing.ktx)
 
-    implementation(projects.authComposables)
-    implementation(projects.authData)
-    implementation(projects.authUi)
+    implementation(projects.auth.composables)
+    implementation(projects.auth.data)
+    implementation(projects.auth.ui)
     implementation(libs.playservices.auth)
     implementation(libs.kotlinx.coroutines.playservices)
 

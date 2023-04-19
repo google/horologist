@@ -185,7 +185,8 @@ object NetworkModule {
                 networkRepository,
                 dataRequestRepository,
                 okhttpClient,
-                coroutineScope
+                coroutineScope,
+                logger = logger
             )
         } else {
             okhttpClient.newBuilder()

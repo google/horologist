@@ -1,0 +1,59 @@
+// Signature format: 4.0
+package com.google.android.horologist.networks.db {
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class DBDataRequestRepository implements com.google.android.horologist.networks.data.DataRequestRepository {
+    ctor public DBDataRequestRepository(com.google.android.horologist.networks.db.NetworkUsageDao networkUsageDao, kotlinx.coroutines.CoroutineScope coroutineScope);
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.data.DataUsageReport> currentPeriodUsage();
+    method public kotlinx.coroutines.CoroutineScope getCoroutineScope();
+    method public int getDay();
+    method public java.time.Instant getFrom();
+    method public com.google.android.horologist.networks.db.NetworkUsageDao getNetworkUsageDao();
+    method public java.time.Instant getTo();
+    method public java.time.LocalDate getToday();
+    method public void storeRequest(com.google.android.horologist.networks.data.DataRequest dataRequest);
+    property public final kotlinx.coroutines.CoroutineScope coroutineScope;
+    property public final int day;
+    property public final java.time.Instant from;
+    property public final com.google.android.horologist.networks.db.NetworkUsageDao networkUsageDao;
+    property public final java.time.Instant to;
+    property public final java.time.LocalDate today;
+  }
+
+  @androidx.room.Entity public final class DataUsage {
+    ctor public DataUsage(@androidx.room.ColumnInfo(name="networkType") @androidx.room.PrimaryKey String networkType, @androidx.room.ColumnInfo(name="bytesTotal") long bytesTotal, @androidx.room.ColumnInfo(name="day") int day);
+    method public String component1();
+    method public long component2();
+    method public int component3();
+    method public com.google.android.horologist.networks.db.DataUsage copy(String networkType, long bytesTotal, int day);
+    method public long getBytesTotal();
+    method public int getDay();
+    method public String getNetworkType();
+    property public final long bytesTotal;
+    property public final int day;
+    property public final String networkType;
+  }
+
+  @androidx.room.Dao public interface NetworkUsageDao {
+    method @androidx.room.Query("SELECT * FROM DataUsage WHERE day = :day") public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.networks.db.DataUsage>> getRecords(int day);
+    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.IGNORE) public suspend Object? insert(com.google.android.horologist.networks.db.DataUsage media, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    method @androidx.room.Query("UPDATE DataUsage SET bytesTotal = bytesTotal + :bytes WHERE day = :day") public suspend Object? updateBytes(int day, long bytes, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  }
+
+  @androidx.room.Database(entities={DataUsage::class}, version=1, exportSchema=false) @androidx.room.TypeConverters(NetworkUsageDatabase.Converters::class) public abstract class NetworkUsageDatabase extends androidx.room.RoomDatabase {
+    ctor public NetworkUsageDatabase();
+    method public abstract com.google.android.horologist.networks.db.NetworkUsageDao networkUsageDao();
+    field public static final com.google.android.horologist.networks.db.NetworkUsageDatabase.Companion Companion;
+  }
+
+  public static final class NetworkUsageDatabase.Companion {
+    method public com.google.android.horologist.networks.db.NetworkUsageDatabase getDatabase(android.content.Context context, optional boolean multiprocess);
+  }
+
+  public static final class NetworkUsageDatabase.Converters {
+    ctor public NetworkUsageDatabase.Converters();
+    method @androidx.room.TypeConverter public Long? dateToTimestamp(java.time.Instant? date);
+    method @androidx.room.TypeConverter public java.time.Instant? fromTimestamp(Long? value);
+  }
+
+}
+

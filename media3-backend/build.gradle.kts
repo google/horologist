@@ -95,7 +95,7 @@ dependencies {
 
     implementation(projects.audio)
     implementation(projects.media)
-    implementation(projects.networkAwareness.networkAwareness)
+    implementation(projects.networkAwareness.core)
     implementation(libs.kotlinx.coroutines.core)
     api(project.findProject(":media-lib-common") ?: libs.androidx.media3.common)
     api(libs.androidx.annotation)

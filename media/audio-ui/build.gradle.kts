@@ -99,7 +99,7 @@ metalava {
 }
 
 dependencies {
-    api(projects.audio)
+    api(projects.media.audio)
     api(libs.kotlin.stdlib)
     api(projects.annotations)
     implementation(projects.composeLayout)

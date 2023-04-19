@@ -149,8 +149,8 @@ dependencies {
     api(projects.annotations)
 
     implementation(projects.baseUi)
-    implementation(projects.audio)
-    implementation(projects.audioUi)
+    implementation(projects.media.audio)
+    implementation(projects.media.audioUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeLayout)

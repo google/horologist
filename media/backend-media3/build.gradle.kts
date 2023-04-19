@@ -93,7 +93,7 @@ metalava {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.audio)
+    implementation(projects.media.audio)
     implementation(projects.media.core)
     implementation(projects.networkAwareness)
     implementation(libs.kotlinx.coroutines.core)

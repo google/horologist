@@ -127,8 +127,8 @@ dependencies {
 
     implementation(projects.baseUi)
     implementation(projects.composeLayout)
-    implementation(projects.audio)
-    implementation(projects.audioUi)
+    implementation(projects.media.audio)
+    implementation(projects.media.audioUi)
     implementation(projects.authComposables)
     implementation(projects.authData)
     implementation(projects.authUi)

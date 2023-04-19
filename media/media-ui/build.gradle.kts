@@ -101,7 +101,7 @@ metalava {
 dependencies {
     api(projects.annotations)
 
-    api(projects.media)
+    api(projects.media.media)
     api(projects.tiles)
     api(projects.composables)
     debugImplementation(projects.logo)

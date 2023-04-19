@@ -53,7 +53,7 @@ android {
         }
     }
 
-    targetProjectPath = ":media-sample"
+    targetProjectPath = ":media:media-sample"
     experimentalProperties["android.experimental.self-instrumenting"] = true
 }
 

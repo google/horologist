@@ -154,11 +154,11 @@ dependencies {
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeLayout)
-    implementation(projects.media)
-    implementation(projects.media3Backend)
-    implementation(projects.mediaData)
-    implementation(projects.mediaSync)
-    implementation(projects.mediaUi)
+    implementation(projects.media.media)
+    implementation(projects.media.media3Backend)
+    implementation(projects.media.mediaData)
+    implementation(projects.media.mediaSync)
+    implementation(projects.media.mediaUi)
     implementation(projects.networkAwareness)
     implementation(projects.tiles)
     implementation(projects.logo)
@@ -277,7 +277,7 @@ if (device != null) {
     task<Exec>("appLaunch") {
         group = "Media"
         description = "Run on device $device"
-        dependsOn(":media-sample:installRelease")
+        dependsOn(":media:media-sample:installRelease")
         description = "Launch App"
         commandLine =
             "adb -s $device shell am start -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.ui.app.MediaActivity"

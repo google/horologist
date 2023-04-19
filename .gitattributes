@@ -1,7 +1,7 @@
 **/test/snapshots/** filter=lfs diff=lfs merge=lfs -text
 **/figma/** filter=lfs diff=lfs merge=lfs -text
-media-data/src/test/assets/media/mp4/testvid_1022ms.mp4 filter=lfs diff=lfs merge=lfs -text
-media3-backend/src/test/assets/media/mp4/testvid_1022ms.mp4 filter=lfs diff=lfs merge=lfs -text
-media-sample/backend/images/*.jpg filter=lfs diff=lfs merge=lfs -text
+media/media-data/src/test/assets/media/mp4/testvid_1022ms.mp4 filter=lfs diff=lfs merge=lfs -text
+media/media3-backend/src/test/assets/media/mp4/testvid_1022ms.mp4 filter=lfs diff=lfs merge=lfs -text
+media/media-sample/backend/images/*.jpg filter=lfs diff=lfs merge=lfs -text
 tiles/src/debug/res/drawable-mdpi/coil.jpg filter=lfs diff=lfs merge=lfs -text
 .png filter=lfs diff=lfs merge=lfs -text

@@ -20,7 +20,6 @@ package com.google.android.horologist.networks
 
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.activity.ComponentActivity
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.networks.data.id
@@ -67,7 +66,7 @@ class NetworkRepositoryTest {
         Truth.assertThat(networks.networks).isNotEmpty()
 
         val connectivityManager =
-            context.getSystemService(ComponentActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         val networkIds = connectivityManager.allNetworks.map { it.toString() }
         val activeNetworkId = connectivityManager.activeNetwork?.id

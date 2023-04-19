@@ -21,6 +21,7 @@ import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
+import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.impl.FailedCall
 import com.google.android.horologist.networks.okhttp.impl.HighBandwidthCall
 import com.google.android.horologist.networks.okhttp.impl.NetworkAwareEventListenerFactory
@@ -49,7 +50,8 @@ public class NetworkSelectingCallFactory(
     dataRequestRepository: DataRequestRepository?,
     rootClient: OkHttpClient,
     internal val coroutineScope: CoroutineScope,
-    internal val timeout: Duration = 3.seconds
+    internal val timeout: Duration = 3.seconds,
+    logger: NetworkStatusLogger
 ) : Call.Factory {
     private val defaultClient = rootClient.newBuilder()
         .addNetworkInterceptor(
@@ -59,10 +61,10 @@ public class NetworkSelectingCallFactory(
         )
         .eventListenerFactory(
             NetworkAwareEventListenerFactory(
-                networkingRulesEngine = networkingRulesEngine,
                 dataRequestRepository = dataRequestRepository,
                 delegateEventListenerFactory = rootClient.eventListenerFactory,
-                networkRepository = networkRepository
+                networkRepository = networkRepository,
+                logger = logger
             )
         )
         .build()

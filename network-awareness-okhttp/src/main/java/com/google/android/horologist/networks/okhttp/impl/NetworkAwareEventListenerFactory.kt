@@ -18,6 +18,7 @@ package com.google.android.horologist.networks.okhttp.impl
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.DataRequestRepository
+import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.highBandwidthConnectionLease
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.NetworkRepository
@@ -30,12 +31,12 @@ import java.io.IOException
  */
 @ExperimentalHorologistApi
 public class NetworkAwareEventListenerFactory(
-    networkingRulesEngine: NetworkingRulesEngine,
     networkRepository: NetworkRepository,
     private val delegateEventListenerFactory: EventListener.Factory,
-    dataRequestRepository: DataRequestRepository? = null
+    dataRequestRepository: DataRequestRepository? = null,
+    logger: NetworkStatusLogger
 ) : NetworkLoggingEventListenerFactory(
-    networkingRulesEngine.logger,
+    logger,
     networkRepository,
     delegateEventListenerFactory,
     dataRequestRepository

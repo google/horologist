@@ -23,7 +23,6 @@ import android.net.LinkProperties
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import androidx.activity.ComponentActivity
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.NetworkStatus
@@ -216,7 +215,7 @@ public class NetworkRepositoryImpl(
             coroutineScope: CoroutineScope
         ): NetworkRepositoryImpl {
             val connectivityManager =
-                application.getSystemService(ComponentActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
+                application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             return NetworkRepositoryImpl(
                 connectivityManager,
                 coroutineScope

@@ -39,6 +39,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    buildFeatures {
+        buildConfig = false
+    }
+
     kotlinOptions {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
@@ -66,7 +70,7 @@ android {
         textReport = true
     }
 
-    namespace = "com.google.android.horologist.network.awareness"
+    namespace = "com.google.android.horologist.network.awareness.okhttp"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -86,9 +90,12 @@ metalava {
 
 dependencies {
     api(projects.annotations)
+    api(projects.networkAwareness)
 
-    api(libs.kotlin.stdlib)
-    api(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.com.squareup.okhttp3.okhttp)
+    implementation(libs.androidx.annotation)
+
     implementation(libs.androidx.tracing.ktx)
 
     testImplementation(libs.junit)
@@ -96,14 +103,6 @@ dependencies {
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
-    testImplementation(libs.kotlinx.coroutines.test)
-
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext)
-    androidTestImplementation(libs.androidx.test.ext.ktx)
-    androidTestImplementation(libs.truth)
-    androidTestImplementation(libs.kotlinx.coroutines.test)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

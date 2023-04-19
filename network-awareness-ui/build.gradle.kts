@@ -39,12 +39,20 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    buildFeatures {
+        buildConfig = false
+        compose = true
+    }
+
     kotlinOptions {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
         freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
     packaging {
         resources {
             excludes += listOf(
@@ -66,7 +74,7 @@ android {
         textReport = true
     }
 
-    namespace = "com.google.android.horologist.network.awareness"
+    namespace = "com.google.android.horologist.network.awareness.ui"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -86,24 +94,34 @@ metalava {
 
 dependencies {
     api(projects.annotations)
+    api(projects.networkAwareness)
 
-    api(libs.kotlin.stdlib)
-    api(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.wear)
+    implementation(libs.wearcompose.material)
+    implementation(libs.wearcompose.foundation)
+    implementation(libs.compose.material.iconscore)
+    implementation(libs.compose.material.iconsext)
+
     implementation(libs.androidx.tracing.ktx)
+
+    implementation(libs.compose.ui.toolingpreview)
+
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
-    testImplementation(libs.kotlinx.coroutines.test)
 
+    androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.ext.ktx)
     androidTestImplementation(libs.truth)
-    androidTestImplementation(libs.kotlinx.coroutines.test)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

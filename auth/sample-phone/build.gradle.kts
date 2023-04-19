@@ -94,8 +94,8 @@ android {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.auth.authDataPhone)
-    implementation(projects.auth.authSampleShared)
+    implementation(projects.auth.dataPhone)
+    implementation(projects.auth.sampleShared)
     implementation(projects.datalayer)
     implementation(projects.datalayerPhone)
 

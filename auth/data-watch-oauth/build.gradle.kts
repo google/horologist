@@ -94,7 +94,7 @@ metalava {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.auth.authData)
+    implementation(projects.auth.data)
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.wear.phone.interactions)

@@ -98,8 +98,8 @@ metalava {
 
 dependencies {
 
-    implementation(projects.auth.authComposables)
-    implementation(projects.auth.authData)
+    implementation(projects.auth.composables)
+    implementation(projects.auth.data)
     implementation(projects.baseUi)
     implementation(projects.composeLayout)
 

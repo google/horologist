@@ -53,14 +53,14 @@ android {
         }
     }
 
-    targetProjectPath = ":media-sample"
+    targetProjectPath = ":media:sample"
     experimentalProperties["android.experimental.self-instrumenting"] = true
 }
 
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.mediaBenchmark)
+    implementation(projects.media.benchmark)
     implementation(libs.androidx.benchmark.macro.junit4)
     implementation(libs.androidx.benchmark.junit4)
     implementation(libs.androidx.test.ext.ktx)

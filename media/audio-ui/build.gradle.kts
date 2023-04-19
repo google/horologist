@@ -18,8 +18,8 @@
 
 plugins {
     id("com.android.library")
-    id("com.google.devtools.ksp")
     id("org.jetbrains.dokka")
+    id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -29,7 +29,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -40,16 +39,17 @@ android {
 
     buildFeatures {
         buildConfig = false
+        compose = true
     }
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            "-opt-in=kotlin.RequiresOptIn"
-        )
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
     packaging {
         resources {
             excludes += listOf(
@@ -59,7 +59,6 @@ android {
         }
     }
 
-
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
@@ -67,12 +66,30 @@ android {
         animationsDisabled = true
     }
 
+    sourceSets.getByName("main") {
+        assets.srcDir("src/main/assets")
+    }
+
     lint {
+        disable += listOf("MissingTranslation", "ExtraTranslation")
         checkReleaseBuilds = false
         textReport = true
     }
 
-    namespace = "com.google.android.horologist.media.data"
+    namespace = "com.google.android.horologist.audio.ui"
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        this.kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+        }
+    }
 }
 
 metalava {
@@ -82,38 +99,36 @@ metalava {
 }
 
 dependencies {
+    api(projects.media.audio)
+    api(libs.kotlin.stdlib)
     api(projects.annotations)
+    implementation(projects.composeLayout)
+    implementation(projects.baseUi)
+    debugImplementation(projects.logo)
 
-    implementation(projects.media)
-
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.core)
+    api(libs.wearcompose.material)
+    api(libs.wearcompose.foundation)
     implementation(libs.androidx.corektx)
+
+    implementation(libs.compose.material.iconscore)
+    implementation(libs.compose.material.iconsext)
+
     implementation(libs.androidx.wear)
-    implementation(project.findProject(":media-lib-common") ?: libs.androidx.media3.common)
-    implementation(project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer)
-    implementation(
-        project.findProject(":media-lib-exoplayer-workmanager")
-            ?: libs.androidx.media3.exoplayerworkmanager
-    )
-    implementation(libs.room.common)
-    implementation(libs.room.ktx)
-    ksp(libs.room.compiler)
-    implementation(libs.androidx.lifecycle.service)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    implementation(libs.lottie.compose)
+
+    implementation(libs.compose.ui.toolingpreview)
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(projects.composeTools)
+    debugImplementation(libs.compose.ui.test.manifest)
 
     testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(projects.roboscreenshots)
     testImplementation(libs.robolectric)
-    testImplementation(
-        project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer
-    )
-    testImplementation(project.findProject(":media-test-utils") ?: libs.androidx.media3.testutils)
-    testImplementation(
-        project.findProject(":media-test-utils-robolectric")
-            ?: libs.androidx.media3.testutils.robolectric
-    )
+    testImplementation(libs.compose.ui.test.junit4)
+    testImplementation(libs.espresso.core)
+    testImplementation(libs.truth)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

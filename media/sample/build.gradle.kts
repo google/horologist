@@ -149,16 +149,16 @@ dependencies {
     api(projects.annotations)
 
     implementation(projects.baseUi)
-    implementation(projects.audio)
-    implementation(projects.audioUi)
+    implementation(projects.media.audio)
+    implementation(projects.media.audioUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeLayout)
-    implementation(projects.media)
-    implementation(projects.media3Backend)
-    implementation(projects.mediaData)
-    implementation(projects.mediaSync)
-    implementation(projects.mediaUi)
+    implementation(projects.media.core)
+    implementation(projects.media.backendMedia3)
+    implementation(projects.media.data)
+    implementation(projects.media.sync)
+    implementation(projects.media.ui)
     implementation(projects.networkAwareness.core)
     implementation(projects.networkAwareness.ui)
     implementation(projects.networkAwareness.okhttp)
@@ -280,7 +280,7 @@ if (device != null) {
     task<Exec>("appLaunch") {
         group = "Media"
         description = "Run on device $device"
-        dependsOn(":media-sample:installRelease")
+        dependsOn(":media:media-sample:installRelease")
         description = "Launch App"
         commandLine =
             "adb -s $device shell am start -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.ui.app.MediaActivity"

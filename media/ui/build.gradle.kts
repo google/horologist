@@ -19,7 +19,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -29,6 +28,7 @@ android {
 
     defaultConfig {
         minSdk = 26
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -44,7 +44,12 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
+        // Allow for widescale experimental APIs in Alpha libraries we build upon
+        freeCompilerArgs = freeCompilerArgs + """
+            com.google.android.horologist.annotations.ExperimentalHorologistApi
+            kotlin.RequiresOptIn
+            kotlinx.coroutines.ExperimentalCoroutinesApi
+            """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
     }
 
     composeOptions {
@@ -59,28 +64,23 @@ android {
         }
     }
 
+
+    sourceSets.getByName("main") {
+        assets.srcDir("src/main/assets")
+    }
+
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
         }
         animationsDisabled = true
     }
-
-    sourceSets.getByName("main") {
-        assets.srcDir("src/main/assets")
-    }
-
     lint {
-        disable += listOf("MissingTranslation", "ExtraTranslation")
         checkReleaseBuilds = false
         textReport = true
+        disable += listOf("MissingTranslation", "ExtraTranslation")
     }
-
-    namespace = "com.google.android.horologist.audio.ui"
-}
-
-kapt {
-    correctErrorTypes = true
+    namespace = "com.google.android.horologist.media.ui"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -99,36 +99,57 @@ metalava {
 }
 
 dependencies {
-    api(projects.audio)
-    api(libs.kotlin.stdlib)
     api(projects.annotations)
-    implementation(projects.composeLayout)
-    implementation(projects.baseUi)
-    debugImplementation(projects.logo)
 
+    api(projects.media.core)
+    api(projects.tiles)
+    api(projects.composables)
+    debugImplementation(projects.logo)
+    implementation(projects.baseUi)
+    implementation(projects.media.audio)
+    implementation(projects.media.audioUi)
+    implementation(projects.composeLayout)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.wear)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.viewmodelktx)
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
-    implementation(libs.androidx.corektx)
-
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
-
-    implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
+    implementation(libs.coil)
     implementation(libs.lottie.compose)
+    implementation(libs.androidx.palette.ktx)
 
+    implementation(projects.tiles)
+    implementation(libs.androidx.complications.datasource.ktx)
+    implementation(libs.androidx.wear.tiles)
+    implementation(libs.androidx.wear.tiles.material)
+    implementation(libs.compose.ui.util)
     implementation(libs.compose.ui.toolingpreview)
+
     debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(projects.composeTools)
     debugImplementation(libs.compose.ui.test.manifest)
+    debugImplementation(projects.media.audioUi)
+    debugImplementation(projects.composeTools)
+    releaseCompileOnly(projects.composeTools)
+
+    debugImplementation(libs.androidx.complications.rendering)
 
     testImplementation(libs.junit)
-    testImplementation(projects.roboscreenshots)
+    testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.truth)
     testImplementation(libs.robolectric)
+    testImplementation(projects.media.audio)
+    testImplementation(projects.media.audioUi)
+    testImplementation(projects.roboscreenshots)
+    testImplementation(projects.logo)
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.espresso.core)
-    testImplementation(libs.truth)
+    testImplementation(libs.androidx.test.ext)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

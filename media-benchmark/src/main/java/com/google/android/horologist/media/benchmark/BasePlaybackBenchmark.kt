@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalMacrobenchmarkApi::class)
+@file:OptIn(ExperimentalMacrobenchmarkApi::class, ExperimentalMetricApi::class)
 
 package com.google.android.horologist.media.benchmark
 
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.ExperimentalMacrobenchmarkApi
+import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.Metric
+import androidx.benchmark.macro.PowerMetric
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.media3.session.MediaBrowser
@@ -85,7 +87,10 @@ public abstract class BasePlaybackBenchmark {
         }
     }
 
-    public open fun metrics(): List<Metric> = listOf(FrameTimingMetric())
+    public open fun metrics(): List<Metric> = listOf(
+        FrameTimingMetric(),
+        PowerMetric(type = PowerMetric.Type.Battery()),
+    )
 
     public open fun MacrobenchmarkScope.onStartup() {
         startActivityAndWait()

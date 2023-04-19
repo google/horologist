@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalMetricApi::class)
+
 package com.google.android.horologist.mediasample.benchmark
 
 import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.Metric
+import androidx.benchmark.macro.PowerMetric
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
@@ -104,7 +108,7 @@ class MarqueeBenchmark {
 
     public open fun metrics(): List<Metric> = listOf(
         StartupTimingMetric(),
-        FrameTimingMetric()
-//        PowerMetric(type = PowerMetric.Type.Energy()),
+        FrameTimingMetric(),
+        PowerMetric(type = PowerMetric.Type.Battery()),
     )
 }

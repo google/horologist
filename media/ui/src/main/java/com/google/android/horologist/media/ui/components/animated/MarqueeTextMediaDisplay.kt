@@ -54,10 +54,10 @@ public fun MarqueeTextMediaDisplay(
 ) {
     fun getTransitionAnimation(delay: Int = 0): ContentTransform {
         return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
-            Math.round(it * transitionLength).toInt()
+            Math.round(it * transitionLength)
         } + fadeIn(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) togetherWith
             slideOutHorizontally(animationSpec = tween(delayMillis = delay)) {
-                Math.round(-it * transitionLength).toInt()
+                Math.round(-it * transitionLength)
             } + fadeOut(animationSpec = tween(delayMillis = delay))
     }
 

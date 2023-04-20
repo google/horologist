@@ -38,6 +38,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.MarqueeText
+import kotlin.math.roundToInt
 
 /**
  * An animated text only display showing scrolling title and still artist in two separated rows.
@@ -54,10 +55,10 @@ public fun MarqueeTextMediaDisplay(
 ) {
     fun getTransitionAnimation(delay: Int = 0): ContentTransform {
         return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
-            Math.round(it * transitionLength).toInt()
+            (it * transitionLength).roundToInt()
         } + fadeIn(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) togetherWith
             slideOutHorizontally(animationSpec = tween(delayMillis = delay)) {
-                Math.round(-it * transitionLength).toInt()
+                (-it * transitionLength).roundToInt()
             } + fadeOut(animationSpec = tween(delayMillis = delay))
     }
 

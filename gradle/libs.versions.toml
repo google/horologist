@@ -1,33 +1,35 @@
 [versions]
 androidx-benchmark = "1.2.0-alpha13"
-androidx-complications-data = "1.2.0-alpha07"
+androidx-complications-data = "1.2.0-alpha08"
 androidx-compose-material = "1.5.0-alpha03"
 androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
 androidx-health-services = "1.0.0-beta03"
 androidx-hilt = "1.0.0"
-androidx-media3 = "1.0.0"
-androidx-tracingPerfettoBinary = "1.0.0-alpha14"
+androidx-media3 = "1.0.1"
+androidx-test-espresso = "3.6.0-alpha01"
+androidx-test-ext = "1.2.0-alpha01"
 androidx-tracingPerfetto = "1.0.0-alpha14"
-androidx-wear-watchface = "1.2.0-alpha07"
-androidxActivity = "1.7.0"
+androidx-tracingPerfettoBinary = "1.0.0-alpha14"
+androidx-wear-watchface = "1.2.0-alpha08"
+androidxActivity = "1.7.1"
 androidxCore = "1.10.0"
 androidxLifecycle = "2.6.1"
-androidxNavigation = "2.6.0-alpha09"
+androidxNavigation = "2.6.0-beta01"
 androidxPhoneInteractions = "1.1.0-alpha03"
 androidxRemoteInteractions = "1.0.0"
 androidxStartup = "1.1.1"
 androidxTracing = "1.2.0-beta03"
-androidxWear = "1.3.0-alpha04"
+androidxWear = "1.3.0-alpha05"
 androidxWork = "2.8.1"
-androidxtiles = "1.2.0-alpha03"
+androidxtiles = "1.2.0-alpha04"
 annotation = "1.0.1"
 app-cash-turbine = "0.12.3"
 benManes = "0.46.0"
 com-squareup-okhttp3 = "4.10.0"
 com-squareup-retrofit2 = "2.9.0"
 compose = "1.5.0-alpha03"
-compose-compiler = "1.4.3"
+compose-compiler = "1.4.6"
 composesnapshot = "-"
 dokka = "1.8.10"
 googleSecretsGradlePlugin = "2.0.1"
@@ -36,9 +38,9 @@ gradlePlugin = "8.0.0"
 gradlePublishPlugin = "0.25.2"
 io-coil-kt = "2.3.0"
 junit = "4.13.2"
-kotlin = "1.8.10"
+kotlin = "1.8.20"
 kotlinxCoroutine = "1.6.4"
-ksp = "1.8.10-1.0.9"
+ksp = "1.8.20-1.0.11"
 ktlint = "0.46.1"
 metalava = "0.3.3"
 moshi = "1.14.0"
@@ -96,14 +98,14 @@ androidx-paging = "androidx.paging:paging-compose:1.0.0-alpha18"
 androidx-palette-ktx = "androidx.palette:palette-ktx:1.0.0"
 androidx-runtime-tracing = { module = "androidx.compose.runtime:runtime-tracing", version.ref = "runtimeTracing" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "androidxStartup" }
-androidx-test-espressocore = "androidx.test.espresso:espresso-core:3.5.1"
-androidx-test-ext = "androidx.test.ext:junit:1.1.5"
-androidx-test-ext-ktx = "androidx.test.ext:junit-ktx:1.1.5"
+androidx-test-espressocore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
+androidx-test-ext = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext" }
+androidx-test-ext-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "androidx-test-ext" }
 androidx-test-rules = "androidx.test:rules:1.5.0"
 androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.2.0"
 androidx-tracing-ktx = { module = "androidx.tracing:tracing-ktx", version.ref = "androidxTracing" }
-androidx-tracing-perfetto-binary = { module = "androidx.tracing:tracing-perfetto-binary", version.ref = "androidx-tracingPerfettoBinary" }
 androidx-tracing-perfetto = { module = "androidx.tracing:tracing-perfetto", version.ref = "androidx-tracingPerfetto" }
+androidx-tracing-perfetto-binary = { module = "androidx.tracing:tracing-perfetto-binary", version.ref = "androidx-tracingPerfettoBinary" }
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
 androidx-wear-phone-interactions = { module = "androidx.wear:wear-phone-interactions", version.ref = "androidxPhoneInteractions" }
 androidx-wear-remote-interactions = { module = "androidx.wear:wear-remote-interactions", version.ref = "androidxRemoteInteractions" }
@@ -134,7 +136,7 @@ dagger-hiltandroidcompiler = { module = "com.google.dagger:hilt-android-compiler
 dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "googledagger" }
 dagger-hiltandroidtesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "googledagger" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
-espresso-core = "androidx.test.espresso:espresso-core:3.5.1"
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
 googleSecretsGradlePlugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "googleSecretsGradlePlugin" }
 gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradlePublishPlugin" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }

@@ -24,6 +24,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -55,7 +56,7 @@ public fun MarqueeTextMediaDisplay(
     fun getTransitionAnimation(delay: Int = 0): ContentTransform {
         return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
             Math.round(it * transitionLength).toInt()
-        } + fadeIn(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) with
+        } + fadeIn(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) togetherWith
             slideOutHorizontally(animationSpec = tween(delayMillis = delay)) {
                 Math.round(-it * transitionLength).toInt()
             } + fadeOut(animationSpec = tween(delayMillis = delay))

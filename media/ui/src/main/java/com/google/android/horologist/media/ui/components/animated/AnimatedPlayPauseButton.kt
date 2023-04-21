@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.media.ui.components.animated
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -180,6 +183,11 @@ public fun AnimatedPlayPauseProgressButton(
     trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f)
 ) {
+    val animatedProgressColor = animateColorAsState(
+        targetValue = progressColor,
+        animationSpec = tween(450, 0, LinearEasing)
+    )
+
     AnimatedPlayPauseButton(
         onPlayClick = onPlayClick,
         onPauseClick = onPauseClick,
@@ -195,7 +203,7 @@ public fun AnimatedPlayPauseProgressButton(
         if (trackPositionUiModel.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.fillMaxSize(),
-                indicatorColor = progressColor,
+                indicatorColor = animatedProgressColor.value,
                 trackColor = trackColor,
                 strokeWidth = progressStrokeWidth
             )
@@ -203,7 +211,7 @@ public fun AnimatedPlayPauseProgressButton(
             CircularProgressIndicator(
                 modifier = Modifier.fillMaxSize(),
                 progress = progress,
-                indicatorColor = progressColor,
+                indicatorColor = animatedProgressColor.value,
                 trackColor = trackColor,
                 strokeWidth = progressStrokeWidth
             )

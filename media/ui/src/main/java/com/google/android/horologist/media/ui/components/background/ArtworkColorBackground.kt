@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.media.ui.components.background
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -71,13 +74,18 @@ public fun ColorBackground(
     color: Color?,
     modifier: Modifier = Modifier
 ) {
+    val animatedBackgroundColor = animateColorAsState(
+        targetValue = color ?: Color.Black,
+        animationSpec = tween(450, 0, LinearEasing)
+    )
+
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(
                 Brush.radialGradient(
                     listOf(
-                        (color ?: Color.Black).copy(alpha = 0.3f),
+                        (animatedBackgroundColor.value).copy(alpha = 0.3f),
                         Color.Transparent
                     )
                 )

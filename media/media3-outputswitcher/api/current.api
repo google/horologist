@@ -1,0 +1,16 @@
+// Signature format: 4.0
+package com.google.android.horologist.media3.audio {
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface AudioOutputSelector {
+    method public void launchSelector();
+    method public suspend Object? selectNewOutput(com.google.android.horologist.audio.AudioOutput currentAudioOutput, kotlin.coroutines.Continuation<? super com.google.android.horologist.audio.AudioOutput>);
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class BluetoothSettingsOutputSelector implements com.google.android.horologist.media3.audio.AudioOutputSelector {
+    ctor public BluetoothSettingsOutputSelector(com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository);
+    method public void launchSelector();
+    method public suspend Object? selectNewOutput(com.google.android.horologist.audio.AudioOutput currentAudioOutput, kotlin.coroutines.Continuation<? super com.google.android.horologist.audio.AudioOutput>);
+  }
+
+}
+

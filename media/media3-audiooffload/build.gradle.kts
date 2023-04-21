@@ -68,7 +68,7 @@ android {
         checkReleaseBuilds = false
         textReport = true
     }
-    namespace = "com.google.android.horologist.media3"
+    namespace = "com.google.android.horologist.media3.audiooffload"
 }
 
 kapt {
@@ -93,20 +93,13 @@ metalava {
 dependencies {
     api(projects.annotations)
 
-    api(projects.media.audio)
-    api(projects.media.core)
-    api(projects.media.media3Audiooffload)
-    api(projects.media.media3Logging)
-    api(projects.media.media3Outputswitcher)
-    api(projects.networkAwareness.core)
+    implementation(projects.media.audio)
+    implementation(projects.media.core)
+    implementation(projects.media.media3Logging)
     implementation(libs.kotlinx.coroutines.core)
     api(project.findProject(":media-lib-common") ?: libs.androidx.media3.common)
     api(libs.androidx.annotation)
     api(project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer)
-    api(project.findProject(":media-lib-exoplayer-dash") ?: libs.androidx.media3.exoplayerdash)
-    api(project.findProject(":media-lib-exoplayer-hls") ?: libs.androidx.media3.exoplayerhls)
-    api(project.findProject(":media-lib-exoplayer-rtsp") ?: libs.androidx.media3.exoplayerrtsp)
-    api(project.findProject(":media-lib-session") ?: libs.androidx.media3.session)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.kotlinx.coroutines.guava)
     implementation(libs.androidx.corektx)

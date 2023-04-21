@@ -25,7 +25,6 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.analytics.AnalyticsListener
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
-import com.google.android.horologist.media3.util.shortDescription
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay

@@ -1,0 +1,52 @@
+// Signature format: 4.0
+package com.google.android.horologist.media3.logging {
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class AnalyticsEventLogger extends androidx.media3.exoplayer.util.EventLogger {
+    ctor public AnalyticsEventLogger(com.google.android.horologist.media3.logging.ErrorReporter appEventLogger);
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface ErrorReporter {
+    method public void logMessage(String message, optional com.google.android.horologist.media3.logging.ErrorReporter.Category category, optional com.google.android.horologist.media3.logging.ErrorReporter.Level level);
+    method public void showMessage(@StringRes int message);
+  }
+
+  public enum ErrorReporter.Category {
+    method public static com.google.android.horologist.media3.logging.ErrorReporter.Category valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.media3.logging.ErrorReporter.Category[] values();
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category App;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category DB;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category Downloads;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category Jobs;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category Network;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category Playback;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category Unknown;
+  }
+
+  public enum ErrorReporter.Level {
+    method public static com.google.android.horologist.media3.logging.ErrorReporter.Level valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.media3.logging.ErrorReporter.Level[] values();
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Debug;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Error;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Info;
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class TransferListener implements androidx.media3.datasource.cache.CacheDataSource.EventListener androidx.media3.datasource.TransferListener {
+    ctor public TransferListener(com.google.android.horologist.media3.logging.ErrorReporter appEventLogger);
+    method public void onBytesTransferred(androidx.media3.datasource.DataSource source, androidx.media3.datasource.DataSpec dataSpec, boolean isNetwork, int bytesTransferred);
+    method public void onCacheIgnored(int reason);
+    method public void onCachedBytesRead(long cacheSizeBytes, long cachedBytesRead);
+    method public void onTransferEnd(androidx.media3.datasource.DataSource source, androidx.media3.datasource.DataSpec dataSpec, boolean isNetwork);
+    method public void onTransferInitializing(androidx.media3.datasource.DataSource source, androidx.media3.datasource.DataSpec dataSpec, boolean isNetwork);
+    method public void onTransferStart(androidx.media3.datasource.DataSource source, androidx.media3.datasource.DataSpec dataSpec, boolean isNetwork);
+  }
+
+}
+
+package com.google.android.horologist.media3.tracing {
+
+  public final class TracingListener implements androidx.media3.common.Player.Listener {
+    ctor public TracingListener();
+  }
+
+}
+

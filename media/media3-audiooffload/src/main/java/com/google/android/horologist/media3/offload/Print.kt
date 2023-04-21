@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media3.util
+package com.google.android.horologist.media3.offload
 
 import androidx.media3.common.Format
 
-public val Format.shortDescription: String
+internal val Format.shortDescription: String
     get() = "$sampleMimeType $sampleRate"

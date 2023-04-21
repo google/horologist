@@ -135,16 +135,6 @@ subprojects {
                 // Enable default methods in interfaces
                 "-Xjvm-default=all"
             )
-
-            // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-            if (!this@configureEach.name.endsWith("TestKotlin") && !this@configureEach.name.startsWith(
-                    "compileDebug"
-                ) && !project.name.contains(
-                    "sample"
-                ) && !project.name.contains("datalayer")) {
-                // Enable explicit API mode
-                this@configureEach.kotlinOptions.freeCompilerArgs += "-Xexplicit-api=strict"
-            }
         }
     }
 

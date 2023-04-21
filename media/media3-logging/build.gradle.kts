@@ -28,7 +28,7 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 25
+        minSdk = 26
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -43,14 +43,17 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
+        )
     }
     packaging {
         resources {
-            excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1")
+            excludes += listOf(
+                "/META-INF/AL2.0",
+                "/META-INF/LGPL2.1"
+            )
         }
     }
 
@@ -58,21 +61,14 @@ android {
         unitTests {
             isIncludeAndroidResources = true
         }
+        animationsDisabled = true
     }
 
-    sourceSets.getByName("test") {
-        java.srcDir("src/sharedTest/kotlin")
-        res.srcDir("src/sharedTest/res")
-    }
-    sourceSets.getByName("androidTest") {
-        java.srcDir("src/sharedTest/kotlin")
-        res.srcDir("src/sharedTest/res")
-    }
     lint {
         checkReleaseBuilds = false
         textReport = true
     }
-    namespace = "com.google.android.horologist.audio"
+    namespace = "com.google.android.horologist.media3.logging"
 }
 
 kapt {
@@ -95,21 +91,30 @@ metalava {
 }
 
 dependencies {
-    implementation(libs.kotlin.stdlib)
     api(projects.annotations)
 
-    implementation(libs.androidx.mediarouter)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(projects.media.audio)
+    implementation(projects.media.core)
+    implementation(libs.kotlinx.coroutines.core)
+    api(project.findProject(":media-lib-common") ?: libs.androidx.media3.common)
+    api(libs.androidx.annotation)
+    api(project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.lifecycle.process)
+    implementation(libs.kotlinx.coroutines.guava)
+    implementation(libs.androidx.corektx)
+    implementation(libs.androidx.lifecycle.service)
+    implementation(libs.androidx.tracing.ktx)
 
-    testImplementation(libs.androidx.lifecycle.testing)
-    testImplementation(libs.androidx.test.rules)
-    testImplementation(libs.truth)
-    testImplementation(libs.compose.ui.test.junit4)
-    debugImplementation(libs.compose.ui.test.manifest)
-    testImplementation(libs.espresso.core)
     testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
+    testImplementation(project.findProject(":media-test-utils") ?: libs.androidx.media3.testutils)
+    testImplementation(
+        project.findProject(":media-test-utils-robolectric")
+            ?: libs.androidx.media3.testutils.robolectric
+    )
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

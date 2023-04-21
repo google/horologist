@@ -93,9 +93,12 @@ metalava {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.media.audio)
-    implementation(projects.media.core)
-    implementation(projects.networkAwareness.core)
+    api(projects.media.audio)
+    api(projects.media.core)
+    api(projects.media.media3Audiooffload)
+    api(projects.media.media3Logging)
+    api(projects.media.media3Outputswitcher)
+    api(projects.networkAwareness.core)
     implementation(libs.kotlinx.coroutines.core)
     api(project.findProject(":media-lib-common") ?: libs.androidx.media3.common)
     api(libs.androidx.annotation)

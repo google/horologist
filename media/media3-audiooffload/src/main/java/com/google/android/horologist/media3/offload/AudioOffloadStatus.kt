@@ -18,7 +18,6 @@ package com.google.android.horologist.media3.offload
 
 import androidx.media3.common.Format
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media3.util.shortDescription
 
 @ExperimentalHorologistApi
 public data class AudioOffloadStatus(

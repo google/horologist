@@ -227,7 +227,7 @@ object PlaybackServiceModule {
             errorReporter = logger,
             coroutineScope = serviceCoroutineScope
         ).also { wearConfiguredPlayer ->
-            exoPlayer.addListener(TracingListener())
+            exoPlayer.addListener(com.google.android.horologist.media3.tracing.TracingListener())
 
             serviceCoroutineScope.launch(Dispatchers.Main) {
                 wearConfiguredPlayer.startNoiseDetection()

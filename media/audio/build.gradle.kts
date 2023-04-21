@@ -99,7 +99,6 @@ dependencies {
     api(projects.annotations)
 
     implementation(libs.androidx.mediarouter)
-    implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.kotlinx.coroutines.android)
 

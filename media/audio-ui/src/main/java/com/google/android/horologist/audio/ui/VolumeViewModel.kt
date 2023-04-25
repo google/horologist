@@ -19,6 +19,7 @@ package com.google.android.horologist.audio.ui
 import android.media.AudioManager
 import android.os.Build
 import android.os.VibrationEffect
+import android.os.VibrationEffect.DEFAULT_AMPLITUDE
 import android.os.Vibrator
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -95,6 +96,7 @@ public open class VolumeViewModel(
         volumeRepository.decreaseVolume()
     }
 
+
     public fun launchOutputSelection() {
         audioOutputRepository.launchOutputSelection(closeOnConnect = false)
     }
@@ -113,13 +115,22 @@ public open class VolumeViewModel(
     }
 
     private fun notSupported() {
-        Log.i(TAG, "Effect not supported")
-    }
+        Log.i(TAG, "Effect not supported")    }
 
     public fun onVolumeChangeByScroll(pixels: Float) {
         when {
             pixels > 0 -> increaseVolumeWithHaptics()
             pixels < 0 -> decreaseVolumeWithHaptics()
+        }
+    }
+
+    public fun setVolume(volume: Int) {
+        Log.d("TESTTESTTEST", "VolumeViewModel ==> " +
+                "currentVolume=${volumeRepository.volumeState.value.current}, " +
+                "targetVolume=$volume")
+        if (volume != volumeRepository.volumeState.value.current) {
+            volumeRepository.setVolume(volume)
+            performHaptics()
         }
     }
 

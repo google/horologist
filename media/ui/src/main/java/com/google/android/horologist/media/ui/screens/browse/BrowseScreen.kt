@@ -202,7 +202,7 @@ public class BrowseScreenSectionScope<T> {
     internal var loadedContent: @Composable SectionContentScope.(T) -> Unit = { }
         private set
 
-    internal var footerContent: @Composable SectionContentScope.() -> Unit = { }
+    internal var footerContent: (@Composable SectionContentScope.() -> Unit)? = null
         private set
 
     @BrowseScreenScopeMarker

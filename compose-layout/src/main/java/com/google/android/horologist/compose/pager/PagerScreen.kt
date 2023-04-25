@@ -29,9 +29,8 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
@@ -44,6 +43,7 @@ import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
 import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.PageIndicatorState
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
@@ -55,19 +55,18 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  */
 @Composable
 public fun PagerScreen(
-    count: Int,
     modifier: Modifier = Modifier,
-    state: PagerState = rememberPagerState(),
+    state: PagerState,
     content: @Composable ((Int) -> Unit)
 ) {
     val shape = if (LocalConfiguration.current.isScreenRound) CircleShape else null
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
         HorizontalPager(
             modifier = modifier,
-            pageCount = count,
             state = state,
             flingBehavior = HorizontalPagerDefaults.flingParams(state)
         ) { page ->
@@ -86,8 +85,9 @@ public fun PagerScreen(
             }
         }
 
-        val countState = rememberUpdatedState(newValue = count)
-        val pagerScreenState = remember { PageScreenIndicatorState(state, countState) }
+        Text(text = "pages: ${state.pageCount} page: ${state.currentPage}")
+
+        val pagerScreenState = remember { PageScreenIndicatorState(state) }
         HorizontalPageIndicator(
             modifier = Modifier.padding(6.dp),
             pageIndicatorState = pagerScreenState
@@ -99,11 +99,10 @@ public fun PagerScreen(
  * Bridge between Foundation PagerState and the Wear Compose PageIndicatorState.
  */
 public class PageScreenIndicatorState(
-    private val state: PagerState,
-    private val pageCountState: State<Int>
+    private val state: PagerState
 ) : PageIndicatorState {
     override val pageCount: Int
-        get() = pageCountState.value
+        get() = state.pageCount
 
     override val pageOffset: Float
         get() = state.currentPageOffsetFraction.takeIf { it.isFinite() } ?: 0f

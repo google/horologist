@@ -80,7 +80,7 @@ public fun MediaPlayerScaffold(
     timeText: @Composable (Modifier) -> Unit = {
         TimeText(modifier = it)
     },
-    pagerState: PagerState = rememberPagerState(initialPage = 0),
+    pagerState: PagerState = rememberPagerState(initialPage = 0, pageCount = { 2 }),
     navHostState: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
     additionalNavRoutes: NavGraphBuilder.() -> Unit = {}
 ) {

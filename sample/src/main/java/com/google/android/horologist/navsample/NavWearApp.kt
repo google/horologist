@@ -135,7 +135,7 @@ fun NavWearApp(
         composable(NavScreen.Pager.route) {
             it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
-            val pagerState = rememberPagerState()
+            val pagerState = rememberPagerState { 10 }
             PagerScreen(
                 // When using Modifier.edgeSwipeToDismiss, it is required that the element on
                 // which the modifier applies exists within a SwipeToDismissBox which shares
@@ -144,7 +144,6 @@ fun NavWearApp(
                 modifier = Modifier
                     .fillMaxSize()
                     .edgeSwipeToDismiss(swipeDismissState),
-                count = 10,
                 state = pagerState
             ) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

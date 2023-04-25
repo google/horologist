@@ -84,9 +84,7 @@ public fun PagerScreen(
                 }
             }
         }
-
-        Text(text = "pages: ${state.pageCount} page: ${state.currentPage}")
-
+        
         val pagerScreenState = remember { PageScreenIndicatorState(state) }
         HorizontalPageIndicator(
             modifier = Modifier.padding(6.dp),

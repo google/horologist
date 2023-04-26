@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -33,7 +32,8 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
- * A loading state display. This style is matched to the TextViews of the and [TextMediaDisplay] Composable.
+ * A loading state display. This style is matched to the TextViews of the and [TextMediaDisplay]
+ * composable.
  */
 @ExperimentalHorologistApi
 @Composable

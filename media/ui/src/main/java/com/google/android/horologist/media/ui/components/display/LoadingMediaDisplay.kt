@@ -33,7 +33,7 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
- * A loading state display.
+ * A loading state display. This style is matched to the TextViews of the and [TextMediaDisplay] Composable.
  */
 @ExperimentalHorologistApi
 @Composable
@@ -41,20 +41,21 @@ public fun LoadingMediaDisplay(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Spacer(modifier = Modifier.height(4.dp))
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(6.dp))
                 .background(MaterialTheme.colors.surface)
                 .width(120.dp)
-                .height(12.dp)
+                .height(13.dp)
         )
-        Spacer(modifier = Modifier.size(6.dp))
+        Spacer(modifier = Modifier.height(7.dp))
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(6.dp))
                 .background(MaterialTheme.colors.surface)
                 .width(80.dp)
-                .height(12.dp)
+                .height(13.dp)
         )
     }
 }

@@ -24,9 +24,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ServiceLifecycleDispatcher
 import androidx.lifecycle.lifecycleScope
+import androidx.wear.protolayout.ResourceBuilders.Resources
 import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
-import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TileService
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -75,7 +75,7 @@ public abstract class SuspendingTileService : TileService(), LifecycleOwner {
      */
     public abstract suspend fun tileRequest(requestParams: TileRequest): Tile
 
-    final override fun onResourcesRequest(
+    final override fun onTileResourcesRequest(
         requestParams: ResourcesRequest
     ): ListenableFuture<Resources> = CallbackToFutureAdapter.getFuture { completer ->
         val job = lifecycleScope.launch {

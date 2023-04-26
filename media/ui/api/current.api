@@ -904,55 +904,55 @@ package com.google.android.horologist.media.ui.state.model {
 package com.google.android.horologist.media.ui.tiles {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaCollectionsTileRenderer extends com.google.android.horologist.tiles.render.SingleTileLayoutRenderer<com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState,com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState> {
-    ctor public MediaCollectionsTileRenderer(android.content.Context context, androidx.wear.tiles.material.Colors materialTheme, boolean debugResourceMode);
-    method public void produceRequestedResources(androidx.wear.tiles.ResourceBuilders.Resources.Builder, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState resourceState, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
-    method public androidx.wear.tiles.LayoutElementBuilders.LayoutElement renderTile(com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState state, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters);
+    ctor public MediaCollectionsTileRenderer(android.content.Context context, androidx.wear.protolayout.material.Colors materialTheme, boolean debugResourceMode);
+    method public void produceRequestedResources(androidx.wear.protolayout.ResourceBuilders.Resources.Builder, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState resourceState, androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
+    method public androidx.wear.protolayout.LayoutElementBuilders.LayoutElement renderTile(com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState state, androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters deviceParameters);
   }
 
   public static final class MediaCollectionsTileRenderer.MediaCollection {
-    ctor public MediaCollectionsTileRenderer.MediaCollection(String name, String artworkId, androidx.wear.tiles.ActionBuilders.Action action);
+    ctor public MediaCollectionsTileRenderer.MediaCollection(String name, String artworkId, androidx.wear.protolayout.ActionBuilders.Action action);
     method public String component1();
     method public String component2();
-    method public androidx.wear.tiles.ActionBuilders.Action component3();
-    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection copy(String name, String artworkId, androidx.wear.tiles.ActionBuilders.Action action);
-    method public androidx.wear.tiles.ActionBuilders.Action getAction();
+    method public androidx.wear.protolayout.ActionBuilders.Action component3();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection copy(String name, String artworkId, androidx.wear.protolayout.ActionBuilders.Action action);
+    method public androidx.wear.protolayout.ActionBuilders.Action getAction();
     method public String getArtworkId();
     method public String getName();
-    property public final androidx.wear.tiles.ActionBuilders.Action action;
+    property public final androidx.wear.protolayout.ActionBuilders.Action action;
     property public final String artworkId;
     property public final String name;
   }
 
   public static final class MediaCollectionsTileRenderer.MediaCollectionsState {
-    ctor public MediaCollectionsTileRenderer.MediaCollectionsState(@StringRes int chipName, androidx.wear.tiles.ActionBuilders.Action chipAction, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection1, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection2);
+    ctor public MediaCollectionsTileRenderer.MediaCollectionsState(@StringRes int chipName, androidx.wear.protolayout.ActionBuilders.Action chipAction, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection1, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection2);
     method public int component1();
-    method public androidx.wear.tiles.ActionBuilders.Action component2();
+    method public androidx.wear.protolayout.ActionBuilders.Action component2();
     method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection component3();
     method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection component4();
-    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState copy(@StringRes int chipName, androidx.wear.tiles.ActionBuilders.Action chipAction, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection1, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection2);
-    method public androidx.wear.tiles.ActionBuilders.Action getChipAction();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState copy(@StringRes int chipName, androidx.wear.protolayout.ActionBuilders.Action chipAction, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection1, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection2);
+    method public androidx.wear.protolayout.ActionBuilders.Action getChipAction();
     method public int getChipName();
     method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection getCollection1();
     method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection getCollection2();
-    property public final androidx.wear.tiles.ActionBuilders.Action chipAction;
+    property public final androidx.wear.protolayout.ActionBuilders.Action chipAction;
     property public final int chipName;
     property public final com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection1;
     property public final com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection2;
   }
 
   public static final class MediaCollectionsTileRenderer.ResourceState {
-    ctor public MediaCollectionsTileRenderer.ResourceState(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> images);
+    ctor public MediaCollectionsTileRenderer.ResourceState(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource> images);
     method public int component1();
-    method public java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> component2();
-    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState copy(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> images);
+    method public java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource> component2();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState copy(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource> images);
     method public int getAppIcon();
-    method public java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> getImages();
+    method public java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource> getImages();
     property public final int appIcon;
-    property public final java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> images;
+    property public final java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource> images;
   }
 
   public final class ToTileColorsKt {
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.wear.tiles.material.Colors toTileColors(androidx.wear.compose.material.Colors);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.wear.protolayout.material.Colors toTileColors(androidx.wear.compose.material.Colors);
   }
 
 }

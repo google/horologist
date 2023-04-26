@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.wear.tiles.ResourceBuilders.ImageResource
+import androidx.wear.protolayout.ResourceBuilders.ImageResource
 import com.google.android.horologist.tiles.images.toImageResource
 import android.graphics.Canvas as AndroidCanvas
 import androidx.compose.ui.graphics.Canvas as ComposeCanvas

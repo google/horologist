@@ -25,9 +25,11 @@ import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class LoadingMediaDisplayTest: ScreenshotBaseTest(ScreenshotTestRule.screenshotTestRuleParams {
-    screenTimeText = {}
-}) {
+class LoadingMediaDisplayTest : ScreenshotBaseTest(
+    ScreenshotTestRule.screenshotTestRuleParams {
+        screenTimeText = {}
+    }
+) {
     @Test
     fun default() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {

@@ -39,6 +39,7 @@ buildscript {
         classpath(libs.dagger.hiltandroidplugin)
 
         classpath(libs.googleSecretsGradlePlugin)
+        classpath("io.github.takahirom.roborazzi:roborazzi-gradle-plugin:1.2.0-alpha-2")
     }
 }
 

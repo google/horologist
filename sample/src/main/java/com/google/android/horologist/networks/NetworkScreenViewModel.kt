@@ -46,7 +46,7 @@ public class NetworkScreenViewModel(
     private val okHttpClient: OkHttpClient
 ) : ViewModel() {
     val request = Request.Builder()
-        .url("https://github.com/google/horologist/raw/main/media-sample/backend/images/album_art.jpg")
+        .url("https://github.com/google/horologist/raw/main/media/sample/backend/images/album_art.jpg")
         .build()
 
     fun makeRequests() {

@@ -101,4 +101,3 @@ fun SampleComposableFunction() {
         }
     }
 }
-

@@ -48,7 +48,6 @@ class MediaPlayerStatesScreenTest(
             )
         }
         testLabel = state.name.lowercase()
-        record = true
     }
 ) {
 

@@ -18,5 +18,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.google.android.horologist.audio">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
     <uses-sdk android:minSdkVersion="25" tools:ignore="GradleOverrides" />
 </manifest>

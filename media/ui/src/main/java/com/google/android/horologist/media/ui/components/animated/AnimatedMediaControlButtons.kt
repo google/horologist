@@ -51,7 +51,7 @@ public fun AnimatedMediaControlButtons(
     trackPositionUiModel: TrackPositionUiModel,
     progressColor: Color = MaterialTheme.colors.primary,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
-    rotateProgressIndicator: Flow<Unit>? = null
+    rotateProgressIndicator: Flow<Unit> = flowOf()
 ) {
     ControlButtonLayout(
         modifier = modifier,

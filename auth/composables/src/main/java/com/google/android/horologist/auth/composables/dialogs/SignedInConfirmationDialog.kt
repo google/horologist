@@ -57,7 +57,7 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
 /**
  * A signed in confirmation dialog that can display the name, email and avatar image of the user.
  *
- * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
+ * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @ExperimentalHorologistApi
 @Composable
@@ -87,7 +87,7 @@ public fun SignedInConfirmationDialog(
  * A [SignedInConfirmationDialog] that can display the name, email and avatar image of an
  * [AccountUiModel].
  *
- * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
+ * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @ExperimentalHorologistApi
 @Composable

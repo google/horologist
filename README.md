@@ -20,7 +20,7 @@ The toolkit includes:
 
 Player Screen | Browse Screen | Entity Screen
 :------------:|:-------------:|:-------------:
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/playerscreen.png" height="120" width="120" > | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/browse.png" height="120" width="120" > | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/detail.png" height="120" width="120" >
+<img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/playerscreen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/browse.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/detail.png" height="120" width="120" >
 
 ## 📅 Composables
 
@@ -30,11 +30,11 @@ High quality prebuilt composables, such as Time and Date pickers.
 
 DatePicker             |  TimePickerWith12HourClock |  TimePicker
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/date_picker.png" height="120" width="120" >  |  <img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/time_12h_picker.png" height="120" width="120"> | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/time_24h_picker.png" height="120" width="120">
+<img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/date_picker.png" height="120" width="120" >  |  <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/time_12h_picker.png" height="120" width="120"> | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/time_24h_picker.png" height="120" width="120">
 
 SegmentedProgressIndicator | SquareSegmentedProgressIndicator
 :----------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------:
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/segmented_progress_indicator.png" height="120" width="120"> | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/square_segmented_progress_indicator.png" height="120" width="120">
+<img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/segmented_progress_indicator.png" height="120" width="120"> | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/square_segmented_progress_indicator.png" height="120" width="120">
 
 
 ## 📐 Compose Layout
@@ -45,7 +45,7 @@ Layout related functionality such as a Navigation Aware Scaffold.
 
 |                                                             fillMaxRectangle()                                                             |
 |:------------------------------------------------------------------------------------------------------------------------------------------:|
-| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" >  |
+| <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" >  |
 
 ## 🔊 Audio and UI
 
@@ -57,7 +57,7 @@ Subscribing to a Flow of changes in audio or output.
 
 |                                                          VolumeScreen                                                          |
 |:------------------------------------------------------------------------------------------------------------------------------:|
-| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
+| <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
 
 ## ☰ Tiles
 

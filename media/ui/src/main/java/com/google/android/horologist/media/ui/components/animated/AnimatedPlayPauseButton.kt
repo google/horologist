@@ -51,13 +51,13 @@ import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ProgressIndicatorDefaults
 import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
 import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.animation.PlaybackProgressAnimation.PLAYBACK_PROGRESS_ANIMATION_SPEC
 import com.google.android.horologist.media.ui.components.PlayPauseButton
 import com.google.android.horologist.media.ui.state.ProgressStateHolder
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -236,7 +236,7 @@ private fun animateChangeAsRotation(rotateProgressIndicator: Flow<Unit>): Float 
     }
     val animatedProgressIndicatorRotation by animateFloatAsState(
         targetValue = progressIndicatorRotation,
-        animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec,
+        animationSpec = PLAYBACK_PROGRESS_ANIMATION_SPEC,
         label = "Progress Indicator Rotation"
     )
     return animatedProgressIndicatorRotation

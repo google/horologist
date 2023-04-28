@@ -236,7 +236,8 @@ private fun animateChangeAsRotation(rotateProgressIndicator: Flow<Unit>): Float 
     }
     val animatedProgressIndicatorRotation by animateFloatAsState(
         targetValue = progressIndicatorRotation,
-        animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
+        animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec,
+        label = "Progress Indicator Rotation"
     )
     return animatedProgressIndicatorRotation
 }

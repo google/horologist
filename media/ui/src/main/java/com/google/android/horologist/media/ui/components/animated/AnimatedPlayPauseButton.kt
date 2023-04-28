@@ -63,6 +63,7 @@ import com.google.android.horologist.media.ui.state.ProgressStateHolder
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 public fun AnimatedPlayPauseButton(
@@ -188,19 +189,11 @@ public fun AnimatedPlayPauseProgressButton(
     progressColor: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
-    rotateProgressIndicator: Flow<Unit>? = null
+    rotateProgressIndicator: Flow<Unit> = flowOf()
 ) {
     val animatedProgressColor = animateColorAsState(
         targetValue = progressColor,
         animationSpec = tween(450, 0, LinearEasing)
-    )
-
-    val progressIndicatorRotation by produceState(0f, rotateProgressIndicator) {
-        rotateProgressIndicator?.collectLatest { value += 360 }
-    }
-    val animatedProgressIndicatorRotation by animateFloatAsState(
-        targetValue = progressIndicatorRotation,
-        animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
     )
 
     AnimatedPlayPauseButton(
@@ -226,7 +219,7 @@ public fun AnimatedPlayPauseProgressButton(
             CircularProgressIndicator(
                 modifier = Modifier
                     .fillMaxSize()
-                    .rotate(animatedProgressIndicatorRotation),
+                    .rotate(animateChangeAsRotation(rotateProgressIndicator)),
                 progress = progress,
                 indicatorColor = animatedProgressColor.value,
                 trackColor = trackColor,
@@ -234,4 +227,16 @@ public fun AnimatedPlayPauseProgressButton(
             )
         }
     }
+}
+
+@Composable
+private fun animateChangeAsRotation(rotateProgressIndicator: Flow<Unit>): Float {
+    val progressIndicatorRotation by produceState(0f, rotateProgressIndicator) {
+        rotateProgressIndicator.collectLatest { value += 360 }
+    }
+    val animatedProgressIndicatorRotation by animateFloatAsState(
+        targetValue = progressIndicatorRotation,
+        animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
+    )
+    return animatedProgressIndicatorRotation
 }

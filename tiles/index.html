@@ -21,7 +21,7 @@
         <link rel="next" href="../using-snapshot-version/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.8">
     
     
       
@@ -113,6 +113,8 @@
         </div>
       </div>
     </div>
+    
+      
     
     
     
@@ -1074,7 +1076,7 @@
 <p>Provides a suspending method to load an image from the network, convert to an RGB_565
 bitmap, and encode as a Tiles InlineImageResource.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">imageResource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">imageLoader</span><span class="p">.</span><span class="na">loadImageResource</span><span class="p">(</span><span class="n">applicationContext</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="s">&quot;https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/playerscreen.png&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/playerscreen.png&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// Show a local error image if missing</span>
 <span class="w">    </span><span class="n">error</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">missingImage</span><span class="p">)</span>
 <span class="p">}</span>

@@ -21,7 +21,7 @@
         <link rel="next" href="../media3-backend/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.8">
     
     
       
@@ -113,6 +113,8 @@
         </div>
       </div>
     </div>
+    
+      
     
     
     
@@ -750,6 +752,47 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#media-toolkit-implementation" class="md-nav__link">
+    Media Toolkit implementation
+  </a>
+  
+    <nav class="md-nav" aria-label="Media Toolkit implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#downloadmanagerlistener" class="md-nav__link">
+    DownloadManagerListener
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downloadprogressmonitor" class="md-nav__link">
+    DownloadProgressMonitor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ui-implementation" class="md-nav__link">
+    UI Implementation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#result" class="md-nav__link">
+    Result
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1030,6 +1073,47 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#media-toolkit-implementation" class="md-nav__link">
+    Media Toolkit implementation
+  </a>
+  
+    <nav class="md-nav" aria-label="Media Toolkit implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#downloadmanagerlistener" class="md-nav__link">
+    DownloadManagerListener
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downloadprogressmonitor" class="md-nav__link">
+    DownloadProgressMonitor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ui-implementation" class="md-nav__link">
+    UI Implementation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#result" class="md-nav__link">
+    Result
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1079,6 +1163,161 @@ internal database.</p>
 </code></pre></div></p>
 </li>
 </ol>
+<h3 id="media-toolkit-implementation">Media Toolkit implementation<a class="headerlink" href="#media-toolkit-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="downloadmanagerlistener">DownloadManagerListener<a class="headerlink" href="#downloadmanagerlistener" title="Permanent link">&para;</a></h4>
+<p>The <code>DownloadManagerListener</code> is an implementation of listener for <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/DownloadManager">DownloadManager</a> events which can also get notified of
+<a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/DownloadService">DownloadService</a> creation and destruction events.
+This class persists information such as the id and the download status in the local database <code>MediaDownloadLocalDataSource</code>.
+<div class="highlight"><pre><span></span><code><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onDownloadChanged</span><span class="p">(</span>
+<span class="w">        </span><span class="n">downloadManager</span><span class="p">:</span><span class="w"> </span><span class="n">DownloadManager</span><span class="p">,</span>
+<span class="w">        </span><span class="n">download</span><span class="p">:</span><span class="w"> </span><span class="n">Download</span><span class="p">,</span>
+<span class="w">        </span><span class="n">finalException</span><span class="p">:</span><span class="w"> </span><span class="n">Exception?</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">coroutineScope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">mediaId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">download</span><span class="p">.</span><span class="na">request</span><span class="p">.</span><span class="na">id</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MediaDownloadEntityStatusMapper</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">download</span><span class="p">.</span><span class="na">state</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MediaDownloadEntityStatus</span><span class="p">.</span><span class="na">Downloaded</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">mediaDownloadLocalDataSource</span><span class="p">.</span><span class="na">setDownloaded</span><span class="p">(</span><span class="n">mediaId</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">mediaDownloadLocalDataSource</span><span class="p">.</span><span class="na">updateStatus</span><span class="p">(</span><span class="n">mediaId</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">downloadProgressMonitor</span><span class="p">.</span><span class="na">start</span><span class="p">(</span><span class="n">downloadManager</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onDownloadRemoved</span><span class="p">(</span><span class="n">downloadManager</span><span class="p">:</span><span class="w"> </span><span class="n">DownloadManager</span><span class="p">,</span><span class="w"> </span><span class="n">download</span><span class="p">:</span><span class="w"> </span><span class="n">Download</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">coroutineScope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">mediaId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">download</span><span class="p">.</span><span class="na">request</span><span class="p">.</span><span class="na">id</span>
+<span class="w">            </span><span class="n">mediaDownloadLocalDataSource</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">mediaId</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div></p>
+<h4 id="downloadprogressmonitor">DownloadProgressMonitor<a class="headerlink" href="#downloadprogressmonitor" title="Permanent link">&para;</a></h4>
+<p>The <code>DownloadProgressMonitor</code> monitors the status of the download by polling the <code>DownloadManager</code> 
+and persists the progress in the local database <code>MediaDownloadLocalDataSource</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">downloadManager</span><span class="p">:</span><span class="w"> </span><span class="n">DownloadManager</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">coroutineScope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">downloads</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mediaDownloadLocalDataSource</span><span class="p">.</span><span class="na">getAllDownloading</span><span class="p">()</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">downloads</span><span class="p">.</span><span class="na">isNotEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">downloads</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">downloadManager</span><span class="p">.</span><span class="na">downloadIndex</span><span class="p">.</span><span class="na">getDownload</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">mediaId</span><span class="p">)</span><span class="o">?.</span><span class="na">let</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">download</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                        </span><span class="n">mediaDownloadLocalDataSource</span><span class="p">.</span><span class="na">updateProgress</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">mediaId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">download</span><span class="p">.</span><span class="na">request</span><span class="p">.</span><span class="na">id</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">progress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">download</span><span class="p">.</span><span class="na">percentDownloaded</span>
+<span class="w">                                </span><span class="p">.</span><span class="na">coerceAtLeast</span><span class="p">(</span><span class="n">DOWNLOAD_PROGRESS_START</span><span class="p">),</span>
+<span class="w">                            </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">download</span><span class="p">.</span><span class="na">contentLength</span>
+<span class="w">                        </span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">stop</span><span class="p">()</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">running</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">handler</span><span class="p">.</span><span class="na">removeCallbacksAndMessages</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+<span class="w">            </span><span class="n">handler</span><span class="p">.</span><span class="na">postDelayed</span><span class="p">({</span><span class="w"> </span><span class="n">update</span><span class="p">(</span><span class="n">downloadManager</span><span class="p">)</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">UPDATE_INTERVAL_MILLIS</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<h4 id="ui-implementation">UI Implementation<a class="headerlink" href="#ui-implementation" title="Permanent link">&para;</a></h4>
+<p>The PlaylistsDownloadScreen is composed by the <code>MediaContent</code> and the <code>ButtonContent</code>. 
+The <code>MediaContent</code> displays the content that is being downloaded or already downloaded. For content that is being downloaded,<br />
+we display the download progress for each track in place of the artist name in the <code>secondaryLabel</code></p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">secondaryLabel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">downloadMediaUiModel</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">is</span><span class="w"> </span><span class="n">DownloadMediaUiModel</span><span class="p">.</span><span class="na">Downloading</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">downloadMediaUiModel</span><span class="p">.</span><span class="na">progress</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">is</span><span class="w"> </span><span class="n">DownloadMediaUiModel</span><span class="p">.</span><span class="na">Progress</span><span class="p">.</span><span class="na">Waiting</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">stringResource</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">horologist_playlist_download_download_progress_waiting</span>
+<span class="w">                </span><span class="p">)</span>
+
+<span class="w">                </span><span class="k">is</span><span class="w"> </span><span class="n">DownloadMediaUiModel</span><span class="p">.</span><span class="na">Progress</span><span class="p">.</span><span class="na">InProgress</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">downloadMediaUiModel</span><span class="p">.</span><span class="na">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">is</span><span class="w"> </span><span class="n">DownloadMediaUiModel</span><span class="p">.</span><span class="na">Size</span><span class="p">.</span><span class="na">Known</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="kd">val</span><span class="w"> </span><span class="nv">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Formatter</span><span class="p">.</span><span class="na">formatShortFileSize</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">LocalContext</span><span class="p">.</span><span class="na">current</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">downloadMediaUiModel</span><span class="p">.</span><span class="na">size</span><span class="p">.</span><span class="na">sizeInBytes</span>
+<span class="w">                        </span><span class="p">)</span>
+<span class="w">                        </span><span class="n">stringResource</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">horologist_playlist_download_download_progress_known_size</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">downloadMediaUiModel</span><span class="p">.</span><span class="na">progress</span><span class="p">.</span><span class="na">progress</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">size</span>
+<span class="w">                        </span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+
+<span class="w">                    </span><span class="n">DownloadMediaUiModel</span><span class="p">.</span><span class="na">Size</span><span class="p">.</span><span class="na">Unknown</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">stringResource</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">horologist_playlist_download_download_progress_unknown_size</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">downloadMediaUiModel</span><span class="p">.</span><span class="na">progress</span><span class="p">.</span><span class="na">progress</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">is</span><span class="w"> </span><span class="n">DownloadMediaUiModel</span><span class="p">.</span><span class="na">Downloaded</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">downloadMediaUiModel</span><span class="p">.</span><span class="na">artist</span>
+<span class="w">        </span><span class="k">is</span><span class="w"> </span><span class="n">DownloadMediaUiModel</span><span class="p">.</span><span class="na">NotDownloaded</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">downloadMediaUiModel</span><span class="p">.</span><span class="na">artist</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>The <code>ButtonContent</code> displays either a download chip or three buttons to delete, shuffle and play the content. While content is being downloaded, 
+we show an animation on the first button on the left to track progress .</p>
+<div class="highlight"><pre><span></span><code><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="na">downloadMediaListState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">PlaylistDownloadScreenState</span><span class="p">.</span><span class="na">Loaded</span><span class="p">.</span><span class="na">DownloadMediaListState</span><span class="p">.</span><span class="na">None</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="na">downloadsProgress</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">DownloadsProgress</span><span class="p">.</span><span class="na">InProgress</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">StandardChip</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stringResource</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">horologist_playlist_download_button_cancel</span><span class="p">),</span>
+<span class="w">                        </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">onCancelDownloadButtonClick</span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="na">collectionModel</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">bottom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">                        </span><span class="n">icon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Close</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">StandardChip</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stringResource</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">horologist_playlist_download_button_download</span><span class="p">),</span>
+<span class="w">                        </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">onDownloadButtonClick</span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="na">collectionModel</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">bottom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">                        </span><span class="n">icon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Download</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Row</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">bottom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">52.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">                    </span><span class="n">verticalAlignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CenterVertically</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">horizontalArrangement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrangement</span><span class="p">.</span><span class="na">spacedBy</span><span class="p">(</span><span class="m">6.</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">CenterHorizontally</span><span class="p">)</span>
+<span class="w">                </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">FirstButton</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">downloadMediaListState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="na">downloadMediaListState</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">downloadsProgress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="na">downloadsProgress</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">collectionModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="na">collectionModel</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">onDownloadButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onDownloadButtonClick</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">onCancelDownloadButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onCancelDownloadButtonClick</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">onDownloadCompletedButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onDownloadCompletedButtonClick</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                            </span><span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="n">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3F</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">)</span>
+
+<span class="w">                    </span><span class="n">StandardButton</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">imageVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Shuffle</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stringResource</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">horologist_playlist_download_button_shuffle_content_description</span><span class="p">),</span>
+<span class="w">                        </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">onShuffleButtonClick</span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="na">collectionModel</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                            </span><span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="n">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3F</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">)</span>
+
+<span class="w">                    </span><span class="n">StandardButton</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">imageVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">PlayArrow</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stringResource</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">horologist_playlist_download_button_play_content_description</span><span class="p">),</span>
+<span class="w">                        </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">onPlayButtonClick</span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="na">collectionModel</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                            </span><span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="n">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3F</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+</code></pre></div>
+<h3 id="result">Result<a class="headerlink" href="#result" title="Permanent link">&para;</a></h3>
+<p>Download screens:</p>
+<p><img align="center" alt="" loading="lazy" src="download_in_progress.png" />
+<img align="center" alt="" loading="lazy" src="download_screen.png" /></p>
 
 
 

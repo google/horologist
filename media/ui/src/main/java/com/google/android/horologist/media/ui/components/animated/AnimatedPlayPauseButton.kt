@@ -18,8 +18,8 @@ package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -191,7 +191,8 @@ public fun AnimatedPlayPauseProgressButton(
     rotateProgressIndicator: Flow<Unit>? = null
 ) {
     val animatedProgressColor = animateColorAsState(
-        targetValue = progressColor, animationSpec = tween(450, 0, LinearEasing)
+        targetValue = progressColor,
+        animationSpec = tween(450, 0, LinearEasing)
     )
 
     val progressIndicatorRotation by produceState(0f, rotateProgressIndicator) {

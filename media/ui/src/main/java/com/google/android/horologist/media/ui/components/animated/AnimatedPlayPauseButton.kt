@@ -19,6 +19,7 @@ package com.google.android.horologist.media.ui.components.animated
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,11 +30,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
@@ -48,6 +51,7 @@ import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.ProgressIndicatorDefaults
 import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
@@ -57,6 +61,8 @@ import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.PlayPauseButton
 import com.google.android.horologist.media.ui.state.ProgressStateHolder
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 public fun AnimatedPlayPauseButton(
@@ -181,11 +187,19 @@ public fun AnimatedPlayPauseProgressButton(
     progressStrokeWidth: Dp = 4.dp,
     progressColor: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
-    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f)
+    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
+    rotateProgressIndicator: Flow<Unit>? = null
 ) {
     val animatedProgressColor = animateColorAsState(
-        targetValue = progressColor,
-        animationSpec = tween(450, 0, LinearEasing)
+        targetValue = progressColor, animationSpec = tween(450, 0, LinearEasing)
+    )
+
+    val progressIndicatorRotation by produceState(0f, rotateProgressIndicator) {
+        rotateProgressIndicator?.collectLatest { value += 360 }
+    }
+    val animatedProgressIndicatorRotation by animateFloatAsState(
+        targetValue = progressIndicatorRotation,
+        animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
     )
 
     AnimatedPlayPauseButton(
@@ -209,7 +223,9 @@ public fun AnimatedPlayPauseProgressButton(
             )
         } else if (trackPositionUiModel.showProgress) {
             CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .rotate(animatedProgressIndicatorRotation),
                 progress = progress,
                 indicatorColor = animatedProgressColor.value,
                 trackColor = trackColor,

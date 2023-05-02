@@ -21,7 +21,7 @@
     <string description="A text to be displayed when the user signs in and their name is not known. [CHAR_LIMIT=13]" name="horologist_signedin_confirmation_greeting_no_name">Hi!</string>
     <string description="Title of the screen that prompts the user to sign in. [CHAR_LIMIT=40]" name="horologist_signin_prompt_title">Sign In</string>
     <string description="Label displayed on the Chip that allows the user to sign in. [CHAR_LIMIT=20]" name="horologist_sign_in_chip_label">Sign in</string>
-    <string description="Label displayed on the Chip that allows the user to use the app without being signed in. [CHAR_LIMIT=20]" name="horologist_guest_mode_chip_label">Use without account</string>
+    <string description="Label displayed on the Chip that allows the user to use the app without being signed in. [CHAR_LIMIT=40]" name="horologist_guest_mode_chip_label">Use without account</string>
     <string description="Label displayed on the Chip that allows the user to see the other options to sign in or to use the app without signing in. [CHAR_LIMIT=20]" name="horologist_other_options_chip_label">Other options</string>
     <string description="Label displayed on the Chip that allows the user to start the process of creating an account. [CHAR_LIMIT=20]" name="horologist_create_account_chip_label">Create account</string>
     <string description="Title of the screen that displays a list of accounts and allows the user to choose one. [CHAR_LIMIT=40]" name="horologist_select_account_title">Select account</string>

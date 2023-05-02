@@ -44,5 +44,5 @@
   <string name="horologist_playlist_download_button_play_content_description">Oynat</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s İndirme işlemi devam ediyor</string>
   <string name="horologist_playlist_download_download_progress_known_size">%2$s alanın %%%1$.0f kadarı</string>
-  <string name="horologist_playlist_download_download_progress_waiting">Bekleniyor...</string>
+  <string name="horologist_playlist_download_download_progress_waiting">Bekleniyor…</string>
 </resources>

@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -33,7 +32,8 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
- * A loading state display.
+ * A loading state display. This style is matched to the Text of [TextMediaDisplay] as
+ * [MarqueeTextMediaDisplay]
  */
 @ExperimentalHorologistApi
 @Composable
@@ -41,6 +41,7 @@ public fun LoadingMediaDisplay(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Spacer(modifier = Modifier.height(1.dp))
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(6.dp))
@@ -48,7 +49,7 @@ public fun LoadingMediaDisplay(
                 .width(120.dp)
                 .height(12.dp)
         )
-        Spacer(modifier = Modifier.size(6.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(6.dp))

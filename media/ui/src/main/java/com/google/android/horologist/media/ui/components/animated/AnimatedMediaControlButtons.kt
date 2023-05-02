@@ -30,6 +30,8 @@ import com.google.android.horologist.media.ui.components.controls.MediaButtonDef
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 /**
  * Standard media control buttons, showing [SeekToPreviousButton], [PlayPauseProgressButton] and
@@ -49,7 +51,8 @@ public fun AnimatedMediaControlButtons(
     modifier: Modifier = Modifier,
     trackPositionUiModel: TrackPositionUiModel,
     progressColor: Color = MaterialTheme.colors.primary,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    rotateProgressIndicator: Flow<Unit> = flowOf()
 ) {
     ControlButtonLayout(
         modifier = modifier,
@@ -70,7 +73,8 @@ public fun AnimatedMediaControlButtons(
                     trackPositionUiModel = trackPositionUiModel,
                     modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
                     colors = colors,
-                    progressColor = progressColor
+                    progressColor = progressColor,
+                    rotateProgressIndicator = rotateProgressIndicator
                 )
             } else {
                 AnimatedPlayPauseButton(

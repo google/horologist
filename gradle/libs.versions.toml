@@ -33,8 +33,8 @@ compose-compiler = "1.4.6"
 composesnapshot = "10006137"
 dokka = "1.8.10"
 googleSecretsGradlePlugin = "2.0.1"
-googledagger = "2.45"
-gradlePlugin = "8.0.0"
+googledagger = "2.46"
+gradlePlugin = "8.0.1"
 gradlePublishPlugin = "0.25.2"
 io-coil-kt = "2.3.0"
 junit = "4.13.2"
@@ -180,6 +180,6 @@ gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = 
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-protobuf = "com.google.protobuf:0.9.1"
+protobuf = "com.google.protobuf:0.9.3"
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }

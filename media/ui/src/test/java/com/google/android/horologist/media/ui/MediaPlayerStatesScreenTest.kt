@@ -18,8 +18,11 @@ package com.google.android.horologist.media.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.material.TimeSource
+import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -36,7 +39,14 @@ class MediaPlayerStatesScreenTest(
     private val state: State
 ) : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
-        screenTimeText = {}
+        screenTimeText = {
+            TimeText(
+                timeSource = object : TimeSource {
+                    override val currentTime: String
+                        @Composable get() = "10:10"
+                }
+            )
+        }
         testLabel = state.name.lowercase()
     }
 ) {

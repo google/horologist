@@ -22,8 +22,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.VolumeDown
-import androidx.compose.material.icons.filled.VolumeUp
+import androidx.compose.material.icons.outlined.VolumeDown
+import androidx.compose.material.icons.outlined.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -198,7 +198,7 @@ public object VolumeScreenDefaults {
     public fun IncreaseIcon() {
         StandardIcon(
             modifier = Modifier.size(26.dp),
-            imageVector = Icons.Default.VolumeUp,
+            imageVector = Icons.Outlined.VolumeUp,
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description),
             rtlMode = IconRtlMode.Mirrored
         )
@@ -208,7 +208,7 @@ public object VolumeScreenDefaults {
     public fun DecreaseIcon() {
         StandardIcon(
             modifier = Modifier.size(26.dp),
-            imageVector = Icons.Default.VolumeDown,
+            imageVector = Icons.Outlined.VolumeDown,
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description),
             rtlMode = IconRtlMode.Mirrored
         )

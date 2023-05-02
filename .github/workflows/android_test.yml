@@ -49,7 +49,11 @@ jobs:
           target: android-wear
           profile: wear_round_454
           emulator-options: -no-window -no-snapshot
-          script: ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Microbenchmark -x media-benchmark:connectedDebugAndroidTest
+          script: |
+            ./gradlew connectedDebugAndroidTest \
+            -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Microbenchmark \
+            -x media:benchmark:connectedDebugAndroidTest \
+            -x media:sample-benchmark:connectedDebugAndroidTest
 
       - name: Upload logs
         if: always()

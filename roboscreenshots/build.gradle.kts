@@ -98,6 +98,7 @@ dependencies {
     api(libs.snapshot.android)
     api(libs.compose.ui.test.junit4)
     api(libs.robolectric)
+    api(libs.roborazzi)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
     implementation(libs.coil)

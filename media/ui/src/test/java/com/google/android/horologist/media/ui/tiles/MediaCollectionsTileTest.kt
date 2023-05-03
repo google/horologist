@@ -20,6 +20,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.wear.tiles.ActionBuilders
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSSmallRound
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSSquare
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.uamp.UampColors
@@ -41,7 +44,7 @@ class MediaCollectionsTileTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = "+w192dp-h192dp"
+        qualifiers = WearOSSmallRound
     )
     @Test
     fun smallRound() {
@@ -50,7 +53,7 @@ class MediaCollectionsTileTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav"
+        qualifiers = WearOSSquare
     )
     @Test
     fun square() {

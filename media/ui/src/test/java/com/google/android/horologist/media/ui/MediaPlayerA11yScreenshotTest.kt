@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.media.ui
 
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSSmallRound
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSSquare
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -39,7 +42,7 @@ class MediaPlayerA11yScreenshotTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = "+w192dp-h192dp"
+        qualifiers = WearOSSmallRound
     )
     @Test
     fun mediaPlayerSmallRound() {
@@ -48,7 +51,7 @@ class MediaPlayerA11yScreenshotTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = "w180dp-h180dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
+        qualifiers = WearOSSquare
     )
     @Test
     fun mediaPlayerSquare() {

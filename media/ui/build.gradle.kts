@@ -150,6 +150,7 @@ dependencies {
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.espresso.core)
     testImplementation(libs.androidx.test.ext)
+    testImplementation(libs.roborazzi)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

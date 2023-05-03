@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.screenshots
 
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSLargeRound
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Rule
@@ -30,7 +32,7 @@ import org.robolectric.annotation.GraphicsMode
 @RunWith(RobolectricTestRunner::class)
 @Config(
     sdk = [30],
-    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+    qualifiers = WearOSLargeRound
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @ExperimentalHorologistApi

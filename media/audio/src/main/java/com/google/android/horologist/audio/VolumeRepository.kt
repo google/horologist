@@ -37,9 +37,4 @@ public interface VolumeRepository : AutoCloseable {
      * Decrease the volume of the current audio output.
      */
     public fun decreaseVolume()
-
-    /**
-     * Sets the volume of the current audio output.
-     */
-    public fun setVolume(volume: Int)
 }

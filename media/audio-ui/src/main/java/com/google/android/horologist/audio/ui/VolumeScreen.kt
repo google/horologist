@@ -28,12 +28,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
@@ -71,16 +69,11 @@ public fun VolumeScreen(
 ) {
     val volumeUiState by volumeViewModel.volumeUiState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
+
     VolumeScreen(
-        modifier = modifier
-//            .onRotaryInputAccumulatedWithFocus(
-//                onValueChange = volumeViewModel::onVolumeChangeByScroll)
-            .rotaryVolumeControls(
-                volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
-                onRotaryVolumeInput = {
-                    newVolume -> volumeViewModel.setVolume(newVolume)
-                }
-            ),
+        modifier = modifier.onRotaryInputAccumulatedWithFocus(
+            onValueChange = volumeViewModel::onVolumeChangeByScroll
+        ),
         volume = { volumeUiState },
         audioOutputUi = audioOutput.toAudioOutputUi(),
         increaseVolume = { volumeViewModel.increaseVolume() },

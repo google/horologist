@@ -28,6 +28,7 @@ import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.RequestFocusWhenActive
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.RATE_LIMITING_DISABLED
+import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
@@ -41,18 +42,26 @@ private const val VOLUME_PERCENT_CHANGE_PIXEL: Float = 48f
 public fun Modifier.rotaryVolumeControls(
     focusRequester: FocusRequester? = null,
     volumeUiStateProvider: () -> VolumeUiState,
-    onRotaryVolumeInput: (Int) -> Unit
+    onRotaryVolumeInput: (Int) -> Unit,
+    isLowRes: Boolean,
 ) = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
     RequestFocusWhenActive(localFocusRequester)
-    onRotaryInputAccumulated(rateLimitCoolDownMs = RATE_LIMITING_DISABLED) { change ->
+    onRotaryInputAccumulated(rateLimitCoolDownMs = if (isLowRes) DEFAULT_RATE_LIMIT_COOL_DOWN_MS else RATE_LIMITING_DISABLED,
+        isLowRes = isLowRes) { change ->
         if (change != 0f) {
-            val targetVolume = convertPixelToVolume(change, volumeUiStateProvider)
+            val targetVolume = if (isLowRes) {
+                (volumeUiStateProvider().current + change.toInt()).coerceIn(0, volumeUiStateProvider().max)
+            } else {
+                convertPixelToVolume(change, volumeUiStateProvider)
+            }
+
             android.util.Log.d("TESTTESTTEST",
                 "maxVolume=${volumeUiStateProvider().max}, " +
                     "pixelsRotated=$change, " +
                     "currentVolume=${volumeUiStateProvider().current}, " +
-                    "targetVolume=$targetVolume")
+                    "targetVolume=$targetVolume " +
+                    "isLowRes=$isLowRes ")
             onRotaryVolumeInput(targetVolume)
         }
     }

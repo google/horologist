@@ -23,7 +23,8 @@ internal class RotaryInputAccumulator(
     private val eventAccumulationThresholdMs: Long,
     private val minValueChangeDistancePx: Float,
     private val rateLimitCoolDownMs: Long,
-    private val onValueChange: ((change: Float) -> Unit)
+    private val onValueChange: ((change: Float) -> Unit),
+    private val isLowRes: Boolean = false
 ) {
     private var accumulatedDistance = 0f
     private var lastAccumulatedEventTimeMs: Long = 0
@@ -38,20 +39,36 @@ internal class RotaryInputAccumulator(
     public fun onRotaryScroll(scrollPixels: Float, eventTimeMillis: Long) {
         val timeSinceLastAccumulatedMs = eventTimeMillis - lastAccumulatedEventTimeMs
         lastAccumulatedEventTimeMs = eventTimeMillis
-        if (timeSinceLastAccumulatedMs > eventAccumulationThresholdMs) {
-            accumulatedDistance = scrollPixels
-        } else {
-            accumulatedDistance += scrollPixels
+        android.util.Log.d("Yooohoo", "scrollPixels=$scrollPixels")
+        // For low res devices
+        val change = if (isLowRes && scrollPixels > 0f) {
+            1f
+        } else if (isLowRes && scrollPixels < 0f) {
+            -1f
+        } else if (isLowRes /** && scrollPixels == 0f **/) {
+            0f
+        } else { // !isLowRes
+            scrollPixels
         }
+
+        if (timeSinceLastAccumulatedMs > eventAccumulationThresholdMs) {
+            accumulatedDistance = change
+        } else {
+            accumulatedDistance += change
+        }
+        android.util.Log.d("Yooohoo", "accumulatedDistance1=$accumulatedDistance")
         onEventAccumulated(eventTimeMillis)
     }
 
     private fun onEventAccumulated(eventTimeMs: Long) {
-        if (abs(accumulatedDistance) < minValueChangeDistancePx ||
+        android.util.Log.d("Yooohoo", "accumulatedDistance2=$accumulatedDistance")
+        android.util.Log.d("Yooohoo", "timeThing=${eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs}")
+        if ((!isLowRes && abs(accumulatedDistance) < minValueChangeDistancePx) ||
             eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs
         ) {
             return
         }
+        android.util.Log.d("Yooohoo", "accumulatedDistance3=$accumulatedDistance")
         onValueChange(accumulatedDistance)
         lastUpdateTimeMs = eventTimeMs
         accumulatedDistance = 0f

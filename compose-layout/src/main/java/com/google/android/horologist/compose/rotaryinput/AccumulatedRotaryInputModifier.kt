@@ -19,6 +19,7 @@
 package com.google.android.horologist.compose.rotaryinput
 
 import androidx.compose.foundation.focusable
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -28,9 +29,15 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.RotaryScrollEvent
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
+import androidx.compose.ui.platform.LocalContext
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+
+@ExperimentalHorologistApi
+@Composable
+private fun isLowResInput(): Boolean = LocalContext.current.packageManager
+    .hasSystemFeature("android.hardware.rotaryencoder.lowres")
 
 /**
  * A focusable modifier that accumulates the scroll distances from [RotaryScrollEvent] and notifies
@@ -42,10 +49,11 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @ExperimentalHorologistApi
 public fun Modifier.onRotaryInputAccumulatedWithFocus(
     focusRequester: FocusRequester? = null,
-    onValueChange: (Float) -> Unit
+    isLowRes: Boolean = false,
+    onValueChange: (Float) -> Unit,
 ): Modifier = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
-    onRotaryInputAccumulated(onValueChange = onValueChange)
+    onRotaryInputAccumulated(onValueChange = onValueChange, isLowRes = isLowRes)
         .focusRequester(localFocusRequester)
         .focusable()
 }
@@ -64,7 +72,8 @@ public fun Modifier.onRotaryInputAccumulated(
     eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
-    onValueChange: (change: Float) -> Unit
+    isLowRes: Boolean = false,
+    onValueChange: (change: Float) -> Unit,
 ): Modifier = composed {
     val updatedOnValueChange by rememberUpdatedState(onValueChange)
     val rotaryInputAccumulator = remember {
@@ -72,7 +81,8 @@ public fun Modifier.onRotaryInputAccumulated(
             eventAccumulationThresholdMs = eventAccumulationThresholdMs,
             minValueChangeDistancePx = minValueChangeDistancePx,
             rateLimitCoolDownMs = rateLimitCoolDownMs,
-            onValueChange = { updatedOnValueChange(it) }
+            onValueChange = { updatedOnValueChange(it) },
+            isLowRes = isLowRes
         )
     }
     return@composed onRotaryScrollEvent(rotaryInputAccumulator::onRotaryScrollEvent)

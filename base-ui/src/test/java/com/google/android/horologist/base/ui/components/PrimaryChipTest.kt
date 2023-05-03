@@ -56,7 +56,7 @@ class PrimaryChipTest {
             outputDirectoryPath = "src/test/snapshots/images",
             roborazziOptions = RoborazziOptions(
                 recordOptions = RoborazziOptions.RecordOptions(
-                    pixelBitConfig = RoborazziOptions.PixelBitConfig.Rgb565
+                    pixelBitConfig = RoborazziOptions.PixelBitConfig.Argb8888
                 )
             )
         )

@@ -21,7 +21,6 @@ plugins {
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
-//    id("io.github.takahirom.roborazzi")
 }
 
 android {
@@ -116,7 +115,7 @@ dependencies {
     testImplementation(projects.roboscreenshots)
     testImplementation(libs.robolectric)
     testImplementation(libs.roborazzi)
-//    testImplementation(libs.roborazzi.junit.rule)
+    testImplementation(libs.roborazzi.junit.rule)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

@@ -16,24 +16,55 @@
 
 package com.google.android.horologist.base.ui.components
 
+import androidx.activity.ComponentActivity
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.unit.dp
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import com.github.takahirom.roborazzi.RoborazziOptions
+import com.github.takahirom.roborazzi.RoborazziRule
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.GraphicsMode
 
-class PrimaryChipTest : ScreenshotBaseTest() {
+
+@RunWith(AndroidJUnit4::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
+@Config(
+    sdk = [30],
+    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound
+)
+class PrimaryChipTest {
+    @get:Rule
+    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+
+    @get:Rule
+    val roborazziRule = RoborazziRule(
+        composeRule = composeTestRule,
+        captureRoot = composeTestRule.onRoot(),
+        options = RoborazziRule.Options(
+            captureType = RoborazziRule.CaptureType.LastImage,
+            outputDirectoryPath = "src/test/snapshots/images",
+            roborazziOptions = RoborazziOptions(
+                recordOptions = RoborazziOptions.RecordOptions(
+                    pixelBitConfig = RoborazziOptions.PixelBitConfig.Rgb565
+                )
+            )
+        )
+    )
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { }
@@ -43,7 +74,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabel() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -54,7 +85,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -65,7 +96,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -77,7 +108,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -89,7 +120,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -102,7 +133,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -115,7 +146,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 onClick = { }
@@ -125,7 +156,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
@@ -137,7 +168,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun usingSmallIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -148,7 +179,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLargeIconUsingSmallIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -160,7 +191,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun usingExtraLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -171,7 +202,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLargeIconUsingExtraLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -183,7 +214,7 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withPlaceholderIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        composeTestRule.setContent {
             StandardChip(
                 label = "Primary label",
                 onClick = { },
@@ -194,25 +225,18 @@ class PrimaryChipTest : ScreenshotBaseTest() {
 
     @Test
     fun disabledWithIconPlaceholder() {
-        screenshotTestRule.setContent(
-            isComponent = true,
-            takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Never
-        ) {
-            // In inspection mode will jump to placeholder
-            CompositionLocalProvider(LocalInspectionMode.provides(true)) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Image,
-                        tintColor = Color.Black
-                    ),
-                    enabled = false
-                )
-            }
+        composeTestRule.setContent {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = "iconUri",
+                placeholder = rememberVectorPainter(
+                    image = Icons.Default.Image,
+                    tintColor = Color.Black
+                ),
+                enabled = false
+            )
         }
     }
 

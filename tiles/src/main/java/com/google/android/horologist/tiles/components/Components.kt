@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.tiles.components
 
-import androidx.wear.tiles.ModifiersBuilders
+import androidx.wear.protolayout.ModifiersBuilders
 
 /**
  * Simple NoOp clickable for preview use.

@@ -14,29 +14,27 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui.tiles
 
 import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.wear.tiles.ActionBuilders
-import androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters
-import androidx.wear.tiles.DimensionBuilders
-import androidx.wear.tiles.DimensionBuilders.ExpandedDimensionProp
-import androidx.wear.tiles.DimensionBuilders.WrappedDimensionProp
-import androidx.wear.tiles.LayoutElementBuilders
-import androidx.wear.tiles.LayoutElementBuilders.Column
-import androidx.wear.tiles.LayoutElementBuilders.Spacer
-import androidx.wear.tiles.ModifiersBuilders.Clickable
-import androidx.wear.tiles.ResourceBuilders.ImageResource
-import androidx.wear.tiles.ResourceBuilders.Resources
-import androidx.wear.tiles.material.Chip
-import androidx.wear.tiles.material.ChipColors
-import androidx.wear.tiles.material.Colors
-import androidx.wear.tiles.material.CompactChip
-import androidx.wear.tiles.material.layouts.PrimaryLayout
+import androidx.wear.protolayout.ActionBuilders
+import androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters
+import androidx.wear.protolayout.DimensionBuilders
+import androidx.wear.protolayout.DimensionBuilders.ExpandedDimensionProp
+import androidx.wear.protolayout.DimensionBuilders.WrappedDimensionProp
+import androidx.wear.protolayout.LayoutElementBuilders
+import androidx.wear.protolayout.LayoutElementBuilders.Column
+import androidx.wear.protolayout.LayoutElementBuilders.Spacer
+import androidx.wear.protolayout.ModifiersBuilders.Clickable
+import androidx.wear.protolayout.ResourceBuilders.ImageResource
+import androidx.wear.protolayout.ResourceBuilders.Resources
+import androidx.wear.protolayout.material.Chip
+import androidx.wear.protolayout.material.ChipColors
+import androidx.wear.protolayout.material.Colors
+import androidx.wear.protolayout.material.CompactChip
+import androidx.wear.protolayout.material.layouts.PrimaryLayout
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 
@@ -93,7 +91,7 @@ public class MediaCollectionsTileRenderer(
     }
 
     private fun spacer(size: Float) = Spacer.Builder().setHeight(
-        DimensionBuilders.DpProp.Builder().setValue(size).build()
+        DimensionBuilders.DpProp.Builder(size).build()
     ).build()
 
     private fun collectionChip(

@@ -16,9 +16,9 @@
 
 package com.google.android.horologist.tile
 
+import androidx.wear.protolayout.ResourceBuilders.Resources
 import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
-import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.tiles.SuspendingTileService

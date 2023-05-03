@@ -17,8 +17,8 @@
 package com.google.android.horologist.tiles.images
 
 import androidx.annotation.DrawableRes
-import androidx.wear.tiles.ResourceBuilders.AndroidImageResourceByResId
-import androidx.wear.tiles.ResourceBuilders.ImageResource
+import androidx.wear.protolayout.ResourceBuilders.AndroidImageResourceByResId
+import androidx.wear.protolayout.ResourceBuilders.ImageResource
 
 /**
  * Load a resource from the res/drawable* directories.

@@ -39,7 +39,7 @@ authentication method.
 It uses different screens from [auth-composables](auth-composables.md) to display the full
 authentication flow.
 
-| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" > | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/select_account_screen.png" height="120" width="120" > | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" > |
+| <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/select_account_screen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" > |
 |:---------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------:|
 
 It relies on
@@ -59,7 +59,7 @@ authentication method.
 It uses different screens from [auth-composables](auth-composables.md) to display the full
 authentication flow.
 
-| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" > | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/check_your_phone_screen.png" height="120" width="120" > | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" > |
+| <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/check_your_phone_screen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" > |
 |:---------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------:|
 
 A implementation for the following repositories are required to be provided:
@@ -77,7 +77,7 @@ authentication method.
 It uses different screens from [auth-composables](auth-composables.md) to display the full
 authentication flow.
 
-| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" > | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/check_your_phone_screen_code.png" height="120" width="120" > | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" > |
+| <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/check_your_phone_screen_code.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" > |
 |:---------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------:|
 
 A implementation for the following repositories are required to be provided:

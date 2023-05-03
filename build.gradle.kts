@@ -202,6 +202,12 @@ subprojects {
                 // Remove composable previews from docs
                 suppressedFiles.from(file("src/debug/java"))
             }
+
+            // Workaround for https://github.com/Kotlin/dokka/issues/2954
+            if (project.plugins.hasPlugin("org.jetbrains.kotlin.kapt")) {
+                dependsOn("kaptDebugKotlin")
+                dependsOn("kaptReleaseKotlin")
+            }
         }
         if (plugins.hasPlugin("com.android.library")) {
             configure<com.android.build.gradle.LibraryExtension> {

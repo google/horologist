@@ -24,9 +24,9 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.withFrameMillis
-import androidx.wear.compose.material.ProgressIndicatorDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.TimestampProvider
+import com.google.android.horologist.media.ui.animation.PlaybackProgressAnimation.PLAYBACK_PROGRESS_ANIMATION_SPEC
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.coroutineScope
@@ -54,7 +54,7 @@ internal class ProgressStateHolder(
             return@coroutineScope
         }
         launch(NonCancellable) {
-            animatable.animateTo(offset, ProgressIndicatorDefaults.ProgressAnimationSpec)
+            animatable.animateTo(offset, PLAYBACK_PROGRESS_ANIMATION_SPEC)
             animatable.snapTo(0f)
         }
     }

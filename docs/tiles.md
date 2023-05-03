@@ -25,7 +25,7 @@ bitmap, and encode as a Tiles InlineImageResource.
 
 ```kotlin
 val imageResource = imageLoader.loadImageResource(applicationContext, 
-    "https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/playerscreen.png") {
+    "https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/playerscreen.png") {
     // Show a local error image if missing
     error(R.drawable.missingImage)
 }

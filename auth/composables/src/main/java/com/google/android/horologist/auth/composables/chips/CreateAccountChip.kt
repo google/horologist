@@ -30,7 +30,7 @@ import com.google.android.horologist.base.ui.components.StandardChipType
 /**
  * An opinionated [Chip] to represent the "Create account" action.
  *
- * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/create_account_chip.png" height="120" width="120" >
+ * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/create_account_chip.png" height="120" width="120" >
  */
 @ExperimentalHorologistApi
 @Composable

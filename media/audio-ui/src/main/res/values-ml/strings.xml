@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">കണക്റ്റ് ചെയ്തിട്ടില്ല</string>
   <string name="horologist_volume_screen_change_audio_output">ഓഡിയോ ഔട്ട്‌പുട്ട് മാറ്റുക</string>
   <string name="horologist_speaker_name">വാച്ച് സ്പീക്കർ</string>
+  <string name="choose_device">ഉപകരണം തിരഞ്ഞെടുക്കൂ</string>
   <string name="horologist_output_none">ഒന്നുമില്ല</string>
   <string name="horologist_set_volume_content_description">വോളിയം ക്രമീകരിക്കുക</string>
   <string name="horologist_audio_output_content_description">ഓഡിയോ ഔട്ട്പുട്ട്</string>

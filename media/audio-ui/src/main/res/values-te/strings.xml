@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">కనెక్ట్ చేయబడలేదు</string>
   <string name="horologist_volume_screen_change_audio_output">ఆడియో అవుట్‌పుట్‌ను మార్చండి</string>
   <string name="horologist_speaker_name">వాచ్ స్పీకర్</string>
+  <string name="choose_device">పరికరాన్ని ఎంచుకోండి</string>
   <string name="horologist_output_none">ఏవీ లేవు</string>
   <string name="horologist_set_volume_content_description">వాల్యూమ్‌ను సెట్ చేయండి</string>
   <string name="horologist_audio_output_content_description">ఆడియో అవుట్‌పుట్</string>

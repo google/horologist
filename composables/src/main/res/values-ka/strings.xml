@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,22 @@
   <string name="horologist_time_picker_hour">საათი</string>
   <string name="horologist_time_picker_minute">წუთი</string>
   <string name="horologist_time_picker_second">წამი</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d საათი</item>
+    <item quantity="other">%d საათი</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d წუთი</item>
+    <item quantity="other">%d წუთი</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d წამი</item>
+    <item quantity="other">%d წამი</item>
+  </plurals>
   <string name="horologist_time_picker_min">წთ</string>
   <string name="horologist_time_picker_period">წერტილი</string>
+  <string name="horologist_time_picker_am">AM</string>
+  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">დღე</string>
   <string name="horologist_picker_month">თვე</string>
   <string name="horologist_picker_year">წელი</string>

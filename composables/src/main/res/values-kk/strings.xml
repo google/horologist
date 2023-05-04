@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,22 @@
   <string name="horologist_time_picker_hour">Сағат</string>
   <string name="horologist_time_picker_minute">Mинут</string>
   <string name="horologist_time_picker_second">Секунд</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d сағат</item>
+    <item quantity="other">%d сағат</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d минут</item>
+    <item quantity="other">%d минут</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d секунд</item>
+    <item quantity="other">%d секунд</item>
+  </plurals>
   <string name="horologist_time_picker_min">Мин</string>
   <string name="horologist_time_picker_period">Кезең</string>
+  <string name="horologist_time_picker_am">түске дейін</string>
+  <string name="horologist_time_picker_pm">түстен кейін</string>
   <string name="horologist_picker_day">Күн</string>
   <string name="horologist_picker_month">Ай</string>
   <string name="horologist_picker_year">Жыл</string>

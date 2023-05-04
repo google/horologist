@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,22 @@
   <string name="horologist_time_picker_hour">Ώρα</string>
   <string name="horologist_time_picker_minute">Λεπτό</string>
   <string name="horologist_time_picker_second">Δευτερ.</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d Ώρα</item>
+    <item quantity="other">%d Ώρες</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d Λεπτό</item>
+    <item quantity="other">%d Λεπτά</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d Δευτερόλεπτο</item>
+    <item quantity="other">%d Δευτερόλεπτα</item>
+  </plurals>
   <string name="horologist_time_picker_min">Λεπ.</string>
   <string name="horologist_time_picker_period">Περίοδος</string>
+  <string name="horologist_time_picker_am">π.μ.</string>
+  <string name="horologist_time_picker_pm">μ.μ.</string>
   <string name="horologist_picker_day">Ημέρα</string>
   <string name="horologist_picker_month">Μήνας</string>
   <string name="horologist_picker_year">Έτος</string>

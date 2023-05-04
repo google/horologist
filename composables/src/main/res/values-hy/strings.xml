@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,22 @@
   <string name="horologist_time_picker_hour">Ժամ</string>
   <string name="horologist_time_picker_minute">Րոպե</string>
   <string name="horologist_time_picker_second">Վայրկյան</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d ժամ</item>
+    <item quantity="other">%d ժամ</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d րոպե</item>
+    <item quantity="other">%d րոպե</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d վայրկյան</item>
+    <item quantity="other">%d վայրկյան</item>
+  </plurals>
   <string name="horologist_time_picker_min">Նվազ․</string>
   <string name="horologist_time_picker_period">Ժամանակահատված</string>
+  <string name="horologist_time_picker_am">AM</string>
+  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">Օր</string>
   <string name="horologist_picker_month">Ամիս</string>
   <string name="horologist_picker_year">Տարի</string>

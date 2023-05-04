@@ -19,7 +19,6 @@
 package com.google.android.horologist.compose.rotaryinput
 
 import androidx.compose.foundation.focusable
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -29,15 +28,9 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.RotaryScrollEvent
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
-import androidx.compose.ui.platform.LocalContext
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-
-@ExperimentalHorologistApi
-@Composable
-private fun isLowResInput(): Boolean = LocalContext.current.packageManager
-    .hasSystemFeature("android.hardware.rotaryencoder.lowres")
 
 /**
  * A focusable modifier that accumulates the scroll distances from [RotaryScrollEvent] and notifies
@@ -50,7 +43,7 @@ private fun isLowResInput(): Boolean = LocalContext.current.packageManager
 public fun Modifier.onRotaryInputAccumulatedWithFocus(
     focusRequester: FocusRequester? = null,
     isLowRes: Boolean = false,
-    onValueChange: (Float) -> Unit,
+    onValueChange: (Float) -> Unit
 ): Modifier = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
     onRotaryInputAccumulated(onValueChange = onValueChange, isLowRes = isLowRes)
@@ -73,7 +66,7 @@ public fun Modifier.onRotaryInputAccumulated(
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
     isLowRes: Boolean = false,
-    onValueChange: (change: Float) -> Unit,
+    onValueChange: (change: Float) -> Unit
 ): Modifier = composed {
     val updatedOnValueChange by rememberUpdatedState(onValueChange)
     val rotaryInputAccumulator = remember {

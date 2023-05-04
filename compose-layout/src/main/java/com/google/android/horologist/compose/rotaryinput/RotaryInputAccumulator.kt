@@ -39,15 +39,14 @@ internal class RotaryInputAccumulator(
     public fun onRotaryScroll(scrollPixels: Float, eventTimeMillis: Long) {
         val timeSinceLastAccumulatedMs = eventTimeMillis - lastAccumulatedEventTimeMs
         lastAccumulatedEventTimeMs = eventTimeMillis
-        android.util.Log.d("Yooohoo", "scrollPixels=$scrollPixels")
-        // For low res devices
-        val change = if (isLowRes && scrollPixels > 0f) {
+
+        val change = if (isLowRes && scrollPixels > 0f) { // For positive tick in low res devices
             1f
-        } else if (isLowRes && scrollPixels < 0f) {
+        } else if (isLowRes && scrollPixels < 0f) { // For negative tick in low res devices
             -1f
-        } else if (isLowRes /** && scrollPixels == 0f **/) {
+        } else if (isLowRes /** && scrollPixels == 0f **/) { // For no tick in low res devices
             0f
-        } else { // !isLowRes
+        } else { // Take it as is for high res devices
             scrollPixels
         }
 
@@ -56,19 +55,15 @@ internal class RotaryInputAccumulator(
         } else {
             accumulatedDistance += change
         }
-        android.util.Log.d("Yooohoo", "accumulatedDistance1=$accumulatedDistance")
         onEventAccumulated(eventTimeMillis)
     }
 
     private fun onEventAccumulated(eventTimeMs: Long) {
-        android.util.Log.d("Yooohoo", "accumulatedDistance2=$accumulatedDistance")
-        android.util.Log.d("Yooohoo", "timeThing=${eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs}")
-        if ((!isLowRes && abs(accumulatedDistance) < minValueChangeDistancePx) ||
+        if (!isLowRes && abs(accumulatedDistance) < minValueChangeDistancePx ||
             eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs
         ) {
             return
         }
-        android.util.Log.d("Yooohoo", "accumulatedDistance3=$accumulatedDistance")
         onValueChange(accumulatedDistance)
         lastUpdateTimeMs = eventTimeMs
         accumulatedDistance = 0f

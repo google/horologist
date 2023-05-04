@@ -16,9 +16,6 @@
 
 package com.google.android.horologist.audio.ui
 
-import android.os.Build
-import android.view.HapticFeedbackConstants
-import android.view.View
 import androidx.compose.foundation.focusable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -28,9 +25,7 @@ import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.RequestFocusWhenActive
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.RATE_LIMITING_DISABLED
-import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
-import java.util.concurrent.TimeUnit
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -43,12 +38,14 @@ public fun Modifier.rotaryVolumeControls(
     focusRequester: FocusRequester? = null,
     volumeUiStateProvider: () -> VolumeUiState,
     onRotaryVolumeInput: (Int) -> Unit,
-    isLowRes: Boolean,
-) = composed {
+    isLowRes: Boolean
+): Modifier = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
     RequestFocusWhenActive(localFocusRequester)
-    onRotaryInputAccumulated(rateLimitCoolDownMs = if (isLowRes) DEFAULT_RATE_LIMIT_COOL_DOWN_MS else RATE_LIMITING_DISABLED,
-        isLowRes = isLowRes) { change ->
+    onRotaryInputAccumulated(
+        rateLimitCoolDownMs = RATE_LIMITING_DISABLED,
+        isLowRes = isLowRes
+    ) { change ->
         if (change != 0f) {
             val targetVolume = if (isLowRes) {
                 (volumeUiStateProvider().current + change.toInt()).coerceIn(0, volumeUiStateProvider().max)
@@ -56,12 +53,14 @@ public fun Modifier.rotaryVolumeControls(
                 convertPixelToVolume(change, volumeUiStateProvider)
             }
 
-            android.util.Log.d("TESTTESTTEST",
+            android.util.Log.d(
+                "TESTTESTTEST",
                 "maxVolume=${volumeUiStateProvider().max}, " +
                     "pixelsRotated=$change, " +
                     "currentVolume=${volumeUiStateProvider().current}, " +
                     "targetVolume=$targetVolume " +
-                    "isLowRes=$isLowRes ")
+                    "isLowRes=$isLowRes "
+            )
             onRotaryVolumeInput(targetVolume)
         }
     }

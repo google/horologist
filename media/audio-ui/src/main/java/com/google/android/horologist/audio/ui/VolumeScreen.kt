@@ -76,9 +76,10 @@ public fun VolumeScreen(
             .rotaryVolumeControls(
                 volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
                 onRotaryVolumeInput = {
-                    newVolume -> volumeViewModel.setVolume(newVolume)
+                        newVolume ->
+                    volumeViewModel.setVolume(newVolume)
                 },
-                isLowRes = isLowResInput(),
+                isLowRes = isLowResInput()
             ),
         volume = { volumeUiState },
         audioOutputUi = audioOutput.toAudioOutputUi(),

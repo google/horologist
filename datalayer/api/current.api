@@ -82,6 +82,13 @@ package com.google.android.horologist.data {
     property public abstract com.google.android.horologist.data.WearDataLayerRegistry registry;
   }
 
+  public final class WearableApiAvailability {
+    method public String getTAG();
+    method public suspend Object? isAvailable(com.google.android.gms.common.api.GoogleApi<?> api, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
+    property public final String TAG;
+    field public static final com.google.android.horologist.data.WearableApiAvailability INSTANCE;
+  }
+
 }
 
 package com.google.android.horologist.data.apphelper {
@@ -123,6 +130,7 @@ package com.google.android.horologist.data.apphelper {
     method protected final com.google.android.horologist.data.WearDataLayerRegistry getRegistry();
     method protected final androidx.wear.remote.interactions.RemoteActivityHelper getRemoteActivityHelper();
     method public abstract suspend Object? installOnNode(String node, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public final suspend Object? isAvailable(kotlin.coroutines.Continuation<? super java.lang.Boolean>);
     method public abstract suspend Object? startCompanion(String node, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
     method public final suspend Object? startRemoteActivity(String node, error.NonExistentClass config, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
     method public final suspend Object? startRemoteOwnApp(String node, kotlin.coroutines.Continuation<? super error.NonExistentClass>);

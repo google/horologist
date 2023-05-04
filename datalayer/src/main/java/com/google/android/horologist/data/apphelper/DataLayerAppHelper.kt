@@ -26,6 +26,7 @@ import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.WearableApiAvailability
 import com.google.android.horologist.data.appHelperResult
 import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.ownAppConfig
@@ -154,6 +155,13 @@ abstract class DataLayerAppHelper(
             registry.messageClient.sendRequest(node, LAUNCH_APP, request.toByteArray()).await()
         return AppHelperResult.parseFrom(response).code
     }
+
+    /**
+     * Check whether the data layer is available before use to avoid crashes.
+     */
+    public suspend fun isAvailable(): Boolean =
+        // Check CapabilityClient as a proxy for all APIs being availabe
+        WearableApiAvailability.isAvailable(registry.capabilityClient)
 
     public companion object {
         public const val DATA_LAYER_APP_HELPER: String = "data_layer_app_helper"

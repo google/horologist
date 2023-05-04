@@ -160,7 +160,7 @@ abstract class DataLayerAppHelper(
      * Check whether the data layer is available before use to avoid crashes.
      */
     public suspend fun isAvailable(): Boolean =
-        // Check CapabilityClient as a proxy for all APIs being availabe
+        // Check CapabilityClient as a proxy for all APIs being available
         WearableApiAvailability.isAvailable(registry.capabilityClient)
 
     public companion object {

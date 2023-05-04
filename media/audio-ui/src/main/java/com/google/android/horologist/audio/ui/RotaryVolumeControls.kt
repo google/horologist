@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.audio.ui
 
+import android.view.HapticFeedbackConstants
+import android.view.View
 import androidx.compose.foundation.focusable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -38,10 +40,12 @@ public fun Modifier.rotaryVolumeControls(
     focusRequester: FocusRequester? = null,
     volumeUiStateProvider: () -> VolumeUiState,
     onRotaryVolumeInput: (Int) -> Unit,
+    localView: View,
     isLowRes: Boolean
 ): Modifier = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
     RequestFocusWhenActive(localFocusRequester)
+
     onRotaryInputAccumulated(
         rateLimitCoolDownMs = RATE_LIMITING_DISABLED,
         isLowRes = isLowRes
@@ -61,6 +65,13 @@ public fun Modifier.rotaryVolumeControls(
                     "targetVolume=$targetVolume " +
                     "isLowRes=$isLowRes "
             )
+            if (targetVolume != volumeUiStateProvider().current) {
+                if (targetVolume == 0 || targetVolume == volumeUiStateProvider().max) {
+                    localView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                } else {
+                    localView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_PRESS)
+                }
+            }
             onRotaryVolumeInput(targetVolume)
         }
     }

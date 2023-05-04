@@ -29,6 +29,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -79,6 +80,7 @@ public fun VolumeScreen(
                         newVolume ->
                     volumeViewModel.setVolume(newVolume)
                 },
+                localView = LocalView.current,
                 isLowRes = isLowResInput()
             ),
         volume = { volumeUiState },

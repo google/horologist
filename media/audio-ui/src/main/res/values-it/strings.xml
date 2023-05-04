@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">Non connesso</string>
   <string name="horologist_volume_screen_change_audio_output">Cambia uscita audio</string>
   <string name="horologist_speaker_name">Speaker smartwatch</string>
+  <string name="choose_device">Scegli dispositivo</string>
   <string name="horologist_output_none">Nessun dispositivo</string>
   <string name="horologist_set_volume_content_description">Imposta il volume</string>
   <string name="horologist_audio_output_content_description">Uscita audio</string>

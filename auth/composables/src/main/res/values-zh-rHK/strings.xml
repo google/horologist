@@ -15,10 +15,10 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">請查看您的手機</string>
+  <string name="horologist_check_your_phone_title">請查看你的手機</string>
   <string name="horologist_auth_error_message">發生錯誤，請再試一次。</string>
-  <string name="horologist_signedin_confirmation_greeting">%s，您好</string>
-  <string name="horologist_signedin_confirmation_greeting_no_name">您好！</string>
+  <string name="horologist_signedin_confirmation_greeting">%s，你好</string>
+  <string name="horologist_signedin_confirmation_greeting_no_name">你好！</string>
   <string name="horologist_signin_prompt_title">登入</string>
   <string name="horologist_sign_in_chip_label">登入</string>
   <string name="horologist_guest_mode_chip_label">不登入帳戶使用</string>

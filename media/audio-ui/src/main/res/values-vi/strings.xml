@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">Chưa kết nối</string>
   <string name="horologist_volume_screen_change_audio_output">Thay đổi đầu ra âm thanh</string>
   <string name="horologist_speaker_name">Loa của đồng hồ</string>
+  <string name="choose_device">Chọn thiết bị</string>
   <string name="horologist_output_none">Không có</string>
   <string name="horologist_set_volume_content_description">Đặt âm lượng</string>
   <string name="horologist_audio_output_content_description">Đầu ra âm thanh</string>

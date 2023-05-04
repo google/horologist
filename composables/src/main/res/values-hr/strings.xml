@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,25 @@
   <string name="horologist_time_picker_hour">Sat</string>
   <string name="horologist_time_picker_minute">Minuta</string>
   <string name="horologist_time_picker_second">Sekunda</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d sat</item>
+    <item quantity="few">%d sata</item>
+    <item quantity="other">%d sati</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d minuta</item>
+    <item quantity="few">%d minute</item>
+    <item quantity="other">%d minuta</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d sekunda</item>
+    <item quantity="few">%d sekunde</item>
+    <item quantity="other">%d sekundi</item>
+  </plurals>
   <string name="horologist_time_picker_min">Minuta</string>
   <string name="horologist_time_picker_period">Razdoblje</string>
+  <string name="horologist_time_picker_am">Prijepodne</string>
+  <string name="horologist_time_picker_pm">Poslijepodne</string>
   <string name="horologist_picker_day">Dan</string>
   <string name="horologist_picker_month">Mjesec</string>
   <string name="horologist_picker_year">Godina</string>

@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">Nav izveidots savienojums</string>
   <string name="horologist_volume_screen_change_audio_output">Mainīt audio izeju</string>
   <string name="horologist_speaker_name">Pulksteņa skaļrunis</string>
+  <string name="choose_device">Izvēlēties ierīci</string>
   <string name="horologist_output_none">Nav</string>
   <string name="horologist_set_volume_content_description">Iestatīt skaļumu</string>
   <string name="horologist_audio_output_content_description">Audio izeja</string>

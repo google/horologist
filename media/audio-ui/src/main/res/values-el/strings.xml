@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">Δεν έχει συνδεθεί</string>
   <string name="horologist_volume_screen_change_audio_output">Αλλαγή εξόδου ήχου</string>
   <string name="horologist_speaker_name">Ηχείο ρολογιού</string>
+  <string name="choose_device">Επιλογή συσκευής</string>
   <string name="horologist_output_none">Κανένα</string>
   <string name="horologist_set_volume_content_description">Ορισμός έντασης ήχου</string>
   <string name="horologist_audio_output_content_description">Έξοδος ήχου</string>

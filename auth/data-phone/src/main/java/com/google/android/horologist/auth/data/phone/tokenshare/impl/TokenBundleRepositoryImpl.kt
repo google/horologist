@@ -16,18 +16,14 @@
 
 package com.google.android.horologist.auth.data.phone.tokenshare.impl
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
-import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.common.api.AvailabilityException
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.auth.data.phone.common.TAG
 import com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository
 import com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl.Companion.DEFAULT_TOKEN_BUNDLE_KEY
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.WearableApiAvailability
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.tasks.await
 
 /**
  * Default implementation for [TokenBundleRepository].
@@ -50,21 +46,8 @@ public class TokenBundleRepositoryImpl<T>(
         getDataStore()?.updateData { tokenBundle }
     }
 
-    override suspend fun isAvailable(): Boolean {
-        return try {
-            GoogleApiAvailability.getInstance()
-                .checkApiAvailability(registry.dataClient)
-                .await()
-
-            true
-        } catch (e: AvailabilityException) {
-            Log.d(
-                TAG,
-                "DataClient API is not available in this device. TokenBundleRepository will fail silently and all functionality will be no-op."
-            )
-            false
-        }
-    }
+    override suspend fun isAvailable(): Boolean =
+        WearableApiAvailability.isAvailable(registry.dataClient)
 
     private suspend fun getDataStore(): DataStore<T>? =
         if (isAvailable()) {

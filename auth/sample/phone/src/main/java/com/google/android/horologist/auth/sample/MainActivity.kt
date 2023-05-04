@@ -103,7 +103,7 @@ class MainActivity : ComponentActivity() {
                     LaunchedEffect(Unit) {
                         coroutineScope.launch {
                             apiAvailable = tokenBundleRepositoryDefaultKey.isAvailable()
-                            nodeList = phoneDataLayerAppHelper.connectedNodes()
+                            nodeList = if (apiAvailable) phoneDataLayerAppHelper.connectedNodes() else listOf()
                         }
                     }
 

@@ -124,15 +124,8 @@ public open class VolumeViewModel(
     }
 
     public fun setVolume(volume: Int) {
-//        Log.d(
-//            "TESTTESTTEST",
-//            "VolumeViewModel ==> " +
-//                "currentVolume=${volumeRepository.volumeState.value.current}, " +
-//                "targetVolume=$volume"
-//        )
         if (volume != volumeRepository.volumeState.value.current) {
             volumeRepository.setVolume(volume)
-//            performHaptics()
         }
     }
 

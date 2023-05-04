@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearFoundationApi::class)
+
 package com.google.android.horologist.audio.ui
 
+import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.compose.foundation.focusable
@@ -26,6 +29,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.RequestFocusWhenActive
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.RATE_LIMITING_DISABLED
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import kotlin.math.max
@@ -35,8 +39,10 @@ import kotlin.math.roundToInt
 private const val VOLUME_FRACTION_PER_PIXEL: Float = 0.001f
 private const val VOLUME_PERCENT_CHANGE_PIXEL: Float = 48f
 
-@OptIn(ExperimentalWearFoundationApi::class)
-public fun Modifier.rotaryVolumeControls(
+private const val TAG = "HorologistAudioUi"
+
+@ExperimentalHorologistApi
+public fun Modifier.rotaryVolumeControlsWithFocus(
     focusRequester: FocusRequester? = null,
     volumeUiStateProvider: () -> VolumeUiState,
     onRotaryVolumeInput: (Int) -> Unit,
@@ -46,10 +52,29 @@ public fun Modifier.rotaryVolumeControls(
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
     RequestFocusWhenActive(localFocusRequester)
 
+    rotaryVolumeControls(
+        volumeUiStateProvider = volumeUiStateProvider,
+        onRotaryVolumeInput = onRotaryVolumeInput,
+        localView = localView,
+        isLowRes = isLowRes
+    )
+        .focusRequester(localFocusRequester)
+        .focusable()
+}
+
+@ExperimentalHorologistApi
+public fun Modifier.rotaryVolumeControls(
+    volumeUiStateProvider: () -> VolumeUiState,
+    onRotaryVolumeInput: (Int) -> Unit,
+    localView: View,
+    isLowRes: Boolean
+): Modifier = composed {
     onRotaryInputAccumulated(
         rateLimitCoolDownMs = RATE_LIMITING_DISABLED,
         isLowRes = isLowRes
     ) { change ->
+        Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}, " + "isLowRes=$isLowRes ")
+
         if (change != 0f) {
             val targetVolume = if (isLowRes) {
                 (volumeUiStateProvider().current + change.toInt()).coerceIn(0, volumeUiStateProvider().max)
@@ -57,26 +82,25 @@ public fun Modifier.rotaryVolumeControls(
                 convertPixelToVolume(change, volumeUiStateProvider)
             }
 
-            android.util.Log.d(
-                "TESTTESTTEST",
-                "maxVolume=${volumeUiStateProvider().max}, " +
-                    "pixelsRotated=$change, " +
+            Log.d(
+                TAG,
+                "change=$change, " +
                     "currentVolume=${volumeUiStateProvider().current}, " +
-                    "targetVolume=$targetVolume " +
-                    "isLowRes=$isLowRes "
+                    "targetVolume=$targetVolume "
             )
+
             if (targetVolume != volumeUiStateProvider().current) {
-                if (targetVolume == 0 || targetVolume == volumeUiStateProvider().max) {
+                if (targetVolume == volumeUiStateProvider().min || targetVolume == volumeUiStateProvider().max) {
+                    // Use stronger haptic feedback when reaching max or min
                     localView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
                 } else {
-                    localView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_PRESS)
+                    localView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
                 }
             }
+
             onRotaryVolumeInput(targetVolume)
         }
     }
-        .focusRequester(localFocusRequester)
-        .focusable()
 }
 
 internal fun convertPixelToVolume(change: Float, volumeUiStateProvider: () -> VolumeUiState): Int {

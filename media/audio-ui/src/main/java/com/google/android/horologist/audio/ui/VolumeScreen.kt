@@ -70,16 +70,12 @@ public fun VolumeScreen(
 ) {
     val volumeUiState by volumeViewModel.volumeUiState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
+
     VolumeScreen(
         modifier = modifier
-//            .onRotaryInputAccumulatedWithFocus(
-//                onValueChange = volumeViewModel::onVolumeChangeByScroll)
-            .rotaryVolumeControls(
+            .rotaryVolumeControlsWithFocus(
                 volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
-                onRotaryVolumeInput = {
-                        newVolume ->
-                    volumeViewModel.setVolume(newVolume)
-                },
+                onRotaryVolumeInput = { newVolume -> volumeViewModel.setVolume(newVolume) },
                 localView = LocalView.current,
                 isLowRes = isLowResInput()
             ),

@@ -174,7 +174,6 @@ wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", 
 wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
 wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
 wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wearcompose" }
-firebaseTestlab = "com.google.firebase.testlab:testlab-gradle-plugin:0.0.1-alpha02"
 
 [plugins]
 benManes = { id = "com.github.ben-manes.versions", version.ref = "benManes" }
@@ -185,3 +184,4 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = "com.google.protobuf:0.9.3"
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }
+firebaseTestlab = "com.google.firebase.testlab:0.0.1-alpha02"

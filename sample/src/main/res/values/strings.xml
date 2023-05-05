@@ -23,6 +23,8 @@
     <string name="tile_text">Hello world</string>
     <string name="tile_sample_label">Sample Tile</string>
     <string name="sample_tile_description">Sample tile description</string>
+    <string name="tile_heartrate_label">Heartrate Tile</string>
+    <string name="sample_heartrate_description">Heartrate tile description</string>
 
     <string name="sectionedlist_samples_menu">SectionedList Samples</string>
     <string name="sectionedlist_stateless_sections_menu">Stateless sections</string>

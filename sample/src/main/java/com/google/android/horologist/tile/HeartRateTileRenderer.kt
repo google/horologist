@@ -46,6 +46,8 @@ class HeartRateTileRenderer(context: Context) :
     SingleTileLayoutRenderer<Unit, Unit>(
         context
     ) {
+    override val freshnessIntervalMillis = FRESHNESS_MILLIS.toLong()
+
     override fun renderTile(
         state: Unit, deviceParameters: DeviceParameters
     ): LayoutElementBuilders.LayoutElement {

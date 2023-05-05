@@ -35,14 +35,6 @@ class HeartRateTileService : SuspendingTileService() {
         renderer = HeartRateTileRenderer(this)
     }
 
-    private val animationSpec = AnimationParameterBuilders.AnimationSpec.Builder()
-        .setAnimationParameters(
-            AnimationParameterBuilders.AnimationParameters.Builder()
-                .setDurationMillis(ANIMATION_DURATION_MILLIS)
-                .build()
-        )
-        .build()
-
     override suspend fun tileRequest(requestParams: TileRequest): TileBuilders.Tile {
         return renderer.renderTimeline(Unit, requestParams)
     }

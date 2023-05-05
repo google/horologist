@@ -74,8 +74,8 @@ public fun Modifier.onRotaryInputAccumulated(
             eventAccumulationThresholdMs = eventAccumulationThresholdMs,
             minValueChangeDistancePx = minValueChangeDistancePx,
             rateLimitCoolDownMs = rateLimitCoolDownMs,
-            onValueChange = { updatedOnValueChange(it) },
-            isLowRes = isLowRes
+            isLowRes = isLowRes,
+            onValueChange = { updatedOnValueChange(it) }
         )
     }
     return@composed onRotaryScrollEvent(rotaryInputAccumulator::onRotaryScrollEvent)

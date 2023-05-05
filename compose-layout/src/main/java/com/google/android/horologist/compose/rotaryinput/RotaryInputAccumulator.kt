@@ -23,8 +23,8 @@ internal class RotaryInputAccumulator(
     private val eventAccumulationThresholdMs: Long,
     private val minValueChangeDistancePx: Float,
     private val rateLimitCoolDownMs: Long,
-    private val onValueChange: ((change: Float) -> Unit),
-    private val isLowRes: Boolean = false
+    private val isLowRes: Boolean = false,
+    private val onValueChange: ((change: Float) -> Unit)
 ) {
     private var accumulatedDistance = 0f
     private var lastAccumulatedEventTimeMs: Long = 0

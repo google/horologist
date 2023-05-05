@@ -39,6 +39,7 @@ buildscript {
         classpath(libs.dagger.hiltandroidplugin)
 
         classpath(libs.googleSecretsGradlePlugin)
+        classpath(libs.firebaseTestlab)
     }
 }
 

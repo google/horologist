@@ -23,6 +23,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
+    id("com.google.firebase.testlab")
 }
 
 android {
@@ -59,6 +60,14 @@ android {
             isIncludeAndroidResources = true
         }
         animationsDisabled = true
+        managedDevices {
+            devices {
+                maybeCreate<com.google.firebase.testlab.gradle.ManagedDevice>("pixel2api30").apply {
+                    device = "Pixel2"
+                    apiLevel = 30
+                }
+            }
+        }
     }
 
     lint {

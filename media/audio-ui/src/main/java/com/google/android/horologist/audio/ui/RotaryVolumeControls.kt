@@ -21,6 +21,7 @@ package com.google.android.horologist.audio.ui
 import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.View
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.focusable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -103,6 +104,8 @@ public fun Modifier.rotaryVolumeControls(
     }
 }
 
+// Conversino of pixels to volume is for device with high resolution rotary only.
+@VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 internal fun convertPixelToVolume(change: Float, volumeUiStateProvider: () -> VolumeUiState): Int {
     // Map pixel changes to 0.1% volume change. However, when max volume is small, we make sure to use
     // the threshold VOLUME_FRACTION_PER_PIXEL to trigger at least one volume change, otherwise the

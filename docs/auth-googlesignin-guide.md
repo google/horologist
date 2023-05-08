@@ -42,7 +42,7 @@ from [this link](https://developers.google.com/identity/sign-in/android/start-in
 1.  Create a ViewModel
 
     Create your implementation 
-    of [GoogleSignInViewModel](https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-view-model/index.html), 
+    of [GoogleSignInViewModel](https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-view-model/index.html), 
     passing the `GoogleSignInClient` created:
 
     ```kotlin
@@ -54,7 +54,7 @@ from [this link](https://developers.google.com/identity/sign-in/android/start-in
 1.  Display the screen
 
     Display 
-    the [GoogleSignInScreen](https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-screen.html) 
+    the [GoogleSignInScreen](https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-screen.html) 
     passing an instance of the `GoogleSignInViewModel` created:
 
     ```koltin

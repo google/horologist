@@ -121,11 +121,13 @@ package com.google.android.horologist.tiles.render {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract class SingleTileLayoutRenderer<T, R> implements com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> {
     ctor public SingleTileLayoutRenderer(android.content.Context context, optional boolean debugResourceMode);
+    method public androidx.wear.protolayout.StateBuilders.State createState();
     method public androidx.wear.protolayout.material.Colors createTheme();
     method public final android.content.Context getContext();
     method public final boolean getDebugResourceMode();
     method public long getFreshnessIntervalMillis();
     method public final androidx.wear.protolayout.material.Colors getTheme();
+    method public String getVersionForTile(T? state);
     method public final androidx.wear.protolayout.ResourceBuilders.Resources produceRequestedResources(R? resourceState, androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
     method public void produceRequestedResources(androidx.wear.protolayout.ResourceBuilders.Resources.Builder, R? resourceState, androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
     method public abstract androidx.wear.protolayout.LayoutElementBuilders.LayoutElement renderTile(T? state, androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters deviceParameters);

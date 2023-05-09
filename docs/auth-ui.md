@@ -13,7 +13,7 @@ they can be your own implementation. Some of the composables might depend on an 
 
 ### Common
 
-#### [SignInPromptScreen](https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.common.screens.prompt/-sign-in-prompt-screen.html)
+#### [SignInPromptScreen](https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.common.screens.prompt/-sign-in-prompt-screen.html)
 
 A screen to prompt users to sign in.
 
@@ -30,7 +30,7 @@ It helps achieve to the following [best practices][best_practices]:
 
 ### Google Sign-In
 
-#### [GoogleSignInScreen](https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-screen.html)
+#### [GoogleSignInScreen](https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-screen.html)
 
 A screen for
 the [Google Sign-In](https://developer.android.com/training/wearables/apps/auth-wear#Google-Sign-in)
@@ -50,7 +50,7 @@ has to be provided to `GoogleSignInViewModel`.
 
 ### OAuth
 
-#### [PKCESignInScreen](https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.oauth.pkce.signin/-p-k-c-e-sign-in-screen.html)
+#### [PKCESignInScreen](https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.oauth.pkce.signin/-p-k-c-e-sign-in-screen.html)
 
 A screen for
 the [OAuth (PKCE)](https://developer.android.com/training/wearables/apps/auth-wear#pkce)
@@ -64,11 +64,11 @@ authentication flow.
 
 A implementation for the following repositories are required to be provided:
 
-- [PKCEConfigRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-config-repository/index.html)
-- [PKCEOAuthCodeRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-o-auth-code-repository/index.html)
-- [PKCETokenRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-token-repository/index.html)
+- [PKCEConfigRepository](https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-config-repository/index.html)
+- [PKCEOAuthCodeRepository](https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-o-auth-code-repository/index.html)
+- [PKCETokenRepository](https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-token-repository/index.html)
 
-#### [DeviceGrantSignInScreen](https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.oauth.devicegrant.signin/-device-grant-sign-in-screen.html)
+#### [DeviceGrantSignInScreen](https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.oauth.devicegrant.signin/-device-grant-sign-in-screen.html)
 
 A screen for
 the [OAuth (Device Grant)](https://developer.android.com/training/wearables/apps/auth-wear#DAG)
@@ -82,6 +82,6 @@ authentication flow.
 
 A implementation for the following repositories are required to be provided:
 
-- [DeviceGrantConfigRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-config-repository/index.html)
-- [DeviceGrantVerificationInfoRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-verification-info-repository/index.html)
-- [DeviceGrantTokenRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-token-repository/index.html)
+- [DeviceGrantConfigRepository](https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-config-repository/index.html)
+- [DeviceGrantVerificationInfoRepository](https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-verification-info-repository/index.html)
+- [DeviceGrantTokenRepository](https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-token-repository/index.html)

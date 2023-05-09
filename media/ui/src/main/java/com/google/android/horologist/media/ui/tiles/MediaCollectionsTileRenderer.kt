@@ -90,7 +90,7 @@ public class MediaCollectionsTileRenderer(
             ).build()
     }
 
-    override fun getVersionForTile(state: MediaCollectionsState): String {
+    override fun getResourcesVersionForTileState(state: MediaCollectionsState): String {
         return state.collection1.artworkId + ":" + state.collection2.artworkId
     }
 

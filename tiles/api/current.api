@@ -127,7 +127,7 @@ package com.google.android.horologist.tiles.render {
     method public final boolean getDebugResourceMode();
     method public long getFreshnessIntervalMillis();
     method public final androidx.wear.protolayout.material.Colors getTheme();
-    method public String getVersionForTile(T? state);
+    method public String getResourcesVersionForTileState(T? state);
     method public final androidx.wear.protolayout.ResourceBuilders.Resources produceRequestedResources(R? resourceState, androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
     method public void produceRequestedResources(androidx.wear.protolayout.ResourceBuilders.Resources.Builder, R? resourceState, androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
     method public abstract androidx.wear.protolayout.LayoutElementBuilders.LayoutElement renderTile(T? state, androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters deviceParameters);

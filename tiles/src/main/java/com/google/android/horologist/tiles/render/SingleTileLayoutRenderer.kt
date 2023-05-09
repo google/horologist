@@ -68,7 +68,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
                 if (debugResourceMode) {
                     UUID.randomUUID().toString()
                 } else {
-                    getVersionForTile(state)
+                    getResourcesVersionForTileState(state)
                 }
             )
             .setState(createState())
@@ -77,7 +77,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
             .build()
     }
 
-    public open fun getVersionForTile(state: T): String = PERMANENT_RESOURCES_VERSION
+    public open fun getResourcesVersionForTileState(state: T): String = PERMANENT_RESOURCES_VERSION
 
     /**
      * Create a material theme that should be applied to all components.

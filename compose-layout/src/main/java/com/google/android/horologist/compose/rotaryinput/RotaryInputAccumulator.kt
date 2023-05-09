@@ -33,14 +33,39 @@ internal class RotaryInputAccumulator(
     /**
      * Process a rotary input event.
      *
-     * @param scrollPixels the amount to scroll in pixels of the event.
+     * @param scrollPixels the amount of scrolled in pixels of the event
      * @param eventTimeMillis the time in milliseconds at which this even occurred
      */
     public fun onRotaryScroll(scrollPixels: Float, eventTimeMillis: Long) {
         val timeSinceLastAccumulatedMs = eventTimeMillis - lastAccumulatedEventTimeMs
         lastAccumulatedEventTimeMs = eventTimeMillis
 
-        val change = if (isLowRes && scrollPixels > 0f) { // For positive tick in low res devices
+        // If still within the eventAccumulationThresholdMs time range, accumulate the changes,
+        // otherwise restart accumulation.
+        accumulatedDistance = if (timeSinceLastAccumulatedMs <= eventAccumulationThresholdMs) {
+            accumulatedDistance + changeByResolution(scrollPixels)
+        } else {
+            changeByResolution(scrollPixels)
+        }
+
+        onEventAccumulated(eventTimeMillis)
+    }
+
+    private fun onEventAccumulated(eventTimeMs: Long) {
+        if (shouldIgnoreAccumulatedInput(eventTimeMs)) return
+
+        onValueChange(accumulatedDistance)
+        lastUpdateTimeMs = eventTimeMs
+        accumulatedDistance = 0f
+    }
+
+    /**
+     * Converts a change by scrolled pixels to the actual accumulated values. For a low resolution
+     * rotary device, a positive scroll will be 1f and a negative scroll will be -1. For a high
+     * resolution rotary device, take the scrolled pixels as is.
+     */
+    private fun changeByResolution(scrollPixels: Float): Float {
+        return if (isLowRes && scrollPixels > 0f) { // For positive tick in low res devices
             1f
         } else if (isLowRes && scrollPixels < 0f) { // For negative tick in low res devices
             -1f
@@ -49,23 +74,11 @@ internal class RotaryInputAccumulator(
         } else { // Take it as is for high res devices
             scrollPixels
         }
-
-        if (timeSinceLastAccumulatedMs > eventAccumulationThresholdMs) {
-            accumulatedDistance = change
-        } else {
-            accumulatedDistance += change
-        }
-        onEventAccumulated(eventTimeMillis)
     }
 
-    private fun onEventAccumulated(eventTimeMs: Long) {
-        if (!isLowRes && abs(accumulatedDistance) < minValueChangeDistancePx ||
+    private fun shouldIgnoreAccumulatedInput(eventTimeMs: Long): Boolean {
+        return !isLowRes &&
+            abs(accumulatedDistance) < minValueChangeDistancePx ||
             eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs
-        ) {
-            return
-        }
-        onValueChange(accumulatedDistance)
-        lastUpdateTimeMs = eventTimeMs
-        accumulatedDistance = 0f
     }
 }

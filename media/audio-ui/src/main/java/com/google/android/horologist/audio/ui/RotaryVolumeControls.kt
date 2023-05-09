@@ -42,6 +42,11 @@ private const val VOLUME_PERCENT_CHANGE_PIXEL: Float = 48f
 
 private const val TAG = "HorologistAudioUi"
 
+/**
+ * A Focusable modifier, that depending on rotary resolution (by [isLowRes] parameter), accumulates
+ * the input by [onRotaryInputAccumulated] modifier, and converts the accumulated input into a
+ * target volume to pass into [onRotaryVolumeInput] for a corresponding volume change.
+ */
 @ExperimentalHorologistApi
 public fun Modifier.rotaryVolumeControlsWithFocus(
     focusRequester: FocusRequester? = null,
@@ -53,67 +58,130 @@ public fun Modifier.rotaryVolumeControlsWithFocus(
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
     RequestFocusWhenActive(localFocusRequester)
 
-    rotaryVolumeControls(
-        volumeUiStateProvider = volumeUiStateProvider,
-        onRotaryVolumeInput = onRotaryVolumeInput,
-        localView = localView,
-        isLowRes = isLowRes
-    )
+    if (isLowRes) {
+        lowResRotaryVolumeControls(
+            volumeUiStateProvider = volumeUiStateProvider,
+            onRotaryVolumeInput = onRotaryVolumeInput,
+            localView = localView
+        )
+    } else {
+        highResRotaryVolumeControls(
+            volumeUiStateProvider = volumeUiStateProvider,
+            onRotaryVolumeInput = onRotaryVolumeInput,
+            localView = localView
+        )
+    }
         .focusRequester(localFocusRequester)
         .focusable()
 }
 
+/**
+ * A low resolution rotary volume modifier, that treats the accumulated input with 1:1 volume
+ * change to pass into [onRotaryVolumeInput] for a corresponding volume change. E.g. 2f change
+ * would increase volume by 2 and -3f change would decrease volume by 3.
+ */
 @ExperimentalHorologistApi
-public fun Modifier.rotaryVolumeControls(
+public fun Modifier.lowResRotaryVolumeControls(
     volumeUiStateProvider: () -> VolumeUiState,
     onRotaryVolumeInput: (Int) -> Unit,
-    localView: View,
-    isLowRes: Boolean
-): Modifier = composed {
-    onRotaryInputAccumulated(
-        rateLimitCoolDownMs = RATE_LIMITING_DISABLED,
-        isLowRes = isLowRes
-    ) { change ->
-        Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}, " + "isLowRes=$isLowRes ")
+    localView: View
+): Modifier = onRotaryInputAccumulated(
+    rateLimitCoolDownMs = RATE_LIMITING_DISABLED,
+    isLowRes = true
+) { change ->
+    Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
 
-        if (change != 0f) {
-            val targetVolume = if (isLowRes) {
-                (volumeUiStateProvider().current + change.toInt()).coerceIn(0, volumeUiStateProvider().max)
-            } else {
-                convertPixelToVolume(change, volumeUiStateProvider)
-            }
+    if (change != 0f) {
+        val targetVolume =
+            (volumeUiStateProvider().current + change.toInt()).coerceIn(0, volumeUiStateProvider().max)
 
-            Log.d(
-                TAG,
-                "change=$change, " +
-                    "currentVolume=${volumeUiStateProvider().current}, " +
-                    "targetVolume=$targetVolume "
-            )
+        Log.d(
+            TAG,
+            "change=$change, " +
+                "currentVolume=${volumeUiStateProvider().current}, " +
+                "targetVolume=$targetVolume "
+        )
 
-            if (targetVolume != volumeUiStateProvider().current) {
-                if (targetVolume == volumeUiStateProvider().min || targetVolume == volumeUiStateProvider().max) {
-                    // Use stronger haptic feedback when reaching max or min
-                    localView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-                } else {
-                    localView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-                }
-            }
+        performHapticFeedback(
+            targetVolume = targetVolume,
+            volumeUiStateProvider = volumeUiStateProvider,
+            localView = localView
+        )
 
-            onRotaryVolumeInput(targetVolume)
-        }
+        onRotaryVolumeInput(targetVolume)
     }
 }
 
-// Conversino of pixels to volume is for device with high resolution rotary only.
+/**
+ * A high resolution rotary volume modifier, that uses [convertPixelToVolume] to convert
+ * accumulated scrolled pixels to volume to pass into [onRotaryVolumeInput] for a corresponding
+ * volume change
+ */
+@ExperimentalHorologistApi
+public fun Modifier.highResRotaryVolumeControls(
+    volumeUiStateProvider: () -> VolumeUiState,
+    onRotaryVolumeInput: (Int) -> Unit,
+    localView: View
+): Modifier = onRotaryInputAccumulated(
+    rateLimitCoolDownMs = RATE_LIMITING_DISABLED,
+    isLowRes = false
+) { change ->
+    Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
+
+    if (change != 0f) {
+        val targetVolume = convertPixelToVolume(change, volumeUiStateProvider)
+
+        Log.d(
+            TAG,
+            "change=$change, " +
+                "currentVolume=${volumeUiStateProvider().current}, " +
+                "targetVolume=$targetVolume "
+        )
+
+        performHapticFeedback(
+            targetVolume = targetVolume,
+            volumeUiStateProvider = volumeUiStateProvider,
+            localView = localView
+        )
+
+        onRotaryVolumeInput(targetVolume)
+    }
+}
+
+/**
+ * Converting of pixels to volume. Note this conversion is applicable to devices with high
+ * resolution rotary only.
+ *
+ * Maps 1 pixel changes to 0.1% volume change. However, when max volume is small, we make sure to use
+ * the threshold [VOLUME_FRACTION_PER_PIXEL] to trigger at least one volume change, otherwise the
+ * devices with max volume that are less than ~20 would need significant quicker turning to
+ * trigger a volume change (which is bad experience).
+ */
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 internal fun convertPixelToVolume(change: Float, volumeUiStateProvider: () -> VolumeUiState): Int {
-    // Map pixel changes to 0.1% volume change. However, when max volume is small, we make sure to use
-    // the threshold VOLUME_FRACTION_PER_PIXEL to trigger at least one volume change, otherwise the
-    // devices with max volume that are less than ~20 would need significant quicker turning to
-    // trigger a volume change (which is bad experience).
     val scale =
         max(volumeUiStateProvider().max * VOLUME_FRACTION_PER_PIXEL, 1 / VOLUME_PERCENT_CHANGE_PIXEL)
 
     return (volumeUiStateProvider().current + (change * scale).roundToInt())
         .coerceIn(0, volumeUiStateProvider().max)
+}
+
+/**
+ * Performs haptic feedback on the view. If there is a change in the volume, returns a strong
+ * feedback [HapticFeedbackConstants.LONG_PRESS] if reaching the limit (either max or min) of the
+ * volume range, otherwise returns [HapticFeedbackConstants.KEYBOARD_TAP]
+ */
+private fun performHapticFeedback(
+    targetVolume: Int,
+    volumeUiStateProvider: () -> VolumeUiState,
+    localView: View
+) {
+    if (targetVolume != volumeUiStateProvider().current) {
+        if (targetVolume == volumeUiStateProvider().min || targetVolume == volumeUiStateProvider().max) {
+            // Use stronger haptic feedback when reaching max or min
+            localView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+        } else {
+            localView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+        }
+    }
 }

@@ -58,6 +58,7 @@ public fun Modifier.onRotaryInputAccumulatedWithFocus(
  * @param eventAccumulationThresholdMs time threshold below which events are accumulated.
  * @param minValueChangeDistancePx minimum distance for value change in pixels.
  * @param rateLimitCoolDownMs cool down time when rate limiting is enabled, negative value disables.
+ * @param isLowRes resolution of the device's rotary control. High resolution and low resolutions have different accumulation mechanism. See [RotaryInputAccumulator.changeByResolution] for more.
  * @param onValueChange callback invoked once accumulated value is over the thresholds.
  */
 @ExperimentalHorologistApi

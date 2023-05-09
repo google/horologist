@@ -28,25 +28,43 @@ class RotaryInputAccumulatorTest {
     private val accumulationThreshold = 200L
     private val minChangePx = 48f
 
-    private val rotaryInputAccumulator =
+    private val highResRotaryInputAccumulator =
         RotaryInputAccumulator(
             eventAccumulationThresholdMs = accumulationThreshold,
             minValueChangeDistancePx = minChangePx,
-            rateLimitCoolDownMs = RotaryInputConfigDefaults.RATE_LIMITING_DISABLED
+            rateLimitCoolDownMs = RotaryInputConfigDefaults.RATE_LIMITING_DISABLED,
+            isLowRes = false
         ) {
             latestValue.set(it)
             valueChangedTimes.incrementAndGet()
         }
 
+    private val lowResRotaryInputAccumulator =
+        RotaryInputAccumulator(
+            eventAccumulationThresholdMs = accumulationThreshold,
+            minValueChangeDistancePx = minChangePx,
+            rateLimitCoolDownMs = RotaryInputConfigDefaults.RATE_LIMITING_DISABLED,
+            isLowRes = true
+        ) {
+            latestValue.set(it) // This will always be 1f or -1f
+            valueChangedTimes.incrementAndGet()
+        }
+
     @Test
-    fun onRotaryScroll_whenAccumulatedValueBelowMinimum_doNotNotifyChange() {
-        rotaryInputAccumulator.onRotaryScroll(scrollPixels = 1f, eventTimeMillis = 0L)
+    fun highRes_onRotaryScroll_whenAccumulatedValueBelowMinimum_doNotNotifyChange() {
+        highResRotaryInputAccumulator.onRotaryScroll(scrollPixels = 1f, eventTimeMillis = 0L)
         verifyOnValueChange(timesCalled = 0, expectedLatestValue = null)
     }
 
     @Test
-    fun onRotaryScroll_whenAccumulatedValueAboveMinimum_notifyChange() {
-        rotaryInputAccumulator.onRotaryScroll(
+    fun lowRes_onRotaryScroll_whenAccumulatedValueBelowMinimum_notifyChange() {
+        lowResRotaryInputAccumulator.onRotaryScroll(scrollPixels = 1f, eventTimeMillis = 0L)
+        verifyOnValueChange(timesCalled = 1, 1f)
+    }
+
+    @Test
+    fun highRes_onRotaryScroll_whenAccumulatedValueAboveMinimum_notifyChange() {
+        highResRotaryInputAccumulator.onRotaryScroll(
             minChangePx,
             eventTimeMillis = 0L
         )
@@ -54,31 +72,31 @@ class RotaryInputAccumulatorTest {
     }
 
     @Test
-    fun onRotaryScroll_whenWithinAccumulationThreshold_notifyChange() {
+    fun highRes_onRotaryScroll_whenWithinAccumulationThreshold_notifyChange() {
         val scrollPixels = minChangePx / 2
 
-        rotaryInputAccumulator.onRotaryScroll(scrollPixels, 0L)
-        rotaryInputAccumulator.onRotaryScroll(scrollPixels, 1L)
+        highResRotaryInputAccumulator.onRotaryScroll(scrollPixels, 0L)
+        highResRotaryInputAccumulator.onRotaryScroll(scrollPixels, 1L)
         verifyOnValueChange(timesCalled = 1, minChangePx)
 
-        rotaryInputAccumulator.onRotaryScroll(scrollPixels, 2L)
-        rotaryInputAccumulator.onRotaryScroll(scrollPixels, 3L)
+        highResRotaryInputAccumulator.onRotaryScroll(scrollPixels, 2L)
+        highResRotaryInputAccumulator.onRotaryScroll(scrollPixels, 3L)
         verifyOnValueChange(timesCalled = 2, minChangePx)
     }
 
     @Test
-    fun onRotaryScroll_whenOutsideAccumulationThreshold_resetAccumulation() {
+    fun highRes_onRotaryScroll_whenOutsideAccumulationThreshold_resetAccumulation() {
         val scrollPixels = minChangePx / 2
 
-        rotaryInputAccumulator.onRotaryScroll(
+        highResRotaryInputAccumulator.onRotaryScroll(
             scrollPixels,
             0L
         )
-        rotaryInputAccumulator.onRotaryScroll(
+        highResRotaryInputAccumulator.onRotaryScroll(
             scrollPixels,
             accumulationThreshold + 1
         )
-        rotaryInputAccumulator.onRotaryScroll(
+        highResRotaryInputAccumulator.onRotaryScroll(
             scrollPixels,
             accumulationThreshold + 2
         )
@@ -87,7 +105,7 @@ class RotaryInputAccumulatorTest {
     }
 
     @Test
-    fun onRotaryScroll_whenRateLimitedAndEventTooFrequent_notifyOnce() {
+    fun highRes_onRotaryScroll_whenRateLimitedAndEventTooFrequent_notifyOnce() {
         val scrollPixels = 10f
         val rateLimitCoolDownMs = 100L
         val firstEventTime = 12345L
@@ -95,7 +113,8 @@ class RotaryInputAccumulatorTest {
             RotaryInputAccumulator(
                 eventAccumulationThresholdMs = 200L,
                 minValueChangeDistancePx = scrollPixels,
-                rateLimitCoolDownMs = rateLimitCoolDownMs
+                rateLimitCoolDownMs = rateLimitCoolDownMs,
+                isLowRes = false
             ) {
                 latestValue.set(it)
                 valueChangedTimes.incrementAndGet()
@@ -111,7 +130,7 @@ class RotaryInputAccumulatorTest {
     }
 
     @Test
-    fun onRotaryScroll_whenRateLimitedAndEventEmittedAfterCoolDown_notifyTwice() {
+    fun highRes_onRotaryScroll_whenRateLimitedAndEventEmittedAfterCoolDown_notifyTwice() {
         val scrollPixels = 48f
         val rateLimitCoolDownMs = 100L
         val firstEventTime = 12345L
@@ -119,7 +138,8 @@ class RotaryInputAccumulatorTest {
             RotaryInputAccumulator(
                 eventAccumulationThresholdMs = 200L,
                 minValueChangeDistancePx = scrollPixels,
-                rateLimitCoolDownMs = rateLimitCoolDownMs
+                rateLimitCoolDownMs = rateLimitCoolDownMs,
+                isLowRes = false
             ) {
                 latestValue.set(it)
                 valueChangedTimes.incrementAndGet()
@@ -137,6 +157,24 @@ class RotaryInputAccumulatorTest {
             firstEventTime + rateLimitCoolDownMs
         )
         verifyOnValueChange(timesCalled = 2, scrollPixels * 2)
+    }
+
+    @Test
+    fun lowRes_onPositiveRotaryScroll_whenWithinAccumulationThreshold_notifyChange() {
+        val scrollPixels = 136f
+
+        lowResRotaryInputAccumulator.onRotaryScroll(scrollPixels, 0L)
+        lowResRotaryInputAccumulator.onRotaryScroll(scrollPixels, 1L)
+        verifyOnValueChange(timesCalled = 2, 1f)
+    }
+
+    @Test
+    fun lowRes_onNegativeRotaryScroll_whenWithinAccumulationThreshold_notifyChange() {
+        val scrollPixels = -136f
+
+        lowResRotaryInputAccumulator.onRotaryScroll(scrollPixels, 0L)
+        lowResRotaryInputAccumulator.onRotaryScroll(scrollPixels, 1L)
+        verifyOnValueChange(timesCalled = 2, -1f)
     }
 
     private fun verifyOnValueChange(timesCalled: Int, expectedLatestValue: Float?) {

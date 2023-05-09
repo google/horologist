@@ -37,7 +37,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -46,6 +45,7 @@ import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.rotaryVolumeControlsWithFocus
+import com.google.android.horologist.compose.rotaryinput.RotaryDefaults.isLowResInput
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.MediaInfoDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiController
@@ -204,8 +204,3 @@ public fun PlayerScreen(
         }
     }
 }
-
-@ExperimentalHorologistApi
-@Composable
-private fun isLowResInput(): Boolean = LocalContext.current.packageManager
-    .hasSystemFeature("android.hardware.rotaryencoder.lowres")

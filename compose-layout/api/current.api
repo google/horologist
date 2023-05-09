@@ -332,6 +332,7 @@ package com.google.android.horologist.compose.rotaryinput {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class RotaryDefaults {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public boolean isLowResInput();
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public com.google.android.horologist.compose.rotaryinput.RotaryScrollHandler rememberFlingHandler(androidx.compose.foundation.gestures.ScrollableState scrollableState, optional androidx.compose.foundation.gestures.FlingBehavior? flingBehavior, optional boolean isLowRes);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public com.google.android.horologist.compose.rotaryinput.RotaryScrollHandler rememberSnapHandler(com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter rotaryScrollAdapter, optional com.google.android.horologist.compose.rotaryinput.SnapParameters snapParameters);
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public com.google.android.horologist.compose.rotaryinput.SnapParameters snapParametersDefault();

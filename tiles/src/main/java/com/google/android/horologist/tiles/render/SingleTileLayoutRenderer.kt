@@ -21,8 +21,6 @@ import androidx.wear.protolayout.DeviceParametersBuilders
 import androidx.wear.protolayout.LayoutElementBuilders.Layout
 import androidx.wear.protolayout.LayoutElementBuilders.LayoutElement
 import androidx.wear.protolayout.ResourceBuilders.Resources
-import androidx.wear.protolayout.StateBuilders
-import androidx.wear.protolayout.StateBuilders.State
 import androidx.wear.protolayout.TimelineBuilders
 import androidx.wear.protolayout.material.Colors
 import androidx.wear.tiles.RequestBuilders
@@ -72,7 +70,6 @@ public abstract class SingleTileLayoutRenderer<T, R>(
                     PERMANENT_RESOURCES_VERSION
                 }
             )
-            .setState(createState())
             .setTileTimeline(singleTileTimeline)
             .setFreshnessIntervalMillis(freshnessIntervalMillis)
             .build()
@@ -116,8 +113,6 @@ public abstract class SingleTileLayoutRenderer<T, R>(
         resourceIds: MutableList<String>
     ) {
     }
-
-    open fun createState(): StateBuilders.State = State.Builder().build()
 }
 
 /**

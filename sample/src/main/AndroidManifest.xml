@@ -102,7 +102,7 @@
         </service>
 
         <service
-            android:name="com.google.android.horologist.tile.HeartRateTileService"
+            android:name="com.google.android.horologist.tile.SampleAnimatedTileService"
             android:description="@string/tile_heartrate_label"
             android:exported="true"
             android:icon="@drawable/ic_person"

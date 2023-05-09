@@ -176,6 +176,7 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.guava)
 
+    debugImplementation(libs.androidx.wear.tiles.testing)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)

@@ -16,23 +16,21 @@
 package com.google.android.horologist.tile
 
 import androidx.wear.protolayout.ResourceBuilders
-import androidx.wear.protolayout.expression.AnimationParameterBuilders
 import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.TileBuilders
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.tile.HeartRateTileRenderer.Companion.ANIMATION_DURATION_MILLIS
 import com.google.android.horologist.tiles.SuspendingTileService
 
 @ExperimentalHorologistApi
 /** Service to provide HeartRate Tile.  */
-class HeartRateTileService : SuspendingTileService() {
-    private lateinit var renderer: HeartRateTileRenderer
+class SampleAnimatedTileService : SuspendingTileService() {
+    private lateinit var renderer: SampleAnimatedTileRenderer
 
     override fun onCreate() {
         super.onCreate()
 
-        renderer = HeartRateTileRenderer(this)
+        renderer = SampleAnimatedTileRenderer(this)
     }
 
     override suspend fun tileRequest(requestParams: TileRequest): TileBuilders.Tile {

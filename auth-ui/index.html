@@ -21,7 +21,7 @@
         <link rel="next" href="../auth-data/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
     
     
       
@@ -1184,7 +1184,7 @@ library. The implementation of these repositories does not necessary need to be 
 they can be your own implementation. Some of the composables might depend on an external library.</p>
 <h2 id="screens">Screens<a class="headerlink" href="#screens" title="Permanent link">&para;</a></h2>
 <h3 id="common">Common<a class="headerlink" href="#common" title="Permanent link">&para;</a></h3>
-<h4 id="signinpromptscreen"><a href="https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.common.screens.prompt/-sign-in-prompt-screen.html">SignInPromptScreen</a><a class="headerlink" href="#signinpromptscreen" title="Permanent link">&para;</a></h4>
+<h4 id="signinpromptscreen"><a href="https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.common.screens.prompt/-sign-in-prompt-screen.html">SignInPromptScreen</a><a class="headerlink" href="#signinpromptscreen" title="Permanent link">&para;</a></h4>
 <p>A screen to prompt users to sign in.</p>
 <p>It helps achieve to the following <a href="https://developer.android.com/training/wearables/apps/auth-wear">best practices</a>:</p>
 <ul>
@@ -1192,7 +1192,7 @@ they can be your own implementation. Some of the composables might depend on an 
 <li><a href="https://developer.android.com/training/wearables/design/sign-in#alternatives">Provide alternatives</a></li>
 </ul>
 <h3 id="google-sign-in">Google Sign-In<a class="headerlink" href="#google-sign-in" title="Permanent link">&para;</a></h3>
-<h4 id="googlesigninscreen"><a href="https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-screen.html">GoogleSignInScreen</a><a class="headerlink" href="#googlesigninscreen" title="Permanent link">&para;</a></h4>
+<h4 id="googlesigninscreen"><a href="https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-screen.html">GoogleSignInScreen</a><a class="headerlink" href="#googlesigninscreen" title="Permanent link">&para;</a></h4>
 <p>A screen for
 the <a href="https://developer.android.com/training/wearables/apps/auth-wear#Google-Sign-in">Google Sign-In</a>
 authentication method.</p>
@@ -1220,7 +1220,7 @@ library for authentication and account selection. So an instance
 of <a href="https://developers.google.com/android/reference/com/google/android/gms/auth/api/signin/GoogleSignInClient">GoogleSignInClient</a>
 has to be provided to <code>GoogleSignInViewModel</code>.</p>
 <h3 id="oauth">OAuth<a class="headerlink" href="#oauth" title="Permanent link">&para;</a></h3>
-<h4 id="pkcesigninscreen"><a href="https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.oauth.pkce.signin/-p-k-c-e-sign-in-screen.html">PKCESignInScreen</a><a class="headerlink" href="#pkcesigninscreen" title="Permanent link">&para;</a></h4>
+<h4 id="pkcesigninscreen"><a href="https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.oauth.pkce.signin/-p-k-c-e-sign-in-screen.html">PKCESignInScreen</a><a class="headerlink" href="#pkcesigninscreen" title="Permanent link">&para;</a></h4>
 <p>A screen for
 the <a href="https://developer.android.com/training/wearables/apps/auth-wear#pkce">OAuth (PKCE)</a>
 authentication method.</p>
@@ -1244,11 +1244,11 @@ authentication flow.</p>
 </table>
 <p>A implementation for the following repositories are required to be provided:</p>
 <ul>
-<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-config-repository/index.html">PKCEConfigRepository</a></li>
-<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-o-auth-code-repository/index.html">PKCEOAuthCodeRepository</a></li>
-<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-token-repository/index.html">PKCETokenRepository</a></li>
+<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-config-repository/index.html">PKCEConfigRepository</a></li>
+<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-o-auth-code-repository/index.html">PKCEOAuthCodeRepository</a></li>
+<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-token-repository/index.html">PKCETokenRepository</a></li>
 </ul>
-<h4 id="devicegrantsigninscreen"><a href="https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.oauth.devicegrant.signin/-device-grant-sign-in-screen.html">DeviceGrantSignInScreen</a><a class="headerlink" href="#devicegrantsigninscreen" title="Permanent link">&para;</a></h4>
+<h4 id="devicegrantsigninscreen"><a href="https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.oauth.devicegrant.signin/-device-grant-sign-in-screen.html">DeviceGrantSignInScreen</a><a class="headerlink" href="#devicegrantsigninscreen" title="Permanent link">&para;</a></h4>
 <p>A screen for
 the <a href="https://developer.android.com/training/wearables/apps/auth-wear#DAG">OAuth (Device Grant)</a>
 authentication method.</p>
@@ -1272,9 +1272,9 @@ authentication flow.</p>
 </table>
 <p>A implementation for the following repositories are required to be provided:</p>
 <ul>
-<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-config-repository/index.html">DeviceGrantConfigRepository</a></li>
-<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-verification-info-repository/index.html">DeviceGrantVerificationInfoRepository</a></li>
-<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-token-repository/index.html">DeviceGrantTokenRepository</a></li>
+<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-config-repository/index.html">DeviceGrantConfigRepository</a></li>
+<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-verification-info-repository/index.html">DeviceGrantVerificationInfoRepository</a></li>
+<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-token-repository/index.html">DeviceGrantTokenRepository</a></li>
 </ul>
 
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,22 @@
   <string name="horologist_time_picker_hour">Uur</string>
   <string name="horologist_time_picker_minute">Minuut</string>
   <string name="horologist_time_picker_second">Seconde</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d uur</item>
+    <item quantity="other">%d uur</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d minuut</item>
+    <item quantity="other">%d minuten</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d seconde</item>
+    <item quantity="other">%d seconden</item>
+  </plurals>
   <string name="horologist_time_picker_min">Min</string>
   <string name="horologist_time_picker_period">Periode</string>
+  <string name="horologist_time_picker_am">AM</string>
+  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">Dag</string>
   <string name="horologist_picker_month">Maand</string>
   <string name="horologist_picker_year">Jaar</string>

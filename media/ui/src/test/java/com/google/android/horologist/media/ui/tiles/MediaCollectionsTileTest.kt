@@ -23,6 +23,7 @@ import androidx.wear.tiles.ActionBuilders
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSSmallRound
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSSquare
+import androidx.wear.protolayout.ActionBuilders
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.uamp.UampColors

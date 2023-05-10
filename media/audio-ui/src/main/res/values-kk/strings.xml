@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">Жалғанбаған</string>
   <string name="horologist_volume_screen_change_audio_output">Аудио шығысын өзгерту</string>
   <string name="horologist_speaker_name">Сағат динамигі</string>
+  <string name="choose_device">Құрылғыны таңдаңыз</string>
   <string name="horologist_output_none">Ешқандай</string>
   <string name="horologist_set_volume_content_description">Дыбысты реттеу</string>
   <string name="horologist_audio_output_content_description">Аудио шығысы</string>

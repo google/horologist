@@ -27,7 +27,7 @@
     <uses-sdk
         android:minSdkVersion="25"
         tools:ignore="GradleOverrides"
-        tools:overrideLibrary="androidx.wear.tiles.material,
+        tools:overrideLibrary="androidx.wear.protolayout.material,
             androidx.wear.tiles.renderer,
             androidx.wear.tiles.testing,
             androidx.wear.watchface.style,

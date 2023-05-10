@@ -30,7 +30,12 @@ class FakeVolumeRepository constructor(initial: VolumeState) : VolumeRepository 
 
     override fun decreaseVolume() {
         val current = volumeState.value
-        volumeState.value = current.copy(current = (current.current - 1).coerceAtLeast(0))
+        volumeState.value = current.copy(current = (current.current - 1).coerceAtLeast(current.min))
+    }
+
+    override fun setVolume(volume: Int) {
+        val current = volumeState.value
+        volumeState.value = current.copy(current = volume.coerceIn(current.min, current.max))
     }
 
     override fun close() {

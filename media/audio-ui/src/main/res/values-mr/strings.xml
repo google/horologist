@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">कनेक्ट केलेले नाही</string>
   <string name="horologist_volume_screen_change_audio_output">ऑडिओ आउटपुट बदला</string>
   <string name="horologist_speaker_name">वॉच स्पीकर</string>
+  <string name="choose_device">डिव्हाइस निवडा</string>
   <string name="horologist_output_none">काहीही नाही</string>
   <string name="horologist_set_volume_content_description">व्‍हॉल्‍यूम सेट करा</string>
   <string name="horologist_audio_output_content_description">ऑडिओ आउटपुट</string>

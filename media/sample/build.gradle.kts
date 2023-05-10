@@ -184,7 +184,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.wear.tiles)
-    implementation(libs.androidx.wear.tiles.material)
+    implementation(libs.androidx.wear.protolayout.material)
 
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore)

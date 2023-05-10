@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">Inte ansluten</string>
   <string name="horologist_volume_screen_change_audio_output">Ändra ljudutgång</string>
   <string name="horologist_speaker_name">Klockans högtalare</string>
+  <string name="choose_device">Välj enhet</string>
   <string name="horologist_output_none">Inga</string>
   <string name="horologist_set_volume_content_description">Ställ in volymen</string>
   <string name="horologist_audio_output_content_description">Ljudutgång</string>

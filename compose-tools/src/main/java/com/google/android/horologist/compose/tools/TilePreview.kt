@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.tools
 
 import android.content.res.Resources
@@ -29,21 +27,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.wear.tiles.ColorBuilders.argb
-import androidx.wear.tiles.DeviceParametersBuilders
-import androidx.wear.tiles.DimensionBuilders.ExpandedDimensionProp
-import androidx.wear.tiles.LayoutElementBuilders
-import androidx.wear.tiles.LayoutElementBuilders.Box
-import androidx.wear.tiles.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
-import androidx.wear.tiles.LayoutElementBuilders.LayoutElement
-import androidx.wear.tiles.LayoutElementBuilders.VERTICAL_ALIGN_CENTER
-import androidx.wear.tiles.ModifiersBuilders.Background
-import androidx.wear.tiles.ModifiersBuilders.Modifiers
+import androidx.wear.protolayout.ColorBuilders.argb
+import androidx.wear.protolayout.DeviceParametersBuilders
+import androidx.wear.protolayout.DimensionBuilders.ExpandedDimensionProp
+import androidx.wear.protolayout.LayoutElementBuilders
+import androidx.wear.protolayout.LayoutElementBuilders.Box
+import androidx.wear.protolayout.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
+import androidx.wear.protolayout.LayoutElementBuilders.LayoutElement
+import androidx.wear.protolayout.LayoutElementBuilders.VERTICAL_ALIGN_CENTER
+import androidx.wear.protolayout.ModifiersBuilders.Background
+import androidx.wear.protolayout.ModifiersBuilders.Modifiers
+import androidx.wear.protolayout.ResourceBuilders
+import androidx.wear.protolayout.StateBuilders.State
+import androidx.wear.protolayout.TimelineBuilders
 import androidx.wear.tiles.RequestBuilders
-import androidx.wear.tiles.ResourceBuilders
-import androidx.wear.tiles.StateBuilders.State
 import androidx.wear.tiles.TileBuilders
-import androidx.wear.tiles.TimelineBuilders
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.render.TileLayoutRenderer
 import kotlinx.coroutines.Dispatchers
@@ -89,13 +87,15 @@ public fun TilePreview(
         update = {
             val tileRenderer = androidx.wear.tiles.renderer.TileRenderer(
                 /* uiContext = */ it.context,
-                /* layout = */ tile.timeline?.timelineEntries?.first()?.layout!!,
-                /* resources = */ tileResources,
                 /* loadActionExecutor = */ Dispatchers.IO.asExecutor(),
                 /* loadActionListener = */ {}
             )
 
-            tileRenderer.inflate(it)
+            tileRenderer.inflate(
+                tile.tileTimeline?.timelineEntries?.first()?.layout!!,
+                tileResources,
+                it
+            )
         }
     )
 }
@@ -139,7 +139,7 @@ public fun LayoutRootPreview(
     val tile = remember {
         TileBuilders.Tile.Builder()
             .setResourcesVersion(PERMANENT_RESOURCES_VERSION)
-            .setTimeline(
+            .setTileTimeline(
                 TimelineBuilders.Timeline.Builder().addTimelineEntry(
                     TimelineBuilders.TimelineEntry.Builder()
                         .setLayout(
@@ -160,11 +160,11 @@ public fun LayoutRootPreview(
 internal const val PERMANENT_RESOURCES_VERSION = "0"
 
 private fun requestParams(resources: Resources) =
-    RequestBuilders.TileRequest.Builder().setDeviceParameters(buildDeviceParameters(resources))
-        .setState(State.Builder().build()).build()
+    RequestBuilders.TileRequest.Builder().setDeviceConfiguration(buildDeviceParameters(resources))
+        .setCurrentState(State.Builder().build()).build()
 
 private fun resourceParams(resources: Resources, version: String) =
-    RequestBuilders.ResourcesRequest.Builder().setDeviceParameters(buildDeviceParameters(resources))
+    RequestBuilders.ResourcesRequest.Builder().setDeviceConfiguration(buildDeviceParameters(resources))
         .setVersion(version).build()
 
 public fun buildDeviceParameters(resources: Resources): DeviceParametersBuilders.DeviceParameters {

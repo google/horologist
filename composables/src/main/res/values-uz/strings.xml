@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,22 @@
   <string name="horologist_time_picker_hour">Soat</string>
   <string name="horologist_time_picker_minute">Daqiqa</string>
   <string name="horologist_time_picker_second">Soniya</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d soat</item>
+    <item quantity="other">%d soat</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d daqiqa</item>
+    <item quantity="other">%d daqiqa</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d soniya</item>
+    <item quantity="other">%d soniya</item>
+  </plurals>
   <string name="horologist_time_picker_min">Daq</string>
   <string name="horologist_time_picker_period">Davr</string>
+  <string name="horologist_time_picker_am">TO</string>
+  <string name="horologist_time_picker_pm">TK</string>
   <string name="horologist_picker_day">Kun</string>
   <string name="horologist_picker_month">Oy</string>
   <string name="horologist_picker_year">Yil</string>

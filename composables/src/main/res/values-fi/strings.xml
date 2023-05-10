@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,22 @@
   <string name="horologist_time_picker_hour">Tunti</string>
   <string name="horologist_time_picker_minute">Minuutti</string>
   <string name="horologist_time_picker_second">Sekunti</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d tunti</item>
+    <item quantity="other">%d tuntia</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d minuutti</item>
+    <item quantity="other">%d minuuttia</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d sekunti</item>
+    <item quantity="other">%d sekuntia</item>
+  </plurals>
   <string name="horologist_time_picker_min">Min</string>
   <string name="horologist_time_picker_period">Piste</string>
+  <string name="horologist_time_picker_am">Aamu</string>
+  <string name="horologist_time_picker_pm">Ilta</string>
   <string name="horologist_picker_day">Päivä</string>
   <string name="horologist_picker_month">Kuukausi</string>
   <string name="horologist_picker_year">Vuosi</string>

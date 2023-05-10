@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">Nuk është lidhur</string>
   <string name="horologist_volume_screen_change_audio_output">Ndrysho daljen e audios</string>
   <string name="horologist_speaker_name">Altoparlanti i orës</string>
+  <string name="choose_device">Zgjidh pajisjen</string>
   <string name="horologist_output_none">Asnjë</string>
   <string name="horologist_set_volume_content_description">Cakto volumin</string>
   <string name="horologist_audio_output_content_description">Dalja e audios</string>

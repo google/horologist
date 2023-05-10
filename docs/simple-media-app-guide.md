@@ -13,8 +13,8 @@ This guide assumes that you are familiar with:
 
 ### 1 - Add dependency
 
-Create a new project from Android Studio by choosing a Wear OS Empty Compose Activity. Add
-dependency on `media-ui` to your project’s `build.gradle`:
+Create a new project from Android Studio by choosing "Basic Wear App Without Associated Tiles" from 
+"Wear OS" templates. Add dependency on `media-ui` to your project’s `build.gradle`:
 
 ```groovy
 implementation "com.google.android.horologist:horologist-media-ui:$horologist_version"

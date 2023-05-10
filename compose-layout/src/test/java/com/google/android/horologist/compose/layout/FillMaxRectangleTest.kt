@@ -25,9 +25,6 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onRoot
 import androidx.test.filters.MediumTest
-import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
-import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSLargeRound
-import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSSquare
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -46,7 +43,7 @@ class FillMaxRectangleTest {
     @Test
     @Config(
         sdk = [30],
-        qualifiers = WearOSSquare
+        qualifiers = "w227dp-h227dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
     )
     fun testSquare() {
         composeTestRule.setContent {
@@ -62,7 +59,7 @@ class FillMaxRectangleTest {
     @Test
     @Config(
         sdk = [30],
-        qualifiers = WearOSLargeRound
+        qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
     )
     fun testCircle() {
         composeTestRule.setContent {

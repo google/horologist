@@ -119,7 +119,6 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.robolectric)
-    testImplementation(libs.roborazzi)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.concurrent.future.ktx)
     testImplementation(libs.androidx.lifecycle.testing)

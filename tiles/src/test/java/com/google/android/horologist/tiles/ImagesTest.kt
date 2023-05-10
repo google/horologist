@@ -21,8 +21,6 @@ package com.google.android.horologist.tiles
 import android.content.Context
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
-import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSLargeRound
 import androidx.wear.protolayout.ResourceBuilders
 import com.google.android.horologist.tiles.images.loadImageResource
 import com.google.common.truth.Truth.assertThat
@@ -39,7 +37,7 @@ import org.robolectric.annotation.GraphicsMode
 @RunWith(RobolectricTestRunner::class)
 @Config(
     sdk = [33],
-    qualifiers = WearOSLargeRound
+    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class ImagesTest {

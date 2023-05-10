@@ -19,10 +19,6 @@ package com.google.android.horologist.media.ui.tiles
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import androidx.wear.tiles.ActionBuilders
-import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
-import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSSmallRound
-import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSSquare
 import androidx.wear.protolayout.ActionBuilders
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.media.ui.R
@@ -45,7 +41,7 @@ class MediaCollectionsTileTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = WearOSSmallRound
+        qualifiers = "+w192dp-h192dp"
     )
     @Test
     fun smallRound() {
@@ -54,7 +50,7 @@ class MediaCollectionsTileTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = WearOSSquare
+        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav"
     )
     @Test
     fun square() {

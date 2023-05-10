@@ -1210,7 +1210,6 @@ dependency on <code>media-ui</code> to your project’s <code>build.gradle</code
 <span class="w">                </span><span class="n">onPauseButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">},</span>
 <span class="w">                </span><span class="n">playPauseButtonEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">                </span><span class="n">playing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">                </span><span class="n">percent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0f</span><span class="p">,</span>
 <span class="w">                </span><span class="n">onSeekBackButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">},</span>
 <span class="w">                </span><span class="n">seekBackButtonEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">                </span><span class="n">onSeekForwardButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">},</span>
@@ -1264,7 +1263,8 @@ set a media and update the position of the player every second:</p>
 </code></pre></div>
 <h3 id="4-create-an-instance-of-the-viewmodel">4 - Create an instance of the <code>ViewModel</code><a class="headerlink" href="#4-create-an-instance-of-the-viewmodel" title="Permanent link">&para;</a></h3>
 <p>Change your <code>Activity</code>’s <code>onCreate</code> function to:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">player</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExoPlayer</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nd">@SuppressLint</span><span class="p">(</span><span class="s">&quot;UnsafeOptInUsageError&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">player</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExoPlayer</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
 <span class="w">    </span><span class="p">.</span><span class="na">setSeekForwardIncrementMs</span><span class="p">(</span><span class="m">5000L</span><span class="p">)</span>
 <span class="w">    </span><span class="p">.</span><span class="na">setSeekBackIncrementMs</span><span class="p">(</span><span class="m">5000L</span><span class="p">)</span>
 <span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">()</span>
@@ -1272,21 +1272,23 @@ set a media and update the position of the player every second:</p>
 <span class="kd">val</span><span class="w"> </span><span class="nv">viewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyViewModel</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">volumeViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">createVolumeViewModel</span><span class="p">()</span>
 
-<span class="n">PlayerScreen</span><span class="p">(</span>
-<span class="w">    </span><span class="n">playerViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModel</span><span class="p">,</span>
-<span class="w">    </span><span class="n">volumeViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">volumeViewModel</span><span class="p">,</span>
-<span class="w">    </span><span class="n">mediaDisplay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">playerUiState</span><span class="p">:</span><span class="w"> </span><span class="n">PlayerUiState</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">        </span><span class="n">DefaultMediaInfoDisplay</span><span class="p">(</span><span class="n">playerUiState</span><span class="p">)</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="n">controlButtons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">playerUIController</span><span class="p">:</span><span class="w"> </span><span class="n">PlayerUiController</span><span class="p">,</span>
-<span class="w">                       </span><span class="n">playerUiState</span><span class="p">:</span><span class="w"> </span><span class="n">PlayerUiState</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">        </span><span class="n">PodcastControlButtons</span><span class="p">(</span>
-<span class="w">            </span><span class="n">playerController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">playerUIController</span><span class="p">,</span>
-<span class="w">            </span><span class="n">playerUiState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">playerUiState</span>
-<span class="w">        </span><span class="p">)</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="n">buttons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
-<span class="p">)</span>
+<span class="n">setContent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">PlayerScreen</span><span class="p">(</span>
+<span class="w">        </span><span class="n">playerViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModel</span><span class="p">,</span>
+<span class="w">        </span><span class="n">volumeViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">volumeViewModel</span><span class="p">,</span>
+<span class="w">        </span><span class="n">mediaDisplay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">playerUiState</span><span class="p">:</span><span class="w"> </span><span class="n">PlayerUiState</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">          </span><span class="n">DefaultMediaInfoDisplay</span><span class="p">(</span><span class="n">playerUiState</span><span class="p">)</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="n">controlButtons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">playerUIController</span><span class="p">:</span><span class="w"> </span><span class="n">PlayerUiController</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">playerUiState</span><span class="p">:</span><span class="w"> </span><span class="n">PlayerUiState</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">          </span><span class="n">PodcastControlButtons</span><span class="p">(</span>
+<span class="w">                  </span><span class="n">playerController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">playerUIController</span><span class="p">,</span>
+<span class="w">                  </span><span class="n">playerUiState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">playerUiState</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="n">buttons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>Add <code>createVolumeViewModel</code> function to create a VolumeViewModel:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">createVolumeViewModel</span><span class="p">():</span><span class="w"> </span><span class="n">VolumeViewModel</span><span class="w"> </span><span class="p">{</span>

@@ -39,7 +39,6 @@ setContent {
                 onPauseButtonClick = { },
                 playPauseButtonEnabled = true,
                 playing = false,
-                percent = 0f,
                 onSeekBackButtonClick = { },
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = { },
@@ -116,6 +115,7 @@ init {
 Change your `Activity`’s `onCreate` function to:
 
 ```kotlin
+@SuppressLint("UnsafeOptInUsageError")
 val player = ExoPlayer.Builder(this)
     .setSeekForwardIncrementMs(5000L)
     .setSeekBackIncrementMs(5000L)
@@ -124,21 +124,23 @@ val player = ExoPlayer.Builder(this)
 val viewModel = MyViewModel(player)
 val volumeViewModel = createVolumeViewModel()
 
-PlayerScreen(
-    playerViewModel = viewModel,
-    volumeViewModel = volumeViewModel,
-    mediaDisplay = { playerUiState: PlayerUiState ->
-        DefaultMediaInfoDisplay(playerUiState)
-    },
-    controlButtons = { playerUIController: PlayerUiController,
-                       playerUiState: PlayerUiState ->
-        PodcastControlButtons(
-            playerController = playerUIController,
-            playerUiState = playerUiState
-        )
-    },
-    buttons = { }
-)
+setContent {
+    PlayerScreen(
+        playerViewModel = viewModel,
+        volumeViewModel = volumeViewModel,
+        mediaDisplay = { playerUiState: PlayerUiState ->
+          DefaultMediaInfoDisplay(playerUiState)
+        },
+        controlButtons = { playerUIController: PlayerUiController,
+                           playerUiState: PlayerUiState ->
+          PodcastControlButtons(
+                  playerController = playerUIController,
+                  playerUiState = playerUiState
+          )
+        },
+        buttons = { }
+    )
+}
 ```
 
 Add `createVolumeViewModel` function to create a VolumeViewModel:

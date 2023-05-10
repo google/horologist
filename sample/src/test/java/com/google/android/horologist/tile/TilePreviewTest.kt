@@ -16,16 +16,25 @@
 
 package com.google.android.horologist.tile
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
-import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.RoborazziRule
+import com.github.takahirom.roborazzi.captureRoboGif
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -59,12 +68,25 @@ class TilePreviewTest {
 
     @Test
     fun givenHeadingModifierIsNOTOverridden_thenHeadingModifierIsPresent() {
+        var cover by mutableStateOf(true)
+
         // given
         composeTestRule.setContent {
-            SampleAnimatedTilePreview()
+            Box {
+                SampleAnimatedTilePreview()
+                if (cover) {
+                    Box(modifier = Modifier.background(Color.Black.copy(alpha = 0.5f)).fillMaxSize())
+                }
+            }
         }
 
         // then
-        Espresso.onView(withText("Anchor angle")).check(matches(isDisplayed()))
+        onView(withText("Anchor angle")).check(matches(isDisplayed()))
+
+        onView(isRoot()).captureRoboGif("build/test.gif") {
+            Thread.sleep(1000)
+            cover = false
+            Thread.sleep(1000)
+        }
     }
 }

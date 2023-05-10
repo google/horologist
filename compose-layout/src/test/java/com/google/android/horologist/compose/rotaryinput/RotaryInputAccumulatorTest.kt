@@ -46,7 +46,7 @@ class RotaryInputAccumulatorTest {
             rateLimitCoolDownMs = RotaryInputConfigDefaults.RATE_LIMITING_DISABLED,
             isLowRes = true
         ) {
-            latestValue.set(it) // This will always be 1f or -1f
+            latestValue.set(it) // should be either 1 or -1
             valueChangedTimes.incrementAndGet()
         }
 

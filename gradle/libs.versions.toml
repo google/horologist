@@ -48,6 +48,9 @@ moshi = "1.14.0"
 okio = "3.3.0"
 playServicesAuth = "20.5.0"
 protobuf = "3.22.3"
+roborazzi = "1.2.0-alpha-5"
+roborazziGradlePlugin = "1.2.0-alpha-5"
+roborazziJunitRule = "1.2.0-alpha-5"
 room = "2.5.1"
 runtimeTracing = "1.0.0-alpha03"
 snapshot-android = "v1.0.2"
@@ -164,6 +167,9 @@ protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", ve
 retrofit2-convertermoshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "com-squareup-retrofit2" }
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "com-squareup-retrofit2" }
 robolectric = "org.robolectric:robolectric:4.10.1"
+roborazzi = { module = "io.github.takahirom.roborazzi:roborazzi", version.ref = "roborazzi" }
+roborazzi-gradle-plugin = { module = "io.github.takahirom.roborazzi:roborazzi-gradle-plugin", version.ref = "roborazziGradlePlugin" }
+roborazzi-junit-rule = { module = "io.github.takahirom.roborazzi:roborazzi-junit-rule", version.ref = "roborazziJunitRule" }
 room-common = { module = "androidx.room:room-common", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }

@@ -224,7 +224,7 @@ class SampleAnimatedTileRenderer(context: Context) : SingleTileLayoutRenderer<Un
 
 @WearPreviewLargeRound
 @Composable
-fun HeartrateTilePreview() {
+fun SampleAnimatedTilePreview() {
     val context = LocalContext.current
 
     val renderer = remember {

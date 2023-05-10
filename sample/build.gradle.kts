@@ -22,6 +22,7 @@ plugins {
     id("com.android.application")
     id("com.google.protobuf")
     kotlin("android")
+    id("io.github.takahirom.roborazzi")
 }
 
 android {
@@ -77,6 +78,12 @@ android {
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
             """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
     }
 
     composeOptions {
@@ -175,6 +182,15 @@ dependencies {
     implementation(libs.compose.ui.toolingpreview)
 
     implementation(libs.kotlinx.coroutines.guava)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.compose.ui.test.junit4)
+    testImplementation(libs.roborazzi)
+    testImplementation(libs.roborazzi.junit.rule)
 
     debugImplementation(libs.androidx.wear.tiles.testing)
     debugImplementation(libs.compose.ui.tooling)

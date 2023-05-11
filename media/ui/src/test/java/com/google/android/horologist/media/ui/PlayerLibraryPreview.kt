@@ -22,6 +22,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,7 +41,11 @@ fun PlayerLibraryPreview(
     function: @Composable () -> Unit
 ) {
     RoundPreview(round = round) {
-        PagerScreen(count = 2) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             if (it == 0) {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),

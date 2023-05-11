@@ -159,6 +159,10 @@ package com.google.android.horologist.data.apphelper {
     ctor public DataLayerAppHelperService();
     method public abstract com.google.android.horologist.data.apphelper.DataLayerAppHelper getAppHelper();
     property public abstract com.google.android.horologist.data.apphelper.DataLayerAppHelper appHelper;
+    field public static final com.google.android.horologist.data.apphelper.DataLayerAppHelperService.Companion Companion;
+  }
+
+  public static final class DataLayerAppHelperService.Companion {
   }
 
   public final class SurfaceInfoSerializer implements androidx.datastore.core.Serializer<error.NonExistentClass> {

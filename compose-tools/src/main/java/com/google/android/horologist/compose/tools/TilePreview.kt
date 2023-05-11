@@ -91,7 +91,8 @@ public fun TilePreview(
                 /* loadActionListener = */ {}
             )
 
-            tileRenderer.inflate(
+            // Returning a future
+            tileRenderer.inflateAsync(
                 tile.tileTimeline?.timelineEntries?.first()?.layout!!,
                 tileResources,
                 it

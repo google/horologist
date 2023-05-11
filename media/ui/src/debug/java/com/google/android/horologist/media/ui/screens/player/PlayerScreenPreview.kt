@@ -82,9 +82,11 @@ fun PlayerScreenPreview() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PagerScreen(state = rememberPagerState {
-            2
-        }) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
@@ -157,9 +159,11 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PagerScreen(state = rememberPagerState {
-            2
-        }) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             PlayerScreen(
                 mediaDisplay = {
                     Text(
@@ -233,9 +237,11 @@ fun PlayerScreenPreviewCustomBackground() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PagerScreen(state = rememberPagerState {
-            2
-        }) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
@@ -323,9 +329,11 @@ fun DefaultMediaPreview() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PagerScreen(state = rememberPagerState {
-            2
-        }) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
@@ -401,9 +409,11 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PagerScreen(state = rememberPagerState {
-            2
-        }) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             PlayerScreen(
                 mediaDisplay = { NothingPlayingDisplay(Modifier) },
                 controlButtons = {

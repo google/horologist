@@ -57,8 +57,6 @@ public fun PlayerLibraryPagerScreen(
         if (pageParam != null) {
             try {
                 pagerState.animateScrollToPage(pageParam)
-            } catch (nsee: NoSuchElementException) {
-                // ignore for now
             } catch (e: CancellationException) {
                 // Not sure why we get a cancellation here, but we want the page
                 // nav to take effect and persist

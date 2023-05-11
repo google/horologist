@@ -14,28 +14,26 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.tiles.preview
 
 import android.content.Context
-import androidx.wear.tiles.ColorBuilders
-import androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters
-import androidx.wear.tiles.DimensionBuilders.ExpandedDimensionProp
-import androidx.wear.tiles.LayoutElementBuilders.Box
-import androidx.wear.tiles.LayoutElementBuilders.Column
-import androidx.wear.tiles.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
-import androidx.wear.tiles.LayoutElementBuilders.LayoutElement
-import androidx.wear.tiles.LayoutElementBuilders.VERTICAL_ALIGN_CENTER
-import androidx.wear.tiles.ResourceBuilders
-import androidx.wear.tiles.material.Button
-import androidx.wear.tiles.material.ButtonColors
-import androidx.wear.tiles.material.Chip
-import androidx.wear.tiles.material.ChipColors
-import androidx.wear.tiles.material.Colors
-import androidx.wear.tiles.material.CompactChip
-import androidx.wear.tiles.material.Text
-import androidx.wear.tiles.material.Typography
+import androidx.wear.protolayout.ColorBuilders
+import androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters
+import androidx.wear.protolayout.DimensionBuilders.ExpandedDimensionProp
+import androidx.wear.protolayout.LayoutElementBuilders.Box
+import androidx.wear.protolayout.LayoutElementBuilders.Column
+import androidx.wear.protolayout.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
+import androidx.wear.protolayout.LayoutElementBuilders.LayoutElement
+import androidx.wear.protolayout.LayoutElementBuilders.VERTICAL_ALIGN_CENTER
+import androidx.wear.protolayout.ResourceBuilders
+import androidx.wear.protolayout.material.Button
+import androidx.wear.protolayout.material.ButtonColors
+import androidx.wear.protolayout.material.Chip
+import androidx.wear.protolayout.material.ChipColors
+import androidx.wear.protolayout.material.Colors
+import androidx.wear.protolayout.material.CompactChip
+import androidx.wear.protolayout.material.Text
+import androidx.wear.protolayout.material.Typography
 import com.google.android.horologist.tiles.R
 import com.google.android.horologist.tiles.components.NoOpClickable
 import com.google.android.horologist.tiles.images.drawableResToImageResource

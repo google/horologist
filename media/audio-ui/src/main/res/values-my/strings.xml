@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">ချိတ်ဆက်မထားပါ</string>
   <string name="horologist_volume_screen_change_audio_output">အသံထွက်ပေါက် ပြောင်းရန်</string>
   <string name="horologist_speaker_name">နာရီစပီကာ</string>
+  <string name="choose_device">စက်ရွေးပါ</string>
   <string name="horologist_output_none">မရှိ</string>
   <string name="horologist_set_volume_content_description">အသံအတိုးအကျယ် သတ်မှတ်ရန်</string>
   <string name="horologist_audio_output_content_description">အသံထွက်ပေါက်</string>

@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">இணைக்கப்படவில்லை</string>
   <string name="horologist_volume_screen_change_audio_output">ஆடியோ அவுட்புட்டை மாற்றும்</string>
   <string name="horologist_speaker_name">வாட்ச் ஸ்பீக்கர்</string>
+  <string name="choose_device">சாதனத்தை தேர்வுசெய்க</string>
   <string name="horologist_output_none">ஏதுமில்லை</string>
   <string name="horologist_set_volume_content_description">ஒலியளவை அமைக்கும்</string>
   <string name="horologist_audio_output_content_description">ஆடியோ அவுட்புட்</string>

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui.tiles
 
 import androidx.compose.ui.graphics.toArgb
@@ -23,8 +21,8 @@ import androidx.wear.compose.material.Colors
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
-public fun Colors.toTileColors(): androidx.wear.tiles.material.Colors {
-    return androidx.wear.tiles.material.Colors(
+public fun Colors.toTileColors(): androidx.wear.protolayout.material.Colors {
+    return androidx.wear.protolayout.material.Colors(
         primary.toArgb(),
         onPrimary.toArgb(),
         surface.toArgb(),

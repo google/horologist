@@ -22,11 +22,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
-import androidx.wear.tiles.ActionBuilders
-import androidx.wear.tiles.ActionBuilders.AndroidActivity
+import androidx.wear.protolayout.ActionBuilders
+import androidx.wear.protolayout.ActionBuilders.AndroidActivity
+import androidx.wear.protolayout.ResourceBuilders.Resources
 import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
-import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import coil.ImageLoader
 import com.google.android.horologist.compose.tools.TileLayoutPreview

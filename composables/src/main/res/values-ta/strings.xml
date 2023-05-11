@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,22 @@
   <string name="horologist_time_picker_hour">மணிநேரம்</string>
   <string name="horologist_time_picker_minute">நிமிடம்</string>
   <string name="horologist_time_picker_second">வினாடி</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d மணிநேரம்</item>
+    <item quantity="other">%d மணிநேரம்</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d நிமிடம்</item>
+    <item quantity="other">%d நிமிடங்கள்</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d வினாடி</item>
+    <item quantity="other">%d வினாடிகள்</item>
+  </plurals>
   <string name="horologist_time_picker_min">நிமி</string>
   <string name="horologist_time_picker_period">மணிநேரம்</string>
+  <string name="horologist_time_picker_am">AM</string>
+  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">நாள்</string>
   <string name="horologist_picker_month">மாதம்</string>
   <string name="horologist_picker_year">ஆண்டு</string>

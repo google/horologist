@@ -21,6 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">未接続</string>
   <string name="horologist_volume_screen_change_audio_output">音声出力を変更</string>
   <string name="horologist_speaker_name">ウォッチのスピーカー</string>
+  <string name="choose_device">デバイスを選択</string>
   <string name="horologist_output_none">なし</string>
   <string name="horologist_set_volume_content_description">音量を設定</string>
   <string name="horologist_audio_output_content_description">音声出力</string>

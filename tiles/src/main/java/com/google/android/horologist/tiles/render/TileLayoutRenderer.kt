@@ -16,8 +16,8 @@
 
 package com.google.android.horologist.tiles.render
 
+import androidx.wear.protolayout.ResourceBuilders.Resources
 import androidx.wear.tiles.RequestBuilders
-import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 

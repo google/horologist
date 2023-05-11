@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,25 @@
   <string name="horologist_time_picker_hour">Сат</string>
   <string name="horologist_time_picker_minute">Минут</string>
   <string name="horologist_time_picker_second">Секунда</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d сат</item>
+    <item quantity="few">%d сата</item>
+    <item quantity="other">%d сати</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d минут</item>
+    <item quantity="few">%d минута</item>
+    <item quantity="other">%d минута</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d секунда</item>
+    <item quantity="few">%d секунде</item>
+    <item quantity="other">%d секунди</item>
+  </plurals>
   <string name="horologist_time_picker_min">Минут</string>
   <string name="horologist_time_picker_period">Период</string>
+  <string name="horologist_time_picker_am">пр</string>
+  <string name="horologist_time_picker_pm">по</string>
   <string name="horologist_picker_day">Дан</string>
   <string name="horologist_picker_month">Месец</string>
   <string name="horologist_picker_year">Година</string>

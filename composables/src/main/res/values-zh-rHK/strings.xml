@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,22 @@
   <string name="horologist_time_picker_hour">小時</string>
   <string name="horologist_time_picker_minute">分鐘</string>
   <string name="horologist_time_picker_second">秒</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d 小時</item>
+    <item quantity="other">%d 小時</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d 分鐘</item>
+    <item quantity="other">%d 分鐘</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d 秒</item>
+    <item quantity="other">%d 秒</item>
+  </plurals>
   <string name="horologist_time_picker_min">分鐘</string>
   <string name="horologist_time_picker_period">時段</string>
+  <string name="horologist_time_picker_am">上午</string>
+  <string name="horologist_time_picker_pm">下午</string>
   <string name="horologist_picker_day">日</string>
   <string name="horologist_picker_month">月</string>
   <string name="horologist_picker_year">年</string>

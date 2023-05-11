@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
  Copyright 2023 The Android Open Source Project
 
@@ -18,8 +18,28 @@
   <string name="horologist_time_picker_hour">Hodiny</string>
   <string name="horologist_time_picker_minute">Minuty</string>
   <string name="horologist_time_picker_second">Sekundy</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">%d hodina</item>
+    <item quantity="few">%d hodiny</item>
+    <item quantity="many">%d hodiny</item>
+    <item quantity="other">%d hodin</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">%d minuta</item>
+    <item quantity="few">%d minuty</item>
+    <item quantity="many">%d minuty</item>
+    <item quantity="other">%d minut</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">%d sekunda</item>
+    <item quantity="few">%d sekundy</item>
+    <item quantity="many">%d sekundy</item>
+    <item quantity="other">%d sekund</item>
+  </plurals>
   <string name="horologist_time_picker_min">Min</string>
   <string name="horologist_time_picker_period">Období</string>
+  <string name="horologist_time_picker_am">AM</string>
+  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">Den</string>
   <string name="horologist_picker_month">Měsíc</string>
   <string name="horologist_picker_year">Rok</string>

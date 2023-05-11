@@ -18,16 +18,16 @@ package com.google.android.horologist.sample.tiles
 
 import android.content.Context
 import android.os.BatteryManager
-import androidx.wear.tiles.LayoutElementBuilders.Column
-import androidx.wear.tiles.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
-import androidx.wear.tiles.LayoutElementBuilders.Layout
-import androidx.wear.tiles.LayoutElementBuilders.LayoutElement
-import androidx.wear.tiles.LayoutElementBuilders.Text
+import androidx.wear.protolayout.LayoutElementBuilders.Column
+import androidx.wear.protolayout.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
+import androidx.wear.protolayout.LayoutElementBuilders.Layout
+import androidx.wear.protolayout.LayoutElementBuilders.LayoutElement
+import androidx.wear.protolayout.LayoutElementBuilders.Text
+import androidx.wear.protolayout.ResourceBuilders
+import androidx.wear.protolayout.TimelineBuilders.Timeline
+import androidx.wear.protolayout.TimelineBuilders.TimelineEntry
 import androidx.wear.tiles.RequestBuilders
-import androidx.wear.tiles.ResourceBuilders
 import androidx.wear.tiles.TileBuilders.Tile
-import androidx.wear.tiles.TimelineBuilders.Timeline
-import androidx.wear.tiles.TimelineBuilders.TimelineEntry
 import com.google.android.horologist.tiles.SuspendingTileService
 
 class ExampleTileService : SuspendingTileService() {
@@ -43,7 +43,7 @@ class ExampleTileService : SuspendingTileService() {
     override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
         return Tile.Builder()
             .setResourcesVersion("1")
-            .setTimeline(
+            .setTileTimeline(
                 Timeline.Builder()
                     .addTimelineEntry(
                         TimelineEntry.Builder()

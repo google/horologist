@@ -124,6 +124,7 @@ public open class VolumeViewModel(
     }
 
     public fun setVolume(volume: Int) {
+        this.userActionEvents.tryEmit(Unit)
         if (volume != volumeRepository.volumeState.value.current) {
             volumeRepository.setVolume(volume)
         }

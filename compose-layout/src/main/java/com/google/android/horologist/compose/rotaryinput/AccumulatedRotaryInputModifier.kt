@@ -52,17 +52,6 @@ public fun Modifier.onRotaryInputAccumulatedWithFocus(
 }
 
 /**
- * Process a [RotaryScrollEvent].
- *
- * @param event the [RotaryScrollEvent] to be processed.
- */
-@ExperimentalHorologistApi
-internal fun RotaryInputAccumulator.onRotaryScrollEvent(event: RotaryScrollEvent): Boolean {
-    onRotaryScroll(event.verticalScrollPixels, event.uptimeMillis)
-    return true
-}
-
-/**
  * Accumulates the scroll distances from [RotaryScrollEvent] and notifies changes with
  * [onValueChange] once accumulated value is over the thresholds.
  *
@@ -91,6 +80,17 @@ public fun Modifier.onRotaryInputAccumulated(
         )
     }
     return@composed onRotaryScrollEvent(rotaryInputAccumulator::onRotaryScrollEvent)
+}
+
+/**
+ * Process a [RotaryScrollEvent].
+ *
+ * @param event the [RotaryScrollEvent] to be processed.
+ */
+@ExperimentalHorologistApi
+internal fun RotaryInputAccumulator.onRotaryScrollEvent(event: RotaryScrollEvent): Boolean {
+    onRotaryScroll(event.verticalScrollPixels, event.uptimeMillis)
+    return true
 }
 
 public object RotaryInputConfigDefaults {

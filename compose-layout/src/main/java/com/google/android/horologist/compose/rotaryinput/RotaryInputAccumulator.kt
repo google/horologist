@@ -77,8 +77,10 @@ internal class RotaryInputAccumulator(
     }
 
     private fun shouldIgnoreAccumulatedInput(eventTimeMs: Long): Boolean {
-        return !isLowRes &&
-            abs(accumulatedDistance) < minValueChangeDistancePx ||
+        return (
+            !isLowRes &&
+                abs(accumulatedDistance) < minValueChangeDistancePx
+            ) ||
             eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs
     }
 }

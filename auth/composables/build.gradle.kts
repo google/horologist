@@ -121,3 +121,4 @@ dependencies {
 }
 
 apply(plugin = "com.vanniktech.maven.publish")
+apply(plugin = "com.autonomousapps.dependency-analysis")

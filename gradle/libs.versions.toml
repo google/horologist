@@ -32,6 +32,7 @@ com-squareup-retrofit2 = "2.9.0"
 compose = "1.5.0-alpha04"
 compose-compiler = "1.4.7"
 composesnapshot = "-"
+dependencyAnalysis = "1.20.0"
 dokka = "1.8.10"
 googleSecretsGradlePlugin = "2.0.1"
 googledagger = "2.46"
@@ -177,6 +178,7 @@ wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", ver
 
 [plugins]
 benManes = { id = "com.github.ben-manes.versions", version.ref = "benManes" }
+dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = "gradlePublishPlugin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

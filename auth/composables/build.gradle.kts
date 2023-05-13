@@ -20,6 +20,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
 }
 
@@ -133,4 +134,3 @@ dependencyAnalysis {
 }
 
 apply(plugin = "com.vanniktech.maven.publish")
-apply(plugin = "com.autonomousapps.dependency-analysis")

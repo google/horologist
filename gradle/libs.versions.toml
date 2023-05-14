@@ -73,6 +73,7 @@ androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures"
 androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }
 androidx-corektx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "androidx-datastore" }
+androidx-datastore-core = { module = "androidx.datastore:datastore-core", version.ref = "androidx-datastore" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
 androidx-health-services = { module = "androidx.health:health-services-client", version.ref = "androidx-health-services" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidxLifecycle" }

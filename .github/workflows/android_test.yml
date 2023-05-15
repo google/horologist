@@ -6,6 +6,8 @@ on:
       - main
     paths-ignore:
       - '**.md'
+  #TODO remove before commit
+  pull_request:
   workflow_dispatch:
 
 jobs:

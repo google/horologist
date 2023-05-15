@@ -166,7 +166,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.wear.tiles)
-    implementation(libs.androidx.wear.protolayout.material)
+    implementation(libs.androidx.protolayout.material)
 
     implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.kotlin.stdlib)

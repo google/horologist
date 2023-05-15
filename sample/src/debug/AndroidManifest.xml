@@ -26,8 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name="com.google.android.horologist.TilePreview2Activity"
+            android:name="com.google.android.horologist.TilePreviewViaComposeActivity"
             android:exported="true">
 
             <intent-filter>

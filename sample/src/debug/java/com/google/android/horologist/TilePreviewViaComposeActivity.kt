@@ -22,7 +22,7 @@ import androidx.activity.compose.setContent
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.tile.SampleAnimatedTileRenderer
 
-class TilePreview2Activity : ComponentActivity() {
+class TilePreviewViaComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val renderer = SampleAnimatedTileRenderer(this)

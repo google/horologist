@@ -106,6 +106,10 @@ dependencies {
 
     implementation(libs.androidx.wear.tiles)
     implementation(libs.androidx.wear.tiles.renderer)
+    implementation(libs.androidx.protolayout.expression)
+    implementation(libs.androidx.protolayout)
+    implementation(libs.androidx.protolayout.material)
+    implementation(libs.androidx.protolayout.renderer)
     implementation(libs.coil)
 
     implementation(libs.compose.ui.toolingpreview)

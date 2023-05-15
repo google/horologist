@@ -61,7 +61,7 @@ class SampleAnimatedTileRenderer(context: Context) : SingleTileLayoutRenderer<Un
     private val animationSpec =
         AnimationSpec.Builder().setAnimationParameters(
             AnimationParameters.Builder()
-                .setDurationMillis(ANIMATION_DURATION_MILLIS).build()
+                .setDurationMillis(ANIMATION_DURATION_MILLIS.toLong()).build()
         ).build()
 
     private val body: LayoutElementBuilders.LayoutElement = column(
@@ -100,7 +100,7 @@ class SampleAnimatedTileRenderer(context: Context) : SingleTileLayoutRenderer<Un
                     DynamicFloat.animate(
                         0f, 360f, AnimationSpec.Builder().setAnimationParameters(
                         AnimationParameters.Builder()
-                            .setDurationMillis(20.seconds.inWholeMilliseconds.toInt())
+                            .setDurationMillis(20.seconds.inWholeMilliseconds)
                             .build()
                     ).build()
                     )

@@ -126,7 +126,7 @@ dependencies {
     implementation(projects.tiles)
     implementation(libs.androidx.complications.datasource.ktx)
     implementation(libs.androidx.wear.tiles)
-    implementation(libs.androidx.wear.protolayout.material)
+    implementation(libs.androidx.protolayout.material)
     implementation(libs.compose.ui.util)
     implementation(libs.compose.ui.toolingpreview)
 

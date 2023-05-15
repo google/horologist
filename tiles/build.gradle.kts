@@ -105,7 +105,7 @@ dependencies {
     implementation(libs.androidx.concurrent.future)
 
     api(libs.androidx.wear.tiles)
-    api(libs.androidx.wear.protolayout.material)
+    api(libs.androidx.protolayout.material)
     api(libs.androidx.lifecycle.service)
 
     implementation(libs.coil)

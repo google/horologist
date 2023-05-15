@@ -103,6 +103,10 @@ androidx-navigation-compose = { module = "androidx.navigation:navigation-compose
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigation" }
 androidx-paging = "androidx.paging:paging-compose:1.0.0-alpha19"
 androidx-palette-ktx = "androidx.palette:palette-ktx:1.0.0"
+androidx-protolayout-material = { module = "androidx.wear.protolayout:protolayout-material", version.ref = "androidxprotolayout" }
+androidx-protolayout-renderer = { module = "androidx.wear.protolayout:protolayout-renderer", version.ref = "androidxprotolayout" }
+androidx-protolayout = { module = "androidx.wear.protolayout:protolayout", version.ref = "androidxprotolayout" }
+androidx-protolayout-expression = { module = "androidx.wear.protolayout:protolayout-expression", version.ref = "androidxprotolayout" }
 androidx-runtime-tracing = { module = "androidx.compose.runtime:runtime-tracing", version.ref = "runtimeTracing" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "androidxStartup" }
 androidx-test-espressocore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
@@ -115,7 +119,6 @@ androidx-tracing-perfetto = { module = "androidx.tracing:tracing-perfetto", vers
 androidx-tracing-perfetto-binary = { module = "androidx.tracing:tracing-perfetto-binary", version.ref = "androidx-tracingPerfettoBinary" }
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
 androidx-wear-phone-interactions = { module = "androidx.wear:wear-phone-interactions", version.ref = "androidxPhoneInteractions" }
-androidx-wear-protolayout-material = { module = "androidx.wear.protolayout:protolayout-material", version.ref = "androidxprotolayout" }
 androidx-wear-remote-interactions = { module = "androidx.wear:wear-remote-interactions", version.ref = "androidxRemoteInteractions" }
 androidx-wear-tiles = { module = "androidx.wear.tiles:tiles", version.ref = "androidxtiles" }
 androidx-wear-tiles-renderer = { module = "androidx.wear.tiles:tiles-renderer", version.ref = "androidxtiles" }
@@ -179,8 +182,8 @@ retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref =
 robolectric = "org.robolectric:robolectric:4.10.2"
 robolectric-shadows = "org.robolectric:shadows-framework:4.10.2"
 roborazzi = { module = "io.github.takahirom.roborazzi:roborazzi", version.ref = "roborazzi" }
-roborazzi-gradle-plugin = { module = "io.github.takahirom.roborazzi:roborazzi-gradle-plugin", version.ref = "roborazziGradlePlugin" }
-roborazzi-junit-rule = { module = "io.github.takahirom.roborazzi:roborazzi-junit-rule", version.ref = "roborazziJunitRule" }
+roborazzi-gradle-plugin = { module = "io.github.takahirom.roborazzi:roborazzi-gradle-plugin", version.ref = "roborazzi" }
+roborazzi-junit-rule = { module = "io.github.takahirom.roborazzi:roborazzi-junit-rule", version.ref = "roborazzi" }
 room-common = { module = "androidx.room:room-common", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }

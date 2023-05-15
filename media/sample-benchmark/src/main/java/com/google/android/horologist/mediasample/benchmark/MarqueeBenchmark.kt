@@ -43,6 +43,8 @@ import kotlin.time.Duration.Companion.seconds
 
 @LargeTest
 class MarqueeBenchmark {
+    private val includePower: Boolean = false
+
     val mediaApp: MediaApp = TestMedia.MediaSampleApp
 
     @get:Rule
@@ -106,9 +108,9 @@ class MarqueeBenchmark {
         }
     }
 
-    public open fun metrics(): List<Metric> = listOf(
+    public open fun metrics(): List<Metric> = listOfNotNull(
         StartupTimingMetric(),
         FrameTimingMetric(),
-        PowerMetric(type = PowerMetric.Type.Battery())
+        if (includePower) PowerMetric(type = PowerMetric.Type.Battery()) else null
     )
 }

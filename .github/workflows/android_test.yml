@@ -17,7 +17,7 @@ jobs:
       # Allow tests to continue on other devices if they fail on one device.
       fail-fast: false
       matrix:
-        api-level: [ 30 ]
+        api-level: [ 30, 33 ]
 
     env:
       TERM: dumb
@@ -48,6 +48,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           target: android-wear
           profile: wear_round_454
+          channel: beta
           emulator-options: -no-window -no-snapshot
           script: |
             ./gradlew connectedDebugAndroidTest \

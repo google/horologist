@@ -42,10 +42,11 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @ExperimentalHorologistApi
 public fun Modifier.onRotaryInputAccumulatedWithFocus(
     focusRequester: FocusRequester? = null,
+    isLowRes: Boolean = false,
     onValueChange: (Float) -> Unit
 ): Modifier = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
-    onRotaryInputAccumulated(onValueChange = onValueChange)
+    onRotaryInputAccumulated(onValueChange = onValueChange, isLowRes = isLowRes)
         .focusRequester(localFocusRequester)
         .focusable()
 }
@@ -57,6 +58,7 @@ public fun Modifier.onRotaryInputAccumulatedWithFocus(
  * @param eventAccumulationThresholdMs time threshold below which events are accumulated.
  * @param minValueChangeDistancePx minimum distance for value change in pixels.
  * @param rateLimitCoolDownMs cool down time when rate limiting is enabled, negative value disables.
+ * @param isLowRes resolution of the device's rotary control. High resolution and low resolutions have different accumulation mechanism. See [RotaryInputAccumulator.changeByResolution] for more.
  * @param onValueChange callback invoked once accumulated value is over the thresholds.
  */
 @ExperimentalHorologistApi
@@ -64,6 +66,7 @@ public fun Modifier.onRotaryInputAccumulated(
     eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
+    isLowRes: Boolean = false,
     onValueChange: (change: Float) -> Unit
 ): Modifier = composed {
     val updatedOnValueChange by rememberUpdatedState(onValueChange)
@@ -72,6 +75,7 @@ public fun Modifier.onRotaryInputAccumulated(
             eventAccumulationThresholdMs = eventAccumulationThresholdMs,
             minValueChangeDistancePx = minValueChangeDistancePx,
             rateLimitCoolDownMs = rateLimitCoolDownMs,
+            isLowRes = isLowRes,
             onValueChange = { updatedOnValueChange(it) }
         )
     }

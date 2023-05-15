@@ -48,6 +48,10 @@ public class SystemAudioRepository(
         mediaRouter.selectedRoute.requestUpdateVolume(-1)
     }
 
+    override fun setVolume(volume: Int) {
+        mediaRouter.selectedRoute.requestSetVolume(volume)
+    }
+
     override val audioOutput: StateFlow<AudioOutput>
         get() = _output
 

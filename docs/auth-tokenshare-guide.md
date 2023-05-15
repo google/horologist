@@ -104,7 +104,7 @@ your phone and watch apps must:
 1.  Create a `TokenBundleRepository` on the phone project
 
     Create an instance
-    of [TokenBundleRepository](https://google.github.io/horologist/api/auth-data-phone/com.google.android.horologist.auth.data.phone.tokenshare/-token-bundle-repository/index.html)
+    of [TokenBundleRepository](https://google.github.io/horologist/api/auth/data-phone/com.google.android.horologist.auth.data.phone.tokenshare/-token-bundle-repository/index.html)
     on the phone app project:
 
     ```kotlin
@@ -142,7 +142,7 @@ your phone and watch apps must:
 1.  Create a `TokenBundleRepository` on the watch project
 
     Create an instance
-    of [TokenBundleRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html)
+    of [TokenBundleRepository](https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html)
     on the watch app project:
 
     ```kotlin

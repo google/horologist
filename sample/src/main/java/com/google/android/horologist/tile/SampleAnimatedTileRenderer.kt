@@ -17,7 +17,6 @@
 package com.google.android.horologist.tile
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Color.RED
 import android.graphics.Color.WHITE
 import androidx.compose.runtime.Composable
@@ -53,7 +52,7 @@ class SampleAnimatedTileRenderer(context: Context) : SingleTileLayoutRenderer<Un
     ): LayoutElementBuilders.LayoutElement {
         return margin(
             stack(
-                staticArc(0f, 360f, 8f, Color.GRAY), createArc(), body
+                staticArc(0f, 360f, 8f, android.graphics.Color.GRAY), createArc(), body
             ), 3
         )
     }
@@ -235,3 +234,4 @@ fun SampleAnimatedTilePreview() {
         Unit, Unit, renderer
     )
 }
+

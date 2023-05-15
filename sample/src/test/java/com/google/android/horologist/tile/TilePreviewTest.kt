@@ -16,14 +16,9 @@
 
 package com.google.android.horologist.tile
 
-import androidx.compose.foundation.background
+import android.os.Looper.getMainLooper
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.remember
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
@@ -31,25 +26,35 @@ import androidx.test.espresso.Espresso.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.RoborazziRule
-import com.github.takahirom.roborazzi.captureRoboGif
+import com.github.takahirom.roborazzi.captureRoboImage
+import com.google.android.horologist.compose.tools.requestParams
+import com.google.android.horologist.compose.tools.resourceParams
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.asExecutor
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
+import org.robolectric.annotation.LooperMode
+import java.time.Duration
+
 
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(
-    sdk = [30],
+    sdk = [33],
     qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound
 )
+@LooperMode(LooperMode.Mode.PAUSED)
 class TilePreviewTest {
     @get:Rule
-    val composeTestRule = createComposeRule()
+    val composeTestRule = createComposeRule() as AndroidComposeTestRule<*, *>
 
     @get:Rule
     val roborazziRule = RoborazziRule(
@@ -68,25 +73,57 @@ class TilePreviewTest {
 
     @Test
     fun givenHeadingModifierIsNOTOverridden_thenHeadingModifierIsPresent() {
-        var cover by mutableStateOf(true)
-
         // given
         composeTestRule.setContent {
             Box {
                 SampleAnimatedTilePreview()
-                if (cover) {
-                    Box(modifier = Modifier.background(Color.Black.copy(alpha = 0.5f)).fillMaxSize())
-                }
             }
         }
+
+        shadowOf(getMainLooper()).idle()
 
         // then
         onView(withText("Anchor angle")).check(matches(isDisplayed()))
 
-        onView(isRoot()).captureRoboGif("build/test.gif") {
-            Thread.sleep(1000)
-            cover = false
-            Thread.sleep(1000)
-        }
+        onView(isRoot()).captureRoboImage("build/tile1.png")
+
+        shadowOf(getMainLooper()).idleFor(Duration.ofSeconds(1))
+
+        onView(isRoot()).captureRoboImage("build/tile2.png")
+    }
+
+    @Test
+    fun viewBasedPreview() {
+        val context = InstrumentationRegistry.getInstrumentation().context
+        val tileRenderer = androidx.wear.tiles.renderer.TileRenderer(
+            /* uiContext = */ context,
+            /* loadActionExecutor = */ Dispatchers.IO.asExecutor(),
+            /* loadActionListener = */ {}
+        )
+
+        val renderer  = SampleAnimatedTileRenderer(context)
+        val resources = context.resources
+        val requestParams = requestParams(resources)
+        val tile = renderer.renderTimeline(Unit, requestParams)
+        val resourceParams = resourceParams(resources, tile.resourcesVersion)
+        val tileResources = renderer.produceRequestedResources(Unit, resourceParams)
+
+        // Returning a future
+        tileRenderer.inflateAsync(
+            tile.tileTimeline?.timelineEntries?.first()?.layout!!,
+            tileResources,
+            composeTestRule.activity.findViewById(android.R.id.content)
+        ).get()
+
+        shadowOf(getMainLooper()).idle()
+
+        // then
+        onView(withText("Anchor angle")).check(matches(isDisplayed()))
+
+        onView(isRoot()).captureRoboImage("build/tileb1.png")
+
+        shadowOf(getMainLooper()).idleFor(Duration.ofSeconds(1))
+
+        onView(isRoot()).captureRoboImage("build/tileb2.png")
     }
 }

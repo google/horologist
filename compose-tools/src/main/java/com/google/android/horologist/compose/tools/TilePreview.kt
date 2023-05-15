@@ -46,6 +46,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.render.TileLayoutRenderer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
+import kotlinx.coroutines.guava.await
 import kotlin.math.roundToInt
 
 /**
@@ -96,7 +97,7 @@ public fun TilePreview(
                 tile.tileTimeline?.timelineEntries?.first()?.layout!!,
                 tileResources,
                 it
-            )
+            ).get()
         }
     )
 }
@@ -160,11 +161,11 @@ public fun LayoutRootPreview(
 
 internal const val PERMANENT_RESOURCES_VERSION = "0"
 
-private fun requestParams(resources: Resources) =
+fun requestParams(resources: Resources) =
     RequestBuilders.TileRequest.Builder().setDeviceConfiguration(buildDeviceParameters(resources))
         .setCurrentState(State.Builder().build()).build()
 
-private fun resourceParams(resources: Resources, version: String) =
+fun resourceParams(resources: Resources, version: String) =
     RequestBuilders.ResourcesRequest.Builder().setDeviceConfiguration(buildDeviceParameters(resources))
         .setVersion(version).build()
 

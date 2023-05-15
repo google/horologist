@@ -49,7 +49,7 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           target: android-wear
-          profile: wear_round_454
+          profile: wearos_large_round
           channel: beta
           arch: ${{ matrix.api-level == 33 && 'x86_64' || 'x86' }}
           emulator-options: -no-window -no-snapshot

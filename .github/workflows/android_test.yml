@@ -51,7 +51,7 @@ jobs:
           target: android-wear
           profile: wear_round_454
           channel: beta
-          arch: x86_64
+          arch: ${{ matrix.api-level == 33 && "x86_64" || "x86" }}
           emulator-options: -no-window -no-snapshot
           script: |
             ./gradlew connectedDebugAndroidTest \

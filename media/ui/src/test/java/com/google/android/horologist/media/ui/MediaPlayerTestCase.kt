@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.Colors
@@ -96,7 +97,11 @@ fun MediaPlayerTestCase(
             }
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-                PagerScreen(count = 2) {
+                PagerScreen(
+                    state = rememberPagerState {
+                        2
+                    }
+                ) {
                     if (it == 0) {
                         PlayerScreen(
                             modifier = Modifier.fillMaxSize(),

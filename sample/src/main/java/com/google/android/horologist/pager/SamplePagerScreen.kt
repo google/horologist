@@ -22,6 +22,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,8 +35,10 @@ import com.google.android.horologist.compose.pager.PagerScreen
 @Composable
 fun SamplePagerScreen(swipeToDismissBoxState: SwipeToDismissBoxState) {
     PagerScreen(
-        count = 10,
-        modifier = Modifier.edgeSwipeToDismiss(swipeToDismissBoxState)
+        modifier = Modifier.edgeSwipeToDismiss(swipeToDismissBoxState),
+        state = rememberPagerState {
+            10
+        }
     ) {
         PagerItemScreen(item = "item $it")
     }

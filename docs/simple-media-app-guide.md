@@ -13,8 +13,8 @@ This guide assumes that you are familiar with:
 
 ### 1 - Add dependency
 
-Create a new project from Android Studio by choosing a Wear OS Empty Compose Activity. Add
-dependency on `media-ui` to your project’s `build.gradle`:
+Create a new project from Android Studio by choosing "Basic Wear App Without Associated Tiles" from 
+"Wear OS" templates. Add dependency on `media-ui` to your project’s `build.gradle`:
 
 ```groovy
 implementation "com.google.android.horologist:horologist-media-ui:$horologist_version"
@@ -39,7 +39,6 @@ setContent {
                 onPauseButtonClick = { },
                 playPauseButtonEnabled = true,
                 playing = false,
-                percent = 0f,
                 onSeekBackButtonClick = { },
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = { },
@@ -116,6 +115,7 @@ init {
 Change your `Activity`’s `onCreate` function to:
 
 ```kotlin
+@SuppressLint("UnsafeOptInUsageError")
 val player = ExoPlayer.Builder(this)
     .setSeekForwardIncrementMs(5000L)
     .setSeekBackIncrementMs(5000L)
@@ -124,21 +124,23 @@ val player = ExoPlayer.Builder(this)
 val viewModel = MyViewModel(player)
 val volumeViewModel = createVolumeViewModel()
 
-PlayerScreen(
-    playerViewModel = viewModel,
-    volumeViewModel = volumeViewModel,
-    mediaDisplay = { playerUiState: PlayerUiState ->
-        DefaultMediaInfoDisplay(playerUiState)
-    },
-    controlButtons = { playerUIController: PlayerUiController,
-                       playerUiState: PlayerUiState ->
-        PodcastControlButtons(
-            playerController = playerUIController,
-            playerUiState = playerUiState
-        )
-    },
-    buttons = { }
-)
+setContent {
+    PlayerScreen(
+        playerViewModel = viewModel,
+        volumeViewModel = volumeViewModel,
+        mediaDisplay = { playerUiState: PlayerUiState ->
+          DefaultMediaInfoDisplay(playerUiState)
+        },
+        controlButtons = { playerUIController: PlayerUiController,
+                           playerUiState: PlayerUiState ->
+          PodcastControlButtons(
+                  playerController = playerUIController,
+                  playerUiState = playerUiState
+          )
+        },
+        buttons = { }
+    )
+}
 ```
 
 Add `createVolumeViewModel` function to create a VolumeViewModel:

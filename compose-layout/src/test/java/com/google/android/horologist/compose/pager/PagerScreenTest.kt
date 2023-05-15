@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.remember
@@ -69,10 +70,13 @@ class PagerScreenTest {
 
     @Test
     fun testNavScaffoldNavigation() = runTest {
-        val state = PagerState()
+        lateinit var pagerState: PagerState
 
         composeTestRule.setContent {
-            PagerScreen(modifier = Modifier.fillMaxSize(), count = 5, state = state) { i ->
+            pagerState = rememberPagerState {
+                5
+            }
+            PagerScreen(modifier = Modifier.fillMaxSize(), state = pagerState) { i ->
                 val focusRequester = remember { FocusRequester() }
                 val scrollState = rememberScrollState()
                 Column(
@@ -88,7 +92,7 @@ class PagerScreenTest {
             }
         }
 
-        assertThat(state.currentPage).isEqualTo(0)
+        assertThat(pagerState.currentPage).isEqualTo(0)
 //        assertThat(state.pageCount).isEqualTo(5)
 
         val text0 = composeTestRule.onNodeWithTag("text0")
@@ -107,10 +111,10 @@ class PagerScreenTest {
         text4.assertDoesNotExist()
 
         withContext(Dispatchers.Main) {
-            state.scrollToPage(page = 1)
+            pagerState.scrollToPage(page = 1)
         }
         composeTestRule.awaitIdle()
-        assertThat(state.currentPage).isEqualTo(1)
+        assertThat(pagerState.currentPage).isEqualTo(1)
 
         text0.assertIsNotDisplayed()
         // No longer optimistically created in compose 1.4?

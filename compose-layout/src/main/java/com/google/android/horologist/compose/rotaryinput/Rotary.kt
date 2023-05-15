@@ -325,9 +325,12 @@ public object RotaryDefaults {
     @ExperimentalHorologistApi
     public fun snapParametersDefault(): SnapParameters = SnapParameters(snapOffset = 0)
 
+    /**
+     * Returns whether the input is Low-res (a bezel) or high-res(a crown/rsb).
+     */
     @ExperimentalHorologistApi
     @Composable
-    private fun isLowResInput(): Boolean = LocalContext.current.packageManager
+    public fun isLowResInput(): Boolean = LocalContext.current.packageManager
         .hasSystemFeature("android.hardware.rotaryencoder.lowres")
 
     private val lowResFlingTimeframe: Long = 100L

@@ -90,6 +90,10 @@ public class MediaCollectionsTileRenderer(
             ).build()
     }
 
+    override fun getResourcesVersionForTileState(state: MediaCollectionsState): String {
+        return state.collection1.artworkId + ":" + state.collection2.artworkId
+    }
+
     private fun spacer(size: Float) = Spacer.Builder().setHeight(
         DimensionBuilders.DpProp.Builder(size).build()
     ).build()

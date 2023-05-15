@@ -67,7 +67,6 @@ public fun PlayerLibraryPagerScreen(
 
     PagerScreen(
         modifier = modifier,
-        count = 2,
         state = pagerState
     ) { page ->
         when (page) {

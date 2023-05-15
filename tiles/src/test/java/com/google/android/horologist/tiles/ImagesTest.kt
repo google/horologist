@@ -53,15 +53,15 @@ class ImagesTest {
         runTest {
             val imageLoader = FakeImageLoader {
                 // https://wordpress.org/openverse/image/34896de8-afb0-494c-af63-17b73fc14124/
-                FakeImageLoader.loadSuccessBitmap(context, it, R.drawable.coil)
+                FakeImageLoader.loadSuccessBitmap(context, it, android.R.drawable.ic_delete)
             }
 
-            val imageResource = imageLoader.loadImageResource(context, R.drawable.coil)
+            val imageResource = imageLoader.loadImageResource(context, android.R.drawable.ic_delete)
 
             val inlineResource = imageResource!!.inlineResource!!
             assertThat(inlineResource.format).isEqualTo(ResourceBuilders.IMAGE_FORMAT_RGB_565)
-            assertThat(inlineResource.widthPx).isEqualTo(200)
-            assertThat(inlineResource.heightPx).isEqualTo(134)
+            assertThat(inlineResource.widthPx).isEqualTo(64)
+            assertThat(inlineResource.heightPx).isEqualTo(64)
         }
     }
 
@@ -70,11 +70,11 @@ class ImagesTest {
         runTest {
             val imageLoader = FakeImageLoader {
                 // https://wordpress.org/openverse/image/34896de8-afb0-494c-af63-17b73fc14124/
-                FakeImageLoader.loadErrorBitmap(context, it, R.drawable.coil)
+                FakeImageLoader.loadErrorBitmap(context, it, android.R.drawable.ic_delete)
             }
 
-            val imageResource = imageLoader.loadImageResource(context, R.drawable.coil) {
-                error(R.drawable.coil)
+            val imageResource = imageLoader.loadImageResource(context, android.R.drawable.ic_delete) {
+                error(android.R.drawable.ic_delete)
             }
 
             val inlineResource = imageResource!!.inlineResource!!

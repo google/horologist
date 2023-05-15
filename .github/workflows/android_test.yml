@@ -51,6 +51,7 @@ jobs:
           target: android-wear
           profile: wear_round_454
           channel: beta
+          arch: x86_64
           emulator-options: -no-window -no-snapshot
           script: |
             ./gradlew connectedDebugAndroidTest \

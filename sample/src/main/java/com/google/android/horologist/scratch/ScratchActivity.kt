@@ -16,36 +16,31 @@
 
 package com.google.android.horologist.scratch
 
+import android.animation.ValueAnimator
+import android.annotation.SuppressLint
+import android.graphics.Color.WHITE
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Canvas
+import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.lazy.AutoCenteringParams
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
-import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
-import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
-import androidx.wear.compose.material.Chip
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Scaffold
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.TimeText
-import androidx.wear.compose.material.curvedText
-import androidx.wear.compose.material.scrollAway
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSquare
+
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,134 +52,56 @@ class ScratchActivity : ComponentActivity() {
     }
 }
 
-data class Offsets(
-    val index: Int = 0,
-    val offset: Int = 0
-)
-
 @Composable
 fun WearApp() {
-    var initialOffsetsMode by remember { mutableStateOf(0) }
-    val initialOffsets = remember {
-        listOf(
-            Offsets(0, 0),
-            Offsets(1, 0),
-            Offsets(1, -20),
-            Offsets(1, 20),
-            Offsets(2, 0)
-        )
-    }
+    Row(modifier = Modifier.fillMaxSize()) {
+        ViewCounter(modifier = Modifier
+            .fillMaxWidth(0.5f)
+            .fillMaxHeight()
+            .border(1.dp, Color.Red))
 
-    var autoCenteringMode by remember { mutableStateOf(1) }
-    val autoCenterings = remember {
-        listOf(
-            Pair("null", null),
-            Pair("0/0", AutoCenteringParams(0, 0)),
-            Pair("1/0", AutoCenteringParams(1, 0)),
-            Pair("2/0", AutoCenteringParams(2, 0)),
-            Pair("3/0", AutoCenteringParams(3, 0))
-        )
-    }
-
-    var itemHeightMode by remember { mutableStateOf(0) }
-    val itemHeights = remember { listOf(40, 80, 120) }
-
-    var anchorTypeMode by remember { mutableStateOf(0) }
-    val anchorTypes = remember {
-        listOf(
-            Pair("Center", ScalingLazyListAnchorType.ItemCenter),
-            Pair("Start", ScalingLazyListAnchorType.ItemStart)
-        )
-    }
-
-    key(initialOffsetsMode) {
-        val initialOffset = initialOffsets[initialOffsetsMode]
-        val itemHeight = itemHeights[itemHeightMode]
-        val autoCentering = autoCenterings[autoCenteringMode]
-        val anchorType = anchorTypes[anchorTypeMode]
-
-        val listState = rememberScalingLazyListState(
-            initialCenterItemIndex = initialOffset.index,
-            initialCenterItemScrollOffset = initialOffset.offset
-        )
-
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            timeText = {
-                TimeText(
-                    modifier = Modifier
-                        .scrollAway(
-                            listState,
-                            initialOffset.index,
-                            initialOffset.offset
-                                .dp
-                        ),
-                    startCurvedContent = {
-                        curvedText("${listState.centerItemIndex}/${listState.centerItemScrollOffset}")
-                    }
-                )
-            }
-        ) {
-            ScalingLazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                state = listState,
-                autoCentering = autoCentering.second,
-                anchorType = anchorType.second
-            ) {
-                item {
-                    val text = "Initial Offset: ${initialOffset.index} / ${initialOffset.offset}"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        initialOffsetsMode = (initialOffsetsMode + 1) % initialOffsets.size
-                    })
-                }
-                item {
-                    val text = "Auto Centering: ${autoCentering.first}"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        println(autoCenteringMode)
-                        autoCenteringMode = (autoCenteringMode + 1) % autoCenterings.size
-                    })
-                }
-                item {
-                    val text = "Anchor Type: ${anchorType.first}"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        anchorTypeMode = (anchorTypeMode + 1) % anchorTypes.size
-                    })
-                }
-                item {
-                    val text = "Item Height: $itemHeight"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        itemHeightMode = (itemHeightMode + 1) % itemHeights.size
-                    })
-                }
-            }
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                drawLine(
-                    Color.Red,
-                    Offset(0f, size.height / 2f),
-                    Offset(size.width, size.height / 2f)
-                )
-            }
-        }
+        ComposeCounter(modifier = Modifier
+            .fillMaxWidth(1f)
+            .fillMaxHeight()
+            .border(1.dp, Color.Blue))
     }
 }
 
 @Composable
-fun FixedHeightChip(text: String, itemHeight: Int, onClick: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .height(itemHeight.dp)
-            .fillMaxWidth()
-            .border(1.dp, Color.DarkGray)
-    ) {
-        Chip(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = onClick,
-            label = {
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.caption3
-                )
-            }
-        )
+fun ComposeCounter(modifier: Modifier) {
+    val value = remember { Animatable(0f) }
+    LaunchedEffect(Unit) {
+        value.animateTo(100f)
     }
+    Column(modifier = modifier, verticalArrangement = Arrangement.Center) {
+        Text("Compose")
+        Text("Value: ${value.value}")
+    }
+}
+
+@SuppressLint("SetTextI18n")
+@Composable
+fun ViewCounter(modifier: Modifier ) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.Center) {
+        Text("Views")
+        AndroidView(factory = {
+            val counterAnimator = ValueAnimator.ofFloat(0f, 100f)
+
+            TextView(it).apply {
+                setTextColor(WHITE)
+                text = "Value: "
+                counterAnimator.addUpdateListener { animation ->
+                    val animatedValue = animation.animatedValue as Float
+                    text = "Value: $animatedValue"
+                }
+                counterAnimator.start()
+            }
+        })
+    }
+}
+
+@WearPreviewSquare
+@Composable
+fun AnimateDemo() {
+    WearApp()
 }

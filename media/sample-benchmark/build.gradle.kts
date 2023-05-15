@@ -35,7 +35,7 @@ android {
     }
 
     defaultConfig {
-        minSdk = 29
+        minSdk = 30
         targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

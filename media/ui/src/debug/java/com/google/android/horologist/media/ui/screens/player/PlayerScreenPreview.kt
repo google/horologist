@@ -22,6 +22,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -81,7 +82,11 @@ fun PlayerScreenPreview() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PagerScreen(count = 2) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
@@ -95,7 +100,11 @@ fun PlayerScreenPreview() {
                         onPauseButtonClick = {},
                         playPauseButtonEnabled = true,
                         playing = true,
-                        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
+                        trackPositionUiModel = TrackPositionUiModel.Actual(
+                            0.25f,
+                            25.seconds,
+                            100.seconds
+                        ),
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
@@ -150,7 +159,11 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PagerScreen(count = 2) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             PlayerScreen(
                 mediaDisplay = {
                     Text(
@@ -165,7 +178,11 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                         onPauseButtonClick = {},
                         playPauseButtonEnabled = true,
                         playing = true,
-                        trackPositionUiModel = TrackPositionUiModel.Actual(0.75f, 75.seconds, 100.seconds),
+                        trackPositionUiModel = TrackPositionUiModel.Actual(
+                            0.75f,
+                            75.seconds,
+                            100.seconds
+                        ),
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
@@ -220,7 +237,11 @@ fun PlayerScreenPreviewCustomBackground() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PagerScreen(count = 2) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
@@ -308,7 +329,11 @@ fun DefaultMediaPreview() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PagerScreen(count = 2) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
@@ -322,7 +347,11 @@ fun DefaultMediaPreview() {
                         onPauseButtonClick = {},
                         playPauseButtonEnabled = true,
                         playing = true,
-                        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
+                        trackPositionUiModel = TrackPositionUiModel.Actual(
+                            0.25f,
+                            25.seconds,
+                            100.seconds
+                        ),
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
@@ -380,7 +409,11 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PagerScreen(count = 2) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             PlayerScreen(
                 mediaDisplay = { NothingPlayingDisplay(Modifier) },
                 controlButtons = {

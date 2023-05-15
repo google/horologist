@@ -23,7 +23,6 @@ import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.focusable
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
@@ -81,7 +80,6 @@ public fun Modifier.rotaryVolumeControlsWithFocus(
  * change to pass into [onRotaryVolumeInput] for a corresponding volume change. E.g. 2f change
  * would increase volume by 2 and -3f change would decrease volume by 3.
  */
-@Composable
 @ExperimentalHorologistApi
 public fun Modifier.lowResRotaryVolumeControls(
     volumeUiStateProvider: () -> VolumeUiState,
@@ -119,7 +117,6 @@ public fun Modifier.lowResRotaryVolumeControls(
  * accumulated scrolled pixels to volume to pass into [onRotaryVolumeInput] for a corresponding
  * volume change
  */
-@Composable
 @ExperimentalHorologistApi
 public fun Modifier.highResRotaryVolumeControls(
     volumeUiStateProvider: () -> VolumeUiState,

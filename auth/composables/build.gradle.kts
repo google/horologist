@@ -20,6 +20,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
 }
 
@@ -95,29 +96,41 @@ metalava {
 }
 
 dependencies {
-    api(projects.annotations)
+    api(projects.baseUi)
+    api(projects.composeLayout)
 
-    implementation(projects.baseUi)
-    implementation(projects.composeLayout)
+    api(libs.compose.runtime)
+    api(libs.compose.ui)
 
-    implementation(libs.androidx.wear)
     implementation(libs.coil)
+    implementation(libs.coil.base)
+    implementation(libs.compose.foundation.foundation)
+    implementation(libs.compose.foundation.foundation.layout)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.text)
+    implementation(libs.compose.ui.unit)
     implementation(libs.kotlin.stdlib)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
 
-    debugImplementation(projects.composeTools)
-    implementation(libs.compose.ui.toolingpreview)
+    debugApi(libs.wearcompose.tooling)
+    debugImplementation(libs.compose.ui.toolingpreview)
 
+    testImplementation(projects.composeTools)
     testImplementation(projects.roboscreenshots)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.truth)
+    testRuntimeOnly(libs.robolectric)
+}
+
+dependencyAnalysis {
+    issues {
+        onAny {
+            severity("fail")
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

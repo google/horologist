@@ -22,7 +22,7 @@ import androidx.media3.common.MediaItem
 public data class MediaApp(
     val packageName: String,
     val service: String,
-    val testMedia: MediaItem
+    val testMedia: List<MediaItem>
 ) {
     val playerComponentName: ComponentName = ComponentName(packageName, service)
 }

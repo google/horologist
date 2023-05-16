@@ -28,6 +28,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
@@ -39,6 +40,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -64,6 +66,7 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOf
+import kotlin.math.floor
 
 @Composable
 public fun AnimatedPlayPauseButton(
@@ -193,7 +196,8 @@ public fun AnimatedPlayPauseProgressButton(
 ) {
     val animatedProgressColor = animateColorAsState(
         targetValue = progressColor,
-        animationSpec = tween(450, 0, LinearEasing)
+        animationSpec = tween(450, 0, LinearEasing),
+        "Progress Colour"
     )
 
     AnimatedPlayPauseButton(
@@ -207,7 +211,6 @@ public fun AnimatedPlayPauseProgressButton(
         tapTargetSize = tapTargetSize,
         backgroundColor = backgroundColor
     ) {
-        val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
         if (trackPositionUiModel.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.fillMaxSize(),
@@ -216,11 +219,18 @@ public fun AnimatedPlayPauseProgressButton(
                 strokeWidth = progressStrokeWidth
             )
         } else if (trackPositionUiModel.showProgress) {
+            val progressSteps = with(LocalDensity.current) {
+                tapTargetSize.width.toPx() * Math.PI
+            }
+
+            val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
+            val truncatedProgress by remember { derivedStateOf { (floor(progress * progressSteps) / progressSteps).toFloat() } }
+
             CircularProgressIndicator(
                 modifier = Modifier
                     .fillMaxSize()
                     .rotate(animateChangeAsRotation(rotateProgressIndicator)),
-                progress = progress,
+                progress = truncatedProgress,
                 indicatorColor = animatedProgressColor.value,
                 trackColor = trackColor,
                 strokeWidth = progressStrokeWidth

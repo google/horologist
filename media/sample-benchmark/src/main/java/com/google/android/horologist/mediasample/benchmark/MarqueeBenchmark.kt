@@ -37,9 +37,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import org.junit.Assert
-import org.junit.Assert.assertTrue
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import kotlin.time.Duration.Companion.seconds
@@ -103,7 +100,7 @@ class MarqueeBenchmark {
 
             runBlocking {
                 withContext(Dispatchers.Main) {
-                    mediaController.setMediaItems(List(10)  {intro })
+                    mediaController.setMediaItems(List(10) { intro })
                     mediaController.volume = 0.1f
 
                     delay(10.seconds)

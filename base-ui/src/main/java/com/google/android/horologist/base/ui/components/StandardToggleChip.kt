@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -40,6 +41,7 @@ import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.R
 import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.base.ui.util.adjustChipHeightToFontScale
 
 /**
  * This composable fulfils the redlines of the following components:
@@ -49,7 +51,7 @@ import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DES
 @Composable
 public fun StandardToggleChip(
     checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
+    onCheckedChanged: (Boolean) -> Unit,
     label: String,
     toggleControl: StandardToggleChipToggleControl,
     modifier: Modifier = Modifier,
@@ -60,14 +62,13 @@ public fun StandardToggleChip(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val hasSecondaryLabel = secondaryLabel != null
-    val hasIcon = icon != null
 
     val labelParam: (@Composable RowScope.() -> Unit) =
         {
             Text(
                 text = label,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Left else TextAlign.Center,
+                textAlign = TextAlign.Left,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2
             )
@@ -118,10 +119,12 @@ public fun StandardToggleChip(
 
     ToggleChip(
         checked = checked,
-        onCheckedChange = onCheckedChange,
+        onCheckedChange = onCheckedChanged,
         label = labelParam,
         toggleControl = toggleControlParam,
-        modifier = modifier,
+        modifier = modifier
+            .adjustChipHeightToFontScale(LocalConfiguration.current.fontScale)
+            .fillMaxWidth(),
         appIcon = iconParam,
         secondaryLabel = secondaryLabelParam,
         colors = colors,

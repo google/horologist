@@ -30,7 +30,24 @@ import androidx.compose.ui.tooling.preview.Preview
 fun StandardToggleChipOverflowPreviewWithLongText() {
     StandardToggleChip(
         checked = true,
-        onCheckedChange = { },
+        onCheckedChanged = { },
+        label = "Primary label very very very very very very very very very very very very very very very very very long text",
+        toggleControl = StandardToggleChipToggleControl.Switch
+    )
+}
+
+@Preview(
+    name = "With long text",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    fontScale = largestFontScale,
+    group = "Largest font scale"
+)
+@Composable
+fun StandardToggleChipOverflowPreviewWithLongTextAndLargestFontScale() {
+    StandardToggleChip(
+        checked = true,
+        onCheckedChanged = { },
         label = "Primary label very very very very very very very very very very very very very very very very very long text",
         toggleControl = StandardToggleChipToggleControl.Switch
     )
@@ -45,7 +62,25 @@ fun StandardToggleChipOverflowPreviewWithLongText() {
 fun StandardToggleChipOverflowPreviewWithIconAndLongText() {
     StandardToggleChip(
         checked = true,
-        onCheckedChange = { },
+        onCheckedChanged = { },
+        label = "Primary label very very very very very very very very very very very very very very very very very long text",
+        toggleControl = StandardToggleChipToggleControl.Switch,
+        icon = Icons.Default.Image
+    )
+}
+
+@Preview(
+    name = "With icon and long text",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    fontScale = largestFontScale,
+    group = "Largest font scale"
+)
+@Composable
+fun StandardToggleChipOverflowPreviewWithIconAndLongTextAndLargestFontScale() {
+    StandardToggleChip(
+        checked = true,
+        onCheckedChanged = { },
         label = "Primary label very very very very very very very very very very very very very very very very very long text",
         toggleControl = StandardToggleChipToggleControl.Switch,
         icon = Icons.Default.Image
@@ -61,7 +96,25 @@ fun StandardToggleChipOverflowPreviewWithIconAndLongText() {
 fun StandardToggleChipOverflowPreviewWithSecondaryLabelAndLongText() {
     StandardToggleChip(
         checked = true,
-        onCheckedChange = { },
+        onCheckedChanged = { },
+        label = "Primary label very very very very very very very very long text",
+        secondaryLabel = "Secondary label very very very very very very very very very long text",
+        toggleControl = StandardToggleChipToggleControl.Switch
+    )
+}
+
+@Preview(
+    name = "With secondary label and long text",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    fontScale = largestFontScale,
+    group = "Largest font scale"
+)
+@Composable
+fun StandardToggleChipOverflowPreviewWithSecondaryLabelAndLongTextAndLargestFontScale() {
+    StandardToggleChip(
+        checked = true,
+        onCheckedChanged = { },
         label = "Primary label very very very very very very very very long text",
         secondaryLabel = "Secondary label very very very very very very very very very long text",
         toggleControl = StandardToggleChipToggleControl.Switch
@@ -77,10 +130,31 @@ fun StandardToggleChipOverflowPreviewWithSecondaryLabelAndLongText() {
 fun StandardToggleChipOverflowPreviewWithIconAndSecondaryLabelAndLongText() {
     StandardToggleChip(
         checked = true,
-        onCheckedChange = { },
+        onCheckedChanged = { },
         label = "Primary label very very very very very very very very long text",
         secondaryLabel = "Secondary label very very very very very very very very very long text",
         toggleControl = StandardToggleChipToggleControl.Switch,
         icon = Icons.Default.Image
     )
 }
+
+@Preview(
+    name = "With icon, secondary label and long text",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    fontScale = largestFontScale,
+    group = "Largest font scale"
+)
+@Composable
+fun StandardToggleChipOverflowPreviewWithIconAndSecondaryLabelAndLongTextAndLargestFontScale() {
+    StandardToggleChip(
+        checked = true,
+        onCheckedChanged = { },
+        label = "Primary label very very very very very very very very long text",
+        secondaryLabel = "Secondary label very very very very very very very very very long text",
+        toggleControl = StandardToggleChipToggleControl.Switch,
+        icon = Icons.Default.Image
+    )
+}
+
+private const val largestFontScale = 1.18f

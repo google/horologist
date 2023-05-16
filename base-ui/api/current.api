@@ -71,7 +71,7 @@ package com.google.android.horologist.base.ui.components {
   }
 
   public final class StandardToggleChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChange, String label, com.google.android.horologist.base.ui.components.StandardToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector? icon, optional String? secondaryLabel, optional androidx.wear.compose.material.ToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, com.google.android.horologist.base.ui.components.StandardToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector? icon, optional String? secondaryLabel, optional androidx.wear.compose.material.ToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource);
   }
 
   public enum StandardToggleChipToggleControl {
@@ -106,6 +106,10 @@ package com.google.android.horologist.base.ui.util {
   public final class A11yKt {
     method public static String? getDECORATIVE_ELEMENT_CONTENT_DESCRIPTION();
     property public static final String? DECORATIVE_ELEMENT_CONTENT_DESCRIPTION;
+  }
+
+  public final class AdjustChipHeightToFontScaleKt {
+    method public static androidx.compose.ui.Modifier adjustChipHeightToFontScale(androidx.compose.ui.Modifier, float fontScale, optional float padding);
   }
 
   public final class RememberVectorPainterKt {

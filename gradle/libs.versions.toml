@@ -1,4 +1,5 @@
 [versions]
+accompanist = "0.31.2-alpha"
 androidx-benchmark = "1.2.0-alpha14"
 androidx-complications-data = "1.2.0-alpha08"
 androidx-compose-material = "1.5.0-alpha04"
@@ -60,6 +61,7 @@ versionCatalogUpdate = "0.8.0"
 wearcompose = "1.2.0-alpha10"
 
 [libraries]
+accompanist-testharness = { module = "com.google.accompanist:accompanist-testharness", version.ref = "accompanist" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidxActivity" }

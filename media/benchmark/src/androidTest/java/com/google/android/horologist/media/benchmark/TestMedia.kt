@@ -30,6 +30,6 @@ object TestMedia {
     val MediaSampleApp = MediaApp(
         "com.google.android.horologist.mediasample",
         "com.google.android.horologist.mediasample.data.service.playback.PlaybackService",
-        Intro
+        listOf(Intro, Intro, Intro)
     )
 }

@@ -86,9 +86,15 @@ public abstract class BaseMediaBaselineProfile {
                 runBlocking(Dispatchers.Main) {
                     mediaController.startPlaying(mediaApp.testMedia)
 
-                    delay(5.seconds)
+                    delay(15.seconds)
 
                     checkPlayingState(mediaController)
+
+                    mediaController.seekToNextMediaItem()
+                    delay(2.seconds)
+
+                    mediaController.seekToPreviousMediaItem()
+                    delay(2.seconds)
 
                     mediaController.stopPlaying()
                 }

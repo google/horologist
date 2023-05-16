@@ -42,24 +42,24 @@ package com.google.android.horologist.media.benchmark {
   }
 
   public final class MediaApp {
-    ctor public MediaApp(String packageName, String service, androidx.media3.common.MediaItem testMedia);
+    ctor public MediaApp(String packageName, String service, java.util.List<androidx.media3.common.MediaItem> testMedia);
     method public String component1();
     method public String component2();
-    method public androidx.media3.common.MediaItem component3();
-    method public com.google.android.horologist.media.benchmark.MediaApp copy(String packageName, String service, androidx.media3.common.MediaItem testMedia);
+    method public java.util.List<androidx.media3.common.MediaItem> component3();
+    method public com.google.android.horologist.media.benchmark.MediaApp copy(String packageName, String service, java.util.List<androidx.media3.common.MediaItem> testMedia);
     method public String getPackageName();
     method public android.content.ComponentName getPlayerComponentName();
     method public String getService();
-    method public androidx.media3.common.MediaItem getTestMedia();
+    method public java.util.List<androidx.media3.common.MediaItem> getTestMedia();
     property public final String packageName;
     property public final android.content.ComponentName playerComponentName;
     property public final String service;
-    property public final androidx.media3.common.MediaItem testMedia;
+    property public final java.util.List<androidx.media3.common.MediaItem> testMedia;
   }
 
   public final class MediaControllerHelper {
     method public com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser> lookupController(android.content.ComponentName component);
-    method public suspend Object? startPlaying(androidx.media3.session.MediaController, androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? startPlaying(androidx.media3.session.MediaController, java.util.List<androidx.media3.common.MediaItem> mediaItems, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? stopPlaying(androidx.media3.session.MediaController, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     field public static final com.google.android.horologist.media.benchmark.MediaControllerHelper INSTANCE;
   }

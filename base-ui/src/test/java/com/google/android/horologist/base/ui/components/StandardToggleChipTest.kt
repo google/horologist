@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
@@ -31,7 +32,7 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = StandardToggleChipToggleControl.Switch
             )
@@ -43,7 +44,7 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = StandardToggleChipToggleControl.Radio
             )
@@ -55,9 +56,21 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = StandardToggleChipToggleControl.Checkbox
+            )
+        }
+    }
+
+    @Test
+    fun unchecked() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            StandardToggleChip(
+                checked = false,
+                onCheckedChanged = { },
+                label = "Primary label",
+                toggleControl = StandardToggleChipToggleControl.Switch
             )
         }
     }
@@ -67,7 +80,7 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = StandardToggleChipToggleControl.Switch,
                 secondaryLabel = "Secondary label"
@@ -80,7 +93,7 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = StandardToggleChipToggleControl.Switch,
                 icon = Icons.Default.Image
@@ -93,7 +106,7 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = StandardToggleChipToggleControl.Switch,
                 secondaryLabel = "Secondary label"
@@ -106,7 +119,20 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
+                label = "Primary label",
+                toggleControl = StandardToggleChipToggleControl.Switch,
+                enabled = false
+            )
+        }
+    }
+
+    @Test
+    fun uncheckedAndDisabled() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            StandardToggleChip(
+                checked = false,
+                onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = StandardToggleChipToggleControl.Switch,
                 enabled = false
@@ -119,10 +145,24 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 toggleControl = StandardToggleChipToggleControl.Switch
             )
+        }
+    }
+
+    @Test
+    fun withLongTextAndLargestFontScale() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(fontScale = largestFontScale) {
+                StandardToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
+                    toggleControl = StandardToggleChipToggleControl.Switch
+                )
+            }
         }
     }
 
@@ -131,7 +171,7 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 toggleControl = StandardToggleChipToggleControl.Switch,
                 icon = Icons.Default.Image
@@ -140,11 +180,26 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
     }
 
     @Test
+    fun withIconAndLongTextAndLargestFontScale() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(fontScale = largestFontScale) {
+                StandardToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
+                    toggleControl = StandardToggleChipToggleControl.Switch,
+                    icon = Icons.Default.Image
+                )
+            }
+        }
+    }
+
+    @Test
     fun withSecondaryLabelAndLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label very very very very very very very very long text",
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
                 toggleControl = StandardToggleChipToggleControl.Switch
@@ -153,11 +208,26 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
     }
 
     @Test
+    fun withSecondaryLabelAndLongTextAndLargestFontScale() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(fontScale = largestFontScale) {
+                StandardToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label very very very very very very very very long text",
+                    secondaryLabel = "Secondary label very very very very very very very very very long text",
+                    toggleControl = StandardToggleChipToggleControl.Switch
+                )
+            }
+        }
+    }
+
+    @Test
     fun withIconAndSecondaryLabelAndLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label very very very very very very very very long text",
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
                 toggleControl = StandardToggleChipToggleControl.Switch,
@@ -167,11 +237,27 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
     }
 
     @Test
+    fun withIconAndSecondaryLabelAndLongTextAndLargestFontScale() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(fontScale = largestFontScale) {
+                StandardToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label very very very very very very very very long text",
+                    secondaryLabel = "Secondary label very very very very very very very very very long text",
+                    toggleControl = StandardToggleChipToggleControl.Switch,
+                    icon = Icons.Default.Image
+                )
+            }
+        }
+    }
+
+    @Test
     fun usingSmallIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = StandardToggleChipToggleControl.Switch,
                 icon = Icon12dp
@@ -184,7 +270,7 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             StandardToggleChip(
                 checked = true,
-                onCheckedChange = { },
+                onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = StandardToggleChipToggleControl.Switch,
                 icon = Icon32dp
@@ -193,6 +279,7 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
     }
 
     companion object {
+        private const val largestFontScale = 1.18f
 
         private val Icon12dp: ImageVector
             get() = ImageVector.Builder(

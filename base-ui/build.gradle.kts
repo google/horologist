@@ -113,6 +113,7 @@ dependencies {
 
     debugImplementation(libs.compose.ui.test.manifest)
 
+    testImplementation(libs.accompanist.testharness)
     testImplementation(libs.junit)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)

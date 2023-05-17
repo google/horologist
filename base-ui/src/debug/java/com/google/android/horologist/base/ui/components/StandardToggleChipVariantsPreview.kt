@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 fun StandardToggleChipSwitchPreview() {
     StandardToggleChip(
         checked = true,
-        onCheckedChange = { },
+        onCheckedChanged = { },
         label = "Primary label",
         toggleControl = StandardToggleChipToggleControl.Switch
     )
@@ -43,7 +43,7 @@ fun StandardToggleChipSwitchPreview() {
 fun StandardToggleChipRadioPreview() {
     StandardToggleChip(
         checked = true,
-        onCheckedChange = { },
+        onCheckedChanged = { },
         label = "Primary label",
         toggleControl = StandardToggleChipToggleControl.Radio
     )
@@ -57,9 +57,23 @@ fun StandardToggleChipRadioPreview() {
 fun StandardToggleChipCheckboxPreview() {
     StandardToggleChip(
         checked = true,
-        onCheckedChange = { },
+        onCheckedChanged = { },
         label = "Primary label",
         toggleControl = StandardToggleChipToggleControl.Checkbox
+    )
+}
+
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun StandardToggleChipUncheckedPreview() {
+    StandardToggleChip(
+        checked = false,
+        onCheckedChanged = { },
+        label = "Primary label",
+        toggleControl = StandardToggleChipToggleControl.Switch
     )
 }
 
@@ -72,7 +86,7 @@ fun StandardToggleChipCheckboxPreview() {
 fun StandardToggleChipWithSecondaryLabel() {
     StandardToggleChip(
         checked = true,
-        onCheckedChange = { },
+        onCheckedChanged = { },
         label = "Primary label",
         toggleControl = StandardToggleChipToggleControl.Switch,
         secondaryLabel = "Secondary label"
@@ -88,7 +102,7 @@ fun StandardToggleChipWithSecondaryLabel() {
 fun StandardToggleChipPreviewWithIcon() {
     StandardToggleChip(
         checked = true,
-        onCheckedChange = { },
+        onCheckedChanged = { },
         label = "Primary label",
         toggleControl = StandardToggleChipToggleControl.Switch,
         icon = Icons.Default.Image
@@ -104,7 +118,7 @@ fun StandardToggleChipPreviewWithIcon() {
 fun StandardToggleChipPreviewWithSecondaryLabelAndIcon() {
     StandardToggleChip(
         checked = true,
-        onCheckedChange = { },
+        onCheckedChanged = { },
         label = "Primary label",
         toggleControl = StandardToggleChipToggleControl.Switch,
         secondaryLabel = "Secondary label"
@@ -120,7 +134,22 @@ fun StandardToggleChipPreviewWithSecondaryLabelAndIcon() {
 fun StandardToggleChipPreviewDisabled() {
     StandardToggleChip(
         checked = true,
-        onCheckedChange = { },
+        onCheckedChanged = { },
+        label = "Primary label",
+        toggleControl = StandardToggleChipToggleControl.Switch,
+        enabled = false
+    )
+}
+
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun StandardToggleChipUncheckedAndDisabledPreview() {
+    StandardToggleChip(
+        checked = false,
+        onCheckedChanged = { },
         label = "Primary label",
         toggleControl = StandardToggleChipToggleControl.Switch,
         enabled = false

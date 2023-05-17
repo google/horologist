@@ -31,6 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -39,10 +40,12 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.base.ui.util.adjustChipHeightToFontScale
 
 /**
  * This composable fulfils the redlines of the following components:
@@ -133,10 +136,12 @@ public fun StandardChip(
         {
             Text(
                 text = label,
+                color = MaterialTheme.colors.onSurface,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Left else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
-                maxLines = if (hasSecondaryLabel) 1 else 2
+                maxLines = if (hasSecondaryLabel) 1 else 2,
+                style = MaterialTheme.typography.button
             )
         }
 
@@ -145,8 +150,10 @@ public fun StandardChip(
             {
                 Text(
                     text = secondaryLabel,
+                    color = MaterialTheme.colors.onSurfaceVariant,
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
+                    maxLines = 1,
+                    style = MaterialTheme.typography.caption2
                 )
             }
         }
@@ -162,7 +169,9 @@ public fun StandardChip(
     Chip(
         label = labelParam,
         onClick = onClick,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .adjustChipHeightToFontScale(LocalConfiguration.current.fontScale)
+            .fillMaxWidth(),
         secondaryLabel = secondaryLabelParam,
         icon = icon,
         colors = when (chipType) {

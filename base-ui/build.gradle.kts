@@ -20,6 +20,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
 }
 
@@ -94,32 +95,50 @@ metalava {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.composeLayout)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.androidx.wear)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.wearcompose.material)
-    implementation(libs.wearcompose.foundation)
+    api(libs.compose.foundation.foundation)
+    api(libs.compose.foundation.foundation.layout)
+    api(libs.compose.runtime)
+    api(libs.compose.ui)
+    api(libs.compose.ui.graphics)
+    api(libs.wearcompose.material)
+    api(libs.wearcompose.foundation)
+
+    implementation(libs.androidx.annotation)
     implementation(libs.compose.material.iconscore)
-    implementation(libs.compose.material.iconsext)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-
+    implementation(libs.compose.ui.text)
+    implementation(libs.compose.ui.unit)
     implementation(libs.coil)
-    implementation(libs.androidx.palette.ktx)
+    implementation(libs.coil.base)
+    implementation(libs.kotlin.stdlib)
 
-    implementation(libs.compose.ui.toolingpreview)
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(projects.composeTools)
+    debugApi(projects.composeTools)
+    debugApi(libs.wearcompose.tooling)
 
-    debugImplementation(libs.compose.ui.test.manifest)
+    debugImplementation(libs.compose.material.iconsext)
+    debugImplementation(libs.compose.ui.toolingpreview)
+    debugRuntimeOnly(libs.compose.ui.tooling)
+    debugRuntimeOnly(libs.compose.ui.test.manifest)
 
-    testImplementation(libs.accompanist.testharness)
-    testImplementation(libs.junit)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.truth)
+    testImplementation(projects.composeTools)
     testImplementation(projects.roboscreenshots)
+    testImplementation(libs.accompanist.testharness)
+    testImplementation(libs.androidx.core)
+    testImplementation(libs.compose.material.iconsext)
+    testImplementation(libs.compose.ui.test)
+    testImplementation(libs.compose.ui.test.junit4)
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
+    testRuntimeOnly(libs.compose.ui.test.manifest)
+}
+
+dependencyAnalysis {
+    issues {
+        onAny {
+            severity("fail")
+            exclude(":annotations") // bug: reported as unused
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

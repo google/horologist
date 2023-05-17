@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.base.ui.utils.FontScaleUtils.largestFontScale
 
 @Preview(
     name = "With long text",
@@ -156,5 +157,3 @@ fun StandardToggleChipOverflowPreviewWithIconAndSecondaryLabelAndLongTextAndLarg
         icon = Icons.Default.Image
     )
 }
-
-private const val largestFontScale = 1.18f

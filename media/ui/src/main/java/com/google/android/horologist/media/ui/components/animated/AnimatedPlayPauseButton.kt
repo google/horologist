@@ -268,7 +268,7 @@ private fun CircularProgressIndicatorFast(
     indicatorColor: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f),
     strokeWidth: Dp = ProgressIndicatorDefaults.StrokeWidth,
-    tapTargetSize: DpSize,
+    tapTargetSize: DpSize
 ) {
     val progressSteps = with(LocalDensity.current) {
         tapTargetSize.width.toPx() * Math.PI
@@ -329,4 +329,3 @@ private fun DrawScope.drawCircularIndicator(
         style = stroke
     )
 }
-

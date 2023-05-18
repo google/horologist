@@ -1,5 +1,6 @@
 **/test/snapshots/** filter=lfs diff=lfs merge=lfs -text
 **/figma/** filter=lfs diff=lfs merge=lfs -text
+# png files from android res folders should not be included
+**/docs/*.png filter=lfs diff=lfs merge=lfs -text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
-*.png filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text

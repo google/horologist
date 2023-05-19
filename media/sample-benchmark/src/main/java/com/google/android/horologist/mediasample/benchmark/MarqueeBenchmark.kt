@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.mediasample.benchmark
 
+import android.util.Log
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
@@ -37,6 +38,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import kotlin.time.Duration.Companion.seconds
@@ -66,6 +68,7 @@ class MarqueeBenchmark {
     }
 
     @Test
+    @Ignore
     public fun noMarquee() {
         val intro = buildMediaItem(
             "1",
@@ -86,9 +89,12 @@ class MarqueeBenchmark {
             iterations = 3,
             startupMode = StartupMode.WARM,
             setupBlock = {
+                logMessage("Setup")
                 mediaControllerFuture = MediaControllerHelper.lookupController(
                     mediaApp.playerComponentName
                 )
+
+                logMessage("waiting for controller")
 
                 // Wait for service
                 mediaControllerFuture.get()
@@ -100,26 +106,34 @@ class MarqueeBenchmark {
 
             runBlocking {
                 withContext(Dispatchers.Main) {
+                    logMessage("Main")
                     mediaController.setMediaItems(List(10) { intro })
                     mediaController.volume = 0.1f
 
-                    delay(10.seconds)
+                    logMessage("delaying 5")
+                    delay(5.seconds)
 
+                    logMessage("playing")
                     mediaController.prepare()
                     mediaController.play()
 
-                    while (mediaController.currentPosition < 10_000) {
-                        delay(1.seconds)
-                    }
+                    logMessage("delaying 15")
+                    delay(15.seconds)
+
+                    logMessage("isPlaying $")
 
                     mediaController.seekToNextMediaItem()
 
-                    while (mediaController.currentPosition < 15_000) {
-                        delay(1.seconds)
-                    }
+                    logMessage("delaying 15")
+                    delay(15.seconds)
                 }
             }
+            logMessage("after runBlocking")
         }
+    }
+
+    fun logMessage(s: String) {
+        Log.w("UampBenchmark", s)
     }
 
     public open fun metrics(): List<Metric> = listOfNotNull(

@@ -38,7 +38,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import kotlin.time.Duration.Companion.seconds
@@ -68,7 +67,6 @@ class MarqueeBenchmark {
     }
 
     @Test
-    @Ignore
     public fun noMarquee() {
         val intro = buildMediaItem(
             "1",
@@ -81,12 +79,25 @@ class MarqueeBenchmark {
         measurePlayerScreen(intro)
     }
 
-    private fun measurePlayerScreen(intro: MediaItem) {
+    @Test
+    public fun marqueeNoPlayback() {
+        val intro = buildMediaItem(
+            "1",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
+            "Intro - The Way Of Waking Up (feat. Alan Watts)",
+            "The Kyoto Connection"
+        )
+
+        measurePlayerScreen(intro, playback = false)
+    }
+
+    private fun measurePlayerScreen(intro: MediaItem, playback: Boolean = true) {
         benchmarkRule.measureRepeated(
             packageName = mediaApp.packageName,
             metrics = metrics(),
             compilationMode = CompilationMode.Partial(),
-            iterations = 3,
+            iterations = 1,
             startupMode = StartupMode.WARM,
             setupBlock = {
                 logMessage("Setup")
@@ -113,9 +124,11 @@ class MarqueeBenchmark {
                     logMessage("delaying 5")
                     delay(5.seconds)
 
-                    logMessage("playing")
-                    mediaController.prepare()
-                    mediaController.play()
+                    if (playback) {
+                        logMessage("playing")
+                        mediaController.prepare()
+                        mediaController.play()
+                    }
 
                     logMessage("delaying 15")
                     delay(15.seconds)

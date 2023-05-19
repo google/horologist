@@ -123,7 +123,7 @@ public abstract class DataLayerAppHelperService : WearableListenerService() {
 
     companion object {
         // Tag format as per recommendations: https://developer.android.com/reference/android/os/PowerManager#newWakeLock(int,%20java.lang.String)
-        private val wakeLockTag = "horologist:apphelper"
-        private val wakeLockTimeoutMs = 1000L
+        private const val wakeLockTag = "horologist:apphelper"
+        private const val wakeLockTimeoutMs = 1000L
     }
 }

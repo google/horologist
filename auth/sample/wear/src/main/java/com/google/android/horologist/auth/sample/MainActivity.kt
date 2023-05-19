@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                 complicationInstanceId = 1234,
                 complicationType = ComplicationType.SHORT_TEXT
             )
-            wearDataLayerAppHelper.markAppHasOpened()
+            wearDataLayerAppHelper.markAppHasBeenOpened()
         }
 
         setContent {

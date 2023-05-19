@@ -117,7 +117,9 @@ public class WearDataLayerAppHelper(
     public suspend fun markAppHasBeenOpened() {
         surfaceInfoDataStore.updateData { info ->
             info.copy {
-                appHasBeenOpened = true
+                if (!appHasBeenOpened) {
+                    appHasBeenOpened = true
+                }
             }
         }
     }

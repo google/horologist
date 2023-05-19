@@ -95,6 +95,15 @@ fun AppHelperNodeStatusCard(
                         )
                     )
                 }
+                if (nodeStatus.surfacesInfo.appHasBeenOpened) {
+                    Text(
+                        style = MaterialTheme.typography.labelMedium,
+                        text = stringResource(
+                            R.string.app_has_been_opened,
+                            nodeStatus.surfacesInfo.appHasBeenOpened
+                        )
+                    )
+                }
                 Row(
                     modifier = Modifier
                         .padding(8.dp)

@@ -112,6 +112,17 @@ public class WearDataLayerAppHelper(
     }
 
     /**
+     * Marks that the app has been opened at least once.
+     */
+    public suspend fun markAppHasBeenOpened() {
+        surfaceInfoDataStore.updateData { info ->
+            info.copy {
+                appHasBeenOpened = true
+            }
+        }
+    }
+
+    /**
      * Marks a tile as removed. Call this in [TileService#onTileRemoveEvent]. Supplying a name is
      * mandatory to disambiguate from the installation or removal of other tiles your app may have.
      *

@@ -57,4 +57,5 @@ message SurfacesInfo {
   reserved 1;
   repeated ComplicationInfo complications = 2;
   repeated TileInfo tiles = 3;
+  bool appHasBeenOpened = 4;
 }

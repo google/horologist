@@ -54,7 +54,6 @@ message TileInfo {
 }
 
 message ActivityLaunched {
-  reserved 1;
   bool activityLaunchedOnce = 2;
   .google.protobuf.Timestamp timestamp = 3;
 }

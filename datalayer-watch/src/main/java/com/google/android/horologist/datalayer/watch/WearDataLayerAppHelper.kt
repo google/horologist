@@ -119,7 +119,10 @@ public class WearDataLayerAppHelper(
         surfaceInfoDataStore.updateData { info ->
             info.copy {
                 if (!activityLaunched.activityLaunchedOnce) {
-                    activityLaunched = ActivityLaunched.newBuilder().setActivityLaunchedOnce(true).build()
+                    activityLaunched = ActivityLaunched.newBuilder()
+                        .setActivityLaunchedOnce(true)
+                        .setTimestamp(System.currentTimeMillis().toProtoTimestamp())
+                        .build()
                 }
             }
         }

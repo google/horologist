@@ -33,6 +33,7 @@ import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.benchmark.MediaApp
 import com.google.android.horologist.media.benchmark.MediaControllerHelper
 import com.google.android.horologist.media.benchmark.MediaItems.buildMediaItem
+import com.google.android.horologist.media.benchmark.metrics.CompositionMetric
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -152,6 +153,7 @@ class MarqueeBenchmark {
     public open fun metrics(): List<Metric> = listOfNotNull(
         StartupTimingMetric(),
         FrameTimingMetric(),
-        if (includePower) PowerMetric(type = PowerMetric.Type.Battery()) else null
+        if (includePower) PowerMetric(type = PowerMetric.Type.Battery()) else null,
+        CompositionMetric("androidx.compose.foundation.Canvas")
     )
 }

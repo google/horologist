@@ -133,7 +133,7 @@ class MarqueeBenchmark {
                     logMessage("delaying 15")
                     delay(15.seconds)
 
-                    logMessage("isPlaying $")
+                    logMessage("isPlaying ${mediaController.isPlaying}")
 
                     mediaController.seekToNextMediaItem()
 

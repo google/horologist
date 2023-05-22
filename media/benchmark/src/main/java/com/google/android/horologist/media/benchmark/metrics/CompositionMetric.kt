@@ -44,7 +44,8 @@ public class CompositionMetric(private val composable: String) : TraceMetric() {
         ).map { it.long("dur") }
 
         return listOf(
-            Measurement("${shortName}RecomposeDurMs",
+            Measurement(
+                "${shortName}RecomposeDurMs",
                 durationsNs.sumOf { it }.nanoseconds.toDouble(DurationUnit.MILLISECONDS)
             ),
             Measurement("${shortName}RecomposeCount", durationsNs.count().toDouble())

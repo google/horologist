@@ -5,11 +5,13 @@ package com.google.android.horologist.media.benchmark {
     ctor public BaseMediaBaselineProfile();
     method public suspend Object? checkPlayingState(androidx.media3.session.MediaBrowser mediaController, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @org.junit.Rule public final androidx.benchmark.macro.junit4.BaselineProfileRule getBaselineRule();
+    method @org.junit.Rule public final androidx.test.rule.GrantPermissionRule getGrantPermissionRule();
     method public abstract com.google.android.horologist.media.benchmark.MediaApp getMediaApp();
     method public void onStartup(androidx.benchmark.macro.MacrobenchmarkScope);
     method @org.junit.Test public final void profile();
     method @org.junit.Before public final void setUp();
     property @org.junit.Rule public final androidx.benchmark.macro.junit4.BaselineProfileRule baselineRule;
+    property @org.junit.Rule public final androidx.test.rule.GrantPermissionRule grantPermissionRule;
     property public abstract com.google.android.horologist.media.benchmark.MediaApp mediaApp;
   }
 
@@ -17,6 +19,7 @@ package com.google.android.horologist.media.benchmark {
     ctor public BasePlaybackBenchmark();
     method public suspend Object? checkPlayingState(androidx.media3.session.MediaBrowser mediaController, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @org.junit.Rule public final androidx.benchmark.macro.junit4.MacrobenchmarkRule getBenchmarkRule();
+    method @org.junit.Rule public final androidx.test.rule.GrantPermissionRule getGrantPermissionRule();
     method public abstract com.google.android.horologist.media.benchmark.MediaApp getMediaApp();
     method public final com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser> getMediaControllerFuture();
     method public java.util.List<androidx.benchmark.macro.Metric> metrics();
@@ -24,6 +27,7 @@ package com.google.android.horologist.media.benchmark {
     method public final void setMediaControllerFuture(com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser>);
     method @org.junit.Test public final void startup();
     property @org.junit.Rule public final androidx.benchmark.macro.junit4.MacrobenchmarkRule benchmarkRule;
+    property @org.junit.Rule public final androidx.test.rule.GrantPermissionRule grantPermissionRule;
     property public abstract com.google.android.horologist.media.benchmark.MediaApp mediaApp;
     property public final com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser> mediaControllerFuture;
     field public com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser> mediaControllerFuture;
@@ -67,6 +71,15 @@ package com.google.android.horologist.media.benchmark {
   public final class MediaItems {
     method public androidx.media3.common.MediaItem buildMediaItem(String id, String mediaUri, String? artworkUri, String title, String artist);
     field public static final com.google.android.horologist.media.benchmark.MediaItems INSTANCE;
+  }
+
+}
+
+package com.google.android.horologist.media.benchmark.metrics {
+
+  public final class CompositionMetric extends androidx.benchmark.macro.TraceMetric {
+    ctor public CompositionMetric(String composable);
+    method public java.util.List<androidx.benchmark.macro.Metric.Measurement> getResult(androidx.benchmark.macro.Metric.CaptureInfo captureInfo, androidx.benchmark.perfetto.PerfettoTraceProcessor.Session traceSession);
   }
 
 }

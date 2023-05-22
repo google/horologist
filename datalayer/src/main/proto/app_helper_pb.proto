@@ -53,8 +53,15 @@ message TileInfo {
   .google.protobuf.Timestamp timestamp = 3;
 }
 
+message ActivityLaunched {
+  reserved 1;
+  bool activityLaunchedOnce = 2;
+  .google.protobuf.Timestamp timestamp = 3;
+}
+
 message SurfacesInfo {
   reserved 1;
   repeated ComplicationInfo complications = 2;
   repeated TileInfo tiles = 3;
+  ActivityLaunched activityLaunched = 4;
 }

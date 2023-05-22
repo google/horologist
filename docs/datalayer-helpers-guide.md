@@ -159,4 +159,15 @@ phone.
     ```kotlin
     wearAppHelper.markComplicationAsDeactivated("GoalsComplication")
     ```
+
+3. **Tracking the main activity has been launched at least once** (Wear-only)
+
+   To determine if your main activity has been launched once, use: 
+
+   ```kotlin
+    wearAppHelper.markActivityLaunchedOnce()
+    ```    
+
+
+
     

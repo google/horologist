@@ -50,50 +50,50 @@ fun UampMediaPlayerScreen(
         playerViewModel = mediaPlayerScreenViewModel,
         volumeViewModel = volumeViewModel,
         mediaDisplay = { playerUiState ->
-            if (settingsState.animated) {
+//            if (settingsState.animated) {
                 AnimatedMediaInfoDisplay(
                     media = playerUiState.media,
                     loading = !playerUiState.connected || playerUiState.media?.loading == true,
                     modifier = modifier
                 )
-            } else {
-                DefaultMediaInfoDisplay(playerUiState)
-            }
+//            } else {
+//                DefaultMediaInfoDisplay(playerUiState)
+//            }
         },
         buttons = {
-            UampSettingsButtons(
-                volumeUiState = volumeUiState,
-                onVolumeClick = onVolumeClick,
-                enabled = it.connected && it.media != null
-            )
+//            UampSettingsButtons(
+//                volumeUiState = volumeUiState,
+//                onVolumeClick = onVolumeClick,
+//                enabled = it.connected && it.media != null
+//            )
         },
         controlButtons = { playerUiController, playerUiState ->
-            if (settingsState.podcastControls) {
-                PlayerScreenPodcastControlButtons(playerUiController, playerUiState)
-            } else {
-                if (settingsState.animated) {
-                    AnimatedMediaControlButtons(
-                        onPlayButtonClick = { playerUiController.play() },
-                        onPauseButtonClick = { playerUiController.pause() },
-                        playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                        playing = playerUiState.playing,
-                        onSeekToPreviousButtonClick = { playerUiController.skipToPreviousMedia() },
-                        seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-                        onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
-                        seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-                        trackPositionUiModel = playerUiState.trackPositionUiModel
-                    )
-                } else {
-                    DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
-                }
-            }
+//            if (settingsState.podcastControls) {
+//                PlayerScreenPodcastControlButtons(playerUiController, playerUiState)
+//            } else {
+//                if (settingsState.animated) {
+//                    AnimatedMediaControlButtons(
+//                        onPlayButtonClick = { playerUiController.play() },
+//                        onPauseButtonClick = { playerUiController.pause() },
+//                        playPauseButtonEnabled = playerUiState.playPauseEnabled,
+//                        playing = playerUiState.playing,
+//                        onSeekToPreviousButtonClick = { playerUiController.skipToPreviousMedia() },
+//                        seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
+//                        onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
+//                        seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
+//                        trackPositionUiModel = playerUiState.trackPositionUiModel
+//                    )
+//                } else {
+//                    DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
+//                }
+//            }
         },
         background = {
-            val artworkUri = it.media?.artworkUri
-            ArtworkColorBackground(
-                artworkUri = artworkUri,
-                defaultColor = MaterialTheme.colors.primary
-            )
+//            val artworkUri = it.media?.artworkUri
+//            ArtworkColorBackground(
+//                artworkUri = artworkUri,
+//                defaultColor = MaterialTheme.colors.primary
+//            )
         }
     )
 

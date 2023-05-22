@@ -35,7 +35,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.composables.MarqueeText
+import com.google.android.horologist.composables.MarqueeTextOld
 import kotlin.math.roundToInt
 
 /**
@@ -67,7 +67,7 @@ public fun MarqueeTextMediaDisplay(
             label = "AnimatedTitle"
         ) {
                 currentTitle ->
-            MarqueeText(
+            MarqueeTextOld(
                 text = currentTitle.orEmpty(),
                 modifier = Modifier.fillMaxWidth(0.7f),
                 color = MaterialTheme.colors.onBackground,

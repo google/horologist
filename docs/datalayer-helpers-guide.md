@@ -160,12 +160,12 @@ phone.
     wearAppHelper.markComplicationAsDeactivated("GoalsComplication")
     ```
 
-3. **Tracking the app has been opened at least once** (Wear-only)
+3. **Tracking the main activity has been launched at least once** (Wear-only)
 
-   To determine if your app has been opened once, use: 
+   To determine if your main activity has been launched once, use: 
 
    ```kotlin
-    wearAppHelper.markAppHasBeenOpened()
+    wearAppHelper.markActivityLaunchedOnce()
     ```    
 
 

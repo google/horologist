@@ -4,7 +4,7 @@ package com.google.android.horologist.datalayer.watch {
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class WearDataLayerAppHelper extends com.google.android.horologist.data.apphelper.DataLayerAppHelper {
     ctor public WearDataLayerAppHelper(android.content.Context context, com.google.android.horologist.data.WearDataLayerRegistry registry, kotlinx.coroutines.CoroutineScope scope, optional String? appStoreUri);
     method public suspend Object? installOnNode(String node, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    method public suspend Object? markAppHasBeenOpened(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? markActivityLaunchedOnce(kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? markComplicationAsActivated(String complicationName, int complicationInstanceId, androidx.wear.watchface.complications.data.ComplicationType complicationType, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? markComplicationAsDeactivated(String complicationName, int complicationInstanceId, androidx.wear.watchface.complications.data.ComplicationType complicationType, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? markTileAsInstalled(String tileName, kotlin.coroutines.Continuation<? super kotlin.Unit>);

@@ -95,12 +95,12 @@ fun AppHelperNodeStatusCard(
                         )
                     )
                 }
-                if (nodeStatus.surfacesInfo.appHasBeenOpened) {
+                if (nodeStatus.surfacesInfo.activityLaunched.activityLaunchedOnce) {
                     Text(
                         style = MaterialTheme.typography.labelMedium,
                         text = stringResource(
                             R.string.app_has_been_opened,
-                            nodeStatus.surfacesInfo.appHasBeenOpened
+                            nodeStatus.surfacesInfo.activityLaunched.activityLaunchedOnce
                         )
                     )
                 }

@@ -22,6 +22,7 @@ import android.net.Uri
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.watchface.complications.data.ComplicationType
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.data.ActivityLaunched
 import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.ComplicationInfo
@@ -112,13 +113,13 @@ public class WearDataLayerAppHelper(
     }
 
     /**
-     * Marks that the app has been opened at least once.
+     * Marks that the main activity has been launched at least once.
      */
-    public suspend fun markAppHasBeenOpened() {
+    public suspend fun markActivityLaunchedOnce() {
         surfaceInfoDataStore.updateData { info ->
             info.copy {
-                if (!appHasBeenOpened) {
-                    appHasBeenOpened = true
+                if (!activityLaunched.activityLaunchedOnce) {
+                    activityLaunched = ActivityLaunched.newBuilder().setActivityLaunchedOnce(true).build()
                 }
             }
         }

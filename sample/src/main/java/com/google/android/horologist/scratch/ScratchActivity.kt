@@ -38,7 +38,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
-import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
@@ -67,8 +66,6 @@ data class Offsets(
 
 @Composable
 fun WearApp() {
-    rememberScalingLazyListState()
-
     var settings by rememberSaveable(stateSaver = Settings.Saver) {
         mutableStateOf(Settings())
     }
@@ -134,7 +131,7 @@ fun WearApp() {
                     })
                 }
                 item {
-                    val text = "Item Height: $settings.itemHeight"
+                    val text = "Item Height: ${settings.itemHeight}"
                     FixedHeightChip(text, itemHeight, onClick = {
                         settings = settings.copy(
                             itemHeightMode = (settings.itemHeightMode + 1) % Settings.itemHeights.size

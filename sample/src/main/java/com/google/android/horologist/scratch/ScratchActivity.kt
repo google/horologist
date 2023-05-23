@@ -29,16 +29,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
-import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
@@ -46,6 +45,9 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
 import androidx.wear.compose.material.scrollAway
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.rememberColumnState
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,48 +66,23 @@ data class Offsets(
 
 @Composable
 fun WearApp() {
-    var initialOffsetsMode by remember { mutableStateOf(0) }
-    val initialOffsets = remember {
-        listOf(
-            Offsets(0, 0),
-            Offsets(1, 0),
-            Offsets(1, -20),
-            Offsets(1, 20),
-            Offsets(2, 0)
-        )
+    var settings by rememberSaveable(stateSaver = Settings.Saver) {
+        mutableStateOf(Settings())
     }
 
-    var autoCenteringMode by remember { mutableStateOf(1) }
-    val autoCenterings = remember {
-        listOf(
-            Pair("null", null),
-            Pair("0/0", AutoCenteringParams(0, 0)),
-            Pair("1/0", AutoCenteringParams(1, 0)),
-            Pair("2/0", AutoCenteringParams(2, 0)),
-            Pair("3/0", AutoCenteringParams(3, 0))
-        )
-    }
+    key(settings) {
+        val initialOffset = settings.initialOffset
+        val itemHeight = settings.itemHeight
+        val autoCentering = settings.autoCentering
+        val anchorType = settings.anchorType
 
-    var itemHeightMode by remember { mutableStateOf(0) }
-    val itemHeights = remember { listOf(40, 80, 120) }
-
-    var anchorTypeMode by remember { mutableStateOf(0) }
-    val anchorTypes = remember {
-        listOf(
-            Pair("Center", ScalingLazyListAnchorType.ItemCenter),
-            Pair("Start", ScalingLazyListAnchorType.ItemStart)
-        )
-    }
-
-    key(initialOffsetsMode) {
-        val initialOffset = initialOffsets[initialOffsetsMode]
-        val itemHeight = itemHeights[itemHeightMode]
-        val autoCentering = autoCenterings[autoCenteringMode]
-        val anchorType = anchorTypes[anchorTypeMode]
-
-        val listState = rememberScalingLazyListState(
-            initialCenterItemIndex = initialOffset.index,
-            initialCenterItemScrollOffset = initialOffset.offset
+        val columnState = rememberColumnState(
+            ScalingLazyColumnDefaults.scalingLazyColumnDefaults(
+                initialCenterIndex = initialOffset.index,
+                initialCenterOffset = initialOffset.offset,
+                autoCentering = autoCentering,
+                anchorType = anchorType
+            )
         )
 
         Scaffold(
@@ -114,46 +91,51 @@ fun WearApp() {
                 TimeText(
                     modifier = Modifier
                         .scrollAway(
-                            listState,
-                            initialOffset.index,
-                            initialOffset.offset
-                                .dp
+                            columnState.state,
+                            columnState.initialScrollPosition.index,
+                            columnState.initialScrollPosition.offsetPx.dp
                         ),
                     startCurvedContent = {
-                        curvedText("${listState.centerItemIndex}/${listState.centerItemScrollOffset}")
+                        curvedText("${columnState.state.centerItemIndex}/${columnState.state.centerItemScrollOffset}")
                     }
                 )
             }
         ) {
             ScalingLazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                state = listState,
-                autoCentering = autoCentering.second,
-                anchorType = anchorType.second
+                columnState = columnState
             ) {
                 item {
                     val text = "Initial Offset: ${initialOffset.index} / ${initialOffset.offset}"
                     FixedHeightChip(text, itemHeight, onClick = {
-                        initialOffsetsMode = (initialOffsetsMode + 1) % initialOffsets.size
+                        settings = settings.copy(
+                            initialOffsetsMode = (settings.initialOffsetsMode + 1) % Settings.initialOffsets.size
+                        )
                     })
                 }
                 item {
-                    val text = "Auto Centering: ${autoCentering.first}"
+                    val text =
+                        "Auto Centering: ${Settings.autoCenterings[settings.autoCenteringMode].first}"
                     FixedHeightChip(text, itemHeight, onClick = {
-                        println(autoCenteringMode)
-                        autoCenteringMode = (autoCenteringMode + 1) % autoCenterings.size
+                        settings = settings.copy(
+                            autoCenteringMode = (settings.autoCenteringMode + 1) % Settings.autoCenterings.size
+                        )
                     })
                 }
                 item {
-                    val text = "Anchor Type: ${anchorType.first}"
+                    val text = "Anchor Type: ${Settings.anchorTypes[settings.anchorTypeMode].first}"
                     FixedHeightChip(text, itemHeight, onClick = {
-                        anchorTypeMode = (anchorTypeMode + 1) % anchorTypes.size
+                        settings = settings.copy(
+                            anchorTypeMode = (settings.anchorTypeMode + 1) % Settings.anchorTypes.size
+                        )
                     })
                 }
                 item {
-                    val text = "Item Height: $itemHeight"
+                    val text = "Item Height: ${settings.itemHeight}"
                     FixedHeightChip(text, itemHeight, onClick = {
-                        itemHeightMode = (itemHeightMode + 1) % itemHeights.size
+                        settings = settings.copy(
+                            itemHeightMode = (settings.itemHeightMode + 1) % Settings.itemHeights.size
+                        )
                     })
                 }
             }
@@ -165,6 +147,57 @@ fun WearApp() {
                 )
             }
         }
+    }
+}
+
+data class Settings(
+    val initialOffsetsMode: Int = 0,
+    val autoCenteringMode: Int = 1,
+    val itemHeightMode: Int = 0,
+    val anchorTypeMode: Int = 0
+) {
+    val initialOffset: Offsets = initialOffsets[initialOffsetsMode]
+    val itemHeight: Int = itemHeights[itemHeightMode]
+    val autoCentering: AutoCenteringParams? = autoCenterings[autoCenteringMode].second
+    val anchorType: ScalingLazyListAnchorType = anchorTypes[anchorTypeMode].second
+
+    companion object {
+        val initialOffsets = listOf(
+            Offsets(0, 0),
+            Offsets(1, 0),
+            Offsets(1, -20),
+            Offsets(1, 20),
+            Offsets(2, 0)
+        )
+
+        val autoCenterings = listOf(
+            Pair("null", null),
+            Pair("0/0", AutoCenteringParams(0, 0)),
+            Pair("1/0", AutoCenteringParams(1, 0)),
+            Pair("2/0", AutoCenteringParams(2, 0)),
+            Pair("3/0", AutoCenteringParams(3, 0))
+        )
+
+        val itemHeights = listOf(40, 80, 120)
+
+        val anchorTypes = listOf(
+            Pair("Center", ScalingLazyListAnchorType.ItemCenter),
+            Pair("Start", ScalingLazyListAnchorType.ItemStart)
+        )
+
+        val Saver = Saver<Settings, List<Int>>(
+            save = {
+                listOf(
+                    it.initialOffsetsMode,
+                    it.autoCenteringMode,
+                    it.itemHeightMode,
+                    it.anchorTypeMode
+                )
+            },
+            restore = {
+                Settings(it[0], it[1], it[2], it[3])
+            }
+        )
     }
 }
 

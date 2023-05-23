@@ -24,6 +24,7 @@ import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -98,6 +99,17 @@ public class ScalingLazyColumnState(
         @Composable
         public fun create(): ScalingLazyColumnState
     }
+}
+
+@Composable
+public fun rememberColumnState(factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText()): ScalingLazyColumnState {
+    val columnState = factory.create()
+
+    columnState.state = rememberSaveable(saver = ScalingLazyListState.Saver) {
+        columnState.state
+    }
+
+    return columnState
 }
 
 @ExperimentalHorologistApi

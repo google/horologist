@@ -21,7 +21,7 @@
         <link rel="next" href="../media-toolkit/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.13">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
@@ -1169,7 +1169,13 @@ user the option to navigate to the companion app to install it:</p>
 <div class="highlight"><pre><span></span><code><span class="n">wearAppHelper</span><span class="p">.</span><span class="na">markComplicationAsDeactivated</span><span class="p">(</span><span class="s">&quot;GoalsComplication&quot;</span><span class="p">)</span>
 </code></pre></div>
 </li>
+<li>
+<p><strong>Tracking the main activity has been launched at least once</strong> (Wear-only)</p>
+</li>
 </ol>
+<p>To determine if your main activity has been launched once, use: </p>
+<p><code>kotlin
+    wearAppHelper.markActivityLaunchedOnce()</code>    </p>
 
 
 

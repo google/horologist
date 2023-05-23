@@ -69,7 +69,10 @@ fun UampMediaPlayerScreen(
         },
         controlButtons = { playerUiController, playerUiState ->
             if (settingsState.podcastControls) {
-                PlayerScreenPodcastControlButtons(playerUiController, playerUiState)
+                PlayerScreenPodcastControlButtons(
+                    playerUiController,
+                    playerUiState
+                )
             } else {
                 if (settingsState.animated) {
                     AnimatedMediaControlButtons(

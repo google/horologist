@@ -61,6 +61,7 @@ import com.google.android.horologist.mediasample.ui.navigation.GoogleSignOutScre
 import com.google.android.horologist.mediasample.ui.navigation.Samples
 import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignInPrompt
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
+import com.google.android.horologist.mediasample.ui.player.benchmark.UampBenchmarkPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
 import com.google.android.horologist.mediasample.ui.settings.DeveloperOptionsScreen
@@ -90,14 +91,25 @@ fun UampWearApp(
     UampTheme {
         MediaPlayerScaffold(
             playerScreen = {
-                UampMediaPlayerScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    mediaPlayerScreenViewModel = hiltViewModel(),
-                    volumeViewModel = volumeViewModel,
-                    onVolumeClick = {
-                        navController.navigateToVolume()
-                    }
-                )
+                if (BuildConfig.BENCHMARK) {
+                    UampBenchmarkPlayerScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        mediaPlayerScreenViewModel = hiltViewModel(),
+                        volumeViewModel = volumeViewModel,
+                        onVolumeClick = {
+                            navController.navigateToVolume()
+                        }
+                    )
+                } else {
+                    UampMediaPlayerScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        mediaPlayerScreenViewModel = hiltViewModel(),
+                        volumeViewModel = volumeViewModel,
+                        onVolumeClick = {
+                            navController.navigateToVolume()
+                        }
+                    )
+                }
             },
             libraryScreen = { columnState ->
                 if (appState.streamingMode == true) {

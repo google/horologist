@@ -64,7 +64,7 @@ class MarqueeBenchmark {
             "The Kyoto Connection"
         )
 
-        measurePlayerScreen(intro)
+        measurePlayerScreen(List(10) { intro })
     }
 
     @Test
@@ -77,7 +77,7 @@ class MarqueeBenchmark {
             "The Kyoto Connection"
         )
 
-        measurePlayerScreen(intro)
+        measurePlayerScreen(List(10) { intro })
     }
 
     @Test
@@ -90,10 +90,35 @@ class MarqueeBenchmark {
             "The Kyoto Connection"
         )
 
-        measurePlayerScreen(intro, playback = false)
+        measurePlayerScreen(List(10) { intro }, playback = false)
     }
 
-    private fun measurePlayerScreen(intro: MediaItem, playback: Boolean = true) {
+    @Test
+    public fun rotateModes() {
+        val item = buildMediaItem(
+            "1",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
+            "Intro - The Way Of Waking Up (feat. Alan Watts)",
+            "The Kyoto Connection"
+        )
+
+        measurePlayerScreen(
+            listOf(
+                item.withArtist("Marquee-Animated-Radial-Shown"), // Default
+                item.withArtist("Marquee-Animated-Linear-Shown"), // Linear
+                item.withArtist("Marquee-Animated-Flat-Shown"), // Linear
+                item.withArtist("NonOffscreen-Animated-Radial-Shown"), // Non offscreen
+                item.withArtist("Marquee-Hidden-Radial-Hidden"), // no other buttons
+            ), playback = false
+        )
+    }
+
+    private fun MediaItem.withArtist(mode: String) =
+        buildUpon().setMediaMetadata(mediaMetadata.buildUpon().setArtist(mode).build())
+            .build()
+
+    private fun measurePlayerScreen(items: List<MediaItem>, playback: Boolean = true) {
         benchmarkRule.measureRepeated(
             packageName = mediaApp.packageName,
             metrics = metrics(),
@@ -119,11 +144,8 @@ class MarqueeBenchmark {
             runBlocking {
                 withContext(Dispatchers.Main) {
                     logMessage("Main")
-                    mediaController.setMediaItems(List(10) { intro })
+                    mediaController.setMediaItems(items)
                     mediaController.volume = 0.1f
-
-                    logMessage("delaying 5")
-                    delay(5.seconds)
 
                     if (playback) {
                         logMessage("playing")
@@ -131,15 +153,27 @@ class MarqueeBenchmark {
                         mediaController.play()
                     }
 
-                    logMessage("delaying 15")
-                    delay(15.seconds)
+                    logMessage("delaying 5")
+                    delay(5.seconds)
+
+                    logMessage("Playing ${mediaController.currentMediaItem?.mediaMetadata?.subtitle}")
+
+                    logMessage("delaying 10")
+                    delay(10.seconds)
 
                     logMessage("isPlaying ${mediaController.isPlaying}")
 
-                    mediaController.seekToNextMediaItem()
+                    while (mediaController.hasNextMediaItem()) {
+                        mediaController.seekToNextMediaItem()
 
-                    logMessage("delaying 15")
-                    delay(15.seconds)
+                        logMessage("delaying 5")
+                        delay(5.seconds)
+
+                        logMessage("Playing ${mediaController.currentMediaItem?.mediaMetadata?.subtitle}")
+
+                        logMessage("delaying 10")
+                        delay(10.seconds)
+                    }
                 }
             }
             logMessage("after runBlocking")

@@ -16,7 +16,10 @@
 
 package com.google.android.horologist.auth.composables.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
@@ -61,6 +64,37 @@ fun SignInPromptScreenPreviewLoading() {
         onIdleStateObserved = { },
         onAlreadySignedIn = { },
         columnState = belowTimeTextPreview()
+    ) {
+        item {
+            SignInChip(
+                onClick = { },
+                chipType = StandardChipType.Secondary
+            )
+        }
+        item {
+            GuestModeChip(
+                onClick = { },
+                chipType = StandardChipType.Secondary
+            )
+        }
+    }
+}
+
+@WearPreviewDevices
+@Composable
+fun SignInPromptScreenPreviewCustomLoading() {
+    SignInPromptScreen(
+        state = SignInPromptScreenState.Loading,
+        title = "Sign in",
+        message = "Send messages and create chat groups with your friends",
+        onIdleStateObserved = { },
+        onAlreadySignedIn = { },
+        columnState = belowTimeTextPreview(),
+        loadingContent = {
+            Box(contentAlignment = Alignment.Center) {
+                Text("Loading...")
+            }
+        }
     ) {
         item {
             SignInChip(

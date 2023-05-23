@@ -77,12 +77,18 @@ public fun StandardChip(
 
                 Row {
                     if (icon is ImageVector) {
+                        val iconTint = when (chipType) {
+                            StandardChipType.Primary -> MaterialTheme.colors.onPrimary
+                            StandardChipType.Secondary -> MaterialTheme.colors.onSurface
+                        }
+
                         Icon(
                             imageVector = icon,
                             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                             modifier = Modifier
                                 .size(iconSize)
-                                .clip(CircleShape)
+                                .clip(CircleShape),
+                            tint = iconTint
                         )
                     } else {
                         Image(
@@ -134,9 +140,14 @@ public fun StandardChip(
 
     val labelParam: (@Composable RowScope.() -> Unit) =
         {
+            val textColor = when (chipType) {
+                StandardChipType.Primary -> MaterialTheme.colors.onPrimary
+                StandardChipType.Secondary -> MaterialTheme.colors.onSurface
+            }
+
             Text(
                 text = label,
-                color = MaterialTheme.colors.onSurface,
+                color = textColor,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Left else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
@@ -148,9 +159,14 @@ public fun StandardChip(
     val secondaryLabelParam: (@Composable RowScope.() -> Unit)? =
         secondaryLabel?.let {
             {
+                val textColor = when (chipType) {
+                    StandardChipType.Primary -> MaterialTheme.colors.onPrimary
+                    StandardChipType.Secondary -> MaterialTheme.colors.onSurfaceVariant
+                }
+
                 Text(
                     text = secondaryLabel,
-                    color = MaterialTheme.colors.onSurfaceVariant,
+                    color = textColor,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     style = MaterialTheme.typography.caption2

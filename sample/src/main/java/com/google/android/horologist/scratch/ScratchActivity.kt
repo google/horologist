@@ -106,7 +106,7 @@ fun WearApp() {
         ) {
             ScalingLazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                columnState = columnState,
+                columnState = columnState
             ) {
                 item {
                     val text = "Initial Offset: ${initialOffset.index} / ${initialOffset.offset}"
@@ -194,7 +194,7 @@ data class Settings(
                     it.initialOffsetsMode,
                     it.autoCenteringMode,
                     it.itemHeightMode,
-                    it.anchorTypeMode,
+                    it.anchorTypeMode
                 )
             },
             restore = {

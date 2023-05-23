@@ -98,7 +98,7 @@ public object ScalingLazyColumnDefaults {
             ),
         horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
         contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-        autoCentering: AutoCenteringParams?  = AutoCenteringParams(
+        autoCentering: AutoCenteringParams? = AutoCenteringParams(
             initialCenterIndex,
             initialCenterOffset
         ),

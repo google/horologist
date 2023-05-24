@@ -136,7 +136,7 @@ package com.google.android.horologist.media.ui.components.background {
 
   public final class ArtworkColorBackgroundKt {
     method @androidx.compose.runtime.Composable public static void ArtworkColorBackground(Object? artworkUri, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.Color? defaultColor);
-    method @androidx.compose.runtime.Composable public static void ColorBackground(androidx.compose.ui.graphics.Color? color, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable public static void ColorBackground(androidx.compose.ui.graphics.Color? color, optional androidx.compose.ui.Modifier modifier, optional long background);
   }
 
   public final class RadialBackgroundKt {

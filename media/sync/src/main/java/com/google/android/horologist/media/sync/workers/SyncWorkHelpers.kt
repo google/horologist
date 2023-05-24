@@ -65,20 +65,18 @@ private fun Context.syncWorkNotification(
     channelName: String,
     channelDescription: String
 ): Notification {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val channel = NotificationChannel(
-            SyncNotificationChannelID,
-            channelName,
-            NotificationManager.IMPORTANCE_DEFAULT
-        ).apply {
-            description = channelDescription
-        }
-        // Register the channel with the system
-        val notificationManager: NotificationManager? =
-            getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
-
-        notificationManager?.createNotificationChannel(channel)
+    val channel = NotificationChannel(
+        SyncNotificationChannelID,
+        channelName,
+        NotificationManager.IMPORTANCE_DEFAULT
+    ).apply {
+        description = channelDescription
     }
+    // Register the channel with the system
+    val notificationManager: NotificationManager? =
+        getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
+
+    notificationManager?.createNotificationChannel(channel)
 
     return NotificationCompat.Builder(
         this,

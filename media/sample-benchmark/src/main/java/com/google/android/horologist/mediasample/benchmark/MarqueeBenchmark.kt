@@ -95,7 +95,7 @@ class MarqueeBenchmark {
     public fun compareDefault() {
         measurePlayerScreen(
             List(2) {
-                intro.copy(artist = "Marquee-Animated-Radial-Shown") // Default
+                intro.copy(artist = "Marquee-Animated-Radial-Shown")
             },
             playback = false
         )
@@ -105,7 +105,7 @@ class MarqueeBenchmark {
     public fun compareLinear() {
         measurePlayerScreen(
             List(2) {
-                intro.copy(artist = "Marquee-Animated-Linear-Shown") // Linear
+                intro.copy(artist = "Marquee-Animated-Linear-Shown")
             },
             playback = false
         )
@@ -115,7 +115,7 @@ class MarqueeBenchmark {
     public fun compareFlat() {
         measurePlayerScreen(
             List(2) {
-                intro.copy(artist = "Marquee-Animated-Flat-Shown") // Linear
+                intro.copy(artist = "Marquee-Animated-Flat-Shown")
             },
             playback = false
         )
@@ -125,7 +125,7 @@ class MarqueeBenchmark {
     public fun compareNonOffscreen() {
         measurePlayerScreen(
             List(2) {
-                intro.copy(artist = "NonOffscreen-Animated-Radial-Shown") // Non offscreen
+                intro.copy(artist = "NonOffscreen-Animated-Radial-Shown")
             },
             playback = false
         )
@@ -135,7 +135,7 @@ class MarqueeBenchmark {
     public fun compareNoButtons() {
         measurePlayerScreen(
             List(2) {
-                intro.copy(artist = "Marquee-Hidden-Radial-Hidden") // no other buttons
+                intro.copy(artist = "Marquee-Hidden-Radial-Hidden")
             },
             playback = false
         )
@@ -145,7 +145,17 @@ class MarqueeBenchmark {
     public fun compareOnlyMarquee() {
         measurePlayerScreen(
             List(2) {
-                intro.copy(artist = "Marquee-Hidden-Hidden-Hidden") // no other buttons
+                intro.copy(artist = "Marquee-Hidden-Hidden-Hidden")
+            },
+            playback = false
+        )
+    }
+
+    @Test
+    public fun compareOnlyMarqueeNonOffscreen() {
+        measurePlayerScreen(
+            List(2) {
+                intro.copy(artist = "NonOffscreen-Hidden-Hidden-Hidden")
             },
             playback = false
         )
@@ -155,7 +165,7 @@ class MarqueeBenchmark {
     public fun compareNoBackground() {
         measurePlayerScreen(
             List(2) {
-                intro.copy(artist = "Marquee-Animated-Hidden-Shown") // no other buttons
+                intro.copy(artist = "Marquee-Animated-Hidden-Shown")
             },
             playback = false
         )

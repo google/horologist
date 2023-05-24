@@ -30,6 +30,7 @@ import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.media3.common.MediaItem
 import androidx.media3.session.MediaBrowser
 import androidx.test.filters.LargeTest
+import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.media.benchmark.MediaApp
 import com.google.android.horologist.media.benchmark.MediaControllerHelper
 import com.google.android.horologist.media.benchmark.MediaItems.buildMediaItem
@@ -39,6 +40,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import kotlin.time.Duration.Companion.seconds
@@ -54,68 +56,104 @@ class MarqueeBenchmark {
 
     public lateinit var mediaControllerFuture: ListenableFuture<MediaBrowser>
 
+    val arguments = InstrumentationRegistry.getArguments()
+
     @Test
+    @Ignore
     public fun marquee() {
-        val intro = buildMediaItem(
-            "1",
-            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
-            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
-            "Intro - The Way Of Waking Up (feat. Alan Watts)",
-            "The Kyoto Connection"
-        )
-
         measurePlayerScreen(List(10) { intro })
     }
 
     @Test
+    @Ignore
     public fun noMarquee() {
-        val intro = buildMediaItem(
-            "1",
-            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
-            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
-            "Intro",
-            "The Kyoto Connection"
-        )
-
-        measurePlayerScreen(List(10) { intro })
+        val introShort = intro.copy(title = "Intro")
+        measurePlayerScreen(List(10) { introShort })
     }
 
     @Test
+    @Ignore
     public fun marqueeNoPlayback() {
-        val intro = buildMediaItem(
-            "1",
-            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
-            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
-            "Intro - The Way Of Waking Up (feat. Alan Watts)",
-            "The Kyoto Connection"
-        )
-
         measurePlayerScreen(List(10) { intro }, playback = false)
     }
 
     @Test
+    @Ignore
     public fun rotateModes() {
-        val item = buildMediaItem(
-            "1",
-            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
-            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
-            "Intro - The Way Of Waking Up (feat. Alan Watts)",
-            "The Kyoto Connection"
-        )
-
         measurePlayerScreen(
             listOf(
-                item.withArtist("Marquee-Animated-Radial-Shown"), // Default
-                item.withArtist("Marquee-Animated-Linear-Shown"), // Linear
-                item.withArtist("Marquee-Animated-Flat-Shown"), // Linear
-                item.withArtist("NonOffscreen-Animated-Radial-Shown"), // Non offscreen
-                item.withArtist("Marquee-Hidden-Radial-Hidden"), // no other buttons
+                intro.copy(artist = "Marquee-Animated-Radial-Shown"), // Default
+                intro.copy(artist = "Marquee-Animated-Linear-Shown"), // Linear
+                intro.copy(artist = "Marquee-Animated-Flat-Shown"), // Linear
+                intro.copy(artist = "NonOffscreen-Animated-Radial-Shown"), // Non offscreen
+                intro.copy(artist = "Marquee-Hidden-Radial-Hidden"), // no other buttons
             ), playback = false
         )
     }
 
-    private fun MediaItem.withArtist(mode: String) =
-        buildUpon().setMediaMetadata(mediaMetadata.buildUpon().setArtist(mode).build())
+    @Test
+    public fun compareDefault() {
+        measurePlayerScreen(
+            List(2) {
+                intro.copy(artist = "Marquee-Animated-Radial-Shown") // Default
+            },
+            playback = false
+        )
+    }
+
+    @Test
+    public fun compareLinear() {
+        measurePlayerScreen(
+            List(2) {
+                intro.copy(artist = "Marquee-Animated-Linear-Shown") // Linear
+            },
+            playback = false
+        )
+    }
+
+    @Test
+    public fun compareFlat() {
+        measurePlayerScreen(
+            List(2) {
+                intro.copy(artist = "Marquee-Animated-Flat-Shown") // Linear
+            },
+            playback = false
+        )
+    }
+
+    @Test
+    public fun compareNonOffscreen() {
+        measurePlayerScreen(
+            List(2) {
+                intro.copy(artist = "NonOffscreen-Animated-Radial-Shown") // Non offscreen
+            },
+            playback = false
+        )
+    }
+
+    @Test
+    public fun compareNoButtons() {
+        measurePlayerScreen(
+            List(2) {
+                intro.copy(artist = "Marquee-Hidden-Radial-Hidden") // no other buttons
+            },
+            playback = false
+        )
+    }
+
+    private fun MediaItem.copy(artist: String? = null, title: String? = null) =
+        buildUpon().setMediaMetadata(
+            mediaMetadata.buildUpon()
+                .apply {
+                    if (artist != null) {
+                        setArtist(artist)
+                    }
+                    if (title != null) {
+                        setTitle(title)
+                    }
+                }
+                .build()
+        )
             .build()
 
     private fun measurePlayerScreen(items: List<MediaItem>, playback: Boolean = true) {
@@ -156,7 +194,7 @@ class MarqueeBenchmark {
                     logMessage("delaying 5")
                     delay(5.seconds)
 
-                    logMessage("Playing ${mediaController.currentMediaItem?.mediaMetadata?.subtitle}")
+                    logMessage("Playing ${mediaController.currentMediaItem?.mediaMetadata}")
 
                     logMessage("delaying 10")
                     delay(10.seconds)
@@ -169,7 +207,7 @@ class MarqueeBenchmark {
                         logMessage("delaying 5")
                         delay(5.seconds)
 
-                        logMessage("Playing ${mediaController.currentMediaItem?.mediaMetadata?.subtitle}")
+                        logMessage("Playing ${mediaController.currentMediaItem?.mediaMetadata}")
 
                         logMessage("delaying 10")
                         delay(10.seconds)
@@ -188,6 +226,20 @@ class MarqueeBenchmark {
         StartupTimingMetric(),
         FrameTimingMetric(),
         if (includePower) PowerMetric(type = PowerMetric.Type.Battery()) else null,
-        CompositionMetric("androidx.compose.foundation.Canvas")
+        if (arguments.getBoolean("androidx.benchmark.fullTracing.enable")) {
+            CompositionMetric("androidx.compose.foundation.Canvas")
+        } else {
+            null
+        }
     )
+
+    companion object {
+        val intro = buildMediaItem(
+            "1",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
+            "Intro - The Way Of Waking Up (feat. Alan Watts)",
+            "The Kyoto Connection"
+        )
+    }
 }

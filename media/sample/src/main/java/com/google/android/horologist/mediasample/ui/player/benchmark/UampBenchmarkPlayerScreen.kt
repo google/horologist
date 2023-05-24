@@ -16,15 +16,16 @@
 
 package com.google.android.horologist.mediasample.ui.player.benchmark
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
-import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
 import com.google.android.horologist.media.ui.components.display.TextMediaDisplay
 import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenControlButtons
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
@@ -122,10 +123,7 @@ fun UampBenchmarkPlayerScreen(
                     Color.Yellow.copy(alpha = 0.3f),
                     Color.Transparent
                 )
-                BackgroundConfig.Flat -> RadialBackground(
-                    Color.DarkGray,
-                    Color.Black
-                )
+                BackgroundConfig.Flat -> Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
                 BackgroundConfig.Hidden -> {}
             }
         }

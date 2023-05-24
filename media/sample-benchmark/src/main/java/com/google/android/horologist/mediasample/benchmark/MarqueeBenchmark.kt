@@ -141,6 +141,26 @@ class MarqueeBenchmark {
         )
     }
 
+    @Test
+    public fun compareOnlyMarquee() {
+        measurePlayerScreen(
+            List(2) {
+                intro.copy(artist = "Marquee-Hidden-Hidden-Hidden") // no other buttons
+            },
+            playback = false
+        )
+    }
+
+    @Test
+    public fun compareNoBackground() {
+        measurePlayerScreen(
+            List(2) {
+                intro.copy(artist = "Marquee-Animated-Hidden-Shown") // no other buttons
+            },
+            playback = false
+        )
+    }
+
     private fun MediaItem.copy(artist: String? = null, title: String? = null) =
         buildUpon().setMediaMetadata(
             mediaMetadata.buildUpon()

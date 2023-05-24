@@ -19,7 +19,6 @@ package com.google.android.horologist.media.data.repository
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import androidx.media3.common.Player.*
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
@@ -85,16 +84,16 @@ public class PlayerRepositoryImpl(
     private var _seekForwardIncrement = MutableStateFlow<Duration?>(null)
     override val seekForwardIncrement: StateFlow<Duration?> get() = _seekForwardIncrement
 
-    private val listener = object : Listener {
+    private val listener = object : Player.Listener {
         private val eventHandlers = mapOf(
-            EVENT_AVAILABLE_COMMANDS_CHANGED to ::updateAvailableCommands,
-            EVENT_MEDIA_ITEM_TRANSITION to ::updateCurrentMedia,
-            EVENT_SHUFFLE_MODE_ENABLED_CHANGED to ::updateShuffleMode,
-            EVENT_PLAYBACK_PARAMETERS_CHANGED to { updatePlaybackState(it, Cause.ParametersChanged) },
-            EVENT_POSITION_DISCONTINUITY to { updatePlaybackState(it, Cause.PositionDiscontinuity) },
-            EVENT_SEEK_BACK_INCREMENT_CHANGED to ::updateSeekBackIncrement,
-            EVENT_SEEK_FORWARD_INCREMENT_CHANGED to ::updateSeekForwardIncrement,
-            EVENT_MEDIA_METADATA_CHANGED to ::updateCurrentMedia,
+            Player.EVENT_AVAILABLE_COMMANDS_CHANGED to ::updateAvailableCommands,
+            Player.EVENT_MEDIA_ITEM_TRANSITION to ::updateCurrentMedia,
+            Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED to ::updateShuffleMode,
+            Player.EVENT_PLAYBACK_PARAMETERS_CHANGED to { updatePlaybackState(it, Cause.ParametersChanged) },
+            Player.EVENT_POSITION_DISCONTINUITY to { updatePlaybackState(it, Cause.PositionDiscontinuity) },
+            Player.EVENT_SEEK_BACK_INCREMENT_CHANGED to ::updateSeekBackIncrement,
+            Player.EVENT_SEEK_FORWARD_INCREMENT_CHANGED to ::updateSeekForwardIncrement,
+            Player.EVENT_MEDIA_METADATA_CHANGED to ::updateCurrentMedia,
 
             // Reason for handling these events here, instead of using individual callbacks
             // (onIsLoadingChanged, onIsPlayingChanged, onPlaybackStateChanged, etc):
@@ -102,13 +101,13 @@ public class PlayerRepositoryImpl(
             //   separate callbacks together, or in combination with Player getter methods
             // Reference:
             // https://exoplayer.dev/listening-to-player-events.html#individual-callbacks-vs-onevents
-            EVENT_IS_PLAYING_CHANGED to ::updateState,
-            EVENT_PLAYBACK_STATE_CHANGED to ::updateState,
-            EVENT_PLAY_WHEN_READY_CHANGED to ::updateState,
-            EVENT_TIMELINE_CHANGED to ::updateState
+            Player.EVENT_IS_PLAYING_CHANGED to ::updateState,
+            Player.EVENT_PLAYBACK_STATE_CHANGED to ::updateState,
+            Player.EVENT_PLAY_WHEN_READY_CHANGED to ::updateState,
+            Player.EVENT_TIMELINE_CHANGED to ::updateState
         )
 
-        override fun onEvents(player: Player, events: Events) {
+        override fun onEvents(player: Player, events: Player.Events) {
             val called = mutableSetOf<(Player) -> Unit>()
             for ((event, handler) in eventHandlers) {
                 if (events.contains(event) && !called.contains(handler)) {
@@ -199,9 +198,9 @@ public class PlayerRepositoryImpl(
         checkNotClosed()
         _player.value?.let {
             when (it.playbackState) {
-                STATE_IDLE -> it.prepare()
-                STATE_ENDED -> it.seekTo(it.currentMediaItemIndex, C.TIME_UNSET)
-                STATE_BUFFERING, STATE_READY -> {}
+                Player.STATE_IDLE -> it.prepare()
+                Player.STATE_ENDED -> it.seekTo(it.currentMediaItemIndex, C.TIME_UNSET)
+                Player.STATE_BUFFERING, Player.STATE_READY -> {}
             }
             it.play()
         }

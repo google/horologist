@@ -14,25 +14,35 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.test.toolbox
+package com.google.android.horologist.composables
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import kotlinx.coroutines.launch
 
 @Composable
 fun positionedState(
-    topIndex: Int,
-    topScrollOffset: Int
+    topIndex: Int = 0,
+    topScrollOffset: Int? = null
 ): ScalingLazyColumnState {
     val configuration = LocalConfiguration.current
-    val screenHeight = with (LocalDensity.current) {
-        configuration.screenHeightDp.dp.roundToPx()
+    val density = LocalDensity.current
+    val initialOffset = with (density) {
+        val screenHeight = configuration.screenHeightDp.dp.roundToPx()
+        (screenHeight / 2) + (topScrollOffset ?: (-32).dp.roundToPx())
     }
-    val initialOffset = -(screenHeight / 2) + topScrollOffset
-    return ScalingLazyColumnDefaults.scalingLazyColumnDefaults(initialCenterIndex = topIndex, initialCenterOffset = initialOffset, anchorType = ScalingLazyListAnchorType.ItemStart).create()
+
+    val coroutineScope = rememberCoroutineScope()
+
+    return ScalingLazyColumnDefaults.belowTimeText().create().apply {
+        coroutineScope.launch {
+            state.scrollToItem(topIndex, initialOffset)
+        }
+    }
 }

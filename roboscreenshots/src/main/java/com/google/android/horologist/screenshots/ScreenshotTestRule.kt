@@ -281,7 +281,7 @@ public class ScreenshotTestRule(
             public var enableA11y: Boolean = false
             public var screenTimeText: @Composable () -> Unit = defaultScreenTimeText()
             public var testLabel: String? = null
-            public var record: Boolean = true
+            public var record: Boolean = false
 
             public fun build(): ScreenshotTestRuleParams {
                 if (enableA11y) {

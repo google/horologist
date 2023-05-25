@@ -25,7 +25,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun positionedState(
     topIndex: Int = 0,

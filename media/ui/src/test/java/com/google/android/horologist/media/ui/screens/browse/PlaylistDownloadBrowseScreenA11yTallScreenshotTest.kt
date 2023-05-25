@@ -19,11 +19,11 @@
 package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.wear.compose.foundation.lazy.ScalingParams
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
+import com.google.android.horologist.media.ui.components.positionedState
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import org.robolectric.annotation.Config
 
@@ -31,7 +31,10 @@ import org.robolectric.annotation.Config
     sdk = [30],
     qualifiers = "w227dp-h400dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
 )
-class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : ScreenshotBaseTest() {
+class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
+    }
+) {
 
     @Test
     fun browseScreen() {
@@ -43,12 +46,10 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : ScreenshotBaseTest() 
                     edgeScale = 1f,
                     edgeAlpha = 1f
                 )
-            val columnState: ScalingLazyColumnState = ScalingLazyColumnDefaults.belowTimeText()
-                .create()
+            val columnState: ScalingLazyColumnState = positionedState()
                 .copy(scalingParams = scalingParams)
-            columnState.state.forceState(0, 0)
 
-            PlayerLibraryPreview(state = columnState.state, round = false) {
+            PlayerLibraryPreview(columnState = columnState, round = false) {
                 PlaylistDownloadBrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },

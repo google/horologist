@@ -21,7 +21,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import kotlinx.coroutines.launch
@@ -33,7 +32,7 @@ fun positionedState(
 ): ScalingLazyColumnState {
     val configuration = LocalConfiguration.current
     val density = LocalDensity.current
-    val initialOffset = with (density) {
+    val initialOffset = with(density) {
         val screenHeight = configuration.screenHeightDp.dp.roundToPx()
         (screenHeight / 2) + (topScrollOffset ?: (-32).dp.roundToPx())
     }

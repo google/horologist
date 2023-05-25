@@ -32,7 +32,7 @@ fun positionedState(
 ): ScalingLazyColumnState {
     val configuration = LocalConfiguration.current
     val density = LocalDensity.current
-    val initialOffset = with (density) {
+    val initialOffset = with(density) {
         val screenHeight = configuration.screenHeightDp.dp.roundToPx()
         (screenHeight / 2) + (topScrollOffset ?: (-32).dp.roundToPx())
     }

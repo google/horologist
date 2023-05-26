@@ -18,6 +18,7 @@ package com.google.android.horologist.compose.tools.coil
 
 import android.content.Context
 import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import coil.Coil
 import coil.ComponentRegistry
 import coil.ImageLoader
@@ -86,7 +87,7 @@ public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> Imag
 
         public fun Fixed(@DrawableRes resId: Int): FakeImageLoader =
             FakeImageLoader { request ->
-                val drawable = request.context.getDrawable(resId)!!
+                val drawable = ContextCompat.getDrawable(request.context, resId)!!
                 SuccessResult(drawable, request, DataSource.DISK)
             }
 
@@ -95,7 +96,7 @@ public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> Imag
             request: ImageRequest,
             @DrawableRes id: Int
         ): ImageResult {
-            val drawable = context.getDrawable(id)!!
+            val drawable = ContextCompat.getDrawable(context, id)!!
             return SuccessResult(
                 drawable = drawable,
                 request = request,

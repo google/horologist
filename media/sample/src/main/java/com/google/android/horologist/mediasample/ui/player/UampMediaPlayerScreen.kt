@@ -54,7 +54,6 @@ fun UampMediaPlayerScreen(
                 AnimatedMediaInfoDisplay(
                     media = playerUiState.media,
                     loading = !playerUiState.connected || playerUiState.media?.loading == true,
-                    modifier = modifier
                 )
             } else {
                 DefaultMediaInfoDisplay(playerUiState)

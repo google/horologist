@@ -72,6 +72,23 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".benchmark.MediaPlayerBenchmarkActivity"
+            android:exported="true"
+            android:label="@string/benchy"
+            android:theme="@android:style/Theme.DeviceDefault"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="com.google.android.horologist.mediasample.BENCHMARK" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".data.service.playback.PlaybackService"
             android:exported="true"

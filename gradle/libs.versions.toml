@@ -104,6 +104,7 @@ androidx-mediarouter = "androidx.mediarouter:mediarouter:1.4.0"
 androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0-alpha04"
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigation" }
+androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidxNavigation" }
 androidx-paging = "androidx.paging:paging-compose:1.0.0-alpha20"
 androidx-palette-ktx = "androidx.palette:palette-ktx:1.0.0"
 androidx-runtime-tracing = { module = "androidx.compose.runtime:runtime-tracing", version.ref = "runtimeTracing" }

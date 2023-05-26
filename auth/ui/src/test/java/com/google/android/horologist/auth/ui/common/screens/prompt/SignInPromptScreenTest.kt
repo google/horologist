@@ -46,7 +46,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState(0, 0)
+                columnState = positionedState()
             ) {
                 testContent()
             }
@@ -62,7 +62,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState(0, 0)
+                columnState = positionedState()
             ) {
                 testContent()
             }
@@ -99,7 +99,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState(0, 0)
+                columnState = positionedState()
             ) {
                 testContent()
             }
@@ -115,7 +115,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState(0, 0)
+                columnState = positionedState()
             ) {
                 testContent()
             }
@@ -136,7 +136,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState(0, 0)
+                columnState = positionedState(0, -64)
             ) {
                 testContent()
             }

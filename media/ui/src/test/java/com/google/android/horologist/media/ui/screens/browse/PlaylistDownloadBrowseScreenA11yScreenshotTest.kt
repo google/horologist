@@ -22,10 +22,14 @@ import com.google.android.horologist.media.ui.components.positionedState
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import org.junit.Ignore
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 
-class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest() {
+class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
+        enableA11y = true
+    }
+) {
 
     @Test
     fun browseScreen() {
@@ -34,7 +38,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             val columnState = positionedState(0, -40)
 
-            PlayerLibraryPreview(state = columnState.state) {
+            PlayerLibraryPreview(columnState = columnState) {
                 PlaylistDownloadBrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },
@@ -48,7 +52,6 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest() {
         }
     }
 
-    @Ignore("Failing with RNG")
     @Test
     fun secondPage() {
         FakeImageLoader.NotFound.override {
@@ -56,7 +59,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest() {
 
             screenshotTestRule.setContent(takeScreenshot = true) {
                 val columnState = positionedState(4, 0)
-                PlayerLibraryPreview(state = columnState.state) {
+                PlayerLibraryPreview(columnState = columnState) {
                     PlaylistDownloadBrowseScreen(
                         browseScreenState = screenState,
                         onDownloadItemClick = { },

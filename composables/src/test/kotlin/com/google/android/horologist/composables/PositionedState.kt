@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.test.toolbox
+package com.google.android.horologist.composables
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope

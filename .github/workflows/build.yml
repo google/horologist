@@ -121,6 +121,7 @@ jobs:
 
       - name: Dependencies analysis
         uses: gradle/gradle-build-action@v2
+        if: ${{ false }} # Disabled until -android supported https://github.com/google/horologist/issues/1314
         with:
           arguments: --stacktrace
             projectHealth

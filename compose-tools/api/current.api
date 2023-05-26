@@ -80,10 +80,6 @@ package com.google.android.horologist.compose.tools {
 
 package com.google.android.horologist.compose.tools.a11y {
 
-  public final class ForceStateKt {
-    method public static void forceState(androidx.wear.compose.foundation.lazy.ScalingLazyListState, int topIndex, int topScrollOffset);
-  }
-
   public final class TallPreviewKt {
     method @androidx.compose.runtime.Composable public static void TallPreview(int width, int height, kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.ScalingParams,kotlin.Unit> function);
   }

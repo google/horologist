@@ -286,7 +286,9 @@ private fun CircularProgressIndicatorFast(
             .focusable()
     ) {
         val backgroundSweep = 360f - ((startAngle - endAngle) % 360 + 360) % 360
-        val progressSweep = backgroundSweep * truncatedProgress.coerceIn(0f..1f)
+        // Coerce the progress, avoiding rounding to 0 so that the progress bar does not disappear.
+        val progressSweep =
+            backgroundSweep * (if (progress.value == 0f) 0f else truncatedProgress.coerceIn(0.001f..1f))
         // Draw a background
         drawCircularIndicator(
             startAngle,

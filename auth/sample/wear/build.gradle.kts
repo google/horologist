@@ -79,6 +79,13 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+        animationsDisabled = true
+    }
+
     namespace = "com.google.android.horologist.auth.sample"
 }
 
@@ -120,6 +127,14 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
+
+    testImplementation(libs.androidx.navigation.testing)
+    testImplementation(libs.androidx.test.espressocore)
+    testImplementation(libs.compose.ui.test)
+    testImplementation(libs.compose.ui.test.junit4)
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.robolectric)
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10") {

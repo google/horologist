@@ -320,13 +320,14 @@ private fun CircularProgressIndicatorFast(
     }
 }
 
-/** Rounds the progress to avoid producing too many UI updates. */
 private fun roundProgress(progress: Float, progressSteps: Int) = if (progress == 0f) {
     0f
 } else {
-    (floor(
-        progress * progressSteps
-    ) / progressSteps).coerceIn(0.001f..1f)
+    (
+        floor(
+            progress * progressSteps
+        ) / progressSteps
+        ).coerceIn(0.001f..1f)
 }
 
 private fun DrawScope.drawCircularIndicator(

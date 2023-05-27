@@ -77,6 +77,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlin.math.floor
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 @Composable
 public fun AnimatedPlayPauseButton(
@@ -271,10 +272,24 @@ private fun CircularProgressIndicatorFast(
     tapTargetSize: DpSize
 ) {
     val progressSteps = with(LocalDensity.current) {
-        tapTargetSize.width.toPx() * Math.PI
+        (tapTargetSize.width.toPx() * Math.PI).roundToInt()
     }
-    val truncatedProgress by remember { derivedStateOf { (floor(progress.value * progressSteps) / progressSteps).toFloat() } }
-    val semanticsProgress by remember { derivedStateOf { (floor(progress.value * 100) / 100) } }
+    val truncatedProgress by remember {
+        derivedStateOf {
+            roundProgress(
+                progress = progress.value,
+                progressSteps = progressSteps
+            )
+        }
+    }
+    val semanticsProgress by remember {
+        derivedStateOf {
+            roundProgress(
+                progress = progress.value,
+                progressSteps = 100
+            )
+        }
+    }
 
     val stroke = with(LocalDensity.current) {
         Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round)
@@ -286,7 +301,7 @@ private fun CircularProgressIndicatorFast(
             .focusable()
     ) {
         val backgroundSweep = 360f - ((startAngle - endAngle) % 360 + 360) % 360
-        val progressSweep = backgroundSweep * truncatedProgress.coerceIn(0f..1f)
+        val progressSweep = backgroundSweep * truncatedProgress
         // Draw a background
         drawCircularIndicator(
             startAngle,
@@ -303,6 +318,16 @@ private fun CircularProgressIndicatorFast(
             stroke
         )
     }
+}
+
+private fun roundProgress(progress: Float, progressSteps: Int) = if (progress == 0f) {
+    0f
+} else {
+    (
+        floor(
+            progress * progressSteps
+        ) / progressSteps
+        ).coerceIn(0.001f..1f)
 }
 
 private fun DrawScope.drawCircularIndicator(

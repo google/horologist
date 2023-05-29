@@ -89,18 +89,6 @@ package com.google.android.horologist.base.ui.components {
 
 }
 
-package com.google.android.horologist.base.ui.semantics {
-
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class CustomSemanticsProperties {
-    method public androidx.compose.ui.graphics.vector.ImageVector getIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver);
-    method public androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> getIconImageVectorKey();
-    method public void setIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver, androidx.compose.ui.graphics.vector.ImageVector);
-    property public final androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> IconImageVectorKey;
-    field public static final com.google.android.horologist.base.ui.semantics.CustomSemanticsProperties INSTANCE;
-  }
-
-}
-
 package com.google.android.horologist.base.ui.util {
 
   public final class A11yKt {

@@ -31,7 +31,6 @@ import androidx.wear.compose.material.ToggleButton
 import androidx.wear.compose.material.ToggleButtonColors
 import androidx.wear.compose.material.ToggleButtonDefaults.toggleButtonColors
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.base.ui.semantics.CustomSemanticsProperties.iconImageVector
 import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.media.ui.R
 
@@ -65,8 +64,7 @@ public fun ShuffleToggleButton(
         val icon = if (shuffleOn) Icons.Default.ShuffleOn else Icons.Default.Shuffle
         Icon(
             imageVector = icon,
-            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-            modifier = Modifier.semantics { iconImageVector = icon }
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
         )
     }
 }

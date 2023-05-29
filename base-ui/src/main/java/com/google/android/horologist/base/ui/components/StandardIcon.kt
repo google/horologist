@@ -21,10 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.Icon
-import com.google.android.horologist.base.ui.semantics.CustomSemanticsProperties.iconImageVector
 
 @Composable
 public fun StandardIcon(
@@ -37,7 +35,6 @@ public fun StandardIcon(
         rtlMode == IconRtlMode.Mirrored && LocalLayoutDirection.current == LayoutDirection.Rtl
     Icon(
         modifier = modifier
-            .semantics { iconImageVector = imageVector }
             .scale(
                 scaleX = if (shouldMirror) -1f else 1f,
                 scaleY = 1f

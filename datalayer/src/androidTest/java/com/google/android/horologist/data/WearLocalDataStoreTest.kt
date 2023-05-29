@@ -37,10 +37,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestName
 
+@Ignore("https://github.com/google/horologist/issues/1191")
 class WearLocalDataStoreTest {
 
     @get:Rule

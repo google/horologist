@@ -21,6 +21,7 @@ plugins {
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
 }
 
@@ -90,33 +91,56 @@ metalava {
 dependencies {
     api(projects.annotations)
 
+    api(libs.androidx.lifecycle.common)
+    api(libs.androidx.lifecycle.viewmodel)
+    api(libs.androidx.lifecycle.viewmodel.savedstate)
+    api(libs.androidx.navigation.common)
+    api(libs.androidx.navigation.runtime)
+    api(libs.androidx.paging)
+    api(libs.compose.foundation.foundation)
+    api(libs.compose.foundation.foundation.layout)
+    api(libs.compose.runtime)
+    api(libs.compose.ui)
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
     api(libs.wearcompose.navigation)
 
-    api(libs.androidx.lifecycle.runtime.compose)
-    api(libs.androidx.paging)
-
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.compose.ui.tooling)
-    implementation(libs.compose.ui.util)
-    implementation(libs.androidx.wear)
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.compose.ui.toolingpreview)
+    implementation(libs.compose.animation)
+    implementation(libs.compose.runtime.saveable)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.text)
+    implementation(libs.compose.ui.unit)
+    implementation(libs.compose.ui.util)
+    implementation(libs.kotlin.stdlib)
 
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.navigation.ui.ktx)
+    debugApi(libs.kotlinx.coroutines.core)
+    debugApi(libs.wearcompose.tooling)
 
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(projects.composeTools)
-    debugImplementation(libs.androidx.activity.compose)
-    debugImplementation(libs.compose.ui.test.manifest)
+    debugRuntimeOnly(libs.compose.ui.test.manifest)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
+    releaseApi(libs.kotlinx.coroutines.core)
+
+    testImplementation(libs.androidx.test.runner)
+    testImplementation(libs.compose.ui.geometry)
     testImplementation(libs.compose.ui.test.junit4)
-    testImplementation(libs.espresso.core)
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
+    testImplementation(libs.robolectric.annotations)
+    testImplementation(libs.truth)
+}
+
+dependencyAnalysis {
+    issues {
+        onAny {
+            severity("fail")
+            exclude(":annotations") // bug: reported as unused
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

@@ -112,6 +112,7 @@ dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodelktx)
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)

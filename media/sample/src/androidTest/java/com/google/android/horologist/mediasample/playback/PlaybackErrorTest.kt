@@ -25,8 +25,7 @@ import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -38,28 +37,26 @@ class PlaybackErrorTest : BasePlaybackTest() {
     private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
 
     @Test
-    fun testFailingItem() = runTest {
-        withContext(Dispatchers.Main) {
-            val browser = browser()
+    fun testFailingItem() = runBlocking(Dispatchers.Main) {
+        val browser = browser()
 
-            val badContent = Media(
-                "1",
-                "milkjawn",
-                "milkjawn",
-                "Milk Jawn",
-                "https://cdn.player.fm/images/14416069/series/stoRUvKcFOzInZ1X/512.jpg"
-            )
+        val badContent = Media(
+            "1",
+            "milkjawn",
+            "milkjawn",
+            "Milk Jawn",
+            "https://cdn.player.fm/images/14416069/series/stoRUvKcFOzInZ1X/512.jpg"
+        )
 
-            browser.setMediaItem(
-                mediaItemMapper.map(badContent)
-            )
-            browser.prepare()
-            browser.play()
+        browser.setMediaItem(
+            mediaItemMapper.map(badContent)
+        )
+        browser.prepare()
+        browser.play()
 
-            // allow for async operations
-            delay(5000)
+        // allow for async operations
+        delay(5000)
 
-            assertThat(browser.isPlaying).isFalse()
-        }
+        assertThat(browser.isPlaying).isFalse()
     }
 }

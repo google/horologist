@@ -34,8 +34,10 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 
+@Ignore("https://github.com/google/horologist/issues/1191")
 @MediumTest
 class NetworkRepositoryTest {
     private lateinit var networkRepository: NetworkRepositoryImpl

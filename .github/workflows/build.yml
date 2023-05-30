@@ -48,14 +48,11 @@ jobs:
             **/out/*
 
   compiletests:
-    runs-on: macos-latest
-    timeout-minutes: 50
+    # Skip build if head commit contains 'skip ci'
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
 
-    strategy:
-      # Allow tests to continue on other devices if they fail on one device.
-      fail-fast: false
-      matrix:
-        api-level: [ 30 ]
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
 
     env:
       TERM: dumb

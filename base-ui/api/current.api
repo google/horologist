@@ -6,6 +6,18 @@ package com.google.android.horologist.base.ui {
 
 }
 
+package com.google.android.horologist.base.ui.common {
+
+  public enum StandardToggleChipToggleControl {
+    method public static com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl[] values();
+    enum_constant public static final com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl Checkbox;
+    enum_constant public static final com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl Radio;
+    enum_constant public static final com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl Switch;
+  }
+
+}
+
 package com.google.android.horologist.base.ui.components {
 
   public final class AlertDialogKt {
@@ -70,16 +82,12 @@ package com.google.android.horologist.base.ui.components {
     method @androidx.compose.runtime.Composable public static void StandardIcon(androidx.compose.ui.graphics.vector.ImageVector imageVector, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.base.ui.components.IconRtlMode rtlMode);
   }
 
-  public final class StandardToggleChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, com.google.android.horologist.base.ui.components.StandardToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector? icon, optional String? secondaryLabel, optional androidx.wear.compose.material.ToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource);
+  public final class StandardSplitToggleChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardSplitToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional androidx.wear.compose.material.SplitToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource checkedInteractionSource, optional androidx.compose.foundation.interaction.MutableInteractionSource clickInteractionSource);
   }
 
-  public enum StandardToggleChipToggleControl {
-    method public static com.google.android.horologist.base.ui.components.StandardToggleChipToggleControl valueOf(String name) throws java.lang.IllegalArgumentException;
-    method public static com.google.android.horologist.base.ui.components.StandardToggleChipToggleControl[] values();
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardToggleChipToggleControl Checkbox;
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardToggleChipToggleControl Radio;
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardToggleChipToggleControl Switch;
+  public final class StandardToggleChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector? icon, optional String? secondaryLabel, optional androidx.wear.compose.material.ToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource);
   }
 
   public final class TitleKt {

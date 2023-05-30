@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl
 import com.google.android.horologist.base.ui.utils.FontScaleUtils.largestFontScale
 
 @Preview(

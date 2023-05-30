@@ -17,4 +17,7 @@
 <resources>
     <string description="Content description of the StandardToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_standard_toggle_chip_on_content_description">On</string>
     <string description="Content description of the StandardToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_standard_toggle_chip_off_content_description">Off</string>
+
+    <string description="Content description of the StandardSplitToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_standard_split_toggle_chip_on_content_description">On</string>
+    <string description="Content description of the StandardSplitToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_standard_split_toggle_chip_off_content_description">Off</string>
 </resources>

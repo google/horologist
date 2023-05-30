@@ -22,6 +22,7 @@ import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.testharness.TestHarness
+import com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 

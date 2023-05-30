@@ -27,9 +27,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@Ignore("https://github.com/google/horologist/issues/1191")
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 @HiltAndroidTest

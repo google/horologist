@@ -6,10 +6,11 @@ on:
       - main
     paths-ignore:
       - '**.md'
+  pull_request: # TODO: REMOVE BEFORE MERGING
   workflow_dispatch:
 
 jobs:
-  test:
+  smalltest:
     runs-on: macos-latest
     timeout-minutes: 50
 
@@ -42,7 +43,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Run tests
+      - name: Run small tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
@@ -51,7 +52,7 @@ jobs:
           channel: beta
           arch: ${{ matrix.api-level == 33 && 'x86_64' || 'x86' }}
           emulator-options: -no-window -no-snapshot
-          script: ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Microbenchmark -x media:benchmark:connectedDebugAndroidTest
+          script: ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=androidx.test.filters.LargeTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=androidx.test.filters.MediumTest
 
       - name: Upload logs
         if: always()
@@ -69,3 +70,125 @@ jobs:
             **/build/reports/*
             **/build/outputs/*/connected/*
             **/out/failures/
+
+  mediumlargetest:
+    runs-on: macos-latest
+    timeout-minutes: 50
+
+    strategy:
+      # Allow tests to continue on other devices if they fail on one device.
+      fail-fast: false
+      matrix:
+        api-level: [ 30, 33 ]
+
+    env:
+      TERM: dumb
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          lfs: 'true'
+
+      - name: Install pulseaudio
+        run: brew install pulseaudio
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Run medium and large tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: android-wear
+          profile: wearos_large_round
+          channel: beta
+          arch: ${{ matrix.api-level == 33 && 'x86_64' || 'x86' }}
+          emulator-options: -no-window -no-snapshot
+          script: ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.annotation=androidx.test.filters.LargeTest -Pandroid.testInstrumentationRunnerArguments.annotation=androidx.test.filters.MediumTest
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs-${{ matrix.api-level }}-${{ matrix.shard }}
+          path: logcat.txt
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results-${{ matrix.api-level }}-${{ matrix.shard }}
+          path: |
+            **/build/reports/*
+            **/build/outputs/*/connected/*
+            **/out/failures/
+
+  benchmarktest:
+    runs-on: macos-latest
+    timeout-minutes: 50
+
+    strategy:
+      # Allow tests to continue on other devices if they fail on one device.
+      fail-fast: false
+      matrix:
+        api-level: [ 30, 33 ]
+
+    env:
+      TERM: dumb
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          lfs: 'true'
+
+      - name: Install pulseaudio
+        run: brew install pulseaudio
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Run benchmark tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: android-wear
+          profile: wearos_large_round
+          channel: beta
+          arch: ${{ matrix.api-level == 33 && 'x86_64' || 'x86' }}
+          emulator-options: -no-window -no-snapshot
+          script: ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.annotation=com.google.android.horologist.media.benchmark.BenchmarkTest -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Microbenchmark -x media:benchmark:connectedDebugAndroidTest
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs-${{ matrix.api-level }}-${{ matrix.shard }}
+          path: logcat.txt
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results-${{ matrix.api-level }}-${{ matrix.shard }}
+          path: |
+            **/build/reports/*
+            **/build/outputs/*/connected/*
+            **/out/failures/            

@@ -45,6 +45,7 @@ jobs:
           path: |
             **/build/test-results/*
             **/build/reports/*
+            **/out/*
 
   compiletests:
     runs-on: macos-latest

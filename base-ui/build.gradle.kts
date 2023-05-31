@@ -103,6 +103,7 @@ dependencies {
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
 
+    implementation(projects.composeMaterial)
     implementation(libs.androidx.annotation)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.ui.text)

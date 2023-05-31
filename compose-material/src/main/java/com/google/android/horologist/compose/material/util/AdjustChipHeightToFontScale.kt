@@ -20,8 +20,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /** Adjusts height of the chip as per the font scale. */
+@ExperimentalHorologistApi
 public fun Modifier.adjustChipHeightToFontScale(fontScale: Float, padding: Dp = 0.dp): Modifier =
     if (fontScale > 1.06) {
         this.then(Modifier.height(60.dp + padding))

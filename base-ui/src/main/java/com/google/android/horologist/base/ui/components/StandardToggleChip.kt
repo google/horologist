@@ -17,38 +17,28 @@
 package com.google.android.horologist.base.ui.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipColors
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.base.ui.R
-import com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl
-import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-import com.google.android.horologist.base.ui.util.adjustChipHeightToFontScale
+import com.google.android.horologist.compose.material.ToggleChip
+import com.google.android.horologist.compose.material.ToggleChipToggleControl
 
 /**
  * This composable fulfils the redlines of the following components:
  * - Toggle chips
  */
+@Suppress("DEPRECATION")
+@Deprecated(
+    "Replaced by ToggleChip in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "ToggleChip",
+        "com.google.android.horologist.compose.material.ToggleChip"
+    )
+)
 @ExperimentalHorologistApi
 @Composable
 public fun StandardToggleChip(
@@ -63,78 +53,32 @@ public fun StandardToggleChip(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    val hasSecondaryLabel = secondaryLabel != null
-
-    val labelParam: (@Composable RowScope.() -> Unit) =
-        {
-            Text(
-                text = label,
-                color = MaterialTheme.colors.onSurface,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Left,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = if (hasSecondaryLabel) 1 else 2,
-                style = MaterialTheme.typography.button
-            )
-        }
-
-    val secondaryLabelParam: (@Composable RowScope.() -> Unit)? =
-        secondaryLabel?.let {
-            {
-                Text(
-                    text = secondaryLabel,
-                    color = MaterialTheme.colors.onSurfaceVariant,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.caption2
-                )
-            }
-        }
-
-    val toggleControlParam: (@Composable () -> Unit) = {
-        Icon(
-            imageVector = when (toggleControl) {
-                StandardToggleChipToggleControl.Switch -> ToggleChipDefaults.switchIcon(checked)
-                StandardToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
-                StandardToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
-            },
-            contentDescription = stringResource(
-                if (checked) {
-                    R.string.horologist_standard_toggle_chip_on_content_description
-                } else {
-                    R.string.horologist_standard_toggle_chip_off_content_description
-                }
-            )
-        )
-    }
-
-    val iconParam: (@Composable BoxScope.() -> Unit)? =
-        icon?.let {
-            {
-                Row {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                        modifier = Modifier
-                            .size(ChipDefaults.IconSize)
-                            .clip(CircleShape)
-                    )
-                }
-            }
-        }
-
     ToggleChip(
         checked = checked,
-        onCheckedChange = onCheckedChanged,
-        label = labelParam,
-        toggleControl = toggleControlParam,
-        modifier = modifier
-            .adjustChipHeightToFontScale(LocalConfiguration.current.fontScale)
-            .fillMaxWidth(),
-        appIcon = iconParam,
-        secondaryLabel = secondaryLabelParam,
+        onCheckedChanged = onCheckedChanged,
+        label = label,
+        toggleControl = when (toggleControl) {
+            StandardToggleChipToggleControl.Switch -> ToggleChipToggleControl.Switch
+            StandardToggleChipToggleControl.Radio -> ToggleChipToggleControl.Radio
+            StandardToggleChipToggleControl.Checkbox -> ToggleChipToggleControl.Checkbox
+        },
+        modifier = modifier,
+        icon = icon,
+        secondaryLabel = secondaryLabel,
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource
     )
+}
+
+@Deprecated(
+    "Replaced by ToggleChipToggleControl in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "ToggleChipToggleControl",
+        "com.google.android.horologist.compose.material.ToggleChipToggleControl"
+    )
+)
+@ExperimentalHorologistApi
+public enum class StandardToggleChipToggleControl {
+    Switch, Radio, Checkbox
 }

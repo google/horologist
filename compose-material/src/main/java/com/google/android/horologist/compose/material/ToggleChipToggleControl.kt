@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.compose.material
 
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
+
+@ExperimentalHorologistApi
 public enum class ToggleChipToggleControl {
     Switch, Radio, Checkbox
 }

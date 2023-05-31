@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.common
+package com.google.android.horologist.compose.material.util
 
-public enum class StandardToggleChipToggleControl {
-    Switch, Radio, Checkbox
-}
+/**
+ * Make explicit that a conscious decision was made to mark an element as decorative, so it does not
+ * have associated actions or state.
+ *
+ * https://developer.android.com/jetpack/compose/accessibility#describe-visual
+ */
+public val DECORATIVE_ELEMENT_CONTENT_DESCRIPTION: String? = null

@@ -5,7 +5,11 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SplitToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.compose.material.ToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional androidx.wear.compose.material.SplitToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource checkedInteractionSource, optional androidx.compose.foundation.interaction.MutableInteractionSource clickInteractionSource);
   }
 
-  public enum ToggleChipToggleControl {
+  public final class ToggleChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, com.google.android.horologist.compose.material.ToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector? icon, optional String? secondaryLabel, optional androidx.wear.compose.material.ToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource);
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum ToggleChipToggleControl {
     method public static com.google.android.horologist.compose.material.ToggleChipToggleControl valueOf(String name) throws java.lang.IllegalArgumentException;
     method public static com.google.android.horologist.compose.material.ToggleChipToggleControl[] values();
     enum_constant public static final com.google.android.horologist.compose.material.ToggleChipToggleControl Checkbox;
@@ -17,8 +21,13 @@ package com.google.android.horologist.compose.material {
 
 package com.google.android.horologist.compose.material.util {
 
+  public final class A11yKt {
+    method public static String? getDECORATIVE_ELEMENT_CONTENT_DESCRIPTION();
+    property public static final String? DECORATIVE_ELEMENT_CONTENT_DESCRIPTION;
+  }
+
   public final class AdjustChipHeightToFontScaleKt {
-    method public static androidx.compose.ui.Modifier adjustChipHeightToFontScale(androidx.compose.ui.Modifier, float fontScale, optional float padding);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier adjustChipHeightToFontScale(androidx.compose.ui.Modifier, float fontScale, optional float padding);
   }
 
 }

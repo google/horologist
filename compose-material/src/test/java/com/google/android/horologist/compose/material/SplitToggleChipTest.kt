@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import com.google.accompanist.testharness.TestHarness
-import com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class StandardSplitToggleChipTest : ScreenshotBaseTest() {
+class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun switch() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardSplitToggleChip(
+            SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label",
                 onClick = { },
-                toggleControl = StandardToggleChipToggleControl.Switch
+                toggleControl = ToggleChipToggleControl.Switch
             )
         }
     }
@@ -39,12 +38,12 @@ class StandardSplitToggleChipTest : ScreenshotBaseTest() {
     @Test
     fun radio() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardSplitToggleChip(
+            SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label",
                 onClick = { },
-                toggleControl = StandardToggleChipToggleControl.Radio
+                toggleControl = ToggleChipToggleControl.Radio
             )
         }
     }
@@ -52,12 +51,12 @@ class StandardSplitToggleChipTest : ScreenshotBaseTest() {
     @Test
     fun checkbox() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardSplitToggleChip(
+            SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label",
                 onClick = { },
-                toggleControl = StandardToggleChipToggleControl.Checkbox
+                toggleControl = ToggleChipToggleControl.Checkbox
             )
         }
     }
@@ -65,12 +64,12 @@ class StandardSplitToggleChipTest : ScreenshotBaseTest() {
     @Test
     fun unchecked() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardSplitToggleChip(
+            SplitToggleChip(
                 checked = false,
                 onCheckedChanged = { },
                 label = "Primary label",
                 onClick = { },
-                toggleControl = StandardToggleChipToggleControl.Switch
+                toggleControl = ToggleChipToggleControl.Switch
             )
         }
     }
@@ -78,12 +77,12 @@ class StandardSplitToggleChipTest : ScreenshotBaseTest() {
     @Test
     fun withSecondaryLabel() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardSplitToggleChip(
+            SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label",
                 onClick = { },
-                toggleControl = StandardToggleChipToggleControl.Switch,
+                toggleControl = ToggleChipToggleControl.Switch,
                 secondaryLabel = "Secondary label"
             )
         }
@@ -92,12 +91,12 @@ class StandardSplitToggleChipTest : ScreenshotBaseTest() {
     @Test
     fun disabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardSplitToggleChip(
+            SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label",
                 onClick = { },
-                toggleControl = StandardToggleChipToggleControl.Switch,
+                toggleControl = ToggleChipToggleControl.Switch,
                 enabled = false
             )
         }
@@ -106,12 +105,12 @@ class StandardSplitToggleChipTest : ScreenshotBaseTest() {
     @Test
     fun uncheckedAndDisabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardSplitToggleChip(
+            SplitToggleChip(
                 checked = false,
                 onCheckedChanged = { },
                 label = "Primary label",
                 onClick = { },
-                toggleControl = StandardToggleChipToggleControl.Switch,
+                toggleControl = ToggleChipToggleControl.Switch,
                 enabled = false
             )
         }
@@ -120,12 +119,12 @@ class StandardSplitToggleChipTest : ScreenshotBaseTest() {
     @Test
     fun withLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardSplitToggleChip(
+            SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 onClick = { },
-                toggleControl = StandardToggleChipToggleControl.Switch
+                toggleControl = ToggleChipToggleControl.Switch
             )
         }
     }
@@ -134,12 +133,12 @@ class StandardSplitToggleChipTest : ScreenshotBaseTest() {
     fun withLongTextAndLargestFontScale() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(fontScale = largestFontScale) {
-                StandardSplitToggleChip(
+                SplitToggleChip(
                     checked = true,
                     onCheckedChanged = { },
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
                     onClick = { },
-                    toggleControl = StandardToggleChipToggleControl.Switch
+                    toggleControl = ToggleChipToggleControl.Switch
                 )
             }
         }
@@ -148,12 +147,12 @@ class StandardSplitToggleChipTest : ScreenshotBaseTest() {
     @Test
     fun withSecondaryLabelAndLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardSplitToggleChip(
+            SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
-                toggleControl = StandardToggleChipToggleControl.Switch,
+                toggleControl = ToggleChipToggleControl.Switch,
                 secondaryLabel = "Secondary label very very very very very very very very very long text"
             )
         }
@@ -163,12 +162,12 @@ class StandardSplitToggleChipTest : ScreenshotBaseTest() {
     fun withSecondaryLabelAndLongTextAndLargestFontScale() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(fontScale = largestFontScale) {
-                StandardSplitToggleChip(
+                SplitToggleChip(
                     checked = true,
                     onCheckedChanged = { },
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
-                    toggleControl = StandardToggleChipToggleControl.Switch,
+                    toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label very very very very very very very very very long text"
                 )
             }

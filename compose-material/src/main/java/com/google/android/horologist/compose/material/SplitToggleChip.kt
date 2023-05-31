@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxScope
@@ -34,9 +34,7 @@ import androidx.wear.compose.material.SplitToggleChipColors
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.base.ui.R
-import com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl
-import com.google.android.horologist.base.ui.util.adjustChipHeightToFontScale
+import com.google.android.horologist.compose.material.util.adjustChipHeightToFontScale
 
 /**
  * This composable fulfils the redlines of the following components:
@@ -45,12 +43,12 @@ import com.google.android.horologist.base.ui.util.adjustChipHeightToFontScale
 
 @ExperimentalHorologistApi
 @Composable
-public fun StandardSplitToggleChip(
+public fun SplitToggleChip(
     checked: Boolean,
     onCheckedChanged: (Boolean) -> Unit,
     label: String,
     onClick: () -> Unit,
-    toggleControl: StandardToggleChipToggleControl,
+    toggleControl: ToggleChipToggleControl,
     modifier: Modifier = Modifier,
     secondaryLabel: String? = null,
     colors: SplitToggleChipColors = ToggleChipDefaults.splitToggleChipColors(),
@@ -89,15 +87,15 @@ public fun StandardSplitToggleChip(
     val toggleControlParam: (@Composable BoxScope.() -> Unit) = {
         Icon(
             imageVector = when (toggleControl) {
-                StandardToggleChipToggleControl.Switch -> ToggleChipDefaults.switchIcon(checked)
-                StandardToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
-                StandardToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
+                ToggleChipToggleControl.Switch -> ToggleChipDefaults.switchIcon(checked)
+                ToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
+                ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
             },
             contentDescription = stringResource(
                 if (checked) {
-                    R.string.horologist_standard_split_toggle_chip_on_content_description
+                    R.string.horologist_split_toggle_chip_on_content_description
                 } else {
-                    R.string.horologist_standard_split_toggle_chip_off_content_description
+                    R.string.horologist_split_toggle_chip_off_content_description
                 }
             )
         )

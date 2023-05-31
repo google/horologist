@@ -1,1 +1,25 @@
 // Signature format: 4.0
+package com.google.android.horologist.compose.material {
+
+  public final class SplitToggleChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SplitToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.compose.material.ToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional androidx.wear.compose.material.SplitToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource checkedInteractionSource, optional androidx.compose.foundation.interaction.MutableInteractionSource clickInteractionSource);
+  }
+
+  public enum ToggleChipToggleControl {
+    method public static com.google.android.horologist.compose.material.ToggleChipToggleControl valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.material.ToggleChipToggleControl[] values();
+    enum_constant public static final com.google.android.horologist.compose.material.ToggleChipToggleControl Checkbox;
+    enum_constant public static final com.google.android.horologist.compose.material.ToggleChipToggleControl Radio;
+    enum_constant public static final com.google.android.horologist.compose.material.ToggleChipToggleControl Switch;
+  }
+
+}
+
+package com.google.android.horologist.compose.material.util {
+
+  public final class AdjustChipHeightToFontScaleKt {
+    method public static androidx.compose.ui.Modifier adjustChipHeightToFontScale(androidx.compose.ui.Modifier, float fontScale, optional float padding);
+  }
+
+}
+

@@ -46,6 +46,7 @@ jobs:
             **/build/test-results/*
             **/build/reports/*
             **/out/*
+            /home/runner/work/horologist/horologist/base-ui/out/*
 
   compiletests:
     # Skip build if head commit contains 'skip ci'

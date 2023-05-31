@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.base.ui.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.base.ui.common.StandardToggleChipToggleControl
@@ -27,11 +25,12 @@ import com.google.android.horologist.base.ui.common.StandardToggleChipToggleCont
     showBackground = true
 )
 @Composable
-fun StandardToggleChipSwitchPreview() {
-    StandardToggleChip(
+fun StandardSplitToggleChipSwitchPreview() {
+    StandardSplitToggleChip(
         checked = true,
         onCheckedChanged = { },
         label = "Primary label",
+        onClick = { },
         toggleControl = StandardToggleChipToggleControl.Switch
     )
 }
@@ -41,11 +40,12 @@ fun StandardToggleChipSwitchPreview() {
     showBackground = true
 )
 @Composable
-fun StandardToggleChipRadioPreview() {
-    StandardToggleChip(
+fun StandardSplitToggleChipRadioPreview() {
+    StandardSplitToggleChip(
         checked = true,
         onCheckedChanged = { },
         label = "Primary label",
+        onClick = { },
         toggleControl = StandardToggleChipToggleControl.Radio
     )
 }
@@ -55,11 +55,12 @@ fun StandardToggleChipRadioPreview() {
     showBackground = true
 )
 @Composable
-fun StandardToggleChipCheckboxPreview() {
-    StandardToggleChip(
+fun StandardSplitToggleChipCheckboxPreview() {
+    StandardSplitToggleChip(
         checked = true,
         onCheckedChanged = { },
         label = "Primary label",
+        onClick = { },
         toggleControl = StandardToggleChipToggleControl.Checkbox
     )
 }
@@ -69,11 +70,12 @@ fun StandardToggleChipCheckboxPreview() {
     showBackground = true
 )
 @Composable
-fun StandardToggleChipUncheckedPreview() {
-    StandardToggleChip(
+fun StandardSplitToggleChipUncheckedPreview() {
+    StandardSplitToggleChip(
         checked = false,
         onCheckedChanged = { },
         label = "Primary label",
+        onClick = { },
         toggleControl = StandardToggleChipToggleControl.Switch
     )
 }
@@ -84,46 +86,14 @@ fun StandardToggleChipUncheckedPreview() {
     showBackground = true
 )
 @Composable
-fun StandardToggleChipWithSecondaryLabel() {
-    StandardToggleChip(
+fun StandardSplitToggleChipWithSecondaryLabel() {
+    StandardSplitToggleChip(
         checked = true,
         onCheckedChanged = { },
         label = "Primary label",
+        onClick = { },
         toggleControl = StandardToggleChipToggleControl.Switch,
         secondaryLabel = "Secondary label"
-    )
-}
-
-@Preview(
-    name = "With icon",
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
-@Composable
-fun StandardToggleChipPreviewWithIcon() {
-    StandardToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        toggleControl = StandardToggleChipToggleControl.Switch,
-        icon = Icons.Default.Image
-    )
-}
-
-@Preview(
-    name = "With secondary label and icon",
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
-@Composable
-fun StandardToggleChipPreviewWithSecondaryLabelAndIcon() {
-    StandardToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        toggleControl = StandardToggleChipToggleControl.Switch,
-        secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image
     )
 }
 
@@ -133,11 +103,12 @@ fun StandardToggleChipPreviewWithSecondaryLabelAndIcon() {
     showBackground = true
 )
 @Composable
-fun StandardToggleChipPreviewDisabled() {
-    StandardToggleChip(
+fun StandardSplitToggleChipPreviewDisabled() {
+    StandardSplitToggleChip(
         checked = true,
         onCheckedChanged = { },
         label = "Primary label",
+        onClick = { },
         toggleControl = StandardToggleChipToggleControl.Switch,
         enabled = false
     )
@@ -148,11 +119,12 @@ fun StandardToggleChipPreviewDisabled() {
     showBackground = true
 )
 @Composable
-fun StandardToggleChipUncheckedAndDisabledPreview() {
-    StandardToggleChip(
+fun StandardSplitToggleChipUncheckedAndDisabledPreview() {
+    StandardSplitToggleChip(
         checked = false,
         onCheckedChanged = { },
         label = "Primary label",
+        onClick = { },
         toggleControl = StandardToggleChipToggleControl.Switch,
         enabled = false
     )

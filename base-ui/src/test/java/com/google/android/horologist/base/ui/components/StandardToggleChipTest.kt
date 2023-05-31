@@ -110,7 +110,8 @@ class StandardToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = StandardToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label"
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image
             )
         }
     }

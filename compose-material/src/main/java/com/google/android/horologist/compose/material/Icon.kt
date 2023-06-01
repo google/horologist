@@ -14,47 +14,43 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.LocalContentAlpha
+import androidx.wear.compose.material.LocalContentColor
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@Suppress("DEPRECATION")
-@Deprecated(
-    "Replaced by Icon in Horologist Material Compose library",
-    replaceWith = ReplaceWith(
-        "Icon",
-        "com.google.android.horologist.compose.material.Icon"
-    )
-)
 @ExperimentalHorologistApi
 @Composable
-public fun StandardIcon(
+public fun Icon(
     imageVector: ImageVector,
     contentDescription: String?,
     modifier: Modifier = Modifier,
+    tint: Color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current),
     rtlMode: IconRtlMode = IconRtlMode.Default
 ) {
-    com.google.android.horologist.compose.material.Icon(
+    val shouldMirror =
+        rtlMode == IconRtlMode.Mirrored && LocalLayoutDirection.current == LayoutDirection.Rtl
+    Icon(
+        modifier = modifier
+            .scale(
+                scaleX = if (shouldMirror) -1f else 1f,
+                scaleY = 1f
+            ),
         imageVector = imageVector,
         contentDescription = contentDescription,
-        modifier = modifier,
-        rtlMode = when (rtlMode) {
-            IconRtlMode.Default -> com.google.android.horologist.compose.material.IconRtlMode.Default
-            IconRtlMode.Mirrored -> com.google.android.horologist.compose.material.IconRtlMode.Mirrored
-        }
+        tint = tint
     )
 }
 
-@Deprecated(
-    "Replaced by IconRtlMode in Horologist Material Compose library",
-    replaceWith = ReplaceWith(
-        "IconRtlMode",
-        "com.google.android.horologist.compose.material.IconRtlMode"
-    )
-)
 @ExperimentalHorologistApi
 public enum class IconRtlMode {
     Default,

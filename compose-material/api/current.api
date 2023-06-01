@@ -1,6 +1,17 @@
 // Signature format: 4.0
 package com.google.android.horologist.compose.material {
 
+  public final class IconKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Icon(androidx.compose.ui.graphics.vector.ImageVector imageVector, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional long tint, optional com.google.android.horologist.compose.material.IconRtlMode rtlMode);
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum IconRtlMode {
+    method public static com.google.android.horologist.compose.material.IconRtlMode valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.material.IconRtlMode[] values();
+    enum_constant public static final com.google.android.horologist.compose.material.IconRtlMode Default;
+    enum_constant public static final com.google.android.horologist.compose.material.IconRtlMode Mirrored;
+  }
+
   public final class SplitToggleChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SplitToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.compose.material.ToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional androidx.wear.compose.material.SplitToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource checkedInteractionSource, optional androidx.compose.foundation.interaction.MutableInteractionSource clickInteractionSource);
   }

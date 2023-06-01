@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsProperties

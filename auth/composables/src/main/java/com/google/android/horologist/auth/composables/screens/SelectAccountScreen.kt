@@ -30,9 +30,9 @@ import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Title
 
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052
 
@@ -60,7 +60,7 @@ public fun SelectAccountScreen(
             .padding(horizontal = horizontalPadding),
         columnState = columnState
     ) {
-        item { Title(text = title, modifier = Modifier.padding(bottom = 8.dp)) }
+        item { Title(title, Modifier.padding(bottom = 8.dp)) }
 
         items(accounts.size) { index ->
             val account = accounts[index]

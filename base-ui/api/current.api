@@ -83,8 +83,8 @@ package com.google.android.horologist.base.ui.components {
   }
 
   public final class TitleKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Title(@StringRes int textId, optional androidx.compose.ui.Modifier modifier);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Title(String text, optional androidx.compose.ui.Modifier modifier);
+    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Title(@StringRes int textId, optional androidx.compose.ui.Modifier modifier);
+    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Title(String text, optional androidx.compose.ui.Modifier modifier);
   }
 
 }

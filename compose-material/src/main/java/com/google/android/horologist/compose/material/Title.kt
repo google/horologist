@@ -14,25 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * An alternative function to [Title] that allows a string resource id to be passed as text.
  */
-@Suppress("DEPRECATION")
-@Deprecated(
-    "Replaced by Title in Horologist Material Compose library",
-    replaceWith = ReplaceWith(
-        "Title(textId, modifier)",
-        "com.google.android.horologist.compose.material.Title"
-    )
-)
 @ExperimentalHorologistApi
 @Composable
 public fun Title(
@@ -49,21 +47,18 @@ public fun Title(
  * This composable fulfils the redlines of the following components:
  * - Primary title;
  */
-@Deprecated(
-    "Replaced by Title in Horologist Material Compose library",
-    replaceWith = ReplaceWith(
-        "Title(text, modifier)",
-        "com.google.android.horologist.compose.material.Title"
-    )
-)
 @ExperimentalHorologistApi
 @Composable
 public fun Title(
     text: String,
     modifier: Modifier = Modifier
 ) {
-    com.google.android.horologist.compose.material.Title(
+    Text(
         text = text,
-        modifier = modifier
+        modifier = modifier.semantics { heading() },
+        textAlign = TextAlign.Center,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 3,
+        style = MaterialTheme.typography.title3
     )
 }

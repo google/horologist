@@ -110,6 +110,7 @@ dependencies {
     api(libs.wearcompose.foundation)
 
     implementation(projects.baseUi)
+    implementation(projects.composeMaterial)
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)

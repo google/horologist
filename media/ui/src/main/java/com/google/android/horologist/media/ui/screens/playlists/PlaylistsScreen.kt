@@ -26,11 +26,11 @@ import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
@@ -74,8 +74,8 @@ public fun <T> PlaylistsScreen(
         section(state = sectionState) {
             header {
                 Title(
-                    textId = R.string.horologist_browse_playlist_title,
-                    modifier = Modifier.padding(bottom = 12.dp)
+                    R.string.horologist_browse_playlist_title,
+                    Modifier.padding(bottom = 12.dp)
                 )
             }
 

@@ -23,7 +23,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.Icon
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
+@ExperimentalHorologistApi
 @Composable
 public fun StandardIcon(
     imageVector: ImageVector,
@@ -44,6 +46,7 @@ public fun StandardIcon(
     )
 }
 
+@ExperimentalHorologistApi
 public enum class IconRtlMode {
     Default,
     Mirrored

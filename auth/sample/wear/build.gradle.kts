@@ -100,6 +100,7 @@ dependencies {
     implementation(projects.baseUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)
+    implementation(projects.composeMaterial)
     implementation(projects.datalayer)
     implementation(projects.datalayerWatch)
 

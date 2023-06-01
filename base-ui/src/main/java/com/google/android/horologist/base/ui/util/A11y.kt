@@ -16,10 +16,20 @@
 
 package com.google.android.horologist.base.ui.util
 
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
+
 /**
  * Make explicit that a conscious decision was made to mark an element as decorative, so it does not
  * have associated actions or state.
  *
  * https://developer.android.com/jetpack/compose/accessibility#describe-visual
  */
+@Deprecated(
+    "Replaced by DECORATIVE_ELEMENT_CONTENT_DESCRIPTION in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "DECORATIVE_ELEMENT_CONTENT_DESCRIPTION",
+        "com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION"
+    )
+)
+@ExperimentalHorologistApi
 public val DECORATIVE_ELEMENT_CONTENT_DESCRIPTION: String? = null

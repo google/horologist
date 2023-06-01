@@ -46,7 +46,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.base.ui.components.ConfirmationDialog
-import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import java.time.Duration
 
 private const val AVATAR_BACKGROUND_COLOR = 0xFF4ECDE6

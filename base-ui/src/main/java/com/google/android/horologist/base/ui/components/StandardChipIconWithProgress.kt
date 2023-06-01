@@ -36,7 +36,7 @@ import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
 import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 private val indicatorPadding = 8.dp
 private val progressBarStrokeWidth = 2.dp

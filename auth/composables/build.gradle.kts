@@ -102,6 +102,8 @@ dependencies {
     api(libs.compose.runtime)
     api(libs.compose.ui)
 
+    implementation(projects.composeMaterial)
+
     implementation(libs.coil)
     implementation(libs.coil.base)
     implementation(libs.compose.foundation.foundation)

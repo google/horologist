@@ -103,6 +103,7 @@ dependencies {
     api(libs.kotlin.stdlib)
     api(projects.annotations)
     implementation(projects.composeLayout)
+    implementation(projects.composeMaterial)
     implementation(projects.baseUi)
     debugImplementation(projects.logo)
 

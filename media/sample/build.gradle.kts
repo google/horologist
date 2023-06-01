@@ -153,7 +153,7 @@ dependencies {
     implementation(projects.media.audioUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)
-    implementation(projects.composeLayout)
+    implementation(projects.composeMaterial)
     implementation(projects.media.core)
     implementation(projects.media.backendMedia3)
     implementation(projects.media.data)

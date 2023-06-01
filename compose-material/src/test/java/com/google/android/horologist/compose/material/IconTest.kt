@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.VolumeDown
@@ -25,12 +23,12 @@ import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class StandardIconTest : ScreenshotBaseTest() {
+class IconTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardIcon(
+            Icon(
                 imageVector = Icons.Outlined.VolumeDown,
                 contentDescription = "contentDescription"
             )
@@ -41,7 +39,7 @@ class StandardIconTest : ScreenshotBaseTest() {
     fun defaultRtl() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                StandardIcon(
+                Icon(
                     imageVector = Icons.Outlined.VolumeDown,
                     contentDescription = "contentDescription"
                 )
@@ -52,7 +50,7 @@ class StandardIconTest : ScreenshotBaseTest() {
     @Test
     fun mirrored() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardIcon(
+            Icon(
                 imageVector = Icons.Outlined.VolumeDown,
                 contentDescription = "contentDescription",
                 rtlMode = IconRtlMode.Mirrored
@@ -64,7 +62,7 @@ class StandardIconTest : ScreenshotBaseTest() {
     fun mirroredRtl() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                StandardIcon(
+                Icon(
                     imageVector = Icons.Outlined.VolumeDown,
                     contentDescription = "contentDescription",
                     rtlMode = IconRtlMode.Mirrored

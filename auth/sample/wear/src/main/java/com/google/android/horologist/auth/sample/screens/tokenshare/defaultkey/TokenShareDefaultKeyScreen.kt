@@ -31,9 +31,9 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Title
 
 @Composable
 fun TokenShareDefaultKeyScreen(
@@ -48,7 +48,7 @@ fun TokenShareDefaultKeyScreen(
         modifier = modifier.fillMaxSize()
     ) {
         item {
-            Title(textId = R.string.token_share_default_key_title)
+            Title(R.string.token_share_default_key_title, Modifier)
         }
         item {
             Text(

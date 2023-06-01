@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test

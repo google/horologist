@@ -33,9 +33,9 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
-import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Title
 
 /**
  * A screen to prompt users to sign in.
@@ -119,7 +119,7 @@ internal fun SignInPromptScreen(
                 columnState = columnState,
                 modifier = modifier
             ) {
-                item { Title(text = title) }
+                item { Title(title, Modifier) }
                 item {
                     Text(
                         text = message,

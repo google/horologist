@@ -47,13 +47,13 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.Recommendation
@@ -118,8 +118,8 @@ private fun SectionedListScope.recommendationsSection(
     section(recommendationsState) {
         header {
             Title(
-                text = stringResource(id = R.string.sectionedlist_recommendations_title),
-                modifier = Modifier.padding(vertical = 8.dp)
+                stringResource(id = R.string.sectionedlist_recommendations_title),
+                Modifier.padding(vertical = 8.dp)
             )
         }
 

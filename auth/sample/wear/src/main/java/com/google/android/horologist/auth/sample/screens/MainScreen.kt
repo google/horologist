@@ -26,11 +26,11 @@ import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Title
 
 @Composable
 fun MainScreen(
@@ -65,7 +65,7 @@ private fun SectionedListScope.pkceSection(navigateToRoute: (String) -> Unit) {
         )
     ) {
         header {
-            Title(stringResource(id = R.string.auth_menu_oauth_pkce_header))
+            Title(stringResource(id = R.string.auth_menu_oauth_pkce_header), Modifier)
         }
         loaded { (textId, route) ->
             StandardChip(

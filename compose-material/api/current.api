@@ -22,7 +22,7 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class ToggleChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, com.google.android.horologist.compose.material.ToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector? icon, optional String? secondaryLabel, optional androidx.wear.compose.material.ToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, com.google.android.horologist.compose.material.ToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector? icon, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional String? secondaryLabel, optional androidx.wear.compose.material.ToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum ToggleChipToggleControl {

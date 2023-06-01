@@ -33,7 +33,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
@@ -56,6 +55,7 @@ public fun ToggleChip(
     toggleControl: ToggleChipToggleControl,
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     secondaryLabel: String? = null,
     colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
     enabled: Boolean = true,
@@ -69,7 +69,7 @@ public fun ToggleChip(
                 text = label,
                 color = MaterialTheme.colors.onSurface,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Left,
+                textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
                 style = MaterialTheme.typography.button
@@ -102,7 +102,8 @@ public fun ToggleChip(
                 } else {
                     R.string.horologist_toggle_chip_off_content_description
                 }
-            )
+            ),
+            rtlMode = IconRtlMode.Mirrored
         )
     }
 
@@ -115,7 +116,8 @@ public fun ToggleChip(
                         contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                         modifier = Modifier
                             .size(ChipDefaults.IconSize)
-                            .clip(CircleShape)
+                            .clip(CircleShape),
+                        rtlMode = iconRtlMode
                     )
                 }
             }

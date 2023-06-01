@@ -27,7 +27,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.SplitToggleChip
 import androidx.wear.compose.material.SplitToggleChipColors
@@ -64,7 +63,7 @@ public fun SplitToggleChip(
                 modifier = Modifier.fillMaxWidth(),
                 text = label,
                 color = MaterialTheme.colors.onSurface,
-                textAlign = TextAlign.Left,
+                textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
                 style = MaterialTheme.typography.button
@@ -97,7 +96,8 @@ public fun SplitToggleChip(
                 } else {
                     R.string.horologist_split_toggle_chip_off_content_description
                 }
-            )
+            ),
+            rtlMode = IconRtlMode.Mirrored
         )
     }
 

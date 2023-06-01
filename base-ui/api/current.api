@@ -16,7 +16,7 @@ package com.google.android.horologist.base.ui.components {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onTimeout, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? icon, optional androidx.wear.compose.foundation.lazy.ScalingLazyListState scrollState, optional long durationMillis, optional long backgroundColor, optional long contentColor, optional long iconColor, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.foundation.layout.PaddingValues contentPadding, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> content);
   }
 
-  public enum IconRtlMode {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum IconRtlMode {
     method public static com.google.android.horologist.base.ui.components.IconRtlMode valueOf(String name) throws java.lang.IllegalArgumentException;
     method public static com.google.android.horologist.base.ui.components.IconRtlMode[] values();
     enum_constant public static final com.google.android.horologist.base.ui.components.IconRtlMode Default;
@@ -67,7 +67,7 @@ package com.google.android.horologist.base.ui.components {
   }
 
   public final class StandardIconKt {
-    method @androidx.compose.runtime.Composable public static void StandardIcon(androidx.compose.ui.graphics.vector.ImageVector imageVector, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.base.ui.components.IconRtlMode rtlMode);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardIcon(androidx.compose.ui.graphics.vector.ImageVector imageVector, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.base.ui.components.IconRtlMode rtlMode);
   }
 
   public final class StandardToggleChipKt {

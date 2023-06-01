@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.compose.material
 
+import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
@@ -169,6 +170,22 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                     onClick = { },
                     toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label very very very very very very very very very long text"
+                )
+            }
+        }
+    }
+
+    @Test
+    fun rtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                SplitToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    secondaryLabel = "Secondary label"
                 )
             }
         }

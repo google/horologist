@@ -18,8 +18,10 @@ package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -276,6 +278,70 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 toggleControl = ToggleChipToggleControl.Switch,
                 icon = Icon32dp
             )
+        }
+    }
+
+    // This test is redundant to "withSecondaryLabelAndIcon" test, but it's added to help compare
+    // with "defaultRtl" test, as it uses a different icon that is easier to see mirrored.
+    @Test
+    fun default() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleChip(
+                checked = true,
+                onCheckedChanged = { },
+                label = "Primary label",
+                toggleControl = ToggleChipToggleControl.Switch,
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.PlayArrow
+            )
+        }
+    }
+
+    @Test
+    fun defaultRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                ToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.PlayArrow
+                )
+            }
+        }
+    }
+
+    @Test
+    fun mirrored() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleChip(
+                checked = true,
+                onCheckedChanged = { },
+                label = "Primary label",
+                toggleControl = ToggleChipToggleControl.Switch,
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.PlayArrow,
+                iconRtlMode = IconRtlMode.Mirrored
+            )
+        }
+    }
+
+    @Test
+    fun mirroredRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                ToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.PlayArrow,
+                    iconRtlMode = IconRtlMode.Mirrored
+                )
+            }
         }
     }
 

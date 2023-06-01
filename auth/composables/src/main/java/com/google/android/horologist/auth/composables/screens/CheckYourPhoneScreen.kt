@@ -38,7 +38,7 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
-import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 private const val TOP_PADDING_SCREEN_PERCENTAGE = 0.2
 private val indicatorPadding = 8.dp

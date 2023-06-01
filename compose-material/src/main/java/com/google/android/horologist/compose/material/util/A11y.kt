@@ -16,10 +16,13 @@
 
 package com.google.android.horologist.compose.material.util
 
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
+
 /**
  * Make explicit that a conscious decision was made to mark an element as decorative, so it does not
  * have associated actions or state.
  *
  * https://developer.android.com/jetpack/compose/accessibility#describe-visual
  */
+@ExperimentalHorologistApi
 public val DECORATIVE_ELEMENT_CONTENT_DESCRIPTION: String? = null

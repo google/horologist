@@ -100,21 +100,24 @@ metalava {
 
 dependencies {
     api(projects.annotations)
-
     api(projects.media.core)
     api(projects.tiles)
+
     api(projects.composables)
-    debugImplementation(projects.logo)
+    api(libs.wearcompose.material)
+    api(libs.wearcompose.foundation)
+
     implementation(projects.baseUi)
     implementation(projects.media.audio)
     implementation(projects.media.audioUi)
     implementation(projects.composeLayout)
+    implementation(projects.composeMaterial)
+    implementation(projects.tiles)
+
     implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodelktx)
-    api(libs.wearcompose.material)
-    api(libs.wearcompose.foundation)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -123,12 +126,13 @@ dependencies {
     implementation(libs.lottie.compose)
     implementation(libs.androidx.palette.ktx)
 
-    implementation(projects.tiles)
     implementation(libs.androidx.complications.datasource.ktx)
     implementation(libs.androidx.wear.tiles)
     implementation(libs.androidx.wear.protolayout.material)
     implementation(libs.compose.ui.util)
     implementation(libs.compose.ui.toolingpreview)
+
+    debugImplementation(projects.logo)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)

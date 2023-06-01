@@ -92,8 +92,8 @@ package com.google.android.horologist.base.ui.components {
 package com.google.android.horologist.base.ui.util {
 
   public final class A11yKt {
-    method public static String? getDECORATIVE_ELEMENT_CONTENT_DESCRIPTION();
-    property public static final String? DECORATIVE_ELEMENT_CONTENT_DESCRIPTION;
+    method @Deprecated public static String? getDECORATIVE_ELEMENT_CONTENT_DESCRIPTION();
+    property @Deprecated public static final String? DECORATIVE_ELEMENT_CONTENT_DESCRIPTION;
   }
 
   public final class AdjustChipHeightToFontScaleKt {

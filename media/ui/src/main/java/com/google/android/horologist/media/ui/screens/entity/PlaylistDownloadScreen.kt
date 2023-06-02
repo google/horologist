@@ -58,11 +58,11 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.base.ui.components.StandardButtonSize
 import com.google.android.horologist.base.ui.components.StandardButtonType
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ChipIconWithProgress
+import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -177,14 +177,14 @@ private fun MediaContent(
     when (downloadMediaUiModel) {
         is DownloadMediaUiModel.Downloaded,
         is DownloadMediaUiModel.NotDownloaded -> {
-            StandardChip(
+            Chip(
                 label = mediaTitle,
                 onClick = { onDownloadItemClick(downloadMediaUiModel) },
                 secondaryLabel = secondaryLabel,
                 icon = downloadMediaUiModel.artworkUri,
                 largeIcon = true,
                 placeholder = downloadItemArtworkPlaceholder,
-                chipType = StandardChipType.Secondary,
+                chipType = ChipType.Secondary,
                 enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded
             )
         }
@@ -236,14 +236,14 @@ private fun MediaContent(
                 }
             } ?: Modifier
 
-            StandardChip(
+            Chip(
                 label = mediaTitle,
                 onClick = { onDownloadItemInProgressClick(downloadMediaUiModel) },
                 modifier = customModifier,
                 secondaryLabel = secondaryLabel,
                 icon = icon,
                 largeIcon = true,
-                chipType = StandardChipType.Secondary,
+                chipType = ChipType.Secondary,
                 enabled = true
             )
         }
@@ -262,7 +262,7 @@ private fun ButtonsContent(
     when (state) {
         PlaylistDownloadScreenState.Failed,
         PlaylistDownloadScreenState.Loading -> {
-            StandardChip(
+            Chip(
                 label = stringResource(id = R.string.horologist_playlist_download_button_download),
                 onClick = { /* do nothing */ },
                 modifier = Modifier.padding(bottom = 16.dp),
@@ -274,14 +274,14 @@ private fun ButtonsContent(
         is PlaylistDownloadScreenState.Loaded -> {
             if (state.downloadMediaListState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.None) {
                 if (state.downloadsProgress is DownloadsProgress.InProgress) {
-                    StandardChip(
+                    Chip(
                         label = stringResource(id = R.string.horologist_playlist_download_button_cancel),
                         onClick = { onCancelDownloadButtonClick(state.collectionModel) },
                         modifier = Modifier.padding(bottom = 16.dp),
                         icon = Icons.Default.Close
                     )
                 } else {
-                    StandardChip(
+                    Chip(
                         label = stringResource(id = R.string.horologist_playlist_download_button_download),
                         onClick = { onDownloadButtonClick(state.collectionModel) },
                         modifier = Modifier.padding(bottom = 16.dp),

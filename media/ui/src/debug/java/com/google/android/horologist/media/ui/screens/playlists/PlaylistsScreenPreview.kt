@@ -21,9 +21,9 @@ import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
@@ -88,11 +88,11 @@ fun PlaylistsScreenPreviewCustomLayout() {
             Pair("Pop Punk", "Completed")
         ),
         playlistContent = { (name, status) ->
-            StandardChip(
+            Chip(
                 label = name,
                 onClick = { },
                 secondaryLabel = status,
-                chipType = StandardChipType.Primary
+                chipType = ChipType.Primary
             )
         }
     )

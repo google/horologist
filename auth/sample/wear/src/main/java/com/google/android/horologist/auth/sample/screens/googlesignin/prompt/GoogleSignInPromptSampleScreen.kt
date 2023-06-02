@@ -38,9 +38,9 @@ import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptS
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
 import com.google.android.horologist.auth.ui.googlesignin.prompt.GoogleSignInPromptViewModelFactory
 import com.google.android.horologist.base.ui.components.ConfirmationDialog
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.ChipType
 
 @Composable
 fun GoogleSignInPromptSampleScreen(
@@ -65,13 +65,13 @@ fun GoogleSignInPromptSampleScreen(
                         popUpTo(Screen.MainScreen.route)
                     }
                 },
-                chipType = StandardChipType.Secondary
+                chipType = ChipType.Secondary
             )
         }
         item {
             GuestModeChip(
                 onClick = navController::popBackStack,
-                chipType = StandardChipType.Secondary
+                chipType = ChipType.Secondary
             )
         }
     }

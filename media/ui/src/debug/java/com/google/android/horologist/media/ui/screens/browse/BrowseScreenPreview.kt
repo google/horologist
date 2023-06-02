@@ -26,11 +26,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.media.ui.R
 
 @WearPreviewDevices
@@ -88,11 +88,11 @@ private fun BrowseScreenPreviewSample(
             failedMessageId = R.string.horologist_browse_screen_preview_trending_failed
         ) {
             loaded { item: String ->
-                StandardChip(
+                Chip(
                     label = item,
                     onClick = { },
                     icon = Icons.Default.Person,
-                    chipType = StandardChipType.Secondary
+                    chipType = ChipType.Secondary
                 )
             }
 
@@ -105,12 +105,12 @@ private fun BrowseScreenPreviewSample(
             state = downloadsSectionState
         ) {
             loaded { item ->
-                StandardChip(
+                Chip(
                     label = item.first,
                     onClick = { },
                     secondaryLabel = item.second,
                     icon = Icons.Default.MusicNote,
-                    chipType = StandardChipType.Secondary
+                    chipType = ChipType.Secondary
                 )
             }
 
@@ -119,10 +119,10 @@ private fun BrowseScreenPreviewSample(
             }
 
             footer {
-                StandardChip(
+                Chip(
                     label = stringResource(id = R.string.horologist_browse_screen_preview_see_more_button),
                     onClick = { },
-                    chipType = StandardChipType.Secondary
+                    chipType = ChipType.Secondary
                 )
             }
         }

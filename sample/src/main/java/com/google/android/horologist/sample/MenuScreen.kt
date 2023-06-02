@@ -27,15 +27,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ChipType
 import java.time.LocalDateTime
 
 @Composable
@@ -98,11 +97,11 @@ fun MenuScreen(
             TimeWithoutSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithoutSecondsPicker.route) }
         }
         item {
-            StandardChip(
+            Chip(
                 label = stringResource(id = R.string.sectionedlist_samples_menu),
                 modifier = modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) },
-                chipType = StandardChipType.Primary
+                chipType = ChipType.Primary
             )
         }
         item {
@@ -111,7 +110,7 @@ fun MenuScreen(
             }
         }
         item {
-            Chip(
+            androidx.wear.compose.material.Chip(
                 label = {
                     Text(text = "Rotary scroll")
                 },
@@ -136,7 +135,7 @@ fun SampleChip(
     label: String,
     content: (@Composable () -> Unit)? = null
 ) {
-    Chip(
+    androidx.wear.compose.material.Chip(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
         label = {

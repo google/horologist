@@ -42,14 +42,14 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.sample.R
@@ -117,7 +117,7 @@ fun SectionedListExpandableScreen(
             expanded = laterSectionExpanded,
             onHeaderClick = { laterSectionExpanded = !laterSectionExpanded },
             footerContent = {
-                StandardChip(
+                Chip(
                     label = stringResource(R.string.sectionedlist_more_tasks),
                     onClick = { }
                 )
@@ -149,7 +149,7 @@ private fun SectionedListScope.taskSection(
         }
 
         loaded { (text, iconTint) ->
-            StandardChip(
+            Chip(
                 label = text,
                 onClick = { },
                 icon = {
@@ -162,7 +162,7 @@ private fun SectionedListScope.taskSection(
                         tint = iconTint
                     )
                 },
-                chipType = StandardChipType.Secondary
+                chipType = ChipType.Secondary
             )
         }
 

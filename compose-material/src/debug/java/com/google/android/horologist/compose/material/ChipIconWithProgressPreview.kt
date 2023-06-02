@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.materialPath
 import androidx.compose.runtime.Composable
@@ -24,35 +24,32 @@ import androidx.compose.ui.unit.dp
 
 @Preview(
     name = "Standard",
-    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true
 )
 @Composable
-fun StandardChipIconWithProgressPreview() {
-    StandardChipIconWithProgress()
+fun ChipIconWithProgressPreview() {
+    ChipIconWithProgress()
 }
 
 @Preview(
     name = "With 75 percent download complete",
-    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true
 )
 @Composable
-fun StandardChipIconWithProgressInProgressPreview() {
-    StandardChipIconWithProgress(progress = 75f)
+fun ChipIconWithProgressInProgressPreview() {
+    ChipIconWithProgress(progress = 75f)
 }
 
 @Preview(
     name = "With 75 percent download complete with large icon",
-    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true
 )
 @Composable
-fun StandardChipIconWithProgressInProgressLargeIconPreview() {
-    StandardChipIconWithProgress(
+fun ChipIconWithProgressInProgressLargeIconPreview() {
+    ChipIconWithProgress(
         progress = 75f,
         icon = Icon48dp,
         largeIcon = true
@@ -61,24 +58,22 @@ fun StandardChipIconWithProgressInProgressLargeIconPreview() {
 
 @Preview(
     name = "With 75 percent download complete with medium icon",
-    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true
 )
 @Composable
-fun StandardChipIconWithProgressInProgressMediumIconPreview() {
-    StandardChipIconWithProgress(progress = 75f, icon = Icon32dp)
+fun ChipIconWithProgressInProgressMediumIconPreview() {
+    ChipIconWithProgress(progress = 75f, icon = Icon32dp)
 }
 
 @Preview(
     name = "With 75 percent download complete with small icon",
-    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true
 )
 @Composable
-fun StandardChipIconWithProgressInProgressSmallIconPreview() {
-    StandardChipIconWithProgress(progress = 75f, icon = Icon12dp)
+fun ChipIconWithProgressInProgressSmallIconPreview() {
+    ChipIconWithProgress(progress = 75f, icon = Icon12dp)
 }
 
 private val Icon12dp: ImageVector

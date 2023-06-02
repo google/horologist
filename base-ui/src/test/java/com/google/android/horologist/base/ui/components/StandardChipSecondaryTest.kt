@@ -30,6 +30,7 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
+import com.google.android.horologist.compose.material.ChipIconWithProgress
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
@@ -246,7 +247,7 @@ class StandardChipSecondaryTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 icon = {
-                    StandardChipIconWithProgress(
+                    ChipIconWithProgress(
                         progress = 75f,
                         icon = Icon48dp,
                         largeIcon = true

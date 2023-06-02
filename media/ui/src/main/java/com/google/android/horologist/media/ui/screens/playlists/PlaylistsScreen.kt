@@ -24,12 +24,12 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -100,13 +100,13 @@ public fun PlaylistsScreen(
     playlistItemArtworkPlaceholder: Painter? = null
 ) {
     val playlistContent: @Composable (playlist: PlaylistUiModel) -> Unit = { playlist ->
-        StandardChip(
+        Chip(
             label = playlist.title,
             onClick = { onPlaylistItemClick(playlist) },
             icon = playlist.artworkUri,
             largeIcon = true,
             placeholder = playlistItemArtworkPlaceholder,
-            chipType = StandardChipType.Secondary
+            chipType = ChipType.Secondary
         )
     }
 

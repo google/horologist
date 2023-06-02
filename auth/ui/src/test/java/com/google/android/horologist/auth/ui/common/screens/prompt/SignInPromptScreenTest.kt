@@ -25,7 +25,7 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import com.google.android.horologist.test.toolbox.composables.positionedState
@@ -147,13 +147,13 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
         item {
             SignInChip(
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                chipType = ChipType.Secondary
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                chipType = ChipType.Secondary
             )
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
@@ -29,10 +29,11 @@ import androidx.compose.ui.unit.dp
     showBackground = true
 )
 @Composable
-fun StandardChipPrimaryPreview() {
-    StandardChip(
+fun ChipSecondaryPreview() {
+    Chip(
         label = "Primary label",
-        onClick = { }
+        onClick = { },
+        chipType = ChipType.Secondary
     )
 }
 
@@ -42,11 +43,12 @@ fun StandardChipPrimaryPreview() {
     showBackground = true
 )
 @Composable
-fun StandardChipPrimaryPreviewWithSecondaryLabel() {
-    StandardChip(
+fun ChipSecondaryPreviewWithSecondaryLabel() {
+    Chip(
         label = "Primary label",
         onClick = { },
-        secondaryLabel = "Secondary label"
+        secondaryLabel = "Secondary label",
+        chipType = ChipType.Secondary
     )
 }
 
@@ -56,11 +58,12 @@ fun StandardChipPrimaryPreviewWithSecondaryLabel() {
     showBackground = true
 )
 @Composable
-fun StandardChipPrimaryPreviewWithIcon() {
-    StandardChip(
+fun ChipSecondaryPreviewWithIcon() {
+    Chip(
         label = "Primary label",
         onClick = { },
-        icon = Icons.Default.Image
+        icon = Icons.Default.Image,
+        chipType = ChipType.Secondary
     )
 }
 
@@ -70,12 +73,13 @@ fun StandardChipPrimaryPreviewWithIcon() {
     showBackground = true
 )
 @Composable
-fun StandardChipPrimaryPreviewWithLargeIcon() {
-    StandardChip(
+fun ChipSecondaryPreviewWithLargeIcon() {
+    Chip(
         label = "Primary label",
         onClick = { },
         icon = Icon32dp,
-        largeIcon = true
+        largeIcon = true,
+        chipType = ChipType.Secondary
     )
 }
 
@@ -85,12 +89,13 @@ fun StandardChipPrimaryPreviewWithLargeIcon() {
     showBackground = true
 )
 @Composable
-fun StandardChipPrimaryPreviewWithSecondaryLabelAndIcon() {
-    StandardChip(
+fun ChipSecondaryPreviewWithSecondaryLabelAndIcon() {
+    Chip(
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image
+        icon = Icons.Default.Image,
+        chipType = ChipType.Secondary
     )
 }
 
@@ -100,13 +105,14 @@ fun StandardChipPrimaryPreviewWithSecondaryLabelAndIcon() {
     showBackground = true
 )
 @Composable
-fun StandardChipPrimaryPreviewWithSecondaryLabelAndLargeIcon() {
-    StandardChip(
+fun ChipSecondaryPreviewWithSecondaryLabelAndLargeIcon() {
+    Chip(
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
         icon = Icon32dp,
-        largeIcon = true
+        largeIcon = true,
+        chipType = ChipType.Secondary
     )
 }
 
@@ -116,12 +122,13 @@ fun StandardChipPrimaryPreviewWithSecondaryLabelAndLargeIcon() {
     showBackground = true
 )
 @Composable
-fun StandardChipPrimaryPreviewDisabled() {
-    StandardChip(
+fun ChipSecondaryPreviewDisabled() {
+    Chip(
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
         icon = Icons.Default.Image,
+        chipType = ChipType.Secondary,
         enabled = false
     )
 }

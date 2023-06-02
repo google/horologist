@@ -21,11 +21,10 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.wear.compose.material.Chip
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ChipType
 
 /**
  * An opinionated [Chip] to represent the "Sign in" action.
@@ -40,10 +39,10 @@ public fun SignInChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     label: String = stringResource(id = R.string.horologist_sign_in_chip_label),
-    chipType: StandardChipType = StandardChipType.Primary,
+    chipType: ChipType = ChipType.Primary,
     enabled: Boolean = true
 ) {
-    StandardChip(
+    Chip(
         label = label,
         onClick = onClick,
         modifier = modifier,

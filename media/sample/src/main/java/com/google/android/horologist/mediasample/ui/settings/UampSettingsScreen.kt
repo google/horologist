@@ -30,7 +30,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
@@ -38,10 +37,10 @@ import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToDeveloperOptions
 import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignIn
@@ -68,19 +67,19 @@ fun UampSettingsScreen(
         }
         item {
             if (screenState.authUser == null) {
-                StandardChip(
+                Chip(
                     label = stringResource(id = R.string.login),
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { navController.navigateToGoogleSignIn() },
-                    chipType = StandardChipType.Primary,
+                    chipType = ChipType.Primary,
                     enabled = !screenState.guestMode
                 )
             } else {
-                StandardChip(
+                Chip(
                     label = stringResource(id = R.string.logout),
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { navController.navigateToGoogleSignOutScreen() },
-                    chipType = StandardChipType.Primary
+                    chipType = ChipType.Primary
                 )
             }
         }
@@ -127,7 +126,7 @@ fun ActionSetting(
             )
         }
 
-    Chip(
+    androidx.wear.compose.material.Chip(
         onClick = onClick,
         label = labelParam,
         enabled = enabled,

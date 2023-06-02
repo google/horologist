@@ -54,16 +54,16 @@ package com.google.android.horologist.base.ui.components {
   }
 
   public final class StandardChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? icon, optional boolean largeIcon, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardChip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
+    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
+    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? icon, optional boolean largeIcon, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
+    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardChip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
   }
 
-  public enum StandardChipType {
-    method public static com.google.android.horologist.base.ui.components.StandardChipType valueOf(String name) throws java.lang.IllegalArgumentException;
-    method public static com.google.android.horologist.base.ui.components.StandardChipType[] values();
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardChipType Primary;
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardChipType Secondary;
+  @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum StandardChipType {
+    method @Deprecated public static com.google.android.horologist.base.ui.components.StandardChipType valueOf(String name) throws java.lang.IllegalArgumentException;
+    method @Deprecated public static com.google.android.horologist.base.ui.components.StandardChipType[] values();
+    enum_constant @Deprecated public static final com.google.android.horologist.base.ui.components.StandardChipType Primary;
+    enum_constant @Deprecated public static final com.google.android.horologist.base.ui.components.StandardChipType Secondary;
   }
 
   public final class StandardIconKt {

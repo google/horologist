@@ -29,10 +29,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.sample.R
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.compose.material.Title
 
 @Composable
@@ -59,10 +59,10 @@ fun TokenShareDefaultKeyScreen(
         }
         items(state) { tokenBundle ->
             tokenBundle?.let {
-                StandardChip(
+                Chip(
                     label = tokenBundle.accessToken,
                     onClick = { /* do nothing */ },
-                    chipType = StandardChipType.Secondary,
+                    chipType = ChipType.Secondary,
                     enabled = false
                 )
             }

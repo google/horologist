@@ -25,8 +25,8 @@ import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.ChipType
 
 @WearPreviewDevices
 @Composable
@@ -42,13 +42,13 @@ fun SignInPromptScreenPreviewSignedOut() {
         item {
             SignInChip(
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                chipType = ChipType.Secondary
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                chipType = ChipType.Secondary
             )
         }
     }
@@ -68,13 +68,13 @@ fun SignInPromptScreenPreviewLoading() {
         item {
             SignInChip(
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                chipType = ChipType.Secondary
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                chipType = ChipType.Secondary
             )
         }
     }
@@ -99,13 +99,13 @@ fun SignInPromptScreenPreviewCustomLoading() {
         item {
             SignInChip(
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                chipType = ChipType.Secondary
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                chipType = ChipType.Secondary
             )
         }
     }

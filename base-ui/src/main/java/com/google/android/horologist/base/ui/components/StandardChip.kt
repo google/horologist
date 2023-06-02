@@ -14,38 +14,19 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.base.ui.components
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Chip
-import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.LocalContentAlpha
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
-import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-import com.google.android.horologist.compose.material.util.adjustChipHeightToFontScale
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ChipType
 
 /**
  * This composable fulfils the redlines of the following components:
@@ -53,6 +34,13 @@ import com.google.android.horologist.compose.material.util.adjustChipHeightToFon
  * - Standard chip - when [largeIcon] value is `false`;
  * - Chip with small or large avatar - according to [largeIcon] value;
  */
+@Deprecated(
+    "Replaced by Chip in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "Chip(label, onClick, modifier, secondaryLabel, icon, largeIcon, placeholder, chipType, enabled)",
+        "com.google.android.horologist.compose.material.Chip"
+    )
+)
 @ExperimentalHorologistApi
 @Composable
 public fun StandardChip(
@@ -66,56 +54,18 @@ public fun StandardChip(
     chipType: StandardChipType = StandardChipType.Primary,
     enabled: Boolean = true
 ) {
-    val iconParam: (@Composable BoxScope.() -> Unit)? =
-        icon?.let {
-            {
-                val iconSize = if (largeIcon) {
-                    ChipDefaults.LargeIconSize
-                } else {
-                    ChipDefaults.IconSize
-                }
-
-                Row {
-                    if (icon is ImageVector) {
-                        val iconTint = when (chipType) {
-                            StandardChipType.Primary -> MaterialTheme.colors.onPrimary
-                            StandardChipType.Secondary -> MaterialTheme.colors.onSurface
-                        }
-
-                        Icon(
-                            imageVector = icon,
-                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                            modifier = Modifier
-                                .size(iconSize)
-                                .clip(CircleShape),
-                            tint = iconTint
-                        )
-                    } else {
-                        Image(
-                            painter = rememberAsyncImagePainter(
-                                model = icon,
-                                placeholder = placeholder
-                            ),
-                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                            modifier = Modifier
-                                .size(iconSize)
-                                .clip(CircleShape),
-                            contentScale = ContentScale.Crop,
-                            alpha = LocalContentAlpha.current
-                        )
-                    }
-                }
-            }
-        }
-
-    StandardChip(
+    Chip(
         label = label,
         onClick = onClick,
         modifier = modifier,
         secondaryLabel = secondaryLabel,
-        icon = iconParam,
+        icon = icon,
         largeIcon = largeIcon,
-        chipType = chipType,
+        placeholder = placeholder,
+        chipType = when (chipType) {
+            StandardChipType.Primary -> ChipType.Primary
+            StandardChipType.Secondary -> ChipType.Secondary
+        },
         enabled = enabled
     )
 }
@@ -123,6 +73,13 @@ public fun StandardChip(
 /**
  * An implementation of [StandardChip] allowing full customization of the icon displayed.
  */
+@Deprecated(
+    "Replaced by Chip in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "Chip(labelId, onClick, modifier, secondaryLabel, icon, largeIcon, chipType, enabled)",
+        "com.google.android.horologist.compose.material.Chip"
+    )
+)
 @ExperimentalHorologistApi
 @Composable
 public fun StandardChip(
@@ -135,73 +92,31 @@ public fun StandardChip(
     chipType: StandardChipType = StandardChipType.Primary,
     enabled: Boolean = true
 ) {
-    val hasSecondaryLabel = secondaryLabel != null
-    val hasIcon = icon != null
-
-    val labelParam: (@Composable RowScope.() -> Unit) =
-        {
-            val textColor = when (chipType) {
-                StandardChipType.Primary -> MaterialTheme.colors.onPrimary
-                StandardChipType.Secondary -> MaterialTheme.colors.onSurface
-            }
-
-            Text(
-                text = label,
-                color = textColor,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Left else TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = if (hasSecondaryLabel) 1 else 2,
-                style = MaterialTheme.typography.button
-            )
-        }
-
-    val secondaryLabelParam: (@Composable RowScope.() -> Unit)? =
-        secondaryLabel?.let {
-            {
-                val textColor = when (chipType) {
-                    StandardChipType.Primary -> MaterialTheme.colors.onPrimary
-                    StandardChipType.Secondary -> MaterialTheme.colors.onSurfaceVariant
-                }
-
-                Text(
-                    text = secondaryLabel,
-                    color = textColor,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.caption2
-                )
-            }
-        }
-
-    val contentPadding = if (largeIcon) {
-        val horizontalPadding = 10.dp
-        val verticalPadding = 6.dp // same as Chip.ChipVerticalPadding
-        PaddingValues(horizontal = horizontalPadding, vertical = verticalPadding)
-    } else {
-        ChipDefaults.ContentPadding
-    }
-
     Chip(
-        label = labelParam,
+        label = label,
         onClick = onClick,
-        modifier = modifier
-            .adjustChipHeightToFontScale(LocalConfiguration.current.fontScale)
-            .fillMaxWidth(),
-        secondaryLabel = secondaryLabelParam,
+        modifier = modifier,
+        secondaryLabel = secondaryLabel,
         icon = icon,
-        colors = when (chipType) {
-            StandardChipType.Primary -> ChipDefaults.primaryChipColors()
-            StandardChipType.Secondary -> ChipDefaults.secondaryChipColors()
+        largeIcon = largeIcon,
+        chipType = when (chipType) {
+            StandardChipType.Primary -> ChipType.Primary
+            StandardChipType.Secondary -> ChipType.Secondary
         },
-        enabled = enabled,
-        contentPadding = contentPadding
+        enabled = enabled
     )
 }
 
 /**
  * An alternative function to [StandardChip] that allows a string resource id to be passed as label.
  */
+@Deprecated(
+    "Replaced by Chip in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "Chip(labelId, onClick, modifier, secondaryLabel, icon, largeIcon, placeholder, chipType, enabled)",
+        "com.google.android.horologist.compose.material.Chip"
+    )
+)
 @ExperimentalHorologistApi
 @Composable
 public fun StandardChip(
@@ -215,6 +130,20 @@ public fun StandardChip(
     chipType: StandardChipType = StandardChipType.Primary,
     enabled: Boolean = true
 ) {
+    Chip(
+        labelId = labelId,
+        onClick = onClick,
+        modifier = modifier,
+        secondaryLabel = secondaryLabel,
+        icon = icon,
+        largeIcon = largeIcon,
+        placeholder = placeholder,
+        chipType = when (chipType) {
+            StandardChipType.Primary -> ChipType.Primary
+            StandardChipType.Secondary -> ChipType.Secondary
+        },
+        enabled = enabled
+    )
     StandardChip(
         label = stringResource(id = labelId),
         onClick = onClick,
@@ -228,6 +157,14 @@ public fun StandardChip(
     )
 }
 
+@Deprecated(
+    "Replaced by ChipType in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "ChipType",
+        "com.google.android.horologist.compose.material.ChipType"
+    )
+)
+@ExperimentalHorologistApi
 public enum class StandardChipType {
     Primary, Secondary
 }

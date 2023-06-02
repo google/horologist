@@ -1,6 +1,11 @@
 // Signature format: 4.0
 package com.google.android.horologist.compose.material {
 
+  public final class ChipIconWithProgressKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ChipIconWithProgress(optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional long progressIndicatorColor, optional long progressTrackColor);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ChipIconWithProgress(float progress, optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional long progressIndicatorColor, optional long progressTrackColor);
+  }
+
   public final class IconKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Icon(androidx.compose.ui.graphics.vector.ImageVector imageVector, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional long tint, optional com.google.android.horologist.compose.material.IconRtlMode rtlMode);
   }

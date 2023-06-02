@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -25,7 +23,7 @@ import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class StandardChipIconWithProgressTest : ScreenshotBaseTest() {
+class ChipIconWithProgressTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {
@@ -34,28 +32,28 @@ class StandardChipIconWithProgressTest : ScreenshotBaseTest() {
             takeScreenshot = true,
             fakeImageLoader = FakeImageLoader.NotFound
         ) {
-            StandardChipIconWithProgress(progress = 75f)
+            ChipIconWithProgress(progress = 75f)
         }
     }
 
     @Test
     fun withProgressSmallIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardChipIconWithProgress(progress = 75f, icon = Icon12dp)
+            ChipIconWithProgress(progress = 75f, icon = Icon12dp)
         }
     }
 
     @Test
     fun withProgressMediumIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardChipIconWithProgress(progress = 75f, icon = Icon32dp)
+            ChipIconWithProgress(progress = 75f, icon = Icon32dp)
         }
     }
 
     @Test
     fun withProgressLargeIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardChipIconWithProgress(
+            ChipIconWithProgress(
                 progress = 75f,
                 icon = Icon48dp,
                 largeIcon = true

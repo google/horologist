@@ -49,8 +49,8 @@ package com.google.android.horologist.base.ui.components {
   }
 
   public final class StandardChipIconWithProgressKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardChipIconWithProgress(optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional long progressIndicatorColor, optional long progressTrackColor);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardChipIconWithProgress(float progress, optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional long progressIndicatorColor, optional long progressTrackColor);
+    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardChipIconWithProgress(optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional long progressIndicatorColor, optional long progressTrackColor);
+    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardChipIconWithProgress(float progress, optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional long progressIndicatorColor, optional long progressTrackColor);
   }
 
   public final class StandardChipKt {

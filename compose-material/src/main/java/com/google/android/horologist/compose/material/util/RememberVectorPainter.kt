@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.util
+package com.google.android.horologist.compose.material.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.BlendMode
@@ -33,13 +33,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  * @param [tintBlendMode] optional BlendMode used in combination with [tintColor], defaults to
  * value defined in [image].
  */
-@Deprecated(
-    "Replaced by rememberVectorPainter in Horologist Material Compose library",
-    replaceWith = ReplaceWith(
-        "rememberVectorPainter(image, tintColor, tintBlendMode)",
-        "com.google.android.horologist.compose.material.util.rememberVectorPainter"
-    )
-)
 @ExperimentalHorologistApi
 @Composable
 public fun rememberVectorPainter(

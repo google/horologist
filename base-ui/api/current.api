@@ -9,7 +9,7 @@ package com.google.android.horologist.base.ui {
 package com.google.android.horologist.base.ui.components {
 
   public final class AlertDialogKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void AlertDialog(String body, kotlin.jvm.functions.Function0<kotlin.Unit> onCancelButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOKButtonClick, boolean showDialog, androidx.wear.compose.foundation.lazy.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional String title, optional String okButtonContentDescription, optional String cancelButtonContentDescription);
+    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void AlertDialog(String body, kotlin.jvm.functions.Function0<kotlin.Unit> onCancelButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOKButtonClick, boolean showDialog, androidx.wear.compose.foundation.lazy.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional String title, optional String okButtonContentDescription, optional String cancelButtonContentDescription);
   }
 
   public final class ConfirmationDialogKt {

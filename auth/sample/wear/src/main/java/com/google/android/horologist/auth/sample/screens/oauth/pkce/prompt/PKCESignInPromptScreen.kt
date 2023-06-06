@@ -36,10 +36,10 @@ import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
-import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.material.ChipType
+import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
 fun PKCESignInPromptScreen(
@@ -78,7 +78,7 @@ fun PKCESignInPromptScreen(
     }
 
     if (showAlreadySignedInDialog) {
-        ConfirmationDialog(
+        Confirmation(
             onTimeout = {
                 showAlreadySignedInDialog = false
                 navController.popBackStack()

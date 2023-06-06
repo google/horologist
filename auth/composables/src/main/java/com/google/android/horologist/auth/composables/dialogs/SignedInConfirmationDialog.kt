@@ -45,7 +45,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.base.ui.components.ConfirmationDialog
+import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import java.time.Duration
 
@@ -69,7 +69,7 @@ public fun SignedInConfirmationDialog(
     avatar: Any? = null,
     duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
 ) {
-    ConfirmationDialog(
+    Confirmation(
         onTimeout = onDismissOrTimeout,
         modifier = modifier,
         durationMillis = duration.toMillis()

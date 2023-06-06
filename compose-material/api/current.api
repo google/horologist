@@ -48,6 +48,10 @@ package com.google.android.horologist.compose.material {
     enum_constant public static final com.google.android.horologist.compose.material.ChipType Secondary;
   }
 
+  public final class ConfirmationKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Confirmation(kotlin.jvm.functions.Function0<kotlin.Unit> onTimeout, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? icon, optional androidx.wear.compose.foundation.lazy.ScalingLazyListState scrollState, optional long durationMillis, optional long backgroundColor, optional long contentColor, optional long iconColor, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.foundation.layout.PaddingValues contentPadding, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> content);
+  }
+
   public final class IconKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Icon(androidx.compose.ui.graphics.vector.ImageVector imageVector, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional long tint, optional com.google.android.horologist.compose.material.IconRtlMode rtlMode);
   }

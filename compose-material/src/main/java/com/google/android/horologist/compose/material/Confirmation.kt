@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.MaterialTheme
@@ -36,16 +37,9 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  *
  * This should be removed once https://issuetracker.google.com/issues/261385562 is addressed.
  */
-@Deprecated(
-    "Replaced by Confirmation in Horologist Material Compose library",
-    replaceWith = ReplaceWith(
-        "Confirmation(onTimeout, modifier, icon, scrollState, durationMillis, backgroundColor, contentColor, iconColor, verticalArrangement, contentPadding, content)",
-        "com.google.android.horologist.compose.material.Confirmation"
-    )
-)
 @ExperimentalHorologistApi
 @Composable
-public fun ConfirmationDialog(
+public fun Confirmation(
     onTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     icon: @Composable (ColumnScope.() -> Unit)? = null,
@@ -58,12 +52,19 @@ public fun ConfirmationDialog(
     contentPadding: PaddingValues = DialogDefaults.ContentPadding,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    com.google.android.horologist.compose.material.Confirmation(
+    val a11yDurationMillis = LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
+        originalTimeoutMillis = durationMillis,
+        containsIcons = false,
+        containsText = true,
+        containsControls = false
+    ) ?: durationMillis
+
+    Confirmation(
         onTimeout = onTimeout,
         modifier = modifier,
         icon = icon,
         scrollState = scrollState,
-        durationMillis = durationMillis,
+        durationMillis = a11yDurationMillis,
         backgroundColor = backgroundColor,
         contentColor = contentColor,
         iconColor = iconColor,

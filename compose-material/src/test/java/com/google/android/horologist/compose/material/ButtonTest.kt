@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -27,18 +25,18 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-internal class StandardButtonTest(
+internal class ButtonTest(
     @Suppress("unused") // it's used by junit to display the test name
     private val description: String,
-    private val buttonType: StandardButtonType,
-    private val buttonSize: StandardButtonSize,
+    private val buttonType: ButtonType,
+    private val buttonSize: ButtonSize,
     private val enabled: Boolean
 ) : ScreenshotBaseTest() {
 
     @Test
     fun variants() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            StandardButton(
+            Button(
                 imageVector = Icons.Default.Check,
                 contentDescription = "contentDescription",
                 onClick = { },
@@ -55,92 +53,92 @@ internal class StandardButtonTest(
         fun params() = listOf(
             arrayOf(
                 "Primary Default",
-                StandardButtonType.Primary,
-                StandardButtonSize.Default,
+                ButtonType.Primary,
+                ButtonSize.Default,
                 true
             ),
             arrayOf(
                 "Primary Large",
-                StandardButtonType.Primary,
-                StandardButtonSize.Large,
+                ButtonType.Primary,
+                ButtonSize.Large,
                 true
             ),
             arrayOf(
                 "Primary Small",
-                StandardButtonType.Primary,
-                StandardButtonSize.Small,
+                ButtonType.Primary,
+                ButtonSize.Small,
                 true
             ),
             arrayOf(
                 "Primary ExtraSmall",
-                StandardButtonType.Primary,
-                StandardButtonSize.ExtraSmall,
+                ButtonType.Primary,
+                ButtonSize.ExtraSmall,
                 true
             ),
             arrayOf(
                 "Primary Default Disabled",
-                StandardButtonType.Primary,
-                StandardButtonSize.Default,
+                ButtonType.Primary,
+                ButtonSize.Default,
                 false
             ),
             arrayOf(
                 "Secondary Default",
-                StandardButtonType.Secondary,
-                StandardButtonSize.Default,
+                ButtonType.Secondary,
+                ButtonSize.Default,
                 true
             ),
             arrayOf(
                 "Secondary Large",
-                StandardButtonType.Secondary,
-                StandardButtonSize.Large,
+                ButtonType.Secondary,
+                ButtonSize.Large,
                 true
             ),
             arrayOf(
                 "Secondary Small",
-                StandardButtonType.Secondary,
-                StandardButtonSize.Small,
+                ButtonType.Secondary,
+                ButtonSize.Small,
                 true
             ),
             arrayOf(
                 "Secondary Extra Small",
-                StandardButtonType.Secondary,
-                StandardButtonSize.ExtraSmall,
+                ButtonType.Secondary,
+                ButtonSize.ExtraSmall,
                 true
             ),
             arrayOf(
                 "Secondary Default Disabled",
-                StandardButtonType.Secondary,
-                StandardButtonSize.Default,
+                ButtonType.Secondary,
+                ButtonSize.Default,
                 false
             ),
             arrayOf(
                 "Icon only Default",
-                StandardButtonType.IconOnly,
-                StandardButtonSize.Default,
+                ButtonType.IconOnly,
+                ButtonSize.Default,
                 true
             ),
             arrayOf(
                 "Icon only Large",
-                StandardButtonType.IconOnly,
-                StandardButtonSize.Large,
+                ButtonType.IconOnly,
+                ButtonSize.Large,
                 true
             ),
             arrayOf(
                 "Icon only Small",
-                StandardButtonType.IconOnly,
-                StandardButtonSize.Small,
+                ButtonType.IconOnly,
+                ButtonSize.Small,
                 true
             ),
             arrayOf(
                 "Icon only Extra Small",
-                StandardButtonType.IconOnly,
-                StandardButtonSize.ExtraSmall,
+                ButtonType.IconOnly,
+                ButtonSize.ExtraSmall,
                 true
             ),
             arrayOf(
                 "Icon only Default Disabled",
-                StandardButtonType.IconOnly,
-                StandardButtonSize.Default,
+                ButtonType.IconOnly,
+                ButtonSize.Default,
                 false
             )
         )

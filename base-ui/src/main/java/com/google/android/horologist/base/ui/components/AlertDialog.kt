@@ -29,6 +29,8 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.Button
+import com.google.android.horologist.compose.material.ButtonType
 
 /**
  * This composable fulfils the redlines of the following components:
@@ -93,15 +95,15 @@ internal fun AlertDialogAlert(
             )
         },
         negativeButton = {
-            StandardButton(
+            Button(
                 imageVector = Icons.Default.Close,
                 contentDescription = cancelButtonContentDescription,
                 onClick = onCancelButtonClick,
-                buttonType = StandardButtonType.Secondary
+                buttonType = ButtonType.Secondary
             )
         },
         positiveButton = {
-            StandardButton(
+            Button(
                 imageVector = Icons.Default.Check,
                 contentDescription = okButtonContentDescription,
                 onClick = onOKButtonClick

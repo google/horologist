@@ -1,6 +1,31 @@
 // Signature format: 4.0
 package com.google.android.horologist.compose.material {
 
+  public final class ButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Button(androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.material.ButtonType buttonType, optional com.google.android.horologist.compose.material.ButtonSize buttonSize, optional boolean enabled);
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum ButtonSize {
+    method public final float getIconSize();
+    method public final float getTapTargetSize();
+    method public static com.google.android.horologist.compose.material.ButtonSize valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.material.ButtonSize[] values();
+    property public final float iconSize;
+    property public final float tapTargetSize;
+    enum_constant public static final com.google.android.horologist.compose.material.ButtonSize Default;
+    enum_constant public static final com.google.android.horologist.compose.material.ButtonSize ExtraSmall;
+    enum_constant public static final com.google.android.horologist.compose.material.ButtonSize Large;
+    enum_constant public static final com.google.android.horologist.compose.material.ButtonSize Small;
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum ButtonType {
+    method public static com.google.android.horologist.compose.material.ButtonType valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.material.ButtonType[] values();
+    enum_constant public static final com.google.android.horologist.compose.material.ButtonType IconOnly;
+    enum_constant public static final com.google.android.horologist.compose.material.ButtonType Primary;
+    enum_constant public static final com.google.android.horologist.compose.material.ButtonType Secondary;
+  }
+
   public final class ChipIconWithProgressKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ChipIconWithProgress(optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional long progressIndicatorColor, optional long progressTrackColor);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ChipIconWithProgress(float progress, optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional long progressIndicatorColor, optional long progressTrackColor);

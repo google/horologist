@@ -29,9 +29,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.media.ui.R
@@ -87,7 +87,7 @@ public fun PlaylistStreamingScreen(
                     .height(52.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                StandardButton(
+                Button(
                     imageVector = Icons.Default.Shuffle,
                     contentDescription = stringResource(id = R.string.horologist_playlist_download_button_shuffle_content_description),
                     onClick = { onShuffleButtonClick() },
@@ -96,7 +96,7 @@ public fun PlaylistStreamingScreen(
                         .weight(weight = 0.3F, fill = false)
                 )
 
-                StandardButton(
+                Button(
                     imageVector = Icons.Filled.PlayArrow,
                     contentDescription = stringResource(id = R.string.horologist_playlist_download_button_play_content_description),
                     onClick = { onPlayButtonClick() },

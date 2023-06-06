@@ -47,7 +47,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
@@ -55,11 +54,11 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.base.ui.components.StandardButton
-import com.google.android.horologist.base.ui.components.StandardButtonSize
-import com.google.android.horologist.base.ui.components.StandardButtonType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Button
+import com.google.android.horologist.compose.material.ButtonSize
+import com.google.android.horologist.compose.material.ButtonType
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ChipIconWithProgress
 import com.google.android.horologist.compose.material.ChipType
@@ -307,7 +306,7 @@ private fun ButtonsContent(
                             .weight(weight = 0.3F, fill = false)
                     )
 
-                    StandardButton(
+                    Button(
                         imageVector = Icons.Default.Shuffle,
                         contentDescription = stringResource(id = R.string.horologist_playlist_download_button_shuffle_content_description),
                         onClick = { onShuffleButtonClick(state.collectionModel) },
@@ -315,7 +314,7 @@ private fun ButtonsContent(
                             .weight(weight = 0.3F, fill = false)
                     )
 
-                    StandardButton(
+                    Button(
                         imageVector = Icons.Filled.PlayArrow,
                         contentDescription = stringResource(id = R.string.horologist_playlist_download_button_play_content_description),
                         onClick = { onPlayButtonClick(state.collectionModel) },
@@ -346,10 +345,10 @@ private fun <Collection> FirstButton(
         val label =
             stringResource(id = R.string.horologist_playlist_download_progress_button_cancel_action_label)
 
-        Button(
+        androidx.wear.compose.material.Button(
             onClick = { onCancelDownloadButtonClick(collectionModel) },
             modifier = modifier
-                .size(StandardButtonSize.Default.tapTargetSize)
+                .size(ButtonSize.Default.tapTargetSize)
                 .semantics(mergeDescendants = true) {
                     onClick(label = label, action = null)
                 },
@@ -373,22 +372,22 @@ private fun <Collection> FirstButton(
                 imageVector = Icons.Default.Close,
                 contentDescription = stringResource(id = R.string.horologist_playlist_download_progress_button_cancel_content_description),
                 modifier = Modifier
-                    .size(StandardButtonSize.Default.iconSize)
+                    .size(ButtonSize.Default.iconSize)
                     .align(Alignment.Center)
             )
         }
     } else if (downloadMediaListState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Partially) {
-        StandardButton(
+        Button(
             imageVector = Icons.Default.Download,
             contentDescription = stringResource(id = R.string.horologist_playlist_download_button_download_content_description),
             onClick = { onDownloadButtonClick(collectionModel) },
             modifier = modifier,
-            buttonType = StandardButtonType.Secondary
+            buttonType = ButtonType.Secondary
         )
     } else if (downloadMediaListState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully) {
         val label =
             stringResource(id = R.string.horologist_playlist_download_button_remove_download_action_label)
-        StandardButton(
+        Button(
             imageVector = Icons.Default.DownloadDone,
             contentDescription = stringResource(id = R.string.horologist_playlist_download_button_download_done_content_description),
             onClick = { onDownloadCompletedButtonClick(collectionModel) },
@@ -398,7 +397,7 @@ private fun <Collection> FirstButton(
                     action = null
                 )
             },
-            buttonType = StandardButtonType.Secondary
+            buttonType = ButtonType.Secondary
         )
     } else {
         error("Invalid state to be used with this button")

@@ -29,7 +29,7 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
- * An alternative function to [Title] that allows a string resource id to be passed as text.
+ * A title heading to group and identify items.
  */
 @ExperimentalHorologistApi
 @Composable
@@ -44,8 +44,7 @@ public fun Title(
 }
 
 /**
- * This composable fulfils the redlines of the following components:
- * - Primary title;
+ * A title heading to group and identify items.
  */
 @ExperimentalHorologistApi
 @Composable

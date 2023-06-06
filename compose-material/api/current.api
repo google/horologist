@@ -2,7 +2,7 @@
 package com.google.android.horologist.compose.material {
 
   public final class AlertDialogKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void AlertDialog(String body, kotlin.jvm.functions.Function0<kotlin.Unit> onCancelButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOKButtonClick, boolean showDialog, androidx.wear.compose.foundation.lazy.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional String title, optional String okButtonContentDescription, optional String cancelButtonContentDescription);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void AlertDialog(String message, kotlin.jvm.functions.Function0<kotlin.Unit> onCancelButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOKButtonClick, boolean showDialog, androidx.wear.compose.foundation.lazy.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional String title, optional String okButtonContentDescription, optional String cancelButtonContentDescription);
   }
 
   public final class ButtonKt {
@@ -37,8 +37,8 @@ package com.google.android.horologist.compose.material {
 
   public final class ChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional com.google.android.horologist.compose.material.ChipType chipType, optional boolean enabled);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional @StringRes Integer? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional com.google.android.horologist.compose.material.ChipType chipType, optional boolean enabled);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? icon, optional boolean largeIcon, optional com.google.android.horologist.compose.material.ChipType chipType, optional boolean enabled);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional com.google.android.horologist.compose.material.ChipType chipType, optional boolean enabled);
   }
 
   public enum ChipType {

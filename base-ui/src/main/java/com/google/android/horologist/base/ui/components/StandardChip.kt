@@ -131,7 +131,7 @@ public fun StandardChip(
     enabled: Boolean = true
 ) {
     Chip(
-        labelId = labelId,
+        label = stringResource(id = labelId),
         onClick = onClick,
         modifier = modifier,
         secondaryLabel = secondaryLabel,

@@ -36,10 +36,10 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.adjustChipHeightToFontScale
 
 /**
- * This composable fulfils the redlines of the following components:
- * - SplitToggle chips
+ * This component is an alternative to [SplitToggleChip], providing the following:
+ * - a convenient way of providing a label and a secondary label;
+ * - a convenient way of choosing the toggle control;
  */
-
 @ExperimentalHorologistApi
 @Composable
 public fun SplitToggleChip(

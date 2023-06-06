@@ -28,6 +28,10 @@ import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.LocalContentColor
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
+/**
+ * This component is an alternative to [Icon], providing the following:
+ * - a convenient way of setting the icon to be mirrored in RTL mode;
+ */
 @ExperimentalHorologistApi
 @Composable
 public fun Icon(

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -23,59 +23,59 @@ import com.google.android.horologist.compose.tools.WearPreview
 
 @WearPreview
 @Composable
-fun IconOnlyButtonPreview() {
-    StandardButton(
+fun ButtonIconOnlyPreview() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.IconOnly
+        buttonType = ButtonType.IconOnly
     )
 }
 
 @WearPreview
 @Composable
-fun IconOnlyButtonPreviewLarge() {
-    StandardButton(
+fun ButtonIconOnlyPreviewLarge() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.IconOnly,
-        buttonSize = StandardButtonSize.Large
+        buttonType = ButtonType.IconOnly,
+        buttonSize = ButtonSize.Large
     )
 }
 
 @WearPreview
 @Composable
-fun IconOnlyButtonPreviewSmall() {
-    StandardButton(
+fun ButtonIconOnlyPreviewSmall() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.IconOnly,
-        buttonSize = StandardButtonSize.Small
+        buttonType = ButtonType.IconOnly,
+        buttonSize = ButtonSize.Small
     )
 }
 
 @WearPreview
 @Composable
-fun IconOnlyButtonPreviewExtraSmall() {
-    StandardButton(
+fun ButtonIconOnlyPreviewExtraSmall() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.IconOnly,
-        buttonSize = StandardButtonSize.ExtraSmall
+        buttonType = ButtonType.IconOnly,
+        buttonSize = ButtonSize.ExtraSmall
     )
 }
 
 @WearPreview
 @Composable
-fun IconOnlyButtonPreviewDisabled() {
-    StandardButton(
+fun ButtonIconOnlyPreviewDisabled() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.IconOnly,
+        buttonType = ButtonType.IconOnly,
         enabled = false
     )
 }

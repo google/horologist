@@ -24,28 +24,28 @@ package com.google.android.horologist.base.ui.components {
   }
 
   public final class StandardButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardButton(androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.base.ui.components.StandardButtonType buttonType, optional com.google.android.horologist.base.ui.components.StandardButtonSize buttonSize, optional boolean enabled);
+    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void StandardButton(androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.base.ui.components.StandardButtonType buttonType, optional com.google.android.horologist.base.ui.components.StandardButtonSize buttonSize, optional boolean enabled);
   }
 
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum StandardButtonSize {
-    method public final float getIconSize();
-    method public final float getTapTargetSize();
-    method public static com.google.android.horologist.base.ui.components.StandardButtonSize valueOf(String name) throws java.lang.IllegalArgumentException;
-    method public static com.google.android.horologist.base.ui.components.StandardButtonSize[] values();
+  @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum StandardButtonSize {
+    method @Deprecated public final float getIconSize();
+    method @Deprecated public final float getTapTargetSize();
+    method @Deprecated public static com.google.android.horologist.base.ui.components.StandardButtonSize valueOf(String name) throws java.lang.IllegalArgumentException;
+    method @Deprecated public static com.google.android.horologist.base.ui.components.StandardButtonSize[] values();
     property public final float iconSize;
     property public final float tapTargetSize;
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonSize Default;
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonSize ExtraSmall;
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonSize Large;
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonSize Small;
+    enum_constant @Deprecated public static final com.google.android.horologist.base.ui.components.StandardButtonSize Default;
+    enum_constant @Deprecated public static final com.google.android.horologist.base.ui.components.StandardButtonSize ExtraSmall;
+    enum_constant @Deprecated public static final com.google.android.horologist.base.ui.components.StandardButtonSize Large;
+    enum_constant @Deprecated public static final com.google.android.horologist.base.ui.components.StandardButtonSize Small;
   }
 
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum StandardButtonType {
-    method public static com.google.android.horologist.base.ui.components.StandardButtonType valueOf(String name) throws java.lang.IllegalArgumentException;
-    method public static com.google.android.horologist.base.ui.components.StandardButtonType[] values();
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonType IconOnly;
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonType Primary;
-    enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonType Secondary;
+  @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum StandardButtonType {
+    method @Deprecated public static com.google.android.horologist.base.ui.components.StandardButtonType valueOf(String name) throws java.lang.IllegalArgumentException;
+    method @Deprecated public static com.google.android.horologist.base.ui.components.StandardButtonType[] values();
+    enum_constant @Deprecated public static final com.google.android.horologist.base.ui.components.StandardButtonType IconOnly;
+    enum_constant @Deprecated public static final com.google.android.horologist.base.ui.components.StandardButtonType Primary;
+    enum_constant @Deprecated public static final com.google.android.horologist.base.ui.components.StandardButtonType Secondary;
   }
 
   public final class StandardChipIconWithProgressKt {

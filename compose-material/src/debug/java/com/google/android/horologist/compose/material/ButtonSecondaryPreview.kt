@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -23,59 +23,59 @@ import com.google.android.horologist.compose.tools.WearPreview
 
 @WearPreview
 @Composable
-fun SecondaryButtonPreview() {
-    StandardButton(
+fun ButtonSecondaryPreview() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.Secondary
+        buttonType = ButtonType.Secondary
     )
 }
 
 @WearPreview
 @Composable
-fun SecondaryButtonPreviewLarge() {
-    StandardButton(
+fun ButtonSecondaryPreviewLarge() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.Secondary,
-        buttonSize = StandardButtonSize.Large
+        buttonType = ButtonType.Secondary,
+        buttonSize = ButtonSize.Large
     )
 }
 
 @WearPreview
 @Composable
-fun SecondaryButtonPreviewSmall() {
-    StandardButton(
+fun ButtonSecondaryPreviewSmall() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.Secondary,
-        buttonSize = StandardButtonSize.Small
+        buttonType = ButtonType.Secondary,
+        buttonSize = ButtonSize.Small
     )
 }
 
 @WearPreview
 @Composable
-fun SecondaryButtonPreviewExtraSmall() {
-    StandardButton(
+fun ButtonSecondaryPreviewExtraSmall() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.Secondary,
-        buttonSize = StandardButtonSize.ExtraSmall
+        buttonType = ButtonType.Secondary,
+        buttonSize = ButtonSize.ExtraSmall
     )
 }
 
 @WearPreview
 @Composable
-fun SecondaryButtonPreviewDisabled() {
-    StandardButton(
+fun ButtonSecondaryPreviewDisabled() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.Secondary,
+        buttonType = ButtonType.Secondary,
         enabled = false
     )
 }

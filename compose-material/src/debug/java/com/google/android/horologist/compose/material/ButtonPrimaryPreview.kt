@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.base.ui.components
+package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -23,8 +23,8 @@ import com.google.android.horologist.compose.tools.WearPreview
 
 @WearPreview
 @Composable
-fun PrimaryButtonPreview() {
-    StandardButton(
+fun ButtonPrimaryPreview() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { }
@@ -33,41 +33,41 @@ fun PrimaryButtonPreview() {
 
 @WearPreview
 @Composable
-fun PrimaryButtonPreviewLarge() {
-    StandardButton(
+fun ButtonPrimaryPreviewLarge() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonSize = StandardButtonSize.Large
+        buttonSize = ButtonSize.Large
     )
 }
 
 @WearPreview
 @Composable
-fun PrimaryButtonPreviewSmall() {
-    StandardButton(
+fun ButtonPrimaryPreviewSmall() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonSize = StandardButtonSize.Small
+        buttonSize = ButtonSize.Small
     )
 }
 
 @WearPreview
 @Composable
-fun PrimaryButtonPreviewExtraSmall() {
-    StandardButton(
+fun ButtonPrimaryPreviewExtraSmall() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonSize = StandardButtonSize.ExtraSmall
+        buttonSize = ButtonSize.ExtraSmall
     )
 }
 
 @WearPreview
 @Composable
-fun PrimaryButtonPreviewDisabled() {
-    StandardButton(
+fun ButtonPrimaryPreviewDisabled() {
+    Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },

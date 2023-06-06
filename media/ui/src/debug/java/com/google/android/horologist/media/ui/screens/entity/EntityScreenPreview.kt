@@ -44,9 +44,9 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
 
 @WearPreviewDevices
@@ -79,7 +79,7 @@ fun EntityScreenPreview() {
                     .height(52.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                StandardButton(
+                Button(
                     imageVector = Icons.Default.Favorite,
                     contentDescription = "Favorite",
                     onClick = { },
@@ -88,7 +88,7 @@ fun EntityScreenPreview() {
                         .weight(weight = 0.3F, fill = false)
                 )
 
-                StandardButton(
+                Button(
                     imageVector = Icons.Default.PlaylistPlay,
                     contentDescription = "Play",
                     onClick = { },
@@ -170,7 +170,7 @@ private fun ButtonContentForStatePreview() {
             .height(52.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        StandardButton(
+        Button(
             imageVector = Icons.Default.Download,
             contentDescription = "Download",
             onClick = { },
@@ -179,7 +179,7 @@ private fun ButtonContentForStatePreview() {
                 .weight(weight = 0.3F, fill = false)
         )
 
-        StandardButton(
+        Button(
             imageVector = Icons.Default.Shuffle,
             contentDescription = "Shuffle",
             onClick = { },
@@ -188,7 +188,7 @@ private fun ButtonContentForStatePreview() {
                 .weight(weight = 0.3F, fill = false)
         )
 
-        StandardButton(
+        Button(
             imageVector = Icons.Default.PlayArrow,
             contentDescription = "Play",
             onClick = { },

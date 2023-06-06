@@ -16,23 +16,29 @@
 
 package com.google.android.horologist.base.ui.components
 
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.Icon
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.Button
+import com.google.android.horologist.compose.material.ButtonSize
+import com.google.android.horologist.compose.material.ButtonType
 
 /**
  * This composable fulfils the redlines of the following components:
  * - Primary, Secondary or Icon only button - according to [buttonType] value;
  * - Default, Large, Small and Extra Small button - according to [buttonSize] value;
  */
+@Suppress("DEPRECATION")
+@Deprecated(
+    "Replaced by Button in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "Button(imageVector, contentDescription, onClick, modifier, buttonType, buttonSize, enabled)",
+        "com.google.android.horologist.compose.material.Button"
+    )
+)
 @ExperimentalHorologistApi
 @Composable
 public fun StandardButton(
@@ -45,25 +51,32 @@ public fun StandardButton(
     enabled: Boolean = true
 ) {
     Button(
+        imageVector = imageVector,
+        contentDescription = contentDescription,
         onClick = onClick,
-        modifier = modifier.size(buttonSize.tapTargetSize),
-        enabled = enabled,
-        colors = when (buttonType) {
-            StandardButtonType.Primary -> ButtonDefaults.primaryButtonColors()
-            StandardButtonType.Secondary -> ButtonDefaults.secondaryButtonColors()
-            StandardButtonType.IconOnly -> ButtonDefaults.iconButtonColors()
-        }
-    ) {
-        Icon(
-            imageVector = imageVector,
-            contentDescription = contentDescription,
-            modifier = Modifier
-                .size(buttonSize.iconSize)
-                .align(Alignment.Center)
-        )
-    }
+        modifier = modifier,
+        buttonType = when (buttonType) {
+            StandardButtonType.Primary -> ButtonType.Primary
+            StandardButtonType.Secondary -> ButtonType.Secondary
+            StandardButtonType.IconOnly -> ButtonType.IconOnly
+        },
+        buttonSize = when (buttonSize) {
+            StandardButtonSize.Default -> ButtonSize.Default
+            StandardButtonSize.Large -> ButtonSize.Large
+            StandardButtonSize.Small -> ButtonSize.Small
+            StandardButtonSize.ExtraSmall -> ButtonSize.ExtraSmall
+        },
+        enabled = enabled
+    )
 }
 
+@Deprecated(
+    "Replaced by ButtonType in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "ButtonType",
+        "com.google.android.horologist.compose.material.ButtonType"
+    )
+)
 @ExperimentalHorologistApi
 public enum class StandardButtonType {
     Primary,
@@ -71,6 +84,13 @@ public enum class StandardButtonType {
     IconOnly,
 }
 
+@Deprecated(
+    "Replaced by ButtonSize in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "ButtonSize",
+        "com.google.android.horologist.compose.material.ButtonSize"
+    )
+)
 @ExperimentalHorologistApi
 public enum class StandardButtonSize(
     public val iconSize: Dp,

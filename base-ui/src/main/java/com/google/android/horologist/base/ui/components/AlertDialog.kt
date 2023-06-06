@@ -16,26 +16,23 @@
 
 package com.google.android.horologist.base.ui.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.dialog.Alert
-import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.material.Button
-import com.google.android.horologist.compose.material.ButtonType
 
 /**
  * This composable fulfils the redlines of the following components:
  * - AlertDialog - Title + body + buttons
  */
+@Deprecated(
+    "Replaced by AlertDialog in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "AlertDialog(body, onCancelButtonClick, onOKButtonClick, showDialog, scalingLazyListState, modifier, title, okButtonContentDescription, cancelButtonContentDescription)",
+        "com.google.android.horologist.compose.material.AlertDialog"
+    )
+)
 @ExperimentalHorologistApi
 @Composable
 public fun AlertDialog(
@@ -49,65 +46,15 @@ public fun AlertDialog(
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel)
 ) {
-    Dialog(
+    com.google.android.horologist.compose.material.AlertDialog(
+        body = body,
+        onCancelButtonClick = onCancelButtonClick,
+        onOKButtonClick = onOKButtonClick,
         showDialog = showDialog,
-        onDismissRequest = onCancelButtonClick,
-        scrollState = scalingLazyListState,
-        modifier = modifier
-    ) {
-        AlertDialogAlert(
-            title = title,
-            body = body,
-            onCancelButtonClick = onCancelButtonClick,
-            onOKButtonClick = onOKButtonClick,
-            okButtonContentDescription = okButtonContentDescription,
-            cancelButtonContentDescription = cancelButtonContentDescription
-        )
-    }
-}
-
-@ExperimentalHorologistApi
-@Composable
-internal fun AlertDialogAlert(
-    title: String,
-    body: String,
-    onCancelButtonClick: () -> Unit,
-    onOKButtonClick: () -> Unit,
-    okButtonContentDescription: String,
-    cancelButtonContentDescription: String
-) {
-    Alert(
-        title = {
-            Text(
-                text = title,
-                color = MaterialTheme.colors.onBackground,
-                textAlign = TextAlign.Center,
-                maxLines = 3,
-                style = MaterialTheme.typography.title3
-            )
-        },
-        content = {
-            Text(
-                text = body,
-                color = MaterialTheme.colors.onBackground,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2
-            )
-        },
-        negativeButton = {
-            Button(
-                imageVector = Icons.Default.Close,
-                contentDescription = cancelButtonContentDescription,
-                onClick = onCancelButtonClick,
-                buttonType = ButtonType.Secondary
-            )
-        },
-        positiveButton = {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = okButtonContentDescription,
-                onClick = onOKButtonClick
-            )
-        }
+        scalingLazyListState = scalingLazyListState,
+        modifier = modifier,
+        title = title,
+        okButtonContentDescription = okButtonContentDescription,
+        cancelButtonContentDescription = cancelButtonContentDescription
     )
 }

@@ -38,8 +38,8 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreen
 import com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultViewModel
-import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 @Composable
@@ -70,7 +70,7 @@ fun StreamlineSignInSampleScreen(
     }
 
     if (showNoAccountsAvailableDialog) {
-        ConfirmationDialog(
+        Confirmation(
             onTimeout = navController::popBackStack
         ) {
             Text(

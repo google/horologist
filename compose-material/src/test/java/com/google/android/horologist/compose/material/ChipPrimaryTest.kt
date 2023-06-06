@@ -28,10 +28,9 @@ import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 
-class ChipPrimaryTest : ScreenshotBaseTest(screenshotTestRuleParams { record = true }) {
+class ChipPrimaryTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {

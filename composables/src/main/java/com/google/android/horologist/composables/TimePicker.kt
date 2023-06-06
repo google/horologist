@@ -74,9 +74,11 @@ import androidx.wear.compose.material.rememberPickerGroupState
 import androidx.wear.compose.material.rememberPickerState
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.time.temporal.ChronoField
+import kotlin.math.sign
 
 /**
  * A full screen TimePicker with hours, minutes and seconds.
@@ -530,17 +532,28 @@ internal fun pickerGroupItemWithRSB(
         scrollableState = pickerState,
         throttleThresholdMs = 10
     )
+    var animationScrollTarget: Int by remember { mutableStateOf(pickerState.selectedOption) }
+    var activeJob: Job? by remember { mutableStateOf(null) }
+
     return PickerGroupItem(
         pickerState = pickerState,
-        modifier = modifier.onRotaryInputAccumulated {
-            coroutineScope.launch {
-                if (it > 0) {
-                    haptics.handleSnapHaptic(1f)
-                    pickerState.animateScrollToOption(pickerState.selectedOption + 1)
-                } else {
-                    haptics.handleSnapHaptic(-1f)
-                    pickerState.animateScrollToOption(pickerState.selectedOption - 1)
-                }
+        modifier = modifier.onRotaryInputAccumulated { change ->
+
+            val diff = sign(change)
+
+            if (activeJob == null || activeJob?.isActive == false) {
+                animationScrollTarget = pickerState.selectedOption
+            }
+            animationScrollTarget += diff.toInt()
+
+            if (!pickerState.repeatItems) {
+                animationScrollTarget =
+                    animationScrollTarget.coerceIn(0, pickerState.numberOfOptions)
+            }
+
+            activeJob = coroutineScope.launch {
+                haptics.handleSnapHaptic(diff)
+                pickerState.animateScrollToOption(animationScrollTarget)
             }
         },
         contentDescription = contentDescription,

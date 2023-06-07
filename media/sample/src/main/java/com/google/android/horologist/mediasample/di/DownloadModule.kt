@@ -50,6 +50,7 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import okhttp3.CacheControl
 import okhttp3.Call
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -74,7 +75,9 @@ object DownloadModule {
             delegate = callFactory,
             defaultRequestType = DownloadRequest
         )
-    ).setTransferListener(transferListener)
+    )
+        .setCacheControl(CacheControl.Builder().noCache().noStore().build())
+        .setTransferListener(transferListener)
 
     @DownloadFeature
     @Provides

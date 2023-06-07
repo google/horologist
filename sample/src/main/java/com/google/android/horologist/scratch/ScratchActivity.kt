@@ -29,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -38,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
+import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
@@ -48,6 +50,7 @@ import androidx.wear.compose.material.scrollAway
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.rememberColumnState
+import kotlinx.coroutines.launch
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +72,8 @@ fun WearApp() {
     var settings by rememberSaveable(stateSaver = Settings.Saver) {
         mutableStateOf(Settings())
     }
+
+    val coroutineScope = rememberCoroutineScope()
 
     key(settings) {
         val initialOffset = settings.initialOffset
@@ -106,6 +111,13 @@ fun WearApp() {
                 columnState = columnState
             ) {
                 item {
+                    com.google.android.horologist.compose.material.Chip("Scroll to end", onClick = {
+                        coroutineScope.launch {
+                            columnState.state.scrollToItem(999, 0)
+                        }
+                    })
+                }
+                item {
                     val text = "Initial Offset: ${initialOffset.index} / ${initialOffset.offset}"
                     FixedHeightChip(text, itemHeight, onClick = {
                         settings = settings.copy(
@@ -120,6 +132,11 @@ fun WearApp() {
                         settings = settings.copy(
                             autoCenteringMode = (settings.autoCenteringMode + 1) % Settings.autoCenterings.size
                         )
+                    })
+                }
+                val items = listOf("1", "2", "miss a few", "99", "100")
+                items(items) {
+                    FixedHeightChip(it, itemHeight, onClick = {
                     })
                 }
                 item {

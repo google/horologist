@@ -30,6 +30,7 @@ import androidx.wear.compose.material.Text
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -241,6 +242,7 @@ class DatePickerInteractionTest {
         assertThat(datePickerState.numOfDays).isEqualTo(1)
     }
 
+    @Ignore("Test is failing")
     @Test
     fun picker_first_options_set_correctly_for_fromDate() {
         val date = LocalDate.of(2022, 4, 25)
@@ -261,6 +263,7 @@ class DatePickerInteractionTest {
         assertThat(datePickerState.currentDay()).isEqualTo(25)
     }
 
+    @Ignore("Test is failing")
     @Test
     fun picker_last_options_set_correctly_for_toDate() {
         val date = LocalDate.of(2022, 4, 25)

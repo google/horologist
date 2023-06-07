@@ -16,22 +16,76 @@
 
 package com.google.android.horologist.compose.material
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.MusicNote
+import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class TitleTest : ScreenshotBaseTest() {
+class TitleTest : ScreenshotBaseTest(ScreenshotTestRule.screenshotTestRuleParams { record = true }) {
 
     @Test
-    fun default() {
+    fun defaultPrimary() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Title("Title")
+            Title(
+                text = "Title",
+                textType = TextType.Primary
+            )
         }
     }
 
     @Test
-    fun withVeryLongText() {
+    fun primaryWithVeryLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Title("Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text")
+            Title(
+                text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text",
+                textType = TextType.Primary
+            )
+        }
+    }
+
+    @Test
+    fun defaultSecondary() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Title(
+                text = "Title",
+                textType = TextType.Secondary
+            )
+        }
+    }
+
+    @Test
+    fun secondaryWithVeryLongText() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Title(
+                text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text",
+                textType = TextType.Secondary
+            )
+        }
+    }
+
+    @Test
+    fun defaultSecondaryWithIcon() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Title(
+                text = "Title",
+                textType = TextType.Secondary,
+                icon = Icons.Outlined.MusicNote,
+                iconTint = Color(0xFF946EB1)
+            )
+        }
+    }
+
+    @Test
+    fun secondaryWithIconAndVeryLongText() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Title(
+                text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text",
+                textType = TextType.Secondary,
+                icon = Icons.Outlined.MusicNote,
+                iconTint = Color(0xFF946EB1)
+            )
         }
     }
 }

@@ -19,6 +19,8 @@ package com.google.android.horologist.data.apphelper
 import android.content.Context
 import android.net.Uri
 import androidx.wear.remote.interactions.RemoteActivityHelper
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.Node
 import com.google.android.horologist.data.ActivityConfig
@@ -30,10 +32,12 @@ import com.google.android.horologist.data.WearableApiAvailability
 import com.google.android.horologist.data.appHelperResult
 import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.ownAppConfig
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withTimeout
 
 internal const val TAG = "DataLayerAppHelper"
 
@@ -141,9 +145,7 @@ abstract class DataLayerAppHelper(
         config: ActivityConfig
     ): AppHelperResultCode {
         val request = launchRequest { activity = config }
-        val response =
-            registry.messageClient.sendRequest(node, LAUNCH_APP, request.toByteArray()).await()
-        return AppHelperResult.parseFrom(response).code
+        return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
     }
 
     /**
@@ -151,8 +153,28 @@ abstract class DataLayerAppHelper(
      */
     public suspend fun startRemoteOwnApp(node: String): AppHelperResultCode {
         val request = launchRequest { ownApp = ownAppConfig { } }
-        val response =
-            registry.messageClient.sendRequest(node, LAUNCH_APP, request.toByteArray()).await()
+        return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
+    }
+
+    /**
+     * Attempts a [MessageClient#sendRequest] with a timeout, covering both the GMS Timeout that may
+     * occur (after 1 minute?) but also a timeout specified by Horologist, as 1 minute is often too
+     * long.
+     */
+    protected suspend fun sendRequestWithTimeout(node: String, path: String, data: ByteArray): AppHelperResultCode {
+        val response = try {
+            withTimeout(MESSAGE_REQUEST_TIMEOUT_MS) {
+                registry.messageClient.sendRequest(node, path, data).await()
+            }
+        } catch (timeoutException: TimeoutCancellationException) {
+            return AppHelperResultCode.APP_HELPER_RESULT_TIMEOUT
+        } catch (e: ApiException) {
+            if (e.statusCode == CommonStatusCodes.TIMEOUT) {
+                return AppHelperResultCode.APP_HELPER_RESULT_TIMEOUT
+            } else {
+                throw e
+            }
+        }
         return AppHelperResult.parseFrom(response).code
     }
 
@@ -170,6 +192,7 @@ abstract class DataLayerAppHelper(
         public const val WATCH_CAPABILITY = "${CAPABILITY_DEVICE_PREFIX}_watch"
         public const val LAUNCH_APP: String = "/$DATA_LAYER_APP_HELPER/launch_app"
         public const val SURFACE_INFO_PATH: String = "/$DATA_LAYER_APP_HELPER/surface_info"
+        public const val MESSAGE_REQUEST_TIMEOUT_MS = 15_000L
     }
 }
 

@@ -47,7 +47,7 @@ public fun AlertDialog(
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel)
 ) {
     com.google.android.horologist.compose.material.AlertDialog(
-        body = body,
+        message = body,
         onCancelButtonClick = onCancelButtonClick,
         onOKButtonClick = onOKButtonClick,
         showDialog = showDialog,

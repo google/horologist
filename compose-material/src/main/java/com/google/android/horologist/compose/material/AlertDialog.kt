@@ -31,13 +31,15 @@ import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
- * This composable fulfils the redlines of the following components:
- * - AlertDialog - Title + body + buttons
+ * This component is an alternative to [Alert], providing the following:
+ * - a convenient way of passing a title and a message;
+ * - default positive and negative buttons;
+ * - wrapped in a [Dialog];
  */
 @ExperimentalHorologistApi
 @Composable
 public fun AlertDialog(
-    body: String,
+    message: String,
     onCancelButtonClick: () -> Unit,
     onOKButtonClick: () -> Unit,
     showDialog: Boolean,
@@ -55,7 +57,7 @@ public fun AlertDialog(
     ) {
         Alert(
             title = title,
-            body = body,
+            body = message,
             onCancelButtonClick = onCancelButtonClick,
             onOKButtonClick = onOKButtonClick,
             okButtonContentDescription = okButtonContentDescription,

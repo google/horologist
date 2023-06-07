@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,9 +29,9 @@ import androidx.wear.compose.material.Icon
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
- * This composable fulfils the redlines of the following components:
- * - Primary, Secondary or Icon only button - according to [buttonType] value;
- * - Default, Large, Small and Extra Small button - according to [buttonSize] value;
+ * This component is an alternative to [Button], providing the following:
+ * - a convenient way of providing an icon and choosing its size from a range of sizes recommended
+ * by the Wear guidelines;
  */
 @ExperimentalHorologistApi
 @Composable

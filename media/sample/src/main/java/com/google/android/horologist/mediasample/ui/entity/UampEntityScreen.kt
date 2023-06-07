@@ -140,7 +140,7 @@ fun UampEntityScreen(
     }
 
     AlertDialog(
-        body = stringResource(R.string.entity_dialog_cancel_downloads),
+        message = stringResource(R.string.entity_dialog_cancel_downloads),
         onCancelButtonClick = {
             showCancelDownloadsDialog = false
         },
@@ -155,7 +155,7 @@ fun UampEntityScreen(
     )
 
     AlertDialog(
-        body = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
+        message = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
         onCancelButtonClick = {
             showRemoveDownloadsDialog = false
         },
@@ -170,7 +170,7 @@ fun UampEntityScreen(
     )
 
     AlertDialog(
-        body = stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete),
+        message = stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete),
         onCancelButtonClick = {
             showRemoveSingleMediaDownloadDialog = false
         },

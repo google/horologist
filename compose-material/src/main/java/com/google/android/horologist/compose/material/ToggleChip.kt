@@ -43,8 +43,10 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
 import com.google.android.horologist.compose.material.util.adjustChipHeightToFontScale
 
 /**
- * This composable fulfils the redlines of the following components:
- * - Toggle chips
+ * This component is an alternative to [ToggleChip], providing the following:
+ * - a convenient way of providing a label and a secondary label;
+ * - a convenient way of choosing the toggle control;
+ * - a convenient way of providing an icon and setting the icon to be mirrored in RTL mode;
  */
 @ExperimentalHorologistApi
 @Composable

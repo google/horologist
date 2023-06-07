@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,10 +48,10 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
 import com.google.android.horologist.compose.material.util.adjustChipHeightToFontScale
 
 /**
- * This composable fulfils the redlines of the following components:
- * - Primary or Secondary chip - according to [chipType] value;
- * - Standard chip - when [largeIcon] value is `false`;
- * - Chip with small or large avatar - according to [largeIcon] value;
+ * This component is an alternative to [Chip], providing the following:
+ * - a convenient way of providing a label and a secondary label;
+ * - a convenient way of providing an icon and a placeholder, and choosing their size based on the
+ * sizes recommended by the Wear guidelines;
  */
 @ExperimentalHorologistApi
 @Composable
@@ -121,7 +121,40 @@ public fun Chip(
 }
 
 /**
- * An implementation of [Chip] allowing full customization of the icon displayed.
+ * This component is an alternative to [Chip], providing the following:
+ * - a convenient way of providing a label and a secondary label;
+ * - a convenient way of providing an icon and a placeholder, and choosing their size based on the
+ * sizes recommended by the Wear guidelines;
+ */
+@ExperimentalHorologistApi
+@Composable
+public fun Chip(
+    @StringRes labelId: Int,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    @StringRes secondaryLabel: Int? = null,
+    icon: Any? = null,
+    largeIcon: Boolean = false,
+    placeholder: Painter? = null,
+    chipType: ChipType = ChipType.Primary,
+    enabled: Boolean = true
+) {
+    Chip(
+        label = stringResource(id = labelId),
+        onClick = onClick,
+        modifier = modifier,
+        secondaryLabel = secondaryLabel?.let { stringResource(id = it) },
+        icon = icon,
+        largeIcon = largeIcon,
+        placeholder = placeholder,
+        chipType = chipType,
+        enabled = enabled
+    )
+}
+
+/**
+ * This component is an alternative to [Chip], providing the following:
+ * - a convenient way of providing a label and a secondary label;
  */
 @ExperimentalHorologistApi
 @Composable
@@ -196,35 +229,6 @@ public fun Chip(
         },
         enabled = enabled,
         contentPadding = contentPadding
-    )
-}
-
-/**
- * An alternative function to [Chip] that allows a string resource id to be passed as label.
- */
-@ExperimentalHorologistApi
-@Composable
-public fun Chip(
-    @StringRes labelId: Int,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    secondaryLabel: String? = null,
-    icon: Any? = null,
-    largeIcon: Boolean = false,
-    placeholder: Painter? = null,
-    chipType: ChipType = ChipType.Primary,
-    enabled: Boolean = true
-) {
-    Chip(
-        label = stringResource(id = labelId),
-        onClick = onClick,
-        modifier = modifier,
-        secondaryLabel = secondaryLabel,
-        icon = icon,
-        largeIcon = largeIcon,
-        placeholder = placeholder,
-        chipType = chipType,
-        enabled = enabled
     )
 }
 

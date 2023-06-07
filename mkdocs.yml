@@ -32,6 +32,8 @@ nav:
       - 'Guide': composables.md
   - 'Compose Layout':
       - 'Guide': compose-layout.md
+  - 'Compose Material':
+      - 'Guide': compose-material.md
   - 'Data Layer':
       - 'Guide': datalayer.md
       - 'App Helpers': datalayer-helpers-guide.md

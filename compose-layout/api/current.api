@@ -372,7 +372,7 @@ package com.google.android.horologist.compose.rotaryinput {
   public final class RotaryInputConfigDefaults {
     field public static final long DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS = 200L; // 0xc8L
     field public static final float DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX = 48.0f;
-    field public static final long DEFAULT_RATE_LIMIT_COOL_DOWN_MS = 300L; // 0x12cL
+    field public static final long DEFAULT_RATE_LIMIT_COOL_DOWN_MS = 30L; // 0x1eL
     field public static final com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults INSTANCE;
     field public static final long RATE_LIMITING_DISABLED = -1L; // 0xffffffffffffffffL
   }

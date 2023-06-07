@@ -19,6 +19,7 @@ package com.google.android.horologist.composables
 import android.content.Context
 import android.view.accessibility.AccessibilityManager
 import androidx.annotation.PluralsRes
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,6 +40,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -519,6 +521,7 @@ private fun Separator(width: Dp, textStyle: TextStyle) {
 }
 
 @Composable
+@VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
 internal fun pickerGroupItemWithRSB(
     pickerState: PickerState,
     modifier: Modifier,
@@ -532,7 +535,7 @@ internal fun pickerGroupItemWithRSB(
         scrollableState = pickerState,
         throttleThresholdMs = 10
     )
-    var animationScrollTarget: Int by remember { mutableStateOf(pickerState.selectedOption) }
+    var animationScrollTarget: Int by remember { mutableIntStateOf(pickerState.selectedOption) }
     var activeJob: Job? by remember { mutableStateOf(null) }
 
     return PickerGroupItem(

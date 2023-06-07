@@ -30,12 +30,20 @@ import androidx.wear.compose.material.Text
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.GraphicsMode
 import java.time.LocalDate
 
-@Ignore("Race condition in tests on beta02")
+@RunWith(RobolectricTestRunner::class)
+@Config(
+    sdk = [30],
+    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
 class DatePickerInteractionTest {
     @get:Rule
     val composeTestRule = createComposeRule()

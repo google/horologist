@@ -5,9 +5,6 @@ module:annotations
 com.google.android.horologist.annotations
 module:base-ui
 com.google.android.horologist.base.ui
-com.google.android.horologist.base.ui.components
-com.google.android.horologist.base.ui.semantics
-com.google.android.horologist.base.ui.util
 module:composables
 com.google.android.horologist.auth.composables
 com.google.android.horologist.auth.composables.chips
@@ -21,6 +18,9 @@ com.google.android.horologist.compose.pager
 com.google.android.horologist.compose.paging
 com.google.android.horologist.compose.rotaryinput
 com.google.android.horologist.compose.snackbar
+module:compose-material
+com.google.android.horologist.compose.material
+com.google.android.horologist.compose.material.util
 module:compose-tools
 com.google.android.horologist.compose.tools
 com.google.android.horologist.compose.tools.a11y

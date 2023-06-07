@@ -115,7 +115,7 @@ class RotaryInteractionTest {
 
         rule.setContent {
             pickerState = rememberPickerState(
-                initialNumberOfOptions = 18,
+                initialNumberOfOptions = numberOfOptions,
                 initiallySelectedOption = selectedOption,
                 repeatItems = false
             )
@@ -195,6 +195,5 @@ class RotaryInteractionTest {
         }
     }
 }
-
 
 const val TEST_TAG = "test-tag"

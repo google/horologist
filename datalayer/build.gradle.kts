@@ -132,3 +132,6 @@ dependencies {
 }
 
 apply(plugin = "com.vanniktech.maven.publish")
+
+tasks.maybeCreate("prepareKotlinIdeaImport")
+    .dependsOn("generateDebugProto")

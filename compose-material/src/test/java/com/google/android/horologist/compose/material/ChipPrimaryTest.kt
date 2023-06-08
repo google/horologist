@@ -23,6 +23,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.compose.material.util.rememberVectorPainter
@@ -238,6 +239,20 @@ class ChipPrimaryTest : ScreenshotBaseTest() {
                         tintColor = Color.Black
                     ),
                     enabled = false
+                )
+            }
+        }
+    }
+
+    @Test
+    fun withSecondaryLabelAndIconRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image
                 )
             }
         }

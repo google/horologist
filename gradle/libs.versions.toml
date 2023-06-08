@@ -1,8 +1,8 @@
 [versions]
 accompanist = "0.31.3-beta"
-androidx-benchmark = "1.2.0-alpha14"
+androidx-benchmark = "1.2.0-alpha15"
 androidx-complications-data = "1.2.0-alpha08"
-androidx-compose-material = "1.5.0-beta01"
+androidx-compose-material = "1.5.0-beta02"
 androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
 androidx-health-services = "1.0.0-beta03"
@@ -10,27 +10,27 @@ androidx-hilt = "1.0.0"
 androidx-media3 = "1.0.2"
 androidx-test-espresso = "3.6.0-alpha01"
 androidx-test-ext = "1.2.0-alpha01"
-androidx-tracingPerfetto = "1.0.0-alpha15"
-androidx-tracingPerfettoBinary = "1.0.0-alpha15"
+androidx-tracingPerfetto = "1.0.0-alpha16"
+androidx-tracingPerfettoBinary = "1.0.0-alpha16"
 androidx-wear-watchface = "1.2.0-alpha08"
 androidxActivity = "1.7.2"
-androidxCore = "1.10.1"
+androidxCore = "1.9.0"
 androidxLifecycle = "2.6.1"
 androidxNavigation = "2.6.0-rc02"
 androidxPhoneInteractions = "1.1.0-alpha03"
 androidxRemoteInteractions = "1.0.0"
 androidxStartup = "1.1.1"
 androidxTracing = "1.2.0-rc01"
-androidxWear = "1.3.0-alpha05"
+androidxWear = "1.3.0-beta01"
 androidxWork = "2.8.1"
 androidxprotolayout = "1.0.0-alpha10"
-androidxtiles = "1.2.0-alpha06"
+androidxtiles = "1.2.0-alpha07"
 annotation = "1.0.1"
 app-cash-turbine = "0.13.0"
 benManes = "0.46.0"
 com-squareup-okhttp3 = "4.11.0"
 com-squareup-retrofit2 = "2.9.0"
-compose = "1.5.0-beta01"
+compose = "1.5.0-beta02"
 compose-compiler = "1.4.7"
 composesnapshot = "-"
 dependencyAnalysis = "1.20.0"
@@ -105,7 +105,7 @@ androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0-alpha
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidxNavigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigation" }
-androidx-paging = "androidx.paging:paging-compose:1.0.0-alpha20"
+androidx-paging = "androidx.paging:paging-compose:3.2.0-beta01"
 androidx-palette-ktx = "androidx.palette:palette-ktx:1.0.0"
 androidx-runtime-tracing = { module = "androidx.compose.runtime:runtime-tracing", version.ref = "runtimeTracing" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "androidxStartup" }
@@ -131,7 +131,7 @@ coil-base = { module = "io.coil-kt:coil-compose-base", version.ref = "io-coil-kt
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "io-coil-kt" }
 com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
-compose-bom = "androidx.compose:compose-bom:2023.05.01"
+compose-bom = "androidx.compose:compose-bom:2023.06.00"
 compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose-material" }
 compose-foundation-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "androidx-compose-material" }
 compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "androidx-compose-material" }

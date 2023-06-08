@@ -51,7 +51,7 @@ public class SuspendingTileTest {
 
     @Test
     public fun canCallOnResourcesRequest() {
-        val future = clientUnderTest.requestResources(
+        val future = clientUnderTest.requestTileResourcesAsync(
             RequestBuilders.ResourcesRequest.Builder().build()
         )
 

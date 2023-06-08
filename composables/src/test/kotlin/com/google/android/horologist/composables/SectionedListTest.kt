@@ -206,7 +206,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 Text(
                     text = text,
                     modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Left,
+                    textAlign = TextAlign.Start,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2
                 )
@@ -306,7 +306,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 Text(
                     text = text,
                     modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Left,
+                    textAlign = TextAlign.Start,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2
                 )

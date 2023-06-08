@@ -182,7 +182,7 @@ public fun Chip(
                 text = label,
                 color = textColor,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Left else TextAlign.Center,
+                textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
                 style = MaterialTheme.typography.button

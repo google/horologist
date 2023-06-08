@@ -45,7 +45,6 @@ fun SecondaryTitlePreviewWithIcon() {
         text = "Title",
         icon = Icons.Filled.Add,
         iconTint = Color(0xFF946EB1)
-
     )
 }
 

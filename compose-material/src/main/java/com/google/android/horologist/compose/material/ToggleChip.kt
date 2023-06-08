@@ -69,7 +69,6 @@ public fun ToggleChip(
         {
             Text(
                 text = label,
-                color = MaterialTheme.colors.onSurface,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
@@ -83,7 +82,6 @@ public fun ToggleChip(
             {
                 Text(
                     text = secondaryLabel,
-                    color = MaterialTheme.colors.onSurfaceVariant,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     style = MaterialTheme.typography.caption2

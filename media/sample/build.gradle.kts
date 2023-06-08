@@ -294,3 +294,6 @@ if (device != null) {
         commandLine = "adb -s $device shell dumpsys media.audio_flinger".split(" ")
     }
 }
+
+tasks.maybeCreate("prepareKotlinIdeaImport")
+    .dependsOn("generateDebugProto")

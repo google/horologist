@@ -193,3 +193,6 @@ dependencies {
         }
     }
 }
+
+tasks.maybeCreate("prepareKotlinIdeaImport")
+    .dependsOn("generateDebugProto")

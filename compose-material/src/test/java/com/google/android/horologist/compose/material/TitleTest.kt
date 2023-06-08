@@ -22,8 +22,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import org.junit.Ignore
 import org.junit.Test
 
+@Ignore("Snapshot images need to be generated in a Linux machine")
 class TitleTest :
     ScreenshotBaseTest() {
 

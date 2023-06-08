@@ -64,23 +64,18 @@ public fun Title(
     text: String,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = Modifier
-            .padding(horizontal = 14.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = text,
-            modifier = modifier
-                .semantics { heading() }
-                .fillMaxWidth(),
-            color = MaterialTheme.colors.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 3,
-            style = MaterialTheme.typography.button
-        )
-    }
+    Text(
+        text = text,
+        modifier = modifier
+            .semantics { heading() }
+            .padding(horizontal = 14.dp)
+            .fillMaxWidth(),
+        color = MaterialTheme.colors.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 3,
+        style = MaterialTheme.typography.button
+    )
 }
 
 /**

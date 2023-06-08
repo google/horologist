@@ -16,22 +16,120 @@
 
 package com.google.android.horologist.compose.material
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.MusicNote
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.LayoutDirection
+import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class TitleTest : ScreenshotBaseTest() {
+class TitleTest :
+    ScreenshotBaseTest() {
 
     @Test
-    fun default() {
+    fun defaultPrimary() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Title("Title")
+            Title(
+                text = "Title"
+            )
         }
     }
 
     @Test
-    fun withVeryLongText() {
+    fun primaryWithVeryLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Title("Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text")
+            Title(
+                text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text"
+            )
+        }
+    }
+
+    @Test
+    fun defaultSecondary() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            SecondaryTitle(
+                text = "Title"
+            )
+        }
+    }
+
+    @Test
+    fun secondaryWithVeryLongText() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            SecondaryTitle(
+                text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text"
+            )
+        }
+    }
+
+    @Test
+    fun defaultSecondaryWithIcon() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            SecondaryTitle(
+                text = "Title",
+                icon = Icons.Outlined.MusicNote,
+                iconTint = Color(0xFF946EB1)
+            )
+        }
+    }
+
+    @Test
+    fun secondaryWithIconAndVeryLongText() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            SecondaryTitle(
+                text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text",
+                icon = Icons.Outlined.MusicNote,
+                iconTint = Color(0xFF946EB1)
+            )
+        }
+    }
+
+    @Test
+    fun defaultPrimaryRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                Title(
+                    text = "Title"
+                )
+            }
+        }
+    }
+
+    @Test
+    fun defaultSecondaryRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                SecondaryTitle(
+                    text = "Title"
+                )
+            }
+        }
+    }
+
+    @Test
+    fun mirroredSecondary() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            SecondaryTitle(
+                text = "Title",
+                icon = Icons.Outlined.MusicNote,
+                iconTint = Color(0xFF946EB1),
+                iconRtlMode = IconRtlMode.Mirrored
+            )
+        }
+    }
+
+    @Test
+    fun mirroredRtlSecondary() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                SecondaryTitle(
+                    text = "Title",
+                    icon = Icons.Outlined.MusicNote,
+                    iconTint = Color(0xFF946EB1),
+                    iconRtlMode = IconRtlMode.Mirrored
+                )
+            }
         }
     }
 }

@@ -62,7 +62,6 @@ public fun SplitToggleChip(
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = label,
-                color = MaterialTheme.colors.onSurface,
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
@@ -75,7 +74,6 @@ public fun SplitToggleChip(
             {
                 Text(
                     text = secondaryLabel,
-                    color = MaterialTheme.colors.onSurfaceVariant,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     style = MaterialTheme.typography.caption2

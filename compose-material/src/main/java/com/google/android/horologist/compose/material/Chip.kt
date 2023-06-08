@@ -77,18 +77,12 @@ public fun Chip(
 
                 Row {
                     if (icon is ImageVector) {
-                        val iconTint = when (chipType) {
-                            ChipType.Primary -> MaterialTheme.colors.onPrimary
-                            ChipType.Secondary -> MaterialTheme.colors.onSurface
-                        }
-
                         Icon(
                             imageVector = icon,
                             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                             modifier = Modifier
                                 .size(iconSize)
-                                .clip(CircleShape),
-                            tint = iconTint
+                                .clip(CircleShape)
                         )
                     } else {
                         Image(
@@ -173,14 +167,8 @@ public fun Chip(
 
     val labelParam: (@Composable RowScope.() -> Unit) =
         {
-            val textColor = when (chipType) {
-                ChipType.Primary -> MaterialTheme.colors.onPrimary
-                ChipType.Secondary -> MaterialTheme.colors.onSurface
-            }
-
             Text(
                 text = label,
-                color = textColor,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
@@ -192,14 +180,8 @@ public fun Chip(
     val secondaryLabelParam: (@Composable RowScope.() -> Unit)? =
         secondaryLabel?.let {
             {
-                val textColor = when (chipType) {
-                    ChipType.Primary -> MaterialTheme.colors.onPrimary
-                    ChipType.Secondary -> MaterialTheme.colors.onSurfaceVariant
-                }
-
                 Text(
                     text = secondaryLabel,
-                    color = textColor,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     style = MaterialTheme.typography.caption2

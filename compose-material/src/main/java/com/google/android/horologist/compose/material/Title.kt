@@ -100,7 +100,7 @@ public fun SecondaryTitle(
 }
 
 /**
- * A primary title heading to group and identify items with optional icon.
+ * A secondary title heading to group and identify items with optional icon.
  */
 @ExperimentalHorologistApi
 @Composable
@@ -113,7 +113,7 @@ public fun SecondaryTitle(
     iconRtlMode: IconRtlMode = IconRtlMode.Default
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 14.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -130,7 +130,7 @@ public fun SecondaryTitle(
         }
         Text(
             text = text,
-            modifier = modifier
+            modifier = Modifier
                 .semantics { heading() }
                 .fillMaxWidth(),
             color = MaterialTheme.colors.onBackground,

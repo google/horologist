@@ -21,6 +21,7 @@ package com.google.android.horologist.base.ui.components
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Ignore
 import org.junit.Test
+
 @Ignore("Deprecated. Replaced by Title in Horologist Material Compose library.")
 class TitleTest : ScreenshotBaseTest() {
 

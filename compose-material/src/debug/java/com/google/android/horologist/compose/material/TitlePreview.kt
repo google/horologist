@@ -21,12 +21,12 @@ import com.google.android.horologist.compose.tools.WearPreview
 
 @WearPreview
 @Composable
-fun TitlePrimaryPreview() {
+fun TitlePreview() {
     Title("Title")
 }
 
 @WearPreview
 @Composable
-fun TitlePrimaryPreviewWithLongText() {
+fun TitlePreviewWithLongText() {
     Title("Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text")
 }

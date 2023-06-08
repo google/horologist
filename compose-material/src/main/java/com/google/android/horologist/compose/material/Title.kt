@@ -23,11 +23,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -43,38 +41,81 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 /**
- * A title heading to group and identify items.
+ * A primary title heading to group and identify items.
  */
 @ExperimentalHorologistApi
 @Composable
 public fun Title(
     @StringRes textId: Int,
-    modifier: Modifier = Modifier,
-    textType: TextType = TextType.Primary,
-    icon: ImageVector? = null,
-    iconSize: Dp = 24.dp
+    modifier: Modifier = Modifier
 ) {
     Title(
         text = stringResource(id = textId),
-        modifier = modifier,
-        textType = textType,
-        icon = icon,
-        iconSize = iconSize
+        modifier = modifier
     )
 }
 
 /**
- * A title heading to group and identify items.
+ * A primary title heading to group and identify items.
  */
 @ExperimentalHorologistApi
 @Composable
 public fun Title(
     text: String,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = Modifier
+            .padding(horizontal = 14.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = text,
+            modifier = modifier
+                .semantics { heading() }
+                .fillMaxWidth(),
+            color = MaterialTheme.colors.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 3,
+            style = MaterialTheme.typography.button
+        )
+    }
+}
+
+/**
+ * A secondary title heading to group and identify items with optional icon.
+ */
+@ExperimentalHorologistApi
+@Composable
+public fun SecondaryTitle(
+    @StringRes textId: Int,
     modifier: Modifier = Modifier,
-    textType: TextType = TextType.Primary,
+    icon: ImageVector? = null,
+    iconSize: Dp = 24.dp,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default
+) {
+    SecondaryTitle(
+        text = stringResource(id = textId),
+        modifier = modifier,
+        icon = icon,
+        iconSize = iconSize,
+        iconRtlMode = iconRtlMode
+    )
+}
+
+/**
+ * A primary title heading to group and identify items with optional icon.
+ */
+@ExperimentalHorologistApi
+@Composable
+public fun SecondaryTitle(
+    text: String,
+    modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     iconTint: Color = MaterialTheme.colors.onBackground,
-    iconSize: Dp = 24.dp
+    iconSize: Dp = 24.dp,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default
 ) {
     Row(
         modifier = Modifier
@@ -86,9 +127,9 @@ public fun Title(
                 imageVector = icon,
                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                 modifier = Modifier
-                    .size(iconSize)
-                    .clip(CircleShape),
-                tint = iconTint
+                    .size(iconSize),
+                tint = iconTint,
+                rtlMode = iconRtlMode
             )
             Spacer(modifier = Modifier.width(6.dp))
         }
@@ -97,26 +138,11 @@ public fun Title(
             modifier = modifier
                 .semantics { heading() }
                 .fillMaxWidth(),
-            color = when (textType) {
-                TextType.Primary -> MaterialTheme.colors.onSurfaceVariant
-                TextType.Secondary -> MaterialTheme.colors.onBackground
-            },
-            textAlign = when (textType) {
-                TextType.Primary -> TextAlign.Center
-                TextType.Secondary -> TextAlign.Left
-            },
+            color = MaterialTheme.colors.onBackground,
+            textAlign = TextAlign.Start,
             overflow = TextOverflow.Ellipsis,
             maxLines = 3,
-            style = when (textType) {
-                TextType.Primary -> MaterialTheme.typography.button
-                TextType.Secondary -> MaterialTheme.typography.caption1
-            }
+            style = MaterialTheme.typography.caption1
         )
     }
-}
-
-@ExperimentalHorologistApi
-public enum class TextType {
-    Primary,
-    Secondary,
 }

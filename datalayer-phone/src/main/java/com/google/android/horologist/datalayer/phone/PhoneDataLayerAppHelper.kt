@@ -20,6 +20,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.annotation.CheckResult
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.WearDataLayerRegistry
@@ -50,6 +51,7 @@ public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRe
         remoteActivityHelper.startRemoteActivity(intent, node).await()
     }
 
+    @CheckResult
     override suspend fun startCompanion(node: String): AppHelperResultCode {
         val companionPackage = registry.nodeClient.getCompanionPackageForNode(node).await()
 

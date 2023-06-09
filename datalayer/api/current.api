@@ -131,10 +131,10 @@ package com.google.android.horologist.data.apphelper {
     method protected final androidx.wear.remote.interactions.RemoteActivityHelper getRemoteActivityHelper();
     method public abstract suspend Object? installOnNode(String node, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public final suspend Object? isAvailable(kotlin.coroutines.Continuation<? super java.lang.Boolean>);
-    method protected final suspend Object? sendRequestWithTimeout(String node, String path, byte[] data, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
-    method public abstract suspend Object? startCompanion(String node, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
-    method public final suspend Object? startRemoteActivity(String node, error.NonExistentClass config, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
-    method public final suspend Object? startRemoteOwnApp(String node, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
+    method @CheckResult protected final suspend Object? sendRequestWithTimeout(String node, String path, byte[] data, optional long timeoutMs, optional kotlin.coroutines.Continuation<? super error.NonExistentClass>);
+    method @CheckResult public abstract suspend Object? startCompanion(String node, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
+    method @CheckResult public final suspend Object? startRemoteActivity(String node, error.NonExistentClass config, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
+    method @CheckResult public final suspend Object? startRemoteOwnApp(String node, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
     property public final kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> connectedAndInstalledNodes;
     property protected final android.content.Context context;
     property protected final String playStoreUri;

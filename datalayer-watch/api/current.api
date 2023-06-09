@@ -9,7 +9,7 @@ package com.google.android.horologist.datalayer.watch {
     method public suspend Object? markComplicationAsDeactivated(String complicationName, int complicationInstanceId, androidx.wear.watchface.complications.data.ComplicationType complicationType, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? markTileAsInstalled(String tileName, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? markTileAsRemoved(String tileName, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    method public suspend Object? startCompanion(String node, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
+    method @CheckResult public suspend Object? startCompanion(String node, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
   }
 
   public final class WearDataLayerAppHelperKt {

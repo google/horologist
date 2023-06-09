@@ -18,6 +18,7 @@ package com.google.android.horologist.data.apphelper
 
 import android.content.Context
 import android.net.Uri
+import androidx.annotation.CheckResult
 import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
@@ -135,11 +136,13 @@ abstract class DataLayerAppHelper(
      * @param node The node to launch on.
      * @return Whether launch was successful or not.
      */
+    @CheckResult
     abstract suspend fun startCompanion(node: String): AppHelperResultCode
 
     /**
      * Launch an activity on the specified node.
      */
+    @CheckResult
     public suspend fun startRemoteActivity(
         node: String,
         config: ActivityConfig
@@ -151,6 +154,7 @@ abstract class DataLayerAppHelper(
     /**
      * Launch own app on the specified node.
      */
+    @CheckResult
     public suspend fun startRemoteOwnApp(node: String): AppHelperResultCode {
         val request = launchRequest { ownApp = ownAppConfig { } }
         return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
@@ -161,9 +165,16 @@ abstract class DataLayerAppHelper(
      * occur (after 1 minute?) but also a timeout specified by Horologist, as 1 minute is often too
      * long.
      */
-    protected suspend fun sendRequestWithTimeout(node: String, path: String, data: ByteArray): AppHelperResultCode {
+    @CheckResult
+    protected suspend fun sendRequestWithTimeout(
+        node: String,
+        path: String,
+        data: ByteArray,
+        timeoutMs: Long = MESSAGE_REQUEST_TIMEOUT_MS
+    ): AppHelperResultCode {
         val response = try {
-            withTimeout(MESSAGE_REQUEST_TIMEOUT_MS) {
+            withTimeout(timeoutMs) {
+                // Cancellation will not lead to the GMS Task itself being cancelled.
                 registry.messageClient.sendRequest(node, path, data).await()
             }
         } catch (timeoutException: TimeoutCancellationException) {

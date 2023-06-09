@@ -19,6 +19,7 @@ package com.google.android.horologist.datalayer.watch
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.annotation.CheckResult
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.watchface.complications.data.ComplicationType
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -77,6 +78,7 @@ public class WearDataLayerAppHelper(
         }
     }
 
+    @CheckResult
     override suspend fun startCompanion(node: String): AppHelperResultCode {
         val localNode = registry.nodeClient.localNode.await()
         val request = launchRequest {

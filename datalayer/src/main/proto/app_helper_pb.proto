@@ -25,7 +25,19 @@ message LaunchRequest {
     OwnAppConfig own_app = 1;
     CompanionConfig companion = 2;
     ActivityConfig activity = 3;
+    DeviceInfo device_info = 4;
   }
+}
+
+message NodeInfo {
+  DeviceInfo device = 1;
+}
+
+message DeviceInfo {
+  uint32 api_version = 1;
+  string device = 2;
+  string model = 3;
+  string product = 4;
 }
 
 message OwnAppConfig {}

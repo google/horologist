@@ -93,15 +93,15 @@ public class WearLocalDataStore<T>(
         val oldT = readExistingValue(nodeId)
         val newT = transform(oldT)
 
-        if (newT != null) {
+        if (newT == null) {
+            dataClient.deleteDataItems(nodeId.fullPath)
+                .await()
+        } else if (newT != oldT) {
             val request = PutDataRequest.create(path).apply {
                 data = writeBytes(newT)
             }
 
             dataClient.putDataItem(request).await()
-        } else {
-            dataClient.deleteDataItems(nodeId.fullPath)
-                .await()
         }
 
         return newT

@@ -17,7 +17,9 @@
 package com.google.android.horologist.data.apphelper
 
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.net.Uri
+import android.os.Build
 import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.Node
@@ -28,12 +30,17 @@ import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearableApiAvailability
 import com.google.android.horologist.data.appHelperResult
+import com.google.android.horologist.data.copy
 import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.ownAppConfig
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.security.AccessController.getContext
+
 
 internal const val TAG = "DataLayerAppHelper"
 
@@ -45,11 +52,42 @@ internal const val TAG = "DataLayerAppHelper"
  */
 abstract class DataLayerAppHelper(
     protected val context: Context,
-    protected val registry: WearDataLayerRegistry
+    protected val registry: WearDataLayerRegistry,
+    scope: CoroutineScope,
 ) {
     private val installedDeviceCapabilityUri = "wear://*/$CAPABILITY_DEVICE_PREFIX"
     protected val playStoreUri = "market://details?id=${context.packageName}"
     protected val remoteActivityHelper by lazy { RemoteActivityHelper(context) }
+
+    private val nodeInfoDataStore by lazy {
+        registry.protoDataStore(
+            path = NODE_INFO_PATH,
+            coroutineScope = scope,
+            serializer = NodeInfoSerializer
+        )
+    }
+
+    init {
+        scope.launch {
+            if (isAvailable()) {
+                updateNodeInfo()
+            }
+        }
+    }
+
+    private suspend fun updateNodeInfo() {
+        nodeInfoDataStore.updateData {
+            it.copy {
+                val newInfo = device.copy {
+                    apiVersion = Build.VERSION.SDK_INT
+                    model = Build.MODEL
+                    device = Build.DEVICE
+                    product = Build.PRODUCT
+                }
+                device = newInfo
+            }
+        }
+    }
 
     /**
      * Provides a list of connected nodes and the installation status of the app on these nodes.
@@ -170,6 +208,7 @@ abstract class DataLayerAppHelper(
         public const val WATCH_CAPABILITY = "${CAPABILITY_DEVICE_PREFIX}_watch"
         public const val LAUNCH_APP: String = "/$DATA_LAYER_APP_HELPER/launch_app"
         public const val SURFACE_INFO_PATH: String = "/$DATA_LAYER_APP_HELPER/surface_info"
+        public const val NODE_INFO_PATH: String = "/$DATA_LAYER_APP_HELPER/node_info"
     }
 }
 

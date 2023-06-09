@@ -42,6 +42,7 @@ import androidx.wear.protolayout.StateBuilders.State
 import androidx.wear.protolayout.TimelineBuilders
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders
+import androidx.wear.tiles.renderer.TileRenderer
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.render.TileLayoutRenderer
 import kotlinx.coroutines.Dispatchers
@@ -85,11 +86,15 @@ public fun TilePreview(
             }
         },
         update = {
-            val tileRenderer = androidx.wear.tiles.renderer.TileRenderer(
+            val tileRenderer = TileRenderer(
                 /* uiContext = */ it.context,
                 /* loadActionExecutor = */ Dispatchers.IO.asExecutor(),
                 /* loadActionListener = */ {}
             )
+
+            tile.state?.let { state ->
+                tileRenderer.setState(state.keyToValueMapping)
+            }
 
             // Returning a future
             tileRenderer.inflateAsync(

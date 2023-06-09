@@ -16,17 +16,16 @@
 
 package com.google.android.horologist.compose.material
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
+import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import com.google.accompanist.testharness.TestHarness
@@ -35,15 +34,14 @@ import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class ChipSecondaryTest : ScreenshotBaseTest() {
+class ChipTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Chip(
                 label = "Primary label",
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                onClick = { }
             )
         }
     }
@@ -54,8 +52,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                secondaryLabel = "Secondary label",
-                colors = ChipDefaults.secondaryChipColors()
+                secondaryLabel = "Secondary label"
             )
         }
     }
@@ -66,8 +63,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Default.Image,
-                colors = ChipDefaults.secondaryChipColors()
+                icon = Icons.Default.Image
             )
         }
     }
@@ -79,8 +75,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 icon = Icon32dp,
-                largeIcon = true,
-                colors = ChipDefaults.secondaryChipColors()
+                largeIcon = true
             )
         }
     }
@@ -92,8 +87,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
-                colors = ChipDefaults.secondaryChipColors()
+                icon = Icons.Default.Image
             )
         }
     }
@@ -106,8 +100,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 onClick = { },
                 secondaryLabel = "Secondary label",
                 icon = Icon32dp,
-                largeIcon = true,
-                colors = ChipDefaults.secondaryChipColors()
+                largeIcon = true
             )
         }
     }
@@ -120,7 +113,6 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 onClick = { },
                 secondaryLabel = "Secondary label",
                 icon = Icons.Default.Image,
-                colors = ChipDefaults.secondaryChipColors(),
                 enabled = false
             )
         }
@@ -131,8 +123,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Chip(
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                onClick = { }
             )
         }
     }
@@ -143,8 +134,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
             TestHarness(fontScale = largestFontScale) {
                 Chip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    onClick = { },
-                    colors = ChipDefaults.secondaryChipColors()
+                    onClick = { }
                 )
             }
         }
@@ -157,8 +147,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
-                icon = Icons.Default.Image,
-                colors = ChipDefaults.secondaryChipColors()
+                icon = Icons.Default.Image
             )
         }
     }
@@ -171,8 +160,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = Icons.Default.Image,
-                    colors = ChipDefaults.secondaryChipColors()
+                    icon = Icons.Default.Image
                 )
             }
         }
@@ -184,8 +172,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon12dp,
-                colors = ChipDefaults.secondaryChipColors()
+                icon = Icon12dp
             )
         }
     }
@@ -197,8 +184,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 icon = Icon12dp,
-                largeIcon = true,
-                colors = ChipDefaults.secondaryChipColors()
+                largeIcon = true
             )
         }
     }
@@ -209,8 +195,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon48dp,
-                colors = ChipDefaults.secondaryChipColors()
+                icon = Icon48dp
             )
         }
     }
@@ -222,8 +207,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 icon = Icon48dp,
-                largeIcon = true,
-                colors = ChipDefaults.secondaryChipColors()
+                largeIcon = true
             )
         }
     }
@@ -234,46 +218,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Default.Image,
-                colors = ChipDefaults.secondaryChipColors()
-            )
-        }
-    }
-
-    @Test
-    fun withProgressIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                icon = {
-                    ChipIconWithProgress(
-                        progress = 75f,
-                        icon = Icon48dp,
-                        largeIcon = true
-                    )
-                },
-                colors = ChipDefaults.secondaryChipColors()
-            )
-        }
-    }
-
-    @Test
-    fun withSquareIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            // This was made to showcase that the icon can be any composable in this version of
-            // Chip.
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                icon = {
-                    Box(
-                        Modifier
-                            .size(32.dp)
-                            .background(Color.White)
-                    )
-                },
-                colors = ChipDefaults.secondaryChipColors()
+                icon = Icons.Default.Image
             )
         }
     }
@@ -296,10 +241,77 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                         image = Icons.Default.Image,
                         tintColor = Color.Black
                     ),
-                    colors = ChipDefaults.secondaryChipColors(),
                     enabled = false
                 )
             }
+        }
+    }
+
+    @Test
+    fun withSecondaryLabelAndIconRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image
+                )
+            }
+        }
+    }
+
+    @Test
+    fun withSecondaryChipColors() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Chip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image,
+                colors = ChipDefaults.secondaryChipColors()
+            )
+        }
+    }
+
+    @Test
+    fun withGradientBackgroundChipColors() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Chip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image,
+                colors = ChipDefaults.gradientBackgroundChipColors()
+            )
+        }
+    }
+
+    @Test
+    fun withOutlinedChipColors() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Chip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image,
+                colors = ChipDefaults.outlinedChipColors()
+            )
+        }
+    }
+
+    @Test
+    fun withImageBackgroundChipColors() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Chip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image,
+                colors = ChipDefaults.imageBackgroundChipColors(
+                    backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert)
+                )
+            )
         }
     }
 

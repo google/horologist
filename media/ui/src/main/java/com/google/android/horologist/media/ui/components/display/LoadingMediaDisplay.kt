@@ -24,28 +24,39 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.placeholder
+import androidx.wear.compose.material.placeholderShimmer
+import androidx.wear.compose.material.rememberPlaceholderState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A loading state display. This style is matched to the Text of [TextMediaDisplay] as
  * [MarqueeTextMediaDisplay]
  */
+@OptIn(ExperimentalWearMaterialApi::class)
 @ExperimentalHorologistApi
 @Composable
 public fun LoadingMediaDisplay(
     modifier: Modifier = Modifier
 ) {
+    // Always shimmer on the placeholder pills.
+    val placeholderState = rememberPlaceholderState { /* isContentReady = */ false }
+
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.height(1.dp))
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(6.dp))
                 .background(MaterialTheme.colors.surface)
+                .placeholderShimmer(placeholderState)
+                .placeholder(placeholderState)
                 .width(120.dp)
                 .height(12.dp)
         )
@@ -54,8 +65,14 @@ public fun LoadingMediaDisplay(
             modifier = Modifier
                 .clip(RoundedCornerShape(6.dp))
                 .background(MaterialTheme.colors.surface)
+                .placeholderShimmer(placeholderState)
+                .placeholder(placeholderState)
                 .width(80.dp)
                 .height(12.dp)
         )
+    }
+
+    if (!placeholderState.isShowContent) {
+        LaunchedEffect(placeholderState) { placeholderState.startPlaceholderAnimation() }
     }
 }

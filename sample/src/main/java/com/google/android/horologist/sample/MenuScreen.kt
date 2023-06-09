@@ -34,7 +34,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ChipType
 import java.time.LocalDateTime
 
 @Composable
@@ -100,8 +99,7 @@ fun MenuScreen(
             Chip(
                 label = stringResource(id = R.string.sectionedlist_samples_menu),
                 modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) },
-                chipType = ChipType.Primary
+                onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) }
             )
         }
         item {

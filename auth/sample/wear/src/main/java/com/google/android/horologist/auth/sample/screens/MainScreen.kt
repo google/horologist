@@ -29,7 +29,6 @@ import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.compose.material.Title
 
 @Composable
@@ -71,8 +70,7 @@ private fun SectionedListScope.pkceSection(navigateToRoute: (String) -> Unit) {
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-                chipType = ChipType.Primary
+                onClick = { navigateToRoute(route) }
             )
         }
     }
@@ -98,8 +96,7 @@ private fun SectionedListScope.deviceGrantSection(navigateToRoute: (String) -> U
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-                chipType = ChipType.Primary
+                onClick = { navigateToRoute(route) }
             )
         }
     }
@@ -122,8 +119,7 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-                chipType = ChipType.Primary
+                onClick = { navigateToRoute(route) }
             )
         }
     }
@@ -149,8 +145,7 @@ private fun SectionedListScope.tokenShareSection(navigateToRoute: (String) -> Un
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-                chipType = ChipType.Primary
+                onClick = { navigateToRoute(route) }
             )
         }
     }
@@ -172,13 +167,13 @@ private fun SectionedListScope.commonScreensSection(navigateToRoute: (String) ->
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-                chipType = ChipType.Primary
+                onClick = { navigateToRoute(route) }
             )
         }
     }
 }
 
+@Suppress("unused")
 @WearPreviewDevices
 @Composable
 fun AuthMenuScreenPreview() {

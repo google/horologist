@@ -84,6 +84,12 @@ protobuf {
         id("javalite") {
             artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
         }
+        create("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.55.1"
+        }
+        create("grpckt") {
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"
+        }
     }
     generateProtoTasks {
         all().forEach { task ->
@@ -92,6 +98,14 @@ protobuf {
                     option("lite")
                 }
                 create("kotlin") {
+                    option("lite")
+                }
+            }
+            task.plugins {
+                create("grpc") {
+                    option("lite")
+                }
+                create("grpckt") {
                     option("lite")
                 }
             }
@@ -118,6 +132,13 @@ dependencies {
     api(libs.protobuf.kotlin.lite)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
+    api("io.grpc:grpc-android:1.55.1")
+    api("io.grpc:grpc-binder:1.55.1")
+    api("io.grpc:grpc-stub:1.55.1")
+    api("io.grpc:grpc-protobuf-lite:1.55.1")
+    api("io.grpc:grpc-kotlin-stub:1.3.0")
+    api("com.google.protobuf:protobuf-kotlin-lite:3.23.2")
+    implementation(libs.okio)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

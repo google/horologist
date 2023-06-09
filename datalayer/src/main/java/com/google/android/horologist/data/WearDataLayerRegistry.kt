@@ -29,11 +29,16 @@ import com.google.android.gms.wearable.NodeClient
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.gms.wearable.Wearable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.data.grpc.MessageClientChannel
+import com.google.android.horologist.data.grpc.MessageClientServer
 import com.google.android.horologist.data.store.ProtoDataListener
 import com.google.android.horologist.data.store.impl.ProtoDataListenerRegistration
 import com.google.android.horologist.data.store.impl.WearLocalDataStore
 import com.google.android.horologist.data.store.impl.dataItemFlow
 import com.google.android.horologist.data.store.prefs.PreferencesSerializer
+import io.grpc.BindableService
+import io.grpc.ServerCallHandler
+import io.grpc.kotlin.AbstractCoroutineStub
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -149,6 +154,26 @@ public class WearDataLayerRegistry(
                 listener.dataDeleted(nodeId, path)
             }
         }
+    }
+
+    inline fun <reified T : AbstractCoroutineStub<T>> grpcClient(
+        nodeId: TargetNodeId,
+        scope: CoroutineScope,
+        path: String
+    ): T {
+        val realNodeId = runBlocking { nodeId.evaluate(this@WearDataLayerRegistry) }!!
+        val channel = MessageClientChannel(realNodeId, path, messageClient)
+        return CommandServiceGrpcKt.CommandServiceCoroutineStub(channel) as T
+    }
+
+    fun registerGrpcServer(service: BindableService, path: String): MessageClientServer {
+        val definition = service.bindService()
+
+        val server = MessageClientServer(definition, messageClient, path)
+
+        server.start()
+
+        return server
     }
 
     companion object {

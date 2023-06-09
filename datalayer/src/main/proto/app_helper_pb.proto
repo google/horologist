@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package com.google.android.horologist.data;
 
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
+
 option java_package = "com.google.android.horologist.data";
 option java_multiple_files = true;
 
@@ -64,4 +67,27 @@ message SurfacesInfo {
   repeated ComplicationInfo complications = 2;
   repeated TileInfo tiles = 3;
   ActivityLaunched activityLaunched = 4;
+}
+
+message XRequest {
+  string x = 1;
+}
+
+message XResponse {
+  string x = 1;
+}
+
+message MessageRequest {
+  .google.protobuf.Any request = 1;
+  string method = 2;
+}
+
+message MessageResponse {
+  .google.protobuf.Any response = 1;
+}
+
+service CommandService {
+  rpc sendCommand(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+  rpc sendCommandX(XRequest) returns (XResponse);
+  rpc streamCommandX(stream XRequest) returns (stream XResponse);
 }

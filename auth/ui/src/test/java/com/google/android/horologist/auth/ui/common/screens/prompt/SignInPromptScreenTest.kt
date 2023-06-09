@@ -21,11 +21,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import com.google.android.horologist.test.toolbox.composables.positionedState
@@ -147,13 +147,13 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
         item {
             SignInChip(
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }

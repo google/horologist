@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ChipDefaults
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
@@ -42,7 +43,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -54,7 +55,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -66,7 +67,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 icon = Icons.Default.Image,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -79,7 +80,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 onClick = { },
                 icon = Icon32dp,
                 largeIcon = true,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -92,7 +93,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 onClick = { },
                 secondaryLabel = "Secondary label",
                 icon = Icons.Default.Image,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -106,7 +107,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 secondaryLabel = "Secondary label",
                 icon = Icon32dp,
                 largeIcon = true,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -119,7 +120,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 onClick = { },
                 secondaryLabel = "Secondary label",
                 icon = Icons.Default.Image,
-                chipType = ChipType.Secondary,
+                colors = ChipDefaults.secondaryChipColors(),
                 enabled = false
             )
         }
@@ -131,7 +132,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -143,7 +144,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 Chip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
                     onClick = { },
-                    chipType = ChipType.Secondary
+                    colors = ChipDefaults.secondaryChipColors()
                 )
             }
         }
@@ -157,7 +158,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 onClick = { },
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
                 icon = Icons.Default.Image,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -171,7 +172,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
                     icon = Icons.Default.Image,
-                    chipType = ChipType.Secondary
+                    colors = ChipDefaults.secondaryChipColors()
                 )
             }
         }
@@ -184,7 +185,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 icon = Icon12dp,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -197,7 +198,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 onClick = { },
                 icon = Icon12dp,
                 largeIcon = true,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -209,7 +210,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 icon = Icon48dp,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -222,7 +223,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 onClick = { },
                 icon = Icon48dp,
                 largeIcon = true,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -234,7 +235,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 icon = Icons.Default.Image,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -252,7 +253,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                         largeIcon = true
                     )
                 },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -272,7 +273,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                             .background(Color.White)
                     )
                 },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -295,7 +296,7 @@ class ChipSecondaryTest : ScreenshotBaseTest() {
                         image = Icons.Default.Image,
                         tintColor = Color.Black
                     ),
-                    chipType = ChipType.Secondary,
+                    colors = ChipDefaults.secondaryChipColors(),
                     enabled = false
                 )
             }

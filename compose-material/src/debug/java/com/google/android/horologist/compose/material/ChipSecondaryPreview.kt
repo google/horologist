@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ChipDefaults
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -33,7 +34,7 @@ fun ChipSecondaryPreview() {
     Chip(
         label = "Primary label",
         onClick = { },
-        chipType = ChipType.Secondary
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -48,7 +49,7 @@ fun ChipSecondaryPreviewWithSecondaryLabel() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        chipType = ChipType.Secondary
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -63,7 +64,7 @@ fun ChipSecondaryPreviewWithIcon() {
         label = "Primary label",
         onClick = { },
         icon = Icons.Default.Image,
-        chipType = ChipType.Secondary
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -79,7 +80,7 @@ fun ChipSecondaryPreviewWithLargeIcon() {
         onClick = { },
         icon = Icon32dp,
         largeIcon = true,
-        chipType = ChipType.Secondary
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -95,7 +96,7 @@ fun ChipSecondaryPreviewWithSecondaryLabelAndIcon() {
         onClick = { },
         secondaryLabel = "Secondary label",
         icon = Icons.Default.Image,
-        chipType = ChipType.Secondary
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -112,7 +113,7 @@ fun ChipSecondaryPreviewWithSecondaryLabelAndLargeIcon() {
         secondaryLabel = "Secondary label",
         icon = Icon32dp,
         largeIcon = true,
-        chipType = ChipType.Secondary
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -128,7 +129,7 @@ fun ChipSecondaryPreviewDisabled() {
         onClick = { },
         secondaryLabel = "Secondary label",
         icon = Icons.Default.Image,
-        chipType = ChipType.Secondary,
+        colors = ChipDefaults.secondaryChipColors(),
         enabled = false
     )
 }

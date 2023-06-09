@@ -21,10 +21,11 @@ import androidx.compose.material.icons.filled.SendToMobile
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.wear.compose.material.ChipColors
+import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ChipType
 
 /**
  * An opinionated [Chip] to represent the "Other options to authentication" action.
@@ -37,7 +38,7 @@ public fun OtherOptionsChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     label: String = stringResource(id = R.string.horologist_other_options_chip_label),
-    chipType: ChipType = ChipType.Primary,
+    colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true
 ) {
     Chip(
@@ -45,7 +46,7 @@ public fun OtherOptionsChip(
         onClick = onClick,
         modifier = modifier,
         icon = Icons.Default.SendToMobile,
-        chipType = chipType,
+        colors = colors,
         enabled = enabled
     )
 }

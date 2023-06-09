@@ -32,7 +32,6 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
@@ -85,7 +84,7 @@ public fun PlaylistDownloadBrowseScreen(
                             icon = download.playlistUiModel.artworkUri,
                             largeIcon = true,
                             placeholder = downloadItemArtworkPlaceholder,
-                            chipType = ChipType.Secondary
+                            colors = ChipDefaults.secondaryChipColors()
                         )
                     }
 
@@ -109,7 +108,7 @@ public fun PlaylistDownloadBrowseScreen(
                             ),
                             icon = Icons.Default.Downloading,
                             placeholder = downloadItemArtworkPlaceholder,
-                            chipType = ChipType.Secondary
+                            colors = ChipDefaults.secondaryChipColors()
                         )
                     }
                 }

@@ -30,7 +30,6 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.media.ui.R
 
 @WearPreviewDevices
@@ -92,7 +91,7 @@ private fun BrowseScreenPreviewSample(
                     label = item,
                     onClick = { },
                     icon = Icons.Default.Person,
-                    chipType = ChipType.Secondary
+                    colors = ChipDefaults.secondaryChipColors()
                 )
             }
 
@@ -110,7 +109,7 @@ private fun BrowseScreenPreviewSample(
                     onClick = { },
                     secondaryLabel = item.second,
                     icon = Icons.Default.MusicNote,
-                    chipType = ChipType.Secondary
+                    colors = ChipDefaults.secondaryChipColors()
                 )
             }
 
@@ -122,7 +121,7 @@ private fun BrowseScreenPreviewSample(
                 Chip(
                     label = stringResource(id = R.string.horologist_browse_screen_preview_see_more_button),
                     onClick = { },
-                    chipType = ChipType.Secondary
+                    colors = ChipDefaults.secondaryChipColors()
                 )
             }
         }

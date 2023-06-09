@@ -61,7 +61,6 @@ import com.google.android.horologist.compose.material.ButtonSize
 import com.google.android.horologist.compose.material.ButtonType
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ChipIconWithProgress
-import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -183,7 +182,7 @@ private fun MediaContent(
                 icon = downloadMediaUiModel.artworkUri,
                 largeIcon = true,
                 placeholder = downloadItemArtworkPlaceholder,
-                chipType = ChipType.Secondary,
+                colors = ChipDefaults.secondaryChipColors(),
                 enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded
             )
         }
@@ -242,7 +241,7 @@ private fun MediaContent(
                 secondaryLabel = secondaryLabel,
                 icon = icon,
                 largeIcon = true,
-                chipType = ChipType.Secondary,
+                colors = ChipDefaults.secondaryChipColors(),
                 enabled = true
             )
         }

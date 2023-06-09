@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -32,7 +33,6 @@ import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
@@ -158,7 +158,7 @@ public class BrowseScreenScope {
                         labelId = item.textId,
                         onClick = item.onClick,
                         icon = item.icon,
-                        chipType = ChipType.Secondary
+                        colors = ChipDefaults.secondaryChipColors()
                     )
                 }
             )
@@ -175,7 +175,7 @@ public class BrowseScreenScope {
                         labelId = item.textId,
                         onClick = item.onClick,
                         icon = item.icon,
-                        chipType = ChipType.Secondary
+                        colors = ChipDefaults.secondaryChipColors()
                     )
                 }
             )

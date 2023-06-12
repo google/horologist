@@ -25,7 +25,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
-import com.google.android.horologist.data.apphelper.NodeInfoFetcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.tasks.await

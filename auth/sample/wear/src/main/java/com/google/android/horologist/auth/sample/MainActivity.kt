@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
         wearDataLayerAppHelper = WearDataLayerAppHelper(
             context = this,
             registry = (application as SampleApplication).registry,
-            scope = lifecycleScope,
+            scope = lifecycleScope
         )
 
         lifecycleScope.launch {

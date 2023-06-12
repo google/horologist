@@ -41,7 +41,6 @@ import com.google.android.horologist.data.apphelper.Util.toProtoTimestamp
 import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
-import com.google.protobuf.Timestamp
 import java.time.Instant
 
 @Composable
@@ -140,21 +139,21 @@ fun AppHelperNodeStatusCard(
                             nodeStatus.nodeInfo.device.manufacturer,
                             nodeStatus.nodeInfo.device.model,
                             nodeStatus.nodeInfo.device.device,
-                            nodeStatus.nodeInfo.device.product,
+                            nodeStatus.nodeInfo.device.product
                         )
                     )
                     Text(
                         style = MaterialTheme.typography.labelMedium,
                         text = stringResource(
                             R.string.locale_label,
-                            nodeStatus.nodeInfo.device.locale,
+                            nodeStatus.nodeInfo.device.locale
                         )
                     )
                     Text(
                         style = MaterialTheme.typography.labelMedium,
                         text = stringResource(
                             R.string.features_label,
-                            nodeStatus.nodeInfo.device.featureList.size,
+                            nodeStatus.nodeInfo.device.featureList.size
                         )
                     )
                 }

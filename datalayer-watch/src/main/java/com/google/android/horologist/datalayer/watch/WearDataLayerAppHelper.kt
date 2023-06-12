@@ -29,7 +29,6 @@ import com.google.android.horologist.data.ComplicationInfo
 import com.google.android.horologist.data.TileInfo
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
-import com.google.android.horologist.data.apphelper.NodeInfoFetcher
 import com.google.android.horologist.data.apphelper.SurfaceInfoSerializer
 import com.google.android.horologist.data.apphelper.Util.toProtoTimestamp
 import com.google.android.horologist.data.companionConfig

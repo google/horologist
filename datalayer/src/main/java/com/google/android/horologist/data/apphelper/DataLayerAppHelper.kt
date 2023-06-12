@@ -17,10 +17,8 @@
 package com.google.android.horologist.data.apphelper
 
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.net.Uri
 import androidx.annotation.CheckResult
-import android.os.Build
 import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
@@ -33,19 +31,15 @@ import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearableApiAvailability
 import com.google.android.horologist.data.appHelperResult
-import com.google.android.horologist.data.copy
 import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.ownAppConfig
-import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withTimeout
-import java.security.AccessController.getContext
-
 
 internal const val TAG = "DataLayerAppHelper"
 

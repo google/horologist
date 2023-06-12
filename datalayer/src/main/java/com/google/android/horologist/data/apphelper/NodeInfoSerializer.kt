@@ -19,7 +19,6 @@ package com.google.android.horologist.data.apphelper
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import com.google.android.horologist.data.NodeInfo
-import com.google.android.horologist.data.SurfacesInfo
 import com.google.protobuf.InvalidProtocolBufferException
 import java.io.InputStream
 import java.io.OutputStream

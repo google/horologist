@@ -23,6 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 public class WearDataLayerListenerService : DataLayerAppHelperService() {
     private val serviceScope = CoroutineScope(Dispatchers.IO + Job())
@@ -30,6 +31,14 @@ public class WearDataLayerListenerService : DataLayerAppHelperService() {
     public override val appHelper: DataLayerAppHelper by lazy {
         val registry = WearDataLayerRegistry.fromContext(this, serviceScope)
         WearDataLayerAppHelper(this, registry, serviceScope)
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+
+        serviceScope.launch {
+            appHelper.updateNodeInfo()
+        }
     }
 
     override fun onDestroy() {

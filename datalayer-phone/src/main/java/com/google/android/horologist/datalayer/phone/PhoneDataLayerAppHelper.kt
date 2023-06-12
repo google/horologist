@@ -24,6 +24,8 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
+import com.google.android.horologist.data.apphelper.NodeInfoFetcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.tasks.await
 
@@ -31,8 +33,12 @@ import kotlinx.coroutines.tasks.await
  * Subclass of [DataLayerAppHelper] for use on phones.
  */
 @ExperimentalHorologistApi
-public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRegistry) :
-    DataLayerAppHelper(context, registry) {
+public class PhoneDataLayerAppHelper(
+    context: Context,
+    registry: WearDataLayerRegistry,
+    scope: CoroutineScope
+) :
+    DataLayerAppHelper(context, registry, scope) {
     /**
      * Some devices report back a different packageName from getCompanionPackageForNode() than is
      * the actual package of the Companion app. Where this is the case, this lookup ensures the

@@ -29,7 +29,9 @@ import com.google.android.horologist.data.ComplicationInfo
 import com.google.android.horologist.data.TileInfo
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
+import com.google.android.horologist.data.apphelper.NodeInfoFetcher
 import com.google.android.horologist.data.apphelper.SurfaceInfoSerializer
+import com.google.android.horologist.data.apphelper.Util.toProtoTimestamp
 import com.google.android.horologist.data.companionConfig
 import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.copy
@@ -227,13 +229,4 @@ public class WearDataLayerAppHelper(
         this.copy { timestamp = Timestamp.getDefaultInstance() } == other.copy {
             timestamp = Timestamp.getDefaultInstance()
         }
-
-    internal companion object {
-        internal fun Long.toProtoTimestamp(): Timestamp {
-            return Timestamp.newBuilder()
-                .setSeconds(this / 1000)
-                .setNanos((this % 1000).toInt() * 1000000)
-                .build()
-        }
-    }
 }

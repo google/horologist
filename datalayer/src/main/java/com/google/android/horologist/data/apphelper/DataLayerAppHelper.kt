@@ -53,11 +53,12 @@ internal const val TAG = "DataLayerAppHelper"
 abstract class DataLayerAppHelper(
     protected val context: Context,
     protected val registry: WearDataLayerRegistry,
-    scope: CoroutineScope,
+    scope: CoroutineScope
 ) {
     private val installedDeviceCapabilityUri = "wear://*/$CAPABILITY_DEVICE_PREFIX"
     protected val playStoreUri = "market://details?id=${context.packageName}"
     protected val remoteActivityHelper by lazy { RemoteActivityHelper(context) }
+    protected val nodeInfoFetcher by lazy { NodeInfoFetcher(context) }
 
     private val nodeInfoDataStore by lazy {
         registry.protoDataStore(
@@ -67,24 +68,10 @@ abstract class DataLayerAppHelper(
         )
     }
 
-    init {
-        scope.launch {
-            if (isAvailable()) {
-                updateNodeInfo()
-            }
-        }
-    }
-
-    private suspend fun updateNodeInfo() {
-        nodeInfoDataStore.updateData {
-            it.copy {
-                val newInfo = device.copy {
-                    apiVersion = Build.VERSION.SDK_INT
-                    model = Build.MODEL
-                    device = Build.DEVICE
-                    product = Build.PRODUCT
-                }
-                device = newInfo
+    suspend fun updateNodeInfo() {
+        if (isAvailable()) {
+            nodeInfoDataStore.updateData {
+                nodeInfoFetcher.fetch(it)
             }
         }
     }
@@ -112,7 +99,8 @@ abstract class DataLayerAppHelper(
                     in installedPhoneNodes -> AppHelperNodeType.PHONE
                     in installedWatchNodes -> AppHelperNodeType.WATCH
                     else -> AppHelperNodeType.UNKNOWN
-                }
+                },
+                nodeInfo = getNodeStatus(it.id)
             )
         }
     }
@@ -121,6 +109,12 @@ abstract class DataLayerAppHelper(
         targetNodeId = TargetNodeId.SpecificNodeId(nodeId),
         serializer = SurfaceInfoSerializer,
         path = SURFACE_INFO_PATH
+    ).first()
+
+    private suspend fun getNodeStatus(nodeId: String) = registry.protoFlow(
+        targetNodeId = TargetNodeId.SpecificNodeId(nodeId),
+        serializer = NodeInfoSerializer,
+        path = NODE_INFO_PATH
     ).first()
 
     /**

@@ -16,24 +16,13 @@
 
 package com.google.android.horologist.data.apphelper
 
-import com.google.android.horologist.data.NodeInfo
-import com.google.android.horologist.data.SurfacesInfo
+import com.google.protobuf.Timestamp
 
-/**
- * Represents a node on the network, and the installation status of the app. The node can be a
- * watch or different device like a phone.
- */
-public data class AppHelperNodeStatus(
-    val id: String,
-    val displayName: String,
-    val isAppInstalled: Boolean,
-    val nodeType: AppHelperNodeType,
-    val surfacesInfo: SurfacesInfo = SurfacesInfo.getDefaultInstance(),
-    val nodeInfo: NodeInfo = NodeInfo.getDefaultInstance()
-)
-
-public enum class AppHelperNodeType {
-    UNKNOWN,
-    WATCH,
-    PHONE
+object Util {
+    fun Long.toProtoTimestamp(): Timestamp {
+        return Timestamp.newBuilder()
+            .setSeconds(this / 1000)
+            .setNanos((this % 1000).toInt() * 1000000)
+            .build()
+    }
 }

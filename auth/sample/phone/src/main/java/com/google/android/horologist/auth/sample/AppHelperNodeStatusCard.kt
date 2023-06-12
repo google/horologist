@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth.sample
 
+import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,10 +37,12 @@ import androidx.compose.ui.unit.dp
 import com.google.android.horologist.auth.sample.ui.theme.HorologistTheme
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.data.apphelper.AppHelperNodeType
+import com.google.android.horologist.data.apphelper.Util.toProtoTimestamp
 import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
 import com.google.protobuf.Timestamp
+import java.time.Instant
 
 @Composable
 fun AppHelperNodeStatusCard(
@@ -101,6 +104,57 @@ fun AppHelperNodeStatusCard(
                         text = stringResource(
                             R.string.app_has_been_opened,
                             nodeStatus.surfacesInfo.activityLaunched.activityLaunchedOnce
+                        )
+                    )
+                }
+                if (nodeStatus.nodeInfo.hasApp()) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Text(
+                            style = MaterialTheme.typography.labelMedium,
+                            text = stringResource(
+                                R.string.update_time_label,
+                                Instant.ofEpochSecond(nodeStatus.nodeInfo.app.updateTime.seconds)
+                            )
+                        )
+                    }
+                    Text(
+                        style = MaterialTheme.typography.labelMedium,
+                        text = stringResource(
+                            R.string.app_version_label,
+                            nodeStatus.nodeInfo.app.appVersion
+                        )
+                    )
+                }
+                if (nodeStatus.nodeInfo.hasDevice()) {
+                    Text(
+                        style = MaterialTheme.typography.labelMedium,
+                        text = stringResource(
+                            R.string.api_version_label,
+                            nodeStatus.nodeInfo.device.apiVersion
+                        )
+                    )
+                    Text(
+                        style = MaterialTheme.typography.labelMedium,
+                        text = stringResource(
+                            R.string.device_info_label,
+                            nodeStatus.nodeInfo.device.manufacturer,
+                            nodeStatus.nodeInfo.device.model,
+                            nodeStatus.nodeInfo.device.device,
+                            nodeStatus.nodeInfo.device.product,
+                        )
+                    )
+                    Text(
+                        style = MaterialTheme.typography.labelMedium,
+                        text = stringResource(
+                            R.string.locale_label,
+                            nodeStatus.nodeInfo.device.locale,
+                        )
+                    )
+                    Text(
+                        style = MaterialTheme.typography.labelMedium,
+                        text = stringResource(
+                            R.string.features_label,
+                            nodeStatus.nodeInfo.device.featureList.size,
                         )
                     )
                 }
@@ -167,11 +221,4 @@ fun NodeCardPreview() {
             onLaunchClick = {}
         )
     }
-}
-
-fun Long.toProtoTimestamp(): Timestamp {
-    return Timestamp.newBuilder()
-        .setSeconds(this / 1000)
-        .setNanos((this % 1000).toInt() * 1000000)
-        .build()
 }

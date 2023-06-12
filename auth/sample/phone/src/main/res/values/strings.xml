@@ -32,4 +32,10 @@
     <string name="app_helper_launch_button_label">Launch</string>
 
     <string name="app_helper_button_list_nodes">List connected nodes</string>
+    <string name="app_version_label">App Version: %1$s</string>
+    <string name="update_time_label">Update Time: %1$s</string>
+    <string name="api_version_label">API Version: %1$s</string>
+    <string name="device_info_label">Device Info: %1$s %1$s %1$s %1$s</string>
+    <string name="locale_label">Locale: %1$s</string>
+    <string name="features_label">Features: %1$s</string>
 </resources>

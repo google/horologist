@@ -24,6 +24,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -51,6 +53,7 @@ import com.google.android.horologist.auth.sample.ui.theme.HorologistTheme
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.data.apphelper.AppHelperNodeType
+import com.google.android.horologist.data.apphelper.Util.toProtoTimestamp
 import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
@@ -87,7 +90,8 @@ class MainActivity : ComponentActivity() {
 
         phoneDataLayerAppHelper = PhoneDataLayerAppHelper(
             context = this,
-            registry = registry
+            registry = registry,
+            scope = lifecycleScope
         )
 
         setContent {
@@ -171,8 +175,11 @@ fun MainScreen(
     onCompanionClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val state = rememberScrollState()
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(state),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

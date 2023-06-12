@@ -31,6 +31,7 @@ message LaunchRequest {
 
 message NodeInfo {
   DeviceInfo device = 1;
+  AppInfo app = 2;
 }
 
 message DeviceInfo {
@@ -38,6 +39,15 @@ message DeviceInfo {
   string device = 2;
   string model = 3;
   string product = 4;
+  string manufacturer = 5;
+  repeated string feature = 6;
+  string locale = 7;
+}
+
+message AppInfo {
+  uint64 app_version = 1;
+  .google.protobuf.Timestamp installTime = 2;
+  .google.protobuf.Timestamp updateTime = 3;
 }
 
 message OwnAppConfig {}

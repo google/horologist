@@ -102,7 +102,9 @@ public object ScalingLazyColumnDefaults {
             initialCenterIndex,
             initialCenterOffset
         ),
-        anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter
+        anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
+        hapticsEnabled: Boolean = true,
+        reverseLayout: Boolean = false
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
@@ -118,7 +120,9 @@ public object ScalingLazyColumnDefaults {
                         horizontalAlignment = horizontalAlignment,
                         contentPadding = contentPadding,
                         autoCentering = autoCentering,
-                        anchorType = anchorType
+                        anchorType = anchorType,
+                        hapticsEnabled = hapticsEnabled,
+                        reverseLayout = reverseLayout
                     )
                 }
             }

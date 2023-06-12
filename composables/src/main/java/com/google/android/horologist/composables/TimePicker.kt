@@ -540,7 +540,7 @@ internal fun pickerGroupItemWithRSB(
 
     return PickerGroupItem(
         pickerState = pickerState,
-        modifier = modifier.onRotaryInputAccumulated { change ->
+        modifier = modifier.onRotaryInputAccumulated(rateLimitCoolDownMs = 5L) { change ->
 
             val diff = sign(change)
 

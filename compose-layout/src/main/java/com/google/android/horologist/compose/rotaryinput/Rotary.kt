@@ -408,8 +408,8 @@ public class DefaultRotaryFlingBehavior(
 
     private val rotaryVelocityTracker = RotaryVelocityTracker()
 
-    private val minFlingSpeed = viewConfiguration.scaledMinimumFlingVelocity.toFloat()
-    private val maxFlingSpeed = viewConfiguration.scaledMaximumFlingVelocity.toFloat()
+    private val minFlingSpeed = 1000f//viewConfiguration.scaledMinimumFlingVelocity.toFloat()
+    private val maxFlingSpeed = 16000f//viewConfiguration.scaledMaximumFlingVelocity.toFloat()
     private var latestEventTimestamp: Long = 0
 
     private var flingVelocity: Float = 0f
@@ -759,11 +759,13 @@ public fun Modifier.rotaryHandler(
                         "Scroll event received: " +
                             "delta:${it.delta}, timestamp:${it.timestamp}"
                     }
+//                    println("Out,${it.delta},${it.timestamp}")
                     rotaryScrollHandler.handleScrollEvent(this, it, rotaryHaptics)
                 }
         }
         this
             .onRotaryScrollEvent {
+                println("In,${it.verticalScrollPixels},${it.uptimeMillis}")
                 // Okay to ignore the ChannelResult returned from trySend because it is conflated
                 // (see rememberTimestampChannel()).
                 @Suppress("UNUSED_VARIABLE")

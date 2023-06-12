@@ -117,6 +117,7 @@ dependencies {
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.espresso.core)
     testImplementation(libs.robolectric)
+    testImplementation(libs.okio)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

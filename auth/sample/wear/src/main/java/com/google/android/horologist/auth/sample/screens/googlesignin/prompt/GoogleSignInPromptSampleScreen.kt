@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
@@ -39,7 +40,6 @@ import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptV
 import com.google.android.horologist.auth.ui.googlesignin.prompt.GoogleSignInPromptViewModelFactory
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
@@ -65,13 +65,13 @@ fun GoogleSignInPromptSampleScreen(
                         popUpTo(Screen.MainScreen.route)
                     }
                 },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
         item {
             GuestModeChip(
                 onClick = navController::popBackStack,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -92,6 +92,7 @@ fun GoogleSignInPromptSampleScreen(
     }
 }
 
+@Suppress("unused")
 @WearPreviewDevices
 @Composable
 fun GoogleSignInPromptSampleScreenPreview() {

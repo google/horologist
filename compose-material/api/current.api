@@ -36,16 +36,9 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class ChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional com.google.android.horologist.compose.material.ChipType chipType, optional boolean enabled);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional @StringRes Integer? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional com.google.android.horologist.compose.material.ChipType chipType, optional boolean enabled);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? icon, optional boolean largeIcon, optional com.google.android.horologist.compose.material.ChipType chipType, optional boolean enabled);
-  }
-
-  public enum ChipType {
-    method public static com.google.android.horologist.compose.material.ChipType valueOf(String name) throws java.lang.IllegalArgumentException;
-    method public static com.google.android.horologist.compose.material.ChipType[] values();
-    enum_constant public static final com.google.android.horologist.compose.material.ChipType Primary;
-    enum_constant public static final com.google.android.horologist.compose.material.ChipType Secondary;
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional @StringRes Integer? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? icon, optional boolean largeIcon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
   }
 
   public final class ConfirmationKt {

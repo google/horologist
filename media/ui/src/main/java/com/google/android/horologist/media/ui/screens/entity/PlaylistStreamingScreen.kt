@@ -33,7 +33,6 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -76,7 +75,7 @@ public fun PlaylistStreamingScreen(
                 onClick = { onPlayItemClick(mediaUiModel) },
                 icon = mediaUiModel.artworkUri,
                 largeIcon = true,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         },
         modifier = modifier,

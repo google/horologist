@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.compose.material
 
+import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
@@ -23,15 +24,17 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ChipDefaults
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class ChipPrimaryTest : ScreenshotBaseTest() {
+class ChipTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {
@@ -255,6 +258,60 @@ class ChipPrimaryTest : ScreenshotBaseTest() {
                     icon = Icons.Default.Image
                 )
             }
+        }
+    }
+
+    @Test
+    fun withSecondaryChipColors() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Chip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image,
+                colors = ChipDefaults.secondaryChipColors()
+            )
+        }
+    }
+
+    @Test
+    fun withGradientBackgroundChipColors() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Chip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image,
+                colors = ChipDefaults.gradientBackgroundChipColors()
+            )
+        }
+    }
+
+    @Test
+    fun withOutlinedChipColors() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Chip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image,
+                colors = ChipDefaults.outlinedChipColors()
+            )
+        }
+    }
+
+    @Test
+    fun withImageBackgroundChipColors() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Chip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image,
+                colors = ChipDefaults.imageBackgroundChipColors(
+                    backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert)
+                )
+            )
         }
     }
 

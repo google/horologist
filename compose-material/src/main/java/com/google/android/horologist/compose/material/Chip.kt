@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
@@ -63,7 +64,7 @@ public fun Chip(
     icon: Any? = null,
     largeIcon: Boolean = false,
     placeholder: Painter? = null,
-    chipType: ChipType = ChipType.Primary,
+    colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true
 ) {
     val iconParam: (@Composable BoxScope.() -> Unit)? =
@@ -109,7 +110,7 @@ public fun Chip(
         secondaryLabel = secondaryLabel,
         icon = iconParam,
         largeIcon = largeIcon,
-        chipType = chipType,
+        colors = colors,
         enabled = enabled
     )
 }
@@ -130,7 +131,7 @@ public fun Chip(
     icon: Any? = null,
     largeIcon: Boolean = false,
     placeholder: Painter? = null,
-    chipType: ChipType = ChipType.Primary,
+    colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true
 ) {
     Chip(
@@ -141,7 +142,7 @@ public fun Chip(
         icon = icon,
         largeIcon = largeIcon,
         placeholder = placeholder,
-        chipType = chipType,
+        colors = colors,
         enabled = enabled
     )
 }
@@ -159,7 +160,7 @@ public fun Chip(
     secondaryLabel: String? = null,
     icon: (@Composable BoxScope.() -> Unit)? = null,
     largeIcon: Boolean = false,
-    chipType: ChipType = ChipType.Primary,
+    colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true
 ) {
     val hasSecondaryLabel = secondaryLabel != null
@@ -205,15 +206,8 @@ public fun Chip(
             .fillMaxWidth(),
         secondaryLabel = secondaryLabelParam,
         icon = icon,
-        colors = when (chipType) {
-            ChipType.Primary -> ChipDefaults.primaryChipColors()
-            ChipType.Secondary -> ChipDefaults.secondaryChipColors()
-        },
+        colors = colors,
         enabled = enabled,
         contentPadding = contentPadding
     )
-}
-
-public enum class ChipType {
-    Primary, Secondary
 }

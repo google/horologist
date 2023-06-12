@@ -40,7 +40,6 @@ import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToDeveloperOptions
 import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignIn
@@ -71,15 +70,13 @@ fun UampSettingsScreen(
                     label = stringResource(id = R.string.login),
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { navController.navigateToGoogleSignIn() },
-                    chipType = ChipType.Primary,
                     enabled = !screenState.guestMode
                 )
             } else {
                 Chip(
                     label = stringResource(id = R.string.logout),
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { navController.navigateToGoogleSignOutScreen() },
-                    chipType = ChipType.Primary
+                    onClick = { navController.navigateToGoogleSignOutScreen() }
                 )
             }
         }

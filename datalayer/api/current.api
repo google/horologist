@@ -131,9 +131,10 @@ package com.google.android.horologist.data.apphelper {
     method protected final androidx.wear.remote.interactions.RemoteActivityHelper getRemoteActivityHelper();
     method public abstract suspend Object? installOnNode(String node, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public final suspend Object? isAvailable(kotlin.coroutines.Continuation<? super java.lang.Boolean>);
-    method public abstract suspend Object? startCompanion(String node, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
-    method public final suspend Object? startRemoteActivity(String node, error.NonExistentClass config, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
-    method public final suspend Object? startRemoteOwnApp(String node, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
+    method @CheckResult protected final suspend Object? sendRequestWithTimeout(String node, String path, byte[] data, optional long timeoutMs, optional kotlin.coroutines.Continuation<? super error.NonExistentClass>);
+    method @CheckResult public abstract suspend Object? startCompanion(String node, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
+    method @CheckResult public final suspend Object? startRemoteActivity(String node, error.NonExistentClass config, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
+    method @CheckResult public final suspend Object? startRemoteOwnApp(String node, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
     property public final kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> connectedAndInstalledNodes;
     property protected final android.content.Context context;
     property protected final String playStoreUri;
@@ -143,6 +144,7 @@ package com.google.android.horologist.data.apphelper {
     field public static final com.google.android.horologist.data.apphelper.DataLayerAppHelper.Companion Companion;
     field public static final String DATA_LAYER_APP_HELPER = "data_layer_app_helper";
     field public static final String LAUNCH_APP = "/data_layer_app_helper/launch_app";
+    field public static final long MESSAGE_REQUEST_TIMEOUT_MS = 15000L; // 0x3a98L
     field public static final String PHONE_CAPABILITY = "data_layer_app_helper_device_phone";
     field public static final String SURFACE_INFO_PATH = "/data_layer_app_helper/surface_info";
     field public static final String WATCH_CAPABILITY = "data_layer_app_helper_device_watch";

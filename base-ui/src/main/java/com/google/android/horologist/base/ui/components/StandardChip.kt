@@ -24,9 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
+import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ChipType
 
 /**
  * This composable fulfils the redlines of the following components:
@@ -37,7 +37,7 @@ import com.google.android.horologist.compose.material.ChipType
 @Deprecated(
     "Replaced by Chip in Horologist Material Compose library",
     replaceWith = ReplaceWith(
-        "Chip(label, onClick, modifier, secondaryLabel, icon, largeIcon, placeholder, chipType, enabled)",
+        "Chip(label, onClick, modifier, secondaryLabel, icon, largeIcon, placeholder, enabled)",
         "com.google.android.horologist.compose.material.Chip"
     )
 )
@@ -62,9 +62,9 @@ public fun StandardChip(
         icon = icon,
         largeIcon = largeIcon,
         placeholder = placeholder,
-        chipType = when (chipType) {
-            StandardChipType.Primary -> ChipType.Primary
-            StandardChipType.Secondary -> ChipType.Secondary
+        colors = when (chipType) {
+            StandardChipType.Primary -> ChipDefaults.primaryChipColors()
+            StandardChipType.Secondary -> ChipDefaults.secondaryChipColors()
         },
         enabled = enabled
     )
@@ -76,7 +76,7 @@ public fun StandardChip(
 @Deprecated(
     "Replaced by Chip in Horologist Material Compose library",
     replaceWith = ReplaceWith(
-        "Chip(labelId, onClick, modifier, secondaryLabel, icon, largeIcon, chipType, enabled)",
+        "Chip(labelId, onClick, modifier, secondaryLabel, icon, largeIcon, enabled)",
         "com.google.android.horologist.compose.material.Chip"
     )
 )
@@ -99,9 +99,9 @@ public fun StandardChip(
         secondaryLabel = secondaryLabel,
         icon = icon,
         largeIcon = largeIcon,
-        chipType = when (chipType) {
-            StandardChipType.Primary -> ChipType.Primary
-            StandardChipType.Secondary -> ChipType.Secondary
+        colors = when (chipType) {
+            StandardChipType.Primary -> ChipDefaults.primaryChipColors()
+            StandardChipType.Secondary -> ChipDefaults.secondaryChipColors()
         },
         enabled = enabled
     )
@@ -138,9 +138,9 @@ public fun StandardChip(
         icon = icon,
         largeIcon = largeIcon,
         placeholder = placeholder,
-        chipType = when (chipType) {
-            StandardChipType.Primary -> ChipType.Primary
-            StandardChipType.Secondary -> ChipType.Secondary
+        colors = when (chipType) {
+            StandardChipType.Primary -> ChipDefaults.primaryChipColors()
+            StandardChipType.Secondary -> ChipDefaults.secondaryChipColors()
         },
         enabled = enabled
     )
@@ -158,11 +158,7 @@ public fun StandardChip(
 }
 
 @Deprecated(
-    "Replaced by ChipType in Horologist Material Compose library",
-    replaceWith = ReplaceWith(
-        "ChipType",
-        "com.google.android.horologist.compose.material.ChipType"
-    )
+    "StandardChip is deprecated an replaced by Chip in Horologist Material Compose library"
 )
 @ExperimentalHorologistApi
 public enum class StandardChipType {

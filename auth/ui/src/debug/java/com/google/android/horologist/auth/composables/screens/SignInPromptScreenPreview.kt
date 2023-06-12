@@ -19,6 +19,7 @@ package com.google.android.horologist.auth.composables.screens
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
@@ -26,7 +27,6 @@ import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.material.ChipType
 
 @WearPreviewDevices
 @Composable
@@ -42,13 +42,13 @@ fun SignInPromptScreenPreviewSignedOut() {
         item {
             SignInChip(
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -68,13 +68,13 @@ fun SignInPromptScreenPreviewLoading() {
         item {
             SignInChip(
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -99,13 +99,13 @@ fun SignInPromptScreenPreviewCustomLoading() {
         item {
             SignInChip(
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }

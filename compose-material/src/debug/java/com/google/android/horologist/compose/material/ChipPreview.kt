@@ -21,15 +21,17 @@ import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ChipDefaults
 
 @Preview(
     backgroundColor = 0xff000000,
     showBackground = true
 )
 @Composable
-fun ChipPrimaryPreview() {
+fun ChipPreview() {
     Chip(
         label = "Primary label",
         onClick = { }
@@ -42,7 +44,7 @@ fun ChipPrimaryPreview() {
     showBackground = true
 )
 @Composable
-fun ChipPrimaryPreviewWithSecondaryLabel() {
+fun ChipPreviewWithSecondaryLabel() {
     Chip(
         label = "Primary label",
         onClick = { },
@@ -56,7 +58,7 @@ fun ChipPrimaryPreviewWithSecondaryLabel() {
     showBackground = true
 )
 @Composable
-fun ChipPrimaryPreviewWithIcon() {
+fun ChipPreviewWithIcon() {
     Chip(
         label = "Primary label",
         onClick = { },
@@ -70,7 +72,7 @@ fun ChipPrimaryPreviewWithIcon() {
     showBackground = true
 )
 @Composable
-fun ChipPrimaryPreviewWithLargeIcon() {
+fun ChipPreviewWithLargeIcon() {
     Chip(
         label = "Primary label",
         onClick = { },
@@ -85,7 +87,7 @@ fun ChipPrimaryPreviewWithLargeIcon() {
     showBackground = true
 )
 @Composable
-fun ChipPrimaryPreviewWithSecondaryLabelAndIcon() {
+fun ChipPreviewWithSecondaryLabelAndIcon() {
     Chip(
         label = "Primary label",
         onClick = { },
@@ -100,7 +102,7 @@ fun ChipPrimaryPreviewWithSecondaryLabelAndIcon() {
     showBackground = true
 )
 @Composable
-fun ChipPrimaryPreviewWithSecondaryLabelAndLargeIcon() {
+fun ChipPreviewWithSecondaryLabelAndLargeIcon() {
     Chip(
         label = "Primary label",
         onClick = { },
@@ -116,13 +118,79 @@ fun ChipPrimaryPreviewWithSecondaryLabelAndLargeIcon() {
     showBackground = true
 )
 @Composable
-fun ChipPrimaryPreviewDisabled() {
+fun ChipPreviewDisabled() {
     Chip(
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
         icon = Icons.Default.Image,
         enabled = false
+    )
+}
+
+@Preview(
+    name = "With secondary chip colors",
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun ChipPreviewWithSecondaryChipColors() {
+    Chip(
+        label = "Primary label",
+        onClick = { },
+        secondaryLabel = "Secondary label",
+        icon = Icons.Default.Image,
+        colors = ChipDefaults.secondaryChipColors()
+    )
+}
+
+@Preview(
+    name = "With gradient background chip colors",
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun ChipPreviewWithGradientBackgroundChipColors() {
+    Chip(
+        label = "Primary label",
+        onClick = { },
+        secondaryLabel = "Secondary label",
+        icon = Icons.Default.Image,
+        colors = ChipDefaults.gradientBackgroundChipColors()
+    )
+}
+
+@Preview(
+    name = "With outlined chip colors",
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun ChipPreviewWithOutlinedChipColors() {
+    Chip(
+        label = "Primary label",
+        onClick = { },
+        secondaryLabel = "Secondary label",
+        icon = Icons.Default.Image,
+        colors = ChipDefaults.outlinedChipColors()
+    )
+}
+
+@Preview(
+    name = "With image background chip colors",
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun ChipPreviewWithImageBackgroundChipColors() {
+    Chip(
+        label = "Primary label",
+        onClick = { },
+        secondaryLabel = "Secondary label",
+        icon = Icons.Default.Image,
+        colors = ChipDefaults.imageBackgroundChipColors(
+            backgroundImagePainter = painterResource(id = android.R.drawable.ic_dialog_alert)
+        )
     )
 }
 

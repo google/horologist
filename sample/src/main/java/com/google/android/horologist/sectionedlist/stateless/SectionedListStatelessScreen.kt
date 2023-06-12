@@ -29,13 +29,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ChipType
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.sample.R
 
@@ -71,7 +71,7 @@ private fun SectionedListScope.topMenuSection() {
                 label = stringResource(label),
                 onClick = { },
                 icon = icon,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -98,7 +98,7 @@ private fun SectionedListScope.recommendationsSection() {
                 label = label,
                 onClick = { },
                 icon = icon,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
 
@@ -106,7 +106,7 @@ private fun SectionedListScope.recommendationsSection() {
             Chip(
                 label = stringResource(id = R.string.sectionedlist_see_more_button),
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -134,7 +134,7 @@ private fun SectionedListScope.trendingSection() {
                 onClick = { },
                 secondaryLabel = artist,
                 icon = Icons.Default.MusicNote,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
 
@@ -142,7 +142,7 @@ private fun SectionedListScope.trendingSection() {
             Chip(
                 label = stringResource(id = R.string.sectionedlist_see_more_button),
                 onClick = { },
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -156,7 +156,7 @@ private fun SectionedListScope.bottomMenuSection() {
                 label = stringResource(R.string.sectionedlist_settings_button),
                 onClick = { },
                 icon = Icons.Default.Settings,
-                chipType = ChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }

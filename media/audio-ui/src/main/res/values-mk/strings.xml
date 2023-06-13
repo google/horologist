@@ -24,6 +24,6 @@
   <string name="choose_device">Изберете уред</string>
   <string name="horologist_output_none">Нема</string>
   <string name="horologist_set_volume_content_description">Поставете јачина на звук</string>
-  <string name="horologist_audio_output_content_description">Излез за аудио</string>
+  <string name="horologist_audio_output_content_description">Аудиоизлез</string>
   <string name="horologist_volume_screen_volume_label">Звук</string>
 </resources>

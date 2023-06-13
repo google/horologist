@@ -89,7 +89,7 @@ the [Sign-In guidelines for Wear OS](https://developer.android.com/training/wear
   methods listed in
   the [Authentication on wearables](https://developer.android.com/training/wearables/apps/auth-wear)
   guide.
-- [horologist-auth-phone](./auth/data-phone): implementation for Mobile apps for some of the
+- [horologist-auth-data-phone](./auth/data-phone): implementation for Mobile apps for some of the
   authentication methods provided by the `auth-data` library.
 - [sample wear](./auth/sample/wear): sample wear app to authenticate using different methods.
 - [sample phone](./auth/sample/phone): sample phone app to authenticate using different methods.

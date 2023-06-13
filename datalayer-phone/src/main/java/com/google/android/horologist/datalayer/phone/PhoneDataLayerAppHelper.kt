@@ -69,7 +69,7 @@ public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRe
      * the actual package of the Companion app. Where this is the case, this lookup ensures the
      * correct companion app can be launched..
      */
-    fun rewriteCompanionPackageName(companionPackage: String): String {
+    private fun rewriteCompanionPackageName(companionPackage: String): String {
         val regex = Regex("""com.samsung.*plugin""")
         return if (regex.matches(companionPackage)) {
             SAMSUNG_COMPANION_PKG

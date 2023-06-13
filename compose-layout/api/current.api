@@ -28,16 +28,17 @@ package com.google.android.horologist.compose.layout {
 
   public final class ScalingLazyColumnDefaults {
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory belowTimeText(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional boolean firstItemIsFullWidth, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional float topPaddingDp);
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory scalingLazyColumnDefaults(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional int initialCenterIndex, optional int initialCenterOffset, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional androidx.wear.compose.foundation.lazy.AutoCenteringParams? autoCentering, optional int anchorType);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory scalingLazyColumnDefaults(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional int initialCenterIndex, optional int initialCenterOffset, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional androidx.wear.compose.foundation.lazy.AutoCenteringParams? autoCentering, optional int anchorType, optional boolean hapticsEnabled, optional boolean reverseLayout);
     field public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults INSTANCE;
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class ScalingLazyColumnState {
-    ctor public ScalingLazyColumnState(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.ScrollPosition initialScrollPosition, optional androidx.wear.compose.foundation.lazy.AutoCenteringParams? autoCentering, optional int anchorType, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional boolean reverseLayout, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment, optional androidx.compose.foundation.gestures.FlingBehavior? flingBehavior, optional boolean userScrollEnabled, optional androidx.wear.compose.foundation.lazy.ScalingParams scalingParams);
+    ctor public ScalingLazyColumnState(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.ScrollPosition initialScrollPosition, optional androidx.wear.compose.foundation.lazy.AutoCenteringParams? autoCentering, optional int anchorType, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional boolean reverseLayout, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment, optional androidx.compose.foundation.gestures.FlingBehavior? flingBehavior, optional boolean userScrollEnabled, optional androidx.wear.compose.foundation.lazy.ScalingParams scalingParams, optional boolean hapticsEnabled);
     method public int getAnchorType();
     method public androidx.wear.compose.foundation.lazy.AutoCenteringParams? getAutoCentering();
     method public androidx.compose.foundation.layout.PaddingValues getContentPadding();
     method public androidx.compose.foundation.gestures.FlingBehavior? getFlingBehavior();
+    method public boolean getHapticsEnabled();
     method public androidx.compose.ui.Alignment.Horizontal getHorizontalAlignment();
     method public com.google.android.horologist.compose.layout.ScalingLazyColumnState.ScrollPosition getInitialScrollPosition();
     method public boolean getReverseLayout();
@@ -51,6 +52,7 @@ package com.google.android.horologist.compose.layout {
     property public final androidx.wear.compose.foundation.lazy.AutoCenteringParams? autoCentering;
     property public final androidx.compose.foundation.layout.PaddingValues contentPadding;
     property public final androidx.compose.foundation.gestures.FlingBehavior? flingBehavior;
+    property public final boolean hapticsEnabled;
     property public final androidx.compose.ui.Alignment.Horizontal horizontalAlignment;
     property public final com.google.android.horologist.compose.layout.ScalingLazyColumnState.ScrollPosition initialScrollPosition;
     property public final boolean reverseLayout;

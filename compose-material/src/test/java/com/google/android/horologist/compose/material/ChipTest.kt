@@ -288,19 +288,6 @@ class ChipTest : ScreenshotBaseTest() {
     }
 
     @Test
-    fun withOutlinedChipColors() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
-                colors = ChipDefaults.outlinedChipColors()
-            )
-        }
-    }
-
-    @Test
     fun withImageBackgroundChipColors() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Chip(

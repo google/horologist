@@ -161,22 +161,6 @@ fun ChipPreviewWithGradientBackgroundChipColors() {
 }
 
 @Preview(
-    name = "With outlined chip colors",
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
-@Composable
-fun ChipPreviewWithOutlinedChipColors() {
-    Chip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
-        colors = ChipDefaults.outlinedChipColors()
-    )
-}
-
-@Preview(
     name = "With image background chip colors",
     backgroundColor = 0xff000000,
     showBackground = true

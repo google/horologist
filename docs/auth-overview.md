@@ -27,7 +27,7 @@ The following sample apps are also provided:
 
 - [auth-sample-wear](auth-sample-apps.md#wear-sample): sample wear app to authenticate using
   different methods.
-- [auth-sample-phone](auth-sample-apps.md#phone-sample): sample mobile app to authenticate using
+- [auth-sample-phone](auth-sample-apps.md#phone-sample): sample phone app to authenticate using
   different methods.
 
 ## Architecture overview

@@ -34,15 +34,7 @@ import kotlinx.coroutines.tasks.await
 @ExperimentalHorologistApi
 public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRegistry) :
     DataLayerAppHelper(context, registry) {
-    /**
-     * Some devices report back a different packageName from getCompanionPackageForNode() than is
-     * the actual package of the Companion app. Where this is the case, this lookup ensures the
-     * correct companion app can be launched. (pursuing whether this is a bug or not).
-     */
-    private val companionLookup = mapOf(
-        "com.samsung.android.waterplugin" to "com.samsung.android.app.watchmanager",
-        "com.samsung.android.heartplugin" to "com.samsung.android.app.watchmanager"
-    )
+    private val SAMSUNG_COMPANION_PKG = "com.samsung.android.app.watchmanager"
 
     override suspend fun installOnNode(node: String) {
         val intent = Intent(Intent.ACTION_VIEW)
@@ -60,7 +52,7 @@ public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRe
          * example, Samsung devices report the plugin packages that handle comms with GW4, GW5
          * etc, whereas the package name for the companion *app* is different.
          */
-        val launchPackage = companionLookup[companionPackage] ?: companionPackage
+        val launchPackage = rewriteCompanionPackageName(companionPackage)
 
         val intent = context.packageManager.getLaunchIntentForPackage(launchPackage)
             ?: return AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
@@ -70,5 +62,19 @@ public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRe
             return AppHelperResultCode.APP_HELPER_RESULT_ACTIVITY_NOT_FOUND
         }
         return AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
+    }
+
+    /**
+     * Some devices report back a different packageName from getCompanionPackageForNode() than is
+     * the actual package of the Companion app. Where this is the case, this lookup ensures the
+     * correct companion app can be launched..
+     */
+    private fun rewriteCompanionPackageName(companionPackage: String): String {
+        val regex = Regex("""com.samsung.*plugin""")
+        return if (regex.matches(companionPackage)) {
+            SAMSUNG_COMPANION_PKG
+        } else {
+            companionPackage
+        }
     }
 }

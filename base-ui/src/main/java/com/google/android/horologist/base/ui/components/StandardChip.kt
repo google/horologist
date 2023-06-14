@@ -144,17 +144,6 @@ public fun StandardChip(
         },
         enabled = enabled
     )
-    StandardChip(
-        label = stringResource(id = labelId),
-        onClick = onClick,
-        modifier = modifier,
-        secondaryLabel = secondaryLabel,
-        icon = icon,
-        largeIcon = largeIcon,
-        placeholder = placeholder,
-        chipType = chipType,
-        enabled = enabled
-    )
 }
 
 @Deprecated(

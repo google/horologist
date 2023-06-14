@@ -18,15 +18,13 @@ package com.google.android.horologist.compose.material
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Image
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class ChipA11yTest : ScreenshotBaseTest(
+class SplitToggleChipA11yTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
@@ -34,14 +32,32 @@ class ChipA11yTest : ScreenshotBaseTest(
 ) {
 
     @Test
-    fun withSecondaryLabelAndIcon() {
+    fun withSecondaryLabel() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Chip(
+                SplitToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
                     label = "Primary label",
                     onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    secondaryLabel = "Secondary label"
+                )
+            }
+        }
+    }
+
+    @Test
+    fun unchecked() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SplitToggleChip(
+                    checked = false,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    secondaryLabel = "Secondary label"
                 )
             }
         }
@@ -51,11 +67,30 @@ class ChipA11yTest : ScreenshotBaseTest(
     fun disabled() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Chip(
+                SplitToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
                     label = "Primary label",
                     onClick = { },
+                    toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image,
+                    enabled = false
+                )
+            }
+        }
+    }
+
+    @Test
+    fun uncheckedAndDisabled() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                SplitToggleChip(
+                    checked = false,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    secondaryLabel = "Secondary label",
                     enabled = false
                 )
             }

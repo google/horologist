@@ -26,7 +26,7 @@ import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class ChipA11yTest : ScreenshotBaseTest(
+class ToggleChipA11yTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
@@ -37,9 +37,27 @@ class ChipA11yTest : ScreenshotBaseTest(
     fun withSecondaryLabelAndIcon() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Chip(
+                ToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
                     label = "Primary label",
-                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image
+                )
+            }
+        }
+    }
+
+    @Test
+    fun unchecked() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                ToggleChip(
+                    checked = false,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label",
                     icon = Icons.Default.Image
                 )
@@ -51,9 +69,28 @@ class ChipA11yTest : ScreenshotBaseTest(
     fun disabled() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Chip(
+                ToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
                     label = "Primary label",
-                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image,
+                    enabled = false
+                )
+            }
+        }
+    }
+
+    @Test
+    fun uncheckedAndDisabled() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                ToggleChip(
+                    checked = false,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label",
                     icon = Icons.Default.Image,
                     enabled = false

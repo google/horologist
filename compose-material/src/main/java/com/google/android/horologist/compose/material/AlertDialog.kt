@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
@@ -99,7 +100,7 @@ internal fun Alert(
                 imageVector = Icons.Default.Close,
                 contentDescription = cancelButtonContentDescription,
                 onClick = onCancelButtonClick,
-                buttonType = ButtonType.Secondary
+                colors = ButtonDefaults.secondaryButtonColors()
             )
         },
         positiveButton = {

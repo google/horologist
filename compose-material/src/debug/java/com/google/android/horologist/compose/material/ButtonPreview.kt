@@ -19,63 +19,81 @@ package com.google.android.horologist.compose.material
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.compose.tools.WearPreview
 
 @WearPreview
 @Composable
-fun ButtonIconOnlyPreview() {
+fun ButtonPreview() {
     Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
-        onClick = { },
-        buttonType = ButtonType.IconOnly
+        onClick = { }
     )
 }
 
 @WearPreview
 @Composable
-fun ButtonIconOnlyPreviewLarge() {
+fun ButtonPreviewLarge() {
     Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = ButtonType.IconOnly,
         buttonSize = ButtonSize.Large
     )
 }
 
 @WearPreview
 @Composable
-fun ButtonIconOnlyPreviewSmall() {
+fun ButtonPreviewSmall() {
     Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = ButtonType.IconOnly,
         buttonSize = ButtonSize.Small
     )
 }
 
 @WearPreview
 @Composable
-fun ButtonIconOnlyPreviewExtraSmall() {
+fun ButtonPreviewExtraSmall() {
     Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = ButtonType.IconOnly,
         buttonSize = ButtonSize.ExtraSmall
     )
 }
 
 @WearPreview
 @Composable
-fun ButtonIconOnlyPreviewDisabled() {
+fun ButtonPreviewDisabled() {
     Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = ButtonType.IconOnly,
         enabled = false
+    )
+}
+
+@WearPreview
+@Composable
+fun ButtonPreviewWithSecondaryButtonColors() {
+    Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = { },
+        colors = ButtonDefaults.secondaryButtonColors()
+    )
+}
+
+@WearPreview
+@Composable
+fun ButtonPreviewWithIconButtonColors() {
+    Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = { },
+        colors = ButtonDefaults.iconButtonColors()
     )
 }

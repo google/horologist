@@ -21,10 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.ButtonSize
-import com.google.android.horologist.compose.material.ButtonType
 
 /**
  * This composable fulfils the redlines of the following components:
@@ -55,10 +55,10 @@ public fun StandardButton(
         contentDescription = contentDescription,
         onClick = onClick,
         modifier = modifier,
-        buttonType = when (buttonType) {
-            StandardButtonType.Primary -> ButtonType.Primary
-            StandardButtonType.Secondary -> ButtonType.Secondary
-            StandardButtonType.IconOnly -> ButtonType.IconOnly
+        colors = when (buttonType) {
+            StandardButtonType.Primary -> ButtonDefaults.primaryButtonColors()
+            StandardButtonType.Secondary -> ButtonDefaults.secondaryButtonColors()
+            StandardButtonType.IconOnly -> ButtonDefaults.iconButtonColors()
         },
         buttonSize = when (buttonSize) {
             StandardButtonSize.Default -> ButtonSize.Default
@@ -71,11 +71,7 @@ public fun StandardButton(
 }
 
 @Deprecated(
-    "Replaced by ButtonType in Horologist Material Compose library",
-    replaceWith = ReplaceWith(
-        "ButtonType",
-        "com.google.android.horologist.compose.material.ButtonType"
-    )
+    "StandardButton is deprecated an replaced by Button in Horologist Material Compose library"
 )
 @ExperimentalHorologistApi
 public enum class StandardButtonType {

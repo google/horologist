@@ -178,6 +178,17 @@ class ChipTest : ScreenshotBaseTest() {
     }
 
     @Test
+    fun usingDrawableResAsIcon() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Chip(
+                label = "Primary label",
+                onClick = { },
+                icon = android.R.drawable.ic_delete
+            )
+        }
+    }
+
+    @Test
     fun withLargeIconUsingSmallIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Chip(

@@ -58,7 +58,6 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.ButtonSize
-import com.google.android.horologist.compose.material.ButtonType
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ChipIconWithProgress
 import com.google.android.horologist.media.ui.R
@@ -381,7 +380,7 @@ private fun <Collection> FirstButton(
             contentDescription = stringResource(id = R.string.horologist_playlist_download_button_download_content_description),
             onClick = { onDownloadButtonClick(collectionModel) },
             modifier = modifier,
-            buttonType = ButtonType.Secondary
+            colors = ButtonDefaults.secondaryButtonColors()
         )
     } else if (downloadMediaListState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully) {
         val label =
@@ -396,7 +395,7 @@ private fun <Collection> FirstButton(
                     action = null
                 )
             },
-            buttonType = ButtonType.Secondary
+            colors = ButtonDefaults.secondaryButtonColors()
         )
     } else {
         error("Invalid state to be used with this button")

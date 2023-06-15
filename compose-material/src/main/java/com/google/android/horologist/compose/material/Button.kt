@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -40,7 +41,7 @@ public fun Button(
     contentDescription: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    buttonType: ButtonType = ButtonType.Primary,
+    colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     enabled: Boolean = true
 ) {
@@ -48,11 +49,7 @@ public fun Button(
         onClick = onClick,
         modifier = modifier.size(buttonSize.tapTargetSize),
         enabled = enabled,
-        colors = when (buttonType) {
-            ButtonType.Primary -> ButtonDefaults.primaryButtonColors()
-            ButtonType.Secondary -> ButtonDefaults.secondaryButtonColors()
-            ButtonType.IconOnly -> ButtonDefaults.iconButtonColors()
-        }
+        colors = colors
     ) {
         Icon(
             imageVector = imageVector,
@@ -62,13 +59,6 @@ public fun Button(
                 .align(Alignment.Center)
         )
     }
-}
-
-@ExperimentalHorologistApi
-public enum class ButtonType {
-    Primary,
-    Secondary,
-    IconOnly,
 }
 
 @ExperimentalHorologistApi

@@ -25,6 +25,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.MaterialTheme
@@ -33,6 +35,7 @@ import androidx.wear.compose.material.SplitToggleChipColors
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.compose.material.util.adjustChipHeightToFontScale
 
 /**
@@ -82,19 +85,23 @@ public fun SplitToggleChip(
         }
 
     val toggleControlParam: (@Composable BoxScope.() -> Unit) = {
+        val stateDescriptionSemantics = stringResource(
+            if (checked) {
+                R.string.horologist_split_toggle_chip_on_content_description
+            } else {
+                R.string.horologist_split_toggle_chip_off_content_description
+            }
+        )
         Icon(
             imageVector = when (toggleControl) {
                 ToggleChipToggleControl.Switch -> ToggleChipDefaults.switchIcon(checked)
                 ToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
                 ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
             },
-            contentDescription = stringResource(
-                if (checked) {
-                    R.string.horologist_split_toggle_chip_on_content_description
-                } else {
-                    R.string.horologist_split_toggle_chip_off_content_description
-                }
-            ),
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+            modifier = Modifier.semantics {
+                stateDescription = stateDescriptionSemantics
+            },
             rtlMode = IconRtlMode.Mirrored
         )
     }

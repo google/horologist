@@ -30,6 +30,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.ChipDefaults
@@ -96,13 +98,7 @@ public fun ToggleChip(
                 ToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
                 ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
             },
-            contentDescription = stringResource(
-                if (checked) {
-                    R.string.horologist_toggle_chip_on_content_description
-                } else {
-                    R.string.horologist_toggle_chip_off_content_description
-                }
-            ),
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
             rtlMode = IconRtlMode.Mirrored
         )
     }
@@ -123,6 +119,13 @@ public fun ToggleChip(
             }
         }
 
+    val stateDescriptionSemantics = stringResource(
+        if (checked) {
+            R.string.horologist_toggle_chip_on_content_description
+        } else {
+            R.string.horologist_toggle_chip_off_content_description
+        }
+    )
     ToggleChip(
         checked = checked,
         onCheckedChange = onCheckedChanged,
@@ -130,7 +133,10 @@ public fun ToggleChip(
         toggleControl = toggleControlParam,
         modifier = modifier
             .adjustChipHeightToFontScale(LocalConfiguration.current.fontScale)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .semantics {
+                stateDescription = stateDescriptionSemantics
+            },
         appIcon = iconParam,
         secondaryLabel = secondaryLabelParam,
         colors = colors,

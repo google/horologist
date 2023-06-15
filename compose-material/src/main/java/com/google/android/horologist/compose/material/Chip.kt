@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -77,27 +78,35 @@ public fun Chip(
                 }
 
                 Row {
-                    if (icon is ImageVector) {
-                        Icon(
-                            imageVector = icon,
-                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                            modifier = Modifier
-                                .size(iconSize)
-                                .clip(CircleShape)
-                        )
-                    } else {
-                        Image(
-                            painter = rememberAsyncImagePainter(
-                                model = icon,
-                                placeholder = placeholder
-                            ),
-                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                            modifier = Modifier
-                                .size(iconSize)
-                                .clip(CircleShape),
-                            contentScale = ContentScale.Crop,
-                            alpha = LocalContentAlpha.current
-                        )
+                    val iconModifier = Modifier
+                        .size(iconSize)
+                        .clip(CircleShape)
+                    when (icon) {
+                        is ImageVector ->
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                                modifier = iconModifier
+                            )
+
+                        is Int ->
+                            Icon(
+                                painter = painterResource(id = icon),
+                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                                modifier = iconModifier
+                            )
+
+                        else ->
+                            Image(
+                                painter = rememberAsyncImagePainter(
+                                    model = icon,
+                                    placeholder = placeholder
+                                ),
+                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                                modifier = iconModifier,
+                                contentScale = ContentScale.Crop,
+                                alpha = LocalContentAlpha.current
+                            )
                     }
                 }
             }

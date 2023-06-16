@@ -90,7 +90,7 @@ private fun ClippedBox(pagerState: PagerState, content: @Composable () -> Unit) 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .optionalClip(shape.value),
+            .optionalClip(shape.value)
     ) {
         content()
     }
@@ -101,10 +101,11 @@ private fun rememberClipWhenScrolling(state: PagerState): State<RoundedCornerSha
     val shape = if (LocalConfiguration.current.isScreenRound) CircleShape else null
     return remember(state) {
         derivedStateOf {
-            if (shape != null && state.currentPageOffsetFraction != 0f)
+            if (shape != null && state.currentPageOffsetFraction != 0f) {
                 shape
-            else
+            } else {
                 null
+            }
         }
     }
 }

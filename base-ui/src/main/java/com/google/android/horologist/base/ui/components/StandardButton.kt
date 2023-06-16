@@ -64,7 +64,7 @@ public fun StandardButton(
             StandardButtonSize.Default -> ButtonSize.Default
             StandardButtonSize.Large -> ButtonSize.Large
             StandardButtonSize.Small -> ButtonSize.Small
-            StandardButtonSize.ExtraSmall -> ButtonSize.ExtraSmall
+            StandardButtonSize.ExtraSmall -> ButtonSize.Small
         },
         enabled = enabled
     )

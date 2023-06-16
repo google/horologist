@@ -18,7 +18,10 @@ package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.DirectionsBike
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.ButtonDefaults
+import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
@@ -72,18 +75,6 @@ internal class ButtonTest : ScreenshotBaseTest() {
     }
 
     @Test
-    fun extraSmall() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                buttonSize = ButtonSize.ExtraSmall
-            )
-        }
-    }
-
-    @Test
     fun withSecondaryButtonColors() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Button(
@@ -104,6 +95,95 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 onClick = { },
                 colors = ButtonDefaults.iconButtonColors()
             )
+        }
+    }
+
+    @Test
+    fun usingDrawableResAsIcon() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Button(
+                id = android.R.drawable.ic_media_play,
+                contentDescription = "contentDescription",
+                onClick = { }
+            )
+        }
+    }
+
+    @Test
+    fun usingDrawableResAsIconRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                Button(
+                    id = android.R.drawable.ic_media_play,
+                    contentDescription = "contentDescription",
+                    onClick = { }
+                )
+            }
+        }
+    }
+
+    @Test
+    fun usingDrawableResAsIconMirrored() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Button(
+                id = android.R.drawable.ic_media_play,
+                contentDescription = "contentDescription",
+                onClick = { },
+                iconRtlMode = IconRtlMode.Mirrored
+            )
+        }
+    }
+
+    @Test
+    fun usingDrawableResAsIconMirroredRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                Button(
+                    id = android.R.drawable.ic_media_play,
+                    contentDescription = "contentDescription",
+                    onClick = { },
+                    iconRtlMode = IconRtlMode.Mirrored
+                )
+            }
+        }
+    }
+
+    @Test
+    fun defaultRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                Button(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "contentDescription",
+                    onClick = { }
+                )
+            }
+        }
+    }
+
+    @Test
+    fun mirrored() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Button(
+                imageVector = Icons.Default.DirectionsBike,
+                contentDescription = "contentDescription",
+                onClick = { },
+                iconRtlMode = IconRtlMode.Mirrored
+            )
+        }
+    }
+
+    @Test
+    fun mirroredRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                Button(
+                    imageVector = Icons.Default.DirectionsBike,
+                    contentDescription = "contentDescription",
+                    onClick = { },
+                    iconRtlMode = IconRtlMode.Mirrored
+                )
+            }
         }
     }
 }

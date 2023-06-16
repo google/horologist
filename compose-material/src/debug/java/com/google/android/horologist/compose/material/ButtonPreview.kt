@@ -56,17 +56,6 @@ fun ButtonPreviewSmall() {
 
 @WearPreview
 @Composable
-fun ButtonPreviewExtraSmall() {
-    Button(
-        imageVector = Icons.Default.Check,
-        contentDescription = "contentDescription",
-        onClick = { },
-        buttonSize = ButtonSize.ExtraSmall
-    )
-}
-
-@WearPreview
-@Composable
 fun ButtonPreviewDisabled() {
     Button(
         imageVector = Icons.Default.Check,

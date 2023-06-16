@@ -16,17 +16,22 @@
 
 package com.google.android.horologist.compose.material
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.ButtonDefaults.DefaultButtonSize
+import androidx.wear.compose.material.ButtonDefaults.DefaultIconSize
+import androidx.wear.compose.material.ButtonDefaults.LargeButtonSize
+import androidx.wear.compose.material.ButtonDefaults.LargeIconSize
+import androidx.wear.compose.material.ButtonDefaults.SmallButtonSize
+import androidx.wear.compose.material.ButtonDefaults.SmallIconSize
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
@@ -43,6 +48,59 @@ public fun Button(
     modifier: Modifier = Modifier,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
+    enabled: Boolean = true
+) {
+    Button(
+        icon = imageVector,
+        contentDescription = contentDescription,
+        onClick = onClick,
+        modifier = modifier,
+        colors = colors,
+        buttonSize = buttonSize,
+        iconRtlMode = iconRtlMode,
+        enabled = enabled
+    )
+}
+
+/**
+ * This component is an alternative to [Button], providing the following:
+ * - a convenient way of providing an icon and choosing its size from a range of sizes recommended
+ * by the Wear guidelines;
+ */
+@ExperimentalHorologistApi
+@Composable
+public fun Button(
+    @DrawableRes id: Int,
+    contentDescription: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
+    buttonSize: ButtonSize = ButtonSize.Default,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
+    enabled: Boolean = true
+) {
+    Button(
+        icon = id,
+        contentDescription = contentDescription,
+        onClick = onClick,
+        modifier = modifier,
+        colors = colors,
+        buttonSize = buttonSize,
+        iconRtlMode = iconRtlMode,
+        enabled = enabled
+    )
+}
+
+@Composable
+internal fun Button(
+    icon: Any,
+    contentDescription: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
+    buttonSize: ButtonSize = ButtonSize.Default,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true
 ) {
     Button(
@@ -51,12 +109,15 @@ public fun Button(
         enabled = enabled,
         colors = colors
     ) {
+        val iconModifier = Modifier
+            .size(buttonSize.iconSize)
+            .align(Alignment.Center)
+
         Icon(
-            imageVector = imageVector,
+            icon = icon,
             contentDescription = contentDescription,
-            modifier = Modifier
-                .size(buttonSize.iconSize)
-                .align(Alignment.Center)
+            modifier = iconModifier,
+            rtlMode = iconRtlMode
         )
     }
 }
@@ -66,8 +127,7 @@ public enum class ButtonSize(
     public val iconSize: Dp,
     public val tapTargetSize: Dp
 ) {
-    Default(iconSize = 26.dp, tapTargetSize = 52.dp),
-    Large(iconSize = 30.dp, tapTargetSize = 60.dp),
-    Small(iconSize = 24.dp, tapTargetSize = 48.dp),
-    ExtraSmall(iconSize = 24.dp, tapTargetSize = 48.dp),
+    Default(iconSize = DefaultIconSize, tapTargetSize = DefaultButtonSize),
+    Large(iconSize = LargeIconSize, tapTargetSize = LargeButtonSize),
+    Small(iconSize = SmallIconSize, tapTargetSize = SmallButtonSize)
 }

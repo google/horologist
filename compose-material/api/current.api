@@ -6,7 +6,8 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class ButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Button(androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors, optional com.google.android.horologist.compose.material.ButtonSize buttonSize, optional boolean enabled);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Button(androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors, optional com.google.android.horologist.compose.material.ButtonSize buttonSize, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean enabled);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Button(@DrawableRes int id, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors, optional com.google.android.horologist.compose.material.ButtonSize buttonSize, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean enabled);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum ButtonSize {
@@ -17,7 +18,6 @@ package com.google.android.horologist.compose.material {
     property public final float iconSize;
     property public final float tapTargetSize;
     enum_constant public static final com.google.android.horologist.compose.material.ButtonSize Default;
-    enum_constant public static final com.google.android.horologist.compose.material.ButtonSize ExtraSmall;
     enum_constant public static final com.google.android.horologist.compose.material.ButtonSize Large;
     enum_constant public static final com.google.android.horologist.compose.material.ButtonSize Small;
   }
@@ -39,6 +39,7 @@ package com.google.android.horologist.compose.material {
 
   public final class IconKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Icon(androidx.compose.ui.graphics.vector.ImageVector imageVector, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional long tint, optional com.google.android.horologist.compose.material.IconRtlMode rtlMode);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Icon(@DrawableRes int id, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional long tint, optional com.google.android.horologist.compose.material.IconRtlMode rtlMode);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum IconRtlMode {

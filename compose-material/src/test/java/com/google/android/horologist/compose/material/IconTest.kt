@@ -70,4 +70,50 @@ class IconTest : ScreenshotBaseTest() {
             }
         }
     }
+
+    @Test
+    fun usingDrawableResAsIcon() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Icon(
+                id = android.R.drawable.ic_media_play,
+                contentDescription = "contentDescription"
+            )
+        }
+    }
+
+    @Test
+    fun usingDrawableResAsIconRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                Icon(
+                    id = android.R.drawable.ic_media_play,
+                    contentDescription = "contentDescription"
+                )
+            }
+        }
+    }
+
+    @Test
+    fun usingDrawableResAsIconMirrored() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Icon(
+                id = android.R.drawable.ic_media_play,
+                contentDescription = "contentDescription",
+                rtlMode = IconRtlMode.Mirrored
+            )
+        }
+    }
+
+    @Test
+    fun usingDrawableResAsIconMirroredRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                Icon(
+                    id = android.R.drawable.ic_media_play,
+                    contentDescription = "contentDescription",
+                    rtlMode = IconRtlMode.Mirrored
+                )
+            }
+        }
+    }
 }

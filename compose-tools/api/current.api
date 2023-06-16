@@ -41,7 +41,7 @@ package com.google.android.horologist.compose.tools {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void LayoutElementPreview(androidx.wear.protolayout.LayoutElementBuilders.LayoutElement element, optional @ColorInt int windowBackgroundColor, optional kotlin.jvm.functions.Function1<? super androidx.wear.protolayout.ResourceBuilders.Resources.Builder,kotlin.Unit> tileResourcesFn);
     method @androidx.compose.runtime.Composable public static void LayoutRootPreview(androidx.wear.protolayout.LayoutElementBuilders.LayoutElement root, optional kotlin.jvm.functions.Function1<? super androidx.wear.protolayout.ResourceBuilders.Resources.Builder,kotlin.Unit> tileResourcesFn);
     method @androidx.compose.runtime.Composable public static <T, R> void TileLayoutPreview(T? state, R? resourceState, com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> renderer);
-    method @androidx.compose.runtime.Composable public static void TilePreview(androidx.wear.tiles.TileBuilders.Tile tile, androidx.wear.protolayout.ResourceBuilders.Resources tileResources);
+    method @androidx.compose.runtime.Composable public static void TilePreview(androidx.wear.tiles.TileBuilders.Tile tile, androidx.wear.protolayout.ResourceBuilders.Resources tileResources, optional kotlin.jvm.functions.Function1<? super androidx.wear.protolayout.StateBuilders.State,androidx.wear.tiles.TileBuilders.Tile>? onLoadAction);
     method public static androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters buildDeviceParameters(android.content.res.Resources resources);
   }
 

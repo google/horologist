@@ -17,7 +17,7 @@
 import java.util.Properties
 
 plugins {
-    id("com.gradle.enterprise") version "3.5"
+    id("com.gradle.enterprise") version "3.13.3"
 }
 
 gradleEnterprise {

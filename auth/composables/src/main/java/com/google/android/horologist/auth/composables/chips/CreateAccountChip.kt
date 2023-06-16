@@ -16,16 +16,20 @@
 
 package com.google.android.horologist.auth.composables.chips
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.SendToMobile
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.Icon
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 /**
  * An opinionated [Chip] to represent the "Create account" action.
@@ -38,15 +42,39 @@ public fun CreateAccountChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     label: String = stringResource(id = R.string.horologist_create_account_chip_label),
+    largeIconSpace: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true
 ) {
-    Chip(
-        label = label,
-        onClick = onClick,
-        modifier = modifier,
-        icon = Icons.Default.SendToMobile,
-        colors = colors,
-        enabled = enabled
-    )
+    if (largeIconSpace) {
+        Chip(
+            label = label,
+            onClick = onClick,
+            modifier = modifier,
+            icon = {
+                Box(
+                    modifier = Modifier.size(ChipDefaults.LargeIconSize),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.horologist_send_to_mobile),
+                        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                        modifier = Modifier.size(ChipDefaults.IconSize)
+                    )
+                }
+            },
+            largeIcon = true,
+            colors = colors,
+            enabled = enabled
+        )
+    } else {
+        Chip(
+            label = label,
+            onClick = onClick,
+            modifier = modifier,
+            icon = R.drawable.horologist_send_to_mobile,
+            colors = colors,
+            enabled = enabled
+        )
+    }
 }

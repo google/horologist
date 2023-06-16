@@ -141,7 +141,7 @@ class ChipTest : ScreenshotBaseTest() {
     }
 
     @Test
-    fun withSecondaryLabelAndLongText() {
+    fun withSecondaryLabelAndIconAndLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Chip(
                 label = "Primary label very very very very very very very very long text",
@@ -153,7 +153,7 @@ class ChipTest : ScreenshotBaseTest() {
     }
 
     @Test
-    fun withSecondaryLabelAndLongTextAndLargestFontScale() {
+    fun withSecondaryLabelAndIconAndLongTextAndLargestFontScale() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(fontScale = largestFontScale) {
                 Chip(
@@ -161,6 +161,34 @@ class ChipTest : ScreenshotBaseTest() {
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
                     icon = Icons.Default.Image
+                )
+            }
+        }
+    }
+
+    @Test
+    fun withSecondaryLabelAndLargeIconAndLongText() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Chip(
+                label = "Primary label very very very very very very very very long text",
+                onClick = { },
+                secondaryLabel = "Secondary label very very very very very very very very very long text",
+                icon = Icons.Default.Image,
+                largeIcon = true
+            )
+        }
+    }
+
+    @Test
+    fun withSecondaryLabelAndLargeIconAndLongTextAndLargestFontScale() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(fontScale = largestFontScale) {
+                Chip(
+                    label = "Primary label very very very very very very very very long text",
+                    onClick = { },
+                    secondaryLabel = "Secondary label very very very very very very very very very long text",
+                    icon = Icons.Default.Image,
+                    largeIcon = true
                 )
             }
         }

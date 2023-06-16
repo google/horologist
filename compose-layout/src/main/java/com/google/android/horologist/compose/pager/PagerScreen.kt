@@ -90,7 +90,7 @@ private fun ClippedBox(pagerState: PagerState, content: @Composable () -> Unit) 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .optionalClip(shape.value)
+            .optionalClip(shape)
     ) {
         content()
     }
@@ -110,10 +110,14 @@ private fun rememberClipWhenScrolling(state: PagerState): State<RoundedCornerSha
     }
 }
 
-private fun Modifier.optionalClip(shape: RoundedCornerShape?): Modifier = if (shape != null) {
-    clip(shape)
-} else {
-    this
+private fun Modifier.optionalClip(shapeState: State<RoundedCornerShape?>): Modifier {
+    val shape = shapeState.value
+
+    return if (shape != null) {
+        clip(shape)
+    } else {
+        this
+    }
 }
 
 /**

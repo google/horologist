@@ -40,22 +40,23 @@ class CreateAccountChipTest : ScreenshotBaseTest() {
     }
 
     @Test
-    fun withSecondaryChipType() {
+    fun withLargeIconSpace() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CreateAccountChip(
                 onClick = {},
-                colors = ChipDefaults.secondaryChipColors()
+                largeIconSpace = true,
+                colors = ChipDefaults.secondaryChipColors(),
+                enabled = false
             )
         }
     }
 
     @Test
-    fun withSecondaryChipTypeDisabled() {
+    fun withSecondaryChipType() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CreateAccountChip(
                 onClick = {},
-                colors = ChipDefaults.secondaryChipColors(),
-                enabled = false
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }

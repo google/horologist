@@ -27,3 +27,12 @@ import androidx.compose.ui.tooling.preview.Preview
 fun CreateAccountChipPreview() {
     CreateAccountChip(onClick = {})
 }
+
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun CreateAccountChipPreviewLargeIconSpace() {
+    CreateAccountChip(onClick = {}, largeIconSpace = true)
+}

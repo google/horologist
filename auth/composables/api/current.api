@@ -9,7 +9,7 @@ package com.google.android.horologist.auth.composables {
 package com.google.android.horologist.auth.composables.chips {
 
   public final class CreateAccountChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CreateAccountChip(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CreateAccountChip(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional boolean largeIconSpace, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
   }
 
   public final class GuestModeChipKt {

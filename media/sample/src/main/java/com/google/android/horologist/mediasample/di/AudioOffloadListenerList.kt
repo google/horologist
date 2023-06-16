@@ -51,14 +51,11 @@ class AudioOffloadListenerList : AudioOffloadListener {
         }
     }
 
-    // Expose when https://github.com/androidx/media/commit/7893531888608555fb09e77f12897752650131d5
-    // is in 1.0-RC1
-    // For now requires `media3.checkout=false` in local.properties
-//    override fun onExperimentalOffloadedPlayback(offloadedPlayback: Boolean) {
-//        synchronized(audioOffloadListeners) {
-//            for (it in audioOffloadListeners) {
-//                it.onExperimentalOffloadedPlayback(offloadedPlayback)
-//            }
-//        }
-//    }
+    override fun onExperimentalOffloadedPlayback(offloadedPlayback: Boolean) {
+        synchronized(audioOffloadListeners) {
+            for (it in audioOffloadListeners) {
+                it.onExperimentalOffloadedPlayback(offloadedPlayback)
+            }
+        }
+    }
 }

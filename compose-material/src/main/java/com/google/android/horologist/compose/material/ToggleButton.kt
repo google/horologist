@@ -19,8 +19,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-//import androidx.compose.foundation.layout.BoxScope
-//import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
@@ -91,6 +89,9 @@ import androidx.wear.compose.material.contentColorFor
  * context to users.
  * @param content The icon, image or text to be drawn inside the toggle button.
  */
+
+
+// TODO: change implementation to use overloading instead of checking for nulls
 @Composable
 public fun ToggleButton(
     checked: Boolean = true,
@@ -152,7 +153,7 @@ public fun ToggleButton(
         ) {
             if (text != null) {
                 Text(
-                    text = text,
+                    text = text.take(3)
 //                    modifier = Modifier.padding(4.dp)
                 )
             } else {

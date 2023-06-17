@@ -27,18 +27,6 @@ import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
-//public fun ToggleButton(
-//    checked: Boolean,
-//    onCheckedChange: (Boolean) -> Unit,
-//    modifier: Modifier = Modifier,
-//    enabled: Boolean = true,
-//    colors: ToggleButtonColors = ToggleButtonDefaults.toggleButtonColors(),
-//    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-//    shape: Shape = CircleShape,
-//    role: Role = ToggleButtonDefaults.DefaultRole,
-//    content: @Composable() (BoxScope.() -> Unit)
-//): Unit
-
 @Preview(
     backgroundColor = 0xff000000,
     showBackground = true
@@ -86,7 +74,7 @@ fun ToggleButtonDefaultPreview4() {
     ToggleButton(
         checked = false,
         onCheckedChange = {},
-        text = "Mon"
+        text = "Monday"
     )
 }
 

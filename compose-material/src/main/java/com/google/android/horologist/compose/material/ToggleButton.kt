@@ -46,6 +46,7 @@ import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.contentColorFor
+import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 /**
  * Wear Material [ToggleButton] that offers a single slot to take any content
@@ -159,7 +160,7 @@ public fun ToggleButton(
             } else {
                 Icon(
                     icon = icon ?: Icons.Default.QuestionMark,
-                    contentDescription = null,
+                    contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                     modifier = Modifier.size(iconSize)
                     )
                 }

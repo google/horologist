@@ -93,6 +93,82 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
  * @param content The icon, image or text to be drawn inside the toggle button.
  */
 
+public fun ToggleButton(
+    checked: Boolean = true,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    colors: ToggleButtonColors = ToggleButtonDefaults.toggleButtonColors(),
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    shape: Shape = CircleShape,
+    role: Role = ToggleButtonDefaults.DefaultRole,
+    text: String,
+    variant: ToggleButtonVariants? = ToggleButtonVariants.Default
+) {
+    require(variant == ToggleButtonVariants.IconOnly) {
+        "ToggleButtonVariants.IconOnly cannot be used with text"
+    }
+
+    val icon = when(variant) {
+        ToggleButtonVariants.IconOnly -> Icons.Default.Warning
+        else -> {
+            null
+        }
+    }
+
+    val buttonSize = when (variant) {
+        ToggleButtonVariants.Small -> ToggleButtonDefaults.SmallToggleButtonSize
+        else -> {
+            ToggleButtonDefaults.DefaultToggleButtonSize
+        }
+    }
+
+    val iconSize = when (variant) {
+        ToggleButtonVariants.Small -> ToggleButtonDefaults.SmallIconSize
+        else -> {
+            ToggleButtonDefaults.DefaultIconSize
+        }
+    }
+
+    val background = colors.backgroundColor(enabled = enabled, checked = checked).value
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .size(buttonSize)
+            .clip(shape)
+            .toggleable(
+                value = checked,
+                onValueChange = onCheckedChange,
+                enabled = enabled,
+                role = role,
+//                interactionSource = interactionSource
+            )
+            .background(background)
+    ) {
+        val contentColor = colors.contentColor(enabled = enabled, checked = checked).value
+
+        CompositionLocalProvider(
+            LocalContentColor provides contentColor,
+            LocalContentAlpha provides contentColor.alpha,
+            LocalTextStyle provides MaterialTheme.typography.button,
+        ) {
+            if (icon != null) {
+                Icon(
+                    icon,
+                    contentDescription = null,
+                    modifier = Modifier.size(iconSize)
+                )
+            } else {
+                Text(
+                    text=text.take(3),
+                    textAlign = TextAlign.Center,
+                    fontSize = 14.sp
+                    )
+                }
+        }
+    }
+}
 
 // TODO: change implementation to use overloading instead of checking for nulls
 @Composable
@@ -105,8 +181,7 @@ public fun ToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = CircleShape,
     role: Role = ToggleButtonDefaults.DefaultRole,
-    icon: Any? = null,
-    text: String? = null,
+    icon: Any,
     variant: ToggleButtonVariants? = ToggleButtonVariants.Default
 ) {
     val buttonSize = when (variant) {
@@ -119,9 +194,10 @@ public fun ToggleButton(
     }
 
     val iconSize = when (variant) {
-        ToggleButtonVariants.Default -> ToggleButtonDefaults.DefaultIconSize
+        ToggleButtonVariants.Small -> ToggleButtonDefaults.SmallIconSize
+        ToggleButtonVariants.IconOnly -> ToggleButtonDefaults.SmallIconSize
         else -> {
-            ToggleButtonDefaults.SmallIconSize
+            ToggleButtonDefaults.DefaultIconSize
         }
     }
 
@@ -159,19 +235,11 @@ public fun ToggleButton(
             LocalContentAlpha provides contentColor.alpha,
             LocalTextStyle provides MaterialTheme.typography.button,
         ) {
-            if (text != null) {
-                Text(
-                    text=text.take(3),
-                    textAlign = TextAlign.Center,
-                    fontSize = 14.sp
+            Icon(
+                icon = icon ?: Icons.Default.QuestionMark,
+                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                modifier = Modifier.size(iconSize)
                 )
-            } else {
-                Icon(
-                    icon = icon ?: Icons.Default.QuestionMark,
-                    contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                    modifier = Modifier.size(iconSize)
-                    )
-                }
         }
     }
 }

@@ -93,6 +93,12 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
  * @param content The icon, image or text to be drawn inside the toggle button.
  */
 
+/*
+ * This component is an alternative to [ToggleButton], providing the following:
+ * - a convenient way of providing text
+ * - a convenient way of providing the variant
+ */
+@Composable
 public fun ToggleButton(
     checked: Boolean = true,
     onCheckedChange: (Boolean) -> Unit,
@@ -170,7 +176,11 @@ public fun ToggleButton(
     }
 }
 
-// TODO: change implementation to use overloading instead of checking for nulls
+/*
+ * This component is an alternative to [ToggleButton], providing the following:
+ * - a convenient way of providing an Icon
+ * - a convenient way of providing the variant
+ */
 @Composable
 public fun ToggleButton(
     checked: Boolean = true,

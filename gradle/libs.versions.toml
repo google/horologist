@@ -57,7 +57,7 @@ snapshot-android = "1.0.4"
 spotless = "6.18.0"
 tracingPerfetto = "1.0"
 tracingPerfettoBinary = "1.0"
-truth = "1.1.4"
+truth = "1.1.5"
 versionCatalogUpdate = "0.8.0"
 wearcompose = "1.2.0-beta02"
 

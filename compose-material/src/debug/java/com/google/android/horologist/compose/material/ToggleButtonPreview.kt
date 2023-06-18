@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
     showBackground = true
 )
 @Composable
-fun ToggleButtonDefaultPreview() {
+fun ToggleButtonDefaultPreviewIcon() {
     ToggleButton(
         onCheckedChange = {},
         icon = Icons.Filled.AirplanemodeActive
@@ -44,7 +44,7 @@ fun ToggleButtonDefaultPreview() {
     showBackground = true
 )
 @Composable
-fun ToggleButtonDefaultPreview2() {
+fun ToggleButtonDefaultPreviewIcon2() {
     ToggleButton(
         checked = false,
         onCheckedChange = {},
@@ -57,7 +57,7 @@ fun ToggleButtonDefaultPreview2() {
     showBackground = true
 )
 @Composable
-fun ToggleButtonDefaultPreview3() {
+fun ToggleButtonDefaultPreviewIcon3() {
     ToggleButton(
         checked = false,
         onCheckedChange = {},
@@ -70,7 +70,7 @@ fun ToggleButtonDefaultPreview3() {
     showBackground = true
 )
 @Composable
-fun ToggleButtonDefaultPreview4() {
+fun ToggleButtonDefaultPreviewText1() {
     ToggleButton(
         checked = false,
         onCheckedChange = {},
@@ -83,7 +83,7 @@ fun ToggleButtonDefaultPreview4() {
     showBackground = true
 )
 @Composable
-fun ToggleButtonDefaultPreview5() {
+fun ToggleButtonDefaultPreviewText2() {
     ToggleButton(
         checked = true,
         onCheckedChange = {},
@@ -96,7 +96,7 @@ fun ToggleButtonDefaultPreview5() {
     showBackground = true
 )
 @Composable
-fun ToggleButtonSmallPreview() {
+fun ToggleButtonSmallPreviewIcon1() {
     ToggleButton(onCheckedChange = {},
         icon = Icons.Filled.VolumeUp,
         variant = ToggleButtonVariants.Small
@@ -108,7 +108,7 @@ fun ToggleButtonSmallPreview() {
     showBackground = true
 )
 @Composable
-fun ToggleButtonSmallPreview2() {
+fun ToggleButtonSmallPreviewIcon2() {
     ToggleButton(onCheckedChange = {},
         checked = false,
         icon = Icons.Filled.VolumeOff,
@@ -121,7 +121,7 @@ fun ToggleButtonSmallPreview2() {
     showBackground = true
 )
 @Composable
-fun ToggleButtonSmallPreview3() {
+fun ToggleButtonSmallPreviewIcon3() {
     ToggleButton(onCheckedChange = {},
         checked = false,
         icon = Icons.Filled.VolumeUp,
@@ -134,11 +134,11 @@ fun ToggleButtonSmallPreview3() {
     showBackground = true
 )
 @Composable
-fun ToggleButtonIconOnlyPreview() {
+fun ToggleButtonIconOnlyPreviewOutlinedChecked() {
     ToggleButton(
-        checked = false,
+        checked = true,
         onCheckedChange = {},
-        icon = Icons.Outlined.Favorite,
+        icon = Icons.Outlined.FavoriteBorder,
         variant = ToggleButtonVariants.IconOnly
     )
 }
@@ -148,11 +148,11 @@ fun ToggleButtonIconOnlyPreview() {
     showBackground = true
 )
 @Composable
-fun ToggleButtonIconOnlyPreview2() {
+fun ToggleButtonIconOnlyPreviewFilledChecked() {
     ToggleButton(
         checked = true,
         onCheckedChange = {},
-        icon = Icons.Outlined.Favorite,
+        icon = Icons.Filled.Favorite,
         variant = ToggleButtonVariants.IconOnly
     )
 }

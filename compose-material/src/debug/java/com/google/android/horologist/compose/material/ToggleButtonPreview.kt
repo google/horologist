@@ -19,11 +19,10 @@ package com.google.android.horologist.compose.material
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
-import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material.icons.filled.Flight
-import androidx.compose.material.icons.filled.NoFlash
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.VolumeOff
 import androidx.compose.material.icons.filled.VolumeUp
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
@@ -143,6 +142,20 @@ fun ToggleButtonIconOnlyPreviewOutlinedChecked() {
     )
 }
 
+//@Preview(
+//    backgroundColor = 0xff000000,
+//    showBackground = true
+//)
+//@Composable
+//fun ToggleButtonIconOnlyPreviewOutlinedUnchecked() {
+//    ToggleButton(
+//        checked = false,
+//        onCheckedChange = {},
+//        icon = Icons.Outlined.FavoriteBorder,
+//        variant = ToggleButtonVariants.IconOnly
+//    )
+//}
+
 @Preview(
     backgroundColor = 0xff000000,
     showBackground = true
@@ -156,3 +169,17 @@ fun ToggleButtonIconOnlyPreviewFilledChecked() {
         variant = ToggleButtonVariants.IconOnly
     )
 }
+
+//@Preview(
+//    backgroundColor = 0xff000000,
+//    showBackground = true
+//)
+//@Composable
+//fun ToggleButtonIconOnlyPreviewFilledUnchecked() {
+//    ToggleButton(
+//        checked = false,
+//        onCheckedChange = {},
+//        icon = Icons.Filled.Favorite,
+//        variant = ToggleButtonVariants.IconOnly
+//    )
+//}

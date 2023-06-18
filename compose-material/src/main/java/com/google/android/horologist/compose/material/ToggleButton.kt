@@ -107,7 +107,7 @@ public fun ToggleButton(
     text: String? = null,
     variant: ToggleButtonVariants? = ToggleButtonVariants.Default
 ) {
-    val size = when (variant) {
+    val buttonSize = when (variant) {
         ToggleButtonVariants.Default -> ToggleButtonDefaults.DefaultToggleButtonSize
         ToggleButtonVariants.Small -> ToggleButtonDefaults.SmallToggleButtonSize
         ToggleButtonVariants.IconOnly -> ToggleButtonDefaults.SmallIconSize
@@ -135,7 +135,7 @@ public fun ToggleButton(
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .size(size)
+            .size(buttonSize)
             .clip(shape)
             .toggleable(
                 value = checked,

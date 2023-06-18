@@ -125,5 +125,17 @@ class ToggleButtonTest : ScreenshotBaseTest() {
             )
         }
     }
+
+    @Test
+    fun testInvalidIcon() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleButton(
+                checked = true,
+                onCheckedChange = {},
+                text = "te",
+                variant = ToggleButtonVariants.IconOnly
+            )
+        }
+}
 }
 

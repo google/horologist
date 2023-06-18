@@ -183,3 +183,17 @@ fun ToggleButtonIconOnlyPreviewFilledChecked() {
 //        variant = ToggleButtonVariants.IconOnly
 //    )
 //}
+
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun ToggleButtonTextUsingIconSize() {
+    ToggleButton(
+        checked = true,
+        onCheckedChange = {},
+        text = "te",
+        variant = ToggleButtonVariants.IconOnly
+    )
+}

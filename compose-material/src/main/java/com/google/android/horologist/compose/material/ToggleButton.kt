@@ -38,7 +38,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.ContentAlpha
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.LocalContentColor
@@ -118,10 +120,8 @@ public fun ToggleButton(
 
     val iconSize = when (variant) {
         ToggleButtonVariants.Default -> ToggleButtonDefaults.DefaultIconSize
-        ToggleButtonVariants.Small -> ToggleButtonDefaults.SmallIconSize
-        ToggleButtonVariants.IconOnly -> ToggleButtonDefaults.SmallIconSize
         else -> {
-            ToggleButtonDefaults.DefaultIconSize
+            ToggleButtonDefaults.SmallIconSize
         }
     }
 
@@ -146,7 +146,14 @@ public fun ToggleButton(
             )
             .background(background)
     ) {
-        val contentColor = colors.contentColor(enabled = enabled, checked = checked).value
+        val contentColor = when (variant) {
+            ToggleButtonVariants.IconOnly -> {
+                colors.contentColor(enabled = enabled, checked = !checked).value
+            }
+            else -> {
+                colors.contentColor(enabled = enabled, checked = checked).value
+            }
+        }
         CompositionLocalProvider(
             LocalContentColor provides contentColor,
             LocalContentAlpha provides contentColor.alpha,
@@ -154,8 +161,9 @@ public fun ToggleButton(
         ) {
             if (text != null) {
                 Text(
-                    text = text.take(3)
-//                    modifier = Modifier.padding(4.dp)
+                    text=text.take(3),
+                    textAlign = TextAlign.Center,
+                    fontSize = 14.sp
                 )
             } else {
                 Icon(

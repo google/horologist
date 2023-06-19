@@ -67,6 +67,7 @@ include(":network-awareness:okhttp")
 include(":network-awareness:ui")
 include(":roboscreenshots")
 include(":sample")
+include(":sample-benchmark")
 include(":tiles")
 
 // https://docs.gradle.org/7.4/userguide/declaring_dependencies.html#sec:type-safe-project-accessors

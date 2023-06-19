@@ -56,6 +56,20 @@ android {
 
             signingConfig = signingConfigs.getByName("debug")
         }
+        create("benchmark") {
+            initWith(buildTypes.getByName("release"))
+
+            signingConfig = signingConfigs.getByName("debug")
+            isDebuggable = false
+
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+                "proguard-benchmark.pro"
+            )
+
+            matchingFallbacks.add("release")
+        }
     }
 
     compileOptions {
@@ -177,6 +191,11 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
+
+    add("benchmarkImplementation", projects.composeTools)
+    add("benchmarkImplementation", libs.androidx.tracing.perfetto)
+    add("benchmarkImplementation", libs.androidx.tracing.perfetto.binary)
+    add("benchmarkImplementation", libs.androidx.runtime.tracing)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.espresso.core)

@@ -30,6 +30,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.DeviceDefault">
+
+        <!--suppress AndroidElementNotAllowed -->
+        <profileable android:shell="true"/>
+
         <uses-library
             android:name="com.google.android.wearable"
             android:required="true" />

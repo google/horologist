@@ -48,13 +48,11 @@ class StartupBenchmark(
                 pressHome()
             }
         ) {
-            // Waits for the first rendered frame, which represents time to initial display.
-            startActivityAndWait()
-
-            // Waits for content to be visible, which represents time to fully drawn.
             startActivityAndWait(
                 Intent("com.google.android.horologist.sample.MAIN")
             )
+
+            Thread.sleep(2000)
         }
     }
 

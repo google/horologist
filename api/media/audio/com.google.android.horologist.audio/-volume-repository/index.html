@@ -56,8 +56,27 @@
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:audio:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">VolumeRepository</a> : <a href="https://developer.android.com/reference/kotlin/java/lang/AutoCloseable.html">AutoCloseable</a></div><p class="paragraph">A state repository for audio volume, typically the system AudioManager, but possibly a remote app in paired situations.</p><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":media:audio:dokkaHtmlPartial/release" data-filterable-set=":media:audio:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-system-audio-repository/index.html">SystemAudioRepository</a></div></span></div><div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="722415355%2FProperties%2F588577573" anchor-label="volumeState" id="722415355%2FProperties%2F588577573" data-filterable-set=":media:audio:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:audio:dokkaHtmlPartial/release" data-filterable-set=":media:audio:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="volume-state.html"><span>volume</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="722415355%2FProperties%2F588577573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:audio:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="volume-state.html">volumeState</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-volume-state/index.html">VolumeState</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The current volume state, including volume, min, max.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div data-togglable="FUNCTION">
         <h2 class="">Functions</h2>
         <div class="table"><a data-name="-1117130810%2FFunctions%2F588577573" anchor-label="close" id="-1117130810%2FFunctions%2F588577573" data-filterable-set=":media:audio:dokkaHtmlPartial/release"></a>
@@ -116,25 +135,6 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:audio:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-volume.html"><span class="token function">setVolume</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">volume<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the volume of the current audio output.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div data-togglable="PROPERTY">
-        <h2 class="">Properties</h2>
-        <div class="table"><a data-name="722415355%2FProperties%2F588577573" anchor-label="volumeState" id="722415355%2FProperties%2F588577573" data-filterable-set=":media:audio:dokkaHtmlPartial/release"></a>
-          <div class="table-row" data-filterable-current=":media:audio:dokkaHtmlPartial/release" data-filterable-set=":media:audio:dokkaHtmlPartial/release">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="volume-state.html"><span>volume</span><wbr><span><span>State</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="722415355%2FProperties%2F588577573"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:audio:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="volume-state.html">volumeState</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-volume-state/index.html">VolumeState</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The current volume state, including volume, min, max.</p></div></div></div>
                 </div>
               </div>
             </div>

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -41,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.focused
@@ -81,6 +83,8 @@ public fun DatePicker(
     fromDate: LocalDate? = null,
     toDate: LocalDate? = null
 ) {
+    val fullyDrawn = remember { Animatable(0f) }
+
     if (fromDate != null && toDate != null) {
         verifyDates(date, fromDate, toDate)
     }
@@ -174,7 +178,10 @@ public fun DatePicker(
             }
         }
 
-        BoxWithConstraints(modifier = modifier.fillMaxSize()) {
+        BoxWithConstraints(modifier = modifier
+            .fillMaxSize()
+            .graphicsLayer(alpha = fullyDrawn.value)
+        ) {
             val boxConstraints = this
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -330,6 +337,10 @@ public fun DatePicker(
                 Spacer(Modifier.height(12.dp))
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        fullyDrawn.animateTo(1f)
     }
 }
 

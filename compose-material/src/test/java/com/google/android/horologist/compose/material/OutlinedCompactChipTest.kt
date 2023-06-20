@@ -20,13 +20,10 @@ import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.materialPath
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.MaterialTheme
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
@@ -67,18 +64,6 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
     }
 
     @Test
-    fun withLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            OutlinedCompactChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icon32dp,
-                largeIcon = true
-            )
-        }
-    }
-
-    @Test
     fun disabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
@@ -113,17 +98,6 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
     }
 
     @Test
-    fun usingSmallIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            OutlinedCompactChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icon12dp
-            )
-        }
-    }
-
-    @Test
     fun usingDrawableResAsIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
@@ -135,47 +109,16 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
     }
 
     @Test
-    fun withLargeIconUsingSmallIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            OutlinedCompactChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icon12dp,
-                largeIcon = true
-            )
-        }
-    }
-
-    @Test
-    fun usingExtraLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            OutlinedCompactChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icon48dp
-            )
-        }
-    }
-
-    @Test
-    fun withLargeIconUsingExtraLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            OutlinedCompactChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icon48dp,
-                largeIcon = true
-            )
-        }
-    }
-
-    @Test
     fun withPlaceholderIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Default.Image
+                icon = Icons.Default.Image,
+                placeholder = rememberVectorPainter(
+                    image = Icons.Default.Image,
+                    tintColor = MaterialTheme.colors.primary
+                )
             )
         }
     }
@@ -195,7 +138,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Image,
-                        tintColor = Color.Black
+                        tintColor = MaterialTheme.colors.primary
                     ),
                     enabled = false
                 )
@@ -232,53 +175,5 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
 
     companion object {
         private const val largestFontScale = 1.18f
-
-        private val Icon12dp: ImageVector
-            get() = ImageVector.Builder(
-                name = "Icon Small",
-                defaultWidth = 12f.dp,
-                defaultHeight = 12f.dp,
-                viewportWidth = 12f,
-                viewportHeight = 12f
-            )
-                .materialPath {
-                    horizontalLineToRelative(12.0f)
-                    verticalLineToRelative(12.0f)
-                    horizontalLineTo(0.0f)
-                    close()
-                }
-                .build()
-
-        private val Icon32dp: ImageVector
-            get() = ImageVector.Builder(
-                name = "Icon Large",
-                defaultWidth = 32f.dp,
-                defaultHeight = 32f.dp,
-                viewportWidth = 32f,
-                viewportHeight = 32f
-            )
-                .materialPath {
-                    horizontalLineToRelative(32.0f)
-                    verticalLineToRelative(32.0f)
-                    horizontalLineTo(0.0f)
-                    close()
-                }
-                .build()
-
-        private val Icon48dp: ImageVector
-            get() = ImageVector.Builder(
-                name = "Icon Extra Large",
-                defaultWidth = 48f.dp,
-                defaultHeight = 48f.dp,
-                viewportWidth = 48f,
-                viewportHeight = 48f
-            )
-                .materialPath {
-                    horizontalLineToRelative(48.0f)
-                    verticalLineToRelative(48.0f)
-                    horizontalLineTo(0.0f)
-                    close()
-                }
-                .build()
     }
 }

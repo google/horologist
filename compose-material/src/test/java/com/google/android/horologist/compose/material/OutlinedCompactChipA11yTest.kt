@@ -20,8 +20,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Image
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.wear.compose.material.MaterialTheme
+import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
@@ -35,8 +38,12 @@ class OutlinedCompactChipA11yTest : ScreenshotBaseTest(
     @Test
     fun withIcon() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 OutlinedCompactChip(
+                    label = "Primary label",
                     onClick = { },
                     icon = Icons.Filled.Add
                 )
@@ -47,11 +54,18 @@ class OutlinedCompactChipA11yTest : ScreenshotBaseTest(
     @Test
     fun disabled() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 OutlinedCompactChip(
                     onClick = { },
                     icon = Icons.Filled.Add,
-                    enabled = false
+                    enabled = false,
+                    placeholder = rememberVectorPainter(
+                        image = Icons.Default.Image,
+                        tintColor = MaterialTheme.colors.primary
+                    )
                 )
             }
         }

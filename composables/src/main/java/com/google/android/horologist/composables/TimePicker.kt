@@ -49,6 +49,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.graphicsLayer
@@ -183,7 +184,7 @@ public fun TimePicker(
                 }
             }
 
-        Box(modifier = modifier.fillMaxSize().graphicsLayer(alpha = fullyDrawn.value)) {
+        Box(modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)) {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -393,7 +394,7 @@ public fun TimePickerWith12HourClock(
             }
         }
         Box(
-            modifier = modifier.fillMaxSize().graphicsLayer(alpha = fullyDrawn.value)
+            modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)
         ) {
             Column(
                 modifier = modifier.fillMaxSize(),

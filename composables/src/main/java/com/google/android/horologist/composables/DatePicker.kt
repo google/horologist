@@ -40,9 +40,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.focused
@@ -178,9 +178,8 @@ public fun DatePicker(
             }
         }
 
-        BoxWithConstraints(modifier = modifier
-            .fillMaxSize()
-            .graphicsLayer(alpha = fullyDrawn.value)
+        BoxWithConstraints(
+            modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)
         ) {
             val boxConstraints = this
             Column(

@@ -245,6 +245,7 @@ dependencies {
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
     add("benchmarkCompileOnly", projects.composeTools)
+    implementation("androidx.profileinstaller:profileinstaller:1.3.1")
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

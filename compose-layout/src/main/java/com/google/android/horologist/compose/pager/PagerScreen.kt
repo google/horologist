@@ -26,8 +26,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,8 +60,6 @@ public fun PagerScreen(
     state: PagerState,
     content: @Composable ((Int) -> Unit)
 ) {
-    val shape = if (LocalConfiguration.current.isScreenRound) CircleShape else null
-
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -68,26 +69,54 @@ public fun PagerScreen(
             state = state,
             flingBehavior = HorizontalPagerDefaults.flingParams(state)
         ) { page ->
-            Box(
-                modifier = Modifier.fillMaxSize().run {
-                    if (shape != null) {
-                        clip(shape)
-                    } else {
-                        this
-                    }
-                }
-            ) {
+            ClippedBox(state) {
                 HierarchicalFocusCoordinator(requiresFocus = { page == state.currentPage }) {
                     content(page)
                 }
             }
         }
 
-        val pagerScreenState = remember { PageScreenIndicatorState(state) }
+        val pagerScreenState = remember(state) { PageScreenIndicatorState(state) }
         HorizontalPageIndicator(
             modifier = Modifier.padding(6.dp),
             pageIndicatorState = pagerScreenState
         )
+    }
+}
+
+@Composable
+private fun ClippedBox(pagerState: PagerState, content: @Composable () -> Unit) {
+    val shape = rememberClipWhenScrolling(pagerState)
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .optionalClip(shape)
+    ) {
+        content()
+    }
+}
+
+@Composable
+private fun rememberClipWhenScrolling(state: PagerState): State<RoundedCornerShape?> {
+    val shape = if (LocalConfiguration.current.isScreenRound) CircleShape else null
+    return remember(state) {
+        derivedStateOf {
+            if (shape != null && state.currentPageOffsetFraction != 0f) {
+                shape
+            } else {
+                null
+            }
+        }
+    }
+}
+
+private fun Modifier.optionalClip(shapeState: State<RoundedCornerShape?>): Modifier {
+    val shape = shapeState.value
+
+    return if (shape != null) {
+        clip(shape)
+    } else {
+        this
     }
 }
 

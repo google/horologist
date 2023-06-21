@@ -38,7 +38,7 @@ android {
         minSdk = 30
         targetSdk = 33
 
-        testInstrumentationRunner = "androidx.benchmark.junit4.AndroidBenchmarkRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["androidx.benchmark.fullTracing.enable"] = "true"
     }
 

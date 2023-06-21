@@ -49,6 +49,11 @@ package com.google.android.horologist.compose.material {
     enum_constant public static final com.google.android.horologist.compose.material.IconRtlMode Mirrored;
   }
 
+  public final class OutlinedCompactChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void OutlinedCompactChip(optional androidx.compose.ui.Modifier modifier, optional String? label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional Object? icon, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void OutlinedCompactChip(optional androidx.compose.ui.Modifier modifier, @StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional Object? icon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
+  }
+
   public final class SplitToggleChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SplitToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.compose.material.ToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional androidx.wear.compose.material.SplitToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource checkedInteractionSource, optional androidx.compose.foundation.interaction.MutableInteractionSource clickInteractionSource);
   }

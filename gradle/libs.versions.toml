@@ -7,7 +7,7 @@ androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
 androidx-health-services = "1.0.0-beta03"
 androidx-hilt = "1.0.0"
-androidx-media3 = "1.0.2"
+androidx-media3 = "1.1.0-beta01"
 androidx-test-espresso = "3.6.0-alpha01"
 androidx-test-ext = "1.2.0-alpha01"
 androidx-tracingPerfetto = "1.0.0-alpha16"
@@ -26,7 +26,7 @@ androidxWork = "2.8.1"
 androidxprotolayout = "1.0.0-alpha11"
 androidxtiles = "1.2.0-alpha07"
 annotation = "1.0.1"
-app-cash-turbine = "0.13.0"
+app-cash-turbine = "1.0.0"
 benManes = "0.47.0"
 com-squareup-okhttp3 = "4.11.0"
 com-squareup-retrofit2 = "2.9.0"
@@ -53,11 +53,11 @@ playServicesAuth = "20.5.0"
 protobuf = "3.23.3"
 room = "2.5.1"
 runtimeTracing = "1.0.0-alpha03"
-snapshot-android = "v1.0.2"
+snapshot-android = "1.0.4"
 spotless = "6.18.0"
 tracingPerfetto = "1.0"
 tracingPerfettoBinary = "1.0"
-truth = "1.1.4"
+truth = "1.1.5"
 versionCatalogUpdate = "0.8.0"
 wearcompose = "1.2.0-beta02"
 
@@ -168,7 +168,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
-lottie-compose = "com.airbnb.android:lottie-compose:6.0.0"
+lottie-compose = "com.airbnb.android:lottie-compose:6.0.1"
 metalavaGradle = { module = "me.tylerbwong.gradle.metalava:plugin", version.ref = "metalava" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }

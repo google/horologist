@@ -19,6 +19,8 @@ package com.google.android.horologist.compose.tools
 import android.content.res.Resources
 import android.graphics.Color
 import android.util.DisplayMetrics
+import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,6 +47,7 @@ import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.renderer.TileRenderer
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.render.TileLayoutRenderer
+import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 import kotlin.math.roundToInt
@@ -67,16 +70,20 @@ public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLa
     val tileResources =
         remember(state) { renderer.produceRequestedResources(resourceState, resourceParams) }
 
-    TilePreview(tile, tileResources)
+    TilePreview(tile, tileResources) { newTileState ->
+        renderer.renderTimeline(state, requestParams(resources, newTileState))
+    }
 }
 
 /**
- * Preview a Tile by providing the final proto representation of tiles and resources.
+ * Preview a Tile by providing the final proto representation of tiles and resources. It's possible
+ * to provide an updated Tile representation whenever a load action is triggered.
  */
 @Composable
 public fun TilePreview(
     tile: TileBuilders.Tile,
-    tileResources: ResourceBuilders.Resources
+    tileResources: ResourceBuilders.Resources,
+    onLoadAction: ((State) -> TileBuilders.Tile)? = null
 ) {
     AndroidView(
         modifier = Modifier.fillMaxSize(),
@@ -85,24 +92,36 @@ public fun TilePreview(
                 this.setBackgroundColor(Color.BLACK)
             }
         },
-        update = {
-            val tileRenderer = TileRenderer(
-                /* uiContext = */ it.context,
-                /* loadActionExecutor = */ Dispatchers.IO.asExecutor(),
-                /* loadActionListener = */ {}
-            )
-
-            tile.state?.let { state ->
-                tileRenderer.setState(state.keyToValueMapping)
+        update = { parent ->
+            lateinit var tileRenderer: TileRenderer
+            tileRenderer = TileRenderer(
+                /* uiContext = */ parent.context,
+                /* loadActionExecutor = */ Dispatchers.Main.asExecutor(),
+                /* loadActionListener = */ { newState ->
+                onLoadAction?.invoke(newState)?.let { newTile ->
+                    tileRenderer.preview(newTile, tileResources, parent)
+                }
             }
-
-            // Returning a future
-            tileRenderer.inflateAsync(
-                tile.tileTimeline?.timelineEntries?.first()?.layout!!,
-                tileResources,
-                it
             )
+            tileRenderer.preview(tile, tileResources, parent)
         }
+    )
+}
+
+private fun TileRenderer.preview(
+    tile: TileBuilders.Tile,
+    tileResources: ResourceBuilders.Resources,
+    parent: ViewGroup
+): ListenableFuture<View> {
+    tile.state?.let { state ->
+        setState(state.keyToValueMapping)
+    }
+
+    // Returning a future
+    return inflateAsync(
+        tile.tileTimeline?.timelineEntries?.first()?.layout!!,
+        tileResources,
+        parent
     )
 }
 
@@ -165,9 +184,9 @@ public fun LayoutRootPreview(
 
 internal const val PERMANENT_RESOURCES_VERSION = "0"
 
-private fun requestParams(resources: Resources) =
+private fun requestParams(resources: Resources, state: State = State.Builder().build()) =
     RequestBuilders.TileRequest.Builder().setDeviceConfiguration(buildDeviceParameters(resources))
-        .setCurrentState(State.Builder().build()).build()
+        .setCurrentState(state).build()
 
 private fun resourceParams(resources: Resources, version: String) =
     RequestBuilders.ResourcesRequest.Builder().setDeviceConfiguration(buildDeviceParameters(resources))

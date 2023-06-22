@@ -19,6 +19,7 @@ package com.google.android.horologist.compose.material
 import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalInspectionMode
@@ -36,8 +37,8 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
     fun default() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
-                label = "Primary label",
-                onClick = { }
+                onClick = { },
+                label = "Primary label"
             )
         }
     }
@@ -46,8 +47,8 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
     fun withIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
-                label = "Primary label",
                 onClick = { },
+                label = "Primary label",
                 icon = Icons.Filled.Add
             )
         }
@@ -67,8 +68,8 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
     fun disabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
-                label = "Primary label",
                 onClick = { },
+                label = "Primary label",
                 icon = Icons.Filled.Add,
                 enabled = false
             )
@@ -79,8 +80,8 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
     fun withLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
-                label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                onClick = { }
+                onClick = { },
+                label = "Primary label very very very very very very very very very very very very very very very very very long text"
             )
         }
     }
@@ -90,8 +91,8 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(fontScale = largestFontScale) {
                 OutlinedCompactChip(
-                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    onClick = { }
+                    onClick = { },
+                    label = "Primary label very very very very very very very very very very very very very very very very very long text"
                 )
             }
         }
@@ -101,8 +102,8 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
     fun usingDrawableResAsIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
-                label = "Primary label",
                 onClick = { },
+                label = "Primary label",
                 icon = R.drawable.ic_delete
             )
         }
@@ -111,15 +112,18 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
     @Test
     fun withPlaceholderIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            OutlinedCompactChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icons.Default.Image,
-                placeholder = rememberVectorPainter(
-                    image = Icons.Default.Image,
-                    tintColor = MaterialTheme.colors.primary
+            // In inspection mode will jump to placeholder
+            CompositionLocalProvider(LocalInspectionMode.provides(true)) {
+                OutlinedCompactChip(
+                    onClick = { },
+                    label = "Primary label",
+                    icon = "iconUri",
+                    placeholder = rememberVectorPainter(
+                        image = Icons.Default.Image,
+                        tintColor = MaterialTheme.colors.primary
+                    )
                 )
-            )
+            }
         }
     }
 
@@ -133,8 +137,8 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
                 OutlinedCompactChip(
-                    label = "Primary label",
                     onClick = { },
+                    label = "Primary label",
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Image,
@@ -147,26 +151,38 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
     }
 
     @Test
-    fun defaultRtl() {
+    fun withIconRtl() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 OutlinedCompactChip(
-                    label = "Primary label",
                     onClick = { },
-                    icon = Icons.Default.Image
+                    label = "Primary label",
+                    icon = Icons.Default.DirectionsBike
                 )
             }
         }
     }
 
     @Test
-    fun mirroredRtlDefault() {
+    fun mirrored() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            OutlinedCompactChip(
+                onClick = { },
+                label = "Primary label",
+                icon = Icons.Default.DirectionsBike,
+                iconRtlMode = IconRtlMode.Mirrored
+            )
+        }
+    }
+
+    @Test
+    fun mirroredRtl() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 OutlinedCompactChip(
-                    label = "Primary label",
                     onClick = { },
-                    icon = Icons.Default.Image,
+                    label = "Primary label",
+                    icon = Icons.Default.DirectionsBike,
                     iconRtlMode = IconRtlMode.Mirrored
                 )
             }

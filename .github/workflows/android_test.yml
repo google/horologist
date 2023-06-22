@@ -31,7 +31,7 @@ jobs:
       - name: Accept licenses
         run: |
           mkdir -p ~/Library/Android/sdk/licenses
-          cp licences/* ~/Library/Android/sdk/licenses
+          cp .github/licences/* ~/Library/Android/sdk/licenses
 
       - name: Install pulseaudio
         run: brew install pulseaudio

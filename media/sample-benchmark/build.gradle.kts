@@ -23,7 +23,7 @@ plugins {
 
 android {
     namespace = "com.google.android.horologist.mediasample.benchmark"
-    compileSdk = 33
+    compileSdk = 34
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

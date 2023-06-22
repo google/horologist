@@ -62,8 +62,8 @@ android {
         animationsDisabled = true
         managedDevices {
             devices {
-                maybeCreate<com.google.firebase.testlab.gradle.ManagedDevice>("pixel2api30").apply {
-                    device = "Pixel2"
+                maybeCreate<com.google.firebase.testlab.gradle.ManagedDevice>("pixelWatch").apply {
+                    device = "r11"
                     apiLevel = 30
                 }
             }

@@ -31,7 +31,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.sample.R
-import com.google.android.horologist.base.ui.components.ConfirmationDialog
+import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
 fun PKCESignOutScreen(
@@ -54,7 +54,7 @@ fun PKCESignOutScreen(
         }
 
         PKCESignOutScreenState.Success -> {
-            ConfirmationDialog(
+            Confirmation(
                 onTimeout = { navController.popBackStack() }
             ) {
                 Text(

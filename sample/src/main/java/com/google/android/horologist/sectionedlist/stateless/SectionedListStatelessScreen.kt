@@ -29,14 +29,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.sample.R
 
 @Composable
@@ -67,11 +67,11 @@ private fun SectionedListScope.topMenuSection() {
         )
     ) {
         loaded { (label, icon) ->
-            StandardChip(
+            Chip(
                 label = stringResource(label),
                 onClick = { },
                 icon = icon,
-                chipType = StandardChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -88,25 +88,25 @@ private fun SectionedListScope.recommendationsSection() {
     ) {
         header {
             Title(
-                text = stringResource(id = R.string.sectionedlist_recommendations_title),
-                modifier = Modifier.padding(vertical = 8.dp)
+                stringResource(id = R.string.sectionedlist_recommendations_title),
+                Modifier.padding(vertical = 8.dp)
             )
         }
 
         loaded { (label, icon) ->
-            StandardChip(
+            Chip(
                 label = label,
                 onClick = { },
                 icon = icon,
-                chipType = StandardChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
 
         footer {
-            StandardChip(
+            Chip(
                 label = stringResource(id = R.string.sectionedlist_see_more_button),
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -129,20 +129,20 @@ private fun SectionedListScope.trendingSection() {
         }
 
         loaded { (title, artist) ->
-            StandardChip(
+            Chip(
                 label = title,
                 onClick = { },
                 secondaryLabel = artist,
                 icon = Icons.Default.MusicNote,
-                chipType = StandardChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
 
         footer {
-            StandardChip(
+            Chip(
                 label = stringResource(id = R.string.sectionedlist_see_more_button),
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
@@ -152,11 +152,11 @@ private fun SectionedListScope.bottomMenuSection() {
     // Section with single item
     section {
         loaded {
-            StandardChip(
+            Chip(
                 label = stringResource(R.string.sectionedlist_settings_button),
                 onClick = { },
                 icon = Icons.Default.Settings,
-                chipType = StandardChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }

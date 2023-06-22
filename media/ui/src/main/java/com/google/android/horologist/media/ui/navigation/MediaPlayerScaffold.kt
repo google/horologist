@@ -80,7 +80,6 @@ public fun MediaPlayerScaffold(
     timeText: @Composable (Modifier) -> Unit = {
         TimeText(modifier = it)
     },
-    pagerState: PagerState = rememberPagerState(initialPage = 0),
     navHostState: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
     additionalNavRoutes: NavGraphBuilder.() -> Unit = {}
 ) {
@@ -106,6 +105,7 @@ public fun MediaPlayerScaffold(
             it.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
 
             val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
+            val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
 
             PlayerLibraryPagerScreen(
                 pagerState = pagerState,

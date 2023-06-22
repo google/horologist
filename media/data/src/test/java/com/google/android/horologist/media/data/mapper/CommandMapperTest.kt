@@ -111,7 +111,7 @@ class CommandMapperTest {
     @Test
     fun `given an unmapped command then exception is thrown`() {
         // given
-        val command = Player.COMMAND_ADJUST_DEVICE_VOLUME
+        val command = Player.COMMAND_ADJUST_DEVICE_VOLUME_WITH_FLAGS
 
         // when
         val whenBlock = { CommandMapper.map(command) }

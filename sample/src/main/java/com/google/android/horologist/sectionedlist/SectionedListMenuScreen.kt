@@ -26,9 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
 
@@ -60,8 +60,8 @@ fun SectionedListMenuScreen(
         ) {
             header {
                 Title(
-                    text = stringResource(R.string.sectionedlist_samples_title),
-                    modifier = Modifier.padding(vertical = 8.dp)
+                    stringResource(R.string.sectionedlist_samples_title),
+                    Modifier.padding(vertical = 8.dp)
                 )
             }
 

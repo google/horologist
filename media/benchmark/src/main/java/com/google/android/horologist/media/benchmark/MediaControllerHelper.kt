@@ -39,9 +39,9 @@ public object MediaControllerHelper {
             .buildAsync()
     }
 
-    public suspend fun MediaController.startPlaying(mediaItem: MediaItem) {
+    public suspend fun MediaController.startPlaying(mediaItems: List<MediaItem>) {
         withContext(Dispatchers.Main) {
-            setMediaItem(mediaItem)
+            setMediaItems(mediaItems)
 
             delay(100)
 

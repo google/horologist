@@ -25,7 +25,7 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.google.android.horologist.sample"
@@ -132,8 +132,8 @@ dependencies {
     implementation(projects.auth.composables)
     implementation(projects.auth.data)
     implementation(projects.auth.ui)
-    implementation(projects.tiles)
     implementation(projects.composables)
+    implementation(projects.composeMaterial)
     implementation(projects.networkAwareness.core)
     implementation(projects.networkAwareness.okhttp)
     implementation(projects.networkAwareness.ui)
@@ -193,3 +193,6 @@ dependencies {
         }
     }
 }
+
+tasks.maybeCreate("prepareKotlinIdeaImport")
+    .dependsOn("generateDebugProto")

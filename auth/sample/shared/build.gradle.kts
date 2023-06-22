@@ -26,7 +26,7 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21
@@ -111,3 +111,6 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
 }
+
+tasks.maybeCreate("prepareKotlinIdeaImport")
+    .dependsOn("generateDebugProto")

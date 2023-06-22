@@ -36,7 +36,7 @@ class SampleTileService : SuspendingTileService() {
     }
 
     override suspend fun tileRequest(requestParams: TileRequest): Tile {
-        if (requestParams.state?.lastClickableId == "click") {
+        if (requestParams.currentState.lastClickableId == "click") {
             count++
         }
 

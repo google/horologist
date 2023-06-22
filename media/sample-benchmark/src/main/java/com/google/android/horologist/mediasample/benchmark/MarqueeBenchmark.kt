@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.mediasample.benchmark
 
+import android.util.Log
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
@@ -32,6 +33,7 @@ import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.benchmark.MediaApp
 import com.google.android.horologist.media.benchmark.MediaControllerHelper
 import com.google.android.horologist.media.benchmark.MediaItems.buildMediaItem
+import com.google.android.horologist.media.benchmark.metrics.CompositionMetric
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -43,6 +45,8 @@ import kotlin.time.Duration.Companion.seconds
 
 @LargeTest
 class MarqueeBenchmark {
+    private val includePower: Boolean = false
+
     val mediaApp: MediaApp = TestMedia.MediaSampleApp
 
     @get:Rule
@@ -76,17 +80,33 @@ class MarqueeBenchmark {
         measurePlayerScreen(intro)
     }
 
-    private fun measurePlayerScreen(intro: MediaItem) {
+    @Test
+    public fun marqueeNoPlayback() {
+        val intro = buildMediaItem(
+            "1",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
+            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
+            "Intro - The Way Of Waking Up (feat. Alan Watts)",
+            "The Kyoto Connection"
+        )
+
+        measurePlayerScreen(intro, playback = false)
+    }
+
+    private fun measurePlayerScreen(intro: MediaItem, playback: Boolean = true) {
         benchmarkRule.measureRepeated(
             packageName = mediaApp.packageName,
             metrics = metrics(),
             compilationMode = CompilationMode.Partial(),
-            iterations = 3,
+            iterations = 1,
             startupMode = StartupMode.WARM,
             setupBlock = {
+                logMessage("Setup")
                 mediaControllerFuture = MediaControllerHelper.lookupController(
                     mediaApp.playerComponentName
                 )
+
+                logMessage("waiting for controller")
 
                 // Wait for service
                 mediaControllerFuture.get()
@@ -98,17 +118,42 @@ class MarqueeBenchmark {
 
             runBlocking {
                 withContext(Dispatchers.Main) {
-                    mediaController.setMediaItem(intro)
-                }
+                    logMessage("Main")
+                    mediaController.setMediaItems(List(10) { intro })
+                    mediaController.volume = 0.1f
 
-                delay(15.seconds)
+                    logMessage("delaying 5")
+                    delay(5.seconds)
+
+                    if (playback) {
+                        logMessage("playing")
+                        mediaController.prepare()
+                        mediaController.play()
+                    }
+
+                    logMessage("delaying 15")
+                    delay(15.seconds)
+
+                    logMessage("isPlaying ${mediaController.isPlaying}")
+
+                    mediaController.seekToNextMediaItem()
+
+                    logMessage("delaying 15")
+                    delay(15.seconds)
+                }
             }
+            logMessage("after runBlocking")
         }
     }
 
-    public open fun metrics(): List<Metric> = listOf(
+    fun logMessage(s: String) {
+        Log.w("UampBenchmark", s)
+    }
+
+    public open fun metrics(): List<Metric> = listOfNotNull(
         StartupTimingMetric(),
         FrameTimingMetric(),
-        PowerMetric(type = PowerMetric.Type.Battery())
+        if (includePower) PowerMetric(type = PowerMetric.Type.Battery()) else null,
+        CompositionMetric("androidx.compose.foundation.Canvas")
     )
 }

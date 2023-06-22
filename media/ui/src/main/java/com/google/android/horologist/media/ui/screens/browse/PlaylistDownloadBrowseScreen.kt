@@ -28,11 +28,10 @@ import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
@@ -79,13 +78,13 @@ public fun PlaylistDownloadBrowseScreen(
             loaded { download: PlaylistDownloadUiModel ->
                 when (download) {
                     is PlaylistDownloadUiModel.Completed -> {
-                        StandardChip(
+                        Chip(
                             label = download.playlistUiModel.title,
                             onClick = { onDownloadItemClick(download) },
                             icon = download.playlistUiModel.artworkUri,
                             largeIcon = true,
                             placeholder = downloadItemArtworkPlaceholder,
-                            chipType = StandardChipType.Secondary
+                            colors = ChipDefaults.secondaryChipColors()
                         )
                     }
 
@@ -99,7 +98,7 @@ public fun PlaylistDownloadBrowseScreen(
                             }
                         } ?: Modifier
 
-                        StandardChip(
+                        Chip(
                             label = download.playlistUiModel.title,
                             onClick = { onDownloadItemInProgressClick(download) },
                             modifier = customModifier,
@@ -109,7 +108,7 @@ public fun PlaylistDownloadBrowseScreen(
                             ),
                             icon = Icons.Default.Downloading,
                             placeholder = downloadItemArtworkPlaceholder,
-                            chipType = StandardChipType.Secondary
+                            colors = ChipDefaults.secondaryChipColors()
                         )
                     }
                 }

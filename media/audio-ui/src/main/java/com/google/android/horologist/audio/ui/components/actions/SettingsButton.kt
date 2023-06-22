@@ -28,8 +28,8 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults.buttonColors
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.base.ui.components.IconRtlMode
-import com.google.android.horologist.base.ui.components.StandardIcon
+import com.google.android.horologist.compose.material.Icon
+import com.google.android.horologist.compose.material.IconRtlMode
 
 /**
  * Button to launch a screen to control the system volume.
@@ -57,7 +57,7 @@ public fun SettingsButton(
         ),
         enabled = enabled
     ) {
-        StandardIcon(
+        Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,
             modifier = Modifier

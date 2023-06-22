@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.google.android.horologist.media.data.repository
 
 import androidx.core.net.toUri
@@ -26,6 +28,7 @@ import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.model.PlaylistDownload
 import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

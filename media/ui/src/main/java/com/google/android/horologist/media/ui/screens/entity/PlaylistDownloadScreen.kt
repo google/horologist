@@ -47,7 +47,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
@@ -55,14 +54,12 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.base.ui.components.StandardButton
-import com.google.android.horologist.base.ui.components.StandardButtonSize
-import com.google.android.horologist.base.ui.components.StandardButtonType
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipIconWithProgress
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Button
+import com.google.android.horologist.compose.material.ButtonSize
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ChipIconWithProgress
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -177,14 +174,14 @@ private fun MediaContent(
     when (downloadMediaUiModel) {
         is DownloadMediaUiModel.Downloaded,
         is DownloadMediaUiModel.NotDownloaded -> {
-            StandardChip(
+            Chip(
                 label = mediaTitle,
                 onClick = { onDownloadItemClick(downloadMediaUiModel) },
                 secondaryLabel = secondaryLabel,
                 icon = downloadMediaUiModel.artworkUri,
                 largeIcon = true,
                 placeholder = downloadItemArtworkPlaceholder,
-                chipType = StandardChipType.Secondary,
+                colors = ChipDefaults.secondaryChipColors(),
                 enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded
             )
         }
@@ -199,7 +196,7 @@ private fun MediaContent(
                                 animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
                             )
 
-                            StandardChipIconWithProgress(
+                            ChipIconWithProgress(
                                 progress = progress,
                                 modifier = Modifier.clearAndSetSemantics { },
                                 icon = downloadMediaUiModel.artworkUri,
@@ -211,7 +208,7 @@ private fun MediaContent(
 
                     is DownloadMediaUiModel.Progress.Waiting -> {
                         {
-                            StandardChipIconWithProgress(
+                            ChipIconWithProgress(
                                 modifier = Modifier.clearAndSetSemantics { },
                                 icon = downloadMediaUiModel.artworkUri,
                                 largeIcon = true,
@@ -236,14 +233,14 @@ private fun MediaContent(
                 }
             } ?: Modifier
 
-            StandardChip(
+            Chip(
                 label = mediaTitle,
                 onClick = { onDownloadItemInProgressClick(downloadMediaUiModel) },
                 modifier = customModifier,
                 secondaryLabel = secondaryLabel,
                 icon = icon,
                 largeIcon = true,
-                chipType = StandardChipType.Secondary,
+                colors = ChipDefaults.secondaryChipColors(),
                 enabled = true
             )
         }
@@ -262,7 +259,7 @@ private fun ButtonsContent(
     when (state) {
         PlaylistDownloadScreenState.Failed,
         PlaylistDownloadScreenState.Loading -> {
-            StandardChip(
+            Chip(
                 label = stringResource(id = R.string.horologist_playlist_download_button_download),
                 onClick = { /* do nothing */ },
                 modifier = Modifier.padding(bottom = 16.dp),
@@ -274,14 +271,14 @@ private fun ButtonsContent(
         is PlaylistDownloadScreenState.Loaded -> {
             if (state.downloadMediaListState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.None) {
                 if (state.downloadsProgress is DownloadsProgress.InProgress) {
-                    StandardChip(
+                    Chip(
                         label = stringResource(id = R.string.horologist_playlist_download_button_cancel),
                         onClick = { onCancelDownloadButtonClick(state.collectionModel) },
                         modifier = Modifier.padding(bottom = 16.dp),
                         icon = Icons.Default.Close
                     )
                 } else {
-                    StandardChip(
+                    Chip(
                         label = stringResource(id = R.string.horologist_playlist_download_button_download),
                         onClick = { onDownloadButtonClick(state.collectionModel) },
                         modifier = Modifier.padding(bottom = 16.dp),
@@ -307,7 +304,7 @@ private fun ButtonsContent(
                             .weight(weight = 0.3F, fill = false)
                     )
 
-                    StandardButton(
+                    Button(
                         imageVector = Icons.Default.Shuffle,
                         contentDescription = stringResource(id = R.string.horologist_playlist_download_button_shuffle_content_description),
                         onClick = { onShuffleButtonClick(state.collectionModel) },
@@ -315,7 +312,7 @@ private fun ButtonsContent(
                             .weight(weight = 0.3F, fill = false)
                     )
 
-                    StandardButton(
+                    Button(
                         imageVector = Icons.Filled.PlayArrow,
                         contentDescription = stringResource(id = R.string.horologist_playlist_download_button_play_content_description),
                         onClick = { onPlayButtonClick(state.collectionModel) },
@@ -346,10 +343,10 @@ private fun <Collection> FirstButton(
         val label =
             stringResource(id = R.string.horologist_playlist_download_progress_button_cancel_action_label)
 
-        Button(
+        androidx.wear.compose.material.Button(
             onClick = { onCancelDownloadButtonClick(collectionModel) },
             modifier = modifier
-                .size(StandardButtonSize.Default.tapTargetSize)
+                .size(ButtonSize.Default.tapTargetSize)
                 .semantics(mergeDescendants = true) {
                     onClick(label = label, action = null)
                 },
@@ -373,22 +370,22 @@ private fun <Collection> FirstButton(
                 imageVector = Icons.Default.Close,
                 contentDescription = stringResource(id = R.string.horologist_playlist_download_progress_button_cancel_content_description),
                 modifier = Modifier
-                    .size(StandardButtonSize.Default.iconSize)
+                    .size(ButtonSize.Default.iconSize)
                     .align(Alignment.Center)
             )
         }
     } else if (downloadMediaListState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Partially) {
-        StandardButton(
+        Button(
             imageVector = Icons.Default.Download,
             contentDescription = stringResource(id = R.string.horologist_playlist_download_button_download_content_description),
             onClick = { onDownloadButtonClick(collectionModel) },
             modifier = modifier,
-            buttonType = StandardButtonType.Secondary
+            colors = ButtonDefaults.secondaryButtonColors()
         )
     } else if (downloadMediaListState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully) {
         val label =
             stringResource(id = R.string.horologist_playlist_download_button_remove_download_action_label)
-        StandardButton(
+        Button(
             imageVector = Icons.Default.DownloadDone,
             contentDescription = stringResource(id = R.string.horologist_playlist_download_button_download_done_content_description),
             onClick = { onDownloadCompletedButtonClick(collectionModel) },
@@ -398,7 +395,7 @@ private fun <Collection> FirstButton(
                     action = null
                 )
             },
-            buttonType = StandardButtonType.Secondary
+            colors = ButtonDefaults.secondaryButtonColors()
         )
     } else {
         error("Invalid state to be used with this button")

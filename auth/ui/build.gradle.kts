@@ -20,11 +20,12 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -98,33 +99,52 @@ metalava {
 
 dependencies {
 
-    implementation(projects.auth.composables)
-    implementation(projects.auth.data)
-    implementation(projects.baseUi)
-    implementation(projects.composeLayout)
+    api(projects.auth.composables)
+    api(projects.auth.data)
+    api(projects.composeLayout)
 
+    api(libs.androidx.lifecycle.viewmodel)
+    api(libs.compose.runtime)
+    api(libs.compose.ui)
+    api(libs.kotlinx.coroutines.core)
+    api(libs.wearcompose.foundation)
+
+    implementation(projects.baseUi)
+    implementation(projects.composeMaterial)
+
+    implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.common)
     implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.wear)
+    implementation(libs.androidx.lifecycle.viewmodelktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.wear.phone.interactions)
-    implementation(libs.compose.foundation.foundation)
+    implementation(libs.compose.foundation.foundation.layout)
+    implementation(libs.compose.ui.text)
+    implementation(libs.compose.ui.unit)
     implementation(libs.kotlin.stdlib)
     implementation(libs.playservices.auth)
     implementation(libs.wearcompose.material)
-    implementation(libs.wearcompose.foundation)
 
-    debugImplementation(projects.composeTools)
-    implementation(libs.compose.ui.toolingpreview)
+    debugApi(libs.wearcompose.tooling)
 
     testImplementation(projects.composeTools)
     testImplementation(projects.roboscreenshots)
-    testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.androidx.test.ext)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
     testImplementation(libs.truth)
     testImplementation(libs.turbine)
+    testImplementation(libs.robolectric.shadows)
+    testRuntimeOnly(libs.robolectric)
+}
+
+dependencyAnalysis {
+    issues {
+        onAny {
+            severity("fail")
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

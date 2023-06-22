@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.auth.composables.chips
 
-import com.google.android.horologist.base.ui.components.StandardChipType
+import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
@@ -40,22 +40,23 @@ class CreateAccountChipTest : ScreenshotBaseTest() {
     }
 
     @Test
-    fun withSecondaryChipType() {
+    fun withLargeIconSpace() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CreateAccountChip(
                 onClick = {},
-                chipType = StandardChipType.Secondary
+                largeIconSpace = true,
+                colors = ChipDefaults.secondaryChipColors(),
+                enabled = false
             )
         }
     }
 
     @Test
-    fun withSecondaryChipTypeDisabled() {
+    fun withSecondaryChipType() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CreateAccountChip(
                 onClick = {},
-                chipType = StandardChipType.Secondary,
-                enabled = false
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }

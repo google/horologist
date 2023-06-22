@@ -17,16 +17,31 @@
 package com.google.android.horologist.test.toolbox.composables
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.tools.a11y.forceState
+import kotlinx.coroutines.launch
 
 @Composable
 fun positionedState(
-    topIndex: Int,
-    topScrollOffset: Int
+    topIndex: Int = 0,
+    topScrollOffset: Int? = null
 ): ScalingLazyColumnState {
+    val configuration = LocalConfiguration.current
+    val density = LocalDensity.current
+    val initialOffset = with(density) {
+        val screenHeight = configuration.screenHeightDp.dp.roundToPx()
+        (screenHeight / 2) + (topScrollOffset ?: (-32).dp.roundToPx())
+    }
+
+    val coroutineScope = rememberCoroutineScope()
+
     return ScalingLazyColumnDefaults.belowTimeText().create().apply {
-        state.forceState(topIndex, topScrollOffset)
+        coroutineScope.launch {
+            state.scrollToItem(topIndex, initialOffset)
+        }
     }
 }

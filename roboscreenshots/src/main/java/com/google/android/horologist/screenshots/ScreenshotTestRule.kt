@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.screenshots
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -195,6 +196,7 @@ public class ScreenshotTestRule(
         return testClassInfoRule.methodName + label + suffix
     }
 
+    @SuppressLint("ComposableNaming")
     @Suppress("DEPRECATION")
     @Composable
     private fun FakeImageLoader.apply(content: @Composable () -> Unit) {

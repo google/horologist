@@ -21,11 +21,12 @@ plugins {
     id("org.jetbrains.dokka")
     id("com.google.devtools.ksp")
     id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -92,25 +93,26 @@ metalava {
 }
 
 dependencies {
-    api(projects.annotations)
+    api(projects.datalayer)
 
-    implementation(projects.datalayer)
-
-    api(libs.androidx.datastore)
+    api(libs.androidx.datastore.core)
+    api(libs.androidx.wear.phone.interactions)
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.androidx.corektx)
-    implementation(libs.androidx.wear)
-    implementation(libs.androidx.wear.phone.interactions)
     implementation(libs.playservices.auth)
     implementation(libs.playservices.wearable)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
+    testRuntimeOnly(libs.robolectric)
+}
+
+dependencyAnalysis {
+    issues {
+        onAny {
+            severity("fail")
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

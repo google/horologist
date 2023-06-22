@@ -24,13 +24,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.sample.Screen
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.Title
 
 @Composable
 fun MainScreen(
@@ -65,14 +64,13 @@ private fun SectionedListScope.pkceSection(navigateToRoute: (String) -> Unit) {
         )
     ) {
         header {
-            Title(stringResource(id = R.string.auth_menu_oauth_pkce_header))
+            Title(stringResource(id = R.string.auth_menu_oauth_pkce_header), Modifier)
         }
         loaded { (textId, route) ->
-            StandardChip(
+            Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-                chipType = StandardChipType.Primary
+                onClick = { navigateToRoute(route) }
             )
         }
     }
@@ -95,11 +93,10 @@ private fun SectionedListScope.deviceGrantSection(navigateToRoute: (String) -> U
             Title(stringResource(id = R.string.auth_menu_oauth_device_grant_header))
         }
         loaded { (textId, route) ->
-            StandardChip(
+            Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-                chipType = StandardChipType.Primary
+                onClick = { navigateToRoute(route) }
             )
         }
     }
@@ -119,11 +116,10 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
             Title(stringResource(id = R.string.auth_menu_google_sign_in_header))
         }
         loaded { (textId, route) ->
-            StandardChip(
+            Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-                chipType = StandardChipType.Primary
+                onClick = { navigateToRoute(route) }
             )
         }
     }
@@ -146,11 +142,10 @@ private fun SectionedListScope.tokenShareSection(navigateToRoute: (String) -> Un
             Title(stringResource(id = R.string.auth_menu_token_share_header))
         }
         loaded { (textId, route) ->
-            StandardChip(
+            Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-                chipType = StandardChipType.Primary
+                onClick = { navigateToRoute(route) }
             )
         }
     }
@@ -169,16 +164,16 @@ private fun SectionedListScope.commonScreensSection(navigateToRoute: (String) ->
             Title(stringResource(id = R.string.auth_menu_common_screens_header))
         }
         loaded { (textId, route) ->
-            StandardChip(
+            Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-                chipType = StandardChipType.Primary
+                onClick = { navigateToRoute(route) }
             )
         }
     }
 }
 
+@Suppress("unused")
 @WearPreviewDevices
 @Composable
 fun AuthMenuScreenPreview() {

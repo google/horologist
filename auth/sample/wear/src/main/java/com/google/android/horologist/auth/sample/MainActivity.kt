@@ -22,7 +22,6 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
 import androidx.wear.watchface.complications.data.ComplicationType
 import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -38,12 +37,12 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             wearDataLayerAppHelper.markTileAsInstalled("MyTile")
-            delay(1000)
             wearDataLayerAppHelper.markComplicationAsActivated(
                 complicationName = "MyComplication",
                 complicationInstanceId = 1234,
                 complicationType = ComplicationType.SHORT_TEXT
             )
+            wearDataLayerAppHelper.markActivityLaunchedOnce()
         }
 
         setContent {

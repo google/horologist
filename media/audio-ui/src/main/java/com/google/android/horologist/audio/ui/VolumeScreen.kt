@@ -28,11 +28,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Stepper
@@ -42,9 +42,9 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
-import com.google.android.horologist.base.ui.components.IconRtlMode
-import com.google.android.horologist.base.ui.components.StandardIcon
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
+import com.google.android.horologist.compose.material.Icon
+import com.google.android.horologist.compose.material.IconRtlMode
+import com.google.android.horologist.compose.rotaryinput.RotaryDefaults.isLowResInput
 
 /**
  * Volume Screen with an [InlineSlider] and Increase/Decrease buttons for the Audio Stream Volume.
@@ -71,9 +71,13 @@ public fun VolumeScreen(
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
 
     VolumeScreen(
-        modifier = modifier.onRotaryInputAccumulatedWithFocus(
-            onValueChange = volumeViewModel::onVolumeChangeByScroll
-        ),
+        modifier = modifier
+            .rotaryVolumeControlsWithFocus(
+                volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
+                onRotaryVolumeInput = { newVolume -> volumeViewModel.setVolume(newVolume) },
+                localView = LocalView.current,
+                isLowRes = isLowResInput()
+            ),
         volume = { volumeUiState },
         audioOutputUi = audioOutput.toAudioOutputUi(),
         increaseVolume = { volumeViewModel.increaseVolume() },
@@ -196,7 +200,7 @@ internal fun VolumeScreen(
 public object VolumeScreenDefaults {
     @Composable
     public fun IncreaseIcon() {
-        StandardIcon(
+        Icon(
             modifier = Modifier.size(26.dp),
             imageVector = Icons.Outlined.VolumeUp,
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description),
@@ -206,7 +210,7 @@ public object VolumeScreenDefaults {
 
     @Composable
     public fun DecreaseIcon() {
-        StandardIcon(
+        Icon(
             modifier = Modifier.size(26.dp),
             imageVector = Icons.Outlined.VolumeDown,
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description),

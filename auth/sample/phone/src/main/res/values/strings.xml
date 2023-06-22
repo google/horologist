@@ -26,6 +26,7 @@
     <string name="app_helper_is_app_installed_label">App installed: %1$s</string>
     <string name="app_helper_complications_label">Complications: %1$s</string>
     <string name="app_helper_tiles_label">Tiles: %1$s</string>
+    <string name="app_has_been_opened">Opened once: %1$s</string>
     <string name="app_helper_install_button_label">Install</string>
     <string name="app_helper_companion_button_label">Companion</string>
     <string name="app_helper_launch_button_label">Launch</string>

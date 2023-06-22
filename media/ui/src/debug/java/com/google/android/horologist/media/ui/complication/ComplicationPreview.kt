@@ -171,7 +171,7 @@ fun fixImages(context: Context, monochromaticImage: MonochromaticImage?) {
     fixImage(context, monochromaticImage?.ambientImage)
 }
 
-@SuppressLint("SoonBlockedPrivateApi", "NewApi")
+@SuppressLint("SoonBlockedPrivateApi", "NewApi", "DiscouragedPrivateApi")
 fun fixImage(context: Context, image: Icon?) {
     if (image?.type == Icon.TYPE_RESOURCE) {
         // Icon uses PackageManager to find resources for the target app

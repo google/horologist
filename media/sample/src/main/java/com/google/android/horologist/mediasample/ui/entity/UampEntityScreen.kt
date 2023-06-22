@@ -40,8 +40,8 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
-import com.google.android.horologist.base.ui.components.AlertDialog
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.AlertDialog
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -140,7 +140,7 @@ fun UampEntityScreen(
     }
 
     AlertDialog(
-        body = stringResource(R.string.entity_dialog_cancel_downloads),
+        message = stringResource(R.string.entity_dialog_cancel_downloads),
         onCancelButtonClick = {
             showCancelDownloadsDialog = false
         },
@@ -155,7 +155,7 @@ fun UampEntityScreen(
     )
 
     AlertDialog(
-        body = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
+        message = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
         onCancelButtonClick = {
             showRemoveDownloadsDialog = false
         },
@@ -170,7 +170,7 @@ fun UampEntityScreen(
     )
 
     AlertDialog(
-        body = stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete),
+        message = stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete),
         onCancelButtonClick = {
             showRemoveSingleMediaDownloadDialog = false
         },

@@ -117,7 +117,7 @@ private fun DownloadsLoaded(text: String) {
             Text(
                 text = text,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Left,
+                textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2
             )
@@ -217,7 +217,7 @@ private fun FavouritesLoaded(text: String) {
             Text(
                 text = text,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Left,
+                textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2
             )

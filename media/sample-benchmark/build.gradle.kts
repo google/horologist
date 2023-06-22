@@ -23,7 +23,7 @@ plugins {
 
 android {
     namespace = "com.google.android.horologist.mediasample.benchmark"
-    compileSdk = 33
+    compileSdk = 34
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -35,10 +35,11 @@ android {
     }
 
     defaultConfig {
-        minSdk = 29
+        minSdk = 30
         targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["androidx.benchmark.fullTracing.enable"] = "true"
     }
 
     buildTypes {

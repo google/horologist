@@ -14,65 +14,52 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package com.google.android.horologist.audio.ui
 
 import android.os.Vibrator
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onRoot
-import androidx.compose.ui.test.performRotaryScrollInput
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.performClick
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.audio.VolumeState
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.Shadows
-import org.robolectric.annotation.Config
 
-@OptIn(ExperimentalTestApi::class)
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [33])
 class VolumeScreenTest {
     private lateinit var vibrator: Vibrator
+    private val context = InstrumentationRegistry.getInstrumentation().targetContext
+    private var volumeState: VolumeState = VolumeState(current = 5, max = 25)
+    private val volumeRepository = FakeVolumeRepository(volumeState)
+    private val audioOutputRepository = FakeAudioOutputRepository()
+    private lateinit var model: VolumeViewModel
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
     @Before
     fun setUp() {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        volumeState = VolumeState(current = 5, max = 25)
         vibrator =
             context.applicationContext.getSystemService(Vibrator::class.java)
-
-        Shadows.shadowOf(vibrator).setHasVibrator(true)
-    }
-
-    @Test
-    fun testHaptics() = runTest {
-        val rotaryPixelsForVolume = 136
-        val volumeRepository = FakeVolumeRepository(VolumeState(50, 100))
-        val audioOutputRepository = FakeAudioOutputRepository()
-
-        val model = VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {
+        model = VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {
             volumeRepository.close()
             audioOutputRepository.close()
         }, vibrator)
-        val focusRequester = FocusRequester()
 
         composeTestRule.setContent {
+            val focusRequester = remember { FocusRequester() }
             VolumeScreen(
                 modifier = Modifier
                     .fillMaxSize()
@@ -80,21 +67,23 @@ class VolumeScreenTest {
                 model
             )
         }
+    }
 
-        composeTestRule.runOnIdle {
-            focusRequester.requestFocus()
-        }
+    @Test
+    fun clickVolumeUp_increaseVolume() {
+        composeTestRule.onNodeWithContentDescription(
+            context.getString(R.string.horologist_volume_screen_volume_up_content_description)
+        ).performClick()
 
-        composeTestRule.onRoot().performRotaryScrollInput {
-            rotateToScrollVertically(1.25f * rotaryPixelsForVolume)
-        }
-        composeTestRule.waitForIdle()
+        assertThat(volumeRepository.volumeState.value.current).isEqualTo(6)
+    }
 
-        composeTestRule.onRoot().performRotaryScrollInput {
-            rotateToScrollVertically(1.25f * rotaryPixelsForVolume)
-        }
-        composeTestRule.waitForIdle()
+    @Test
+    fun clickVolumeDown_decreasesVolume() {
+        composeTestRule.onNodeWithContentDescription(
+            context.getString(R.string.horologist_volume_screen_volume_down_content_description)
+        ).performClick()
 
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(52)
+        assertThat(volumeRepository.volumeState.value.current).isEqualTo(4)
     }
 }

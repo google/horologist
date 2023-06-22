@@ -204,4 +204,4 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = "com.google.protobuf:0.9.3"
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }
-firebaseTestlab = "com.google.firebase.testlab:0.0.1-alpha02"
+firebaseTestlab = "com.google.firebase.testlab:0.0.1-alpha03"

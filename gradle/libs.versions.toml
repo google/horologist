@@ -105,7 +105,7 @@ androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0-alpha
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidxNavigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigation" }
-androidx-paging = "androidx.paging:paging-compose:3.2.0-beta01"
+androidx-paging = "androidx.paging:paging-compose:3.2.0-rc01"
 androidx-palette-ktx = "androidx.palette:palette-ktx:1.0.0"
 androidx-runtime-tracing = { module = "androidx.compose.runtime:runtime-tracing", version.ref = "runtimeTracing" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "androidxStartup" }

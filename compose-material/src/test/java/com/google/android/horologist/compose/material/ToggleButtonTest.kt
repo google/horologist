@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.material;
+package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AirplanemodeActive
@@ -23,6 +23,8 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.VolumeOff
 import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.ui.unit.LayoutDirection
+import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
@@ -31,10 +33,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     @Test
     fun testDefaultWithIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            ToggleButton(
-                onCheckedChange = {},
-                icon = Icons.Filled.AirplanemodeActive
-            )
+            ToggleButton(onCheckedChange = {}, icon = Icons.Filled.AirplanemodeActive)
         }
     }
 
@@ -42,9 +41,9 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testDefaultWithIcon2() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checked = false,
-                onCheckedChange = {},
-                icon = Icons.Filled.AirplanemodeInactive
+                    checked = false,
+                    onCheckedChange = {},
+                    icon = Icons.Filled.AirplanemodeInactive
             )
         }
     }
@@ -53,9 +52,9 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testDefaultWithIcon3() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checked = true,
-                onCheckedChange = {},
-                icon = Icons.Filled.AirplanemodeActive
+                    checked = true,
+                    onCheckedChange = {},
+                    icon = Icons.Filled.AirplanemodeActive
             )
         }
     }
@@ -63,20 +62,16 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     @Test
     fun testDefaultWithText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            ToggleButton(
-                onCheckedChange = {},
-                text = "Mon"
-            )
+            ToggleButton(onCheckedChange = {}, text = "Mon")
         }
     }
 
     @Test
-    fun testDefaultWithLongText() {
+    fun testDefaultWithLongTextAndLargestFontScale() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            ToggleButton(
-                onCheckedChange = {},
-                text = "Monday is the first day of the week."
-            )
+            TestHarness(fontScale = largestFontScale) {
+                ToggleButton(onCheckedChange = {}, text = "Monday is the first day of the week.")
+            }
         }
     }
 
@@ -84,9 +79,9 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testSmallWithIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                variant = ToggleButtonVariants.Small,
-                onCheckedChange = {},
-                icon = Icons.Filled.VolumeOff
+                    variant = ToggleButtonVariants.Small,
+                    onCheckedChange = {},
+                    icon = Icons.Filled.VolumeOff
             )
         }
     }
@@ -95,10 +90,10 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testSmallWithIcon2() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                variant = ToggleButtonVariants.Small,
-                checked = false,
-                onCheckedChange = {},
-                icon = Icons.Filled.VolumeUp
+                    variant = ToggleButtonVariants.Small,
+                    checked = false,
+                    onCheckedChange = {},
+                    icon = Icons.Filled.VolumeUp
             )
         }
     }
@@ -107,9 +102,9 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testIconOnly1() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                variant = ToggleButtonVariants.IconOnly,
-                onCheckedChange = {},
-                icon = Icons.Filled.Favorite
+                    variant = ToggleButtonVariants.IconOnly,
+                    onCheckedChange = {},
+                    icon = Icons.Filled.Favorite
             )
         }
     }
@@ -118,24 +113,39 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testIconOnly2() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                variant = ToggleButtonVariants.IconOnly,
-                checked = false,
-                onCheckedChange = {},
-                icon = Icons.Outlined.FavoriteBorder
+                    variant = ToggleButtonVariants.IconOnly,
+                    checked = false,
+                    onCheckedChange = {},
+                    icon = Icons.Outlined.FavoriteBorder
             )
         }
     }
 
     @Test
-    fun testInvalidIcon() {
+    fun testInvalidIcon() { // this should fail
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checked = true,
-                onCheckedChange = {},
-                text = "te",
-                variant = ToggleButtonVariants.IconOnly
+                    checked = true,
+                    onCheckedChange = {},
+                    text = "Arbitrary text",
+                    variant = ToggleButtonVariants.IconOnly,
             )
         }
-}
-}
+    }
 
+    @Test
+    fun rtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                ToggleButton(
+                        checked = true,
+                        onCheckedChange = {},
+                        icon = Icons.Filled.AirplanemodeActive
+                )
+            }
+        }
+    }
+    companion object {
+        private const val largestFontScale = 1.18f
+    }
+}

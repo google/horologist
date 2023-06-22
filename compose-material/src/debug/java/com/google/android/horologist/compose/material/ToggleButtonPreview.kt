@@ -111,7 +111,8 @@ fun ToggleButtonSmallPreviewIcon2() {
     ToggleButton(onCheckedChange = {},
         checked = false,
         icon = Icons.Filled.VolumeOff,
-        variant = ToggleButtonVariants.Small
+        variant = ToggleButtonVariants.Small,
+        iconRtlMode = IconRtlMode.Mirrored
     )
 }
 
@@ -189,7 +190,7 @@ fun ToggleButtonIconOnlyPreviewFilledChecked() {
     showBackground = true
 )
 @Composable
-fun ToggleButtonTextUsingIconSize() {
+fun ToggleButtonInvalidTextUsingIconSize() {
     ToggleButton(
         checked = true,
         onCheckedChange = {},

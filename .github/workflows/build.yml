@@ -23,6 +23,11 @@ jobs:
         with:
           lfs: 'true'
 
+      - name: Accept licenses
+        run: |
+          mkdir -p /usr/local/lib/android/sdk/licenses
+          cp licences/* /usr/local/lib/android/sdk
+
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
@@ -64,6 +69,11 @@ jobs:
         with:
           lfs: 'true'
 
+      - name: Accept licenses
+        run: |
+          mkdir -p /usr/local/lib/android/sdk/licenses
+          cp licences/* /usr/local/lib/android/sdk
+
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
@@ -89,6 +99,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           lfs: 'true'
+
+      - name: Accept licenses
+        run: |
+          mkdir -p /usr/local/lib/android/sdk/licenses
+          cp licences/* /usr/local/lib/android/sdk
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties

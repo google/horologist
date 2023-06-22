@@ -262,9 +262,9 @@ public fun rememberDefaultRotaryHapticFeedback(): RotaryHapticFeedback =
     LocalView.current.let { view -> remember { findDeviceSpecificHapticFeedback(view) } }
 
 internal fun findDeviceSpecificHapticFeedback(view: View): RotaryHapticFeedback =
-    if (Build.MODEL.startsWith("Google Pixel Watch")) {
+    if (isGooglePixelWatch()) {
         PixelWatchRotaryHapticFeedback(view)
-    } else if (Build.MODEL.matches("SM-R8[89]5.".toRegex())) {
+    } else if (isGalaxyWatchClassic()) {
         GalaxyWatchClassicHapticFeedback(view)
     } else {
         DefaultRotaryHapticFeedback(view)
@@ -308,23 +308,23 @@ private class PixelWatchRotaryHapticFeedback(private val view: View) : RotaryHap
     ) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
-                view.performHapticFeedback(SCROLL_ITEM_FOCUS)
+                view.performHapticFeedback(WEAR_SCROLL_ITEM_FOCUS)
             }
 
             RotaryHapticsType.ScrollTick -> {
-                view.performHapticFeedback(SCROLL_TICK)
+                view.performHapticFeedback(WEAR_SCROLL_TICK)
             }
 
             RotaryHapticsType.ScrollLimit -> {
-                view.performHapticFeedback(SCROLL_LIMIT)
+                view.performHapticFeedback(WEAR_SCROLL_LIMIT)
             }
         }
     }
     private companion object {
-        // Hidden constants from HapticFeedbackConstants.java
-        public const val SCROLL_TICK: Int = 10002
-        public const val SCROLL_ITEM_FOCUS: Int = 10003
-        public const val SCROLL_LIMIT: Int = 10003
+        // Hidden constants from HapticFeedbackConstants.java specific for Pixel Watch
+        public const val WEAR_SCROLL_TICK: Int = 10002
+        public const val WEAR_SCROLL_ITEM_FOCUS: Int = 10003
+        public const val WEAR_SCROLL_LIMIT: Int = 10003
     }
 }
 
@@ -353,3 +353,9 @@ private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryH
         }
     }
 }
+
+private fun isGalaxyWatchClassic(): Boolean =
+    Build.MODEL.matches("SM-R8[89]5.".toRegex())
+
+private fun isGooglePixelWatch(): Boolean =
+    Build.MODEL.startsWith("Google Pixel Watch")

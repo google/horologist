@@ -20,11 +20,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Image
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
@@ -43,8 +40,8 @@ class OutlinedCompactChipA11yTest : ScreenshotBaseTest(
                 contentAlignment = Alignment.Center
             ) {
                 OutlinedCompactChip(
-                    label = "Primary label",
                     onClick = { },
+                    label = "Primary label",
                     icon = Icons.Filled.Add
                 )
             }
@@ -60,12 +57,9 @@ class OutlinedCompactChipA11yTest : ScreenshotBaseTest(
             ) {
                 OutlinedCompactChip(
                     onClick = { },
+                    label = "Primary label",
                     icon = Icons.Filled.Add,
-                    enabled = false,
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Image,
-                        tintColor = MaterialTheme.colors.primary
-                    )
+                    enabled = false
                 )
             }
         }

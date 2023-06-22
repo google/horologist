@@ -22,40 +22,42 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.material.TimeSource
 import androidx.wear.compose.material.TimeText
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.RoundPreview
+import com.google.android.horologist.screenshots.FixedTimeSource
 
 @Composable
 fun PlayerLibraryPreview(
-    state: ScalingLazyListState? = null,
+    columnState: ScalingLazyColumnState,
     round: Boolean = true,
     function: @Composable () -> Unit
 ) {
     RoundPreview(round = round) {
-        PagerScreen(count = 2) {
+        PagerScreen(
+            state = rememberPagerState {
+                2
+            }
+        ) {
             if (it == 0) {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     timeText = {
                         TimeText(
-                            timeSource = object : TimeSource {
-                                override val currentTime: String
-                                    @Composable get() = "10:10"
-                            }
+                            modifier = Modifier.scrollAway(columnState),
+                            timeSource = FixedTimeSource
                         )
                     },
                     positionIndicator = {
-                        if (state != null) {
-                            PositionIndicator(state)
-                        }
+                        PositionIndicator(columnState.state)
                     }
                 ) {
                     Box(modifier = Modifier.background(Color.Black)) {

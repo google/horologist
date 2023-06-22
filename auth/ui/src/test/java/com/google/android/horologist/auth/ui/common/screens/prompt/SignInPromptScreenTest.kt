@@ -16,18 +16,23 @@
 
 package com.google.android.horologist.auth.ui.common.screens.prompt
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
+import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import com.google.android.horologist.test.toolbox.composables.positionedState
 import org.junit.Test
 
 class SignInPromptScreenTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
+    screenshotTestRuleParams {
         screenTimeText = {}
     }
 ) {
@@ -41,7 +46,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState(0, 0)
+                columnState = positionedState()
             ) {
                 testContent()
             }
@@ -57,7 +62,28 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState(0, 0)
+                columnState = positionedState()
+            ) {
+                testContent()
+            }
+        }
+    }
+
+    @Test
+    fun customLoading() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            SignInPromptScreen(
+                state = SignInPromptScreenState.Loading,
+                title = "Sign in",
+                message = "Send messages and create chat groups with your friends",
+                onIdleStateObserved = { },
+                onAlreadySignedIn = { },
+                columnState = positionedState(0, 0),
+                loadingContent = {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text("Loading...")
+                    }
+                }
             ) {
                 testContent()
             }
@@ -73,7 +99,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState(0, 0)
+                columnState = positionedState()
             ) {
                 testContent()
             }
@@ -89,7 +115,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState(0, 0)
+                columnState = positionedState()
             ) {
                 testContent()
             }
@@ -110,7 +136,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState(0, 0)
+                columnState = positionedState(0, -64)
             ) {
                 testContent()
             }
@@ -121,13 +147,13 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
         item {
             SignInChip(
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                chipType = StandardChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }

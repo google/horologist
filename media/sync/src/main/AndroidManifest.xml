@@ -21,7 +21,7 @@
 
     <uses-feature android:name="android.hardware.type.watch" />
 
-    <application>
+    <application tools:ignore="WearStandaloneAppFlag">
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

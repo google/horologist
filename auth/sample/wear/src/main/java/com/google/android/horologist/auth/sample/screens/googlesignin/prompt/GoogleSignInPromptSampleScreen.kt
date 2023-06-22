@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
@@ -37,10 +38,9 @@ import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
 import com.google.android.horologist.auth.ui.googlesignin.prompt.GoogleSignInPromptViewModelFactory
-import com.google.android.horologist.base.ui.components.ConfirmationDialog
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
 fun GoogleSignInPromptSampleScreen(
@@ -65,19 +65,19 @@ fun GoogleSignInPromptSampleScreen(
                         popUpTo(Screen.MainScreen.route)
                     }
                 },
-                chipType = StandardChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
         item {
             GuestModeChip(
                 onClick = navController::popBackStack,
-                chipType = StandardChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         }
     }
 
     if (showAlreadySignedInDialog) {
-        ConfirmationDialog(
+        Confirmation(
             onTimeout = {
                 showAlreadySignedInDialog = false
                 navController.popBackStack()
@@ -92,6 +92,7 @@ fun GoogleSignInPromptSampleScreen(
     }
 }
 
+@Suppress("unused")
 @WearPreviewDevices
 @Composable
 fun GoogleSignInPromptSampleScreenPreview() {

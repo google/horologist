@@ -20,8 +20,10 @@ package com.google.android.horologist.data.store.impl
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
+import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.TargetNodeId
@@ -36,7 +38,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.tasks.await
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 
 // Workaround https://issuetracker.google.com/issues/239451111
@@ -51,6 +56,11 @@ public class WearLocalDataStore<T>(
 ) : DataStore<T> {
     private val nodeIdFlow = nodeIdFlow().shareIn(coroutineScope, started = started, replay = 1)
 
+    private val mutex = Mutex()
+
+    val dataClient: DataClient
+        get() = wearDataLayerRegistry.dataClient
+
     private fun nodeIdFlow() = flow {
         val nodeId = TargetNodeId.ThisNodeId.evaluate(wearDataLayerRegistry)
         emit(
@@ -62,7 +72,7 @@ public class WearLocalDataStore<T>(
     }
 
     private val sharedFlow: SharedFlow<T> = nodeIdFlow.flatMapLatest { (nodeId, _) ->
-        wearDataLayerRegistry.dataClient.dataItemFlow(
+        dataClient.dataItemFlow(
             nodeId,
             path,
             serializer
@@ -77,23 +87,39 @@ public class WearLocalDataStore<T>(
         }.toByteArray()
     }
 
-    override suspend fun updateData(transform: suspend (t: T) -> T): T {
+    override suspend fun updateData(transform: suspend (t: T) -> T): T = mutex.withLock {
         val nodeId = nodeIdFlow.first()
 
-        val newT = transform(sharedFlow.first())
+        val oldT = readExistingValue(nodeId)
+        val newT = transform(oldT)
 
-        if (newT != null) {
+        if (newT == null) {
+            dataClient.deleteDataItems(nodeId.fullPath)
+                .await()
+        } else if (newT != oldT) {
             val request = PutDataRequest.create(path).apply {
                 data = writeBytes(newT)
             }
 
-            wearDataLayerRegistry.dataClient.putDataItem(request).await()
-        } else {
-            wearDataLayerRegistry.dataClient.deleteDataItems(nodeId.fullPath)
-                .await()
+            dataClient.putDataItem(request).await()
         }
 
         return newT
+    }
+
+    private suspend fun readExistingValue(nodeId: NodeIdAndPath): T {
+        try {
+            val data = dataClient.getDataItem(buildUri(nodeId.nodeId, path)).await().data
+
+            if (data != null) {
+                return serializer.readFrom(ByteArrayInputStream(data))
+            }
+        } catch (e: Exception) {
+            // TODO introduce CorruptionHandler
+            Log.w("WearLocalDataStore", "Corrupted data for DataStore")
+        }
+
+        return serializer.defaultValue
     }
 }
 

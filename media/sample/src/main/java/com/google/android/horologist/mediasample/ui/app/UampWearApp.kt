@@ -19,7 +19,6 @@ package com.google.android.horologist.mediasample.ui.app
 import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -77,7 +76,6 @@ fun UampWearApp(
     val volumeViewModel: VolumeViewModel = hiltViewModel()
     val mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel = hiltViewModel()
 
-    val pagerState = rememberPagerState(initialPage = 0)
     val navHostState = rememberSwipeDismissableNavHostState()
 
     val appState by appViewModel.appState.collectAsStateWithLifecycle()
@@ -182,7 +180,6 @@ fun UampWearApp(
                 )
             },
             navHostState = navHostState,
-            pagerState = pagerState,
             snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
             volumeViewModel = volumeViewModel,
             timeText = timeText,

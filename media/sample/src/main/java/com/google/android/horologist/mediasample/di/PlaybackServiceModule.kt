@@ -72,6 +72,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import okhttp3.CacheControl
 import okhttp3.Call
 import javax.inject.Provider
 
@@ -138,6 +139,7 @@ object PlaybackServiceModule {
                 defaultRequestType = StreamRequest
             )
         )
+            .setCacheControl(CacheControl.Builder().noCache().noStore().build())
             .setTransferListener(transferListener)
 
     @ServiceScoped

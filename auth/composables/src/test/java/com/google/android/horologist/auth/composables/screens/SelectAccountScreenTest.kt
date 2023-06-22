@@ -42,7 +42,7 @@ class SelectAccountScreenTest : ScreenshotBaseTest(
                     AccountUiModel(email = "thisisaverylongemail@example.com")
                 ),
                 onAccountClicked = { _, _ -> },
-                columnState = positionedState(0, 0)
+                columnState = positionedState()
             )
         }
     }
@@ -56,7 +56,7 @@ class SelectAccountScreenTest : ScreenshotBaseTest(
                     AccountUiModel(email = "thisisaverylongemailaccountsample@example.com")
                 ),
                 onAccountClicked = { _, _ -> },
-                columnState = positionedState(0, 0),
+                columnState = positionedState(),
                 defaultAvatar = null
             )
         }

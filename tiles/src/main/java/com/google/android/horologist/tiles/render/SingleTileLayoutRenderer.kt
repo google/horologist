@@ -21,6 +21,7 @@ import androidx.wear.protolayout.DeviceParametersBuilders
 import androidx.wear.protolayout.LayoutElementBuilders.Layout
 import androidx.wear.protolayout.LayoutElementBuilders.LayoutElement
 import androidx.wear.protolayout.ResourceBuilders.Resources
+import androidx.wear.protolayout.StateBuilders.State
 import androidx.wear.protolayout.TimelineBuilders
 import androidx.wear.protolayout.material.Colors
 import androidx.wear.tiles.RequestBuilders
@@ -67,13 +68,16 @@ public abstract class SingleTileLayoutRenderer<T, R>(
                 if (debugResourceMode) {
                     UUID.randomUUID().toString()
                 } else {
-                    PERMANENT_RESOURCES_VERSION
+                    getResourcesVersionForTileState(state)
                 }
             )
+            .setState(createState())
             .setTileTimeline(singleTileTimeline)
             .setFreshnessIntervalMillis(freshnessIntervalMillis)
             .build()
     }
+
+    public open fun getResourcesVersionForTileState(state: T): String = PERMANENT_RESOURCES_VERSION
 
     /**
      * Create a material theme that should be applied to all components.
@@ -113,6 +117,8 @@ public abstract class SingleTileLayoutRenderer<T, R>(
         resourceIds: MutableList<String>
     ) {
     }
+
+    public open fun createState(): State = State.Builder().build()
 }
 
 /**

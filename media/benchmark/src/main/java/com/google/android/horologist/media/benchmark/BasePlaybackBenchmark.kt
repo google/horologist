@@ -18,6 +18,9 @@
 
 package com.google.android.horologist.media.benchmark
 
+import android.Manifest
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
@@ -28,6 +31,7 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.media3.session.MediaBrowser
 import androidx.test.filters.LargeTest
+import androidx.test.rule.GrantPermissionRule
 import com.google.android.horologist.media.benchmark.MediaControllerHelper.startPlaying
 import com.google.android.horologist.media.benchmark.MediaControllerHelper.stopPlaying
 import com.google.common.util.concurrent.ListenableFuture
@@ -41,6 +45,9 @@ import kotlin.time.Duration.Companion.seconds
 
 @LargeTest
 public abstract class BasePlaybackBenchmark {
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    @get:Rule
+    public val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS)
 
     @get:Rule
     public val benchmarkRule: MacrobenchmarkRule = MacrobenchmarkRule()

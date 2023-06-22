@@ -24,11 +24,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.sample.Screen
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.Title
 
 @Composable
 fun StreamlineSignInMenuScreen(
@@ -60,17 +59,19 @@ fun StreamlineSignInMenuScreen(
             )
         ) {
             header {
-                Title(stringResource(id = R.string.common_screens_streamline_sign_in_header))
+                Title(
+                    stringResource(id = R.string.common_screens_streamline_sign_in_header),
+                    Modifier
+                )
             }
             loaded { (textId, route, mode) ->
-                StandardChip(
+                Chip(
                     label = stringResource(id = textId),
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
                         AuthUserRepositoryStreamlineImpl.mode = mode
                         navController.navigate(route)
-                    },
-                    chipType = StandardChipType.Primary
+                    }
                 )
             }
         }

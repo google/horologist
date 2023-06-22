@@ -18,14 +18,18 @@ package com.google.android.horologist.base.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.LayoutDirection
-import androidx.wear.compose.material.Icon
-import com.google.android.horologist.base.ui.semantics.CustomSemanticsProperties.iconImageVector
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
+@Suppress("DEPRECATION")
+@Deprecated(
+    "Replaced by Icon in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "Icon",
+        "com.google.android.horologist.compose.material.Icon"
+    )
+)
+@ExperimentalHorologistApi
 @Composable
 public fun StandardIcon(
     imageVector: ImageVector,
@@ -33,20 +37,25 @@ public fun StandardIcon(
     modifier: Modifier = Modifier,
     rtlMode: IconRtlMode = IconRtlMode.Default
 ) {
-    val shouldMirror =
-        rtlMode == IconRtlMode.Mirrored && LocalLayoutDirection.current == LayoutDirection.Rtl
-    Icon(
-        modifier = modifier
-            .semantics { iconImageVector = imageVector }
-            .scale(
-                scaleX = if (shouldMirror) -1f else 1f,
-                scaleY = 1f
-            ),
+    com.google.android.horologist.compose.material.Icon(
         imageVector = imageVector,
-        contentDescription = contentDescription
+        contentDescription = contentDescription,
+        modifier = modifier,
+        rtlMode = when (rtlMode) {
+            IconRtlMode.Default -> com.google.android.horologist.compose.material.IconRtlMode.Default
+            IconRtlMode.Mirrored -> com.google.android.horologist.compose.material.IconRtlMode.Mirrored
+        }
     )
 }
 
+@Deprecated(
+    "Replaced by IconRtlMode in Horologist Material Compose library",
+    replaceWith = ReplaceWith(
+        "IconRtlMode",
+        "com.google.android.horologist.compose.material.IconRtlMode"
+    )
+)
+@ExperimentalHorologistApi
 public enum class IconRtlMode {
     Default,
     Mirrored

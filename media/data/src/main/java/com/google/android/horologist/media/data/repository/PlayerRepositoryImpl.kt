@@ -200,6 +200,7 @@ public class PlayerRepositoryImpl(
             when (it.playbackState) {
                 Player.STATE_IDLE -> it.prepare()
                 Player.STATE_ENDED -> it.seekTo(it.currentMediaItemIndex, C.TIME_UNSET)
+                Player.STATE_BUFFERING, Player.STATE_READY -> {}
             }
             it.play()
         }

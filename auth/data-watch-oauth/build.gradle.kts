@@ -21,11 +21,12 @@ plugins {
     id("org.jetbrains.dokka")
     id("com.google.devtools.ksp")
     id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -92,23 +93,31 @@ metalava {
 }
 
 dependencies {
-    api(projects.annotations)
+    api(projects.auth.data)
 
-    implementation(projects.auth.data)
+    api(libs.androidx.wear.phone.interactions)
+    api(libs.com.squareup.okhttp3.okhttp)
+    api(libs.moshi)
+    api(libs.retrofit2.retrofit)
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.androidx.wear.phone.interactions)
     implementation(libs.androidx.wear.remote.interactions)
-    implementation(libs.retrofit2.retrofit)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.guava)
     implementation(libs.retrofit2.convertermoshi)
-    implementation(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
+    testRuntimeOnly(libs.robolectric)
+}
+
+dependencyAnalysis {
+    issues {
+        onAny {
+            severity("fail")
+            exclude("com.google.guava:guava") // bug: reported as used, then unused
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

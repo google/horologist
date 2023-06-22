@@ -29,11 +29,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.base.ui.components.StandardButton
-import com.google.android.horologist.base.ui.components.StandardChip
-import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Button
+import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -71,12 +70,12 @@ public fun PlaylistStreamingScreen(
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
         mediaContent = { mediaUiModel ->
             val mediaTitle = mediaUiModel.title ?: defaultMediaTitle
-            StandardChip(
+            Chip(
                 label = mediaTitle,
                 onClick = { onPlayItemClick(mediaUiModel) },
                 icon = mediaUiModel.artworkUri,
                 largeIcon = true,
-                chipType = StandardChipType.Secondary
+                colors = ChipDefaults.secondaryChipColors()
             )
         },
         modifier = modifier,
@@ -87,7 +86,7 @@ public fun PlaylistStreamingScreen(
                     .height(52.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                StandardButton(
+                Button(
                     imageVector = Icons.Default.Shuffle,
                     contentDescription = stringResource(id = R.string.horologist_playlist_download_button_shuffle_content_description),
                     onClick = { onShuffleButtonClick() },
@@ -96,7 +95,7 @@ public fun PlaylistStreamingScreen(
                         .weight(weight = 0.3F, fill = false)
                 )
 
-                StandardButton(
+                Button(
                     imageVector = Icons.Filled.PlayArrow,
                     contentDescription = stringResource(id = R.string.horologist_playlist_download_button_play_content_description),
                     onClick = { onPlayButtonClick() },

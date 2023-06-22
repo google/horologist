@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.ui.app
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -52,6 +53,11 @@ class MediaActivity : ComponentActivity() {
         }
 
         jankPrinter.installJankStats(activity = this)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Don't show progress on resume since it can be out of date
+            setRecentsScreenshotEnabled(false)
+        }
     }
 
     companion object {

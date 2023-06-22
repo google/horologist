@@ -33,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -43,7 +42,6 @@ import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.base.ui.semantics.CustomSemanticsProperties.iconImageVector
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults.mediaButtonDefaultColors
 
 /**
@@ -84,8 +82,7 @@ public fun MediaButton(
                         }
                     }
                 }
-                .align(Alignment.Center)
-                .semantics { iconImageVector = icon },
+                .align(Alignment.Center),
             imageVector = icon,
             contentDescription = contentDescription
         )

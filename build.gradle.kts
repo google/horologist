@@ -52,6 +52,7 @@ plugins {
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.gradleMavenPublishPlugin)
     alias(libs.plugins.firebaseTestlab) apply false
+    alias(libs.plugins.dependencyAnalysis)
 }
 
 apply(plugin = "org.jetbrains.dokka")

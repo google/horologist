@@ -4,6 +4,12 @@ package com.google.android.horologist.audio.ui {
   @kotlin.RequiresOptIn(message="Horologist Audio UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAudioUiApi {
   }
 
+  public final class RotaryVolumeControlsKt {
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier highResRotaryVolumeControls(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput, android.view.View localView);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier lowResRotaryVolumeControls(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput, android.view.View localView);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier rotaryVolumeControlsWithFocus(androidx.compose.ui.Modifier, optional androidx.compose.ui.focus.FocusRequester? focusRequester, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput, android.view.View localView, boolean isLowRes);
+  }
+
   public final class VolumePositionIndicatorKt {
     method @androidx.compose.runtime.Composable public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState, optional androidx.compose.ui.Modifier modifier, optional kotlinx.coroutines.flow.Flow<kotlin.Unit>? displayIndicatorEvents);
   }
@@ -57,6 +63,7 @@ package com.google.android.horologist.audio.ui {
     method public final void increaseVolumeWithHaptics();
     method public final void launchOutputSelection();
     method public final void onVolumeChangeByScroll(float pixels);
+    method public final void setVolume(int volume);
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;
     property public final kotlinx.coroutines.flow.Flow<kotlin.Unit> displayIndicatorEvents;
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState;
@@ -116,7 +123,7 @@ package com.google.android.horologist.audio.ui.components.actions {
   }
 
   public final class SettingsButtonKt {
-    method @androidx.compose.runtime.Composable public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.base.ui.components.IconRtlMode iconRtlMode, optional boolean enabled, optional float iconSize, optional float tapTargetSize);
+    method @androidx.compose.runtime.Composable public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean enabled, optional float iconSize, optional float tapTargetSize);
   }
 
 }

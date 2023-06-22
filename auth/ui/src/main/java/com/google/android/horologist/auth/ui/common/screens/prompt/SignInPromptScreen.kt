@@ -33,9 +33,9 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
-import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Title
 
 /**
  * A screen to prompt users to sign in.
@@ -65,6 +65,7 @@ public fun SignInPromptScreen(
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_signin_prompt_title),
     viewModel: SignInPromptViewModel = viewModel(),
+    loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
     content: ScalingLazyListScope.() -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -76,6 +77,7 @@ public fun SignInPromptScreen(
         onIdleStateObserved = { viewModel.onIdleStateObserved() },
         onAlreadySignedIn = onAlreadySignedIn,
         columnState = columnState,
+        loadingContent = loadingContent,
         modifier = modifier,
         content = content
     )
@@ -90,6 +92,7 @@ internal fun SignInPromptScreen(
     onAlreadySignedIn: (account: AccountUiModel) -> Unit,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
+    loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
     content: ScalingLazyListScope.() -> Unit
 ) {
     when (state) {
@@ -98,11 +101,11 @@ internal fun SignInPromptScreen(
                 onIdleStateObserved()
             }
 
-            SignInPlaceholderScreen(modifier = modifier)
+            loadingContent()
         }
 
         SignInPromptScreenState.Loading -> {
-            SignInPlaceholderScreen(modifier = modifier)
+            loadingContent()
         }
 
         is SignInPromptScreenState.SignedIn -> {
@@ -116,7 +119,7 @@ internal fun SignInPromptScreen(
                 columnState = columnState,
                 modifier = modifier
             ) {
-                item { Title(text = title) }
+                item { Title(title, Modifier) }
                 item {
                     Text(
                         text = message,

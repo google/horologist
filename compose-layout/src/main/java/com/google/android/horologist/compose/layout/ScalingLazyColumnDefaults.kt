@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
@@ -96,7 +97,14 @@ public object ScalingLazyColumnDefaults {
                 alignment = Alignment.Top
             ),
         horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-        contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp)
+        contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
+        autoCentering: AutoCenteringParams? = AutoCenteringParams(
+            initialCenterIndex,
+            initialCenterOffset
+        ),
+        anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
+        hapticsEnabled: Boolean = true,
+        reverseLayout: Boolean = false
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
@@ -110,7 +118,11 @@ public object ScalingLazyColumnDefaults {
                         rotaryMode = rotaryMode,
                         verticalArrangement = verticalArrangement,
                         horizontalAlignment = horizontalAlignment,
-                        contentPadding = contentPadding
+                        contentPadding = contentPadding,
+                        autoCentering = autoCentering,
+                        anchorType = anchorType,
+                        hapticsEnabled = hapticsEnabled,
+                        reverseLayout = reverseLayout
                     )
                 }
             }

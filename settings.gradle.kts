@@ -25,7 +25,7 @@ pluginManagement {
 }
 
 plugins {
-    id("com.gradle.enterprise") version "3.5"
+    id("com.gradle.enterprise") version "3.13.4"
 }
 
 gradleEnterprise {
@@ -37,10 +37,7 @@ gradleEnterprise {
 
 rootProject.name = "horologist"
 
-include(":sample")
 include(":annotations")
-include(":compose-layout")
-include(":composables")
 include(":auth:composables")
 include(":auth:data")
 include(":auth:data-phone")
@@ -50,7 +47,15 @@ include(":auth:sample:shared")
 include(":auth:sample:wear")
 include(":auth:ui")
 include(":base-ui")
-include(":tiles")
+include(":compose-layout")
+include(":compose-material")
+include(":compose-tools")
+include(":composables")
+include(":datalayer")
+include(":datalayer-watch")
+include(":datalayer-phone")
+include(":health-composables")
+include(":logo")
 include(":media:audio")
 include(":media:audio-ui")
 include(":media:core")
@@ -64,17 +69,13 @@ include(":media:data")
 include(":media:sample")
 include(":media:sample-benchmark")
 include(":media:sync")
-include(":compose-tools")
 include(":network-awareness:core")
 include(":network-awareness:db")
 include(":network-awareness:okhttp")
 include(":network-awareness:ui")
-include(":datalayer")
-include(":datalayer-watch")
-include(":datalayer-phone")
-include(":health-composables")
-include(":logo")
 include(":roboscreenshots")
+include(":sample")
+include(":tiles")
 
 // https://docs.gradle.org/7.4/userguide/declaring_dependencies.html#sec:type-safe-project-accessors
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

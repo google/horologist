@@ -16,11 +16,13 @@
 
 package com.google.android.horologist.media.benchmark
 
+import android.Manifest
 import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.media3.session.MediaBrowser
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.UiDevice
 import com.google.android.horologist.media.benchmark.MediaControllerHelper.startPlaying
 import com.google.android.horologist.media.benchmark.MediaControllerHelper.stopPlaying
@@ -46,6 +48,8 @@ import kotlin.time.Duration.Companion.seconds
 // rules that are specific to classes and methods in your own app and library code.
 @RunWith(AndroidJUnit4::class)
 public abstract class BaseMediaBaselineProfile {
+    @get:Rule
+    public val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS)
 
     @get:Rule
     public val baselineRule: BaselineProfileRule = BaselineProfileRule()
@@ -86,9 +90,15 @@ public abstract class BaseMediaBaselineProfile {
                 runBlocking(Dispatchers.Main) {
                     mediaController.startPlaying(mediaApp.testMedia)
 
-                    delay(5.seconds)
+                    delay(15.seconds)
 
                     checkPlayingState(mediaController)
+
+                    mediaController.seekToNextMediaItem()
+                    delay(2.seconds)
+
+                    mediaController.seekToPreviousMediaItem()
+                    delay(2.seconds)
 
                     mediaController.stopPlaying()
                 }

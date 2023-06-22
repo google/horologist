@@ -31,9 +31,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.graphics.drawable.toBitmap
 import androidx.palette.graphics.Palette
+import androidx.wear.compose.material.MaterialTheme
 import coil.imageLoader
 import coil.request.ImageRequest
 
@@ -72,11 +74,13 @@ public fun ArtworkColorBackground(
 @Composable
 public fun ColorBackground(
     color: Color?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    background: Color = MaterialTheme.colors.background
 ) {
     val animatedBackgroundColor = animateColorAsState(
         targetValue = color ?: Color.Black,
-        animationSpec = tween(450, 0, LinearEasing)
+        animationSpec = tween(450, 0, LinearEasing),
+        label = "ColorBackground"
     )
 
     Box(
@@ -85,8 +89,8 @@ public fun ColorBackground(
             .background(
                 Brush.radialGradient(
                     listOf(
-                        (animatedBackgroundColor.value).copy(alpha = 0.3f),
-                        Color.Transparent
+                        animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
+                        background
                     )
                 )
             )

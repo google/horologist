@@ -21,7 +21,7 @@ import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.base.ui.util.rememberVectorPainter
+import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.WearPreview
 
 @WearPreview

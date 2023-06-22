@@ -19,6 +19,8 @@ package com.google.android.horologist.composables
 import android.content.Context
 import android.view.accessibility.AccessibilityManager
 import androidx.annotation.PluralsRes
+import androidx.annotation.VisibleForTesting
+import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,15 +38,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
@@ -74,9 +79,11 @@ import androidx.wear.compose.material.rememberPickerGroupState
 import androidx.wear.compose.material.rememberPickerState
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.time.temporal.ChronoField
+import kotlin.math.sign
 
 /**
  * A full screen TimePicker with hours, minutes and seconds.
@@ -101,6 +108,8 @@ public fun TimePicker(
     time: LocalTime = LocalTime.now(),
     showSeconds: Boolean = true
 ) {
+    val fullyDrawn = remember { Animatable(0f) }
+
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
         display3 = MaterialTheme.typography.display3.copy(
@@ -174,7 +183,7 @@ public fun TimePicker(
                 }
             }
 
-        Box(modifier = modifier.fillMaxSize()) {
+        Box(modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)) {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -288,6 +297,10 @@ public fun TimePicker(
             }
         }
     }
+
+    LaunchedEffect(Unit) {
+        fullyDrawn.animateTo(1f)
+    }
 }
 
 /**
@@ -308,6 +321,8 @@ public fun TimePickerWith12HourClock(
     modifier: Modifier = Modifier,
     time: LocalTime = LocalTime.now()
 ) {
+    val fullyDrawn = remember { Animatable(0f) }
+
     // Omit scaling according to Settings > Display > Font size for this screen,
     val typography = MaterialTheme.typography.copy(
         display1 = MaterialTheme.typography.display1.copy(
@@ -378,7 +393,7 @@ public fun TimePickerWith12HourClock(
             }
         }
         Box(
-            modifier = modifier.fillMaxSize()
+            modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)
         ) {
             Column(
                 modifier = modifier.fillMaxSize(),
@@ -502,6 +517,10 @@ public fun TimePickerWith12HourClock(
             }
         }
     }
+
+    LaunchedEffect(Unit) {
+        fullyDrawn.animateTo(1f)
+    }
 }
 
 @Composable
@@ -517,6 +536,7 @@ private fun Separator(width: Dp, textStyle: TextStyle) {
 }
 
 @Composable
+@VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
 internal fun pickerGroupItemWithRSB(
     pickerState: PickerState,
     modifier: Modifier,
@@ -530,17 +550,28 @@ internal fun pickerGroupItemWithRSB(
         scrollableState = pickerState,
         throttleThresholdMs = 10
     )
+    var animationScrollTarget: Int by remember { mutableIntStateOf(pickerState.selectedOption) }
+    var activeJob: Job? by remember { mutableStateOf(null) }
+
     return PickerGroupItem(
         pickerState = pickerState,
-        modifier = modifier.onRotaryInputAccumulated {
-            coroutineScope.launch {
-                if (it > 0) {
-                    haptics.handleSnapHaptic(1f)
-                    pickerState.animateScrollToOption(pickerState.selectedOption + 1)
-                } else {
-                    haptics.handleSnapHaptic(-1f)
-                    pickerState.animateScrollToOption(pickerState.selectedOption - 1)
-                }
+        modifier = modifier.onRotaryInputAccumulated(rateLimitCoolDownMs = 5L) { change ->
+
+            val diff = sign(change)
+
+            if (activeJob == null || activeJob?.isActive == false) {
+                animationScrollTarget = pickerState.selectedOption
+            }
+            animationScrollTarget += diff.toInt()
+
+            if (!pickerState.repeatItems) {
+                animationScrollTarget =
+                    animationScrollTarget.coerceIn(0, pickerState.numberOfOptions)
+            }
+
+            activeJob = coroutineScope.launch {
+                haptics.handleSnapHaptic(diff)
+                pickerState.animateScrollToOption(animationScrollTarget)
             }
         },
         contentDescription = contentDescription,

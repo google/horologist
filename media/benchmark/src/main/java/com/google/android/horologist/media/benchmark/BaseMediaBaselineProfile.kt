@@ -78,7 +78,7 @@ public abstract class BaseMediaBaselineProfile {
 
     @Test
     public fun profile() {
-        baselineRule.collectBaselineProfile(
+        baselineRule.collect(
             packageName = mediaApp.packageName,
             profileBlock = {
                 onStartup()

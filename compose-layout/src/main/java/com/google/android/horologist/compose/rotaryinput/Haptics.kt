@@ -306,22 +306,35 @@ private class PixelWatchRotaryHapticFeedback(private val view: View) : RotaryHap
     override fun performHapticFeedback(
         type: RotaryHapticsType
     ) {
+        val api33orHigher = Build.VERSION.SDK_INT >= 33
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
-                view.performHapticFeedback(WEAR_SCROLL_ITEM_FOCUS)
+                view.performHapticFeedback(
+                    if (api33orHigher) ROTARY_SCROLL_ITEM_FOCUS else WEAR_SCROLL_ITEM_FOCUS
+                )
             }
 
             RotaryHapticsType.ScrollTick -> {
-                view.performHapticFeedback(WEAR_SCROLL_TICK)
+                view.performHapticFeedback(
+                    if (api33orHigher) ROTARY_SCROLL_TICK else WEAR_SCROLL_TICK
+                )
             }
 
             RotaryHapticsType.ScrollLimit -> {
-                view.performHapticFeedback(WEAR_SCROLL_LIMIT)
+                view.performHapticFeedback(
+                    if (api33orHigher) ROTARY_SCROLL_LIMIT else WEAR_SCROLL_LIMIT
+                )
             }
         }
     }
+
     private companion object {
         // Hidden constants from HapticFeedbackConstants.java specific for Pixel Watch
+        // API 33
+        public const val ROTARY_SCROLL_TICK: Int = 18
+        public const val ROTARY_SCROLL_ITEM_FOCUS: Int = 19
+        public const val ROTARY_SCROLL_LIMIT: Int = 20
+        // API 30
         public const val WEAR_SCROLL_TICK: Int = 10002
         public const val WEAR_SCROLL_ITEM_FOCUS: Int = 10003
         public const val WEAR_SCROLL_LIMIT: Int = 10003

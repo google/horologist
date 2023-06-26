@@ -117,4 +117,12 @@ dependencies {
     androidTestImplementation(libs.truth)
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("network-awareness-db")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

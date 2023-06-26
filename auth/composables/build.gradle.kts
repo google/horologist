@@ -135,4 +135,12 @@ dependencyAnalysis {
     }
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("auth-composables")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

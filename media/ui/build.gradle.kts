@@ -156,4 +156,12 @@ dependencies {
     testImplementation(libs.androidx.test.ext)
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("media-ui")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

@@ -120,4 +120,12 @@ dependencyAnalysis {
     }
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("auth-data-watch-oauth")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

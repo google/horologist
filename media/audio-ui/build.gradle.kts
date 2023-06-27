@@ -132,4 +132,12 @@ dependencies {
     testImplementation(libs.truth)
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("media-audio-ui")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

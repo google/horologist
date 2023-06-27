@@ -106,4 +106,12 @@ dependencies {
     testImplementation(libs.robolectric)
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("network-awareness-okhttp")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

@@ -172,7 +172,7 @@ public fun ToggleButton(
             content = {
                 Icon(
                     icon = icon,
-                    modifier = modifier,
+                    modifier = modifier.background(background),
                     contentDescription = null,
                     rtlMode = iconRtlMode
                 )

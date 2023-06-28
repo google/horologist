@@ -155,19 +155,15 @@ public fun ToggleButton(
             ToggleButtonDefaults.DefaultToggleButtonSize
         }
     }
-
     val background = if (iconOnly) {
         Color.Transparent
     } else {
         colors.backgroundColor(enabled = enabled, checked = checked).value
     }
-
     androidx.wear.compose.material.ToggleButton(
             checked = checked,
             onCheckedChange = onCheckedChange,
-            modifier = modifier
-                .size(size)
-                .background(background),
+            modifier = modifier.size(size),
             enabled = enabled,
             colors = androidx.wear.compose.material.ToggleButtonDefaults.toggleButtonColors(),
             interactionSource = interactionSource,
@@ -176,10 +172,7 @@ public fun ToggleButton(
             content = {
                 Icon(
                     icon = icon,
-                    modifier = modifier
-//                        .size(size)
-//                        .background(background)
-                    ,
+                    modifier = modifier,
                     contentDescription = null,
                     rtlMode = iconRtlMode
                 )

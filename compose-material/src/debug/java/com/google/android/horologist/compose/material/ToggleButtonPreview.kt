@@ -98,7 +98,7 @@ fun ToggleButtonDefaultPreviewText2() {
 fun ToggleButtonSmallPreviewIcon1() {
     ToggleButton(onCheckedChange = {},
         icon = Icons.Filled.VolumeUp,
-        variant = ToggleButtonVariants.Small
+        smallSize = true
     )
 }
 
@@ -111,8 +111,8 @@ fun ToggleButtonSmallPreviewIcon2() {
     ToggleButton(onCheckedChange = {},
         checked = false,
         icon = Icons.Filled.VolumeOff,
-        variant = ToggleButtonVariants.Small,
-        iconRtlMode = IconRtlMode.Mirrored
+        iconRtlMode = IconRtlMode.Mirrored,
+        smallSize = true
     )
 }
 
@@ -125,7 +125,7 @@ fun ToggleButtonSmallPreviewIcon3() {
     ToggleButton(onCheckedChange = {},
         checked = false,
         icon = Icons.Filled.VolumeUp,
-        variant = ToggleButtonVariants.Small
+        smallSize = true,
     )
 }
 
@@ -139,23 +139,9 @@ fun ToggleButtonIconOnlyPreviewOutlinedChecked() {
         checked = true,
         onCheckedChange = {},
         icon = Icons.Outlined.FavoriteBorder,
-        variant = ToggleButtonVariants.IconOnly
+        iconOnly = true,
     )
 }
-
-//@Preview(
-//    backgroundColor = 0xff000000,
-//    showBackground = true
-//)
-//@Composable
-//fun ToggleButtonIconOnlyPreviewOutlinedUnchecked() {
-//    ToggleButton(
-//        checked = false,
-//        onCheckedChange = {},
-//        icon = Icons.Outlined.FavoriteBorder,
-//        variant = ToggleButtonVariants.IconOnly
-//    )
-//}
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -167,23 +153,9 @@ fun ToggleButtonIconOnlyPreviewFilledChecked() {
         checked = true,
         onCheckedChange = {},
         icon = Icons.Filled.Favorite,
-        variant = ToggleButtonVariants.IconOnly
+        iconOnly = true,
     )
 }
-
-//@Preview(
-//    backgroundColor = 0xff000000,
-//    showBackground = true
-//)
-//@Composable
-//fun ToggleButtonIconOnlyPreviewFilledUnchecked() {
-//    ToggleButton(
-//        checked = false,
-//        onCheckedChange = {},
-//        icon = Icons.Filled.Favorite,
-//        variant = ToggleButtonVariants.IconOnly
-//    )
-//}
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -195,6 +167,5 @@ fun ToggleButtonInvalidTextUsingIconSize() {
         checked = true,
         onCheckedChange = {},
         text = "te",
-        variant = ToggleButtonVariants.IconOnly
     )
 }

@@ -148,9 +148,37 @@ fun ToggleButtonIconOnlyPreviewOutlinedChecked() {
     showBackground = true
 )
 @Composable
+fun ToggleButtonIconOnlyPreviewOutlinedUnchecked() {
+    ToggleButton(
+        checked = false,
+        onCheckedChange = {},
+        icon = Icons.Outlined.FavoriteBorder,
+        iconOnly = true,
+    )
+}
+
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
 fun ToggleButtonIconOnlyPreviewFilledChecked() {
     ToggleButton(
         checked = true,
+        onCheckedChange = {},
+        icon = Icons.Filled.Favorite,
+        iconOnly = true,
+    )
+}
+
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun ToggleButtonIconOnlyPreviewFilledUnchecked() {
+    ToggleButton(
+        checked = false,
         onCheckedChange = {},
         icon = Icons.Filled.Favorite,
         iconOnly = true,

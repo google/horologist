@@ -99,7 +99,9 @@ public fun ToggleChip(
                 ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
             },
             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-            rtlMode = IconRtlMode.Mirrored
+            // This potentially be removed once this issue is addressed:
+            // https://issuetracker.google.com/issues/287087138
+            rtlMode = if (toggleControl == ToggleChipToggleControl.Switch) IconRtlMode.Mirrored else IconRtlMode.Default
         )
     }
 

@@ -15,7 +15,6 @@
  */
 package com.google.android.horologist.compose.material
 
-//import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.remember
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.Interaction

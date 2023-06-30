@@ -26,7 +26,7 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -104,6 +104,14 @@ dependencies {
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("network-awareness-okhttp")
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

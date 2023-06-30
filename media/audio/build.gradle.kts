@@ -25,7 +25,7 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 25
@@ -110,6 +110,14 @@ dependencies {
     testImplementation(libs.espresso.core)
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("media-audio")
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

@@ -25,7 +25,7 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -130,6 +130,14 @@ dependencies {
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.espresso.core)
     testImplementation(libs.truth)
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("media-audio-ui")
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

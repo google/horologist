@@ -26,7 +26,7 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -116,6 +116,14 @@ dependencyAnalysis {
         onAny {
             severity("fail")
             exclude("com.google.guava:guava") // bug: reported as used, then unused
+        }
+    }
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("auth-data-watch-oauth")
         }
     }
 }

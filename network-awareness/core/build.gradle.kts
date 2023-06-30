@@ -26,7 +26,7 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -103,6 +103,14 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.ktx)
     androidTestImplementation(libs.truth)
     androidTestImplementation(libs.kotlinx.coroutines.test)
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("network-awareness-core")
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

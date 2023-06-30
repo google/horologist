@@ -26,7 +26,7 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -111,6 +111,14 @@ dependencyAnalysis {
     issues {
         onAny {
             severity("fail")
+        }
+    }
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("auth-data")
         }
     }
 }

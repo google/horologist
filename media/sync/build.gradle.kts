@@ -25,7 +25,7 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -101,4 +101,12 @@ dependencies {
 
     kaptAndroidTest(libs.dagger.hiltandroidcompiler)
     kaptAndroidTest(libs.hilt.ext.compiler)
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("media-sync")
+        }
+    }
 }

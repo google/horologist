@@ -25,7 +25,7 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -116,6 +116,14 @@ dependencies {
         project.findProject(":media-test-utils-robolectric")
             ?: libs.androidx.media3.testutils.robolectric
     )
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("media-media3-outputswitcher")
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

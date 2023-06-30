@@ -20,6 +20,7 @@ import android.content.Context
 import android.view.accessibility.AccessibilityManager
 import androidx.annotation.PluralsRes
 import androidx.annotation.VisibleForTesting
+import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,6 +38,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -47,6 +49,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
@@ -105,6 +108,8 @@ public fun TimePicker(
     time: LocalTime = LocalTime.now(),
     showSeconds: Boolean = true
 ) {
+    val fullyDrawn = remember { Animatable(0f) }
+
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
         display3 = MaterialTheme.typography.display3.copy(
@@ -178,7 +183,7 @@ public fun TimePicker(
                 }
             }
 
-        Box(modifier = modifier.fillMaxSize()) {
+        Box(modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)) {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -292,6 +297,10 @@ public fun TimePicker(
             }
         }
     }
+
+    LaunchedEffect(Unit) {
+        fullyDrawn.animateTo(1f)
+    }
 }
 
 /**
@@ -312,6 +321,8 @@ public fun TimePickerWith12HourClock(
     modifier: Modifier = Modifier,
     time: LocalTime = LocalTime.now()
 ) {
+    val fullyDrawn = remember { Animatable(0f) }
+
     // Omit scaling according to Settings > Display > Font size for this screen,
     val typography = MaterialTheme.typography.copy(
         display1 = MaterialTheme.typography.display1.copy(
@@ -382,7 +393,7 @@ public fun TimePickerWith12HourClock(
             }
         }
         Box(
-            modifier = modifier.fillMaxSize()
+            modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)
         ) {
             Column(
                 modifier = modifier.fillMaxSize(),
@@ -505,6 +516,10 @@ public fun TimePickerWith12HourClock(
                 Spacer(Modifier.height(8.dp))
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        fullyDrawn.animateTo(1f)
     }
 }
 

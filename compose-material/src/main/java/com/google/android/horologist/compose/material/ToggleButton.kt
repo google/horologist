@@ -84,6 +84,7 @@ import androidx.wear.compose.material.contentColorFor
  */
 @Composable
 public fun ToggleButton(
+        text: String,
         modifier: Modifier = Modifier,
         checked: Boolean = true,
         onCheckedChange: (Boolean) -> Unit,
@@ -92,7 +93,6 @@ public fun ToggleButton(
         interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
         shape: Shape = CircleShape,
         role: Role = ToggleButtonDefaults.DefaultRole,
-        text: String,
         smallSize: Boolean = false,
 ) {
     val background = colors.backgroundColor(enabled = enabled, checked = checked).value
@@ -133,6 +133,7 @@ public fun ToggleButton(
  */
 @Composable
 public fun ToggleButton(
+        icon: Any,
         modifier: Modifier = Modifier,
         checked: Boolean = true,
         onCheckedChange: (Boolean) -> Unit,
@@ -141,7 +142,6 @@ public fun ToggleButton(
             interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
         shape: Shape = CircleShape,
         role: Role = ToggleButtonDefaults.DefaultRole,
-        icon: Any,
         iconRtlMode: IconRtlMode = IconRtlMode.Default,
         smallSize: Boolean = false,
         iconOnly: Boolean = false,

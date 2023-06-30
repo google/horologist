@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ContentAlpha
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.ToggleButtonColors
 import androidx.wear.compose.material.contentColorFor
 
 /**
@@ -164,14 +165,18 @@ public fun ToggleButton(
             onCheckedChange = onCheckedChange,
             modifier = modifier.size(size),
             enabled = enabled,
-            colors = androidx.wear.compose.material.ToggleButtonDefaults.toggleButtonColors(),
+            colors = if (iconOnly) {
+                ToggleButtonDefaults.iconOnlyColors()
+            } else {
+                androidx.wear.compose.material.ToggleButtonDefaults.toggleButtonColors()
+            },
             interactionSource = interactionSource,
             shape = shape,
             role = role,
             content = {
                 Icon(
                     icon = icon,
-                    modifier = modifier.background(background),
+                    modifier = modifier,
                     contentDescription = null,
                     rtlMode = iconRtlMode
                 )
@@ -274,8 +279,18 @@ public object ToggleButtonDefaults {
                     uncheckedContentColor = uncheckedContentColor,
                     disabledUncheckedBackgroundColor = disabledUncheckedBackgroundColor,
                     disabledUncheckedContentColor = disabledUncheckedContentColor,
-                    noBackgroundColor = noBackgroundColor,
             )
+
+    @Composable
+    public fun iconOnlyColors(): ToggleButtonColors {
+        return toggleButtonColors(
+            checkedBackgroundColor = Color.Transparent,
+            uncheckedBackgroundColor = Color.Transparent,
+            checkedContentColor = contentColorFor(MaterialTheme.colors.surface),
+            uncheckedContentColor = contentColorFor(MaterialTheme.colors.primary),
+            disabledCheckedContentColor = contentColorFor(MaterialTheme.colors.surface).copy(alpha = ContentAlpha.disabled)
+        )
+    }
 }
 
 /** Default [ToggleButtonColors] implementation. */
@@ -289,7 +304,6 @@ private class DefaultToggleButtonColors(
         private val uncheckedContentColor: Color,
         private val disabledUncheckedBackgroundColor: Color,
         private val disabledUncheckedContentColor: Color,
-        private val noBackgroundColor: Color,
 ) : ToggleButtonColors {
     @Composable
     override fun backgroundColor(enabled: Boolean, checked: Boolean): State<Color> {
@@ -329,8 +343,6 @@ private class DefaultToggleButtonColors(
         if (uncheckedContentColor != other.uncheckedContentColor) return false
         if (disabledUncheckedBackgroundColor != other.disabledUncheckedBackgroundColor) return false
         if (disabledUncheckedContentColor != other.disabledUncheckedContentColor) return false
-        if (noBackgroundColor != other.noBackgroundColor) return false
-
         return true
     }
 
@@ -343,7 +355,6 @@ private class DefaultToggleButtonColors(
         result = 31 * result + uncheckedContentColor.hashCode()
         result = 31 * result + disabledUncheckedBackgroundColor.hashCode()
         result = 31 * result + disabledUncheckedContentColor.hashCode()
-        result = 31 * result + noBackgroundColor.hashCode()
         return result
     }
 }

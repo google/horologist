@@ -80,9 +80,11 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
         }
 
         is Section.State.Loaded -> {
-            val list = section.state.list
-            scope.items(list.size) { index ->
-                section.loadedContent(SectionContentScope, list[index])
+            section.loadedContent?.let { content ->
+                val list = section.state.list
+                scope.items(list.size) { index ->
+                    content(SectionContentScope, list[index])
+                }
             }
         }
 
@@ -115,7 +117,7 @@ public data class Section<T> constructor(
     val headerContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val loadingContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val loadingContentCount: Int = DEFAULT_LOADING_CONTENT_COUNT,
-    val loadedContent: @Composable SectionContentScope.(T) -> Unit,
+    val loadedContent: (@Composable SectionContentScope.(T) -> Unit)? = null,
     val failedContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val emptyContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val footerContent: (@Composable SectionContentScope.() -> Unit)? = null,
@@ -212,25 +214,25 @@ public class SectionedListScope {
 @SectionScopeMarker
 public class SectionScope<T> {
 
-    internal var headerContent: @Composable SectionContentScope.() -> Unit = { }
+    internal var headerContent: (@Composable SectionContentScope.() -> Unit)? = null
         private set
 
-    internal var loadingContent: @Composable SectionContentScope.() -> Unit = { }
+    internal var loadingContent: (@Composable SectionContentScope.() -> Unit)? = null
         private set
 
     internal var loadingContentCount: Int = DEFAULT_LOADING_CONTENT_COUNT
         private set
 
-    internal var loadedContent: @Composable SectionContentScope.(T) -> Unit = { }
+    internal var loadedContent: (@Composable SectionContentScope.(T) -> Unit)? = null
         private set
 
-    internal var failedContent: @Composable SectionContentScope.() -> Unit = { }
+    internal var failedContent: (@Composable SectionContentScope.() -> Unit)? = null
         private set
 
-    internal var emptyContent: @Composable SectionContentScope.() -> Unit = { }
+    internal var emptyContent: (@Composable SectionContentScope.() -> Unit)? = null
         private set
 
-    internal var footerContent: @Composable SectionContentScope.() -> Unit = { }
+    internal var footerContent: (@Composable SectionContentScope.() -> Unit)? = null
         private set
 
     @SectionScopeMarker

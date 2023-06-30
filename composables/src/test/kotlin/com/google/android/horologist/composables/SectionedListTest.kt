@@ -145,6 +145,37 @@ class SectionedListTest : ScreenshotBaseTest(
         }
     }
 
+    @Test
+    fun emptyContentForStates() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            val columnState = positionedState()
+
+            SectionedListPreview(columnState) {
+                SectionedList(columnState = columnState) {
+                    section {
+                        header { Text("Section 1") }
+                        loaded { Text("Item 1") }
+                    }
+
+                    section {
+                        header { Text("Section 2") }
+                        loaded { Text("Item 1") }
+                    }
+
+                    section {
+                        header { Text("Section 3") }
+                        loaded { Text("Item 1") }
+                    }
+
+                    section {
+                        header { Text("Section 4") }
+                        loaded { Text("Item 1") }
+                    }
+                }
+            }
+        }
+    }
+
     @Composable
     private fun SectionedListPreview(
         columnState: ScalingLazyColumnState,

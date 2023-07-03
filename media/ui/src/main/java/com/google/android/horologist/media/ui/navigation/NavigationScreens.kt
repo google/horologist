@@ -73,7 +73,13 @@ public open class NavigationScreens(
         public fun destination(
             id: String,
             collectionId: String? = null
-        ): String = "mediaItem?id=$id" + (if (collectionId != null) "&collectionId=$collectionId" else null)
+        ): String {
+            var route = "mediaItem?id=$id"
+            if (collectionId != null) {
+                route += "&collectionId=$collectionId"
+            }
+            return route
+        }
 
         override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {

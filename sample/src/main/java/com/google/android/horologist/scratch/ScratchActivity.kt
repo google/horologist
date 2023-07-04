@@ -20,15 +20,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -38,8 +41,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
+import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.foundation.lazy.itemsIndexed
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
@@ -59,165 +65,49 @@ class ScratchActivity : ComponentActivity() {
     }
 }
 
-data class Offsets(
-    val index: Int = 0,
-    val offset: Int = 0
-)
-
 @Composable
 fun WearApp() {
-    var settings by rememberSaveable(stateSaver = Settings.Saver) {
-        mutableStateOf(Settings())
-    }
-
-    key(settings) {
-        val initialOffset = settings.initialOffset
-        val itemHeight = settings.itemHeight
-        val autoCentering = settings.autoCentering
-        val anchorType = settings.anchorType
-
-        val columnState = rememberColumnState(
-            ScalingLazyColumnDefaults.scalingLazyColumnDefaults(
-                initialCenterIndex = initialOffset.index,
-                initialCenterOffset = initialOffset.offset,
-                autoCentering = autoCentering,
-                anchorType = anchorType
+    val columnState = ScalingLazyColumnDefaults.belowTimeText().create()
+    val scalingLazyListState = columnState.state
+    val text by remember { derivedStateOf { explainPositionIndicator(scalingLazyListState) } }
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        timeText = {
+            TimeText(
+                startCurvedContent = {
+                    curvedText(text)
+                }
             )
-        )
-
-        Scaffold(
+        },
+        positionIndicator = { PositionIndicator(scalingLazyListState) }
+    ) {
+        ScalingLazyColumn(
             modifier = Modifier.fillMaxSize(),
-            timeText = {
-                TimeText(
-                    modifier = Modifier
-                        .scrollAway(
-                            columnState.state,
-                            columnState.initialScrollPosition.index,
-                            columnState.initialScrollPosition.offsetPx.dp
-                        ),
-                    startCurvedContent = {
-                        curvedText("${columnState.state.centerItemIndex}/${columnState.state.centerItemScrollOffset}")
-                    }
-                )
-            }
+            columnState = columnState
         ) {
-            ScalingLazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                columnState = columnState
-            ) {
-                item {
-                    val text = "Initial Offset: ${initialOffset.index} / ${initialOffset.offset}"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        settings = settings.copy(
-                            initialOffsetsMode = (settings.initialOffsetsMode + 1) % Settings.initialOffsets.size
-                        )
-                    })
-                }
-                item {
-                    val text =
-                        "Auto Centering: ${Settings.autoCenterings[settings.autoCenteringMode].first}"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        settings = settings.copy(
-                            autoCenteringMode = (settings.autoCenteringMode + 1) % Settings.autoCenterings.size
-                        )
-                    })
-                }
-                item {
-                    val text = "Anchor Type: ${Settings.anchorTypes[settings.anchorTypeMode].first}"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        settings = settings.copy(
-                            anchorTypeMode = (settings.anchorTypeMode + 1) % Settings.anchorTypes.size
-                        )
-                    })
-                }
-                item {
-                    val text = "Item Height: ${settings.itemHeight}"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        settings = settings.copy(
-                            itemHeightMode = (settings.itemHeightMode + 1) % Settings.itemHeights.size
-                        )
-                    })
-                }
-            }
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                drawLine(
-                    Color.Red,
-                    Offset(0f, size.height / 2f),
-                    Offset(size.width, size.height / 2f)
+            val items = listOf(10, 10, 10, 10, 100, 10, 10, 10, 10, 100, 10, 10, 10, 10)
+
+            itemsIndexed(items) { index, height ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(height.dp)
+                        .background(if (index % 2 == 0) Color.DarkGray else Color.Black)
                 )
             }
         }
     }
 }
 
-data class Settings(
-    val initialOffsetsMode: Int = 0,
-    val autoCenteringMode: Int = 1,
-    val itemHeightMode: Int = 0,
-    val anchorTypeMode: Int = 0
-) {
-    val initialOffset: Offsets = initialOffsets[initialOffsetsMode]
-    val itemHeight: Int = itemHeights[itemHeightMode]
-    val autoCentering: AutoCenteringParams? = autoCenterings[autoCenteringMode].second
-    val anchorType: ScalingLazyListAnchorType = anchorTypes[anchorTypeMode].second
-
-    companion object {
-        val initialOffsets = listOf(
-            Offsets(0, 0),
-            Offsets(1, 0),
-            Offsets(1, -20),
-            Offsets(1, 20),
-            Offsets(2, 0)
-        )
-
-        val autoCenterings = listOf(
-            Pair("null", null),
-            Pair("0/0", AutoCenteringParams(0, 0)),
-            Pair("1/0", AutoCenteringParams(1, 0)),
-            Pair("2/0", AutoCenteringParams(2, 0)),
-            Pair("3/0", AutoCenteringParams(3, 0))
-        )
-
-        val itemHeights = listOf(40, 80, 120)
-
-        val anchorTypes = listOf(
-            Pair("Center", ScalingLazyListAnchorType.ItemCenter),
-            Pair("Start", ScalingLazyListAnchorType.ItemStart)
-        )
-
-        val Saver = Saver<Settings, List<Int>>(
-            save = {
-                listOf(
-                    it.initialOffsetsMode,
-                    it.autoCenteringMode,
-                    it.itemHeightMode,
-                    it.anchorTypeMode
-                )
-            },
-            restore = {
-                Settings(it[0], it[1], it[2], it[3])
-            }
-        )
+fun explainPositionIndicator(state: ScalingLazyListState): String {
+    if (state.layoutInfo.visibleItemsInfo.isEmpty()) {
+        return ""
     }
-}
 
-@Composable
-fun FixedHeightChip(text: String, itemHeight: Int, onClick: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .height(itemHeight.dp)
-            .fillMaxWidth()
-            .border(1.dp, Color.DarkGray)
-    ) {
-        Chip(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = onClick,
-            label = {
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.caption3
-                )
-            }
-        )
-    }
+    val firstItem = state.layoutInfo.visibleItemsInfo.first().index.toFloat()
+    val lastItem = state.layoutInfo.visibleItemsInfo.last().index.toFloat()
+    val total = state.layoutInfo.totalItemsCount.toFloat()
+
+    val result = (lastItem - firstItem) / total
+    return result.toString()
 }

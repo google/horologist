@@ -114,4 +114,12 @@ dependencies {
     androidTestImplementation(libs.kotlinx.coroutines.test)
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("network-awareness-core")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

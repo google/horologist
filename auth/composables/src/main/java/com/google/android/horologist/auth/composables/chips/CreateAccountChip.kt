@@ -18,10 +18,11 @@ package com.google.android.horologist.auth.composables.chips
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.SendToMobile
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
@@ -57,7 +58,7 @@ public fun CreateAccountChip(
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.horologist_send_to_mobile),
+                        imageVector = Icons.Outlined.SendToMobile,
                         contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                         modifier = Modifier.size(ChipDefaults.IconSize)
                     )
@@ -72,7 +73,7 @@ public fun CreateAccountChip(
             label = label,
             onClick = onClick,
             modifier = modifier,
-            icon = R.drawable.horologist_send_to_mobile,
+            icon = Icons.Outlined.SendToMobile,
             colors = colors,
             enabled = enabled
         )

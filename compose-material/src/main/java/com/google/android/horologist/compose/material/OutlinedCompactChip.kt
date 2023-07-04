@@ -37,7 +37,6 @@ import androidx.wear.compose.material.ChipBorder
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.LocalContentAlpha
-import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.OutlinedCompactChip
 import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
@@ -53,9 +52,9 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
 @ExperimentalHorologistApi
 @Composable
 public fun OutlinedCompactChip(
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     label: String? = null,
-    onClick: () -> Unit,
     icon: Any? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     placeholder: Painter? = null,
@@ -109,11 +108,9 @@ public fun OutlinedCompactChip(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = label,
-                    color = MaterialTheme.colors.primary,
                     textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.caption1
+                    maxLines = 1
                 )
             }
         }
@@ -139,21 +136,27 @@ public fun OutlinedCompactChip(
 @ExperimentalHorologistApi
 @Composable
 public fun OutlinedCompactChip(
-    modifier: Modifier = Modifier,
     @StringRes labelId: Int,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     icon: Any? = null,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    border: ChipBorder = ChipDefaults.outlinedChipBorder()
 ) {
     OutlinedCompactChip(
+        onClick = onClick,
         modifier = modifier,
         label = stringResource(id = labelId),
-        onClick = onClick,
         icon = icon,
+        iconRtlMode = iconRtlMode,
         placeholder = placeholder,
         colors = colors,
-        enabled = enabled
+        enabled = enabled,
+        interactionSource = interactionSource,
+        border = border
     )
 }

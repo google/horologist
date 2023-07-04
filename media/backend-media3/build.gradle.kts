@@ -125,4 +125,12 @@ dependencies {
     )
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("media-backend-media3")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

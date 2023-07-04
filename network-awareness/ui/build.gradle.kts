@@ -124,4 +124,12 @@ dependencies {
     androidTestImplementation(libs.truth)
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("network-awareness-ui")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

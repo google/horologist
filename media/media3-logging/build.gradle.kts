@@ -117,4 +117,12 @@ dependencies {
     )
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("media-media3-logging")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

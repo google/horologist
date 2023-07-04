@@ -301,13 +301,6 @@ package com.google.android.horologist.compose.rotaryinput {
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class DefaultRotaryHapticFeedback implements com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback {
     ctor public DefaultRotaryHapticFeedback(android.view.View view);
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public void performHapticFeedback(int type);
-    field public static final com.google.android.horologist.compose.rotaryinput.DefaultRotaryHapticFeedback.Companion Companion;
-    field public static final int ROTARY_SCROLL_ITEM_FOCUS = 19; // 0x13
-    field public static final int ROTARY_SCROLL_LIMIT = 20; // 0x14
-    field public static final int ROTARY_SCROLL_TICK = 18; // 0x12
-  }
-
-  public static final class DefaultRotaryHapticFeedback.Companion {
   }
 
   public final class DefaultRotaryHapticHandler implements com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler {

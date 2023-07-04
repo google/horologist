@@ -54,6 +54,7 @@ import androidx.wear.compose.material.scrollAway
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.rememberColumnState
+import java.text.DecimalFormat
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,6 +100,8 @@ fun WearApp() {
     }
 }
 
+val format = DecimalFormat.getPercentInstance()
+
 fun explainPositionIndicator(state: ScalingLazyListState): String {
     if (state.layoutInfo.visibleItemsInfo.isEmpty()) {
         return ""
@@ -109,5 +112,5 @@ fun explainPositionIndicator(state: ScalingLazyListState): String {
     val total = state.layoutInfo.totalItemsCount.toFloat()
 
     val result = (lastItem - firstItem) / total
-    return result.toString()
+    return format.format(result)
 }

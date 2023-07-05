@@ -79,8 +79,8 @@ public fun ChipIconWithProgress(
  * This implementation displays an icon with a circular progress indicator around it.
  * The progress indicator express the proportion of completion of an ongoing task.
  *
- * @param progress The progress of this progress indicator where 0.0 represents no progress and 1.0
- * represents completion. Values outside of this range are coerced into the range 0..1.
+ * @param progress The progress of this progress indicator as a percentage where 0.0 represents no progress and 100.0
+ * represents completion. Values outside of this range are coerced into the range 0..100F.
  * @param modifier [Modifier] to apply to this layout node.
  * @param icon Image or icon to be displayed in the center of this view.
  * @param largeIcon True if it should display the icon with in a large size.

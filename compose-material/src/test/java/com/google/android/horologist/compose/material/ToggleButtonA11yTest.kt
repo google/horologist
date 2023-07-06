@@ -83,7 +83,7 @@ class ToggleButtonA11yTest :
                 ToggleButton(
                         onCheckedChange = {},
                         icon = Icons.Filled.AirplanemodeActive,
-                        variant = ToggleButtonVariants.Small
+                        smallSize = true
                 )
             }
         }
@@ -96,7 +96,7 @@ class ToggleButtonA11yTest :
                 ToggleButton(
                         onCheckedChange = {},
                         icon = Icons.Outlined.FavoriteBorder,
-                        variant = ToggleButtonVariants.IconOnly
+                        iconOnly = true
                 )
             }
         }

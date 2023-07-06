@@ -158,15 +158,3 @@ fun ToggleButtonIconOnlyPreviewFilledUnchecked() {
         iconOnly = true
     )
 }
-
-@Preview(
-    backgroundColor = 0xff000000, showBackground = true
-)
-@Composable
-fun ToggleButtonInvalidTextUsingIconSize() {
-    ToggleButton(
-        checked = true,
-        onCheckedChange = {},
-        text = "te"
-    )
-}

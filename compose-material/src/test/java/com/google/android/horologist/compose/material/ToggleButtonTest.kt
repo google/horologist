@@ -41,9 +41,9 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testDefaultWithIcon2() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                    checked = false,
-                    onCheckedChange = {},
-                    icon = Icons.Filled.AirplanemodeInactive
+                checked = false,
+                onCheckedChange = {},
+                icon = Icons.Filled.AirplanemodeInactive
             )
         }
     }
@@ -52,9 +52,9 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testDefaultWithIcon3() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                    checked = true,
-                    onCheckedChange = {},
-                    icon = Icons.Filled.AirplanemodeActive
+                checked = true,
+                onCheckedChange = {},
+                icon = Icons.Filled.AirplanemodeActive
             )
         }
     }
@@ -79,9 +79,9 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testSmallWithIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                    variant = ToggleButtonVariants.Small,
-                    onCheckedChange = {},
-                    icon = Icons.Filled.VolumeOff
+                onCheckedChange = {},
+                icon = Icons.Filled.VolumeOff,
+                smallSize = true
             )
         }
     }
@@ -90,10 +90,10 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testSmallWithIcon2() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                    variant = ToggleButtonVariants.Small,
-                    checked = false,
-                    onCheckedChange = {},
-                    icon = Icons.Filled.VolumeUp
+                checked = false,
+                onCheckedChange = {},
+                icon = Icons.Filled.VolumeUp,
+                smallSize = true
             )
         }
     }
@@ -102,9 +102,9 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testIconOnly1() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                    variant = ToggleButtonVariants.IconOnly,
-                    onCheckedChange = {},
-                    icon = Icons.Filled.Favorite
+                onCheckedChange = {},
+                icon = Icons.Filled.Favorite,
+                smallSize = true
             )
         }
     }
@@ -113,22 +113,10 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun testIconOnly2() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                    variant = ToggleButtonVariants.IconOnly,
-                    checked = false,
-                    onCheckedChange = {},
-                    icon = Icons.Outlined.FavoriteBorder
-            )
-        }
-    }
-
-    @Test
-    fun testInvalidIcon() { // this should fail
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            ToggleButton(
-                    checked = true,
-                    onCheckedChange = {},
-                    text = "Arbitrary text",
-                    variant = ToggleButtonVariants.IconOnly,
+                checked = false,
+                onCheckedChange = {},
+                icon = Icons.Outlined.FavoriteBorder,
+                iconOnly = true
             )
         }
     }
@@ -138,13 +126,14 @@ class ToggleButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 ToggleButton(
-                        checked = true,
-                        onCheckedChange = {},
-                        icon = Icons.Filled.AirplanemodeActive
+                    checked = true,
+                    onCheckedChange = {},
+                    icon = Icons.Filled.AirplanemodeActive
                 )
             }
         }
     }
+
     companion object {
         private const val largestFontScale = 1.18f
     }

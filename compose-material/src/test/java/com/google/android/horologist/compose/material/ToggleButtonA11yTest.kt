@@ -29,18 +29,18 @@ import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
 class ToggleButtonA11yTest :
-        ScreenshotBaseTest(
-                ScreenshotTestRule.screenshotTestRuleParams {
-                    enableA11y = true
-                    screenTimeText = {}
-                }
-        ) {
+    ScreenshotBaseTest(
+        ScreenshotTestRule.screenshotTestRuleParams {
+            enableA11y = true
+            screenTimeText = {}
+        }
+    ) {
 
     @Test
     fun defaultWithIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                ToggleButton(onCheckedChange = {}, icon = Icons.Filled.AirplanemodeActive)
+                ToggleButton(icon = Icons.Filled.AirplanemodeActive, onCheckedChange = {})
             }
         }
     }
@@ -50,9 +50,9 @@ class ToggleButtonA11yTest :
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
-                        checked = false,
-                        onCheckedChange = {},
-                        icon = Icons.Filled.AirplanemodeInactive
+                    icon = Icons.Filled.AirplanemodeInactive,
+                    checked = false,
+                    onCheckedChange = {}
                 )
             }
         }
@@ -81,9 +81,9 @@ class ToggleButtonA11yTest :
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
-                        onCheckedChange = {},
-                        icon = Icons.Filled.AirplanemodeActive,
-                        smallSize = true
+                    icon = Icons.Filled.AirplanemodeActive,
+                    onCheckedChange = {},
+                    smallSize = true
                 )
             }
         }
@@ -94,9 +94,9 @@ class ToggleButtonA11yTest :
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
-                        onCheckedChange = {},
-                        icon = Icons.Outlined.FavoriteBorder,
-                        iconOnly = true
+                    icon = Icons.Outlined.FavoriteBorder,
+                    onCheckedChange = {},
+                    iconOnly = true
                 )
             }
         }

@@ -16,7 +16,6 @@
 package com.google.android.horologist.compose.material
 
 import androidx.compose.runtime.remember
-import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.size
@@ -24,7 +23,6 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
@@ -95,7 +93,6 @@ public fun ToggleButton(
         role: Role = ToggleButtonDefaults.DefaultRole,
         smallSize: Boolean = false,
 ) {
-    val background = colors.backgroundColor(enabled = enabled, checked = checked).value
     androidx.wear.compose.material.ToggleButton(
             checked = checked,
             onCheckedChange = onCheckedChange,
@@ -108,10 +105,6 @@ public fun ToggleButton(
                         ToggleButtonDefaults.DefaultToggleButtonSize
                     }
                 )
-                .background(
-                    color = background,
-                    shape = shape
-                )
                 .toggleable(
                     value = checked,
                     onValueChange = onCheckedChange,
@@ -120,9 +113,10 @@ public fun ToggleButton(
                 ),
             shape = shape,
             role = role,
+            interactionSource = interactionSource,
             content = {
-                Text(text=text.take(3))
-            },
+                    Text(text=text.take(3))
+                },
     )
 }
 
@@ -133,18 +127,17 @@ public fun ToggleButton(
  */
 @Composable
 public fun ToggleButton(
-        icon: Any,
-        modifier: Modifier = Modifier,
-        checked: Boolean = true,
-        onCheckedChange: (Boolean) -> Unit,
-        enabled: Boolean = true,
-        colors: ToggleButtonColors = ToggleButtonDefaults.toggleButtonColors(),
-            interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-        shape: Shape = CircleShape,
-        role: Role = ToggleButtonDefaults.DefaultRole,
-        iconRtlMode: IconRtlMode = IconRtlMode.Default,
-        smallSize: Boolean = false,
-        iconOnly: Boolean = false,
+    icon: Any,
+    modifier: Modifier = Modifier,
+    checked: Boolean = true,
+    onCheckedChange: (Boolean) -> Unit,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    shape: Shape = CircleShape,
+    role: Role = ToggleButtonDefaults.DefaultRole,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
+    smallSize: Boolean = false,
+    iconOnly: Boolean = false,
 ) {
     val size = if (iconOnly) {
         ToggleButtonDefaults.SmallIconSize
@@ -161,11 +154,11 @@ public fun ToggleButton(
             onCheckedChange = onCheckedChange,
             modifier = modifier.size(size),
             enabled = enabled,
-            colors = if (iconOnly) {
-                ToggleButtonDefaults.iconOnlyColors()
-            } else {
-                androidx.wear.compose.material.ToggleButtonDefaults.toggleButtonColors()
-            },
+             colors = if (iconOnly) {
+                 ToggleButtonDefaults.iconOnlyColors()
+             } else {
+                 androidx.wear.compose.material.ToggleButtonDefaults.toggleButtonColors()
+             },
             interactionSource = interactionSource,
             shape = shape,
             role = role,
@@ -178,31 +171,6 @@ public fun ToggleButton(
                 )
             },
     )
-}
-
-/**
- * Represents the background and content colors used in a toggle button in different states.
- *
- * See [ToggleButtonDefaults.toggleButtonColors] for the default colors used, which are
- * primary-styled for a checked toggle button and surface-styled for unchecked.
- */
-@Stable
-public interface ToggleButtonColors {
-    /**
-     * Represents the background color for this toggle button, depending on [enabled] and [checked].
-     *
-     * @param enabled whether the toggle button is enabled
-     * @param checked whether the toggle button is checked
-     */
-    @Composable public fun backgroundColor(enabled: Boolean, checked: Boolean): State<Color>
-
-    /**
-     * Represents the content color for this toggle button, depending on [enabled] and [checked].
-     *
-     * @param enabled whether the toggle button is enabled
-     * @param checked whether the toggle button is checked
-     */
-    @Composable public fun contentColor(enabled: Boolean, checked: Boolean): State<Color>
 }
 
 /** Contains the default values used by [ToggleButton]. */
@@ -229,17 +197,17 @@ public object ToggleButtonDefaults {
     public val DefaultRole = Role.Checkbox
 
     /**
-     * Creates a [ToggleButtonColors] that represents the background and content colors used in a
-     * [ToggleButton]. Defaults to primary-styled checked colors and surface-styled unchecked
-     * colors.
+     * Creates a [ToggleButtonColors] that represents the background and content colors
+     * used in a [ToggleButton]. Defaults to primary-styled checked colors
+     * and surface-styled unchecked colors.
      *
      * @param checkedBackgroundColor the background color of this [ToggleButton] when enabled and
      * checked
      * @param checkedContentColor the content color of this [ToggleButton] when enabled and checked
      * @param disabledCheckedBackgroundColor the background color of this [ToggleButton] when
      * checked and not enabled
-     * @param disabledCheckedContentColor the content color of this [ToggleButton] when checked and
-     * not enabled
+     * @param disabledCheckedContentColor the content color of this [ToggleButton] when checked
+     * and not enabled
      * @param uncheckedBackgroundColor the background color of this [ToggleButton] when enabled and
      * unchecked
      * @param uncheckedContentColor the content color of this [ToggleButton] when enabled and
@@ -248,45 +216,52 @@ public object ToggleButtonDefaults {
      * unchecked and not enabled
      * @param disabledUncheckedContentColor the content color of this [ToggleButton] when unchecked
      * and not enabled
-     * @param noBackgroundColor the background color of this [ToggleButton] when enabled and
-     * unchecked and no background color is specified
      */
     @Composable
     public fun toggleButtonColors(
-            checkedBackgroundColor: Color = MaterialTheme.colors.primary,
-            checkedContentColor: Color = contentColorFor(checkedBackgroundColor),
-            disabledCheckedBackgroundColor: Color =
-                    checkedBackgroundColor.copy(alpha = ContentAlpha.disabled),
-            disabledCheckedContentColor: Color = MaterialTheme.colors.background,
-            uncheckedBackgroundColor: Color = MaterialTheme.colors.surface,
-            uncheckedContentColor: Color = contentColorFor(uncheckedBackgroundColor),
-            disabledUncheckedBackgroundColor: Color =
-                    uncheckedBackgroundColor.copy(alpha = ContentAlpha.disabled),
-            disabledUncheckedContentColor: Color =
-                    uncheckedContentColor.copy(alpha = ContentAlpha.disabled),
-            noBackgroundColor: Color = Color.Transparent,
-    ): ToggleButtonColors =
-            DefaultToggleButtonColors(
-                    checkedBackgroundColor = checkedBackgroundColor,
-                    checkedContentColor = checkedContentColor,
-                    disabledCheckedBackgroundColor = disabledCheckedBackgroundColor,
-                    disabledCheckedContentColor = disabledCheckedContentColor,
-                    uncheckedBackgroundColor = uncheckedBackgroundColor,
-                    uncheckedContentColor = uncheckedContentColor,
-                    disabledUncheckedBackgroundColor = disabledUncheckedBackgroundColor,
-                    disabledUncheckedContentColor = disabledUncheckedContentColor,
-            )
+        checkedBackgroundColor: Color = MaterialTheme.colors.primary,
+        checkedContentColor: Color = contentColorFor(checkedBackgroundColor),
+        disabledCheckedBackgroundColor: Color =
+            checkedBackgroundColor.copy(alpha = ContentAlpha.disabled),
+        disabledCheckedContentColor: Color = MaterialTheme.colors.background,
+        uncheckedBackgroundColor: Color = MaterialTheme.colors.surface,
+        uncheckedContentColor: Color = contentColorFor(uncheckedBackgroundColor),
+        disabledUncheckedBackgroundColor: Color =
+            uncheckedBackgroundColor.copy(alpha = ContentAlpha.disabled),
+        disabledUncheckedContentColor: Color =
+            uncheckedContentColor.copy(alpha = ContentAlpha.disabled),
+    ): ToggleButtonColors = DefaultToggleButtonColors(
+        checkedBackgroundColor = checkedBackgroundColor,
+        checkedContentColor = checkedContentColor,
+        disabledCheckedBackgroundColor = disabledCheckedBackgroundColor,
+        disabledCheckedContentColor = disabledCheckedContentColor,
+        uncheckedBackgroundColor = uncheckedBackgroundColor,
+        uncheckedContentColor = uncheckedContentColor,
+        disabledUncheckedBackgroundColor = disabledUncheckedBackgroundColor,
+        disabledUncheckedContentColor = disabledUncheckedContentColor,
+    )
 
+    // extend toggleButtonColors to support icon only. icon only adds a transparent background
     @Composable
-    public fun iconOnlyColors(): ToggleButtonColors {
-        return toggleButtonColors(
-            checkedBackgroundColor = Color.Transparent,
-            uncheckedBackgroundColor = Color.Transparent,
-            checkedContentColor = contentColorFor(MaterialTheme.colors.surface),
-            uncheckedContentColor = contentColorFor(MaterialTheme.colors.primary),
-            disabledCheckedContentColor = contentColorFor(MaterialTheme.colors.surface).copy(alpha = ContentAlpha.disabled)
-        )
-    }
+    public fun iconOnlyColors(
+        checkedBackgroundColor: Color = Color.Transparent,
+        checkedContentColor: Color = MaterialTheme.colors.primary,
+        disabledCheckedBackgroundColor: Color = checkedBackgroundColor.copy(alpha = ContentAlpha.disabled),
+        disabledCheckedContentColor: Color = MaterialTheme.colors.background,
+        uncheckedBackgroundColor: Color = Color.Transparent,
+        uncheckedContentColor: Color = MaterialTheme.colors.surface,
+        disabledUncheckedBackgroundColor: Color = uncheckedBackgroundColor.copy(alpha = ContentAlpha.disabled),
+        disabledUncheckedContentColor: Color = uncheckedContentColor.copy(alpha = ContentAlpha.disabled),
+    ): ToggleButtonColors = DefaultToggleButtonColors(
+        checkedBackgroundColor = checkedBackgroundColor,
+        checkedContentColor = checkedContentColor,
+        disabledCheckedBackgroundColor = disabledCheckedBackgroundColor,
+        disabledCheckedContentColor = disabledCheckedContentColor,
+        uncheckedBackgroundColor = uncheckedBackgroundColor,
+        uncheckedContentColor = uncheckedContentColor,
+        disabledUncheckedBackgroundColor = disabledUncheckedBackgroundColor,
+        disabledUncheckedContentColor = disabledUncheckedContentColor,
+    )
 }
 
 /** Default [ToggleButtonColors] implementation. */

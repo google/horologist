@@ -123,9 +123,9 @@ public fun ToggleChip(
 
     val stateDescriptionSemantics = stringResource(
         if (checked) {
-            R.string.horologist_toggle_chip_on_state_description
+            R.string.horologist_toggle_chip_on_content_description
         } else {
-            R.string.horologist_toggle_chip_off_state_description
+            R.string.horologist_toggle_chip_off_content_description
         }
     )
     ToggleChip(

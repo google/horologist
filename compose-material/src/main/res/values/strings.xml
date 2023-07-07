@@ -15,10 +15,8 @@
   -->
 
 <resources>
-    <string description="State description of the ToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_toggle_chip_on_state_description">On</string>
-    <string description="State description of the ToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_toggle_chip_off_state_description">Off</string>
-    <string description="State description of the SplitToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_split_toggle_chip_on_state_description">On</string>
-    <string description="State description of the SplitToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_split_toggle_chip_off_state_description">Off</string>
-    <string description="State description of the ToggleButton. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_toggle_button_on_state_description">On</string>
-    <string description="State description of the ToggleButton. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_toggle_button_off_state_description">Off</string>
+    <string description="Content description of the ToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_toggle_chip_on_content_description">On</string>
+    <string description="Content description of the ToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_toggle_chip_off_content_description">Off</string>
+    <string description="Content description of the SplitToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_split_toggle_chip_on_content_description">On</string>
+    <string description="Content description of the SplitToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_split_toggle_chip_off_content_description">Off</string>
 </resources>

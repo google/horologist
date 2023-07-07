@@ -17,24 +17,16 @@
 package com.google.android.horologist.media3
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.media3.common.ForwardingPlayer
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.audio.AudioOutputRepository
-import com.google.android.horologist.media3.audio.AudioOutputSelector
-import com.google.android.horologist.media3.flows.isPlayingFlow
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.rules.PlaybackRules
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * Wrapper for a UI hosted Player instance to enforce Playback Rules.
@@ -44,32 +36,11 @@ import kotlinx.coroutines.withContext
 @ExperimentalHorologistApi
 public class WearConfiguredPlayer(
     player: Player,
-    private val audioOutputRepository: AudioOutputRepository,
-    private val audioOutputSelector: AudioOutputSelector,
     private val playbackRules: PlaybackRules,
     private val errorReporter: ErrorReporter,
     private val coroutineScope: CoroutineScope
 ) : ForwardingPlayer(player) {
     private var playAttempt: Job? = null
-
-    /**
-     * Start proactive noise detection, unlike ExoPlayer setHandleAudioBecomingNoisy
-     * this also handles when accidentally started in the wrong mode due to race conditions.
-     */
-    public suspend fun startNoiseDetection() {
-        combine(
-            audioOutputRepository.audioOutput,
-            wrappedPlayer.isPlayingFlow()
-        ) { audioOutput, isPlaying ->
-            Log.i("WearPlayer", "Playing status: $isPlaying $audioOutput")
-            Pair(audioOutput, isPlaying)
-        }.filter { (audioOutput, isPlaying) ->
-            isPlaying && !playbackRules.canPlayWithOutput(audioOutput = audioOutput)
-        }.collect {
-            Log.i("WearPlayer", "Pausing")
-            pause()
-        }
-    }
 
     override fun play() {
         val mediaItem = currentMediaItem ?: return
@@ -82,40 +53,13 @@ public class WearConfiguredPlayer(
     }
 
     private suspend fun attemptPlay(mediaItem: MediaItem) = coroutineScope {
-        val currentAudioOutput = audioOutputRepository.audioOutput.value
 
         if (!playbackRules.canPlayItem(mediaItem)) {
             errorReporter.showMessage(R.string.horologist_cant_play_item)
             return@coroutineScope
         }
 
-        val canPlayWithCurrentOutput = playbackRules.canPlayWithOutput(currentAudioOutput)
-
-        if (canPlayWithCurrentOutput) {
-            withContext(Dispatchers.Main) {
-                wrappedPlayer.play()
-            }
-        } else {
-            // Flush our still not playing state, relevant since a MediaController
-            // May assume play is successful if we don't error
-            withContext(Dispatchers.Main) {
-                for (it in listeners) {
-                    it.onPlayWhenReadyChanged(false, PLAY_WHEN_READY_CHANGE_REASON_AUDIO_BECOMING_NOISY)
-                    it.onIsPlayingChanged(false)
-                }
-            }
-
-            val newAudioOutput = audioOutputSelector.selectNewOutput(currentAudioOutput)
-
-            val canPlayWithNewOutput =
-                newAudioOutput != null && playbackRules.canPlayWithOutput(newAudioOutput)
-
-            if (canPlayWithNewOutput) {
-                withContext(Dispatchers.Main) {
-                    wrappedPlayer.play()
-                }
-            }
-        }
+        wrappedPlayer.play()
     }
 
     override fun pause() {

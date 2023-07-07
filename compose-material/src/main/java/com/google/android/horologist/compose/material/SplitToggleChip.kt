@@ -87,9 +87,9 @@ public fun SplitToggleChip(
     val toggleControlParam: (@Composable BoxScope.() -> Unit) = {
         val stateDescriptionSemantics = stringResource(
             if (checked) {
-                R.string.horologist_split_toggle_chip_on_content_description
+                R.string.horologist_split_toggle_chip_on_state_description
             } else {
-                R.string.horologist_split_toggle_chip_off_content_description
+                R.string.horologist_split_toggle_chip_off_state_description
             }
         )
         Icon(

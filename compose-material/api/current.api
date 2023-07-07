@@ -65,6 +65,16 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Title(String text, optional androidx.compose.ui.Modifier modifier);
   }
 
+  public final class ToggleButtonDefaults {
+    method @androidx.compose.runtime.Composable public androidx.wear.compose.material.ToggleButtonColors iconOnlyColors();
+    field public static final com.google.android.horologist.compose.material.ToggleButtonDefaults INSTANCE;
+  }
+
+  public final class ToggleButtonKt {
+    method @androidx.compose.runtime.Composable public static void ToggleButton(String text, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, optional androidx.compose.ui.Modifier modifier, optional boolean checked, optional boolean enabled, optional androidx.wear.compose.material.ToggleButtonColors colors, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.compose.ui.graphics.Shape shape, optional int role, optional boolean smallSize);
+    method @androidx.compose.runtime.Composable public static void ToggleButton(Object checkedIcon, Object notCheckedIcon, String contentDescription, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, optional androidx.compose.ui.Modifier modifier, optional boolean checked, optional boolean enabled, optional androidx.wear.compose.material.ToggleButtonColors colors, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.compose.ui.graphics.Shape shape, optional int role, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean smallSize);
+  }
+
   public final class ToggleChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, com.google.android.horologist.compose.material.ToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector? icon, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional String? secondaryLabel, optional androidx.wear.compose.material.ToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource);
   }

@@ -19,10 +19,8 @@ package com.google.android.horologist.compose.material
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.VolumeOff
 import androidx.compose.material.icons.filled.VolumeUp
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -31,92 +29,208 @@ import org.junit.Test
 class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
-    fun testDefaultWithIcon() {
+    fun default() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            ToggleButton(onCheckedChange = {}, icon = Icons.Filled.AirplanemodeActive)
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {}
+            )
         }
     }
 
     @Test
-    fun testDefaultWithIcon2() {
+    fun notChecked() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                checked = false
+            )
+        }
+    }
+
+    @Test
+    fun disabled() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                enabled = false
+            )
+        }
+    }
+
+    @Test
+    fun notCheckedDisabled() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
                 checked = false,
-                onCheckedChange = {},
-                icon = Icons.Filled.AirplanemodeInactive
+                enabled = false
             )
         }
     }
 
     @Test
-    fun testDefaultWithIcon3() {
+    fun text() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checked = true,
-                onCheckedChange = {},
-                icon = Icons.Filled.AirplanemodeActive
+                text = "Monday",
+                onCheckedChanged = {}
             )
         }
     }
 
     @Test
-    fun testDefaultWithText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            ToggleButton(onCheckedChange = {}, text = "Mon")
-        }
-    }
-
-    @Test
-    fun testDefaultWithLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            TestHarness(fontScale = largestFontScale) {
-                ToggleButton(onCheckedChange = {}, text = "Monday is the first day of the week.")
-            }
-        }
-    }
-
-    @Test
-    fun testSmallWithIcon() {
+    fun textNotChecked() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                onCheckedChange = {},
-                icon = Icons.Filled.VolumeOff,
+                text = "Monday",
+                onCheckedChanged = {},
+                checked = false
+            )
+        }
+    }
+
+    @Test
+    fun textDisabled() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleButton(
+                text = "Monday",
+                onCheckedChanged = {},
+                enabled = false
+            )
+        }
+    }
+
+    @Test
+    fun textNotCheckedDisabled() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleButton(
+                text = "Monday",
+                onCheckedChanged = {},
+                checked = false,
+                enabled = false
+            )
+        }
+    }
+
+    @Test
+    fun small() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
                 smallSize = true
             )
         }
     }
 
     @Test
-    fun testSmallWithIcon2() {
+    fun smallNotChecked() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
                 checked = false,
-                onCheckedChange = {},
-                icon = Icons.Filled.VolumeUp,
                 smallSize = true
             )
         }
     }
 
     @Test
-    fun testIconOnly1() {
+    fun smallDisabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                onCheckedChange = {},
-                icon = Icons.Filled.Favorite,
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                enabled = false,
                 smallSize = true
             )
         }
     }
 
-    @Test
-    fun testIconOnly2() {
+    fun smallNotCheckedDisabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
                 checked = false,
-                onCheckedChange = {},
-                icon = Icons.Outlined.FavoriteBorder,
-                iconOnly = true
+                enabled = false,
+                smallSize = true
+            )
+        }
+    }
+
+    fun iconOnly() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                colors = ToggleButtonDefaults.iconOnlyColors(),
+                smallSize = true
+            )
+        }
+    }
+
+    fun iconOnlyNotChecked() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                checked = false,
+                colors = ToggleButtonDefaults.iconOnlyColors(),
+                smallSize = true
+            )
+        }
+    }
+
+    fun iconOnlyDisabled() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                enabled = false,
+                colors = ToggleButtonDefaults.iconOnlyColors(),
+                smallSize = true
+            )
+        }
+    }
+
+    fun iconOnlyNotCheckedDisabled() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive,
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                checked = false,
+                enabled = false,
+                colors = ToggleButtonDefaults.iconOnlyColors(),
+                smallSize = true
             )
         }
     }
@@ -126,15 +240,57 @@ class ToggleButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 ToggleButton(
-                    checked = true,
-                    onCheckedChange = {},
-                    icon = Icons.Filled.AirplanemodeActive
+                    checkedIcon = Icons.Filled.VolumeUp,
+                    notCheckedIcon = Icons.Filled.VolumeOff,
+                    contentDescription = "contentDescription",
+                    onCheckedChanged = {}
+                )
+            }
+        }
+    }
+
+    @Test
+    fun mirrored() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            ToggleButton(
+                checkedIcon = Icons.Filled.VolumeUp,
+                notCheckedIcon = Icons.Filled.VolumeOff,
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                iconRtlMode = IconRtlMode.Mirrored
+            )
+        }
+    }
+
+    @Test
+    fun mirroredRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                ToggleButton(
+                    checkedIcon = Icons.Filled.VolumeUp,
+                    notCheckedIcon = Icons.Filled.VolumeOff,
+                    contentDescription = "contentDescription",
+                    onCheckedChanged = {},
+                    iconRtlMode = IconRtlMode.Mirrored
+                )
+            }
+        }
+    }
+
+    @Test
+    fun textWithLargestFontScale() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(fontScale = largestFontScale) {
+                ToggleButton(
+                    text = "Monday",
+                    onCheckedChanged = {}
                 )
             }
         }
     }
 
     companion object {
+
         private const val largestFontScale = 1.18f
     }
 }

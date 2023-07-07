@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -37,53 +36,72 @@ class ToggleButtonA11yTest :
     ) {
 
     @Test
-    fun defaultWithIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                ToggleButton(icon = Icons.Filled.AirplanemodeActive, onCheckedChange = {})
-            }
-        }
-    }
-
-    @Test
-    fun defaultWithIconUnchecked() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+    fun default() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
-                    icon = Icons.Filled.AirplanemodeInactive,
-                    checked = false,
-                    onCheckedChange = {}
+                    checkedIcon = Icons.Filled.AirplanemodeActive,
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                    contentDescription = "contentDescription",
+                    onCheckedChanged = {}
                 )
             }
         }
     }
 
     @Test
-    fun defaultWithText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                ToggleButton(onCheckedChange = {}, text = "Mon")
-            }
-        }
-    }
-
-    @Test
-    fun defaultWithLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                ToggleButton(onCheckedChange = {}, text = "Monday")
-            }
-        }
-    }
-
-    @Test
-    fun smallWithIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+    fun notChecked() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
-                    icon = Icons.Filled.AirplanemodeActive,
-                    onCheckedChange = {},
-                    smallSize = true
+                    checkedIcon = Icons.Filled.AirplanemodeActive,
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                    contentDescription = "contentDescription",
+                    onCheckedChanged = {},
+                    checked = false
+                )
+            }
+        }
+    }
+
+    @Test
+    fun disabled() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                ToggleButton(
+                    checkedIcon = Icons.Filled.AirplanemodeActive,
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                    contentDescription = "contentDescription",
+                    onCheckedChanged = {},
+                    enabled = false
+                )
+            }
+        }
+    }
+
+    @Test
+    fun notCheckedDisabled() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                ToggleButton(
+                    checkedIcon = Icons.Filled.AirplanemodeActive,
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                    contentDescription = "contentDescription",
+                    onCheckedChanged = {},
+                    checked = false,
+                    enabled = false
+                )
+            }
+        }
+    }
+
+    @Test
+    fun text() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                ToggleButton(
+                    text = "Monday",
+                    onCheckedChanged = {}
                 )
             }
         }
@@ -91,12 +109,15 @@ class ToggleButtonA11yTest :
 
     @Test
     fun iconOnly() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
-                    icon = Icons.Outlined.FavoriteBorder,
-                    onCheckedChange = {},
-                    iconOnly = true
+                    checkedIcon = Icons.Filled.AirplanemodeActive,
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                    contentDescription = "contentDescription",
+                    onCheckedChanged = {},
+                    colors = ToggleButtonDefaults.iconOnlyColors(),
+                    smallSize = true
                 )
             }
         }

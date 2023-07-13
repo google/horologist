@@ -178,7 +178,7 @@ public class ScreenshotTestRule(
 
     private suspend fun saveSnapshot(snapshotting: FileSnapshotting<SemanticsNodeInteraction, Bitmap>) {
         snapshotting.snapshot(
-            composeContentTestRule.onRoot(),
+            composeContentTestRule.onRoot(useUnmergedTree = true),
             testName = getTestName(),
             record = params.record,
             testClass = checkNotNull(testClassInfoRule.testClass) { "Could not retrieve information from test class" }

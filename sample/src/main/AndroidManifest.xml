@@ -41,7 +41,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher">
+            android:icon="@mipmap/ic_launcher"
+            android:taskAffinity=".main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -52,7 +53,8 @@
             android:name="com.google.android.horologist.navsample.NavActivity"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_nav"
-            android:label="@string/nav_activity">
+            android:label="@string/nav_activity"
+            android:taskAffinity=".navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -62,7 +64,8 @@
         <activity
             android:name="com.google.android.horologist.scratch.ScratchActivity"
             android:exported="true"
-            android:label="@string/nav_activity">
+            android:label="@string/nav_activity"
+            android:taskAffinity=".scratch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

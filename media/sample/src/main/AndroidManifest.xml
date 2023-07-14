@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2022 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,11 +30,11 @@
 
     <application
         android:name=".ui.app.MediaApplication"
-        android:appCategory="audio"
         android:allowBackup="false"
+        android:appCategory="audio"
         android:icon="@mipmap/ic_horologist"
-        android:roundIcon="@mipmap/ic_horologist_round"
         android:label="@string/sample_app_name"
+        android:roundIcon="@mipmap/ic_horologist_round"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
         <uses-library
@@ -49,7 +48,8 @@
         <activity
             android:name=".ui.app.MediaActivity"
             android:exported="true"
-            android:label="@string/sample_media_activity">
+            android:label="@string/sample_media_activity"
+            android:taskAffinity=".main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -75,8 +75,7 @@
         <service
             android:name=".data.service.playback.PlaybackService"
             android:exported="true"
-            android:foregroundServiceType="mediaPlayback"
-            >
+            android:foregroundServiceType="mediaPlayback">
             <intent-filter>
                 <action android:name="androidx.media3.session.MediaLibraryService" />
             </intent-filter>
@@ -122,15 +121,18 @@
                 android:resource="@mipmap/ic_horologist" />
         </service>
 
-        <service android:name=".data.service.download.MediaDownloadServiceImpl"
+        <service
+            android:name=".data.service.download.MediaDownloadServiceImpl"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.exoplayer.downloadService.action.RESTART"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.google.android.exoplayer.downloadService.action.RESTART" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
     </application>
 
-    <uses-sdk android:minSdkVersion="26" tools:ignore="GradleOverrides" />
+    <uses-sdk
+        android:minSdkVersion="26"
+        tools:ignore="GradleOverrides" />
 
 </manifest>

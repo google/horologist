@@ -14,16 +14,16 @@ sample app that you can run to see the toolkit in action.
 
 The toolkit includes:
 
-- [horologist-media-ui](./media/ui): common media UI components and screens like `PlayerScreen`.
-- [horologist-media](./media/core): domain model for Media related functionality. Provides an
+- [horologist-media-ui](./media-ui): common media UI components and screens like `PlayerScreen`.
+- [horologist-media](./media): domain model for Media related functionality. Provides an
   abstraction
   to the UI module (`horologist-media-ui`) that is agnostic to the Player implementation.
-- [horologist-media-data](./media/data): implementation of the domain module (`horologist-media`)
+- [horologist-media-data](./media-data): implementation of the domain module (`horologist-media`)
   using [Media3](https://developer.android.com/jetpack/androidx/releases/media3).
-- [horologist-media3-backend](./media/backend-media3): Player on top of Media3 including
+- [horologist-media3-backend](./media3-backend): Player on top of Media3 including
   functionalities
   such as avoiding playing music on the watch speaker.
-- [media sample](./media/sample): sample app to listen to downloaded music.
+- [media sample](./media-sample): sample app to listen to downloaded music.
 
 Player Screen | Browse Screen | Entity Screen
 :------------:|:-------------:|:-------------:
@@ -68,8 +68,8 @@ of [Wear Material Design Kit](https://developer.android.com/design/ui/wear/guide
 Domain model for Audio related functionality. Volume Control, Output switching.
 Subscribing to a Flow of changes in audio or output.
 
-- [horologist-audio](./media/audio)
-- [horologist-audio-ui](./media/audio-ui)
+- [horologist-audio](./audio)
+- [horologist-audio-ui](./audio-ui)
 
 |                                                          VolumeScreen                                                          |
 |:------------------------------------------------------------------------------------------------------------------------------:|
@@ -81,18 +81,18 @@ Libraries to help developers to build apps following
 the [Sign-In guidelines for Wear OS](https://developer.android.com/training/wearables/design/sign-in)
 .
 
-- [horologist-auth-composables](./auth/composables): composable screens for authentication use
+- [horologist-auth-composables](./auth-composables): composable screens for authentication use
   cases, with no dependency on the `auth-data` library.
-- [horologist-auth-ui](./auth/ui): composable screens for authentication use cases, with integration
+- [horologist-auth-ui](./auth-ui): composable screens for authentication use cases, with integration
   with the `auth-data` library
-- [horologist-auth-data](./auth/data): implementation for Wear apps for most of the authentication
+- [horologist-auth-data](./auth-data): implementation for Wear apps for most of the authentication
   methods listed in
   the [Authentication on wearables](https://developer.android.com/training/wearables/apps/auth-wear)
   guide.
-- [horologist-auth-data-phone](./auth/data-phone): implementation for Mobile apps for some of the
+- [horologist-auth-data-phone](./auth-data-phone): implementation for Mobile apps for some of the
   authentication methods provided by the `auth-data` library.
-- [sample wear](./auth/sample/wear): sample wear app to authenticate using different methods.
-- [sample phone](./auth/sample/phone): sample phone app to authenticate using different methods.
+- [sample wear](./auth-sample-apps/#wear-sample): sample wear app to authenticate using different methods.
+- [sample phone](./auth-sample-apps/#phone-sample): sample phone app to authenticate using different methods.
 
 ## ☰ Tiles
 

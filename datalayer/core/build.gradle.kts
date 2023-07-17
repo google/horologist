@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,14 @@
 
 @file:Suppress("UnstableApiUsage")
 
+import com.google.protobuf.gradle.*
+
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
+    id("com.google.protobuf")
+    kotlin("android")
     id("me.tylerbwong.gradle.metalava")
-    alias(libs.plugins.dependencyAnalysis)
 }
 
 android {
@@ -29,6 +31,7 @@ android {
 
     defaultConfig {
         minSdk = 23
+        //noinspection ExpiredTargetSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,10 +49,9 @@ android {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
         )
     }
-
     packaging {
         resources {
             excludes += listOf(
@@ -63,24 +65,36 @@ android {
         unitTests {
             isIncludeAndroidResources = true
         }
-        animationsDisabled = true
     }
 
     lint {
         checkReleaseBuilds = false
         textReport = true
+        baseline = file("quality/lint/lint-baseline.xml")
     }
 
-    resourcePrefix = "horologist_"
-
-    namespace = "com.google.android.horologist.auth.data.phone"
+    namespace = "com.google.android.horologist.datalayer"
 }
 
-project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        this.kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.23.4"
+    }
+    plugins {
+        id("javalite") {
+            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+        }
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+                create("kotlin") {
+                    option("lite")
+                }
+            }
         }
     }
 }
@@ -92,33 +106,32 @@ metalava {
 }
 
 dependencies {
-    api(projects.datalayer.core)
-
-    api(libs.androidx.datastore.core)
+    api(projects.annotations)
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.playservices.base)
-    implementation(libs.playservices.wearable)
 
+    api(libs.playservices.wearable)
+    implementation(libs.kotlinx.coroutines.playservices)
+    api(libs.androidx.datastore.preferences)
+    api(libs.androidx.datastore)
+    api(libs.protobuf.kotlin.lite)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.wear.remote.interactions)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
-    testRuntimeOnly(libs.robolectric)
-}
+    testImplementation(libs.robolectric)
 
-dependencyAnalysis {
-    issues {
-        onAny {
-            severity("fail")
-        }
-    }
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("auth-data-phone")
-        }
-    }
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.truth)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")
+
+tasks.maybeCreate("prepareKotlinIdeaImport")
+    .dependsOn("generateDebugProto")

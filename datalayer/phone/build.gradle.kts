@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,9 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
-    alias(libs.plugins.dependencyAnalysis)
+    kotlin("android")
 }
 
 android {
@@ -29,8 +28,6 @@ android {
 
     defaultConfig {
         minSdk = 23
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -46,10 +43,9 @@ android {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
         )
     }
-
     packaging {
         resources {
             excludes += listOf(
@@ -63,17 +59,15 @@ android {
         unitTests {
             isIncludeAndroidResources = true
         }
-        animationsDisabled = true
     }
 
     lint {
         checkReleaseBuilds = false
         textReport = true
+        baseline = file("quality/lint/lint-baseline.xml")
     }
 
-    resourcePrefix = "horologist_"
-
-    namespace = "com.google.android.horologist.auth.data.phone"
+    namespace = "com.google.android.horologist.datalayer.phone"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -92,33 +86,16 @@ metalava {
 }
 
 dependencies {
-    api(projects.datalayer.core)
+    api(projects.annotations)
 
-    api(libs.androidx.datastore.core)
-
+    implementation(projects.datalayer.core)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.playservices.base)
-    implementation(libs.playservices.wearable)
 
-    testImplementation(libs.kotlinx.coroutines.test)
-    testRuntimeOnly(libs.robolectric)
-}
-
-dependencyAnalysis {
-    issues {
-        onAny {
-            severity("fail")
-        }
-    }
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("auth-data-phone")
-        }
-    }
+    api(libs.playservices.wearable)
+    implementation(libs.kotlinx.coroutines.playservices)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.wear.remote.interactions)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

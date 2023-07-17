@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package com.google.android.horologist.data;
+
+option java_package = "com.google.android.horologist.data";
+option java_multiple_files = true;
+
+import "google/protobuf/timestamp.proto";
+
+message AppHelperResult {
+  AppHelperResultCode code = 1;
+}
+
+enum AppHelperResultCode {
+  APP_HELPER_RESULT_UNSPECIFIED = 0;
+  APP_HELPER_RESULT_SUCCESS = 1;
+  APP_HELPER_RESULT_UNKNOWN_REQUEST = 2;
+  APP_HELPER_RESULT_ACTIVITY_NOT_FOUND = 3;
+  APP_HELPER_RESULT_INVALID_COMPONENT = 4;
+  APP_HELPER_RESULT_NO_COMPANION_FOUND = 5;
+  APP_HELPER_RESULT_TIMEOUT = 6;
+}
+
+message LaunchRequest {
+  oneof launch_config {
+    OwnAppConfig own_app = 1;
+    CompanionConfig companion = 2;
+    ActivityConfig activity = 3;
+  }
+}
+
+message OwnAppConfig {}
+
+message CompanionConfig {
+  string sourceNode = 1;
+}
+
+message ActivityConfig {
+  string packageName = 1;
+  string classFullName = 2;
+}
+
+message ComplicationInfo {
+  reserved 4;
+  string name = 1;
+  int32 instanceId = 2;
+  string type = 3;
+  .google.protobuf.Timestamp timestamp = 5;
+}
+
+message TileInfo {
+  reserved 1;
+  string name = 2;
+  .google.protobuf.Timestamp timestamp = 3;
+}
+
+message ActivityLaunched {
+  bool activityLaunchedOnce = 1;
+  .google.protobuf.Timestamp timestamp = 2;
+}
+
+message SurfacesInfo {
+  reserved 1;
+  repeated ComplicationInfo complications = 2;
+  repeated TileInfo tiles = 3;
+  ActivityLaunched activityLaunched = 4;
+}

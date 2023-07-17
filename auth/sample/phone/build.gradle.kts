@@ -96,8 +96,8 @@ dependencies {
 
     implementation(projects.auth.dataPhone)
     implementation(projects.auth.sample.shared)
-    implementation(projects.datalayer)
-    implementation(projects.datalayerPhone)
+    implementation(projects.datalayer.core)
+    implementation(projects.datalayer.phone)
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.runtime)

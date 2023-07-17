@@ -100,4 +100,12 @@ dependencies {
     implementation(libs.androidx.wear.phone.interactions)
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("datalayer-watch")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

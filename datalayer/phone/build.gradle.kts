@@ -98,4 +98,12 @@ dependencies {
     implementation(libs.androidx.wear.remote.interactions)
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("datalayer-phone")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

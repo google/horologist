@@ -131,6 +131,14 @@ dependencies {
     androidTestImplementation(libs.truth)
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("datalayer")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")
 
 tasks.maybeCreate("prepareKotlinIdeaImport")

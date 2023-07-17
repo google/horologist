@@ -96,7 +96,6 @@ metalava {
 }
 
 dependencies {
-    api(projects.baseUi)
     api(projects.composeLayout)
 
     api(libs.compose.runtime)

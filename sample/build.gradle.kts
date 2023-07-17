@@ -125,7 +125,6 @@ protobuf {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.baseUi)
     implementation(projects.composeLayout)
     implementation(projects.media.audio)
     implementation(projects.media.audioUi)

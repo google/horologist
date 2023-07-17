@@ -104,7 +104,6 @@ dependencies {
     api(projects.annotations)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
-    implementation(projects.baseUi)
     debugImplementation(projects.logo)
 
     api(libs.wearcompose.material)

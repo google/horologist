@@ -26,7 +26,7 @@ import java.io.InputStreamReader
 class VersionFileTest {
     @Test
     fun testVersionFileIsPresent() {
-        val resource = TargetNodeId::class.java.getResource("/META-INF/com.google.android.horologist_datalayer.version")
+        val resource = TargetNodeId::class.java.getResource("/META-INF/com.google.android.horologist_datalayercore.version")
         assertThat(resource).isNotNull()
 
         val version = resource!!.openStream().use {

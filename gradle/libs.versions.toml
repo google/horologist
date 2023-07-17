@@ -168,7 +168,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
-lottie-compose = "com.airbnb.android:lottie-compose:6.0.1"
+lottie-compose = "com.airbnb.android:lottie-compose:6.1.0"
 metalavaGradle = { module = "me.tylerbwong.gradle.metalava:plugin", version.ref = "metalava" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
@@ -201,6 +201,6 @@ gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = 
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-protobuf = "com.google.protobuf:0.9.3"
+protobuf = "com.google.protobuf:0.9.4"
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }

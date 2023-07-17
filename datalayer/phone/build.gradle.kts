@@ -88,7 +88,7 @@ metalava {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.datalayer)
+    implementation(projects.datalayer.core)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
 
@@ -96,6 +96,14 @@ dependencies {
     implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("datalayer-phone")
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

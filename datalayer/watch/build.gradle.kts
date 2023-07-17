@@ -88,7 +88,7 @@ metalava {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.datalayer)
+    implementation(projects.datalayer.core)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
 
@@ -98,6 +98,14 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
     implementation(libs.androidx.wear.phone.interactions)
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("datalayer-watch")
+        }
+    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

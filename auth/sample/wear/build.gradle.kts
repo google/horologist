@@ -101,8 +101,8 @@ dependencies {
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
-    implementation(projects.datalayer)
-    implementation(projects.datalayerWatch)
+    implementation(projects.datalayer.core)
+    implementation(projects.datalayer.watch)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.complications.data)

@@ -141,8 +141,8 @@ dependencies {
     implementation(projects.media.ui)
     implementation(projects.networkAwareness)
     implementation(projects.tiles)
-    implementation(projects.datalayer)
-    implementation(projects.datalayerWatch)
+    implementation(projects.datalayer.core)
+    implementation(projects.datalayer.watch)
     implementation(projects.logo)
 
     implementation(libs.compose.ui.util)

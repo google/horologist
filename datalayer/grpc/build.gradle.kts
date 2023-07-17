@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +16,19 @@
 
 @file:Suppress("UnstableApiUsage")
 
-import com.google.protobuf.gradle.*
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("com.google.protobuf")
+    id("me.tylerbwong.gradle.metalava")
     kotlin("android")
+    id("com.google.protobuf")
 }
 
 android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 21
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = 23
     }
 
     compileOptions {
@@ -45,8 +42,11 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
+        )
     }
-
     packaging {
         resources {
             excludes += listOf(
@@ -60,17 +60,30 @@ android {
         unitTests {
             isIncludeAndroidResources = true
         }
-        animationsDisabled = true
     }
 
     lint {
         checkReleaseBuilds = false
         textReport = true
+        baseline = file("quality/lint/lint-baseline.xml")
     }
 
-    resourcePrefix = "horologist_"
+    namespace = "com.google.android.horologist.datalayer.grpc"
+}
 
-    namespace = "com.google.android.horologist.auth.sample.shared"
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        this.kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+        }
+    }
+}
+
+metalava {
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+    reportLintsAsErrors.set(true)
 }
 
 protobuf {
@@ -112,20 +125,28 @@ protobuf {
 
 dependencies {
     api(projects.annotations)
-    api(projects.datalayer.grpc)
 
-    implementation(libs.androidx.corektx)
-    implementation(libs.androidx.datastore)
+    api(projects.datalayer.core)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.protobuf.kotlin.lite)
-
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
+    implementation("androidx.lifecycle:lifecycle-service:2.6.1")
+    api("io.grpc:grpc-protobuf-lite:1.55.1")
+    api("io.grpc:grpc-kotlin-stub:1.3.0")
+    api(libs.playservices.wearable)
+    implementation(libs.kotlinx.coroutines.playservices)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.wear.remote.interactions)
 }
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("datalayer-grpc")
+        }
+    }
+}
+
+apply(plugin = "com.vanniktech.maven.publish")
 
 tasks.maybeCreate("prepareKotlinIdeaImport")
     .dependsOn("generateDebugProto")

@@ -103,6 +103,7 @@ dependencies {
     implementation(projects.composeMaterial)
     implementation(projects.datalayer.core)
     implementation(projects.datalayer.watch)
+    implementation(projects.datalayer.grpc)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.complications.data)

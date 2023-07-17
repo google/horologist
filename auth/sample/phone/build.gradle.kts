@@ -98,6 +98,7 @@ dependencies {
     implementation(projects.auth.sample.shared)
     implementation(projects.datalayer.core)
     implementation(projects.datalayer.phone)
+    implementation(projects.datalayer.grpc)
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.runtime)

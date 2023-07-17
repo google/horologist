@@ -97,7 +97,6 @@ metalava {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.baseUi)
     implementation(projects.composeLayout)
 
     implementation(libs.androidx.wear)

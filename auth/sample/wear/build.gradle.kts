@@ -97,7 +97,6 @@ dependencies {
     implementation(projects.auth.dataWatchOauth)
     implementation(projects.auth.sample.shared)
     implementation(projects.auth.ui)
-    implementation(projects.baseUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)

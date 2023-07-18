@@ -19,7 +19,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("me.tylerbwong.gradle.metalava")
+//    id("me.tylerbwong.gradle.metalava")
     kotlin("android")
     id("com.google.protobuf")
 }
@@ -80,11 +80,12 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
     }
 }
 
-metalava {
-    sourcePaths.setFrom("src/main")
-    filename.set("api/current.api")
-    reportLintsAsErrors.set(true)
-}
+// TODO resolve java.lang.StackOverflowError
+//metalava {
+//    sourcePaths.setFrom("src/main")
+//    filename.set("api/current.api")
+//    reportLintsAsErrors.set(true)
+//}
 
 protobuf {
     protoc {

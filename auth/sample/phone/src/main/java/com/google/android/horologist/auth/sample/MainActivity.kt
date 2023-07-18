@@ -243,7 +243,7 @@ fun MainScreen(
             )
         }
 
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Text(text = "Counter: " + counterState.value)
             Button(onClick = onCounterIncrement) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Plus 1")
@@ -254,7 +254,7 @@ fun MainScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun MainPreview() {
     val nodeList = listOf(
         AppHelperNodeStatus(
             id = "a1b2c3d4",

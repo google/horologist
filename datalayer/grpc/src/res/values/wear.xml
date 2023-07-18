@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="android_wear_capabilities">
-        <!-- Used to indicate that the app is installed on this device -->
-        <item>data_layer_app_helper_device_phone</item>
-        <!-- Used to indicate the device is a phone -->
-        <item>horologist_phone</item>
-    </string-array>
-</resources>

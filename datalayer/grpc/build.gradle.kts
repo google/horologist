@@ -28,7 +28,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 23
+        minSdk = 21
     }
 
     compileOptions {
@@ -129,9 +129,9 @@ dependencies {
     api(projects.datalayer.core)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
-    implementation("androidx.lifecycle:lifecycle-service:2.6.1")
-    api("io.grpc:grpc-protobuf-lite:1.55.1")
-    api("io.grpc:grpc-kotlin-stub:1.3.0")
+    implementation(libs.androidx.lifecycle.service)
+    api(libs.io.grpc.protobuf.lite)
+    api(libs.io.grpc.grpc.kotlin)
     api(libs.playservices.wearable)
     implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.androidx.lifecycle.runtime)

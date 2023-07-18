@@ -16,16 +16,28 @@
 
 package com.google.android.horologist.auth.sample.grpc
 
+import androidx.datastore.core.DataStore
 import com.google.android.horologist.auth.sample.shared.grpc.CounterServiceGrpcKt
 import com.google.android.horologist.auth.sample.shared.grpc.GrpcDemoProto
+import com.google.android.horologist.auth.sample.shared.grpc.copy
+import com.google.android.horologist.auth.sample.shared.grpc.counterValue
+import com.google.android.horologist.auth.sample.toProtoTimestamp
 import com.google.protobuf.Empty
+import kotlinx.coroutines.flow.first
+import java.util.concurrent.atomic.AtomicLong
 
-class CounterService: CounterServiceGrpcKt.CounterServiceCoroutineImplBase() {
+class CounterService(val dataStore: DataStore<GrpcDemoProto.CounterValue>) :
+    CounterServiceGrpcKt.CounterServiceCoroutineImplBase() {
     override suspend fun getCounter(request: Empty): GrpcDemoProto.CounterValue {
-        return super.getCounter(request)
+        return dataStore.data.first()
     }
 
     override suspend fun increment(request: GrpcDemoProto.CounterDelta): GrpcDemoProto.CounterValue {
-        return super.increment(request)
+        return dataStore.updateData {
+            it.copy {
+                this.value = this.value + request.delta
+                this.updated = System.currentTimeMillis().toProtoTimestamp()
+            }
+        }
     }
 }

@@ -23,21 +23,15 @@ abstract class BaseGrpcDataService<T: BindableService> : WearDataService(), Life
         super.onCreate()
 
         rpcServer = MessageClientServer(
-            registry.messageClient,
-            ExercisePath,
             buildService(),
             lifecycleScope
         )
     }
 
     override fun onRequest(node: String, path: String, data: ByteArray): Task<ByteArray>? {
-        return rpcServer.handleIncomingMessage(data, node).asTask()
+        return rpcServer.handleIncomingMessage(data).asTask()
     }
 
     override val lifecycle: Lifecycle
         get() = dispatcher.lifecycle
-
-    companion object {
-        val ExercisePath = "/exercise"
-    }
 }

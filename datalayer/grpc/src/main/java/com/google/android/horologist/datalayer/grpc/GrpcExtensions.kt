@@ -35,6 +35,6 @@ object GrpcExtensions {
     }
 
     fun <T> pathFor(type: Class<T>): String {
-        return "/grpc/${type}"
+        return "/grpc/${type.simpleName}"
     }
 }

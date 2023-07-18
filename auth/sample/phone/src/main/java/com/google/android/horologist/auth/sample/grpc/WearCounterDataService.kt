@@ -16,25 +16,35 @@
 
 package com.google.android.horologist.auth.sample.grpc
 
+import androidx.datastore.core.DataStore
 import androidx.lifecycle.lifecycleScope
+import com.google.android.horologist.auth.sample.shared.datalayer.CounterValueSerializer
 import com.google.android.horologist.auth.sample.shared.grpc.CounterServiceGrpcKt
+import com.google.android.horologist.auth.sample.shared.grpc.GrpcDemoProto.CounterValue
+import com.google.android.horologist.auth.sample.shared.grpc.counterValue
+import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.grpc.server.BaseGrpcDataService
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class WearCounterDataService : BaseGrpcDataService<CounterServiceGrpcKt.CounterServiceCoroutineImplBase>() {
 
-    override lateinit var registry: WearDataLayerRegistry
-
-    override fun buildService(): CounterServiceGrpcKt.CounterServiceCoroutineImplBase {
-       return CounterServiceCoroutineImplBase(Instance.getInstance(this))
+    private val dataStore: DataStore<CounterValue> by lazy {
+        registry.protoDataStore<CounterValue>(lifecycleScope)
     }
 
-    override fun onCreate() {
-        super.onCreate()
-
-        registry = WearDataLayerRegistry.fromContext(
+    override val registry: WearDataLayerRegistry by lazy {
+        WearDataLayerRegistry.fromContext(
             application = applicationContext,
             coroutineScope = lifecycleScope
-        )
+        ).apply {
+            registerSerializer(CounterValueSerializer)
+        }
+    }
+
+    override fun buildService(): CounterServiceGrpcKt.CounterServiceCoroutineImplBase {
+       return CounterService(dataStore)
     }
 }

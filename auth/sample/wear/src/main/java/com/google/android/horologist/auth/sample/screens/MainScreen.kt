@@ -50,6 +50,8 @@ fun MainScreen(
         tokenShareSection(navigateToRoute)
 
         commonScreensSection(navigateToRoute)
+
+        dataLayerSection(navigateToRoute)
     }
 }
 
@@ -162,6 +164,28 @@ private fun SectionedListScope.commonScreensSection(navigateToRoute: (String) ->
     ) {
         header {
             Title(stringResource(id = R.string.auth_menu_common_screens_header))
+        }
+        loaded { (textId, route) ->
+            Chip(
+                label = stringResource(id = textId),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(route) }
+            )
+        }
+    }
+}
+
+private fun SectionedListScope.dataLayerSection(navigateToRoute: (String) -> Unit) {
+    section(
+        listOf(
+            Pair(
+                R.string.auth_menu_datalayer_item,
+                Screen.DataLayerScreen.route
+            )
+        )
+    ) {
+        header {
+            Title(stringResource(id = R.string.auth_menu_datalayer_header))
         }
         loaded { (textId, route) ->
             Chip(

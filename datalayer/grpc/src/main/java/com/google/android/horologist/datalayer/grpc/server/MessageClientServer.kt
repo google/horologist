@@ -1,25 +1,22 @@
 package com.google.android.horologist.datalayer.grpc.server
 
-import com.google.android.gms.wearable.MessageClient
 import com.google.android.horologist.datalayer.grpc.proto.DataLayerGrpc.MessageRequest
 import com.google.protobuf.GeneratedMessageLite
 import io.grpc.BindableService
+import io.grpc.Metadata
 import io.grpc.MethodDescriptor
 import io.grpc.ServerCall
 import io.grpc.ServerCallHandler
 import io.grpc.ServerMethodDefinition
 import io.grpc.Status
-import io.grpc.Metadata
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import java.io.ByteArrayInputStream
 
 class MessageClientServer(
-    messageClient: MessageClient,
-    path: String,
     service: BindableService,
     coroutineScope: CoroutineScope
-) : BaseMessageClientServer(messageClient, path, coroutineScope) {
+) : BaseMessageClientServer(coroutineScope) {
     val boundService = service.bindService()
 
     override suspend fun execute(request: MessageRequest): GeneratedMessageLite<*, *> {

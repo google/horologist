@@ -109,7 +109,6 @@ dependencies {
     api(libs.kotlinx.coroutines.core)
     api(libs.wearcompose.foundation)
 
-    implementation(projects.baseUi)
     implementation(projects.composeMaterial)
 
     implementation(libs.androidx.activity)

@@ -56,6 +56,20 @@ fun ButtonPreviewSmall() {
 
 @WearPreview
 @Composable
+fun ButtonPreviewCustomSize() {
+    Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = { },
+        buttonSize = ButtonSize.Custom(
+            customIconSize = ButtonDefaults.SmallIconSize,
+            customTapTargetSize = ButtonDefaults.LargeButtonSize
+        )
+    )
+}
+
+@WearPreview
+@Composable
 fun ButtonPreviewDisabled() {
     Button(
         imageVector = Icons.Default.Check,

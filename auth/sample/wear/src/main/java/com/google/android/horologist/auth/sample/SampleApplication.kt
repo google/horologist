@@ -18,7 +18,6 @@ package com.google.android.horologist.auth.sample
 
 import android.app.Application
 import android.os.StrictMode
-import androidx.datastore.core.DataStore
 import com.google.android.horologist.auth.sample.di.SampleAppDI
 import com.google.android.horologist.auth.sample.shared.grpc.CounterServiceGrpcKt
 import com.google.android.horologist.auth.sample.shared.grpc.GrpcDemoProto

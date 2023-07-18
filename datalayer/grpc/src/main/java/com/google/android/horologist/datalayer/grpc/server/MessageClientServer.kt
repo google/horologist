@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.google.android.horologist.datalayer.grpc.server
 
 import com.google.android.horologist.datalayer.grpc.proto.DataLayerGrpc.MessageRequest
@@ -13,11 +29,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import java.io.ByteArrayInputStream
 
-class MessageClientServer(
+public class MessageClientServer(
     service: BindableService,
     coroutineScope: CoroutineScope
 ) : BaseMessageClientServer(coroutineScope) {
-    val boundService = service.bindService()
+    private val boundService = service.bindService()
 
     override suspend fun execute(request: MessageRequest): GeneratedMessageLite<*, *> {
         val method = boundService.getMethod(request.method)
@@ -47,10 +63,10 @@ class MessageClientServer(
     }
 }
 
-class MessageServerCall<ReqT, ResT>(
-    val _methodDescriptor: MethodDescriptor<ReqT, ResT>
+internal class MessageServerCall<ReqT, ResT>(
+    private val _methodDescriptor: MethodDescriptor<ReqT, ResT>
 ) : ServerCall<ReqT, ResT>() {
-    val channel: Channel<ResT> = Channel(capacity = 1)
+    internal val channel: Channel<ResT> = Channel(capacity = 1)
 
     override fun request(numMessages: Int) {
     }

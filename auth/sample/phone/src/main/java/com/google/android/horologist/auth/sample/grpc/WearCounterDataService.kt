@@ -21,13 +21,9 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.horologist.auth.sample.shared.datalayer.CounterValueSerializer
 import com.google.android.horologist.auth.sample.shared.grpc.CounterServiceGrpcKt
 import com.google.android.horologist.auth.sample.shared.grpc.GrpcDemoProto.CounterValue
-import com.google.android.horologist.auth.sample.shared.grpc.counterValue
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.grpc.server.BaseGrpcDataService
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 
 class WearCounterDataService : BaseGrpcDataService<CounterServiceGrpcKt.CounterServiceCoroutineImplBase>() {
 
@@ -45,6 +41,6 @@ class WearCounterDataService : BaseGrpcDataService<CounterServiceGrpcKt.CounterS
     }
 
     override fun buildService(): CounterServiceGrpcKt.CounterServiceCoroutineImplBase {
-       return CounterService(dataStore)
+        return CounterService(dataStore)
     }
 }

@@ -23,7 +23,7 @@ import com.google.protobuf.InvalidProtocolBufferException
 import java.io.InputStream
 import java.io.OutputStream
 
-object CounterValueSerializer: Serializer<CounterValue> {
+object CounterValueSerializer : Serializer<CounterValue> {
     override val defaultValue: CounterValue
         get() = CounterValue.getDefaultInstance()
 

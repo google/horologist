@@ -76,9 +76,11 @@ package com.google.android.horologist.data {
     method public String preferencesPath(String name, optional boolean persisted);
   }
 
-  public abstract class WearDataService extends com.google.android.gms.wearable.WearableListenerService {
+  public abstract class WearDataService extends com.google.android.gms.wearable.WearableListenerService implements androidx.lifecycle.LifecycleOwner {
     ctor public WearDataService();
+    method public androidx.lifecycle.Lifecycle getLifecycle();
     method public abstract com.google.android.horologist.data.WearDataLayerRegistry getRegistry();
+    property public androidx.lifecycle.Lifecycle lifecycle;
     property public abstract com.google.android.horologist.data.WearDataLayerRegistry registry;
   }
 

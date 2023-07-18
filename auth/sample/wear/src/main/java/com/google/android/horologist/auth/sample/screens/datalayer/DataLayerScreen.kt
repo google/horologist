@@ -83,9 +83,9 @@ fun DataLayerScreen(
                     contentDescription = "Plus One",
                     onClick = {
                         viewModel.addDelta(1)
-                    })
+                    }
+                )
             }
         }
     }
 }
-

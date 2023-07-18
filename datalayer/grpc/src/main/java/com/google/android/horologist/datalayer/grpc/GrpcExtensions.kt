@@ -23,8 +23,8 @@ import io.grpc.Channel
 import io.grpc.kotlin.AbstractCoroutineStub
 import kotlinx.coroutines.CoroutineScope
 
-object GrpcExtensions {
-    inline fun <reified T : AbstractCoroutineStub<T>> WearDataLayerRegistry.grpcClient(
+public object GrpcExtensions {
+    public inline fun <reified T : AbstractCoroutineStub<T>> WearDataLayerRegistry.grpcClient(
         nodeId: TargetNodeId,
         path: String = pathFor(T::class.java),
         coroutineScope: CoroutineScope,
@@ -34,7 +34,7 @@ object GrpcExtensions {
         return clientBuilder(channel)
     }
 
-    fun <T> pathFor(type: Class<T>): String {
+    public fun <T> pathFor(type: Class<T>): String {
         return "/grpc/${type.simpleName}"
     }
 }

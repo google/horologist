@@ -1,8 +1,25 @@
+/*
+ * Copyright 2023 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 @file:OptIn(ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.datalayer.grpc.client
 
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.WearableStatusCodes
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.WearDataLayerRegistry
@@ -20,15 +37,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayInputStream
 
-class MessageClientCall<ReqT, RespT>(
-    val channel: MessageClientChannel,
-    val methodDescriptor: MethodDescriptor<ReqT, RespT>,
-    val coroutineScope: CoroutineScope,
-    val wearDataLayerRegistry: WearDataLayerRegistry
+public class MessageClientCall<ReqT, RespT>(
+    private val channel: MessageClientChannel,
+    private val methodDescriptor: MethodDescriptor<ReqT, RespT>,
+    private val coroutineScope: CoroutineScope,
+    private val wearDataLayerRegistry: WearDataLayerRegistry
 ) : ClientCall<ReqT, RespT>() {
     private lateinit var responseListener: Listener<RespT>
 
-    val messageClient = wearDataLayerRegistry.messageClient
+    private val messageClient: MessageClient = wearDataLayerRegistry.messageClient
 
     init {
         check(methodDescriptor.type == MethodType.UNARY)
@@ -87,13 +104,13 @@ class MessageClientCall<ReqT, RespT>(
         return realData
     }
 
-    internal fun bytesToResponse(responseBytes: ByteArray?): RespT {
+    private fun bytesToResponse(responseBytes: ByteArray?): RespT {
         val wrappedResponse = MessageResponse.parseFrom(responseBytes)
 
         return methodDescriptor.parseResponse(ByteArrayInputStream(wrappedResponse.response.value.toByteArray()))
     }
 
-    internal fun handleException(apie: ApiException) {
+    private fun handleException(apie: ApiException) {
         if (apie.statusCode == WearableStatusCodes.TIMEOUT) {
             responseListener.onClose(Status.DEADLINE_EXCEEDED, Metadata())
         } else {

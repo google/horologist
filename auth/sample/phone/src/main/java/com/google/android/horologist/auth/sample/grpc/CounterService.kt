@@ -20,11 +20,9 @@ import androidx.datastore.core.DataStore
 import com.google.android.horologist.auth.sample.shared.grpc.CounterServiceGrpcKt
 import com.google.android.horologist.auth.sample.shared.grpc.GrpcDemoProto
 import com.google.android.horologist.auth.sample.shared.grpc.copy
-import com.google.android.horologist.auth.sample.shared.grpc.counterValue
 import com.google.android.horologist.auth.sample.toProtoTimestamp
 import com.google.protobuf.Empty
 import kotlinx.coroutines.flow.first
-import java.util.concurrent.atomic.AtomicLong
 
 class CounterService(val dataStore: DataStore<GrpcDemoProto.CounterValue>) :
     CounterServiceGrpcKt.CounterServiceCoroutineImplBase() {

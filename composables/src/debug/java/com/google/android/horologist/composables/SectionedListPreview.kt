@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -29,12 +28,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+import com.google.android.horologist.compose.material.Chip
 
 @WearPreviewDevices
 @Composable
@@ -113,17 +112,8 @@ private fun DownloadsLoading() {
 @Composable
 private fun DownloadsLoaded(text: String) {
     Chip(
-        label = {
-            Text(
-                text = text,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Start,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 2
-            )
-        },
+        label = text,
         onClick = { },
-        modifier = Modifier.fillMaxWidth(),
         icon = {
             Icon(
                 imageVector = Icons.Default.FeaturedPlayList,
@@ -134,6 +124,7 @@ private fun DownloadsLoaded(text: String) {
                 tint = Color.Green
             )
         },
+        largeIcon = true,
         colors = ChipDefaults.secondaryChipColors()
     )
 }
@@ -161,17 +152,8 @@ private fun DownloadsEmpty() {
 @Composable
 private fun DownloadsFooter() {
     Chip(
-        label = {
-            Text(
-                text = "More downloads..",
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 2
-            )
-        },
+        label = "More downloads..",
         onClick = { },
-        modifier = Modifier.fillMaxWidth(),
         colors = ChipDefaults.secondaryChipColors()
     )
 }
@@ -213,17 +195,8 @@ private fun FavouritesLoading() {
 @Composable
 private fun FavouritesLoaded(text: String) {
     Chip(
-        label = {
-            Text(
-                text = text,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Start,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 2
-            )
-        },
+        label = text,
         onClick = { },
-        modifier = Modifier.fillMaxWidth(),
         icon = {
             Icon(
                 imageVector = Icons.Default.FeaturedPlayList,
@@ -234,6 +207,7 @@ private fun FavouritesLoaded(text: String) {
                 tint = Color.Green
             )
         },
+        largeIcon = true,
         colors = ChipDefaults.secondaryChipColors()
     )
 }
@@ -261,17 +235,8 @@ private fun FavouritesEmpty() {
 @Composable
 fun FavouritesFooter() {
     Chip(
-        label = {
-            Text(
-                text = "More favourites..",
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 2
-            )
-        },
+        label = "More favourites..",
         onClick = { },
-        modifier = Modifier.fillMaxWidth(),
         colors = ChipDefaults.secondaryChipColors()
     )
 }

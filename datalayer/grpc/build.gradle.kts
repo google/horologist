@@ -16,14 +16,12 @@
 
 @file:Suppress("UnstableApiUsage")
 
-import com.google.protobuf.gradle.*
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("com.google.protobuf")
+//    id("me.tylerbwong.gradle.metalava")
     kotlin("android")
-    id("me.tylerbwong.gradle.metalava")
+    id("com.google.protobuf")
 }
 
 android {
@@ -31,8 +29,6 @@ android {
 
     defaultConfig {
         minSdk = 21
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -72,16 +68,38 @@ android {
         baseline = file("quality/lint/lint-baseline.xml")
     }
 
-    namespace = "com.google.android.horologist.datalayer"
+    namespace = "com.google.android.horologist.datalayer.grpc"
 }
+
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        this.kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+        }
+    }
+}
+
+// TODO resolve java.lang.StackOverflowError
+//metalava {
+//    sourcePaths.setFrom("src/main")
+//    filename.set("api/current.api")
+//    reportLintsAsErrors.set(true)
+//}
 
 protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc:3.23.4"
     }
     plugins {
-        id("javalite") {
+        create("javalite") {
             artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+        }
+        create("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.55.1"
+        }
+        create("grpckt") {
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"
         }
     }
     generateProtoTasks {
@@ -94,47 +112,37 @@ protobuf {
                     option("lite")
                 }
             }
+            task.plugins {
+                create("grpc") {
+                    option("lite")
+                }
+                create("grpckt") {
+                    option("lite")
+                }
+            }
         }
     }
-}
-
-metalava {
-    sourcePaths.setFrom("src/main")
-    filename.set("api/current.api")
-    reportLintsAsErrors.set(true)
 }
 
 dependencies {
     api(projects.annotations)
 
+    api(projects.datalayer.core)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
-
+    implementation(libs.androidx.lifecycle.service)
+    api(libs.io.grpc.protobuf.lite)
+    api(libs.io.grpc.grpc.kotlin)
     api(libs.playservices.wearable)
     implementation(libs.kotlinx.coroutines.playservices)
-    api(libs.androidx.datastore.preferences)
-    api(libs.androidx.datastore)
-    api(libs.protobuf.kotlin.lite)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
-    implementation(libs.androidx.lifecycle.service)
-
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
-
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.truth)
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     dokkaSourceSets {
         configureEach {
-            moduleName.set("datalayer")
+            moduleName.set("datalayer-grpc")
         }
     }
 }

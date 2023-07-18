@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.data
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ServiceLifecycleDispatcher
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.WearableListenerService
 
@@ -35,7 +38,14 @@ import com.google.android.gms.wearable.WearableListenerService
  * </service>
  * ```
  */
-abstract class WearDataService : WearableListenerService() {
+abstract class WearDataService : WearableListenerService(), LifecycleOwner {
+
+    @Suppress("LeakingThis")
+    private val mDispatcher = ServiceLifecycleDispatcher(this)
+
+    override val lifecycle: Lifecycle
+        get() = mDispatcher.lifecycle
+
     abstract val registry: WearDataLayerRegistry
 
     override fun onDataChanged(dataEventBuffer: DataEventBuffer) {

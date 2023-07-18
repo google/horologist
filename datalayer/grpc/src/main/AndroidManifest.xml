@@ -16,28 +16,10 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.android.horologist.datalayer">
+    package="com.google.android.horologist.datalayer.grpc">
 
     <uses-sdk
         android:minSdkVersion="23"
-        tools:ignore="GradleOverrides"
-        tools:overrideLibrary="androidx.wear.remote.interactions"
-        />
+        tools:ignore="GradleOverrides" />
 
-    <!--
-        Required in order to very briefly wake up the screen of the device when launching an app /
-        Activity remotely via the AppHelper.
-    -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <!--
-        Required to be able to identify the companion with NodeClient, via calls to
-        getCompanionPackageForNode().
-    -->
-    <queries>
-        <intent>
-            <action android:name="com.google.android.gms.wearable.CAPABILITY_CHANGED" />
-            <data android:scheme="wear" />
-        </intent>
-    </queries>
 </manifest>

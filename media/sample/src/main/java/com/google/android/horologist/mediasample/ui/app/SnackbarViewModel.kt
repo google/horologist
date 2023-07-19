@@ -23,5 +23,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 public class SnackbarViewModel @Inject constructor(
-    snackbarManager: SnackbarManager
+    snackbarManager: SnackbarManager,
 ) : SnackbarViewModel(snackbarManager)

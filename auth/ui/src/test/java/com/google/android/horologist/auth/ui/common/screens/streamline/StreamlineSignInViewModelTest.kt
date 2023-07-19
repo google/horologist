@@ -109,7 +109,7 @@ class StreamlineSignInViewModelTest {
         // then
         sut.uiState.test {
             assertThat(awaitItem()).isEqualTo(
-                StreamlineSignInScreenState.SingleAccountAvailable(AccountUiModel(email = email))
+                StreamlineSignInScreenState.SingleAccountAvailable(AccountUiModel(email = email)),
             )
         }
     }
@@ -129,8 +129,8 @@ class StreamlineSignInViewModelTest {
         sut.uiState.test {
             assertThat(awaitItem()).isEqualTo(
                 StreamlineSignInScreenState.MultipleAccountsAvailable(
-                    listOf(AccountUiModel(email = email1), AccountUiModel(email = email2))
-                )
+                    listOf(AccountUiModel(email = email1), AccountUiModel(email = email2)),
+                ),
             )
         }
     }

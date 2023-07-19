@@ -33,7 +33,7 @@ class PlaylistEntityMapperTest {
             id = id,
             name = name,
             artworkUri = artworkUri,
-            mediaList = listOf()
+            mediaList = listOf(),
         )
 
         // when
@@ -44,8 +44,8 @@ class PlaylistEntityMapperTest {
             PlaylistEntity(
                 playlistId = id,
                 name = name,
-                artworkUri = artworkUri
-            )
+                artworkUri = artworkUri,
+            ),
         )
     }
 }

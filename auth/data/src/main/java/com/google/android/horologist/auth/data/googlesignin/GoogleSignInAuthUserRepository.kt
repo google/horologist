@@ -29,7 +29,7 @@ import kotlinx.coroutines.withContext
  */
 @ExperimentalHorologistApi
 public class GoogleSignInAuthUserRepository(
-    private val applicationContext: Context
+    private val applicationContext: Context,
 ) : AuthUserRepository {
 
     override suspend fun getAuthenticated(): AuthUser? =

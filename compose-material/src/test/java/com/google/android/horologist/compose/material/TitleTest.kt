@@ -30,7 +30,7 @@ class TitleTest : ScreenshotBaseTest() {
     fun defaultPrimary() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Title(
-                text = "Title"
+                text = "Title",
             )
         }
     }
@@ -39,7 +39,7 @@ class TitleTest : ScreenshotBaseTest() {
     fun primaryWithVeryLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Title(
-                text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text"
+                text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text",
             )
         }
     }
@@ -48,7 +48,7 @@ class TitleTest : ScreenshotBaseTest() {
     fun defaultSecondary() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SecondaryTitle(
-                text = "Title"
+                text = "Title",
             )
         }
     }
@@ -57,7 +57,7 @@ class TitleTest : ScreenshotBaseTest() {
     fun secondaryWithVeryLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SecondaryTitle(
-                text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text"
+                text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text",
             )
         }
     }
@@ -68,7 +68,7 @@ class TitleTest : ScreenshotBaseTest() {
             SecondaryTitle(
                 text = "Title",
                 icon = Icons.Outlined.MusicNote,
-                iconTint = Color(0xFF946EB1)
+                iconTint = Color(0xFF946EB1),
             )
         }
     }
@@ -79,7 +79,7 @@ class TitleTest : ScreenshotBaseTest() {
             SecondaryTitle(
                 text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text",
                 icon = Icons.Outlined.MusicNote,
-                iconTint = Color(0xFF946EB1)
+                iconTint = Color(0xFF946EB1),
             )
         }
     }
@@ -89,7 +89,7 @@ class TitleTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Title(
-                    text = "Title"
+                    text = "Title",
                 )
             }
         }
@@ -100,7 +100,7 @@ class TitleTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 SecondaryTitle(
-                    text = "Title"
+                    text = "Title",
                 )
             }
         }
@@ -113,7 +113,7 @@ class TitleTest : ScreenshotBaseTest() {
                 text = "Title",
                 icon = Icons.Outlined.MusicNote,
                 iconTint = Color(0xFF946EB1),
-                iconRtlMode = IconRtlMode.Mirrored
+                iconRtlMode = IconRtlMode.Mirrored,
             )
         }
     }
@@ -126,7 +126,7 @@ class TitleTest : ScreenshotBaseTest() {
                     text = "Title",
                     icon = Icons.Outlined.MusicNote,
                     iconTint = Color(0xFF946EB1),
-                    iconRtlMode = IconRtlMode.Mirrored
+                    iconRtlMode = IconRtlMode.Mirrored,
                 )
             }
         }

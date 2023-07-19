@@ -46,7 +46,7 @@ fun FillerScreen(label: String, modifier: Modifier = Modifier) {
 @Composable
 fun BigScalingLazyColumn(
     scrollState: ScalingLazyListState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val focusRequester = rememberActiveFocusRequester()
 
@@ -55,7 +55,7 @@ fun BigScalingLazyColumn(
             .fillMaxSize()
             .rotaryWithFling(focusRequester, scrollState),
         state = scrollState,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         items(100) {
             Text("i = $it")
@@ -66,7 +66,7 @@ fun BigScalingLazyColumn(
 @Composable
 fun BigColumn(
     scrollState: ScrollState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val focusRequester = rememberActiveFocusRequester()
 
@@ -75,7 +75,7 @@ fun BigColumn(
             .fillMaxSize()
             .verticalScroll(scrollState)
             .rotaryWithFling(focusRequester, scrollState),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.size(30.dp))
         (1..100).forEach {

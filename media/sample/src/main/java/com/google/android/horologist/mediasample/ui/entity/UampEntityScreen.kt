@@ -56,7 +56,7 @@ fun UampEntityScreen(
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel) -> Unit,
     onPlayClick: (PlaylistUiModel) -> Unit,
-    onErrorDialogCancelClick: () -> Unit
+    onErrorDialogCancelClick: () -> Unit,
 ) {
     val uiState by uampEntityScreenViewModel.uiState.collectAsStateWithLifecycle()
 
@@ -97,7 +97,7 @@ fun UampEntityScreen(
         onDownloadCompletedButtonClick = {
             showRemoveDownloadsDialog = true
         },
-        onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.entity_download_cancel_action_label)
+        onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.entity_download_cancel_action_label),
     )
 
     // b/243381431 - it should stop listening to uiState emissions while dialog is presented
@@ -105,7 +105,7 @@ fun UampEntityScreen(
         Dialog(
             showDialog = true,
             onDismissRequest = onErrorDialogCancelClick,
-            scrollState = rememberScalingLazyListState()
+            scrollState = rememberScalingLazyListState(),
         ) {
             Alert(
                 title = {
@@ -113,24 +113,24 @@ fun UampEntityScreen(
                         text = stringResource(R.string.entity_no_playlists),
                         color = MaterialTheme.colors.onBackground,
                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.title3
+                        style = MaterialTheme.typography.title3,
                     )
-                }
+                },
             ) {
                 item {
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Button(
                             onClick = onErrorDialogCancelClick,
-                            colors = ButtonDefaults.secondaryButtonColors()
+                            colors = ButtonDefaults.secondaryButtonColors(),
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Close,
                                 contentDescription = stringResource(id = R.string.entity_failed_dialog_cancel_button_content_description),
                                 modifier = Modifier
                                     .size(24.dp)
-                                    .wrapContentSize(align = Alignment.Center)
+                                    .wrapContentSize(align = Alignment.Center),
                             )
                         }
                     }
@@ -151,7 +151,7 @@ fun UampEntityScreen(
         showDialog = showCancelDownloadsDialog,
         scalingLazyListState = rememberScalingLazyListState(),
         okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
+        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
     )
 
     AlertDialog(
@@ -166,7 +166,7 @@ fun UampEntityScreen(
         showDialog = showRemoveDownloadsDialog,
         scalingLazyListState = rememberScalingLazyListState(),
         okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
+        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
     )
 
     AlertDialog(
@@ -182,7 +182,7 @@ fun UampEntityScreen(
 
         scalingLazyListState = rememberScalingLazyListState(),
         okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
+        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
 
     )
 }

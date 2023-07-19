@@ -26,7 +26,7 @@ import com.google.android.horologist.media.model.PlaylistDownload
  */
 @ExperimentalHorologistApi
 public class PlaylistDownloadMapper(
-    private val playlistMapper: PlaylistMapper
+    private val playlistMapper: PlaylistMapper,
 ) {
 
     /**
@@ -34,12 +34,12 @@ public class PlaylistDownloadMapper(
      */
     public fun map(
         populatedPlaylist: PopulatedPlaylist,
-        mediaDownloadEntity: List<MediaDownloadEntity>
+        mediaDownloadEntity: List<MediaDownloadEntity>,
     ): PlaylistDownload {
         val playlist = playlistMapper.map(populatedPlaylist)
         return PlaylistDownload(
             playlist = playlist,
-            mediaList = MediaDownloadMapper.map(playlist, mediaDownloadEntity)
+            mediaList = MediaDownloadMapper.map(playlist, mediaDownloadEntity),
         )
     }
 }

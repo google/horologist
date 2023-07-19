@@ -36,13 +36,13 @@ import kotlinx.coroutines.guava.future
 @ExperimentalHorologistApi
 public abstract class SuspendingMediaLibrarySessionCallback(
     private val serviceScope: CoroutineScope,
-    private val appEventLogger: ErrorReporter
+    private val appEventLogger: ErrorReporter,
 ) :
     MediaLibrarySession.Callback {
     override fun onGetLibraryRoot(
         session: MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
-        params: MediaLibraryService.LibraryParams?
+        params: MediaLibraryService.LibraryParams?,
     ): ListenableFuture<LibraryResult<MediaItem>> {
         return serviceScope.future {
             try {
@@ -51,7 +51,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
                 appEventLogger.logMessage(
                     "onGetLibraryRoot: $e",
                     ErrorReporter.Category.App,
-                    ErrorReporter.Level.Error
+                    ErrorReporter.Level.Error,
                 )
                 LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
             }
@@ -61,13 +61,13 @@ public abstract class SuspendingMediaLibrarySessionCallback(
     protected abstract suspend fun onGetLibraryRootInternal(
         session: MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
-        params: MediaLibraryService.LibraryParams?
+        params: MediaLibraryService.LibraryParams?,
     ): LibraryResult<MediaItem>
 
     override fun onGetItem(
         session: MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
-        mediaId: String
+        mediaId: String,
     ): ListenableFuture<LibraryResult<MediaItem>> {
         return serviceScope.future {
             try {
@@ -76,7 +76,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
                 appEventLogger.logMessage(
                     "onGetItem: $e",
                     ErrorReporter.Category.App,
-                    ErrorReporter.Level.Error
+                    ErrorReporter.Level.Error,
                 )
                 LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
             }
@@ -86,13 +86,13 @@ public abstract class SuspendingMediaLibrarySessionCallback(
     protected abstract suspend fun onGetItemInternal(
         session: MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
-        mediaId: String
+        mediaId: String,
     ): LibraryResult<MediaItem>
 
     override fun onAddMediaItems(
         mediaSession: MediaSession,
         controller: MediaSession.ControllerInfo,
-        mediaItems: MutableList<MediaItem>
+        mediaItems: MutableList<MediaItem>,
     ): ListenableFuture<MutableList<MediaItem>> {
         return serviceScope.future {
             onAddMediaItemsInternal(mediaSession, controller, mediaItems)
@@ -106,7 +106,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
     protected open suspend fun onAddMediaItemsInternal(
         mediaSession: MediaSession,
         controller: MediaSession.ControllerInfo,
-        mediaItems: MutableList<MediaItem>
+        mediaItems: MutableList<MediaItem>,
     ): MutableList<MediaItem> {
         return mediaItems.map {
             if (it.requestMetadata.mediaUri != null) {
@@ -125,7 +125,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
         parentId: String,
         page: Int,
         pageSize: Int,
-        params: MediaLibraryService.LibraryParams?
+        params: MediaLibraryService.LibraryParams?,
     ): ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> {
         return serviceScope.future {
             try {
@@ -134,7 +134,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
                 appEventLogger.logMessage(
                     "onGetChildren: $e",
                     ErrorReporter.Category.App,
-                    ErrorReporter.Level.Error
+                    ErrorReporter.Level.Error,
                 )
                 LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
             }
@@ -147,6 +147,6 @@ public abstract class SuspendingMediaLibrarySessionCallback(
         parentId: String,
         page: Int,
         pageSize: Int,
-        params: MediaLibraryService.LibraryParams?
+        params: MediaLibraryService.LibraryParams?,
     ): LibraryResult<ImmutableList<MediaItem>>
 }

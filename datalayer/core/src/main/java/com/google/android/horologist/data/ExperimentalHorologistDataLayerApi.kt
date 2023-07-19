@@ -17,7 +17,7 @@
 package com.google.android.horologist.data
 
 @RequiresOptIn(
-    message = "Horologist Data Layer is experimental. The API may be changed in the future."
+    message = "Horologist Data Layer is experimental. The API may be changed in the future.",
 )
 @Retention(AnnotationRetention.BINARY)
 public annotation class ExperimentalHorologistDataLayerApi

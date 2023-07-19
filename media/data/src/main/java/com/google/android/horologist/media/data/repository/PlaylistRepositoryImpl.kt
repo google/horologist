@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.map
 @ExperimentalHorologistApi
 public class PlaylistRepositoryImpl(
     private val playlistLocalDataSource: PlaylistLocalDataSource,
-    private val playlistMapper: PlaylistMapper
+    private val playlistMapper: PlaylistMapper,
 ) : PlaylistRepository {
 
     override suspend fun get(playlistId: String): Playlist? =

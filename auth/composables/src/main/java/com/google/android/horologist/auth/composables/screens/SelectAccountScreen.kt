@@ -49,7 +49,7 @@ public fun SelectAccountScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_select_account_title),
-    defaultAvatar: Any? = Icons.Default.AccountCircle
+    defaultAvatar: Any? = Icons.Default.AccountCircle,
 ) {
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
@@ -58,7 +58,7 @@ public fun SelectAccountScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = horizontalPadding),
-        columnState = columnState
+        columnState = columnState,
     ) {
         item { Title(title, Modifier.padding(bottom = 8.dp)) }
 
@@ -70,7 +70,7 @@ public fun SelectAccountScreen(
                 icon = account.avatar ?: defaultAvatar,
                 largeIcon = true,
                 onClick = { onAccountClicked(index, account) },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }

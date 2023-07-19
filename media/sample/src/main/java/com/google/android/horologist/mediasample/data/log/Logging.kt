@@ -22,7 +22,7 @@ import androidx.annotation.StringRes
 import com.google.android.horologist.media3.logging.ErrorReporter
 
 public class Logging(
-    private val res: Resources
+    private val res: Resources,
 ) : ErrorReporter {
     override fun showMessage(@StringRes message: Int) {
         val messageString = res.getString(message)

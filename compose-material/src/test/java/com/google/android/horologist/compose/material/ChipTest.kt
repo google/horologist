@@ -41,7 +41,7 @@ class ChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Chip(
                 label = "Primary label",
-                onClick = { }
+                onClick = { },
             )
         }
     }
@@ -52,7 +52,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                secondaryLabel = "Secondary label"
+                secondaryLabel = "Secondary label",
             )
         }
     }
@@ -63,7 +63,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Default.Image
+                icon = Icons.Default.Image,
             )
         }
     }
@@ -75,7 +75,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 icon = Icon32dp,
-                largeIcon = true
+                largeIcon = true,
             )
         }
     }
@@ -87,7 +87,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image
+                icon = Icons.Default.Image,
             )
         }
     }
@@ -100,7 +100,7 @@ class ChipTest : ScreenshotBaseTest() {
                 onClick = { },
                 secondaryLabel = "Secondary label",
                 icon = Icon32dp,
-                largeIcon = true
+                largeIcon = true,
             )
         }
     }
@@ -113,7 +113,7 @@ class ChipTest : ScreenshotBaseTest() {
                 onClick = { },
                 secondaryLabel = "Secondary label",
                 icon = Icons.Default.Image,
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -123,7 +123,7 @@ class ChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Chip(
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                onClick = { }
+                onClick = { },
             )
         }
     }
@@ -134,7 +134,7 @@ class ChipTest : ScreenshotBaseTest() {
             TestHarness(fontScale = largestFontScale) {
                 Chip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    onClick = { }
+                    onClick = { },
                 )
             }
         }
@@ -147,7 +147,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
-                icon = Icons.Default.Image
+                icon = Icons.Default.Image,
             )
         }
     }
@@ -160,7 +160,7 @@ class ChipTest : ScreenshotBaseTest() {
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = Icons.Default.Image
+                    icon = Icons.Default.Image,
                 )
             }
         }
@@ -174,7 +174,7 @@ class ChipTest : ScreenshotBaseTest() {
                 onClick = { },
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
                 icon = Icons.Default.Image,
-                largeIcon = true
+                largeIcon = true,
             )
         }
     }
@@ -188,7 +188,7 @@ class ChipTest : ScreenshotBaseTest() {
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
                     icon = Icons.Default.Image,
-                    largeIcon = true
+                    largeIcon = true,
                 )
             }
         }
@@ -200,7 +200,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon12dp
+                icon = Icon12dp,
             )
         }
     }
@@ -211,7 +211,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = android.R.drawable.ic_delete
+                icon = android.R.drawable.ic_delete,
             )
         }
     }
@@ -223,7 +223,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 icon = Icon12dp,
-                largeIcon = true
+                largeIcon = true,
             )
         }
     }
@@ -234,7 +234,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon48dp
+                icon = Icon48dp,
             )
         }
     }
@@ -246,7 +246,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 icon = Icon48dp,
-                largeIcon = true
+                largeIcon = true,
             )
         }
     }
@@ -257,7 +257,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Default.Image
+                icon = Icons.Default.Image,
             )
         }
     }
@@ -267,7 +267,7 @@ class ChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(
             isComponent = true,
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Never
+            fakeImageLoader = FakeImageLoader.Never,
         ) {
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
@@ -278,9 +278,9 @@ class ChipTest : ScreenshotBaseTest() {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Image,
-                        tintColor = Color.Black
+                        tintColor = Color.Black,
                     ),
-                    enabled = false
+                    enabled = false,
                 )
             }
         }
@@ -294,7 +294,7 @@ class ChipTest : ScreenshotBaseTest() {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image
+                    icon = Icons.Default.Image,
                 )
             }
         }
@@ -308,7 +308,7 @@ class ChipTest : ScreenshotBaseTest() {
                 onClick = { },
                 secondaryLabel = "Secondary label",
                 icon = Icons.Default.Image,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -321,7 +321,7 @@ class ChipTest : ScreenshotBaseTest() {
                 onClick = { },
                 secondaryLabel = "Secondary label",
                 icon = Icons.Default.Image,
-                colors = ChipDefaults.gradientBackgroundChipColors()
+                colors = ChipDefaults.gradientBackgroundChipColors(),
             )
         }
     }
@@ -335,8 +335,8 @@ class ChipTest : ScreenshotBaseTest() {
                 secondaryLabel = "Secondary label",
                 icon = Icons.Default.Image,
                 colors = ChipDefaults.imageBackgroundChipColors(
-                    backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert)
-                )
+                    backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
+                ),
             )
         }
     }
@@ -350,7 +350,7 @@ class ChipTest : ScreenshotBaseTest() {
                 defaultWidth = 12f.dp,
                 defaultHeight = 12f.dp,
                 viewportWidth = 12f,
-                viewportHeight = 12f
+                viewportHeight = 12f,
             )
                 .materialPath {
                     horizontalLineToRelative(12.0f)
@@ -366,7 +366,7 @@ class ChipTest : ScreenshotBaseTest() {
                 defaultWidth = 32f.dp,
                 defaultHeight = 32f.dp,
                 viewportWidth = 32f,
-                viewportHeight = 32f
+                viewportHeight = 32f,
             )
                 .materialPath {
                     horizontalLineToRelative(32.0f)
@@ -382,7 +382,7 @@ class ChipTest : ScreenshotBaseTest() {
                 defaultWidth = 48f.dp,
                 defaultHeight = 48f.dp,
                 viewportWidth = 48f,
-                viewportHeight = 48f
+                viewportHeight = 48f,
             )
                 .materialPath {
                     horizontalLineToRelative(48.0f)

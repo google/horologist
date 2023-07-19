@@ -41,7 +41,7 @@ public fun GuestModeChip(
     modifier: Modifier = Modifier,
     label: String = stringResource(id = R.string.horologist_guest_mode_chip_label),
     colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Chip(
         label = label,
@@ -49,6 +49,6 @@ public fun GuestModeChip(
         modifier = modifier,
         icon = Icons.Default.ArrowForward,
         colors = colors,
-        enabled = enabled
+        enabled = enabled,
     )
 }

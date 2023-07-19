@@ -36,7 +36,7 @@ object WearableApiAvailability {
         } catch (e: AvailabilityException) {
             Log.d(
                 TAG,
-                "${api.javaClass.simpleName} API is not available in this device."
+                "${api.javaClass.simpleName} API is not available in this device.",
             )
             false
         }

@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UampGoogleSignOutViewModel @Inject constructor(
-    private val googleSignInAuthUserRepository: GoogleSignInAuthUserRepository
+    private val googleSignInAuthUserRepository: GoogleSignInAuthUserRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(GoogleSignOutScreenState.Idle)
@@ -38,7 +38,7 @@ class UampGoogleSignOutViewModel @Inject constructor(
     fun onIdleStateObserved() {
         if (_uiState.compareAndSet(
                 expect = GoogleSignOutScreenState.Idle,
-                update = GoogleSignOutScreenState.Loading
+                update = GoogleSignOutScreenState.Loading,
             )
         ) {
             viewModelScope.launch {
@@ -62,5 +62,5 @@ enum class GoogleSignOutScreenState {
     Idle,
     Loading,
     Success,
-    Failed
+    Failed,
 }

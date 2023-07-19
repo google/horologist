@@ -31,25 +31,25 @@ fun UampStreamingBrowseScreen(
     columnState: ScalingLazyColumnState,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     BrowseScreen(
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier,
     ) {
         this.playlistsSection(
             buttons = listOf(
                 BrowseScreenPlaylistsSectionButton(
                     textId = R.string.horologist_browse_library_playlists_button,
                     icon = Icons.Default.PlaylistPlay,
-                    onClick = onPlaylistsClick
+                    onClick = onPlaylistsClick,
                 ),
                 BrowseScreenPlaylistsSectionButton(
                     textId = R.string.horologist_browse_library_settings_button,
                     icon = Icons.Default.Settings,
-                    onClick = onSettingsClick
-                )
-            )
+                    onClick = onSettingsClick,
+                ),
+            ),
         )
     }
 }

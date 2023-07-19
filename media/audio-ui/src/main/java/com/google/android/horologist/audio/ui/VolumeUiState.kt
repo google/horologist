@@ -22,7 +22,7 @@ package com.google.android.horologist.audio.ui
 public data class VolumeUiState(
     val current: Int = 0,
     val max: Int = 1,
-    val min: Int = 0
+    val min: Int = 0,
 ) {
 
     public val isMax: Boolean

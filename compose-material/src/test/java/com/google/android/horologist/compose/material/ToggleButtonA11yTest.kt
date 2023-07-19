@@ -32,7 +32,7 @@ class ToggleButtonA11yTest :
         ScreenshotTestRule.screenshotTestRuleParams {
             enableA11y = true
             screenTimeText = {}
-        }
+        },
     ) {
 
     @Test
@@ -43,7 +43,7 @@ class ToggleButtonA11yTest :
                     checkedIcon = Icons.Filled.AirplanemodeActive,
                     notCheckedIcon = Icons.Filled.AirplanemodeInactive,
                     contentDescription = "contentDescription",
-                    onCheckedChanged = {}
+                    onCheckedChanged = {},
                 )
             }
         }
@@ -58,7 +58,7 @@ class ToggleButtonA11yTest :
                     notCheckedIcon = Icons.Filled.AirplanemodeInactive,
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
-                    checked = false
+                    checked = false,
                 )
             }
         }
@@ -73,7 +73,7 @@ class ToggleButtonA11yTest :
                     notCheckedIcon = Icons.Filled.AirplanemodeInactive,
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
-                    enabled = false
+                    enabled = false,
                 )
             }
         }
@@ -89,7 +89,7 @@ class ToggleButtonA11yTest :
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
                     checked = false,
-                    enabled = false
+                    enabled = false,
                 )
             }
         }
@@ -101,7 +101,7 @@ class ToggleButtonA11yTest :
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
                     text = "Monday",
-                    onCheckedChanged = {}
+                    onCheckedChanged = {},
                 )
             }
         }
@@ -117,7 +117,7 @@ class ToggleButtonA11yTest :
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
                     colors = ToggleButtonDefaults.iconOnlyColors(),
-                    smallSize = true
+                    smallSize = true,
                 )
             }
         }

@@ -33,7 +33,7 @@ public object MediaControllerHelper {
         val context = InstrumentationRegistry.getInstrumentation().context
         return MediaBrowser.Builder(
             context,
-            SessionToken(context, component)
+            SessionToken(context, component),
         )
             .setApplicationLooper(Looper.getMainLooper())
             .buildAsync()

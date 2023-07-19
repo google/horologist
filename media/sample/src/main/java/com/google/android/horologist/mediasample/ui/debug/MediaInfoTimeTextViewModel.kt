@@ -44,7 +44,7 @@ class MediaInfoTimeTextViewModel @Inject constructor(
     dataRequestRepository: DataRequestRepository,
     audioOffloadManager: AudioOffloadManager,
     highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
-    settingsRepository: SettingsRepository
+    settingsRepository: SettingsRepository,
 ) : ViewModel() {
     val enabledFlow: Flow<Boolean> =
         settingsRepository.settingsFlow.map { it.showTimeTextInfo }
@@ -55,14 +55,14 @@ class MediaInfoTimeTextViewModel @Inject constructor(
                 networkRepository.networkStatus,
                 audioOffloadManager.offloadStatus,
                 dataRequestRepository.currentPeriodUsage(),
-                highBandwidthNetworkMediator.pinned
+                highBandwidthNetworkMediator.pinned,
             ) { networkStatus, offloadStatus, currentPeriodUsage, pinnedNetworks ->
                 UiState(
                     enabled = enabled,
                     networks = networkStatus,
                     audioOffloadStatus = offloadStatus,
                     dataUsageReport = currentPeriodUsage,
-                    pinnedNetworks = pinnedNetworks
+                    pinnedNetworks = pinnedNetworks,
                 )
             }
         } else {
@@ -72,7 +72,7 @@ class MediaInfoTimeTextViewModel @Inject constructor(
         .stateIn(
             viewModelScope,
             started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
-            initialValue = UiState()
+            initialValue = UiState(),
         )
 
     data class UiState(
@@ -80,6 +80,6 @@ class MediaInfoTimeTextViewModel @Inject constructor(
         val networks: Networks = Networks(null, listOf()),
         val audioOffloadStatus: AudioOffloadStatus? = null,
         val dataUsageReport: DataUsageReport? = null,
-        val pinnedNetworks: Set<NetworkType> = setOf()
+        val pinnedNetworks: Set<NetworkType> = setOf(),
     )
 }

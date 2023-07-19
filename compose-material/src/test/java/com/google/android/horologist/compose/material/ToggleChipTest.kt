@@ -36,7 +36,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch
+                toggleControl = ToggleChipToggleControl.Switch,
             )
         }
     }
@@ -48,7 +48,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Radio
+                toggleControl = ToggleChipToggleControl.Radio,
             )
         }
     }
@@ -60,7 +60,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Checkbox
+                toggleControl = ToggleChipToggleControl.Checkbox,
             )
         }
     }
@@ -72,7 +72,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 checked = false,
                 onCheckedChanged = { },
                 label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch
+                toggleControl = ToggleChipToggleControl.Switch,
             )
         }
     }
@@ -85,7 +85,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label"
+                secondaryLabel = "Secondary label",
             )
         }
     }
@@ -98,7 +98,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image
+                icon = Icons.Default.Image,
             )
         }
     }
@@ -112,7 +112,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image
+                icon = Icons.Default.Image,
             )
         }
     }
@@ -125,7 +125,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -138,7 +138,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -150,7 +150,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                toggleControl = ToggleChipToggleControl.Switch
+                toggleControl = ToggleChipToggleControl.Switch,
             )
         }
     }
@@ -163,7 +163,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                     checked = true,
                     onCheckedChanged = { },
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    toggleControl = ToggleChipToggleControl.Switch
+                    toggleControl = ToggleChipToggleControl.Switch,
                 )
             }
         }
@@ -177,7 +177,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image
+                icon = Icons.Default.Image,
             )
         }
     }
@@ -191,7 +191,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                     onCheckedChanged = { },
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
                     toggleControl = ToggleChipToggleControl.Switch,
-                    icon = Icons.Default.Image
+                    icon = Icons.Default.Image,
                 )
             }
         }
@@ -205,7 +205,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label very very very very very very very very long text",
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
-                toggleControl = ToggleChipToggleControl.Switch
+                toggleControl = ToggleChipToggleControl.Switch,
             )
         }
     }
@@ -219,7 +219,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                     onCheckedChanged = { },
                     label = "Primary label very very very very very very very very long text",
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    toggleControl = ToggleChipToggleControl.Switch
+                    toggleControl = ToggleChipToggleControl.Switch,
                 )
             }
         }
@@ -234,7 +234,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 label = "Primary label very very very very very very very very long text",
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
                 toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image
+                icon = Icons.Default.Image,
             )
         }
     }
@@ -249,7 +249,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                     label = "Primary label very very very very very very very very long text",
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
                     toggleControl = ToggleChipToggleControl.Switch,
-                    icon = Icons.Default.Image
+                    icon = Icons.Default.Image,
                 )
             }
         }
@@ -263,7 +263,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icon12dp
+                icon = Icon12dp,
             )
         }
     }
@@ -276,7 +276,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icon32dp
+                icon = Icon32dp,
             )
         }
     }
@@ -292,7 +292,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.PlayArrow
+                icon = Icons.Default.PlayArrow,
             )
         }
     }
@@ -307,7 +307,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                     label = "Primary label",
                     toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.PlayArrow
+                    icon = Icons.Default.PlayArrow,
                 )
             }
         }
@@ -323,7 +323,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 toggleControl = ToggleChipToggleControl.Switch,
                 secondaryLabel = "Secondary label",
                 icon = Icons.Default.PlayArrow,
-                iconRtlMode = IconRtlMode.Mirrored
+                iconRtlMode = IconRtlMode.Mirrored,
             )
         }
     }
@@ -339,7 +339,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                     toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label",
                     icon = Icons.Default.PlayArrow,
-                    iconRtlMode = IconRtlMode.Mirrored
+                    iconRtlMode = IconRtlMode.Mirrored,
                 )
             }
         }
@@ -354,7 +354,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 defaultWidth = 12f.dp,
                 defaultHeight = 12f.dp,
                 viewportWidth = 12f,
-                viewportHeight = 12f
+                viewportHeight = 12f,
             )
                 .materialPath {
                     horizontalLineToRelative(12.0f)
@@ -370,7 +370,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
                 defaultWidth = 32f.dp,
                 defaultHeight = 32f.dp,
                 viewportWidth = 32f,
-                viewportHeight = 32f
+                viewportHeight = 32f,
             )
                 .materialPath {
                     horizontalLineToRelative(32.0f)

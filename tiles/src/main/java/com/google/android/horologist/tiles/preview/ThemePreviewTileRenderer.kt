@@ -48,7 +48,7 @@ public class ThemePreviewTileRenderer(context: Context, private val thisTheme: C
 
     override fun renderTile(
         state: Unit,
-        deviceParameters: DeviceParameters
+        deviceParameters: DeviceParameters,
     ): LayoutElement {
         return Box.Builder()
             .setWidth(ExpandedDimensionProp.Builder().build())
@@ -62,7 +62,7 @@ public class ThemePreviewTileRenderer(context: Context, private val thisTheme: C
                     .addContent(primaryChip(deviceParameters))
                     .addContent(secondaryCompactChip(deviceParameters))
                     .addContent(secondaryIconButton())
-                    .build()
+                    .build(),
             )
             .build()
     }
@@ -73,7 +73,7 @@ public class ThemePreviewTileRenderer(context: Context, private val thisTheme: C
         .build()
 
     internal fun primaryChip(
-        deviceParameters: DeviceParameters
+        deviceParameters: DeviceParameters,
     ) = Chip.Builder(context, NoOpClickable, deviceParameters)
         .setPrimaryLabelContent("Primary Chip")
         .setIconContent(Icon)
@@ -81,7 +81,7 @@ public class ThemePreviewTileRenderer(context: Context, private val thisTheme: C
         .build()
 
     internal fun secondaryCompactChip(
-        deviceParameters: DeviceParameters
+        deviceParameters: DeviceParameters,
     ) = CompactChip.Builder(context, "Secondary Chip", NoOpClickable, deviceParameters)
         .setChipColors(ChipColors.secondaryChipColors(theme))
         .build()
@@ -101,7 +101,7 @@ public class ThemePreviewTileRenderer(context: Context, private val thisTheme: C
     override fun ResourceBuilders.Resources.Builder.produceRequestedResources(
         resourceState: Unit,
         deviceParameters: DeviceParameters,
-        resourceIds: MutableList<String>
+        resourceIds: MutableList<String>,
     ) {
         addIdToImageMapping(Icon, drawableResToImageResource(R.drawable.ic_nordic))
     }

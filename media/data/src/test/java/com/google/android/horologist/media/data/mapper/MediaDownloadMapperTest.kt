@@ -34,14 +34,14 @@ class MediaDownloadMapperTest {
             uri = "mediaUrl",
             title = "title",
             artist = "artist",
-            artworkUri = "artworkUrl"
+            artworkUri = "artworkUrl",
         )
 
         val mediaDownloadEntity = MediaDownloadEntity(
             mediaId = "mediaId",
             status = MediaDownloadEntityStatus.NotDownloaded,
             progress = 0F,
-            size = -1L
+            size = -1L,
         )
 
         // when
@@ -52,8 +52,8 @@ class MediaDownloadMapperTest {
             MediaDownload(
                 media = media,
                 status = MediaDownload.Status.Idle,
-                size = MediaDownload.Size.Unknown
-            )
+                size = MediaDownload.Size.Unknown,
+            ),
         )
     }
 
@@ -65,7 +65,7 @@ class MediaDownloadMapperTest {
             uri = "mediaUrl",
             title = "title",
             artist = "artist",
-            artworkUri = "artworkUrl"
+            artworkUri = "artworkUrl",
         )
 
         val size = 12345L
@@ -73,7 +73,7 @@ class MediaDownloadMapperTest {
             mediaId = "mediaId",
             status = MediaDownloadEntityStatus.NotDownloaded,
             progress = 0F,
-            size = size
+            size = size,
         )
 
         // when
@@ -84,8 +84,8 @@ class MediaDownloadMapperTest {
             MediaDownload(
                 media = media,
                 status = MediaDownload.Status.Idle,
-                size = MediaDownload.Size.Known(size)
-            )
+                size = MediaDownload.Size.Known(size),
+            ),
         )
     }
 
@@ -100,14 +100,14 @@ class MediaDownloadMapperTest {
             uri = "mediaUrl",
             title = "title",
             artist = "artist",
-            artworkUri = "artworkUrl"
+            artworkUri = "artworkUrl",
         )
 
         val playlist = Playlist(
             id = id,
             name = name,
             artworkUri = artworkUri,
-            mediaList = listOf(media)
+            mediaList = listOf(media),
         )
 
         val size = 12345L
@@ -115,7 +115,7 @@ class MediaDownloadMapperTest {
             mediaId = "mediaId",
             status = MediaDownloadEntityStatus.NotDownloaded,
             progress = 0F,
-            size = size
+            size = size,
         )
 
         // when
@@ -127,9 +127,9 @@ class MediaDownloadMapperTest {
                 MediaDownload(
                     media = media,
                     status = MediaDownload.Status.Idle,
-                    size = MediaDownload.Size.Known(size)
-                )
-            )
+                    size = MediaDownload.Size.Known(size),
+                ),
+            ),
         )
     }
 }

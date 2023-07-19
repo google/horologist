@@ -35,7 +35,7 @@ import java.nio.ByteBuffer
 public suspend fun ImageLoader.loadImage(
     context: Context,
     data: Any?,
-    configurer: ImageRequest.Builder.() -> Unit = {}
+    configurer: ImageRequest.Builder.() -> Unit = {},
 ): Bitmap? {
     val request = ImageRequest.Builder(context)
         .data(data)
@@ -57,7 +57,7 @@ public suspend fun ImageLoader.loadImage(
 public suspend fun ImageLoader.loadImageResource(
     context: Context,
     data: Any?,
-    configurer: ImageRequest.Builder.() -> Unit = {}
+    configurer: ImageRequest.Builder.() -> Unit = {},
 ): ImageResource? = loadImage(context, data, configurer)?.toImageResource()
 
 /**
@@ -83,7 +83,7 @@ public fun Bitmap.toImageResource(): ImageResource {
             .setWidthPx(rgb565Bitmap.width)
             .setHeightPx(rgb565Bitmap.height)
             .setFormat(ResourceBuilders.IMAGE_FORMAT_RGB_565)
-            .build()
+            .build(),
     )
         .build()
 }

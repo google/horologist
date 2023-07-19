@@ -34,14 +34,14 @@ public interface GoogleOAuthService {
         @Field("code_verifier") codeVerifier: String? = null,
         @Field("grant_type") grantType: String? = null,
         @Field("redirect_uri") redirectUri: String? = null,
-        @Field("device_code") deviceCode: String? = null
+        @Field("device_code") deviceCode: String? = null,
     ): TokenResponse
 
     @FormUrlEncoded
     @POST("device/code")
     public suspend fun deviceCode(
         @Field("client_id") clientId: String,
-        @Field("scope") scope: String
+        @Field("scope") scope: String,
     ): DeviceCodeResponse
 
     public companion object {

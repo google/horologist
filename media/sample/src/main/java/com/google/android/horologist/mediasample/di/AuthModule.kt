@@ -37,27 +37,27 @@ object AuthModule {
     @Singleton
     @Provides
     fun googleSignIn(
-        @ApplicationContext application: Context
+        @ApplicationContext application: Context,
     ): GoogleSignInClient = GoogleSignIn.getClient(
         application,
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
-            .requestProfile().build()
+            .requestProfile().build(),
     )
 
     @Singleton
     @Provides
     fun googleSignInAuthUserRepository(
         @ApplicationContext application: Context,
-        googleSignInClient: GoogleSignInClient
+        googleSignInClient: GoogleSignInClient,
     ): GoogleSignInAuthUserRepository = GoogleSignInAuthUserRepository(
         application,
-        googleSignInClient
+        googleSignInClient,
     )
 
     @Singleton
     @Provides
     fun authUserRepository(
-        googleSignInAuthUserRepository: GoogleSignInAuthUserRepository
+        googleSignInAuthUserRepository: GoogleSignInAuthUserRepository,
     ): AuthUserRepository = googleSignInAuthUserRepository
 
     @Singleton

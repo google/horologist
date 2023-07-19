@@ -24,7 +24,7 @@ object TestMedia {
         "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
         "Intro - The Way Of Waking Up (feat. Alan Watts)",
         "The Kyoto Connection",
-        "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg"
+        "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
     )
 
     // https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/audio-samples.html
@@ -33,7 +33,7 @@ object TestMedia {
         "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac",
         "Espressif",
         "Sample",
-        null
+        null,
     )
 
     // https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/audio-samples.html
@@ -42,7 +42,7 @@ object TestMedia {
         "https://dl.espressif.com/dl/audio/ff-16b-2c-8000hz.mp3",
         "Espressif",
         "Sample",
-        null
+        null,
     )
 
     // https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/audio-samples.html
@@ -51,7 +51,7 @@ object TestMedia {
         "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.ogg",
         "Espressif",
         "Sample",
-        null
+        null,
     )
 
     // https://podnews.net/article/audio-quality-comparisons
@@ -60,6 +60,6 @@ object TestMedia {
         "https://podnews.net/audio/s-192-44100.mp3",
         "Espressif",
         "Sample",
-        null
+        null,
     )
 }

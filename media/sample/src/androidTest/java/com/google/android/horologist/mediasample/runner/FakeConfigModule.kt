@@ -39,7 +39,7 @@ import javax.inject.Singleton
 @Module
 @TestInstallIn(
     components = [SingletonComponent::class],
-    replaces = [ConfigModule::class]
+    replaces = [ConfigModule::class],
 )
 object FakeConfigModule {
     var appConfigFn: () -> AppConfig = { AppConfig() }
@@ -58,7 +58,7 @@ object FakeConfigModule {
     @CacheDir
     fun cacheDir(
         @ApplicationContext application: Context,
-        appConfig: AppConfig
+        appConfig: AppConfig,
     ): File =
         StrictMode.allowThreadDiskWrites().resetAfter {
             appConfig.cacheDir ?: application.cacheDir
@@ -67,21 +67,21 @@ object FakeConfigModule {
     @Singleton
     @Provides
     fun audioOutputSelector(
-        systemAudioRepository: SystemAudioRepository
+        systemAudioRepository: SystemAudioRepository,
     ): AudioOutputSelector =
         BluetoothSettingsOutputSelector(systemAudioRepository)
 
     @Singleton
     @Provides
     fun systemAudioRepository(
-        @ApplicationContext application: Context
+        @ApplicationContext application: Context,
     ): SystemAudioRepository =
         SystemAudioRepository.fromContext(application)
 
     @Singleton
     @Provides
     fun notificationManager(
-        @ApplicationContext application: Context
+        @ApplicationContext application: Context,
     ): NotificationManager =
         application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 }

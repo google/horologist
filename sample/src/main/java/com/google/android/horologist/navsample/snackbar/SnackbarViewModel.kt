@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
  */
 @ExperimentalHorologistApi
 public open class SnackbarViewModel(
-    private val snackbarManager: SnackbarManager
+    private val snackbarManager: SnackbarManager,
 ) : ViewModel() {
     public val snackbarHostState: SnackbarHostState = SnackbarHostState()
 
@@ -43,7 +43,7 @@ public open class SnackbarViewModel(
             messages.collect { message ->
                 snackbarHostState.showSnackbar(
                     message = message.message,
-                    duration = SnackbarDuration.Short
+                    duration = SnackbarDuration.Short,
                 )
                 snackbarManager.setMessageShown(message.id)
             }

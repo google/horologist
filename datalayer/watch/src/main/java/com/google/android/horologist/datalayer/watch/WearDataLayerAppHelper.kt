@@ -50,7 +50,7 @@ public class WearDataLayerAppHelper(
     context: Context,
     registry: WearDataLayerRegistry,
     scope: CoroutineScope,
-    private val appStoreUri: String? = null
+    private val appStoreUri: String? = null,
 ) :
     DataLayerAppHelper(context, registry) {
 
@@ -58,7 +58,7 @@ public class WearDataLayerAppHelper(
         registry.protoDataStore(
             path = DataLayerAppHelper.SURFACE_INFO_PATH,
             coroutineScope = scope,
-            serializer = SurfaceInfoSerializer
+            serializer = SurfaceInfoSerializer,
         )
     }
 
@@ -159,7 +159,7 @@ public class WearDataLayerAppHelper(
     public suspend fun markComplicationAsActivated(
         complicationName: String,
         complicationInstanceId: Int,
-        complicationType: ComplicationType
+        complicationType: ComplicationType,
     ) {
         surfaceInfoDataStore.updateData { info ->
             val complication = complicationInfo {
@@ -188,7 +188,7 @@ public class WearDataLayerAppHelper(
     public suspend fun markComplicationAsDeactivated(
         complicationName: String,
         complicationInstanceId: Int,
-        complicationType: ComplicationType
+        complicationType: ComplicationType,
     ) {
         surfaceInfoDataStore.updateData { info ->
             val complication = complicationInfo {

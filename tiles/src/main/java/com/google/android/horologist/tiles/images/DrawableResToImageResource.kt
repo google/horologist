@@ -30,6 +30,6 @@ public fun drawableResToImageResource(@DrawableRes id: Int): ImageResource =
         .setAndroidResourceByResId(
             AndroidImageResourceByResId.Builder()
                 .setResourceId(id)
-                .build()
+                .build(),
         )
         .build()

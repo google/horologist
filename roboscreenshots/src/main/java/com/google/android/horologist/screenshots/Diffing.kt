@@ -95,7 +95,7 @@ internal fun Bitmap.asByteString(): ByteString = Buffer().apply {
 
 internal fun Snapshotting<SemanticsNodeInteraction, Bitmap>.fileSnapshottingX() = FileSnapshotting(
     fileStoring = FileStoring.bitmap,
-    snapshotting = this
+    snapshotting = this,
 )
 
 @SuppressLint("NewApi")
@@ -103,13 +103,13 @@ internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.snapshot
     value: SemanticsNodeInteraction,
     testClass: Class<*>,
     testName: String,
-    record: Boolean
+    record: Boolean,
 ) {
     paparazziCompatibleSnapshot(
         value = value,
         record = record,
         testName = testName,
-        testClass = testClass
+        testClass = testClass,
     )
 }
 
@@ -118,7 +118,7 @@ internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.paparazz
     value: SemanticsNodeInteraction,
     record: Boolean = false,
     testClass: Class<*>,
-    testName: String
+    testName: String,
 ) {
     val referenceDirectory = File("src/test/snapshots/images").apply {
         mkdirs()
@@ -150,7 +150,7 @@ internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.paparazz
             fileStoring.store(diff, diffFileName)
 
             throw AssertionError(
-                "Snapshot is different from the reference!\nDiff stored to: ${diffFileName.absolutePath}"
+                "Snapshot is different from the reference!\nDiff stored to: ${diffFileName.absolutePath}",
             )
         }
     }

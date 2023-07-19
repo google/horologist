@@ -36,13 +36,13 @@ import com.google.android.horologist.mediasample.R
  */
 @Composable
 public fun FavoriteButton(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var faved by remember { mutableStateOf(false) }
     SettingsButton(
         modifier = modifier,
         onClick = { faved = !faved },
         imageVector = if (faved) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-        contentDescription = stringResource(R.string.favorite_content_description)
+        contentDescription = stringResource(R.string.favorite_content_description),
     )
 }

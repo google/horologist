@@ -41,10 +41,10 @@ object SampleAppDI {
 
     private fun registry(
         sampleApplication: SampleApplication,
-        coroutineScope: CoroutineScope
+        coroutineScope: CoroutineScope,
     ): WearDataLayerRegistry = WearDataLayerRegistry.fromContext(
         application = sampleApplication,
-        coroutineScope = coroutineScope
+        coroutineScope = coroutineScope,
     )
 
     private fun servicesCoroutineScope(): CoroutineScope {
@@ -52,7 +52,7 @@ object SampleAppDI {
             Log.e(
                 "SampleApplication",
                 "Uncaught exception thrown by a service: ${throwable.message}",
-                throwable
+                throwable,
             )
         }
         return CoroutineScope(Dispatchers.IO + SupervisorJob() + coroutineExceptionHandler)
@@ -62,7 +62,7 @@ object SampleAppDI {
         .addInterceptor(
             HttpLoggingInterceptor().also { interceptor ->
                 interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-            }
+            },
         ).build()
 
     private fun moshi(): Moshi = Moshi.Builder().build()

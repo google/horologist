@@ -34,7 +34,7 @@ class CreateAccountChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CreateAccountChip(
                 onClick = {},
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -46,7 +46,7 @@ class CreateAccountChipTest : ScreenshotBaseTest() {
                 onClick = {},
                 largeIconSpace = true,
                 colors = ChipDefaults.secondaryChipColors(),
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -56,7 +56,7 @@ class CreateAccountChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CreateAccountChip(
                 onClick = {},
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }

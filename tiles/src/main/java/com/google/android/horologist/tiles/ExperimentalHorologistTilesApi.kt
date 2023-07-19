@@ -17,7 +17,7 @@
 package com.google.android.horologist.tiles
 
 @RequiresOptIn(
-    message = "Horologist Tiles is experimental. The API may be changed in the future."
+    message = "Horologist Tiles is experimental. The API may be changed in the future.",
 )
 @Retention(AnnotationRetention.BINARY)
 public annotation class ExperimentalHorologistTilesApi

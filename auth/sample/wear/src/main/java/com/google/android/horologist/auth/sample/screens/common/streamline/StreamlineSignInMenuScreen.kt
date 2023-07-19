@@ -33,35 +33,35 @@ import com.google.android.horologist.compose.material.Title
 fun StreamlineSignInMenuScreen(
     navController: NavHostController,
     columnState: ScalingLazyColumnState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     SectionedList(
         columnState = columnState,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         section(
             listOf(
                 Triple(
                     R.string.common_screens_streamline_sign_in_single_account_item,
                     Screen.StreamlineSignInSampleScreen.route,
-                    AuthUserRepositoryStreamlineImpl.Mode.SINGLE_ACCOUNT_AVAILABLE
+                    AuthUserRepositoryStreamlineImpl.Mode.SINGLE_ACCOUNT_AVAILABLE,
                 ),
                 Triple(
                     R.string.common_screens_streamline_sign_in_multiple_accounts_item,
                     Screen.StreamlineSignInSampleScreen.route,
-                    AuthUserRepositoryStreamlineImpl.Mode.MULTIPLE_ACCOUNTS_AVAILABLE
+                    AuthUserRepositoryStreamlineImpl.Mode.MULTIPLE_ACCOUNTS_AVAILABLE,
                 ),
                 Triple(
                     R.string.common_screens_streamline_sign_in_no_accounts_item,
                     Screen.StreamlineSignInSampleScreen.route,
-                    AuthUserRepositoryStreamlineImpl.Mode.NO_ACCOUNTS_AVAILABLE
-                )
-            )
+                    AuthUserRepositoryStreamlineImpl.Mode.NO_ACCOUNTS_AVAILABLE,
+                ),
+            ),
         ) {
             header {
                 Title(
                     stringResource(id = R.string.common_screens_streamline_sign_in_header),
-                    Modifier
+                    Modifier,
                 )
             }
             loaded { (textId, route, mode) ->
@@ -71,7 +71,7 @@ fun StreamlineSignInMenuScreen(
                     onClick = {
                         AuthUserRepositoryStreamlineImpl.mode = mode
                         navController.navigate(route)
-                    }
+                    },
                 )
             }
         }

@@ -36,34 +36,34 @@ import java.io.IOException
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
 public class AnalyticsEventLogger(
-    private val appEventLogger: ErrorReporter
+    private val appEventLogger: ErrorReporter,
 ) : EventLogger("ErrorReporter") {
     override fun onAudioSinkError(
         eventTime: AnalyticsListener.EventTime,
-        audioSinkError: Exception
+        audioSinkError: Exception,
     ) {
         appEventLogger.logMessage(
             "onAudioSinkError $audioSinkError",
             category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Error
+            level = ErrorReporter.Level.Error,
         )
     }
 
     override fun onAudioCodecError(
         eventTime: AnalyticsListener.EventTime,
-        audioCodecError: Exception
+        audioCodecError: Exception,
     ) {
         appEventLogger.logMessage(
             "onAudioCodecError $audioCodecError",
             category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Error
+            level = ErrorReporter.Level.Error,
         )
     }
 
     override fun onPlaybackStateChanged(eventTime: AnalyticsListener.EventTime, state: Int) {
         appEventLogger.logMessage(
             "onPlaybackStateChanged $state",
-            category = ErrorReporter.Category.Playback
+            category = ErrorReporter.Category.Playback,
         )
         super.onPlaybackStateChanged(eventTime, state)
     }
@@ -71,12 +71,12 @@ public class AnalyticsEventLogger(
     override fun onPlayWhenReadyChanged(
         eventTime: AnalyticsListener.EventTime,
         playWhenReady: Boolean,
-        reason: Int
+        reason: Int,
     ) {
         appEventLogger.logMessage(
             "onPlayWhenReadyChanged $playWhenReady $reason",
             category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Debug
+            level = ErrorReporter.Level.Debug,
         )
         super.onPlayWhenReadyChanged(eventTime, playWhenReady, reason)
     }
@@ -85,12 +85,12 @@ public class AnalyticsEventLogger(
         eventTime: AnalyticsListener.EventTime,
         bufferSize: Int,
         bufferSizeMs: Long,
-        elapsedSinceLastFeedMs: Long
+        elapsedSinceLastFeedMs: Long,
     ) {
         appEventLogger.logMessage(
             "onAudioUnderrun $elapsedSinceLastFeedMs",
             category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Error
+            level = ErrorReporter.Level.Error,
         )
         super.onAudioUnderrun(eventTime, bufferSize, bufferSizeMs, elapsedSinceLastFeedMs)
     }
@@ -98,7 +98,7 @@ public class AnalyticsEventLogger(
     override fun onIsLoadingChanged(eventTime: AnalyticsListener.EventTime, isLoading: Boolean) {
         appEventLogger.logMessage(
             "onIsLoadingChanged $isLoading",
-            category = ErrorReporter.Category.Playback
+            category = ErrorReporter.Category.Playback,
         )
         super.onIsLoadingChanged(eventTime, isLoading)
     }
@@ -108,23 +108,23 @@ public class AnalyticsEventLogger(
         loadEventInfo: LoadEventInfo,
         mediaLoadData: MediaLoadData,
         error: IOException,
-        wasCanceled: Boolean
+        wasCanceled: Boolean,
     ) {
         appEventLogger.logMessage(
             "onLoadError $error",
             category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Error
+            level = ErrorReporter.Level.Error,
         )
         super.onLoadError(eventTime, loadEventInfo, mediaLoadData, error, wasCanceled)
     }
 
     override fun onMediaMetadataChanged(
         eventTime: AnalyticsListener.EventTime,
-        mediaMetadata: MediaMetadata
+        mediaMetadata: MediaMetadata,
     ) {
         appEventLogger.logMessage(
             "onMediaMetadataChanged ${mediaMetadata.displayTitle}",
-            category = ErrorReporter.Category.Playback
+            category = ErrorReporter.Category.Playback,
         )
     }
 
@@ -132,7 +132,7 @@ public class AnalyticsEventLogger(
         appEventLogger.logMessage(
             "onPlayerError $error",
             category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Error
+            level = ErrorReporter.Level.Error,
         )
         super.onPlayerError(eventTime, error)
     }
@@ -140,45 +140,45 @@ public class AnalyticsEventLogger(
     override fun onLoadStarted(
         eventTime: AnalyticsListener.EventTime,
         loadEventInfo: LoadEventInfo,
-        mediaLoadData: MediaLoadData
+        mediaLoadData: MediaLoadData,
     ) {
         appEventLogger.logMessage(
             "onLoadStarted",
-            category = ErrorReporter.Category.Playback
+            category = ErrorReporter.Category.Playback,
         )
     }
 
     override fun onLoadCompleted(
         eventTime: AnalyticsListener.EventTime,
         loadEventInfo: LoadEventInfo,
-        mediaLoadData: MediaLoadData
+        mediaLoadData: MediaLoadData,
     ) {
         appEventLogger.logMessage(
             "onLoadCompleted",
-            category = ErrorReporter.Category.Playback
+            category = ErrorReporter.Category.Playback,
         )
     }
 
     override fun onAudioInputFormatChanged(
         eventTime: AnalyticsListener.EventTime,
         format: Format,
-        decoderReuseEvaluation: DecoderReuseEvaluation?
+        decoderReuseEvaluation: DecoderReuseEvaluation?,
     ) {
         appEventLogger.logMessage(
             "onAudioInputFormatChanged ${format.codecs.orEmpty()} ${format.bitrate} ${format.containerMimeType.orEmpty()}",
             level = ErrorReporter.Level.Debug,
-            category = ErrorReporter.Category.Playback
+            category = ErrorReporter.Category.Playback,
         )
         super.onAudioInputFormatChanged(eventTime, format, decoderReuseEvaluation)
     }
 
     override fun onDownstreamFormatChanged(
         eventTime: AnalyticsListener.EventTime,
-        mediaLoadData: MediaLoadData
+        mediaLoadData: MediaLoadData,
     ) {
         appEventLogger.logMessage(
             "onDownstreamFormatChanged ${mediaLoadData.dataType}",
-            category = ErrorReporter.Category.Playback
+            category = ErrorReporter.Category.Playback,
         )
         super.onDownstreamFormatChanged(eventTime, mediaLoadData)
     }
@@ -187,11 +187,11 @@ public class AnalyticsEventLogger(
         eventTime: AnalyticsListener.EventTime,
         totalLoadTimeMs: Int,
         totalBytesLoaded: Long,
-        bitrateEstimate: Long
+        bitrateEstimate: Long,
     ) {
         appEventLogger.logMessage(
             "onBandwidthEstimate $bitrateEstimate",
-            level = ErrorReporter.Level.Debug
+            level = ErrorReporter.Level.Debug,
         )
     }
 }

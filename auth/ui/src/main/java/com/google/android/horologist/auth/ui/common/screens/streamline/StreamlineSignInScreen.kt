@@ -57,7 +57,7 @@ public fun StreamlineSignInScreen(
     onMultipleAccountsAvailable: (accounts: List<AccountUiModel>) -> Unit,
     onNoAccountsAvailable: () -> Unit,
     viewModel: StreamlineSignInViewModel = viewModel(),
-    content: @Composable () -> Unit = { }
+    content: @Composable () -> Unit = { },
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -67,7 +67,7 @@ public fun StreamlineSignInScreen(
         onSingleAccountAvailable = onSingleAccountAvailable,
         onMultipleAccountsAvailable = onMultipleAccountsAvailable,
         onNoAccountsAvailable = onNoAccountsAvailable,
-        content = content
+        content = content,
     )
 }
 
@@ -78,7 +78,7 @@ internal fun StreamlineSignInScreen(
     onSingleAccountAvailable: (account: AccountUiModel) -> Unit,
     onMultipleAccountsAvailable: (accounts: List<AccountUiModel>) -> Unit,
     onNoAccountsAvailable: () -> Unit,
-    content: @Composable () -> Unit = { }
+    content: @Composable () -> Unit = { },
 ) {
     when (state) {
         StreamlineSignInScreenState.Idle -> {

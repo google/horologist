@@ -38,7 +38,7 @@ public fun SetVolumeButton(
     onVolumeClick: () -> Unit,
     modifier: Modifier = Modifier,
     volumeUiState: VolumeUiState? = null,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     SettingsButton(
         modifier = modifier,
@@ -50,6 +50,6 @@ public fun SetVolumeButton(
             else -> Icons.Default.VolumeUp // volumeUiState == null || volumeUiState.isMax == true
         },
         iconRtlMode = IconRtlMode.Mirrored,
-        contentDescription = stringResource(R.string.horologist_set_volume_content_description)
+        contentDescription = stringResource(R.string.horologist_set_volume_content_description),
     )
 }

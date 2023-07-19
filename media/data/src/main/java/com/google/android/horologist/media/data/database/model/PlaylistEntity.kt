@@ -28,5 +28,5 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 public data class PlaylistEntity(
     @PrimaryKey val playlistId: String,
     val name: String,
-    val artworkUri: String?
+    val artworkUri: String?,
 )

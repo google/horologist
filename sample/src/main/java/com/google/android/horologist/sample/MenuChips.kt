@@ -55,22 +55,22 @@ fun FillMaxRectangleChip(navigateToRoute: (String) -> Unit) {
                         .clip(CircleShape)
                         .background(Color.Black)
                         .fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Box(
                         modifier = Modifier
                             .background(Color.Red)
-                            .size(24.dp)
+                            .size(24.dp),
                     )
                 }
             } else {
                 Box(
                     modifier = Modifier
                         .background(Color.Red)
-                        .fillMaxSize()
+                        .fillMaxSize(),
                 )
             }
-        }
+        },
     )
 }
 
@@ -82,16 +82,16 @@ fun VolumeScreenChip(navigateToRoute: (String) -> Unit) {
         content = {
             Icon(
                 imageVector = Icons.Default.VolumeUp,
-                contentDescription = "Volume Screen"
+                contentDescription = "Volume Screen",
             )
-        }
+        },
     )
 }
 
 @Composable
 fun TimePickerChip(
     time: LocalDateTime,
-    navigateToRoute: (String) -> Unit
+    navigateToRoute: (String) -> Unit,
 ) {
     SampleChip(
         onClick = { navigateToRoute(Screen.TimePicker.route) },
@@ -110,16 +110,16 @@ fun TimePickerChip(
                     append(time.minute.toString())
                     append(" AM")
                 },
-                fontSize = 6f.sp
+                fontSize = 6f.sp,
             )
-        }
+        },
     )
 }
 
 @Composable
 fun DatePickerChip(
     time: LocalDateTime,
-    navigateToRoute: (String) -> Unit
+    navigateToRoute: (String) -> Unit,
 ) {
     SampleChip(
         onClick = { navigateToRoute(Screen.DatePicker.route) },
@@ -132,16 +132,16 @@ fun DatePickerChip(
                     }
                     append(" ${time.format(DateTimeFormatter.ofPattern("MMM"))}")
                 },
-                fontSize = 6f.sp
+                fontSize = 6f.sp,
             )
-        }
+        },
     )
 }
 
 @Composable
 fun TimeWithSecondsPickerChip(
     time: LocalDateTime,
-    navigateToRoute: (String) -> Unit
+    navigateToRoute: (String) -> Unit,
 ) {
     SampleChip(
         onClick = { navigateToRoute(Screen.TimeWithSecondsPicker.route) },
@@ -154,16 +154,16 @@ fun TimeWithSecondsPickerChip(
                     }
                     append(":${time.minute}:${time.second}")
                 },
-                fontSize = 6f.sp
+                fontSize = 6f.sp,
             )
-        }
+        },
     )
 }
 
 @Composable
 fun TimeWithoutSecondsPickerChip(
     time: LocalDateTime,
-    navigateToRoute: (String) -> Unit
+    navigateToRoute: (String) -> Unit,
 ) {
     SampleChip(
         onClick = { navigateToRoute(Screen.TimeWithoutSecondsPicker.route) },
@@ -176,55 +176,55 @@ fun TimeWithoutSecondsPickerChip(
                     }
                     append(":${time.minute}")
                 },
-                fontSize = 6f.sp
+                fontSize = 6f.sp,
             )
-        }
+        },
     )
 }
 
 @Composable
 fun ScrollAwayChip(
     label: String,
-    navigateToRoute: () -> Unit
+    navigateToRoute: () -> Unit,
 ) {
     SampleChip(
         onClick = { navigateToRoute() },
         label = label,
         content = {
             Text(text = "10:10 AM", fontSize = 6f.sp)
-        }
+        },
     )
 }
 
 @Composable
 fun NetworkChip(
-    navigateToRoute: () -> Unit
+    navigateToRoute: () -> Unit,
 ) {
     SampleChip(
         onClick = { navigateToRoute() },
         label = "Networks",
         content = {
             Text(text = "192.168.1.1", fontSize = 6f.sp)
-        }
+        },
     )
 }
 
 @Composable
 fun DataLayerNodesChip(
-    navigateToRoute: () -> Unit
+    navigateToRoute: () -> Unit,
 ) {
     SampleChip(
         onClick = { navigateToRoute() },
         label = "Data Layer Nodes",
         content = {
             Text(text = "Nodes")
-        }
+        },
     )
 }
 
 @Composable
 fun PagingChip(
-    navigateToRoute: () -> Unit
+    navigateToRoute: () -> Unit,
 ) {
     SampleChip(
         onClick = { navigateToRoute() },
@@ -232,15 +232,15 @@ fun PagingChip(
         content = {
             Icon(
                 imageVector = Icons.Default.ReceiptLong,
-                contentDescription = stringResource(R.string.paging_chip_content_description)
+                contentDescription = stringResource(R.string.paging_chip_content_description),
             )
-        }
+        },
     )
 }
 
 @Composable
 fun PagerScreenChip(
-    navigateToRoute: () -> Unit
+    navigateToRoute: () -> Unit,
 ) {
     SampleChip(
         onClick = { navigateToRoute() },
@@ -248,8 +248,8 @@ fun PagerScreenChip(
         content = {
             Icon(
                 imageVector = Icons.Default.ViewCarousel,
-                contentDescription = stringResource(R.string.pager_screen_chip_content_description)
+                contentDescription = stringResource(R.string.pager_screen_chip_content_description),
             )
-        }
+        },
     )
 }

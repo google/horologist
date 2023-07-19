@@ -23,5 +23,5 @@ import javax.inject.Qualifier
 annotation class Dispatcher(val uampDispatchers: UampDispatchers)
 
 enum class UampDispatchers {
-    IO
+    IO,
 }

@@ -45,7 +45,7 @@ public fun SettingsButton(
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true,
     iconSize: Dp = 26.dp,
-    tapTargetSize: Dp = 52.dp
+    tapTargetSize: Dp = 52.dp,
 ) {
     Button(
         modifier = modifier.size(tapTargetSize),
@@ -53,9 +53,9 @@ public fun SettingsButton(
         colors = buttonColors(
             backgroundColor = Color.Transparent,
             disabledBackgroundColor = Color.Transparent,
-            contentColor = MaterialTheme.colors.onSurface
+            contentColor = MaterialTheme.colors.onSurface,
         ),
-        enabled = enabled
+        enabled = enabled,
     ) {
         Icon(
             imageVector = imageVector,
@@ -63,7 +63,7 @@ public fun SettingsButton(
             modifier = Modifier
                 .size(iconSize)
                 .align(Alignment.Center),
-            rtlMode = iconRtlMode
+            rtlMode = iconRtlMode,
         )
     }
 }

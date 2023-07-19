@@ -57,7 +57,7 @@ class MediaMapperTest {
                     .setArtist(artist)
                     .setAlbumArtist(albumArtist)
                     .setArtworkUri(Uri.parse(artworkUri))
-                    .build()
+                    .build(),
             )
             .build()
 
@@ -85,7 +85,7 @@ class MediaMapperTest {
             .setMediaMetadata(
                 MediaMetadata.Builder()
                     .setArtist(artist)
-                    .build()
+                    .build(),
             )
             .build()
 
@@ -115,7 +115,7 @@ class MediaMapperTest {
                 MediaMetadata.Builder()
                     .setTitle(title)
                     .setAlbumArtist(albumArtist)
-                    .build()
+                    .build(),
             )
             .build()
 
@@ -156,7 +156,7 @@ class MediaMapperTest {
                 MediaMetadata.Builder()
                     .setTitle("ignore")
                     .setArtist("ignore")
-                    .build()
+                    .build(),
             )
             .build()
 
@@ -187,14 +187,14 @@ class MediaMapperTest {
             .setMediaMetadata(
                 MediaMetadata.Builder()
                     .setArtist(artist)
-                    .build()
+                    .build(),
             )
             .build()
 
         val sut = MediaMapper(object : MediaExtrasMapper {
             override fun map(
                 mediaItem: MediaItem,
-                mediaMetadata: MediaMetadata?
+                mediaMetadata: MediaMetadata?,
             ): Map<String, Any> = buildMap {
                 put(id, mediaItem.mediaId)
                 put(uri, mediaItem.localConfiguration!!.uri)
@@ -225,7 +225,7 @@ class MediaMapperTest {
             mediaUrl = uri,
             artworkUrl = artworkUri,
             title = title,
-            artist = artist
+            artist = artist,
         )
 
         // when
@@ -251,7 +251,7 @@ class MediaMapperTest {
             mediaUrl = uri,
             artworkUrl = artworkUri,
             title = null,
-            artist = null
+            artist = null,
         )
 
         // when

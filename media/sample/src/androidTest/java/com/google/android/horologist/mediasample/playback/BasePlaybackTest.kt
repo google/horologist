@@ -37,7 +37,7 @@ abstract class BasePlaybackTest : BaseContainerTest() {
     suspend fun browser(): MediaBrowser {
         return MediaBrowser.Builder(
             application,
-            SessionToken(application, ComponentName(application, PlaybackService::class.java))
+            SessionToken(application, ComponentName(application, PlaybackService::class.java)),
         ).buildSuspend()
     }
 }

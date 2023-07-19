@@ -29,7 +29,7 @@ public interface ErrorReporter {
     public fun logMessage(
         message: String,
         category: Category = Category.Unknown,
-        level: Level = Level.Info
+        level: Level = Level.Info,
     )
 
     public enum class Category {

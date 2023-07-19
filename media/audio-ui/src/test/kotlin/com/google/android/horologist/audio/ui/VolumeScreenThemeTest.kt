@@ -28,19 +28,19 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class VolumeScreenThemeTest(
-    private val themeValue: ThemeValues
+    private val themeValue: ThemeValues,
 ) : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
         testLabel = themeValue.safeName.lowercase()
-    }
+    },
 ) {
 
     @Test
     fun volumeScreenThemes() {
         val volumeState = VolumeState(
             current = 50,
-            max = 100
+            max = 100,
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
@@ -48,7 +48,7 @@ class VolumeScreenThemeTest(
             VolumeScreenTestCase(
                 colors = themeValue.colors,
                 volumeState = volumeState,
-                audioOutput = audioOutput
+                audioOutput = audioOutput,
             )
         }
     }

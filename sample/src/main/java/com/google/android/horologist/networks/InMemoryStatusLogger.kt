@@ -46,7 +46,7 @@ public class InMemoryStatusLogger : NetworkStatusLogger {
     override fun logNetworkResponse(
         requestType: RequestType,
         networkInfo: NetworkInfo,
-        bytesTransferred: Long
+        bytesTransferred: Long,
     ) {
         val event = "response $requestType ${networkInfo.type} ${bytesTransferred}B"
         add(Event.NetworkResponse(event, requestType, networkInfo, bytesTransferred))
@@ -59,7 +59,7 @@ public class InMemoryStatusLogger : NetworkStatusLogger {
             override val message: String,
             val requestType: RequestType,
             val networkInfo: NetworkInfo,
-            val bytesTransferred: Long
+            val bytesTransferred: Long,
         ) : Event
 
         data class Message(override val message: String) : Event

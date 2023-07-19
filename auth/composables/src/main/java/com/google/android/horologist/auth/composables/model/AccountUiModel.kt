@@ -25,5 +25,5 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 public data class AccountUiModel(
     val email: String,
     val name: String? = null,
-    val avatar: Any? = null
+    val avatar: Any? = null,
 )

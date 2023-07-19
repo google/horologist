@@ -50,7 +50,7 @@ class SetCommandMapperTest {
                 Player.COMMAND_SEEK_FORWARD,
                 Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM,
                 Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM,
-                Player.COMMAND_SET_SHUFFLE_MODE
+                Player.COMMAND_SET_SHUFFLE_MODE,
             )
             .build()
 
@@ -66,8 +66,8 @@ class SetCommandMapperTest {
                 Command.SeekForward,
                 Command.SkipToPreviousMedia,
                 Command.SkipToNextMedia,
-                Command.SetShuffle
-            )
+                Command.SetShuffle,
+            ),
         )
     }
 
@@ -90,8 +90,8 @@ class SetCommandMapperTest {
                 Command.SeekForward,
                 Command.SkipToPreviousMedia,
                 Command.SkipToNextMedia,
-                Command.SetShuffle
-            )
+                Command.SetShuffle,
+            ),
         )
     }
 }

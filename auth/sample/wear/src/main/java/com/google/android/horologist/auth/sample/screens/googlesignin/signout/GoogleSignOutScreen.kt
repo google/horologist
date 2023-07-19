@@ -36,7 +36,7 @@ import com.google.android.horologist.compose.material.Confirmation
 @Composable
 fun GoogleSignOutScreen(
     navController: NavHostController,
-    viewModel: GoogleSignOutViewModel = viewModel(factory = GoogleSignOutViewModel.Factory)
+    viewModel: GoogleSignOutViewModel = viewModel(factory = GoogleSignOutViewModel.Factory),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -55,12 +55,12 @@ fun GoogleSignOutScreen(
 
         GoogleSignOutScreenState.Success -> {
             Confirmation(
-                onTimeout = navController::popBackStack
+                onTimeout = navController::popBackStack,
             ) {
                 Text(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     textAlign = TextAlign.Center,
-                    text = stringResource(id = R.string.google_sign_out_success_message)
+                    text = stringResource(id = R.string.google_sign_out_success_message),
                 )
             }
         }
@@ -77,7 +77,7 @@ fun GoogleSignOutScreen(
 private fun LoadingView() {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator()
     }

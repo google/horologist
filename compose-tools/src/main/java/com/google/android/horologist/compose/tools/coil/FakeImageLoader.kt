@@ -94,23 +94,23 @@ public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> Imag
         public fun loadSuccessBitmap(
             context: Context,
             request: ImageRequest,
-            @DrawableRes id: Int
+            @DrawableRes id: Int,
         ): ImageResult {
             val drawable = ContextCompat.getDrawable(context, id)!!
             return SuccessResult(
                 drawable = drawable,
                 request = request,
-                dataSource = DataSource.DISK
+                dataSource = DataSource.DISK,
             )
         }
 
         public fun loadErrorBitmap(
-            request: ImageRequest
+            request: ImageRequest,
         ): ImageResult {
             return ErrorResult(
                 drawable = null,
                 request = request,
-                throwable = IOException("request for fake image failed")
+                throwable = IOException("request for fake image failed"),
             )
         }
 

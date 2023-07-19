@@ -43,7 +43,7 @@ class DeveloperOptionsScreenViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val snackbarManager: SnackbarManager,
     private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
-    @IsEmulator private val isEmulator: Boolean
+    @IsEmulator private val isEmulator: Boolean,
 ) : ViewModel() {
     private val networkRequest = MutableStateFlow<HighBandwidthConnectionLease?>(null)
 
@@ -58,12 +58,12 @@ class DeveloperOptionsScreenViewModel @Inject constructor(
                 debugOffload = it.debugOffload,
                 writable = true,
                 networkRequest = networkRequest,
-                streamingMode = it.streamingMode
+                streamingMode = it.streamingMode,
             )
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = UiState(writable = false)
+            initialValue = UiState(writable = false),
         )
 
     data class UiState(
@@ -75,7 +75,7 @@ class DeveloperOptionsScreenViewModel @Inject constructor(
         val offloadMode: OffloadMode = OffloadMode.BACKGROUND,
         val writable: Boolean = false,
         val networkRequest: HighBandwidthConnectionLease? = null,
-        val streamingMode: Boolean = false
+        val streamingMode: Boolean = false,
     )
 
     fun setShowTimeTextInfo(enabled: Boolean) {
@@ -138,8 +138,8 @@ class DeveloperOptionsScreenViewModel @Inject constructor(
         snackbarManager.showMessage(
             UiMessage(
                 message = message,
-                error = true
-            )
+                error = true,
+            ),
         )
     }
 

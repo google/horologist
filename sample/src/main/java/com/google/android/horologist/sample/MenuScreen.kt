@@ -41,11 +41,11 @@ fun MenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
     time: LocalDateTime,
-    columnState: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState,
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         item {
             ListHeader {
@@ -99,7 +99,7 @@ fun MenuScreen(
             Chip(
                 label = stringResource(id = R.string.sectionedlist_samples_menu),
                 modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) }
+                onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) },
             )
         }
         item {
@@ -114,7 +114,7 @@ fun MenuScreen(
                 },
                 modifier = modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(Screen.RotaryMenuScreen.route) },
-                colors = ChipDefaults.primaryChipColors()
+                colors = ChipDefaults.primaryChipColors(),
             )
         }
         item {
@@ -131,7 +131,7 @@ fun SampleChip(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     label: String,
-    content: (@Composable () -> Unit)? = null
+    content: (@Composable () -> Unit)? = null,
 ) {
     androidx.wear.compose.material.Chip(
         modifier = modifier.fillMaxWidth(),
@@ -143,7 +143,7 @@ fun SampleChip(
                     content()
                 }
             }
-        }
+        },
     )
 }
 
@@ -151,13 +151,13 @@ fun SampleChip(
     device = Devices.WEAR_OS_LARGE_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Preview(
     device = Devices.WEAR_OS_SQUARE,
     showSystemUi = true,
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun MenuScreenPreview() {
@@ -165,6 +165,6 @@ fun MenuScreenPreview() {
         modifier = Modifier.fillMaxSize(),
         navigateToRoute = {},
         time = LocalDateTime.now(),
-        columnState = belowTimeTextPreview()
+        columnState = belowTimeTextPreview(),
     )
 }

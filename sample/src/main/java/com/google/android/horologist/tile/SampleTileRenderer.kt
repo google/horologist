@@ -52,33 +52,33 @@ import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 
 class SampleTileRenderer(context: Context) :
     SingleTileLayoutRenderer<SampleTileRenderer.TileState, SampleTileRenderer.ResourceState>(
-        context
+        context,
     ) {
     override fun renderTile(
         state: TileState,
-        deviceParameters: DeviceParameters
+        deviceParameters: DeviceParameters,
     ): LayoutElementBuilders.LayoutElement {
         return PrimaryLayout.Builder(deviceParameters)
             .setPrimaryLabelTextContent(
                 Text.Builder(context, "Count: ${state.count}")
                     .setTypography(Typography.TYPOGRAPHY_CAPTION1)
                     .setColor(argb(theme.primary))
-                    .build()
+                    .build(),
             )
             .setContent(
                 MultiButtonLayout.Builder()
                     .addButtonContent(
-                        imageButton(NoOpClickable)
+                        imageButton(NoOpClickable),
                     )
                     .addButtonContent(
-                        iconButton(NoOpClickable)
+                        iconButton(NoOpClickable),
                     )
-                    .build()
+                    .build(),
             )
             .setPrimaryChipContent(
                 CompactChip.Builder(context, "Action", NoOpClickable, deviceParameters)
                     .setChipColors(ChipColors.primaryChipColors(theme))
-                    .build()
+                    .build(),
             )
             .build()
     }
@@ -98,7 +98,7 @@ class SampleTileRenderer(context: Context) :
     override fun Resources.Builder.produceRequestedResources(
         resourceState: ResourceState,
         deviceParameters: DeviceParameters,
-        resourceIds: MutableList<String>
+        resourceIds: MutableList<String>,
     ) {
         addIdToImageMapping(Icon1, drawableResToImageResource(TileIcon))
         if (resourceState.image != null) {
@@ -138,7 +138,7 @@ fun SampleTilePreview() {
     TileLayoutPreview(
         tileState,
         resourceState,
-        renderer
+        renderer,
     )
 }
 
@@ -152,11 +152,11 @@ fun SampleButtonImagePreview() {
     }
 
     LayoutElementPreview(
-        renderer.imageButton(NoOpClickable)
+        renderer.imageButton(NoOpClickable),
     ) {
         addIdToImageMapping(
             Image1,
-            drawableResToImageResource(TileImage)
+            drawableResToImageResource(TileImage),
         )
     }
 }
@@ -171,11 +171,11 @@ fun SampleButtonIconPreview() {
     }
 
     LayoutElementPreview(
-        renderer.iconButton(NoOpClickable)
+        renderer.iconButton(NoOpClickable),
     ) {
         addIdToImageMapping(
             Icon1,
-            drawableResToImageResource(TileIcon)
+            drawableResToImageResource(TileIcon),
         )
     }
 }
@@ -184,7 +184,7 @@ fun SampleButtonIconPreview() {
     backgroundColor = 0xff000000,
     showBackground = true,
     widthDp = 100,
-    heightDp = 100
+    heightDp = 100,
 )
 public annotation class IconSizePreview
 
@@ -192,6 +192,6 @@ public annotation class IconSizePreview
     backgroundColor = 0xff000000,
     showBackground = true,
     widthDp = 192,
-    heightDp = 100
+    heightDp = 100,
 )
 public annotation class FullWidthPreview

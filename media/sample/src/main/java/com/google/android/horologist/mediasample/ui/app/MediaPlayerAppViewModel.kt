@@ -52,7 +52,7 @@ class MediaPlayerAppViewModel @Inject constructor(
     private val playlistRepository: PlaylistRepository,
     private val snackbarManager: SnackbarManager,
     private val resourceProvider: ResourceProvider,
-    private val authUserRepository: AuthUserRepository
+    private val authUserRepository: AuthUserRepository,
 ) : ViewModel() {
 
     val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
@@ -60,7 +60,7 @@ class MediaPlayerAppViewModel @Inject constructor(
     val appState = settingsRepository.settingsFlow.map {
         UampAppState(
             streamingMode = it.streamingMode,
-            guestMode = it.guestMode
+            guestMode = it.guestMode,
         )
     }.stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000), initialValue = UampAppState())
 
@@ -73,8 +73,8 @@ class MediaPlayerAppViewModel @Inject constructor(
                         snackbarManager.showMessage(
                             UiMessage(
                                 message = resourceProvider.getString(R.string.sample_network_error),
-                                error = true
-                            )
+                                error = true,
+                            ),
                         )
                     }
                     else -> throw throwable
@@ -130,16 +130,16 @@ class MediaPlayerAppViewModel @Inject constructor(
                     playlist.mediaList,
                     index,
                     position.toDuration(
-                        DurationUnit.MILLISECONDS
-                    )
+                        DurationUnit.MILLISECONDS,
+                    ),
                 )
             }
         } catch (e: IOException) {
             snackbarManager.showMessage(
                 UiMessage(
                     message = resourceProvider.getString(R.string.sample_network_error),
-                    error = true
-                )
+                    error = true,
+                ),
             )
         }
     }
@@ -164,5 +164,5 @@ class MediaPlayerAppViewModel @Inject constructor(
 
 data class UampAppState(
     val streamingMode: Boolean? = null,
-    val guestMode: Boolean? = null
+    val guestMode: Boolean? = null,
 )

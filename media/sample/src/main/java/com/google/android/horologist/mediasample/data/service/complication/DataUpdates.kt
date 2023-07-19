@@ -29,10 +29,10 @@ import kotlinx.coroutines.flow.update
  * that won't to show the current player state, without using media controller.
  */
 class DataUpdates(
-    private val updater: ComplicationDataSourceUpdateRequester
+    private val updater: ComplicationDataSourceUpdateRequester,
 ) {
     data class State(
-        val mediaItem: MediaItem?
+        val mediaItem: MediaItem?,
     )
 
     val listener: Player.Listener = object : Player.Listener {

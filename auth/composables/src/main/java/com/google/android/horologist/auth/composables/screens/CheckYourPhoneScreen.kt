@@ -53,17 +53,17 @@ private val progressBarStrokeWidth = 4.dp
 @ExperimentalHorologistApi
 @Composable
 public fun CheckYourPhoneScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         Text(
             text = stringResource(id = R.string.horologist_check_your_phone_title),
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Center),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Box(
@@ -71,12 +71,12 @@ public fun CheckYourPhoneScreen(
                 .padding(bottom = 20.dp)
                 .align(Alignment.BottomCenter)
                 .size(iconSize)
-                .clip(CircleShape)
+                .clip(CircleShape),
         ) {
             CircularProgressIndicator(
                 modifier = modifier
                     .size(iconSize - progressBarStrokeWidth + indicatorPadding),
-                strokeWidth = progressBarStrokeWidth
+                strokeWidth = progressBarStrokeWidth,
             )
             Icon(
                 imageVector = Icons.Default.SecurityUpdateGood,
@@ -84,7 +84,7 @@ public fun CheckYourPhoneScreen(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .size(iconSize - indicatorPadding - 8.dp)
-                    .clip(CircleShape)
+                    .clip(CircleShape),
             )
         }
     }
@@ -100,7 +100,7 @@ public fun CheckYourPhoneScreen(
 @Composable
 public fun CheckYourPhoneScreen(
     modifier: Modifier = Modifier,
-    message: String
+    message: String,
 ) {
     val configuration = LocalConfiguration.current
     val topPadding = (configuration.screenHeightDp * TOP_PADDING_SCREEN_PERCENTAGE).dp
@@ -108,14 +108,14 @@ public fun CheckYourPhoneScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(top = topPadding)
+            .padding(top = topPadding),
     ) {
         Text(
             text = stringResource(id = R.string.horologist_check_your_phone_title),
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Text(
@@ -124,7 +124,7 @@ public fun CheckYourPhoneScreen(
                 .padding(top = 20.dp)
                 .fillMaxWidth()
                 .align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Box(
@@ -133,19 +133,19 @@ public fun CheckYourPhoneScreen(
                 .fillMaxWidth()
                 .size(iconSize)
                 .clip(CircleShape),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             CircularProgressIndicator(
                 modifier = modifier
                     .size(iconSize - progressBarStrokeWidth + indicatorPadding),
-                strokeWidth = progressBarStrokeWidth
+                strokeWidth = progressBarStrokeWidth,
             )
             Icon(
                 imageVector = Icons.Default.SecurityUpdateGood,
                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                 modifier = Modifier
                     .size(iconSize - indicatorPadding - 8.dp)
-                    .clip(CircleShape)
+                    .clip(CircleShape),
             )
         }
     }

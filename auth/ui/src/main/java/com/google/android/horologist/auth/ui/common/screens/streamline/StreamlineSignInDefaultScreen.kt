@@ -47,7 +47,7 @@ public fun StreamlineSignInDefaultScreen(
     columnState: ScalingLazyColumnState,
     viewModel: StreamlineSignInDefaultViewModel,
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit = { }
+    content: @Composable () -> Unit = { },
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -67,7 +67,7 @@ public fun StreamlineSignInDefaultScreen(
             SignedInConfirmationDialog(
                 onDismissOrTimeout = { onSignedInConfirmationDialogDismissOrTimeout(account) },
                 modifier = modifier,
-                accountUiModel = account
+                accountUiModel = account,
             )
         }
 
@@ -80,7 +80,7 @@ public fun StreamlineSignInDefaultScreen(
                     viewModel.onAccountSelected(account)
                 },
                 columnState = columnState,
-                modifier = modifier
+                modifier = modifier,
             )
         }
 

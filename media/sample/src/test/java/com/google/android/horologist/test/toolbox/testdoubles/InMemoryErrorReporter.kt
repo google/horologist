@@ -35,7 +35,7 @@ public class InMemoryErrorReporter : ErrorReporter {
     override fun logMessage(
         message: String,
         category: ErrorReporter.Category,
-        level: ErrorReporter.Level
+        level: ErrorReporter.Level,
     ) {
         logs.add(message)
     }

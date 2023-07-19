@@ -45,7 +45,7 @@ class UampStreamingPlaylistScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val playlistDownloadRepository: PlaylistDownloadRepository,
     private val playerRepository: PlayerRepository,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
 ) : ViewModel() {
     private val playlistId: String = savedStateHandle[NavigationScreens.Collection.id]!!
 
@@ -58,7 +58,7 @@ class UampStreamingPlaylistScreenViewModel @Inject constructor(
             if (playlistDownload != null) {
                 createPlaylistDownloadScreenStateLoaded(
                     playlistModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
-                    downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map)
+                    downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map),
                 )
             } else {
                 PlaylistDownloadScreenState.Failed
@@ -68,7 +68,7 @@ class UampStreamingPlaylistScreenViewModel @Inject constructor(
         }.stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
-            PlaylistDownloadScreenState.Loading
+            PlaylistDownloadScreenState.Loading,
         )
 
     fun play(mediaId: String? = null) {

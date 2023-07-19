@@ -32,7 +32,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UampPlaylistsScreenViewModel @Inject constructor(
-    playlistRepository: PlaylistRepository
+    playlistRepository: PlaylistRepository,
 ) : ViewModel() {
 
     val uiState: StateFlow<PlaylistsScreenState<PlaylistUiModel>> =
@@ -47,6 +47,6 @@ class UampPlaylistsScreenViewModel @Inject constructor(
         }.stateIn(
             viewModelScope,
             started = SharingStarted.Eagerly,
-            initialValue = PlaylistsScreenState.Loading
+            initialValue = PlaylistsScreenState.Loading,
         )
 }

@@ -47,7 +47,7 @@ internal class SyncWorker @AssistedInject constructor(
     private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
     private val notificationConfigurationProvider: NotificationConfigurationProvider,
     private val changeListVersionRepository: ChangeListVersionRepository,
-    private val syncables: Array<Syncable>
+    private val syncables: Array<Syncable>,
 ) : CoroutineWorker(appContext, workerParams), Synchronizer {
 
     override suspend fun getForegroundInfo(): ForegroundInfo =
@@ -55,7 +55,7 @@ internal class SyncWorker @AssistedInject constructor(
             notificationTitle = notificationConfigurationProvider.getNotificationTitle(),
             notificationIcon = notificationConfigurationProvider.getNotificationIcon(),
             channelName = notificationConfigurationProvider.getChannelName(),
-            channelDescription = notificationConfigurationProvider.getChannelDescription()
+            channelDescription = notificationConfigurationProvider.getChannelDescription(),
         )
 
     override suspend fun doWork(): Result = withContext(coroutineDispatcherProvider.getIODispatcher()) {
@@ -67,8 +67,11 @@ internal class SyncWorker @AssistedInject constructor(
 
             val syncedSuccessfully = awaitAll(*deferredSyncCalls).all { it }
 
-            if (syncedSuccessfully) Result.success()
-            else Result.retry()
+            if (syncedSuccessfully) {
+                Result.success()
+            } else {
+                Result.retry()
+            }
         }
     }
 
@@ -78,7 +81,7 @@ internal class SyncWorker @AssistedInject constructor(
     override suspend fun updateChangeListVersions(model: String, version: Int): Unit =
         changeListVersionRepository.updateChangeListVersion(
             model = model,
-            newVersion = version
+            newVersion = version,
         )
 
     internal companion object {

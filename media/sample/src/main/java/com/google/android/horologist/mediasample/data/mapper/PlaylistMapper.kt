@@ -32,7 +32,7 @@ object PlaylistMapper {
                     id = sanitize(entry.key),
                     name = entry.key,
                     artworkUri = entry.value.firstOrNull()?.image,
-                    mediaList = entry.value.map(MediaMapper::map)
+                    mediaList = entry.value.map(MediaMapper::map),
                 )
             }
 

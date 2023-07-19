@@ -48,7 +48,7 @@ class JankPrinter {
             }
 
             jankStats = JankStats.createAndTrack(
-                activity.window
+                activity.window,
             ) {
                 if (it.isJank) {
                     val route =

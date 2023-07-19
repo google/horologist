@@ -27,11 +27,11 @@ public data class AppHelperNodeStatus(
     val displayName: String,
     val isAppInstalled: Boolean,
     val nodeType: AppHelperNodeType,
-    val surfacesInfo: SurfacesInfo = SurfacesInfo.getDefaultInstance()
+    val surfacesInfo: SurfacesInfo = SurfacesInfo.getDefaultInstance(),
 )
 
 public enum class AppHelperNodeType {
     UNKNOWN,
     WATCH,
-    PHONE
+    PHONE,
 }

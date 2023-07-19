@@ -29,7 +29,7 @@ fun FillMaxRectangleScreen() {
     Box(
         modifier = Modifier
             .fillMaxRectangle()
-            .background(Color.Red)
+            .background(Color.Red),
     )
 }
 

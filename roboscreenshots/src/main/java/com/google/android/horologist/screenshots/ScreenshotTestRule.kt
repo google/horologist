@@ -68,7 +68,7 @@ import org.robolectric.RobolectricTestRunner
  */
 @ExperimentalHorologistApi
 public class ScreenshotTestRule(
-    private val params: ScreenshotTestRuleParams = screenshotTestRuleParams { }
+    private val params: ScreenshotTestRuleParams = screenshotTestRuleParams { },
 ) : TestRule {
 
     private val testClassInfoRule: TestClassInfoRule = TestClassInfoRule()
@@ -111,7 +111,7 @@ public class ScreenshotTestRule(
         timeText: @Composable () -> Unit = params.screenTimeText,
         positionIndicator: @Composable () -> Unit = { },
         fakeImageLoader: FakeImageLoader = FakeImageLoader.Never,
-        composable: @Composable () -> Unit
+        composable: @Composable () -> Unit,
     ) {
         this.isComponent = isComponent
         val round = roundScreen ?: resources.configuration.isScreenRound
@@ -149,14 +149,14 @@ public class ScreenshotTestRule(
         val snapshotting = Snapshotting(
             diffing = Diffing.bitmapWithTolerance(
                 tolerance = params.tolerance,
-                colorDiffing = Diffing.highlightWithRed
+                colorDiffing = Diffing.highlightWithRed,
             ),
             snapshot = { node: SemanticsNodeInteraction ->
                 val view = getView()
                 val bitmap = Bitmap.createBitmap(
                     view.width,
                     view.height,
-                    Bitmap.Config.ARGB_8888
+                    Bitmap.Config.ARGB_8888,
                 ).apply {
                     view.draw(Canvas(this))
                 }
@@ -166,7 +166,7 @@ public class ScreenshotTestRule(
                 } else {
                     snapshotTransformer.transform(node, bitmap)
                 }
-            }
+            },
         ).fileSnapshotting
 
         runTest {
@@ -181,7 +181,7 @@ public class ScreenshotTestRule(
             composeContentTestRule.onRoot(),
             testName = getTestName(),
             record = params.record,
-            testClass = checkNotNull(testClassInfoRule.testClass) { "Could not retrieve information from test class" }
+            testClass = checkNotNull(testClassInfoRule.testClass) { "Could not retrieve information from test class" },
         )
         snapshotCount++
     }
@@ -215,12 +215,12 @@ public class ScreenshotTestRule(
         round: Boolean,
         timeText: @Composable () -> Unit,
         positionIndicator: @Composable () -> Unit,
-        content: @Composable () -> Unit
+        content: @Composable () -> Unit,
     ) {
         fakeImageLoader.apply {
             Box(
                 modifier = Modifier
-                    .background(Color.Transparent)
+                    .background(Color.Transparent),
             ) {
                 DefaultTheme {
                     Scaffold(
@@ -237,7 +237,7 @@ public class ScreenshotTestRule(
                         timeText = {
                             timeText()
                         },
-                        positionIndicator = positionIndicator
+                        positionIndicator = positionIndicator,
                     ) {
                         content()
                     }
@@ -249,14 +249,14 @@ public class ScreenshotTestRule(
     @Composable
     private fun ComponentDefaults(
         fakeImageLoader: FakeImageLoader,
-        content: @Composable () -> Unit
+        content: @Composable () -> Unit,
     ) {
         fakeImageLoader.override {
             Box(
                 modifier = Modifier
                     .wrapContentSize()
                     .background(Color.Black.copy(alpha = 0.5f)),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 DefaultTheme {
                     content()
@@ -275,7 +275,7 @@ public class ScreenshotTestRule(
         public val enableA11y: Boolean,
         public val screenTimeText: @Composable () -> Unit,
         public val testLabel: String?,
-        public val record: Boolean
+        public val record: Boolean,
     ) {
 
         public class Builder internal constructor() {
@@ -295,7 +295,7 @@ public class ScreenshotTestRule(
                     enableA11y = enableA11y,
                     screenTimeText = screenTimeText,
                     testLabel = testLabel,
-                    record = record
+                    record = record,
                 )
             }
         }
@@ -304,7 +304,7 @@ public class ScreenshotTestRule(
     public companion object {
         private fun defaultScreenTimeText(): @Composable () -> Unit = {
             TimeText(
-                timeSource = FixedTimeSource
+                timeSource = FixedTimeSource,
             )
         }
 

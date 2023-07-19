@@ -33,7 +33,7 @@ import kotlin.time.Duration.Companion.seconds
 @HiltViewModel
 class MediaPlayerScreenViewModel @Inject constructor(
     playerRepository: PlayerRepositoryImpl,
-    settingsRepository: SettingsRepository
+    settingsRepository: SettingsRepository,
 ) : PlayerViewModel(playerRepository) {
 
     init {
@@ -56,6 +56,6 @@ class MediaPlayerScreenViewModel @Inject constructor(
         .stateIn(
             viewModelScope,
             started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
-            initialValue = Settings.getDefaultInstance()
+            initialValue = Settings.getDefaultInstance(),
         )
 }

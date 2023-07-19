@@ -65,12 +65,12 @@ public abstract class BasePlaybackBenchmark {
         startupMode = StartupMode.WARM,
         setupBlock = {
             mediaControllerFuture = MediaControllerHelper.lookupController(
-                mediaApp.playerComponentName
+                mediaApp.playerComponentName,
             )
 
             // Wait for service
             mediaControllerFuture.get()
-        }
+        },
     ) {
         onStartup()
 
@@ -95,7 +95,7 @@ public abstract class BasePlaybackBenchmark {
 
     public open fun metrics(): List<Metric> = listOf(
         FrameTimingMetric(),
-        PowerMetric(type = PowerMetric.Type.Battery())
+        PowerMetric(type = PowerMetric.Type.Battery()),
     )
 
     public open fun MacrobenchmarkScope.onStartup() {

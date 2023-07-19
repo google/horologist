@@ -28,7 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UampSignInPromptViewModel @Inject constructor(
     authUserRepository: AuthUserRepository,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
 ) :
     SignInPromptViewModel(authUserRepository) {
     fun selectGuestMode() {

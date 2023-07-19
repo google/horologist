@@ -17,7 +17,7 @@
 package com.google.android.horologist.auth.data.watch.oauth
 
 @RequiresOptIn(
-    message = "Horologist Auth Data Watch OAuth is experimental. The API may be changed in the future."
+    message = "Horologist Auth Data Watch OAuth is experimental. The API may be changed in the future.",
 )
 @Retention(AnnotationRetention.BINARY)
 public annotation class ExperimentalHorologistAuthDataWatchOAuthApi

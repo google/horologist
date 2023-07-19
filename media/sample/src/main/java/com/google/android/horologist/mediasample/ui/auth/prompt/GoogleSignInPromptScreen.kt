@@ -41,7 +41,7 @@ fun GoogleSignInPromptScreen(
     navController: NavHostController,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: UampSignInPromptViewModel
+    viewModel: UampSignInPromptViewModel,
 ) {
     var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -52,14 +52,14 @@ fun GoogleSignInPromptScreen(
         },
         columnState = columnState,
         modifier = modifier,
-        viewModel = viewModel
+        viewModel = viewModel,
     ) {
         item {
             SignInChip(
                 onClick = {
                     navController.navigateToGoogleSignIn()
                 },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
         item {
@@ -68,7 +68,7 @@ fun GoogleSignInPromptScreen(
                     viewModel.selectGuestMode()
                     navController.popBackStack()
                 },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -78,12 +78,12 @@ fun GoogleSignInPromptScreen(
             onTimeout = {
                 showAlreadySignedInDialog = false
                 navController.popBackStack()
-            }
+            },
         ) {
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.google_sign_in_prompt_already_signed_in_message)
+                text = stringResource(id = R.string.google_sign_in_prompt_already_signed_in_message),
             )
         }
     }

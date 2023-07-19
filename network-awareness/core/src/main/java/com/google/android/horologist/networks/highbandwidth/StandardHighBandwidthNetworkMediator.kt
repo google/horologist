@@ -53,7 +53,7 @@ public class StandardHighBandwidthNetworkMediator(
     private val logger: NetworkStatusLogger,
     private val networkRequester: NetworkRequester,
     private val coroutineScope: CoroutineScope,
-    private val delayToRelease: Duration
+    private val delayToRelease: Duration,
 ) : HighBandwidthNetworkMediator {
     private val requests: MutableStateFlow<Requests> = MutableStateFlow(Requests())
 
@@ -73,7 +73,7 @@ public class StandardHighBandwidthNetworkMediator(
 
     private data class CountAndLease(
         val count: Int = 0,
-        val lease: NetworkLease? = null
+        val lease: NetworkLease? = null,
     ) {
         init {
             if (count > 0) {
@@ -83,7 +83,7 @@ public class StandardHighBandwidthNetworkMediator(
 
         fun updateCount(newLease: NetworkLease? = lease, delta: Int) = copy(
             count = count + delta,
-            lease = newLease
+            lease = newLease,
         )
     }
 
@@ -91,12 +91,12 @@ public class StandardHighBandwidthNetworkMediator(
         val types: Map<HighBandwidthRequest.Type, CountAndLease> = mapOf(
             HighBandwidthRequest.Type.All to CountAndLease(),
             HighBandwidthRequest.Type.CellOnly to CountAndLease(),
-            HighBandwidthRequest.Type.WifiOnly to CountAndLease()
-        )
+            HighBandwidthRequest.Type.WifiOnly to CountAndLease(),
+        ),
     ) {
         fun update(
             type: HighBandwidthRequest.Type,
-            fn: (CountAndLease) -> CountAndLease
+            fn: (CountAndLease) -> CountAndLease,
         ): Requests {
             val currentCountAndLease = types[type]!!
 
@@ -107,7 +107,7 @@ public class StandardHighBandwidthNetworkMediator(
     }
 
     override fun requestHighBandwidthNetwork(
-        request: HighBandwidthRequest
+        request: HighBandwidthRequest,
     ): HighBandwidthConnectionLease {
         requests.update {
             processRequest(it, request)
@@ -121,7 +121,7 @@ public class StandardHighBandwidthNetworkMediator(
     // Guarded by [requests.update]
     private fun processRequest(
         requests: Requests,
-        request: HighBandwidthRequest
+        request: HighBandwidthRequest,
     ): Requests = requests.update(request.type) { countAndLease ->
         pendingCancel?.let {
             it.cancel()
@@ -139,7 +139,7 @@ public class StandardHighBandwidthNetworkMediator(
     }
 
     private fun releaseHighBandwidthNetwork(
-        request: HighBandwidthRequest
+        request: HighBandwidthRequest,
     ) {
         requests.update {
             processRelease(it, request)
@@ -149,7 +149,7 @@ public class StandardHighBandwidthNetworkMediator(
     // Guarded by [requests.update]
     private fun processRelease(
         requests: Requests,
-        request: HighBandwidthRequest
+        request: HighBandwidthRequest,
     ): Requests = requests.update(request.type) { countAndLease ->
         val shouldCancelLease = countAndLease.count == 1
         if (shouldCancelLease) {
@@ -163,7 +163,7 @@ public class StandardHighBandwidthNetworkMediator(
     }
 
     private suspend fun processCancel(
-        request: HighBandwidthRequest
+        request: HighBandwidthRequest,
     ) {
         delay(delayToRelease)
 
@@ -175,7 +175,7 @@ public class StandardHighBandwidthNetworkMediator(
     // Guarded by [requests.update]
     private fun actuallyRelease(
         requests: Requests,
-        request: HighBandwidthRequest
+        request: HighBandwidthRequest,
     ): Requests = requests.update(request.type) { countAndLease ->
         // Should only be here if count hasn't changed since scheduled
         check(countAndLease.count == 0) {
@@ -197,7 +197,7 @@ public class StandardHighBandwidthNetworkMediator(
 
     private inner class CoalescedHighBandwidthConnectionLease(
         private val request: HighBandwidthRequest,
-        private val lease: NetworkLease
+        private val lease: NetworkLease,
     ) : HighBandwidthConnectionLease {
         private val closed = AtomicBoolean(false)
 

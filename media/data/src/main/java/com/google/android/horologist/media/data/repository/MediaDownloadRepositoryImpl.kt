@@ -22,7 +22,7 @@ import com.google.android.horologist.media.repository.MediaDownloadRepository
 
 @ExperimentalHorologistApi
 public class MediaDownloadRepositoryImpl(
-    private val media3DownloadDataSource: Media3DownloadDataSource
+    private val media3DownloadDataSource: Media3DownloadDataSource,
 ) :
     MediaDownloadRepository {
 

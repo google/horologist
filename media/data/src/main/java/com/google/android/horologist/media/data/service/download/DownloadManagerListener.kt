@@ -41,7 +41,7 @@ import kotlinx.coroutines.launch
 public class DownloadManagerListener(
     private val coroutineScope: CoroutineScope,
     private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
-    private val downloadProgressMonitor: DownloadProgressMonitor
+    private val downloadProgressMonitor: DownloadProgressMonitor,
 ) : DownloadManager.Listener {
 
     override fun onInitialized(downloadManager: DownloadManager) {
@@ -55,7 +55,7 @@ public class DownloadManagerListener(
     override fun onDownloadChanged(
         downloadManager: DownloadManager,
         download: Download,
-        finalException: Exception?
+        finalException: Exception?,
     ) {
         coroutineScope.launch {
             val mediaId = download.request.id

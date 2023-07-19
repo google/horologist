@@ -59,7 +59,7 @@ internal fun KClass<out CoroutineWorker>.delegatedData() =
  */
 internal class DelegatingWorker(
     appContext: Context,
-    workerParams: WorkerParameters
+    workerParams: WorkerParameters,
 ) : CoroutineWorker(appContext, workerParams) {
 
     private val workerClassName =
@@ -68,7 +68,7 @@ internal class DelegatingWorker(
     private val delegateWorker =
         EntryPointAccessors.fromApplication<HiltWorkerFactoryEntryPoint>(
             appContext,
-            HiltWorkerFactoryEntryPoint::class.java
+            HiltWorkerFactoryEntryPoint::class.java,
         )
             .hiltWorkerFactory()
             .createWorker(appContext, workerClassName, workerParams)

@@ -32,7 +32,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
 public class TransferListener(
-    private val appEventLogger: ErrorReporter
+    private val appEventLogger: ErrorReporter,
 ) : CacheDataSource.EventListener,
     TransferListener {
     override fun onCachedBytesRead(cacheSizeBytes: Long, cachedBytesRead: Long) {
@@ -41,14 +41,14 @@ public class TransferListener(
     override fun onCacheIgnored(reason: Int) {
         appEventLogger.logMessage(
             "cache ignored $reason",
-            category = ErrorReporter.Category.Network
+            category = ErrorReporter.Category.Network,
         )
     }
 
     override fun onTransferInitializing(
         source: DataSource,
         dataSpec: DataSpec,
-        isNetwork: Boolean
+        isNetwork: Boolean,
     ) {
         appEventLogger.logMessage("init $isNetwork", category = ErrorReporter.Category.Network)
     }
@@ -61,7 +61,7 @@ public class TransferListener(
         source: DataSource,
         dataSpec: DataSpec,
         isNetwork: Boolean,
-        bytesTransferred: Int
+        bytesTransferred: Int,
     ) {
     }
 

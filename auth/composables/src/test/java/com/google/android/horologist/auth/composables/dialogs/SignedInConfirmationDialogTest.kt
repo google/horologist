@@ -29,23 +29,23 @@ import org.junit.Test
 class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = { }
-    }
+    },
 ) {
 
     @Test
     fun signedInConfirmationDialog() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
             Box(
                 modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 SignedInConfirmationDialogContent(
                     name = "Maggie",
                     email = "maggie@example.com",
-                    avatar = android.R.drawable.sym_def_app_icon
+                    avatar = android.R.drawable.sym_def_app_icon,
                 )
             }
         }
@@ -55,11 +55,11 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     fun signedInConfirmationDialogNoName() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
             SignedInConfirmationDialogContent(
                 email = "maggie@example.com",
-                avatar = android.R.drawable.sym_def_app_icon
+                avatar = android.R.drawable.sym_def_app_icon,
             )
         }
     }
@@ -68,7 +68,7 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     fun signedInConfirmationDialogNoNameNoAvatar() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             SignedInConfirmationDialogContent(
-                email = "maggie@example.com"
+                email = "maggie@example.com",
             )
         }
     }
@@ -77,11 +77,11 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     fun signedInConfirmationDialogNoEmail() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
             SignedInConfirmationDialogContent(
                 name = "Maggie",
-                avatar = android.R.drawable.sym_def_app_icon
+                avatar = android.R.drawable.sym_def_app_icon,
             )
         }
     }
@@ -97,12 +97,12 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     fun signedInConfirmationDialogTruncation() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
             SignedInConfirmationDialogContent(
                 name = "Wolfeschlegelsteinhausenbergerdorff",
                 email = "wolfeschlegelsteinhausenbergerdorff@example.com",
-                avatar = android.R.drawable.sym_def_app_icon
+                avatar = android.R.drawable.sym_def_app_icon,
             )
         }
     }

@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
  */
 @ExperimentalHorologistApi
 public open class StreamlineSignInViewModel(
-    private val authUserRepository: AuthUserRepository
+    private val authUserRepository: AuthUserRepository,
 ) : ViewModel() {
 
     private val _uiState =
@@ -49,7 +49,7 @@ public open class StreamlineSignInViewModel(
     public fun onIdleStateObserved() {
         _uiState.compareAndSet(
             expect = StreamlineSignInScreenState.Idle,
-            update = StreamlineSignInScreenState.Loading
+            update = StreamlineSignInScreenState.Loading,
         ) {
             viewModelScope.launch {
                 val authUsers = authUserRepository.getAvailable()
@@ -61,13 +61,13 @@ public open class StreamlineSignInViewModel(
 
                     authUsers.size == 1 -> {
                         StreamlineSignInScreenState.SingleAccountAvailable(
-                            AccountUiModelMapper.map(authUsers.first())
+                            AccountUiModelMapper.map(authUsers.first()),
                         )
                     }
 
                     else -> {
                         StreamlineSignInScreenState.MultipleAccountsAvailable(
-                            authUsers.map(AccountUiModelMapper::map)
+                            authUsers.map(AccountUiModelMapper::map),
                         )
                     }
                 }
@@ -87,11 +87,11 @@ public sealed class StreamlineSignInScreenState {
     public object Loading : StreamlineSignInScreenState()
 
     public data class SingleAccountAvailable(
-        val account: AccountUiModel
+        val account: AccountUiModel,
     ) : StreamlineSignInScreenState()
 
     public data class MultipleAccountsAvailable(
-        val accounts: List<AccountUiModel>
+        val accounts: List<AccountUiModel>,
     ) : StreamlineSignInScreenState()
 
     public object NoAccountsAvailable : StreamlineSignInScreenState()

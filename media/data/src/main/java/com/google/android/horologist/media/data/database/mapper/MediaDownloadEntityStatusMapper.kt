@@ -34,7 +34,8 @@ public object MediaDownloadEntityStatusMapper {
     public fun map(@Download.State state: Int): MediaDownloadEntityStatus = when (state) {
         Download.STATE_QUEUED,
         Download.STATE_DOWNLOADING,
-        Download.STATE_RESTARTING -> MediaDownloadEntityStatus.Downloading
+        Download.STATE_RESTARTING,
+        -> MediaDownloadEntityStatus.Downloading
         Download.STATE_COMPLETED -> MediaDownloadEntityStatus.Downloaded
         Download.STATE_FAILED -> MediaDownloadEntityStatus.Failed
         else -> MediaDownloadEntityStatus.NotDownloaded

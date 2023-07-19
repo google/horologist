@@ -34,7 +34,7 @@ import com.google.android.horologist.sample.SampleChip
 fun NavMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    scrollState: ScalingLazyListState
+    scrollState: ScalingLazyListState,
 ) {
     val focusRequester = rememberActiveFocusRequester()
 
@@ -42,42 +42,42 @@ fun NavMenuScreen(
         modifier = modifier.fillMaxSize().rotaryWithFling(focusRequester, scrollState),
         state = scrollState,
         horizontalAlignment = Alignment.CenterHorizontally,
-        autoCentering = AutoCenteringParams(itemIndex = 0)
+        autoCentering = AutoCenteringParams(itemIndex = 0),
     ) {
         item {
             SampleChip(
                 onClick = { navigateToRoute(NavScreen.ScalingLazyColumn.route) },
-                label = "ScalingLazyColumn"
+                label = "ScalingLazyColumn",
             )
         }
         item {
             SampleChip(
                 onClick = { navigateToRoute(NavScreen.Column.route) },
-                label = "Column"
+                label = "Column",
             )
         }
         item {
             SampleChip(
                 onClick = { navigateToRoute(NavScreen.Dialog.route) },
-                label = "Dialog"
+                label = "Dialog",
             )
         }
         item {
             SampleChip(
                 onClick = { navigateToRoute(NavScreen.Pager.route) },
-                label = "Pager"
+                label = "Pager",
             )
         }
         item {
             SampleChip(
                 onClick = { navigateToRoute(NavScreen.Volume.route) },
-                label = "Volume (custom scrolling)"
+                label = "Volume (custom scrolling)",
             )
         }
         item {
             SampleChip(
                 onClick = { navigateToRoute(NavScreen.Snackbar.route) },
-                label = "Snackbar"
+                label = "Snackbar",
             )
         }
     }

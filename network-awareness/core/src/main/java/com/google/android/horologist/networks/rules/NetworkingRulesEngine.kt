@@ -32,7 +32,7 @@ import com.google.android.horologist.networks.status.NetworkRepository
 public class NetworkingRulesEngine(
     internal val networkRepository: NetworkRepository,
     internal val logger: NetworkStatusLogger = NetworkStatusLogger.Logging,
-    private val networkingRules: NetworkingRules = NetworkingRules.Lenient
+    private val networkingRules: NetworkingRules = NetworkingRules.Lenient,
 ) {
     public fun preferredNetwork(requestType: RequestType): NetworkStatus? {
         val networks = networkRepository.networkStatus.value
@@ -42,7 +42,7 @@ public class NetworkingRulesEngine(
 
     public fun checkValidRequest(
         requestType: RequestType,
-        currentNetworkInfo: NetworkInfo?
+        currentNetworkInfo: NetworkInfo?,
     ): RequestCheck {
         return networkingRules.checkValidRequest(requestType, currentNetworkInfo ?: NetworkInfo.Unknown("unknown"))
     }

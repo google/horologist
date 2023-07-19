@@ -40,7 +40,7 @@ fun UampMediaPlayerScreen(
     mediaPlayerScreenViewModel: MediaPlayerScreenViewModel,
     volumeViewModel: VolumeViewModel,
     onVolumeClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val volumeUiState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
     val settingsState by mediaPlayerScreenViewModel.settingsState.collectAsStateWithLifecycle()
@@ -54,7 +54,7 @@ fun UampMediaPlayerScreen(
                 AnimatedMediaInfoDisplay(
                     media = playerUiState.media,
                     loading = !playerUiState.connected || playerUiState.media?.loading == true,
-                    modifier = modifier
+                    modifier = modifier,
                 )
             } else {
                 DefaultMediaInfoDisplay(playerUiState)
@@ -64,7 +64,7 @@ fun UampMediaPlayerScreen(
             UampSettingsButtons(
                 volumeUiState = volumeUiState,
                 onVolumeClick = onVolumeClick,
-                enabled = it.connected && it.media != null
+                enabled = it.connected && it.media != null,
             )
         },
         controlButtons = { playerUiController, playerUiState ->
@@ -81,7 +81,7 @@ fun UampMediaPlayerScreen(
                         seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
                         onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
                         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-                        trackPositionUiModel = playerUiState.trackPositionUiModel
+                        trackPositionUiModel = playerUiState.trackPositionUiModel,
                     )
                 } else {
                     DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
@@ -92,9 +92,9 @@ fun UampMediaPlayerScreen(
             val artworkUri = it.media?.artworkUri
             ArtworkColorBackground(
                 artworkUri = artworkUri,
-                defaultColor = MaterialTheme.colors.primary
+                defaultColor = MaterialTheme.colors.primary,
             )
-        }
+        },
     )
 
     ReportDrawnAfter {
@@ -105,10 +105,10 @@ fun UampMediaPlayerScreen(
 @Composable
 public fun PlayerScreenPodcastControlButtons(
     playerUiController: PlayerUiController,
-    playerUiState: PlayerUiState
+    playerUiState: PlayerUiState,
 ) {
     PodcastControlButtons(
         playerController = playerUiController,
-        playerUiState = playerUiState
+        playerUiState = playerUiState,
     )
 }

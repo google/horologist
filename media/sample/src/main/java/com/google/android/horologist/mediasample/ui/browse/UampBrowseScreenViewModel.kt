@@ -32,14 +32,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UampBrowseScreenViewModel @Inject constructor(
-    playlistRepository: PlaylistRepository
+    playlistRepository: PlaylistRepository,
 ) : ViewModel() {
 
     private val playlists: StateFlow<List<Playlist>?> = playlistRepository.getAllDownloaded()
         .stateIn(
             viewModelScope,
             started = SharingStarted.Eagerly,
-            initialValue = null
+            initialValue = null,
         )
 
     val uiState = playlists.map { playlists ->
@@ -51,6 +51,6 @@ class UampBrowseScreenViewModel @Inject constructor(
     }.stateIn(
         viewModelScope,
         started = SharingStarted.Eagerly,
-        initialValue = BrowseScreenState.Loading
+        initialValue = BrowseScreenState.Loading,
     )
 }

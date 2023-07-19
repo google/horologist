@@ -35,23 +35,23 @@ val DeviceGrantSampleViewModelFactory: ViewModelProvider.Factory = viewModelFact
 
         val googleOAuthService = GoogleOAuthServiceFactory(
             okHttpClient = application.okHttpClient,
-            moshi = application.moshi
+            moshi = application.moshi,
         ).get()
 
         DeviceGrantViewModel(
             deviceGrantConfigRepository = DeviceGrantConfigRepositoryDefaultImpl(
                 clientId = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_ID,
-                clientSecret = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_SECRET
+                clientSecret = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_SECRET,
             ),
             deviceGrantVerificationInfoRepository = DeviceGrantVerificationInfoRepositoryGoogleImpl(
-                googleOAuthService = googleOAuthService
+                googleOAuthService = googleOAuthService,
             ),
             deviceGrantTokenRepository = DeviceGrantTokenRepositoryGoogleImpl(
                 application = application,
-                googleOAuthService = googleOAuthService
+                googleOAuthService = googleOAuthService,
             ),
             checkPhonePayloadMapper = { _, deviceResponse -> deviceResponse.userCode },
-            deviceGrantTokenPayloadListener = DeviceGrantTokenPayloadListenerSample
+            deviceGrantTokenPayloadListener = DeviceGrantTokenPayloadListenerSample,
         )
     }
 }

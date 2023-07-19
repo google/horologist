@@ -17,7 +17,7 @@
 package com.google.android.horologist.media3
 
 @RequiresOptIn(
-    message = "Horologist Media3 Backend is experimental. The API may be changed in the future."
+    message = "Horologist Media3 Backend is experimental. The API may be changed in the future.",
 )
 @Retention(AnnotationRetention.BINARY)
 public annotation class ExperimentalHorologistMedia3BackendApi

@@ -33,17 +33,17 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsScreenViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
-    private val authUserRepository: GoogleSignInAuthUserRepository
+    private val authUserRepository: GoogleSignInAuthUserRepository,
 ) : ViewModel() {
     val screenState = combine(
         settingsRepository.settingsFlow,
-        authUserRepository.authState
+        authUserRepository.authState,
     ) { settings, authState ->
         SettingsScreenState(
             authUser = authState,
             guestMode = settings.guestMode,
             writable = true,
-            showDeveloperOptions = BuildConfig.DEBUG
+            showDeveloperOptions = BuildConfig.DEBUG,
         )
     }.stateIn(
         viewModelScope,
@@ -52,8 +52,8 @@ class SettingsScreenViewModel @Inject constructor(
             authUser = null,
             guestMode = false,
             writable = false,
-            showDeveloperOptions = BuildConfig.DEBUG
-        )
+            showDeveloperOptions = BuildConfig.DEBUG,
+        ),
     )
 
     fun setGuestMode(enabled: Boolean) {
@@ -72,5 +72,5 @@ data class SettingsScreenState(
     val authUser: AuthUser?,
     val guestMode: Boolean,
     val writable: Boolean,
-    val showDeveloperOptions: Boolean
+    val showDeveloperOptions: Boolean,
 )

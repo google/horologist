@@ -40,7 +40,7 @@ public fun OtherOptionsChip(
     modifier: Modifier = Modifier,
     label: String = stringResource(id = R.string.horologist_other_options_chip_label),
     colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Chip(
         label = label,
@@ -48,6 +48,6 @@ public fun OtherOptionsChip(
         modifier = modifier,
         icon = Icons.Outlined.SendToMobile,
         colors = colors,
-        enabled = enabled
+        enabled = enabled,
     )
 }

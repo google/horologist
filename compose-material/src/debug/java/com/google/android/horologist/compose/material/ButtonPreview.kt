@@ -28,7 +28,7 @@ fun ButtonPreview() {
     Button(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
-        onClick = { }
+        onClick = { },
     )
 }
 
@@ -39,7 +39,7 @@ fun ButtonPreviewLarge() {
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonSize = ButtonSize.Large
+        buttonSize = ButtonSize.Large,
     )
 }
 
@@ -50,7 +50,7 @@ fun ButtonPreviewSmall() {
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonSize = ButtonSize.Small
+        buttonSize = ButtonSize.Small,
     )
 }
 
@@ -61,7 +61,7 @@ fun ButtonPreviewDisabled() {
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        enabled = false
+        enabled = false,
     )
 }
 
@@ -72,7 +72,7 @@ fun ButtonPreviewWithSecondaryButtonColors() {
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        colors = ButtonDefaults.secondaryButtonColors()
+        colors = ButtonDefaults.secondaryButtonColors(),
     )
 }
 
@@ -83,6 +83,6 @@ fun ButtonPreviewWithIconButtonColors() {
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        colors = ButtonDefaults.iconButtonColors()
+        colors = ButtonDefaults.iconButtonColors(),
     )
 }

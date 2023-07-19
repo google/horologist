@@ -30,7 +30,7 @@ class ButtonA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test
@@ -40,7 +40,7 @@ class ButtonA11yTest : ScreenshotBaseTest(
                 Button(
                     imageVector = Icons.Default.Check,
                     contentDescription = "contentDescription",
-                    onClick = { }
+                    onClick = { },
                 )
             }
         }
@@ -54,7 +54,7 @@ class ButtonA11yTest : ScreenshotBaseTest(
                     imageVector = Icons.Default.Check,
                     contentDescription = "contentDescription",
                     onClick = { },
-                    enabled = false
+                    enabled = false,
                 )
             }
         }

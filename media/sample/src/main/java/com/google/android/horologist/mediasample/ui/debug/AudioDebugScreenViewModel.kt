@@ -45,7 +45,7 @@ class AudioDebugScreenViewModel @Inject constructor(
     private val audioOffloadManager: Provider<AudioOffloadManager>,
     private val appConfig: AppConfig,
     playerRepository: PlayerRepository,
-    private val mediaController: Deferred<MediaBrowser>
+    private val mediaController: Deferred<MediaBrowser>,
 ) : ViewModel() {
     val mediaControllerFlow = flow {
         emit(null)
@@ -61,18 +61,18 @@ class AudioDebugScreenViewModel @Inject constructor(
     val uiState: StateFlow<UiState?> = combine(
         audioOffloadFlow(),
         playerRepository.currentMedia,
-        mediaControllerFlow
+        mediaControllerFlow,
     ) { audioOffloadStatus, currentMedia, mediaController ->
 
         UiState(
             currentTrack = currentMedia?.title,
             audioOffloadStatus = audioOffloadStatus,
-            formatSupported = isFormatSupported(mediaController, audioOffloadStatus.format)
+            formatSupported = isFormatSupported(mediaController, audioOffloadStatus.format),
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = null
+        initialValue = null,
     )
 
     public fun isFormatSupported(mediaController: MediaController?, format: Format?): Boolean? {
@@ -94,6 +94,6 @@ class AudioDebugScreenViewModel @Inject constructor(
     data class UiState(
         val currentTrack: String?,
         val audioOffloadStatus: AudioOffloadStatus,
-        val formatSupported: Boolean?
+        val formatSupported: Boolean?,
     )
 }

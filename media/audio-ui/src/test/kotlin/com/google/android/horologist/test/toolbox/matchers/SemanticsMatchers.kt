@@ -30,5 +30,5 @@ fun SemanticsNodeInteraction.assertHasClickLabel(expectedValue: String): Semanti
     assert(
         SemanticsMatcher("${SemanticsActions.OnClick.name} = '$expectedValue'") {
             it.config.getOrNull(SemanticsActions.OnClick)?.label == expectedValue
-        }
+        },
     )

@@ -24,5 +24,5 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @ExperimentalHorologistApi
 public data class PlaylistDownload(
     val playlist: Playlist,
-    val mediaList: List<MediaDownload>
+    val mediaList: List<MediaDownload>,
 )

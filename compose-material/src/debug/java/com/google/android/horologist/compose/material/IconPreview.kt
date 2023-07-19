@@ -29,7 +29,7 @@ import com.google.android.horologist.compose.tools.WearPreview
 fun IconPreview() {
     Icon(
         imageVector = Icons.Outlined.VolumeDown,
-        contentDescription = "contentDescription"
+        contentDescription = "contentDescription",
     )
 }
 
@@ -40,7 +40,7 @@ fun IconPreviewMirrored() {
         Icon(
             imageVector = Icons.Outlined.VolumeDown,
             contentDescription = "contentDescription",
-            rtlMode = IconRtlMode.Mirrored
+            rtlMode = IconRtlMode.Mirrored,
         )
     }
 }

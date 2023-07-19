@@ -17,7 +17,7 @@
 package com.google.android.horologist.networks
 
 @RequiresOptIn(
-    message = "Horologist Network Awareness is experimental. The API may be changed in the future."
+    message = "Horologist Network Awareness is experimental. The API may be changed in the future.",
 )
 @Retention(AnnotationRetention.BINARY)
 public annotation class ExperimentalHorologistNetworksApi

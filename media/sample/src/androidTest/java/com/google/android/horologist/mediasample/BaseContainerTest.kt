@@ -87,7 +87,7 @@ abstract class BaseContainerTest {
             offloadEnabled = false,
             strictNetworking = NetworkingRules.Lenient,
             cacheItems = false,
-            playbackRules = PlaybackRules.SpeakerAllowed
+            playbackRules = PlaybackRules.SpeakerAllowed,
         )
     }
 

@@ -30,7 +30,7 @@ public interface NetworkStatusLogger {
     public fun logNetworkResponse(
         requestType: RequestType,
         networkInfo: NetworkInfo,
-        bytesTransferred: Long
+        bytesTransferred: Long,
     )
 
     @ExperimentalHorologistApi
@@ -50,7 +50,7 @@ public interface NetworkStatusLogger {
         override fun logNetworkResponse(
             requestType: RequestType,
             networkInfo: NetworkInfo,
-            bytesTransferred: Long
+            bytesTransferred: Long,
         ) {
             Log.d("networks", "response $requestType ${networkInfo.type} ${bytesTransferred}B")
         }
@@ -75,7 +75,7 @@ public interface NetworkStatusLogger {
         override fun logNetworkResponse(
             requestType: RequestType,
             networkInfo: NetworkInfo,
-            bytesTransferred: Long
+            bytesTransferred: Long,
         ) {
             val event = "response $requestType ${networkInfo.type} ${bytesTransferred}B"
             events.add(event)

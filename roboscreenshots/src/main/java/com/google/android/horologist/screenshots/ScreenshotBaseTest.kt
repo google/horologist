@@ -30,12 +30,12 @@ import org.robolectric.annotation.GraphicsMode
 @RunWith(RobolectricTestRunner::class)
 @Config(
     sdk = [30],
-    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @ExperimentalHorologistApi
 public abstract class ScreenshotBaseTest(
-    params: ScreenshotTestRule.ScreenshotTestRuleParams = screenshotTestRuleParams { }
+    params: ScreenshotTestRule.ScreenshotTestRuleParams = screenshotTestRuleParams { },
 ) {
 
     @get:Rule

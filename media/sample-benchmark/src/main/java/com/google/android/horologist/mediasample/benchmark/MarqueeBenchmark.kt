@@ -61,7 +61,7 @@ class MarqueeBenchmark {
             "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
             "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
             "Intro - The Way Of Waking Up (feat. Alan Watts)",
-            "The Kyoto Connection"
+            "The Kyoto Connection",
         )
 
         measurePlayerScreen(intro)
@@ -74,7 +74,7 @@ class MarqueeBenchmark {
             "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
             "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
             "Intro",
-            "The Kyoto Connection"
+            "The Kyoto Connection",
         )
 
         measurePlayerScreen(intro)
@@ -87,7 +87,7 @@ class MarqueeBenchmark {
             "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
             "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
             "Intro - The Way Of Waking Up (feat. Alan Watts)",
-            "The Kyoto Connection"
+            "The Kyoto Connection",
         )
 
         measurePlayerScreen(intro, playback = false)
@@ -103,14 +103,14 @@ class MarqueeBenchmark {
             setupBlock = {
                 logMessage("Setup")
                 mediaControllerFuture = MediaControllerHelper.lookupController(
-                    mediaApp.playerComponentName
+                    mediaApp.playerComponentName,
                 )
 
                 logMessage("waiting for controller")
 
                 // Wait for service
                 mediaControllerFuture.get()
-            }
+            },
         ) {
             startActivityAndWait()
 
@@ -154,6 +154,6 @@ class MarqueeBenchmark {
         StartupTimingMetric(),
         FrameTimingMetric(),
         if (includePower) PowerMetric(type = PowerMetric.Type.Battery()) else null,
-        CompositionMetric("androidx.compose.foundation.Canvas")
+        CompositionMetric("androidx.compose.foundation.Canvas"),
     )
 }

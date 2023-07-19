@@ -50,7 +50,7 @@ object ViewModelModule {
     @ActivityRetainedScoped
     @Provides
     fun providesCoroutineScope(
-        activityRetainedLifecycle: ActivityRetainedLifecycle
+        activityRetainedLifecycle: ActivityRetainedLifecycle,
     ): CoroutineScope {
         return CoroutineScope(SupervisorJob() + Dispatchers.Default).also {
             activityRetainedLifecycle.addOnClearedListener {
@@ -64,12 +64,12 @@ object ViewModelModule {
     fun mediaController(
         @ApplicationContext application: Context,
         activityRetainedLifecycle: ActivityRetainedLifecycle,
-        coroutineScope: CoroutineScope
+        coroutineScope: CoroutineScope,
     ): Deferred<MediaBrowser> =
         coroutineScope.async {
             MediaBrowser.Builder(
                 application,
-                SessionToken(application, ComponentName(application, PlaybackService::class.java))
+                SessionToken(application, ComponentName(application, PlaybackService::class.java)),
             ).buildSuspend()
         }.also {
             activityRetainedLifecycle.addOnClearedListener {
@@ -87,11 +87,11 @@ object ViewModelModule {
         mediaItemMapper: MediaItemMapper,
         activityRetainedLifecycle: ActivityRetainedLifecycle,
         coroutineScope: CoroutineScope,
-        mediaController: Deferred<MediaBrowser>
+        mediaController: Deferred<MediaBrowser>,
     ): PlayerRepositoryImpl =
         PlayerRepositoryImpl(
             mediaMapper = mediaMapper,
-            mediaItemMapper = mediaItemMapper
+            mediaItemMapper = mediaItemMapper,
         ).also { playerRepository ->
             activityRetainedLifecycle.addOnClearedListener {
                 playerRepository.close()
@@ -101,7 +101,7 @@ object ViewModelModule {
                 val player = mediaController.await()
                 playerRepository.connect(
                     player = player,
-                    onClose = player::release
+                    onClose = player::release,
                 )
             }
         }
@@ -109,7 +109,7 @@ object ViewModelModule {
     @Provides
     @ActivityRetainedScoped
     fun playerRepository(
-        playerRepositoryImpl: PlayerRepositoryImpl
+        playerRepositoryImpl: PlayerRepositoryImpl,
     ): PlayerRepository = playerRepositoryImpl
 
     @Provides

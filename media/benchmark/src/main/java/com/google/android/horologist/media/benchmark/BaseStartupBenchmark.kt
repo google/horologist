@@ -43,7 +43,7 @@ public abstract class BaseStartupBenchmark() {
         metrics = metrics(),
         compilationMode = compilationMode,
         iterations = 5,
-        startupMode = StartupMode.COLD
+        startupMode = StartupMode.COLD,
     ) {
         startActivityAndWait()
         // sleep to allow time for report fully drawn

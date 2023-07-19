@@ -25,7 +25,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @ExperimentalHorologistApi
 public class GoogleOAuthServiceFactory(
     private val okHttpClient: OkHttpClient,
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     public fun get(): GoogleOAuthService = Retrofit.Builder()

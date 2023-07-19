@@ -37,7 +37,7 @@ import com.google.android.horologist.audio.ui.R
 public data class AudioOutputUi(
     val displayName: String,
     val imageVector: ImageVector,
-    val isConnected: Boolean
+    val isConnected: Boolean,
 )
 
 @Composable
@@ -55,7 +55,7 @@ public fun AudioOutput.toAudioOutputUi(): AudioOutputUi {
                 TYPE_NONE -> Icons.Default.VolumeOff
                 else -> Icons.Default.DeviceUnknown
             },
-            isConnected = this is AudioOutput.BluetoothHeadset
+            isConnected = this is AudioOutput.BluetoothHeadset,
         )
     } else {
         return AudioOutputUi(displayName = stringResource(id = R.string.choose_device), imageVector = Icons.Default.Add, isConnected = false)

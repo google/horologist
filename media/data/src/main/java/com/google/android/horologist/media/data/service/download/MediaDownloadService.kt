@@ -53,13 +53,13 @@ public abstract class MediaDownloadService(
     channelId: String?,
     @StringRes channelNameResourceId: Int,
     @StringRes channelDescriptionResourceId: Int,
-    @DrawableRes private val notificationIcon: Int
+    @DrawableRes private val notificationIcon: Int,
 ) : DownloadService(
     foregroundNotificationId,
     foregroundNotificationUpdateInterval,
     channelId,
     channelNameResourceId,
-    channelDescriptionResourceId
+    channelDescriptionResourceId,
 ),
     LifecycleOwner {
     private val dispatcher = ServiceLifecycleDispatcher(this)
@@ -92,14 +92,14 @@ public abstract class MediaDownloadService(
 
     override fun getForegroundNotification(
         downloads: MutableList<Download>,
-        notMetRequirements: Int
+        notMetRequirements: Int,
     ): Notification = downloadNotificationHelper.buildProgressNotification(
         this,
         notificationIcon,
         downloadIntent,
         null,
         downloads,
-        notMetRequirements
+        notMetRequirements,
     )
 
     /**

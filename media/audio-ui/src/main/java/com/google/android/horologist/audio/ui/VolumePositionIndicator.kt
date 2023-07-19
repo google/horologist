@@ -40,7 +40,7 @@ import kotlinx.coroutines.flow.collectLatest
 public fun VolumePositionIndicator(
     volumeUiState: () -> VolumeUiState,
     modifier: Modifier = Modifier,
-    displayIndicatorEvents: Flow<Unit>? = null
+    displayIndicatorEvents: Flow<Unit>? = null,
 ) {
     val visible by produceState(displayIndicatorEvents == null, displayIndicatorEvents) {
         displayIndicatorEvents?.collectLatest {
@@ -54,7 +54,7 @@ public fun VolumePositionIndicator(
     AnimatedVisibility(
         visible = visible,
         enter = fadeIn(),
-        exit = fadeOut()
+        exit = fadeOut(),
     ) {
         PositionIndicator(
             modifier = modifier,
@@ -64,8 +64,8 @@ public fun VolumePositionIndicator(
                 uiState.current.toFloat()
             },
             range = uiState.min.toFloat().rangeTo(
-                uiState.max.toFloat()
-            )
+                uiState.max.toFloat(),
+            ),
         )
     }
 }

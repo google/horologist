@@ -24,7 +24,7 @@ import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Sett
 import kotlinx.coroutines.flow.Flow
 
 class SettingsRepository(
-    private val dataStore: DataStore<Settings>
+    private val dataStore: DataStore<Settings>,
 ) {
 
     suspend fun edit(transform: suspend (Settings) -> Settings) {

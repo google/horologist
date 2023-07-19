@@ -57,7 +57,7 @@ class FakeImageLoader(val imageFn: (ImageRequest) -> ImageResult) : ImageLoader 
             return SuccessResult(
                 drawable = result,
                 request = request,
-                dataSource = DataSource.NETWORK
+                dataSource = DataSource.NETWORK,
             )
         }
 
@@ -67,7 +67,7 @@ class FakeImageLoader(val imageFn: (ImageRequest) -> ImageResult) : ImageLoader 
             return ErrorResult(
                 drawable = result,
                 request = request,
-                throwable = IOException("request for ")
+                throwable = IOException("request for "),
             )
         }
     }

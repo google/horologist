@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
  */
 @ExperimentalHorologistApi
 public class StreamlineSignInDefaultViewModel(
-    private val authUserRepository: AuthUserRepository
+    private val authUserRepository: AuthUserRepository,
 ) : ViewModel() {
 
     private val _uiState =
@@ -51,7 +51,7 @@ public class StreamlineSignInDefaultViewModel(
     public fun onIdleStateObserved() {
         _uiState.compareAndSet(
             expect = StreamlineSignInDefaultScreenState.Idle,
-            update = StreamlineSignInDefaultScreenState.Loading
+            update = StreamlineSignInDefaultScreenState.Loading,
         ) {
             viewModelScope.launch {
                 val authUsers = authUserRepository.getAvailable()
@@ -63,14 +63,14 @@ public class StreamlineSignInDefaultViewModel(
 
                     authUsers.size == 1 -> {
                         _uiState.value = StreamlineSignInDefaultScreenState.SignedIn(
-                            AccountUiModelMapper.map(authUsers.first())
+                            AccountUiModelMapper.map(authUsers.first()),
                         )
                     }
 
                     else -> {
                         _uiState.value =
                             StreamlineSignInDefaultScreenState.MultipleAccountsAvailable(
-                                authUsers.map(AccountUiModelMapper::map)
+                                authUsers.map(AccountUiModelMapper::map),
                             )
                     }
                 }

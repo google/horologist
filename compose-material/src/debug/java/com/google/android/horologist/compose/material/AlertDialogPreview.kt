@@ -28,7 +28,7 @@ fun AlertDialogPreview() {
         onCancelButtonClick = { },
         onOKButtonClick = { },
         okButtonContentDescription = "Ok",
-        cancelButtonContentDescription = "Cancel"
+        cancelButtonContentDescription = "Cancel",
     )
 }
 
@@ -41,6 +41,6 @@ fun AlertDialogWithLongBodyPreview() {
         onCancelButtonClick = { },
         onOKButtonClick = { },
         okButtonContentDescription = "Ok",
-        cancelButtonContentDescription = "Cancel"
+        cancelButtonContentDescription = "Cancel",
     )
 }

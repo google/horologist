@@ -52,5 +52,5 @@ object SettingsSerializer : Serializer<Settings> {
 
 val Context.settingsStore: DataStore<Settings> by dataStore(
     fileName = "settings.pb",
-    serializer = SettingsSerializer
+    serializer = SettingsSerializer,
 )

@@ -41,7 +41,7 @@ public class TestLogger : NetworkStatusLogger {
     override fun logNetworkResponse(
         requestType: RequestType,
         networkInfo: NetworkInfo,
-        bytesTransferred: Long
+        bytesTransferred: Long,
     ) {
         val event = "response $requestType ${networkInfo.type} ${bytesTransferred}B"
         println(event)

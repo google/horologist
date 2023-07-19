@@ -53,7 +53,7 @@ class MediaItemMapperTest {
             uri = uri,
             title = title,
             artist = artist,
-            artworkUri = artworkUri
+            artworkUri = artworkUri,
         )
 
         // when
@@ -81,7 +81,7 @@ class MediaItemMapperTest {
             id = id,
             uri = uri,
             artist = artist,
-            title = title
+            title = title,
         )
 
         // when
@@ -115,8 +115,8 @@ class MediaItemMapperTest {
             extras = mapOf(
                 customId to customIdValue,
                 customArtist to customArtistValue,
-                customUri to customUriValue
-            )
+                customUri to customUriValue,
+            ),
         )
 
         val sut = MediaItemMapper(object : MediaItemExtrasMapper {
@@ -124,7 +124,7 @@ class MediaItemMapperTest {
                 media: Media,
                 mediaItemBuilder: MediaItem.Builder,
                 mediaMetadataBuilder: MediaMetadata.Builder,
-                requestMetadataBuilder: RequestMetadata.Builder
+                requestMetadataBuilder: RequestMetadata.Builder,
             ) {
                 mediaItemBuilder.setMediaId(media.extras[customId].toString())
                 mediaMetadataBuilder.setArtist(media.extras[customArtist].toString())

@@ -66,7 +66,7 @@ public fun SignInPromptScreen(
     title: String = stringResource(id = R.string.horologist_signin_prompt_title),
     viewModel: SignInPromptViewModel = viewModel(),
     loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
-    content: ScalingLazyListScope.() -> Unit
+    content: ScalingLazyListScope.() -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -79,7 +79,7 @@ public fun SignInPromptScreen(
         columnState = columnState,
         loadingContent = loadingContent,
         modifier = modifier,
-        content = content
+        content = content,
     )
 }
 
@@ -93,7 +93,7 @@ internal fun SignInPromptScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
-    content: ScalingLazyListScope.() -> Unit
+    content: ScalingLazyListScope.() -> Unit,
 ) {
     when (state) {
         SignInPromptScreenState.Idle -> {
@@ -117,7 +117,7 @@ internal fun SignInPromptScreen(
         SignInPromptScreenState.SignedOut -> {
             ScalingLazyColumn(
                 columnState = columnState,
-                modifier = modifier
+                modifier = modifier,
             ) {
                 item { Title(title, Modifier) }
                 item {
@@ -127,11 +127,11 @@ internal fun SignInPromptScreen(
                             top = 8.dp,
                             bottom = 12.dp,
                             start = 10.dp,
-                            end = 10.dp
+                            end = 10.dp,
                         ),
                         color = MaterialTheme.colors.onBackground,
                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.body2
+                        style = MaterialTheme.typography.body2,
                     )
                 }
                 apply(content)

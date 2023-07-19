@@ -33,19 +33,19 @@ public class NetworkAwareEventListenerFactory(
     networkRepository: NetworkRepository,
     private val delegateEventListenerFactory: EventListener.Factory,
     dataRequestRepository: DataRequestRepository? = null,
-    logger: NetworkStatusLogger
+    logger: NetworkStatusLogger,
 ) : NetworkLoggingEventListenerFactory(
     logger,
     networkRepository,
     delegateEventListenerFactory,
-    dataRequestRepository
+    dataRequestRepository,
 ) {
     override fun create(call: Call): EventListener = Listener(
-        delegateEventListenerFactory.create(call)
+        delegateEventListenerFactory.create(call),
     )
 
     private inner class Listener(
-        delegate: EventListener
+        delegate: EventListener,
     ) : NetworkLoggingEventListenerFactory.Listener(delegate) {
         override fun callEnd(call: Call) {
             super.callEnd(call)

@@ -30,7 +30,7 @@ import javax.net.SocketFactory
 @ExperimentalHorologistApi
 internal class NetworkSpecificSocketFactory(
     private val networkStatus: NetworkStatus,
-    private val socketFactory: SocketFactory = getDefault()
+    private val socketFactory: SocketFactory = getDefault(),
 ) : SocketFactory() {
     private fun Socket.bindToPreferredNetwork(): Socket {
         networkStatus.bindSocket(this)
@@ -55,7 +55,7 @@ internal class NetworkSpecificSocketFactory(
         host: String,
         port: Int,
         localHost: InetAddress?,
-        localPort: Int
+        localPort: Int,
     ): Socket {
         return socketFactory.createSocket(host, port, localHost, localPort)
     }
@@ -64,7 +64,7 @@ internal class NetworkSpecificSocketFactory(
         address: InetAddress,
         port: Int,
         localAddress: InetAddress?,
-        localPort: Int
+        localPort: Int,
     ): Socket {
         return socketFactory.createSocket(address, port, localAddress, localPort)
     }

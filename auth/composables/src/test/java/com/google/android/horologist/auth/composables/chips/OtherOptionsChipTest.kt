@@ -34,7 +34,7 @@ class OtherOptionsChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OtherOptionsChip(
                 onClick = {},
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -44,7 +44,7 @@ class OtherOptionsChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OtherOptionsChip(
                 onClick = {},
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -55,7 +55,7 @@ class OtherOptionsChipTest : ScreenshotBaseTest() {
             OtherOptionsChip(
                 onClick = {},
                 colors = ChipDefaults.secondaryChipColors(),
-                enabled = false
+                enabled = false,
             )
         }
     }

@@ -82,7 +82,7 @@ protobuf {
             artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
         }
         create("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.55.1"
+            artifact = "io.grpc:protoc-gen-grpc-java:1.56.1"
         }
         create("grpckt") {
             artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"

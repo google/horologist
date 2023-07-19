@@ -3,8 +3,6 @@ $dokka.linkExtension:html
 
 module:annotations
 com.google.android.horologist.annotations
-module:base-ui
-com.google.android.horologist.base.ui
 module:composables
 com.google.android.horologist.composables
 module:compose-layout
@@ -21,15 +19,6 @@ module:compose-tools
 com.google.android.horologist.compose.tools
 com.google.android.horologist.compose.tools.a11y
 com.google.android.horologist.compose.tools.coil
-module:datalayer
-com.google.android.horologist.data
-com.google.android.horologist.data.apphelper
-com.google.android.horologist.data.store
-com.google.android.horologist.data.store.impl
-module:datalayer-phone
-com.google.android.horologist.datalayer.phone
-module:datalayer-watch
-com.google.android.horologist.datalayer.watch
 module:health-composables
 com.google.android.horologist.health.composables
 module:roboscreenshots
@@ -78,6 +67,19 @@ com.google.android.horologist.auth.ui.googlesignin.signin
 com.google.android.horologist.auth.ui.mapper
 com.google.android.horologist.auth.ui.oauth.devicegrant.signin
 com.google.android.horologist.auth.ui.oauth.pkce.signin
+module:datalayer
+com.google.android.horologist.data
+com.google.android.horologist.data.apphelper
+com.google.android.horologist.data.store
+com.google.android.horologist.data.store.impl
+module:datalayer-grpc
+com.google.android.horologist.datalayer.grpc
+com.google.android.horologist.datalayer.grpc.client
+com.google.android.horologist.datalayer.grpc.server
+module:datalayer-phone
+com.google.android.horologist.datalayer.phone
+module:datalayer-watch
+com.google.android.horologist.datalayer.watch
 module:media-audio
 com.google.android.horologist.audio
 module:media-audio-ui

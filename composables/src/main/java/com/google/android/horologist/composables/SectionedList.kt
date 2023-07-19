@@ -21,7 +21,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.composables.Section.Companion.ALL_STATES
 import com.google.android.horologist.composables.Section.Companion.DEFAULT_LOADING_CONTENT_COUNT
+import com.google.android.horologist.composables.Section.Companion.LOADED_STATE_ONLY
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
@@ -61,49 +63,62 @@ public fun SectionedList(
             .fillMaxSize()
     ) {
         for (section in sections) {
-            section.display(this)
+            section.display()
         }
     }
 }
 
-internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
-    val section = this
-    section.headerContent?.let { content ->
-        scope.item { SectionContentScope.content() }
+internal fun <T> shouldDisplay(
+    visibleStates: Section.VisibleStates,
+    state: Section.State<T>
+): Boolean {
+    return when (state) {
+        Section.State.Empty -> visibleStates.empty
+        Section.State.Failed -> visibleStates.failed
+        is Section.State.Loaded -> visibleStates.loaded
+        Section.State.Loading -> visibleStates.loading
+    }
+}
+
+context(ScalingLazyListScope) internal fun <T> Section<T>.display() {
+    headerContent?.let { content ->
+        if (shouldDisplay(headerVisibleStates, state)) {
+            item { SectionContentScope.content() }
+        }
     }
 
-    when (section.state) {
+    when (state) {
         Section.State.Loading -> {
-            section.loadingContent?.let { content ->
-                scope.items(section.loadingContentCount) { SectionContentScope.content() }
+            loadingContent?.let { content ->
+                items(loadingContentCount) { SectionContentScope.content() }
             }
         }
 
         is Section.State.Loaded -> {
-            section.loadedContent?.let { content ->
-                val list = section.state.list
-                scope.items(list.size) { index ->
+            loadedContent?.let { content ->
+                val list = state.list
+                items(list.size) { index ->
                     content(SectionContentScope, list[index])
                 }
             }
         }
 
         Section.State.Failed -> {
-            section.failedContent?.let { content ->
-                scope.item { SectionContentScope.content() }
+            failedContent?.let { content ->
+                item { SectionContentScope.content() }
             }
         }
 
         Section.State.Empty -> {
-            section.emptyContent?.let { content ->
-                scope.item { SectionContentScope.content() }
+            emptyContent?.let { content ->
+                item { SectionContentScope.content() }
             }
         }
     }
 
-    section.footerContent?.let { content ->
-        if (!displayFooterOnlyOnLoadedState || state is Section.State.Loaded<*>) {
-            scope.item { SectionContentScope.content() }
+    footerContent?.let { content ->
+        if (shouldDisplay(footerVisibleStates, state)) {
+            item { SectionContentScope.content() }
         }
     }
 }
@@ -115,13 +130,14 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
 public data class Section<T> constructor(
     val state: State<T>,
     val headerContent: (@Composable SectionContentScope.() -> Unit)? = null,
+    val headerVisibleStates: VisibleStates = ALL_STATES,
     val loadingContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val loadingContentCount: Int = DEFAULT_LOADING_CONTENT_COUNT,
     val loadedContent: (@Composable SectionContentScope.(T) -> Unit)? = null,
     val failedContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val emptyContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val footerContent: (@Composable SectionContentScope.() -> Unit)? = null,
-    val displayFooterOnlyOnLoadedState: Boolean = true
+    val footerVisibleStates: VisibleStates = LOADED_STATE_ONLY
 ) {
     /**
      * A state of a [Section].
@@ -138,8 +154,41 @@ public data class Section<T> constructor(
         public object Empty : State<Nothing>()
     }
 
-    internal companion object {
-        const val DEFAULT_LOADING_CONTENT_COUNT = 1
+    /**
+     * Define on which states the section's header or footer should be visible.
+     */
+    @ExperimentalHorologistApi
+    public data class VisibleStates(
+        val loading: Boolean,
+        val loaded: Boolean,
+        val failed: Boolean,
+        val empty: Boolean
+    )
+
+    @ExperimentalHorologistApi
+    public companion object {
+        internal const val DEFAULT_LOADING_CONTENT_COUNT: Int = 1
+
+        public val ALL_STATES: VisibleStates = VisibleStates(
+            loading = true,
+            loaded = true,
+            failed = true,
+            empty = true
+        )
+
+        public val LOADED_STATE_ONLY: VisibleStates = VisibleStates(
+            loading = false,
+            loaded = true,
+            failed = false,
+            empty = false
+        )
+
+        public val NO_STATES: VisibleStates = VisibleStates(
+            loading = false,
+            loaded = false,
+            failed = false,
+            empty = false
+        )
     }
 }
 
@@ -161,7 +210,6 @@ public class SectionedListScope {
     @SectionScopeMarker
     public fun <T> section(
         state: Section.State<T>,
-        displayFooterOnlyOnLoadedState: Boolean = true,
         content: SectionScope<T>.() -> Unit
     ) {
         SectionScope<T>().apply(content).let { scope ->
@@ -169,13 +217,14 @@ public class SectionedListScope {
                 Section(
                     state = state,
                     headerContent = scope.headerContent,
+                    headerVisibleStates = scope.headerVisibleStates,
                     loadingContent = scope.loadingContent,
                     loadingContentCount = scope.loadingContentCount,
                     loadedContent = scope.loadedContent,
                     failedContent = scope.failedContent,
                     emptyContent = scope.emptyContent,
                     footerContent = scope.footerContent,
-                    displayFooterOnlyOnLoadedState = displayFooterOnlyOnLoadedState
+                    footerVisibleStates = scope.footerVisibleStates
                 )
             )
         }
@@ -190,7 +239,6 @@ public class SectionedListScope {
         content: SectionScope<T>.() -> Unit
     ): Unit = section(
         state = Section.State.Loaded(list),
-        displayFooterOnlyOnLoadedState = true,
         content = content
     )
 
@@ -202,7 +250,6 @@ public class SectionedListScope {
         content: SectionScope<Unit>.() -> Unit
     ): Unit = section(
         state = Section.State.Loaded(listOf(Unit)),
-        displayFooterOnlyOnLoadedState = true,
         content = content
     )
 }
@@ -215,6 +262,9 @@ public class SectionedListScope {
 public class SectionScope<T> {
 
     internal var headerContent: (@Composable SectionContentScope.() -> Unit)? = null
+        private set
+
+    internal var headerVisibleStates: Section.VisibleStates = ALL_STATES
         private set
 
     internal var loadingContent: (@Composable SectionContentScope.() -> Unit)? = null
@@ -235,8 +285,15 @@ public class SectionScope<T> {
     internal var footerContent: (@Composable SectionContentScope.() -> Unit)? = null
         private set
 
+    internal var footerVisibleStates: Section.VisibleStates = LOADED_STATE_ONLY
+        private set
+
     @SectionScopeMarker
-    public fun header(content: @Composable SectionContentScope.() -> Unit) {
+    public fun header(
+        visibleStates: Section.VisibleStates = ALL_STATES,
+        content: @Composable SectionContentScope.() -> Unit
+    ) {
+        headerVisibleStates = visibleStates
         headerContent = content
     }
 
@@ -266,7 +323,11 @@ public class SectionScope<T> {
     }
 
     @SectionScopeMarker
-    public fun footer(content: @Composable SectionContentScope.() -> Unit) {
+    public fun footer(
+        visibleStates: Section.VisibleStates = LOADED_STATE_ONLY,
+        content: @Composable SectionContentScope.() -> Unit
+    ) {
+        footerVisibleStates = visibleStates
         footerContent = content
     }
 }

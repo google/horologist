@@ -29,6 +29,8 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.Section
+import com.google.android.horologist.composables.Section.Companion.ALL_STATES
+import com.google.android.horologist.composables.Section.Companion.LOADED_STATE_ONLY
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
@@ -116,7 +118,11 @@ public class BrowseScreenScope {
                     )
                 },
                 footerContent = scope.footerContent,
-                displayFooterOnlyOnLoadedState = displayFooterOnlyOnLoadedState
+                footerVisibleStates = if (displayFooterOnlyOnLoadedState) {
+                    LOADED_STATE_ONLY
+                } else {
+                    ALL_STATES
+                }
             )
         )
     }

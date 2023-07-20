@@ -26,6 +26,8 @@ import com.google.android.horologist.auth.sample.SampleApplication
 import com.google.android.horologist.auth.sample.shared.grpc.CounterServiceGrpcKt.CounterServiceCoroutineStub
 import com.google.android.horologist.auth.sample.shared.grpc.GrpcDemoProto.CounterValue
 import com.google.android.horologist.auth.sample.shared.grpc.counterDelta
+import com.google.android.horologist.auth.sample.shared.grpc.updatedOrNull
+import com.google.protobuf.Timestamp
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -38,9 +40,9 @@ class DataLayerViewModel(
 ) : ViewModel() {
     init {
         viewModelScope.launch {
-            counterFlow.collectLatest { counter ->
+            counterFlow.collectLatest { newValue ->
                 uiState.update { state ->
-                    state.copy(counterValue = counter)
+                    updateIfNewer(state, newValue)
                 }
             }
         }
@@ -49,12 +51,28 @@ class DataLayerViewModel(
     fun addDelta(i: Int) {
         viewModelScope.launch {
             try {
-                counterService.increment(counterDelta { delta = i.toLong() })
+                val newValue: CounterValue =
+                    counterService.increment(counterDelta { delta = i.toLong() })
+                uiState.update {
+                    updateIfNewer(it, newValue)
+                }
             } catch (e: Exception) {
                 uiState.update {
                     it.copy(error = e.message)
                 }
             }
+        }
+    }
+
+    private fun updateIfNewer(
+        it: DataLayerScreenState,
+        newValue: CounterValue
+    ): DataLayerScreenState {
+        val currentUpdated = it.counterValue?.updatedOrNull
+        return if (currentUpdated == null || currentUpdated.isBefore(newValue)) {
+            it.copy(counterValue = newValue)
+        } else {
+            it
         }
     }
 
@@ -70,6 +88,9 @@ class DataLayerViewModel(
         }
     }
 }
+
+private fun Timestamp.isBefore(other: CounterValue): Boolean =
+    seconds < other.updated.seconds || (seconds == other.updated.seconds && nanos < other.updated.nanos)
 
 data class DataLayerScreenState(
     val counterValue: CounterValue? = null,

@@ -51,7 +51,7 @@ class MediaControlButtonsWithProgressTest {
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
                 seekToNextButtonEnabled = true,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
             )
         }
 
@@ -79,7 +79,7 @@ class MediaControlButtonsWithProgressTest {
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
                 seekToNextButtonEnabled = true,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
             )
         }
 
@@ -107,7 +107,7 @@ class MediaControlButtonsWithProgressTest {
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
                 seekToNextButtonEnabled = true,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
             )
         }
 
@@ -135,7 +135,7 @@ class MediaControlButtonsWithProgressTest {
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
                 seekToNextButtonEnabled = true,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
             )
         }
 
@@ -163,7 +163,7 @@ class MediaControlButtonsWithProgressTest {
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
                 seekToNextButtonEnabled = true,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
             )
         }
 
@@ -191,7 +191,7 @@ class MediaControlButtonsWithProgressTest {
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = { clicked = true },
                 seekToNextButtonEnabled = true,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
             )
         }
 
@@ -217,7 +217,7 @@ class MediaControlButtonsWithProgressTest {
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
                 seekToNextButtonEnabled = true,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
             )
         }
 
@@ -242,7 +242,7 @@ class MediaControlButtonsWithProgressTest {
                 seekToPreviousButtonEnabled = false,
                 onSeekToNextButtonClick = {},
                 seekToNextButtonEnabled = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
             )
         }
 
@@ -272,7 +272,7 @@ class MediaControlButtonsWithProgressTest {
                 seekToPreviousButtonEnabled = false,
                 onSeekToNextButtonClick = {},
                 seekToNextButtonEnabled = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
             )
         }
 
@@ -301,7 +301,7 @@ class MediaControlButtonsWithProgressTest {
                 seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
                 onSeekToNextButtonClick = {},
                 seekToNextButtonEnabled = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
             )
         }
 
@@ -330,7 +330,7 @@ class MediaControlButtonsWithProgressTest {
                 seekToPreviousButtonEnabled = false,
                 onSeekToNextButtonClick = {},
                 seekToNextButtonEnabled = seekToNextButtonEnabled,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
             )
         }
 

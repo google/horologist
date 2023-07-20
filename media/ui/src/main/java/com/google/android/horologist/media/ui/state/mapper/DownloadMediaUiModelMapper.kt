@@ -32,14 +32,14 @@ public object DownloadMediaUiModelMapper {
      * Maps from [MediaDownload].
      */
     public fun map(
-        mediaDownload: MediaDownload,
+        mediaDownload: MediaDownload
     ): DownloadMediaUiModel = when (mediaDownload.status) {
         MediaDownload.Status.Idle -> {
             DownloadMediaUiModel.NotDownloaded(
                 id = mediaDownload.media.id,
                 title = mediaDownload.media.title,
                 artist = mediaDownload.media.artist,
-                artworkUri = mediaDownload.media.artworkUri,
+                artworkUri = mediaDownload.media.artworkUri
             )
         }
 
@@ -60,7 +60,7 @@ public object DownloadMediaUiModelMapper {
                     }
                     is MediaDownload.Size.Unknown -> DownloadMediaUiModel.Size.Unknown
                 },
-                artworkUri = mediaDownload.media.artworkUri,
+                artworkUri = mediaDownload.media.artworkUri
             )
         }
 
@@ -69,7 +69,7 @@ public object DownloadMediaUiModelMapper {
                 id = mediaDownload.media.id,
                 title = mediaDownload.media.title,
                 artist = mediaDownload.media.artist,
-                artworkUri = mediaDownload.media.artworkUri,
+                artworkUri = mediaDownload.media.artworkUri
             )
         }
     }

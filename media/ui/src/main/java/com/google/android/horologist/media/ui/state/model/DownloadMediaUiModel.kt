@@ -22,17 +22,17 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 public sealed class DownloadMediaUiModel(
     public open val id: String,
     public open val title: String? = null,
-    public open val artworkUri: String? = null,
+    public open val artworkUri: String? = null
 ) {
     public data class Downloaded(
         override val id: String,
         override val title: String? = null,
         val artist: String? = null,
-        override val artworkUri: String? = null,
+        override val artworkUri: String? = null
     ) : DownloadMediaUiModel(
         id = id,
         title = title,
-        artworkUri = artworkUri,
+        artworkUri = artworkUri
     )
 
     public data class Downloading(
@@ -40,22 +40,22 @@ public sealed class DownloadMediaUiModel(
         override val title: String? = null,
         val progress: Progress,
         val size: Size,
-        override val artworkUri: String? = null,
+        override val artworkUri: String? = null
     ) : DownloadMediaUiModel(
         id = id,
         title = title,
-        artworkUri = artworkUri,
+        artworkUri = artworkUri
     )
 
     public data class NotDownloaded(
         override val id: String,
         override val title: String? = null,
         val artist: String? = null,
-        override val artworkUri: String? = null,
+        override val artworkUri: String? = null
     ) : DownloadMediaUiModel(
         id = id,
         title = title,
-        artworkUri = artworkUri,
+        artworkUri = artworkUri
     )
 
     public sealed class Progress {

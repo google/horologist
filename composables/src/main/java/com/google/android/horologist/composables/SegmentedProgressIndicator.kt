@@ -53,7 +53,7 @@ public data class ProgressIndicatorSegment(
     val weight: Float,
     val indicatorBrush: Brush,
     val trackColor: Color? = null,
-    val inProgressTrackColor: Color? = null,
+    val inProgressTrackColor: Color? = null
 ) {
     /**
      * Represents a segment of the track in a [SegmentedProgressIndicator].
@@ -71,12 +71,12 @@ public data class ProgressIndicatorSegment(
         weight: Float,
         indicatorColor: Color,
         trackColor: Color? = null,
-        inProgressTrackColor: Color? = null,
+        inProgressTrackColor: Color? = null
     ) : this(
         weight = weight,
         trackColor = trackColor,
         inProgressTrackColor = inProgressTrackColor,
-        indicatorBrush = SolidColor(indicatorColor),
+        indicatorBrush = SolidColor(indicatorColor)
     )
 }
 
@@ -111,7 +111,7 @@ public fun SegmentedProgressIndicator(
     endAngle: Float = 270.0f,
     strokeWidth: Dp = ProgressIndicatorDefaults.StrokeWidth,
     paddingAngle: Float = 0.0f,
-    trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f),
+    trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f)
 ) {
     val localDensity = LocalDensity.current
 
@@ -131,7 +131,7 @@ public fun SegmentedProgressIndicator(
     Canvas(
         modifier = modifier
             .fillMaxSize()
-            .progressSemantics(progress),
+            .progressSemantics(progress)
     ) {
         // The progress bar uses rounded ends. The small delta requires calculation to take account
         // for the rounded end to ensure that neighbouring segments meet correctly.
@@ -139,7 +139,7 @@ public fun SegmentedProgressIndicator(
             (
                 asin(
                     strokeWidth.toPx() /
-                        (size.minDimension - strokeWidth.toPx()),
+                        (size.minDimension - strokeWidth.toPx())
                 ) * 180 / Math.PI
                 ).toFloat()
         // The first segment needs half a padding between it and the start point.
@@ -168,7 +168,7 @@ public fun SegmentedProgressIndicator(
                 arcDimen = arcDimen,
                 stroke = stroke,
                 progressSweep = progressSweep,
-                trackColor = trackColor,
+                trackColor = trackColor
             )
 
             currentStartAngle += segmentAngle + paddingAngle
@@ -187,11 +187,11 @@ private fun DrawScope.drawCircularProgressIndicator(
     arcDimen: Float,
     stroke: Stroke,
     progressSweep: Float,
-    trackColor: Color,
+    trackColor: Color
 ) {
     val offset = Offset(
         diameterOffset + (size.width - diameter) / 2,
-        diameterOffset + (size.height - diameter) / 2,
+        diameterOffset + (size.height - diameter) / 2
     )
 
     val localTrackColor = when {
@@ -210,7 +210,7 @@ private fun DrawScope.drawCircularProgressIndicator(
         useCenter = false,
         topLeft = offset,
         size = Size(arcDimen, arcDimen),
-        style = stroke,
+        style = stroke
     )
 
     // Draw Progress
@@ -221,6 +221,6 @@ private fun DrawScope.drawCircularProgressIndicator(
         useCenter = false,
         topLeft = offset,
         size = Size(arcDimen, arcDimen),
-        style = stroke,
+        style = stroke
     )
 }

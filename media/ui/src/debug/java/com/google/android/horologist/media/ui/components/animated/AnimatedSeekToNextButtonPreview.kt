@@ -23,7 +23,7 @@ import com.google.android.horologist.audio.ui.components.animated.InteractivePre
 @Preview(
     name = "Enabled",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun AnimatedSeekToNextButtonPreviewEnabled() {
@@ -35,7 +35,7 @@ fun AnimatedSeekToNextButtonPreviewEnabled() {
 @Preview(
     name = "Disabled",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun AnimatedSeekToNextButtonPreviewDisabled() {

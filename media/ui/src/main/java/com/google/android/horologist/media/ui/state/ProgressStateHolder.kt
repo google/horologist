@@ -41,7 +41,7 @@ import kotlin.math.abs
 @ExperimentalHorologistApi
 internal class ProgressStateHolder(
     initial: Float,
-    private val timestampProvider: TimestampProvider,
+    private val timestampProvider: TimestampProvider
 ) {
     private val actual = mutableStateOf(initial)
     private val animatable = Animatable(0f)

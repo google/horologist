@@ -39,7 +39,7 @@ public fun PodcastControlButtons(
     playerController: PlayerUiController,
     playerUiState: PlayerUiState,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     PodcastControlButtons(
         onPlayButtonClick = playerController::play,
@@ -54,7 +54,7 @@ public fun PodcastControlButtons(
         seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
         trackPositionUiModel = playerUiState.trackPositionUiModel,
         modifier = modifier,
-        colors = colors,
+        colors = colors
     )
 }
 
@@ -76,7 +76,7 @@ public fun PodcastControlButtons(
     modifier: Modifier = Modifier,
     seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     PodcastControlButtons(
         onPlayButtonClick = onPlayButtonClick,
@@ -91,7 +91,7 @@ public fun PodcastControlButtons(
         seekForwardButtonEnabled = seekForwardButtonEnabled,
         trackPositionUiModel = TrackPositionUiModel.Hidden,
         modifier = modifier,
-        colors = colors,
+        colors = colors
     )
 }
 
@@ -113,7 +113,7 @@ public fun PodcastControlButtons(
     modifier: Modifier = Modifier,
     seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
         modifier = modifier,
@@ -122,7 +122,7 @@ public fun PodcastControlButtons(
                 onClick = onSeekBackButtonClick,
                 seekButtonIncrement = seekBackButtonIncrement,
                 colors = colors,
-                enabled = seekBackButtonEnabled,
+                enabled = seekBackButtonEnabled
             )
         },
         middleButton = {
@@ -132,7 +132,7 @@ public fun PodcastControlButtons(
                 enabled = playPauseButtonEnabled,
                 playing = playing,
                 trackPositionUiModel = trackPositionUiModel,
-                colors = colors,
+                colors = colors
             )
         },
         rightButton = {
@@ -140,8 +140,8 @@ public fun PodcastControlButtons(
                 onClick = onSeekForwardButtonClick,
                 seekButtonIncrement = seekForwardButtonIncrement,
                 colors = colors,
-                enabled = seekForwardButtonEnabled,
+                enabled = seekForwardButtonEnabled
             )
-        },
+        }
     )
 }

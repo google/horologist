@@ -49,7 +49,7 @@ public fun MediaChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     defaultTitle: String = "",
-    placeholder: Painter? = null,
+    placeholder: Painter? = null
 ) {
     val artworkUri = media.artworkUri
     val title = media.title
@@ -59,7 +59,7 @@ public fun MediaChip(
         artworkUri = artworkUri,
         onClick = onClick,
         modifier = modifier,
-        placeholder = placeholder,
+        placeholder = placeholder
     )
 }
 
@@ -73,7 +73,7 @@ public fun MediaChip(
     artworkUri: Any?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: Painter? = null,
+    placeholder: Painter? = null
 ) {
     val appIcon: (@Composable BoxScope.() -> Unit)? = artworkUri?.let {
         {
@@ -81,7 +81,7 @@ public fun MediaChip(
                 modifier = Modifier.size(ChipDefaults.LargeIconSize),
                 contentDescription = title,
                 artworkUri = artworkUri,
-                placeholder = placeholder,
+                placeholder = placeholder
             )
         }
     }
@@ -94,15 +94,15 @@ public fun MediaChip(
             start = 12.dp,
             top = 6.dp,
             end = 0.dp,
-            bottom = 6.dp,
+            bottom = 6.dp
         ),
         icon = appIcon,
         label = {
             Text(
                 text = title,
                 maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
+                overflow = TextOverflow.Ellipsis
             )
-        },
+        }
     )
 }

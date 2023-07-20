@@ -81,7 +81,7 @@ public fun DatePicker(
     modifier: Modifier = Modifier,
     date: LocalDate = LocalDate.now(),
     fromDate: LocalDate? = null,
-    toDate: LocalDate? = null,
+    toDate: LocalDate? = null
 ) {
     val fullyDrawn = remember { Animatable(0f) }
 
@@ -102,8 +102,8 @@ public fun DatePicker(
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
         display2 = MaterialTheme.typography.display2.copy(
-            fontSize = with(LocalDensity.current) { 34.dp.toSp() },
-        ),
+            fontSize = with(LocalDensity.current) { 34.dp.toSp() }
+        )
     )
     val touchExplorationStateProvider = remember { DefaultTouchExplorationStateProvider() }
     val touchExplorationServicesEnabled by touchExplorationStateProvider
@@ -127,7 +127,7 @@ public fun DatePicker(
 
         LaunchedEffect(
             datePickerState.yearState.selectedOption,
-            datePickerState.monthState.selectedOption,
+            datePickerState.monthState.selectedOption
         ) {
             if (datePickerState.numOfMonths != datePickerState.monthState.numberOfOptions) {
                 datePickerState.monthState.numberOfOptions = datePickerState.numOfMonths
@@ -143,19 +143,19 @@ public fun DatePicker(
         val fullMonthNames = remember { getMonthNames("MMMM") }
         val yearContentDescription by remember(
             pickerGroupState.selectedIndex,
-            datePickerState.currentYear(),
+            datePickerState.currentYear()
         ) {
             derivedStateOf {
                 createDescriptionDatePicker(
                     pickerGroupState,
                     datePickerState.currentYear(),
-                    yearString,
+                    yearString
                 )
             }
         }
         val monthContentDescription by remember(
             pickerGroupState.selectedIndex,
-            datePickerState.currentMonth(),
+            datePickerState.currentMonth()
         ) {
             derivedStateOf {
                 if (pickerGroupState.selectedIndex == FocusableElementDatePicker.NONE.index) {
@@ -167,24 +167,24 @@ public fun DatePicker(
         }
         val dayContentDescription by remember(
             pickerGroupState.selectedIndex,
-            datePickerState.currentDay(),
+            datePickerState.currentDay()
         ) {
             derivedStateOf {
                 createDescriptionDatePicker(
                     pickerGroupState,
                     datePickerState.currentDay(),
-                    dayString,
+                    dayString
                 )
             }
         }
 
         BoxWithConstraints(
-            modifier = modifier.fillMaxSize().alpha(fullyDrawn.value),
+            modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)
         ) {
             val boxConstraints = this
             Column(
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(Modifier.height(16.dp))
                 Text(
@@ -196,13 +196,13 @@ public fun DatePicker(
                     },
                     color = optionColor,
                     style = MaterialTheme.typography.button,
-                    maxLines = 1,
+                    maxLines = 1
                 )
                 val weightsToCenterVertically = 0.5f
                 Spacer(
                     Modifier
                         .fillMaxWidth()
-                        .weight(weightsToCenterVertically),
+                        .weight(weightsToCenterVertically)
                 )
                 val spacerWidth = 8.dp
                 val dayWidth = 54.dp
@@ -229,11 +229,11 @@ public fun DatePicker(
                                 yearWidth,
                                 spacerWidth,
                                 touchExplorationServicesEnabled,
-                                pickerGroupState,
-                            ),
+                                pickerGroupState
+                            )
                         ),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     PickerGroup(
                         pickerGroupItemWithRSB(
@@ -242,13 +242,13 @@ public fun DatePicker(
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementDatePicker.DAY,
-                                    FocusableElementDatePicker.MONTH,
+                                    FocusableElementDatePicker.MONTH
                                 )
                             },
                             contentDescription = dayContentDescription,
                             option = pickerTextOption(textStyle) {
                                 "%d".format(datePickerState.currentDay(it))
-                            },
+                            }
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = datePickerState.monthState,
@@ -256,13 +256,13 @@ public fun DatePicker(
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementDatePicker.MONTH,
-                                    FocusableElementDatePicker.YEAR,
+                                    FocusableElementDatePicker.YEAR
                                 )
                             },
                             contentDescription = monthContentDescription,
                             option = pickerTextOption(textStyle) {
                                 shortMonthNames[(datePickerState.currentMonth(it) - 1) % 12]
-                            },
+                            }
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = datePickerState.yearState,
@@ -270,24 +270,24 @@ public fun DatePicker(
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementDatePicker.YEAR,
-                                    FocusableElementDatePicker.CONFIRM_BUTTON,
+                                    FocusableElementDatePicker.CONFIRM_BUTTON
                                 )
                             },
                             contentDescription = yearContentDescription,
                             option = pickerTextOption(textStyle) {
                                 "%4d".format(datePickerState.currentYear(it))
-                            },
+                            }
                         ),
                         pickerGroupState = pickerGroupState,
                         autoCenter = true,
                         separator = { Spacer(modifier = Modifier.width(spacerWidth)) },
-                        touchExplorationStateProvider = touchExplorationStateProvider,
+                        touchExplorationStateProvider = touchExplorationStateProvider
                     )
                 }
                 Spacer(
                     Modifier
                         .fillMaxWidth()
-                        .weight(weightsToCenterVertically),
+                        .weight(weightsToCenterVertically)
                 )
                 Button(
                     onClick = {
@@ -301,12 +301,12 @@ public fun DatePicker(
                         } else if (pickerGroupState.selectedIndex == FocusableElementDatePicker.DAY.index) {
                             onPickerSelected(
                                 FocusableElementDatePicker.DAY,
-                                FocusableElementDatePicker.MONTH,
+                                FocusableElementDatePicker.MONTH
                             )
                         } else if (pickerGroupState.selectedIndex == FocusableElementDatePicker.MONTH.index) {
                             onPickerSelected(
                                 FocusableElementDatePicker.MONTH,
-                                FocusableElementDatePicker.YEAR,
+                                FocusableElementDatePicker.YEAR
                             )
                         }
                     },
@@ -316,15 +316,12 @@ public fun DatePicker(
                                 FocusableElementDatePicker.CONFIRM_BUTTON.index
                         }
                         .focusRequester(focusRequesterConfirmButton)
-                        .focusable(),
+                        .focusable()
                 ) {
                     Icon(
                         imageVector =
-                        if (pickerGroupState.selectedIndex < 2) {
-                            Icons.Filled.ChevronRight
-                        } else {
-                            Icons.Filled.Check
-                        },
+                        if (pickerGroupState.selectedIndex < 2) Icons.Filled.ChevronRight
+                        else Icons.Filled.Check,
                         contentDescription =
                         if (pickerGroupState.selectedIndex >= 2) {
                             stringResource(R.string.horologist_picker_confirm_button_content_description)
@@ -333,7 +330,7 @@ public fun DatePicker(
                         },
                         modifier = Modifier
                             .size(24.dp)
-                            .wrapContentSize(align = Alignment.Center),
+                            .wrapContentSize(align = Alignment.Center)
                     )
                 }
                 Spacer(Modifier.height(12.dp))
@@ -349,7 +346,7 @@ public fun DatePicker(
 private fun verifyDates(
     date: LocalDate,
     fromDate: LocalDate,
-    toDate: LocalDate,
+    toDate: LocalDate
 ) {
     require(toDate >= fromDate) { "toDate should be greater than or equal to fromDate" }
     require(date in fromDate..toDate) { "date should lie between fromDate and toDate" }
@@ -370,7 +367,7 @@ private fun getPickerGroupRowOffset(
     yearPickerWidth: Dp,
     spacerWidth: Dp,
     touchExplorationServicesEnabled: Boolean,
-    pickerGroupState: PickerGroupState,
+    pickerGroupState: PickerGroupState
 ): Dp {
     val currentOffset = (
         rowWidth -
@@ -394,14 +391,14 @@ private fun getPickerGroupRowOffset(
 internal class DatePickerState constructor(
     private val date: LocalDate,
     private val fromDate: LocalDate?,
-    private val toDate: LocalDate?,
+    private val toDate: LocalDate?
 ) {
     private val yearOffset = fromDate?.year ?: 1
     val numOfYears = (toDate?.year ?: 3000) - (yearOffset - 1)
     val yearState =
         PickerState(
             initialNumberOfOptions = numOfYears,
-            initiallySelectedOption = date.year - yearOffset,
+            initiallySelectedOption = date.year - yearOffset
         )
     val selectedYearEqualsFromYear: Boolean
         get() = (yearState.selectedOption == 0)
@@ -417,7 +414,7 @@ internal class DatePickerState constructor(
     val monthState =
         PickerState(
             initialNumberOfOptions = numOfMonths,
-            initiallySelectedOption = date.monthValue - monthOffset,
+            initiallySelectedOption = date.monthValue - monthOffset
         )
     val selectedMonthEqualsFromMonth: Boolean
         get() = (selectedYearEqualsFromYear && monthState.selectedOption == 0)
@@ -433,7 +430,7 @@ internal class DatePickerState constructor(
         get() = LocalDate.of(
             currentYear(),
             currentMonth(),
-            1,
+            1
         )
     private val maxDaysInMonth: Int
         get() = (
@@ -449,7 +446,7 @@ internal class DatePickerState constructor(
     val dayState =
         PickerState(
             initialNumberOfOptions = numOfDays,
-            initiallySelectedOption = date.dayOfMonth - dayOffset,
+            initiallySelectedOption = date.dayOfMonth - dayOffset
         )
 
     fun currentYear(year: Int = yearState.selectedOption): Int {
@@ -468,7 +465,7 @@ internal class DatePickerState constructor(
 private fun createDescriptionDatePicker(
     pickerGroupState: PickerGroupState,
     selectedValue: Int,
-    label: String,
+    label: String
 ): String {
     return when (pickerGroupState.selectedIndex) {
         FocusableElementDatePicker.NONE.index -> label
@@ -481,8 +478,7 @@ private enum class FocusableElementDatePicker(val index: Int) {
     MONTH(1),
     YEAR(2),
     CONFIRM_BUTTON(3),
-    NONE(-1),
-    ;
+    NONE(-1);
 
     companion object {
         private val map = FocusableElementDatePicker.values().associateBy { it.index }

@@ -34,7 +34,7 @@ class WearCounterDataService : BaseGrpcDataService<CounterServiceGrpcKt.CounterS
     override val registry: WearDataLayerRegistry by lazy {
         WearDataLayerRegistry.fromContext(
             application = applicationContext,
-            coroutineScope = lifecycleScope,
+            coroutineScope = lifecycleScope
         ).apply {
             registerSerializer(CounterValueSerializer)
         }

@@ -17,7 +17,7 @@
 package com.google.android.horologist.compose.navscaffold
 
 @RequiresOptIn(
-    message = "Horologist Compose Layout is experimental. The API may be changed in the future.",
+    message = "Horologist Compose Layout is experimental. The API may be changed in the future."
 )
 @Retention(AnnotationRetention.BINARY)
 public annotation class ExperimentalHorologistComposeLayoutApi

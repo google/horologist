@@ -19,5 +19,5 @@ package com.google.android.horologist.media.ui.state.model
 public data class PlaylistUiModel(
     val id: String,
     val title: String,
-    val artworkUri: String? = null,
+    val artworkUri: String? = null
 )

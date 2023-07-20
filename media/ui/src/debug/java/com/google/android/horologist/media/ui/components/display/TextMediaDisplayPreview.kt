@@ -25,19 +25,19 @@ import com.google.android.horologist.compose.tools.WearPreview
 fun TextMediaDisplayPreview() {
     TextMediaDisplay(
         title = "Song title",
-        subtitle = "Artist name",
+        subtitle = "Artist name"
     )
 }
 
 @Preview(
     "With long text",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun TextMediaDisplayPreviewLongText() {
     TextMediaDisplay(
         title = "I Predict That You Look Good In A Riot",
-        subtitle = "Arctic Monkeys feat Kaiser Chiefs",
+        subtitle = "Arctic Monkeys feat Kaiser Chiefs"
     )
 }

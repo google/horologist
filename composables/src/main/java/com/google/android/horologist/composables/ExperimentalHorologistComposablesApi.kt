@@ -17,7 +17,7 @@
 package com.google.android.horologist.composables
 
 @RequiresOptIn(
-    message = "Horologist Composables is experimental. The API may be changed in the future.",
+    message = "Horologist Composables is experimental. The API may be changed in the future."
 )
 @Retention(AnnotationRetention.BINARY)
 public annotation class ExperimentalHorologistComposablesApi

@@ -49,7 +49,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 public fun <T : Any> ScalingLazyListScope.items(
     items: LazyPagingItems<T>,
     key: ((item: T) -> Any)? = null,
-    itemContent: @Composable ScalingLazyListItemScope.(value: T?) -> Unit,
+    itemContent: @Composable ScalingLazyListItemScope.(value: T?) -> Unit
 ) {
     val keyFn: ((index: Int) -> Any)? = if (key == null) {
         null
@@ -65,7 +65,7 @@ public fun <T : Any> ScalingLazyListScope.items(
     }
     items(
         count = items.itemCount,
-        key = keyFn,
+        key = keyFn
     ) { index ->
         itemContent(items[index])
     }

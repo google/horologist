@@ -45,7 +45,7 @@ object SampleAppDI {
         sampleApplication.counterFlow = sampleApplication.registry.protoFlow(TargetNodeId.PairedPhone)
         sampleApplication.counterService = sampleApplication.registry.grpcClient(
             nodeId = TargetNodeId.PairedPhone,
-            coroutineScope = sampleApplication.servicesCoroutineScope,
+            coroutineScope = sampleApplication.servicesCoroutineScope
         ) {
             CounterServiceGrpcKt.CounterServiceCoroutineStub(it)
         }

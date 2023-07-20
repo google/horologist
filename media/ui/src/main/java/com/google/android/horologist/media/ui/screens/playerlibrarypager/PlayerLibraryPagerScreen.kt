@@ -49,7 +49,7 @@ public fun PlayerLibraryPagerScreen(
     playerScreen: @Composable () -> Unit,
     libraryScreen: @Composable (ScalingLazyColumnState) -> Unit,
     backStack: NavBackStackEntry,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val pageParam = NavigationScreens.Player.getPageParam(backStack, remove = true)
 
@@ -67,7 +67,7 @@ public fun PlayerLibraryPagerScreen(
 
     PagerScreen(
         modifier = modifier,
-        state = pagerState,
+        state = pagerState
     ) { page ->
         when (page) {
             0 -> {
@@ -77,7 +77,7 @@ public fun PlayerLibraryPagerScreen(
                     },
                     positionIndicator = {
                         VolumePositionIndicator(volumeUiState = volumeUiState, displayIndicatorEvents = displayVolumeIndicatorEvents)
-                    },
+                    }
                 ) {
                     playerScreen()
                 }
@@ -91,9 +91,9 @@ public fun PlayerLibraryPagerScreen(
                     },
                     positionIndicator = {
                         PositionIndicator(
-                            scalingLazyListState = config.state,
+                            scalingLazyListState = config.state
                         )
-                    },
+                    }
                 ) {
                     libraryScreen(config)
                 }

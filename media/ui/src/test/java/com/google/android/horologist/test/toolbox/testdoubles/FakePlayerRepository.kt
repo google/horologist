@@ -111,9 +111,9 @@ class FakePlayerRepository() : PlayerRepository {
         _latestPlaybackState.value = PlaybackStateEvent(
             _latestPlaybackState.value.playbackState.copy(
                 duration = 10.seconds.takeIf { position != null },
-                currentPosition = position,
+                currentPosition = position
             ),
-            PlaybackStateEvent.Cause.PositionDiscontinuity,
+            PlaybackStateEvent.Cause.PositionDiscontinuity
         )
     }
 

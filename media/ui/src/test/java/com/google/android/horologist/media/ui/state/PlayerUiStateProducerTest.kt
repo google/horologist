@@ -45,7 +45,7 @@ class PlayerUiStateProducerTest {
                     id = "id",
                     uri = "http://uri",
                     title = "title",
-                    artist = "artist",
+                    artist = "artist"
                 ),
                 playbackStateEvent = PlaybackStateEvent(
                     PlaybackState(
@@ -53,12 +53,12 @@ class PlayerUiStateProducerTest {
                         isLive = false,
                         currentPosition = 2.toDuration(DurationUnit.SECONDS),
                         duration = 20.toDuration(DurationUnit.SECONDS),
-                        playbackSpeed = 1f,
+                        playbackSpeed = 1f
                     ),
                     timestamp = 0.toDuration(DurationUnit.SECONDS),
-                    cause = PlaybackStateEvent.Cause.Other,
-                ),
-            ),
+                    cause = PlaybackStateEvent.Cause.Other
+                )
+            )
         )
 
         // then
@@ -80,13 +80,13 @@ class PlayerUiStateProducerTest {
                         currentPositionMs = 2000,
                         durationMs = 20000,
                         positionSpeed = 1f,
-                        eventTimestamp = 0,
-                    ),
+                        eventTimestamp = 0
+                    )
                 ),
                 seekBackButtonIncrement = SeekButtonIncrement.Unknown,
                 seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
-                connected = true,
-            ),
+                connected = true
+            )
         )
     }
 }

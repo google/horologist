@@ -34,7 +34,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @Composable
 public fun MessageMediaDisplay(
     modifier: Modifier = Modifier,
-    message: String,
+    message: String
 ) {
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
         val style = MaterialTheme.typography.body2
@@ -45,7 +45,7 @@ public fun MessageMediaDisplay(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
-            style = style,
+            style = style
         )
         Text("", style = style, minLines = 2)
     }

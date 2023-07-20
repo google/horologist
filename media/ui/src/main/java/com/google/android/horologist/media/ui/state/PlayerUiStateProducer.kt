@@ -31,26 +31,26 @@ import kotlin.time.Duration
  */
 @ExperimentalHorologistApi
 public class PlayerUiStateProducer(
-    playerRepository: PlayerRepository,
+    playerRepository: PlayerRepository
 ) {
     private data class StaticState(
         val connected: Boolean,
         val shuffleModeEnabled: Boolean,
         val seekBackButtonIncrement: Duration?,
-        val seekForwardButtonIncrement: Duration?,
+        val seekForwardButtonIncrement: Duration?
     )
 
     private val staticFlow = combine(
         playerRepository.connected,
         playerRepository.shuffleModeEnabled,
         playerRepository.seekBackIncrement,
-        playerRepository.seekForwardIncrement,
+        playerRepository.seekForwardIncrement
     ) { connected, shuffleModeEnabled, seekBackIncrement, seekForwardIncrement ->
         StaticState(
             connected = connected,
             shuffleModeEnabled = shuffleModeEnabled,
             seekBackButtonIncrement = seekBackIncrement,
-            seekForwardButtonIncrement = seekForwardIncrement,
+            seekForwardButtonIncrement = seekForwardIncrement
         )
     }
 
@@ -58,7 +58,7 @@ public class PlayerUiStateProducer(
         playerRepository.availableCommands,
         playerRepository.currentMedia,
         playerRepository.latestPlaybackState,
-        staticFlow,
+        staticFlow
     ) { availableCommands, media, lastPlaybackStateEvent, staticData ->
         PlayerUiStateMapper.map(
             currentState = lastPlaybackStateEvent.playbackState.playerState,
@@ -68,7 +68,7 @@ public class PlayerUiStateProducer(
             shuffleModeEnabled = staticData.shuffleModeEnabled,
             connected = staticData.connected,
             seekBackIncrement = staticData.seekBackButtonIncrement,
-            seekForwardIncrement = staticData.seekForwardButtonIncrement,
+            seekForwardIncrement = staticData.seekForwardButtonIncrement
         )
     }
 }

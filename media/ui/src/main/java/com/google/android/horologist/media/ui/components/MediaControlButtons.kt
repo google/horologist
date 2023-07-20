@@ -41,7 +41,7 @@ public fun MediaControlButtons(
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     MediaControlButtons(
         onPlayButtonClick = onPlayButtonClick,
@@ -54,7 +54,7 @@ public fun MediaControlButtons(
         seekToNextButtonEnabled = seekToNextButtonEnabled,
         trackPositionUiModel = TrackPositionUiModel.Hidden,
         modifier = modifier,
-        colors = colors,
+        colors = colors
     )
 }
 
@@ -75,7 +75,7 @@ public fun MediaControlButtons(
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
     trackPositionUiModel: TrackPositionUiModel,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
         modifier = modifier,
@@ -83,7 +83,7 @@ public fun MediaControlButtons(
             SeekToPreviousButton(
                 onClick = onSeekToPreviousButtonClick,
                 enabled = seekToPreviousButtonEnabled,
-                colors = colors,
+                colors = colors
             )
         },
         middleButton = {
@@ -93,15 +93,15 @@ public fun MediaControlButtons(
                 enabled = playPauseButtonEnabled,
                 playing = playing,
                 trackPositionUiModel = trackPositionUiModel,
-                colors = colors,
+                colors = colors
             )
         },
         rightButton = {
             SeekToNextButton(
                 onClick = onSeekToNextButtonClick,
                 enabled = seekToNextButtonEnabled,
-                colors = colors,
+                colors = colors
             )
-        },
+        }
     )
 }

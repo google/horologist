@@ -43,7 +43,7 @@ class FillMaxRectangleTest {
     @Test
     @Config(
         sdk = [30],
-        qualifiers = "w227dp-h227dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
+        qualifiers = "w227dp-h227dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
     )
     fun testSquare() {
         composeTestRule.setContent {
@@ -59,7 +59,7 @@ class FillMaxRectangleTest {
     @Test
     @Config(
         sdk = [30],
-        qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
+        qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
     )
     fun testCircle() {
         composeTestRule.setContent {
@@ -79,7 +79,7 @@ class FillMaxRectangleTest {
             Box(
                 modifier = Modifier
                     .fillMaxRectangle()
-                    .testTag("boxInset"),
+                    .testTag("boxInset")
             ) {
             }
         }

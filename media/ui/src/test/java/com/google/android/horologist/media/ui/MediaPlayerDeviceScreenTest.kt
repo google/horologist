@@ -34,7 +34,7 @@ class MediaPlayerDeviceScreenTest : ScreenshotBaseTest() {
 
     @Config(
         sdk = [30],
-        qualifiers = "+w192dp-h192dp",
+        qualifiers = "+w192dp-h192dp"
     )
     @Test
     fun mediaPlayerSmallRound() {
@@ -43,7 +43,7 @@ class MediaPlayerDeviceScreenTest : ScreenshotBaseTest() {
 
     @Config(
         sdk = [30],
-        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav",
+        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav"
     )
     @Test
     fun mediaPlayerSquare() {
@@ -66,20 +66,20 @@ class MediaPlayerDeviceScreenTest : ScreenshotBaseTest() {
             media = MediaUiModel(
                 id = "",
                 title = "Weather with You",
-                subtitle = "Crowded House",
+                subtitle = "Crowded House"
             ),
             trackPositionUiModel = TrackPositionUiModel.Actual(
                 position = 30.seconds,
                 duration = 225.seconds,
-                percent = 0.133f,
+                percent = 0.133f
             ),
-            connected = true,
+            connected = true
         )
 
         screenshotTestRule.setContent(takeScreenshot = true) {
             MediaPlayerTestCase(
                 colors = UampColors,
-                playerUiState = playerUiState,
+                playerUiState = playerUiState
             )
         }
     }

@@ -24,7 +24,7 @@ internal class RotaryInputAccumulator(
     private val minValueChangeDistancePx: Float,
     private val rateLimitCoolDownMs: Long,
     private val isLowRes: Boolean = false,
-    private val onValueChange: ((change: Float) -> Unit),
+    private val onValueChange: ((change: Float) -> Unit)
 ) {
     private var accumulatedDistance = 0f
     private var lastAccumulatedEventTimeMs: Long = 0
@@ -69,8 +69,7 @@ internal class RotaryInputAccumulator(
             1f
         } else if (isLowRes && scrollPixels < 0f) { // For negative tick in low res devices
             -1f
-        } else if (isLowRes) { // For no tick in low res devices
-            /* && scrollPixels == 0f */
+        } else if (isLowRes /** && scrollPixels == 0f **/) { // For no tick in low res devices
             0f
         } else { // Take it as is for high res devices
             scrollPixels

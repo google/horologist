@@ -32,20 +32,20 @@ fun MediaChipPreview() {
         media = MediaUiModel(
             id = "id",
             title = "Red Hot Chilli Peppers",
-            artworkUri = "artworkUri",
+            artworkUri = "artworkUri"
         ),
         onClick = {},
         placeholder = rememberVectorPainter(
             image = Icons.Default.Album,
-            tintColor = Color.Blue,
-        ),
+            tintColor = Color.Blue
+        )
     )
 }
 
 @Preview(
     name = "No artwork",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun MediaChipPreviewNoArtwork() {
@@ -54,15 +54,15 @@ fun MediaChipPreviewNoArtwork() {
         onClick = {},
         placeholder = rememberVectorPainter(
             image = Icons.Default.Album,
-            tintColor = Color.Blue,
-        ),
+            tintColor = Color.Blue
+        )
     )
 }
 
 @Preview(
     name = "No title",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun MediaChipPreviewNoTitle() {
@@ -72,15 +72,15 @@ fun MediaChipPreviewNoTitle() {
         defaultTitle = "No title",
         placeholder = rememberVectorPainter(
             image = Icons.Default.Album,
-            tintColor = Color.Blue,
-        ),
+            tintColor = Color.Blue
+        )
     )
 }
 
 @Preview(
     name = "Very long title",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun MediaChipPreviewVeryLongTitle() {
@@ -88,12 +88,12 @@ fun MediaChipPreviewVeryLongTitle() {
         media = MediaUiModel(
             id = "id",
             title = "Very very very very very very very very very very very very very very very very very very very long title",
-            artworkUri = "artworkUri",
+            artworkUri = "artworkUri"
         ),
         onClick = {},
         placeholder = rememberVectorPainter(
             image = Icons.Default.Album,
-            tintColor = Color.Blue,
-        ),
+            tintColor = Color.Blue
+        )
     )
 }

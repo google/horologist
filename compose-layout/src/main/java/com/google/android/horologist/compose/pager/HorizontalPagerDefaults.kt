@@ -40,12 +40,12 @@ public object HorizontalPagerDefaults {
     @Composable
     @OptIn(ExperimentalFoundationApi::class)
     public fun flingParams(
-        pagerState: PagerState,
+        pagerState: PagerState
     ): SnapFlingBehavior {
         return PagerDefaults.flingBehavior(
             state = pagerState,
             pagerSnapDistance = PagerSnapDistance.atMost(0),
-            snapAnimationSpec = SpringSpec(dampingRatio = 1f, stiffness = 200f),
+            snapAnimationSpec = SpringSpec(dampingRatio = 1f, stiffness = 200f)
         )
     }
 }

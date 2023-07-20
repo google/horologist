@@ -29,6 +29,6 @@ fun TimePickerPreview() {
     // previews only work in interactive mode.
     TimePicker(
         time = LocalTime.of(10, 10, 0),
-        onTimeConfirm = { },
+        onTimeConfirm = { }
     )
 }

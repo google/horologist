@@ -37,7 +37,7 @@ fun MarqueeTextTypicalPreview() {
         modifier = Modifier
             .background(Color.DarkGray)
             .width(100.dp),
-        textAlign = TextAlign.Center,
+        textAlign = TextAlign.Center
     )
 }
 
@@ -49,7 +49,7 @@ fun MarqueeTextShortTextCenterPreview() {
         modifier = Modifier
             .background(Color.DarkGray)
             .width(100.dp),
-        textAlign = TextAlign.Center,
+        textAlign = TextAlign.Center
     )
 }
 
@@ -61,7 +61,7 @@ fun MarqueeTextShortTextRightPreview() {
         modifier = Modifier
             .background(Color.DarkGray)
             .width(100.dp),
-        textAlign = TextAlign.Right,
+        textAlign = TextAlign.Right
     )
 }
 
@@ -73,7 +73,7 @@ fun MarqueeTextShortTextRtlPreview() {
             text = "A",
             modifier = Modifier
                 .background(Color.DarkGray)
-                .width(100.dp),
+                .width(100.dp)
         )
     }
 }
@@ -87,6 +87,6 @@ fun MarqueeTextConstantScrollingPreview() {
             .background(Color.DarkGray)
             .width(100.dp),
         textAlign = TextAlign.Center,
-        pauseTime = 0.seconds,
+        pauseTime = 0.seconds
     )
 }

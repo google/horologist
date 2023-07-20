@@ -31,7 +31,7 @@ class MockPlayerRepository(
     private val currentMediaValue: Media? = null,
     private val shuffleModeEnabledValue: Boolean = false,
     private val seekBackIncrementValue: Duration? = null,
-    private val seekForwardIncrementValue: Duration? = null,
+    private val seekForwardIncrementValue: Duration? = null
 ) : PlayerRepository {
 
     override val connected: StateFlow<Boolean>

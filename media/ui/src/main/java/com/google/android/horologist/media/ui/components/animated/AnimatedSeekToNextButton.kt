@@ -39,18 +39,18 @@ public fun AnimatedSeekToNextButton(
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp)
 ) {
     if (LocalStaticPreview.current) {
         SeekToNextButton(
             onClick = onClick,
             modifier = modifier,
             enabled = enabled,
-            colors = colors,
+            colors = colors
         )
     } else {
         val compositionResult = rememberLottieComposition(
-            spec = LottieCompositionSpec.Asset("lottie/Next.json"),
+            spec = LottieCompositionSpec.Asset("lottie/Next.json")
         )
 
         AnimatedMediaButton(
@@ -62,7 +62,7 @@ public fun AnimatedSeekToNextButton(
             iconSize = iconSize,
             tapTargetSize = tapTargetSize,
             compositionResult = compositionResult,
-            iconAlign = Alignment.End,
+            iconAlign = Alignment.End
         )
     }
 }

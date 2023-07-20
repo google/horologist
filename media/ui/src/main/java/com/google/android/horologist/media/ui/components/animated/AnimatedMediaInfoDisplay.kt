@@ -31,7 +31,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 public fun AnimatedMediaInfoDisplay(
     media: MediaUiModel?,
     loading: Boolean,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     if (loading) {
         LoadingMediaDisplay(modifier)
@@ -39,7 +39,7 @@ public fun AnimatedMediaInfoDisplay(
         MarqueeTextMediaDisplay(
             modifier = modifier,
             title = media.title,
-            artist = media.subtitle,
+            artist = media.subtitle
         )
     } else {
         NothingPlayingDisplay(modifier)

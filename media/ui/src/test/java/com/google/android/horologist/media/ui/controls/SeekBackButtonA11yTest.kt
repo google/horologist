@@ -30,7 +30,7 @@ class SeekBackButtonA11yTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-    },
+    }
 ) {
 
     @Test
@@ -39,7 +39,7 @@ class SeekBackButtonA11yTest : ScreenshotBaseTest(
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 SeekBackButton(
                     onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Five,
+                    seekButtonIncrement = SeekButtonIncrement.Five
                 )
             }
         }
@@ -51,7 +51,7 @@ class SeekBackButtonA11yTest : ScreenshotBaseTest(
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 SeekBackButton(
                     onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Ten,
+                    seekButtonIncrement = SeekButtonIncrement.Ten
                 )
             }
         }
@@ -63,7 +63,7 @@ class SeekBackButtonA11yTest : ScreenshotBaseTest(
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 SeekBackButton(
                     onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Thirty,
+                    seekButtonIncrement = SeekButtonIncrement.Thirty
                 )
             }
         }
@@ -75,7 +75,7 @@ class SeekBackButtonA11yTest : ScreenshotBaseTest(
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 SeekBackButton(
                     onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Known(15),
+                    seekButtonIncrement = SeekButtonIncrement.Known(15)
                 )
             }
         }
@@ -87,7 +87,7 @@ class SeekBackButtonA11yTest : ScreenshotBaseTest(
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 SeekBackButton(
                     onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Unknown,
+                    seekButtonIncrement = SeekButtonIncrement.Unknown
                 )
             }
         }

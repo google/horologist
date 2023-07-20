@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
  * for both processes snackbars sequentially and also showing a message.
  */
 public open class SnackbarViewModel(
-    private val snackbarManager: SnackbarManager,
+    private val snackbarManager: SnackbarManager
 ) : ViewModel() {
     public val snackbarHostState: SnackbarHostState = SnackbarHostState()
 
@@ -41,7 +41,7 @@ public open class SnackbarViewModel(
                 currentMessages.firstOrNull()?.let {
                     snackbarHostState.showSnackbar(
                         message = it.message,
-                        duration = SnackbarDuration.Short,
+                        duration = SnackbarDuration.Short
                     )
                     snackbarManager.setMessageShown(it.id)
                 }
@@ -56,7 +56,7 @@ public open class SnackbarViewModel(
         public val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 SnackbarViewModel(
-                    snackbarManager = this[SnackbarManagerKey]!!,
+                    snackbarManager = this[SnackbarManagerKey]!!
                 )
             }
         }

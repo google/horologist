@@ -33,7 +33,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
         ScreenshotTestRule.screenshotTestRuleParams {
             enableA11y = true
             screenTimeText = {}
-        },
+        }
     ) {
     @Test
     fun playlistDownloadScreenPreviewLoading() {
@@ -51,7 +51,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
                     columnState = columnState,
-                    onDownloadItemInProgressClickActionLabel = "cancel",
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -67,7 +67,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
                         playlistModel = playlistUiModel,
-                        downloadMediaList = notDownloaded,
+                        downloadMediaList = notDownloaded
                     ),
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
@@ -78,9 +78,9 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
+                        tintColor = Color.Blue
                     ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -96,7 +96,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
                         playlistModel = playlistUiModel,
-                        downloadMediaList = notDownloadedAndDownloading,
+                        downloadMediaList = notDownloadedAndDownloading
                     ),
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
@@ -107,9 +107,9 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
+                        tintColor = Color.Blue
                     ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -125,7 +125,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
                         playlistModel = playlistUiModel,
-                        downloadMediaList = downloadedNotDownloaded,
+                        downloadMediaList = downloadedNotDownloaded
                     ),
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
@@ -136,9 +136,9 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
+                        tintColor = Color.Blue
                     ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -154,7 +154,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
                         playlistModel = playlistUiModel,
-                        downloadMediaList = downloadedAndDownloadingUnknown,
+                        downloadMediaList = downloadedAndDownloadingUnknown
                     ),
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
@@ -165,9 +165,9 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
+                        tintColor = Color.Blue
                     ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -183,7 +183,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
                         playlistModel = playlistUiModel,
-                        downloadMediaList = downloadedAndDownloadingWaiting,
+                        downloadMediaList = downloadedAndDownloadingWaiting
                     ),
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
@@ -194,9 +194,9 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
+                        tintColor = Color.Blue
                     ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -212,7 +212,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
                         playlistModel = playlistUiModel,
-                        downloadMediaList = downloaded,
+                        downloadMediaList = downloaded
                     ),
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
@@ -223,9 +223,9 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
+                        tintColor = Color.Blue
                     ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -247,7 +247,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
                     columnState = columnState,
-                    onDownloadItemInProgressClickActionLabel = "cancel",
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -256,7 +256,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
 
 private val playlistUiModel = PlaylistUiModel(
     id = "id",
-    title = "Playlist name",
+    title = "Playlist name"
 )
 
 private val notDownloaded = listOf(
@@ -264,14 +264,14 @@ private val notDownloaded = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = "artworkUri"
     ),
     DownloadMediaUiModel.NotDownloaded(
         id = "id 2",
         title = "Song name 2",
         artist = "Artist name 2",
-        artworkUri = "artworkUri",
-    ),
+        artworkUri = "artworkUri"
+    )
 )
 
 private val notDownloadedAndDownloading = listOf(
@@ -279,15 +279,15 @@ private val notDownloadedAndDownloading = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = "artworkUri"
     ),
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
         progress = DownloadMediaUiModel.Progress.InProgress(78f),
         size = DownloadMediaUiModel.Size.Known(sizeInBytes = 123456L),
-        artworkUri = "artworkUri",
-    ),
+        artworkUri = "artworkUri"
+    )
 )
 
 private val downloadedAndDownloadingUnknown = listOf(
@@ -295,15 +295,15 @@ private val downloadedAndDownloadingUnknown = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = "artworkUri"
     ),
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
         progress = DownloadMediaUiModel.Progress.InProgress(78f),
         size = DownloadMediaUiModel.Size.Unknown,
-        artworkUri = "artworkUri",
-    ),
+        artworkUri = "artworkUri"
+    )
 )
 
 private val downloadedAndDownloadingWaiting = listOf(
@@ -311,15 +311,15 @@ private val downloadedAndDownloadingWaiting = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = "artworkUri"
     ),
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
         progress = DownloadMediaUiModel.Progress.Waiting,
         size = DownloadMediaUiModel.Size.Unknown,
-        artworkUri = "artworkUri",
-    ),
+        artworkUri = "artworkUri"
+    )
 )
 
 private val downloadedNotDownloaded = listOf(
@@ -327,14 +327,14 @@ private val downloadedNotDownloaded = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = "artworkUri"
     ),
     DownloadMediaUiModel.NotDownloaded(
         id = "id 2",
         title = "Song name 2",
         artist = "Artist name 2",
-        artworkUri = "artworkUri",
-    ),
+        artworkUri = "artworkUri"
+    )
 )
 
 private val downloaded = listOf(
@@ -342,12 +342,12 @@ private val downloaded = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = "artworkUri"
     ),
     DownloadMediaUiModel.Downloaded(
         id = "id 2",
         title = "Song name 2",
         artist = "Artist name 2",
-        artworkUri = "artworkUri",
-    ),
+        artworkUri = "artworkUri"
+    )
 )

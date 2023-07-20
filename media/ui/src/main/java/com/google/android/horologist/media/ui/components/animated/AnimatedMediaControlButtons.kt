@@ -52,7 +52,7 @@ public fun AnimatedMediaControlButtons(
     trackPositionUiModel: TrackPositionUiModel,
     progressColor: Color = MaterialTheme.colors.primary,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
-    rotateProgressIndicator: Flow<Unit> = flowOf(),
+    rotateProgressIndicator: Flow<Unit> = flowOf()
 ) {
     ControlButtonLayout(
         modifier = modifier,
@@ -60,7 +60,7 @@ public fun AnimatedMediaControlButtons(
             AnimatedSeekToPreviousButton(
                 onClick = onSeekToPreviousButtonClick,
                 enabled = seekToPreviousButtonEnabled,
-                colors = colors,
+                colors = colors
             )
         },
         middleButton = {
@@ -74,7 +74,7 @@ public fun AnimatedMediaControlButtons(
                     modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
                     colors = colors,
                     progressColor = progressColor,
-                    rotateProgressIndicator = rotateProgressIndicator,
+                    rotateProgressIndicator = rotateProgressIndicator
                 )
             } else {
                 AnimatedPlayPauseButton(
@@ -83,7 +83,7 @@ public fun AnimatedMediaControlButtons(
                     enabled = playPauseButtonEnabled,
                     playing = playing,
                     modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
-                    colors = colors,
+                    colors = colors
                 )
             }
         },
@@ -91,8 +91,8 @@ public fun AnimatedMediaControlButtons(
             AnimatedSeekToNextButton(
                 onClick = onSeekToNextButtonClick,
                 enabled = seekToNextButtonEnabled,
-                colors = colors,
+                colors = colors
             )
-        },
+        }
     )
 }

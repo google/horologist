@@ -37,7 +37,7 @@ public object PlayerUiStateMapper {
         shuffleModeEnabled: Boolean,
         connected: Boolean,
         seekBackIncrement: Duration?,
-        seekForwardIncrement: Duration?,
+        seekForwardIncrement: Duration?
     ): PlayerUiState {
         val playPauseCommandAvailable = availableCommands.contains(Command.PlayPause) && currentState != PlayerState.Idle
         return PlayerUiState(
@@ -55,7 +55,7 @@ public object PlayerUiStateMapper {
             trackPositionUiModel = TrackPositionUiModelMapper.map(playbackStateEvent),
             connected = connected,
             seekBackButtonIncrement = seekBackIncrement?.let { SeekButtonIncrement.ofDuration(it) } ?: SeekButtonIncrement.Unknown,
-            seekForwardButtonIncrement = seekForwardIncrement?.let { SeekButtonIncrement.ofDuration(it) } ?: SeekButtonIncrement.Unknown,
+            seekForwardButtonIncrement = seekForwardIncrement?.let { SeekButtonIncrement.ofDuration(it) } ?: SeekButtonIncrement.Unknown
         )
     }
 }

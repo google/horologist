@@ -26,7 +26,7 @@ import kotlinx.coroutines.flow.stateIn
 
 @ExperimentalHorologistApi
 public open class PlayerViewModel(
-    playerRepository: PlayerRepository,
+    playerRepository: PlayerRepository
 ) : ViewModel() {
 
     private val producer = PlayerUiStateProducer(playerRepository)
@@ -34,7 +34,7 @@ public open class PlayerViewModel(
     public val playerUiState: StateFlow<PlayerUiState> = producer.playerUiStateFlow.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
-        initialValue = PlayerUiState.NotConnected,
+        initialValue = PlayerUiState.NotConnected
     )
 
     public val playerUiController: PlayerUiController = PlayerUiController(playerRepository)

@@ -35,18 +35,18 @@ public fun EntityButton(
     icon: ImageVector,
     contentDescription: String,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
+    enabled: Boolean = true
 ) {
     Button(
         modifier = modifier,
         colors = ButtonDefaults.secondaryButtonColors(),
         onClick = onClick,
-        enabled = enabled,
+        enabled = enabled
     ) {
         Icon(
             modifier = Modifier.size(ButtonDefaults.SmallButtonSize),
             imageVector = icon,
-            contentDescription = contentDescription,
+            contentDescription = contentDescription
         )
     }
 }

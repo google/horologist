@@ -28,7 +28,7 @@ import kotlin.time.Duration.Companion.seconds
 @Preview(
     "Enabled - Playing - Progress 0%",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun PlayPauseProgressButtonPreview0() {
@@ -37,14 +37,14 @@ fun PlayPauseProgressButtonPreview0() {
         onPauseClick = {},
         enabled = true,
         playing = true,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0f, 0.seconds, 100.seconds),
+        trackPositionUiModel = TrackPositionUiModel.Actual(0f, 0.seconds, 100.seconds)
     )
 }
 
 @Preview(
     "Disabled - Not playing - Progress 25%",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun PlayPauseProgressButtonPreview25() {
@@ -53,14 +53,14 @@ fun PlayPauseProgressButtonPreview25() {
         onPauseClick = {},
         enabled = false,
         playing = false,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds)
     )
 }
 
 @Preview(
     "Disabled - Playing - Progress 75%",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun PlayPauseProgressButtonPreview75() {
@@ -69,14 +69,14 @@ fun PlayPauseProgressButtonPreview75() {
         onPauseClick = {},
         enabled = false,
         playing = true,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0.75f, 75.seconds, 100.seconds),
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.75f, 75.seconds, 100.seconds)
     )
 }
 
 @Preview(
     "Enabled - Not playing - Progress 100%",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun PlayPauseProgressButtonPreview100() {
@@ -85,14 +85,14 @@ fun PlayPauseProgressButtonPreview100() {
         onPauseClick = {},
         enabled = true,
         playing = false,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds),
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds)
     )
 }
 
 @Preview(
     "Loading",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun PlayPauseProgressButtonLoadingPreview() {
@@ -101,14 +101,14 @@ fun PlayPauseProgressButtonLoadingPreview() {
         onPauseClick = {},
         enabled = true,
         playing = true,
-        trackPositionUiModel = TrackPositionUiModel.Loading(showProgress = true),
+        trackPositionUiModel = TrackPositionUiModel.Loading(showProgress = true)
     )
 }
 
 @Preview(
     "On Background - Progress 50%",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun PlayPauseProgressButtonPreviewOnWhite() {
@@ -118,7 +118,7 @@ fun PlayPauseProgressButtonPreviewOnWhite() {
             onPauseClick = {},
             enabled = true,
             playing = false,
-            trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds),
+            trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds)
         )
     }
 }

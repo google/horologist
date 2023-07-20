@@ -27,7 +27,7 @@ class ShuffleToggleButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ShuffleToggleButton(
                 onToggle = {},
-                shuffleOn = true,
+                shuffleOn = true
             )
         }
     }
@@ -37,7 +37,7 @@ class ShuffleToggleButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ShuffleToggleButton(
                 onToggle = {},
-                shuffleOn = false,
+                shuffleOn = false
             )
         }
     }

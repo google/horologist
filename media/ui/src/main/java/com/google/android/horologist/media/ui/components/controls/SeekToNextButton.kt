@@ -37,7 +37,7 @@ public fun SeekToNextButton(
     enabled: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp)
 ) {
     MediaButton(
         onClick = onClick,
@@ -48,6 +48,6 @@ public fun SeekToNextButton(
         colors = colors,
         iconSize = iconSize,
         tapTargetSize = tapTargetSize,
-        iconAlign = Alignment.End,
+        iconAlign = Alignment.End
     )
 }

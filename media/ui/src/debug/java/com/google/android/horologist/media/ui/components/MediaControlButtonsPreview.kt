@@ -24,7 +24,7 @@ import kotlin.time.Duration.Companion.minutes
 @Preview(
     "Enabled - Playing - With progress",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun MediaControlButtonsPreview() {
@@ -37,14 +37,14 @@ fun MediaControlButtonsPreview() {
         onSeekToNextButtonClick = {},
         seekToNextButtonEnabled = true,
         onSeekToPreviousButtonClick = {},
-        seekToPreviousButtonEnabled = true,
+        seekToPreviousButtonEnabled = true
     )
 }
 
 @Preview(
     "Disabled - Not playing - Without progress",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun MediaControlButtonsPreviewNoProgress() {
@@ -56,6 +56,6 @@ fun MediaControlButtonsPreviewNoProgress() {
         onSeekToNextButtonClick = {},
         seekToNextButtonEnabled = false,
         onSeekToPreviousButtonClick = {},
-        seekToPreviousButtonEnabled = false,
+        seekToPreviousButtonEnabled = false
     )
 }

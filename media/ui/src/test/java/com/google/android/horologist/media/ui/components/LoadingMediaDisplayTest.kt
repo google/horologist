@@ -28,7 +28,7 @@ import org.junit.Test
 class LoadingMediaDisplayTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {}
-    },
+    }
 ) {
     @Test
     fun default() {

@@ -32,7 +32,7 @@ import org.robolectric.annotation.Config
 class MediaCollectionsTileTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {}
-    },
+    }
 ) {
     @Test
     fun largeRound() {
@@ -41,7 +41,7 @@ class MediaCollectionsTileTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = "+w192dp-h192dp",
+        qualifiers = "+w192dp-h192dp"
     )
     @Test
     fun smallRound() {
@@ -50,7 +50,7 @@ class MediaCollectionsTileTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav",
+        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav"
     )
     @Test
     fun square() {
@@ -77,13 +77,13 @@ class MediaCollectionsTileTest : ScreenshotBaseTest(
                 collection1 = MediaCollectionsTileRenderer.MediaCollection(
                     name = "Liked Songs",
                     artworkId = "1",
-                    action = action,
+                    action = action
                 ),
                 collection2 = MediaCollectionsTileRenderer.MediaCollection(
                     name = "Podcasts",
                     artworkId = "2",
-                    action = action,
-                ),
+                    action = action
+                )
             )
         }
 
@@ -92,8 +92,8 @@ class MediaCollectionsTileTest : ScreenshotBaseTest(
                 appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
                 images = mapOf(
                     "1" to drawableResToImageResource(R.drawable.ic_baseline_queue_music_24),
-                    "2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
-                ),
+                    "2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24)
+                )
             )
         }
 
@@ -101,14 +101,14 @@ class MediaCollectionsTileTest : ScreenshotBaseTest(
             MediaCollectionsTileRenderer(
                 context = context,
                 materialTheme = UampColors.toTileColors(),
-                debugResourceMode = false,
+                debugResourceMode = false
             )
         }
 
         TileLayoutPreview(
             tileState,
             resourceState,
-            renderer,
+            renderer
         )
     }
 }

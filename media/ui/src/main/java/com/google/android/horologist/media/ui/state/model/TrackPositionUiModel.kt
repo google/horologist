@@ -29,7 +29,7 @@ public sealed class TrackPositionUiModel {
     public data class Predictive(
         public val predictor: PositionPredictor,
         public override val shouldAnimate: Boolean = false,
-        public override val isLoading: Boolean = false,
+        public override val isLoading: Boolean = false
     ) : TrackPositionUiModel() {
         override val showProgress: Boolean get() = true
     }
@@ -39,7 +39,7 @@ public sealed class TrackPositionUiModel {
         public val duration: Duration,
         public val position: Duration,
         public override val shouldAnimate: Boolean = false,
-        public override val isLoading: Boolean = false,
+        public override val isLoading: Boolean = false
     ) : TrackPositionUiModel() {
         override val showProgress: Boolean get() = true
 
@@ -50,7 +50,7 @@ public sealed class TrackPositionUiModel {
 
     public data class Loading(
         public override val shouldAnimate: Boolean = false,
-        public override val showProgress: Boolean = false,
+        public override val showProgress: Boolean = false
     ) : TrackPositionUiModel() {
         override val isLoading: Boolean get() = true
     }

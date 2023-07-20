@@ -36,7 +36,7 @@ public fun LottieAnimationWithPlaceholder(
     placeholder: ImageVector,
     contentDescription: String,
     modifier: Modifier = Modifier,
-    dynamicProperties: LottieDynamicProperties? = null,
+    dynamicProperties: LottieDynamicProperties? = null
 ) {
     val isCompositionReady by produceState(initialValue = false, producer = {
         lottieCompositionResult.await()
@@ -48,13 +48,13 @@ public fun LottieAnimationWithPlaceholder(
             modifier = modifier,
             composition = lottieCompositionResult.value,
             progress = progress,
-            dynamicProperties = dynamicProperties,
+            dynamicProperties = dynamicProperties
         )
     } else {
         Icon(
             modifier = modifier,
             imageVector = placeholder,
-            contentDescription = contentDescription,
+            contentDescription = contentDescription
         )
     }
 }

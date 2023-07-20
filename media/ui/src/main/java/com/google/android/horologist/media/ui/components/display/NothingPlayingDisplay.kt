@@ -30,6 +30,6 @@ import com.google.android.horologist.media.ui.R
 public fun NothingPlayingDisplay(modifier: Modifier = Modifier) {
     MessageMediaDisplay(
         message = stringResource(R.string.horologist_nothing_playing),
-        modifier = modifier,
+        modifier = modifier
     )
 }

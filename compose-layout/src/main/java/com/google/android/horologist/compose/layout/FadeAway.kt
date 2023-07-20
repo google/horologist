@@ -39,8 +39,8 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListState
     "Replaced by scrollAway",
     replaceWith = ReplaceWith(
         "this.scrollAway(scrollStateFn())",
-        "com.google.android.horologist.compose.layout.scrollAway",
-    ),
+        "com.google.android.horologist.compose.layout.scrollAway"
+    )
 )
 public fun Modifier.fadeAway(scrollStateFn: () -> ScrollState): Modifier = composed {
     val scrollState = scrollStateFn()
@@ -59,8 +59,8 @@ public fun Modifier.fadeAway(scrollStateFn: () -> ScrollState): Modifier = compo
     "Replaced by scrollAway",
     replaceWith = ReplaceWith(
         "this.scrollAway(scrollStateFn())",
-        "com.google.android.horologist.compose.layout.scrollAway",
-    ),
+        "com.google.android.horologist.compose.layout.scrollAway"
+    )
 )
 public fun Modifier.fadeAwayLazyList(scrollStateFn: () -> LazyListState): Modifier = composed {
     val scrollState = remember { scrollStateFn() }
@@ -91,13 +91,13 @@ public fun Modifier.fadeAwayLazyList(scrollStateFn: () -> LazyListState): Modifi
     replaceWith = ReplaceWith(
         "this.scrollAway(scrollStateFn(), initialIndex, initialOffset.dp)",
         "com.google.android.horologist.compose.layout.scrollAway",
-        "androidx.compose.ui.unit.dp",
-    ),
+        "androidx.compose.ui.unit.dp"
+    )
 )
 public fun Modifier.fadeAwayScalingLazyList(
     initialIndex: Int = 1,
     initialOffset: Int = 0,
-    scrollStateFn: () -> ScalingLazyListState,
+    scrollStateFn: () -> ScalingLazyListState
 ): Modifier =
     composed {
         val scrollState = remember { scrollStateFn() }

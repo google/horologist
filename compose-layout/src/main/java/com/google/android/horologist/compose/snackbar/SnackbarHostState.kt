@@ -100,7 +100,7 @@ public class SnackbarHostState {
     public suspend fun showSnackbar(
         message: String,
         actionLabel: String? = null,
-        duration: SnackbarDuration = SnackbarDuration.Short,
+        duration: SnackbarDuration = SnackbarDuration.Short
     ): SnackbarResult = mutex.withLock {
         try {
             return suspendCancellableCoroutine { continuation ->
@@ -116,7 +116,7 @@ public class SnackbarHostState {
         override val message: String,
         override val actionLabel: String?,
         override val duration: SnackbarDuration,
-        private val continuation: CancellableContinuation<SnackbarResult>,
+        private val continuation: CancellableContinuation<SnackbarResult>
     ) : SnackbarData {
 
         override fun performAction() {
@@ -153,7 +153,7 @@ public class SnackbarHostState {
 public fun SnackbarHost(
     hostState: SnackbarHostState,
     modifier: Modifier = Modifier,
-    snackbar: @Composable (SnackbarData) -> Unit,
+    snackbar: @Composable (SnackbarData) -> Unit
 ) {
     val currentSnackbarData = hostState.currentSnackbarData
     val accessibilityManager = LocalAccessibilityManager.current
@@ -161,7 +161,7 @@ public fun SnackbarHost(
         if (currentSnackbarData != null) {
             val duration = currentSnackbarData.duration.toMillis(
                 currentSnackbarData.actionLabel != null,
-                accessibilityManager,
+                accessibilityManager
             )
             delay(duration)
             currentSnackbarData.dismiss()
@@ -170,7 +170,7 @@ public fun SnackbarHost(
     FadeInFadeOutWithScale(
         current = hostState.currentSnackbarData,
         modifier = modifier,
-        content = snackbar,
+        content = snackbar
     )
 }
 
@@ -229,13 +229,13 @@ public enum class SnackbarDuration {
     /**
      * Show the Snackbar indefinitely until explicitly dismissed or action is clicked
      */
-    Indefinite,
+    Indefinite
 }
 
 // TODO: magic numbers adjustment
 internal fun SnackbarDuration.toMillis(
     hasAction: Boolean,
-    accessibilityManager: AccessibilityManager?,
+    accessibilityManager: AccessibilityManager?
 ): Long {
     val original = when (this) {
         SnackbarDuration.Indefinite -> Long.MAX_VALUE
@@ -249,7 +249,7 @@ internal fun SnackbarDuration.toMillis(
         original,
         containsIcons = true,
         containsText = true,
-        containsControls = hasAction,
+        containsControls = hasAction
     )
 }
 
@@ -259,7 +259,7 @@ internal fun SnackbarDuration.toMillis(
 private fun FadeInFadeOutWithScale(
     current: SnackbarData?,
     modifier: Modifier = Modifier,
-    content: @Composable (SnackbarData) -> Unit,
+    content: @Composable (SnackbarData) -> Unit
 ) {
     val state = remember { FadeInFadeOutState<SnackbarData?>() }
     if (current != state.current) {
@@ -279,7 +279,7 @@ private fun FadeInFadeOutWithScale(
                     animation = tween(
                         easing = LinearEasing,
                         delayMillis = animationDelay,
-                        durationMillis = duration,
+                        durationMillis = duration
                     ),
                     visible = isVisible,
                     onAnimationFinish = {
@@ -288,30 +288,27 @@ private fun FadeInFadeOutWithScale(
                             state.items.removeAll { it.key == key }
                             state.scope?.invalidate()
                         }
-                    },
+                    }
                 )
                 val scale = animatedScale(
                     animation = tween(
                         easing = FastOutSlowInEasing,
                         delayMillis = animationDelay,
-                        durationMillis = duration,
+                        durationMillis = duration
                     ),
-                    visible = isVisible,
+                    visible = isVisible
                 )
                 Box(
                     Modifier
                         .graphicsLayer(
                             scaleX = scale.value,
                             scaleY = scale.value,
-                            alpha = opacity.value,
+                            alpha = opacity.value
                         )
                         .semantics {
                             liveRegion = LiveRegionMode.Polite
-                            dismiss {
-                                key.dismiss()
-                                true
-                            }
-                        },
+                            dismiss { key.dismiss(); true }
+                        }
                 ) {
                     children()
                 }
@@ -348,7 +345,7 @@ private class FadeInFadeOutState<T> {
 
 private data class FadeInFadeOutAnimationItem<T>(
     val key: T,
-    val transition: FadeInFadeOutTransition,
+    val transition: FadeInFadeOutTransition
 )
 
 private typealias FadeInFadeOutTransition = @Composable (content: @Composable () -> Unit) -> Unit
@@ -357,13 +354,13 @@ private typealias FadeInFadeOutTransition = @Composable (content: @Composable ()
 private fun animatedOpacity(
     animation: AnimationSpec<Float>,
     visible: Boolean,
-    onAnimationFinish: () -> Unit = {},
+    onAnimationFinish: () -> Unit = {}
 ): State<Float> {
     val alpha = remember { Animatable(if (!visible) 1f else 0f) }
     LaunchedEffect(visible) {
         alpha.animateTo(
             if (visible) 1f else 0f,
-            animationSpec = animation,
+            animationSpec = animation
         )
         onAnimationFinish()
     }
@@ -376,7 +373,7 @@ private fun animatedScale(animation: AnimationSpec<Float>, visible: Boolean): St
     LaunchedEffect(visible) {
         scale.animateTo(
             if (visible) 1f else 0.8f,
-            animationSpec = animation,
+            animationSpec = animation
         )
     }
     return scale.asState()

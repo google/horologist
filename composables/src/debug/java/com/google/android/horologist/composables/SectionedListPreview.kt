@@ -100,7 +100,7 @@ private fun DownloadsHeader() {
         modifier = Modifier.padding(bottom = 12.dp),
         overflow = TextOverflow.Ellipsis,
         maxLines = 3,
-        style = MaterialTheme.typography.title3,
+        style = MaterialTheme.typography.title3
     )
 }
 
@@ -121,11 +121,11 @@ private fun DownloadsLoaded(text: String) {
                 modifier = Modifier
                     .size(ChipDefaults.LargeIconSize)
                     .clip(CircleShape),
-                tint = Color.Green,
+                tint = Color.Green
             )
         },
         largeIcon = true,
-        colors = ChipDefaults.secondaryChipColors(),
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -135,7 +135,7 @@ private fun DownloadsFailed() {
         text = "Failed to load downloads. Please try again later.",
         modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
         textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.body2,
+        style = MaterialTheme.typography.body2
     )
 }
 
@@ -145,7 +145,7 @@ private fun DownloadsEmpty() {
         text = "Download music to start listening.",
         modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
         textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.body2,
+        style = MaterialTheme.typography.body2
     )
 }
 
@@ -154,7 +154,7 @@ private fun DownloadsFooter() {
     Chip(
         label = "More downloads..",
         onClick = { },
-        colors = ChipDefaults.secondaryChipColors(),
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -183,7 +183,7 @@ private fun FavouritesHeader() {
         modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
         overflow = TextOverflow.Ellipsis,
         maxLines = 3,
-        style = MaterialTheme.typography.title3,
+        style = MaterialTheme.typography.title3
     )
 }
 
@@ -204,11 +204,11 @@ private fun FavouritesLoaded(text: String) {
                 modifier = Modifier
                     .size(ChipDefaults.LargeIconSize)
                     .clip(CircleShape),
-                tint = Color.Green,
+                tint = Color.Green
             )
         },
         largeIcon = true,
-        colors = ChipDefaults.secondaryChipColors(),
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -218,7 +218,7 @@ private fun FavouritesFailed() {
         text = "Failed to load favourites. Please try again later.",
         modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
         textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.body2,
+        style = MaterialTheme.typography.body2
     )
 }
 
@@ -228,7 +228,7 @@ private fun FavouritesEmpty() {
         text = "Mark songs or albums as favourites to see them here.",
         modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
         textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.body2,
+        style = MaterialTheme.typography.body2
     )
 }
 
@@ -237,6 +237,6 @@ fun FavouritesFooter() {
     Chip(
         label = "More favourites..",
         onClick = { },
-        colors = ChipDefaults.secondaryChipColors(),
+        colors = ChipDefaults.secondaryChipColors()
     )
 }

@@ -31,11 +31,11 @@ public class MessageClientChannel(
     internal val nodeId: TargetNodeId,
     internal val path: String,
     private val wearDataLayerRegistry: WearDataLayerRegistry,
-    private val coroutineScope: CoroutineScope,
+    private val coroutineScope: CoroutineScope
 ) : Channel() {
     override fun <RequestT, ResponseT> newCall(
         methodDescriptor: MethodDescriptor<RequestT, ResponseT>,
-        callOptions: CallOptions,
+        callOptions: CallOptions
     ): ClientCall<RequestT, ResponseT> {
         return MessageClientCall(this, methodDescriptor, coroutineScope, wearDataLayerRegistry)
     }

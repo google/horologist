@@ -32,8 +32,8 @@ public object MediaNavController {
         navigate(
             NavigationScreens.Collection.destination(
                 collectionId,
-                URLEncoder.encode(collectionName, UTF_8),
-            ),
+                URLEncoder.encode(collectionName, UTF_8)
+            )
         )
     }
 

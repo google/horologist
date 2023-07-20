@@ -37,23 +37,23 @@ fun PlaylistsScreenPreview() {
                     PlaylistUiModel(
                         id = "id",
                         title = "Rock Classics",
-                        artworkUri = "https://www.example.com/album1.png",
-                    ),
+                        artworkUri = "https://www.example.com/album1.png"
+                    )
                 )
                 add(
                     PlaylistUiModel(
                         id = "id",
                         title = "Pop Punk",
-                        artworkUri = "https://www.example.com/album2.png",
-                    ),
+                        artworkUri = "https://www.example.com/album2.png"
+                    )
                 )
-            },
+            }
         ),
         onPlaylistItemClick = { },
         playlistItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
-            tintColor = Color.Green,
-        ),
+            tintColor = Color.Green
+        )
     )
 }
 
@@ -63,7 +63,7 @@ fun PlaylistsScreenPreviewLoading() {
     PlaylistsScreen(
         columnState = belowTimeTextPreview(),
         playlistsScreenState = PlaylistsScreenState.Loading,
-        onPlaylistItemClick = { },
+        onPlaylistItemClick = { }
     )
 }
 
@@ -73,7 +73,7 @@ fun PlaylistsScreenPreviewFailed() {
     PlaylistsScreen(
         columnState = belowTimeTextPreview(),
         playlistsScreenState = PlaylistsScreenState.Failed,
-        onPlaylistItemClick = { },
+        onPlaylistItemClick = { }
     )
 }
 
@@ -84,14 +84,14 @@ fun PlaylistsScreenPreviewCustomLayout() {
         columnState = belowTimeTextPreview(),
         playlists = listOf(
             Pair("Rock Classics", "Downloading 73%.."),
-            Pair("Pop Punk", "Completed"),
+            Pair("Pop Punk", "Completed")
         ),
         playlistContent = { (name, status) ->
             Chip(
                 label = name,
                 onClick = { },
-                secondaryLabel = status,
+                secondaryLabel = status
             )
-        },
+        }
     )
 }

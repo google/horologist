@@ -39,13 +39,13 @@ import com.google.android.horologist.screenshots.FixedTimeSource
 fun PlayerLibraryPreview(
     columnState: ScalingLazyColumnState,
     round: Boolean = true,
-    function: @Composable () -> Unit,
+    function: @Composable () -> Unit
 ) {
     RoundPreview(round = round) {
         PagerScreen(
             state = rememberPagerState {
                 2
-            },
+            }
         ) {
             if (it == 0) {
                 Scaffold(
@@ -53,12 +53,12 @@ fun PlayerLibraryPreview(
                     timeText = {
                         TimeText(
                             modifier = Modifier.scrollAway(columnState),
-                            timeSource = FixedTimeSource,
+                            timeSource = FixedTimeSource
                         )
                     },
                     positionIndicator = {
                         PositionIndicator(columnState.state)
-                    },
+                    }
                 ) {
                     Box(modifier = Modifier.background(Color.Black)) {
                         function()

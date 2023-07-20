@@ -36,11 +36,11 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 class SectionedListHeaderFooterTest(
     private val headerVisibleStatesParam: Section.VisibleStates,
     private val footerVisibleStatesParam: Section.VisibleStates,
-    private val sectionStateParam: Section.State<String>,
+    private val sectionStateParam: Section.State<String>
 ) : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
-    },
+    }
 ) {
 
     @Test
@@ -76,43 +76,43 @@ class SectionedListHeaderFooterTest(
             arrayOf(
                 ALL_STATES,
                 NO_STATES,
-                Section.State.Loading,
+                Section.State.Loading
             ),
             arrayOf(
                 ALL_STATES,
                 NO_STATES,
-                Section.State.Loaded(downloads),
+                Section.State.Loaded(downloads)
             ),
             arrayOf(
                 ALL_STATES,
                 NO_STATES,
-                Section.State.Failed,
+                Section.State.Failed
             ),
             arrayOf(
                 ALL_STATES,
                 NO_STATES,
-                Section.State.Empty,
+                Section.State.Empty
             ),
             arrayOf(
                 NO_STATES,
                 ALL_STATES,
-                Section.State.Loading,
+                Section.State.Loading
             ),
             arrayOf(
                 NO_STATES,
                 ALL_STATES,
-                Section.State.Loaded(downloads),
+                Section.State.Loaded(downloads)
             ),
             arrayOf(
                 NO_STATES,
                 ALL_STATES,
-                Section.State.Failed,
+                Section.State.Failed
             ),
             arrayOf(
                 NO_STATES,
                 ALL_STATES,
-                Section.State.Empty,
-            ),
+                Section.State.Empty
+            )
         )
     }
 }

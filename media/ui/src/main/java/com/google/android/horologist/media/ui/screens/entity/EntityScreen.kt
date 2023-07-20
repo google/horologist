@@ -37,12 +37,12 @@ public fun EntityScreen(
     headerContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     buttonsContent: (@Composable () -> Unit)? = null,
-    content: (ScalingLazyListScope.() -> Unit)? = null,
+    content: (ScalingLazyListScope.() -> Unit)? = null
 ) {
     ScalingLazyColumn(
         columnState = columnState,
         modifier = modifier
-            .fillMaxSize(),
+            .fillMaxSize()
     ) {
         item {
             headerContent()
@@ -71,7 +71,7 @@ public fun <Media> EntityScreen(
     mediaList: List<Media>,
     mediaContent: @Composable (media: Media) -> Unit,
     modifier: Modifier = Modifier,
-    buttonsContent: (@Composable () -> Unit)? = null,
+    buttonsContent: (@Composable () -> Unit)? = null
 ) {
     EntityScreen(
         headerContent = headerContent,
@@ -82,7 +82,7 @@ public fun <Media> EntityScreen(
             items(count = mediaList.size) { index ->
                 mediaContent(mediaList[index])
             }
-        },
+        }
     )
 }
 
@@ -100,7 +100,7 @@ public fun <Media> EntityScreen(
     mediaContent: @Composable (media: Media) -> Unit,
     modifier: Modifier = Modifier,
     buttonsContent: (@Composable () -> Unit)? = null,
-    failedContent: (@Composable () -> Unit)? = null,
+    failedContent: (@Composable () -> Unit)? = null
 ) {
     when (entityScreenState) {
         EntityScreenState.Loading -> {
@@ -109,7 +109,7 @@ public fun <Media> EntityScreen(
                 columnState = columnState,
                 modifier = modifier,
                 buttonsContent = buttonsContent,
-                content = loadingContent,
+                content = loadingContent
             )
         }
 
@@ -120,7 +120,7 @@ public fun <Media> EntityScreen(
                 mediaList = entityScreenState.mediaList,
                 mediaContent = mediaContent,
                 modifier = modifier,
-                buttonsContent = buttonsContent,
+                buttonsContent = buttonsContent
             )
         }
 
@@ -131,10 +131,8 @@ public fun <Media> EntityScreen(
                 modifier = modifier,
                 buttonsContent = buttonsContent,
                 content = failedContent?.let {
-                    {
-                        item { failedContent() }
-                    }
-                },
+                    { item { failedContent() } }
+                }
             )
         }
     }
@@ -148,7 +146,7 @@ public sealed class EntityScreenState<out Media> {
     public object Loading : EntityScreenState<Nothing>()
 
     public data class Loaded<Media>(
-        val mediaList: List<Media>,
+        val mediaList: List<Media>
     ) : EntityScreenState<Media>()
 
     public object Failed : EntityScreenState<Nothing>()
@@ -161,7 +159,7 @@ public sealed class EntityScreenState<out Media> {
 @Composable
 public fun DefaultEntityScreenHeader(
     title: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Title(title, modifier.padding(bottom = 12.dp))
 }

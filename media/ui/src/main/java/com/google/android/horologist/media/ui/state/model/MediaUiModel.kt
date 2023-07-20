@@ -25,7 +25,7 @@ public data class MediaUiModel(
     val title: String,
     val subtitle: String = "",
     val artworkUri: String? = null,
-    val artworkColor: Color? = null,
+    val artworkColor: Color? = null
 ) {
     // Consider making this a field
     val loading: Boolean get() = title.isEmpty() && subtitle.isEmpty()

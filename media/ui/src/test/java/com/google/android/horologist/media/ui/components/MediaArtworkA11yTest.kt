@@ -33,7 +33,7 @@ class MediaArtworkA11yTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-    },
+    }
 ) {
     init {
     }
@@ -42,16 +42,16 @@ class MediaArtworkA11yTest : ScreenshotBaseTest(
     fun a11y() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources,
+            fakeImageLoader = FakeImageLoader.Resources
         ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 MediaArtwork(
                     media = MediaUiModel(
                         id = "id",
                         title = "title",
-                        artworkUri = FakeImageLoader.TestIconResourceUri,
+                        artworkUri = FakeImageLoader.TestIconResourceUri
                     ),
-                    placeholder = rememberVectorPainter(image = Icons.Default.Album),
+                    placeholder = rememberVectorPainter(image = Icons.Default.Album)
                 )
             }
         }

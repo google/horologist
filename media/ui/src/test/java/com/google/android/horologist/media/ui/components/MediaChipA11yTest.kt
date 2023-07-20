@@ -30,23 +30,23 @@ class MediaChipA11yTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-    },
+    }
 ) {
 
     @Test
     fun a11y() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources,
+            fakeImageLoader = FakeImageLoader.Resources
         ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 MediaChip(
                     media = MediaUiModel(
                         id = "id",
                         title = "Red Hot Chilli Peppers",
-                        artworkUri = FakeImageLoader.TestIconResourceUri,
+                        artworkUri = FakeImageLoader.TestIconResourceUri
                     ),
-                    onClick = {},
+                    onClick = {}
                 )
             }
         }

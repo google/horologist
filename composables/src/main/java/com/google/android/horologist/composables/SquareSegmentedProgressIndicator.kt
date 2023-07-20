@@ -64,7 +64,7 @@ public fun SquareSegmentedProgressIndicator(
     trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f),
     cornerRadiusDp: Dp = 10.dp,
     trackSegments: List<ProgressIndicatorSegment>,
-    paddingDp: Dp = ProgressIndicatorDefaults.StrokeWidth,
+    paddingDp: Dp = ProgressIndicatorDefaults.StrokeWidth
 ) {
     check(progress in 0.0..1.0) {
         "Only progress between 0.0 and 1.0 is allowed."
@@ -75,14 +75,14 @@ public fun SquareSegmentedProgressIndicator(
         Stroke(
             width = strokeWidth.toPx(),
             join = StrokeJoin.Round,
-            cap = StrokeCap.Square,
+            cap = StrokeCap.Square
         )
     }
 
     BoxWithConstraints(
         modifier
             .padding(strokeWidth)
-            .progressSemantics(progress),
+            .progressSemantics(progress)
     ) {
         val width = with(localDensity) { maxWidth.toPx() }
         val height = with(localDensity) { maxHeight.toPx() }
@@ -93,7 +93,7 @@ public fun SquareSegmentedProgressIndicator(
             width,
             cornerRadiusDp,
             strokeWidth,
-            paddingDp,
+            paddingDp
         ) {
             calculateSegments(
                 height = height,
@@ -103,14 +103,14 @@ public fun SquareSegmentedProgressIndicator(
                 cornerRadiusDp = cornerRadiusDp,
                 strokeWidth = strokeWidth,
                 paddingDp = paddingDp,
-                localDensity = localDensity,
+                localDensity = localDensity
             )
         }
 
         Canvas(
             modifier = Modifier
                 .fillMaxSize()
-                .progressSemantics(progress),
+                .progressSemantics(progress)
         ) {
             for (segmentGroups in calculatedSegments) {
                 drawPath(
@@ -120,7 +120,7 @@ public fun SquareSegmentedProgressIndicator(
                         }
                     },
                     color = segmentGroups.trackColor,
-                    style = stroke,
+                    style = stroke
                 )
                 drawPath(
                     path = Path().apply {
@@ -129,7 +129,7 @@ public fun SquareSegmentedProgressIndicator(
                         }
                     },
                     brush = segmentGroups.indicatorBrush,
-                    style = stroke,
+                    style = stroke
                 )
             }
         }
@@ -142,7 +142,7 @@ internal data class CalculatedSegment(
     val progressIndicator: Brush,
     val trackColor: Color,
     val drawFn: SegmentDrawable,
-    val range: ClosedRange<Float>,
+    val range: ClosedRange<Float>
 ) {
     internal fun drawCompleted(path: Path, progress: Float) {
         if (progress > range.endInclusive) {
@@ -165,14 +165,14 @@ internal data class SegmentGroups(
     val groupNumber: Int,
     val indicatorBrush: Brush,
     val trackColor: Color,
-    val calculatedSegments: List<CalculatedSegment>,
+    val calculatedSegments: List<CalculatedSegment>
 )
 
 internal data class Measures(
     val width: Float,
     val height: Float,
     val cornerRadius: Float,
-    val stroke: Stroke,
+    val stroke: Stroke
 ) {
     private val straightWidth: Float = width - (2 * cornerRadius)
     private val straightHeight: Float = height - (2 * cornerRadius)
@@ -207,7 +207,7 @@ internal data class Measures(
             x1 = width / 2,
             y1 = 0f,
             x2 = width - cornerRadius,
-            y2 = 0f,
+            y2 = 0f
         )
     }
 
@@ -216,7 +216,7 @@ internal data class Measures(
             drawRange = range,
             segmentRange = rightTopCornerRange,
             center = Offset(width - cornerRadius, cornerRadius),
-            startDegrees = 270f,
+            startDegrees = 270f
         )
     }
 
@@ -227,7 +227,7 @@ internal data class Measures(
             x1 = width,
             y1 = cornerRadius,
             x2 = width,
-            y2 = height - cornerRadius,
+            y2 = height - cornerRadius
         )
     }
     private val rightBottomCorner: SegmentDrawable = { range ->
@@ -235,7 +235,7 @@ internal data class Measures(
             drawRange = range,
             segmentRange = rightBottomCornerRange,
             center = Offset(width - cornerRadius, height - cornerRadius),
-            startDegrees = 0f,
+            startDegrees = 0f
         )
     }
     val bottom: SegmentDrawable = { range ->
@@ -245,7 +245,7 @@ internal data class Measures(
             x1 = width - cornerRadius,
             y1 = height,
             x2 = cornerRadius,
-            y2 = height,
+            y2 = height
         )
     }
     private val leftBottomCorner: SegmentDrawable = { range ->
@@ -253,7 +253,7 @@ internal data class Measures(
             drawRange = range,
             segmentRange = leftBottomCornerRange,
             center = Offset(cornerRadius, height - cornerRadius),
-            startDegrees = 90f,
+            startDegrees = 90f
         )
     }
     private val left: SegmentDrawable = { range ->
@@ -263,7 +263,7 @@ internal data class Measures(
             x1 = 0f,
             y1 = height - cornerRadius,
             x2 = 0f,
-            y2 = cornerRadius,
+            y2 = cornerRadius
         )
     }
     private val leftTopCorner: SegmentDrawable = { range ->
@@ -271,7 +271,7 @@ internal data class Measures(
             drawRange = range,
             segmentRange = leftTopCornerRange,
             center = Offset(cornerRadius, cornerRadius),
-            startDegrees = 180f,
+            startDegrees = 180f
         )
     }
     private val topLeft: SegmentDrawable = { range ->
@@ -281,7 +281,7 @@ internal data class Measures(
             x1 = cornerRadius,
             y1 = 0f,
             x2 = width / 2,
-            y2 = 0f,
+            y2 = 0f
         )
     }
 
@@ -291,7 +291,7 @@ internal data class Measures(
         x1: Float,
         y1: Float,
         x2: Float,
-        y2: Float,
+        y2: Float
     ) {
         if (drawRange.isZeroWidth()) {
             return
@@ -313,7 +313,7 @@ internal data class Measures(
         drawRange: ClosedRange<Float>,
         segmentRange: ClosedRange<Float>,
         center: Offset,
-        startDegrees: Float,
+        startDegrees: Float
     ) {
         if (drawRange.isZeroWidth()) {
             return
@@ -331,14 +331,14 @@ internal data class Measures(
             Rect(center = center, radius = cornerRadius),
             startAngleDegrees = startDegrees + additionalStartDegrees,
             sweepAngleDegrees = 90f - (end * 90f) - additionalStartDegrees,
-            forceMoveTo = false,
+            forceMoveTo = false
         )
     }
 
     internal fun splitSegments(
         indicatorBrush: Brush,
         trackColor: Color,
-        range: ClosedFloatingPointRange<Float>,
+        range: ClosedFloatingPointRange<Float>
     ): List<CalculatedSegment> {
         return buildList {
             range.intersect(topRightRange)?.let {
@@ -410,7 +410,7 @@ private fun calculateSegments(
     cornerRadiusDp: Dp,
     strokeWidth: Dp,
     paddingDp: Dp,
-    localDensity: Density,
+    localDensity: Density
 ): List<SegmentGroups> {
     val cornerRadius = with(localDensity) { cornerRadiusDp.toPx() }
     val stroke = with(localDensity) { Stroke(width = strokeWidth.toPx()) }
@@ -438,7 +438,7 @@ private fun calculateSegments(
             val splitSegments = measures.splitSegments(
                 indicatorBrush = indicatorBrush,
                 trackColor = localTrackColor,
-                range = paddedRange,
+                range = paddedRange
             )
 
             add(
@@ -446,8 +446,8 @@ private fun calculateSegments(
                     groupNumber = segmentIndex,
                     indicatorBrush = indicatorBrush,
                     trackColor = localTrackColor,
-                    calculatedSegments = splitSegments,
-                ),
+                    calculatedSegments = splitSegments
+                )
             )
 
             startWeight += trackSegment.weight

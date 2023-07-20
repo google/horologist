@@ -28,15 +28,15 @@ fun TrackMediaDisplayPreview() {
         media = MediaUiModel(
             id = "id",
             title = "Song title",
-            subtitle = "Artist name",
-        ),
+            subtitle = "Artist name"
+        )
     )
 }
 
 @Preview(
     "With long text",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun TrackMediaDisplayPreviewLongText() {
@@ -44,7 +44,7 @@ fun TrackMediaDisplayPreviewLongText() {
         media = MediaUiModel(
             id = "id",
             title = "I Predict That You Look Good In A Riot",
-            subtitle = "Arctic Monkeys feat Kaiser Chiefs",
-        ),
+            subtitle = "Arctic Monkeys feat Kaiser Chiefs"
+        )
     )
 }

@@ -51,7 +51,7 @@ class PlayPauseProgressButtonTest {
                 onPauseClick = { clicked = true },
                 enabled = true,
                 playing = true,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds)
             )
         }
 
@@ -80,7 +80,7 @@ class PlayPauseProgressButtonTest {
                 onPauseClick = {},
                 enabled = true,
                 playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds)
             )
         }
 
@@ -108,7 +108,7 @@ class PlayPauseProgressButtonTest {
                 onPauseClick = {},
                 enabled = true,
                 playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds),
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds)
             )
         }
 
@@ -125,7 +125,7 @@ class PlayPauseProgressButtonTest {
             eventTimestamp = SystemClock.elapsedRealtime(),
             currentPositionMs = 0,
             durationMs = 5_000,
-            positionSpeed = 1f,
+            positionSpeed = 1f
         )
         composeTestRule.setContent {
             PlayPauseProgressButton(
@@ -133,7 +133,7 @@ class PlayPauseProgressButtonTest {
                 onPauseClick = {},
                 enabled = true,
                 playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Predictive(predictor),
+                trackPositionUiModel = TrackPositionUiModel.Predictive(predictor)
             )
         }
 

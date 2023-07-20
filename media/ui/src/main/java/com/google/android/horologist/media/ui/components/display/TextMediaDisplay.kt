@@ -35,7 +35,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 public fun TextMediaDisplay(
     modifier: Modifier = Modifier,
     title: String,
-    subtitle: String,
+    subtitle: String
 ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
@@ -44,7 +44,7 @@ public fun TextMediaDisplay(
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,
             maxLines = 1,
-            style = MaterialTheme.typography.button,
+            style = MaterialTheme.typography.button
         )
         Text(
             text = subtitle,
@@ -53,7 +53,7 @@ public fun TextMediaDisplay(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = MaterialTheme.typography.body2,
+            style = MaterialTheme.typography.body2
         )
     }
 }

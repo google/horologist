@@ -51,7 +51,7 @@ public fun <D> ComplicationRendererPreview(
     complicationRenderer: ComplicationTemplate<D>,
     data: D = complicationRenderer.previewData(),
     foregroundColor: Color = Color(0xffeea19a),
-    backgroundColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black
 ) {
     val context = LocalContext.current
     val types = complicationRenderer.supportedTypes()
@@ -76,7 +76,7 @@ public fun <D> ComplicationRendererPreview(
     Canvas(
         modifier = Modifier
             .size(200.dp, 105.dp * count)
-            .background(Color.DarkGray),
+            .background(Color.DarkGray)
     ) {
         drawIntoCanvas { canvas ->
             types.forEachIndexed { index, complicationType ->
@@ -87,7 +87,7 @@ public fun <D> ComplicationRendererPreview(
                         data = data,
                         context = context,
                         foregroundColor = foregroundColor,
-                        backgroundColor = backgroundColor,
+                        backgroundColor = backgroundColor
                     )
                 val rowStart = (index * (rowHeight + gap))
                 if (complicationType == ComplicationType.LONG_TEXT) {
@@ -101,7 +101,7 @@ public fun <D> ComplicationRendererPreview(
                     complicationType.name,
                     0.toFloat(),
                     (rowStart + rowHeight).toFloat(),
-                    paint,
+                    paint
                 )
             }
             if (hasShortText) {
@@ -112,7 +112,7 @@ public fun <D> ComplicationRendererPreview(
                         data = data,
                         context = context,
                         foregroundColor = foregroundColor,
-                        backgroundColor = backgroundColor,
+                        backgroundColor = backgroundColor
                     )
                 val rowStart = (types.size * (rowHeight + gap))
                 drawable.setBounds(0, rowStart, (rowHeight * 2) + 1, rowStart + rowHeight)
@@ -123,7 +123,7 @@ public fun <D> ComplicationRendererPreview(
                     ComplicationType.SHORT_TEXT.name + " wide",
                     0.toFloat(),
                     (rowStart + rowHeight).toFloat(),
-                    paint,
+                    paint
                 )
             }
         }
@@ -136,7 +136,7 @@ private fun <D> complicationDrawable(
     data: D,
     context: Context,
     foregroundColor: Color,
-    backgroundColor: Color,
+    backgroundColor: Color
 ): ComplicationDrawable {
     val complicationData = complicationRenderer.render(type, data)
 

@@ -39,8 +39,8 @@ fun PlaylistDownloadBrowseScreenPreview() {
         onSettingsClick = { },
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
-            tintColor = Color.Green,
-        ),
+            tintColor = Color.Green
+        )
     )
 }
 
@@ -53,7 +53,7 @@ fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
-        onSettingsClick = { },
+        onSettingsClick = { }
     )
 }
 
@@ -66,7 +66,7 @@ fun PlaylistDownloadBrowseScreenPreviewLoading() {
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
-        onSettingsClick = { },
+        onSettingsClick = { }
     )
 }
 
@@ -83,8 +83,8 @@ fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
             onSettingsClick = { },
             downloadItemArtworkPlaceholder = rememberVectorPainter(
                 image = Icons.Default.FeaturedPlayList,
-                tintColor = Color.Green,
-            ),
+                tintColor = Color.Green
+            )
         )
     }
 }
@@ -95,10 +95,10 @@ private val downloadList = buildList {
             PlaylistUiModel(
                 id = "id",
                 title = "Rock Classics",
-                artworkUri = "https://www.example.com/album1.png",
+                artworkUri = "https://www.example.com/album1.png"
             ),
-            percentage = 15,
-        ),
+            percentage = 15
+        )
     )
 
     add(
@@ -106,8 +106,8 @@ private val downloadList = buildList {
             PlaylistUiModel(
                 id = "id",
                 title = "Pop Punk",
-                artworkUri = "https://www.example.com/album2.png",
-            ),
-        ),
+                artworkUri = "https://www.example.com/album2.png"
+            )
+        )
     )
 }

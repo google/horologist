@@ -29,6 +29,6 @@ fun DatePickerPreview() {
     // previews only work in interactive mode.
     DatePicker(
         onDateConfirm = {},
-        date = LocalDate.of(2022, 4, 25),
+        date = LocalDate.of(2022, 4, 25)
     )
 }

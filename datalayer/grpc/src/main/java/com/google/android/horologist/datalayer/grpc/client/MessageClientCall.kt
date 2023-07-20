@@ -41,7 +41,7 @@ public class MessageClientCall<ReqT, RespT>(
     private val channel: MessageClientChannel,
     private val methodDescriptor: MethodDescriptor<ReqT, RespT>,
     private val coroutineScope: CoroutineScope,
-    private val wearDataLayerRegistry: WearDataLayerRegistry,
+    private val wearDataLayerRegistry: WearDataLayerRegistry
 ) : ClientCall<ReqT, RespT>() {
     private lateinit var responseListener: Listener<RespT>
 

@@ -85,7 +85,7 @@ public fun MarqueeText(
     followGap: Dp = 96.dp,
     edgeGradientWidth: Dp = 16.dp,
     marqueeDpPerSecond: Dp = 64.dp,
-    pauseTime: Duration = 4.seconds,
+    pauseTime: Duration = 4.seconds
 ) {
     val controller = remember(text, style) { MarqueeController(edgeGradientWidth) }
     controller.edgeGradientWidth = edgeGradientWidth
@@ -99,13 +99,13 @@ public fun MarqueeText(
                 delayMillis = pauseTime.inWholeMilliseconds.toInt(),
                 initialDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
                 spacing = MarqueeSpacing(followGap),
-                velocity = marqueeDpPerSecond,
+                velocity = marqueeDpPerSecond
             )
             .then(controller.insideMarqueeModifier),
         textAlign = textAlign,
         color = color,
         style = style,
-        maxLines = 1,
+        maxLines = 1
     )
 }
 
@@ -159,24 +159,24 @@ private class MarqueeController(edgeGradientWidth: Dp) {
 
     private fun DrawScope.drawFadeGradient(
         leftEdge: Boolean,
-        edgeGradientWidth: Dp,
+        edgeGradientWidth: Dp
     ) {
         val width = edgeGradientWidth.toPx()
         drawRect(
             size = Size(width, size.height),
             topLeft = Offset(
                 if (leftEdge) 0f else size.width - width,
-                0f,
+                0f
             ),
             brush = Brush.horizontalGradient(
                 listOf(
                     Color.Transparent,
-                    Color.Black,
+                    Color.Black
                 ),
                 startX = if (leftEdge) 0f else size.width,
-                endX = if (leftEdge) width else size.width - width,
+                endX = if (leftEdge) width else size.width - width
             ),
-            blendMode = BlendMode.DstIn,
+            blendMode = BlendMode.DstIn
         )
     }
 }

@@ -50,13 +50,13 @@ import kotlinx.coroutines.CoroutineScope
     "Replaced with Wear Compose",
     replaceWith = ReplaceWith(
         "HierarchicalFocusCoordinator(requiresFocus, content)",
-        imports = ["androidx.wear.compose.foundation.HierarchicalFocusCoordinator"],
-    ),
+        imports = ["androidx.wear.compose.foundation.HierarchicalFocusCoordinator"]
+    )
 )
 public fun FocusControl(requiresFocus: () -> Boolean, content: @Composable () -> Unit) {
     HierarchicalFocusCoordinator(
         requiresFocus = requiresFocus,
-        content = content,
+        content = content
     )
 }
 
@@ -72,8 +72,8 @@ public fun FocusControl(requiresFocus: () -> Boolean, content: @Composable () ->
     "Replaced with Wear Compose",
     replaceWith = ReplaceWith(
         "OnFocusChange(onFocusChanged)",
-        imports = ["androidx.wear.compose.foundation.OnFocusChange"],
-    ),
+        imports = ["androidx.wear.compose.foundation.OnFocusChange"]
+    )
 )
 public fun OnFocusChange(onFocusChanged: CoroutineScope.(Boolean) -> Unit) {
     androidx.wear.compose.foundation.OnFocusChange(onFocusChanged = onFocusChanged)
@@ -92,8 +92,8 @@ public fun OnFocusChange(onFocusChanged: CoroutineScope.(Boolean) -> Unit) {
     "Replaced with Wear Compose",
     replaceWith = ReplaceWith(
         "RequestFocusWhenActive(focusRequester)",
-        imports = ["androidx.wear.compose.foundation.RequestFocusWhenActive"],
-    ),
+        imports = ["androidx.wear.compose.foundation.RequestFocusWhenActive"]
+    )
 )
 public fun RequestFocusWhenActive(focusRequester: FocusRequester) {
     androidx.wear.compose.foundation.RequestFocusWhenActive(focusRequester)
@@ -112,8 +112,8 @@ public fun RequestFocusWhenActive(focusRequester: FocusRequester) {
     "Replaced with Wear Compose",
     replaceWith = ReplaceWith(
         "rememberActiveFocusRequester()",
-        imports = ["androidx.wear.compose.foundation.rememberActiveFocusRequester"],
-    ),
+        imports = ["androidx.wear.compose.foundation.rememberActiveFocusRequester"]
+    )
 )
 public fun rememberActiveFocusRequester(): FocusRequester =
     androidx.wear.compose.foundation.rememberActiveFocusRequester()

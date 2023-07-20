@@ -51,7 +51,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = false,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -79,7 +79,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -100,7 +100,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -121,7 +121,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -142,7 +142,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -163,7 +163,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -184,7 +184,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -205,7 +205,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -226,7 +226,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = shuffleEnabled,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -247,7 +247,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = shuffleEnabled,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -268,7 +268,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -289,7 +289,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -310,7 +310,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -327,7 +327,7 @@ class PlayerUiStateMapperTest {
             id = id,
             uri = "http://www.example.com",
             title = title,
-            artist = artist,
+            artist = artist
         )
 
         // when
@@ -339,7 +339,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -360,7 +360,7 @@ class PlayerUiStateMapperTest {
             isLive = false,
             currentPosition = current,
             duration = duration,
-            playbackSpeed = 1f,
+            playbackSpeed = 1f
         )
 
         // when
@@ -371,12 +371,12 @@ class PlayerUiStateMapperTest {
             playbackStateEvent = PlaybackStateEvent(
                 playbackState,
                 PlaybackStateEvent.Cause.PositionDiscontinuity,
-                0.toDuration(DurationUnit.SECONDS),
+                0.toDuration(DurationUnit.SECONDS)
             ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -403,7 +403,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = back,
-            seekForwardIncrement = forward,
+            seekForwardIncrement = forward
         )
 
         // then
@@ -422,7 +422,7 @@ class PlayerUiStateMapperTest {
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
-            seekForwardIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then

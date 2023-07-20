@@ -53,8 +53,8 @@ class PlayerViewModelTest {
                 playing = false,
                 media = null,
                 trackPositionUiModel = TrackPositionUiModel.Hidden,
-                connected = false,
-            ),
+                connected = false
+            )
         )
     }
 }

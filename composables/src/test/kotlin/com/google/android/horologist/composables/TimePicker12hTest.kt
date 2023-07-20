@@ -24,7 +24,7 @@ import java.time.LocalTime
 class TimePicker12hTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {}
-    },
+    }
 ) {
 
     @Test
@@ -32,7 +32,7 @@ class TimePicker12hTest : ScreenshotBaseTest(
         screenshotTestRule.setContent(takeScreenshot = true) {
             TimePickerWith12HourClock(
                 time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {},
+                onTimeConfirm = {}
             )
         }
     }

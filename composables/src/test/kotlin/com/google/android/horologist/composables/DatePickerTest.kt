@@ -24,7 +24,7 @@ import java.time.LocalDate
 class DatePickerTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
-    },
+    }
 ) {
 
     @Test
@@ -32,7 +32,7 @@ class DatePickerTest : ScreenshotBaseTest(
         screenshotTestRule.setContent(takeScreenshot = true) {
             DatePicker(
                 onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25),
+                date = LocalDate.of(2022, 4, 25)
             )
         }
     }

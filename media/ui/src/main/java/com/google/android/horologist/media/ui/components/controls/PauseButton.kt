@@ -37,7 +37,7 @@ public fun PauseButton(
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(60.dp, 60.dp)
 ) {
     MediaButton(
         onClick = onClick,
@@ -47,6 +47,6 @@ public fun PauseButton(
         enabled = enabled,
         colors = colors,
         iconSize = iconSize,
-        tapTargetSize = tapTargetSize,
+        tapTargetSize = tapTargetSize
     )
 }

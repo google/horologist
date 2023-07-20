@@ -58,16 +58,16 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 public fun PagerScreen(
     modifier: Modifier = Modifier,
     state: PagerState,
-    content: @Composable ((Int) -> Unit),
+    content: @Composable ((Int) -> Unit)
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         HorizontalPager(
             modifier = modifier,
             state = state,
-            flingBehavior = HorizontalPagerDefaults.flingParams(state),
+            flingBehavior = HorizontalPagerDefaults.flingParams(state)
         ) { page ->
             ClippedBox(state) {
                 HierarchicalFocusCoordinator(requiresFocus = { page == state.currentPage }) {
@@ -79,7 +79,7 @@ public fun PagerScreen(
         val pagerScreenState = remember(state) { PageScreenIndicatorState(state) }
         HorizontalPageIndicator(
             modifier = Modifier.padding(6.dp),
-            pageIndicatorState = pagerScreenState,
+            pageIndicatorState = pagerScreenState
         )
     }
 }
@@ -90,7 +90,7 @@ private fun ClippedBox(pagerState: PagerState, content: @Composable () -> Unit) 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .optionalClip(shape),
+            .optionalClip(shape)
     ) {
         content()
     }
@@ -124,7 +124,7 @@ private fun Modifier.optionalClip(shapeState: State<RoundedCornerShape?>): Modif
  * Bridge between Foundation PagerState and the Wear Compose PageIndicatorState.
  */
 public class PageScreenIndicatorState(
-    private val state: PagerState,
+    private val state: PagerState
 ) : PageIndicatorState {
     override val pageCount: Int
         get() = state.pageCount
@@ -143,8 +143,8 @@ public class PageScreenIndicatorState(
     message = "Use RequestFocusWhenActive",
     replaceWith = ReplaceWith(
         "RequestFocusWhenActive(focusRequester=focusRequester)",
-        "androidx.wear.compose.foundation.RequestFocusWhenActive",
-    ),
+        "androidx.wear.compose.foundation.RequestFocusWhenActive"
+    )
 )
 @ExperimentalHorologistApi
 @Composable

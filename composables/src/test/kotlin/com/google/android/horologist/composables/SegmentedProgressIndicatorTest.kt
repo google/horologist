@@ -30,7 +30,7 @@ class SegmentedProgressIndicatorTest :
     ScreenshotBaseTest(
         ScreenshotTestRule.screenshotTestRuleParams {
             screenTimeText = {}
-        },
+        }
     ) {
 
     @Test
@@ -44,9 +44,9 @@ class SegmentedProgressIndicatorTest :
                     weight = 1f,
                     indicatorColor = Color.Yellow,
                     inProgressTrackColor = Color.Yellow.copy(alpha = 0.35f)
-                        .compositeOver(Color.Gray),
+                        .compositeOver(Color.Gray)
                 ),
-                ProgressIndicatorSegment(2f, Color.Red),
+                ProgressIndicatorSegment(2f, Color.Red)
             )
 
             SegmentedProgressIndicator(
@@ -55,7 +55,7 @@ class SegmentedProgressIndicatorTest :
                 modifier = Modifier.fillMaxSize(),
                 strokeWidth = 10.dp,
                 paddingAngle = 2f,
-                trackColor = Color.Gray,
+                trackColor = Color.Gray
             )
         }
     }
@@ -66,20 +66,20 @@ class SegmentedProgressIndicatorTest :
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,
-                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
+                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
                     indicatorBrush = Brush.horizontalGradient(
-                        listOf(Color.Cyan, Color.Magenta, Color.Yellow),
-                    ),
+                        listOf(Color.Cyan, Color.Magenta, Color.Yellow)
+                    )
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
                     indicatorBrush = Brush.horizontalGradient(
-                        listOf(Color.Yellow, Color.Magenta, Color.Cyan),
-                    ),
-                ),
+                        listOf(Color.Yellow, Color.Magenta, Color.Cyan)
+                    )
+                )
             )
 
             SegmentedProgressIndicator(
@@ -88,7 +88,7 @@ class SegmentedProgressIndicatorTest :
                 modifier = Modifier.fillMaxSize(),
                 strokeWidth = 10.dp,
                 paddingAngle = 2f,
-                trackColor = Color.Gray,
+                trackColor = Color.Gray
             )
         }
     }
@@ -99,18 +99,18 @@ class SegmentedProgressIndicatorTest :
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,
-                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
+                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Cyan,
+                    indicatorColor = Color.Cyan
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
                     indicatorBrush = Brush.horizontalGradient(
-                        listOf(Color.Yellow, Color.Magenta, Color.Cyan),
-                    ),
-                ),
+                        listOf(Color.Yellow, Color.Magenta, Color.Cyan)
+                    )
+                )
             )
 
             SegmentedProgressIndicator(
@@ -119,7 +119,7 @@ class SegmentedProgressIndicatorTest :
                 modifier = Modifier.fillMaxSize(),
                 strokeWidth = 10.dp,
                 paddingAngle = 2f,
-                trackColor = Color.Gray,
+                trackColor = Color.Gray
             )
         }
     }

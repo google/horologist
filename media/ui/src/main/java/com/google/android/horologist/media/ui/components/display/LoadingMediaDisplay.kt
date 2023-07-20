@@ -47,7 +47,10 @@ public fun LoadingMediaDisplay(
     modifier: Modifier = Modifier
 ) {
     // Always shimmer on the placeholder pills.
-    val placeholderState = rememberPlaceholderState { /* isContentReady = */ false }
+    val placeholderState = rememberPlaceholderState {
+        /* isContentReady = */
+        false
+    }
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.height(1.dp))

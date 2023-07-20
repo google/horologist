@@ -98,6 +98,7 @@ dependencies {
     implementation(projects.auth.sample.shared)
     implementation(projects.datalayer.core)
     implementation(projects.datalayer.phone)
+    implementation(projects.datalayer.grpc)
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.runtime)
@@ -109,6 +110,7 @@ dependencies {
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.compose.material3)
     implementation(libs.playservices.wearable)
+    implementation(libs.androidx.lifecycle.service)
 
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)

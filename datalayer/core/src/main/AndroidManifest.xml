@@ -20,7 +20,9 @@
 
     <uses-sdk
         android:minSdkVersion="23"
-        tools:ignore="GradleOverrides" />
+        tools:ignore="GradleOverrides"
+        tools:overrideLibrary="androidx.wear.remote.interactions"
+        />
 
     <!--
         Required in order to very briefly wake up the screen of the device when launching an app /

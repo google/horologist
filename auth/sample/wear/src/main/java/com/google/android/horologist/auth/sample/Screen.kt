@@ -38,4 +38,6 @@ sealed class Screen(
 
     object StreamlineSignInMenuScreen : Screen("streamlineSignInMenuScreen")
     object StreamlineSignInSampleScreen : Screen("streamlineSignInSampleScreen")
+
+    object DataLayerScreen : Screen("dataLayerScreen")
 }

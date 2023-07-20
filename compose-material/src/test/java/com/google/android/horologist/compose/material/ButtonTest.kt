@@ -75,6 +75,21 @@ internal class ButtonTest : ScreenshotBaseTest() {
     }
 
     @Test
+    fun customSize() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Button(
+                imageVector = Icons.Default.Check,
+                contentDescription = "contentDescription",
+                onClick = { },
+                buttonSize = ButtonSize.Custom(
+                    customIconSize = ButtonDefaults.SmallIconSize,
+                    customTapTargetSize = ButtonDefaults.LargeButtonSize
+                )
+            )
+        }
+    }
+
+    @Test
     fun withSecondaryButtonColors() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Button(

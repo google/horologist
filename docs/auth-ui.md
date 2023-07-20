@@ -6,7 +6,7 @@ The previews of the composables can be found in the `debug` folder of the module
 
 The composables of this module might depend on repository interfaces defined
 in [auth-data](auth-data.md)
-library. The implementation of these repositories does not necessary need to be from `auth-data`,
+library. The implementation of these repositories does not necessarily need to be from `auth-data`,
 they can be your own implementation. Some of the composables might depend on an external library.
 
 ## Screens

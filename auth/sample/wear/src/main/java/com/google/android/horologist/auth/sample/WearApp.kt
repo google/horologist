@@ -31,6 +31,7 @@ import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google.PKCE
 import com.google.android.horologist.auth.sample.screens.MainScreen
 import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInMenuScreen
 import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
+import com.google.android.horologist.auth.sample.screens.datalayer.DataLayerScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.signin.GoogleSignInSampleViewModelFactory
 import com.google.android.horologist.auth.sample.screens.googlesignin.signout.GoogleSignOutScreen
@@ -141,6 +142,9 @@ fun WearApp(
         }
         scrollable(route = Screen.TokenShareCustomKeyScreen.route) {
             TokenShareCustomKeyScreen(columnState = it.columnState, modifier = modifier)
+        }
+        scrollable(route = Screen.DataLayerScreen.route) {
+            DataLayerScreen(columnState = it.columnState, modifier = modifier)
         }
     }
 }

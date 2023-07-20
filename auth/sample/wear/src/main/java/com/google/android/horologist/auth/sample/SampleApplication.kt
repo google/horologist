@@ -19,12 +19,17 @@ package com.google.android.horologist.auth.sample
 import android.app.Application
 import android.os.StrictMode
 import com.google.android.horologist.auth.sample.di.SampleAppDI
+import com.google.android.horologist.auth.sample.shared.grpc.CounterServiceGrpcKt
+import com.google.android.horologist.auth.sample.shared.grpc.GrpcDemoProto
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
 import okhttp3.OkHttpClient
 
 class SampleApplication : Application() {
+    lateinit var counterFlow: Flow<GrpcDemoProto.CounterValue>
+    lateinit var counterService: CounterServiceGrpcKt.CounterServiceCoroutineStub
     lateinit var registry: WearDataLayerRegistry
     lateinit var servicesCoroutineScope: CoroutineScope
     lateinit var okHttpClient: OkHttpClient

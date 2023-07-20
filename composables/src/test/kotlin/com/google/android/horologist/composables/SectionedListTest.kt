@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-@file:Suppress("TestFunctionName" /* incorrectly flagging composable functions */)
+/* incorrectly flagging composable functions */
+@file:Suppress("TestFunctionName")
 
 package com.google.android.horologist.composables
 

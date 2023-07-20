@@ -42,7 +42,7 @@ import org.robolectric.annotation.GraphicsMode
 @RunWith(RobolectricTestRunner::class)
 @Config(
     sdk = [30],
-    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class RotaryInteractionTest {
@@ -61,7 +61,7 @@ class RotaryInteractionTest {
             pickerState = rememberPickerState(
                 initialNumberOfOptions = numberOfOptions,
                 initiallySelectedOption = selectedOption,
-                repeatItems = false
+                repeatItems = false,
             )
             defaultPickerWithRotaryAccumulator(pickerState)
         }
@@ -88,7 +88,7 @@ class RotaryInteractionTest {
             pickerState = rememberPickerState(
                 initialNumberOfOptions = numberOfOptions,
                 initiallySelectedOption = selectedOption,
-                repeatItems = false
+                repeatItems = false,
             )
             defaultPickerWithRotaryAccumulator(pickerState)
         }
@@ -117,7 +117,7 @@ class RotaryInteractionTest {
             pickerState = rememberPickerState(
                 initialNumberOfOptions = numberOfOptions,
                 initiallySelectedOption = selectedOption,
-                repeatItems = false
+                repeatItems = false,
             )
             defaultPickerWithRotaryAccumulator(pickerState)
         }
@@ -144,7 +144,7 @@ class RotaryInteractionTest {
             pickerState = rememberPickerState(
                 initialNumberOfOptions = numberOfOptions,
                 initiallySelectedOption = selectedOption,
-                repeatItems = false
+                repeatItems = false,
             )
             defaultPickerWithRotaryAccumulator(pickerState)
         }
@@ -164,8 +164,7 @@ class RotaryInteractionTest {
     }
 
     @Composable
-    private fun pickerOption():
-        (@Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit) =
+    private fun pickerOption(): (@Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit) =
         { value: Int, pickerSelected: Boolean ->
             Text("$value, $pickerSelected")
         }
@@ -178,7 +177,7 @@ class RotaryInteractionTest {
             contentDescription = null,
             onSelected = {},
             readOnlyLabel = null,
-            option = pickerOption()
+            option = pickerOption(),
         )
 
         Picker(
@@ -189,7 +188,7 @@ class RotaryInteractionTest {
             modifier = pickerGroupItem.modifier
                 .testTag(TEST_TAG)
                 .focusRequester(focusRequester)
-                .focusTarget()
+                .focusTarget(),
         ) {
             pickerGroupItem.option(this, it, true)
         }

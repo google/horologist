@@ -53,7 +53,7 @@ import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.Vi
  * and the composable screen via [NavHostController.currentBackStackEntry].
  */
 public open class NavScaffoldViewModel(
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     internal var initialIndex: Int? = null
     internal var initialOffsetPx: Int? = null
@@ -99,7 +99,7 @@ public open class NavScaffoldViewModel(
 
             _scrollableState = savedStateHandle.saveable(
                 key = "navScaffold.ScrollState",
-                saver = ScrollState.Saver
+                saver = ScrollState.Saver,
             ) {
                 scrollStateBuilder()
             }
@@ -109,7 +109,7 @@ public open class NavScaffoldViewModel(
     }
 
     internal fun initializeScalingLazyListState(
-        scrollableStateBuilder: () -> ScalingLazyListState
+        scrollableStateBuilder: () -> ScalingLazyListState,
     ): ScalingLazyListState {
         check(scrollType == null || scrollType == ScrollType.ScalingLazyColumn)
 
@@ -118,7 +118,7 @@ public open class NavScaffoldViewModel(
 
             _scrollableState = savedStateHandle.saveable(
                 key = "navScaffold.ScalingLazyListState",
-                saver = ScalingLazyListState.Saver
+                saver = ScalingLazyListState.Saver,
             ) {
                 scrollableStateBuilder().also {
                     initialIndex = it.centerItemIndex
@@ -131,7 +131,7 @@ public open class NavScaffoldViewModel(
     }
 
     internal fun initializeScalingLazyListState(
-        columnState: ScalingLazyColumnState
+        columnState: ScalingLazyColumnState,
     ) {
         check(scrollType == null || scrollType == ScrollType.ScalingLazyColumn)
 
@@ -143,7 +143,7 @@ public open class NavScaffoldViewModel(
 
             _scrollableState = savedStateHandle.saveable(
                 key = "navScaffold.ScalingLazyListState",
-                saver = ScalingLazyListState.Saver
+                saver = ScalingLazyListState.Saver,
             ) {
                 columnState.state
             }
@@ -153,7 +153,7 @@ public open class NavScaffoldViewModel(
     }
 
     internal fun initializeLazyList(
-        scrollableStateBuilder: () -> LazyListState
+        scrollableStateBuilder: () -> LazyListState,
     ): LazyListState {
         check(scrollType == null || scrollType == ScrollType.LazyList)
 
@@ -162,7 +162,7 @@ public open class NavScaffoldViewModel(
 
             _scrollableState = savedStateHandle.saveable(
                 key = "navScaffold.LazyListState",
-                saver = LazyListState.Saver
+                saver = LazyListState.Saver,
             ) {
                 scrollableStateBuilder()
             }
@@ -210,7 +210,7 @@ public open class NavScaffoldViewModel(
 public data class ScaffoldContext<T : ScrollableState>(
     val backStackEntry: NavBackStackEntry,
     val scrollableState: T,
-    val viewModel: NavScaffoldViewModel
+    val viewModel: NavScaffoldViewModel,
 ) {
     var timeTextMode: TimeTextMode by viewModel::timeTextMode
 
@@ -222,7 +222,7 @@ public data class ScaffoldContext<T : ScrollableState>(
 
 public data class NonScrollableScaffoldContext(
     val backStackEntry: NavBackStackEntry,
-    val viewModel: NavScaffoldViewModel
+    val viewModel: NavScaffoldViewModel,
 ) {
     var timeTextMode: TimeTextMode by viewModel::timeTextMode
 
@@ -240,7 +240,7 @@ public data class NonScrollableScaffoldContext(
 public data class ScrollableScaffoldContext(
     val backStackEntry: NavBackStackEntry,
     val columnState: ScalingLazyColumnState,
-    val viewModel: NavScaffoldViewModel
+    val viewModel: NavScaffoldViewModel,
 ) {
     val scrollableState: ScalingLazyListState
         get() = columnState.state

@@ -41,12 +41,12 @@ import androidx.wear.compose.material.scrollAway as scrollAwayCompose
     "Replaced by Wear Compose scrollAway",
     replaceWith = ReplaceWith(
         "this.scrollAway(scrollState, offset)",
-        "androidx.wear.compose.material.scrollAway"
-    )
+        "androidx.wear.compose.material.scrollAway",
+    ),
 )
 public fun Modifier.scrollAway(
     scrollState: ScrollState,
-    offset: Dp = 0.dp
+    offset: Dp = 0.dp,
 ): Modifier = scrollAwayCompose(scrollState, offset)
 
 /**
@@ -63,13 +63,13 @@ public fun Modifier.scrollAway(
     "Replaced by Wear Compose scrollAway",
     replaceWith = ReplaceWith(
         "this.scrollAway(scrollState, itemIndex, offset)",
-        "androidx.wear.compose.material.scrollAway"
-    )
+        "androidx.wear.compose.material.scrollAway",
+    ),
 )
 public fun Modifier.scrollAway(
     scrollState: LazyListState,
     itemIndex: Int = 0,
-    offset: Dp = 0.dp
+    offset: Dp = 0.dp,
 ): Modifier = scrollAwayCompose(scrollState, itemIndex, offset)
 
 /**
@@ -86,13 +86,13 @@ public fun Modifier.scrollAway(
     "Replaced by Wear Compose scrollAway",
     replaceWith = ReplaceWith(
         "this.scrollAway(scrollState, itemIndex, offset)",
-        "androidx.wear.compose.material.scrollAway"
-    )
+        "androidx.wear.compose.material.scrollAway",
+    ),
 )
 public fun Modifier.scrollAway(
     scrollState: ScalingLazyListState,
     itemIndex: Int = 1,
-    offset: Dp = 0.dp
+    offset: Dp = 0.dp,
 ): Modifier = scrollAwayCompose(scrollState, itemIndex, offset)
 
 /**
@@ -103,7 +103,7 @@ public fun Modifier.scrollAway(
  * @param scalingLazyColumnState The list config.
  */
 public fun Modifier.scrollAway(
-    scalingLazyColumnState: ScalingLazyColumnState
+    scalingLazyColumnState: ScalingLazyColumnState,
 ): Modifier = composed {
     val offset = with(LocalDensity.current) {
         scalingLazyColumnState.initialScrollPosition.offsetPx.toDp()
@@ -111,6 +111,6 @@ public fun Modifier.scrollAway(
     scrollAwayCompose(
         scrollState = scalingLazyColumnState.state,
         itemIndex = scalingLazyColumnState.initialScrollPosition.index,
-        offset = offset
+        offset = offset,
     )
 }

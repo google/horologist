@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("TestFunctionName" /* incorrectly flagging composable functions */)
+@file:Suppress("TestFunctionName")
 
 package com.google.android.horologist.composables
 
@@ -51,7 +51,7 @@ import org.junit.Test
 class SectionedListTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test
@@ -180,7 +180,7 @@ class SectionedListTest : ScreenshotBaseTest(
         @Composable
         fun SectionedListPreview(
             columnState: ScalingLazyColumnState,
-            content: @Composable () -> Unit
+            content: @Composable () -> Unit,
         ) {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
@@ -190,9 +190,9 @@ class SectionedListTest : ScreenshotBaseTest(
                 timeText = {
                     TimeText(
                         modifier = Modifier.scrollAway(columnState),
-                        timeSource = FixedTimeSource
+                        timeSource = FixedTimeSource,
                     )
-                }
+                },
             ) {
                 Box(modifier = Modifier.background(Color.Black)) {
                     content()
@@ -225,7 +225,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 modifier = Modifier.padding(bottom = 12.dp),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 3,
-                style = MaterialTheme.typography.title3
+                style = MaterialTheme.typography.title3,
             )
         }
 
@@ -246,11 +246,11 @@ class SectionedListTest : ScreenshotBaseTest(
                         modifier = Modifier
                             .size(ChipDefaults.LargeIconSize)
                             .clip(CircleShape),
-                        tint = Color.Green
+                        tint = Color.Green,
                     )
                 },
                 largeIcon = true,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
 
@@ -260,7 +260,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 text = "Failed to load downloads. Please try again later.",
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
 
@@ -270,7 +270,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 text = "Download music to start listening.",
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
 
@@ -279,7 +279,7 @@ class SectionedListTest : ScreenshotBaseTest(
             Chip(
                 label = "More downloads..",
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
 
@@ -308,7 +308,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 3,
-                style = MaterialTheme.typography.title3
+                style = MaterialTheme.typography.title3,
             )
         }
 
@@ -329,11 +329,11 @@ class SectionedListTest : ScreenshotBaseTest(
                         modifier = Modifier
                             .size(ChipDefaults.LargeIconSize)
                             .clip(CircleShape),
-                        tint = Color.Green
+                        tint = Color.Green,
                     )
                 },
                 largeIcon = true,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
 
@@ -343,7 +343,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 text = "Failed to load favourites. Please try again later.",
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
 
@@ -353,7 +353,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 text = "Mark songs or albums as favourites to see them here.",
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
 
@@ -362,7 +362,7 @@ class SectionedListTest : ScreenshotBaseTest(
             Chip(
                 label = "More favourites..",
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }

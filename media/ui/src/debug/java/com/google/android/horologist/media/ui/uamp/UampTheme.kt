@@ -29,7 +29,7 @@ public val UampColors = Colors(
     onPrimary = Color.White,
     onSurfaceVariant = Color(0xFFDADCE0),
     surface = Color(0xFF303133),
-    onError = Color.Black
+    onError = Color.Black,
 )
 
 @Composable

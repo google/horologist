@@ -49,7 +49,7 @@ public fun MarqueeTextMediaDisplay(
     artist: String? = null,
     enterTransitionDelay: Int = 60,
     subtextTransitionDelay: Int = 30,
-    @FloatRange(from = 0.0, to = 1.0) transitionLength: Float = 0.125f
+    @FloatRange(from = 0.0, to = 1.0) transitionLength: Float = 0.125f,
 ) {
     fun getTransitionAnimation(delay: Int = 0): ContentTransform {
         return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
@@ -64,7 +64,7 @@ public fun MarqueeTextMediaDisplay(
         AnimatedContent(
             targetState = title,
             transitionSpec = { getTransitionAnimation() },
-            label = "AnimatedTitle"
+            label = "AnimatedTitle",
         ) {
                 currentTitle ->
             MarqueeText(
@@ -72,14 +72,14 @@ public fun MarqueeTextMediaDisplay(
                 modifier = Modifier.fillMaxWidth(0.7f),
                 color = MaterialTheme.colors.onBackground,
                 style = MaterialTheme.typography.button,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
 
         AnimatedContent(
             targetState = artist,
             transitionSpec = { getTransitionAnimation(subtextTransitionDelay) },
-            label = "AnimatedArtist"
+            label = "AnimatedArtist",
         ) { currentArtist ->
             Text(
                 text = currentArtist.orEmpty(),
@@ -88,7 +88,7 @@ public fun MarqueeTextMediaDisplay(
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
     }

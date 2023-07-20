@@ -32,7 +32,7 @@ import org.junit.Test
 
 class MarqueeTest : ScreenshotBaseTest(
     params = screenshotTestRuleParams {
-    }
+    },
 ) {
     @Test
     fun noMarquee() {
@@ -47,7 +47,7 @@ class MarqueeTest : ScreenshotBaseTest(
     private fun runMarqueeTest(text: String) {
         screenshotTestRule.setContent(
             isComponent = true,
-            takeScreenshot = true
+            takeScreenshot = true,
         ) {
             Box(modifier = Modifier.background(Color.Black)) {
                 MarqueeSample(text)
@@ -65,7 +65,7 @@ class MarqueeTest : ScreenshotBaseTest(
             text = text,
             textAlign = TextAlign.Center,
             modifier = Modifier
-                .width(192.dp)
+                .width(192.dp),
         )
     }
 }

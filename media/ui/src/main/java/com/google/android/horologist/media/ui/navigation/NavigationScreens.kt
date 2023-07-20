@@ -27,7 +27,7 @@ import androidx.navigation.navDeepLink
  * Navigation routes enum.
  */
 public open class NavigationScreens(
-    public val navRoute: String
+    public val navRoute: String,
 ) {
     public open val arguments: List<NamedNavArgument> = emptyList()
 
@@ -40,7 +40,7 @@ public open class NavigationScreens(
         override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {
                 uriPattern = "$deepLinkPrefix/player?page={page}"
-            }
+            },
         )
 
         public fun getPageParam(backStack: NavBackStackEntry, remove: Boolean = false): Int? {
@@ -57,7 +57,7 @@ public open class NavigationScreens(
             get() = listOf(
                 navArgument(page) {
                     type = NavType.IntType
-                }
+                },
             )
     }
 
@@ -72,7 +72,7 @@ public open class NavigationScreens(
 
         public fun destination(
             id: String,
-            collectionId: String? = null
+            collectionId: String? = null,
         ): String {
             var route = "mediaItem?id=$id"
             if (collectionId != null) {
@@ -84,7 +84,7 @@ public open class NavigationScreens(
         override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {
                 uriPattern = "$deepLinkPrefix/mediaItem?id={id}&collectionId={collectionId}"
-            }
+            },
         )
 
         override val arguments: List<NamedNavArgument>
@@ -96,7 +96,7 @@ public open class NavigationScreens(
                     type = NavType.StringType
                     nullable = true
                     defaultValue = null
-                }
+                },
             )
     }
 
@@ -122,7 +122,7 @@ public open class NavigationScreens(
         override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {
                 uriPattern = "$deepLinkPrefix/collection?id={id}&name={name}"
-            }
+            },
         )
 
         override val arguments: List<NamedNavArgument>
@@ -132,7 +132,7 @@ public open class NavigationScreens(
                 },
                 navArgument(name) {
                     type = NavType.StringType
-                }
+                },
             )
     }
 }

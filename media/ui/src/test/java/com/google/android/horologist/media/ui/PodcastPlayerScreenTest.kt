@@ -35,12 +35,12 @@ import kotlin.time.Duration.Companion.seconds
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class PodcastPlayerScreenTest(
-    private val options: PodcastOptions
+    private val options: PodcastOptions,
 ) : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {}
         testLabel = options.toString().lowercase()
-    }
+    },
 ) {
 
     @Test
@@ -59,14 +59,14 @@ class PodcastPlayerScreenTest(
             media = MediaUiModel(
                 id = "",
                 title = "The power of types",
-                subtitle = "Kotlinconf"
+                subtitle = "Kotlinconf",
             ),
             trackPositionUiModel = TrackPositionUiModel.Actual(
                 percent = 0.1f,
                 position = 30.seconds,
-                duration = 300.seconds
+                duration = 300.seconds,
             ),
-            connected = true
+            connected = true,
         )
 
         screenshotTestRule.setContent(takeScreenshot = true) {
@@ -83,7 +83,7 @@ class PodcastPlayerScreenTest(
                         onSeekForwardButtonClick = { },
                         seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
                         seekBackButtonIncrement = options.seekBackButtonIncrement,
-                        seekForwardButtonIncrement = options.seekForwardButtonIncrement
+                        seekForwardButtonIncrement = options.seekForwardButtonIncrement,
                     )
                 })
             }
@@ -96,13 +96,13 @@ class PodcastPlayerScreenTest(
         fun options(): List<PodcastOptions> = listOf(
             PodcastOptions(SeekButtonIncrement.Unknown, SeekButtonIncrement.Unknown),
             PodcastOptions(SeekButtonIncrement.Ten, SeekButtonIncrement.Ten),
-            PodcastOptions(SeekButtonIncrement.Five, SeekButtonIncrement.Thirty)
+            PodcastOptions(SeekButtonIncrement.Five, SeekButtonIncrement.Thirty),
         )
     }
 
     data class PodcastOptions(
         val seekBackButtonIncrement: SeekButtonIncrement,
-        val seekForwardButtonIncrement: SeekButtonIncrement
+        val seekForwardButtonIncrement: SeekButtonIncrement,
     ) {
         override fun toString(): String {
             return "${seekBackButtonIncrement}_$seekForwardButtonIncrement"

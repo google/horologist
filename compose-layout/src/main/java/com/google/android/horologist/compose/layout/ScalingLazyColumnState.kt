@@ -55,7 +55,7 @@ public class ScalingLazyColumnState(
     public val initialScrollPosition: ScrollPosition = ScrollPosition(1, 0),
     public val autoCentering: AutoCenteringParams? = AutoCenteringParams(
         initialScrollPosition.index,
-        initialScrollPosition.offsetPx
+        initialScrollPosition.offsetPx,
     ),
     public val anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
     public val contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
@@ -64,13 +64,13 @@ public class ScalingLazyColumnState(
     public val verticalArrangement: Arrangement.Vertical =
         Arrangement.spacedBy(
             space = 4.dp,
-            alignment = if (!reverseLayout) Alignment.Top else Alignment.Bottom
+            alignment = if (!reverseLayout) Alignment.Top else Alignment.Bottom,
         ),
     public val horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     public val flingBehavior: FlingBehavior? = null,
     public val userScrollEnabled: Boolean = true,
     public val scalingParams: ScalingParams = WearScalingLazyColumnDefaults.scalingParams(),
-    public val hapticsEnabled: Boolean = true
+    public val hapticsEnabled: Boolean = true,
 ) {
     private var _state: ScalingLazyListState? = null
     public var state: ScalingLazyListState
@@ -78,7 +78,7 @@ public class ScalingLazyColumnState(
             if (_state == null) {
                 _state = ScalingLazyListState(
                     initialScrollPosition.index,
-                    initialScrollPosition.offsetPx
+                    initialScrollPosition.offsetPx,
                 )
             }
             return _state!!
@@ -95,7 +95,7 @@ public class ScalingLazyColumnState(
 
     public data class ScrollPosition(
         val index: Int,
-        val offsetPx: Int
+        val offsetPx: Int,
     )
 
     public fun interface Factory {
@@ -120,7 +120,7 @@ public fun rememberColumnState(factory: ScalingLazyColumnState.Factory = Scaling
 public fun ScalingLazyColumn(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    content: ScalingLazyListScope.() -> Unit
+    content: ScalingLazyListScope.() -> Unit,
 ) {
     val focusRequester = rememberActiveFocusRequester()
 
@@ -134,21 +134,21 @@ public fun ScalingLazyColumn(
             focusRequester = focusRequester,
             rotaryScrollAdapter = columnState.state.toRotaryScrollAdapter(),
             reverseDirection = columnState.reverseLayout,
-            rotaryHaptics = rotaryHaptics
+            rotaryHaptics = rotaryHaptics,
         )
 
         RotaryMode.Fling -> modifier.rotaryWithFling(
             focusRequester = focusRequester,
             scrollableState = columnState.state,
             reverseDirection = columnState.reverseLayout,
-            rotaryHaptics = rotaryHaptics
+            rotaryHaptics = rotaryHaptics,
         )
 
         RotaryMode.Scroll -> modifier.rotaryWithScroll(
             focusRequester = focusRequester,
             scrollableState = columnState.state,
             reverseDirection = columnState.reverseLayout,
-            rotaryHaptics = rotaryHaptics
+            rotaryHaptics = rotaryHaptics,
         )
     }
 
@@ -164,6 +164,6 @@ public fun ScalingLazyColumn(
         scalingParams = columnState.scalingParams,
         anchorType = columnState.anchorType,
         autoCentering = columnState.autoCentering,
-        content = content
+        content = content,
     )
 }

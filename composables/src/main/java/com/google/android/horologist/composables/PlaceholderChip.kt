@@ -57,7 +57,7 @@ public fun PlaceholderChip(
     onClick: () -> Unit = {},
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = false,
-    contentDescription: String = stringResource(id = R.string.horologist_placeholderchip_content_description)
+    contentDescription: String = stringResource(id = R.string.horologist_placeholderchip_content_description),
 ) {
     val chipPlaceholderState = rememberPlaceholderState { false }
 
@@ -68,7 +68,7 @@ public fun PlaceholderChip(
             .clip(shape = MaterialTheme.shapes.small)
             .paint(
                 painter = colors.background(enabled = enabled).value,
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
             )
             .placeholderShimmer(chipPlaceholderState)
             .semantics {
@@ -84,7 +84,7 @@ public fun PlaceholderChip(
                         .clip(RoundedCornerShape(12.dp))
                         .fillMaxWidth()
                         .height(12.dp)
-                        .placeholder(chipPlaceholderState)
+                        .placeholder(chipPlaceholderState),
                 )
                 Spacer(Modifier.size(8.dp))
             }
@@ -96,7 +96,7 @@ public fun PlaceholderChip(
                     .padding(end = 30.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .height(12.dp)
-                    .placeholder(chipPlaceholderState)
+                    .placeholder(chipPlaceholderState),
             )
         },
         icon = {
@@ -104,13 +104,13 @@ public fun PlaceholderChip(
                 modifier = Modifier
                     .clip(CircleShape)
                     .size(ChipDefaults.LargeIconSize)
-                    .placeholder(chipPlaceholderState)
+                    .placeholder(chipPlaceholderState),
             )
         },
         colors = PlaceholderDefaults.placeholderChipColors(
             originalChipColors = colors,
-            placeholderState = chipPlaceholderState
-        )
+            placeholderState = chipPlaceholderState,
+        ),
     )
 
     if (!chipPlaceholderState.isShowContent) {

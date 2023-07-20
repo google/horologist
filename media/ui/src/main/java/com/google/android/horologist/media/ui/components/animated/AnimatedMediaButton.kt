@@ -53,7 +53,7 @@ public fun AnimatedMediaButton(
     dynamicProperties: LottieDynamicProperties? = null,
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
-    iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally
+    iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
 ) {
     val scope = rememberCoroutineScope()
     val lottieAnimatable = rememberLottieAnimatable()
@@ -67,7 +67,7 @@ public fun AnimatedMediaButton(
         },
         modifier = modifier.size(tapTargetSize),
         enabled = enabled,
-        colors = colors
+        colors = colors,
     ) {
         val contentModifier = Modifier
             .size(iconSize)
@@ -96,7 +96,7 @@ public fun AnimatedMediaButton(
             placeholder = LottiePlaceholders.Next,
             contentDescription = contentDescription,
             modifier = contentModifier,
-            dynamicProperties = dynamicProperties
+            dynamicProperties = dynamicProperties,
         )
     }
 }

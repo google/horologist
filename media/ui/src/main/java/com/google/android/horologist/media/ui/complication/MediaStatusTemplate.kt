@@ -35,7 +35,7 @@ import com.google.android.horologist.tiles.complication.DataTemplates.smallImage
 import com.google.android.horologist.tiles.complication.TypedComplicationTemplate
 
 public class MediaStatusTemplate(
-    context: Context
+    context: Context,
 ) :
     TypedComplicationTemplate<MediaStatusTemplate.Data>(context) {
 
@@ -46,7 +46,7 @@ public class MediaStatusTemplate(
         public val title: String?,
         public val text: String,
         public val launchIntent: PendingIntent?,
-        public val contentDescription: ComplicationText? = null
+        public val contentDescription: ComplicationText? = null,
     )
 
     override fun previewData(): Data = Data(
@@ -54,7 +54,7 @@ public class MediaStatusTemplate(
         text = context.getString(R.string.horologist_preview_favorites),
         appIconRes = R.drawable.ic_baseline_queue_music_24,
         type = SmallImageType.ICON,
-        launchIntent = null
+        launchIntent = null,
     )
 
     override fun supportedTypes(): List<ComplicationType> =
@@ -62,7 +62,7 @@ public class MediaStatusTemplate(
             ComplicationType.SMALL_IMAGE,
             ComplicationType.SHORT_TEXT,
             ComplicationType.LONG_TEXT,
-            ComplicationType.PHOTO_IMAGE
+            ComplicationType.PHOTO_IMAGE,
         )
 
     override fun renderShortText(data: Data): ShortTextComplicationData =
@@ -71,7 +71,7 @@ public class MediaStatusTemplate(
             text = data.text,
             icon = data.appIconRes,
             launchIntent = data.launchIntent,
-            contentDescription = data.contentDescription
+            contentDescription = data.contentDescription,
         )
 
     override fun renderSmallImage(data: Data): SmallImageComplicationData? {
@@ -84,7 +84,7 @@ public class MediaStatusTemplate(
             type = data.type,
             name = data.text,
             launchIntent = data.launchIntent,
-            contentDescription = data.contentDescription
+            contentDescription = data.contentDescription,
         )
     }
 
@@ -95,7 +95,7 @@ public class MediaStatusTemplate(
             title = data.title,
             text = data.text,
             launchIntent = data.launchIntent,
-            contentDescription = data.contentDescription
+            contentDescription = data.contentDescription,
         )
     }
 
@@ -108,7 +108,7 @@ public class MediaStatusTemplate(
             photoImage = data.icon,
             name = data.text,
             launchIntent = data.launchIntent,
-            contentDescription = data.contentDescription
+            contentDescription = data.contentDescription,
         )
     }
 }

@@ -33,9 +33,9 @@ public fun RadialBackground(color: Color?) {
                 Brush.radialGradient(
                     listOf(
                         (color ?: Color.Black).copy(alpha = 0.5f),
-                        Color.Transparent
-                    )
-                )
-            )
+                        Color.Transparent,
+                    ),
+                ),
+            ),
     )
 }

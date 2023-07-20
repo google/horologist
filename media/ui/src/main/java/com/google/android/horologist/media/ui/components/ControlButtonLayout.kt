@@ -32,12 +32,12 @@ public fun ControlButtonLayout(
     leftButton: @Composable () -> Unit,
     middleButton: @Composable () -> Unit,
     rightButton: @Composable () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Absolute.Center
+        horizontalArrangement = Arrangement.Absolute.Center,
     ) {
         Box(modifier = Modifier.padding(start = 17.dp)) {
             leftButton()

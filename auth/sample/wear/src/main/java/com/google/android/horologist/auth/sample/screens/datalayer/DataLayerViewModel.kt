@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 
 class DataLayerViewModel(
     val counterService: CounterServiceCoroutineStub,
-    val counterFlow: Flow<CounterValue>
+    val counterFlow: Flow<CounterValue>,
 ) : ViewModel() {
     init {
         viewModelScope.launch {
@@ -73,5 +73,5 @@ class DataLayerViewModel(
 
 data class DataLayerScreenState(
     val counterValue: CounterValue? = null,
-    val error: String? = null
+    val error: String? = null,
 )

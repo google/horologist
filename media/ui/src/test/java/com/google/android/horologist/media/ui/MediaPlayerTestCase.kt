@@ -61,7 +61,7 @@ fun MediaPlayerTestCase(
             seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
             onSeekToNextButtonClick = { },
             seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-            trackPositionUiModel = playerUiState.trackPositionUiModel
+            trackPositionUiModel = playerUiState.trackPositionUiModel,
         )
     },
     buttons: @Composable RowScope.() -> Unit = {
@@ -72,10 +72,10 @@ fun MediaPlayerTestCase(
             brandIcon = {
                 SettingsButtonsDefaults.BrandIcon(
                     com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
-                    enabled = playerUiState.connected
+                    enabled = playerUiState.connected,
                 )
             },
-            enabled = playerUiState.connected
+            enabled = playerUiState.connected,
         )
     },
     colors: Colors = MaterialTheme.colors,
@@ -83,7 +83,7 @@ fun MediaPlayerTestCase(
         if (playerUiState.media != null) {
             RadialBackground(color = colors.primary)
         }
-    }
+    },
 ) {
     MaterialTheme(colors = colors) {
         Scaffold(
@@ -92,15 +92,15 @@ fun MediaPlayerTestCase(
                     volumeUiState = {
                         VolumeUiStateMapper.map(volumeState = VolumeState(6, 10))
                     },
-                    displayIndicatorEvents = flowOf()
+                    displayIndicatorEvents = flowOf(),
                 )
-            }
+            },
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 PagerScreen(
                     state = rememberPagerState {
                         2
-                    }
+                    },
                 ) {
                     if (it == 0) {
                         PlayerScreen(
@@ -108,7 +108,7 @@ fun MediaPlayerTestCase(
                             mediaDisplay = { mediaDisplay() },
                             controlButtons = { controlButtons() },
                             buttons = { buttons() },
-                            background = background
+                            background = background,
                         )
                     }
                 }

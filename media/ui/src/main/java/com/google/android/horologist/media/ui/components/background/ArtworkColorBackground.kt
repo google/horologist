@@ -46,7 +46,7 @@ import coil.request.ImageRequest
 public fun ArtworkColorBackground(
     artworkUri: Any?,
     modifier: Modifier = Modifier,
-    defaultColor: Color? = null
+    defaultColor: Color? = null,
 ) {
     val context = LocalContext.current
     val imageLoader = context.imageLoader
@@ -75,12 +75,12 @@ public fun ArtworkColorBackground(
 public fun ColorBackground(
     color: Color?,
     modifier: Modifier = Modifier,
-    background: Color = MaterialTheme.colors.background
+    background: Color = MaterialTheme.colors.background,
 ) {
     val animatedBackgroundColor = animateColorAsState(
         targetValue = color ?: Color.Black,
         animationSpec = tween(450, 0, LinearEasing),
-        label = "ColorBackground"
+        label = "ColorBackground",
     )
 
     Box(
@@ -90,10 +90,10 @@ public fun ColorBackground(
                 Brush.radialGradient(
                     listOf(
                         animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
-                        background
-                    )
-                )
-            )
+                        background,
+                    ),
+                ),
+            ),
     )
 }
 

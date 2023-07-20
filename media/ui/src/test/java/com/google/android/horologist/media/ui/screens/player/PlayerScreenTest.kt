@@ -76,7 +76,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -99,10 +99,10 @@ class PlayerScreenTest {
                 controlButtons = { playerUiController, playerUiState ->
                     DefaultPlayerScreenControlButtons(
                         playerController = playerUiController,
-                        playerUiState = playerUiState
+                        playerUiState = playerUiState,
                     )
                 },
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -121,13 +121,13 @@ class PlayerScreenTest {
         val playerViewModel = PlayerViewModel(playerRepository)
 
         assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isNotEqualTo(
-            PlayerState.Playing
+            PlayerState.Playing,
         )
 
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -154,13 +154,13 @@ class PlayerScreenTest {
         val playerViewModel = PlayerViewModel(playerRepository)
 
         assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isEqualTo(
-            PlayerState.Playing
+            PlayerState.Playing,
         )
 
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -195,7 +195,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -228,7 +228,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -252,7 +252,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -283,7 +283,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -309,7 +309,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -335,7 +335,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -367,7 +367,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -393,7 +393,7 @@ class PlayerScreenTest {
             PlayerScreen(
                 playerViewModel = playerViewModel,
                 mediaDisplay = { Text("Custom") },
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -411,7 +411,7 @@ class PlayerScreenTest {
             PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
                 controlButtons = { _, _ -> Text("Custom") },
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -432,7 +432,7 @@ class PlayerScreenTest {
             PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
                 buttons = { Text("Custom") },
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -447,7 +447,7 @@ class PlayerScreenTest {
             PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
                 background = { Text("Custom") },
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 

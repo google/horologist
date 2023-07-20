@@ -118,4 +118,12 @@ dependencies {
     testImplementation(libs.truth)
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("health-composables")
+        }
+    }
+}
+
 apply(plugin = "com.vanniktech.maven.publish")

@@ -1,0 +1,4 @@
+[*.{kt,kts}]
+ktlint_code_style = android_studio
+trailing-comma-on-call-site = disabled
+trailing-comma-on-declaration-site = disabled

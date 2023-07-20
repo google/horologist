@@ -151,11 +151,13 @@ internal fun Long.toSize(context: Context): String {
 private fun NetworkStatus.tint(active: Boolean): Color {
     return if (!active && this.status == Status.Available) {
         Color.Blue
-    } else when (this.status) {
-        is Status.Available -> Color.Green
-        is Status.Losing -> Color.Yellow
-        is Status.Lost -> Color.Gray
-        is Status.Unknown -> Color.LightGray
+    } else {
+        when (this.status) {
+            is Status.Available -> Color.Green
+            is Status.Losing -> Color.Yellow
+            is Status.Lost -> Color.Gray
+            is Status.Unknown -> Color.LightGray
+        }
     }
 }
 

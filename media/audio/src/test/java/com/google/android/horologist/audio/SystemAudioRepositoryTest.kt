@@ -18,10 +18,12 @@ package com.google.android.horologist.audio
 
 import android.content.Context
 import android.media.AudioManager
+import android.media.MediaRouter as MediaRouterLegacy
 import androidx.mediarouter.media.MediaRouter
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -34,8 +36,6 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
-import kotlin.time.Duration.Companion.seconds
-import android.media.MediaRouter as MediaRouterLegacy
 
 @MediumTest
 @RunWith(RobolectricTestRunner::class)

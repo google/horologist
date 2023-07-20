@@ -32,10 +32,10 @@ import io.grpc.Metadata
 import io.grpc.MethodDescriptor
 import io.grpc.MethodDescriptor.MethodType
 import io.grpc.Status
+import java.io.ByteArrayInputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.io.ByteArrayInputStream
 
 public class MessageClientCall<ReqT, RespT>(
     private val channel: MessageClientChannel,
@@ -107,7 +107,9 @@ public class MessageClientCall<ReqT, RespT>(
     private fun bytesToResponse(responseBytes: ByteArray?): RespT {
         val wrappedResponse = MessageResponse.parseFrom(responseBytes)
 
-        return methodDescriptor.parseResponse(ByteArrayInputStream(wrappedResponse.response.value.toByteArray()))
+        return methodDescriptor.parseResponse(
+            ByteArrayInputStream(wrappedResponse.response.value.toByteArray())
+        )
     }
 
     private fun handleException(apie: ApiException) {

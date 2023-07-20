@@ -70,7 +70,9 @@ public class AudioOffloadManager(
              * Logged when the application changes the state of offload scheduling enabled,
              * this is typically only active when the app is in the background.
              */
-            override fun onExperimentalOffloadSchedulingEnabledChanged(offloadSchedulingEnabled: Boolean) {
+            override fun onExperimentalOffloadSchedulingEnabledChanged(
+                offloadSchedulingEnabled: Boolean
+            ) {
                 _offloadStatus.update {
                     it.copy(offloadSchedulingEnabled = offloadSchedulingEnabled)
                 }

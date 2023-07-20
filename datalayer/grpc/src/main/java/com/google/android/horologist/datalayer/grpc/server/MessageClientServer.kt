@@ -25,9 +25,9 @@ import io.grpc.ServerCall
 import io.grpc.ServerCallHandler
 import io.grpc.ServerMethodDefinition
 import io.grpc.Status
+import java.io.ByteArrayInputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
-import java.io.ByteArrayInputStream
 
 public class MessageClientServer(
     service: BindableService,
@@ -51,7 +51,9 @@ public class MessageClientServer(
         val listener = serverCallHandler.startCall(call, Metadata())
 
         val realRequest =
-            method.methodDescriptor.parseRequest(ByteArrayInputStream(request.request.value.toByteArray()))
+            method.methodDescriptor.parseRequest(
+                ByteArrayInputStream(request.request.value.toByteArray())
+            )
 
         listener.onReady()
         listener.onMessage(realRequest)

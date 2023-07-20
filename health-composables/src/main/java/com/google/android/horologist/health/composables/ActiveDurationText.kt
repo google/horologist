@@ -36,9 +36,9 @@ import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.WearPreview
-import kotlinx.coroutines.delay
 import java.time.Duration
 import java.time.Instant
+import kotlinx.coroutines.delay
 
 /**
  * Composable to make it easier to create a chronometer from Health Services exercise data.

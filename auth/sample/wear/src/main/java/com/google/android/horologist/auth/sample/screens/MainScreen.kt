@@ -180,9 +180,9 @@ private fun SectionedListScope.dataLayerSection(navigateToRoute: (String) -> Uni
         listOf(
             Pair(
                 R.string.auth_menu_datalayer_item,
-                Screen.DataLayerScreen.route
-            )
-        )
+                Screen.DataLayerScreen.route,
+            ),
+        ),
     ) {
         header {
             Title(stringResource(id = R.string.auth_menu_datalayer_header))
@@ -191,7 +191,7 @@ private fun SectionedListScope.dataLayerSection(navigateToRoute: (String) -> Uni
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) }
+                onClick = { navigateToRoute(route) },
             )
         }
     }

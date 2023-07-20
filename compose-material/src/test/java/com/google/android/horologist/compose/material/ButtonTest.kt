@@ -83,8 +83,8 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 onClick = { },
                 buttonSize = ButtonSize.Custom(
                     customIconSize = ButtonDefaults.SmallIconSize,
-                    customTapTargetSize = ButtonDefaults.LargeButtonSize
-                )
+                    customTapTargetSize = ButtonDefaults.LargeButtonSize,
+                ),
             )
         }
     }

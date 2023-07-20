@@ -69,7 +69,8 @@ internal class RotaryInputAccumulator(
             1f
         } else if (isLowRes && scrollPixels < 0f) { // For negative tick in low res devices
             -1f
-        } else if (isLowRes /** && scrollPixels == 0f **/) { // For no tick in low res devices
+        } else if (isLowRes) { // For no tick in low res devices
+            // && scrollPixels == 0f
             0f
         } else { // Take it as is for high res devices
             scrollPixels

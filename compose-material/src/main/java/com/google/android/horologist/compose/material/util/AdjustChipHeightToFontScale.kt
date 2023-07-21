@@ -25,7 +25,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 /** Adjusts height of the chip as per the font scale. */
 @ExperimentalHorologistApi
 public fun Modifier.adjustChipHeightToFontScale(fontScale: Float, padding: Dp = 0.dp): Modifier =
-    if (fontScale > 1.06) {
+    if (fontScale > 1) {
         this.then(Modifier.height(60.dp + padding))
     } else {
         this

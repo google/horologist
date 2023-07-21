@@ -141,6 +141,18 @@ class ChipTest : ScreenshotBaseTest() {
     }
 
     @Test
+    fun withLongTextAndMediumFontScale() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(fontScale = 1.06f) {
+                Chip(
+                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
+                    onClick = { }
+                )
+            }
+        }
+    }
+
+    @Test
     fun withSecondaryLabelAndIconAndLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Chip(

@@ -92,6 +92,7 @@ public fun Button(
     )
 }
 
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 internal fun Button(
     icon: Any,
@@ -123,11 +124,19 @@ internal fun Button(
 }
 
 @ExperimentalHorologistApi
-public enum class ButtonSize(
+public sealed class ButtonSize(
     public val iconSize: Dp,
     public val tapTargetSize: Dp
 ) {
-    Default(iconSize = DefaultIconSize, tapTargetSize = DefaultButtonSize),
-    Large(iconSize = LargeIconSize, tapTargetSize = LargeButtonSize),
-    Small(iconSize = SmallIconSize, tapTargetSize = SmallButtonSize)
+    public object Default :
+        ButtonSize(iconSize = DefaultIconSize, tapTargetSize = DefaultButtonSize)
+
+    public object Large : ButtonSize(iconSize = LargeIconSize, tapTargetSize = LargeButtonSize)
+    public object Small : ButtonSize(iconSize = SmallIconSize, tapTargetSize = SmallButtonSize)
+
+    /**
+     * Custom sizes should follow the [accessibility principles and guidance for touch targets](https://developer.android.com/training/wearables/accessibility#set-minimum).
+     */
+    public data class Custom(val customIconSize: Dp, val customTapTargetSize: Dp) :
+        ButtonSize(iconSize = customIconSize, tapTargetSize = customTapTargetSize)
 }

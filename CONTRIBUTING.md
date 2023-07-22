@@ -19,7 +19,7 @@ A good first step is
 $ ./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSources metalavaGenerateSignature metalavaGenerateSignatureDebug lintDebug
 ```
 
-Also make sure you have [Git LFS]([url](https://git-lfs.github.com/)) installed.
+Also make sure you have ([Git LFS](https://git-lfs.github.com/)) installed.
 
 If you change any code affecting screenshot tests, then run the following and check the failures in the `out` directory.
 
@@ -57,7 +57,7 @@ information on using pull requests.
 
 This project uses a semi-automatic pipeline to translate strings. When new or
 updated localized strings are ready, a PR is generated (example:
-google/horologist#692). Only the files configured via [localization.bzl](localization.bzl)
+google/horologist#692). Only the files configured via [localization.bzl](https://github.com/google/horologist/blob/main/localization.bzl)
 are sent for translation.
 
 If you see a problem with translated text, don't edit localized resource files

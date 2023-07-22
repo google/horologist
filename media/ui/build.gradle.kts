@@ -107,7 +107,6 @@ dependencies {
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
 
-    implementation(projects.baseUi)
     implementation(projects.media.audio)
     implementation(projects.media.audioUi)
     implementation(projects.composeLayout)

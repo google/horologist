@@ -49,4 +49,11 @@
     <string name="common_screens_streamline_sign_in_single_account_item">Single account available</string>
     <string name="common_screens_streamline_sign_in_multiple_accounts_item">Multiple accounts available</string>
     <string name="common_screens_streamline_no_accounts_message">Should navigate to add account screen.</string>
+    <string name="auth_menu_datalayer_item">Data Layer</string>
+    <string name="auth_menu_datalayer_header">Data Layer</string>
+    <string name="server_counter_message">Value of the counter from Phone</string>
+    <string name="data_layer_title">Data Layer</string>
+    <string name="data_layer_missing_message">Missing</string>
+    <string name="data_layer_error_message">Error: %1$s</string>
+    <string name="data_layer_value_message">Value: %1$s</string>
 </resources>

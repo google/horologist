@@ -18,7 +18,12 @@ package com.google.android.horologist.auth.sample.di
 
 import android.util.Log
 import com.google.android.horologist.auth.sample.SampleApplication
+import com.google.android.horologist.auth.sample.shared.datalayer.CounterValueSerializer
+import com.google.android.horologist.auth.sample.shared.grpc.CounterServiceGrpcKt
+import com.google.android.horologist.data.ProtoDataStoreHelper.protoFlow
+import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.datalayer.grpc.GrpcExtensions.grpcClient
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -37,6 +42,13 @@ object SampleAppDI {
         sampleApplication.servicesCoroutineScope = servicesCoroutineScope()
         sampleApplication.okHttpClient = okHttpClient()
         sampleApplication.moshi = moshi()
+        sampleApplication.counterFlow = sampleApplication.registry.protoFlow(TargetNodeId.PairedPhone)
+        sampleApplication.counterService = sampleApplication.registry.grpcClient(
+            nodeId = TargetNodeId.PairedPhone,
+            coroutineScope = sampleApplication.servicesCoroutineScope
+        ) {
+            CounterServiceGrpcKt.CounterServiceCoroutineStub(it)
+        }
     }
 
     private fun registry(
@@ -45,7 +57,9 @@ object SampleAppDI {
     ): WearDataLayerRegistry = WearDataLayerRegistry.fromContext(
         application = sampleApplication,
         coroutineScope = coroutineScope
-    )
+    ).apply {
+        registerSerializer(CounterValueSerializer)
+    }
 
     private fun servicesCoroutineScope(): CoroutineScope {
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->

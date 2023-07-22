@@ -93,7 +93,7 @@ metalava {
 }
 
 dependencies {
-    api(projects.datalayer)
+    api(projects.datalayer.core)
 
     api(libs.androidx.datastore.core)
     api(libs.androidx.wear.phone.interactions)

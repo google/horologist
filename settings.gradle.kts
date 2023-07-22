@@ -17,7 +17,7 @@
 import java.util.Properties
 
 plugins {
-    id("com.gradle.enterprise") version "3.13.4"
+    id("com.gradle.enterprise") version "3.14"
 }
 
 gradleEnterprise {
@@ -38,15 +38,15 @@ include(":auth:sample:phone")
 include(":auth:sample:shared")
 include(":auth:sample:wear")
 include(":auth:ui")
-include(":base-ui")
 include(":compose-layout")
 include(":compose-material")
 include(":compose-tools")
 include(":composables")
-include(":datalayer")
-include(":datalayer-watch")
-include(":datalayer-phone")
-include(":health-composables")
+include(":datalayer:core")
+include(":datalayer:grpc")
+include(":datalayer:watch")
+include(":datalayer:phone")
+include(":health:composables")
 include(":logo")
 include(":media:audio")
 include(":media:audio-ui")

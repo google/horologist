@@ -14,16 +14,16 @@ sample app that you can run to see the toolkit in action.
 
 The toolkit includes:
 
-- [horologist-media-ui](./media/ui): common media UI components and screens like `PlayerScreen`.
-- [horologist-media](./media/core): domain model for Media related functionality. Provides an
+- [horologist-media-ui](https://google.github.io/horologist/media-ui): common media UI components and screens like `PlayerScreen`.
+- [horologist-media](https://google.github.io/horologist/media): domain model for Media related functionality. Provides an
   abstraction
   to the UI module (`horologist-media-ui`) that is agnostic to the Player implementation.
-- [horologist-media-data](./media/data): implementation of the domain module (`horologist-media`)
+- [horologist-media-data](https://google.github.io/horologist/media-data): implementation of the domain module (`horologist-media`)
   using [Media3](https://developer.android.com/jetpack/androidx/releases/media3).
-- [horologist-media3-backend](./media/backend-media3): Player on top of Media3 including
+- [horologist-media3-backend](https://google.github.io/horologist/media3-backend): Player on top of Media3 including
   functionalities
   such as avoiding playing music on the watch speaker.
-- [media sample](./media/sample): sample app to listen to downloaded music.
+- [media sample](https://google.github.io/horologist/media-sample): sample app to listen to downloaded music.
 
 Player Screen | Browse Screen | Entity Screen
 :------------:|:-------------:|:-------------:
@@ -33,7 +33,7 @@ Player Screen | Browse Screen | Entity Screen
 
 High quality prebuilt composables, such as Time and Date pickers.
 
-- [horologist-composables](./composables)
+- [horologist-composables](https://google.github.io/horologist/composables)
 
 DatePicker             |  TimePickerWith12HourClock |  TimePicker
 :-------------------------:|:-------------------------:|:-------------------------:
@@ -47,7 +47,7 @@ SegmentedProgressIndicator | SquareSegmentedProgressIndicator
 
 Layout related functionality such as a Navigation Aware Scaffold.
 
-- [horologist-compose-layout](./compose-layout)
+- [horologist-compose-layout](https://google.github.io/horologist/compose-layout)
 
 |                                                             fillMaxRectangle()                                                             |
 |:------------------------------------------------------------------------------------------------------------------------------------------:|
@@ -61,15 +61,15 @@ the [Wear Material Compose library](https://developer.android.com/jetpack/androi
 of [Wear Material Design Kit](https://developer.android.com/design/ui/wear/guides/foundations/download)
 .
 
-- [horologist-compose-material](./compose-material)
+- [horologist-compose-material](https://google.github.io/horologist/compose-material)
 
 ## 🔊 Audio and UI
 
 Domain model for Audio related functionality. Volume Control, Output switching.
 Subscribing to a Flow of changes in audio or output.
 
-- [horologist-audio](./media/audio)
-- [horologist-audio-ui](./media/audio-ui)
+- [horologist-audio](https://google.github.io/horologist/audio)
+- [horologist-audio-ui](https://google.github.io/horologist/audio-ui)
 
 |                                                          VolumeScreen                                                          |
 |:------------------------------------------------------------------------------------------------------------------------------:|
@@ -81,24 +81,24 @@ Libraries to help developers to build apps following
 the [Sign-In guidelines for Wear OS](https://developer.android.com/training/wearables/design/sign-in)
 .
 
-- [horologist-auth-composables](./auth/composables): composable screens for authentication use
+- [horologist-auth-composables](https://google.github.io/horologist/auth-composables): composable screens for authentication use
   cases, with no dependency on the `auth-data` library.
-- [horologist-auth-ui](./auth/ui): composable screens for authentication use cases, with integration
+- [horologist-auth-ui](https://google.github.io/horologist/auth-ui): composable screens for authentication use cases, with integration
   with the `auth-data` library
-- [horologist-auth-data](./auth/data): implementation for Wear apps for most of the authentication
+- [horologist-auth-data](https://google.github.io/horologist/auth-data): implementation for Wear apps for most of the authentication
   methods listed in
   the [Authentication on wearables](https://developer.android.com/training/wearables/apps/auth-wear)
   guide.
-- [horologist-auth-data-phone](./auth/data-phone): implementation for Mobile apps for some of the
+- [horologist-auth-data-phone](https://google.github.io/horologist/auth-data-phone): implementation for Mobile apps for some of the
   authentication methods provided by the `auth-data` library.
-- [sample wear](./auth/sample/wear): sample wear app to authenticate using different methods.
-- [sample phone](./auth/sample/phone): sample phone app to authenticate using different methods.
+- [sample wear](https://google.github.io/horologist/auth-sample-apps/#wear-sample): sample wear app to authenticate using different methods.
+- [sample phone](https://google.github.io/horologist/auth-sample-apps/#phone-sample): sample phone app to authenticate using different methods.
 
 ## ☰ Tiles
 
 Kotlin coroutines flavoured TileService.
 
-[horologist-tiles](./tiles)
+[horologist-tiles](https://google.github.io/horologist/tiles)
 
 ---
 

@@ -46,7 +46,9 @@ android {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
+            // Enable context receivers https://github.com/Kotlin/KEEP/blob/master/proposals/context-receivers.md
+            "-Xcontext-receivers"
         )
     }
 
@@ -108,10 +110,12 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
     debugImplementation(projects.composeTools)
+    debugImplementation(projects.composeMaterial)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(projects.composeTools)
+    testImplementation(projects.composeMaterial)
     testImplementation(projects.roboscreenshots)
     testImplementation(libs.robolectric)
 }

@@ -148,7 +148,6 @@ kapt {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.baseUi)
     implementation(projects.media.audio)
     implementation(projects.media.audioUi)
     implementation(projects.composables)

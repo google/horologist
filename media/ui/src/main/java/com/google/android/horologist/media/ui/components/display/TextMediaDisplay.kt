@@ -33,9 +33,9 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @ExperimentalHorologistApi
 @Composable
 public fun TextMediaDisplay(
-    modifier: Modifier = Modifier,
     title: String,
-    subtitle: String
+    subtitle: String,
+    modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(

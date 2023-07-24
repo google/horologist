@@ -230,7 +230,7 @@ package com.google.android.horologist.media.ui.components.display {
   }
 
   public final class TextMediaDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void TextMediaDisplay(optional androidx.compose.ui.Modifier modifier, String title, String subtitle);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void TextMediaDisplay(String title, String subtitle, optional androidx.compose.ui.Modifier modifier);
   }
 
   public final class TrackMediaDisplayKt {

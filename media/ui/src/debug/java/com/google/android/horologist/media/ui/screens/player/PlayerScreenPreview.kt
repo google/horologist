@@ -90,8 +90,8 @@ fun PlayerScreenPreview() {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
-                        subtitle = "Journey",
-                        title = "Don't Stop Believin'"
+                        title = "Don't Stop Believin'",
+                        subtitle = "Journey"
                     )
                 },
                 controlButtons = {
@@ -245,8 +245,8 @@ fun PlayerScreenPreviewCustomBackground() {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
-                        subtitle = "Casaca",
-                        title = "Da Da Da"
+                        title = "Da Da Da",
+                        subtitle = "Casaca"
                     )
                 },
                 controlButtons = {
@@ -337,8 +337,8 @@ fun DefaultMediaPreview() {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
-                        subtitle = "Journey",
-                        title = "Don't Stop Believin'"
+                        title = "Don't Stop Believin'",
+                        subtitle = "Journey"
                     )
                 },
                 controlButtons = {

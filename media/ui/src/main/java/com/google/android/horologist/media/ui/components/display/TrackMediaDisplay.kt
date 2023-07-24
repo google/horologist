@@ -31,8 +31,8 @@ public fun TrackMediaDisplay(
     modifier: Modifier = Modifier
 ) {
     TextMediaDisplay(
-        modifier = modifier,
         title = media.title,
-        subtitle = media.subtitle
+        subtitle = media.subtitle,
+        modifier = modifier
     )
 }

@@ -35,6 +35,7 @@ import androidx.wear.compose.material.placeholder
 import androidx.wear.compose.material.placeholderShimmer
 import androidx.wear.compose.material.rememberPlaceholderState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.media.ui.components.animated.MarqueeTextMediaDisplay
 
 /**
  * A loading state display. This style is matched to the Text of [TextMediaDisplay] as

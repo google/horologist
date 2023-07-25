@@ -39,9 +39,12 @@ public fun <T> DataClient.dataItemFlow(
     defaultValue: () -> T = { serializer.defaultValue }
 ): Flow<T> = callbackFlow {
     val listener = OnDataChangedListener {
-        val dataItem = it[it.getCount() - 1].dataItem
+        @SuppressWarnings("GmsCoreFirstPartyApiChecker")
+        val dataItem = it[it.count - 1].dataItem
         val data = dataItem.data
-        trySend(data)
+
+        @Suppress("UNUSED_VARIABLE")
+        val unused = trySend(data)
     }
 
     val uri = Uri.Builder()
@@ -58,7 +61,8 @@ public fun <T> DataClient.dataItemFlow(
 
     val item: DataItem? = this@dataItemFlow.getDataItem(uri).await() // then get the current value.
 
-    trySend(item?.data)
+    @Suppress("UNUSED_VARIABLE")
+    val unused = trySend(item?.data)
 
     awaitClose {
         removeListener(listener)

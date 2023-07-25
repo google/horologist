@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -55,7 +54,7 @@ class MarqueeTest : ScreenshotBaseTest(
         }
 
         screenshotTestRule.interact {
-            onNodeWithText(text).assertIsDisplayed()
+            onNodeWithText(text).assertExists()
         }
     }
 

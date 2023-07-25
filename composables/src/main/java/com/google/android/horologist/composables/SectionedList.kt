@@ -63,7 +63,7 @@ public fun SectionedList(
             .fillMaxSize()
     ) {
         for (section in sections) {
-            section.display()
+            section.display(this)
         }
     }
 }
@@ -80,24 +80,26 @@ internal fun <T> shouldDisplay(
     }
 }
 
-context(ScalingLazyListScope) internal fun <T> Section<T>.display() {
-    headerContent?.let { content ->
-        if (shouldDisplay(headerVisibleStates, state)) {
-            item { SectionContentScope.content() }
+internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
+    val section = this
+
+    section.headerContent?.let { content ->
+        if (shouldDisplay(headerVisibleStates, section.state)) {
+            scope.item { SectionContentScope.content() }
         }
     }
 
-    when (state) {
+    when (section.state) {
         Section.State.Loading -> {
             loadingContent?.let { content ->
-                items(loadingContentCount) { SectionContentScope.content() }
+                scope.items(loadingContentCount) { SectionContentScope.content() }
             }
         }
 
         is Section.State.Loaded -> {
             loadedContent?.let { content ->
-                val list = state.list
-                items(list.size) { index ->
+                val list = section.state.list
+                scope.items(list.size) { index ->
                     content(SectionContentScope, list[index])
                 }
             }
@@ -105,20 +107,20 @@ context(ScalingLazyListScope) internal fun <T> Section<T>.display() {
 
         Section.State.Failed -> {
             failedContent?.let { content ->
-                item { SectionContentScope.content() }
+                scope.item { SectionContentScope.content() }
             }
         }
 
         Section.State.Empty -> {
             emptyContent?.let { content ->
-                item { SectionContentScope.content() }
+                scope.item { SectionContentScope.content() }
             }
         }
     }
 
     footerContent?.let { content ->
-        if (shouldDisplay(footerVisibleStates, state)) {
-            item { SectionContentScope.content() }
+        if (shouldDisplay(footerVisibleStates, section.state)) {
+            scope.item { SectionContentScope.content() }
         }
     }
 }

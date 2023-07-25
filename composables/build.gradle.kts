@@ -47,8 +47,6 @@ android {
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            // Enable context receivers https://github.com/Kotlin/KEEP/blob/master/proposals/context-receivers.md
-            "-Xcontext-receivers"
         )
     }
 

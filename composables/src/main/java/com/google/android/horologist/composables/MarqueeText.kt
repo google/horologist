@@ -29,15 +29,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.CompositingStrategy
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -129,21 +126,7 @@ private class MarqueeController(edgeGradientWidth: Dp) {
                 placeable.placeRelative(IntOffset.Zero)
             }
         }
-        .graphicsLayer {
-            // Required to make the faded edges only clear the alpha for the marquee content's
-            // pixels and not punch a hole through whatever is beneath this composable.
-            compositingStrategy = CompositingStrategy.Offscreen
-            clip = true
-        }
-        .drawWithContent {
-            drawContent()
-
-            if (needsScrolling) {
-                // Fade out the edges with a gradient
-                drawFadeGradient(leftEdge = true, edgeGradientWidth = edgeGradientWidth)
-                drawFadeGradient(leftEdge = false, edgeGradientWidth = edgeGradientWidth)
-            }
-        }
+        .drawFadeGradient()
 
     private val padding = object : PaddingValues {
         override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
@@ -157,26 +140,50 @@ private class MarqueeController(edgeGradientWidth: Dp) {
     }
     val insideMarqueeModifier: Modifier = Modifier.padding(padding)
 
-    private fun DrawScope.drawFadeGradient(
-        leftEdge: Boolean,
-        edgeGradientWidth: Dp
-    ) {
+    private fun Modifier.drawFadeGradient() = this.drawWithCache {
         val width = edgeGradientWidth.toPx()
-        drawRect(
-            size = Size(width, size.height),
-            topLeft = Offset(
-                if (leftEdge) 0f else size.width - width,
-                0f
+        // Create the brush here and leverage it within the onDrawWithContent block below
+        // The brush will only be instantiated on first render and if the size of the composable
+        // changes. Otherwise the same brush instance will be used.
+        val leftBrush = Brush.horizontalGradient(
+            listOf(
+                Color.Transparent,
+                Color.Black
             ),
-            brush = Brush.horizontalGradient(
-                listOf(
-                    Color.Transparent,
-                    Color.Black
-                ),
-                startX = if (leftEdge) 0f else size.width,
-                endX = if (leftEdge) width else size.width - width
-            ),
-            blendMode = BlendMode.DstIn
+            startX = 0f,
+            endX = width
         )
+        val rightBrush = Brush.horizontalGradient(
+            listOf(
+                Color.Transparent,
+                Color.Black
+            ),
+            startX = size.width,
+            endX = size.width - width
+        )
+        onDrawWithContent {
+            drawContent()
+
+            if (needsScrolling) {
+                drawRect(
+                    size = Size(width, size.height),
+                    topLeft = Offset(
+                        0f,
+                        0f
+                    ),
+                    brush = leftBrush,
+                    blendMode = BlendMode.DstIn
+                )
+                drawRect(
+                    size = Size(width, size.height),
+                    topLeft = Offset(
+                        size.width - width,
+                        0f
+                    ),
+                    brush = rightBrush,
+                    blendMode = BlendMode.DstIn
+                )
+            }
+        }
     }
 }

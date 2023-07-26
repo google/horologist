@@ -1,9 +1,6 @@
 // Signature format: 4.0
 package com.google.android.horologist.data {
 
-  @kotlin.RequiresOptIn(message="Horologist Data Layer is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistDataLayerApi {
-  }
-
   public final class ProtoDataStoreHelper {
     method public inline <reified T> androidx.datastore.core.DataStore<T>! protoDataStore(com.google.android.horologist.data.WearDataLayerRegistry, kotlinx.coroutines.CoroutineScope coroutineScope);
     method public inline <reified T> kotlinx.coroutines.flow.Flow<? extends T>! protoFlow(com.google.android.horologist.data.WearDataLayerRegistry, com.google.android.horologist.data.TargetNodeId node);

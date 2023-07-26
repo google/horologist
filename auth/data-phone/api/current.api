@@ -1,11 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.auth.data.phone {
-
-  @kotlin.RequiresOptIn(message="Horologist Auth Data Phone is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAuthDataPhoneApi {
-  }
-
-}
-
 package com.google.android.horologist.auth.data.phone.common {
 
   public final class LoggingKt {

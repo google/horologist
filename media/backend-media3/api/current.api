@@ -1,9 +1,6 @@
 // Signature format: 4.0
 package com.google.android.horologist.media3 {
 
-  @kotlin.RequiresOptIn(message="Horologist Media3 Backend is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistMedia3BackendApi {
-  }
-
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class WearConfiguredPlayer extends androidx.media3.common.ForwardingPlayer {
     ctor public WearConfiguredPlayer(androidx.media3.common.Player player, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository, com.google.android.horologist.media3.audio.AudioOutputSelector audioOutputSelector, com.google.android.horologist.media3.rules.PlaybackRules playbackRules, com.google.android.horologist.media3.logging.ErrorReporter errorReporter, kotlinx.coroutines.CoroutineScope coroutineScope);
     method public suspend Object? startNoiseDetection(kotlin.coroutines.Continuation<? super kotlin.Unit>);

@@ -1,11 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.media.data {
-
-  @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistMediaDataApi {
-  }
-
-}
-
 package com.google.android.horologist.media.data.database {
 
   @androidx.room.Database(entities={MediaDownloadEntity::class, MediaEntity::class, PlaylistEntity::class, PlaylistMediaEntity::class}, version=1, exportSchema=false) @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract class MediaDatabase extends androidx.room.RoomDatabase {

@@ -1,9 +1,6 @@
 // Signature format: 4.0
 package com.google.android.horologist.audio.ui {
 
-  @kotlin.RequiresOptIn(message="Horologist Audio UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAudioUiApi {
-  }
-
   public final class RotaryVolumeControlsKt {
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier highResRotaryVolumeControls(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput, android.view.View localView);
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier lowResRotaryVolumeControls(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput, android.view.View localView);

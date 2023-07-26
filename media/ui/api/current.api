@@ -1,11 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.media.ui {
-
-  @kotlin.RequiresOptIn(message="Horologist Media UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistMediaUiApi {
-  }
-
-}
-
 package com.google.android.horologist.media.ui.complication {
 
   public final class MediaStatusTemplate extends com.google.android.horologist.tiles.complication.TypedComplicationTemplate<com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data> {

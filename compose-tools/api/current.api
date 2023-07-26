@@ -1,9 +1,6 @@
 // Signature format: 4.0
 package com.google.android.horologist.compose.tools {
 
-  @kotlin.RequiresOptIn(message="Horologist Compose Tools is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistComposeToolsApi {
-  }
-
   public final class InteractivePreviewAwareKt {
     method @androidx.compose.runtime.Composable public static void InteractivePreviewAware(kotlin.jvm.functions.Function0<kotlin.Unit> block);
     method public static androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> getLocalInteractivePreview();

@@ -1,11 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.auth.data {
-
-  @kotlin.RequiresOptIn(message="Horologist Auth Data is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAuthDataApi {
-  }
-
-}
-
 package com.google.android.horologist.auth.data.common.model {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class AuthUser {

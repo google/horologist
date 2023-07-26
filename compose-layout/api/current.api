@@ -114,9 +114,6 @@ package com.google.android.horologist.compose.layout {
 
 package com.google.android.horologist.compose.navscaffold {
 
-  @kotlin.RequiresOptIn(message="Horologist Compose Layout is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistComposeLayoutApi {
-  }
-
   public class NavScaffoldViewModel extends androidx.lifecycle.ViewModel {
     ctor public NavScaffoldViewModel(androidx.lifecycle.SavedStateHandle savedStateHandle);
     method public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode getPositionIndicatorMode();

@@ -1,11 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.auth.data.watch.oauth {
-
-  @kotlin.RequiresOptIn(message="Horologist Auth Data Watch OAuth is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAuthDataWatchOAuthApi {
-  }
-
-}
-
 package com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api {
 
   @com.squareup.moshi.JsonClass(generateAdapter=true) public final class DeviceCodeResponse {

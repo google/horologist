@@ -1,9 +1,6 @@
 // Signature format: 4.0
 package com.google.android.horologist.tiles {
 
-  @kotlin.RequiresOptIn(message="Horologist Tiles is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistTilesApi {
-  }
-
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract class SuspendingTileService extends androidx.wear.tiles.TileService implements androidx.lifecycle.LifecycleOwner {
     ctor public SuspendingTileService();
     method public androidx.lifecycle.Lifecycle getLifecycle();

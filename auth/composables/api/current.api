@@ -1,11 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.auth.composables {
-
-  @kotlin.RequiresOptIn(message="Horologist Auth Composables is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAuthComposablesApi {
-  }
-
-}
-
 package com.google.android.horologist.auth.composables.chips {
 
   public final class CreateAccountChipKt {

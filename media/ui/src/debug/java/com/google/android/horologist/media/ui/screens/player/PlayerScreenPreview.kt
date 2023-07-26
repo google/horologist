@@ -340,7 +340,13 @@ fun DefaultMediaPreview() {
                 modifier = Modifier.drawWithCache {
                     val background = radialBackgroundBrush(Color.Yellow, Color.Black)
                     onDrawWithContent {
+                        // Clear the circular region so we have transparent pixels to blend against
+                        // This enables us to reuse the underlying buffer we are drawing into without
+                        // having to consume additional overhead of an offscreen compositing layer
+                        drawRect(color = Color.Black, blendMode = BlendMode.Clear)
+
                         drawContent()
+
                         // Components on media player may use transparency, so draw in the gaps
                         drawRect(background, blendMode = BlendMode.DstOver)
                     }

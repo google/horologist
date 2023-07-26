@@ -224,7 +224,7 @@ package com.google.android.horologist.auth.ui.mapper {
 
 package com.google.android.horologist.auth.ui.oauth.devicegrant.signin {
 
-  public abstract sealed class DeviceGrantScreenState {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract sealed class DeviceGrantScreenState {
   }
 
   public static final class DeviceGrantScreenState.CheckPhone extends com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantScreenState {
@@ -252,11 +252,11 @@ package com.google.android.horologist.auth.ui.oauth.devicegrant.signin {
   }
 
   public final class DeviceGrantSignInScreenKt {
-    method @androidx.compose.runtime.Composable public static <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> void DeviceGrantSignInScreen(kotlin.jvm.functions.Function0<kotlin.Unit> failedContent, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantViewModel<DeviceGrantConfig,VerificationInfoPayload,TokenPayload> viewModel, kotlin.jvm.functions.Function1<? super com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantScreenState.Success,kotlin.Unit> content);
-    method @androidx.compose.runtime.Composable public static <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> void DeviceGrantSignInScreen(kotlin.jvm.functions.Function0<kotlin.Unit> onAuthSucceed, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantViewModel<DeviceGrantConfig,VerificationInfoPayload,TokenPayload> viewModel);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> void DeviceGrantSignInScreen(kotlin.jvm.functions.Function0<kotlin.Unit> failedContent, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantViewModel<DeviceGrantConfig,VerificationInfoPayload,TokenPayload> viewModel, kotlin.jvm.functions.Function1<? super com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantScreenState.Success,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> void DeviceGrantSignInScreen(kotlin.jvm.functions.Function0<kotlin.Unit> onAuthSucceed, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantViewModel<DeviceGrantConfig,VerificationInfoPayload,TokenPayload> viewModel);
   }
 
-  public class DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayload, TokenPayload> extends androidx.lifecycle.ViewModel {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public class DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayload, TokenPayload> extends androidx.lifecycle.ViewModel {
     ctor public DeviceGrantViewModel(com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantConfigRepository<DeviceGrantConfig> deviceGrantConfigRepository, com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantVerificationInfoRepository<DeviceGrantConfig,VerificationInfoPayload> deviceGrantVerificationInfoRepository, com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenRepository<DeviceGrantConfig,VerificationInfoPayload,TokenPayload> deviceGrantTokenRepository, kotlin.jvm.functions.Function2<? super DeviceGrantConfig,? super VerificationInfoPayload,java.lang.String> checkPhonePayloadMapper, optional com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenPayloadListener<TokenPayload> deviceGrantTokenPayloadListener);
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantScreenState> getUiState();
     method public final void startAuthFlow();
@@ -267,7 +267,7 @@ package com.google.android.horologist.auth.ui.oauth.devicegrant.signin {
 
 package com.google.android.horologist.auth.ui.oauth.pkce.signin {
 
-  public abstract sealed class PKCEScreenState {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract sealed class PKCEScreenState {
   }
 
   public static final class PKCEScreenState.CheckPhone extends com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCEScreenState {
@@ -291,11 +291,11 @@ package com.google.android.horologist.auth.ui.oauth.pkce.signin {
   }
 
   public final class PKCESignInScreenKt {
-    method @androidx.compose.runtime.Composable public static <PKCEConfig, OAuthCodePayload, TokenPayload> void PKCESignInScreen(kotlin.jvm.functions.Function0<kotlin.Unit> failedContent, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInViewModel<PKCEConfig,OAuthCodePayload,TokenPayload> viewModel, kotlin.jvm.functions.Function1<? super com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCEScreenState.Success,kotlin.Unit> content);
-    method @androidx.compose.runtime.Composable public static <PKCEConfig, OAuthCodePayload, TokenPayload> void PKCESignInScreen(kotlin.jvm.functions.Function0<kotlin.Unit> onAuthSucceed, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInViewModel<PKCEConfig,OAuthCodePayload,TokenPayload> viewModel);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static <PKCEConfig, OAuthCodePayload, TokenPayload> void PKCESignInScreen(kotlin.jvm.functions.Function0<kotlin.Unit> failedContent, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInViewModel<PKCEConfig,OAuthCodePayload,TokenPayload> viewModel, kotlin.jvm.functions.Function1<? super com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCEScreenState.Success,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static <PKCEConfig, OAuthCodePayload, TokenPayload> void PKCESignInScreen(kotlin.jvm.functions.Function0<kotlin.Unit> onAuthSucceed, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInViewModel<PKCEConfig,OAuthCodePayload,TokenPayload> viewModel);
   }
 
-  public class PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload> extends androidx.lifecycle.ViewModel {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public class PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload> extends androidx.lifecycle.ViewModel {
     ctor public PKCESignInViewModel(com.google.android.horologist.auth.data.oauth.pkce.PKCEConfigRepository<PKCEConfig> pkceConfigRepository, com.google.android.horologist.auth.data.oauth.pkce.PKCEOAuthCodeRepository<PKCEConfig,OAuthCodePayload> pkceOAuthCodeRepository, com.google.android.horologist.auth.data.oauth.pkce.PKCETokenRepository<PKCEConfig,OAuthCodePayload,TokenPayload> pkceTokenRepository, optional com.google.android.horologist.auth.data.oauth.pkce.PKCETokenPayloadListener<TokenPayload> pkceTokenPayloadListener);
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCEScreenState> getUiState();
     method public final void startAuthFlow();

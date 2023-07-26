@@ -29,13 +29,13 @@ public fun RadialBackground(color: Color?) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                Brush.radialGradient(
-                    listOf(
-                        (color ?: Color.Black).copy(alpha = 0.5f),
-                        Color.Transparent
-                    )
-                )
-            )
+            .background(radialBackgroundBrush(color))
     )
 }
+
+public fun radialBackgroundBrush(color: Color?): Brush = Brush.radialGradient(
+    listOf(
+        (color ?: Color.Black).copy(alpha = 0.5f),
+        Color.Transparent
+    )
+)

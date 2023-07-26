@@ -19,12 +19,14 @@
 package com.google.android.horologist.media.ui.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -86,7 +88,7 @@ public fun MediaPlayerScaffold(
     WearNavScaffold(
         startDestination = NavigationScreens.Player.navRoute,
         navController = navController,
-        modifier = modifier,
+        modifier = modifier.background(Color.Transparent),
         snackbar = {
             DialogSnackbarHost(
                 modifier = Modifier.fillMaxSize(),

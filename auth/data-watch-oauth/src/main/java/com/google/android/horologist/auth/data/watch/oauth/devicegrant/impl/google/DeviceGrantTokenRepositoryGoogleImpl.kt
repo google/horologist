@@ -32,7 +32,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.guava.await
 
-@ExperimentalHorologistApi
 public class DeviceGrantTokenRepositoryGoogleImpl(
     private val application: Application,
     private val googleOAuthService: GoogleOAuthService

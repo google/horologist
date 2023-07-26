@@ -56,7 +56,6 @@ import com.google.android.horologist.compose.material.Title
  * @sample com.google.android.horologist.auth.sample.screens.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
  * @sample com.google.android.horologist.auth.sample.screens.oauth.pkce.prompt.PKCESignInPromptScreen
  */
-@ExperimentalHorologistApi
 @Composable
 public fun SignInPromptScreen(
     message: String,

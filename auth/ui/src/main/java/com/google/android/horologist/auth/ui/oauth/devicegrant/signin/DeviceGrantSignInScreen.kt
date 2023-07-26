@@ -27,7 +27,6 @@ import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.CheckYourPhoneScreen
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
 
-@ExperimentalHorologistApi
 @Composable
 public fun <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> DeviceGrantSignInScreen(
     failedContent: @Composable () -> Unit,
@@ -63,7 +62,6 @@ public fun <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> DeviceGran
     }
 }
 
-@ExperimentalHorologistApi
 @Composable
 public fun <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> DeviceGrantSignInScreen(
     onAuthSucceed: () -> Unit,

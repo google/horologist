@@ -34,7 +34,6 @@ import kotlinx.coroutines.CoroutineScope
  *
  * @sample com.google.android.horologist.auth.sample.MainActivity
  */
-@ExperimentalHorologistApi
 public class TokenBundleRepositoryImpl<T>(
     private val registry: WearDataLayerRegistry,
     private val key: String = DEFAULT_TOKEN_BUNDLE_KEY,

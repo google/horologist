@@ -32,7 +32,6 @@ import kotlinx.coroutines.launch
 /**
  * A view model for a Google Sign-In screen.
  */
-@ExperimentalHorologistApi
 public open class GoogleSignInViewModel(
     public val googleSignInClient: GoogleSignInClient,
     private val googleSignInEventListener: GoogleSignInEventListener = GoogleSignInEventListenerNoOpImpl
@@ -85,7 +84,6 @@ public open class GoogleSignInViewModel(
 /**
  * The states for a Google Sign-In screen.
  */
-@ExperimentalHorologistApi
 public sealed class GoogleSignInScreenState {
 
     public object Idle : GoogleSignInScreenState()

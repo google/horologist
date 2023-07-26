@@ -41,7 +41,6 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/select_account_screen.png" height="120" width="120"/>
  */
-@ExperimentalHorologistApi
 @Composable
 public fun SelectAccountScreen(
     accounts: List<AccountUiModel>,

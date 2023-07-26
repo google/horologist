@@ -48,7 +48,6 @@ import com.google.android.horologist.auth.ui.common.logging.TAG
  *
  * [onAuthCancelled] should be used to navigate away from this screen.
  */
-@ExperimentalHorologistApi
 @Composable
 public fun GoogleSignInScreen(
     onAuthCancelled: () -> Unit,
@@ -135,7 +134,6 @@ public fun GoogleSignInScreen(
  * Parameters [onAuthCancelled] and [onAuthSucceed] should be used to navigate away from this screen
  * when these events happen.
  */
-@ExperimentalHorologistApi
 @Composable
 public fun GoogleSignInScreen(
     onAuthCancelled: () -> Unit,

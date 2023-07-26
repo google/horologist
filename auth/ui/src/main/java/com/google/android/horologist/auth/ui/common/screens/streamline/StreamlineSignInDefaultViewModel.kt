@@ -35,7 +35,6 @@ import kotlinx.coroutines.launch
  *
  * @sample com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
  */
-@ExperimentalHorologistApi
 public class StreamlineSignInDefaultViewModel(
     private val authUserRepository: AuthUserRepository
 ) : ViewModel() {
@@ -83,7 +82,6 @@ public class StreamlineSignInDefaultViewModel(
     }
 }
 
-@ExperimentalHorologistApi
 public sealed class StreamlineSignInDefaultScreenState {
 
     public object Idle : StreamlineSignInDefaultScreenState()

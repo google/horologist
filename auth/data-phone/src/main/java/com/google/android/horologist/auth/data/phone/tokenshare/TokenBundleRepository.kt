@@ -23,7 +23,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  *
  * @sample com.google.android.horologist.auth.sample.MainActivity
  */
-@ExperimentalHorologistApi
 public interface TokenBundleRepository<T> {
 
     public suspend fun update(tokenBundle: T)

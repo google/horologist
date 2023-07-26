@@ -33,7 +33,6 @@ import kotlinx.coroutines.launch
  * It checks if there is a user already signed in, and emits the appropriate
  * [states][StreamlineSignInScreenState] through the [uiState] property.
  */
-@ExperimentalHorologistApi
 public open class StreamlineSignInViewModel(
     private val authUserRepository: AuthUserRepository
 ) : ViewModel() {
@@ -79,7 +78,6 @@ public open class StreamlineSignInViewModel(
 /**
  * The states for a streamline sign-in screen.
  */
-@ExperimentalHorologistApi
 public sealed class StreamlineSignInScreenState {
 
     public object Idle : StreamlineSignInScreenState()

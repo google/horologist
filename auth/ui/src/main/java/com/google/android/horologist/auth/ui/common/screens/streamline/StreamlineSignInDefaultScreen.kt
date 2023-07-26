@@ -39,7 +39,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
  *
  * @sample com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
  */
-@ExperimentalHorologistApi
 @Composable
 public fun StreamlineSignInDefaultScreen(
     onSignedInConfirmationDialogDismissOrTimeout: (account: AccountUiModel) -> Unit,

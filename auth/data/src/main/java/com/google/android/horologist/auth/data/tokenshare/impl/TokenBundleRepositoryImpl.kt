@@ -29,7 +29,6 @@ import kotlinx.coroutines.flow.Flow
  * @sample com.google.android.horologist.auth.sample.screens.tokenshare.customkey.TokenShareCustomKeyViewModel
  * @sample com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.TokenShareDefaultKeyViewModel
  */
-@ExperimentalHorologistApi
 public class TokenBundleRepositoryImpl<T>(
     private val registry: WearDataLayerRegistry,
     private val serializer: Serializer<T>,

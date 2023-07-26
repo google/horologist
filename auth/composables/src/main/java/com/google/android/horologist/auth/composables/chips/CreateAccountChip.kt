@@ -37,7 +37,6 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/create_account_chip.png" height="120" width="120" >
  */
-@ExperimentalHorologistApi
 @Composable
 public fun CreateAccountChip(
     onClick: () -> Unit,

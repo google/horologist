@@ -23,7 +23,6 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
 /**
  * Functions to map models from Google Sign In into a [AccountUiModel].
  */
-@ExperimentalHorologistApi
 public object AccountUiModelMapper {
 
     /**

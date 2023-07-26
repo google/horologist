@@ -26,7 +26,6 @@ import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmati
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.CheckYourPhoneScreen
 
-@ExperimentalHorologistApi
 @Composable
 public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
     failedContent: @Composable () -> Unit,
@@ -58,7 +57,6 @@ public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
     }
 }
 
-@ExperimentalHorologistApi
 @Composable
 public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
     onAuthSucceed: () -> Unit,

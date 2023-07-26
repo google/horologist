@@ -50,7 +50,6 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
  *
  * - [onNoAccountsAvailable] should navigate the user to the sign in screen.
  */
-@ExperimentalHorologistApi
 @Composable
 public fun StreamlineSignInScreen(
     onSingleAccountAvailable: (account: AccountUiModel) -> Unit,

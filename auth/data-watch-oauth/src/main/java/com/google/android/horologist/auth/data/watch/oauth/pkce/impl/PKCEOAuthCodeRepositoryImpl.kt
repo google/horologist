@@ -32,7 +32,6 @@ import java.io.IOException
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 
-@ExperimentalHorologistApi
 public class PKCEOAuthCodeRepositoryImpl(
     private val application: Application
 ) : PKCEOAuthCodeRepository<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload> {

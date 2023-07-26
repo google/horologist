@@ -27,7 +27,6 @@ import kotlinx.coroutines.withContext
 /**
  * An implementation of [AuthUserRepository] for the Google Sign-In authentication method.
  */
-@ExperimentalHorologistApi
 public class GoogleSignInAuthUserRepository(
     private val applicationContext: Context
 ) : AuthUserRepository {

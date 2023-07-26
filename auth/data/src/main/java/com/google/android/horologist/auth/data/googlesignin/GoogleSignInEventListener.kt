@@ -24,7 +24,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.signin.GoogleSignInEventListenerSample
  */
-@ExperimentalHorologistApi
 public interface GoogleSignInEventListener {
 
     /**
@@ -38,7 +37,6 @@ public interface GoogleSignInEventListener {
 /**
  * A no-op implementation of [GoogleSignInEventListener].
  */
-@ExperimentalHorologistApi
 public object GoogleSignInEventListenerNoOpImpl : GoogleSignInEventListener {
 
     override suspend fun onSignedIn(account: GoogleSignInAccount): Unit = Unit

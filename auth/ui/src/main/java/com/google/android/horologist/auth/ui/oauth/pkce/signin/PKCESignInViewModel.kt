@@ -30,7 +30,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-@ExperimentalHorologistApi
 public open class PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload>(
     private val pkceConfigRepository: PKCEConfigRepository<PKCEConfig>,
     private val pkceOAuthCodeRepository: PKCEOAuthCodeRepository<PKCEConfig, OAuthCodePayload>,
@@ -80,7 +79,6 @@ public open class PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload
     }
 }
 
-@ExperimentalHorologistApi
 public sealed class PKCEScreenState {
     public object Idle : PKCEScreenState()
     public object Loading : PKCEScreenState()

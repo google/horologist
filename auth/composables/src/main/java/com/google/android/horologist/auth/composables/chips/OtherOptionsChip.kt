@@ -33,7 +33,6 @@ import com.google.android.horologist.compose.material.Chip
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/other_options_chip.png" height="120" width="120" >
  */
-@ExperimentalHorologistApi
 @Composable
 public fun OtherOptionsChip(
     onClick: () -> Unit,

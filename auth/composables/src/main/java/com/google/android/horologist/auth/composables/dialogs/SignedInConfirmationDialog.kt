@@ -59,7 +59,6 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
-@ExperimentalHorologistApi
 @Composable
 public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
@@ -89,7 +88,6 @@ public fun SignedInConfirmationDialog(
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
-@ExperimentalHorologistApi
 @Composable
 public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
@@ -107,7 +105,6 @@ public fun SignedInConfirmationDialog(
     )
 }
 
-@ExperimentalHorologistApi
 @Composable
 internal fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,

@@ -21,7 +21,6 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
-@ExperimentalHorologistApi
 public interface GoogleOAuthService {
 
     // https://developers.google.com/identity/protocols/oauth2/native-app#exchange-authorization-code

@@ -34,7 +34,6 @@ import com.google.android.horologist.compose.material.Chip
  *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
  */
-@ExperimentalHorologistApi
 @Composable
 public fun GuestModeChip(
     onClick: () -> Unit,

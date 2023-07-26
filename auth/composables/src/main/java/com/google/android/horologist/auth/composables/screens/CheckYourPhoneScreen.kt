@@ -50,7 +50,6 @@ private val progressBarStrokeWidth = 4.dp
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/check_your_phone_screen.png"  height="120" width="120"/>
  */
-@ExperimentalHorologistApi
 @Composable
 public fun CheckYourPhoneScreen(
     modifier: Modifier = Modifier
@@ -96,7 +95,6 @@ public fun CheckYourPhoneScreen(
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/check_your_phone_screen_code.png"  height="120" width="120"/>
  */
-@ExperimentalHorologistApi
 @Composable
 public fun CheckYourPhoneScreen(
     modifier: Modifier = Modifier,

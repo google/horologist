@@ -37,7 +37,6 @@ import kotlinx.coroutines.launch
  * @sample com.google.android.horologist.auth.sample.screens.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
  * @sample com.google.android.horologist.auth.sample.screens.oauth.pkce.prompt.PKCESignInPromptScreen
  */
-@ExperimentalHorologistApi
 public open class SignInPromptViewModel(
     private val authUserRepository: AuthUserRepository
 ) : ViewModel() {
@@ -69,7 +68,6 @@ public open class SignInPromptViewModel(
 /**
  * The states for a sign-in prompt screen.
  */
-@ExperimentalHorologistApi
 public sealed class SignInPromptScreenState {
 
     public object Idle : SignInPromptScreenState()

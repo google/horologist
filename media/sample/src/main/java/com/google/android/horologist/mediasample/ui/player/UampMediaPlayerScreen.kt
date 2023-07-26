@@ -20,13 +20,16 @@ import androidx.activity.compose.ReportDrawnAfter
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
-import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
+import com.google.android.horologist.media.ui.components.background.rememberArtworkColor
+import com.google.android.horologist.media.ui.components.background.rememberArtworkColorBrush
 import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
 import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenControlButtons
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
@@ -44,9 +47,23 @@ fun UampMediaPlayerScreen(
 ) {
     val volumeUiState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
     val settingsState by mediaPlayerScreenViewModel.settingsState.collectAsStateWithLifecycle()
+    val playerState by mediaPlayerScreenViewModel.playerUiState.collectAsStateWithLifecycle()
+
+    val artworkColor = rememberArtworkColor(playerState.media?.artworkUri)
+    val background = rememberArtworkColorBrush(artworkColor = artworkColor.value)
 
     PlayerScreen(
-        modifier = modifier,
+        modifier = modifier.drawWithContent {
+            // Clear the circular region so we have transparent pixels to blend against
+            // This enables us to reuse the underlying buffer we are drawing into without
+            // having to consume additional overhead of an offscreen compositing layer
+            drawRect(color = Color.Black, blendMode = BlendMode.Clear)
+
+            drawContent()
+
+            // Draw background in the gaps, to allow for transparent marquee
+            drawRect(background.value, blendMode = BlendMode.DstOver)
+        },
         playerViewModel = mediaPlayerScreenViewModel,
         volumeViewModel = volumeViewModel,
         mediaDisplay = { playerUiState ->
@@ -87,13 +104,6 @@ fun UampMediaPlayerScreen(
                     DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
                 }
             }
-        },
-        background = {
-            val artworkUri = it.media?.artworkUri
-            ArtworkColorBackground(
-                artworkUri = artworkUri,
-                defaultColor = MaterialTheme.colors.primary
-            )
         }
     )
 

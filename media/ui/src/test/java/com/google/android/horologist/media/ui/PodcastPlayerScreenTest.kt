@@ -16,10 +16,6 @@
 
 package com.google.android.horologist.media.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.PlayerUiState
@@ -70,23 +66,21 @@ class PodcastPlayerScreenTest(
         )
 
         screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(modifier = Modifier.background(Color.Black)) {
-                MediaPlayerTestCase(playerUiState = playerUiState, controlButtons = {
-                    PodcastControlButtons(
-                        onPlayButtonClick = { },
-                        onPauseButtonClick = { },
-                        playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                        playing = playerUiState.playing,
-                        trackPositionUiModel = playerUiState.trackPositionUiModel,
-                        onSeekBackButtonClick = { },
-                        seekBackButtonEnabled = playerUiState.seekBackEnabled,
-                        onSeekForwardButtonClick = { },
-                        seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
-                        seekBackButtonIncrement = options.seekBackButtonIncrement,
-                        seekForwardButtonIncrement = options.seekForwardButtonIncrement
-                    )
-                })
-            }
+            MediaPlayerTestCase(playerUiState = playerUiState, controlButtons = {
+                PodcastControlButtons(
+                    onPlayButtonClick = { },
+                    onPauseButtonClick = { },
+                    playPauseButtonEnabled = playerUiState.playPauseEnabled,
+                    playing = playerUiState.playing,
+                    trackPositionUiModel = playerUiState.trackPositionUiModel,
+                    onSeekBackButtonClick = { },
+                    seekBackButtonEnabled = playerUiState.seekBackEnabled,
+                    onSeekForwardButtonClick = { },
+                    seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
+                    seekBackButtonIncrement = options.seekBackButtonIncrement,
+                    seekForwardButtonIncrement = options.seekForwardButtonIncrement
+                )
+            })
         }
     }
 

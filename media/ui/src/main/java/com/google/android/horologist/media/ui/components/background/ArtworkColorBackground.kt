@@ -19,15 +19,16 @@ package com.google.android.horologist.media.ui.components.background
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -38,23 +39,72 @@ import androidx.palette.graphics.Palette
 import androidx.wear.compose.material.MaterialTheme
 import coil.imageLoader
 import coil.request.ImageRequest
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Background using a radial gradient extracted from artwork.
  */
 @Composable
+@ExperimentalHorologistApi
+@Deprecated("Prefer background modifier")
 public fun ArtworkColorBackground(
     artworkUri: Any?,
     modifier: Modifier = Modifier,
-    defaultColor: Color? = null
+    defaultColor: Color? = null,
+    background: Color = MaterialTheme.colors.background
 ) {
+    val artworkColor = rememberArtworkColor(
+        artworkUri = artworkUri,
+        defaultColor = defaultColor ?: Color.Black
+    )
+
+    val radialGradiant = rememberArtworkColorBrush(
+        artworkColor = artworkColor.value,
+        background = background
+    )
+
+    Canvas(modifier = modifier) {
+        drawRect(radialGradiant.value)
+    }
+}
+
+@Composable
+@ExperimentalHorologistApi
+public fun rememberArtworkColorBrush(
+    artworkColor: Color,
+    background: Color = Color.Black
+): State<Brush> {
+    val animatedBackgroundColor = animateColorAsState(
+        targetValue = artworkColor,
+        animationSpec = tween(450, 0, LinearEasing),
+        label = "ColorBackground"
+    )
+
+    return remember {
+        derivedStateOf {
+            Brush.radialGradient(
+                listOf(
+                    animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
+                    background
+                )
+            )
+        }
+    }
+}
+
+@Composable
+@ExperimentalHorologistApi
+public fun rememberArtworkColor(
+    artworkUri: Any?,
+    defaultColor: Color = MaterialTheme.colors.primary
+): State<Color> {
     val context = LocalContext.current
     val imageLoader = context.imageLoader
 
-    var artworkColor by remember { mutableStateOf<Color?>(null) }
+    val artworkColor = remember { mutableStateOf(defaultColor) }
 
     LaunchedEffect(artworkUri) {
-        artworkColor = if (artworkUri != null) {
+        artworkColor.value = if (artworkUri != null) {
             val request =
                 ImageRequest.Builder(context)
                     .data(artworkUri)
@@ -64,14 +114,15 @@ public fun ArtworkColorBackground(
             val palette = result.drawable?.let { Palette.Builder(it.toBitmap()).generate() }
             centerColor(palette)
         } else {
-            null
+            defaultColor
         }
     }
-
-    ColorBackground(color = artworkColor ?: defaultColor, modifier = modifier)
+    return artworkColor
 }
 
 @Composable
+@Deprecated("Prefer background modifier")
+@ExperimentalHorologistApi
 public fun ColorBackground(
     color: Color?,
     modifier: Modifier = Modifier,
@@ -89,7 +140,9 @@ public fun ColorBackground(
             .background(
                 Brush.radialGradient(
                     listOf(
-                        animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
+                        animatedBackgroundColor.value
+                            .copy(alpha = 0.3f)
+                            .compositeOver(background),
                         background
                     )
                 )

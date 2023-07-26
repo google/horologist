@@ -338,7 +338,7 @@ fun DefaultMediaPreview() {
         ) {
             PlayerScreen(
                 modifier = Modifier.drawWithCache {
-                    val background = radialBackgroundBrush(Color.Yellow)
+                    val background = radialBackgroundBrush(Color.Yellow, Color.Black)
                     onDrawWithContent {
                         drawContent()
                         // Components on media player may use transparency, so draw in the gaps

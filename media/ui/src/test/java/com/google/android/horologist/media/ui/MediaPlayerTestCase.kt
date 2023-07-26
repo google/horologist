@@ -101,20 +101,30 @@ fun MediaPlayerTestCase(
                 ) {
                     if (it == 0) {
                         PlayerScreen(
-                            modifier = Modifier.fillMaxSize().drawWithCache {
-                                val background = if (playerUiState.media != null) {
-                                    radialBackgroundBrush(color = colors.primary)
-                                } else {
-                                    null
-                                }
-                                onDrawWithContent {
-                                    drawRect(color = Color.Black, blendMode = BlendMode.Clear)
-                                    drawContent()
-                                    if (background != null) {
-                                        drawRect(background, blendMode = BlendMode.DstOver)
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .drawWithCache {
+                                    val background = if (playerUiState.media != null) {
+                                        radialBackgroundBrush(
+                                            color = colors.primary,
+                                            background = Color.Black
+                                        )
+                                    } else {
+                                        null
                                     }
-                                }
-                            },
+                                    onDrawWithContent {
+                                        if (background != null) {
+                                            drawRect(
+                                                color = Color.Black,
+                                                blendMode = BlendMode.Clear
+                                            )
+                                        }
+                                        drawContent()
+                                        if (background != null) {
+                                            drawRect(background, blendMode = BlendMode.DstOver)
+                                        }
+                                    }
+                                },
                             mediaDisplay = { mediaDisplay() },
                             controlButtons = { controlButtons() },
                             buttons = { buttons() }

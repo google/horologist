@@ -40,7 +40,7 @@ public fun RadialBackground(
 
 public fun radialBackgroundBrush(
     color: Color?,
-    background: Color,
+    background: Color
 ): Brush = Brush.radialGradient(
     listOf(
         (color ?: Color.Black).copy(alpha = 0.5f).compositeOver(background),

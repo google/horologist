@@ -18,7 +18,6 @@ package com.google.android.horologist.auth.data.phone.tokenshare.impl
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository
 import com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl.Companion.DEFAULT_TOKEN_BUNDLE_KEY
 import com.google.android.horologist.data.WearDataLayerRegistry

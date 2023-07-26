@@ -17,7 +17,6 @@
 package com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.google
 
 import android.util.Log
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantVerificationInfoRepository
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.DeviceCodeResponse
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService

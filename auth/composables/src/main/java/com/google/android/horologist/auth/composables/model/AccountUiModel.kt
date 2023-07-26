@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.auth.composables.model
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-
 /**
  * A UI model to represent an account.
  */

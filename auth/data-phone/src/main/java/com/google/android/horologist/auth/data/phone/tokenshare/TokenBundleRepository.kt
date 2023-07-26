@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.auth.data.phone.tokenshare
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-
 /**
  * Repository of a bundle of information, related to auth tokens.
  *

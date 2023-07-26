@@ -18,7 +18,6 @@ package com.google.android.horologist.auth.ui.oauth.devicegrant.signin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantConfigRepository
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenPayloadListener
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenPayloadListenerNoOpImpl

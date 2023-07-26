@@ -17,7 +17,6 @@
 package com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google
 
 import android.net.Uri
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.oauth.pkce.PKCEConfigRepository
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService.Companion.SCOPE_KEY
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_AUTH_ENDPOINT

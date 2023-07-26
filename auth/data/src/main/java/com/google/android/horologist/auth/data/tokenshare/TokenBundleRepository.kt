@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.auth.data.tokenshare
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.flow.Flow
 
 /**

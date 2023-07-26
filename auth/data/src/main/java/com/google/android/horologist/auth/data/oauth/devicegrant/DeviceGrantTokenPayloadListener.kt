@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.auth.data.oauth.devicegrant
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-
 public interface DeviceGrantTokenPayloadListener<TokenPayload> {
 
     public suspend fun onPayloadReceived(payload: TokenPayload): Unit

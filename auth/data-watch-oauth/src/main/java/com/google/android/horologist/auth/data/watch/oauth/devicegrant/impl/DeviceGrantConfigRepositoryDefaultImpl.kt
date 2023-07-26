@@ -19,6 +19,7 @@ package com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantConfigRepository
 
+@ExperimentalHorologistApi
 public class DeviceGrantConfigRepositoryDefaultImpl(
     private val clientId: String,
     private val clientSecret: String

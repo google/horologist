@@ -18,11 +18,13 @@ package com.google.android.horologist.auth.data.oauth.pkce
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
+@ExperimentalHorologistApi
 public interface PKCETokenPayloadListener<TokenPayload> {
 
     public suspend fun onPayloadReceived(payload: TokenPayload): Unit
 }
 
+@ExperimentalHorologistApi
 public class PKCETokenPayloadListenerNoOpImpl<TokenPayload> :
     PKCETokenPayloadListener<TokenPayload> {
 

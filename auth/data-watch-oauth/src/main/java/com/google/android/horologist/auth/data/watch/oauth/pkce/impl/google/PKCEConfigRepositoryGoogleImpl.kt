@@ -24,6 +24,7 @@ import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.ap
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_INFO_PROFILE_SCOPE_VALUE
 import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.PKCEDefaultConfig
 
+@ExperimentalHorologistApi
 public class PKCEConfigRepositoryGoogleImpl(
     private val clientId: String,
     private val clientSecret: String,

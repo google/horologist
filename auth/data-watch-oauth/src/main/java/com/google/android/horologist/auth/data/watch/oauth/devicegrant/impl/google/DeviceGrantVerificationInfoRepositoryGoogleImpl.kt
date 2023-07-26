@@ -26,6 +26,7 @@ import com.google.android.horologist.auth.data.watch.oauth.common.logging.TAG
 import com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.DeviceGrantDefaultConfig
 import kotlinx.coroutines.CancellationException
 
+@ExperimentalHorologistApi
 public class DeviceGrantVerificationInfoRepositoryGoogleImpl(
     private val googleOAuthService: GoogleOAuthService
 ) : DeviceGrantVerificationInfoRepository<DeviceGrantDefaultConfig, DeviceCodeResponse> {

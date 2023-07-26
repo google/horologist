@@ -29,6 +29,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+@ExperimentalHorologistApi
 public open class DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayload, TokenPayload>(
     private val deviceGrantConfigRepository: DeviceGrantConfigRepository<DeviceGrantConfig>,
     private val deviceGrantVerificationInfoRepository: DeviceGrantVerificationInfoRepository<DeviceGrantConfig, VerificationInfoPayload>,
@@ -75,6 +76,7 @@ public open class DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayloa
     }
 }
 
+@ExperimentalHorologistApi
 public sealed class DeviceGrantScreenState {
     public object Idle : DeviceGrantScreenState()
     public object Loading : DeviceGrantScreenState()

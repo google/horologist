@@ -18,6 +18,7 @@ package com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
+@ExperimentalHorologistApi
 public data class PKCEOAuthCodeGooglePayload(
     val code: String,
     val redirectUrl: String

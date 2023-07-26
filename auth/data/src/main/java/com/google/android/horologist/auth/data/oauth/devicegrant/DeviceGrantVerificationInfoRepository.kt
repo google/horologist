@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.auth.data.oauth.devicegrant
 
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
+
 public interface DeviceGrantVerificationInfoRepository<DeviceGrantConfig, VerificationInfo> {
 
     public suspend fun fetch(config: DeviceGrantConfig): Result<VerificationInfo>

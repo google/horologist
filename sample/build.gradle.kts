@@ -148,6 +148,7 @@ dependencies {
 
     implementation(libs.compose.foundation.foundation)
     implementation(libs.compose.material.iconsext)
+    implementation(libs.androidx.splashscreen)
 
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)

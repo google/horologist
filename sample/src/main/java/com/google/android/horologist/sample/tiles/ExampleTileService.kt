@@ -60,7 +60,7 @@ class ExampleTileService : SuspendingTileService() {
     override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
         if (requestParams.currentState.lastClickableId == OpenItemId) {
             // TODO work this out.
-//            val dynamicDataValue: DynamicDataValue<*>? = requestParams.currentState.keyToValueMapping[ItemKey]
+            val dynamicDataValue: DynamicDataValue<*>? = requestParams.currentState.keyToValueMapping[ItemKey]
 //            val itemKey: DynamicDataValue<DynamicInt32> = dynamicDataValue.toDynamicDataValueProto()
             openActivity()
         }
@@ -87,10 +87,14 @@ class ExampleTileService : SuspendingTileService() {
 
     private fun openActivity() {
         TaskStackBuilder.create(this)
-            .addNextIntentWithParentStack(Intent(
-                this,
-                MainActivity::class.java
-            ))
+            .addNextIntentWithParentStack(
+                Intent(
+                    this,
+                    MainActivity::class.java
+                ).apply {
+                    putExtra("android.activity.splashScreenStyle", 1)
+                }
+            )
             .startActivities()
     }
 
@@ -118,11 +122,15 @@ class ExampleTileService : SuspendingTileService() {
 
     private fun openActivityClickable(): Clickable {
         return Clickable.Builder()
-            .setOnClick(LoadAction.Builder()
-                .setRequestState(State.Builder()
-                    .addKeyToValueMapping(ItemKey, DynamicDataValue.fromInt(1))
-                    .build())
-                .build())
+            .setOnClick(
+                LoadAction.Builder()
+                    .setRequestState(
+                        State.Builder()
+                            .addKeyToValueMapping(ItemKey, DynamicDataValue.fromInt(1))
+                            .build()
+                    )
+                    .build()
+            )
             .setId(OpenItemId)
             .build()
     }

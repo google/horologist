@@ -34,7 +34,6 @@ class VolumeScreenThemeTest(
     screenshotTestRuleParams {
         screenTimeText = {}
         testLabel = themeValue.safeName.lowercase()
-        record = ScreenshotTestRule.RecordMode.Repair
     }
 ) {
 

@@ -275,7 +275,7 @@ public class ScreenshotTestRule(
         public val enableA11y: Boolean,
         public val screenTimeText: @Composable () -> Unit,
         public val testLabel: String?,
-        public val record: Boolean
+        public val record: RecordMode
     ) {
 
         public class Builder internal constructor() {
@@ -283,7 +283,7 @@ public class ScreenshotTestRule(
             public var enableA11y: Boolean = false
             public var screenTimeText: @Composable () -> Unit = defaultScreenTimeText()
             public var testLabel: String? = null
-            public var record: Boolean = false
+            public var record: RecordMode = RecordMode.fromProperty(System.getProperty("screenshot.record"))
 
             public fun build(): ScreenshotTestRuleParams {
                 if (enableA11y) {
@@ -297,6 +297,19 @@ public class ScreenshotTestRule(
                     testLabel = testLabel,
                     record = record
                 )
+            }
+        }
+    }
+
+    public enum class RecordMode {
+        Test, Record, Repair;
+
+        public companion object {
+            public fun fromProperty(property: String?): RecordMode = when (property?.lowercase()) {
+                "test", "false" -> Test
+                "record", "true" -> Record
+                "repair" -> Repair
+                else -> Test
             }
         }
     }

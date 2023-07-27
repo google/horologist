@@ -30,21 +30,34 @@ package com.google.android.horologist.screenshots {
     method public inline com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams screenshotTestRuleParams(kotlin.jvm.functions.Function1<? super com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams.Builder,kotlin.Unit> block);
   }
 
+  public enum ScreenshotTestRule.RecordMode {
+    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode[] values();
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode Record;
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode Repair;
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode Test;
+    field public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode.Companion Companion;
+  }
+
+  public static final class ScreenshotTestRule.RecordMode.Companion {
+    method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode fromProperty(String? property);
+  }
+
   public static final class ScreenshotTestRule.ScreenshotTestRuleParams {
-    ctor public ScreenshotTestRule.ScreenshotTestRuleParams(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, boolean record);
+    ctor public ScreenshotTestRule.ScreenshotTestRuleParams(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record);
     method public float component1();
     method public boolean component2();
     method public kotlin.jvm.functions.Function0<kotlin.Unit> component3();
     method public String? component4();
-    method public boolean component5();
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams copy(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, boolean record);
+    method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode component5();
+    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams copy(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record);
     method public boolean getEnableA11y();
-    method public boolean getRecord();
+    method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode getRecord();
     method public kotlin.jvm.functions.Function0<kotlin.Unit> getScreenTimeText();
     method public String? getTestLabel();
     method public float getTolerance();
     property public final boolean enableA11y;
-    property public final boolean record;
+    property public final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record;
     property public final kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText;
     property public final String? testLabel;
     property public final float tolerance;
@@ -53,17 +66,17 @@ package com.google.android.horologist.screenshots {
   public static final class ScreenshotTestRule.ScreenshotTestRuleParams.Builder {
     method public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams build();
     method public boolean getEnableA11y();
-    method public boolean getRecord();
+    method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode getRecord();
     method public kotlin.jvm.functions.Function0<kotlin.Unit> getScreenTimeText();
     method public String? getTestLabel();
     method public float getTolerance();
     method public void setEnableA11y(boolean);
-    method public void setRecord(boolean);
+    method public void setRecord(com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode);
     method public void setScreenTimeText(kotlin.jvm.functions.Function0<kotlin.Unit>);
     method public void setTestLabel(String?);
     method public void setTolerance(float);
     property public final boolean enableA11y;
-    property public final boolean record;
+    property public final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record;
     property public final kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText;
     property public final String? testLabel;
     property public final float tolerance;

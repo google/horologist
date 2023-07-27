@@ -21,6 +21,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,6 +34,7 @@ class VolumeScreenThemeTest(
     screenshotTestRuleParams {
         screenTimeText = {}
         testLabel = themeValue.safeName.lowercase()
+        record = ScreenshotTestRule.RecordMode.Repair
     }
 ) {
 

@@ -17,15 +17,20 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.material.scrollAway
+import com.google.android.horologist.compose.navscaffold.ScalingLazyColumnScrollableState
 import androidx.wear.compose.material.scrollAway as scrollAwayCompose
 
 /**
@@ -113,4 +118,21 @@ public fun Modifier.scrollAway(
         itemIndex = scalingLazyColumnState.initialScrollPosition.index,
         offset = offset
     )
+}
+
+internal fun Modifier.scrollAway(
+    scrollState: State<ScrollableState?>
+): Modifier = composed {
+    when (val state = scrollState.value) {
+        is ScalingLazyColumnScrollableState -> {
+            val offsetDp = with(LocalDensity.current) {
+                state.initialOffsetPx.toDp()
+            }
+            this.scrollAway(state.scalingLazyListState, state.initialIndex, offsetDp)
+        }
+        is ScalingLazyListState -> this.scrollAway(state)
+        is LazyListState -> this.scrollAway(state)
+        is ScrollState -> this.scrollAway(state)
+        else -> this
+    }
 }

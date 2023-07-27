@@ -25,7 +25,6 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.unit.Density
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
@@ -202,49 +201,47 @@ public open class NavScaffoldViewModel(
         public data class On(val position: VignettePosition) : VignetteMode
     }
 
-    fun timeTextScrollableState(): ScrollableState? {
-            return when (timeTextMode) {
-                ScrollAway -> {
-                    when (this.scrollType) {
-                        ScrollType.ScrollState -> {
-                            this.scrollableState as ScrollState
-                        }
+    internal fun timeTextScrollableState(): ScrollableState? {
+        return when (timeTextMode) {
+            ScrollAway -> {
+                when (this.scrollType) {
+                    ScrollType.ScrollState -> {
+                        this.scrollableState as ScrollState
+                    }
 
-                        ScrollType.ScalingLazyColumn -> {
-                            val scalingLazyListState =
-                                this.scrollableState as ScalingLazyListState
+                    ScrollType.ScalingLazyColumn -> {
+                        val scalingLazyListState =
+                            this.scrollableState as ScalingLazyListState
 
-                            ScalingLazyColumnScrollableState(scalingLazyListState, initialIndex ?: 1, initialOffsetPx ?: 0)
-                        }
+                        ScalingLazyColumnScrollableState(scalingLazyListState, initialIndex ?: 1, initialOffsetPx ?: 0)
+                    }
 
-                        ScrollType.LazyList -> {
-                            this.scrollableState as LazyListState
-                        }
+                    ScrollType.LazyList -> {
+                        this.scrollableState as LazyListState
+                    }
 
-                        else -> {
-                            ScrollState(0)
-                        }
+                    else -> {
+                        ScrollState(0)
                     }
                 }
+            }
 
-                TimeTextMode.On -> {
-                    ScrollState(0)
-                }
+            TimeTextMode.On -> {
+                ScrollState(0)
+            }
 
-                else -> {
-                    null
-                }
+            else -> {
+                null
             }
         }
+    }
 }
 
 internal class ScalingLazyColumnScrollableState(
     val scalingLazyListState: ScalingLazyListState,
     val initialIndex: Int,
-    val initialOffsetPx: Int,
-) : ScrollableState by scalingLazyListState {
-
-}
+    val initialOffsetPx: Int
+) : ScrollableState by scalingLazyListState
 
 /**
  * The context items provided to a navigation composable.

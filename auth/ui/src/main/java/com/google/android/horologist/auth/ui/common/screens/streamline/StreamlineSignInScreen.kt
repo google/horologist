@@ -21,7 +21,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 
@@ -50,7 +49,6 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
  *
  * - [onNoAccountsAvailable] should navigate the user to the sign in screen.
  */
-@ExperimentalHorologistApi
 @Composable
 public fun StreamlineSignInScreen(
     onSingleAccountAvailable: (account: AccountUiModel) -> Unit,

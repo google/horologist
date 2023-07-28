@@ -21,7 +21,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SelectAccountScreen
@@ -39,7 +38,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
  *
  * @sample com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
  */
-@ExperimentalHorologistApi
 @Composable
 public fun StreamlineSignInDefaultScreen(
     onSignedInConfirmationDialogDismissOrTimeout: (account: AccountUiModel) -> Unit,

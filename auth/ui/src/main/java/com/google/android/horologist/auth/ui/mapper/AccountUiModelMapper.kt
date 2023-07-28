@@ -16,14 +16,12 @@
 
 package com.google.android.horologist.auth.ui.mapper
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
 
 /**
  * Functions to map models from other layers and / or packages into a [AccountUiModel].
  */
-@ExperimentalHorologistApi
 public object AccountUiModelMapper {
 
     /**

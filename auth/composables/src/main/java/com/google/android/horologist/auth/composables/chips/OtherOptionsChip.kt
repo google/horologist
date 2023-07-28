@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.compose.material.Chip
 
@@ -33,7 +32,6 @@ import com.google.android.horologist.compose.material.Chip
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/other_options_chip.png" height="120" width="120" >
  */
-@ExperimentalHorologistApi
 @Composable
 public fun OtherOptionsChip(
     onClick: () -> Unit,

@@ -27,7 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
@@ -37,7 +36,6 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/create_account_chip.png" height="120" width="120" >
  */
-@ExperimentalHorologistApi
 @Composable
 public fun CreateAccountChip(
     onClick: () -> Unit,

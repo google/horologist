@@ -18,7 +18,6 @@ package com.google.android.horologist.auth.data.phone.tokenshare.impl
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository
 import com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl.Companion.DEFAULT_TOKEN_BUNDLE_KEY
 import com.google.android.horologist.data.WearDataLayerRegistry
@@ -34,7 +33,6 @@ import kotlinx.coroutines.CoroutineScope
  *
  * @sample com.google.android.horologist.auth.sample.MainActivity
  */
-@ExperimentalHorologistApi
 public class TokenBundleRepositoryImpl<T>(
     private val registry: WearDataLayerRegistry,
     private val key: String = DEFAULT_TOKEN_BUNDLE_KEY,

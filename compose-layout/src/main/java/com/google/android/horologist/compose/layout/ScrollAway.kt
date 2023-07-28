@@ -24,6 +24,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -132,6 +133,9 @@ internal fun Modifier.scrollAway(
         is ScalingLazyListState -> this.scrollAway(state)
         is LazyListState -> this.scrollAway(state)
         is ScrollState -> this.scrollAway(state)
-        else -> this
+        null -> this.hidden()
+        else -> this.hidden()
     }
 }
+
+internal fun Modifier.hidden(): Modifier = layout { _, _ -> layout(0, 0) {} }

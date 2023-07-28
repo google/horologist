@@ -25,13 +25,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -48,7 +49,6 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
-import androidx.wear.compose.material.scrollAway
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.composable
@@ -57,6 +57,7 @@ import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.scrollAway
 
 /**
  * A Navigation and Scroll aware [Scaffold].
@@ -88,56 +89,16 @@ public fun WearNavScaffold(
         viewModel(viewModelStoreOwner = it)
     }
 
+    val scrollState: State<ScrollableState?> = remember(viewModel) {
+        derivedStateOf {
+            viewModel?.timeTextScrollableState()
+        }
+    }
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         timeText = {
-            key(currentBackStackEntry?.destination?.route) {
-                when (viewModel?.timeTextMode) {
-                    NavScaffoldViewModel.TimeTextMode.ScrollAway -> {
-                        when (viewModel.scrollType) {
-                            NavScaffoldViewModel.ScrollType.ScrollState -> {
-                                timeText(
-                                    Modifier.scrollAway(viewModel.scrollableState as ScrollState)
-                                )
-                            }
-
-                            NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
-                                val scalingLazyListState =
-                                    viewModel.scrollableState as ScalingLazyListState
-
-                                val offsetDp = with(LocalDensity.current) {
-                                    (viewModel.initialOffsetPx ?: 0).toDp()
-                                }
-
-                                timeText(
-                                    Modifier.scrollAway(
-                                        scalingLazyListState,
-                                        viewModel.initialIndex ?: 1,
-                                        offsetDp
-                                    )
-                                )
-                            }
-
-                            NavScaffoldViewModel.ScrollType.LazyList -> {
-                                timeText(
-                                    Modifier.scrollAway(viewModel.scrollableState as LazyListState)
-                                )
-                            }
-
-                            else -> {
-                                timeText(Modifier)
-                            }
-                        }
-                    }
-
-                    NavScaffoldViewModel.TimeTextMode.On -> {
-                        timeText(Modifier)
-                    }
-
-                    else -> {
-                    }
-                }
-            }
+            timeText(Modifier.scrollAway(scrollState))
         },
         positionIndicator = {
             key(currentBackStackEntry?.destination?.route) {

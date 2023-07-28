@@ -37,6 +37,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.lifecycle.ViewModelProvider
@@ -313,7 +314,7 @@ class NavScaffoldTest {
         viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
         composeTestRule.waitForIdle()
 
-        timeText.assertDoesNotExist()
+        timeText.assertIsNotDisplayed()
         body.assertIsDisplayed()
     }
 }

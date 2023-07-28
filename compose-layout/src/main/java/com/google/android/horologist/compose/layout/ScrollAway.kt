@@ -133,8 +133,10 @@ internal fun Modifier.scrollAway(
         is ScalingLazyListState -> this.scrollAway(state)
         is LazyListState -> this.scrollAway(state)
         is ScrollState -> this.scrollAway(state)
+        // Disabled
         null -> this.hidden()
-        else -> this.hidden()
+        // Enabled but no scroll state
+        else -> this
     }
 }
 

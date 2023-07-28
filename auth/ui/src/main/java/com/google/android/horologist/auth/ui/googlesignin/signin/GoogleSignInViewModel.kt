@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListenerNoOpImpl
@@ -32,7 +31,6 @@ import kotlinx.coroutines.launch
 /**
  * A view model for a Google Sign-In screen.
  */
-@ExperimentalHorologistApi
 public open class GoogleSignInViewModel(
     public val googleSignInClient: GoogleSignInClient,
     private val googleSignInEventListener: GoogleSignInEventListener = GoogleSignInEventListenerNoOpImpl
@@ -85,7 +83,6 @@ public open class GoogleSignInViewModel(
 /**
  * The states for a Google Sign-In screen.
  */
-@ExperimentalHorologistApi
 public sealed class GoogleSignInScreenState {
 
     public object Idle : GoogleSignInScreenState()

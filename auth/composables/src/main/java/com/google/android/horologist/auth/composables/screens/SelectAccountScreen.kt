@@ -26,7 +26,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
@@ -41,7 +40,6 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/select_account_screen.png" height="120" width="120"/>
  */
-@ExperimentalHorologistApi
 @Composable
 public fun SelectAccountScreen(
     accounts: List<AccountUiModel>,

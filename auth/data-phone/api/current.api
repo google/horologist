@@ -8,7 +8,7 @@ package com.google.android.horologist.auth.data.phone.common {
 
 package com.google.android.horologist.auth.data.phone.tokenshare {
 
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface TokenBundleRepository<T> {
+  public interface TokenBundleRepository<T> {
     method public suspend Object? isAvailable(kotlin.coroutines.Continuation<? super java.lang.Boolean>);
     method public suspend Object? update(T? tokenBundle, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
@@ -17,7 +17,7 @@ package com.google.android.horologist.auth.data.phone.tokenshare {
 
 package com.google.android.horologist.auth.data.phone.tokenshare.impl {
 
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class TokenBundleRepositoryImpl<T> implements com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository<T> {
+  public final class TokenBundleRepositoryImpl<T> implements com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository<T> {
     ctor public TokenBundleRepositoryImpl(com.google.android.horologist.data.WearDataLayerRegistry registry, optional String key, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<T> serializer);
     method public suspend Object? isAvailable(kotlin.coroutines.Continuation<? super java.lang.Boolean>);
     method public suspend Object? update(T? tokenBundle, kotlin.coroutines.Continuation<? super kotlin.Unit>);

@@ -27,14 +27,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 
 /**
  * A catch all error screen to be displayed to users when an error occurred during authentication
  * and no additional context can be given.
  */
-@ExperimentalHorologistApi
 @Composable
 public fun AuthErrorScreen(
     modifier: Modifier = Modifier

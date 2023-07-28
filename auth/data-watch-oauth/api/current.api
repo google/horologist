@@ -18,7 +18,7 @@ package com.google.android.horologist.auth.data.watch.oauth.common.impl.google.a
     property public final String verificationUri;
   }
 
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface GoogleOAuthService {
+  public interface GoogleOAuthService {
     method @retrofit2.http.FormUrlEncoded @retrofit2.http.POST("device/code") public suspend Object? deviceCode(@retrofit2.http.Field("client_id") String clientId, @retrofit2.http.Field("scope") String scope, kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.DeviceCodeResponse>);
     method @retrofit2.http.FormUrlEncoded @retrofit2.http.POST("token") public suspend Object? token(@retrofit2.http.Field("client_id") String clientId, @retrofit2.http.Field("client_secret") String clientSecret, optional @retrofit2.http.Field("code") String? code, optional @retrofit2.http.Field("code_verifier") String? codeVerifier, optional @retrofit2.http.Field("grant_type") String? grantType, optional @retrofit2.http.Field("redirect_uri") String? redirectUri, optional @retrofit2.http.Field("device_code") String? deviceCode, optional kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.TokenResponse>);
     field public static final com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService.Companion Companion;
@@ -39,7 +39,7 @@ package com.google.android.horologist.auth.data.watch.oauth.common.impl.google.a
     field public static final String USER_INFO_PROFILE_SCOPE_VALUE = "https://www.googleapis.com/auth/userinfo.profile";
   }
 
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class GoogleOAuthServiceFactory {
+  public final class GoogleOAuthServiceFactory {
     ctor public GoogleOAuthServiceFactory(okhttp3.OkHttpClient okHttpClient, com.squareup.moshi.Moshi moshi);
     method public com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthService get();
   }

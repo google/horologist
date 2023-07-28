@@ -18,7 +18,6 @@ package com.google.android.horologist.auth.ui.common.screens.streamline
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ext.compareAndSet
@@ -35,7 +34,6 @@ import kotlinx.coroutines.launch
  *
  * @sample com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
  */
-@ExperimentalHorologistApi
 public class StreamlineSignInDefaultViewModel(
     private val authUserRepository: AuthUserRepository
 ) : ViewModel() {
@@ -83,7 +81,6 @@ public class StreamlineSignInDefaultViewModel(
     }
 }
 
-@ExperimentalHorologistApi
 public sealed class StreamlineSignInDefaultScreenState {
 
     public object Idle : StreamlineSignInDefaultScreenState()

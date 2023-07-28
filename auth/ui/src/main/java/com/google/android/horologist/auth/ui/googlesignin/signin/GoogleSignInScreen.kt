@@ -37,7 +37,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes.SIGN_IN_CANCELLED
 import com.google.android.gms.common.api.ApiException
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
@@ -48,7 +47,6 @@ import com.google.android.horologist.auth.ui.common.logging.TAG
  *
  * [onAuthCancelled] should be used to navigate away from this screen.
  */
-@ExperimentalHorologistApi
 @Composable
 public fun GoogleSignInScreen(
     onAuthCancelled: () -> Unit,
@@ -135,7 +133,6 @@ public fun GoogleSignInScreen(
  * Parameters [onAuthCancelled] and [onAuthSucceed] should be used to navigate away from this screen
  * when these events happen.
  */
-@ExperimentalHorologistApi
 @Composable
 public fun GoogleSignInScreen(
     onAuthCancelled: () -> Unit,

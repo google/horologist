@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -54,8 +54,15 @@ public fun AnimatedMediaControlButtons(
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     rotateProgressIndicator: Flow<Unit> = flowOf()
 ) {
-    ControlButtonLayout(
+    ControlButtons(
+        onPlayButtonClick = onPlayButtonClick,
+        onPauseButtonClick = onPauseButtonClick,
+        playPauseButtonEnabled = playPauseButtonEnabled,
+        playing = playing,
         modifier = modifier,
+        trackPositionUiModel = trackPositionUiModel,
+        progressColor = progressColor,
+        rotateProgressIndicator = rotateProgressIndicator,
         leftButton = {
             AnimatedSeekToPreviousButton(
                 onClick = onSeekToPreviousButtonClick,
@@ -63,6 +70,37 @@ public fun AnimatedMediaControlButtons(
                 colors = colors
             )
         },
+        rightButton = {
+            AnimatedSeekToNextButton(
+                onClick = onSeekToNextButtonClick,
+                enabled = seekToNextButtonEnabled,
+                colors = colors
+            )
+        }
+    )
+}
+
+/**
+ * Standard and custom action media control buttons, showing [CustomActionMediaButton],
+ * [SeekToPreviousButton], [PlayPauseProgressButton] and [SeekToNextButton] on available slots.
+ */
+@Composable
+public fun ControlButtons(
+    onPlayButtonClick: () -> Unit,
+    onPauseButtonClick: () -> Unit,
+    playPauseButtonEnabled: Boolean,
+    playing: Boolean,
+    modifier: Modifier = Modifier,
+    trackPositionUiModel: TrackPositionUiModel,
+    progressColor: Color = MaterialTheme.colors.primary,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    rotateProgressIndicator: Flow<Unit> = flowOf(),
+    leftButton: @Composable () -> Unit,
+    rightButton: @Composable () -> Unit
+) {
+    ControlButtonLayout(
+        modifier = modifier,
+        leftButton = leftButton,
         middleButton = {
             if (trackPositionUiModel.showProgress) {
                 AnimatedPlayPauseProgressButton(
@@ -87,12 +125,6 @@ public fun AnimatedMediaControlButtons(
                 )
             }
         },
-        rightButton = {
-            AnimatedSeekToNextButton(
-                onClick = onSeekToNextButtonClick,
-                enabled = seekToNextButtonEnabled,
-                colors = colors
-            )
-        }
+        rightButton = rightButton
     )
 }

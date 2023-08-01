@@ -16,18 +16,38 @@
 
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.wear.compose.material.ButtonColors
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
+import coil.compose.AsyncImage
 
 /** A base button for custom action media controls. */
 @Composable
 public fun CustomActionMediaButton(
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     contentDescription: String?,
     iconUri: String?,
-)
+    colors: Color,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier.size(tapTargetSize),
+        enabled = enabled,
+        colors = ButtonDefaults.iconButtonColors()
+    ) {
+        AsyncImage(
+            model = iconUri,
+            contentDescription = contentDescription,
+            colorFilter = ColorFilter.tint(colors)
+        )
+    }
+}

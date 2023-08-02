@@ -45,8 +45,8 @@ import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.TouchExplorationStateProvider
 import com.google.android.horologist.composables.DefaultTouchExplorationStateProvider
-import kotlin.math.roundToInt
 import kotlinx.coroutines.coroutineScope
+import kotlin.math.roundToInt
 
 /**
  * This is a private copy of androidx.wear.compose.material.PickerGroup
@@ -199,7 +199,7 @@ internal fun rememberPickerGroupState(
  * @param initiallySelectedIndex the picker index that will be initially selected
  */
 internal class PickerGroupState constructor(
-    initiallySelectedIndex: Int = 0,
+    initiallySelectedIndex: Int = 0
 ) {
 
     /**

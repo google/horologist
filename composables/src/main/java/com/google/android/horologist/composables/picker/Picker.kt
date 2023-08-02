@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.composables.picker
 
+import androidx.annotation.FloatRange
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.DecayAnimationSpec
 import androidx.compose.animation.core.Easing
@@ -60,12 +61,12 @@ import androidx.compose.ui.semantics.scrollToIndex
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.foundation.lazy.AutoCenteringParams
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
+import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.foundation.lazy.ScalingParams
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.foundation.lazy.AutoCenteringParams as AutoCenteringParams
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumn as ScalingLazyColumn
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults as ScalingLazyColumnDefaults
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState as ScalingLazyListState
-import androidx.wear.compose.foundation.lazy.ScalingParams as ScalingParams
 import kotlinx.coroutines.launch
 
 /**
@@ -126,8 +127,7 @@ internal fun Picker(
     onSelected: () -> Unit = {},
     scalingParams: ScalingParams = PickerDefaults.defaultScalingParams(),
     separation: Dp = 0.dp,
-    /* @FloatRange(from = 0.0, to = 0.5) */
-    gradientRatio: Float = PickerDefaults.DefaultGradientRatio,
+    @FloatRange(from = 0.0, to = 0.5) gradientRatio: Float = PickerDefaults.DefaultGradientRatio,
     gradientColor: Color = MaterialTheme.colors.background,
     flingBehavior: FlingBehavior = PickerDefaults.flingBehavior(state),
     userScrollEnabled: Boolean = true,
@@ -139,67 +139,68 @@ internal fun Picker(
     val coroutineScope = rememberCoroutineScope()
     Box(modifier = modifier) {
         ScalingLazyColumn(
-            modifier = Modifier.clearAndSetSemantics {
-                onClick {
-                    coroutineScope.launch {
-                        onSelected()
-                    }
-                    true
-                }
-                scrollToIndex {
-                    coroutineScope.launch {
-                        state.scrollToOption(it)
-                        onSelected()
-                    }
-                    true
-                }
-                if (!state.isScrollInProgress && contentDescription != null) {
-                    this.contentDescription = contentDescription
-                }
-                focused = !readOnly
-            }.then(
-                if (!readOnly && gradientRatio > 0.0f) {
-                    Modifier
-                        .drawWithContent {
-                            drawContent()
-                            drawGradient(gradientColor, gradientRatio)
+            modifier = Modifier
+                .clearAndSetSemantics {
+                    onClick {
+                        coroutineScope.launch {
+                            onSelected()
                         }
-                        // b/223386180 - add padding when drawing rectangles to
-                        // prevent jitter on screen.
-                        .padding(vertical = 1.dp)
-                        .align(Alignment.Center)
-                } else if (readOnly) {
-                    Modifier
-                        .drawWithContent {
-                            drawContent()
-                            val visibleItems =
-                                state.scalingLazyListState.layoutInfo.visibleItemsInfo
-                            if (visibleItems.isNotEmpty()) {
-                                val centerItem =
-                                    visibleItems.find { info ->
+                        true
+                    }
+                    scrollToIndex {
+                        coroutineScope.launch {
+                            state.scrollToOption(it)
+                            onSelected()
+                        }
+                        true
+                    }
+                    if (!state.isScrollInProgress && contentDescription != null) {
+                        this.contentDescription = contentDescription
+                    }
+                    focused = !readOnly
+                }
+                .then(
+                    if (!readOnly && gradientRatio > 0.0f) {
+                        Modifier
+                            .drawWithContent {
+                                drawContent()
+                                drawGradient(gradientColor, gradientRatio)
+                            }
+                            // b/223386180 - add padding when drawing rectangles to
+                            // prevent jitter on screen.
+                            .padding(vertical = 1.dp)
+                            .align(Alignment.Center)
+                    } else if (readOnly) {
+                        Modifier
+                            .drawWithContent {
+                                drawContent()
+                                val visibleItems = state.scalingLazyListState.layoutInfo.visibleItemsInfo
+                                if (visibleItems.isNotEmpty()) {
+                                    val centerItem = visibleItems.find { info ->
                                         info.index == state.scalingLazyListState.centerItemIndex
                                     } ?: visibleItems[visibleItems.size / 2]
-                                val shimHeight =
-                                    (size.height - centerItem.unadjustedSize.toFloat() -
-                                        separation.toPx()) / 2.0f
-                                drawShim(gradientColor, shimHeight)
+                                    val shimHeight =
+                                        (size.height - centerItem.unadjustedSize.toFloat() - separation.toPx()) / 2.0f
+                                    drawShim(gradientColor, shimHeight)
+                                }
                             }
-                        }
-                        // b/223386180 - add padding when drawing rectangles to
-                        // prevent jitter on screen.
-                        .padding(vertical = 1.dp)
-                        .align(Alignment.Center)
-                } else {
-                    Modifier.align(Alignment.Center)
-                }
-            ),
+                            // b/223386180 - add padding when drawing rectangles to
+                            // prevent jitter on screen.
+                            .padding(vertical = 1.dp)
+                            .align(Alignment.Center)
+                    } else {
+                        Modifier.align(Alignment.Center)
+                    }
+                ),
             state = state.scalingLazyListState,
             content = {
                 items(state.numberOfItems()) { ix ->
                     with(pickerScope) {
-                        Box(Modifier.graphicsLayer {
-                            compositingStrategy = CompositingStrategy.Offscreen
-                        }) {
+                        Box(
+                            Modifier.graphicsLayer {
+                                compositingStrategy = CompositingStrategy.Offscreen
+                            }
+                        ) {
                             option((ix + state.optionsOffset) % state.numberOfOptions)
                         }
                     }
@@ -237,9 +238,8 @@ internal fun Picker(
 
 @Suppress("DEPRECATION")
 @Deprecated(
-    "This overload is provided for backwards compatibility with Compose for Wear OS 1.1." +
-        "A newer overload is available which uses ScalingParams from " +
-        "androidx.wear.compose.foundation.lazy package", level = DeprecationLevel.HIDDEN
+    "This overload is provided for backwards compatibility with Compose for Wear OS 1.1." + "A newer overload is available which uses ScalingParams from " + "androidx.wear.compose.foundation.lazy package",
+    level = DeprecationLevel.HIDDEN
 )
 @Composable
 internal fun Picker(
@@ -251,8 +251,7 @@ internal fun Picker(
     onSelected: () -> Unit = {},
     scalingParams: androidx.wear.compose.material.ScalingParams = PickerDefaults.scalingParams(),
     separation: Dp = 0.dp,
-    /* @FloatRange(from = 0.0, to = 0.5) */
-    gradientRatio: Float = PickerDefaults.DefaultGradientRatio,
+    @FloatRange(from = 0.0, to = 0.5) gradientRatio: Float = PickerDefaults.DefaultGradientRatio,
     gradientColor: Color = MaterialTheme.colors.background,
     flingBehavior: FlingBehavior = PickerDefaults.flingBehavior(state),
     userScrollEnabled: Boolean = true,
@@ -315,9 +314,10 @@ internal fun Picker(
  * align with the centrally selected Picker value.
  */
 @Suppress("DEPRECATION")
-@Deprecated("This overload is provided for backwards compatibility with Compose for Wear OS 1.1." +
-    "A newer overload is available with additional userScrollEnabled parameter which improves " +
-    "accessibility of [Picker].", level = DeprecationLevel.HIDDEN)
+@Deprecated(
+    "This overload is provided for backwards compatibility with Compose for Wear OS 1.1." + "A newer overload is available with additional userScrollEnabled parameter which improves " + "accessibility of [Picker].",
+    level = DeprecationLevel.HIDDEN
+)
 @Composable
 internal fun Picker(
     state: PickerState,
@@ -328,8 +328,7 @@ internal fun Picker(
     onSelected: () -> Unit = {},
     scalingParams: androidx.wear.compose.material.ScalingParams = PickerDefaults.scalingParams(),
     separation: Dp = 0.dp,
-    /* @FloatRange(from = 0.0, to = 0.5) */
-    gradientRatio: Float = PickerDefaults.DefaultGradientRatio,
+    @FloatRange(from = 0.0, to = 0.5) gradientRatio: Float = PickerDefaults.DefaultGradientRatio,
     gradientColor: Color = MaterialTheme.colors.background,
     flingBehavior: FlingBehavior = PickerDefaults.flingBehavior(state),
     option: @Composable PickerScope.(optionIndex: Int) -> Unit
@@ -384,9 +383,9 @@ internal fun Picker(
  * align with the centrally selected Picker value.
  */
 @Suppress("DEPRECATION")
-@Deprecated("This overload is provided for backwards compatibility with Compose for Wear OS 1.0." +
-    "A newer overload is available with additional contentDescription, onSelected and " +
-    "userScrollEnabled parameters, which improves accessibility of [Picker].")
+@Deprecated(
+    "This overload is provided for backwards compatibility with Compose for Wear OS 1.0." + "A newer overload is available with additional contentDescription, onSelected and " + "userScrollEnabled parameters, which improves accessibility of [Picker]."
+)
 @Composable
 internal fun Picker(
     state: PickerState,
@@ -395,8 +394,7 @@ internal fun Picker(
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
     scalingParams: androidx.wear.compose.material.ScalingParams = PickerDefaults.scalingParams(),
     separation: Dp = 0.dp,
-    /* @FloatRange(from = 0.0, to = 0.5) */
-    gradientRatio: Float = PickerDefaults.DefaultGradientRatio,
+    @FloatRange(from = 0.0, to = 0.5) gradientRatio: Float = PickerDefaults.DefaultGradientRatio,
     gradientColor: Color = MaterialTheme.colors.background,
     flingBehavior: FlingBehavior = PickerDefaults.flingBehavior(state),
     option: @Composable PickerScope.(optionIndex: Int) -> Unit
@@ -483,8 +481,7 @@ internal fun rememberPickerState(
  * @param repeatItems if true (the default), the contents of the component will be repeated
  */
 @Stable
-internal class PickerState constructor(
-    /*@IntRange(from = 1)*/
+internal class PickerState constructor(/*@IntRange(from = 1)*/
     initialNumberOfOptions: Int,
     initiallySelectedOption: Int = 0,
     val repeatItems: Boolean = true
@@ -502,8 +499,7 @@ internal class PickerState constructor(
             // We need to maintain the mapping between the currently selected item and the
             // currently selected option.
             optionsOffset = positiveModulo(
-                selectedOption.coerceAtMost(newNumberOfOptions - 1) -
-                    scalingLazyListState.centerItemIndex,
+                selectedOption.coerceAtMost(newNumberOfOptions - 1) - scalingLazyListState.centerItemIndex,
                 newNumberOfOptions
             )
             _numberOfOptions = newNumberOfOptions
@@ -573,22 +569,19 @@ internal class PickerState constructor(
         /**
          * The default [Saver] implementation for [PickerState].
          */
-        val Saver = listSaver<PickerState, Any?>(
-            save = {
-                listOf(
-                    it.numberOfOptions,
-                    it.selectedOption,
-                    it.repeatItems
-                )
-            },
-            restore = { saved ->
+        val Saver = listSaver<PickerState, Any?>(save = {
+            listOf(
+                it.numberOfOptions,
+                it.selectedOption,
+                it.repeatItems
+            )
+        }, restore = { saved ->
                 PickerState(
                     initialNumberOfOptions = saved[0] as Int,
                     initiallySelectedOption = saved[1] as Int,
                     repeatItems = saved[2] as Boolean
                 )
-            }
-        )
+            })
     }
 
     public override suspend fun scroll(

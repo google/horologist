@@ -26,11 +26,11 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performRotaryScrollInput
-import androidx.wear.compose.material.Picker
-import androidx.wear.compose.material.PickerScope
-import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberPickerState
+import com.google.android.horologist.composables.picker.Picker
+import com.google.android.horologist.composables.picker.PickerScope
+import com.google.android.horologist.composables.picker.PickerState
+import com.google.android.horologist.composables.picker.rememberPickerState
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test

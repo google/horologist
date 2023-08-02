@@ -63,7 +63,7 @@ public fun PlaceholderChip(
 
     Chip(
         modifier = modifier
-            .height(52.dp) // ChipDefaults.Height
+            .height(ChipDefaults.Height)
             .fillMaxWidth()
             .clip(shape = MaterialTheme.shapes.small)
             .paint(

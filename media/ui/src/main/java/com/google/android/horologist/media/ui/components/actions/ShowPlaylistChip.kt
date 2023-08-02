@@ -17,16 +17,13 @@
 package com.google.android.horologist.media.ui.components.actions
 
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.media.ui.components.MediaArtwork
 
 /**
@@ -53,15 +50,10 @@ public fun ShowPlaylistChip(
     }
 
     Chip(
-        modifier = modifier.fillMaxWidth(),
-        colors = ChipDefaults.secondaryChipColors(),
+        label = name.orEmpty(),
+        onClick = onClick,
+        modifier = modifier,
         icon = appIcon,
-        label = {
-            Text(
-                text = name.orEmpty(),
-                overflow = TextOverflow.Ellipsis
-            )
-        },
-        onClick = onClick
+        colors = ChipDefaults.secondaryChipColors()
     )
 }

@@ -175,10 +175,11 @@ public fun Modifier.rotaryWithScroll(
 public fun Modifier.rotaryWithSnap(
     focusRequester: FocusRequester,
     rotaryScrollAdapter: RotaryScrollAdapter,
+    snapParameters: SnapParameters = RotaryDefaults.snapParametersDefault(),
     rotaryHaptics: RotaryHapticHandler = rememberRotaryHapticHandler(rotaryScrollAdapter.scrollableState),
     reverseDirection: Boolean = false
 ): Modifier = rotaryHandler(
-    rotaryScrollHandler = RotaryDefaults.rememberSnapHandler(rotaryScrollAdapter),
+    rotaryScrollHandler = RotaryDefaults.rememberSnapHandler(rotaryScrollAdapter, snapParameters),
     reverseDirection = reverseDirection,
     rotaryHaptics = rotaryHaptics
 )
@@ -311,6 +312,7 @@ public object RotaryDefaults {
     ): RotaryScrollHandler {
         return remember(rotaryScrollAdapter, snapParameters) {
             RotaryScrollSnapHandler(
+                snapParameters = snapParameters,
                 snapBehaviourFactory = {
                     DefaultSnapBehavior(rotaryScrollAdapter, snapParameters)
                 },
@@ -323,7 +325,12 @@ public object RotaryDefaults {
      * Returns default [SnapParameters]
      */
     @ExperimentalHorologistApi
-    public fun snapParametersDefault(): SnapParameters = SnapParameters(snapOffset = 0)
+    public fun snapParametersDefault(): SnapParameters =
+        SnapParameters(
+            snapOffset = 0,
+            thresholdDivider = 2.5f,
+            resistanceFactor = 2.5f
+        )
 
     /**
      * Returns whether the input is Low-res (a bezel) or high-res(a crown/rsb).
@@ -343,7 +350,11 @@ public object RotaryDefaults {
  * @param snapOffset an optional offset to be applied when snapping the item. After the snap the
  * snapped items offset will be [snapOffset].
  */
-public class SnapParameters(public val snapOffset: Int) {
+public class SnapParameters(
+    public val snapOffset: Int,
+    public val thresholdDivider: Float,
+    public val resistanceFactor: Float
+) {
     /**
      * Returns a snapping offset in [Dp]
      */
@@ -608,12 +619,8 @@ public class DefaultSnapBehavior(
     }
 
     @ExperimentalHorologistApi
-    override fun snapThreshold(duringSnap: Boolean): Float {
-        val averageSize = rotaryScrollAdapter.averageItemSize()
-        // it just looks better if it takes more scroll to trigger a snap second time.
-        return (if (duringSnap) averageSize * 0.7f else averageSize * 0.3f)
-            .coerceIn(50f..400f) // 30 percent of the average height
-    }
+    override fun snapThreshold(duringSnap: Boolean): Float =
+        rotaryScrollAdapter.averageItemSize() / snapParameters.thresholdDivider
 
     private suspend fun snapToClosestItem() {
         // Snapping to the closest item by using performFling method with 0 speed
@@ -977,6 +984,7 @@ internal class LowResRotaryScrollHandler(
  * This scroll handler doesn't support fling.
  */
 internal class RotaryScrollSnapHandler(
+    private val snapParameters: SnapParameters,
     val snapBehaviourFactory: () -> RotarySnapBehavior,
     val scrollBehaviourFactory: () -> RotaryScrollBehavior
 ) : RotaryScrollHandler {
@@ -988,6 +996,7 @@ internal class RotaryScrollSnapHandler(
     var snapJob: Job = CompletableDeferred<Unit>()
 
     var previousScrollEventTime = 0L
+    private var snapAccumulator = 0f
     var rotaryScrollDistance = 0f
     var scrollInProgress = false
 
@@ -1007,26 +1016,26 @@ internal class RotaryScrollSnapHandler(
             snapJob.cancel()
             snapBehaviour = snapBehaviourFactory()
             scrollBehaviour = scrollBehaviourFactory()
-            rotaryScrollDistance = event.delta
-        } else {
-            // Filter out opposite axis values from end of scroll, also some values
-            // at the start of motion which sometimes appear with a different sign
-            if (isOppositeValueAfterScroll(event.delta)) {
-                debugLog { "Opposite value after scroll. Filtering:${event.delta}" }
-                return
-            }
+            snapAccumulator = 0f
+            rotaryScrollDistance = 0f
+        }
+
+        snapAccumulator += event.delta
+        if (!snapJob.isActive) {
             rotaryScrollDistance += event.delta
         }
+
+        debugLog { "Snap accumulator: $snapAccumulator" }
         debugLog { "Rotary scroll distance: $rotaryScrollDistance" }
         previousScrollEventTime = time
 
-        if (abs(rotaryScrollDistance) > snapBehaviour.snapThreshold(snapJob.isActive)) {
+        if (abs(snapAccumulator) > snapBehaviour.snapThreshold(snapJob.isActive)) {
             debugLog { "Snap threshold reached" }
             scrollInProgress = false
             scrollBehaviour = scrollBehaviourFactory()
             scrollJob.cancel()
 
-            val snapDistance = sign(rotaryScrollDistance).toInt()
+            val snapDistance = sign(snapAccumulator).toInt()
             rotaryHaptics.handleSnapHaptic(event.delta)
 
             val sequentialSnap = snapJob.isActive
@@ -1046,17 +1055,24 @@ internal class RotaryScrollSnapHandler(
                     }
                 }
             }
+            snapAccumulator = 0f
             rotaryScrollDistance = 0f
         } else {
             if (!snapJob.isActive) {
                 scrollJob.cancel()
-                debugLog { "Scrolling for ${event.delta} px" }
+                debugLog {
+                    "Scrolling for $rotaryScrollDistance/${snapParameters.resistanceFactor} px"
+                }
                 scrollJob = coroutineScope.async {
-                    scrollBehaviour.handleEvent(rotaryScrollDistance)
+                    scrollBehaviour.handleEvent(
+                        rotaryScrollDistance / snapParameters.resistanceFactor
+                    )
                 }
                 delay(snapDelay)
                 scrollInProgress = false
                 scrollBehaviour = scrollBehaviourFactory()
+                rotaryScrollDistance = 0f
+                snapAccumulator = 0f
                 snapBehaviour.prepareSnapForItems(0, false)
                 snapBehaviour.startSnappingSession(true)
             }

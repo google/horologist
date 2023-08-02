@@ -200,11 +200,11 @@ public fun Chip(
         }
 
     val contentPadding = if (largeIcon) {
-        val verticalPadding = 6.dp // same as ChipDefaults.ChipVerticalPadding
+        val verticalPadding = ChipDefaults.ChipVerticalPadding
         PaddingValues(
             start = 10.dp,
             top = verticalPadding,
-            end = 14.dp, // same as ChipDefaults.ChipHorizontalPadding
+            end = ChipDefaults.ChipHorizontalPadding,
             bottom = verticalPadding
         )
     } else {

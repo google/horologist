@@ -27,9 +27,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.SwipeToDismissBoxState
+import androidx.wear.compose.foundation.SwipeToDismissBoxState
+import androidx.wear.compose.foundation.edgeSwipeToDismiss
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.edgeSwipeToDismiss
 import com.google.android.horologist.compose.pager.PagerScreen
 
 @Composable

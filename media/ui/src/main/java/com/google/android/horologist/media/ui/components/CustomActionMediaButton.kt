@@ -40,7 +40,7 @@ public fun CustomActionMediaButton(
     colors: Color,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp)
 ) {
     Button(
         onClick = onClick,

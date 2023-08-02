@@ -104,6 +104,7 @@ dependencies {
     implementation(libs.wearcompose.foundation)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
+    implementation(libs.compose.ui.util)
     implementation(libs.androidx.corektx)
 
     implementation(libs.compose.ui.toolingpreview)

@@ -32,11 +32,11 @@ internal class PickerRotaryScrollAdapter(
 ) : RotaryScrollAdapter {
 
     /**
-     * Returns a height of a centered item, as all items in picker have the same height.
+     * Returns a height of a first item, as all items in picker have the same height.
      */
     override fun averageItemSize(): Float =
         scrollableState.scalingLazyListState
-            .layoutInfo.visibleItemsInfo[currentItemIndex()].size.toFloat()
+            .layoutInfo.visibleItemsInfo.first().unadjustedSize.toFloat()
 
     /**
      * Current (centred) item index

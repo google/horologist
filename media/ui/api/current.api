@@ -44,6 +44,10 @@ package com.google.android.horologist.media.ui.components {
     method @androidx.compose.runtime.Composable public static void ControlButtonLayout(kotlin.jvm.functions.Function0<kotlin.Unit> leftButton, kotlin.jvm.functions.Function0<kotlin.Unit> middleButton, kotlin.jvm.functions.Function0<kotlin.Unit> rightButton, optional androidx.compose.ui.Modifier modifier);
   }
 
+  public final class CustomActionMediaButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CustomActionMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, String contentDescription, String iconUri, long colors, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional long tapTargetSize);
+  }
+
   public final class EntityButtonKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void EntityButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector icon, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
   }
@@ -96,6 +100,7 @@ package com.google.android.horologist.media.ui.components.animated {
 
   public final class AnimatedMediaControlButtonsKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void AnimatedMediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToPreviousButtonClick, boolean seekToPreviousButtonEnabled, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToNextButtonClick, boolean seekToNextButtonEnabled, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel trackPositionUiModel, optional long progressColor, optional androidx.wear.compose.material.ButtonColors colors, optional kotlinx.coroutines.flow.Flow<kotlin.Unit> rotateProgressIndicator);
+    method @androidx.compose.runtime.Composable public static void AnimatedMediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, kotlin.jvm.functions.Function0<kotlin.Unit> leftButton, kotlin.jvm.functions.Function0<kotlin.Unit> rightButton, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel trackPositionUiModel, optional long progressColor, optional androidx.wear.compose.material.ButtonColors colors, optional kotlinx.coroutines.flow.Flow<kotlin.Unit> rotateProgressIndicator);
   }
 
   public final class AnimatedMediaInfoDisplayKt {

@@ -36,7 +36,7 @@ internal class PickerRotaryScrollAdapter(
      */
     override fun averageItemSize(): Float =
         scrollableState.scalingLazyListState
-            .layoutInfo.visibleItemsInfo[0].unadjustedSize.toFloat()
+            .layoutInfo.visibleItemsInfo.first().unadjustedSize.toFloat()
 
     /**
      * Current (centred) item index

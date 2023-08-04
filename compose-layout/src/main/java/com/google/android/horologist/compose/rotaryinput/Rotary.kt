@@ -541,15 +541,6 @@ public interface RotarySnapBehavior {
      */
     @ExperimentalHorologistApi
     public suspend fun startSnappingSession(toClosestItem: Boolean)
-
-    /**
-     * A threshold after which snapping happens.
-     * There can be 2 thresholds - before snap and during snap (while snap is happening ).
-     * During-snap threshold is usually longer than before-snap so that
-     * the list will not scroll too fast.
-     */
-    @ExperimentalHorologistApi
-    public fun snapThreshold(thresholdDividerMultiplier: Float, duringSnap: Boolean): Float
 }
 
 /**
@@ -627,10 +618,6 @@ public class DefaultSnapBehavior(
             snapToAnotherItem()
         }
     }
-
-    @ExperimentalHorologistApi
-    override fun snapThreshold(thresholdDividerMultiplier: Float, duringSnap: Boolean): Float =
-        rotaryScrollAdapter.averageItemSize() / (1 + snapParameters.thresholdDivider * thresholdDividerMultiplier)
 
     private suspend fun snapToClosestItem() {
         // Snapping to the closest item by using performFling method with 0 speed

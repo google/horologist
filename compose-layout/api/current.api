@@ -309,7 +309,6 @@ package com.google.android.horologist.compose.rotaryinput {
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class DefaultSnapBehavior implements com.google.android.horologist.compose.rotaryinput.RotarySnapBehavior {
     ctor public DefaultSnapBehavior(com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter rotaryScrollAdapter, com.google.android.horologist.compose.rotaryinput.SnapParameters snapParameters);
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public void prepareSnapForItems(int moveForElements, boolean sequentialSnap);
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public float snapThreshold(float thresholdDividerMultiplier, boolean duringSnap);
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public suspend Object? startSnappingSession(boolean toClosestItem, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
@@ -396,7 +395,6 @@ package com.google.android.horologist.compose.rotaryinput {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface RotarySnapBehavior {
     method public void prepareSnapForItems(int moveForElements, boolean sequentialSnap);
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public float snapThreshold(float thresholdDividerMultiplier, boolean duringSnap);
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public suspend Object? startSnappingSession(boolean toClosestItem, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 

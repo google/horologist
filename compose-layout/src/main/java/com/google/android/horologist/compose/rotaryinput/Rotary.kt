@@ -312,22 +312,31 @@ public object RotaryDefaults {
     @Composable
     public fun rememberSnapHandler(
         rotaryScrollAdapter: RotaryScrollAdapter,
-        snapParameters: SnapParameters = snapParametersDefault()
+        snapParameters: SnapParameters = snapParametersDefault(),
+        isLowRes: Boolean = isLowResInput()
     ): RotaryScrollHandler {
         return remember(rotaryScrollAdapter, snapParameters) {
-            RotaryScrollSnapHandler(
-                resistanceFactor = snapParameters.resistanceFactor,
-                thresholdBehaviorFactory = {
-                    ThresholdBehavior(
-                        rotaryScrollAdapter,
-                        snapParameters.thresholdDivider
-                    )
-                },
-                snapBehaviourFactory = {
-                    DefaultSnapBehavior(rotaryScrollAdapter, snapParameters)
-                },
-                scrollBehaviourFactory = { AnimationScrollBehavior(rotaryScrollAdapter.scrollableState) }
-            )
+            if (isLowRes) {
+                LowResSnapHandler(
+                    snapBehaviourFactory = {
+                        DefaultSnapBehavior(rotaryScrollAdapter, snapParameters)
+                    }
+                )
+            } else {
+                HighResSnapHandler(
+                    resistanceFactor = snapParameters.resistanceFactor,
+                    thresholdBehaviorFactory = {
+                        ThresholdBehavior(
+                            rotaryScrollAdapter,
+                            snapParameters.thresholdDivider
+                        )
+                    },
+                    snapBehaviourFactory = {
+                        DefaultSnapBehavior(rotaryScrollAdapter, snapParameters)
+                    },
+                    scrollBehaviourFactory = { AnimationScrollBehavior(rotaryScrollAdapter.scrollableState) }
+                )
+            }
         }
     }
 
@@ -339,7 +348,7 @@ public object RotaryDefaults {
         SnapParameters(
             snapOffset = 0,
             thresholdDivider = 1.5f,
-            resistanceFactor = 4f
+            resistanceFactor = 3f
         )
 
     /**
@@ -521,7 +530,7 @@ public interface RotaryFlingBehavior {
 public interface RotarySnapBehavior {
 
     /**
-     * Preparing snapping. This method should be called before [startSnappingSession] is called.
+     * Preparing snapping. This method should be called before [snapToTargetItem] is called.
      *
      * Snapping is done for current + [moveForElements] items.
      *
@@ -534,13 +543,14 @@ public interface RotarySnapBehavior {
     public fun prepareSnapForItems(moveForElements: Int, sequentialSnap: Boolean)
 
     /**
-     * Performs snapping to the specified in [prepareSnapForItems] element
-     * If [toClosestItem] is true - then the snapping will happen to the closest item only.
-     * If it's set to false - then it'll snap to the element specified
-     * in [prepareSnapForItems] method.
+     * Performs snapping to the closest item.
      */
-    @ExperimentalHorologistApi
-    public suspend fun startSnappingSession(toClosestItem: Boolean)
+    public suspend fun snapToClosestItem()
+
+    /**
+     * Performs snapping to the specified in [prepareSnapForItems] element
+     */
+    public suspend fun snapToTargetItem()
 }
 
 /**
@@ -610,16 +620,7 @@ public class DefaultSnapBehavior(
         snapTargetUpdated = true
     }
 
-    @ExperimentalHorologistApi
-    override suspend fun startSnappingSession(toClosestItem: Boolean) {
-        if (toClosestItem) {
-            snapToClosestItem()
-        } else {
-            snapToAnotherItem()
-        }
-    }
-
-    private suspend fun snapToClosestItem() {
+    override suspend fun snapToClosestItem() {
         // Snapping to the closest item by using performFling method with 0 speed
         rotaryScrollAdapter.scrollableState.scroll(MutatePriority.UserInput) {
             debugLog { "snap to closest item" }
@@ -636,13 +637,12 @@ public class DefaultSnapBehavior(
         }
     }
 
-    private suspend fun snapToAnotherItem() {
+    override suspend fun snapToTargetItem() {
         if (sequentialSnap) {
             anim = anim.copy(0f)
         } else {
             anim = AnimationState(0f)
         }
-        debugLog { "snapTarget $snapTarget" }
         rotaryScrollAdapter.scrollableState.scroll(MutatePriority.UserInput) {
             // If snapTargetUpdated is true - then the target was updated so we
             // need to do snap again
@@ -650,6 +650,7 @@ public class DefaultSnapBehavior(
                 snapTargetUpdated = false
                 var latestCenterItem: Int
                 var continueFirstScroll = true
+                debugLog { "snapTarget $snapTarget" }
                 while (continueFirstScroll) {
                     latestCenterItem = rotaryScrollAdapter.currentItemIndex()
                     anim = anim.copy(0f)
@@ -757,7 +758,7 @@ public fun Modifier.rotaryHandler(
             eventsFlow
                 // TODO: batching causes additional delays.
                 // Do we really need to do this on this level?
-                .batchRequestsWithinTimeframe(batchTimeframe)
+//                .batchRequestsWithinTimeframe(batchTimeframe)
                 .collectLatest {
                     debugLog {
                         "Scroll event received: " +
@@ -980,7 +981,7 @@ internal class LowResRotaryScrollHandler(
  *
  * This scroll handler doesn't support fling.
  */
-internal class RotaryScrollSnapHandler(
+internal class HighResSnapHandler(
     private val resistanceFactor: Float,
     private val thresholdBehaviorFactory: () -> ThresholdBehavior,
     private val snapBehaviourFactory: () -> RotarySnapBehavior,
@@ -1000,6 +1001,8 @@ internal class RotaryScrollSnapHandler(
     private var snapBehaviour = snapBehaviourFactory()
     private var scrollBehaviour = scrollBehaviourFactory()
     private var thresholdBehavior = thresholdBehaviorFactory()
+
+    private val scrollEasing: Easing = CubicBezierEasing(0.0f, 0.0f, 0.5f, 1.0f)
 
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
@@ -1027,29 +1030,34 @@ internal class RotaryScrollSnapHandler(
         }
 
         thresholdBehavior.exponentialSmoothing()
+        val snapThreshold = thresholdBehavior.snapThreshold()
 
         snapAccumulator += event.delta
         if (!snapJob.isActive) {
-            rotaryScrollDistance += event.delta
+            val resistanceCoeff = 1 - scrollEasing.transform(rotaryScrollDistance.absoluteValue / snapThreshold)
+            rotaryScrollDistance += event.delta * resistanceCoeff
         }
 
         debugLog { "Snap accumulator: $snapAccumulator" }
         debugLog { "Rotary scroll distance: $rotaryScrollDistance" }
+
+        debugLog { "snapThreshold: $snapThreshold" }
         previousScrollEventTime = time
 
-        if (abs(snapAccumulator) > thresholdBehavior.snapThreshold()) {
-            debugLog { "Snap threshold reached" }
+        if (abs(snapAccumulator) > snapThreshold) {
             scrollInProgress = false
             scrollBehaviour = scrollBehaviourFactory()
             scrollJob.cancel()
 
-            val snapDistance = sign(snapAccumulator).toInt()
+            val snapDistance = (snapAccumulator / snapThreshold).toInt().coerceIn(-2..2)
             rotaryHaptics.handleSnapHaptic(event.delta)
-
+            snapAccumulator -= snapThreshold * snapDistance
             val sequentialSnap = snapJob.isActive
+
             debugLog {
-                "Prepare snap: snapDistance:$snapDistance, " +
-                    "sequentialSnap: $sequentialSnap"
+                "Snap threshold reached: snapDistance:$snapDistance, " +
+                    "sequentialSnap: $sequentialSnap, " +
+                    "snap accumulator remaining: $snapAccumulator"
             }
             snapBehaviour.prepareSnapForItems(snapDistance, sequentialSnap)
             if (!snapJob.isActive) {
@@ -1057,13 +1065,12 @@ internal class RotaryScrollSnapHandler(
                 snapJob = coroutineScope.async {
                     debugLog { "Snap started" }
                     try {
-                        snapBehaviour.startSnappingSession(false)
+                        snapBehaviour.snapToTargetItem()
                     } finally {
                         debugLog { "Snap called finally" }
                     }
                 }
             }
-            snapAccumulator = 0f
             rotaryScrollDistance = 0f
         } else {
             if (!snapJob.isActive) {
@@ -1078,7 +1085,11 @@ internal class RotaryScrollSnapHandler(
                 rotaryScrollDistance = 0f
                 snapAccumulator = 0f
                 snapBehaviour.prepareSnapForItems(0, false)
-                snapBehaviour.startSnappingSession(true)
+
+                snapJob.cancel()
+                snapJob = coroutineScope.async {
+                    snapBehaviour.snapToClosestItem()
+                }
             }
         }
     }
@@ -1086,6 +1097,84 @@ internal class RotaryScrollSnapHandler(
     private fun isOppositeValueAfterScroll(delta: Float): Boolean =
         sign(rotaryScrollDistance) * sign(delta) == -1f &&
             (abs(delta) < abs(rotaryScrollDistance))
+
+    private fun isNewScrollEvent(timestamp: Long): Boolean {
+        val timeDelta = timestamp - previousScrollEventTime
+        return previousScrollEventTime == 0L || timeDelta > gestureThresholdTime
+    }
+
+    private fun resetTracking() {
+        scrollInProgress = true
+    }
+}
+
+/**
+ * A scroll handler for RSB(high-res) with snapping and without fling
+ * Snapping happens after a threshold is reached ( set in [RotarySnapBehavior])
+ *
+ * This scroll handler doesn't support fling.
+ */
+internal class LowResSnapHandler(
+    private val snapBehaviourFactory: () -> RotarySnapBehavior
+) : RotaryScrollHandler {
+    private val gestureThresholdTime = 200L
+
+    private var snapJob: Job = CompletableDeferred<Unit>()
+
+    private var previousScrollEventTime = 0L
+    private var snapAccumulator = 0f
+    private var scrollInProgress = false
+
+    private var snapBehaviour = snapBehaviourFactory()
+
+    override suspend fun handleScrollEvent(
+        coroutineScope: CoroutineScope,
+        event: TimestampedDelta,
+        rotaryHaptics: RotaryHapticHandler
+    ) {
+        val time = event.timestamp
+
+        if (isNewScrollEvent(time)) {
+            debugLog { "New scroll event" }
+            resetTracking()
+            snapJob.cancel()
+            snapBehaviour = snapBehaviourFactory()
+            snapAccumulator = 0f
+        }
+
+        snapAccumulator += event.delta
+
+        debugLog { "Snap accumulator: $snapAccumulator" }
+
+        previousScrollEventTime = time
+
+        if (abs(snapAccumulator) > 1f) {
+            scrollInProgress = false
+
+            val snapDistance = sign(snapAccumulator).toInt()
+            rotaryHaptics.handleSnapHaptic(event.delta)
+            val sequentialSnap = snapJob.isActive
+            debugLog {
+                "Snap threshold reached: snapDistance:$snapDistance, " +
+                    "sequentialSnap: $sequentialSnap, " +
+                    "snap accumulator: $snapAccumulator"
+            }
+
+            snapBehaviour.prepareSnapForItems(snapDistance, sequentialSnap)
+            if (!snapJob.isActive) {
+                snapJob.cancel()
+                snapJob = coroutineScope.async {
+                    debugLog { "Snap started" }
+                    try {
+                        snapBehaviour.snapToTargetItem()
+                    } finally {
+                        debugLog { "Snap called finally" }
+                    }
+                }
+            }
+            snapAccumulator = 0f
+        }
+    }
 
     private fun isNewScrollEvent(timestamp: Long): Boolean {
         val timeDelta = timestamp - previousScrollEventTime
@@ -1134,11 +1223,11 @@ internal class ThresholdBehavior(
     fun snapThreshold(): Float {
         val thresholdDividerFraction =
             thresholdDividerEasing.transform(inverseLerp(minVelocity, maxVelocity, esVelocity))
-        return lerp(
+        return rotaryScrollAdapter.averageItemSize() / lerp(
             1f,
             thresholdDivider,
             thresholdDividerFraction
-        ) * rotaryScrollAdapter.averageItemSize()
+        )
     }
 }
 

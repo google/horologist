@@ -746,7 +746,7 @@ public class DefaultSnapBehavior(
 @OptIn(ExperimentalComposeUiApi::class)
 public fun Modifier.rotaryHandler(
     rotaryScrollHandler: RotaryScrollHandler,
-    batchTimeframe: Long = 0L,
+    /* batchTimeframe: Long = 0L,*/
     reverseDirection: Boolean,
     rotaryHaptics: RotaryHapticHandler
 ): Modifier = composed {
@@ -1034,7 +1034,8 @@ internal class HighResSnapHandler(
 
         snapAccumulator += event.delta
         if (!snapJob.isActive) {
-            val resistanceCoeff = 1 - scrollEasing.transform(rotaryScrollDistance.absoluteValue / snapThreshold)
+            val resistanceCoeff =
+                1 - scrollEasing.transform(rotaryScrollDistance.absoluteValue / snapThreshold)
             rotaryScrollDistance += event.delta * resistanceCoeff
         }
 

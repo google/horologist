@@ -746,6 +746,8 @@ public class DefaultSnapBehavior(
 @OptIn(ExperimentalComposeUiApi::class)
 public fun Modifier.rotaryHandler(
     rotaryScrollHandler: RotaryScrollHandler,
+    // TODO: batching causes additional delays. Return once it's clear that
+    //  we will use it
     /* batchTimeframe: Long = 0L,*/
     reverseDirection: Boolean,
     rotaryHaptics: RotaryHapticHandler
@@ -756,7 +758,8 @@ public fun Modifier.rotaryHandler(
     composed {
         LaunchedEffect(eventsFlow) {
             eventsFlow
-                // TODO: batching causes additional delays.
+                // TODO: batching causes additional delays. Return once it's clear that
+                //  we will use it
                 // Do we really need to do this on this level?
 //                .batchRequestsWithinTimeframe(batchTimeframe)
                 .collectLatest {
@@ -989,6 +992,7 @@ internal class HighResSnapHandler(
 ) : RotaryScrollHandler {
     private val gestureThresholdTime = 200L
     private val snapDelay = 100L
+    private val maxSnapsPerEvent = 2
 
     private var scrollJob: Job = CompletableDeferred<Unit>()
     private var snapJob: Job = CompletableDeferred<Unit>()
@@ -1050,7 +1054,8 @@ internal class HighResSnapHandler(
             scrollBehaviour = scrollBehaviourFactory()
             scrollJob.cancel()
 
-            val snapDistance = (snapAccumulator / snapThreshold).toInt().coerceIn(-2..2)
+            val snapDistance = (snapAccumulator / snapThreshold).toInt()
+                .coerceIn(-maxSnapsPerEvent..maxSnapsPerEvent)
             rotaryHaptics.handleSnapHaptic(event.delta)
             snapAccumulator -= snapThreshold * snapDistance
             val sequentialSnap = snapJob.isActive

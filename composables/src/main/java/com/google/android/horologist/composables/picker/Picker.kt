@@ -72,6 +72,7 @@ import kotlinx.coroutines.launch
 /**
  * This is a private copy of androidx.wear.compose.material.Picker
  */
+//TODO(b/294842202): Remove once rotary modifiers are in AndroidX
 
 /**
  * A scrollable list of items to pick from. By default, items will be repeated
@@ -174,7 +175,8 @@ internal fun Picker(
                         Modifier
                             .drawWithContent {
                                 drawContent()
-                                val visibleItems = state.scalingLazyListState.layoutInfo.visibleItemsInfo
+                                val visibleItems =
+                                    state.scalingLazyListState.layoutInfo.visibleItemsInfo
                                 if (visibleItems.isNotEmpty()) {
                                     val centerItem = visibleItems.find { info ->
                                         info.index == state.scalingLazyListState.centerItemIndex
@@ -482,9 +484,9 @@ internal fun rememberPickerState(
  */
 @Stable
 internal class PickerState constructor(/*@IntRange(from = 1)*/
-    initialNumberOfOptions: Int,
-    initiallySelectedOption: Int = 0,
-    val repeatItems: Boolean = true
+                                       initialNumberOfOptions: Int,
+                                       initiallySelectedOption: Int = 0,
+                                       val repeatItems: Boolean = true
 ) : ScrollableState {
     init {
         verifyNumberOfOptions(initialNumberOfOptions)
@@ -576,12 +578,12 @@ internal class PickerState constructor(/*@IntRange(from = 1)*/
                 it.repeatItems
             )
         }, restore = { saved ->
-                PickerState(
-                    initialNumberOfOptions = saved[0] as Int,
-                    initiallySelectedOption = saved[1] as Int,
-                    repeatItems = saved[2] as Boolean
-                )
-            })
+            PickerState(
+                initialNumberOfOptions = saved[0] as Int,
+                initiallySelectedOption = saved[1] as Int,
+                repeatItems = saved[2] as Boolean
+            )
+        })
     }
 
     public override suspend fun scroll(

@@ -308,6 +308,11 @@ public fun DatePicker(
                                 FocusableElementDatePicker.MONTH,
                                 FocusableElementDatePicker.YEAR
                             )
+                        } else {
+                            onPickerSelected(
+                                FocusableElementDatePicker.NONE,
+                                FocusableElementDatePicker.DAY
+                            )
                         }
                     },
                     modifier = Modifier

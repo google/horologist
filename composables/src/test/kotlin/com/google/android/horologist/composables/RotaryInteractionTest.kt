@@ -16,11 +16,13 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -98,7 +100,7 @@ class RotaryInteractionTest {
         rule.onNodeWithTag(TEST_TAG).performRotaryScrollInput {
             // Scroll by 2 items forward
             rotateToScrollVertically(50.0f)
-            advanceEventTime(50)
+            advanceEventTime(250)
             rotateToScrollVertically(50.0f)
         }
 
@@ -154,7 +156,7 @@ class RotaryInteractionTest {
         rule.onNodeWithTag(TEST_TAG).performRotaryScrollInput {
             // Scroll by 2 items backward
             rotateToScrollVertically(-50.0f)
-            advanceEventTime(50)
+            advanceEventTime(250)
             rotateToScrollVertically(-50.0f)
         }
 
@@ -167,7 +169,10 @@ class RotaryInteractionTest {
     private fun pickerOption():
         (@Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit) =
         { value: Int, pickerSelected: Boolean ->
-            Text("$value, $pickerSelected")
+            Text(
+                modifier = Modifier.height(with(LocalDensity.current) { 30.toDp() }),
+                text = "$value, $pickerSelected"
+            )
         }
 
     @Composable

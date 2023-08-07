@@ -42,10 +42,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -65,25 +63,24 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.PickerGroup
-import androidx.wear.compose.material.PickerGroupItem
-import androidx.wear.compose.material.PickerGroupState
-import androidx.wear.compose.material.PickerScope
-import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TouchExplorationStateProvider
-import androidx.wear.compose.material.rememberPickerGroupState
-import androidx.wear.compose.material.rememberPickerState
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
-import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.google.android.horologist.composables.picker.PickerGroup
+import com.google.android.horologist.composables.picker.PickerGroupItem
+import com.google.android.horologist.composables.picker.PickerGroupState
+import com.google.android.horologist.composables.picker.PickerScope
+import com.google.android.horologist.composables.picker.PickerState
+import com.google.android.horologist.composables.picker.rememberPickerGroupState
+import com.google.android.horologist.composables.picker.rememberPickerState
+import com.google.android.horologist.composables.picker.toRotaryScrollAdapter
+import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import java.time.LocalTime
 import java.time.temporal.ChronoField
-import kotlin.math.sign
 
 /**
  * A full screen TimePicker with hours, minutes and seconds.
@@ -183,7 +180,11 @@ public fun TimePicker(
                 }
             }
 
-        Box(modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)) {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .alpha(fullyDrawn.value)
+        ) {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -393,7 +394,9 @@ public fun TimePickerWith12HourClock(
             }
         }
         Box(
-            modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)
+            modifier = modifier
+                .fillMaxSize()
+                .alpha(fullyDrawn.value)
         ) {
             Column(
                 modifier = modifier.fillMaxSize(),
@@ -536,6 +539,7 @@ private fun Separator(width: Dp, textStyle: TextStyle) {
 }
 
 @Composable
+@OptIn(ExperimentalWearFoundationApi::class)
 @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
 internal fun pickerGroupItemWithRSB(
     pickerState: PickerState,
@@ -545,35 +549,14 @@ internal fun pickerGroupItemWithRSB(
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
     option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit
 ): PickerGroupItem {
-    val coroutineScope = rememberCoroutineScope()
-    val haptics = rememberRotaryHapticHandler(
-        scrollableState = pickerState,
-        throttleThresholdMs = 10
-    )
-    var animationScrollTarget: Int by remember { mutableIntStateOf(pickerState.selectedOption) }
-    var activeJob: Job? by remember { mutableStateOf(null) }
+    val localFocusRequester = rememberActiveFocusRequester()
 
     return PickerGroupItem(
         pickerState = pickerState,
-        modifier = modifier.onRotaryInputAccumulated(rateLimitCoolDownMs = 5L) { change ->
-
-            val diff = sign(change)
-
-            if (activeJob == null || activeJob?.isActive == false) {
-                animationScrollTarget = pickerState.selectedOption
-            }
-            animationScrollTarget += diff.toInt()
-
-            if (!pickerState.repeatItems) {
-                animationScrollTarget =
-                    animationScrollTarget.coerceIn(0, pickerState.numberOfOptions)
-            }
-
-            activeJob = coroutineScope.launch {
-                haptics.handleSnapHaptic(diff)
-                pickerState.animateScrollToOption(animationScrollTarget)
-            }
-        },
+        modifier = modifier.rotaryWithSnap(
+            localFocusRequester,
+            pickerState.toRotaryScrollAdapter()
+        ),
         contentDescription = contentDescription,
         onSelected = onSelected,
         readOnlyLabel = readOnlyLabel,

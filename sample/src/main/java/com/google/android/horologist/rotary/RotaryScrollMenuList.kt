@@ -187,9 +187,9 @@ fun RotaryScrollWithFlingOrSnapScreen(
             modifier = Modifier
                 .let {
                     if (isSnap) it.rotaryWithSnap(
-                        focusRequester,
-                        scalingLazyListState.toRotaryScrollAdapter(),
-                        rotaryHapticHandler
+                        focusRequester = focusRequester,
+                        rotaryScrollAdapter = scalingLazyListState.toRotaryScrollAdapter(),
+                        rotaryHaptics = rotaryHapticHandler
                     )
                     else if (isFling) it.rotaryWithFling(
                         focusRequester = focusRequester,

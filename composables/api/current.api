@@ -157,3 +157,16 @@ package com.google.android.horologist.composables {
 
 }
 
+package com.google.android.horologist.composables.picker {
+
+  public final class PickerGroupKt {
+  }
+
+  public final class PickerKt {
+  }
+
+  public final class PickerRotaryScrollAdapterKt {
+  }
+
+}
+

@@ -219,7 +219,7 @@ public fun rememberDisabledHaptic(): RotaryHapticHandler = remember {
 @Composable
 public fun rememberRotaryHapticHandler(
     scrollableState: ScrollableState,
-    throttleThresholdMs: Long = 40,
+    throttleThresholdMs: Long = 30,
     hapticsThresholdPx: Long = 50,
     hapticsChannel: Channel<RotaryHapticsType> = rememberHapticChannel(),
     rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback()

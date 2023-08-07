@@ -51,7 +51,7 @@ import kotlin.math.roundToInt
 /**
  * This is a private copy of androidx.wear.compose.material.PickerGroup
  */
-//TODO(b/294842202): Remove once rotary modifiers are in AndroidX
+// TODO(b/294842202): Remove once rotary modifiers are in AndroidX
 
 /**
  * A group of [Picker]s to build components where multiple pickers are required to be combined

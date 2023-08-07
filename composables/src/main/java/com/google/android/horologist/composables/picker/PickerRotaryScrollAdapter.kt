@@ -18,7 +18,7 @@ package com.google.android.horologist.composables.picker
 
 import com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter
 
-//TODO(b/294842202): Remove once rotary modifiers are in AndroidX
+// TODO(b/294842202): Remove once rotary modifiers are in AndroidX
 
 /**
  * An extension function for creating [RotaryScrollAdapter] from [Picker]

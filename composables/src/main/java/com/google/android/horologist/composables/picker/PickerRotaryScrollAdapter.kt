@@ -51,4 +51,7 @@ internal class PickerRotaryScrollAdapter(
      */
     override fun currentItemOffset(): Float =
         scrollableState.scalingLazyListState.centerItemScrollOffset.toFloat()
+
+    override fun totalItemsCount(): Int =
+        scrollableState.scalingLazyListState.layoutInfo.totalItemsCount
 }

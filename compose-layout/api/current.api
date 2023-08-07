@@ -308,9 +308,11 @@ package com.google.android.horologist.compose.rotaryinput {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class DefaultSnapBehavior implements com.google.android.horologist.compose.rotaryinput.RotarySnapBehavior {
     ctor public DefaultSnapBehavior(com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter rotaryScrollAdapter, com.google.android.horologist.compose.rotaryinput.SnapParameters snapParameters);
+    method public boolean bottomEdgeReached();
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public void prepareSnapForItems(int moveForElements, boolean sequentialSnap);
     method public suspend Object? snapToClosestItem(kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? snapToTargetItem(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public boolean topEdgeReached();
   }
 
   public final class GenericMotionRotaryInputAccumulator {
@@ -383,6 +385,7 @@ package com.google.android.horologist.compose.rotaryinput {
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public int currentItemIndex();
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public float currentItemOffset();
     method public androidx.compose.foundation.gestures.ScrollableState getScrollableState();
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public int totalItemsCount();
     property public abstract androidx.compose.foundation.gestures.ScrollableState scrollableState;
   }
 
@@ -395,9 +398,11 @@ package com.google.android.horologist.compose.rotaryinput {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface RotarySnapBehavior {
+    method public boolean bottomEdgeReached();
     method public void prepareSnapForItems(int moveForElements, boolean sequentialSnap);
     method public suspend Object? snapToClosestItem(kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? snapToTargetItem(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public boolean topEdgeReached();
   }
 
   public final class RotaryVelocityTracker {
@@ -415,6 +420,7 @@ package com.google.android.horologist.compose.rotaryinput {
     method public int currentItemIndex();
     method public float currentItemOffset();
     method public androidx.wear.compose.foundation.lazy.ScalingLazyListState getScrollableState();
+    method public int totalItemsCount();
     property public androidx.wear.compose.foundation.lazy.ScalingLazyListState scrollableState;
   }
 

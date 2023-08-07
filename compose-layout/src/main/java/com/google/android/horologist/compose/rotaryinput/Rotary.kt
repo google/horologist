@@ -194,8 +194,9 @@ public fun Modifier.rotaryWithSnap(
  * An extension function for creating [RotaryScrollAdapter] from [ScalingLazyListState]
  */
 @ExperimentalHorologistApi
-public fun ScalingLazyListState.toRotaryScrollAdapter(): RotaryScrollAdapter =
-    ScalingLazyColumnRotaryScrollAdapter(this)
+public fun ScalingLazyListState.toRotaryScrollAdapter(): RotaryScrollAdapter = ScalingLazyColumnRotaryScrollAdapter(
+    this
+)
 
 /**
  * An implementation of rotary scroll adapter for [ScalingLazyColumn]
@@ -222,6 +223,11 @@ public class ScalingLazyColumnRotaryScrollAdapter(
      * An offset from the item centre
      */
     override fun currentItemOffset(): Float = scrollableState.centerItemScrollOffset.toFloat()
+
+    /**
+     * The total count of items in ScalingLazyColumn
+     */
+    override fun totalItemsCount(): Int = scrollableState.layoutInfo.totalItemsCount
 }
 
 /**
@@ -253,6 +259,12 @@ public interface RotaryScrollAdapter {
      */
     @ExperimentalHorologistApi
     public fun currentItemOffset(): Float
+
+    /**
+     * The total count of items in [scrollableState]
+     */
+    @ExperimentalHorologistApi
+    public fun totalItemsCount(): Int
 }
 
 /**
@@ -548,6 +560,16 @@ public interface RotarySnapBehavior {
     public suspend fun snapToClosestItem()
 
     /**
+     * Returns true if top edge was reached
+     */
+    public fun topEdgeReached(): Boolean
+
+    /**
+     * Returns true if bottom edge was reached
+     */
+    public fun bottomEdgeReached(): Boolean
+
+    /**
      * Performs snapping to the specified in [prepareSnapForItems] element
      */
     public suspend fun snapToTargetItem()
@@ -600,7 +622,7 @@ public class DefaultSnapBehavior(
     private val rotaryScrollAdapter: RotaryScrollAdapter,
     private val snapParameters: SnapParameters
 ) : RotarySnapBehavior {
-    private var snapTarget: Int = 0
+    private var snapTarget: Int = rotaryScrollAdapter.currentItemIndex()
     private var sequentialSnap: Boolean = false
 
     private var anim = AnimationState(0f)
@@ -618,6 +640,7 @@ public class DefaultSnapBehavior(
             snapTarget = rotaryScrollAdapter.currentItemIndex() + moveForElements
         }
         snapTargetUpdated = true
+        snapTarget = snapTarget.coerceIn(0 until rotaryScrollAdapter.totalItemsCount())
     }
 
     override suspend fun snapToClosestItem() {
@@ -636,6 +659,10 @@ public class DefaultSnapBehavior(
             snapTarget = rotaryScrollAdapter.currentItemIndex()
         }
     }
+
+    override fun topEdgeReached(): Boolean = snapTarget <= 0
+
+    override fun bottomEdgeReached(): Boolean = snapTarget >= rotaryScrollAdapter.totalItemsCount() - 1
 
     override suspend fun snapToTargetItem() {
         if (sequentialSnap) {
@@ -882,13 +909,11 @@ internal class HighResRotaryScrollHandler(
         if (rotaryFlingBehavior != null) {
             flingJob.cancel()
             flingJob = coroutineScope.async {
-                rotaryFlingBehavior?.trackFling(
-                    beforeFling = {
-                        debugLog { "Calling before fling section" }
-                        scrollJob.cancel()
-                        scrollBehavior = scrollBehaviorFactory()
-                    }
-                )
+                rotaryFlingBehavior?.trackFling(beforeFling = {
+                    debugLog { "Calling before fling section" }
+                    scrollJob.cancel()
+                    scrollBehavior = scrollBehaviorFactory()
+                })
             }
         }
     }
@@ -1056,7 +1081,6 @@ internal class HighResSnapHandler(
 
             val snapDistance = (snapAccumulator / snapThreshold).toInt()
                 .coerceIn(-maxSnapsPerEvent..maxSnapsPerEvent)
-            rotaryHaptics.handleSnapHaptic(event.delta)
             snapAccumulator -= snapThreshold * snapDistance
             val sequentialSnap = snapJob.isActive
 
@@ -1065,6 +1089,12 @@ internal class HighResSnapHandler(
                     "sequentialSnap: $sequentialSnap, " +
                     "snap accumulator remaining: $snapAccumulator"
             }
+            if ((!snapBehaviour.topEdgeReached() && snapDistance < 0) ||
+                (!snapBehaviour.bottomEdgeReached() && snapDistance > 0)
+            ) {
+                rotaryHaptics.handleSnapHaptic(event.delta)
+            }
+
             snapBehaviour.prepareSnapForItems(snapDistance, sequentialSnap)
             if (!snapJob.isActive) {
                 snapJob.cancel()
@@ -1238,10 +1268,9 @@ internal class ThresholdBehavior(
 }
 
 @Composable
-private fun rememberTimestampChannel() =
-    remember {
-        Channel<TimestampedDelta>(capacity = Channel.CONFLATED)
-    }
+private fun rememberTimestampChannel() = remember {
+    Channel<TimestampedDelta>(capacity = Channel.CONFLATED)
+}
 
 private fun exponentialSmoothing(
     currentVelocity: Float,

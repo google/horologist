@@ -64,7 +64,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
@@ -549,12 +548,9 @@ internal fun pickerGroupItemWithRSB(
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
     option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit
 ): PickerGroupItem {
-    val localFocusRequester = rememberActiveFocusRequester()
-
     return PickerGroupItem(
         pickerState = pickerState,
         modifier = modifier.rotaryWithSnap(
-            localFocusRequester,
             pickerState.toRotaryScrollAdapter()
         ),
         contentDescription = contentDescription,

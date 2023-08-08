@@ -40,7 +40,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
@@ -59,7 +58,7 @@ public class ScalingLazyColumnState(
     ),
     public val anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
     public val contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-    public val rotaryMode: RotaryMode = RotaryMode.Fling,
+    public val rotaryMode: RotaryMode = RotaryMode.Scroll,
     public val reverseLayout: Boolean = false,
     public val verticalArrangement: Arrangement.Vertical =
         Arrangement.spacedBy(
@@ -88,9 +87,14 @@ public class ScalingLazyColumnState(
         }
 
     public sealed interface RotaryMode {
-        public object Fling : RotaryMode
         public object Snap : RotaryMode
         public object Scroll : RotaryMode
+
+        @Deprecated(
+            "Use RotaryMode.Scroll instead",
+            replaceWith = ReplaceWith("RotaryMode.Scroll")
+        )
+        public object Fling : RotaryMode
     }
 
     public data class ScrollPosition(
@@ -137,14 +141,7 @@ public fun ScalingLazyColumn(
             rotaryHaptics = rotaryHaptics
         )
 
-        RotaryMode.Fling -> modifier.rotaryWithFling(
-            focusRequester = focusRequester,
-            scrollableState = columnState.state,
-            reverseDirection = columnState.reverseLayout,
-            rotaryHaptics = rotaryHaptics
-        )
-
-        RotaryMode.Scroll -> modifier.rotaryWithScroll(
+        else -> modifier.rotaryWithScroll(
             focusRequester = focusRequester,
             scrollableState = columnState.state,
             reverseDirection = columnState.reverseLayout,

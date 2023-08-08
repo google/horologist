@@ -45,7 +45,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.util.fastSumBy
 import androidx.compose.ui.util.lerp
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
@@ -107,6 +109,13 @@ private inline fun debugLog(generateMsg: () -> String) {
  */
 @ExperimentalHorologistApi
 @Suppress("ComposableModifierFactory")
+@Deprecated(
+    "Use rotaryWithScroll instead",
+    ReplaceWith(
+        "this.rotaryWithScroll(scrollableState, focusRequester, " +
+            "flingBehavior, rotaryHaptics, reverseDirection)"
+    )
+)
 @Composable
 public fun Modifier.rotaryWithFling(
     focusRequester: FocusRequester,
@@ -124,31 +133,29 @@ public fun Modifier.rotaryWithFling(
 
 /**
  * A modifier which connects rotary events with scrollable.
- * This modifier only supports scroll without fling or snap.
- * The screen containing the scrollable item should request the focus
- * by calling [requestFocus] method
+ * This modifier supports scroll with fling.
  *
- * ```
- * LaunchedEffect(Unit) {
- *   focusRequester.requestFocus()
- * }
- * ```
- * @param focusRequester Requests the focus for rotary input
  * @param scrollableState Scrollable state which will be scrolled while receiving rotary events
+ * @param focusRequester Requests the focus for rotary input.
+ * By default comes from [rememberActiveFocusRequester],
+ * which is used with [HierarchicalFocusCoordinator]
+ * @param flingBehavior Logic describing fling behavior. If null fling will not happen.
  * @param rotaryHaptics Class which will handle haptic feedback
  * @param reverseDirection Reverse the direction of scrolling. Should be aligned with
  * Scrollable `reverseDirection` parameter
  */
+@OptIn(ExperimentalWearFoundationApi::class)
 @ExperimentalHorologistApi
 @Suppress("ComposableModifierFactory")
 @Composable
 public fun Modifier.rotaryWithScroll(
-    focusRequester: FocusRequester,
     scrollableState: ScrollableState,
+    focusRequester: FocusRequester = rememberActiveFocusRequester(),
+    flingBehavior: FlingBehavior? = ScrollableDefaults.flingBehavior(),
     rotaryHaptics: RotaryHapticHandler = rememberRotaryHapticHandler(scrollableState),
     reverseDirection: Boolean = false
 ): Modifier = rotaryHandler(
-    rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, null),
+    rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, flingBehavior),
     reverseDirection = reverseDirection,
     rotaryHaptics = rotaryHaptics
 )
@@ -159,26 +166,21 @@ public fun Modifier.rotaryWithScroll(
  * A modifier which connects rotary events with scrollable.
  * This modifier supports snap.
  *
- * The screen containing the scrollable item should request the focus
- * by calling [requestFocus] method
- *
- * ```
- * LaunchedEffect(Unit) {
- *   focusRequester.requestFocus()
- * }
- * ```
- * @param focusRequester Requests the focus for rotary input
+ * @param focusRequester Requests the focus for rotary input.
+ * By default comes from [rememberActiveFocusRequester],
+ * which is used with [HierarchicalFocusCoordinator]
  * @param rotaryScrollAdapter A connection between scrollable objects and rotary events
  * @param rotaryHaptics Class which will handle haptic feedback
  * @param reverseDirection Reverse the direction of scrolling. Should be aligned with
  * Scrollable `reverseDirection` parameter
  */
+@OptIn(ExperimentalWearFoundationApi::class)
 @ExperimentalHorologistApi
 @Suppress("ComposableModifierFactory")
 @Composable
 public fun Modifier.rotaryWithSnap(
-    focusRequester: FocusRequester,
     rotaryScrollAdapter: RotaryScrollAdapter,
+    focusRequester: FocusRequester = rememberActiveFocusRequester(),
     snapParameters: SnapParameters = RotaryDefaults.snapParametersDefault(),
     rotaryHaptics: RotaryHapticHandler = rememberRotaryHapticHandler(rotaryScrollAdapter.scrollableState),
     reverseDirection: Boolean = false
@@ -194,9 +196,8 @@ public fun Modifier.rotaryWithSnap(
  * An extension function for creating [RotaryScrollAdapter] from [ScalingLazyListState]
  */
 @ExperimentalHorologistApi
-public fun ScalingLazyListState.toRotaryScrollAdapter(): RotaryScrollAdapter = ScalingLazyColumnRotaryScrollAdapter(
-    this
-)
+public fun ScalingLazyListState.toRotaryScrollAdapter(): RotaryScrollAdapter =
+    ScalingLazyColumnRotaryScrollAdapter(this)
 
 /**
  * An implementation of rotary scroll adapter for [ScalingLazyColumn]
@@ -346,7 +347,9 @@ public object RotaryDefaults {
                     snapBehaviourFactory = {
                         DefaultSnapBehavior(rotaryScrollAdapter, snapParameters)
                     },
-                    scrollBehaviourFactory = { AnimationScrollBehavior(rotaryScrollAdapter.scrollableState) }
+                    scrollBehaviourFactory = {
+                        AnimationScrollBehavior(rotaryScrollAdapter.scrollableState)
+                    }
                 )
             }
         }
@@ -662,7 +665,8 @@ public class DefaultSnapBehavior(
 
     override fun topEdgeReached(): Boolean = snapTarget <= 0
 
-    override fun bottomEdgeReached(): Boolean = snapTarget >= rotaryScrollAdapter.totalItemsCount() - 1
+    override fun bottomEdgeReached(): Boolean =
+        snapTarget >= rotaryScrollAdapter.totalItemsCount() - 1
 
     override suspend fun snapToTargetItem() {
         if (sequentialSnap) {
@@ -1258,7 +1262,13 @@ internal class ThresholdBehavior(
 
     fun snapThreshold(): Float {
         val thresholdDividerFraction =
-            thresholdDividerEasing.transform(inverseLerp(minVelocity, maxVelocity, smoothedVelocity))
+            thresholdDividerEasing.transform(
+                inverseLerp(
+                    minVelocity,
+                    maxVelocity,
+                    smoothedVelocity
+                )
+            )
         return rotaryScrollAdapter.averageItemSize() / lerp(
             1f,
             thresholdDivider,

@@ -63,7 +63,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
@@ -191,7 +190,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
                         rotaryScrollAdapter = scalingLazyListState.toRotaryScrollAdapter(),
                         rotaryHaptics = rotaryHapticHandler
                     )
-                    else if (isFling) it.rotaryWithFling(
+                    else if (isFling) it.rotaryWithScroll(
                         focusRequester = focusRequester,
                         scrollableState = scalingLazyListState,
                         rotaryHaptics = rotaryHapticHandler
@@ -199,6 +198,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
                     else it.rotaryWithScroll(
                         focusRequester = focusRequester,
                         scrollableState = scalingLazyListState,
+                        flingBehavior = null,
                         rotaryHaptics = rotaryHapticHandler
                     )
                 }

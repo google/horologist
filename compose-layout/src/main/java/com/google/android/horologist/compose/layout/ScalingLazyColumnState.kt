@@ -59,7 +59,7 @@ public class ScalingLazyColumnState(
     ),
     public val anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
     public val contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-    public val rotaryMode: RotaryMode = RotaryMode.Fling,
+    public val rotaryMode: RotaryMode = RotaryMode.Scroll,
     public val reverseLayout: Boolean = false,
     public val verticalArrangement: Arrangement.Vertical =
         Arrangement.spacedBy(
@@ -88,7 +88,6 @@ public class ScalingLazyColumnState(
         }
 
     public sealed interface RotaryMode {
-        public object Fling : RotaryMode
         public object Snap : RotaryMode
         public object Scroll : RotaryMode
     }
@@ -133,13 +132,6 @@ public fun ScalingLazyColumn(
         RotaryMode.Snap -> modifier.rotaryWithSnap(
             focusRequester = focusRequester,
             rotaryScrollAdapter = columnState.state.toRotaryScrollAdapter(),
-            reverseDirection = columnState.reverseLayout,
-            rotaryHaptics = rotaryHaptics
-        )
-
-        RotaryMode.Fling -> modifier.rotaryWithFling(
-            focusRequester = focusRequester,
-            scrollableState = columnState.state,
             reverseDirection = columnState.reverseLayout,
             rotaryHaptics = rotaryHaptics
         )

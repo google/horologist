@@ -112,7 +112,7 @@ private inline fun debugLog(generateMsg: () -> String) {
 @Deprecated(
     "Use rotaryWithScroll instead",
     ReplaceWith(
-        "this.rotaryWithScroll(focusRequester, scrollableState, " +
+        "this.rotaryWithScroll(scrollableState, focusRequester, " +
             "flingBehavior, rotaryHaptics, reverseDirection)"
     )
 )
@@ -196,9 +196,8 @@ public fun Modifier.rotaryWithSnap(
  * An extension function for creating [RotaryScrollAdapter] from [ScalingLazyListState]
  */
 @ExperimentalHorologistApi
-public fun ScalingLazyListState.toRotaryScrollAdapter(): RotaryScrollAdapter = ScalingLazyColumnRotaryScrollAdapter(
-    this
-)
+public fun ScalingLazyListState.toRotaryScrollAdapter(): RotaryScrollAdapter =
+    ScalingLazyColumnRotaryScrollAdapter(this)
 
 /**
  * An implementation of rotary scroll adapter for [ScalingLazyColumn]
@@ -348,7 +347,9 @@ public object RotaryDefaults {
                     snapBehaviourFactory = {
                         DefaultSnapBehavior(rotaryScrollAdapter, snapParameters)
                     },
-                    scrollBehaviourFactory = { AnimationScrollBehavior(rotaryScrollAdapter.scrollableState) }
+                    scrollBehaviourFactory = {
+                        AnimationScrollBehavior(rotaryScrollAdapter.scrollableState)
+                    }
                 )
             }
         }
@@ -664,7 +665,8 @@ public class DefaultSnapBehavior(
 
     override fun topEdgeReached(): Boolean = snapTarget <= 0
 
-    override fun bottomEdgeReached(): Boolean = snapTarget >= rotaryScrollAdapter.totalItemsCount() - 1
+    override fun bottomEdgeReached(): Boolean =
+        snapTarget >= rotaryScrollAdapter.totalItemsCount() - 1
 
     override suspend fun snapToTargetItem() {
         if (sequentialSnap) {
@@ -821,7 +823,8 @@ public fun Modifier.rotaryHandler(
  */
 @ExperimentalHorologistApi
 @OptIn(ExperimentalCoroutinesApi::class)
-public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long): Flow<TimestampedDelta> {
+public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long)
+    : Flow<TimestampedDelta> {
     var delta = 0f
     var lastTimestamp = -timeframe
     return if (timeframe == 0L) {
@@ -1260,7 +1263,13 @@ internal class ThresholdBehavior(
 
     fun snapThreshold(): Float {
         val thresholdDividerFraction =
-            thresholdDividerEasing.transform(inverseLerp(minVelocity, maxVelocity, smoothedVelocity))
+            thresholdDividerEasing.transform(
+                inverseLerp(
+                    minVelocity,
+                    maxVelocity,
+                    smoothedVelocity
+                )
+            )
         return rotaryScrollAdapter.averageItemSize() / lerp(
             1f,
             thresholdDivider,

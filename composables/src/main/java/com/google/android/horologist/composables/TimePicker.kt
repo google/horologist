@@ -549,13 +549,11 @@ internal fun pickerGroupItemWithRSB(
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
     option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit
 ): PickerGroupItem {
-    val localFocusRequester = rememberActiveFocusRequester()
 
     return PickerGroupItem(
         pickerState = pickerState,
         modifier = modifier.rotaryWithSnap(
-            localFocusRequester,
-            pickerState.toRotaryScrollAdapter()
+            pickerState.toRotaryScrollAdapter(),
         ),
         contentDescription = contentDescription,
         onSelected = onSelected,

@@ -90,27 +90,55 @@ class SwipeToRevealTest : ScreenshotBaseTest(
                 initialValue = RevealValue.Covered
             )
 
-            SwipeToRevealChip(state,
-                additionalAction = SwipeToRevealDefaults.action(
-                    icon = {
-                        Icon(
-                            SwipeToRevealDefaults.MoreOptions,
-                            contentDescription = "More"
-                        )
-                    },
-                    label = { Text(text = "More") },
-                ),
-                undoAction = SwipeToRevealDefaults.action(
-                    icon = {
-                        Icon(
-                            Icons.Default.Undo,
-                            contentDescription = "Undo"
-                        )
-                    },
-                    label = { Text(text = "Undo") },
-                ),
-            )
+            SwipeToRevealChipWithActions(state)
         }
+    }
+
+    @Test
+    fun revealingWithAll() {
+        screenshotTestRule.setContent(takeScreenshot = true, roundScreen = false) {
+            val state = rememberRevealState(
+                initialValue = RevealValue.Revealing
+            )
+
+            SwipeToRevealChipWithActions(state)
+        }
+    }
+
+    @Test
+    fun revealedWithAll() {
+        screenshotTestRule.setContent(takeScreenshot = true, roundScreen = false) {
+            val state = rememberRevealState(
+                initialValue = RevealValue.Revealed
+            )
+
+            SwipeToRevealChipWithActions(state)
+        }
+    }
+
+    @Composable
+    private fun SwipeToRevealChipWithActions(state: RevealState) {
+        SwipeToRevealChip(
+            state,
+            additionalAction = SwipeToRevealDefaults.action(
+                icon = {
+                    Icon(
+                        SwipeToRevealDefaults.MoreOptions,
+                        contentDescription = "More"
+                    )
+                },
+                label = { Text(text = "More") },
+            ),
+            undoAction = SwipeToRevealDefaults.action(
+                icon = {
+                    Icon(
+                        Icons.Default.Undo,
+                        contentDescription = "Undo"
+                    )
+                },
+                label = { Text(text = "Undo") },
+            ),
+        )
     }
 
     @Composable

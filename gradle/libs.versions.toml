@@ -2,7 +2,7 @@
 accompanist = "0.31.5-beta"
 androidx-benchmark = "1.2.0-beta02"
 androidx-complications-data = "1.2.0-alpha09"
-androidx-compose-material = "1.5.0-rc01"
+androidx-compose-material = "1.6.0-alpha02"
 androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
 androidx-health-services = "1.0.0-rc01"
@@ -30,7 +30,7 @@ app-cash-turbine = "1.0.0"
 benManes = "0.47.0"
 com-squareup-okhttp3 = "4.11.0"
 com-squareup-retrofit2 = "2.9.0"
-compose = "1.5.0-rc01"
+compose = "1.6.0-alpha02"
 compose-compiler = "1.4.8"
 composesnapshot = "-"
 dependencyAnalysis = "1.20.0"
@@ -45,6 +45,7 @@ kotlin = "1.8.22"
 kotlinxCoroutine = "1.7.3"
 ksp = "1.8.22-1.0.11"
 ktlint = "0.46.1"
+materialRipple = "1.5.0-rc01"
 metalava = "0.3.3"
 moshi = "1.15.0"
 okio = "3.5.0"
@@ -90,6 +91,7 @@ androidx-lifecycle-testing = { module = "androidx.lifecycle:lifecycle-runtime-te
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodelktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
+androidx-material-ripple = { module = "androidx.compose.material:material-ripple", version.ref = "materialRipple" }
 androidx-media3-common = { module = "androidx.media3:media3-common", version.ref = "androidx-media3" }
 androidx-media3-datasourceokhttp = { module = "androidx.media3:media3-datasource-okhttp", version.ref = "androidx-media3" }
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "androidx-media3" }

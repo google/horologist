@@ -58,6 +58,16 @@ android {
         }
     }
 
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            all {
+                it.systemProperty("screenshot.record", findProperty("screenshot.record") ?: "false")
+            }
+        }
+        animationsDisabled = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -152,6 +162,8 @@ dependencies {
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)
+    implementation(libs.compose.foundation.foundation)
+    implementation(libs.androidx.material.ripple)
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.runtime)
@@ -176,6 +188,16 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
+
+    testImplementation(projects.composeTools)
+    testImplementation(projects.roboscreenshots)
+    testImplementation(libs.androidx.test.ext)
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(libs.turbine)
+    testImplementation(libs.robolectric.shadows)
+    testRuntimeOnly(libs.robolectric)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.espresso.core)

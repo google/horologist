@@ -70,6 +70,10 @@ package com.google.android.horologist.compose.layout {
   public static sealed interface ScalingLazyColumnState.RotaryMode {
   }
 
+  @Deprecated public static final class ScalingLazyColumnState.RotaryMode.Fling implements com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode {
+    field @Deprecated public static final com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode.Fling INSTANCE;
+  }
+
   public static final class ScalingLazyColumnState.RotaryMode.Scroll implements com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode {
     field public static final com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode.Scroll INSTANCE;
   }

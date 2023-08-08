@@ -90,6 +90,9 @@ public class ScalingLazyColumnState(
     public sealed interface RotaryMode {
         public object Snap : RotaryMode
         public object Scroll : RotaryMode
+        @Deprecated("Use RotaryMode.Scroll instead",
+            replaceWith = ReplaceWith("RotaryMode.Scroll"))
+        public object Fling : RotaryMode
     }
 
     public data class ScrollPosition(
@@ -136,7 +139,7 @@ public fun ScalingLazyColumn(
             rotaryHaptics = rotaryHaptics
         )
 
-        RotaryMode.Scroll -> modifier.rotaryWithScroll(
+        else -> modifier.rotaryWithScroll(
             focusRequester = focusRequester,
             scrollableState = columnState.state,
             reverseDirection = columnState.reverseLayout,

@@ -40,7 +40,6 @@ import org.junit.Test
 class SwipeToRevealTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
-        record = ScreenshotTestRule.RecordMode.Repair
         enableA11y = true
     }
 ) {

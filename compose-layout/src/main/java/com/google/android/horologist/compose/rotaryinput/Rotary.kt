@@ -1058,7 +1058,7 @@ internal class HighResSnapHandler(
             debugLog { "Opposite value after scroll :${event.delta}" }
         }
 
-        thresholdBehavior.exponentialSmoothing()
+        thresholdBehavior.applySmoothing()
         val snapThreshold = thresholdBehavior.snapThreshold()
 
         snapAccumulator += event.delta
@@ -1233,51 +1233,51 @@ internal class ThresholdBehavior(
 
     private val rotaryVelocityTracker = RotaryVelocityTracker()
 
-    private var esVelocity = 0f
+    private var smoothedVelocity = 0f
     fun startThresholdTracking(time: Long) {
         rotaryVelocityTracker.start(time)
-        esVelocity = 0f
+        smoothedVelocity = 0f
     }
 
     fun observeEvent(timestamp: Long, delta: Float) {
         rotaryVelocityTracker.move(timestamp, delta)
     }
 
-    fun exponentialSmoothing() {
+    fun applySmoothing() {
         if (rotaryVelocityTracker.velocity != 0.0f) {
             // smooth the velocity
-            esVelocity = exponentialSmoothing(
+            smoothedVelocity = exponentialSmoothing(
                 currentVelocity = rotaryVelocityTracker.velocity.absoluteValue,
-                prevVelocity = esVelocity,
+                prevVelocity = smoothedVelocity,
                 smoothingConstant = smoothingConstant
             )
         }
         debugLog { "rotaryVelocityTracker velocity: ${rotaryVelocityTracker.velocity}" }
-        debugLog { "Es velocity: $esVelocity" }
+        debugLog { "SmoothedVelocity: $smoothedVelocity" }
     }
 
     fun snapThreshold(): Float {
         val thresholdDividerFraction =
-            thresholdDividerEasing.transform(inverseLerp(minVelocity, maxVelocity, esVelocity))
+            thresholdDividerEasing.transform(inverseLerp(minVelocity, maxVelocity, smoothedVelocity))
         return rotaryScrollAdapter.averageItemSize() / lerp(
             1f,
             thresholdDivider,
             thresholdDividerFraction
         )
     }
+
+    private fun exponentialSmoothing(
+        currentVelocity: Float,
+        prevVelocity: Float,
+        smoothingConstant: Float
+    ): Float =
+        smoothingConstant * currentVelocity + (1 - smoothingConstant) * prevVelocity
 }
 
 @Composable
 private fun rememberTimestampChannel() = remember {
     Channel<TimestampedDelta>(capacity = Channel.CONFLATED)
 }
-
-private fun exponentialSmoothing(
-    currentVelocity: Float,
-    prevVelocity: Float,
-    smoothingConstant: Float
-): Float =
-    smoothingConstant * currentVelocity + (1 - smoothingConstant) * prevVelocity
 
 private fun inverseLerp(start: Float, stop: Float, value: Float): Float {
     return ((value - start) / (stop - start)).coerceIn(0f, 1f)

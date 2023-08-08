@@ -89,8 +89,11 @@ public class ScalingLazyColumnState(
     public sealed interface RotaryMode {
         public object Snap : RotaryMode
         public object Scroll : RotaryMode
-        @Deprecated("Use RotaryMode.Scroll instead",
-            replaceWith = ReplaceWith("RotaryMode.Scroll"))
+
+        @Deprecated(
+            "Use RotaryMode.Scroll instead",
+            replaceWith = ReplaceWith("RotaryMode.Scroll")
+        )
         public object Fling : RotaryMode
     }
 

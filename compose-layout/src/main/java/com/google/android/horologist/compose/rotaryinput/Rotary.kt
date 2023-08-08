@@ -823,8 +823,7 @@ public fun Modifier.rotaryHandler(
  */
 @ExperimentalHorologistApi
 @OptIn(ExperimentalCoroutinesApi::class)
-public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long)
-    : Flow<TimestampedDelta> {
+public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long): Flow<TimestampedDelta> {
     var delta = 0f
     var lastTimestamp = -timeframe
     return if (timeframe == 0L) {

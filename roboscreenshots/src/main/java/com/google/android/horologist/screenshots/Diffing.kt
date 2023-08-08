@@ -136,7 +136,7 @@ internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.paparazz
     val snapshot = snapshotting.snapshot(value)
     val fileStoring = fileStoring.asserted
 
-    if (record == RecordMode.Record) {
+    if (record == RecordMode.Record || (record == RecordMode.Repair && !referenceFile.exists())) {
         fileStoring.store(snapshot, referenceFile)
         diffFileName.deleteRecursively()
         println("Stored snapshot to: ${referenceFile.absolutePath}")

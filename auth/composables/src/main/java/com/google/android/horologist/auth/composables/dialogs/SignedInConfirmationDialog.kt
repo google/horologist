@@ -50,7 +50,6 @@ import java.time.Duration
 
 private const val AVATAR_BACKGROUND_COLOR = 0xFF4ECDE6
 private const val AVATAR_TEXT_COLOR = 0xFF202124
-private const val BOTTOM_PADDING_SCREEN_PERCENTAGE = 0.094
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
 
 /**
@@ -113,13 +112,11 @@ internal fun SignedInConfirmationDialogContent(
 ) {
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
-    val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
 
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = horizontalPadding)
-            .padding(bottom = bottomPadding),
+            .padding(horizontal = horizontalPadding),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

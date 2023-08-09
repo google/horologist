@@ -120,7 +120,7 @@ internal fun SignedInConfirmationDialogContent(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val hasName = name != null
+        val hasName = !name.isNullOrEmpty()
         val hasAvatar = avatar != null
 
         Box(

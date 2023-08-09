@@ -33,6 +33,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlayerState
@@ -453,5 +454,28 @@ class PlayerScreenTest {
 
         // then
         composeTestRule.onNode(hasText("Custom")).assertExists()
+    }
+
+    @Test
+    fun whenInit_thenVolumeShouldEqualToVolumeRepositoryState() {
+        // given
+        val playerRepository =
+            FakePlayerRepository()
+        val playerViewModel = PlayerViewModel(playerRepository)
+
+        // when
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel
+            )
+        }
+
+        // then
+        assertThat(volumeViewModel.volumeUiState.value).isEqualTo(
+            VolumeUiStateMapper.map(
+                volumeRepository.volumeState.value
+            )
+        )
     }
 }

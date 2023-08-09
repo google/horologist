@@ -65,6 +65,20 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     }
 
     @Test
+    fun signedInConfirmationDialogEmptyName() {
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
+            fakeImageLoader = FakeImageLoader.Resources
+        ) {
+            SignedInConfirmationDialogContent(
+                name = "",
+                email = "maggie@example.com",
+                avatar = android.R.drawable.sym_def_app_icon
+            )
+        }
+    }
+
+    @Test
     fun signedInConfirmationDialogNoNameNoAvatar() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             SignedInConfirmationDialogContent(

@@ -31,7 +31,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -47,7 +46,6 @@ import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-import com.google.android.horologist.compose.material.util.adjustChipHeightToFontScale
 
 /**
  * This component is an alternative to [Chip], providing the following:
@@ -215,7 +213,6 @@ public fun Chip(
         label = labelParam,
         onClick = onClick,
         modifier = modifier
-            .adjustChipHeightToFontScale(LocalConfiguration.current.fontScale)
             .fillMaxWidth(),
         secondaryLabel = secondaryLabelParam,
         icon = icon,

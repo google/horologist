@@ -114,10 +114,6 @@ package com.google.android.horologist.compose.material.util {
     property public static final String? DECORATIVE_ELEMENT_CONTENT_DESCRIPTION;
   }
 
-  public final class AdjustChipHeightToFontScaleKt {
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier adjustChipHeightToFontScale(androidx.compose.ui.Modifier, float fontScale, optional float padding);
-  }
-
   public final class RememberVectorPainterKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.graphics.vector.VectorPainter rememberVectorPainter(androidx.compose.ui.graphics.vector.ImageVector image, long tintColor, optional int tintBlendMode);
   }

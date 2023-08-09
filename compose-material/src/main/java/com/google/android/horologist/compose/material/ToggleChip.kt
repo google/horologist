@@ -28,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -42,7 +41,6 @@ import androidx.wear.compose.material.ToggleChipColors
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-import com.google.android.horologist.compose.material.util.adjustChipHeightToFontScale
 
 /**
  * This component is an alternative to [ToggleChip], providing the following:
@@ -134,7 +132,6 @@ public fun ToggleChip(
         label = labelParam,
         toggleControl = toggleControlParam,
         modifier = modifier
-            .adjustChipHeightToFontScale(LocalConfiguration.current.fontScale)
             .fillMaxWidth()
             .semantics {
                 stateDescription = stateDescriptionSemantics

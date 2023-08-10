@@ -82,6 +82,7 @@ public fun PlayerScreen(
     focusRequester: FocusRequester = rememberActiveFocusRequester()
 ) {
     val playerUiState by playerViewModel.playerUiState.collectAsStateWithLifecycle()
+    val volumeUiState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
 
     PlayerScreen(
         mediaDisplay = { mediaDisplay(playerUiState) },
@@ -91,7 +92,7 @@ public fun PlayerScreen(
         },
         modifier = modifier.rotaryVolumeControlsWithFocus(
             focusRequester = focusRequester,
-            volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
+            volumeUiStateProvider = { volumeUiState },
             onRotaryVolumeInput = { newVolume -> volumeViewModel.setVolume(newVolume) },
             localView = LocalView.current,
             isLowRes = isLowResInput()

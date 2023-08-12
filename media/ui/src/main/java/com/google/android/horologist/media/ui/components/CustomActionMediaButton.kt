@@ -19,11 +19,11 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import coil.compose.AsyncImage
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -37,21 +37,21 @@ public fun CustomActionMediaButton(
     onClick: () -> Unit,
     contentDescription: String,
     iconUri: String,
-    colors: Color,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     tapTargetSize: DpSize = DpSize(48.dp, 60.dp)
 ) {
     Button(
         onClick = onClick,
         modifier = modifier.size(tapTargetSize),
         enabled = enabled,
-        colors = ButtonDefaults.iconButtonColors()
+        colors = colors
     ) {
         AsyncImage(
             model = iconUri,
             contentDescription = contentDescription,
-            colorFilter = ColorFilter.tint(colors)
+            colorFilter = ColorFilter.tint(colors.contentColor(enabled = enabled).value)
         )
     }
 }

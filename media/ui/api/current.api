@@ -45,7 +45,7 @@ package com.google.android.horologist.media.ui.components {
   }
 
   public final class CustomActionMediaButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CustomActionMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, String contentDescription, String iconUri, long colors, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional long tapTargetSize);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CustomActionMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, String contentDescription, String iconUri, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional long tapTargetSize);
   }
 
   public final class EntityButtonKt {

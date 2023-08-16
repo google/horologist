@@ -22,7 +22,8 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreview() {
-    SignedInConfirmationDialogContent(
+    SignedInConfirmationDialog(
+        onDismissOrTimeout = {},
         name = "Maggie",
         email = "maggie@example.com"
     )
@@ -31,7 +32,8 @@ fun SignedInConfirmationDialogPreview() {
 @WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreviewNoName() {
-    SignedInConfirmationDialogContent(
+    SignedInConfirmationDialog(
+        onDismissOrTimeout = {},
         email = "maggie@example.com"
     )
 }
@@ -39,7 +41,8 @@ fun SignedInConfirmationDialogPreviewNoName() {
 @WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreviewNoEmail() {
-    SignedInConfirmationDialogContent(
+    SignedInConfirmationDialog(
+        onDismissOrTimeout = {},
         name = "Maggie"
     )
 }
@@ -47,13 +50,14 @@ fun SignedInConfirmationDialogPreviewNoEmail() {
 @WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreviewNoInformation() {
-    SignedInConfirmationDialogContent()
+    SignedInConfirmationDialog(onDismissOrTimeout = {})
 }
 
 @WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreviewTruncation() {
-    SignedInConfirmationDialogContent(
+    SignedInConfirmationDialog(
+        onDismissOrTimeout = {},
         name = "Wolfeschlegelsteinhausenbergerdorff",
         email = "wolfeschlegelsteinhausenbergerdorff@example.com"
     )

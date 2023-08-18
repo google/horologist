@@ -24,13 +24,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.auth.composables.chips.AccountChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052
@@ -62,14 +64,24 @@ public fun SelectAccountScreen(
 
         items(accounts.size) { index ->
             val account = accounts[index]
-
-            Chip(
-                label = account.email,
-                icon = account.avatar ?: defaultAvatar,
-                largeIcon = true,
-                onClick = { onAccountClicked(index, account) },
-                colors = ChipDefaults.secondaryChipColors()
-            )
+            MaterialTheme(
+                typography = MaterialTheme.typography.copy(
+                    button = MaterialTheme.typography.button.copy(
+                        lineBreak = LineBreak(
+                            strategy = LineBreak.Strategy.Balanced,
+                            strictness = LineBreak.Strictness.Normal,
+                            wordBreak = LineBreak.WordBreak.Default
+                        )
+                    )
+                )
+            ) {
+                AccountChip(
+                    account = account,
+                    onClick = { onAccountClicked(index, account) },
+                    colors = ChipDefaults.secondaryChipColors(),
+                    defaultAvatar = defaultAvatar
+                )
+            }
         }
     }
 }

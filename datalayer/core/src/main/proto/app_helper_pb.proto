@@ -54,6 +54,11 @@ message TileInfo {
   .google.protobuf.Timestamp timestamp = 3;
 }
 
+message ActivityLaunched {
+  bool activityLaunchedOnce = 1;
+  .google.protobuf.Timestamp timestamp = 2;
+}
+
 enum UsageStatus {
   USAGE_STATUS_UNSPECIFIED = 0;
   USAGE_STATUS_LAUNCHED_ONCE = 1;
@@ -69,6 +74,7 @@ message SurfacesInfo {
   reserved 1;
   repeated ComplicationInfo complications = 2;
   repeated TileInfo tiles = 3;
-  reserved 5;
-  UsageInfo usageInfo = 6;
+  // Temporarily keep [ActivityLaunched] - remove at a later date
+  ActivityLaunched activityLaunched = 4;
+  UsageInfo usageInfo = 5;
 }

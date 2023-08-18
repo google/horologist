@@ -28,6 +28,7 @@ import com.google.android.horologist.data.ComplicationInfo
 import com.google.android.horologist.data.TileInfo
 import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.activityLaunched
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
 import com.google.android.horologist.data.apphelper.SurfaceInfoSerializer
 import com.google.android.horologist.data.companionConfig
@@ -117,10 +118,20 @@ public class WearDataLayerAppHelper(
     public suspend fun markActivityLaunchedOnce() {
         surfaceInfoDataStore.updateData { info ->
             info.copy {
+                val launchTimestamp = System.currentTimeMillis().toProtoTimestamp()
                 if (usageInfo.usageStatus == UsageStatus.USAGE_STATUS_UNSPECIFIED) {
                     usageInfo = usageInfo {
                         usageStatus = UsageStatus.USAGE_STATUS_LAUNCHED_ONCE
-                        timestamp = System.currentTimeMillis().toProtoTimestamp()
+                        timestamp = launchTimestamp
+                    }
+                }
+
+                // Temporarily support previous location for this information in [ActivityLaunched]
+                // Remove in the longer term
+                if (!activityLaunched.activityLaunchedOnce) {
+                    activityLaunched = activityLaunched {
+                        activityLaunchedOnce = true
+                        timestamp = launchTimestamp
                     }
                 }
             }

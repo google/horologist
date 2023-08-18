@@ -34,11 +34,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.auth.sample.ui.theme.HorologistTheme
+import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.data.apphelper.AppHelperNodeType
 import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
+import com.google.android.horologist.data.usageInfo
 import com.google.protobuf.Timestamp
 
 @Composable
@@ -95,15 +97,13 @@ fun AppHelperNodeStatusCard(
                         )
                     )
                 }
-                if (nodeStatus.surfacesInfo.activityLaunched.activityLaunchedOnce) {
-                    Text(
-                        style = MaterialTheme.typography.labelMedium,
-                        text = stringResource(
-                            R.string.app_has_been_opened,
-                            nodeStatus.surfacesInfo.activityLaunched.activityLaunchedOnce
-                        )
+                Text(
+                    style = MaterialTheme.typography.labelMedium,
+                    text = stringResource(
+                        R.string.app_helper_usage_status,
+                        nodeStatus.surfacesInfo.usageInfo.usageStatus.name
                     )
-                }
+                )
                 Row(
                     modifier = Modifier
                         .padding(8.dp)
@@ -157,6 +157,10 @@ fun NodeCardPreview() {
                     timestamp = System.currentTimeMillis().toProtoTimestamp()
                 }
             )
+            usageInfo = usageInfo {
+                usageStatus = UsageStatus.USAGE_STATUS_LAUNCHED_ONCE
+                timestamp = System.currentTimeMillis().toProtoTimestamp()
+            }
         }
     )
     HorologistTheme {

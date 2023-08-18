@@ -23,10 +23,10 @@ import androidx.annotation.CheckResult
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.watchface.complications.data.ComplicationType
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.data.ActivityLaunched
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.ComplicationInfo
 import com.google.android.horologist.data.TileInfo
+import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
 import com.google.android.horologist.data.apphelper.SurfaceInfoSerializer
@@ -35,6 +35,7 @@ import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.copy
 import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.tileInfo
+import com.google.android.horologist.data.usageInfo
 import com.google.protobuf.Timestamp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.guava.await
@@ -116,11 +117,46 @@ public class WearDataLayerAppHelper(
     public suspend fun markActivityLaunchedOnce() {
         surfaceInfoDataStore.updateData { info ->
             info.copy {
-                if (!activityLaunched.activityLaunchedOnce) {
-                    activityLaunched = ActivityLaunched.newBuilder()
-                        .setActivityLaunchedOnce(true)
-                        .setTimestamp(System.currentTimeMillis().toProtoTimestamp())
-                        .build()
+                if (usageInfo.usageStatus == UsageStatus.USAGE_STATUS_UNSPECIFIED) {
+                    usageInfo = usageInfo {
+                        usageStatus = UsageStatus.USAGE_STATUS_LAUNCHED_ONCE
+                        timestamp = System.currentTimeMillis().toProtoTimestamp()
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Marks that the necessary setup steps have been completed in the app such that it is ready for
+     * use. Typically this should be called when any pairing/login has been completed.
+     */
+    public suspend fun markSetupComplete() {
+        surfaceInfoDataStore.updateData { info ->
+            info.copy {
+                if (usageInfo.usageStatus != UsageStatus.USAGE_STATUS_SETUP_COMPLETE) {
+                    usageInfo = usageInfo {
+                        usageStatus = UsageStatus.USAGE_STATUS_SETUP_COMPLETE
+                        timestamp = System.currentTimeMillis().toProtoTimestamp()
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Marks that the app is no longer considered in a fully setup state. For example, the user has
+     * logged out. This will roll the state back to the app having been used once - if the setup
+     * had previously been completed, but will have no effect if this is not the case.
+     */
+    public suspend fun markSetupNoLongerComplete() {
+        surfaceInfoDataStore.updateData { info ->
+            info.copy {
+                if (usageInfo.usageStatus == UsageStatus.USAGE_STATUS_SETUP_COMPLETE) {
+                    usageInfo = usageInfo {
+                        usageStatus = UsageStatus.USAGE_STATUS_LAUNCHED_ONCE
+                        timestamp = System.currentTimeMillis().toProtoTimestamp()
+                    }
                 }
             }
         }

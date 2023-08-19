@@ -41,7 +41,6 @@ import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
-import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -180,8 +179,7 @@ public fun Chip(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
-                maxLines = if (hasSecondaryLabel) 1 else 2,
-                style = MaterialTheme.typography.button
+                maxLines = if (hasSecondaryLabel) 1 else 2
             )
         }
 
@@ -191,8 +189,7 @@ public fun Chip(
                 Text(
                     text = secondaryLabel,
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.caption2
+                    maxLines = 1
                 )
             }
         }

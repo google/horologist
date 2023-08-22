@@ -20,19 +20,23 @@ import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
-class CreateAccountChipTest : ScreenshotBaseTest() {
+class AccountChipTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            CreateAccountChip(onClick = {})
+            AccountChip(
+                email = "maggie@example.com",
+                onClick = {}
+            )
         }
     }
 
     @Test
     fun disabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            CreateAccountChip(
+            AccountChip(
+                email = "maggie@example.com",
                 onClick = {},
                 enabled = false
             )
@@ -40,11 +44,12 @@ class CreateAccountChipTest : ScreenshotBaseTest() {
     }
 
     @Test
-    fun withLargeIconSpace() {
+    fun withSmallAvatar() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            CreateAccountChip(
+            AccountChip(
+                email = "maggie@example.com",
                 onClick = {},
-                largeIconSpace = true
+                largeAvatar = false
             )
         }
     }
@@ -52,9 +57,30 @@ class CreateAccountChipTest : ScreenshotBaseTest() {
     @Test
     fun withSecondaryChipType() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            CreateAccountChip(
+            AccountChip(
+                email = "maggie@example.com",
                 onClick = {},
                 colors = ChipDefaults.secondaryChipColors()
+            )
+        }
+    }
+
+    @Test
+    fun withLongEmailAddress() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            AccountChip(
+                email = "thisisaverylongemailaddresssample@example.com",
+                onClick = {}
+            )
+        }
+    }
+
+    @Test
+    fun withEmailAddressStartingWithSingleLetterAndDot() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            AccountChip(
+                email = "p.thisisaverylongemailaddress@example.com",
+                onClick = {}
             )
         }
     }

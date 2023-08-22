@@ -34,7 +34,8 @@ class TestBinderConnection {
         val service = setupService(S::class.java)
         shadowApp.setBindServiceCallsOnServiceConnectedDirectly(true)
         shadowApp.setComponentNameAndServiceForBindService(
-            ComponentName(app, S::class.java), service.onBind(Intent())
+            ComponentName(app, S::class.java),
+            service.onBind(Intent())
         )
         return backgroundScope.bindService<T, S>(app)
     }

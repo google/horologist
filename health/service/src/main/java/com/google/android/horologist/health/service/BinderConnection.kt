@@ -42,21 +42,21 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 import kotlin.reflect.safeCast
 
-class BinderConnection<T : IBinder>(
+public class BinderConnection<T : IBinder>(
     private val context: Context,
     private val type: KClass<out T>
 ) : ServiceConnection {
     private val mutableBinder = MutableStateFlow<T?>(null)
-    val binder = mutableBinder.asStateFlow()
+    private val binder = mutableBinder.asStateFlow()
 
-    fun unbind() {
+    public fun unbind() {
         context.unbindService(this)
     }
 
-    suspend fun <R> runWhenConnected(command: suspend (T) -> R): R =
+    public suspend fun <R> runWhenConnected(command: suspend (T) -> R): R =
         command(binder.filterNotNull().first())
 
-    fun <N, V : Flow<N>> flowWhenConnected(property: KProperty1<T, V>) =
+    public fun <N, V : Flow<N>> flowWhenConnected(property: KProperty1<T, V>): Flow<N> =
         binder.flatMapLatest { it?.let { property.get(it) } ?: emptyFlow() }
 
     override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -69,7 +69,7 @@ class BinderConnection<T : IBinder>(
         mutableBinder.value = null
     }
 
-    companion object {
+    public companion object {
         // For Hilt
 //        inline fun <reified T : IBinder, reified S : Service> ViewModelLifecycle.bindService(context: Context): BinderConnection<T> {
 //            val connection = BinderConnection(context, T::class)
@@ -80,7 +80,7 @@ class BinderConnection<T : IBinder>(
 //            return connection
 //        }
 
-        inline fun <reified T : IBinder, reified S : Service> Lifecycle.bindService(
+        public inline fun <reified T : IBinder, reified S : Service> Lifecycle.bindService(
             context: Context
         ): BinderConnection<T> {
             val connection = BinderConnection(context, T::class)
@@ -96,7 +96,7 @@ class BinderConnection<T : IBinder>(
             return connection
         }
 
-        inline fun <reified T : IBinder, reified S : Service> CoroutineScope.bindService(
+        public inline fun <reified T : IBinder, reified S : Service> CoroutineScope.bindService(
             context: Context
         ): BinderConnection<T> {
             val connection = BinderConnection(context, T::class)
@@ -111,7 +111,7 @@ class BinderConnection<T : IBinder>(
             return connection
         }
 
-        fun <S : Service> bindService(
+        public fun <S : Service> bindService(
             context: Context,
             service: KClass<S>,
             connection: BinderConnection<*>

@@ -34,7 +34,6 @@ import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.Shadows.shadowOf
 
-
 @RunWith(AndroidJUnit4::class)
 class BinderConnectionTest {
     private lateinit var application: Application
@@ -50,7 +49,8 @@ class BinderConnectionTest {
             ComponentName(
                 application,
                 TestService::class.java
-            ), service.localBinder
+            ),
+            service.localBinder
         )
     }
 

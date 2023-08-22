@@ -1,0 +1,21 @@
+// Signature format: 4.0
+package com.google.android.horologist.health.service {
+
+  public final class BinderConnection<T extends android.os.IBinder> implements android.content.ServiceConnection {
+    ctor public BinderConnection(android.content.Context context, kotlin.reflect.KClass<? extends T> type);
+    method public <N, V extends kotlinx.coroutines.flow.Flow<? extends N>> kotlinx.coroutines.flow.Flow<N> flowWhenConnected(kotlin.reflect.KProperty1<T,? extends V> property);
+    method public void onServiceConnected(android.content.ComponentName? name, android.os.IBinder? service);
+    method public void onServiceDisconnected(android.content.ComponentName? name);
+    method public suspend <R> Object? runWhenConnected(kotlin.jvm.functions.Function2<? super T,? super kotlin.coroutines.Continuation<? super R>,?> command, kotlin.coroutines.Continuation<? super R>);
+    method public void unbind();
+    field public static final com.google.android.horologist.health.service.BinderConnection.Companion Companion;
+  }
+
+  public static final class BinderConnection.Companion {
+    method public <S extends android.app.Service> void bindService(android.content.Context context, kotlin.reflect.KClass<S> service, com.google.android.horologist.health.service.BinderConnection<?> connection);
+    method public inline <reified T extends android.os.IBinder, reified S extends android.app.Service> com.google.android.horologist.health.service.BinderConnection<T>! bindService(androidx.lifecycle.Lifecycle, android.content.Context context);
+    method public inline <reified T extends android.os.IBinder, reified S extends android.app.Service> com.google.android.horologist.health.service.BinderConnection<T>! bindService(kotlinx.coroutines.CoroutineScope, android.content.Context context);
+  }
+
+}
+

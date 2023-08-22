@@ -21,6 +21,8 @@ import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 import androidx.lifecycle.LifecycleService
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 class TestService : LifecycleService() {
     var name: ComponentName? = null
@@ -37,5 +39,7 @@ class TestService : LifecycleService() {
     /** Local clients will use this to access the service. */
     inner class LocalBinder : Binder() {
         fun getService() = this@TestService
+
+        val flow: Flow<String> = flowOf("Something 1", "Something 2")
     }
 }

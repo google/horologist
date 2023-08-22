@@ -26,6 +26,8 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.Before
@@ -58,6 +60,8 @@ class BinderConnectionTest {
     fun testScopeBinding() = runTest {
         assertThat(shadowOf(application).boundServiceConnections).hasSize(0)
 
+        var connected = false
+
         try {
             withContext(Dispatchers.Default) {
                 val x = bindService<TestService.LocalBinder, TestService>(application)
@@ -66,7 +70,11 @@ class BinderConnectionTest {
                     assertThat(it.getService().doSomething()).isEqualTo("Something")
 
                     assertThat(shadowOf(application).boundServiceConnections).hasSize(1)
+
+                    connected = true
                 }
+
+                assertThat(connected).isTrue()
 
                 this.cancel()
             }
@@ -77,5 +85,24 @@ class BinderConnectionTest {
         shadowOf(getMainLooper()).idle()
 
         assertThat(shadowOf(application).boundServiceConnections).hasSize(0)
+    }
+
+    @Test
+    fun testScopeBindingFlow() = runTest {
+        try {
+            withContext(Dispatchers.Default) {
+                val x = bindService<TestService.LocalBinder, TestService>(application)
+
+                val flow: Flow<String> = x.flowWhenConnected(TestService.LocalBinder::flow)
+
+                assertThat(flow.first()).isEqualTo("Something 1")
+
+                this.cancel()
+            }
+        } catch (e: CancellationException) {
+            // expected
+        }
+
+        shadowOf(getMainLooper()).idle()
     }
 }

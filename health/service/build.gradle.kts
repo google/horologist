@@ -96,6 +96,7 @@ dependencies {
     implementation(libs.androidx.health.services)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.androidx.lifecycle.service)
 
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.junit)

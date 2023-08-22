@@ -15,25 +15,26 @@
  */
 package com.google.android.horologist.health.service
 
-import android.app.Service
 import android.content.ComponentName
 import android.content.Intent
-import android.content.ServiceConnection
+import android.os.Binder
 import android.os.IBinder
+import androidx.lifecycle.LifecycleService
 
-internal class TestService : Service(), ServiceConnection {
+class TestService : LifecycleService() {
     var name: ComponentName? = null
-    var service: IBinder? = null
+    val localBinder = LocalBinder()
 
-    override fun onBind(intent: Intent): IBinder? {
-        return null
+    override fun onBind(intent: Intent): IBinder {
+        return localBinder
     }
 
-    override fun onServiceConnected(name: ComponentName, service: IBinder) {
-        this.name = name
-        this.service = service
+    fun doSomething(): String {
+        return "Something"
     }
 
-    override fun onServiceDisconnected(name: ComponentName) {
+    /** Local clients will use this to access the service. */
+    inner class LocalBinder : Binder() {
+        fun getService() = this@TestService
     }
 }

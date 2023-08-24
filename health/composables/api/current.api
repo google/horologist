@@ -23,3 +23,50 @@ package com.google.android.horologist.health.composables {
 
 }
 
+package com.google.android.horologist.health.composables.components {
+
+  public final class MetricDisplayKt {
+    method @androidx.compose.runtime.Composable public static void MetricDisplay(com.google.android.horologist.health.composables.model.MetricUiModel metric, optional androidx.compose.ui.Modifier modifier);
+  }
+
+}
+
+package com.google.android.horologist.health.composables.model {
+
+  public final class MetricUiModel {
+    ctor public MetricUiModel(String text, optional String? topRightText, optional String? bottomRightText, optional long color);
+    method public String component1();
+    method public String? component2();
+    method public String? component3();
+    method public long component4-0d7_KjU();
+    method public com.google.android.horologist.health.composables.model.MetricUiModel copy-g2O1Hgs(String text, String? topRightText, String? bottomRightText, long color);
+    method public String? getBottomRightText();
+    method public long getColor();
+    method public String getText();
+    method public String? getTopRightText();
+    property public final String? bottomRightText;
+    property public final long color;
+    property public final String text;
+    property public final String? topRightText;
+  }
+
+}
+
+package com.google.android.horologist.health.composables.screens {
+
+  public final class MetricsScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MetricsScreen(com.google.android.horologist.health.composables.model.MetricUiModel firstMetric, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? positionIndicator);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MetricsScreen(com.google.android.horologist.health.composables.model.MetricUiModel firstMetric, com.google.android.horologist.health.composables.model.MetricUiModel secondMetric, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? positionIndicator);
+    method @androidx.compose.runtime.Composable public static void MetricsScreen(com.google.android.horologist.health.composables.model.MetricUiModel firstMetric, com.google.android.horologist.health.composables.model.MetricUiModel secondMetric, com.google.android.horologist.health.composables.model.MetricUiModel thirdMetric, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? positionIndicator);
+    method @androidx.compose.runtime.Composable public static void MetricsScreen(com.google.android.horologist.health.composables.model.MetricUiModel firstMetric, com.google.android.horologist.health.composables.model.MetricUiModel secondMetric, com.google.android.horologist.health.composables.model.MetricUiModel thirdMetric, com.google.android.horologist.health.composables.model.MetricUiModel fourthMetric, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? positionIndicator);
+  }
+
+}
+
+package com.google.android.horologist.health.composables.theme {
+
+  public final class ColorsKt {
+  }
+
+}
+

@@ -19,6 +19,7 @@
 package com.google.android.horologist.media.ui.screens.player
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -30,8 +31,6 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
@@ -57,31 +56,11 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampTheme
 import kotlin.time.Duration.Companion.seconds
 
-@Preview(
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
 fun PlayerScreenPreview() {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
         timeText = { TimeText() }
     ) {
         PagerScreen(
@@ -131,34 +110,11 @@ fun PlayerScreenPreview() {
     }
 }
 
-@Preview(
-    name = "With custom media display",
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom media display",
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom media display",
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
 fun PlayerScreenPreviewCustomMediaDisplay() {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
         timeText = { TimeText() }
     ) {
         PagerScreen(
@@ -209,34 +165,11 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
     }
 }
 
-@Preview(
-    name = "With custom background",
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom background",
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom background",
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
 fun PlayerScreenPreviewCustomBackground() {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
         timeText = { TimeText() }
     ) {
         PagerScreen(
@@ -392,34 +325,11 @@ fun DefaultMediaPreview() {
     }
 }
 
-@Preview(
-    name = "With custom media display",
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom media display",
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom media display",
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
 fun PlayerScreenPreviewNotingPlayingDisplay() {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
         timeText = { TimeText() }
     ) {
         PagerScreen(
@@ -460,4 +370,4 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
     }
 }
 
-private const val BACKGROUND_COLOR = 0xFF313234
+private val BACKGROUND_COLOR = Color(0xFF313234)

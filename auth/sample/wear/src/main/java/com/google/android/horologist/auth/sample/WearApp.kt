@@ -18,11 +18,10 @@ package com.google.android.horologist.auth.sample
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.DeviceCodeResponse
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.TokenResponse
 import com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.DeviceGrantDefaultConfig
@@ -149,7 +148,7 @@ fun WearApp(
     }
 }
 
-@Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
+@WearPreviewSmallRound
 @Composable
 fun DefaultPreview() {
     WearApp()

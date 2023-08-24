@@ -1,7 +1,7 @@
 [versions]
 accompanist = "0.32.0"
 androidx-benchmark = "1.2.0-beta04"
-androidx-complications-data = "1.2.0-alpha09"
+androidx-complications-data = "1.2.0-beta01"
 androidx-compose-material = "1.5.0"
 androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"

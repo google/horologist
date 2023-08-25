@@ -67,8 +67,6 @@ class WearConfiguredPlayerTest {
         wearConfiguredPlayer.prepare()
         wearConfiguredPlayer.play()
 
-
-
         advanceUntilIdle()
 
         assertThat(errorReporter.messages).contains(R.string.horologist_cant_play_item)

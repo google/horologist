@@ -18,7 +18,6 @@ package com.google.android.horologist.media3.rules
 
 import androidx.media3.common.MediaItem
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.audio.AudioOutput
 
 /**
  * Configuration rules for how restrictive or permissive the app should

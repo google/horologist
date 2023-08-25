@@ -53,7 +53,6 @@ public class WearConfiguredPlayer(
     }
 
     private suspend fun attemptPlay(mediaItem: MediaItem) = coroutineScope {
-
         if (!playbackRules.canPlayItem(mediaItem)) {
             errorReporter.showMessage(R.string.horologist_cant_play_item)
             return@coroutineScope

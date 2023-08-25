@@ -35,8 +35,6 @@ import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
-import com.google.android.horologist.media3.rules.PlaybackRules
-import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.data.log.Logging
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
 import com.google.android.horologist.mediasample.data.service.complication.MediaStatusComplicationService
@@ -69,31 +67,18 @@ object MediaApplicationModule {
     @Provides
     fun intentBuilder(
         @ApplicationContext application: Context,
-        appConfig: AppConfig,
+        appConfig: AppConfig
     ): IntentBuilder =
         NavDeepLinkIntentBuilder(
             application,
             "${appConfig.deeplinkUriPrefix}/player?page=1",
-            "${appConfig.deeplinkUriPrefix}/player?page=0",
+            "${appConfig.deeplinkUriPrefix}/player?page=0"
         )
 
     @Singleton
     @Provides
-    fun playbackRules(
-        appConfig: AppConfig,
-        @IsEmulator isEmulator: Boolean,
-    ): PlaybackRules =
-        appConfig.playbackRules
-            ?: if (BuildConfig.BENCHMARK || isEmulator) {
-                PlaybackRules.SpeakerAllowed
-            } else {
-                PlaybackRules.Normal
-            }
-
-    @Singleton
-    @Provides
     fun prefsDataStore(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): DataStore<Settings> =
         application.settingsStore
 
@@ -106,7 +91,7 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun audioOffloadListener(
-        listeners: AudioOffloadListenerList,
+        listeners: AudioOffloadListenerList
     ): AudioOffloadListener = listeners
 
     @Singleton
@@ -116,7 +101,7 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun wearMedia3Factory(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): WearMedia3Factory =
         WearMedia3Factory(application)
 
@@ -127,13 +112,13 @@ object MediaApplicationModule {
         settingsRepository: SettingsRepository,
         @ForApplicationScope coroutineScope: CoroutineScope,
         appConfig: AppConfig,
-        audioOffloadListenerList: AudioOffloadListenerList,
+        audioOffloadListenerList: AudioOffloadListenerList
     ): AudioOffloadManager {
         val audioOffloadStrategyFlow =
             settingsRepository.settingsFlow.map { it.offloadMode.strategy }
         return AudioOffloadManager(
             logger,
-            audioOffloadStrategyFlow,
+            audioOffloadStrategyFlow
         ).also { audioOffloadManager ->
             if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
                 audioOffloadListenerList.addListener(audioOffloadManager.audioOffloadListener)
@@ -153,38 +138,38 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun logger(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): Logging = Logging(res = application.resources)
 
     @Singleton
     @Provides
     fun errorReporter(
-        logging: Logging,
+        logging: Logging
     ): ErrorReporter = logging
 
     @Singleton
     @Provides
     fun vibrator(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): Vibrator =
         application.getSystemService(Vibrator::class.java)
 
     @Singleton
     @Provides
     fun cacheDatabaseProvider(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): DatabaseProvider = StandaloneDatabaseProvider(application)
 
     @Singleton
     @Provides
     fun media3Cache(
         @CacheDir cacheDir: File,
-        cacheDatabaseProvider: DatabaseProvider,
+        cacheDatabaseProvider: DatabaseProvider
     ): Cache =
         SimpleCache(
             cacheDir.resolve("media3cache"),
             NoOpCacheEvictor(),
-            cacheDatabaseProvider,
+            cacheDatabaseProvider
         )
 
     @Singleton
@@ -195,20 +180,20 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun ResourceProvider(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): ResourceProvider = ResourceProvider(application.resources)
 
     @Singleton
     @Provides
     fun dataUpdates(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): DataUpdates {
         val updater = ComplicationDataSourceUpdateRequester.create(
             application,
             ComponentName(
                 application,
-                MediaStatusComplicationService::class.java,
-            ),
+                MediaStatusComplicationService::class.java
+            )
         )
         return DataUpdates(updater)
     }

@@ -1,12 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.media3 {
-
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class WearConfiguredPlayer extends androidx.media3.common.ForwardingPlayer {
-    ctor public WearConfiguredPlayer(androidx.media3.common.Player player, com.google.android.horologist.media3.rules.PlaybackRules playbackRules, com.google.android.horologist.media3.logging.ErrorReporter errorReporter, kotlinx.coroutines.CoroutineScope coroutineScope);
-  }
-
-}
-
 package com.google.android.horologist.media3.config {
 
   public class WearMedia3Factory {
@@ -50,24 +42,6 @@ package com.google.android.horologist.media3.navigation {
     ctor public NavDeepLinkIntentBuilder(android.content.Context application, String downloadUri, String playerUri);
     method public android.app.PendingIntent buildDownloadIntent();
     method public android.app.PendingIntent buildPlayerIntent();
-  }
-
-}
-
-package com.google.android.horologist.media3.rules {
-
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface PlaybackRules {
-    method public suspend Object? canPlayItem(androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
-  }
-
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public static final class PlaybackRules.Normal implements com.google.android.horologist.media3.rules.PlaybackRules {
-    method public suspend Object? canPlayItem(androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
-    field public static final com.google.android.horologist.media3.rules.PlaybackRules.Normal INSTANCE;
-  }
-
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public static final class PlaybackRules.SpeakerAllowed implements com.google.android.horologist.media3.rules.PlaybackRules {
-    method public suspend Object? canPlayItem(androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
-    field public static final com.google.android.horologist.media3.rules.PlaybackRules.SpeakerAllowed INSTANCE;
   }
 
 }

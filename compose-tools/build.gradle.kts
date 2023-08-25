@@ -109,6 +109,7 @@ dependencies {
     implementation(libs.coil)
 
     implementation(libs.compose.ui.toolingpreview)
+    implementation(libs.androidx.wear.tooling.preview)
     implementation(libs.kotlinx.coroutines.guava)
     api(libs.wearcompose.tooling)
 

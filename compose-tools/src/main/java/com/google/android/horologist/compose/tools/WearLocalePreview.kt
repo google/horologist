@@ -16,65 +16,11 @@
 
 package com.google.android.horologist.compose.tools
 
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.wear.tooling.preview.devices.WearDevices
 
 @Preview(
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Devices - Large Round"
-)
-@Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Devices - Small Round"
-)
-@Preview(
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Devices - Square"
-)
-@Deprecated("Now in Wear Compose", replaceWith = ReplaceWith("WearPreviewDevices", "androidx.wear.compose.ui.tooling.preview.WearPreviewDevices"))
-public annotation class WearPreviewDevices
-
-@Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Devices - Small Round"
-)
-@Deprecated("Now in Wear Compose", replaceWith = ReplaceWith("WearPreviewSmallRound", "androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound"))
-public annotation class WearSmallRoundDevicePreview
-
-@Preview(
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Devices - Large Round"
-)
-@Deprecated("Now in Wear Compose", replaceWith = ReplaceWith("WearPreviewLargeRound", "androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound"))
-public annotation class WearLargeRoundDevicePreview
-
-@Preview(
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Devices - Square"
-)
-@Deprecated("Now in Wear Compose", replaceWith = ReplaceWith("WearPreviewSquare", "androidx.wear.compose.ui.tooling.preview.WearPreviewSquare"))
-public annotation class WearSquareDevicePreview
-
-@Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -82,7 +28,7 @@ public annotation class WearSquareDevicePreview
     locale = "en"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -90,7 +36,7 @@ public annotation class WearSquareDevicePreview
     locale = "ar"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -98,7 +44,7 @@ public annotation class WearSquareDevicePreview
     locale = "as"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -106,7 +52,7 @@ public annotation class WearSquareDevicePreview
     locale = "b+es+419"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -114,7 +60,7 @@ public annotation class WearSquareDevicePreview
     locale = "bg"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -122,7 +68,7 @@ public annotation class WearSquareDevicePreview
     locale = "bn"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -130,7 +76,7 @@ public annotation class WearSquareDevicePreview
     locale = "ca"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -138,7 +84,7 @@ public annotation class WearSquareDevicePreview
     locale = "cs"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -146,7 +92,7 @@ public annotation class WearSquareDevicePreview
     locale = "da"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -154,7 +100,7 @@ public annotation class WearSquareDevicePreview
     locale = "de"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -162,7 +108,7 @@ public annotation class WearSquareDevicePreview
     locale = "el"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -170,7 +116,7 @@ public annotation class WearSquareDevicePreview
     locale = "en-rGB"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -178,7 +124,7 @@ public annotation class WearSquareDevicePreview
     locale = "en-rIE"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -186,7 +132,7 @@ public annotation class WearSquareDevicePreview
     locale = "es"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -194,7 +140,7 @@ public annotation class WearSquareDevicePreview
     locale = "es-rUS"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -202,7 +148,7 @@ public annotation class WearSquareDevicePreview
     locale = "et"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -210,7 +156,7 @@ public annotation class WearSquareDevicePreview
     locale = "eu"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -218,7 +164,7 @@ public annotation class WearSquareDevicePreview
     locale = "fa"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -226,7 +172,7 @@ public annotation class WearSquareDevicePreview
     locale = "fi"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -234,7 +180,7 @@ public annotation class WearSquareDevicePreview
     locale = "fr"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -242,7 +188,7 @@ public annotation class WearSquareDevicePreview
     locale = "fr-rCA"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -250,7 +196,7 @@ public annotation class WearSquareDevicePreview
     locale = "gl"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -258,7 +204,7 @@ public annotation class WearSquareDevicePreview
     locale = "gu"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -266,7 +212,7 @@ public annotation class WearSquareDevicePreview
     locale = "hi"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -274,7 +220,7 @@ public annotation class WearSquareDevicePreview
     locale = "hr"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -282,7 +228,7 @@ public annotation class WearSquareDevicePreview
     locale = "hu"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -290,7 +236,7 @@ public annotation class WearSquareDevicePreview
     locale = "hy"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -298,7 +244,7 @@ public annotation class WearSquareDevicePreview
     locale = "in"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -306,7 +252,7 @@ public annotation class WearSquareDevicePreview
     locale = "is"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -314,7 +260,7 @@ public annotation class WearSquareDevicePreview
     locale = "it"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -322,7 +268,7 @@ public annotation class WearSquareDevicePreview
     locale = "iw"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -330,7 +276,7 @@ public annotation class WearSquareDevicePreview
     locale = "ja"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -338,7 +284,7 @@ public annotation class WearSquareDevicePreview
     locale = "ka"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -346,7 +292,7 @@ public annotation class WearSquareDevicePreview
     locale = "kk"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -354,7 +300,7 @@ public annotation class WearSquareDevicePreview
     locale = "km"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -362,7 +308,7 @@ public annotation class WearSquareDevicePreview
     locale = "kn"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -370,7 +316,7 @@ public annotation class WearSquareDevicePreview
     locale = "ko"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -378,7 +324,7 @@ public annotation class WearSquareDevicePreview
     locale = "ky"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -386,7 +332,7 @@ public annotation class WearSquareDevicePreview
     locale = "lt"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -394,7 +340,7 @@ public annotation class WearSquareDevicePreview
     locale = "lv"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -402,7 +348,7 @@ public annotation class WearSquareDevicePreview
     locale = "mk"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -410,7 +356,7 @@ public annotation class WearSquareDevicePreview
     locale = "ml"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -418,7 +364,7 @@ public annotation class WearSquareDevicePreview
     locale = "mn"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -426,7 +372,7 @@ public annotation class WearSquareDevicePreview
     locale = "mr"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -434,7 +380,7 @@ public annotation class WearSquareDevicePreview
     locale = "ms"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -442,7 +388,7 @@ public annotation class WearSquareDevicePreview
     locale = "my"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -450,7 +396,7 @@ public annotation class WearSquareDevicePreview
     locale = "nb"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -458,7 +404,7 @@ public annotation class WearSquareDevicePreview
     locale = "ne"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -466,7 +412,7 @@ public annotation class WearSquareDevicePreview
     locale = "nl"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -474,7 +420,7 @@ public annotation class WearSquareDevicePreview
     locale = "or"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -482,7 +428,7 @@ public annotation class WearSquareDevicePreview
     locale = "pa"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -490,7 +436,7 @@ public annotation class WearSquareDevicePreview
     locale = "pl"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -498,7 +444,7 @@ public annotation class WearSquareDevicePreview
     locale = "pt-rBR"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -506,7 +452,7 @@ public annotation class WearSquareDevicePreview
     locale = "pt-rPT"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -514,7 +460,7 @@ public annotation class WearSquareDevicePreview
     locale = "ro"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -522,7 +468,7 @@ public annotation class WearSquareDevicePreview
     locale = "ru"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -530,7 +476,7 @@ public annotation class WearSquareDevicePreview
     locale = "si"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -538,7 +484,7 @@ public annotation class WearSquareDevicePreview
     locale = "sk"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -546,7 +492,7 @@ public annotation class WearSquareDevicePreview
     locale = "sl"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -554,7 +500,7 @@ public annotation class WearSquareDevicePreview
     locale = "sq"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -562,7 +508,7 @@ public annotation class WearSquareDevicePreview
     locale = "sr"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -570,7 +516,7 @@ public annotation class WearSquareDevicePreview
     locale = "sv"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -578,7 +524,7 @@ public annotation class WearSquareDevicePreview
     locale = "ta"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -586,7 +532,7 @@ public annotation class WearSquareDevicePreview
     locale = "te"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -594,7 +540,7 @@ public annotation class WearSquareDevicePreview
     locale = "th"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -602,7 +548,7 @@ public annotation class WearSquareDevicePreview
     locale = "tr"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -610,7 +556,7 @@ public annotation class WearSquareDevicePreview
     locale = "uk"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -618,7 +564,7 @@ public annotation class WearSquareDevicePreview
     locale = "ur"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -626,7 +572,7 @@ public annotation class WearSquareDevicePreview
     locale = "uz"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -634,7 +580,7 @@ public annotation class WearSquareDevicePreview
     locale = "vi"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -642,7 +588,7 @@ public annotation class WearSquareDevicePreview
     locale = "zh-rCN"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
@@ -650,7 +596,7 @@ public annotation class WearSquareDevicePreview
     locale = "zh-rHK"
 )
 @Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
+    device = WearDevices.SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,

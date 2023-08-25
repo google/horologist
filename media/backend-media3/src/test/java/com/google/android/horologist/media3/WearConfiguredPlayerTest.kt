@@ -22,7 +22,6 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.test.utils.TestExoPlayerBuilder
 import androidx.test.core.app.ApplicationProvider
-import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.coroutineScope
@@ -40,7 +39,6 @@ class WearConfiguredPlayerTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val player = TestExoPlayerBuilder(context).build()
 
-    private val audioOutputRepository = FakeAudioOutputRepository()
     private val errorReporter = FakeErrorReporter()
 
     val mediaItem1 = exampleMediaItem("1")
@@ -56,18 +54,10 @@ class WearConfiguredPlayerTest {
             override suspend fun canPlayItem(mediaItem: MediaItem): Boolean {
                 return false
             }
-
-            override fun canPlayWithOutput(audioOutput: AudioOutput): Boolean {
-                return true
-            }
         }
-
-        val audioOutputSelector = FakeAudioOutputSelector(null, audioOutputRepository)
 
         val wearConfiguredPlayer = WearConfiguredPlayer(
             player,
-            audioOutputRepository,
-            audioOutputSelector,
             playbackRules,
             errorReporter,
             coroutineScope = this
@@ -76,6 +66,8 @@ class WearConfiguredPlayerTest {
         wearConfiguredPlayer.setMediaItem(mediaItem1)
         wearConfiguredPlayer.prepare()
         wearConfiguredPlayer.play()
+
+
 
         advanceUntilIdle()
 
@@ -89,20 +81,12 @@ class WearConfiguredPlayerTest {
             override suspend fun canPlayItem(mediaItem: MediaItem): Boolean {
                 return true
             }
-
-            override fun canPlayWithOutput(audioOutput: AudioOutput): Boolean {
-                return audioOutput is AudioOutput.BluetoothHeadset
-            }
         }
-
-        val audioOutputSelector = FakeAudioOutputSelector(null, audioOutputRepository)
 
         coroutineScope {
             try {
                 val wearConfiguredPlayer = WearConfiguredPlayer(
                     player,
-                    audioOutputRepository,
-                    audioOutputSelector,
                     playbackRules,
                     errorReporter,
                     coroutineScope = this

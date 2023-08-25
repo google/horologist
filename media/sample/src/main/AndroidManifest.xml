@@ -123,7 +123,8 @@
 
         <service
             android:name=".data.service.download.MediaDownloadServiceImpl"
-            android:exported="false">
+            android:exported="false"
+            android:foregroundServiceType="dataSync">
             <intent-filter>
                 <action android:name="com.google.android.exoplayer.downloadService.action.RESTART" />
                 <category android:name="android.intent.category.DEFAULT" />

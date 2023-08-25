@@ -43,9 +43,8 @@ import androidx.media3.extractor.DefaultExtractorsFactory
 import androidx.media3.extractor.ExtractorsFactory
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaLibraryService.MediaLibrarySession
-import com.google.android.horologist.audio.SystemAudioRepository
+import androidx.media3.ui.WearUnsuitableOutputPlaybackSuppressionResolverListener
 import com.google.android.horologist.media3.WearConfiguredPlayer
-import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.logging.AnalyticsEventLogger
 import com.google.android.horologist.media3.logging.ErrorReporter
@@ -54,7 +53,6 @@ import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.offload.AudioOffloadStrategy
 import com.google.android.horologist.media3.rules.PlaybackRules
-import com.google.android.horologist.media3.tracing.TracingListener
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
 import com.google.android.horologist.mediasample.data.service.playback.UampMediaLibrarySessionCallback
 import com.google.android.horologist.mediasample.domain.SettingsRepository
@@ -68,7 +66,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.scopes.ServiceScoped
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -191,7 +188,7 @@ object PlaybackServiceModule {
             .setAnalyticsCollector(analyticsCollector)
             .setMediaSourceFactory(mediaSourceFactory)
             .setAudioAttributes(AudioAttributes.DEFAULT, true)
-            .setHandleAudioBecomingNoisy(true)
+            .setSuppressPlaybackOnUnsuitableOutput(true)
             .setWakeMode(C.WAKE_MODE_NETWORK)
             .setLoadControl(loadControl)
             .setSeekForwardIncrementMs(10_000)
@@ -199,6 +196,7 @@ object PlaybackServiceModule {
             .build().apply {
                 addListener(analyticsCollector)
                 addListener(dataUpdates.listener)
+                addListener(WearUnsuitableOutputPlaybackSuppressionResolverListener(service))
             }
 
     @ServiceScoped
@@ -214,8 +212,6 @@ object PlaybackServiceModule {
     fun player(
         exoPlayer: ExoPlayer,
         serviceCoroutineScope: CoroutineScope,
-        systemAudioRepository: SystemAudioRepository,
-        audioOutputSelector: AudioOutputSelector,
         playbackRules: PlaybackRules,
         logger: ErrorReporter,
         audioOffloadManager: Provider<AudioOffloadManager>,
@@ -223,17 +219,11 @@ object PlaybackServiceModule {
     ): Player =
         WearConfiguredPlayer(
             player = exoPlayer,
-            audioOutputRepository = systemAudioRepository,
-            audioOutputSelector = audioOutputSelector,
             playbackRules = playbackRules,
             errorReporter = logger,
             coroutineScope = serviceCoroutineScope
-        ).also { wearConfiguredPlayer ->
+        ).also {
             exoPlayer.addListener(com.google.android.horologist.media3.tracing.TracingListener())
-
-            serviceCoroutineScope.launch(Dispatchers.Main) {
-                wearConfiguredPlayer.startNoiseDetection()
-            }
 
             if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
                 serviceCoroutineScope.launch {

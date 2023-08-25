@@ -31,23 +31,13 @@ public interface PlaybackRules {
      */
     public suspend fun canPlayItem(mediaItem: MediaItem): Boolean
 
-    /**
-     * Can Media be played with the given audio target.
-     */
-    public fun canPlayWithOutput(audioOutput: AudioOutput): Boolean
-
     @ExperimentalHorologistApi
     public object Normal : PlaybackRules {
         override suspend fun canPlayItem(mediaItem: MediaItem): Boolean = true
-
-        override fun canPlayWithOutput(audioOutput: AudioOutput): Boolean =
-            audioOutput is AudioOutput.BluetoothHeadset
     }
 
     @ExperimentalHorologistApi
     public object SpeakerAllowed : PlaybackRules {
         override suspend fun canPlayItem(mediaItem: MediaItem): Boolean = true
-
-        override fun canPlayWithOutput(audioOutput: AudioOutput): Boolean = true
     }
 }

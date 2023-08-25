@@ -7,7 +7,7 @@ androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
 androidx-health-services = "1.0.0-rc01"
 androidx-hilt = "1.0.0"
-androidx-media3 = "1.1.1"
+androidx-media3 = "1.2.0-alpha01"
 androidx-test-espresso = "3.6.0-alpha01"
 androidx-test-ext = "1.2.0-alpha01"
 androidx-tracingPerfetto = "1.0.0-beta02"
@@ -100,6 +100,7 @@ androidx-media3-exoplayerworkmanager = { module = "androidx.media3:media3-exopla
 androidx-media3-session = { module = "androidx.media3:media3-session", version.ref = "androidx-media3" }
 androidx-media3-testutils = { module = "androidx.media3:media3-test-utils", version.ref = "androidx-media3" }
 androidx-media3-testutils-robolectric = { module = "androidx.media3:media3-test-utils-robolectric", version.ref = "androidx-media3" }
+androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidx-media3" }
 androidx-mediarouter = "androidx.mediarouter:mediarouter:1.4.0"
 androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0-alpha04"
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }

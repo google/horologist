@@ -169,6 +169,10 @@ dependencies {
         project.findProject(":media-lib-datasource-okhttp") ?: libs.androidx.media3.datasourceokhttp
     )
 
+    implementation(
+        project.findProject(":media-lib-ui") ?: libs.androidx.media3.ui
+    )
+
     implementation(libs.compose.ui.util)
 
     implementation(libs.compose.foundation.foundation)

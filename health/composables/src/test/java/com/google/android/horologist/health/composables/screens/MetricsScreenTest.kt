@@ -17,13 +17,21 @@
 package com.google.android.horologist.health.composables.screens
 
 import androidx.wear.compose.material.PositionIndicator
+import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.health.composables.model.MetricUiModel
 import com.google.android.horologist.health.composables.theme.HR_HARD
 import com.google.android.horologist.health.composables.theme.HR_MAXIMUM
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
+import org.robolectric.annotation.Config
 
-class MetricsScreenTest : ScreenshotBaseTest() {
+class MetricsScreenTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
+        record = ScreenshotTestRule.RecordMode.Record
+    }
+) {
     @Test
     fun metricsScreenOneMetric() {
         screenshotTestRule.setContent(takeScreenshot = true) {
@@ -34,7 +42,7 @@ class MetricsScreenTest : ScreenshotBaseTest() {
                 ),
                 positionIndicator = {
                     PositionIndicator(
-                        value = { 0.7f }
+                        value = { 0.25f }
                     )
                 }
             )
@@ -55,7 +63,7 @@ class MetricsScreenTest : ScreenshotBaseTest() {
                 ),
                 positionIndicator = {
                     PositionIndicator(
-                        value = { 0.7f }
+                        value = { 0.5f }
                     )
                 }
             )
@@ -81,7 +89,7 @@ class MetricsScreenTest : ScreenshotBaseTest() {
                 ),
                 positionIndicator = {
                     PositionIndicator(
-                        value = { 0.7f }
+                        value = { 0.75f }
                     )
                 }
             )
@@ -111,10 +119,111 @@ class MetricsScreenTest : ScreenshotBaseTest() {
                 ),
                 positionIndicator = {
                     PositionIndicator(
-                        value = { 0.7f }
+                        value = { 1f }
                     )
                 }
             )
         }
+    }
+
+    @Test
+    fun metricsScreenMetricsSkipped() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            MetricsScreen(
+                firstMetric = MetricUiModel(
+                    text = "198",
+                    bottomRightText = "Peak",
+                    color = HR_MAXIMUM
+                ),
+                fourthMetric = MetricUiModel(
+                    text = "21:34",
+                    bottomRightText = "6"
+                ),
+                positionIndicator = {
+                    PositionIndicator(
+                        value = { 0.75f }
+                    )
+                }
+            )
+        }
+    }
+
+    @Config(
+        sdk = [30],
+        qualifiers = largeScreen
+    )
+    @Test
+    fun metricsScreenFourMetrics_largeScreen_smallestFont() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            TestHarness(fontScale = smallestFontScale) {
+                MetricsScreen(
+                    firstMetric = MetricUiModel(
+                        text = "198",
+                        bottomRightText = "Peak",
+                        color = HR_MAXIMUM
+                    ),
+                    secondMetric = MetricUiModel(
+                        text = "2.7",
+                        bottomRightText = "mi"
+                    ),
+                    thirdMetric = MetricUiModel(
+                        text = "8'51\"",
+                        bottomRightText = "pace"
+                    ),
+                    fourthMetric = MetricUiModel(
+                        text = "21:34",
+                        bottomRightText = "6"
+                    ),
+                    positionIndicator = {
+                        PositionIndicator(
+                            value = { 0.75f }
+                        )
+                    }
+                )
+            }
+        }
+    }
+
+    @Config(
+        sdk = [30],
+        qualifiers = smallScreen
+    )
+    @Test
+    fun metricsScreenFourMetrics_smallScreen_largestFont() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            TestHarness(fontScale = largestFontScale) {
+                MetricsScreen(
+                    firstMetric = MetricUiModel(
+                        text = "198",
+                        bottomRightText = "Peak",
+                        color = HR_MAXIMUM
+                    ),
+                    secondMetric = MetricUiModel(
+                        text = "2.7",
+                        bottomRightText = "mi"
+                    ),
+                    thirdMetric = MetricUiModel(
+                        text = "8'51\"",
+                        bottomRightText = "pace"
+                    ),
+                    fourthMetric = MetricUiModel(
+                        text = "21:34",
+                        bottomRightText = "6"
+                    ),
+                    positionIndicator = {
+                        PositionIndicator(
+                            value = { 0.75f }
+                        )
+                    }
+                )
+            }
+        }
+    }
+
+    companion object {
+        private const val smallestFontScale = 0.94f
+        private const val largestFontScale = 1.24f
+        private const val smallScreen = "+w192dp-h192dp"
+        private const val largeScreen = "+w213dp-h213dp"
     }
 }

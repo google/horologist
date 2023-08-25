@@ -22,25 +22,34 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LastBaseline
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.health.composables.model.MetricUiModel
 
+/**
+ * A component to display metrics, e.g. workout metrics.
+ */
 @Composable
 public fun MetricDisplay(
     metric: MetricUiModel,
     modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
+        val style = MaterialTheme.typography.display3
+        // Prevent font size from scaling:
+        val fontSize = style.fontSize / LocalDensity.current.fontScale
+
         Text(
             text = metric.text,
             modifier = Modifier.alignBy(LastBaseline),
             color = metric.color,
+            fontSize = fontSize,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = MaterialTheme.typography.display3
+            style = style
         )
 
         if (!metric.topRightText.isNullOrEmpty() || !metric.bottomRightText.isNullOrEmpty()) {
@@ -49,14 +58,15 @@ public fun MetricDisplay(
                     .padding(start = 4.dp)
                     .alignBy(LastBaseline)
             ) {
-                Text(
-                    text = metric.topRightText ?: "",
-                    color = metric.color,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.body2
-
-                )
+                metric.topRightText?.let {
+                    Text(
+                        text = it,
+                        color = metric.color,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1,
+                        style = MaterialTheme.typography.body2
+                    )
+                }
                 Text(
                     text = metric.bottomRightText ?: "",
                     color = metric.color,

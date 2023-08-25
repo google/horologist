@@ -24,78 +24,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.health.composables.components.MetricDisplay
 import com.google.android.horologist.health.composables.model.MetricUiModel
 
-@ExperimentalHorologistApi
+/**
+ * A screen to display metrics, e.g. workout metrics.
+ * It can display up to four metrics, and it's recommended that at least two metrics should be
+ * displayed.
+ */
 @Composable
 public fun MetricsScreen(
-    firstMetric: MetricUiModel,
-    modifier: Modifier = Modifier,
-    positionIndicator: @Composable (() -> Unit)? = null
-) {
-    MetricsScreenInternal(
-        firstMetric = firstMetric,
-        modifier = modifier,
-        positionIndicator = positionIndicator
-    )
-}
-
-@ExperimentalHorologistApi
-@Composable
-public fun MetricsScreen(
-    firstMetric: MetricUiModel,
-    secondMetric: MetricUiModel,
-    modifier: Modifier = Modifier,
-    positionIndicator: @Composable (() -> Unit)? = null
-) {
-    MetricsScreenInternal(
-        firstMetric = firstMetric,
-        modifier = modifier,
-        secondMetric = secondMetric,
-        positionIndicator = positionIndicator
-    )
-}
-
-@Composable
-public fun MetricsScreen(
-    firstMetric: MetricUiModel,
-    secondMetric: MetricUiModel,
-    thirdMetric: MetricUiModel,
-    modifier: Modifier = Modifier,
-    positionIndicator: @Composable (() -> Unit)? = null
-) {
-    MetricsScreenInternal(
-        firstMetric = firstMetric,
-        modifier = modifier,
-        secondMetric = secondMetric,
-        thirdMetric = thirdMetric,
-        positionIndicator = positionIndicator
-    )
-}
-
-@Composable
-public fun MetricsScreen(
-    firstMetric: MetricUiModel,
-    secondMetric: MetricUiModel,
-    thirdMetric: MetricUiModel,
-    fourthMetric: MetricUiModel,
-    modifier: Modifier = Modifier,
-    positionIndicator: @Composable (() -> Unit)? = null
-) {
-    MetricsScreenInternal(
-        firstMetric = firstMetric,
-        modifier = modifier,
-        secondMetric = secondMetric,
-        thirdMetric = thirdMetric,
-        fourthMetric = fourthMetric,
-        positionIndicator = positionIndicator
-    )
-}
-
-@Composable
-internal fun MetricsScreenInternal(
     firstMetric: MetricUiModel,
     modifier: Modifier = Modifier,
     secondMetric: MetricUiModel? = null,
@@ -112,24 +50,10 @@ internal fun MetricsScreenInternal(
                 .padding(start = 40.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            MetricDisplay(
-                metric = firstMetric
-            )
-            secondMetric?.let {
-                MetricDisplay(
-                    metric = it
-                )
-            }
-            thirdMetric?.let {
-                MetricDisplay(
-                    metric = it
-                )
-            }
-            fourthMetric?.let {
-                MetricDisplay(
-                    metric = it
-                )
-            }
+            MetricDisplay(metric = firstMetric)
+            secondMetric?.let { MetricDisplay(metric = it) }
+            thirdMetric?.let { MetricDisplay(metric = it) }
+            fourthMetric?.let { MetricDisplay(metric = it) }
         }
     }
 }

@@ -22,11 +22,11 @@ import com.google.android.horologist.health.composables.theme.HR_LIGHT
 import com.google.android.horologist.health.composables.theme.HR_MAXIMUM
 import com.google.android.horologist.health.composables.theme.HR_MODERATE
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 
 class MetricDisplayTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
+    screenshotTestRuleParams {
         screenTimeText = {}
     }
 ) {
@@ -77,6 +77,56 @@ class MetricDisplayTest : ScreenshotBaseTest(
                     text = "2.1",
                     bottomRightText = "/3 mi",
                     color = HR_MAXIMUM
+                )
+            )
+        }
+    }
+
+    @Test
+    fun metricDisplayTextTruncation() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            MetricDisplay(
+                metric = MetricUiModel(
+                    text = "Very very long text",
+                    topRightText = "Vigorous",
+                    bottomRightText = "bpm"
+                )
+            )
+        }
+    }
+
+    @Test
+    fun metricDisplayBothRightTextTruncation() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            MetricDisplay(
+                metric = MetricUiModel(
+                    text = "139",
+                    topRightText = "Very very very very long text",
+                    bottomRightText = "Very very very very long text"
+                )
+            )
+        }
+    }
+
+    @Test
+    fun metricDisplayTopRightTextTruncation() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            MetricDisplay(
+                metric = MetricUiModel(
+                    text = "139",
+                    topRightText = "Very very very very long text"
+                )
+            )
+        }
+    }
+
+    @Test
+    fun metricDisplayBottomRightTextTruncation() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            MetricDisplay(
+                metric = MetricUiModel(
+                    text = "139",
+                    bottomRightText = "Very very very very long text"
                 )
             )
         }

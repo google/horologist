@@ -33,7 +33,7 @@ fun MetricsScreenPreviewOneMetric() {
         ),
         positionIndicator = {
             PositionIndicator(
-                value = { 0.7f }
+                value = { 0.25f }
             )
         }
     )
@@ -53,7 +53,7 @@ fun MetricsScreenPreviewTwoMetrics() {
         ),
         positionIndicator = {
             PositionIndicator(
-                value = { 0.7f }
+                value = { 0.5f }
             )
         }
     )
@@ -78,7 +78,7 @@ fun MetricsScreenPreviewThreeMetrics() {
         ),
         positionIndicator = {
             PositionIndicator(
-                value = { 0.7f }
+                value = { 0.75f }
             )
         }
     )
@@ -107,7 +107,7 @@ fun MetricsScreenPreviewFourMetrics() {
         ),
         positionIndicator = {
             PositionIndicator(
-                value = { 0.7f }
+                value = { 1f }
             )
         }
     )

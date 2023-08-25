@@ -21,12 +21,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSquare
 
-@Preview(device = Devices.WEAR_OS_LARGE_ROUND, showSystemUi = true)
+@WearPreviewLargeRound
 @Composable
 private fun SegmentedProgressIndicatorRoundPreview() {
     val segments = listOf(
@@ -47,7 +47,7 @@ private fun SegmentedProgressIndicatorRoundPreview() {
     )
 }
 
-@Preview(device = Devices.WEAR_OS_SQUARE, showSystemUi = true)
+@WearPreviewSquare
 @Composable
 private fun SegmentedProgressIndicatorSquarePreview() {
     val segments = listOf(

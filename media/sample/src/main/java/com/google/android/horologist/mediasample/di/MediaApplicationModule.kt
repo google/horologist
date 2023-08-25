@@ -35,8 +35,6 @@ import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
-import com.google.android.horologist.media3.rules.PlaybackRules
-import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.data.log.Logging
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
 import com.google.android.horologist.mediasample.data.service.complication.MediaStatusComplicationService
@@ -76,19 +74,6 @@ object MediaApplicationModule {
             "${appConfig.deeplinkUriPrefix}/player?page=1",
             "${appConfig.deeplinkUriPrefix}/player?page=0"
         )
-
-    @Singleton
-    @Provides
-    fun playbackRules(
-        appConfig: AppConfig,
-        @IsEmulator isEmulator: Boolean
-    ): PlaybackRules =
-        appConfig.playbackRules
-            ?: if (BuildConfig.BENCHMARK || isEmulator) {
-                PlaybackRules.SpeakerAllowed
-            } else {
-                PlaybackRules.Normal
-            }
 
     @Singleton
     @Provides

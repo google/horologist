@@ -101,7 +101,7 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.24.1"
+        artifact = "com.google.protobuf:protoc:3.24.2"
     }
     plugins {
         id("javalite") {

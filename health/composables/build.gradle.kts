@@ -114,6 +114,7 @@ dependencies {
     releaseCompileOnly(projects.composeTools)
 
     testImplementation(projects.roboscreenshots)
+    testImplementation(libs.accompanist.testharness)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

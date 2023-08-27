@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.MaterialTheme
@@ -59,7 +60,8 @@ class CompactChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CompactChip(
                 onClick = { },
-                icon = Icons.Filled.Add
+                icon = Icons.Filled.Add,
+                contentDescription = "Add Icon"
             )
         }
     }
@@ -111,7 +113,10 @@ class CompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withPlaceholderIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        screenshotTestRule.setContent(
+            isComponent = true,
+            takeScreenshot = true
+        ) {
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
                 CompactChip(
@@ -119,8 +124,8 @@ class CompactChipTest : ScreenshotBaseTest() {
                     label = "Primary label",
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
-                        image = Icons.Default.Image,
-                        tintColor = MaterialTheme.colors.primary
+                        image = Icons.Filled.Image,
+                        tintColor = Color.Black
                     )
                 )
             }

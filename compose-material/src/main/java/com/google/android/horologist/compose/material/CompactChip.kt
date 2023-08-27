@@ -48,7 +48,7 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
 public fun CompactChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    label: String? = null,
+    label: String,
     icon: Any? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     placeholder: Painter? = null,
@@ -96,18 +96,15 @@ public fun CompactChip(
         }
     val hasIcon = icon != null
 
-    val labelParam: (@Composable RowScope.() -> Unit)? =
-        label?.let {
-            {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = label,
-                    textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
-                )
-            }
-        }
+    val labelParam: (@Composable RowScope.() -> Unit) = {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = label,
+            textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1
+        )
+    }
 
     CompactChip(
         modifier = modifier,
@@ -148,6 +145,67 @@ public fun CompactChip(
         icon = icon,
         iconRtlMode = iconRtlMode,
         placeholder = placeholder,
+        colors = colors,
+        enabled = enabled,
+        interactionSource = interactionSource,
+        border = border
+    )
+}
+
+@ExperimentalHorologistApi
+@Composable
+public fun CompactChip(
+    icon: Any,
+    contentDescription: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
+    placeholder: Painter? = null,
+    colors: ChipColors = ChipDefaults.primaryChipColors(),
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    border: ChipBorder = ChipDefaults.chipBorder()
+) {
+    val iconParam: (@Composable BoxScope.() -> Unit) =
+        {
+            Row {
+                val iconModifier = Modifier
+                    .size(ChipDefaults.SmallIconSize)
+                when (icon) {
+                    is ImageVector ->
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = contentDescription,
+                            modifier = iconModifier,
+                            rtlMode = iconRtlMode
+                        )
+
+                    is Int ->
+                        Icon(
+                            id = icon,
+                            contentDescription = contentDescription,
+                            modifier = iconModifier
+                        )
+
+                    else ->
+                        Image(
+                            painter = rememberAsyncImagePainter(
+                                model = icon,
+                                placeholder = placeholder
+                            ),
+                            contentDescription = contentDescription,
+                            modifier = iconModifier,
+                            contentScale = ContentScale.Crop,
+                            alpha = LocalContentAlpha.current
+                        )
+                }
+            }
+        }
+    CompactChip(
+        modifier = modifier,
+        onClick = onClick,
+        label = null,
+        icon = iconParam,
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource,

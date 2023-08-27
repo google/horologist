@@ -45,6 +45,7 @@ fun CompactChipPreviewWithIcon() {
 fun CompactChipPreviewIconOnly() {
     CompactChip(
         onClick = { },
-        icon = Icons.Filled.Add
+        icon = Icons.Filled.Add,
+        contentDescription = "Add Icon"
     )
 }

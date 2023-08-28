@@ -64,4 +64,20 @@ class OutlinedCompactChipA11yTest : ScreenshotBaseTest(
             }
         }
     }
+
+    @Test
+    fun iconOnly() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                OutlinedCompactChip(
+                    onClick = { },
+                    icon = Icons.Filled.Add,
+                    contentDescription = "contentDescription",
+                )
+            }
+        }
+    }
 }

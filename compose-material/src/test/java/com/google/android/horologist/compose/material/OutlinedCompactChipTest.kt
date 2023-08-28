@@ -89,7 +89,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
     @Test
     fun withLongTextAndLargestFontScale() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            TestHarness(fontScale = largestFontScale) {
+            TestHarness(fontScale = LARGEST_FONT_SCALE) {
                 OutlinedCompactChip(
                     onClick = { },
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
@@ -189,7 +189,21 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
         }
     }
 
+    @Test
+    fun usingDrawableResAsIconMirroredRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                OutlinedCompactChip(
+                    onClick = { },
+                    label = "Primary label",
+                    icon = R.drawable.ic_media_play,
+                    iconRtlMode = IconRtlMode.Mirrored,
+                )
+            }
+        }
+    }
+
     companion object {
-        private const val largestFontScale = 1.18f
+        private const val LARGEST_FONT_SCALE = 1.24f
     }
 }

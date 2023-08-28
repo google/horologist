@@ -40,8 +40,8 @@ class CompactChipA11yTest : ScreenshotBaseTest(
                 contentAlignment = Alignment.Center,
             ) {
                 CompactChip(
-                    onClick = { },
                     label = "Primary label",
+                    onClick = { },
                     icon = Icons.Filled.Add,
                 )
             }
@@ -56,10 +56,26 @@ class CompactChipA11yTest : ScreenshotBaseTest(
                 contentAlignment = Alignment.Center,
             ) {
                 CompactChip(
-                    onClick = { },
                     label = "Primary label",
+                    onClick = { },
                     icon = Icons.Filled.Add,
                     enabled = false,
+                )
+            }
+        }
+    }
+
+    @Test
+    fun iconOnly() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CompactChip(
+                    onClick = { },
+                    icon = Icons.Filled.Add,
+                    contentDescription = "contentDescription",
                 )
             }
         }

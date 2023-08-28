@@ -43,12 +43,17 @@ import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
+/**
+ * This component is an alternative to [CompactChip], providing the following:
+ * - a convenient way of providing a string resource label;
+ * - a convenient way of providing an icon and a placeholder;
+ */
 @ExperimentalHorologistApi
 @Composable
 public fun CompactChip(
+    label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    label: String,
     icon: Any? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     placeholder: Painter? = null,
@@ -57,60 +62,14 @@ public fun CompactChip(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     border: ChipBorder = ChipDefaults.chipBorder(),
 ) {
-    val iconParam: (@Composable BoxScope.() -> Unit)? =
-        icon?.let {
-            {
-                Row {
-                    val iconModifier = Modifier
-                        .size(ChipDefaults.SmallIconSize)
-                    when (icon) {
-                        is ImageVector ->
-                            Icon(
-                                imageVector = icon,
-                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier,
-                                rtlMode = iconRtlMode,
-                            )
-
-                        is Int ->
-                            Icon(
-                                id = icon,
-                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier,
-                            )
-
-                        else ->
-                            Image(
-                                painter = rememberAsyncImagePainter(
-                                    model = icon,
-                                    placeholder = placeholder,
-                                ),
-                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier,
-                                contentScale = ContentScale.Crop,
-                                alpha = LocalContentAlpha.current,
-                            )
-                    }
-                }
-            }
-        }
-    val hasIcon = icon != null
-
-    val labelParam: (@Composable RowScope.() -> Unit) = {
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = label,
-            textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1,
-        )
-    }
-
     CompactChip(
-        modifier = modifier,
         onClick = onClick,
-        label = labelParam,
-        icon = iconParam,
+        modifier = modifier,
+        label = label,
+        icon = icon,
+        iconRtlMode = iconRtlMode,
+        placeholder = placeholder,
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource,
@@ -121,8 +80,7 @@ public fun CompactChip(
 /**
  * This component is an alternative to [CompactChip], providing the following:
  * - a convenient way of providing a string resource label;
- * - a convenient way of providing an icon and a placeholder, and choosing their size based on the
- * sizes recommended by the Wear guidelines;
+ * - a convenient way of providing an icon and a placeholder;
  */
 @ExperimentalHorologistApi
 @Composable
@@ -139,9 +97,9 @@ public fun CompactChip(
     border: ChipBorder = ChipDefaults.chipBorder(),
 ) {
     CompactChip(
+        label = stringResource(id = labelId),
         onClick = onClick,
         modifier = modifier,
-        label = stringResource(id = labelId),
         icon = icon,
         iconRtlMode = iconRtlMode,
         placeholder = placeholder,
@@ -152,6 +110,10 @@ public fun CompactChip(
     )
 }
 
+/**
+ * This component is an alternative to [CompactChip], providing the following:
+ * - a convenient way of providing an icon and a placeholder;
+ */
 @ExperimentalHorologistApi
 @Composable
 public fun CompactChip(
@@ -166,11 +128,40 @@ public fun CompactChip(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     border: ChipBorder = ChipDefaults.chipBorder(),
 ) {
-    val iconParam: (@Composable BoxScope.() -> Unit) =
+    CompactChip(
+        onClick = onClick,
+        modifier = modifier,
+        label = null,
+        icon = icon,
+        iconRtlMode = iconRtlMode,
+        placeholder = placeholder,
+        contentDescription = contentDescription,
+        colors = colors,
+        enabled = enabled,
+        interactionSource = interactionSource,
+        border = border,
+    )
+}
+
+@Composable
+internal fun CompactChip(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    label: String? = null,
+    icon: Any? = null,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
+    placeholder: Painter? = null,
+    contentDescription: String? = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+    colors: ChipColors = ChipDefaults.primaryChipColors(),
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    border: ChipBorder = ChipDefaults.chipBorder(),
+) {
+    val iconParam: (@Composable BoxScope.() -> Unit)? = icon?.let {
         {
             Row {
-                val iconModifier = Modifier
-                    .size(ChipDefaults.SmallIconSize)
+                val iconModifier = Modifier.size(ChipDefaults.SmallIconSize)
+
                 when (icon) {
                     is ImageVector ->
                         Icon(
@@ -185,6 +176,7 @@ public fun CompactChip(
                             id = icon,
                             contentDescription = contentDescription,
                             modifier = iconModifier,
+                            rtlMode = iconRtlMode,
                         )
 
                     else ->
@@ -201,10 +193,25 @@ public fun CompactChip(
                 }
             }
         }
+    }
+    val hasIcon = icon != null
+
+    val labelParam: (@Composable RowScope.() -> Unit)? = label?.let {
+        {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = label,
+                textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+            )
+        }
+    }
+
     CompactChip(
         modifier = modifier,
         onClick = onClick,
-        label = null,
+        label = labelParam,
         icon = iconParam,
         colors = colors,
         enabled = enabled,

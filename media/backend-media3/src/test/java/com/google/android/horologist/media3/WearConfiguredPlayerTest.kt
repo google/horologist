@@ -70,7 +70,7 @@ class WearConfiguredPlayerTest {
             audioOutputSelector,
             playbackRules,
             errorReporter,
-            coroutineScope = this
+            coroutineScope = this,
         )
 
         wearConfiguredPlayer.setMediaItem(mediaItem1)
@@ -105,7 +105,7 @@ class WearConfiguredPlayerTest {
                     audioOutputSelector,
                     playbackRules,
                     errorReporter,
-                    coroutineScope = this
+                    coroutineScope = this,
                 )
 
                 val mediaItem = exampleMediaItem("1")
@@ -129,7 +129,7 @@ class WearConfiguredPlayerTest {
                 .setTitle("title-$id")
                 .setArtist("artist")
                 .setArtworkUri(Uri.parse("https://upload.wikimedia.org/wikipedia/en/9/93/ForSquirrelsExample.jpg"))
-                .build()
+                .build(),
         )
         .build()
 }

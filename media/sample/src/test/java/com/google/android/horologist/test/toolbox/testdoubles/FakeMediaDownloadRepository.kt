@@ -19,7 +19,7 @@ package com.google.android.horologist.test.toolbox.testdoubles
 import com.google.android.horologist.media.repository.MediaDownloadRepository
 
 class FakeMediaDownloadRepository(
-    private val fakePlaylistDownloadDataSource: FakePlaylistDownloadDataSource
+    private val fakePlaylistDownloadDataSource: FakePlaylistDownloadDataSource,
 ) : MediaDownloadRepository {
 
     override fun remove(mediaId: String) {

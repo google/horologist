@@ -26,7 +26,7 @@ public data class LiveMediaPositionPredictor(
     private val eventTimestamp: Long,
     private val durationMs: Long,
     private val currentPositionMs: Long,
-    private val positionSpeed: Float
+    private val positionSpeed: Float,
 ) : PositionPredictor {
     override fun predictPercent(timestamp: Long): Float {
         val predictedDuration = predictDuration(timestamp).inWholeMilliseconds.toFloat()

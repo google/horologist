@@ -30,19 +30,19 @@ class CompactChipA11yTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-    }
+    },
 ) {
     @Test
     fun withIcon() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(
                 modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 CompactChip(
                     onClick = { },
                     label = "Primary label",
-                    icon = Icons.Filled.Add
+                    icon = Icons.Filled.Add,
                 )
             }
         }
@@ -53,13 +53,13 @@ class CompactChipA11yTest : ScreenshotBaseTest(
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(
                 modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 CompactChip(
                     onClick = { },
                     label = "Primary label",
                     icon = Icons.Filled.Add,
-                    enabled = false
+                    enabled = false,
                 )
             }
         }

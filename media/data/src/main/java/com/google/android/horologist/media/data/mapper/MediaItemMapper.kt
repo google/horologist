@@ -28,7 +28,7 @@ import com.google.android.horologist.media.model.Media
  */
 @ExperimentalHorologistApi
 public class MediaItemMapper(
-    private val mediaItemExtrasMapper: MediaItemExtrasMapper
+    private val mediaItemExtrasMapper: MediaItemExtrasMapper,
 ) {
 
     public fun map(mediaItem: Media): MediaItem {
@@ -56,7 +56,7 @@ public class MediaItemMapper(
             mediaItem,
             mediaItemBuilder,
             mediaMetadataBuilder,
-            requestMetadataBuilder
+            requestMetadataBuilder,
         )
 
         mediaItemBuilder

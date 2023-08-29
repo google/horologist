@@ -29,10 +29,10 @@ public object AccountUiModelMapper {
      */
     public fun map(
         account: GoogleSignInAccount,
-        defaultEmail: String = ""
+        defaultEmail: String = "",
     ): AccountUiModel = AccountUiModel(
         email = account.email ?: defaultEmail,
         name = account.displayName,
-        avatar = account.photoUrl
+        avatar = account.photoUrl,
     )
 }

@@ -34,7 +34,7 @@ class FakeStatePlayer(
     var _playbackState: Int = STATE_IDLE,
     var _playWhenReady: Boolean = false,
     var _currentMediaItem: MediaItem? = null,
-    var _playbackSpeed: Float = 1f
+    var _playbackSpeed: Float = 1f,
 ) : StubPlayer() {
     private val listeners = mutableListOf<Listener>()
 
@@ -66,18 +66,27 @@ class FakeStatePlayer(
         } else {
             return FakeTimeline(
                 FakeTimeline.TimelineWindowDefinition(
-                    /* periodCount = */ 1,
-                    /* id = */ 1,
-                    /* isSeekable = */ true,
-                    /* isDynamic = */ false,
-                    /* isLive = */ false,
-                    /* isPlaceholder = */ false,
-                    /* durationUs = */ 1000 * C.MICROS_PER_SECOND,
-                    /* defaultPositionUs = */ 2 * C.MICROS_PER_SECOND,
-                    /* windowOffsetInFirstPeriodUs = */ 123456789,
+                    /* periodCount = */
+                    1,
+                    /* id = */
+                    1,
+                    /* isSeekable = */
+                    true,
+                    /* isDynamic = */
+                    false,
+                    /* isLive = */
+                    false,
+                    /* isPlaceholder = */
+                    false,
+                    /* durationUs = */
+                    1000 * C.MICROS_PER_SECOND,
+                    /* defaultPositionUs = */
+                    2 * C.MICROS_PER_SECOND,
+                    /* windowOffsetInFirstPeriodUs = */
+                    123456789,
                     ImmutableList.of(AdPlaybackState.NONE),
-                    currentMediaItem
-                )
+                    currentMediaItem,
+                ),
             )
         }
     }
@@ -91,7 +100,7 @@ class FakeStatePlayer(
     fun overridePosition(
         currentPosition: Long = 0L,
         duration: Long = C.TIME_UNSET,
-        currentMediaItem: MediaItem? = MediaItem.EMPTY
+        currentMediaItem: MediaItem? = MediaItem.EMPTY,
     ) {
         _currentPosition = currentPosition
         _duration = duration
@@ -104,21 +113,21 @@ class FakeStatePlayer(
                     FlagSet.Builder().addAll(
                         EVENT_MEDIA_ITEM_TRANSITION,
                         EVENT_TIMELINE_CHANGED,
-                        EVENT_MEDIA_METADATA_CHANGED
-                    ).build()
-                )
+                        EVENT_MEDIA_METADATA_CHANGED,
+                    ).build(),
+                ),
             )
         }
     }
 
     fun overridePlaybackSpeed(
-        playbackSpeed: Float
+        playbackSpeed: Float,
     ) {
         _playbackSpeed = playbackSpeed
         for (it in listeners) {
             it.onEvents(
                 this,
-                Player.Events(FlagSet.Builder().add(EVENT_PLAYBACK_PARAMETERS_CHANGED).build())
+                Player.Events(FlagSet.Builder().add(EVENT_PLAYBACK_PARAMETERS_CHANGED).build()),
             )
         }
     }
@@ -126,7 +135,7 @@ class FakeStatePlayer(
     fun overrideState(
         playbackState: Int = STATE_IDLE,
         playWhenReady: Boolean = false,
-        reason: @Player.PlayWhenReadyChangeReason Int = PLAY_WHEN_READY_CHANGE_REASON_USER_REQUEST
+        reason: @Player.PlayWhenReadyChangeReason Int = PLAY_WHEN_READY_CHANGE_REASON_USER_REQUEST,
     ) {
         _playbackState = playbackState
         _playWhenReady = playWhenReady
@@ -139,9 +148,9 @@ class FakeStatePlayer(
                         EVENT_PLAYBACK_STATE_CHANGED,
                         EVENT_PLAY_WHEN_READY_CHANGED,
                         EVENT_IS_PLAYING_CHANGED,
-                        EVENT_MEDIA_ITEM_TRANSITION
-                    ).build()
-                )
+                        EVENT_MEDIA_ITEM_TRANSITION,
+                    ).build(),
+                ),
             )
             it.onPlayWhenReadyChanged(_playWhenReady, reason)
             it.onPlaybackStateChanged(_playbackState)

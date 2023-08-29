@@ -29,17 +29,17 @@ import androidx.wear.compose.foundation.lazy.ScalingParams
 public fun TallPreview(
     width: Int,
     height: Int,
-    function: @Composable (ScalingParams) -> Unit
+    function: @Composable (ScalingParams) -> Unit,
 ) {
     with(LocalDensity.current) {
         Box(
             modifier = Modifier
                 .width(width.toDp())
-                .height(height.toDp())
+                .height(height.toDp()),
         ) {
             val scalingParams = ScalingLazyColumnDefaults.scalingParams(
                 edgeScale = 1f,
-                edgeAlpha = 1f
+                edgeAlpha = 1f,
             )
             function(scalingParams)
         }

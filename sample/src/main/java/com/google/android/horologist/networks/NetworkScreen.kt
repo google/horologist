@@ -33,13 +33,13 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 @Composable
 fun NetworkScreen(
     viewModel: NetworkScreenViewModel = viewModel(factory = NetworkScreenViewModel.Factory),
-    columnState: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState,
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         item {
             Chip(
@@ -47,7 +47,7 @@ fun NetworkScreen(
                 onClick = { viewModel.makeRequests() },
                 label = {
                     Text("Requests")
-                }
+                },
             )
         }
         items(uiState.responses.entries.toList()) { (name, response) ->
@@ -70,7 +70,7 @@ fun NetworkScreen(
                 onClick = { },
                 secondaryLabel = {
                     Text(text = "bytes: $downloads")
-                }
+                },
             )
         }
 

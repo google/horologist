@@ -39,7 +39,7 @@ public fun MetricsScreen(
     secondMetric: MetricUiModel? = null,
     thirdMetric: MetricUiModel? = null,
     fourthMetric: MetricUiModel? = null,
-    positionIndicator: @Composable (() -> Unit)? = null
+    positionIndicator: @Composable (() -> Unit)? = null,
 ) {
     Box {
         positionIndicator?.invoke()
@@ -48,7 +48,7 @@ public fun MetricsScreen(
             modifier = modifier
                 .fillMaxSize()
                 .padding(start = 40.dp),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             MetricDisplay(metric = firstMetric)
             secondMetric?.let { MetricDisplay(metric = it) }

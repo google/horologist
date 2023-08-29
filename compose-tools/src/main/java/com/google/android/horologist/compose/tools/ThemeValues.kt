@@ -33,8 +33,8 @@ public val themeValues: List<ThemeValues> = listOf(
             primary = Color(0xFF7FCFFF),
             primaryVariant = Color(0xFF3998D3),
             secondary = Color(0xFF6DD58C),
-            secondaryVariant = Color(0xFF1EA446)
-        )
+            secondaryVariant = Color(0xFF1EA446),
+        ),
     ),
     ThemeValues(
         "Lilac (D0BCFF)",
@@ -43,8 +43,8 @@ public val themeValues: List<ThemeValues> = listOf(
             primary = Color(0xFFD0BCFF),
             primaryVariant = Color(0xFF9A82DB),
             secondary = Color(0xFF7FCFFF),
-            secondaryVariant = Color(0xFF3998D3)
-        )
+            secondaryVariant = Color(0xFF3998D3),
+        ),
     ),
     ThemeValues(
         "Green (6DD58C)",
@@ -53,8 +53,8 @@ public val themeValues: List<ThemeValues> = listOf(
             primary = Color(0xFF6DD58C),
             primaryVariant = Color(0xFF1EA446),
             secondary = Color(0xFFFFBB29),
-            secondaryVariant = Color(0xFFD68400)
-        )
+            secondaryVariant = Color(0xFFD68400),
+        ),
     ),
     ThemeValues(
         "Blue with Text (7FCFFF)",
@@ -72,8 +72,8 @@ public val themeValues: List<ThemeValues> = listOf(
             background = Color.Black,
             onBackground = Color.White,
             error = Color(0xFFF2B8B5),
-            onError = Color(0xFF370906)
-        )
+            onError = Color(0xFF370906),
+        ),
     ),
     ThemeValues(
         "Orange-y",
@@ -82,8 +82,8 @@ public val themeValues: List<ThemeValues> = listOf(
             secondary = Color(0xFFED612B), // Used for RSB
             surface = Color(0xFF202124), // Used for Device Chip
             onPrimary = Color(0xFFED612B),
-            onSurface = Color(0xFFED612B)
-        )
+            onSurface = Color(0xFFED612B),
+        ),
     ),
     ThemeValues(
         "Uamp",
@@ -96,7 +96,7 @@ public val themeValues: List<ThemeValues> = listOf(
             onPrimary = Color.White,
             onSurfaceVariant = Color(0xFFDADCE0),
             surface = Color(0xFF303133),
-            onError = Color.Black
-        )
-    )
+            onError = Color.Black,
+        ),
+    ),
 )

@@ -31,7 +31,7 @@ import kotlinx.coroutines.flow.StateFlow
 public class SystemAudioRepository(
     private val application: Context,
     private val mediaRouter: MediaRouter,
-    selector: MediaRouteSelector = MediaRouteSelector.Builder().build()
+    selector: MediaRouteSelector = MediaRouteSelector.Builder().build(),
 ) : AudioOutputRepository, VolumeRepository {
     private val _available = MutableStateFlow(mediaRouter.devices)
     private val _output = MutableStateFlow(mediaRouter.output)
@@ -87,7 +87,7 @@ public class SystemAudioRepository(
                 .addControlCategory(MediaControlIntent.CATEGORY_LIVE_AUDIO)
                 .addSelector(selector)
                 .build(),
-            callback
+            callback,
         )
         update()
     }
@@ -112,7 +112,7 @@ public class SystemAudioRepository(
         public fun fromContext(application: Context): SystemAudioRepository {
             return SystemAudioRepository(
                 application,
-                MediaRouter.getInstance(application)
+                MediaRouter.getInstance(application),
             )
         }
     }

@@ -35,7 +35,7 @@ public open class DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayloa
     private val deviceGrantVerificationInfoRepository: DeviceGrantVerificationInfoRepository<DeviceGrantConfig, VerificationInfoPayload>,
     private val deviceGrantTokenRepository: DeviceGrantTokenRepository<DeviceGrantConfig, VerificationInfoPayload, TokenPayload>,
     private val checkPhonePayloadMapper: (DeviceGrantConfig, VerificationInfoPayload) -> String,
-    private val deviceGrantTokenPayloadListener: DeviceGrantTokenPayloadListener<TokenPayload> = DeviceGrantTokenPayloadListenerNoOpImpl()
+    private val deviceGrantTokenPayloadListener: DeviceGrantTokenPayloadListener<TokenPayload> = DeviceGrantTokenPayloadListenerNoOpImpl(),
 ) : ViewModel() {
 
     private val _uiState =
@@ -45,7 +45,7 @@ public open class DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayloa
     public fun startAuthFlow() {
         _uiState.compareAndSet(
             expect = DeviceGrantScreenState.Idle,
-            update = DeviceGrantScreenState.Loading
+            update = DeviceGrantScreenState.Loading,
         ) {
             viewModelScope.launch {
                 val config = deviceGrantConfigRepository.fetch()
@@ -60,7 +60,7 @@ public open class DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayloa
                 // Step 2: Show the pairing code & open the verification URI on the paired device
                 // Step 3: Poll the Auth server for the token
                 _uiState.value = DeviceGrantScreenState.CheckPhone(
-                    checkPhonePayloadMapper(config, verificationInfoPayload)
+                    checkPhonePayloadMapper(config, verificationInfoPayload),
                 )
                 val tokenPayload =
                     deviceGrantTokenRepository.fetch(config, verificationInfoPayload)

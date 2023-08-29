@@ -28,7 +28,7 @@ public data class OffloadTimes(
     public val disabled: Long = 0L,
     public val notPlaying: Long = 0L,
     public val isPlaying: Boolean = false,
-    public val updated: Long = System.currentTimeMillis()
+    public val updated: Long = System.currentTimeMillis(),
 ) {
     val shortDescription: String
         get() = "$enabled/$disabled/$isPlaying"
@@ -48,13 +48,13 @@ public data class OffloadTimes(
                 enabled = enabled + (if (sleepingForOffload) extra else 0),
                 disabled = disabled + (if (sleepingForOffload) 0 else extra),
                 updated = time,
-                isPlaying = updatedIsPlaying
+                isPlaying = updatedIsPlaying,
             )
         } else {
             copy(
                 notPlaying = notPlaying + extra,
                 updated = time,
-                isPlaying = updatedIsPlaying
+                isPlaying = updatedIsPlaying,
             )
         }
     }

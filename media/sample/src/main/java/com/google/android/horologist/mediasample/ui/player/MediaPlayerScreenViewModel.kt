@@ -31,31 +31,33 @@ import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
-class MediaPlayerScreenViewModel @Inject constructor(
-    playerRepository: PlayerRepositoryImpl,
-    settingsRepository: SettingsRepository
-) : PlayerViewModel(playerRepository) {
+class MediaPlayerScreenViewModel
+    @Inject
+    constructor(
+        playerRepository: PlayerRepositoryImpl,
+        settingsRepository: SettingsRepository,
+    ) : PlayerViewModel(playerRepository) {
 
-    init {
-        // TODO: consider if this should be done elsewhere
-        // https://github.com/google/horologist/issues/900
-        viewModelScope.launch {
-            playerRepository.currentMedia.collect { media ->
-                if (media != null) {
-                    settingsRepository.edit {
-                        it.copy { currentMediaItemId = media.id }
+        init {
+            // TODO: consider if this should be done elsewhere
+            // https://github.com/google/horologist/issues/900
+            viewModelScope.launch {
+                playerRepository.currentMedia.collect { media ->
+                    if (media != null) {
+                        settingsRepository.edit {
+                            it.copy { currentMediaItemId = media.id }
+                        }
                     }
                 }
             }
         }
+
+        val playerState = playerRepository.player
+
+        val settingsState: StateFlow<Settings> = settingsRepository.settingsFlow
+            .stateIn(
+                viewModelScope,
+                started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
+                initialValue = Settings.getDefaultInstance(),
+            )
     }
-
-    val playerState = playerRepository.player
-
-    val settingsState: StateFlow<Settings> = settingsRepository.settingsFlow
-        .stateIn(
-            viewModelScope,
-            started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
-            initialValue = Settings.getDefaultInstance()
-        )
-}

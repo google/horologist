@@ -43,7 +43,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 public fun Modifier.onRotaryInputAccumulatedWithFocus(
     focusRequester: FocusRequester? = null,
     isLowRes: Boolean = false,
-    onValueChange: (Float) -> Unit
+    onValueChange: (Float) -> Unit,
 ): Modifier = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
     onRotaryInputAccumulated(onValueChange = onValueChange, isLowRes = isLowRes)
@@ -67,7 +67,7 @@ public fun Modifier.onRotaryInputAccumulated(
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
     isLowRes: Boolean = false,
-    onValueChange: (change: Float) -> Unit
+    onValueChange: (change: Float) -> Unit,
 ): Modifier = composed {
     val updatedOnValueChange by rememberUpdatedState(onValueChange)
     val rotaryInputAccumulator = remember {
@@ -76,7 +76,7 @@ public fun Modifier.onRotaryInputAccumulated(
             minValueChangeDistancePx = minValueChangeDistancePx,
             rateLimitCoolDownMs = rateLimitCoolDownMs,
             isLowRes = isLowRes,
-            onValueChange = { updatedOnValueChange(it) }
+            onValueChange = { updatedOnValueChange(it) },
         )
     }
     return@composed onRotaryScrollEvent(rotaryInputAccumulator::onRotaryScrollEvent)

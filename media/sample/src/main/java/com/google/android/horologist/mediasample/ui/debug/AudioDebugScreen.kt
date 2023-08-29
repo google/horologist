@@ -40,20 +40,20 @@ import kotlin.time.Duration.Companion.seconds
 fun AudioDebugScreen(
     columnState: ScalingLazyColumnState,
     audioDebugScreenViewModel: AudioDebugScreenViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val uiState by audioDebugScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         columnState = columnState,
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         item {
             Text(
                 text = stringResource(id = R.string.sample_audio_debug),
                 modifier = Modifier.padding(bottom = 12.dp),
-                style = MaterialTheme.typography.title3
+                style = MaterialTheme.typography.title3,
             )
         }
         item {
@@ -62,7 +62,7 @@ fun AudioDebugScreen(
             }.orEmpty()
             Text(
                 text = stringResource(id = R.string.sample_debug_format, format),
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
         item {
@@ -70,32 +70,32 @@ fun AudioDebugScreen(
             val supported = uiState?.audioOffloadStatus?.trackOffloadDescription() ?: "N/A"
             Text(
                 text = stringResource(id = R.string.sample_track_offloaded, supported),
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
         item {
             val supported = uiState?.formatSupported?.toString().orEmpty()
             Text(
                 text = stringResource(id = R.string.sample_offload_supported, supported),
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
         item {
             Text(
                 text = stringResource(
                     id = R.string.sample_debug_offload_sleeping,
-                    uiState?.audioOffloadStatus?.sleepingForOffload?.toString().orEmpty()
+                    uiState?.audioOffloadStatus?.sleepingForOffload?.toString().orEmpty(),
                 ),
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
         item {
             Text(
                 text = stringResource(
                     id = R.string.sample_debug_offload_scheduled,
-                    uiState?.audioOffloadStatus?.offloadSchedulingEnabled.toString().orEmpty()
+                    uiState?.audioOffloadStatus?.offloadSchedulingEnabled.toString().orEmpty(),
                 ),
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
         item {
@@ -105,16 +105,16 @@ fun AudioDebugScreen(
             Text(
                 text = stringResource(
                     id = R.string.sample_debug_offload_percent,
-                    times?.percent + "($enabled/$disabled)"
+                    times?.percent + "($enabled/$disabled)",
                 ),
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
         item {
             Text(
                 text = stringResource(id = R.string.sample_audio_debug_events),
                 modifier = Modifier.padding(vertical = 12.dp),
-                style = MaterialTheme.typography.title3
+                style = MaterialTheme.typography.title3,
             )
         }
         items(uiState?.audioOffloadStatus?.errors.orEmpty().reversed()) {
@@ -127,7 +127,7 @@ fun AudioDebugScreen(
                 text = message,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.caption3
+                style = MaterialTheme.typography.caption3,
             )
         }
     }

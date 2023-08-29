@@ -28,7 +28,7 @@ class MetricsScreenA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test
@@ -38,12 +38,12 @@ class MetricsScreenA11yTest : ScreenshotBaseTest(
                 firstMetric = MetricUiModel(
                     text = "198",
                     bottomRightText = "Peak",
-                    color = HR_MAXIMUM
+                    color = HR_MAXIMUM,
                 ),
                 secondMetric = MetricUiModel(
                     text = "2.7",
-                    bottomRightText = "mi"
-                )
+                    bottomRightText = "mi",
+                ),
             )
         }
     }
@@ -56,12 +56,12 @@ class MetricsScreenA11yTest : ScreenshotBaseTest(
                     firstMetric = MetricUiModel(
                         text = "198",
                         bottomRightText = "Peak",
-                        color = HR_MAXIMUM
+                        color = HR_MAXIMUM,
                     ),
                     secondMetric = MetricUiModel(
                         text = "2.7",
-                        bottomRightText = "mi"
-                    )
+                        bottomRightText = "mi",
+                    ),
                 )
             }
         }

@@ -70,7 +70,7 @@ class WearLocalDataStoreTest {
         preferencesDataStore = registry.protoDataStore(
             path,
             scope,
-            registry.serializers.serializerForType<Preferences>()
+            registry.serializers.serializerForType<Preferences>(),
         )
     }
 

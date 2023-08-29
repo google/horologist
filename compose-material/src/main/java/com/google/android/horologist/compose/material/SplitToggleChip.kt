@@ -54,7 +54,7 @@ public fun SplitToggleChip(
     colors: SplitToggleChipColors = ToggleChipDefaults.splitToggleChipColors(),
     enabled: Boolean = true,
     checkedInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    clickInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    clickInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val hasSecondaryLabel = secondaryLabel != null
 
@@ -66,7 +66,7 @@ public fun SplitToggleChip(
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
-                style = MaterialTheme.typography.button
+                style = MaterialTheme.typography.button,
             )
         }
 
@@ -77,7 +77,7 @@ public fun SplitToggleChip(
                     text = secondaryLabel,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    style = MaterialTheme.typography.caption2
+                    style = MaterialTheme.typography.caption2,
                 )
             }
         }
@@ -88,7 +88,7 @@ public fun SplitToggleChip(
                 R.string.horologist_split_toggle_chip_on_state_description
             } else {
                 R.string.horologist_split_toggle_chip_off_state_description
-            }
+            },
         )
         Icon(
             imageVector = when (toggleControl) {
@@ -100,7 +100,7 @@ public fun SplitToggleChip(
             modifier = Modifier.semantics {
                 stateDescription = stateDescriptionSemantics
             },
-            rtlMode = IconRtlMode.Mirrored
+            rtlMode = IconRtlMode.Mirrored,
         )
     }
 
@@ -115,6 +115,6 @@ public fun SplitToggleChip(
         colors = colors,
         enabled = enabled,
         checkedInteractionSource = checkedInteractionSource,
-        clickInteractionSource = clickInteractionSource
+        clickInteractionSource = clickInteractionSource,
     )
 }

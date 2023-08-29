@@ -28,7 +28,7 @@ import org.junit.Test
 class MetricDisplayTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
-    }
+    },
 ) {
     @Test
     fun metricDisplay() {
@@ -38,8 +38,8 @@ class MetricDisplayTest : ScreenshotBaseTest(
                     text = "139",
                     topRightText = "Vigorous",
                     bottomRightText = "bpm",
-                    color = HR_HARD
-                )
+                    color = HR_HARD,
+                ),
             )
         }
     }
@@ -50,8 +50,8 @@ class MetricDisplayTest : ScreenshotBaseTest(
             MetricDisplay(
                 metric = MetricUiModel(
                     text = "18:52",
-                    color = HR_LIGHT
-                )
+                    color = HR_LIGHT,
+                ),
             )
         }
     }
@@ -63,8 +63,8 @@ class MetricDisplayTest : ScreenshotBaseTest(
                 metric = MetricUiModel(
                     text = "8'32\"",
                     topRightText = ":15",
-                    color = HR_MODERATE
-                )
+                    color = HR_MODERATE,
+                ),
             )
         }
     }
@@ -76,8 +76,8 @@ class MetricDisplayTest : ScreenshotBaseTest(
                 metric = MetricUiModel(
                     text = "2.1",
                     bottomRightText = "/3 mi",
-                    color = HR_MAXIMUM
-                )
+                    color = HR_MAXIMUM,
+                ),
             )
         }
     }
@@ -89,8 +89,8 @@ class MetricDisplayTest : ScreenshotBaseTest(
                 metric = MetricUiModel(
                     text = "Very very long text",
                     topRightText = "Vigorous",
-                    bottomRightText = "bpm"
-                )
+                    bottomRightText = "bpm",
+                ),
             )
         }
     }
@@ -102,8 +102,8 @@ class MetricDisplayTest : ScreenshotBaseTest(
                 metric = MetricUiModel(
                     text = "139",
                     topRightText = "Very very very very long text",
-                    bottomRightText = "Very very very very long text"
-                )
+                    bottomRightText = "Very very very very long text",
+                ),
             )
         }
     }
@@ -114,8 +114,8 @@ class MetricDisplayTest : ScreenshotBaseTest(
             MetricDisplay(
                 metric = MetricUiModel(
                     text = "139",
-                    topRightText = "Very very very very long text"
-                )
+                    topRightText = "Very very very very long text",
+                ),
             )
         }
     }
@@ -126,8 +126,8 @@ class MetricDisplayTest : ScreenshotBaseTest(
             MetricDisplay(
                 metric = MetricUiModel(
                     text = "139",
-                    bottomRightText = "Very very very very long text"
-                )
+                    bottomRightText = "Very very very very long text",
+                ),
             )
         }
     }

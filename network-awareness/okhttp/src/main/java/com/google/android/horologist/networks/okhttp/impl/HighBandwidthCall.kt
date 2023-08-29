@@ -43,7 +43,7 @@ import java.io.IOException
 @ExperimentalHorologistApi
 internal class HighBandwidthCall(
     private val callFactory: NetworkSelectingCallFactory,
-    private val request: Request
+    private val request: Request,
 ) : Call {
     @GuardedBy("this")
     private var cancelled = false
@@ -96,7 +96,7 @@ internal class HighBandwidthCall(
     private fun requestNetwork(): HighBandwidthConnectionLease {
         val requestType = request.requestType
         val types = HighBandwidthRequest.from(
-            callFactory.networkingRulesEngine.supportedTypes(requestType)
+            callFactory.networkingRulesEngine.supportedTypes(requestType),
         ).copy(url = request.url.toString())
 
         val token =

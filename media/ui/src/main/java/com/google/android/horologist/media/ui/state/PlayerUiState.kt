@@ -63,7 +63,7 @@ public data class PlayerUiState(
     val trackPositionUiModel: TrackPositionUiModel,
     val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    val connected: Boolean
+    val connected: Boolean,
 ) {
     // TODO: Consider exposing PlayerState.Idle to be consumed in NothingPlaying screen.
     public companion object {
@@ -83,7 +83,7 @@ public data class PlayerUiState(
             playing = false,
             media = null,
             trackPositionUiModel = TrackPositionUiModel.Hidden,
-            connected = false
+            connected = false,
         )
     }
 }

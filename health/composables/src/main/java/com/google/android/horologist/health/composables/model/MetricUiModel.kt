@@ -22,5 +22,5 @@ public data class MetricUiModel(
     val text: String,
     val topRightText: String? = null,
     val bottomRightText: String? = null,
-    val color: Color = Color.Unspecified
+    val color: Color = Color.Unspecified,
 )

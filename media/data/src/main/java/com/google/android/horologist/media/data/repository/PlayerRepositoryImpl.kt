@@ -48,7 +48,7 @@ import kotlin.time.toDuration
 public class PlayerRepositoryImpl(
     private val mediaMapper: MediaMapper = MediaMapper(MediaExtrasMapperNoopImpl),
     private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl),
-    private val playbackStateMapper: PlaybackStateMapper = PlaybackStateMapper()
+    private val playbackStateMapper: PlaybackStateMapper = PlaybackStateMapper(),
 ) : PlayerRepository, Closeable {
 
     private var onClose: (() -> Unit)? = null
@@ -104,7 +104,7 @@ public class PlayerRepositoryImpl(
             Player.EVENT_IS_PLAYING_CHANGED to ::updateState,
             Player.EVENT_PLAYBACK_STATE_CHANGED to ::updateState,
             Player.EVENT_PLAY_WHEN_READY_CHANGED to ::updateState,
-            Player.EVENT_TIMELINE_CHANGED to ::updateState
+            Player.EVENT_TIMELINE_CHANGED to ::updateState,
         )
 
         override fun onEvents(player: Player, events: Player.Events) {

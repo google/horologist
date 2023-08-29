@@ -31,7 +31,7 @@ public interface MediaItemExtrasMapper {
         media: Media,
         mediaItemBuilder: MediaItem.Builder,
         mediaMetadataBuilder: MediaMetadata.Builder,
-        requestMetadataBuilder: MediaItem.RequestMetadata.Builder
+        requestMetadataBuilder: MediaItem.RequestMetadata.Builder,
     )
 }
 
@@ -41,7 +41,7 @@ public object MediaItemExtrasMapperNoopImpl : MediaItemExtrasMapper {
         media: Media,
         mediaItemBuilder: MediaItem.Builder,
         mediaMetadataBuilder: MediaMetadata.Builder,
-        requestMetadataBuilder: MediaItem.RequestMetadata.Builder
+        requestMetadataBuilder: MediaItem.RequestMetadata.Builder,
     ) {
         // do nothing
     }

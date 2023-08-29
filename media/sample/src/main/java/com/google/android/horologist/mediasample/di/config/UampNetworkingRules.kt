@@ -43,7 +43,7 @@ object UampNetworkingRules : NetworkingRules {
 
     override fun checkValidRequest(
         requestType: RequestType,
-        currentNetworkInfo: NetworkInfo
+        currentNetworkInfo: NetworkInfo,
     ): RequestCheck {
         return if (requestType == DownloadRequest && currentNetworkInfo.type == NetworkType.BT) {
             Fail("Media Downloads not allowed over BT")
@@ -54,7 +54,7 @@ object UampNetworkingRules : NetworkingRules {
 
     override fun getPreferredNetwork(
         networks: Networks,
-        requestType: RequestType
+        requestType: RequestType,
     ): NetworkStatus? {
         if (requestType is RequestType.MediaRequest) {
             return getPreferredNetworkForMedia(networks, requestType)
@@ -68,7 +68,7 @@ object UampNetworkingRules : NetworkingRules {
 
     private fun getPreferredNetworkForMedia(
         networks: Networks,
-        requestType: RequestType
+        requestType: RequestType,
     ): NetworkStatus? {
         val wifi = networks.networks.firstOrNull { it.networkInfo is NetworkInfo.Wifi }
 

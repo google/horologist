@@ -21,5 +21,5 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @ExperimentalHorologistApi
 public data class PKCEOAuthCodeGooglePayload(
     val code: String,
-    val redirectUrl: String
+    val redirectUrl: String,
 )

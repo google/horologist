@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
 
         val registry = WearDataLayerRegistry.fromContext(
             application = this@MainActivity.applicationContext,
-            coroutineScope = lifecycleScope
+            coroutineScope = lifecycleScope,
         ).apply {
             registerSerializer(CounterValueSerializer)
         }
@@ -86,19 +86,19 @@ class MainActivity : ComponentActivity() {
         tokenBundleRepositoryDefaultKey = TokenBundleRepositoryImpl(
             registry = registry,
             coroutineScope = lifecycleScope,
-            serializer = TokenBundleSerializer
+            serializer = TokenBundleSerializer,
         )
 
         tokenBundleRepositoryCustomKey = TokenBundleRepositoryImpl(
             registry = registry,
             coroutineScope = lifecycleScope,
             serializer = TokenBundleSerializer,
-            key = TOKEN_BUNDLE_CUSTOM_KEY
+            key = TOKEN_BUNDLE_CUSTOM_KEY,
         )
 
         phoneDataLayerAppHelper = PhoneDataLayerAppHelper(
             context = this,
-            registry = registry
+            registry = registry,
         )
 
         val counterDataStore = registry.protoDataStore<CounterValue>(lifecycleScope)
@@ -108,7 +108,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
                     val coroutineScope = rememberCoroutineScope()
                     var nodeList by remember { mutableStateOf<List<AppHelperNodeStatus>>(emptyList()) }
@@ -154,7 +154,7 @@ class MainActivity : ComponentActivity() {
                                     it.copy { value = it.value + 1 }
                                 }
                             }
-                        }
+                        },
                     )
                 }
             }
@@ -166,7 +166,7 @@ class MainActivity : ComponentActivity() {
             tokenBundleRepositoryDefaultKey.update(
                 TokenBundle.newBuilder()
                     .setAccessToken("${System.currentTimeMillis()}")
-                    .build()
+                    .build(),
             )
         }
     }
@@ -176,7 +176,7 @@ class MainActivity : ComponentActivity() {
             tokenBundleRepositoryCustomKey.update(
                 TokenBundle.newBuilder()
                     .setAccessToken("${System.currentTimeMillis()}")
-                    .build()
+                    .build(),
             )
         }
     }
@@ -194,19 +194,19 @@ fun MainScreen(
     onCompanionClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     counterState: CounterValue,
-    onCounterIncrement: () -> Unit
+    onCounterIncrement: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Button(
             onClick = {
                 onUpdateTokenDefault()
             },
             modifier = Modifier.wrapContentHeight(),
-            enabled = apiAvailable
+            enabled = apiAvailable,
         ) { Text(stringResource(R.string.token_share_button_update_token_default)) }
 
         Button(
@@ -214,7 +214,7 @@ fun MainScreen(
                 onUpdateTokenCustom()
             },
             modifier = Modifier.wrapContentHeight(),
-            enabled = apiAvailable
+            enabled = apiAvailable,
         ) { Text(stringResource(R.string.token_share_button_update_token_custom)) }
 
         Button(
@@ -222,7 +222,7 @@ fun MainScreen(
                 onListNodes()
             },
             modifier = Modifier.wrapContentHeight(),
-            enabled = apiAvailable
+            enabled = apiAvailable,
         ) { Text(stringResource(R.string.app_helper_button_list_nodes)) }
 
         nodeList.forEach { nodeStatus ->
@@ -230,7 +230,7 @@ fun MainScreen(
                 nodeStatus = nodeStatus,
                 onInstallClick = onInstallClick,
                 onLaunchClick = onLaunchClick,
-                onCompanionClick = onCompanionClick
+                onCompanionClick = onCompanionClick,
             )
         }
 
@@ -239,7 +239,7 @@ fun MainScreen(
                 text = stringResource(R.string.token_share_message_api_unavailable),
                 modifier.fillMaxWidth(),
                 color = Color.Red,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
 
@@ -266,7 +266,7 @@ fun MainPreview() {
                     tileInfo {
                         name = "MyTile"
                         timestamp = System.currentTimeMillis().toProtoTimestamp()
-                    }
+                    },
                 )
                 complications.add(
                     complicationInfo {
@@ -274,10 +274,10 @@ fun MainPreview() {
                         instanceId = 101
                         type = "SHORT_TEXT"
                         timestamp = System.currentTimeMillis().toProtoTimestamp()
-                    }
+                    },
                 )
-            }
-        )
+            },
+        ),
     )
     HorologistTheme {
         MainScreen(
@@ -290,7 +290,7 @@ fun MainPreview() {
             onLaunchClick = { },
             onCompanionClick = { },
             counterState = CounterValue.getDefaultInstance(),
-            onCounterIncrement = {}
+            onCounterIncrement = {},
         )
     }
 }

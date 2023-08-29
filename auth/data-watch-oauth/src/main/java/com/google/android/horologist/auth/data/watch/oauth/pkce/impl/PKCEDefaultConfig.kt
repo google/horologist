@@ -24,5 +24,5 @@ public data class PKCEDefaultConfig(
     val clientId: String,
     val clientSecret: String,
     val authProviderUrl: Uri,
-    val redirectUrl: Uri? = null
+    val redirectUrl: Uri? = null,
 )

@@ -31,7 +31,7 @@ class QueryApp {
     @Test
     fun startup() {
         mediaControllerFuture = MediaControllerHelper.lookupController(
-            TestMedia.MediaSampleApp.playerComponentName
+            TestMedia.MediaSampleApp.playerComponentName,
         )
 
         // Wait for service

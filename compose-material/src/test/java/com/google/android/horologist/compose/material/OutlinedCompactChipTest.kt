@@ -38,7 +38,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
                 onClick = { },
-                label = "Primary label"
+                label = "Primary label",
             )
         }
     }
@@ -49,7 +49,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
-                icon = Icons.Filled.Add
+                icon = Icons.Filled.Add,
             )
         }
     }
@@ -59,7 +59,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
                 onClick = { },
-                icon = Icons.Filled.Add
+                icon = Icons.Filled.Add,
             )
         }
     }
@@ -71,7 +71,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                 onClick = { },
                 label = "Primary label",
                 icon = Icons.Filled.Add,
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -81,7 +81,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
                 onClick = { },
-                label = "Primary label very very very very very very very very very very very very very very very very very long text"
+                label = "Primary label very very very very very very very very very very very very very very very very very long text",
             )
         }
     }
@@ -92,7 +92,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
             TestHarness(fontScale = largestFontScale) {
                 OutlinedCompactChip(
                     onClick = { },
-                    label = "Primary label very very very very very very very very very very very very very very very very very long text"
+                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 )
             }
         }
@@ -104,7 +104,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
-                icon = R.drawable.ic_delete
+                icon = R.drawable.ic_delete,
             )
         }
     }
@@ -120,8 +120,8 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Image,
-                        tintColor = MaterialTheme.colors.primary
-                    )
+                        tintColor = MaterialTheme.colors.primary,
+                    ),
                 )
             }
         }
@@ -132,7 +132,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(
             isComponent = true,
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Never
+            fakeImageLoader = FakeImageLoader.Never,
         ) {
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
@@ -142,9 +142,9 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Image,
-                        tintColor = MaterialTheme.colors.primary
+                        tintColor = MaterialTheme.colors.primary,
                     ),
-                    enabled = false
+                    enabled = false,
                 )
             }
         }
@@ -157,7 +157,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                 OutlinedCompactChip(
                     onClick = { },
                     label = "Primary label",
-                    icon = Icons.Default.DirectionsBike
+                    icon = Icons.Default.DirectionsBike,
                 )
             }
         }
@@ -170,7 +170,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                 onClick = { },
                 label = "Primary label",
                 icon = Icons.Default.DirectionsBike,
-                iconRtlMode = IconRtlMode.Mirrored
+                iconRtlMode = IconRtlMode.Mirrored,
             )
         }
     }
@@ -183,7 +183,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                     onClick = { },
                     label = "Primary label",
                     icon = Icons.Default.DirectionsBike,
-                    iconRtlMode = IconRtlMode.Mirrored
+                    iconRtlMode = IconRtlMode.Mirrored,
                 )
             }
         }

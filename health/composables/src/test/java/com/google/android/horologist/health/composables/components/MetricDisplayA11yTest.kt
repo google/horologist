@@ -33,7 +33,7 @@ class MetricDisplayA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test
@@ -45,8 +45,8 @@ class MetricDisplayA11yTest : ScreenshotBaseTest(
                         text = "139",
                         topRightText = "Vigorous",
                         bottomRightText = "bpm",
-                        color = HR_MODERATE
-                    )
+                        color = HR_MODERATE,
+                    ),
                 )
             }
         }
@@ -62,8 +62,8 @@ class MetricDisplayA11yTest : ScreenshotBaseTest(
                             text = "139",
                             topRightText = "Vigorous",
                             bottomRightText = "bpm",
-                            color = HR_HARD
-                        )
+                            color = HR_HARD,
+                        ),
                     )
                 }
             }

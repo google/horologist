@@ -51,14 +51,14 @@ public fun ToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = CircleShape,
     role: Role = ToggleButtonDefaults.DefaultRole,
-    smallSize: Boolean = false
+    smallSize: Boolean = false,
 ) {
     val stateDescriptionSemantics = stringResource(
         if (checked) {
             R.string.horologist_toggle_button_on_state_description
         } else {
             R.string.horologist_toggle_button_off_state_description
-        }
+        },
     )
 
     val newModifier = if (smallSize) {
@@ -75,7 +75,7 @@ public fun ToggleButton(
         colors = colors,
         interactionSource = interactionSource,
         shape = shape,
-        role = role
+        role = role,
     ) {
         Text(text = text.take(3))
     }
@@ -99,14 +99,14 @@ public fun ToggleButton(
     shape: Shape = CircleShape,
     role: Role = ToggleButtonDefaults.DefaultRole,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
-    smallSize: Boolean = false
+    smallSize: Boolean = false,
 ) {
     val stateDescriptionSemantics = stringResource(
         if (checked) {
             R.string.horologist_toggle_button_on_state_description
         } else {
             R.string.horologist_toggle_button_off_state_description
-        }
+        },
     )
 
     val newModifier = if (smallSize) {
@@ -123,7 +123,7 @@ public fun ToggleButton(
         colors = colors,
         interactionSource = interactionSource,
         shape = shape,
-        role = role
+        role = role,
     ) {
         Icon(
             icon = if (checked) {
@@ -133,7 +133,7 @@ public fun ToggleButton(
             },
             modifier = modifier,
             contentDescription = contentDescription,
-            rtlMode = iconRtlMode
+            rtlMode = iconRtlMode,
         )
     }
 }
@@ -152,7 +152,7 @@ public object ToggleButtonDefaults {
         return ToggleButtonDefaults.toggleButtonColors(
             checkedBackgroundColor = Color.Transparent,
             uncheckedBackgroundColor = Color.Transparent,
-            disabledCheckedContentColor = contentColorFor(MaterialTheme.colors.surface).copy(alpha = ContentAlpha.disabled)
+            disabledCheckedContentColor = contentColorFor(MaterialTheme.colors.surface).copy(alpha = ContentAlpha.disabled),
         )
     }
 }

@@ -28,7 +28,7 @@ class SeekForwardButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SeekForwardButton(
                 onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Five
+                seekButtonIncrement = SeekButtonIncrement.Five,
             )
         }
     }
@@ -38,7 +38,7 @@ class SeekForwardButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SeekForwardButton(
                 onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Ten
+                seekButtonIncrement = SeekButtonIncrement.Ten,
             )
         }
     }
@@ -48,7 +48,7 @@ class SeekForwardButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SeekForwardButton(
                 onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Thirty
+                seekButtonIncrement = SeekButtonIncrement.Thirty,
             )
         }
     }
@@ -58,7 +58,7 @@ class SeekForwardButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SeekForwardButton(
                 onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Known(15)
+                seekButtonIncrement = SeekButtonIncrement.Known(15),
             )
         }
     }
@@ -68,7 +68,7 @@ class SeekForwardButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             SeekForwardButton(
                 onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Unknown
+                seekButtonIncrement = SeekButtonIncrement.Unknown,
             )
         }
     }

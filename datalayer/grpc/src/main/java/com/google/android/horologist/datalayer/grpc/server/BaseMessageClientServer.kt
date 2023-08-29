@@ -25,7 +25,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 
 public abstract class BaseMessageClientServer(
-    private val coroutineScope: CoroutineScope
+    private val coroutineScope: CoroutineScope,
 ) {
     public fun handleIncomingMessage(data: ByteArray): Deferred<ByteArray> {
         val request = MessageRequest.parseFrom(data)

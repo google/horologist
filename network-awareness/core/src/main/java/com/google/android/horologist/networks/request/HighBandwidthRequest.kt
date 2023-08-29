@@ -30,7 +30,7 @@ import com.google.android.horologist.networks.data.RequestType
 public data class HighBandwidthRequest(
     val type: Type = Type.All,
     val requestType: RequestType? = null,
-    val url: String? = null
+    val url: String? = null,
 ) {
     public fun toNetworkRequest(): NetworkRequest {
         return NetworkRequest.Builder()
@@ -49,7 +49,7 @@ public data class HighBandwidthRequest(
     public enum class Type(public val wifi: Boolean, public val cell: Boolean) {
         WifiOnly(true, false),
         CellOnly(false, true),
-        All(true, true), ;
+        All(true, true),
     }
 
     public companion object {

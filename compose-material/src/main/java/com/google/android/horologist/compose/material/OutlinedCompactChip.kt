@@ -61,7 +61,7 @@ public fun OutlinedCompactChip(
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.outlinedChipBorder()
+    border: ChipBorder = ChipDefaults.outlinedChipBorder(),
 ) {
     val iconParam: (@Composable BoxScope.() -> Unit)? =
         icon?.let {
@@ -75,26 +75,26 @@ public fun OutlinedCompactChip(
                                 imageVector = icon,
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                                 modifier = iconModifier,
-                                rtlMode = iconRtlMode
+                                rtlMode = iconRtlMode,
                             )
 
                         is Int ->
                             Icon(
                                 id = icon,
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier
+                                modifier = iconModifier,
                             )
 
                         else ->
                             Image(
                                 painter = rememberAsyncImagePainter(
                                     model = icon,
-                                    placeholder = placeholder
+                                    placeholder = placeholder,
                                 ),
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                                 modifier = iconModifier,
                                 contentScale = ContentScale.Crop,
-                                alpha = LocalContentAlpha.current
+                                alpha = LocalContentAlpha.current,
                             )
                     }
                 }
@@ -110,7 +110,7 @@ public fun OutlinedCompactChip(
                     text = label,
                     textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
+                    maxLines = 1,
                 )
             }
         }
@@ -123,7 +123,7 @@ public fun OutlinedCompactChip(
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource,
-        border = border
+        border = border,
     )
 }
 
@@ -145,7 +145,7 @@ public fun OutlinedCompactChip(
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.outlinedChipBorder()
+    border: ChipBorder = ChipDefaults.outlinedChipBorder(),
 ) {
     OutlinedCompactChip(
         onClick = onClick,
@@ -157,6 +157,6 @@ public fun OutlinedCompactChip(
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource,
-        border = border
+        border = border,
     )
 }

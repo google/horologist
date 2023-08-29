@@ -36,7 +36,7 @@ public class MediaMapper(private val mediaExtrasMapper: MediaExtrasMapper) {
      */
     public fun map(
         mediaItem: MediaItem,
-        mediaMetadata: MediaMetadata
+        mediaMetadata: MediaMetadata,
     ): Media = Media(
         id = mediaItem.mediaId,
         uri = mediaItem.localConfiguration?.uri?.toString() ?: "",
@@ -46,7 +46,7 @@ public class MediaMapper(private val mediaExtrasMapper: MediaExtrasMapper) {
             ?: mediaMetadata.subtitle?.toString()
             ?: "",
         artworkUri = mediaMetadata.artworkUri?.toString(),
-        extras = mediaExtrasMapper.map(mediaItem, mediaMetadata)
+        extras = mediaExtrasMapper.map(mediaItem, mediaMetadata),
     )
 
     /**
@@ -57,6 +57,6 @@ public class MediaMapper(private val mediaExtrasMapper: MediaExtrasMapper) {
         uri = media.mediaUrl,
         title = media.title ?: "",
         artist = media.artist ?: "",
-        artworkUri = media.artworkUrl
+        artworkUri = media.artworkUrl,
     )
 }

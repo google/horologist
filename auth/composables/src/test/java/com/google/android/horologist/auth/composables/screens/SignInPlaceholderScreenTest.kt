@@ -23,7 +23,7 @@ import org.junit.Test
 class SignInPlaceholderScreenTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
-    }
+    },
 ) {
     @Test
     fun signInPlaceholderScreen() {

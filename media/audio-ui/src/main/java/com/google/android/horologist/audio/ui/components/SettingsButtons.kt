@@ -43,21 +43,21 @@ public fun SettingsButtons(
     onOutputClick: () -> Unit,
     modifier: Modifier = Modifier,
     brandIcon: @Composable () -> Unit = {},
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         SetVolumeButton(
             onVolumeClick = onVolumeClick,
             volumeUiState = volumeUiState,
-            enabled = enabled
+            enabled = enabled,
         )
         brandIcon()
         AudioOutputButton(
             onOutputClick = onOutputClick,
-            enabled = enabled
+            enabled = enabled,
         )
     }
 }
@@ -67,14 +67,14 @@ public object SettingsButtonsDefaults {
     public fun BrandIcon(
         @DrawableRes iconId: Int,
         modifier: Modifier = Modifier,
-        enabled: Boolean = true
+        enabled: Boolean = true,
     ) {
         Image(
             modifier = modifier.size(18.dp).clip(CircleShape).let {
                 if (enabled) it else it.alpha(0.38f)
             },
             painter = painterResource(id = iconId),
-            contentDescription = null
+            contentDescription = null,
         )
     }
 }

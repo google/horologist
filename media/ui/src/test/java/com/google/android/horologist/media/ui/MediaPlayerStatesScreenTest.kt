@@ -36,7 +36,7 @@ import kotlin.time.Duration.Companion.seconds
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class MediaPlayerStatesScreenTest(
-    private val state: State
+    private val state: State,
 ) : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {
@@ -44,11 +44,11 @@ class MediaPlayerStatesScreenTest(
                 timeSource = object : TimeSource {
                     override val currentTime: String
                         @Composable get() = "10:10"
-                }
+                },
             )
         }
         testLabel = state.name.lowercase()
-    }
+    },
 ) {
 
     @Test
@@ -68,7 +68,7 @@ class MediaPlayerStatesScreenTest(
                 MediaUiModel(
                     id = "",
                     title = "Weather with You",
-                    subtitle = "Crowded House"
+                    subtitle = "Crowded House",
                 )
             } else {
                 null
@@ -77,12 +77,12 @@ class MediaPlayerStatesScreenTest(
                 TrackPositionUiModel.Actual(
                     percent = 0.133f,
                     position = 30.seconds,
-                    duration = 225.seconds
+                    duration = 225.seconds,
                 )
             } else {
                 TrackPositionUiModel.Actual.ZERO
             },
-            connected = state.connected
+            connected = state.connected,
         )
 
         screenshotTestRule.setContent(takeScreenshot = true) {
@@ -95,7 +95,7 @@ class MediaPlayerStatesScreenTest(
     data class State(
         val connected: Boolean,
         val media: Boolean,
-        val name: String
+        val name: String,
     )
 
     companion object {
@@ -103,7 +103,7 @@ class MediaPlayerStatesScreenTest(
         @Parameters
         fun states() = listOf(
             State(connected = true, media = false, name = "NoMedia"),
-            State(connected = false, media = false, name = "NotConnected")
+            State(connected = false, media = false, name = "NotConnected"),
         )
     }
 }

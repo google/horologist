@@ -49,7 +49,7 @@ object ConfigModule {
     @Provides
     @CacheDir
     fun cacheDir(
-        @ApplicationContext application: Context
+        @ApplicationContext application: Context,
     ): File =
         StrictMode.allowThreadDiskWrites().resetAfter {
             application.cacheDir
@@ -58,21 +58,21 @@ object ConfigModule {
     @Singleton
     @Provides
     fun audioOutputSelector(
-        systemAudioRepository: SystemAudioRepository
+        systemAudioRepository: SystemAudioRepository,
     ): AudioOutputSelector =
         BluetoothSettingsOutputSelector(systemAudioRepository)
 
     @Singleton
     @Provides
     fun systemAudioRepository(
-        @ApplicationContext application: Context
+        @ApplicationContext application: Context,
     ): SystemAudioRepository =
         SystemAudioRepository.fromContext(application)
 
     @Singleton
     @Provides
     fun notificationManager(
-        @ApplicationContext application: Context
+        @ApplicationContext application: Context,
     ): NotificationManager =
         application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 }

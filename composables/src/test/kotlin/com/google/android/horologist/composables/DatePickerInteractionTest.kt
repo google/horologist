@@ -42,7 +42,7 @@ import java.time.LocalDate
 @RunWith(RobolectricTestRunner::class)
 @Config(
     sdk = [30],
-    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class DatePickerInteractionTest {
@@ -58,7 +58,7 @@ class DatePickerInteractionTest {
                     onDateConfirm = {
                         date = it
                     },
-                    date = LocalDate.of(2022, 4, 25)
+                    date = LocalDate.of(2022, 4, 25),
                 )
             } else {
                 Text(modifier = Modifier.testTag("date"), text = "$date")
@@ -79,7 +79,7 @@ class DatePickerInteractionTest {
                     onDateConfirm = {},
                     date = LocalDate.of(2022, 3, 25),
                     fromDate = LocalDate.of(2022, 3, 25),
-                    toDate = LocalDate.of(2022, 2, 25)
+                    toDate = LocalDate.of(2022, 2, 25),
                 )
             }
         }
@@ -93,7 +93,7 @@ class DatePickerInteractionTest {
                     onDateConfirm = {},
                     date = LocalDate.of(2022, 4, 25),
                     fromDate = LocalDate.of(2022, 2, 25),
-                    toDate = LocalDate.of(2022, 3, 25)
+                    toDate = LocalDate.of(2022, 3, 25),
                 )
             }
         }
@@ -104,7 +104,7 @@ class DatePickerInteractionTest {
         composeTestRule.setContent {
             DatePicker(
                 onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25)
+                date = LocalDate.of(2022, 4, 25),
             )
         }
 
@@ -116,7 +116,7 @@ class DatePickerInteractionTest {
         composeTestRule.setContent {
             DatePicker(
                 onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25)
+                date = LocalDate.of(2022, 4, 25),
             )
         }
 
@@ -128,7 +128,7 @@ class DatePickerInteractionTest {
         composeTestRule.setContent {
             DatePicker(
                 onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25)
+                date = LocalDate.of(2022, 4, 25),
             )
         }
 
@@ -249,7 +249,7 @@ class DatePickerInteractionTest {
         val datePickerState = DatePickerState(
             date = date,
             fromDate = date.minusYears(1),
-            toDate = date.plusYears(1)
+            toDate = date.plusYears(1),
         )
 
         runBlocking { // to run suspend methods sequentially
@@ -270,7 +270,7 @@ class DatePickerInteractionTest {
         val datePickerState = DatePickerState(
             date = date,
             fromDate = date.minusYears(1),
-            toDate = date.plusYears(1)
+            toDate = date.plusYears(1),
         )
 
         runBlocking { // to run suspend methods sequentially

@@ -39,10 +39,10 @@ class TrackPositionUiModelMapperTest {
                 isLive = false,
                 currentPosition = current,
                 duration = duration,
-                playbackSpeed = 1f
+                playbackSpeed = 1f,
             ),
             timestamp = 0.toDuration(DurationUnit.SECONDS),
-            cause = PlaybackStateEvent.Cause.PositionDiscontinuity
+            cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
         )
 
         // when
@@ -66,10 +66,10 @@ class TrackPositionUiModelMapperTest {
                 isLive = false,
                 currentPosition = current,
                 duration = duration,
-                playbackSpeed = 1f
+                playbackSpeed = 1f,
             ),
             timestamp = 0.toDuration(DurationUnit.SECONDS),
-            cause = PlaybackStateEvent.Cause.PositionDiscontinuity
+            cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
         )
 
         // when
@@ -92,9 +92,9 @@ class TrackPositionUiModelMapperTest {
                 isLive = false,
                 currentPosition = current,
                 duration = duration,
-                playbackSpeed = 1f
+                playbackSpeed = 1f,
             ),
-            cause = PlaybackStateEvent.Cause.PositionDiscontinuity
+            cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
         )
 
         // when

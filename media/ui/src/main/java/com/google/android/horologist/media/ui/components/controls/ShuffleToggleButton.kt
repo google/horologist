@@ -45,8 +45,8 @@ public fun ShuffleToggleButton(
         checkedBackgroundColor = Color.Transparent,
         checkedContentColor = MaterialTheme.colors.onSurface,
         uncheckedBackgroundColor = Color.Transparent,
-        uncheckedContentColor = MaterialTheme.colors.onSurface
-    )
+        uncheckedContentColor = MaterialTheme.colors.onSurface,
+    ),
 ) {
     val onLabel =
         stringResource(id = R.string.horologist_shuffle_button_on_content_description)
@@ -59,12 +59,12 @@ public fun ShuffleToggleButton(
         onCheckedChange = onToggle,
         enabled = enabled,
         colors = colors,
-        checked = shuffleOn
+        checked = shuffleOn,
     ) {
         val icon = if (shuffleOn) Icons.Default.ShuffleOn else Icons.Default.Shuffle
         Icon(
             imageVector = icon,
-            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
         )
     }
 }

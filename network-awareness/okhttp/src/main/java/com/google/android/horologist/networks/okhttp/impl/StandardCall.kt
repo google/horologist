@@ -32,7 +32,7 @@ import okio.Timeout
 @ExperimentalHorologistApi
 internal class StandardCall(
     private val callFactory: Call.Factory,
-    private val delegate: Call
+    private val delegate: Call,
 ) : Call {
     override fun cancel(): Unit = delegate.cancel()
 

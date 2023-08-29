@@ -53,7 +53,7 @@ public fun GoogleSignInScreen(
     failedContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: GoogleSignInViewModel = viewModel(),
-    content: @Composable (successState: GoogleSignInScreenState.Success) -> Unit
+    content: @Composable (successState: GoogleSignInScreenState.Success) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -82,8 +82,8 @@ public fun GoogleSignInScreen(
             } ?: run {
                 val signInRequestLauncher = rememberLauncherForActivityResult(
                     contract = GoogleSignInContract(
-                        viewModel.googleSignInClient
-                    )
+                        viewModel.googleSignInClient,
+                    ),
                 ) { result ->
 
                     when (result) {
@@ -138,7 +138,7 @@ public fun GoogleSignInScreen(
     onAuthCancelled: () -> Unit,
     onAuthSucceed: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: GoogleSignInViewModel = viewModel()
+    viewModel: GoogleSignInViewModel = viewModel(),
 ) {
     GoogleSignInScreen(
         onAuthCancelled = {
@@ -147,12 +147,12 @@ public fun GoogleSignInScreen(
         failedContent = {
             AuthErrorScreen(modifier)
         },
-        viewModel = viewModel
+        viewModel = viewModel,
     ) { successState ->
         SignedInConfirmationDialog(
             onDismissOrTimeout = { onAuthSucceed() },
             modifier = modifier,
-            accountUiModel = successState.accountUiModel
+            accountUiModel = successState.accountUiModel,
         )
     }
 }
@@ -161,12 +161,12 @@ public fun GoogleSignInScreen(
  * An [ActivityResultContract] for signing in with the given [GoogleSignInClient].
  */
 private class GoogleSignInContract(
-    private val googleSignInClient: GoogleSignInClient
+    private val googleSignInClient: GoogleSignInClient,
 ) : ActivityResultContract<Unit, GoogleSignInContract.Result>() {
 
     override fun createIntent(
         context: Context,
-        input: Unit
+        input: Unit,
     ): Intent = googleSignInClient.signInIntent
 
     override fun parseResult(resultCode: Int, intent: Intent?): Result {

@@ -27,7 +27,7 @@ import kotlinx.coroutines.withContext
  * An implementation of [AuthUserRepository] for the Google Sign-In authentication method.
  */
 public class GoogleSignInAuthUserRepository(
-    private val applicationContext: Context
+    private val applicationContext: Context,
 ) : AuthUserRepository {
 
     override suspend fun getAuthenticated(): AuthUser? =

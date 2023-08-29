@@ -31,7 +31,7 @@ import com.google.android.horologist.compose.tools.WidthConstrainedBox
 fun DeviceChipPreview() {
     WidthConstrainedBox(
         widths = listOf(100.dp, 164.dp, 192.dp, 227.dp),
-        comfortableHeight = 100.dp
+        comfortableHeight = 100.dp,
     ) {
         DeviceChip(
             volumeDescription = "",
@@ -40,11 +40,11 @@ fun DeviceChipPreview() {
                 Icon(
                     imageVector = Icons.Default.Headphones,
                     contentDescription = "",
-                    tint = MaterialTheme.colors.onSurfaceVariant
+                    tint = MaterialTheme.colors.onSurfaceVariant,
                 )
             },
             onAudioOutputClick = {
-            }
+            },
         )
     }
 }

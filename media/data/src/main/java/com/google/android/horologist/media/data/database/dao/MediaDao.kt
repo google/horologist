@@ -37,7 +37,7 @@ public interface MediaDao {
         value = """
         DELETE FROM MediaEntity
         WHERE mediaId in (:mediaIds)
-    """
+    """,
     )
     public suspend fun delete(mediaIds: List<String>)
 }

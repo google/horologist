@@ -30,7 +30,7 @@ import org.robolectric.annotation.Config
 class MetricsScreenTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         record = ScreenshotTestRule.RecordMode.Record
-    }
+    },
 ) {
     @Test
     fun metricsScreenOneMetric() {
@@ -38,13 +38,13 @@ class MetricsScreenTest : ScreenshotBaseTest(
             MetricsScreen(
                 firstMetric = MetricUiModel(
                     text = "21:34",
-                    bottomRightText = "6"
+                    bottomRightText = "6",
                 ),
                 positionIndicator = {
                     PositionIndicator(
-                        value = { 0.25f }
+                        value = { 0.25f },
                     )
-                }
+                },
             )
         }
     }
@@ -55,17 +55,17 @@ class MetricsScreenTest : ScreenshotBaseTest(
             MetricsScreen(
                 firstMetric = MetricUiModel(
                     text = "21:34",
-                    bottomRightText = "6"
+                    bottomRightText = "6",
                 ),
                 secondMetric = MetricUiModel(
                     text = "138",
-                    bottomRightText = "cal"
+                    bottomRightText = "cal",
                 ),
                 positionIndicator = {
                     PositionIndicator(
-                        value = { 0.5f }
+                        value = { 0.5f },
                     )
-                }
+                },
             )
         }
     }
@@ -77,21 +77,21 @@ class MetricsScreenTest : ScreenshotBaseTest(
                 firstMetric = MetricUiModel(
                     text = "164",
                     bottomRightText = "Vigorous",
-                    color = HR_HARD
+                    color = HR_HARD,
                 ),
                 secondMetric = MetricUiModel(
                     text = "2.7",
-                    bottomRightText = "mi"
+                    bottomRightText = "mi",
                 ),
                 thirdMetric = MetricUiModel(
                     text = "21:34",
-                    bottomRightText = "6"
+                    bottomRightText = "6",
                 ),
                 positionIndicator = {
                     PositionIndicator(
-                        value = { 0.75f }
+                        value = { 0.75f },
                     )
-                }
+                },
             )
         }
     }
@@ -103,25 +103,25 @@ class MetricsScreenTest : ScreenshotBaseTest(
                 firstMetric = MetricUiModel(
                     text = "198",
                     bottomRightText = "Peak",
-                    color = HR_MAXIMUM
+                    color = HR_MAXIMUM,
                 ),
                 secondMetric = MetricUiModel(
                     text = "2.7",
-                    bottomRightText = "mi"
+                    bottomRightText = "mi",
                 ),
                 thirdMetric = MetricUiModel(
                     text = "8'51\"",
-                    bottomRightText = "pace"
+                    bottomRightText = "pace",
                 ),
                 fourthMetric = MetricUiModel(
                     text = "21:34",
-                    bottomRightText = "6"
+                    bottomRightText = "6",
                 ),
                 positionIndicator = {
                     PositionIndicator(
-                        value = { 1f }
+                        value = { 1f },
                     )
-                }
+                },
             )
         }
     }
@@ -133,24 +133,24 @@ class MetricsScreenTest : ScreenshotBaseTest(
                 firstMetric = MetricUiModel(
                     text = "198",
                     bottomRightText = "Peak",
-                    color = HR_MAXIMUM
+                    color = HR_MAXIMUM,
                 ),
                 fourthMetric = MetricUiModel(
                     text = "21:34",
-                    bottomRightText = "6"
+                    bottomRightText = "6",
                 ),
                 positionIndicator = {
                     PositionIndicator(
-                        value = { 0.75f }
+                        value = { 0.75f },
                     )
-                }
+                },
             )
         }
     }
 
     @Config(
         sdk = [30],
-        qualifiers = largeScreen
+        qualifiers = largeScreen,
     )
     @Test
     fun metricsScreenFourMetrics_largeScreen_smallestFont() {
@@ -160,25 +160,25 @@ class MetricsScreenTest : ScreenshotBaseTest(
                     firstMetric = MetricUiModel(
                         text = "198",
                         bottomRightText = "Peak",
-                        color = HR_MAXIMUM
+                        color = HR_MAXIMUM,
                     ),
                     secondMetric = MetricUiModel(
                         text = "2.7",
-                        bottomRightText = "mi"
+                        bottomRightText = "mi",
                     ),
                     thirdMetric = MetricUiModel(
                         text = "8'51\"",
-                        bottomRightText = "pace"
+                        bottomRightText = "pace",
                     ),
                     fourthMetric = MetricUiModel(
                         text = "21:34",
-                        bottomRightText = "6"
+                        bottomRightText = "6",
                     ),
                     positionIndicator = {
                         PositionIndicator(
-                            value = { 0.75f }
+                            value = { 0.75f },
                         )
-                    }
+                    },
                 )
             }
         }
@@ -186,7 +186,7 @@ class MetricsScreenTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = smallScreen
+        qualifiers = smallScreen,
     )
     @Test
     fun metricsScreenFourMetrics_smallScreen_largestFont() {
@@ -196,25 +196,25 @@ class MetricsScreenTest : ScreenshotBaseTest(
                     firstMetric = MetricUiModel(
                         text = "198",
                         bottomRightText = "Peak",
-                        color = HR_MAXIMUM
+                        color = HR_MAXIMUM,
                     ),
                     secondMetric = MetricUiModel(
                         text = "2.7",
-                        bottomRightText = "mi"
+                        bottomRightText = "mi",
                     ),
                     thirdMetric = MetricUiModel(
                         text = "8'51\"",
-                        bottomRightText = "pace"
+                        bottomRightText = "pace",
                     ),
                     fourthMetric = MetricUiModel(
                         text = "21:34",
-                        bottomRightText = "6"
+                        bottomRightText = "6",
                     ),
                     positionIndicator = {
                         PositionIndicator(
-                            value = { 0.75f }
+                            value = { 0.75f },
                         )
-                    }
+                    },
                 )
             }
         }

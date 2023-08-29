@@ -33,7 +33,7 @@ public class GenericMotionRotaryInputAccumulator(
     onValueChange: (change: Float) -> Unit,
     eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
-    rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS
+    rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
 ) {
 
     private val rotaryInputEventReader: RotaryInputEventReader = RotaryInputEventReader(context)
@@ -42,7 +42,7 @@ public class GenericMotionRotaryInputAccumulator(
             eventAccumulationThresholdMs = eventAccumulationThresholdMs,
             minValueChangeDistancePx = minValueChangeDistancePx,
             rateLimitCoolDownMs = rateLimitCoolDownMs,
-            onValueChange = onValueChange
+            onValueChange = onValueChange,
         )
 
     /**
@@ -57,7 +57,7 @@ public class GenericMotionRotaryInputAccumulator(
         }
         rotaryInputAccumulator.onRotaryScroll(
             rotaryInputEventReader.getScrollDistance(event),
-            event.eventTime
+            event.eventTime,
         )
         return true
     }
@@ -70,7 +70,7 @@ public class GenericMotionRotaryInputAccumulator(
         private val scaledScrollFactor =
             ViewConfigurationCompat.getScaledVerticalScrollFactor(
                 ViewConfiguration.get(context),
-                context
+                context,
             )
 
         fun isRotaryScrollEvent(ev: MotionEvent): Boolean =

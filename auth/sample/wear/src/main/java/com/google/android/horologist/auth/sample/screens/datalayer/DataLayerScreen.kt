@@ -41,13 +41,13 @@ import com.google.android.horologist.compose.material.Title
 fun DataLayerScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: DataLayerViewModel = viewModel(factory = DataLayerViewModel.Factory)
+    viewModel: DataLayerViewModel = viewModel(factory = DataLayerViewModel.Factory),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         item {
             Title(R.string.data_layer_title, Modifier)
@@ -56,7 +56,7 @@ fun DataLayerScreen(
             Text(
                 text = stringResource(id = R.string.server_counter_message),
                 modifier = Modifier.padding(horizontal = 8.dp),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
         val error = state.error
@@ -64,7 +64,7 @@ fun DataLayerScreen(
             item {
                 Text(
                     text = stringResource(R.string.data_layer_error_message, error),
-                    color = MaterialTheme.colors.error
+                    color = MaterialTheme.colors.error,
                 )
             }
         }
@@ -83,7 +83,7 @@ fun DataLayerScreen(
                     contentDescription = "Plus One",
                     onClick = {
                         viewModel.addDelta(1)
-                    }
+                    },
                 )
             }
         }

@@ -34,7 +34,7 @@ import kotlinx.coroutines.flow.runningReduce
 import kotlinx.coroutines.flow.stateIn
 
 class TokenShareDefaultKeyViewModel(
-    tokenBundleRepository: TokenBundleRepository<TokenBundle?>
+    tokenBundleRepository: TokenBundleRepository<TokenBundle?>,
 ) : ViewModel() {
 
     public val uiState: StateFlow<List<TokenBundle?>> =
@@ -51,8 +51,8 @@ class TokenShareDefaultKeyViewModel(
                 TokenShareDefaultKeyViewModel(
                     TokenBundleRepositoryImpl.create(
                         registry = (application as SampleApplication).registry,
-                        serializer = TokenBundleSerializer
-                    )
+                        serializer = TokenBundleSerializer,
+                    ),
                 )
             }
         }

@@ -32,7 +32,7 @@ public object AuthUserMapper {
             AuthUser(
                 displayName = it.displayName,
                 email = it.email,
-                avatarUri = it.photoUrl.toString()
+                avatarUri = it.photoUrl.toString(),
             )
         }
 }

@@ -35,11 +35,11 @@ import com.google.android.horologist.compose.material.Title
 fun MainScreen(
     navigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState,
 ) {
     SectionedList(
         columnState = columnState,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         pkceSection(navigateToRoute)
 
@@ -61,9 +61,9 @@ private fun SectionedListScope.pkceSection(navigateToRoute: (String) -> Unit) {
             Pair(R.string.auth_menu_oauth_pkce_sign_in_item, Screen.PKCESignInPromptScreen.route),
             Pair(
                 R.string.auth_menu_oauth_pkce_sign_out_item,
-                Screen.PKCESignOutScreen.route
-            )
-        )
+                Screen.PKCESignOutScreen.route,
+            ),
+        ),
     ) {
         header {
             Title(stringResource(id = R.string.auth_menu_oauth_pkce_header), Modifier)
@@ -72,7 +72,7 @@ private fun SectionedListScope.pkceSection(navigateToRoute: (String) -> Unit) {
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) }
+                onClick = { navigateToRoute(route) },
             )
         }
     }
@@ -83,13 +83,13 @@ private fun SectionedListScope.deviceGrantSection(navigateToRoute: (String) -> U
         listOf(
             Pair(
                 R.string.auth_menu_oauth_device_grant_sign_in_item,
-                Screen.DeviceGrantSignInPromptScreen.route
+                Screen.DeviceGrantSignInPromptScreen.route,
             ),
             Pair(
                 R.string.auth_menu_oauth_device_grant_sign_out_item,
-                Screen.DeviceGrantSignOutScreen.route
-            )
-        )
+                Screen.DeviceGrantSignOutScreen.route,
+            ),
+        ),
     ) {
         header {
             Title(stringResource(id = R.string.auth_menu_oauth_device_grant_header))
@@ -98,7 +98,7 @@ private fun SectionedListScope.deviceGrantSection(navigateToRoute: (String) -> U
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) }
+                onClick = { navigateToRoute(route) },
             )
         }
     }
@@ -109,10 +109,10 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
         listOf(
             Pair(
                 R.string.auth_menu_google_sign_in_prompt_item,
-                Screen.GoogleSignInPromptSampleScreen.route
+                Screen.GoogleSignInPromptSampleScreen.route,
             ),
-            Pair(R.string.auth_menu_google_sign_out_item, Screen.GoogleSignOutScreen.route)
-        )
+            Pair(R.string.auth_menu_google_sign_out_item, Screen.GoogleSignOutScreen.route),
+        ),
     ) {
         header {
             Title(stringResource(id = R.string.auth_menu_google_sign_in_header))
@@ -121,7 +121,7 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) }
+                onClick = { navigateToRoute(route) },
             )
         }
     }
@@ -132,13 +132,13 @@ private fun SectionedListScope.tokenShareSection(navigateToRoute: (String) -> Un
         listOf(
             Pair(
                 R.string.auth_menu_token_share_default_key_item,
-                Screen.TokenShareDefaultKeyScreen.route
+                Screen.TokenShareDefaultKeyScreen.route,
             ),
             Pair(
                 R.string.auth_menu_token_share_custom_key_item,
-                Screen.TokenShareCustomKeyScreen.route
-            )
-        )
+                Screen.TokenShareCustomKeyScreen.route,
+            ),
+        ),
     ) {
         header {
             Title(stringResource(id = R.string.auth_menu_token_share_header))
@@ -147,7 +147,7 @@ private fun SectionedListScope.tokenShareSection(navigateToRoute: (String) -> Un
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) }
+                onClick = { navigateToRoute(route) },
             )
         }
     }
@@ -158,9 +158,9 @@ private fun SectionedListScope.commonScreensSection(navigateToRoute: (String) ->
         listOf(
             Pair(
                 R.string.auth_menu_common_screens_streamline_sign_in_item,
-                Screen.StreamlineSignInMenuScreen.route
-            )
-        )
+                Screen.StreamlineSignInMenuScreen.route,
+            ),
+        ),
     ) {
         header {
             Title(stringResource(id = R.string.auth_menu_common_screens_header))
@@ -169,7 +169,7 @@ private fun SectionedListScope.commonScreensSection(navigateToRoute: (String) ->
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) }
+                onClick = { navigateToRoute(route) },
             )
         }
     }
@@ -180,9 +180,9 @@ private fun SectionedListScope.dataLayerSection(navigateToRoute: (String) -> Uni
         listOf(
             Pair(
                 R.string.auth_menu_datalayer_item,
-                Screen.DataLayerScreen.route
-            )
-        )
+                Screen.DataLayerScreen.route,
+            ),
+        ),
     ) {
         header {
             Title(stringResource(id = R.string.auth_menu_datalayer_header))
@@ -191,7 +191,7 @@ private fun SectionedListScope.dataLayerSection(navigateToRoute: (String) -> Uni
             Chip(
                 label = stringResource(id = textId),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) }
+                onClick = { navigateToRoute(route) },
             )
         }
     }
@@ -203,6 +203,6 @@ private fun SectionedListScope.dataLayerSection(navigateToRoute: (String) -> Uni
 fun AuthMenuScreenPreview() {
     MainScreen(
         navigateToRoute = {},
-        columnState = belowTimeTextPreview()
+        columnState = belowTimeTextPreview(),
     )
 }

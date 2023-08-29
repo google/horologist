@@ -83,7 +83,7 @@ public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLa
 public fun TilePreview(
     tile: TileBuilders.Tile,
     tileResources: ResourceBuilders.Resources,
-    onLoadAction: ((State) -> TileBuilders.Tile)? = null
+    onLoadAction: ((State) -> TileBuilders.Tile)? = null,
 ) {
     AndroidView(
         modifier = Modifier.fillMaxSize(),
@@ -95,23 +95,26 @@ public fun TilePreview(
         update = { parent ->
             lateinit var tileRenderer: TileRenderer
             tileRenderer = TileRenderer(
-                /* uiContext = */ parent.context,
-                /* loadActionExecutor = */ Dispatchers.Main.asExecutor(),
-                /* loadActionListener = */ { newState ->
-                onLoadAction?.invoke(newState)?.let { newTile ->
-                    tileRenderer.preview(newTile, tileResources, parent)
-                }
-            }
+                /* uiContext = */
+                parent.context,
+                /* loadActionExecutor = */
+                Dispatchers.Main.asExecutor(),
+                /* loadActionListener = */
+                { newState ->
+                    onLoadAction?.invoke(newState)?.let { newTile ->
+                        tileRenderer.preview(newTile, tileResources, parent)
+                    }
+                },
             )
             tileRenderer.preview(tile, tileResources, parent)
-        }
+        },
     )
 }
 
 private fun TileRenderer.preview(
     tile: TileBuilders.Tile,
     tileResources: ResourceBuilders.Resources,
-    parent: ViewGroup
+    parent: ViewGroup,
 ): ListenableFuture<View> {
     tile.state?.let { state ->
         setState(state.keyToValueMapping)
@@ -121,7 +124,7 @@ private fun TileRenderer.preview(
     return inflateAsync(
         tile.tileTimeline?.timelineEntries?.first()?.layout!!,
         tileResources,
-        parent
+        parent,
     )
 }
 
@@ -133,15 +136,15 @@ private fun TileRenderer.preview(
 public fun LayoutElementPreview(
     element: LayoutElement,
     @ColorInt windowBackgroundColor: Int = Color.DKGRAY,
-    tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {}
+    tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {},
 ) {
     val root = Box.Builder()
         .setModifiers(
             Modifiers.Builder().setBackground(
                 Background.Builder()
                     .setColor(argb(windowBackgroundColor))
-                    .build()
-            ).build()
+                    .build(),
+            ).build(),
         )
         .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
         .setVerticalAlignment(VERTICAL_ALIGN_CENTER)
@@ -159,7 +162,7 @@ public fun LayoutElementPreview(
 @Composable
 public fun LayoutRootPreview(
     root: LayoutElement,
-    tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {}
+    tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {},
 ) {
     val tile = remember {
         TileBuilders.Tile.Builder()
@@ -170,9 +173,9 @@ public fun LayoutRootPreview(
                         .setLayout(
                             LayoutElementBuilders.Layout.Builder()
                                 .setRoot(root)
-                                .build()
-                        ).build()
-                ).build()
+                                .build(),
+                        ).build(),
+                ).build(),
             ).build()
     }
 
@@ -199,7 +202,10 @@ public fun buildDeviceParameters(resources: Resources): DeviceParametersBuilders
         .setScreenWidthDp((displayMetrics.widthPixels / displayMetrics.density).roundToInt())
         .setScreenHeightDp((displayMetrics.heightPixels / displayMetrics.density).roundToInt())
         .setScreenDensity(displayMetrics.density).setScreenShape(
-            if (isScreenRound) DeviceParametersBuilders.SCREEN_SHAPE_ROUND
-            else DeviceParametersBuilders.SCREEN_SHAPE_RECT
+            if (isScreenRound) {
+                DeviceParametersBuilders.SCREEN_SHAPE_ROUND
+            } else {
+                DeviceParametersBuilders.SCREEN_SHAPE_RECT
+            },
         ).setDevicePlatform(DeviceParametersBuilders.DEVICE_PLATFORM_WEAR_OS).build()
 }

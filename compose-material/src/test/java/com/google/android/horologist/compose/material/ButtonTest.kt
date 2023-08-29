@@ -33,7 +33,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
             Button(
                 imageVector = Icons.Default.Check,
                 contentDescription = "contentDescription",
-                onClick = { }
+                onClick = { },
             )
         }
     }
@@ -45,7 +45,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 imageVector = Icons.Default.Check,
                 contentDescription = "contentDescription",
                 onClick = { },
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -57,7 +57,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 imageVector = Icons.Default.Check,
                 contentDescription = "contentDescription",
                 onClick = { },
-                buttonSize = ButtonSize.Large
+                buttonSize = ButtonSize.Large,
             )
         }
     }
@@ -69,7 +69,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 imageVector = Icons.Default.Check,
                 contentDescription = "contentDescription",
                 onClick = { },
-                buttonSize = ButtonSize.Small
+                buttonSize = ButtonSize.Small,
             )
         }
     }
@@ -83,8 +83,8 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 onClick = { },
                 buttonSize = ButtonSize.Custom(
                     customIconSize = ButtonDefaults.SmallIconSize,
-                    customTapTargetSize = ButtonDefaults.LargeButtonSize
-                )
+                    customTapTargetSize = ButtonDefaults.LargeButtonSize,
+                ),
             )
         }
     }
@@ -96,7 +96,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 imageVector = Icons.Default.Check,
                 contentDescription = "contentDescription",
                 onClick = { },
-                colors = ButtonDefaults.secondaryButtonColors()
+                colors = ButtonDefaults.secondaryButtonColors(),
             )
         }
     }
@@ -108,7 +108,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 imageVector = Icons.Default.Check,
                 contentDescription = "contentDescription",
                 onClick = { },
-                colors = ButtonDefaults.iconButtonColors()
+                colors = ButtonDefaults.iconButtonColors(),
             )
         }
     }
@@ -119,7 +119,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
             Button(
                 id = android.R.drawable.ic_media_play,
                 contentDescription = "contentDescription",
-                onClick = { }
+                onClick = { },
             )
         }
     }
@@ -131,7 +131,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 Button(
                     id = android.R.drawable.ic_media_play,
                     contentDescription = "contentDescription",
-                    onClick = { }
+                    onClick = { },
                 )
             }
         }
@@ -144,7 +144,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 id = android.R.drawable.ic_media_play,
                 contentDescription = "contentDescription",
                 onClick = { },
-                iconRtlMode = IconRtlMode.Mirrored
+                iconRtlMode = IconRtlMode.Mirrored,
             )
         }
     }
@@ -157,7 +157,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
                     id = android.R.drawable.ic_media_play,
                     contentDescription = "contentDescription",
                     onClick = { },
-                    iconRtlMode = IconRtlMode.Mirrored
+                    iconRtlMode = IconRtlMode.Mirrored,
                 )
             }
         }
@@ -170,7 +170,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 Button(
                     imageVector = Icons.Default.Check,
                     contentDescription = "contentDescription",
-                    onClick = { }
+                    onClick = { },
                 )
             }
         }
@@ -183,7 +183,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
                 imageVector = Icons.Default.DirectionsBike,
                 contentDescription = "contentDescription",
                 onClick = { },
-                iconRtlMode = IconRtlMode.Mirrored
+                iconRtlMode = IconRtlMode.Mirrored,
             )
         }
     }
@@ -196,7 +196,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
                     imageVector = Icons.Default.DirectionsBike,
                     contentDescription = "contentDescription",
                     onClick = { },
-                    iconRtlMode = IconRtlMode.Mirrored
+                    iconRtlMode = IconRtlMode.Mirrored,
                 )
             }
         }

@@ -33,7 +33,7 @@ object Fixtures {
         addresses = listOf(),
         capabilities = null,
         linkProperties = null,
-        bindSocket = {}
+        bindSocket = {},
     )
 
     val bt = NetworkStatus(
@@ -43,7 +43,7 @@ object Fixtures {
         addresses = listOf(),
         capabilities = null,
         linkProperties = null,
-        bindSocket = {}
+        bindSocket = {},
     )
 
     val cell = NetworkStatus(
@@ -53,6 +53,6 @@ object Fixtures {
         addresses = listOf(),
         capabilities = null,
         linkProperties = null,
-        bindSocket = {}
+        bindSocket = {},
     )
 }

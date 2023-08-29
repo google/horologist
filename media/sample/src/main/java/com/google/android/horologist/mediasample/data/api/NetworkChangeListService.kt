@@ -33,7 +33,7 @@ class NetworkChangeListService {
 
     fun getForPlaylist(
         localPlaylists: List<Playlist>,
-        remotePlaylists: List<Playlist>
+        remotePlaylists: List<Playlist>,
     ): List<NetworkChangeList> = buildList {
         val remotePlaylistsSet = remotePlaylists.toSet()
 
@@ -42,8 +42,8 @@ class NetworkChangeListService {
                 NetworkChangeList(
                     id = playlist.id,
                     changeListVersion = getChangeListVersion(),
-                    isDelete = true
-                )
+                    isDelete = true,
+                ),
             )
         }
 
@@ -52,15 +52,15 @@ class NetworkChangeListService {
                 NetworkChangeList(
                     id = playlist.id,
                     changeListVersion = getChangeListVersion(),
-                    isDelete = false
-                )
+                    isDelete = false,
+                ),
             )
         }
     }
 
     fun getForMedia(
         localPlaylists: List<Playlist>,
-        remotePlaylists: List<Playlist>
+        remotePlaylists: List<Playlist>,
     ): List<NetworkChangeList> = buildList {
         val localMediaList = localPlaylists.flatMap(Playlist::mediaList)
         val remoteMediaSet = remotePlaylists.flatMap(Playlist::mediaList).toSet()
@@ -70,8 +70,8 @@ class NetworkChangeListService {
                 NetworkChangeList(
                     id = playlist.id,
                     changeListVersion = getChangeListVersion(),
-                    isDelete = true
-                )
+                    isDelete = true,
+                ),
             )
         }
 
@@ -80,8 +80,8 @@ class NetworkChangeListService {
                 NetworkChangeList(
                     id = playlist.id,
                     changeListVersion = getChangeListVersion(),
-                    isDelete = false
-                )
+                    isDelete = false,
+                ),
             )
         }
     }

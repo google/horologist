@@ -32,13 +32,13 @@ import org.robolectric.annotation.Config
 
 @Config(
     sdk = [30],
-    qualifiers = "w227dp-h227dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
+    qualifiers = "w227dp-h227dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
 )
 class SquareSegmentedProgressIndicatorTest :
     ScreenshotBaseTest(
         ScreenshotTestRule.screenshotTestRuleParams {
             screenTimeText = {}
-        }
+        },
     ) {
 
     @Test
@@ -47,21 +47,21 @@ class SquareSegmentedProgressIndicatorTest :
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Cyan
+                    indicatorColor = Color.Cyan,
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Magenta
+                    indicatorColor = Color.Magenta,
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Yellow
-                )
+                    indicatorColor = Color.Yellow,
+                ),
             )
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Black)
+                    .background(Color.Black),
             ) {
                 SquareSegmentedProgressIndicator(
                     modifier = Modifier
@@ -70,7 +70,7 @@ class SquareSegmentedProgressIndicatorTest :
                     progress = 0.5833f,
                     trackSegments = segments,
                     cornerRadiusDp = 0.dp,
-                    paddingDp = 10.dp
+                    paddingDp = 10.dp,
                 )
             }
         }
@@ -82,21 +82,21 @@ class SquareSegmentedProgressIndicatorTest :
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Cyan
+                    indicatorColor = Color.Cyan,
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Magenta
+                    indicatorColor = Color.Magenta,
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Yellow
-                )
+                    indicatorColor = Color.Yellow,
+                ),
             )
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Black)
+                    .background(Color.Black),
             ) {
                 SquareSegmentedProgressIndicator(
                     modifier = Modifier
@@ -105,7 +105,7 @@ class SquareSegmentedProgressIndicatorTest :
                     progress = 0.5833f,
                     trackSegments = segments,
                     cornerRadiusDp = 50.dp,
-                    paddingDp = 10.dp
+                    paddingDp = 10.dp,
                 )
             }
         }
@@ -117,29 +117,29 @@ class SquareSegmentedProgressIndicatorTest :
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Cyan
+                    indicatorColor = Color.Cyan,
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Magenta
+                    indicatorColor = Color.Magenta,
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Yellow
+                    indicatorColor = Color.Yellow,
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Black
+                    indicatorColor = Color.Black,
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Green
-                )
+                    indicatorColor = Color.Green,
+                ),
             )
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Black)
+                    .background(Color.Black),
             ) {
                 SquareSegmentedProgressIndicator(
                     modifier = Modifier
@@ -148,7 +148,7 @@ class SquareSegmentedProgressIndicatorTest :
                     progress = 0.5833f,
                     trackSegments = segments,
                     cornerRadiusDp = 50.dp,
-                    paddingDp = 10.dp
+                    paddingDp = 10.dp,
                 )
             }
         }
@@ -160,17 +160,17 @@ class SquareSegmentedProgressIndicatorTest :
             val segments = listOf(
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Yellow
+                    indicatorColor = Color.Yellow,
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Yellow
-                )
+                    indicatorColor = Color.Yellow,
+                ),
             )
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Black)
+                    .background(Color.Black),
             ) {
                 SquareSegmentedProgressIndicator(
                     modifier = Modifier
@@ -179,7 +179,7 @@ class SquareSegmentedProgressIndicatorTest :
                     progress = 0.7833f,
                     trackSegments = segments,
                     cornerRadiusDp = 50.dp,
-                    paddingDp = 10.dp
+                    paddingDp = 10.dp,
                 )
             }
         }
@@ -191,25 +191,25 @@ class SquareSegmentedProgressIndicatorTest :
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,
-                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
                     indicatorBrush = Brush.horizontalGradient(
-                        listOf(Color.Cyan, Color.Magenta, Color.Yellow)
-                    )
+                        listOf(Color.Cyan, Color.Magenta, Color.Yellow),
+                    ),
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
                     indicatorBrush = Brush.horizontalGradient(
-                        listOf(Color.Yellow, Color.Magenta, Color.Cyan)
-                    )
-                )
+                        listOf(Color.Yellow, Color.Magenta, Color.Cyan),
+                    ),
+                ),
             )
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Black)
+                    .background(Color.Black),
             ) {
                 SquareSegmentedProgressIndicator(
                     modifier = Modifier
@@ -218,7 +218,7 @@ class SquareSegmentedProgressIndicatorTest :
                     progress = 0.7833f,
                     trackSegments = segments,
                     cornerRadiusDp = 50.dp,
-                    paddingDp = 10.dp
+                    paddingDp = 10.dp,
                 )
             }
         }
@@ -230,23 +230,23 @@ class SquareSegmentedProgressIndicatorTest :
             val segments = listOf(
                 ProgressIndicatorSegment(
                     1f,
-                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
-                    indicatorColor = Color.Cyan
+                    indicatorColor = Color.Cyan,
                 ),
                 ProgressIndicatorSegment(
                     weight = 1f,
                     indicatorBrush = Brush.horizontalGradient(
-                        listOf(Color.Yellow, Color.Magenta, Color.Cyan)
-                    )
-                )
+                        listOf(Color.Yellow, Color.Magenta, Color.Cyan),
+                    ),
+                ),
             )
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Black)
+                    .background(Color.Black),
             ) {
                 SquareSegmentedProgressIndicator(
                     modifier = Modifier
@@ -255,7 +255,7 @@ class SquareSegmentedProgressIndicatorTest :
                     progress = 0.7833f,
                     trackSegments = segments,
                     cornerRadiusDp = 50.dp,
-                    paddingDp = 10.dp
+                    paddingDp = 10.dp,
                 )
             }
         }

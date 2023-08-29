@@ -67,62 +67,62 @@ class DataModule {
         playlistLocalDataSource: PlaylistLocalDataSource,
         mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
         media3DownloadDataSource: Media3DownloadDataSource,
-        playlistDownloadMapper: PlaylistDownloadMapper
+        playlistDownloadMapper: PlaylistDownloadMapper,
     ): PlaylistDownloadRepository =
         PlaylistDownloadRepositoryImpl(
             coroutineScope = coroutineScope,
             playlistLocalDataSource = playlistLocalDataSource,
             mediaDownloadLocalDataSource = mediaDownloadLocalDataSource,
             media3DownloadDataSource = media3DownloadDataSource,
-            playlistDownloadMapper = playlistDownloadMapper
+            playlistDownloadMapper = playlistDownloadMapper,
         )
 
     @Singleton
     @Provides
     fun mediaDownloadRepository(
-        media3DownloadDataSource: Media3DownloadDataSource
+        media3DownloadDataSource: Media3DownloadDataSource,
     ): MediaDownloadRepository =
         MediaDownloadRepositoryImpl(
-            media3DownloadDataSource = media3DownloadDataSource
+            media3DownloadDataSource = media3DownloadDataSource,
         )
 
     @Singleton
     @Provides
     fun playlistRepositoryImpl(
         playlistDownloadLocalDataSource: PlaylistLocalDataSource,
-        playlistMapper: PlaylistMapper
+        playlistMapper: PlaylistMapper,
     ): PlaylistRepositoryImpl =
         PlaylistRepositoryImpl(
             playlistLocalDataSource = playlistDownloadLocalDataSource,
-            playlistMapper = playlistMapper
+            playlistMapper = playlistMapper,
         )
 
     @Singleton
     @Provides
     fun playlistRepository(
-        playlistRepositoryImpl: PlaylistRepositoryImpl
+        playlistRepositoryImpl: PlaylistRepositoryImpl,
     ): PlaylistRepository = playlistRepositoryImpl
 
     @Singleton
     @Provides
     fun settingsRepository(
-        prefsDataStore: DataStore<Settings>
+        prefsDataStore: DataStore<Settings>,
     ) =
         SettingsRepository(prefsDataStore)
 
     @Singleton
     @Provides
     fun media3DownloadDataSource(
-        @ApplicationContext applicationContext: Context
+        @ApplicationContext applicationContext: Context,
     ) = Media3DownloadDataSource(
         applicationContext,
-        MediaDownloadServiceImpl::class.java
+        MediaDownloadServiceImpl::class.java,
     )
 
     @Provides
     @Singleton
     fun mediaDownloadLocalDataSource(
-        mediaDownloadDao: MediaDownloadDao
+        mediaDownloadDao: MediaDownloadDao,
     ): MediaDownloadLocalDataSource = MediaDownloadLocalDataSource(mediaDownloadDao)
 
     @Singleton
@@ -130,23 +130,23 @@ class DataModule {
     fun playlistLocalDataSource(
         mediaDatabase: MediaDatabase,
         playlistDao: PlaylistDao,
-        playlistMediaDao: PlaylistMediaDao
+        playlistMediaDao: PlaylistMediaDao,
     ): PlaylistLocalDataSource =
         PlaylistLocalDataSource(
             roomDatabase = mediaDatabase,
             playlistDao = playlistDao,
-            playlistMediaDao = playlistMediaDao
+            playlistMediaDao = playlistMediaDao,
         )
 
     @Singleton
     @Provides
     fun playlistRemoteDataSource(
         uampService: UampService,
-        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
     ): PlaylistRemoteDataSource =
         PlaylistRemoteDataSource(
             ioDispatcher = ioDispatcher,
-            uampService = uampService
+            uampService = uampService,
         )
 
     @Singleton
@@ -155,12 +155,12 @@ class DataModule {
         mediaDatabase: MediaDatabase,
         mediaDao: MediaDao,
         playlistMediaDao: PlaylistMediaDao,
-        mediaDownloadDao: MediaDownloadDao
+        mediaDownloadDao: MediaDownloadDao,
     ): MediaLocalDataSource = MediaLocalDataSource(
         roomDatabase = mediaDatabase,
         mediaDao = mediaDao,
         playlistMediaDao = playlistMediaDao,
-        mediaDownloadDao = mediaDownloadDao
+        mediaDownloadDao = mediaDownloadDao,
     )
 
     @Provides

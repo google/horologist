@@ -63,11 +63,11 @@ fun EntityScreenPreview() {
                         Brush.radialGradient(
                             listOf(
                                 (Color.Green).copy(alpha = 0.3f),
-                                Color.Transparent
-                            )
-                        )
+                                Color.Transparent,
+                            ),
+                        ),
                     ),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 Text("Playlist name")
             }
@@ -77,7 +77,7 @@ fun EntityScreenPreview() {
                 modifier = Modifier
                     .padding(bottom = 16.dp)
                     .height(52.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Button(
                     imageVector = Icons.Default.Favorite,
@@ -85,7 +85,7 @@ fun EntityScreenPreview() {
                     onClick = { },
                     modifier = Modifier
                         .padding(start = 6.dp)
-                        .weight(weight = 0.3F, fill = false)
+                        .weight(weight = 0.3F, fill = false),
                 )
 
                 Button(
@@ -94,14 +94,14 @@ fun EntityScreenPreview() {
                     onClick = { },
                     modifier = Modifier
                         .padding(start = 6.dp)
-                        .weight(weight = 0.3F, fill = false)
+                        .weight(weight = 0.3F, fill = false),
                 )
             }
         },
         content = {
             item { Chip(label = "Song 1", onClick = { }) }
             item { Chip(label = "Song 2", onClick = { }) }
-        }
+        },
     )
 }
 
@@ -114,7 +114,7 @@ fun EntityScreenPreviewLoadedState() {
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },
         mediaContent = { song -> Chip(label = song, onClick = { }) },
-        buttonsContent = { ButtonContentForStatePreview() }
+        buttonsContent = { ButtonContentForStatePreview() },
     )
 }
 
@@ -127,7 +127,7 @@ fun EntityScreenPreviewLoadingState() {
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
         mediaContent = { },
-        buttonsContent = { ButtonContentForStatePreview() }
+        buttonsContent = { ButtonContentForStatePreview() },
     )
 }
 
@@ -144,21 +144,21 @@ fun EntityScreenPreviewFailedState() {
         failedContent = {
             Column(
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Icon(
                     imageVector = Icons.Default.CloudOff,
                     contentDescription = null,
                     modifier = Modifier
                         .size(24.dp)
-                        .wrapContentSize(align = Alignment.Center)
+                        .wrapContentSize(align = Alignment.Center),
                 )
                 Text(
                     text = "Could not retrieve the playlist.",
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
-        }
+        },
     )
 }
 
@@ -168,7 +168,7 @@ private fun ButtonContentForStatePreview() {
         modifier = Modifier
             .padding(bottom = 16.dp)
             .height(52.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Button(
             imageVector = Icons.Default.Download,
@@ -176,7 +176,7 @@ private fun ButtonContentForStatePreview() {
             onClick = { },
             modifier = Modifier
                 .padding(start = 6.dp)
-                .weight(weight = 0.3F, fill = false)
+                .weight(weight = 0.3F, fill = false),
         )
 
         Button(
@@ -185,7 +185,7 @@ private fun ButtonContentForStatePreview() {
             onClick = { },
             modifier = Modifier
                 .padding(start = 6.dp)
-                .weight(weight = 0.3F, fill = false)
+                .weight(weight = 0.3F, fill = false),
         )
 
         Button(
@@ -194,7 +194,7 @@ private fun ButtonContentForStatePreview() {
             onClick = { },
             modifier = Modifier
                 .padding(start = 6.dp)
-                .weight(weight = 0.3F, fill = false)
+                .weight(weight = 0.3F, fill = false),
         )
     }
 }

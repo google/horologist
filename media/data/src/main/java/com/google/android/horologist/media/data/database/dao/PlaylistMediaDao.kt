@@ -32,7 +32,7 @@ public interface PlaylistMediaDao {
         value = """
         DELETE FROM PlaylistMediaEntity
         WHERE playlistId in (:playlistIds)
-    """
+    """,
     )
     public fun deleteByPlaylistId(playlistIds: List<String>)
 
@@ -40,7 +40,7 @@ public interface PlaylistMediaDao {
         value = """
         DELETE FROM PlaylistMediaEntity
         WHERE mediaId in (:mediaIds)
-    """
+    """,
     )
     public fun deleteByMediaId(mediaIds: List<String>)
 }

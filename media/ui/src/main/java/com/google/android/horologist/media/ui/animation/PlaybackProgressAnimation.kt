@@ -26,6 +26,6 @@ internal object PlaybackProgressAnimation {
             stiffness = 100f,
             // The default threshold is 0.01, or 1% of the overall progress range, which is quite
             // large and noticeable.
-            visibilityThreshold = 1 / 1000f
+            visibilityThreshold = 1 / 1000f,
         )
 }

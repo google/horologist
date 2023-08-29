@@ -35,7 +35,7 @@ import kotlinx.coroutines.flow.runningReduce
 import kotlinx.coroutines.flow.stateIn
 
 class TokenShareCustomKeyViewModel(
-    tokenBundleRepository: TokenBundleRepository<TokenBundle?>
+    tokenBundleRepository: TokenBundleRepository<TokenBundle?>,
 ) : ViewModel() {
 
     public val uiState: StateFlow<List<TokenBundle?>> =
@@ -53,8 +53,8 @@ class TokenShareCustomKeyViewModel(
                     TokenBundleRepositoryImpl.create(
                         registry = (application as SampleApplication).registry,
                         serializer = TokenBundleSerializer,
-                        key = TOKEN_BUNDLE_CUSTOM_KEY
-                    )
+                        key = TOKEN_BUNDLE_CUSTOM_KEY,
+                    ),
                 )
             }
         }

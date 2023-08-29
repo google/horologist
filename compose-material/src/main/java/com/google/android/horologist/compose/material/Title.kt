@@ -47,11 +47,11 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
 @Composable
 public fun Title(
     @StringRes textId: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Title(
         text = stringResource(id = textId),
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -62,7 +62,7 @@ public fun Title(
 @Composable
 public fun Title(
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text = text,
@@ -74,7 +74,7 @@ public fun Title(
         textAlign = TextAlign.Center,
         overflow = TextOverflow.Ellipsis,
         maxLines = 3,
-        style = MaterialTheme.typography.button
+        style = MaterialTheme.typography.button,
     )
 }
 
@@ -88,14 +88,14 @@ public fun SecondaryTitle(
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     iconSize: Dp = 24.dp,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
 ) {
     SecondaryTitle(
         text = stringResource(id = textId),
         modifier = modifier,
         icon = icon,
         iconSize = iconSize,
-        iconRtlMode = iconRtlMode
+        iconRtlMode = iconRtlMode,
     )
 }
 
@@ -110,12 +110,12 @@ public fun SecondaryTitle(
     icon: ImageVector? = null,
     iconTint: Color = MaterialTheme.colors.onBackground,
     iconSize: Dp = 24.dp,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
 ) {
     Row(
         modifier = modifier
             .padding(horizontal = 14.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         icon?.let {
             Icon(
@@ -124,7 +124,7 @@ public fun SecondaryTitle(
                 modifier = Modifier
                     .size(iconSize),
                 tint = iconTint,
-                rtlMode = iconRtlMode
+                rtlMode = iconRtlMode,
             )
             Spacer(modifier = Modifier.width(6.dp))
         }
@@ -137,7 +137,7 @@ public fun SecondaryTitle(
             textAlign = TextAlign.Start,
             overflow = TextOverflow.Ellipsis,
             maxLines = 3,
-            style = MaterialTheme.typography.caption1
+            style = MaterialTheme.typography.caption1,
         )
     }
 }

@@ -37,10 +37,10 @@ class DownloadMediaUiModelMapperTest {
                 uri = "",
                 title = title,
                 artist = artist,
-                artworkUri = artworkUri
+                artworkUri = artworkUri,
             ),
             status = MediaDownload.Status.Idle,
-            size = MediaDownload.Size.Unknown
+            size = MediaDownload.Size.Unknown,
         )
 
         // when
@@ -52,8 +52,8 @@ class DownloadMediaUiModelMapperTest {
                 id = id,
                 title = title,
                 artist = artist,
-                artworkUri = artworkUri
-            )
+                artworkUri = artworkUri,
+            ),
         )
     }
 
@@ -70,10 +70,10 @@ class DownloadMediaUiModelMapperTest {
                 uri = "",
                 title = title,
                 artist = artist,
-                artworkUri = artworkUri
+                artworkUri = artworkUri,
             ),
             status = MediaDownload.Status.InProgress(progress = 0F),
-            size = MediaDownload.Size.Unknown
+            size = MediaDownload.Size.Unknown,
         )
 
         // when
@@ -86,8 +86,8 @@ class DownloadMediaUiModelMapperTest {
                 title = title,
                 artworkUri = artworkUri,
                 progress = DownloadMediaUiModel.Progress.Waiting,
-                size = DownloadMediaUiModel.Size.Unknown
-            )
+                size = DownloadMediaUiModel.Size.Unknown,
+            ),
         )
     }
 
@@ -104,10 +104,10 @@ class DownloadMediaUiModelMapperTest {
                 uri = "",
                 title = title,
                 artist = artist,
-                artworkUri = artworkUri
+                artworkUri = artworkUri,
             ),
             status = MediaDownload.Status.Completed,
-            size = MediaDownload.Size.Unknown
+            size = MediaDownload.Size.Unknown,
         )
 
         // when
@@ -119,8 +119,8 @@ class DownloadMediaUiModelMapperTest {
                 id = id,
                 title = title,
                 artist = artist,
-                artworkUri = artworkUri
-            )
+                artworkUri = artworkUri,
+            ),
         )
     }
 }

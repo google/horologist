@@ -30,7 +30,7 @@ internal fun PickerState.toRotaryScrollAdapter(): PickerRotaryScrollAdapter =
  * An implementation of rotary scroll adapter for [Picker]
  */
 internal class PickerRotaryScrollAdapter(
-    override val scrollableState: PickerState
+    override val scrollableState: PickerState,
 ) : RotaryScrollAdapter {
 
     /**

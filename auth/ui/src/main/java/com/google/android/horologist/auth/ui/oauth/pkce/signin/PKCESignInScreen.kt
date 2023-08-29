@@ -32,7 +32,7 @@ public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
     failedContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload>,
-    content: @Composable (successState: PKCEScreenState.Success) -> Unit
+    content: @Composable (successState: PKCEScreenState.Success) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -44,7 +44,8 @@ public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
         }
 
         PKCEScreenState.Loading,
-        PKCEScreenState.CheckPhone -> {
+        PKCEScreenState.CheckPhone,
+        -> {
             CheckYourPhoneScreen(modifier = modifier)
         }
 
@@ -63,18 +64,18 @@ public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
 public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
     onAuthSucceed: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload>
+    viewModel: PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload>,
 ) {
     PKCESignInScreen(
         failedContent = {
             AuthErrorScreen(modifier = modifier)
         },
         modifier = modifier,
-        viewModel = viewModel
+        viewModel = viewModel,
     ) {
         SignedInConfirmationDialog(
             onDismissOrTimeout = { onAuthSucceed() },
-            modifier = modifier
+            modifier = modifier,
         )
     }
 }

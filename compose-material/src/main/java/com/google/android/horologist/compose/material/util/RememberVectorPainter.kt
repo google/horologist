@@ -38,7 +38,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 public fun rememberVectorPainter(
     image: ImageVector,
     tintColor: Color,
-    tintBlendMode: BlendMode = image.tintBlendMode
+    tintBlendMode: BlendMode = image.tintBlendMode,
 ): VectorPainter =
     androidx.compose.ui.graphics.vector.rememberVectorPainter(
         defaultWidth = image.defaultWidth,
@@ -49,5 +49,5 @@ public fun rememberVectorPainter(
         tintColor = tintColor,
         tintBlendMode = tintBlendMode,
         autoMirror = image.autoMirror,
-        content = { _, _ -> RenderVectorGroup(group = image.root) }
+        content = { _, _ -> RenderVectorGroup(group = image.root) },
     )

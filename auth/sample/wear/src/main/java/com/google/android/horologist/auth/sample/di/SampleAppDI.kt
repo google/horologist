@@ -45,7 +45,7 @@ object SampleAppDI {
         sampleApplication.counterFlow = sampleApplication.registry.protoFlow(TargetNodeId.PairedPhone)
         sampleApplication.counterService = sampleApplication.registry.grpcClient(
             nodeId = TargetNodeId.PairedPhone,
-            coroutineScope = sampleApplication.servicesCoroutineScope
+            coroutineScope = sampleApplication.servicesCoroutineScope,
         ) {
             CounterServiceGrpcKt.CounterServiceCoroutineStub(it)
         }
@@ -53,10 +53,10 @@ object SampleAppDI {
 
     private fun registry(
         sampleApplication: SampleApplication,
-        coroutineScope: CoroutineScope
+        coroutineScope: CoroutineScope,
     ): WearDataLayerRegistry = WearDataLayerRegistry.fromContext(
         application = sampleApplication,
-        coroutineScope = coroutineScope
+        coroutineScope = coroutineScope,
     ).apply {
         registerSerializer(CounterValueSerializer)
     }
@@ -66,7 +66,7 @@ object SampleAppDI {
             Log.e(
                 "SampleApplication",
                 "Uncaught exception thrown by a service: ${throwable.message}",
-                throwable
+                throwable,
             )
         }
         return CoroutineScope(Dispatchers.IO + SupervisorJob() + coroutineExceptionHandler)
@@ -76,7 +76,7 @@ object SampleAppDI {
         .addInterceptor(
             HttpLoggingInterceptor().also { interceptor ->
                 interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-            }
+            },
         ).build()
 
     private fun moshi(): Moshi = Moshi.Builder().build()

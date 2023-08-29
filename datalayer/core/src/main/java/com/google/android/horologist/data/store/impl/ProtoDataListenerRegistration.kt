@@ -23,7 +23,7 @@ import java.io.ByteArrayInputStream
 class ProtoDataListenerRegistration<T>(
     val path: String,
     val serializer: Serializer<T>,
-    val listener: ProtoDataListener<T>
+    val listener: ProtoDataListener<T>,
 ) {
     suspend fun dataAdded(nodeId: String, path: String, data: ByteArray) {
         val item = serializer.readFrom(ByteArrayInputStream(data))

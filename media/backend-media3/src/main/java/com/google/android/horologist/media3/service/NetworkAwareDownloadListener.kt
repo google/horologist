@@ -39,7 +39,7 @@ import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 public class NetworkAwareDownloadListener(
     private val appEventLogger: ErrorReporter,
     private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
-    private val networkingRulesEngine: NetworkingRulesEngine
+    private val networkingRulesEngine: NetworkingRulesEngine,
 ) : DownloadManager.Listener {
     private var networkRequest: HighBandwidthConnectionLease? = null
 
@@ -51,7 +51,7 @@ public class NetworkAwareDownloadListener(
 
     override fun onDownloadsPausedChanged(
         downloadManager: DownloadManager,
-        downloadsPaused: Boolean
+        downloadsPaused: Boolean,
     ) {
         appEventLogger.logMessage("paused $downloadsPaused", category = Downloads)
     }
@@ -59,12 +59,12 @@ public class NetworkAwareDownloadListener(
     override fun onDownloadChanged(
         downloadManager: DownloadManager,
         download: Download,
-        finalException: Exception?
+        finalException: Exception?,
     ) {
         val percent = (download.percentDownloaded).toInt().coerceAtLeast(0)
         appEventLogger.logMessage(
             "download ${download.request.uri.lastPathSegment} $percent% ${finalException?.message.orEmpty()}",
-            category = Downloads
+            category = Downloads,
         )
 
         updateNetworkState(downloadManager)
@@ -83,20 +83,20 @@ public class NetworkAwareDownloadListener(
     override fun onRequirementsStateChanged(
         downloadManager: DownloadManager,
         requirements: Requirements,
-        notMetRequirements: Int
+        notMetRequirements: Int,
     ) {
         appEventLogger.logMessage("missingReqs $notMetRequirements", category = Downloads)
     }
 
     override fun onWaitingForRequirementsChanged(
         downloadManager: DownloadManager,
-        waitingForRequirements: Boolean
+        waitingForRequirements: Boolean,
     ) {
         updateNetworkState(downloadManager)
 
         appEventLogger.logMessage(
             "waitingForRequirements $waitingForRequirements",
-            category = Downloads
+            category = Downloads,
         )
     }
 
@@ -112,7 +112,7 @@ public class NetworkAwareDownloadListener(
 
                 appEventLogger.logMessage(
                     "Requesting network for downloads $networkRequest",
-                    category = Downloads
+                    category = Downloads,
                 )
 
                 networkRequest = highBandwidthNetworkMediator.requestHighBandwidthNetwork(request)

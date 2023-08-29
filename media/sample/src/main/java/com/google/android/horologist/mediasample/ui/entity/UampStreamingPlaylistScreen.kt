@@ -31,7 +31,7 @@ fun UampStreamingPlaylistScreen(
     viewModel: UampStreamingPlaylistScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel?) -> Unit,
-    onPlayClick: (PlaylistUiModel?) -> Unit
+    onPlayClick: (PlaylistUiModel?) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -50,6 +50,6 @@ fun UampStreamingPlaylistScreen(
             viewModel.play(it.id)
             onDownloadItemClick(it)
         },
-        columnState = columnState
+        columnState = columnState,
     )
 }

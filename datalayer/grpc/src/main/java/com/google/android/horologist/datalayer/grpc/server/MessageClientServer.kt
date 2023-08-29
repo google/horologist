@@ -31,7 +31,7 @@ import java.io.ByteArrayInputStream
 
 public class MessageClientServer(
     service: BindableService,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
 ) : BaseMessageClientServer(coroutineScope) {
     private val boundService = service.bindService()
 
@@ -43,7 +43,7 @@ public class MessageClientServer(
 
     private suspend fun <ReqT, ResT> executeTyped(
         method: ServerMethodDefinition<ReqT, ResT>,
-        request: MessageRequest
+        request: MessageRequest,
     ): ResT {
         val serverCallHandler: ServerCallHandler<ReqT, ResT> = method.serverCallHandler
         val call = MessageServerCall<ReqT, ResT>(method.methodDescriptor)
@@ -64,7 +64,7 @@ public class MessageClientServer(
 }
 
 internal class MessageServerCall<ReqT, ResT>(
-    private val _methodDescriptor: MethodDescriptor<ReqT, ResT>
+    private val _methodDescriptor: MethodDescriptor<ReqT, ResT>,
 ) : ServerCall<ReqT, ResT>() {
     internal val channel: Channel<ResT> = Channel(capacity = 1)
 

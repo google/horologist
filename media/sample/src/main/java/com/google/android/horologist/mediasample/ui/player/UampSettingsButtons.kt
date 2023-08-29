@@ -34,22 +34,22 @@ public fun UampSettingsButtons(
     volumeUiState: VolumeUiState,
     onVolumeClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         FavoriteButton()
 
         SettingsButtonsDefaults.BrandIcon(
             iconId = R.drawable.ic_stat_horologist,
-            enabled = enabled
+            enabled = enabled,
         )
 
         SetVolumeButton(
             onVolumeClick = onVolumeClick,
-            volumeUiState = volumeUiState
+            volumeUiState = volumeUiState,
         )
     }
 }

@@ -26,7 +26,7 @@ import org.junit.runners.Parameterized
 @LargeTest
 @RunWith(Parameterized::class)
 class StartupBenchmark(
-    override val compilationMode: CompilationMode
+    override val compilationMode: CompilationMode,
 ) : BaseStartupBenchmark() {
     override val mediaApp: MediaApp = TestMedia.MediaSampleApp
 

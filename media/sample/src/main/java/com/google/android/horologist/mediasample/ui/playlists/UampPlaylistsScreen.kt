@@ -48,7 +48,7 @@ fun UampPlaylistsScreen(
     columnState: ScalingLazyColumnState,
     uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
-    onErrorDialogCancelClick: () -> Unit
+    onErrorDialogCancelClick: () -> Unit,
 ) {
     val uiState by uampPlaylistsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
@@ -63,7 +63,8 @@ fun UampPlaylistsScreen(
         }
 
         PlaylistsScreenState.Failed,
-        PlaylistsScreenState.Loading -> uiState
+        PlaylistsScreenState.Loading,
+        -> uiState
     }
 
     PlaylistsScreen(
@@ -71,7 +72,7 @@ fun UampPlaylistsScreen(
         onPlaylistItemClick = {
             onPlaylistItemClick(it)
         },
-        columnState = columnState
+        columnState = columnState,
     )
 
     // b/242302037 - it should stop listening to uiState emissions while dialog is presented
@@ -79,7 +80,7 @@ fun UampPlaylistsScreen(
         Dialog(
             showDialog = true,
             onDismissRequest = onErrorDialogCancelClick,
-            scrollState = rememberScalingLazyListState()
+            scrollState = rememberScalingLazyListState(),
         ) {
             Alert(
                 title = {
@@ -87,24 +88,26 @@ fun UampPlaylistsScreen(
                         text = stringResource(R.string.playlists_no_playlists),
                         color = MaterialTheme.colors.onBackground,
                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.title3
+                        style = MaterialTheme.typography.title3,
                     )
-                }
+                },
             ) {
                 item {
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Button(
                             onClick = onErrorDialogCancelClick,
-                            colors = ButtonDefaults.secondaryButtonColors()
+                            colors = ButtonDefaults.secondaryButtonColors(),
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Close,
-                                contentDescription = stringResource(id = R.string.playlists_failed_dialog_cancel_button_content_description),
+                                contentDescription = stringResource(
+                                    id = R.string.playlists_failed_dialog_cancel_button_content_description,
+                                ),
                                 modifier = Modifier
                                     .size(24.dp)
-                                    .wrapContentSize(align = Alignment.Center)
+                                    .wrapContentSize(align = Alignment.Center),
                             )
                         }
                     }

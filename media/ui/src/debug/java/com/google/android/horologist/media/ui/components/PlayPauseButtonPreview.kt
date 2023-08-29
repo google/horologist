@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(
     "Enabled - Playing",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun PlayPauseButtonPreviewPlaying() {
@@ -30,14 +30,14 @@ fun PlayPauseButtonPreviewPlaying() {
         onPlayClick = {},
         onPauseClick = {},
         enabled = true,
-        playing = true
+        playing = true,
     )
 }
 
 @Preview(
     "Enabled - Not playing",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun PlayPauseButtonPreviewNotPlaying() {
@@ -45,14 +45,14 @@ fun PlayPauseButtonPreviewNotPlaying() {
         onPlayClick = {},
         onPauseClick = {},
         enabled = true,
-        playing = false
+        playing = false,
     )
 }
 
 @Preview(
     "Disabled - Playing",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun PlayPauseButtonPreviewDisabledPlaying() {
@@ -60,14 +60,14 @@ fun PlayPauseButtonPreviewDisabledPlaying() {
         onPlayClick = {},
         onPauseClick = {},
         enabled = false,
-        playing = true
+        playing = true,
     )
 }
 
 @Preview(
     "Disabled - Not playing",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun PlayPauseButtonPreviewDisabledNotPlaying() {
@@ -75,6 +75,6 @@ fun PlayPauseButtonPreviewDisabledNotPlaying() {
         onPlayClick = {},
         onPauseClick = {},
         enabled = false,
-        playing = false
+        playing = false,
     )
 }

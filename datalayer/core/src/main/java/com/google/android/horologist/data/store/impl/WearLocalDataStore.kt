@@ -52,7 +52,7 @@ public class WearLocalDataStore<T>(
     started: SharingStarted = SharingStarted.Eagerly,
     coroutineScope: CoroutineScope,
     private val serializer: Serializer<T>,
-    private val path: String
+    private val path: String,
 ) : DataStore<T> {
     private val nodeIdFlow = nodeIdFlow().shareIn(coroutineScope, started = started, replay = 1)
 
@@ -66,8 +66,8 @@ public class WearLocalDataStore<T>(
         emit(
             NodeIdAndPath(
                 nodeId = nodeId,
-                fullPath = buildUri(nodeId, path)
-            )
+                fullPath = buildUri(nodeId, path),
+            ),
         )
     }
 
@@ -75,7 +75,7 @@ public class WearLocalDataStore<T>(
         dataClient.dataItemFlow(
             nodeId,
             path,
-            serializer
+            serializer,
         )
     }.shareIn(coroutineScope, started = SharingStarted.Eagerly, replay = 1)
 
@@ -125,5 +125,5 @@ public class WearLocalDataStore<T>(
 
 data class NodeIdAndPath(
     val nodeId: String,
-    val fullPath: Uri
+    val fullPath: Uri,
 )

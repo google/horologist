@@ -43,7 +43,7 @@ public fun drawToBitmap(
     bitmap: Bitmap,
     density: Density,
     size: Size,
-    onDraw: DrawScope.() -> Unit
+    onDraw: DrawScope.() -> Unit,
 ) {
     val androidCanvas = AndroidCanvas(bitmap)
     val composeCanvas = ComposeCanvas(androidCanvas)
@@ -66,13 +66,13 @@ public fun drawToBitmap(
 public fun canvasToImageResource(
     size: Size,
     density: Density,
-    onDraw: DrawScope.() -> Unit
+    onDraw: DrawScope.() -> Unit,
 ): ImageResource {
     return Bitmap.createBitmap(
         size.width.toInt(),
         size.height.toInt(),
         Bitmap.Config.RGB_565,
-        false
+        false,
     ).apply {
         drawToBitmap(bitmap = this, density = density, size = size, onDraw = onDraw)
     }.toImageResource()

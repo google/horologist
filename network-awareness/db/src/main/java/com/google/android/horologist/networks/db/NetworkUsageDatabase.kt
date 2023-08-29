@@ -27,7 +27,7 @@ import java.time.Instant
 @Database(
     entities = [DataUsage::class],
     version = 1,
-    exportSchema = false
+    exportSchema = false,
 )
 @TypeConverters(NetworkUsageDatabase.Converters::class)
 public abstract class NetworkUsageDatabase : RoomDatabase() {
@@ -54,7 +54,7 @@ public abstract class NetworkUsageDatabase : RoomDatabase() {
                     val instance = Room.databaseBuilder(
                         context,
                         NetworkUsageDatabase::class.java,
-                        "networkUsage"
+                        "networkUsage",
                     )
                         // TODO support migrations
                         .fallbackToDestructiveMigration()

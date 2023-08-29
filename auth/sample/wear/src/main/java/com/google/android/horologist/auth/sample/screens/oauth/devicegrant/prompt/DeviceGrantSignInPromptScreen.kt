@@ -46,7 +46,7 @@ fun DeviceGrantSignInPromptScreen(
     navController: NavHostController,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: SignInPromptViewModel = viewModel(factory = DeviceGrantSignInPromptViewModelFactory)
+    viewModel: SignInPromptViewModel = viewModel(factory = DeviceGrantSignInPromptViewModelFactory),
 ) {
     var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -57,7 +57,7 @@ fun DeviceGrantSignInPromptScreen(
         },
         columnState = columnState,
         modifier = modifier,
-        viewModel = viewModel
+        viewModel = viewModel,
     ) {
         item {
             SignInChip(
@@ -66,13 +66,13 @@ fun DeviceGrantSignInPromptScreen(
                         popUpTo(Screen.MainScreen.route)
                     }
                 },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
         item {
             GuestModeChip(
                 onClick = navController::popBackStack,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -82,12 +82,12 @@ fun DeviceGrantSignInPromptScreen(
             onTimeout = {
                 showAlreadySignedInDialog = false
                 navController.popBackStack()
-            }
+            },
         ) {
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.device_grant_sign_in_prompt_already_signed_in_message)
+                text = stringResource(id = R.string.device_grant_sign_in_prompt_already_signed_in_message),
             )
         }
     }
@@ -98,6 +98,6 @@ fun DeviceGrantSignInPromptScreen(
 fun DeviceGrantSignInPromptScreenPreview() {
     DeviceGrantSignInPromptScreen(
         navController = rememberSwipeDismissableNavController(),
-        columnState = belowTimeTextPreview()
+        columnState = belowTimeTextPreview(),
     )
 }

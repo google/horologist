@@ -16,7 +16,7 @@ When submitting a PR, please check API compatibility and lint rules first.
 A good first step is
 
 ```
-$ ./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSources metalavaGenerateSignature metalavaGenerateSignatureDebug lintDebug
+./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSources metalavaGenerateSignature metalavaGenerateSignatureRelease lintDebug
 ```
 
 Also make sure you have ([Git LFS](https://git-lfs.github.com/)) installed.
@@ -24,14 +24,17 @@ Also make sure you have ([Git LFS](https://git-lfs.github.com/)) installed.
 If you change any code affecting screenshot tests, then run the following and check the failures in the `out` directory.
 
 ```
-$ ./gradlew verifyPaparazziDebug
+./gradlew testDebug
 ```
 
-To record the new golden images, run the following and check in the specific files that failed. Paparazzi has some tolerance for minor changes,
-so not all diffs need be committed.
+To record the new golden images, pass the `record` param with `RecordMode.Record` value to the base test class and run the tests:
 
 ```
-$ ./gradlew recordPaparazziDebug
+class Test : ScreenshotBaseTest(
+    ScreenshotTestRule.screenshotTestRuleParams {
+        record = ScreenshotTestRule.RecordMode.Record
+    }
+) {
 ```
 
 ## Contributor License Agreement

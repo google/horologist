@@ -35,11 +35,11 @@ import kotlin.time.Duration.Companion.seconds
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class MediaPlayerScreenTest(
-    private val themeValue: ThemeValues
+    private val themeValue: ThemeValues,
 ) : ScreenshotBaseTest(
     screenshotTestRuleParams {
         testLabel = themeValue.safeName.lowercase()
-    }
+    },
 ) {
 
     @Test
@@ -58,14 +58,14 @@ class MediaPlayerScreenTest(
             media = MediaUiModel(
                 id = "",
                 title = "Weather with You",
-                subtitle = "Crowded House"
+                subtitle = "Crowded House",
             ),
             trackPositionUiModel = TrackPositionUiModel.Actual(
                 percent = 0.1f,
                 position = 30.seconds,
-                duration = 300.seconds
+                duration = 300.seconds,
             ),
-            connected = true
+            connected = true,
         )
 
         screenshotTestRule.setContent(takeScreenshot = true) {

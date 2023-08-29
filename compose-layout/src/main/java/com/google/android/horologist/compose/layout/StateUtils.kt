@@ -28,16 +28,16 @@ public object StateUtils {
         message = "Replace with collectAsStateWithLifecycle",
         replaceWith = ReplaceWith(
             "flow.collectAsStateWithLifecycle()",
-            "androidx.lifecycle.compose.collectAsStateWithLifecycle"
-        )
+            "androidx.lifecycle.compose.collectAsStateWithLifecycle",
+        ),
     )
     @Composable
     public fun <T> rememberStateWithLifecycle(
         flow: StateFlow<T>,
         lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
-        minActiveState: Lifecycle.State = Lifecycle.State.STARTED
+        minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
     ): State<T> = flow.collectAsStateWithLifecycle(
         lifecycle = lifecycle,
-        minActiveState = minActiveState
+        minActiveState = minActiveState,
     )
 }

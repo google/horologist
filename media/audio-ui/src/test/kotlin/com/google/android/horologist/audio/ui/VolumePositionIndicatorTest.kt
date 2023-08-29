@@ -46,8 +46,8 @@ class VolumePositionIndicatorTest {
     private var volumeState by mutableStateOf(
         VolumeState(
             current = 50,
-            max = 100
-        )
+            max = 100,
+        ),
     )
 
     @Test
@@ -55,7 +55,7 @@ class VolumePositionIndicatorTest {
         composeTestRule.setContent {
             VolumePositionIndicator(
                 modifier = Modifier.testTag(TEST_TAG),
-                volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) }
+                volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
             )
         }
 
@@ -70,7 +70,7 @@ class VolumePositionIndicatorTest {
             VolumePositionIndicator(
                 modifier = Modifier.testTag(TEST_TAG),
                 volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
-                displayIndicatorEvents = flowOf(Unit)
+                displayIndicatorEvents = flowOf(Unit),
             )
         }
 

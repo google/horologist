@@ -57,7 +57,7 @@ public open class VolumeViewModel(
     internal val volumeRepository: VolumeRepository,
     internal val audioOutputRepository: AudioOutputRepository,
     private val onCleared: () -> Unit = {},
-    private val vibrator: Vibrator
+    private val vibrator: Vibrator,
 ) : ViewModel() {
     private val userActionEvents = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
@@ -65,7 +65,7 @@ public open class VolumeViewModel(
         volumeRepository.volumeState.map(VolumeUiStateMapper::map).stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = VolumeUiState()
+            initialValue = VolumeUiState(),
         )
 
     public val displayIndicatorEvents: Flow<Unit> = merge(userActionEvents, volumeUiState.drop(1)).map { }

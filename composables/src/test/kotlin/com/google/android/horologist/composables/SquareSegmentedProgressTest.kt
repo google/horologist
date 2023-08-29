@@ -28,7 +28,7 @@ internal class SquareSegmentedProgressTest {
             width = 10f,
             height = 10f,
             cornerRadius = 0f,
-            stroke = Stroke(0f)
+            stroke = Stroke(0f),
         )
         assertThat(measures.topRightPercent).isWithin(0.0001f).of(1f / 8)
         assertThat(measures.rightTopCornerPercent).isWithin(0.0001f).of(1f / 8)
@@ -42,7 +42,7 @@ internal class SquareSegmentedProgressTest {
             width = 10f,
             height = 40f,
             cornerRadius = 0f,
-            stroke = Stroke(0f)
+            stroke = Stroke(0f),
         )
         assertThat(measures.topRightPercent).isWithin(0.0001f).of(0.5f / 10f)
         assertThat(measures.rightTopCornerPercent).isWithin(0.0001f).of(0.5f / 10f)
@@ -56,7 +56,7 @@ internal class SquareSegmentedProgressTest {
             width = 1f,
             height = 1f,
             cornerRadius = 0.5f,
-            stroke = Stroke(0f)
+            stroke = Stroke(0f),
         )
         assertThat(measures.topRightPercent).isWithin(0.0001f).of(0f)
         assertThat(measures.rightTopCornerPercent).isWithin(0.0001f).of(0.25f)

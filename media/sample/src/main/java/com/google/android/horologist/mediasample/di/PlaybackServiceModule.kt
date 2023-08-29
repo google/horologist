@@ -84,15 +84,17 @@ object PlaybackServiceModule {
     @Provides
     fun loadControl(): LoadControl = DefaultLoadControl.Builder()
         .setBackBuffer(
-            /* backBufferDurationMs = */ 30_000,
-            /* retainBackBufferFromKeyframe = */ false
+            /* backBufferDurationMs = */
+            30_000,
+            /* retainBackBufferFromKeyframe = */
+            false,
         )
         .build()
 
     @ServiceScoped
     @Provides
     fun mediaCodecSelector(
-        wearMedia3Factory: WearMedia3Factory
+        wearMedia3Factory: WearMedia3Factory,
     ): MediaCodecSelector = wearMedia3Factory.mediaCodecSelector()
 
     @ServiceScoped
@@ -100,17 +102,17 @@ object PlaybackServiceModule {
     fun audioOnlyRenderersFactory(
         wearMedia3Factory: WearMedia3Factory,
         audioSink: DefaultAudioSink,
-        mediaCodecSelector: MediaCodecSelector
+        mediaCodecSelector: MediaCodecSelector,
     ) =
         wearMedia3Factory.audioOnlyRenderersFactory(
             audioSink,
-            mediaCodecSelector
+            mediaCodecSelector,
         )
 
     @ServiceScoped
     @Provides
     fun defaultAnalyticsCollector(
-        logger: ErrorReporter
+        logger: ErrorReporter,
     ): AnalyticsCollector =
         DefaultAnalyticsCollector(Clock.DEFAULT).apply {
             addListener(AnalyticsEventLogger(logger))
@@ -124,20 +126,20 @@ object PlaybackServiceModule {
     @ServiceScoped
     @Provides
     fun transferListener(
-        logger: ErrorReporter
+        logger: ErrorReporter,
     ) = TransferListener(logger)
 
     @ServiceScoped
     @Provides
     fun streamDataSourceFactory(
         callFactory: Call.Factory,
-        transferListener: TransferListener
+        transferListener: TransferListener,
     ): OkHttpDataSource.Factory =
         OkHttpDataSource.Factory(
             NetworkAwareCallFactory(
                 callFactory,
-                defaultRequestType = StreamRequest
-            )
+                defaultRequestType = StreamRequest,
+            ),
         )
             .setCacheControl(CacheControl.Builder().noCache().noStore().build())
             .setTransferListener(transferListener)
@@ -148,7 +150,7 @@ object PlaybackServiceModule {
         downloadCache: Cache,
         streamDataSourceFactory: OkHttpDataSource.Factory,
         transferListener: TransferListener,
-        appConfig: AppConfig
+        appConfig: AppConfig,
     ): CacheDataSource.Factory =
         CacheDataSource.Factory()
             .setCache(downloadCache)
@@ -166,7 +168,7 @@ object PlaybackServiceModule {
         appConfig: AppConfig,
         cacheDataSourceFactory: CacheDataSource.Factory,
         streamDataSourceFactory: OkHttpDataSource.Factory,
-        extractorsFactory: ExtractorsFactory
+        extractorsFactory: ExtractorsFactory,
     ): MediaSource.Factory {
         val dataSourceFactory =
             if (appConfig.cacheItems) {
@@ -185,7 +187,7 @@ object PlaybackServiceModule {
         audioOnlyRenderersFactory: RenderersFactory,
         analyticsCollector: AnalyticsCollector,
         mediaSourceFactory: MediaSource.Factory,
-        dataUpdates: DataUpdates
+        dataUpdates: DataUpdates,
     ) =
         ExoPlayer.Builder(service, audioOnlyRenderersFactory)
             .setAnalyticsCollector(analyticsCollector)
@@ -204,7 +206,7 @@ object PlaybackServiceModule {
     @ServiceScoped
     @Provides
     fun serviceCoroutineScope(
-        service: Service
+        service: Service,
     ): CoroutineScope {
         return (service as LifecycleOwner).lifecycleScope
     }
@@ -219,7 +221,7 @@ object PlaybackServiceModule {
         playbackRules: PlaybackRules,
         logger: ErrorReporter,
         audioOffloadManager: Provider<AudioOffloadManager>,
-        appConfig: AppConfig
+        appConfig: AppConfig,
     ): Player =
         WearConfiguredPlayer(
             player = exoPlayer,
@@ -227,7 +229,7 @@ object PlaybackServiceModule {
             audioOutputSelector = audioOutputSelector,
             playbackRules = playbackRules,
             errorReporter = logger,
-            coroutineScope = serviceCoroutineScope
+            coroutineScope = serviceCoroutineScope,
         ).also { wearConfiguredPlayer ->
             exoPlayer.addListener(com.google.android.horologist.media3.tracing.TracingListener())
 
@@ -246,7 +248,7 @@ object PlaybackServiceModule {
     @Provides
     fun librarySessionCallback(
         logger: ErrorReporter,
-        serviceCoroutineScope: CoroutineScope
+        serviceCoroutineScope: CoroutineScope,
     ): MediaLibrarySession.Callback =
         UampMediaLibrarySessionCallback(serviceCoroutineScope, logger)
 
@@ -256,12 +258,12 @@ object PlaybackServiceModule {
         service: Service,
         player: Player,
         librarySessionCallback: MediaLibrarySession.Callback,
-        intentBuilder: IntentBuilder
+        intentBuilder: IntentBuilder,
     ): MediaLibrarySession =
         MediaLibrarySession.Builder(
             service as MediaLibraryService,
             player,
-            librarySessionCallback
+            librarySessionCallback,
         )
             .setSessionActivity(intentBuilder.buildPlayerIntent())
             .build().also {
@@ -271,7 +273,7 @@ object PlaybackServiceModule {
                         override fun onDestroy(owner: LifecycleOwner) {
                             it.release()
                         }
-                    }
+                    },
                 )
             }
 
@@ -282,7 +284,7 @@ object PlaybackServiceModule {
         wearMedia3Factory: WearMedia3Factory,
         audioOffloadListener: ExoPlayer.AudioOffloadListener,
         settingsRepository: SettingsRepository,
-        service: Service
+        service: Service,
     ): DefaultAudioSink {
         // TODO check this is basically free at this point
         val offloadEnabled = runBlocking {
@@ -292,7 +294,7 @@ object PlaybackServiceModule {
         return wearMedia3Factory.audioSink(
             attemptOffload = offloadEnabled && appConfig.offloadEnabled,
             offloadMode = if (offloadEnabled) appConfig.offloadMode else DefaultAudioSink.OFFLOAD_MODE_DISABLED,
-            audioOffloadListener = audioOffloadListener
+            audioOffloadListener = audioOffloadListener,
         ).also { audioSink ->
             if (service is LifecycleOwner) {
                 service.lifecycle.addObserver(
@@ -300,7 +302,7 @@ object PlaybackServiceModule {
                         override fun onStop(owner: LifecycleOwner) {
                             audioSink.reset()
                         }
-                    }
+                    },
                 )
             }
         }

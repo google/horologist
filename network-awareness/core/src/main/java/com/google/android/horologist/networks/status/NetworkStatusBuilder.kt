@@ -33,7 +33,7 @@ internal data class NetworkStatusBuilder(
     var status: Status = Status.Unknown,
     var linkProperties: LinkProperties? = null,
     var networkCapabilities: NetworkCapabilities? = null,
-    var type: NetworkInfo? = null
+    var type: NetworkInfo? = null,
 ) {
     private fun readTransportType(): NetworkInfo {
         val name = linkProperties?.interfaceName ?: "unknown"
@@ -78,7 +78,7 @@ internal data class NetworkStatusBuilder(
             addresses = linkProperties?.linkAddresses?.map { it.address }.orEmpty(),
             capabilities = networkCapabilities,
             linkProperties = linkProperties,
-            bindSocket = { socket -> network.bindSocket(socket) }
+            bindSocket = { socket -> network.bindSocket(socket) },
         )
     }
 }

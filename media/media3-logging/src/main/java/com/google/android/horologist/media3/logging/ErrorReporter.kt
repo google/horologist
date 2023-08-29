@@ -24,12 +24,14 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  */
 @ExperimentalHorologistApi
 public interface ErrorReporter {
-    public fun showMessage(@StringRes message: Int)
+    public fun showMessage(
+        @StringRes message: Int,
+    )
 
     public fun logMessage(
         message: String,
         category: Category = Category.Unknown,
-        level: Level = Level.Info
+        level: Level = Level.Info,
     )
 
     public enum class Category {

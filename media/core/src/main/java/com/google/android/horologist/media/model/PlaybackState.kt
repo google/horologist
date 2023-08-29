@@ -29,7 +29,7 @@ public data class PlaybackState(
     public val isLive: Boolean,
     public val currentPosition: Duration?,
     public val duration: Duration?,
-    public val playbackSpeed: Float
+    public val playbackSpeed: Float,
 ) {
     public val isPlaying: Boolean get() = playerState == PlayerState.Playing
 
@@ -39,7 +39,7 @@ public data class PlaybackState(
             isLive = false,
             currentPosition = null,
             duration = null,
-            playbackSpeed = 1f
+            playbackSpeed = 1f,
         )
     }
 }

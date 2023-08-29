@@ -39,41 +39,41 @@ fun DeveloperOptionsScreen(
     columnState: ScalingLazyColumnState,
     developerOptionsScreenViewModel: DeveloperOptionsScreenViewModel,
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val uiState by developerOptionsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         columnState = columnState,
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         item {
             Text(
                 text = stringResource(id = R.string.sample_developer_options),
                 modifier = Modifier.padding(bottom = 12.dp),
-                style = MaterialTheme.typography.title3
+                style = MaterialTheme.typography.title3,
             )
         }
         item {
             CheckedSetting(
                 uiState.networkRequest != null,
                 stringResource(id = R.string.request_network),
-                enabled = uiState.writable
+                enabled = uiState.writable,
             ) {
                 developerOptionsScreenViewModel.toggleNetworkRequest()
             }
         }
         item {
             ActionSetting(
-                stringResource(id = R.string.sample_audio_debug)
+                stringResource(id = R.string.sample_audio_debug),
             ) {
                 navController.navigateToAudioDebug()
             }
         }
         item {
             ActionSetting(
-                stringResource(id = R.string.sample_samples)
+                stringResource(id = R.string.sample_samples),
             ) {
                 navController.navigateToSamples()
             }
@@ -82,7 +82,7 @@ fun DeveloperOptionsScreen(
             CheckedSetting(
                 uiState.showTimeTextInfo,
                 stringResource(id = R.string.show_time_text_info),
-                enabled = uiState.writable
+                enabled = uiState.writable,
             ) {
                 developerOptionsScreenViewModel.setShowTimeTextInfo(it)
             }
@@ -91,7 +91,7 @@ fun DeveloperOptionsScreen(
             CheckedSetting(
                 uiState.debugOffload,
                 stringResource(id = R.string.debug_offload),
-                enabled = uiState.writable
+                enabled = uiState.writable,
             ) {
                 developerOptionsScreenViewModel.setDebugOffload(it)
             }
@@ -99,7 +99,7 @@ fun DeveloperOptionsScreen(
         item {
             ActionSetting(
                 stringResource(id = R.string.offload_mode, uiState.offloadMode.name),
-                enabled = uiState.writable
+                enabled = uiState.writable,
             ) {
                 val newMode = when (uiState.offloadMode) {
                     OffloadMode.BACKGROUND -> OffloadMode.NEVER
@@ -114,7 +114,7 @@ fun DeveloperOptionsScreen(
             CheckedSetting(
                 uiState.podcastControls,
                 stringResource(id = R.string.podcast_controls),
-                enabled = uiState.writable
+                enabled = uiState.writable,
             ) {
                 developerOptionsScreenViewModel.setPodcastControls(it)
             }
@@ -123,7 +123,7 @@ fun DeveloperOptionsScreen(
             CheckedSetting(
                 uiState.loadItemsAtStartup,
                 stringResource(id = R.string.load_items),
-                enabled = uiState.writable
+                enabled = uiState.writable,
             ) {
                 developerOptionsScreenViewModel.setLoadItemsAtStartup(it)
             }
@@ -132,7 +132,7 @@ fun DeveloperOptionsScreen(
             CheckedSetting(
                 uiState.streamingMode,
                 stringResource(id = R.string.streaming_mode),
-                enabled = uiState.writable
+                enabled = uiState.writable,
             ) {
                 developerOptionsScreenViewModel.setStreamingMode(it)
             }
@@ -141,14 +141,14 @@ fun DeveloperOptionsScreen(
             CheckedSetting(
                 uiState.animated,
                 stringResource(id = R.string.animated),
-                enabled = uiState.writable
+                enabled = uiState.writable,
             ) {
                 developerOptionsScreenViewModel.setAnimated(it)
             }
         }
         item {
             ActionSetting(
-                text = stringResource(id = R.string.force_stop)
+                text = stringResource(id = R.string.force_stop),
             ) {
                 developerOptionsScreenViewModel.forceStop()
             }
@@ -156,7 +156,7 @@ fun DeveloperOptionsScreen(
         item {
             val message = stringResource(id = R.string.sample_error)
             ActionSetting(
-                stringResource(id = R.string.show_test_dialog)
+                stringResource(id = R.string.show_test_dialog),
             ) {
                 developerOptionsScreenViewModel.showDialog(message)
             }

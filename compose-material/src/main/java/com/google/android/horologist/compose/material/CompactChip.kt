@@ -55,7 +55,7 @@ public fun CompactChip(
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.chipBorder()
+    border: ChipBorder = ChipDefaults.chipBorder(),
 ) {
     val iconParam: (@Composable BoxScope.() -> Unit)? =
         icon?.let {
@@ -69,26 +69,26 @@ public fun CompactChip(
                                 imageVector = icon,
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                                 modifier = iconModifier,
-                                rtlMode = iconRtlMode
+                                rtlMode = iconRtlMode,
                             )
 
                         is Int ->
                             Icon(
                                 id = icon,
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier
+                                modifier = iconModifier,
                             )
 
                         else ->
                             Image(
                                 painter = rememberAsyncImagePainter(
                                     model = icon,
-                                    placeholder = placeholder
+                                    placeholder = placeholder,
                                 ),
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                                 modifier = iconModifier,
                                 contentScale = ContentScale.Crop,
-                                alpha = LocalContentAlpha.current
+                                alpha = LocalContentAlpha.current,
                             )
                     }
                 }
@@ -102,7 +102,7 @@ public fun CompactChip(
             text = label,
             textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
-            maxLines = 1
+            maxLines = 1,
         )
     }
 
@@ -114,7 +114,7 @@ public fun CompactChip(
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource,
-        border = border
+        border = border,
     )
 }
 
@@ -136,7 +136,7 @@ public fun CompactChip(
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.chipBorder()
+    border: ChipBorder = ChipDefaults.chipBorder(),
 ) {
     CompactChip(
         onClick = onClick,
@@ -148,7 +148,7 @@ public fun CompactChip(
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource,
-        border = border
+        border = border,
     )
 }
 
@@ -164,7 +164,7 @@ public fun CompactChip(
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.chipBorder()
+    border: ChipBorder = ChipDefaults.chipBorder(),
 ) {
     val iconParam: (@Composable BoxScope.() -> Unit) =
         {
@@ -177,26 +177,26 @@ public fun CompactChip(
                             imageVector = icon,
                             contentDescription = contentDescription,
                             modifier = iconModifier,
-                            rtlMode = iconRtlMode
+                            rtlMode = iconRtlMode,
                         )
 
                     is Int ->
                         Icon(
                             id = icon,
                             contentDescription = contentDescription,
-                            modifier = iconModifier
+                            modifier = iconModifier,
                         )
 
                     else ->
                         Image(
                             painter = rememberAsyncImagePainter(
                                 model = icon,
-                                placeholder = placeholder
+                                placeholder = placeholder,
                             ),
                             contentDescription = contentDescription,
                             modifier = iconModifier,
                             contentScale = ContentScale.Crop,
-                            alpha = LocalContentAlpha.current
+                            alpha = LocalContentAlpha.current,
                         )
                 }
             }
@@ -209,6 +209,6 @@ public fun CompactChip(
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource,
-        border = border
+        border = border,
     )
 }

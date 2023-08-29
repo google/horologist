@@ -23,7 +23,7 @@ import org.junit.Test
 class AuthErrorScreenTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
-    }
+    },
 ) {
     @Test
     fun authErrorScreen() {

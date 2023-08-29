@@ -42,7 +42,7 @@ public fun AccountChip(
     largeAvatar: Boolean = true,
     placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     AccountChip(
         email = account.email,
@@ -53,7 +53,7 @@ public fun AccountChip(
         largeAvatar = largeAvatar,
         placeholder = placeholder,
         colors = colors,
-        enabled = enabled
+        enabled = enabled,
     )
 }
 
@@ -72,7 +72,7 @@ public fun AccountChip(
     largeAvatar: Boolean = true,
     placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     MaterialTheme(
         typography = MaterialTheme.typography.copy(
@@ -80,10 +80,10 @@ public fun AccountChip(
                 lineBreak = LineBreak(
                     strategy = LineBreak.Strategy.Balanced,
                     strictness = LineBreak.Strictness.Normal,
-                    wordBreak = LineBreak.WordBreak.Default
-                )
-            )
-        )
+                    wordBreak = LineBreak.WordBreak.Default,
+                ),
+            ),
+        ),
     ) {
         Chip(
             label = email,
@@ -93,7 +93,7 @@ public fun AccountChip(
             largeIcon = largeAvatar,
             placeholder = placeholder,
             colors = colors,
-            enabled = enabled
+            enabled = enabled,
         )
     }
 }

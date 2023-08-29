@@ -31,12 +31,12 @@ import kotlinx.coroutines.flow.stateIn
 
 public class NetworkStatusViewModel(
     private val networkRepository: NetworkRepository,
-    private val dataRequestRepository: DataRequestRepository
+    private val dataRequestRepository: DataRequestRepository,
 ) : ViewModel() {
     val state =
         combine(
             networkRepository.networkStatus,
-            dataRequestRepository.currentPeriodUsage()
+            dataRequestRepository.currentPeriodUsage(),
         ) { networkStatus, currentPeriodUsage ->
             NetworkStatusAppState(networks = networkStatus, dataUsage = currentPeriodUsage)
         }
@@ -45,13 +45,13 @@ public class NetworkStatusViewModel(
                 started = SharingStarted.WhileSubscribed(5000),
                 initialValue = NetworkStatusAppState(
                     networks = networkRepository.networkStatus.value,
-                    dataUsage = null
-                )
+                    dataUsage = null,
+                ),
             )
 
     data class NetworkStatusAppState(
         val networks: Networks,
-        val dataUsage: DataUsageReport? = null
+        val dataUsage: DataUsageReport? = null,
     )
 
     public object Factory : ViewModelProvider.Factory {
@@ -65,7 +65,7 @@ public class NetworkStatusViewModel(
 
             return NetworkStatusViewModel(
                 networkRepository = networkRepository,
-                dataRequestRepository = dataRequestRepository
+                dataRequestRepository = dataRequestRepository,
             ) as T
         }
     }

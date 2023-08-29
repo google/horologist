@@ -42,7 +42,7 @@ public interface TileLayoutRenderer<T, R> {
      */
     public fun renderTimeline(
         state: T,
-        requestParams: RequestBuilders.TileRequest
+        requestParams: RequestBuilders.TileRequest,
     ): Tile
 
     /**
@@ -56,6 +56,6 @@ public interface TileLayoutRenderer<T, R> {
      */
     public fun produceRequestedResources(
         resourceState: R,
-        requestParams: RequestBuilders.ResourcesRequest
+        requestParams: RequestBuilders.ResourcesRequest,
     ): Resources
 }

@@ -50,21 +50,21 @@ public class NetworkSelectingCallFactory(
     rootClient: OkHttpClient,
     internal val coroutineScope: CoroutineScope,
     internal val timeout: Duration = 3.seconds,
-    logger: NetworkStatusLogger
+    logger: NetworkStatusLogger,
 ) : Call.Factory {
     private val defaultClient = rootClient.newBuilder()
         .addNetworkInterceptor(
             RequestVerifyingInterceptor(
-                networkingRulesEngine = networkingRulesEngine
-            )
+                networkingRulesEngine = networkingRulesEngine,
+            ),
         )
         .eventListenerFactory(
             NetworkAwareEventListenerFactory(
                 dataRequestRepository = dataRequestRepository,
                 delegateEventListenerFactory = rootClient.eventListenerFactory,
                 networkRepository = networkRepository,
-                logger = logger
-            )
+                logger = logger,
+            ),
         )
         .build()
 
@@ -122,8 +122,8 @@ public class NetworkSelectingCallFactory(
                 .connectionPool(ConnectionPool())
                 .socketFactory(
                     NetworkSpecificSocketFactory(
-                        networkStatus = networkStatus
-                    )
+                        networkStatus = networkStatus,
+                    ),
                 )
                 .build()
         }

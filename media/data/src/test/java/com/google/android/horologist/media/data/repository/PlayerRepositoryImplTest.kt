@@ -79,7 +79,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -146,7 +146,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle),
         )
     }
 
@@ -174,7 +174,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle),
         )
     }
 
@@ -201,7 +201,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle),
         )
     }
 
@@ -298,8 +298,8 @@ class PlayerRepositoryImplTest {
                 Command.SkipToPreviousMedia,
                 Command.SeekBack,
                 Command.SeekForward,
-                Command.SetShuffle
-            )
+                Command.SetShuffle,
+            ),
         )
     }
 
@@ -327,7 +327,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isEqualTo(500.milliseconds)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle),
         )
     }
 
@@ -379,7 +379,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -405,7 +405,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -432,7 +432,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -467,7 +467,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -496,7 +496,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle),
         )
     }
 
@@ -526,7 +526,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle),
         )
     }
 
@@ -556,7 +556,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToPreviousMedia, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SkipToPreviousMedia, Command.SetShuffle),
         )
     }
 
@@ -582,7 +582,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -611,7 +611,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle),
         )
     }
 
@@ -637,7 +637,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -666,7 +666,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToPreviousMedia, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SkipToPreviousMedia, Command.SetShuffle),
         )
     }
 
@@ -695,7 +695,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle),
         )
     }
 
@@ -732,7 +732,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -789,7 +789,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -818,7 +818,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -840,7 +840,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -864,7 +864,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -896,7 +896,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle),
         )
     }
 
@@ -919,7 +919,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -945,7 +945,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(2f)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle),
         )
     }
 
@@ -954,7 +954,7 @@ class PlayerRepositoryImplTest {
         uri = "uri",
         title = "title",
         artist = "artist",
-        artworkUri = "artworkUri"
+        artworkUri = "artworkUri",
     )
 
     private fun getStubMedia(id: String) = Media(
@@ -962,7 +962,7 @@ class PlayerRepositoryImplTest {
         uri = "asset://android_asset/media/mp4/testvid_1022ms.mp4",
         title = "title",
         artist = "artist",
-        artworkUri = "artworkUri"
+        artworkUri = "artworkUri",
     )
 
     private fun assertInitialState() {

@@ -72,7 +72,7 @@ class FakeNetworkRepository : NetworkRepository {
             addresses = listOf(),
             capabilities = null,
             linkProperties = null,
-            bindSocket = {}
+            bindSocket = {},
         )
         val CellNetwork = NetworkStatus(
             id = "cell1",
@@ -81,7 +81,7 @@ class FakeNetworkRepository : NetworkRepository {
             addresses = listOf(),
             capabilities = null,
             linkProperties = null,
-            bindSocket = {}
+            bindSocket = {},
         )
         val BtNetwork = NetworkStatus(
             id = "bt1",
@@ -90,7 +90,7 @@ class FakeNetworkRepository : NetworkRepository {
             addresses = listOf(),
             capabilities = null,
             linkProperties = null,
-            bindSocket = {}
+            bindSocket = {},
         )
     }
 }

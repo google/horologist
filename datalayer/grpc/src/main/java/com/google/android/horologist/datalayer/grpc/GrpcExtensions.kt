@@ -28,7 +28,7 @@ public object GrpcExtensions {
         nodeId: TargetNodeId,
         path: String = pathFor(T::class.java),
         coroutineScope: CoroutineScope,
-        clientBuilder: (Channel) -> T
+        clientBuilder: (Channel) -> T,
     ): T {
         val channel: Channel = MessageClientChannel(nodeId, path, this, coroutineScope)
         return clientBuilder(channel)

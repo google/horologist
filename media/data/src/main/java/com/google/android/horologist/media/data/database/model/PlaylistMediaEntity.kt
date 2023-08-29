@@ -27,10 +27,10 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @Entity(
     primaryKeys = ["playlistId", "mediaId"],
     indices = [
-        Index(value = ["mediaId"])
-    ]
+        Index(value = ["mediaId"]),
+    ],
 )
 public data class PlaylistMediaEntity(
     val playlistId: String,
-    val mediaId: String
+    val mediaId: String,
 )

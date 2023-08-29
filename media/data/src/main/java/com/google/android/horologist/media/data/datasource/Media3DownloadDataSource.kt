@@ -31,7 +31,7 @@ import com.google.android.horologist.media.model.MediaDownload
 @ExperimentalHorologistApi
 public class Media3DownloadDataSource(
     private val context: Context,
-    private val downloadService: Class<out DownloadService>
+    private val downloadService: Class<out DownloadService>,
 ) {
 
     public fun download(id: String, uri: Uri) {
@@ -41,7 +41,7 @@ public class Media3DownloadDataSource(
             context,
             downloadService,
             downloadRequest,
-            true
+            true,
         )
     }
 
@@ -50,7 +50,7 @@ public class Media3DownloadDataSource(
             context,
             downloadService,
             id,
-            false
+            false,
         )
     }
 }

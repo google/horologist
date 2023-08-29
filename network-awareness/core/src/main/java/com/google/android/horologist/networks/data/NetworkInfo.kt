@@ -28,7 +28,7 @@ public sealed interface NetworkInfo {
     @ExperimentalHorologistApi
     public data class Wifi(
         override val name: String,
-        public val ssid: String? = null
+        public val ssid: String? = null,
     ) : NetworkInfo {
         override val type: NetworkType = NetworkType.Wifi
         override val highBatteryUsage: Boolean = false
@@ -40,7 +40,7 @@ public sealed interface NetworkInfo {
     @ExperimentalHorologistApi
     public data class Cellular(
         override val name: String,
-        override val metered: Boolean? = null
+        override val metered: Boolean? = null,
     ) : NetworkInfo {
         override val type: NetworkType = NetworkType.Cell
         override val highBatteryUsage: Boolean = true
@@ -58,7 +58,7 @@ public sealed interface NetworkInfo {
     @ExperimentalHorologistApi
     public data class Unknown(
         override val name: String? = "unknown",
-        override val metered: Boolean? = null
+        override val metered: Boolean? = null,
     ) : NetworkInfo {
         override val type: NetworkType = NetworkType.Unknown
         override val highBatteryUsage: Boolean? = null

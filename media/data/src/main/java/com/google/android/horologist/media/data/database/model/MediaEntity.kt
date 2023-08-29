@@ -31,5 +31,5 @@ public data class MediaEntity(
     @ColumnInfo val mediaUrl: String,
     @ColumnInfo val artworkUrl: String,
     @ColumnInfo val title: String?,
-    @ColumnInfo val artist: String?
+    @ColumnInfo val artist: String?,
 )

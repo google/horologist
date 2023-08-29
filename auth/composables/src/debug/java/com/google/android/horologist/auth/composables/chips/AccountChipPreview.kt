@@ -21,25 +21,25 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun AccountChipPreview() {
     AccountChip(
         email = "maggie@example.com",
-        onClick = {}
+        onClick = {},
     )
 }
 
 @Preview(
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun AccountChipPreviewNoAvatar() {
     AccountChip(
         email = "maggie@example.com",
         onClick = {},
-        defaultAvatar = null
+        defaultAvatar = null,
     )
 }

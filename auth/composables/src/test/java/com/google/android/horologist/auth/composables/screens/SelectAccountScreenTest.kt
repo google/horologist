@@ -27,7 +27,7 @@ import org.junit.Test
 class SelectAccountScreenTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test
@@ -37,12 +37,12 @@ class SelectAccountScreenTest : ScreenshotBaseTest(
                 accounts = listOf(
                     AccountUiModel(
                         email = "maggie@example.com",
-                        avatar = Icons.Default.Face
+                        avatar = Icons.Default.Face,
                     ),
-                    AccountUiModel(email = "thisisaverylongemail@example.com")
+                    AccountUiModel(email = "thisisaverylongemail@example.com"),
                 ),
                 onAccountClicked = { _, _ -> },
-                columnState = positionedState()
+                columnState = positionedState(),
             )
         }
     }
@@ -53,11 +53,11 @@ class SelectAccountScreenTest : ScreenshotBaseTest(
             SelectAccountScreen(
                 accounts = listOf(
                     AccountUiModel(email = "maggie@example.com"),
-                    AccountUiModel(email = "thisisaverylongemailaccountsample@example.com")
+                    AccountUiModel(email = "thisisaverylongemailaccountsample@example.com"),
                 ),
                 onAccountClicked = { _, _ -> },
                 columnState = positionedState(),
-                defaultAvatar = null
+                defaultAvatar = null,
             )
         }
     }

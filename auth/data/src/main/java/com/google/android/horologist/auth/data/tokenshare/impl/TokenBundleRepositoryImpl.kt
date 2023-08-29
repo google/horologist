@@ -31,14 +31,14 @@ import kotlinx.coroutines.flow.Flow
 public class TokenBundleRepositoryImpl<T>(
     private val registry: WearDataLayerRegistry,
     private val serializer: Serializer<T>,
-    private val path: String
+    private val path: String,
 ) : TokenBundleRepository<T> {
 
     override val flow: Flow<T>
         get() = registry.protoFlow(
             targetNodeId = TargetNodeId.PairedPhone,
             serializer = serializer,
-            path = path
+            path = path,
         )
 
     public companion object {
@@ -55,11 +55,11 @@ public class TokenBundleRepositoryImpl<T>(
         public fun <T> create(
             registry: WearDataLayerRegistry,
             serializer: Serializer<T>,
-            key: String = DEFAULT_TOKEN_BUNDLE_KEY
+            key: String = DEFAULT_TOKEN_BUNDLE_KEY,
         ): TokenBundleRepositoryImpl<T> = TokenBundleRepositoryImpl(
             registry = registry,
             serializer = serializer,
-            path = buildPath(key)
+            path = buildPath(key),
         )
 
         private fun buildPath(key: String) =

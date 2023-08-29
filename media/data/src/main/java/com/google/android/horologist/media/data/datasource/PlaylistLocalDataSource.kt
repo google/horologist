@@ -35,7 +35,7 @@ import kotlinx.coroutines.flow.Flow
 public class PlaylistLocalDataSource(
     private val roomDatabase: RoomDatabase,
     private val playlistDao: PlaylistDao,
-    private val playlistMediaDao: PlaylistMediaDao
+    private val playlistMediaDao: PlaylistMediaDao,
 ) {
 
     public suspend fun upsert(playlists: List<Playlist>) {
@@ -43,7 +43,7 @@ public class PlaylistLocalDataSource(
             playlistDao.upsert(
                 PlaylistEntityMapper.map(playlist),
                 playlist.mediaList.map(MediaEntityMapper::map),
-                playlist.mediaList.map { PlaylistMediaEntityMapper.map(playlist, it) }
+                playlist.mediaList.map { PlaylistMediaEntityMapper.map(playlist, it) },
             )
         }
     }

@@ -47,7 +47,7 @@ fun GoogleSignInPromptSampleScreen(
     navController: NavHostController,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: SignInPromptViewModel = viewModel(factory = GoogleSignInPromptViewModelFactory)
+    viewModel: SignInPromptViewModel = viewModel(factory = GoogleSignInPromptViewModelFactory),
 ) {
     var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -56,7 +56,7 @@ fun GoogleSignInPromptSampleScreen(
         onAlreadySignedIn = { showAlreadySignedInDialog = true },
         columnState = columnState,
         modifier = modifier,
-        viewModel = viewModel
+        viewModel = viewModel,
     ) {
         item {
             SignInChip(
@@ -65,13 +65,13 @@ fun GoogleSignInPromptSampleScreen(
                         popUpTo(Screen.MainScreen.route)
                     }
                 },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
         item {
             GuestModeChip(
                 onClick = navController::popBackStack,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -81,12 +81,12 @@ fun GoogleSignInPromptSampleScreen(
             onTimeout = {
                 showAlreadySignedInDialog = false
                 navController.popBackStack()
-            }
+            },
         ) {
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.google_sign_in_prompt_already_signed_in_message)
+                text = stringResource(id = R.string.google_sign_in_prompt_already_signed_in_message),
             )
         }
     }
@@ -98,6 +98,6 @@ fun GoogleSignInPromptSampleScreen(
 fun GoogleSignInPromptSampleScreenPreview() {
     GoogleSignInPromptSampleScreen(
         navController = rememberSwipeDismissableNavController(),
-        columnState = belowTimeTextPreview()
+        columnState = belowTimeTextPreview(),
     )
 }

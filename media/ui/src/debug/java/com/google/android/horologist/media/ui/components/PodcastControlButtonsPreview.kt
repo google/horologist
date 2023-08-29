@@ -25,7 +25,7 @@ import kotlin.time.Duration.Companion.seconds
 @Preview(
     "Enabled - Playing - With progress",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun PodcastControlButtonsPreview() {
@@ -40,14 +40,14 @@ fun PodcastControlButtonsPreview() {
         onSeekForwardButtonClick = {},
         seekForwardButtonEnabled = true,
         seekBackButtonIncrement = SeekButtonIncrement.Ten,
-        seekForwardButtonIncrement = SeekButtonIncrement.Thirty
+        seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
     )
 }
 
 @Preview(
     "Enabled - Playing - With progress",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun PodcastControlButtonsPreviewUnknown() {
@@ -62,14 +62,14 @@ fun PodcastControlButtonsPreviewUnknown() {
         onSeekForwardButtonClick = {},
         seekForwardButtonEnabled = true,
         seekBackButtonIncrement = SeekButtonIncrement.Unknown,
-        seekForwardButtonIncrement = SeekButtonIncrement.Unknown
+        seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
     )
 }
 
 @Preview(
     "Disabled - Not playing - Without progress",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun PodcastControlButtonsPreviewNoProgress() {
@@ -83,13 +83,13 @@ fun PodcastControlButtonsPreviewNoProgress() {
         onSeekForwardButtonClick = {},
         seekForwardButtonEnabled = false,
         seekBackButtonIncrement = SeekButtonIncrement.Unknown,
-        seekForwardButtonIncrement = SeekButtonIncrement.Five
+        seekForwardButtonIncrement = SeekButtonIncrement.Five,
     )
 }
 
 @Preview(
     backgroundColor = 0xff888800,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun PodcastControlDisabledLightBackground() {
@@ -103,6 +103,6 @@ fun PodcastControlDisabledLightBackground() {
         onSeekForwardButtonClick = {},
         seekForwardButtonEnabled = false,
         seekBackButtonIncrement = SeekButtonIncrement.Unknown,
-        seekForwardButtonIncrement = SeekButtonIncrement.Five
+        seekForwardButtonIncrement = SeekButtonIncrement.Five,
     )
 }

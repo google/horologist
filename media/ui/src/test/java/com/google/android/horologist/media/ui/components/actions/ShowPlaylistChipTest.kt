@@ -30,7 +30,7 @@ class ShowPlaylistChipTest : ScreenshotBaseTest() {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,
                     name = "Playlists",
-                    onClick = {}
+                    onClick = {},
                 )
             }
         }
@@ -43,7 +43,7 @@ class ShowPlaylistChipTest : ScreenshotBaseTest() {
                 ShowPlaylistChip(
                     artworkUri = null,
                     name = "Playlists",
-                    onClick = {}
+                    onClick = {},
                 )
             }
         }
@@ -56,7 +56,7 @@ class ShowPlaylistChipTest : ScreenshotBaseTest() {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,
                     name = null,
-                    onClick = {}
+                    onClick = {},
                 )
             }
         }
@@ -69,7 +69,7 @@ class ShowPlaylistChipTest : ScreenshotBaseTest() {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,
                     name = "Very very very very very very very very very very very very very very very very very very very long title",
-                    onClick = {}
+                    onClick = {},
                 )
             }
         }

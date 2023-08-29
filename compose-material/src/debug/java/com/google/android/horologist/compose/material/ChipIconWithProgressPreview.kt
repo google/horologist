@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 @Preview(
     name = "Standard",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun ChipIconWithProgressPreview() {
@@ -35,7 +35,7 @@ fun ChipIconWithProgressPreview() {
 @Preview(
     name = "With 75 percent download complete",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun ChipIconWithProgressInProgressPreview() {
@@ -45,21 +45,21 @@ fun ChipIconWithProgressInProgressPreview() {
 @Preview(
     name = "With 75 percent download complete with large icon",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun ChipIconWithProgressInProgressLargeIconPreview() {
     ChipIconWithProgress(
         progress = 75f,
         icon = Icon48dp,
-        largeIcon = true
+        largeIcon = true,
     )
 }
 
 @Preview(
     name = "With 75 percent download complete with medium icon",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun ChipIconWithProgressInProgressMediumIconPreview() {
@@ -69,7 +69,7 @@ fun ChipIconWithProgressInProgressMediumIconPreview() {
 @Preview(
     name = "With 75 percent download complete with small icon",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun ChipIconWithProgressInProgressSmallIconPreview() {
@@ -82,7 +82,7 @@ private val Icon12dp: ImageVector
         defaultWidth = 12f.dp,
         defaultHeight = 12f.dp,
         viewportWidth = 12f,
-        viewportHeight = 12f
+        viewportHeight = 12f,
     )
         .materialPath {
             horizontalLineToRelative(12.0f)
@@ -98,7 +98,7 @@ private val Icon32dp: ImageVector
         defaultWidth = 32f.dp,
         defaultHeight = 32f.dp,
         viewportWidth = 32f,
-        viewportHeight = 32f
+        viewportHeight = 32f,
     )
         .materialPath {
             horizontalLineToRelative(32.0f)
@@ -114,7 +114,7 @@ private val Icon48dp: ImageVector
         defaultWidth = 48f.dp,
         defaultHeight = 48f.dp,
         viewportWidth = 48f,
-        viewportHeight = 48f
+        viewportHeight = 48f,
     )
         .materialPath {
             horizontalLineToRelative(48.0f)

@@ -39,13 +39,13 @@ import com.google.android.horologist.compose.material.Title
 fun TokenShareDefaultKeyScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: TokenShareDefaultKeyViewModel = viewModel(factory = TokenShareDefaultKeyViewModel.Factory)
+    viewModel: TokenShareDefaultKeyViewModel = viewModel(factory = TokenShareDefaultKeyViewModel.Factory),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         item {
             Title(R.string.token_share_default_key_title, Modifier)
@@ -54,7 +54,7 @@ fun TokenShareDefaultKeyScreen(
             Text(
                 text = stringResource(id = R.string.token_share_default_key_message),
                 modifier = Modifier.padding(horizontal = 8.dp),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
         items(state) { tokenBundle ->
@@ -63,7 +63,7 @@ fun TokenShareDefaultKeyScreen(
                     label = tokenBundle.accessToken,
                     onClick = { /* do nothing */ },
                     colors = ChipDefaults.secondaryChipColors(),
-                    enabled = false
+                    enabled = false,
                 )
             }
         }

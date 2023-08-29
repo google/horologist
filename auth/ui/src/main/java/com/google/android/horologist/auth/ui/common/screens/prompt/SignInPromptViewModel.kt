@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
  * @sample com.google.android.horologist.auth.sample.screens.oauth.pkce.prompt.PKCESignInPromptScreen
  */
 public open class SignInPromptViewModel(
-    private val authUserRepository: AuthUserRepository
+    private val authUserRepository: AuthUserRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<SignInPromptScreenState>(SignInPromptScreenState.Idle)
@@ -50,7 +50,7 @@ public open class SignInPromptViewModel(
     public fun onIdleStateObserved() {
         _uiState.compareAndSet(
             expect = SignInPromptScreenState.Idle,
-            update = SignInPromptScreenState.Loading
+            update = SignInPromptScreenState.Loading,
         ) {
             viewModelScope.launch {
                 authUserRepository.getAuthenticated()?.let { authUser ->

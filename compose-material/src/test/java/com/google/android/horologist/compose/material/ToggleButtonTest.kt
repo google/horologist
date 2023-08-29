@@ -35,7 +35,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 checkedIcon = Icons.Filled.AirplanemodeActive,
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive,
                 contentDescription = "contentDescription",
-                onCheckedChanged = {}
+                onCheckedChanged = {},
             )
         }
     }
@@ -48,7 +48,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive,
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
-                checked = false
+                checked = false,
             )
         }
     }
@@ -61,7 +61,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive,
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -75,7 +75,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 checked = false,
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -85,7 +85,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
                 text = "Monday",
-                onCheckedChanged = {}
+                onCheckedChanged = {},
             )
         }
     }
@@ -96,7 +96,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
             ToggleButton(
                 text = "Monday",
                 onCheckedChanged = {},
-                checked = false
+                checked = false,
             )
         }
     }
@@ -107,7 +107,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
             ToggleButton(
                 text = "Monday",
                 onCheckedChanged = {},
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -119,7 +119,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 text = "Monday",
                 onCheckedChanged = {},
                 checked = false,
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -132,7 +132,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive,
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
-                smallSize = true
+                smallSize = true,
             )
         }
     }
@@ -146,7 +146,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 checked = false,
-                smallSize = true
+                smallSize = true,
             )
         }
     }
@@ -160,7 +160,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 enabled = false,
-                smallSize = true
+                smallSize = true,
             )
         }
     }
@@ -174,7 +174,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 onCheckedChanged = {},
                 checked = false,
                 enabled = false,
-                smallSize = true
+                smallSize = true,
             )
         }
     }
@@ -187,7 +187,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true
+                smallSize = true,
             )
         }
     }
@@ -201,7 +201,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 onCheckedChanged = {},
                 checked = false,
                 colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true
+                smallSize = true,
             )
         }
     }
@@ -215,7 +215,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 onCheckedChanged = {},
                 enabled = false,
                 colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true
+                smallSize = true,
             )
         }
     }
@@ -230,7 +230,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 checked = false,
                 enabled = false,
                 colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true
+                smallSize = true,
             )
         }
     }
@@ -243,7 +243,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                     checkedIcon = Icons.Filled.VolumeUp,
                     notCheckedIcon = Icons.Filled.VolumeOff,
                     contentDescription = "contentDescription",
-                    onCheckedChanged = {}
+                    onCheckedChanged = {},
                 )
             }
         }
@@ -257,7 +257,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                 notCheckedIcon = Icons.Filled.VolumeOff,
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
-                iconRtlMode = IconRtlMode.Mirrored
+                iconRtlMode = IconRtlMode.Mirrored,
             )
         }
     }
@@ -271,7 +271,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
                     notCheckedIcon = Icons.Filled.VolumeOff,
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
-                    iconRtlMode = IconRtlMode.Mirrored
+                    iconRtlMode = IconRtlMode.Mirrored,
                 )
             }
         }
@@ -283,7 +283,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
             TestHarness(fontScale = largestFontScale) {
                 ToggleButton(
                     text = "Monday",
-                    onCheckedChanged = {}
+                    onCheckedChanged = {},
                 )
             }
         }

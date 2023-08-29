@@ -43,7 +43,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 public class DataLayerNodesViewModel(
-    private val registry: WearDataLayerRegistry
+    private val registry: WearDataLayerRegistry,
 ) : ViewModel() {
     val nodes: SharedFlow<List<Node>> = flow {
         val self = registry.nodeClient.localNode.await()
@@ -51,14 +51,14 @@ public class DataLayerNodesViewModel(
     }.shareIn(
         viewModelScope,
         started = SharingStarted.Eagerly,
-        replay = 1
+        replay = 1,
     )
 
     val protoState: Flow<Map<String, Data>> = flow {
         val ids = nodes.first().map { it.id }
 
         val flow: Flow<Map<String, Data>> = combine(
-            ids.map { registry.protoFlow<Data>(TargetNodeId.SpecificNodeId(it)) }
+            ids.map { registry.protoFlow<Data>(TargetNodeId.SpecificNodeId(it)) },
         ) {
             it.zip(ids) { data, id -> id to data }.toMap()
         }
@@ -72,13 +72,13 @@ public class DataLayerNodesViewModel(
         combine(
             nodes,
             protoState,
-            thisDataStore.data
+            thisDataStore.data,
         ) { nodes, protoMap, thisData ->
             UIState(nodes, protoMap, thisData)
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = UIState()
+            initialValue = UIState(),
         )
 
     fun increment() {
@@ -95,7 +95,7 @@ public class DataLayerNodesViewModel(
     data class UIState(
         val nodes: List<Node> = listOf(),
         val protoMap: Map<String, Data> = mapOf(),
-        val thisData: Data? = null
+        val thisData: Data? = null,
     )
 
     public object Factory : ViewModelProvider.Factory {

@@ -49,17 +49,17 @@ class ExampleTileService : SuspendingTileService() {
                         TimelineEntry.Builder()
                             .setLayout(
                                 Layout.Builder().setRoot(mainLayout())
-                                    .build()
+                                    .build(),
                             )
-                            .build()
+                            .build(),
                     )
-                    .build()
+                    .build(),
             )
             .build()
     }
 
     override suspend fun resourcesRequest(
-        requestParams: RequestBuilders.ResourcesRequest
+        requestParams: RequestBuilders.ResourcesRequest,
     ): ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().setVersion("1").build()
 
     fun mainLayout(): LayoutElement {
@@ -67,7 +67,7 @@ class ExampleTileService : SuspendingTileService() {
             .addContent(
                 Text.Builder()
                     .setText("Charging: " + batteryManager.isCharging)
-                    .build()
+                    .build(),
             )
             .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
             .build()

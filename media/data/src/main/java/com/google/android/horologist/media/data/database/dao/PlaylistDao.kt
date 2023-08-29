@@ -39,7 +39,7 @@ public interface PlaylistDao {
     public suspend fun upsert(
         playlistEntity: PlaylistEntity,
         mediaEntityList: List<MediaEntity>,
-        playlistMediaEntityList: List<PlaylistMediaEntity>
+        playlistMediaEntityList: List<PlaylistMediaEntity>,
     )
 
     @Transaction
@@ -47,7 +47,7 @@ public interface PlaylistDao {
         value = """
         SELECT * FROM PlaylistEntity
         WHERE playlistId = :playlistId
-    """
+    """,
     )
     public suspend fun getPopulated(playlistId: String): PopulatedPlaylist?
 
@@ -56,7 +56,7 @@ public interface PlaylistDao {
         value = """
         SELECT * FROM playlistentity
         WHERE playlistId = :playlistId
-    """
+    """,
     )
     public fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist?>
 
@@ -64,7 +64,7 @@ public interface PlaylistDao {
     @Query(
         value = """
         SELECT * FROM PlaylistEntity
-    """
+    """,
     )
     public fun getAllPopulated(): Flow<List<PopulatedPlaylist>>
 
@@ -80,7 +80,7 @@ public interface PlaylistDao {
                 WHERE MediaDownloadEntity.mediaId = PlaylistMediaEntity.mediaId
             )
         )
-    """
+    """,
     )
     public fun getAllDownloaded(): Flow<List<PopulatedPlaylist>>
 
@@ -88,7 +88,7 @@ public interface PlaylistDao {
         value = """
         DELETE FROM PlaylistEntity
         WHERE playlistId in (:playlistIds)
-    """
+    """,
     )
     public fun delete(playlistIds: List<String>)
 }

@@ -28,13 +28,13 @@ import kotlinx.coroutines.CancellationException
 
 @ExperimentalHorologistApi
 public class PKCETokenRepositoryGoogleImpl(
-    private val googleOAuthService: GoogleOAuthService
+    private val googleOAuthService: GoogleOAuthService,
 ) : PKCETokenRepository<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse> {
 
     override suspend fun fetch(
         config: PKCEDefaultConfig,
         codeVerifier: String,
-        oAuthCodePayload: PKCEOAuthCodeGooglePayload
+        oAuthCodePayload: PKCEOAuthCodeGooglePayload,
     ): Result<TokenResponse> {
         Log.d(TAG, "Requesting token...")
 
@@ -45,7 +45,7 @@ public class PKCETokenRepositoryGoogleImpl(
                 code = oAuthCodePayload.code,
                 codeVerifier = codeVerifier,
                 grantType = GRANT_TYPE_PARAM_AUTH_CODE_GRANT_VALUE,
-                redirectUri = oAuthCodePayload.redirectUrl
+                redirectUri = oAuthCodePayload.redirectUrl,
             )
 
             Result.success(response)

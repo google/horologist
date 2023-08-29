@@ -34,7 +34,7 @@ import okhttp3.Response
  */
 @ExperimentalHorologistApi
 public class RequestVerifyingInterceptor(
-    private val networkingRulesEngine: NetworkingRulesEngine
+    private val networkingRulesEngine: NetworkingRulesEngine,
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()

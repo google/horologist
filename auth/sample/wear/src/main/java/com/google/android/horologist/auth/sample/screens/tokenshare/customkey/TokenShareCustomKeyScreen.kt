@@ -39,13 +39,13 @@ import com.google.android.horologist.compose.material.Title
 fun TokenShareCustomKeyScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: TokenShareCustomKeyViewModel = viewModel(factory = TokenShareCustomKeyViewModel.Factory)
+    viewModel: TokenShareCustomKeyViewModel = viewModel(factory = TokenShareCustomKeyViewModel.Factory),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         item {
             Title(R.string.token_share_custom_key_title, Modifier)
@@ -54,7 +54,7 @@ fun TokenShareCustomKeyScreen(
             Text(
                 text = stringResource(id = R.string.token_share_custom_key_message),
                 modifier = Modifier.padding(horizontal = 8.dp),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
         items(state) { tokenBundle ->
@@ -63,7 +63,7 @@ fun TokenShareCustomKeyScreen(
                     label = tokenBundle.accessToken,
                     onClick = { /* do nothing */ },
                     colors = ChipDefaults.secondaryChipColors(),
-                    enabled = false
+                    enabled = false,
                 )
             }
         }

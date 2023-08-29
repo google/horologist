@@ -48,13 +48,13 @@ public fun AlertDialog(
     modifier: Modifier = Modifier,
     title: String = "",
     okButtonContentDescription: String = stringResource(android.R.string.ok),
-    cancelButtonContentDescription: String = stringResource(android.R.string.cancel)
+    cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
 ) {
     Dialog(
         showDialog = showDialog,
         onDismissRequest = onCancelButtonClick,
         scrollState = scalingLazyListState,
-        modifier = modifier
+        modifier = modifier,
     ) {
         Alert(
             title = title,
@@ -62,7 +62,7 @@ public fun AlertDialog(
             onCancelButtonClick = onCancelButtonClick,
             onOKButtonClick = onOKButtonClick,
             okButtonContentDescription = okButtonContentDescription,
-            cancelButtonContentDescription = cancelButtonContentDescription
+            cancelButtonContentDescription = cancelButtonContentDescription,
         )
     }
 }
@@ -75,7 +75,7 @@ internal fun Alert(
     onCancelButtonClick: () -> Unit,
     onOKButtonClick: () -> Unit,
     okButtonContentDescription: String,
-    cancelButtonContentDescription: String
+    cancelButtonContentDescription: String,
 ) {
     Alert(
         title = {
@@ -84,7 +84,7 @@ internal fun Alert(
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 maxLines = 3,
-                style = MaterialTheme.typography.title3
+                style = MaterialTheme.typography.title3,
             )
         },
         content = {
@@ -92,7 +92,7 @@ internal fun Alert(
                 text = body,
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         },
         negativeButton = {
@@ -100,15 +100,15 @@ internal fun Alert(
                 imageVector = Icons.Default.Close,
                 contentDescription = cancelButtonContentDescription,
                 onClick = onCancelButtonClick,
-                colors = ButtonDefaults.secondaryButtonColors()
+                colors = ButtonDefaults.secondaryButtonColors(),
             )
         },
         positiveButton = {
             Button(
                 imageVector = Icons.Default.Check,
                 contentDescription = okButtonContentDescription,
-                onClick = onOKButtonClick
+                onClick = onOKButtonClick,
             )
-        }
+        },
     )
 }

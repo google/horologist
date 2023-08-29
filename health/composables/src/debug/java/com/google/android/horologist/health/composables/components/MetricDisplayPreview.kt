@@ -32,8 +32,8 @@ fun MetricDisplayPreview() {
             text = "139",
             topRightText = "Vigorous",
             bottomRightText = "bpm",
-            color = HR_HARD
-        )
+            color = HR_HARD,
+        ),
     )
 }
 
@@ -43,8 +43,8 @@ fun MetricDisplayPreviewTextOnly() {
     MetricDisplay(
         metric = MetricUiModel(
             text = "18:52",
-            color = HR_LIGHT
-        )
+            color = HR_LIGHT,
+        ),
     )
 }
 
@@ -55,8 +55,8 @@ fun MetricDisplayPreviewTopRightText() {
         metric = MetricUiModel(
             text = "8'32\"",
             topRightText = ":15",
-            color = HR_MODERATE
-        )
+            color = HR_MODERATE,
+        ),
     )
 }
 
@@ -67,7 +67,7 @@ fun MetricDisplayPreviewBottomRightText() {
         metric = MetricUiModel(
             text = "2.1",
             bottomRightText = "/3 mi",
-            color = HR_MAXIMUM
-        )
+            color = HR_MAXIMUM,
+        ),
     )
 }

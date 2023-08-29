@@ -40,18 +40,18 @@ public fun CustomActionMediaButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp)
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
 ) {
     Button(
         onClick = onClick,
         modifier = modifier.size(tapTargetSize),
         enabled = enabled,
-        colors = colors
+        colors = colors,
     ) {
         AsyncImage(
             model = iconUri,
             contentDescription = contentDescription,
-            colorFilter = ColorFilter.tint(colors.contentColor(enabled = enabled).value)
+            colorFilter = ColorFilter.tint(colors.contentColor(enabled = enabled).value),
         )
     }
 }

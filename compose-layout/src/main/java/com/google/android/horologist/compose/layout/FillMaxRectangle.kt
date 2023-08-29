@@ -40,7 +40,7 @@ import kotlin.math.sqrt
 public fun Modifier.fillMaxRectangle(): Modifier = composed(
     inspectorInfo = debugInspectorInfo {
         name = "fillMaxRectangle"
-    }
+    },
 ) {
     val isRound = LocalConfiguration.current.isScreenRound
     var inset: Dp = 0.dp

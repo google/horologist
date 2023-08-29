@@ -36,7 +36,7 @@ import com.google.android.horologist.networks.ui.curveDataUsage
 @Composable
 public fun MediaInfoTimeText(
     mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val uiState by mediaInfoTimeTextViewModel.uiState.collectAsStateWithLifecycle()
 
@@ -46,7 +46,7 @@ public fun MediaInfoTimeText(
             networkStatus = uiState.networks,
             networkUsage = uiState.dataUsageReport,
             offloadStatus = uiState.audioOffloadStatus,
-            pinnedNetworks = uiState.pinnedNetworks
+            pinnedNetworks = uiState.pinnedNetworks,
         )
     } else {
         TimeText(modifier = modifier)
@@ -59,7 +59,7 @@ public fun MediaInfoTimeText(
     networkUsage: DataUsageReport?,
     offloadStatus: AudioOffloadStatus?,
     pinnedNetworks: Set<NetworkType>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val style = CurvedTextStyle(MaterialTheme.typography.caption3)
     val context = LocalContext.current
@@ -72,27 +72,27 @@ public fun MediaInfoTimeText(
                 networkUsage = networkUsage,
                 style = style,
                 context = context,
-                pinnedNetworks = pinnedNetworks
+                pinnedNetworks = pinnedNetworks,
             )
         },
         endCurvedContent = {
             offloadDataStatus(
                 offloadStatus = offloadStatus,
-                style = style
+                style = style,
             )
-        }
+        },
     )
 }
 
 @ExperimentalHorologistApi
 public fun CurvedScope.offloadDataStatus(
     offloadStatus: AudioOffloadStatus?,
-    style: CurvedTextStyle
+    style: CurvedTextStyle,
 ) {
     if (offloadStatus != null) {
         curvedText(
             text = offloadStatus.trackOffloadDescription(),
-            style = style
+            style = style,
         )
     }
 }

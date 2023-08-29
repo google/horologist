@@ -48,7 +48,7 @@ class MediaControlButtonsTest {
                 onSeekToPreviousButtonClick = {},
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                seekToNextButtonEnabled = true,
             )
         }
 
@@ -75,7 +75,7 @@ class MediaControlButtonsTest {
                 onSeekToPreviousButtonClick = {},
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                seekToNextButtonEnabled = true,
             )
         }
 
@@ -102,7 +102,7 @@ class MediaControlButtonsTest {
                 onSeekToPreviousButtonClick = {},
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                seekToNextButtonEnabled = true,
             )
         }
 
@@ -129,7 +129,7 @@ class MediaControlButtonsTest {
                 onSeekToPreviousButtonClick = {},
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                seekToNextButtonEnabled = true,
             )
         }
 
@@ -156,7 +156,7 @@ class MediaControlButtonsTest {
                 onSeekToPreviousButtonClick = { clicked = true },
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                seekToNextButtonEnabled = true,
             )
         }
 
@@ -183,7 +183,7 @@ class MediaControlButtonsTest {
                 onSeekToPreviousButtonClick = {},
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = { clicked = true },
-                seekToNextButtonEnabled = true
+                seekToNextButtonEnabled = true,
             )
         }
 
@@ -208,7 +208,7 @@ class MediaControlButtonsTest {
                 onSeekToPreviousButtonClick = {},
                 seekToPreviousButtonEnabled = true,
                 onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true
+                seekToNextButtonEnabled = true,
             )
         }
 
@@ -232,7 +232,7 @@ class MediaControlButtonsTest {
                 onSeekToPreviousButtonClick = {},
                 seekToPreviousButtonEnabled = false,
                 onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = false
+                seekToNextButtonEnabled = false,
             )
         }
 
@@ -261,7 +261,7 @@ class MediaControlButtonsTest {
                 onSeekToPreviousButtonClick = {},
                 seekToPreviousButtonEnabled = false,
                 onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = false
+                seekToNextButtonEnabled = false,
             )
         }
 
@@ -289,7 +289,7 @@ class MediaControlButtonsTest {
                 onSeekToPreviousButtonClick = {},
                 seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
                 onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = false
+                seekToNextButtonEnabled = false,
             )
         }
 
@@ -317,7 +317,7 @@ class MediaControlButtonsTest {
                 onSeekToPreviousButtonClick = {},
                 seekToPreviousButtonEnabled = false,
                 onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = seekToNextButtonEnabled
+                seekToNextButtonEnabled = seekToNextButtonEnabled,
             )
         }
 

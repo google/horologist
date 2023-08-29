@@ -30,5 +30,5 @@ data class MusicApiModel(
     val source: String,
     val title: String,
     val totalTrackCount: Int,
-    val trackNumber: Int
+    val trackNumber: Int,
 )

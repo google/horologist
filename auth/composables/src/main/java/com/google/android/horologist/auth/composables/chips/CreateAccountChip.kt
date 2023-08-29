@@ -43,7 +43,7 @@ public fun CreateAccountChip(
     label: String = stringResource(id = R.string.horologist_create_account_chip_label),
     largeIconSpace: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     if (largeIconSpace) {
         Chip(
@@ -53,18 +53,18 @@ public fun CreateAccountChip(
             icon = {
                 Box(
                     modifier = Modifier.size(ChipDefaults.LargeIconSize),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.SendToMobile,
                         contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                        modifier = Modifier.size(ChipDefaults.IconSize)
+                        modifier = Modifier.size(ChipDefaults.IconSize),
                     )
                 }
             },
             largeIcon = true,
             colors = colors,
-            enabled = enabled
+            enabled = enabled,
         )
     } else {
         Chip(
@@ -73,7 +73,7 @@ public fun CreateAccountChip(
             modifier = modifier,
             icon = Icons.Outlined.SendToMobile,
             colors = colors,
-            enabled = enabled
+            enabled = enabled,
         )
     }
 }

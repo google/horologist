@@ -32,7 +32,9 @@ import com.google.android.horologist.media.model.Command
 @ExperimentalHorologistApi
 public object CommandMapper {
 
-    public fun map(@Player.Command command: Int): Command =
+    public fun map(
+        @Player.Command command: Int,
+    ): Command =
         when (command) {
             COMMAND_PLAY_PAUSE -> Command.PlayPause
             COMMAND_SEEK_BACK -> Command.SeekBack

@@ -42,11 +42,11 @@ import com.google.android.horologist.sample.R
 @Composable
 fun SectionedListStatelessScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState,
 ) {
     SectionedList(
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier,
     ) {
         topMenuSection()
 
@@ -63,15 +63,15 @@ private fun SectionedListScope.topMenuSection() {
     section(
         listOf(
             Pair(R.string.sectionedlist_downloads_button, Icons.Default.DownloadDone),
-            Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic)
-        )
+            Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic),
+        ),
     ) {
         loaded { (label, icon) ->
             Chip(
                 label = stringResource(label),
                 onClick = { },
                 icon = icon,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -83,13 +83,13 @@ private fun SectionedListScope.recommendationsSection() {
         listOf(
             Pair("Running playlist", Icons.Default.DirectionsRun),
             Pair("Focus", Icons.Default.SelfImprovement),
-            Pair("Summer hits", Icons.Default.LightMode)
-        )
+            Pair("Summer hits", Icons.Default.LightMode),
+        ),
     ) {
         header {
             Title(
                 stringResource(id = R.string.sectionedlist_recommendations_title),
-                Modifier.padding(vertical = 8.dp)
+                Modifier.padding(vertical = 8.dp),
             )
         }
 
@@ -98,7 +98,7 @@ private fun SectionedListScope.recommendationsSection() {
                 label = label,
                 onClick = { },
                 icon = icon,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
 
@@ -106,7 +106,7 @@ private fun SectionedListScope.recommendationsSection() {
             Chip(
                 label = stringResource(id = R.string.sectionedlist_see_more_button),
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -118,13 +118,13 @@ private fun SectionedListScope.trendingSection() {
         listOf(
             Pair("Bad Habits", "Ed Sheeran"),
             Pair("There'd Better Be A Mirrorball", "Arctic Monkeys"),
-            Pair("180 Hours", "Dudu Kanegae")
-        )
+            Pair("180 Hours", "Dudu Kanegae"),
+        ),
     ) {
         header {
             Title(
                 text = stringResource(id = R.string.sectionedlist_trending_title),
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = 8.dp),
             )
         }
 
@@ -134,7 +134,7 @@ private fun SectionedListScope.trendingSection() {
                 onClick = { },
                 secondaryLabel = artist,
                 icon = Icons.Default.MusicNote,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
 
@@ -142,7 +142,7 @@ private fun SectionedListScope.trendingSection() {
             Chip(
                 label = stringResource(id = R.string.sectionedlist_see_more_button),
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -156,7 +156,7 @@ private fun SectionedListScope.bottomMenuSection() {
                 label = stringResource(R.string.sectionedlist_settings_button),
                 onClick = { },
                 icon = Icons.Default.Settings,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }

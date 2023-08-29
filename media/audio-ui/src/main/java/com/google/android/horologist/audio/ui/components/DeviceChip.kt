@@ -38,7 +38,7 @@ public fun DeviceChip(
     deviceName: String,
     icon: @Composable BoxScope.() -> Unit,
     onAudioOutputClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val onClickLabel = stringResource(id = R.string.horologist_volume_screen_change_audio_output)
 
@@ -47,19 +47,22 @@ public fun DeviceChip(
             .width(intrinsicSize = IntrinsicSize.Max)
             .semantics {
                 stateDescription = volumeDescription
-                onClick(onClickLabel) { onAudioOutputClick(); true }
+                onClick(onClickLabel) {
+                    onAudioOutputClick()
+                    true
+                }
             },
         label = {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = deviceName,
                 maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
         },
         icon = icon,
         onClick = onAudioOutputClick,
         // Device chip uses secondary colors (surface/onSurface)
-        colors = ChipDefaults.secondaryChipColors()
+        colors = ChipDefaults.secondaryChipColors(),
     )
 }

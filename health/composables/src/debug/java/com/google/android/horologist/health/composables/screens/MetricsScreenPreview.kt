@@ -29,13 +29,13 @@ fun MetricsScreenPreviewOneMetric() {
     MetricsScreen(
         firstMetric = MetricUiModel(
             text = "21:34",
-            bottomRightText = "6"
+            bottomRightText = "6",
         ),
         positionIndicator = {
             PositionIndicator(
-                value = { 0.25f }
+                value = { 0.25f },
             )
-        }
+        },
     )
 }
 
@@ -45,17 +45,17 @@ fun MetricsScreenPreviewTwoMetrics() {
     MetricsScreen(
         firstMetric = MetricUiModel(
             text = "21:34",
-            bottomRightText = "6"
+            bottomRightText = "6",
         ),
         secondMetric = MetricUiModel(
             text = "138",
-            bottomRightText = "cal"
+            bottomRightText = "cal",
         ),
         positionIndicator = {
             PositionIndicator(
-                value = { 0.5f }
+                value = { 0.5f },
             )
-        }
+        },
     )
 }
 
@@ -66,21 +66,21 @@ fun MetricsScreenPreviewThreeMetrics() {
         firstMetric = MetricUiModel(
             text = "164",
             bottomRightText = "Vigorous",
-            color = HR_HARD
+            color = HR_HARD,
         ),
         secondMetric = MetricUiModel(
             text = "2.7",
-            bottomRightText = "mi"
+            bottomRightText = "mi",
         ),
         thirdMetric = MetricUiModel(
             text = "21:34",
-            bottomRightText = "6"
+            bottomRightText = "6",
         ),
         positionIndicator = {
             PositionIndicator(
-                value = { 0.75f }
+                value = { 0.75f },
             )
-        }
+        },
     )
 }
 
@@ -91,24 +91,24 @@ fun MetricsScreenPreviewFourMetrics() {
         firstMetric = MetricUiModel(
             text = "198",
             bottomRightText = "Peak",
-            color = HR_MAXIMUM
+            color = HR_MAXIMUM,
         ),
         secondMetric = MetricUiModel(
             text = "2.7",
-            bottomRightText = "mi"
+            bottomRightText = "mi",
         ),
         thirdMetric = MetricUiModel(
             text = "8'51\"",
-            bottomRightText = "pace"
+            bottomRightText = "pace",
         ),
         fourthMetric = MetricUiModel(
             text = "21:34",
-            bottomRightText = "6"
+            bottomRightText = "6",
         ),
         positionIndicator = {
             PositionIndicator(
-                value = { 1f }
+                value = { 1f },
             )
-        }
+        },
     )
 }

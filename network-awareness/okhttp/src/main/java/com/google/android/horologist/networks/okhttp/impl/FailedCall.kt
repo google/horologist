@@ -33,7 +33,7 @@ import okio.Timeout
 internal class FailedCall(
     private val callFactory: Call.Factory,
     private val request: Request,
-    private val message: String
+    private val message: String,
 ) : Call {
     private var cancelled = false
     private var executed = false

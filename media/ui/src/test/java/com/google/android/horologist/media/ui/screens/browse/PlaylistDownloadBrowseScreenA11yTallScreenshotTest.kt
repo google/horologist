@@ -29,11 +29,11 @@ import org.robolectric.annotation.Config
 
 @Config(
     sdk = [30],
-    qualifiers = "w227dp-h400dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
+    qualifiers = "w227dp-h400dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
 )
 class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
-    }
+    },
 ) {
 
     @Test
@@ -44,7 +44,7 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : ScreenshotBaseTest(
             val scalingParams =
                 androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams(
                     edgeScale = 1f,
-                    edgeAlpha = 1f
+                    edgeAlpha = 1f,
                 )
             val columnState: ScalingLazyColumnState = positionedState()
                 .copy(scalingParams = scalingParams)
@@ -57,7 +57,7 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : ScreenshotBaseTest(
                     onPlaylistsClick = { },
                     onSettingsClick = { },
                     columnState = columnState,
-                    onDownloadItemInProgressClickActionLabel = "cancel"
+                    onDownloadItemInProgressClickActionLabel = "cancel",
                 )
             }
         }
@@ -75,5 +75,5 @@ public fun ScalingLazyColumnState.copy(scalingParams: ScalingParams): ScalingLaz
     horizontalAlignment,
     flingBehavior,
     userScrollEnabled,
-    scalingParams
+    scalingParams,
 )

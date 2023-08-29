@@ -33,7 +33,7 @@ import java.net.Proxy
  * Forwarding implementation of EventListener to allow for easy overrides of particular events.
  */
 public open class ForwardingEventListener(
-    private val delegate: EventListener
+    private val delegate: EventListener,
 ) : EventListener() {
     override fun cacheConditionalHit(call: Call, cachedResponse: Response) {
         delegate.cacheConditionalHit(call, cachedResponse)
@@ -67,7 +67,7 @@ public open class ForwardingEventListener(
         call: Call,
         inetSocketAddress: InetSocketAddress,
         proxy: Proxy,
-        protocol: Protocol?
+        protocol: Protocol?,
     ) {
         delegate.connectEnd(call, inetSocketAddress, proxy, protocol)
     }
@@ -77,7 +77,7 @@ public open class ForwardingEventListener(
         inetSocketAddress: InetSocketAddress,
         proxy: Proxy,
         protocol: Protocol?,
-        ioe: IOException
+        ioe: IOException,
     ) {
         delegate.connectFailed(call, inetSocketAddress, proxy, protocol, ioe)
     }

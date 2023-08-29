@@ -30,6 +30,6 @@ public object AccountUiModelMapper {
     public fun map(authUser: AuthUser, defaultEmail: String = ""): AccountUiModel = AccountUiModel(
         email = authUser.email ?: defaultEmail,
         name = authUser.displayName,
-        avatar = authUser.avatarUri
+        avatar = authUser.avatarUri,
     )
 }

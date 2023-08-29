@@ -22,24 +22,24 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(
     name = "Enabled",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun PauseButtonPreviewEnabled() {
     PauseButton(
-        onClick = {}
+        onClick = {},
     )
 }
 
 @Preview(
     name = "Disabled",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun PauseButtonPreviewDisabled() {
     PauseButton(
         onClick = {},
-        enabled = false
+        enabled = false,
     )
 }

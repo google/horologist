@@ -56,24 +56,24 @@ import com.google.android.horologist.sample.R
 private val todayTasks = listOf(
     Pair("Meet with Sarah", Color.Red),
     Pair("Pay internet bill", Color.Gray),
-    Pair("Piano lessons", Color.Gray)
+    Pair("Piano lessons", Color.Gray),
 )
 
 private val tomorrowTasks = listOf(
     Pair("Book holidays", Color.Gray),
-    Pair("Water plants", Color.Green)
+    Pair("Water plants", Color.Green),
 )
 
 private val laterTasks = listOf(
     Pair("Hang paintings", Color.Gray),
     Pair("Call mom", Color.Blue),
-    Pair("Buy new runners", Color.Blue)
+    Pair("Buy new runners", Color.Blue),
 )
 
 @Composable
 fun SectionedListExpandableScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState,
 ) {
     var todaySectionExpanded by rememberSaveable { mutableStateOf(true) }
     var tomorrowSectionExpanded by rememberSaveable { mutableStateOf(true) }
@@ -85,13 +85,13 @@ fun SectionedListExpandableScreen(
 
     SectionedList(
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier,
     ) {
         section {
             loaded {
                 Title(
                     stringResource(R.string.sectionedlist_my_tasks),
-                    Modifier.padding(vertical = 8.dp)
+                    Modifier.padding(vertical = 8.dp),
                 )
             }
         }
@@ -100,14 +100,14 @@ fun SectionedListExpandableScreen(
             titleId = R.string.sectionedlist_today,
             state = todaySectionState,
             expanded = todaySectionExpanded,
-            onHeaderClick = { todaySectionExpanded = !todaySectionExpanded }
+            onHeaderClick = { todaySectionExpanded = !todaySectionExpanded },
         )
 
         taskSection(
             titleId = R.string.sectionedlist_tomorrow,
             state = tomorrowSectionState,
             expanded = tomorrowSectionExpanded,
-            onHeaderClick = { tomorrowSectionExpanded = !tomorrowSectionExpanded }
+            onHeaderClick = { tomorrowSectionExpanded = !tomorrowSectionExpanded },
         )
 
         taskSection(
@@ -118,9 +118,9 @@ fun SectionedListExpandableScreen(
             footerContent = {
                 Chip(
                     label = stringResource(R.string.sectionedlist_more_tasks),
-                    onClick = { }
+                    onClick = { },
                 )
-            }
+            },
         )
     }
 }
@@ -136,14 +136,14 @@ private fun SectionedListScope.taskSection(
     state: Section.State<Pair<String, Color>>,
     expanded: Boolean,
     onHeaderClick: () -> Unit,
-    footerContent: @Composable (SectionContentScope.() -> Unit)? = null
+    footerContent: @Composable (SectionContentScope.() -> Unit)? = null,
 ) {
     section(state = state) {
         header {
             SectionHeader(
                 text = stringResource(titleId),
                 expanded = expanded,
-                onClick = onHeaderClick
+                onClick = onHeaderClick,
             )
         }
 
@@ -158,10 +158,10 @@ private fun SectionedListScope.taskSection(
                         modifier = Modifier
                             .size(ChipDefaults.LargeIconSize)
                             .clip(CircleShape),
-                        tint = iconTint
+                        tint = iconTint,
                     )
                 },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
 
@@ -177,13 +177,13 @@ private fun SectionedListScope.taskSection(
 private fun SectionHeader(
     text: String,
     expanded: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
         modifier = Modifier
             .height(48.dp)
             .clickable { onClick() },
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = if (expanded) {
@@ -191,7 +191,7 @@ private fun SectionHeader(
             } else {
                 Icons.Default.ExpandMore
             },
-            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
         )
 
         Text(text = text)

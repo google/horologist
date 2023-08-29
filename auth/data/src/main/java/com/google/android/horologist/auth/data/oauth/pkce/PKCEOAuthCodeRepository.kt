@@ -24,6 +24,6 @@ public interface PKCEOAuthCodeRepository<PKCEConfig, OAuthCodePayload> {
 
     public suspend fun fetch(
         config: PKCEConfig,
-        codeVerifier: CodeVerifier
+        codeVerifier: CodeVerifier,
     ): Result<OAuthCodePayload>
 }

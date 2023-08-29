@@ -51,7 +51,7 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
 @Composable
 public fun SignInPlaceholderScreen(
     modifier: Modifier = Modifier,
-    message: String = stringResource(id = R.string.horologist_signin_placeholder_message)
+    message: String = stringResource(id = R.string.horologist_signin_placeholder_message),
 ) {
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
@@ -63,15 +63,15 @@ public fun SignInPlaceholderScreen(
             .padding(horizontal = horizontalPadding)
             .padding(bottom = bottomPadding),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
             modifier = Modifier
                 .size(60.dp)
                 .background(
                     color = Color(AVATAR_BACKGROUND_COLOR),
-                    shape = CircleShape
-                )
+                    shape = CircleShape,
+                ),
         )
 
         Text(
@@ -82,7 +82,7 @@ public fun SignInPlaceholderScreen(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = MaterialTheme.typography.title3
+            style = MaterialTheme.typography.title3,
         )
     }
 }

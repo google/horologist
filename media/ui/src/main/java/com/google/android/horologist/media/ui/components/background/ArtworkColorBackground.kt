@@ -51,16 +51,16 @@ public fun ArtworkColorBackground(
     artworkUri: Any?,
     modifier: Modifier = Modifier,
     defaultColor: Color? = null,
-    background: Color = MaterialTheme.colors.background
+    background: Color = MaterialTheme.colors.background,
 ) {
     val artworkColor = rememberArtworkColor(
         artworkUri = artworkUri,
-        defaultColor = defaultColor ?: Color.Black
+        defaultColor = defaultColor ?: Color.Black,
     )
 
     val radialGradiant = rememberArtworkColorBrush(
         artworkColor = artworkColor.value,
-        background = background
+        background = background,
     )
 
     Canvas(modifier = modifier) {
@@ -72,12 +72,12 @@ public fun ArtworkColorBackground(
 @ExperimentalHorologistApi
 public fun rememberArtworkColorBrush(
     artworkColor: Color,
-    background: Color = Color.Black
+    background: Color = Color.Black,
 ): State<Brush> {
     val animatedBackgroundColor = animateColorAsState(
         targetValue = artworkColor,
         animationSpec = tween(450, 0, LinearEasing),
-        label = "ColorBackground"
+        label = "ColorBackground",
     )
 
     return remember {
@@ -85,8 +85,8 @@ public fun rememberArtworkColorBrush(
             Brush.radialGradient(
                 listOf(
                     animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
-                    background
-                )
+                    background,
+                ),
             )
         }
     }
@@ -96,7 +96,7 @@ public fun rememberArtworkColorBrush(
 @ExperimentalHorologistApi
 public fun rememberArtworkColor(
     artworkUri: Any?,
-    defaultColor: Color = MaterialTheme.colors.primary
+    defaultColor: Color = MaterialTheme.colors.primary,
 ): State<Color> {
     val context = LocalContext.current
     val imageLoader = context.imageLoader
@@ -126,12 +126,12 @@ public fun rememberArtworkColor(
 public fun ColorBackground(
     color: Color?,
     modifier: Modifier = Modifier,
-    background: Color = MaterialTheme.colors.background
+    background: Color = MaterialTheme.colors.background,
 ) {
     val animatedBackgroundColor = animateColorAsState(
         targetValue = color ?: Color.Black,
         animationSpec = tween(450, 0, LinearEasing),
-        label = "ColorBackground"
+        label = "ColorBackground",
     )
 
     Box(
@@ -143,10 +143,10 @@ public fun ColorBackground(
                         animatedBackgroundColor.value
                             .copy(alpha = 0.3f)
                             .compositeOver(background),
-                        background
-                    )
-                )
-            )
+                        background,
+                    ),
+                ),
+            ),
     )
 }
 

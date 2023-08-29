@@ -27,12 +27,12 @@ import kotlinx.coroutines.CoroutineScope
 
 class UampMediaLibrarySessionCallback(
     serviceScope: CoroutineScope,
-    appEventLogger: ErrorReporter
+    appEventLogger: ErrorReporter,
 ) : SuspendingMediaLibrarySessionCallback(serviceScope, appEventLogger) {
     override suspend fun onGetLibraryRootInternal(
         session: MediaLibraryService.MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
-        params: MediaLibraryService.LibraryParams?
+        params: MediaLibraryService.LibraryParams?,
     ): LibraryResult<MediaItem> {
         // TODO implement
         return LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
@@ -41,7 +41,7 @@ class UampMediaLibrarySessionCallback(
     override suspend fun onGetItemInternal(
         session: MediaLibraryService.MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
-        mediaId: String
+        mediaId: String,
     ): LibraryResult<MediaItem> {
         // TODO implement
         return LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
@@ -53,7 +53,7 @@ class UampMediaLibrarySessionCallback(
         parentId: String,
         page: Int,
         pageSize: Int,
-        params: MediaLibraryService.LibraryParams?
+        params: MediaLibraryService.LibraryParams?,
     ): LibraryResult<ImmutableList<MediaItem>> {
         // TODO implement
         return LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)

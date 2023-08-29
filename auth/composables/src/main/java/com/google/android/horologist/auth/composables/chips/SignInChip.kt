@@ -39,7 +39,7 @@ public fun SignInChip(
     modifier: Modifier = Modifier,
     label: String = stringResource(id = R.string.horologist_sign_in_chip_label),
     colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Chip(
         label = label,
@@ -47,6 +47,6 @@ public fun SignInChip(
         modifier = modifier,
         icon = Icons.Default.AccountCircle,
         colors = colors,
-        enabled = enabled
+        enabled = enabled,
     )
 }

@@ -33,7 +33,7 @@ class RotaryInputAccumulatorTest {
             eventAccumulationThresholdMs = accumulationThreshold,
             minValueChangeDistancePx = minChangePx,
             rateLimitCoolDownMs = RotaryInputConfigDefaults.RATE_LIMITING_DISABLED,
-            isLowRes = false
+            isLowRes = false,
         ) {
             latestValue.set(it)
             valueChangedTimes.incrementAndGet()
@@ -44,7 +44,7 @@ class RotaryInputAccumulatorTest {
             eventAccumulationThresholdMs = accumulationThreshold,
             minValueChangeDistancePx = minChangePx,
             rateLimitCoolDownMs = RotaryInputConfigDefaults.RATE_LIMITING_DISABLED,
-            isLowRes = true
+            isLowRes = true,
         ) {
             latestValue.set(it) // should be either 1 or -1
             valueChangedTimes.incrementAndGet()
@@ -66,7 +66,7 @@ class RotaryInputAccumulatorTest {
     fun highRes_onRotaryScroll_whenAccumulatedValueAboveMinimum_notifyChange() {
         highResRotaryInputAccumulator.onRotaryScroll(
             minChangePx,
-            eventTimeMillis = 0L
+            eventTimeMillis = 0L,
         )
         verifyOnValueChange(timesCalled = 1, minChangePx)
     }
@@ -90,15 +90,15 @@ class RotaryInputAccumulatorTest {
 
         highResRotaryInputAccumulator.onRotaryScroll(
             scrollPixels,
-            0L
+            0L,
         )
         highResRotaryInputAccumulator.onRotaryScroll(
             scrollPixels,
-            accumulationThreshold + 1
+            accumulationThreshold + 1,
         )
         highResRotaryInputAccumulator.onRotaryScroll(
             scrollPixels,
-            accumulationThreshold + 2
+            accumulationThreshold + 2,
         )
 
         verifyOnValueChange(timesCalled = 1, minChangePx)
@@ -114,7 +114,7 @@ class RotaryInputAccumulatorTest {
                 eventAccumulationThresholdMs = 200L,
                 minValueChangeDistancePx = scrollPixels,
                 rateLimitCoolDownMs = rateLimitCoolDownMs,
-                isLowRes = false
+                isLowRes = false,
             ) {
                 latestValue.set(it)
                 valueChangedTimes.incrementAndGet()
@@ -123,7 +123,7 @@ class RotaryInputAccumulatorTest {
         coolDownRotaryInputAccumulator.onRotaryScroll(scrollPixels, firstEventTime)
         coolDownRotaryInputAccumulator.onRotaryScroll(
             scrollPixels,
-            firstEventTime + rateLimitCoolDownMs - 1
+            firstEventTime + rateLimitCoolDownMs - 1,
         )
 
         verifyOnValueChange(timesCalled = 1, 10f)
@@ -139,7 +139,7 @@ class RotaryInputAccumulatorTest {
                 eventAccumulationThresholdMs = 200L,
                 minValueChangeDistancePx = scrollPixels,
                 rateLimitCoolDownMs = rateLimitCoolDownMs,
-                isLowRes = false
+                isLowRes = false,
             ) {
                 latestValue.set(it)
                 valueChangedTimes.incrementAndGet()
@@ -148,13 +148,13 @@ class RotaryInputAccumulatorTest {
         coolDownRotaryInputAccumulator.onRotaryScroll(scrollPixels, firstEventTime)
         coolDownRotaryInputAccumulator.onRotaryScroll(
             scrollPixels,
-            firstEventTime + rateLimitCoolDownMs - 1
+            firstEventTime + rateLimitCoolDownMs - 1,
         )
         verifyOnValueChange(timesCalled = 1, scrollPixels)
 
         coolDownRotaryInputAccumulator.onRotaryScroll(
             scrollPixels,
-            firstEventTime + rateLimitCoolDownMs
+            firstEventTime + rateLimitCoolDownMs,
         )
         verifyOnValueChange(timesCalled = 2, scrollPixels * 2)
     }

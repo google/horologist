@@ -65,7 +65,7 @@ public fun VolumeScreen(
     volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),
     showVolumeIndicator: Boolean = true,
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
-    decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() }
+    decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
 ) {
     val volumeUiState by volumeViewModel.volumeUiState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
@@ -76,7 +76,7 @@ public fun VolumeScreen(
                 volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
                 onRotaryVolumeInput = { newVolume -> volumeViewModel.setVolume(newVolume) },
                 localView = LocalView.current,
-                isLowRes = isLowResInput()
+                isLowRes = isLowResInput(),
             ),
         volume = { volumeUiState },
         audioOutputUi = audioOutput.toAudioOutputUi(),
@@ -85,7 +85,7 @@ public fun VolumeScreen(
         onAudioOutputClick = { volumeViewModel.launchOutputSelection() },
         showVolumeIndicator = showVolumeIndicator,
         increaseIcon = increaseIcon,
-        decreaseIcon = decreaseIcon
+        decreaseIcon = decreaseIcon,
     )
 }
 
@@ -102,7 +102,7 @@ public fun VolumeScreen(
     modifier: Modifier = Modifier,
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
-    showVolumeIndicator: Boolean = true
+    showVolumeIndicator: Boolean = true,
 ) {
     VolumeScreen(
         volume = volume,
@@ -116,10 +116,10 @@ public fun VolumeScreen(
                     Icon(
                         imageVector = audioOutputUi.imageVector,
                         contentDescription = audioOutputUi.displayName,
-                        tint = MaterialTheme.colors.onSurfaceVariant
+                        tint = MaterialTheme.colors.onSurfaceVariant,
                     )
                 },
-                onAudioOutputClick = onAudioOutputClick
+                onAudioOutputClick = onAudioOutputClick,
             )
         },
         increaseVolume = increaseVolume,
@@ -127,7 +127,7 @@ public fun VolumeScreen(
         modifier = modifier,
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon,
-        showVolumeIndicator = showVolumeIndicator
+        showVolumeIndicator = showVolumeIndicator,
     )
 }
 
@@ -142,7 +142,7 @@ public fun VolumeWithLabelScreen(
     modifier: Modifier = Modifier,
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
-    showVolumeIndicator: Boolean = true
+    showVolumeIndicator: Boolean = true,
 ) {
     VolumeScreen(
         volume = volume,
@@ -151,7 +151,7 @@ public fun VolumeWithLabelScreen(
                 stringResource(id = R.string.horologist_volume_screen_volume_label),
                 style = MaterialTheme.typography.button,
                 maxLines = 1,
-                overflow = TextOverflow.Clip
+                overflow = TextOverflow.Clip,
             )
         },
         increaseVolume = increaseVolume,
@@ -159,7 +159,7 @@ public fun VolumeWithLabelScreen(
         modifier = modifier,
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon,
-        showVolumeIndicator = showVolumeIndicator
+        showVolumeIndicator = showVolumeIndicator,
     )
 }
 
@@ -172,7 +172,7 @@ internal fun VolumeScreen(
     modifier: Modifier = Modifier,
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
-    showVolumeIndicator: Boolean = true
+    showVolumeIndicator: Boolean = true,
 ) {
     Box(modifier = modifier.fillMaxSize())
     val volumeState = volume()
@@ -186,13 +186,13 @@ internal fun VolumeScreen(
         },
         decreaseIcon = {
             decreaseIcon()
-        }
+        },
     ) {
         contentSlot()
     }
     if (showVolumeIndicator) {
         VolumePositionIndicator(
-            volumeUiState = { volume() }
+            volumeUiState = { volume() },
         )
     }
 }
@@ -204,7 +204,7 @@ public object VolumeScreenDefaults {
             modifier = Modifier.size(26.dp),
             imageVector = Icons.Outlined.VolumeUp,
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description),
-            rtlMode = IconRtlMode.Mirrored
+            rtlMode = IconRtlMode.Mirrored,
         )
     }
 
@@ -214,7 +214,7 @@ public object VolumeScreenDefaults {
             modifier = Modifier.size(26.dp),
             imageVector = Icons.Outlined.VolumeDown,
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description),
-            rtlMode = IconRtlMode.Mirrored
+            rtlMode = IconRtlMode.Mirrored,
         )
     }
 }

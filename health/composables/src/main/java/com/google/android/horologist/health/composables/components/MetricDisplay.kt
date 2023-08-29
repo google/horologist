@@ -35,7 +35,7 @@ import com.google.android.horologist.health.composables.model.MetricUiModel
 @Composable
 public fun MetricDisplay(
     metric: MetricUiModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier) {
         val style = MaterialTheme.typography.display3
@@ -49,14 +49,14 @@ public fun MetricDisplay(
             fontSize = fontSize,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = style
+            style = style,
         )
 
         if (!metric.topRightText.isNullOrEmpty() || !metric.bottomRightText.isNullOrEmpty()) {
             Column(
                 modifier = Modifier
                     .padding(start = 4.dp)
-                    .alignBy(LastBaseline)
+                    .alignBy(LastBaseline),
             ) {
                 metric.topRightText?.let {
                     Text(
@@ -64,7 +64,7 @@ public fun MetricDisplay(
                         color = metric.color,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
-                        style = MaterialTheme.typography.body2
+                        style = MaterialTheme.typography.body2,
                     )
                 }
                 Text(
@@ -72,7 +72,7 @@ public fun MetricDisplay(
                     color = metric.color,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    style = MaterialTheme.typography.body2
+                    style = MaterialTheme.typography.body2,
                 )
             }
         }

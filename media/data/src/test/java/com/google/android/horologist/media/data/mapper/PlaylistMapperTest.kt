@@ -50,7 +50,7 @@ class PlaylistMapperTest {
             PlaylistEntity(
                 playlistId = playlistId,
                 name = playlistName,
-                artworkUri = playlistArtworkUri
+                artworkUri = playlistArtworkUri,
             ),
             listOf(
                 MediaEntity(
@@ -58,9 +58,9 @@ class PlaylistMapperTest {
                     mediaUrl = mediaUrl,
                     artworkUrl = artworkUrl,
                     title = title,
-                    artist = artist
-                )
-            )
+                    artist = artist,
+                ),
+            ),
         )
 
         // then
@@ -78,10 +78,10 @@ class PlaylistMapperTest {
                         uri = mediaUrl,
                         title = title,
                         artist = artist,
-                        artworkUri = artworkUrl
-                    )
-                )
-            )
+                        artworkUri = artworkUrl,
+                    ),
+                ),
+            ),
         )
     }
 }

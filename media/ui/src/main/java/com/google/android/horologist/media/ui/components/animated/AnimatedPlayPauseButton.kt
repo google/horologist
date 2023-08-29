@@ -90,7 +90,7 @@ public fun AnimatedPlayPauseButton(
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
-    progress: @Composable () -> Unit = {}
+    progress: @Composable () -> Unit = {},
 ) {
     if (LocalStaticPreview.current) {
         PlayPauseButton(
@@ -103,13 +103,13 @@ public fun AnimatedPlayPauseButton(
             iconSize = iconSize,
             tapTargetSize = tapTargetSize,
             progress = progress,
-            backgroundColor = backgroundColor
+            backgroundColor = backgroundColor,
         )
     } else {
         val compositionResult = rememberLottieComposition(
             spec = LottieCompositionSpec.Asset(
-                "lottie/PlayPause.json"
-            )
+                "lottie/PlayPause.json",
+            ),
         )
         val lottieProgress =
             animateLottieProgressAsState(playing = playing, composition = compositionResult.value)
@@ -119,7 +119,7 @@ public fun AnimatedPlayPauseButton(
                 .fillMaxSize()
                 .clip(CircleShape)
                 .background(backgroundColor),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             progress()
             val pauseContentDescription =
@@ -139,7 +139,7 @@ public fun AnimatedPlayPauseButton(
                         }
                     },
                 enabled = enabled,
-                colors = colors
+                colors = colors,
             ) {
                 val contentModifier = Modifier
                     .size(iconSize)
@@ -151,7 +151,7 @@ public fun AnimatedPlayPauseButton(
                     progress = { lottieProgress.value },
                     placeholder = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
                     contentDescription = if (playing) pauseContentDescription else playContentDescription,
-                    modifier = contentModifier
+                    modifier = contentModifier,
                 )
             }
         }
@@ -161,7 +161,7 @@ public fun AnimatedPlayPauseButton(
 @Composable
 private fun animateLottieProgressAsState(
     playing: Boolean,
-    composition: LottieComposition?
+    composition: LottieComposition?,
 ): State<Float> {
     val lottieProgress = rememberLottieAnimatable()
     var firstTime by remember { mutableStateOf(true) }
@@ -203,12 +203,12 @@ public fun AnimatedPlayPauseProgressButton(
     progressColor: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
-    rotateProgressIndicator: Flow<Unit> = flowOf()
+    rotateProgressIndicator: Flow<Unit> = flowOf(),
 ) {
     val animatedProgressColor = animateColorAsState(
         targetValue = progressColor,
         animationSpec = tween(450, 0, LinearEasing),
-        "Progress Colour"
+        "Progress Colour",
     )
 
     AnimatedPlayPauseButton(
@@ -220,14 +220,14 @@ public fun AnimatedPlayPauseProgressButton(
         colors = colors,
         iconSize = iconSize,
         tapTargetSize = tapTargetSize,
-        backgroundColor = backgroundColor
+        backgroundColor = backgroundColor,
     ) {
         if (trackPositionUiModel.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.fillMaxSize(),
                 indicatorColor = animatedProgressColor.value,
                 trackColor = trackColor,
-                strokeWidth = progressStrokeWidth
+                strokeWidth = progressStrokeWidth,
             )
         } else if (trackPositionUiModel.showProgress) {
             val progress = ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
@@ -240,7 +240,7 @@ public fun AnimatedPlayPauseProgressButton(
                 indicatorColor = animatedProgressColor.value,
                 trackColor = trackColor,
                 strokeWidth = progressStrokeWidth,
-                tapTargetSize = tapTargetSize
+                tapTargetSize = tapTargetSize,
             )
         }
     }
@@ -254,7 +254,7 @@ private fun animateChangeAsRotation(rotateProgressIndicator: Flow<Unit>): Float 
     val animatedProgressIndicatorRotation by animateFloatAsState(
         targetValue = progressIndicatorRotation,
         animationSpec = PLAYBACK_PROGRESS_ANIMATION_SPEC,
-        label = "Progress Indicator Rotation"
+        label = "Progress Indicator Rotation",
     )
     return animatedProgressIndicatorRotation
 }
@@ -269,7 +269,7 @@ private fun CircularProgressIndicatorFast(
     indicatorColor: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f),
     strokeWidth: Dp = ProgressIndicatorDefaults.StrokeWidth,
-    tapTargetSize: DpSize
+    tapTargetSize: DpSize,
 ) {
     val progressSteps = with(LocalDensity.current) {
         (tapTargetSize.width.toPx() * Math.PI).roundToInt()
@@ -278,7 +278,7 @@ private fun CircularProgressIndicatorFast(
         derivedStateOf {
             roundProgress(
                 progress = progress.value,
-                progressSteps = progressSteps
+                progressSteps = progressSteps,
             )
         }
     }
@@ -286,7 +286,7 @@ private fun CircularProgressIndicatorFast(
         derivedStateOf {
             roundProgress(
                 progress = progress.value,
-                progressSteps = 100
+                progressSteps = 100,
             )
         }
     }
@@ -298,7 +298,7 @@ private fun CircularProgressIndicatorFast(
     Canvas(
         modifier
             .progressSemantics(semanticsProgress)
-            .focusable()
+            .focusable(),
     ) {
         val backgroundSweep = 360f - ((startAngle - endAngle) % 360 + 360) % 360
         val progressSweep = backgroundSweep * truncatedProgress
@@ -307,7 +307,7 @@ private fun CircularProgressIndicatorFast(
             startAngle,
             backgroundSweep,
             trackColor,
-            stroke
+            stroke,
         )
 
         // Draw a progress
@@ -315,7 +315,7 @@ private fun CircularProgressIndicatorFast(
             startAngle,
             progressSweep,
             indicatorColor,
-            stroke
+            stroke,
         )
     }
 }
@@ -325,7 +325,7 @@ private fun roundProgress(progress: Float, progressSteps: Int) = if (progress ==
 } else {
     (
         floor(
-            progress * progressSteps
+            progress * progressSteps,
         ) / progressSteps
         ).coerceIn(0.001f..1f)
 }
@@ -334,7 +334,7 @@ private fun DrawScope.drawCircularIndicator(
     startAngle: Float,
     sweep: Float,
     color: Color,
-    stroke: Stroke
+    stroke: Stroke,
 ) {
     // To draw this circle we need a rect with edges that line up with the midpoint of the stroke.
     // To do this we need to remove half the stroke width from the total diameter for both sides.
@@ -348,9 +348,9 @@ private fun DrawScope.drawCircularIndicator(
         useCenter = false,
         topLeft = Offset(
             diameterOffset + (size.width - diameter) / 2,
-            diameterOffset + (size.height - diameter) / 2
+            diameterOffset + (size.height - diameter) / 2,
         ),
         size = Size(arcDimen, arcDimen),
-        style = stroke
+        style = stroke,
     )
 }

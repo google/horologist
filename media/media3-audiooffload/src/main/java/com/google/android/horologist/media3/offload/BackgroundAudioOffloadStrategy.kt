@@ -40,7 +40,7 @@ public object BackgroundAudioOffloadStrategy : AudioOffloadStrategy {
 
     override fun applyIndefinitely(
         exoPlayer: ExoPlayer,
-        errorReporter: ErrorReporter
+        errorReporter: ErrorReporter,
     ): Flow<String> = callbackFlow {
         // Disabled when at least one activity is foregrounded
         val lifecycleOwner = ProcessLifecycleOwner.get()

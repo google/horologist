@@ -23,14 +23,14 @@ import kotlin.time.Duration
 public data class PlaybackStateEvent(
     public val playbackState: PlaybackState,
     public val cause: Cause,
-    public val timestamp: Duration? = null
+    public val timestamp: Duration? = null,
 ) {
     public enum class Cause {
         Initial,
         PlayerStateChanged,
         ParametersChanged,
         PositionDiscontinuity,
-        Other
+        Other,
     }
 
     public fun createPositionPredictor(): PositionPredictor? {
@@ -42,14 +42,14 @@ public data class PlaybackStateEvent(
                 eventTimestamp = timestamp.inWholeMilliseconds,
                 durationMs = playbackState.duration.inWholeMilliseconds,
                 currentPositionMs = playbackState.currentPosition.inWholeMilliseconds,
-                positionSpeed = playbackState.playbackSpeed
+                positionSpeed = playbackState.playbackSpeed,
             )
         } else {
             MediaPositionPredictor(
                 eventTimestamp = timestamp.inWholeMilliseconds,
                 durationMs = playbackState.duration.inWholeMilliseconds,
                 currentPositionMs = playbackState.currentPosition.inWholeMilliseconds,
-                positionSpeed = playbackState.playbackSpeed
+                positionSpeed = playbackState.playbackSpeed,
             )
         }
     }
@@ -58,7 +58,7 @@ public data class PlaybackStateEvent(
         public val INITIAL: PlaybackStateEvent = PlaybackStateEvent(
             playbackState = PlaybackState.IDLE,
             cause = Cause.Initial,
-            timestamp = null
+            timestamp = null,
         )
     }
 }

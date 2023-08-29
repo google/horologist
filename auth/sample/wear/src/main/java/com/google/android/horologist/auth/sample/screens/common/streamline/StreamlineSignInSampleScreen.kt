@@ -47,7 +47,7 @@ fun StreamlineSignInSampleScreen(
     navController: NavHostController,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: StreamlineSignInDefaultViewModel = viewModel(factory = StreamlineSignInSampleViewModelFactory)
+    viewModel: StreamlineSignInDefaultViewModel = viewModel(factory = StreamlineSignInSampleViewModelFactory),
 ) {
     var showNoAccountsAvailableDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -55,28 +55,28 @@ fun StreamlineSignInSampleScreen(
         onSignedInConfirmationDialogDismissOrTimeout = { navController.popBackStack() },
         onNoAccountsAvailable = { showNoAccountsAvailableDialog = true },
         columnState = columnState,
-        viewModel = viewModel
+        viewModel = viewModel,
     ) {
         Box(
             modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Icon(
                 modifier = Modifier.size(48.dp),
                 imageVector = Icons.Default.Android,
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
             )
         }
     }
 
     if (showNoAccountsAvailableDialog) {
         Confirmation(
-            onTimeout = navController::popBackStack
+            onTimeout = navController::popBackStack,
         ) {
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.common_screens_streamline_no_accounts_message)
+                text = stringResource(id = R.string.common_screens_streamline_no_accounts_message),
             )
         }
     }

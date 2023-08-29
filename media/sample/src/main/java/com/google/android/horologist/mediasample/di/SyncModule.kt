@@ -47,7 +47,7 @@ object SyncModule {
     @Singleton
     @Provides
     fun coroutineDispatcherProvider(
-        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
     ): CoroutineDispatcherProvider =
         object : CoroutineDispatcherProvider {
             override fun getIODispatcher(): CoroutineDispatcher = ioDispatcher
@@ -56,7 +56,7 @@ object SyncModule {
     @Singleton
     @Provides
     fun notificationConfigurationProvider(
-        @ApplicationContext application: Context
+        @ApplicationContext application: Context,
     ): NotificationConfigurationProvider =
         object : NotificationConfigurationProvider {
 
@@ -91,9 +91,9 @@ object SyncModule {
     @Singleton
     @Provides
     fun syncables(
-        playlistRepositorySyncable: PlaylistRepositorySyncable
+        playlistRepositorySyncable: PlaylistRepositorySyncable,
     ): Array<Syncable> = arrayOf(
-        playlistRepositorySyncable
+        playlistRepositorySyncable,
     )
 
     @Provides
@@ -102,13 +102,13 @@ object SyncModule {
         playlistRemoteDataSource: PlaylistRemoteDataSource,
         networkChangeListService: NetworkChangeListService,
         mediaLocalDataSource: MediaLocalDataSource,
-        playlistMapper: PlaylistMapper
+        playlistMapper: PlaylistMapper,
     ): PlaylistRepositorySyncable =
         PlaylistRepositorySyncable(
             playlistLocalDataSource,
             playlistRemoteDataSource,
             networkChangeListService,
             mediaLocalDataSource,
-            playlistMapper
+            playlistMapper,
         )
 }

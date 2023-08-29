@@ -27,7 +27,7 @@ class TimePickerA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
         enableA11y = true
-    }
+    },
 ) {
 
     @Test
@@ -35,7 +35,7 @@ class TimePickerA11yTest : ScreenshotBaseTest(
         screenshotTestRule.setContent {
             TimePicker(
                 time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {}
+                onTimeConfirm = {},
             )
         }
 

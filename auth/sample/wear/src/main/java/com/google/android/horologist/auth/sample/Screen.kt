@@ -17,7 +17,7 @@
 package com.google.android.horologist.auth.sample
 
 sealed class Screen(
-    val route: String
+    val route: String,
 ) {
     object MainScreen : Screen("mainScreen")
 

@@ -36,7 +36,7 @@ fun MediaStatusTemplatePreview() {
             R.drawable.ic_baseline_queue_music_24,
             icon = Icon.createWithResource(
                 context,
-                R.drawable.ic_baseline_queue_music_24
+                R.drawable.ic_baseline_queue_music_24,
             ).apply {
                 setTint(Color.RED)
             },
@@ -44,7 +44,7 @@ fun MediaStatusTemplatePreview() {
             launchIntent = null,
             title = "Now, that's what I call Hits 24",
             text = "Now 24",
-            contentDescription = null
-        )
+            contentDescription = null,
+        ),
     )
 }

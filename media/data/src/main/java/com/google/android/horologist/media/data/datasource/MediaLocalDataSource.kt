@@ -33,7 +33,7 @@ public class MediaLocalDataSource(
     private val roomDatabase: RoomDatabase,
     private val mediaDao: MediaDao,
     private val playlistMediaDao: PlaylistMediaDao,
-    private val mediaDownloadDao: MediaDownloadDao
+    private val mediaDownloadDao: MediaDownloadDao,
 ) {
 
     public suspend fun upsert(mediaList: List<Media>): Unit =

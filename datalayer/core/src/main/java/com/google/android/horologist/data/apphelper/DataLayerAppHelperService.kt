@@ -112,7 +112,7 @@ public abstract class DataLayerAppHelperService : WearableListenerService() {
             PowerManager.FULL_WAKE_LOCK
                 or PowerManager.ACQUIRE_CAUSES_WAKEUP
                 or PowerManager.ON_AFTER_RELEASE,
-            wakeLockTag
+            wakeLockTag,
         )
 
         // Wakelock timeout should not be required as it is being immediately released but

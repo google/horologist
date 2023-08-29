@@ -49,11 +49,11 @@ class PlaybackErrorTest : BasePlaybackTest() {
                 "milkjawn",
                 "milkjawn",
                 "Milk Jawn",
-                "https://cdn.player.fm/images/14416069/series/stoRUvKcFOzInZ1X/512.jpg"
+                "https://cdn.player.fm/images/14416069/series/stoRUvKcFOzInZ1X/512.jpg",
             )
 
             browser.setMediaItem(
-                mediaItemMapper.map(badContent)
+                mediaItemMapper.map(badContent),
             )
             browser.prepare()
             browser.play()

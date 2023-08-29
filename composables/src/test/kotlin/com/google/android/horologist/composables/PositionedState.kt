@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun positionedState(
     topIndex: Int = 0,
-    topScrollOffset: Int? = null
+    topScrollOffset: Int? = null,
 ): ScalingLazyColumnState {
     val configuration = LocalConfiguration.current
     val density = LocalDensity.current

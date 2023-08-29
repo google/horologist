@@ -42,7 +42,7 @@ import java.util.concurrent.ConcurrentHashMap
 @ExperimentalHorologistApi
 public class NetworkRepositoryImpl(
     private val connectivityManager: ConnectivityManager,
-    private val coroutineScope: CoroutineScope
+    private val coroutineScope: CoroutineScope,
 ) : NetworkRepository {
     private val networks = ConcurrentHashMap<String, Network>()
     private val networkBuilders = ConcurrentHashMap<String, NetworkStatusBuilder>()
@@ -85,7 +85,7 @@ public class NetworkRepositoryImpl(
 
         override fun onCapabilitiesChanged(
             network: Network,
-            networkCapabilities: NetworkCapabilities
+            networkCapabilities: NetworkCapabilities,
         ) {
             getOrBuild(network).apply {
                 this.networkCapabilities = networkCapabilities
@@ -95,7 +95,7 @@ public class NetworkRepositoryImpl(
 
         override fun onLinkPropertiesChanged(
             network: Network,
-            networkLinkProperties: LinkProperties
+            networkLinkProperties: LinkProperties,
         ) {
             getOrBuild(network).apply {
                 linkProperties = networkLinkProperties
@@ -148,7 +148,7 @@ public class NetworkRepositoryImpl(
 
     private fun getOrBuild(network: Network, status: Status? = null): NetworkStatusBuilder {
         return networkBuilders.getOrPut(
-            network.id
+            network.id,
         ) {
             NetworkStatusBuilder(network = network, id = network.toString())
         }.apply {
@@ -179,7 +179,7 @@ public class NetworkRepositoryImpl(
             if (priorityNetworkStatus != null) {
                 return Networks(
                     activeNetwork = priorityNetworkStatus,
-                    networks = allNetworks
+                    networks = allNetworks,
                 )
             }
         }
@@ -189,7 +189,7 @@ public class NetworkRepositoryImpl(
 
         return Networks(
             activeNetwork = activeNetwork,
-            networks = allNetworks
+            networks = allNetworks,
         )
     }
 
@@ -212,13 +212,13 @@ public class NetworkRepositoryImpl(
         @ExperimentalHorologistApi
         public fun fromContext(
             application: Context,
-            coroutineScope: CoroutineScope
+            coroutineScope: CoroutineScope,
         ): NetworkRepositoryImpl {
             val connectivityManager =
                 application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             return NetworkRepositoryImpl(
                 connectivityManager,
-                coroutineScope
+                coroutineScope,
             )
         }
     }

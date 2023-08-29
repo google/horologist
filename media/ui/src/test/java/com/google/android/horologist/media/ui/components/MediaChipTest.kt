@@ -34,7 +34,7 @@ class MediaChipTest : ScreenshotBaseTest() {
                 MediaChip(
                     title = "Red Hot Chilli Peppers",
                     artworkUri = R.drawable.horologist_logo,
-                    onClick = {}
+                    onClick = {},
                 )
             }
         }
@@ -47,7 +47,7 @@ class MediaChipTest : ScreenshotBaseTest() {
                 MediaChip(
                     title = "Red Hot Chilli Peppers",
                     artworkUri = null,
-                    onClick = {}
+                    onClick = {},
                 )
             }
         }
@@ -60,7 +60,7 @@ class MediaChipTest : ScreenshotBaseTest() {
                 MediaChip(
                     title = "Very very very very very very very very very very very long title",
                     artworkUri = R.drawable.horologist_logo,
-                    onClick = {}
+                    onClick = {},
                 )
             }
         }
@@ -74,10 +74,10 @@ class MediaChipTest : ScreenshotBaseTest() {
                     media = MediaUiModel(
                         id = "id",
                         title = "",
-                        artworkUri = FakeImageLoader.TestIconResourceUri
+                        artworkUri = FakeImageLoader.TestIconResourceUri,
                     ),
                     onClick = {},
-                    defaultTitle = "No title"
+                    defaultTitle = "No title",
                 )
             }
         }
@@ -91,11 +91,11 @@ class MediaChipTest : ScreenshotBaseTest() {
                     media = MediaUiModel(
                         id = "id",
                         title = "Red Hot Chilli Peppers",
-                        artworkUri = FakeImageLoader.TestIconResourceUri
+                        artworkUri = FakeImageLoader.TestIconResourceUri,
                     ),
                     onClick = {},
                     modifier = Modifier
-                        .height(120.dp)
+                        .height(120.dp),
                 )
             }
         }

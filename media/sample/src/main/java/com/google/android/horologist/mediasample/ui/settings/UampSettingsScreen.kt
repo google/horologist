@@ -50,14 +50,14 @@ fun UampSettingsScreen(
     columnState: ScalingLazyColumnState,
     viewModel: SettingsScreenViewModel,
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         columnState = columnState,
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         item {
             ListHeader {
@@ -70,13 +70,13 @@ fun UampSettingsScreen(
                     label = stringResource(id = R.string.login),
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { navController.navigateToGoogleSignIn() },
-                    enabled = !screenState.guestMode
+                    enabled = !screenState.guestMode,
                 )
             } else {
                 Chip(
                     label = stringResource(id = R.string.logout),
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { navController.navigateToGoogleSignOutScreen() }
+                    onClick = { navController.navigateToGoogleSignOutScreen() },
                 )
             }
         }
@@ -84,7 +84,7 @@ fun UampSettingsScreen(
             CheckedSetting(
                 screenState.guestMode,
                 stringResource(id = R.string.sample_guest_mode),
-                enabled = screenState.writable
+                enabled = screenState.writable,
             ) {
                 viewModel.setGuestMode(it)
             }
@@ -95,7 +95,7 @@ fun UampSettingsScreen(
                     text = stringResource(id = R.string.sample_developer_options),
                     icon = Icons.Default.DataObject,
                     colors = ChipDefaults.secondaryChipColors(),
-                    onClick = { navController.navigateToDeveloperOptions() }
+                    onClick = { navController.navigateToDeveloperOptions() },
                 )
             }
         }
@@ -109,7 +109,7 @@ fun ActionSetting(
     icon: ImageVector? = null,
     enabled: Boolean = true,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     val hasIcon = icon != null
     val labelParam: (@Composable RowScope.() -> Unit) =
@@ -119,7 +119,7 @@ fun ActionSetting(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = if (hasIcon) TextAlign.Left else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
-                maxLines = 2
+                maxLines = 2,
             )
         }
 
@@ -134,7 +134,7 @@ fun ActionSetting(
                 Icon(imageVector = icon, contentDescription = text)
             }
         },
-        contentPadding = ChipDefaults.ContentPadding
+        contentPadding = ChipDefaults.ContentPadding,
     )
 }
 
@@ -144,16 +144,20 @@ fun CheckedSetting(
     text: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    onCheckedChange: (Boolean) -> Unit
+    onCheckedChange: (Boolean) -> Unit,
 ) {
     ToggleChip(
         checked = value,
         toggleControl = {
             Icon(
                 imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
-                contentDescription = if (value) stringResource(id = R.string.on) else stringResource(
-                    id = R.string.off
-                )
+                contentDescription = if (value) {
+                    stringResource(id = R.string.on)
+                } else {
+                    stringResource(
+                        id = R.string.off,
+                    )
+                },
             )
         },
         enabled = enabled,
@@ -161,6 +165,6 @@ fun CheckedSetting(
         label = {
             Text(text)
         },
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
     )
 }

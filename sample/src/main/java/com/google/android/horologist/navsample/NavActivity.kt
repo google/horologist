@@ -35,7 +35,7 @@ class NavActivity : ComponentActivity() {
             navController = rememberSwipeDismissableNavController()
 
             NavWearApp(
-                navController = navController
+                navController = navController,
             )
         }
     }

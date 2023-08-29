@@ -42,7 +42,7 @@ class PlayPauseButtonTest {
                 onPlayClick = {},
                 onPauseClick = { clicked = true },
                 enabled = true,
-                playing = true
+                playing = true,
             )
         }
 
@@ -70,7 +70,7 @@ class PlayPauseButtonTest {
                 onPlayClick = { clicked = true },
                 onPauseClick = {},
                 enabled = true,
-                playing = false
+                playing = false,
             )
         }
 

@@ -75,6 +75,11 @@ module:datalayer-watch
 com.google.android.horologist.datalayer.watch
 module:health-composables
 com.google.android.horologist.health.composables
+com.google.android.horologist.health.composables.components
+com.google.android.horologist.health.composables.model
+com.google.android.horologist.health.composables.screens
+module:health-service
+com.google.android.horologist.health.service
 module:media-audio
 com.google.android.horologist.audio
 module:media-audio-ui

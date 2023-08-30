@@ -38,8 +38,8 @@ class CompactChipTest : ScreenshotBaseTest() {
     fun default() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CompactChip(
-                onClick = { },
                 label = "Primary label",
+                onClick = { },
             )
         }
     }
@@ -48,8 +48,8 @@ class CompactChipTest : ScreenshotBaseTest() {
     fun withIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CompactChip(
-                onClick = { },
                 label = "Primary label",
+                onClick = { },
                 icon = Icons.Filled.Add,
             )
         }
@@ -70,8 +70,8 @@ class CompactChipTest : ScreenshotBaseTest() {
     fun disabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CompactChip(
-                onClick = { },
                 label = "Primary label",
+                onClick = { },
                 icon = Icons.Filled.Add,
                 enabled = false,
             )
@@ -82,8 +82,8 @@ class CompactChipTest : ScreenshotBaseTest() {
     fun withLongText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CompactChip(
-                onClick = { },
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
+                onClick = { },
             )
         }
     }
@@ -91,10 +91,10 @@ class CompactChipTest : ScreenshotBaseTest() {
     @Test
     fun withLongTextAndLargestFontScale() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            TestHarness(fontScale = largestFontScale) {
+            TestHarness(fontScale = LARGEST_FONT_SCALE) {
                 CompactChip(
-                    onClick = { },
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
+                    onClick = { },
                 )
             }
         }
@@ -104,8 +104,8 @@ class CompactChipTest : ScreenshotBaseTest() {
     fun usingDrawableResAsIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CompactChip(
-                onClick = { },
                 label = "Primary label",
+                onClick = { },
                 icon = R.drawable.ic_delete,
             )
         }
@@ -120,8 +120,8 @@ class CompactChipTest : ScreenshotBaseTest() {
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
                 CompactChip(
-                    onClick = { },
                     label = "Primary label",
+                    onClick = { },
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Filled.Image,
@@ -142,8 +142,8 @@ class CompactChipTest : ScreenshotBaseTest() {
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
                 CompactChip(
-                    onClick = { },
                     label = "Primary label",
+                    onClick = { },
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Image,
@@ -160,8 +160,8 @@ class CompactChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 CompactChip(
-                    onClick = { },
                     label = "Primary label",
+                    onClick = { },
                     icon = Icons.Default.DirectionsBike,
                 )
             }
@@ -172,8 +172,8 @@ class CompactChipTest : ScreenshotBaseTest() {
     fun mirrored() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CompactChip(
-                onClick = { },
                 label = "Primary label",
+                onClick = { },
                 icon = Icons.Default.DirectionsBike,
                 iconRtlMode = IconRtlMode.Mirrored,
             )
@@ -185,8 +185,8 @@ class CompactChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 CompactChip(
-                    onClick = { },
                     label = "Primary label",
+                    onClick = { },
                     icon = Icons.Default.DirectionsBike,
                     iconRtlMode = IconRtlMode.Mirrored,
                 )
@@ -194,7 +194,21 @@ class CompactChipTest : ScreenshotBaseTest() {
         }
     }
 
+    @Test
+    fun usingDrawableResAsIconMirroredRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                CompactChip(
+                    label = "Primary label",
+                    onClick = { },
+                    icon = R.drawable.ic_media_play,
+                    iconRtlMode = IconRtlMode.Mirrored,
+                )
+            }
+        }
+    }
+
     companion object {
-        private const val largestFontScale = 1.18f
+        private const val LARGEST_FONT_SCALE = 1.24f
     }
 }

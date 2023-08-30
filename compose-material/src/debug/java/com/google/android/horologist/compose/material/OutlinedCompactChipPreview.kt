@@ -46,5 +46,6 @@ fun OutlinedCompactChipPreviewIconOnly() {
     OutlinedCompactChip(
         onClick = { },
         icon = Icons.Filled.Add,
+        contentDescription = "contentDescription",
     )
 }

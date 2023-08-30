@@ -25,8 +25,8 @@ import com.google.android.horologist.compose.tools.WearPreview
 @Composable
 fun CompactChipPreview() {
     CompactChip(
-        onClick = { },
         label = "Primary label",
+        onClick = { },
     )
 }
 
@@ -34,8 +34,8 @@ fun CompactChipPreview() {
 @Composable
 fun CompactChipPreviewWithIcon() {
     CompactChip(
-        onClick = { },
         label = "Primary label",
+        onClick = { },
         icon = Icons.Filled.Add,
     )
 }
@@ -46,6 +46,6 @@ fun CompactChipPreviewIconOnly() {
     CompactChip(
         onClick = { },
         icon = Icons.Filled.Add,
-        contentDescription = "Add Icon",
+        contentDescription = "contentDescription",
     )
 }

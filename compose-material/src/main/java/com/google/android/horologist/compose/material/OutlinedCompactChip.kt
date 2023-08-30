@@ -46,15 +46,14 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
 /**
  * This component is an alternative to [OutlinedCompactChip], providing the following:
  * - a convenient way of providing a label;
- * - a convenient way of providing an icon and a placeholder, and choosing their size based on the
- * sizes recommended by the Wear guidelines;
+ * - a convenient way of providing an icon and a placeholder;
  */
 @ExperimentalHorologistApi
 @Composable
 public fun OutlinedCompactChip(
+    label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    label: String? = null,
     icon: Any? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     placeholder: Painter? = null,
@@ -63,63 +62,14 @@ public fun OutlinedCompactChip(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     border: ChipBorder = ChipDefaults.outlinedChipBorder(),
 ) {
-    val iconParam: (@Composable BoxScope.() -> Unit)? =
-        icon?.let {
-            {
-                Row {
-                    val iconModifier = Modifier
-                        .size(ChipDefaults.SmallIconSize)
-                    when (icon) {
-                        is ImageVector ->
-                            Icon(
-                                imageVector = icon,
-                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier,
-                                rtlMode = iconRtlMode,
-                            )
-
-                        is Int ->
-                            Icon(
-                                id = icon,
-                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier,
-                            )
-
-                        else ->
-                            Image(
-                                painter = rememberAsyncImagePainter(
-                                    model = icon,
-                                    placeholder = placeholder,
-                                ),
-                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier,
-                                contentScale = ContentScale.Crop,
-                                alpha = LocalContentAlpha.current,
-                            )
-                    }
-                }
-            }
-        }
-    val hasIcon = icon != null
-
-    val labelParam: (@Composable RowScope.() -> Unit)? =
-        label?.let {
-            {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = label,
-                    textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                )
-            }
-        }
-
     OutlinedCompactChip(
-        modifier = modifier,
         onClick = onClick,
-        label = labelParam,
-        icon = iconParam,
+        modifier = modifier,
+        label = label,
+        icon = icon,
+        iconRtlMode = iconRtlMode,
+        placeholder = placeholder,
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource,
@@ -130,8 +80,7 @@ public fun OutlinedCompactChip(
 /**
  * This component is an alternative to [OutlinedCompactChip], providing the following:
  * - a convenient way of providing a string resource label;
- * - a convenient way of providing an icon and a placeholder, and choosing their size based on the
- * sizes recommended by the Wear guidelines;
+ * - a convenient way of providing an icon and a placeholder;
  */
 @ExperimentalHorologistApi
 @Composable
@@ -154,6 +103,117 @@ public fun OutlinedCompactChip(
         icon = icon,
         iconRtlMode = iconRtlMode,
         placeholder = placeholder,
+        colors = colors,
+        enabled = enabled,
+        interactionSource = interactionSource,
+        border = border,
+    )
+}
+
+/**
+ * This component is an alternative to [OutlinedCompactChip], providing the following:
+ * - a convenient way of providing a label;
+ * - a convenient way of providing an icon and a placeholder;
+ */
+@ExperimentalHorologistApi
+@Composable
+public fun OutlinedCompactChip(
+    icon: Any,
+    contentDescription: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
+    placeholder: Painter? = null,
+    colors: ChipColors = ChipDefaults.outlinedChipColors(),
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    border: ChipBorder = ChipDefaults.outlinedChipBorder(),
+) {
+    OutlinedCompactChip(
+        onClick = onClick,
+        modifier = modifier,
+        label = null,
+        icon = icon,
+        iconRtlMode = iconRtlMode,
+        placeholder = placeholder,
+        contentDescription = contentDescription,
+        colors = colors,
+        enabled = enabled,
+        interactionSource = interactionSource,
+        border = border,
+    )
+}
+
+@Composable
+internal fun OutlinedCompactChip(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    label: String? = null,
+    icon: Any? = null,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
+    placeholder: Painter? = null,
+    contentDescription: String? = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+    colors: ChipColors = ChipDefaults.outlinedChipColors(),
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    border: ChipBorder = ChipDefaults.outlinedChipBorder(),
+) {
+    val iconParam: (@Composable BoxScope.() -> Unit)? = icon?.let {
+        {
+            Row {
+                val iconModifier = Modifier.size(ChipDefaults.SmallIconSize)
+
+                when (icon) {
+                    is ImageVector ->
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = contentDescription,
+                            modifier = iconModifier,
+                            rtlMode = iconRtlMode,
+                        )
+
+                    is Int ->
+                        Icon(
+                            id = icon,
+                            contentDescription = contentDescription,
+                            modifier = iconModifier,
+                            rtlMode = iconRtlMode,
+                        )
+
+                    else ->
+                        Image(
+                            painter = rememberAsyncImagePainter(
+                                model = icon,
+                                placeholder = placeholder,
+                            ),
+                            contentDescription = contentDescription,
+                            modifier = iconModifier,
+                            contentScale = ContentScale.Crop,
+                            alpha = LocalContentAlpha.current,
+                        )
+                }
+            }
+        }
+    }
+    val hasIcon = icon != null
+
+    val labelParam: (@Composable RowScope.() -> Unit)? = label?.let {
+        {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = label,
+                textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+            )
+        }
+    }
+
+    OutlinedCompactChip(
+        modifier = modifier,
+        onClick = onClick,
+        label = labelParam,
+        icon = iconParam,
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource,

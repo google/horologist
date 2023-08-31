@@ -37,14 +37,15 @@ public open class WearMedia3Factory(private val context: Context) {
             .setExperimentalAudioOffloadListener(audioOffloadListener)
             .setEnableFloatOutput(false) // default
             .setEnableAudioTrackPlaybackParams(false) // default
-            .setOffloadMode(
-                if (attemptOffload) {
-                    offloadMode
-                } else {
-                    DefaultAudioSink.OFFLOAD_MODE_DISABLED
-                },
-            )
-            .build()
+            .build().apply {
+                setOffloadMode(
+                    if (attemptOffload) {
+                        offloadMode
+                    } else {
+                        DefaultAudioSink.OFFLOAD_MODE_DISABLED
+                    },
+                )
+            }
     }
 
     public fun audioOnlyRenderersFactory(

@@ -25,7 +25,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
-import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.runner.FakeConfigModule
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.rules.NetworkingRules
@@ -87,7 +86,6 @@ abstract class BaseContainerTest {
             offloadEnabled = false,
             strictNetworking = NetworkingRules.Lenient,
             cacheItems = false,
-            playbackRules = PlaybackRules.SpeakerAllowed,
         )
     }
 

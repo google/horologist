@@ -19,8 +19,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
+    id("com.google.devtools.ksp")
     kotlin("android")
 }
 
@@ -96,11 +96,11 @@ dependencies {
 
     implementation(libs.hilt.ext.work)
     implementation(libs.dagger.hiltandroid)
-    kapt(libs.dagger.hiltandroidcompiler)
-    kapt(libs.hilt.ext.compiler)
+    ksp(libs.dagger.hiltandroidcompiler)
+    ksp(libs.hilt.ext.compiler)
 
-    kaptAndroidTest(libs.dagger.hiltandroidcompiler)
-    kaptAndroidTest(libs.hilt.ext.compiler)
+    kspAndroidTest(libs.dagger.hiltandroidcompiler)
+    kspAndroidTest(libs.hilt.ext.compiler)
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {

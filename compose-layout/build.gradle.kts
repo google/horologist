@@ -19,7 +19,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -75,10 +74,6 @@ android {
         textReport = true
     }
     namespace = "com.google.android.horologist.compose.layout"
-}
-
-kapt {
-    correctErrorTypes = true
 }
 
 metalava {

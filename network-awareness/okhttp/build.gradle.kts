@@ -19,7 +19,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlin.kapt")
     id("com.google.devtools.ksp")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")

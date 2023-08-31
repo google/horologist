@@ -183,12 +183,16 @@ object PlaybackServiceModule {
         analyticsCollector: AnalyticsCollector,
         mediaSourceFactory: MediaSource.Factory,
         dataUpdates: DataUpdates,
-    ) =
+        audioOffloadManager: Provider<AudioOffloadManager>,
+        appConfig: AppConfig,
+        serviceCoroutineScope: CoroutineScope,
+        @SuppressSpeakerPlayback suppressSpeakerPlayback: Boolean,
+    ): Player =
         ExoPlayer.Builder(service, audioOnlyRenderersFactory)
             .setAnalyticsCollector(analyticsCollector)
             .setMediaSourceFactory(mediaSourceFactory)
             .setAudioAttributes(AudioAttributes.DEFAULT, true)
-            .setSuppressPlaybackOnUnsuitableOutput(true)
+            .setSuppressPlaybackOnUnsuitableOutput(suppressSpeakerPlayback)
             .setWakeMode(C.WAKE_MODE_NETWORK)
             .setLoadControl(loadControl)
             .setSeekForwardIncrementMs(10_000)
@@ -197,6 +201,13 @@ object PlaybackServiceModule {
                 addListener(analyticsCollector)
                 addListener(dataUpdates.listener)
                 addListener(WearUnsuitableOutputPlaybackSuppressionResolverListener(service))
+                addListener(com.google.android.horologist.media3.tracing.TracingListener())
+
+                if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
+                    serviceCoroutineScope.launch {
+                        audioOffloadManager.get().connect(this@apply)
+                    }
+                }
             }
 
     @ServiceScoped
@@ -206,24 +217,6 @@ object PlaybackServiceModule {
     ): CoroutineScope {
         return (service as LifecycleOwner).lifecycleScope
     }
-
-    @ServiceScoped
-    @Provides
-    fun player(
-        exoPlayer: ExoPlayer,
-        serviceCoroutineScope: CoroutineScope,
-        audioOffloadManager: Provider<AudioOffloadManager>,
-        appConfig: AppConfig,
-    ): Player =
-        exoPlayer.also {
-            exoPlayer.addListener(com.google.android.horologist.media3.tracing.TracingListener())
-
-            if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
-                serviceCoroutineScope.launch {
-                    audioOffloadManager.get().connect(exoPlayer)
-                }
-            }
-        }
 
     @ServiceScoped
     @Provides

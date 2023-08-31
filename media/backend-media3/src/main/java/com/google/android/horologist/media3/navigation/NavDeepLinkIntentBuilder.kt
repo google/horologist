@@ -25,12 +25,12 @@ import androidx.core.net.toUri
 public class NavDeepLinkIntentBuilder(
     private val application: Context,
     private val downloadUri: String,
-    private val playerUri: String
+    private val playerUri: String,
 ) : IntentBuilder {
     override fun buildDownloadIntent(): PendingIntent {
         val taskDetailIntent = Intent(
             Intent.ACTION_VIEW,
-            downloadUri.toUri()
+            downloadUri.toUri(),
         )
 
         return TaskStackBuilder.create(application).run {
@@ -42,7 +42,7 @@ public class NavDeepLinkIntentBuilder(
     override fun buildPlayerIntent(): PendingIntent {
         val taskDetailIntent = Intent(
             Intent.ACTION_VIEW,
-            playerUri.toUri()
+            playerUri.toUri(),
         )
 
         return TaskStackBuilder.create(application).run {

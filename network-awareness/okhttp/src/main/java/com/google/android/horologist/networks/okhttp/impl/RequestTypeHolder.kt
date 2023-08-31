@@ -32,7 +32,7 @@ import okhttp3.Request
 public data class RequestTypeHolder(
     public var requestType: RequestType = RequestType.UnknownRequest,
     public var networkInfo: NetworkInfo? = null,
-    public var highBandwidthConnectionLease: HighBandwidthConnectionLease? = null
+    public var highBandwidthConnectionLease: HighBandwidthConnectionLease? = null,
 ) {
     override fun toString(): String {
         return "$requestType/$networkInfo"

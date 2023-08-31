@@ -33,13 +33,13 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 fun DataLayerNodesScreen(
     viewModel: DataLayerNodesViewModel,
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         item {
             ListHeader {
@@ -51,7 +51,7 @@ fun DataLayerNodesScreen(
                 onClick = { },
                 label = {
                     Text("${it.displayName}(${it.id}) ${if (it.isNearby) "NEAR" else ""}")
-                }
+                },
             )
         }
         item {

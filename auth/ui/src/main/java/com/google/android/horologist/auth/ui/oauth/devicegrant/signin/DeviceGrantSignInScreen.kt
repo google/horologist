@@ -33,7 +33,7 @@ public fun <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> DeviceGran
     failedContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayload, TokenPayload>,
-    content: @Composable (successState: DeviceGrantScreenState.Success) -> Unit
+    content: @Composable (successState: DeviceGrantScreenState.Success) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -68,18 +68,18 @@ public fun <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> DeviceGran
 public fun <DeviceGrantConfig, VerificationInfoPayload, TokenPayload> DeviceGrantSignInScreen(
     onAuthSucceed: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayload, TokenPayload>
+    viewModel: DeviceGrantViewModel<DeviceGrantConfig, VerificationInfoPayload, TokenPayload>,
 ) {
     DeviceGrantSignInScreen(
         failedContent = {
             AuthErrorScreen(modifier = modifier)
         },
         modifier = modifier,
-        viewModel = viewModel
+        viewModel = viewModel,
     ) {
         SignedInConfirmationDialog(
             onDismissOrTimeout = { onAuthSucceed() },
-            modifier = modifier
+            modifier = modifier,
         )
     }
 }

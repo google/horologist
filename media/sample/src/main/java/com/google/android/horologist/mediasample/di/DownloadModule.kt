@@ -69,12 +69,12 @@ object DownloadModule {
     @Provides
     fun downloadDataSourceFactory(
         callFactory: Call.Factory,
-        @DownloadFeature transferListener: TransferListener
+        @DownloadFeature transferListener: TransferListener,
     ): DataSource.Factory = OkHttpDataSource.Factory(
         NetworkAwareCallFactory(
             delegate = callFactory,
-            defaultRequestType = DownloadRequest
-        )
+            defaultRequestType = DownloadRequest,
+        ),
     )
         .setCacheControl(CacheControl.Builder().noCache().noStore().build())
         .setTransferListener(transferListener)
@@ -92,18 +92,18 @@ object DownloadModule {
     @Singleton
     @Provides
     fun downloadNotificationHelper(
-        @ApplicationContext applicationContext: Context
+        @ApplicationContext applicationContext: Context,
     ): DownloadNotificationHelper =
         DownloadNotificationHelper(
             applicationContext,
-            MediaDownloadServiceImpl.MEDIA_DOWNLOAD_CHANNEL_ID
+            MediaDownloadServiceImpl.MEDIA_DOWNLOAD_CHANNEL_ID,
         )
 
     @DownloadFeature
     @Singleton
     @Provides
     fun databaseProvider(
-        @ApplicationContext application: Context
+        @ApplicationContext application: Context,
     ): DatabaseProvider = StandaloneDatabaseProvider(application)
 
     @Singleton
@@ -116,13 +116,13 @@ object DownloadModule {
         @DownloadFeature threadPool: ExecutorService,
         downloadManagerListener: DownloadManagerListener,
         appConfig: AppConfig,
-        networkAwareListener: Provider<NetworkAwareDownloadListener>
+        networkAwareListener: Provider<NetworkAwareDownloadListener>,
     ) = DownloadManager(
         applicationContext,
         databaseProvider,
         downloadCache,
         dataSourceFactory,
-        threadPool
+        threadPool,
     ).also {
         it.addListener(downloadManagerListener)
         if (appConfig.strictNetworking != null) {
@@ -136,14 +136,14 @@ object DownloadModule {
     @Singleton
     @Provides
     fun workManagerScheduler(
-        @ApplicationContext applicationContext: Context
+        @ApplicationContext applicationContext: Context,
     ) = WorkManagerScheduler(applicationContext, DOWNLOAD_WORK_MANAGER_SCHEDULER_WORK_NAME)
 
     @DownloadFeature
     @Provides
     @Singleton
     fun coroutineScope(
-        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
     ): CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher)
 
     @Provides
@@ -151,21 +151,21 @@ object DownloadModule {
     fun downloadManagerListener(
         @DownloadFeature coroutineScope: CoroutineScope,
         mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
-        downloadProgressMonitor: DownloadProgressMonitor
+        downloadProgressMonitor: DownloadProgressMonitor,
     ): DownloadManagerListener = DownloadManagerListener(
         coroutineScope = coroutineScope,
         mediaDownloadLocalDataSource = mediaDownloadLocalDataSource,
-        downloadProgressMonitor = downloadProgressMonitor
+        downloadProgressMonitor = downloadProgressMonitor,
     )
 
     @Provides
     @Singleton
     fun downloadProgressMonitor(
         @DownloadFeature coroutineScope: CoroutineScope,
-        mediaDownloadLocalDataSource: MediaDownloadLocalDataSource
+        mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
     ): DownloadProgressMonitor = DownloadProgressMonitor(
         coroutineScope = coroutineScope,
-        mediaDownloadLocalDataSource = mediaDownloadLocalDataSource
+        mediaDownloadLocalDataSource = mediaDownloadLocalDataSource,
     )
 
     @Provides
@@ -173,10 +173,10 @@ object DownloadModule {
     fun networkAwareListener(
         errorReporter: ErrorReporter,
         highBandwithRequester: HighBandwidthNetworkMediator,
-        networkingRulesEngine: NetworkingRulesEngine
+        networkingRulesEngine: NetworkingRulesEngine,
     ): NetworkAwareDownloadListener = NetworkAwareDownloadListener(
         errorReporter,
         highBandwithRequester,
-        networkingRulesEngine
+        networkingRulesEngine,
     )
 }

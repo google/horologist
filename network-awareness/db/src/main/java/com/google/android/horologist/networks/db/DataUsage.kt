@@ -25,5 +25,5 @@ public data class DataUsage(
     @PrimaryKey @ColumnInfo(name = "networkType")
     val networkType: String,
     @ColumnInfo(name = "bytesTotal") val bytesTotal: Long,
-    @ColumnInfo(name = "day") val day: Int
+    @ColumnInfo(name = "day") val day: Int,
 )

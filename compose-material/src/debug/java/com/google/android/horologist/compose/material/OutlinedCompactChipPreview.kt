@@ -26,7 +26,7 @@ import com.google.android.horologist.compose.tools.WearPreview
 fun OutlinedCompactChipPreview() {
     OutlinedCompactChip(
         onClick = { },
-        label = "Primary label"
+        label = "Primary label",
     )
 }
 
@@ -36,7 +36,7 @@ fun OutlinedCompactChipPreviewWithIcon() {
     OutlinedCompactChip(
         onClick = { },
         label = "Primary label",
-        icon = Icons.Filled.Add
+        icon = Icons.Filled.Add,
     )
 }
 
@@ -45,6 +45,7 @@ fun OutlinedCompactChipPreviewWithIcon() {
 fun OutlinedCompactChipPreviewIconOnly() {
     OutlinedCompactChip(
         onClick = { },
-        icon = Icons.Filled.Add
+        icon = Icons.Filled.Add,
+        contentDescription = "contentDescription",
     )
 }

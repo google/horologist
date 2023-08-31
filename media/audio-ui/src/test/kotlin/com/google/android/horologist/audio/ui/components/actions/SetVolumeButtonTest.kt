@@ -37,11 +37,11 @@ class SetVolumeButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(
             isComponent = true,
             componentDefaultContent = { ComponentDefaults(it) },
-            takeScreenshot = true
+            takeScreenshot = true,
         ) {
             SetVolumeButton(
                 onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume, max = 10)
+                volumeUiState = VolumeUiState(current = currentVolume, max = 10),
             )
         }
     }
@@ -53,11 +53,11 @@ class SetVolumeButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(
             isComponent = true,
             componentDefaultContent = { ComponentDefaults(it) },
-            takeScreenshot = true
+            takeScreenshot = true,
         ) {
             SetVolumeButton(
                 onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume)
+                volumeUiState = VolumeUiState(current = currentVolume),
             )
         }
     }
@@ -69,11 +69,11 @@ class SetVolumeButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(
             isComponent = true,
             componentDefaultContent = { ComponentDefaults(it) },
-            takeScreenshot = true
+            takeScreenshot = true,
         ) {
             SetVolumeButton(
                 onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume)
+                volumeUiState = VolumeUiState(current = currentVolume),
             )
         }
     }
@@ -83,7 +83,7 @@ class SetVolumeButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(
             isComponent = true,
             componentDefaultContent = { ComponentDefaults(it) },
-            takeScreenshot = true
+            takeScreenshot = true,
         ) {
             SetVolumeButton(onVolumeClick = {})
         }
@@ -95,7 +95,7 @@ class SetVolumeButtonTest : ScreenshotBaseTest() {
             modifier = Modifier
                 .wrapContentSize()
                 .background(Color.Black.copy(alpha = 0.5f))
-                .border(1.dp, Color.White)
+                .border(1.dp, Color.White),
         ) {
             content()
         }

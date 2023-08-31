@@ -45,10 +45,10 @@ import com.google.android.horologist.media.ui.components.animated.MarqueeTextMed
 @ExperimentalHorologistApi
 @Composable
 public fun LoadingMediaDisplay(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     // Always shimmer on the placeholder pills.
-    val placeholderState = rememberPlaceholderState { /* isContentReady = */ false }
+    val placeholderState = rememberPlaceholderState(isContentReady = { false })
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.height(1.dp))
@@ -59,7 +59,7 @@ public fun LoadingMediaDisplay(
                 .placeholderShimmer(placeholderState)
                 .placeholder(placeholderState)
                 .width(120.dp)
-                .height(12.dp)
+                .height(12.dp),
         )
         Spacer(modifier = Modifier.height(8.dp))
         Box(
@@ -69,7 +69,7 @@ public fun LoadingMediaDisplay(
                 .placeholderShimmer(placeholderState)
                 .placeholder(placeholderState)
                 .width(80.dp)
-                .height(12.dp)
+                .height(12.dp),
         )
     }
 

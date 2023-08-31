@@ -31,7 +31,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch
+                toggleControl = ToggleChipToggleControl.Switch,
             )
         }
     }
@@ -44,7 +44,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 onClick = { },
-                toggleControl = ToggleChipToggleControl.Radio
+                toggleControl = ToggleChipToggleControl.Radio,
             )
         }
     }
@@ -57,7 +57,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 onClick = { },
-                toggleControl = ToggleChipToggleControl.Checkbox
+                toggleControl = ToggleChipToggleControl.Checkbox,
             )
         }
     }
@@ -70,7 +70,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch
+                toggleControl = ToggleChipToggleControl.Switch,
             )
         }
     }
@@ -84,7 +84,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label"
+                secondaryLabel = "Secondary label",
             )
         }
     }
@@ -98,7 +98,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -112,7 +112,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -125,7 +125,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                 onCheckedChanged = { },
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch
+                toggleControl = ToggleChipToggleControl.Switch,
             )
         }
     }
@@ -139,7 +139,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                     onCheckedChanged = { },
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
                     onClick = { },
-                    toggleControl = ToggleChipToggleControl.Switch
+                    toggleControl = ToggleChipToggleControl.Switch,
                 )
             }
         }
@@ -154,7 +154,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label very very very very very very very very very long text"
+                secondaryLabel = "Secondary label very very very very very very very very very long text",
             )
         }
     }
@@ -169,7 +169,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label very very very very very very very very very long text"
+                    secondaryLabel = "Secondary label very very very very very very very very very long text",
                 )
             }
         }
@@ -185,7 +185,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
                     label = "Primary label",
                     onClick = { },
                     toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label"
+                    secondaryLabel = "Secondary label",
                 )
             }
         }

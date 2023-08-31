@@ -83,7 +83,7 @@ public fun MediaPlayerScaffold(
         TimeText(modifier = it)
     },
     navHostState: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
-    additionalNavRoutes: NavGraphBuilder.() -> Unit = {}
+    additionalNavRoutes: NavGraphBuilder.() -> Unit = {},
 ) {
     WearNavScaffold(
         startDestination = NavigationScreens.Player.navRoute,
@@ -92,16 +92,16 @@ public fun MediaPlayerScaffold(
         snackbar = {
             DialogSnackbarHost(
                 modifier = Modifier.fillMaxSize(),
-                hostState = snackbarViewModel.snackbarHostState
+                hostState = snackbarViewModel.snackbarHostState,
             )
         },
         timeText = timeText,
-        state = navHostState
+        state = navHostState,
     ) {
         composable(
             route = NavigationScreens.Player.navRoute,
             arguments = NavigationScreens.Player.arguments,
-            deepLinks = NavigationScreens.Player.deepLinks(deepLinkPrefix)
+            deepLinks = NavigationScreens.Player.deepLinks(deepLinkPrefix),
         ) {
             it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
             it.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
@@ -120,7 +120,7 @@ public fun MediaPlayerScaffold(
                 libraryScreen = { listState ->
                     libraryScreen(listState)
                 },
-                backStack = it.backStackEntry
+                backStack = it.backStackEntry,
             )
         }
 
@@ -128,7 +128,7 @@ public fun MediaPlayerScaffold(
             route = NavigationScreens.Collections.navRoute,
 
             arguments = NavigationScreens.Collections.arguments,
-            deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix)
+            deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix),
         ) {
             playlistsScreen(it.columnState)
         }
@@ -137,7 +137,7 @@ public fun MediaPlayerScaffold(
             route = NavigationScreens.Settings.navRoute,
 
             arguments = NavigationScreens.Settings.arguments,
-            deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix)
+            deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix),
         ) {
             settingsScreen(it.columnState)
         }
@@ -145,7 +145,7 @@ public fun MediaPlayerScaffold(
         composable(
             route = NavigationScreens.Volume.navRoute,
             arguments = NavigationScreens.Volume.arguments,
-            deepLinks = NavigationScreens.Volume.deepLinks(deepLinkPrefix)
+            deepLinks = NavigationScreens.Volume.deepLinks(deepLinkPrefix),
         ) {
             it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
@@ -156,7 +156,7 @@ public fun MediaPlayerScaffold(
             route = NavigationScreens.MediaItem.navRoute,
 
             arguments = NavigationScreens.MediaItem.arguments,
-            deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix)
+            deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix),
         ) {
             mediaEntityScreen(it.columnState)
         }
@@ -165,7 +165,7 @@ public fun MediaPlayerScaffold(
             route = NavigationScreens.Collection.navRoute,
 
             arguments = NavigationScreens.Collection.arguments,
-            deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix)
+            deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix),
         ) { scaffoldContext ->
             val arguments = scaffoldContext.backStackEntry.arguments
             val id = arguments?.getString(NavigationScreens.Collection.id)
@@ -176,7 +176,7 @@ public fun MediaPlayerScaffold(
             categoryEntityScreen(
                 id,
                 name,
-                scaffoldContext.columnState
+                scaffoldContext.columnState,
             )
         }
 

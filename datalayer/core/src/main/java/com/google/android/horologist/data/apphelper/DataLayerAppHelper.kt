@@ -50,7 +50,7 @@ internal const val TAG = "DataLayerAppHelper"
  */
 abstract class DataLayerAppHelper(
     protected val context: Context,
-    protected val registry: WearDataLayerRegistry
+    protected val registry: WearDataLayerRegistry,
 ) {
     private val installedDeviceCapabilityUri = "wear://*/$CAPABILITY_DEVICE_PREFIX"
     protected val playStoreUri = "market://details?id=${context.packageName}"
@@ -79,7 +79,7 @@ abstract class DataLayerAppHelper(
                     in installedPhoneNodes -> AppHelperNodeType.PHONE
                     in installedWatchNodes -> AppHelperNodeType.WATCH
                     else -> AppHelperNodeType.UNKNOWN
-                }
+                },
             )
         }
     }
@@ -87,7 +87,7 @@ abstract class DataLayerAppHelper(
     private suspend fun getSurfaceStatus(nodeId: String) = registry.protoFlow(
         targetNodeId = TargetNodeId.SpecificNodeId(nodeId),
         serializer = SurfaceInfoSerializer,
-        path = SURFACE_INFO_PATH
+        path = SURFACE_INFO_PATH,
     ).first()
 
     /**
@@ -104,7 +104,7 @@ abstract class DataLayerAppHelper(
 
         val allCaps =
             registry.capabilityClient.getAllCapabilities(
-                CapabilityClient.FILTER_REACHABLE
+                CapabilityClient.FILTER_REACHABLE,
             ).await()
         val installedCaps = allCaps.filter { it.key.startsWith(CAPABILITY_DEVICE_PREFIX) }
             .values.flatMap { it.nodes }.filter { it.isNearby }.toSet()
@@ -114,7 +114,7 @@ abstract class DataLayerAppHelper(
         registry.capabilityClient.addListener(
             listener,
             Uri.parse(installedDeviceCapabilityUri),
-            CapabilityClient.FILTER_PREFIX
+            CapabilityClient.FILTER_PREFIX,
         )
         awaitClose {
             registry.capabilityClient.removeListener(listener)
@@ -145,7 +145,7 @@ abstract class DataLayerAppHelper(
     @CheckResult
     public suspend fun startRemoteActivity(
         node: String,
-        config: ActivityConfig
+        config: ActivityConfig,
     ): AppHelperResultCode {
         val request = launchRequest { activity = config }
         return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
@@ -170,7 +170,7 @@ abstract class DataLayerAppHelper(
         node: String,
         path: String,
         data: ByteArray,
-        timeoutMs: Long = MESSAGE_REQUEST_TIMEOUT_MS
+        timeoutMs: Long = MESSAGE_REQUEST_TIMEOUT_MS,
     ): AppHelperResultCode {
         val response = try {
             withTimeout(timeoutMs) {

@@ -34,7 +34,7 @@ import org.robolectric.annotation.Config
 class PlayerRepositoryImplNotConnectedTest(
     @Suppress("unused") // it's used by junit to display the test name
     private val description: String,
-    private val whenBlock: (PlayerRepositoryImpl) -> Unit
+    private val whenBlock: (PlayerRepositoryImpl) -> Unit,
 ) {
 
     private lateinit var sut: PlayerRepositoryImpl
@@ -131,12 +131,12 @@ class PlayerRepositoryImplNotConnectedTest(
             },
             param("setPlaybackSpeed") { sut: PlayerRepositoryImpl ->
                 sut.setPlaybackSpeed(2f)
-            }
+            },
         )
 
         private fun param(
             description: String,
-            whenBlock: (PlayerRepositoryImpl) -> Unit
+            whenBlock: (PlayerRepositoryImpl) -> Unit,
         ) = arrayOf(description, whenBlock)
 
         private fun getDummyMedia() = Media(
@@ -144,7 +144,7 @@ class PlayerRepositoryImplNotConnectedTest(
             uri = "uri",
             title = "title",
             artist = "artist",
-            artworkUri = "artworkUri"
+            artworkUri = "artworkUri",
         )
     }
 }

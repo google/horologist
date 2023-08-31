@@ -89,7 +89,7 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.24.1"
+        artifact = "com.google.protobuf:protoc:3.24.2"
     }
     plugins {
         create("javalite") {

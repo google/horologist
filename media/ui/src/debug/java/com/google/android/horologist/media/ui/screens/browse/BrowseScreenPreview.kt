@@ -37,14 +37,14 @@ import com.google.android.horologist.media.ui.R
 fun BrowseScreenPreview() {
     BrowseScreenPreviewSample(
         trendingSectionState = Section.State.Loaded(
-            list = listOf("Mozart", "Beethoven")
+            list = listOf("Mozart", "Beethoven"),
         ),
         downloadsSectionState = Section.State.Loaded(
             list = listOf(
                 "Puccini" to "O mio babbino caro",
-                "J.S. Bach" to "Toccata and Fugue in D minor"
-            )
-        )
+                "J.S. Bach" to "Toccata and Fugue in D minor",
+            ),
+        ),
     )
 }
 
@@ -53,7 +53,7 @@ fun BrowseScreenPreview() {
 fun BrowseScreenPreviewLoading() {
     BrowseScreenPreviewSample(
         trendingSectionState = Section.State.Loading,
-        downloadsSectionState = Section.State.Loading
+        downloadsSectionState = Section.State.Loading,
     )
 }
 
@@ -62,36 +62,36 @@ fun BrowseScreenPreviewLoading() {
 fun BrowseScreenPreviewFailed() {
     BrowseScreenPreviewSample(
         trendingSectionState = Section.State.Failed,
-        downloadsSectionState = Section.State.Failed
+        downloadsSectionState = Section.State.Failed,
     )
 }
 
 @Composable
 private fun BrowseScreenPreviewSample(
     trendingSectionState: Section.State<String>,
-    downloadsSectionState: Section.State<Pair<String, String>>
+    downloadsSectionState: Section.State<Pair<String, String>>,
 ) {
     BrowseScreen(columnState = belowTimeTextPreview()) {
         button(
             BrowseScreenPlaylistsSectionButton(
                 textId = R.string.horologist_browse_screen_preview_sign_in,
                 icon = Icons.Default.Login,
-                onClick = { }
-            )
+                onClick = { },
+            ),
         )
 
         section(
             state = trendingSectionState,
             titleId = R.string.horologist_browse_screen_preview_trending_title,
             emptyMessageId = R.string.horologist_browse_screen_preview_trending_empty,
-            failedMessageId = R.string.horologist_browse_screen_preview_trending_failed
+            failedMessageId = R.string.horologist_browse_screen_preview_trending_failed,
         ) {
             loaded { item: String ->
                 Chip(
                     label = item,
                     onClick = { },
                     icon = Icons.Default.Person,
-                    colors = ChipDefaults.secondaryChipColors()
+                    colors = ChipDefaults.secondaryChipColors(),
                 )
             }
 
@@ -101,7 +101,7 @@ private fun BrowseScreenPreviewSample(
         }
 
         downloadsSection<Pair<String, String>>(
-            state = downloadsSectionState
+            state = downloadsSectionState,
         ) {
             loaded { item ->
                 Chip(
@@ -109,7 +109,7 @@ private fun BrowseScreenPreviewSample(
                     onClick = { },
                     secondaryLabel = item.second,
                     icon = Icons.Default.MusicNote,
-                    colors = ChipDefaults.secondaryChipColors()
+                    colors = ChipDefaults.secondaryChipColors(),
                 )
             }
 
@@ -121,7 +121,7 @@ private fun BrowseScreenPreviewSample(
                 Chip(
                     label = stringResource(id = R.string.horologist_browse_screen_preview_see_more_button),
                     onClick = { },
-                    colors = ChipDefaults.secondaryChipColors()
+                    colors = ChipDefaults.secondaryChipColors(),
                 )
             }
         }
@@ -131,15 +131,15 @@ private fun BrowseScreenPreviewSample(
                 BrowseScreenPlaylistsSectionButton(
                     textId = R.string.horologist_browse_screen_preview_playlists_button,
                     icon = Icons.Default.PlaylistPlay,
-                    onClick = { }
+                    onClick = { },
                 ),
 
                 BrowseScreenPlaylistsSectionButton(
                     textId = R.string.horologist_browse_screen_preview_podcasts_button,
                     icon = Icons.Default.Podcasts,
-                    onClick = { }
-                )
-            )
+                    onClick = { },
+                ),
+            ),
         )
     }
 }

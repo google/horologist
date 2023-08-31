@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class GoogleSignOutViewModel(
-    private val googleSignInClient: GoogleSignInClient
+    private val googleSignInClient: GoogleSignInClient,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(GoogleSignOutScreenState.Idle)
@@ -42,7 +42,7 @@ class GoogleSignOutViewModel(
     fun onIdleStateObserved() {
         if (_uiState.compareAndSet(
                 expect = GoogleSignOutScreenState.Idle,
-                update = GoogleSignOutScreenState.Loading
+                update = GoogleSignOutScreenState.Loading,
             )
         ) {
             viewModelScope.launch {
@@ -69,7 +69,7 @@ class GoogleSignOutViewModel(
                     application,
                     GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestEmail()
-                        .build()
+                        .build(),
                 )
 
                 GoogleSignOutViewModel(googleSignInClient)
@@ -82,5 +82,5 @@ enum class GoogleSignOutScreenState {
     Idle,
     Loading,
     Success,
-    Failed
+    Failed,
 }

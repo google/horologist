@@ -52,7 +52,7 @@ public fun PlayPauseButton(
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
-    progress: @Composable () -> Unit = {}
+    progress: @Composable () -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -60,7 +60,7 @@ public fun PlayPauseButton(
             .fillMaxSize()
             .clip(CircleShape)
             .background(backgroundColor),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         progress()
 
@@ -71,7 +71,7 @@ public fun PlayPauseButton(
                 modifier = modifier,
                 colors = colors,
                 iconSize = iconSize,
-                tapTargetSize = tapTargetSize
+                tapTargetSize = tapTargetSize,
             )
         } else {
             PlayButton(
@@ -80,7 +80,7 @@ public fun PlayPauseButton(
                 modifier = modifier,
                 colors = colors,
                 iconSize = iconSize,
-                tapTargetSize = tapTargetSize
+                tapTargetSize = tapTargetSize,
             )
         }
     }
@@ -101,7 +101,7 @@ public fun PlayPauseProgressButton(
     progressStrokeWidth: Dp = 4.dp,
     progressColor: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
-    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f)
+    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
 ) {
     PlayPauseButton(
         onPlayClick = onPlayClick,
@@ -112,7 +112,7 @@ public fun PlayPauseProgressButton(
         colors = colors,
         iconSize = iconSize,
         tapTargetSize = tapTargetSize,
-        backgroundColor = backgroundColor
+        backgroundColor = backgroundColor,
     ) {
         val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
         if (trackPositionUiModel.isLoading) {
@@ -120,7 +120,7 @@ public fun PlayPauseProgressButton(
                 modifier = Modifier.fillMaxSize(),
                 indicatorColor = progressColor,
                 trackColor = trackColor,
-                strokeWidth = progressStrokeWidth
+                strokeWidth = progressStrokeWidth,
             )
         } else if (trackPositionUiModel.showProgress) {
             CircularProgressIndicator(
@@ -128,7 +128,7 @@ public fun PlayPauseProgressButton(
                 progress = progress,
                 indicatorColor = progressColor,
                 trackColor = trackColor,
-                strokeWidth = progressStrokeWidth
+                strokeWidth = progressStrokeWidth,
             )
         }
     }

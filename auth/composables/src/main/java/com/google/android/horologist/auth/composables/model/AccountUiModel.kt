@@ -22,5 +22,5 @@ package com.google.android.horologist.auth.composables.model
 public data class AccountUiModel(
     val email: String,
     val name: String? = null,
-    val avatar: Any? = null
+    val avatar: Any? = null,
 )

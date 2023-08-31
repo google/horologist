@@ -30,7 +30,7 @@ import com.google.android.horologist.compose.tools.RoundPreview
 fun VolumeScreenTestCase(
     colors: Colors = MaterialTheme.colors,
     volumeState: VolumeState,
-    audioOutput: AudioOutput
+    audioOutput: AudioOutput,
 ) {
     val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
     RoundPreview {
@@ -38,9 +38,9 @@ fun VolumeScreenTestCase(
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeUiState = { volumeUiState }
+                        volumeUiState = { volumeUiState },
                     )
-                }
+                },
             ) {
                 VolumeScreen(
                     volume = { volumeUiState },
@@ -48,7 +48,7 @@ fun VolumeScreenTestCase(
                     increaseVolume = { },
                     decreaseVolume = { },
                     onAudioOutputClick = { },
-                    showVolumeIndicator = false
+                    showVolumeIndicator = false,
                 )
             }
         }

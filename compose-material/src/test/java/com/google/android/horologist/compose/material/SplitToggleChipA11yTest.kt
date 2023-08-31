@@ -28,7 +28,7 @@ class SplitToggleChipA11yTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test
@@ -41,7 +41,7 @@ class SplitToggleChipA11yTest : ScreenshotBaseTest(
                     label = "Primary label",
                     onClick = { },
                     toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label"
+                    secondaryLabel = "Secondary label",
                 )
             }
         }
@@ -57,7 +57,7 @@ class SplitToggleChipA11yTest : ScreenshotBaseTest(
                     label = "Primary label",
                     onClick = { },
                     toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label"
+                    secondaryLabel = "Secondary label",
                 )
             }
         }
@@ -74,7 +74,7 @@ class SplitToggleChipA11yTest : ScreenshotBaseTest(
                     onClick = { },
                     toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label",
-                    enabled = false
+                    enabled = false,
                 )
             }
         }
@@ -91,7 +91,7 @@ class SplitToggleChipA11yTest : ScreenshotBaseTest(
                     onClick = { },
                     toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label",
-                    enabled = false
+                    enabled = false,
                 )
             }
         }

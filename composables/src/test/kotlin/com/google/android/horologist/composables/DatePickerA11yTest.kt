@@ -30,14 +30,14 @@ class DatePickerA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
         enableA11y = true
-    }
+    },
 ) {
     @Test
     fun interactionTest() {
         screenshotTestRule.setContent {
             DatePicker(
                 onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25)
+                date = LocalDate.of(2022, 4, 25),
             )
         }
 

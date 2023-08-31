@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
         wearDataLayerAppHelper = WearDataLayerAppHelper(
             context = this,
             registry = (application as SampleApplication).registry,
-            scope = lifecycleScope
+            scope = lifecycleScope,
         )
 
         lifecycleScope.launch {
@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
             wearDataLayerAppHelper.markComplicationAsActivated(
                 complicationName = "MyComplication",
                 complicationInstanceId = 1234,
-                complicationType = ComplicationType.SHORT_TEXT
+                complicationType = ComplicationType.SHORT_TEXT,
             )
             wearDataLayerAppHelper.markActivityLaunchedOnce()
         }

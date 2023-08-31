@@ -39,7 +39,7 @@ public object MediaDownloadMapper {
             MediaDownload.Size.Unknown
         } else {
             MediaDownload.Size.Known(mediaDownloadEntity.size)
-        }
+        },
     )
 
     /**
@@ -47,7 +47,7 @@ public object MediaDownloadMapper {
      */
     public fun map(
         playlist: Playlist,
-        mediaDownloadEntityList: List<MediaDownloadEntity>
+        mediaDownloadEntityList: List<MediaDownloadEntity>,
     ): List<MediaDownload> =
         playlist.mediaList.map { media ->
             mediaDownloadEntityList.find { it.mediaId == media.id }?.let { mediaDownloadEntity ->
@@ -55,7 +55,7 @@ public object MediaDownloadMapper {
             } ?: MediaDownload(
                 media = media,
                 status = MediaDownload.Status.Idle,
-                size = MediaDownload.Size.Unknown
+                size = MediaDownload.Size.Unknown,
             )
         }
 }

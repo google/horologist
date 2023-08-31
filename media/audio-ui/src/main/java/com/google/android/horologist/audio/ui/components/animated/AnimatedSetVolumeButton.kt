@@ -44,20 +44,20 @@ import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 public fun AnimatedSetVolumeButton(
     onVolumeClick: () -> Unit,
     volumeUiState: VolumeUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     if (LocalStaticPreview.current) {
         SetVolumeButton(
             onVolumeClick = onVolumeClick,
             volumeUiState = volumeUiState,
-            modifier = modifier
+            modifier = modifier,
         )
     } else {
         val volumeUp by rememberLottieComposition(
-            spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json")
+            spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json"),
         )
         val volumeDown by rememberLottieComposition(
-            spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json")
+            spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json"),
         )
         val lottieAnimatable = rememberLottieAnimatable()
 
@@ -69,12 +69,12 @@ public fun AnimatedSetVolumeButton(
             if (volumeUiState.current > lastVolumeBefore) {
                 lottieAnimatable.animate(
                     iterations = 1,
-                    composition = volumeUp
+                    composition = volumeUp,
                 )
             } else {
                 lottieAnimatable.animate(
                     iterations = 1,
-                    composition = volumeDown
+                    composition = volumeDown,
                 )
             }
         }
@@ -82,12 +82,12 @@ public fun AnimatedSetVolumeButton(
         Button(
             modifier = modifier.size(ButtonDefaults.SmallButtonSize),
             onClick = onVolumeClick,
-            colors = ButtonDefaults.iconButtonColors()
+            colors = ButtonDefaults.iconButtonColors(),
         ) {
             LottieAnimation(
                 composition = volumeDown,
                 modifier = Modifier.size(24.dp),
-                progress = { lottieAnimatable.progress }
+                progress = { lottieAnimatable.progress },
             )
         }
     }

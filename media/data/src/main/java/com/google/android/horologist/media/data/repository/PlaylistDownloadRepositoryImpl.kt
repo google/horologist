@@ -42,7 +42,7 @@ public class PlaylistDownloadRepositoryImpl(
     private val playlistLocalDataSource: PlaylistLocalDataSource,
     private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
     private val media3DownloadDataSource: Media3DownloadDataSource,
-    private val playlistDownloadMapper: PlaylistDownloadMapper
+    private val playlistDownloadMapper: PlaylistDownloadMapper,
 ) : PlaylistDownloadRepository {
 
     @OptIn(FlowPreview::class)
@@ -53,8 +53,8 @@ public class PlaylistDownloadRepositoryImpl(
                     flowOf(populatedPlaylist),
                     mediaDownloadLocalDataSource.get(
                         populatedPlaylist.mediaList
-                            .map { it.mediaId }.toList()
-                    )
+                            .map { it.mediaId }.toList(),
+                    ),
                 ) { _, mediaDownloadList ->
                     playlistDownloadMapper.map(populatedPlaylist, mediaDownloadList)
                 }

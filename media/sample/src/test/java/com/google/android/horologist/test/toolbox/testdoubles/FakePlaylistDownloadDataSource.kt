@@ -33,11 +33,11 @@ class FakePlaylistDownloadDataSource(private val playlist: Playlist? = null) {
                         MediaDownload(
                             media = media,
                             status = MediaDownload.Status.Idle,
-                            size = MediaDownload.Size.Unknown
+                            size = MediaDownload.Size.Unknown,
                         )
-                    }
+                    },
                 )
-            }
+            },
         )
     val playlistDownloadFlow: StateFlow<PlaylistDownload?> get() =
         _playlistDownloadFlow
@@ -52,9 +52,9 @@ class FakePlaylistDownloadDataSource(private val playlist: Playlist? = null) {
                         MediaDownload(
                             media = media,
                             status = MediaDownload.Status.Idle,
-                            size = MediaDownload.Size.Unknown
+                            size = MediaDownload.Size.Unknown,
                         )
-                    }
+                    },
                 )
         }
     }
@@ -69,9 +69,9 @@ class FakePlaylistDownloadDataSource(private val playlist: Playlist? = null) {
                         MediaDownload(
                             media = media,
                             status = MediaDownload.Status.Completed,
-                            size = MediaDownload.Size.Unknown
+                            size = MediaDownload.Size.Unknown,
                         )
-                    }
+                    },
                 )
         }
     }
@@ -90,12 +90,12 @@ class FakePlaylistDownloadDataSource(private val playlist: Playlist? = null) {
                                 MediaDownload(
                                     media = mediaDownload.media,
                                     status = MediaDownload.Status.Idle,
-                                    size = MediaDownload.Size.Unknown
+                                    size = MediaDownload.Size.Unknown,
                                 )
                             } else {
                                 mediaDownload
                             }
-                        }
+                        },
                     )
             }
         }

@@ -67,14 +67,14 @@ public fun ActiveDurationText(
     state: ExerciseState,
     content: @Composable (Duration) -> Unit = {
         FormattedDurationText(duration = it)
-    }
+    },
 ) {
     var activeSeconds by remember {
         mutableStateOf(
             calculateDurationSeconds(
                 checkpoint,
-                state
-            )
+                state,
+            ),
         )
     }
 
@@ -110,7 +110,7 @@ public fun FormattedDurationText(
     formatter: (Duration) -> String = patternFormatter(),
     color: Color = Color.Unspecified,
     textAlign: TextAlign? = null,
-    style: TextStyle = LocalTextStyle.current
+    style: TextStyle = LocalTextStyle.current,
 ) {
     val text = formatter(duration)
     Text(
@@ -118,12 +118,12 @@ public fun FormattedDurationText(
         text = text,
         color = color,
         textAlign = textAlign,
-        style = style
+        style = style,
     )
 }
 
 public fun patternFormatter(
-    format: String = ActiveDurationDefaults.HH_MM_SS
+    format: String = ActiveDurationDefaults.HH_MM_SS,
 ): (Duration) -> String {
     return {
         val activeSeconds = it.toMillis() / 1000
@@ -179,7 +179,7 @@ private fun nextTimeForOffset(timeMillis: Long, offsetMillis: Long) =
  */
 private fun calculateDurationSeconds(
     checkpoint: ExerciseUpdate.ActiveDurationCheckpoint,
-    state: ExerciseState
+    state: ExerciseState,
 ): Duration {
     val delta = if (state == ExerciseState.ACTIVE) {
         System.currentTimeMillis() - checkpoint.time.toEpochMilli()
@@ -196,18 +196,18 @@ internal fun ActiveDurationTextPreview() {
     val checkpoint = remember {
         ExerciseUpdate.ActiveDurationCheckpoint(
             time = Instant.now(),
-            activeDuration = Duration.ZERO
+            activeDuration = Duration.ZERO,
         )
     }
     ActiveDurationText(
         checkpoint = checkpoint,
-        state = state
+        state = state,
     ) {
         FormattedDurationText(
             modifier = Modifier.clickable {
                 state = state.flip()
             },
-            duration = it
+            duration = it,
         )
     }
 }
@@ -227,12 +227,12 @@ internal fun ActiveDurationTextCustomSeparatorPreview() {
     val checkpoint = remember {
         ExerciseUpdate.ActiveDurationCheckpoint(
             time = Instant.now(),
-            activeDuration = Duration.ZERO
+            activeDuration = Duration.ZERO,
         )
     }
     ActiveDurationText(
         checkpoint = checkpoint,
-        state = state
+        state = state,
     ) {
         val formatter = remember { patternFormatter("%1\$02dh%2\$02dm%3\$02ds") }
         FormattedDurationText(
@@ -240,7 +240,7 @@ internal fun ActiveDurationTextCustomSeparatorPreview() {
                 state = state.flip()
             },
             duration = it,
-            formatter = formatter
+            formatter = formatter,
         )
     }
 }

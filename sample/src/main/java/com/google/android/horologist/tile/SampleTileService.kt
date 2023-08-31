@@ -48,7 +48,7 @@ class SampleTileService : SuspendingTileService() {
 
         return renderer.produceRequestedResources(
             SampleTileRenderer.ResourceState(imageResource),
-            requestParams
+            requestParams,
         )
     }
 }

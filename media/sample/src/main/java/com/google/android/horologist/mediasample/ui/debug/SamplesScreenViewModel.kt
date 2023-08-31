@@ -25,94 +25,98 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class SamplesScreenViewModel @Inject constructor(
-    private val playerRepository: PlayerRepository
-) : ViewModel() {
-    val uiState: StateFlow<UiState> = MutableStateFlow(
-        UiState(
-            samples = listOf(
-                fraunhoferGapless,
-                gapless,
-                gaplessStripped
-            )
+class SamplesScreenViewModel
+    @Inject
+    constructor(
+        private val playerRepository: PlayerRepository,
+    ) : ViewModel() {
+        val uiState: StateFlow<UiState> = MutableStateFlow(
+            UiState(
+                samples = listOf(
+                    fraunhoferGapless,
+                    gapless,
+                    gaplessStripped,
+                ),
+            ),
         )
-    )
 
-    fun playSamples(id: Int): Boolean {
-        val mediaItems = uiState.value.samples.find {
-            it.id == id
-        }?.mediaItems
+        fun playSamples(id: Int): Boolean {
+            val mediaItems = uiState.value.samples.find {
+                it.id == id
+            }?.mediaItems
 
-        if (mediaItems != null) {
-            playerRepository.setMediaList(mediaItems)
-            playerRepository.play()
-            return true
+            if (mediaItems != null) {
+                playerRepository.setMediaList(mediaItems)
+                playerRepository.play()
+                return true
+            }
+
+            return false
         }
 
-        return false
+        data class Sample(
+            val id: Int,
+            val name: String,
+            val mediaItems: List<Media>,
+        )
+
+        data class UiState(
+            val samples: List<Sample>,
+        )
+
+        companion object {
+            val fraunhoferGapless =
+                Sample(
+                    1,
+                    "Fraunhofer Gapless",
+                    listOf(
+                        "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part1_iis.m4a?delay=1600&padding=106",
+                        "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part2_iis.m4a?delay=110&padding=1024",
+                    ).mapIndexed { i, it ->
+                        Media(
+                            id = i.toString(),
+                            uri = it,
+                            title = "Fraunhofer Gapless $i",
+                            artist = "fraunhofer",
+                            artworkUri = "https://www2.iis.fraunhofer.de/AAC/logo-fraunhofer.gif",
+                        )
+                    },
+                )
+
+            val gapless =
+                Sample(
+                    2,
+                    "Gapless",
+                    @Suppress("ktlint:standard:max-line-length")
+                    listOf(
+                        "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-10.m4a",
+                        "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11.m4a",
+                    ).mapIndexed { i, it ->
+                        Media(
+                            id = i.toString(),
+                            uri = it,
+                            title = "Gapless $i",
+                            artist = "unknown",
+                        )
+                    },
+                )
+
+            val gaplessStripped =
+                Sample(
+                    3,
+                    "Gapless Stripped",
+                    @Suppress("ktlint:standard:max-line-length")
+                    listOf(
+                        "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-10-stripped.m4a",
+                        "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11-stripped.m4a",
+                    ).mapIndexed { i, it ->
+                        Media(
+                            id = i.toString(),
+                            uri = it,
+                            title = "Gapless (stripped) $i",
+                            artist = "unknown",
+                        )
+                    },
+                )
+        }
     }
-
-    data class Sample(
-        val id: Int,
-        val name: String,
-        val mediaItems: List<Media>
-    )
-
-    data class UiState(
-        val samples: List<Sample>
-    )
-
-    companion object {
-        val fraunhoferGapless =
-            Sample(
-                1,
-                "Fraunhofer Gapless",
-                listOf(
-                    "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part1_iis.m4a?delay=1600&padding=106",
-                    "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part2_iis.m4a?delay=110&padding=1024"
-                ).mapIndexed { i, it ->
-                    Media(
-                        id = i.toString(),
-                        uri = it,
-                        title = "Fraunhofer Gapless $i",
-                        artist = "fraunhofer",
-                        artworkUri = "https://www2.iis.fraunhofer.de/AAC/logo-fraunhofer.gif"
-                    )
-                }
-            )
-
-        val gapless =
-            Sample(
-                2,
-                "Gapless",
-                listOf(
-                    "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-10.m4a",
-                    "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11.m4a"
-                ).mapIndexed { i, it ->
-                    Media(
-                        id = i.toString(),
-                        uri = it,
-                        title = "Gapless $i",
-                        artist = "unknown"
-                    )
-                }
-            )
-
-        val gaplessStripped =
-            Sample(
-                3,
-                "Gapless Stripped",
-                listOf(
-                    "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-10-stripped.m4a",
-                    "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11-stripped.m4a"
-                ).mapIndexed { i, it ->
-                    Media(
-                        id = i.toString(),
-                        uri = it,
-                        title = "Gapless (stripped) $i",
-                        artist = "unknown"
-                    )
-                }
-            )
-    }
-}

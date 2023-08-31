@@ -31,7 +31,7 @@ public data class NetworkStatus(
     public val addresses: List<InetAddress>,
     public val capabilities: NetworkCapabilities?,
     public val linkProperties: LinkProperties?,
-    public val bindSocket: (Socket) -> Unit
+    public val bindSocket: (Socket) -> Unit,
 ) {
     public val firstAddress: InetAddress?
         get() = addresses.minByOrNull { it is Inet6Address }

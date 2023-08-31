@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class DeviceGrantSignOutViewModel(
-    private val authUserRepository: DeviceGrantAuthUserRepositorySample
+    private val authUserRepository: DeviceGrantAuthUserRepositorySample,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(DeviceGrantSignOutScreenState.Idle)
@@ -37,7 +37,7 @@ class DeviceGrantSignOutViewModel(
     fun onIdleStateObserved() {
         if (_uiState.compareAndSet(
                 expect = DeviceGrantSignOutScreenState.Idle,
-                update = DeviceGrantSignOutScreenState.Loading
+                update = DeviceGrantSignOutScreenState.Loading,
             )
         ) {
             viewModelScope.launch {
@@ -68,5 +68,5 @@ enum class DeviceGrantSignOutScreenState {
     Idle,
     Loading,
     Success,
-    Failed
+    Failed,
 }

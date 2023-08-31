@@ -48,11 +48,11 @@ public class TestTileService : SuspendingTileService() {
                         TimelineEntry.Builder()
                             .setLayout(
                                 Layout.Builder().setRoot(mainLayout())
-                                    .build()
+                                    .build(),
                             )
-                            .build()
+                            .build(),
                     )
-                    .build()
+                    .build(),
             )
             .build().also {
                 completed++
@@ -60,7 +60,7 @@ public class TestTileService : SuspendingTileService() {
     }
 
     override suspend fun resourcesRequest(
-        requestParams: RequestBuilders.ResourcesRequest
+        requestParams: RequestBuilders.ResourcesRequest,
     ): ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().setVersion(FAKE_VERSION)
         .build()
 
@@ -69,7 +69,7 @@ public class TestTileService : SuspendingTileService() {
             .addContent(
                 Text.Builder()
                     .setText("Tile Visiblity: showing")
-                    .build()
+                    .build(),
             )
             .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
             .build()

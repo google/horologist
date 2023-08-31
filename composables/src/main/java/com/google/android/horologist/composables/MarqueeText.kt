@@ -82,7 +82,7 @@ public fun MarqueeText(
     followGap: Dp = 96.dp,
     edgeGradientWidth: Dp = 16.dp,
     marqueeDpPerSecond: Dp = 64.dp,
-    pauseTime: Duration = 4.seconds
+    pauseTime: Duration = 4.seconds,
 ) {
     val controller = remember(text, style) { MarqueeController(edgeGradientWidth) }
     controller.edgeGradientWidth = edgeGradientWidth
@@ -96,13 +96,13 @@ public fun MarqueeText(
                 delayMillis = pauseTime.inWholeMilliseconds.toInt(),
                 initialDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
                 spacing = MarqueeSpacing(followGap),
-                velocity = marqueeDpPerSecond
+                velocity = marqueeDpPerSecond,
             )
             .then(controller.insideMarqueeModifier),
         textAlign = textAlign,
         color = color,
         style = style,
-        maxLines = 1
+        maxLines = 1,
     )
 }
 
@@ -148,18 +148,18 @@ private class MarqueeController(edgeGradientWidth: Dp) {
         val leftBrush = Brush.horizontalGradient(
             listOf(
                 Color.Transparent,
-                Color.Black
+                Color.Black,
             ),
             startX = 0f,
-            endX = width
+            endX = width,
         )
         val rightBrush = Brush.horizontalGradient(
             listOf(
                 Color.Transparent,
-                Color.Black
+                Color.Black,
             ),
             startX = size.width,
-            endX = size.width - width
+            endX = size.width - width,
         )
         onDrawWithContent {
             drawContent()
@@ -169,19 +169,19 @@ private class MarqueeController(edgeGradientWidth: Dp) {
                     size = Size(width, size.height),
                     topLeft = Offset(
                         0f,
-                        0f
+                        0f,
                     ),
                     brush = leftBrush,
-                    blendMode = BlendMode.DstIn
+                    blendMode = BlendMode.DstIn,
                 )
                 drawRect(
                     size = Size(width, size.height),
                     topLeft = Offset(
                         size.width - width,
-                        0f
+                        0f,
                     ),
                     brush = rightBrush,
-                    blendMode = BlendMode.DstIn
+                    blendMode = BlendMode.DstIn,
                 )
             }
         }

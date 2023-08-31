@@ -25,11 +25,13 @@ import androidx.wear.protolayout.ResourceBuilders.ImageResource
  *
  * @param id the resource id.
  */
-public fun drawableResToImageResource(@DrawableRes id: Int): ImageResource =
+public fun drawableResToImageResource(
+    @DrawableRes id: Int,
+): ImageResource =
     ImageResource.Builder()
         .setAndroidResourceByResId(
             AndroidImageResourceByResId.Builder()
                 .setResourceId(id)
-                .build()
+                .build(),
         )
         .build()

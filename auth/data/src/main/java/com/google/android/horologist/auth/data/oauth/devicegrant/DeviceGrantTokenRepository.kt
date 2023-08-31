@@ -23,6 +23,6 @@ public interface DeviceGrantTokenRepository<DeviceGrantConfig, VerificationInfoP
 
     public suspend fun fetch(
         config: DeviceGrantConfig,
-        verificationInfoPayload: VerificationInfoPayload
+        verificationInfoPayload: VerificationInfoPayload,
     ): Result<TokenPayload>
 }

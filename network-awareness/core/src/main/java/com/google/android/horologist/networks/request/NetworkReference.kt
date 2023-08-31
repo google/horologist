@@ -20,5 +20,5 @@ import com.google.android.horologist.networks.data.NetworkType
 
 public data class NetworkReference(
     val id: String,
-    val type: NetworkType
+    val type: NetworkType,
 )

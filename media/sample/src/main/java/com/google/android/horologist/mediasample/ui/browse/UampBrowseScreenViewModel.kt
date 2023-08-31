@@ -31,26 +31,28 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class UampBrowseScreenViewModel @Inject constructor(
-    playlistRepository: PlaylistRepository
-) : ViewModel() {
+class UampBrowseScreenViewModel
+    @Inject
+    constructor(
+        playlistRepository: PlaylistRepository,
+    ) : ViewModel() {
 
-    private val playlists: StateFlow<List<Playlist>?> = playlistRepository.getAllDownloaded()
-        .stateIn(
+        private val playlists: StateFlow<List<Playlist>?> = playlistRepository.getAllDownloaded()
+            .stateIn(
+                viewModelScope,
+                started = SharingStarted.Eagerly,
+                initialValue = null,
+            )
+
+        val uiState = playlists.map { playlists ->
+            playlists?.let {
+                BrowseScreenState.Loaded(it.map(PlaylistDownloadUiModelMapper::map))
+            } ?: BrowseScreenState.Loading
+        }.catch {
+            BrowseScreenState.Failed
+        }.stateIn(
             viewModelScope,
             started = SharingStarted.Eagerly,
-            initialValue = null
+            initialValue = BrowseScreenState.Loading,
         )
-
-    val uiState = playlists.map { playlists ->
-        playlists?.let {
-            BrowseScreenState.Loaded(it.map(PlaylistDownloadUiModelMapper::map))
-        } ?: BrowseScreenState.Loading
-    }.catch {
-        BrowseScreenState.Failed
-    }.stateIn(
-        viewModelScope,
-        started = SharingStarted.Eagerly,
-        initialValue = BrowseScreenState.Loading
-    )
-}
+    }

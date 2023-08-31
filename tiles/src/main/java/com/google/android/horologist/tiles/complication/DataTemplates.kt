@@ -40,32 +40,32 @@ public object DataTemplates {
         title: String?,
         text: String,
         launchIntent: PendingIntent?,
-        contentDescription: ComplicationText? = null
+        contentDescription: ComplicationText? = null,
     ): LongTextComplicationData = LongTextComplicationData.Builder(
         text = PlainComplicationText.Builder(
-            text = text
+            text = text,
         )
             .build(),
         contentDescription = contentDescription ?: PlainComplicationText.Builder(
-            text = text
+            text = text,
         )
-            .build()
+            .build(),
     )
         .apply {
             if (icon != null) {
                 setSmallImage(
                     SmallImage.Builder(
                         image = icon,
-                        type = type
-                    ).build()
+                        type = type,
+                    ).build(),
                 )
             }
             if (title != null) {
                 setTitle(
                     PlainComplicationText.Builder(
-                        text = title
+                        text = title,
                     )
-                        .build()
+                        .build(),
                 )
             }
         }
@@ -77,17 +77,17 @@ public object DataTemplates {
         type: SmallImageType = SmallImageType.PHOTO,
         name: String,
         launchIntent: PendingIntent?,
-        contentDescription: ComplicationText? = null
+        contentDescription: ComplicationText? = null,
     ): SmallImageComplicationData = SmallImageComplicationData.Builder(
         smallImage = SmallImage.Builder(
             image = icon,
-            type = type
+            type = type,
         )
             .build(),
         contentDescription = contentDescription ?: PlainComplicationText.Builder(
-            text = name
+            text = name,
         )
-            .build()
+            .build(),
     )
         .setTapAction(launchIntent)
         .build()
@@ -97,26 +97,26 @@ public object DataTemplates {
         text: String,
         @DrawableRes icon: Int?,
         launchIntent: PendingIntent?,
-        contentDescription: ComplicationText? = null
+        contentDescription: ComplicationText? = null,
     ): ShortTextComplicationData = ShortTextComplicationData.Builder(
         PlainComplicationText.Builder(text)
             .build(),
         contentDescription = contentDescription ?: PlainComplicationText.Builder(text = text)
-            .build()
+            .build(),
     )
         .apply {
             if (icon != null) {
                 setMonochromaticImage(
                     MonochromaticImage.Builder(icon(icon))
-                        .build()
+                        .build(),
                 )
             }
             if (title != null) {
                 setTitle(
                     PlainComplicationText.Builder(
-                        text = title
+                        text = title,
                     )
-                        .build()
+                        .build(),
                 )
             }
         }
@@ -127,13 +127,13 @@ public object DataTemplates {
         photoImage: Icon,
         name: String,
         launchIntent: PendingIntent?,
-        contentDescription: ComplicationText? = null
+        contentDescription: ComplicationText? = null,
     ): PhotoImageComplicationData = PhotoImageComplicationData.Builder(
         photoImage,
         contentDescription = contentDescription ?: PlainComplicationText.Builder(
-            text = name
+            text = name,
         )
-            .build()
+            .build(),
     )
         .setTapAction(launchIntent)
         .build()
@@ -145,12 +145,12 @@ public object DataTemplates {
         title: String,
         text: String,
         image: MonochromaticImage?,
-        launchIntent: PendingIntent?
+        launchIntent: PendingIntent?,
     ): RangedValueComplicationData = RangedValueComplicationData.Builder(
         value,
         min,
         max,
-        PlainComplicationText.Builder(text = text).build()
+        PlainComplicationText.Builder(text = text).build(),
     )
         .setText(PlainComplicationText.Builder(text = text).build())
         .setTitle(PlainComplicationText.Builder(text = title).build())
@@ -158,11 +158,15 @@ public object DataTemplates {
         .setMonochromaticImage(image)
         .build()
 
-    public fun ComplicationTemplate<*>.icon(@DrawableRes id: Int): Icon = Icon.createWithResource(
+    public fun ComplicationTemplate<*>.icon(
+        @DrawableRes id: Int,
+    ): Icon = Icon.createWithResource(
         context,
-        id
+        id,
     )
 
-    public fun ComplicationTemplate<*>.text(@StringRes id: Int): String = context.getText(id)
+    public fun ComplicationTemplate<*>.text(
+        @StringRes id: Int,
+    ): String = context.getText(id)
         .toString()
 }

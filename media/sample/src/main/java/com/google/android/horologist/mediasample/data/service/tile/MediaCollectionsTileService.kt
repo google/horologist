@@ -62,7 +62,7 @@ class MediaCollectionsTileService : SuspendingTileService() {
     private val renderer: MediaCollectionsTileRenderer = MediaCollectionsTileRenderer(
         context = this,
         materialTheme = UampColors.toTileColors(),
-        debugResourceMode = BuildConfig.DEBUG
+        debugResourceMode = BuildConfig.DEBUG,
     )
 
     /**
@@ -87,17 +87,17 @@ class MediaCollectionsTileService : SuspendingTileService() {
                     action = appLauncher {
                         addStringExtra(MediaActivity.CollectionKey, firstPlaylist.id)
                         addStringExtra(MediaActivity.MediaIdKey, firstSong.id)
-                    }
+                    },
                 ),
                 MediaCollectionsTileRenderer.MediaCollection(
                     name = lastPlaylist.name,
                     artworkId = lastPlaylist.id,
                     action = appLauncher {
                         addStringExtra(MediaActivity.CollectionKey, lastPlaylist.id)
-                    }
-                )
+                    },
+                ),
             ),
-            requestParams = requestParams
+            requestParams = requestParams,
         )
     }
 
@@ -106,7 +106,7 @@ class MediaCollectionsTileService : SuspendingTileService() {
             key,
             ActionBuilders.AndroidStringExtra.Builder()
                 .setValue(value)
-                .build()
+                .build(),
         )
     }
 
@@ -115,7 +115,7 @@ class MediaCollectionsTileService : SuspendingTileService() {
      * a screen to open.
      */
     private fun appLauncher(
-        extrasBuilder: AndroidActivity.Builder.() -> Unit = {}
+        extrasBuilder: AndroidActivity.Builder.() -> Unit = {},
     ) = ActionBuilders.LaunchAction.Builder()
         .setAndroidActivity(
             AndroidActivity.Builder()
@@ -124,7 +124,7 @@ class MediaCollectionsTileService : SuspendingTileService() {
                 .apply {
                     extrasBuilder()
                 }
-                .build()
+                .build(),
         )
         .build()
 
@@ -148,10 +148,10 @@ class MediaCollectionsTileService : SuspendingTileService() {
                 com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
                 mapOf(
                     firstSong.id to songResource,
-                    lastPlaylist.id to albumResource
-                )
+                    lastPlaylist.id to albumResource,
+                ),
             ),
-            requestParams
+            requestParams,
         )
     }
 }
@@ -172,13 +172,13 @@ fun SampleTilePreview() {
             collection1 = MediaCollectionsTileRenderer.MediaCollection(
                 name = "Kyoto Songs",
                 artworkId = "s1",
-                action = action
+                action = action,
             ),
             collection2 = MediaCollectionsTileRenderer.MediaCollection(
                 name = "Podcasts",
                 artworkId = "c2",
-                action = action
-            )
+                action = action,
+            ),
         )
     }
 
@@ -189,8 +189,8 @@ fun SampleTilePreview() {
             appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
             images = mapOf(
                 "s1" to kyoto?.toImageResource(),
-                "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24)
-            )
+                "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
+            ),
         )
     }
 
@@ -198,13 +198,13 @@ fun SampleTilePreview() {
         MediaCollectionsTileRenderer(
             context = context,
             materialTheme = UampColors.toTileColors(),
-            debugResourceMode = BuildConfig.DEBUG
+            debugResourceMode = BuildConfig.DEBUG,
         )
     }
 
     TileLayoutPreview(
         tileState,
         resourceState,
-        renderer
+        renderer,
     )
 }

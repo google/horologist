@@ -41,54 +41,59 @@ import kotlinx.coroutines.withContext
  * sync functionality.
  */
 @HiltWorker
-internal class SyncWorker @AssistedInject constructor(
-    @Assisted private val appContext: Context,
-    @Assisted workerParams: WorkerParameters,
-    private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
-    private val notificationConfigurationProvider: NotificationConfigurationProvider,
-    private val changeListVersionRepository: ChangeListVersionRepository,
-    private val syncables: Array<Syncable>
-) : CoroutineWorker(appContext, workerParams), Synchronizer {
+internal class SyncWorker
+    @AssistedInject
+    constructor(
+        @Assisted private val appContext: Context,
+        @Assisted workerParams: WorkerParameters,
+        private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
+        private val notificationConfigurationProvider: NotificationConfigurationProvider,
+        private val changeListVersionRepository: ChangeListVersionRepository,
+        private val syncables: Array<Syncable>,
+    ) : CoroutineWorker(appContext, workerParams), Synchronizer {
 
-    override suspend fun getForegroundInfo(): ForegroundInfo =
-        appContext.syncForegroundInfo(
-            notificationTitle = notificationConfigurationProvider.getNotificationTitle(),
-            notificationIcon = notificationConfigurationProvider.getNotificationIcon(),
-            channelName = notificationConfigurationProvider.getChannelName(),
-            channelDescription = notificationConfigurationProvider.getChannelDescription()
-        )
+        override suspend fun getForegroundInfo(): ForegroundInfo =
+            appContext.syncForegroundInfo(
+                notificationTitle = notificationConfigurationProvider.getNotificationTitle(),
+                notificationIcon = notificationConfigurationProvider.getNotificationIcon(),
+                channelName = notificationConfigurationProvider.getChannelName(),
+                channelDescription = notificationConfigurationProvider.getChannelDescription(),
+            )
 
-    override suspend fun doWork(): Result = withContext(coroutineDispatcherProvider.getIODispatcher()) {
-        traceAsync("SyncWorker", 0) {
-            // First sync the repositories in parallel
-            val deferredSyncCalls = Array(syncables.size) { index ->
-                async { syncables[index].sync() }
+        override suspend fun doWork(): Result = withContext(coroutineDispatcherProvider.getIODispatcher()) {
+            traceAsync("SyncWorker", 0) {
+                // First sync the repositories in parallel
+                val deferredSyncCalls = Array(syncables.size) { index ->
+                    async { syncables[index].sync() }
+                }
+
+                val syncedSuccessfully = awaitAll(*deferredSyncCalls).all { it }
+
+                if (syncedSuccessfully) {
+                    Result.success()
+                } else {
+                    Result.retry()
+                }
             }
+        }
 
-            val syncedSuccessfully = awaitAll(*deferredSyncCalls).all { it }
+        override suspend fun getChangeListVersions(model: String): Int =
+            changeListVersionRepository.getChangeListVersion(model)
 
-            if (syncedSuccessfully) Result.success()
-            else Result.retry()
+        override suspend fun updateChangeListVersions(model: String, version: Int): Unit =
+            changeListVersionRepository.updateChangeListVersion(
+                model = model,
+                newVersion = version,
+            )
+
+        internal companion object {
+            /**
+             * Expedited one time work to sync data on app startup
+             */
+            internal fun startUpSyncWork(): OneTimeWorkRequest = OneTimeWorkRequestBuilder<DelegatingWorker>()
+                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                .setConstraints(SyncConstraints)
+                .setInputData(SyncWorker::class.delegatedData())
+                .build()
         }
     }
-
-    override suspend fun getChangeListVersions(model: String): Int =
-        changeListVersionRepository.getChangeListVersion(model)
-
-    override suspend fun updateChangeListVersions(model: String, version: Int): Unit =
-        changeListVersionRepository.updateChangeListVersion(
-            model = model,
-            newVersion = version
-        )
-
-    internal companion object {
-        /**
-         * Expedited one time work to sync data on app startup
-         */
-        internal fun startUpSyncWork(): OneTimeWorkRequest = OneTimeWorkRequestBuilder<DelegatingWorker>()
-            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-            .setConstraints(SyncConstraints)
-            .setInputData(SyncWorker::class.delegatedData())
-            .build()
-    }
-}

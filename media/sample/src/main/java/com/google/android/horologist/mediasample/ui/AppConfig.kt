@@ -33,5 +33,5 @@ data class AppConfig(
     val cacheWriteBack: Boolean = true,
     val offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED,
     val strictMode: Boolean = false,
-    val cacheDir: File? = null
+    val cacheDir: File? = null,
 )

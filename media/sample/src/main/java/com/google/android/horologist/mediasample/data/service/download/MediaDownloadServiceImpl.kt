@@ -31,12 +31,18 @@ import javax.inject.Inject
 @SuppressLint("UnsafeOptInUsageError")
 @AndroidEntryPoint
 class MediaDownloadServiceImpl : MediaDownloadService(
-    /* foregroundNotificationId= */ MEDIA_DOWNLOAD_FOREGROUND_NOTIFICATION_ID,
-    /* foregroundNotificationUpdateInterval= */ DEFAULT_FOREGROUND_NOTIFICATION_UPDATE_INTERVAL,
-    /* channelId= */ MEDIA_DOWNLOAD_CHANNEL_ID,
-    /* channelNameResourceId= */ MEDIA_DOWNLOAD_CHANNEL_NAME,
-    /* channelDescriptionResourceId= */ MEDIA_DOWNLOAD_CHANNEL_DESCRIPTION_NOT_PROVIDED,
-    /* notificationIcon= */ MEDIA_DOWNLOAD_NOTIFICATION_ICON
+    /* foregroundNotificationId= */
+    MEDIA_DOWNLOAD_FOREGROUND_NOTIFICATION_ID,
+    /* foregroundNotificationUpdateInterval= */
+    DEFAULT_FOREGROUND_NOTIFICATION_UPDATE_INTERVAL,
+    /* channelId= */
+    MEDIA_DOWNLOAD_CHANNEL_ID,
+    /* channelNameResourceId= */
+    MEDIA_DOWNLOAD_CHANNEL_NAME,
+    /* channelDescriptionResourceId= */
+    MEDIA_DOWNLOAD_CHANNEL_DESCRIPTION_NOT_PROVIDED,
+    /* notificationIcon= */
+    MEDIA_DOWNLOAD_NOTIFICATION_ICON,
 ) {
 
     @Inject

@@ -51,13 +51,13 @@ public fun PlaylistStreamingScreen(
     onPlayButtonClick: () -> Unit,
     onPlayItemClick: (DownloadMediaUiModel) -> Unit,
     modifier: Modifier = Modifier,
-    defaultMediaTitle: String = ""
+    defaultMediaTitle: String = "",
 ) {
     val entityScreenState: EntityScreenState<DownloadMediaUiModel> =
         when (playlistDownloadScreenState) {
             PlaylistDownloadScreenState.Loading -> EntityScreenState.Loading
             is PlaylistDownloadScreenState.Loaded -> EntityScreenState.Loaded(
-                playlistDownloadScreenState.mediaList
+                playlistDownloadScreenState.mediaList,
             )
 
             PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed
@@ -75,7 +75,7 @@ public fun PlaylistStreamingScreen(
                 onClick = { onPlayItemClick(mediaUiModel) },
                 icon = mediaUiModel.artworkUri,
                 largeIcon = true,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         },
         modifier = modifier,
@@ -84,7 +84,7 @@ public fun PlaylistStreamingScreen(
                 modifier = Modifier
                     .padding(bottom = 16.dp)
                     .height(52.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Button(
                     imageVector = Icons.Default.Shuffle,
@@ -92,7 +92,7 @@ public fun PlaylistStreamingScreen(
                     onClick = { onShuffleButtonClick() },
                     modifier = Modifier
                         .padding(start = 6.dp)
-                        .weight(weight = 0.3F, fill = false)
+                        .weight(weight = 0.3F, fill = false),
                 )
 
                 Button(
@@ -101,9 +101,9 @@ public fun PlaylistStreamingScreen(
                     onClick = { onPlayButtonClick() },
                     modifier = Modifier
                         .padding(start = 6.dp)
-                        .weight(weight = 0.3F, fill = false)
+                        .weight(weight = 0.3F, fill = false),
                 )
             }
-        }
+        },
     )
 }

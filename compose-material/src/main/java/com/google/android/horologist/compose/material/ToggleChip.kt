@@ -61,7 +61,7 @@ public fun ToggleChip(
     secondaryLabel: String? = null,
     colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
     enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val hasSecondaryLabel = secondaryLabel != null
 
@@ -73,7 +73,7 @@ public fun ToggleChip(
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
-                style = MaterialTheme.typography.button
+                style = MaterialTheme.typography.button,
             )
         }
 
@@ -84,7 +84,7 @@ public fun ToggleChip(
                     text = secondaryLabel,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    style = MaterialTheme.typography.caption2
+                    style = MaterialTheme.typography.caption2,
                 )
             }
         }
@@ -99,7 +99,7 @@ public fun ToggleChip(
             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
             // This potentially be removed once this issue is addressed:
             // https://issuetracker.google.com/issues/287087138
-            rtlMode = if (toggleControl == ToggleChipToggleControl.Switch) IconRtlMode.Mirrored else IconRtlMode.Default
+            rtlMode = if (toggleControl == ToggleChipToggleControl.Switch) IconRtlMode.Mirrored else IconRtlMode.Default,
         )
     }
 
@@ -113,7 +113,7 @@ public fun ToggleChip(
                         modifier = Modifier
                             .size(ChipDefaults.IconSize)
                             .clip(CircleShape),
-                        rtlMode = iconRtlMode
+                        rtlMode = iconRtlMode,
                     )
                 }
             }
@@ -124,7 +124,7 @@ public fun ToggleChip(
             R.string.horologist_toggle_chip_on_state_description
         } else {
             R.string.horologist_toggle_chip_off_state_description
-        }
+        },
     )
     ToggleChip(
         checked = checked,
@@ -140,6 +140,6 @@ public fun ToggleChip(
         secondaryLabel = secondaryLabelParam,
         colors = colors,
         enabled = enabled,
-        interactionSource = interactionSource
+        interactionSource = interactionSource,
     )
 }

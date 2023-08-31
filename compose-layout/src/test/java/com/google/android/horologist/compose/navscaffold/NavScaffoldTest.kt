@@ -16,7 +16,7 @@
 
 @file:OptIn(
     ExperimentalCoroutinesApi::class,
-    ExperimentalWearFoundationApi::class
+    ExperimentalWearFoundationApi::class,
 )
 
 package com.google.android.horologist.compose.navscaffold
@@ -73,7 +73,7 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(
     sdk = [30],
-    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 class NavScaffoldTest {
     @get:Rule
@@ -95,11 +95,11 @@ class NavScaffoldTest {
 
         fun NavGraphBuilder.scrollingList(
             route: String,
-            scrollState: ScalingLazyListState
+            scrollState: ScalingLazyListState,
         ) {
             scalingLazyColumnComposable(
                 route = route,
-                scrollStateBuilder = { scrollState }
+                scrollStateBuilder = { scrollState },
             ) {
                 val focusRequester =
                     remember { FocusRequester() }
@@ -108,10 +108,10 @@ class NavScaffoldTest {
                         .fillMaxWidth()
                         .rotaryWithScroll(
                             it.scrollableState,
-                            focusRequester
+                            focusRequester,
                         ),
                     state = it.scrollableState,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     items(11) {
                         Text(text = "Item $it")
@@ -130,7 +130,7 @@ class NavScaffoldTest {
 
             WearNavScaffold(
                 startDestination = "a",
-                navController = navController
+                navController = navController,
             ) {
                 scrollingList("a", aScrollState)
                 scrollingList("b", bScrollState)
@@ -180,14 +180,14 @@ class NavScaffoldTest {
 
             WearNavScaffold(
                 startDestination = "a",
-                navController = navController
+                navController = navController,
             ) {
                 scrollable(
-                    route = "a"
+                    route = "a",
                 ) {
                     ScalingLazyColumn(
                         columnState = it.columnState,
-                        modifier = Modifier.testTag("columna")
+                        modifier = Modifier.testTag("columna"),
                     ) {
                         items(100) {
                             Text("Item $it")
@@ -197,7 +197,7 @@ class NavScaffoldTest {
 
                 scrollStateComposable(
                     route = "b",
-                    scrollStateBuilder = { ScrollState(0) }
+                    scrollStateBuilder = { ScrollState(0) },
                 ) {
                     val focusRequester =
                         remember { FocusRequester() }
@@ -206,7 +206,7 @@ class NavScaffoldTest {
                             .testTag("columnb")
                             .fillMaxSize()
                             .rotaryWithScroll(it.scrollableState, focusRequester)
-                            .verticalScroll(it.scrollableState)
+                            .verticalScroll(it.scrollableState),
                     ) {
                         (1..100).forEach { i ->
                             Text("$i")
@@ -264,7 +264,7 @@ class NavScaffoldTest {
                                         .onGloballyPositioned {
                                             bounds = it.boundsInWindow()
                                         },
-                                    text = "\uD83D\uDD23"
+                                    text = "\uD83D\uDD23",
                                 )
                             }
                         },
@@ -275,22 +275,22 @@ class NavScaffoldTest {
                                     .onGloballyPositioned {
                                         bounds = it.boundsInWindow()
                                     },
-                                text = "\uD83D\uDD23"
+                                text = "\uD83D\uDD23",
                             )
-                        }
+                        },
                     )
-                }
+                },
             ) {
                 composable(
-                    route = "a"
+                    route = "a",
                 ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
                     ) {
                         Text(
                             modifier = Modifier.testTag("body"),
-                            text = "Lorem Ipsum"
+                            text = "Lorem Ipsum",
                         )
                     }
                 }

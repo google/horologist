@@ -69,19 +69,19 @@ object NetworkModule {
     @Provides
     fun networkRepository(
         @ApplicationContext application: Context,
-        @ForApplicationScope coroutineScope: CoroutineScope
+        @ForApplicationScope coroutineScope: CoroutineScope,
     ): NetworkRepository = NetworkRepositoryImpl.fromContext(
         application,
-        coroutineScope
+        coroutineScope,
     )
 
     @Singleton
     @Provides
     fun cache(
-        @ApplicationContext application: Context
+        @ApplicationContext application: Context,
     ): Cache = Cache(
         application.cacheDir.resolve("HttpCache"),
-        10_000_000
+        10_000_000,
     )
 
     @Singleton
@@ -91,7 +91,7 @@ object NetworkModule {
 
         if (request.url.scheme == "http") {
             request = request.newBuilder().url(
-                request.url.newBuilder().scheme("https").build()
+                request.url.newBuilder().scheme("https").build(),
             ).build()
         }
 
@@ -102,7 +102,7 @@ object NetworkModule {
     @Provides
     fun okhttpClient(
         cache: Cache,
-        alwaysHttpsInterceptor: Interceptor
+        alwaysHttpsInterceptor: Interceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder().followSslRedirects(false)
             .addInterceptor(alwaysHttpsInterceptor)
@@ -121,22 +121,22 @@ object NetworkModule {
     fun networkingRulesEngine(
         networkRepository: NetworkRepository,
         networkLogger: NetworkStatusLogger,
-        appConfig: AppConfig
+        appConfig: AppConfig,
     ): NetworkingRulesEngine = NetworkingRulesEngine(
         networkRepository = networkRepository,
         logger = networkLogger,
-        networkingRules = appConfig.strictNetworking!!
+        networkingRules = appConfig.strictNetworking!!,
     )
 
     @Provides
     fun connectivityManager(
-        @ApplicationContext application: Context
+        @ApplicationContext application: Context,
     ): ConnectivityManager =
         application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     @Provides
     fun wifiManager(
-        @ApplicationContext application: Context
+        @ApplicationContext application: Context,
     ): WifiManager = application.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
     @Singleton
@@ -144,26 +144,26 @@ object NetworkModule {
     fun aggregatingHighBandwidthRequester(
         networkLogger: NetworkStatusLogger,
         networkRequester: NetworkRequester,
-        @ForApplicationScope coroutineScope: CoroutineScope
+        @ForApplicationScope coroutineScope: CoroutineScope,
     ) = StandardHighBandwidthNetworkMediator(
         networkLogger,
         networkRequester,
         coroutineScope,
-        3.seconds
+        3.seconds,
     )
 
     @Singleton
     @Provides
     fun highBandwidthRequester(
-        highBandwidthNetworkMediator: StandardHighBandwidthNetworkMediator
+        highBandwidthNetworkMediator: StandardHighBandwidthNetworkMediator,
     ): HighBandwidthNetworkMediator = highBandwidthNetworkMediator
 
     @Singleton
     @Provides
     fun networkRequester(
-        connectivityManager: ConnectivityManager
+        connectivityManager: ConnectivityManager,
     ): NetworkRequester = NetworkRequesterImpl(
-        connectivityManager
+        connectivityManager,
     )
 
     @Singleton
@@ -176,7 +176,7 @@ object NetworkModule {
         dataRequestRepository: DataRequestRepository,
         networkRepository: NetworkRepository,
         @ForApplicationScope coroutineScope: CoroutineScope,
-        logger: NetworkStatusLogger
+        logger: NetworkStatusLogger,
     ): Call.Factory =
         if (appConfig.strictNetworking != null) {
             NetworkSelectingCallFactory(
@@ -186,7 +186,7 @@ object NetworkModule {
                 dataRequestRepository,
                 okhttpClient,
                 coroutineScope,
-                logger = logger
+                logger = logger,
             )
         } else {
             okhttpClient.newBuilder()
@@ -195,8 +195,8 @@ object NetworkModule {
                         logger,
                         networkRepository,
                         okhttpClient.eventListenerFactory,
-                        dataRequestRepository
-                    )
+                        dataRequestRepository,
+                    ),
                 )
                 .build()
         }
@@ -208,14 +208,14 @@ object NetworkModule {
     @Singleton
     @Provides
     fun mooshiConverterFactory(
-        moshi: Moshi
+        moshi: Moshi,
     ): MoshiConverterFactory = MoshiConverterFactory.create(moshi)
 
     @Singleton
     @Provides
     fun retrofit(
         callFactory: Call.Factory,
-        moshiConverterFactory: MoshiConverterFactory
+        moshiConverterFactory: MoshiConverterFactory,
     ) =
         Retrofit.Builder()
             .addConverterFactory(moshiConverterFactory)
@@ -223,16 +223,16 @@ object NetworkModule {
             .callFactory(
                 NetworkAwareCallFactory(
                     callFactory,
-                    RequestType.ApiRequest
-                )
+                    RequestType.ApiRequest,
+                ),
             ).build()
 
     @Singleton
     @Provides
     fun uampService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): UampService = WearArtworkUampService(
-        retrofit.create(UampService::class.java)
+        retrofit.create(UampService::class.java),
     )
 
     @Singleton
@@ -240,7 +240,7 @@ object NetworkModule {
     fun imageLoader(
         @ApplicationContext application: Context,
         @CacheDir cacheDir: File,
-        callFactory: Call.Factory
+        callFactory: Call.Factory,
     ): ImageLoader = ImageLoader.Builder(application)
         .crossfade(false)
         .components {
@@ -257,7 +257,7 @@ object NetworkModule {
         .callFactory {
             NetworkAwareCallFactory(
                 callFactory,
-                defaultRequestType = RequestType.ImageRequest
+                defaultRequestType = RequestType.ImageRequest,
             )
         }.apply {
             if (BuildConfig.DEBUG) {

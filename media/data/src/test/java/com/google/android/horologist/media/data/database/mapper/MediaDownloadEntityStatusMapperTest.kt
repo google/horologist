@@ -26,7 +26,7 @@ import org.junit.runners.Parameterized
 @RunWith(Parameterized::class)
 class MediaDownloadEntityStatusMapperTest(
     @Download.State private val state: Int,
-    private val expectedStatus: MediaDownloadEntityStatus
+    private val expectedStatus: MediaDownloadEntityStatus,
 ) {
 
     @Test
@@ -44,32 +44,32 @@ class MediaDownloadEntityStatusMapperTest(
         fun params() = listOf(
             arrayOf(
                 Download.STATE_QUEUED,
-                MediaDownloadEntityStatus.Downloading
+                MediaDownloadEntityStatus.Downloading,
             ),
             arrayOf(
                 Download.STATE_STOPPED,
-                MediaDownloadEntityStatus.NotDownloaded
+                MediaDownloadEntityStatus.NotDownloaded,
             ),
             arrayOf(
                 Download.STATE_DOWNLOADING,
-                MediaDownloadEntityStatus.Downloading
+                MediaDownloadEntityStatus.Downloading,
             ),
             arrayOf(
                 Download.STATE_COMPLETED,
-                MediaDownloadEntityStatus.Downloaded
+                MediaDownloadEntityStatus.Downloaded,
             ),
             arrayOf(
                 Download.STATE_FAILED,
-                MediaDownloadEntityStatus.Failed
+                MediaDownloadEntityStatus.Failed,
             ),
             arrayOf(
                 Download.STATE_REMOVING,
-                MediaDownloadEntityStatus.NotDownloaded
+                MediaDownloadEntityStatus.NotDownloaded,
             ),
             arrayOf(
                 Download.STATE_RESTARTING,
-                MediaDownloadEntityStatus.Downloading
-            )
+                MediaDownloadEntityStatus.Downloading,
+            ),
         )
     }
 }

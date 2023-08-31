@@ -48,7 +48,7 @@ class GoogleSignInViewModelTest {
     fun setUp() {
         val googleSignInClient = GoogleSignIn.getClient(
             RuntimeEnvironment.getApplication(),
-            GoogleSignInOptions.DEFAULT_SIGN_IN
+            GoogleSignInOptions.DEFAULT_SIGN_IN,
         )
         sut = GoogleSignInViewModel(googleSignInClient, spyGoogleSignInEventListener)
     }

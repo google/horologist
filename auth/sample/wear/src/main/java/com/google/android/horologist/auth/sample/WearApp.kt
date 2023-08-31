@@ -52,77 +52,77 @@ import com.google.android.horologist.compose.navscaffold.scrollable
 @Composable
 fun WearApp(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberSwipeDismissableNavController()
+    navController: NavHostController = rememberSwipeDismissableNavController(),
 ) {
     WearNavScaffold(startDestination = Screen.MainScreen.route, navController = navController) {
         scrollable(
-            route = Screen.MainScreen.route
+            route = Screen.MainScreen.route,
         ) {
             MainScreen(
                 navigateToRoute = navController::navigate,
                 modifier = modifier,
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         scrollable(
-            route = Screen.PKCESignInPromptScreen.route
+            route = Screen.PKCESignInPromptScreen.route,
         ) {
             PKCESignInPromptScreen(
                 navController = navController,
                 modifier = modifier,
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         composable(route = Screen.PKCESignInScreen.route) {
             PKCESignInScreen<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse>(
                 onAuthSucceed = navController::popBackStack,
                 modifier = modifier,
-                viewModel = viewModel(factory = PKCESampleViewModelFactory)
+                viewModel = viewModel(factory = PKCESampleViewModelFactory),
             )
         }
         composable(route = Screen.PKCESignOutScreen.route) {
             PKCESignOutScreen(navController = navController)
         }
         scrollable(
-            route = Screen.DeviceGrantSignInPromptScreen.route
+            route = Screen.DeviceGrantSignInPromptScreen.route,
         ) {
             DeviceGrantSignInPromptScreen(
                 navController = navController,
                 columnState = it.columnState,
-                modifier = modifier
+                modifier = modifier,
             )
         }
         composable(route = Screen.DeviceGrantSignInScreen.route) {
             DeviceGrantSignInScreen<DeviceGrantDefaultConfig, DeviceCodeResponse, String>(
                 onAuthSucceed = navController::popBackStack,
                 modifier = modifier,
-                viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory)
+                viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory),
             )
         }
         composable(route = Screen.DeviceGrantSignOutScreen.route) {
             DeviceGrantSignOutScreen(navController = navController)
         }
         scrollable(
-            route = Screen.GoogleSignInPromptSampleScreen.route
+            route = Screen.GoogleSignInPromptSampleScreen.route,
         ) {
             GoogleSignInPromptSampleScreen(
                 navController = navController,
                 columnState = it.columnState,
-                modifier = modifier
+                modifier = modifier,
             )
         }
         scrollable(route = Screen.StreamlineSignInMenuScreen.route) {
             StreamlineSignInMenuScreen(
                 navController = navController,
                 columnState = it.columnState,
-                modifier = modifier
+                modifier = modifier,
             )
         }
         scrollable(route = Screen.StreamlineSignInSampleScreen.route) {
             StreamlineSignInSampleScreen(
                 navController = navController,
                 columnState = it.columnState,
-                modifier = modifier
+                modifier = modifier,
             )
         }
         composable(route = Screen.GoogleSignInScreen.route) {
@@ -130,7 +130,7 @@ fun WearApp(
                 onAuthCancelled = navController::popBackStack,
                 onAuthSucceed = navController::popBackStack,
                 modifier = modifier,
-                viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory)
+                viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory),
             )
         }
         composable(route = Screen.GoogleSignOutScreen.route) {

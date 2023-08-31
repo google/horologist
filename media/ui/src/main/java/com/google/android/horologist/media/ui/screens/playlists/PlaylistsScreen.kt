@@ -39,13 +39,13 @@ public fun <T> PlaylistsScreen(
     columnState: ScalingLazyColumnState,
     playlists: List<T>,
     playlistContent: @Composable (playlist: T) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Loaded(playlists),
         playlistContent = playlistContent,
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -55,11 +55,11 @@ public fun <T> PlaylistsScreen(
     columnState: ScalingLazyColumnState,
     playlistsScreenState: PlaylistsScreenState<T>,
     playlistContent: @Composable (playlist: T) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     SectionedList(
         modifier = modifier,
-        columnState = columnState
+        columnState = columnState,
     ) {
         val sectionState = when (playlistsScreenState) {
             is PlaylistsScreenState.Loaded<T> -> {
@@ -74,7 +74,7 @@ public fun <T> PlaylistsScreen(
             header {
                 Title(
                     R.string.horologist_browse_playlist_title,
-                    Modifier.padding(bottom = 12.dp)
+                    Modifier.padding(bottom = 12.dp),
                 )
             }
 
@@ -96,7 +96,7 @@ public fun PlaylistsScreen(
     playlistsScreenState: PlaylistsScreenState<PlaylistUiModel>,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
     modifier: Modifier = Modifier,
-    playlistItemArtworkPlaceholder: Painter? = null
+    playlistItemArtworkPlaceholder: Painter? = null,
 ) {
     val playlistContent: @Composable (playlist: PlaylistUiModel) -> Unit = { playlist ->
         Chip(
@@ -105,7 +105,7 @@ public fun PlaylistsScreen(
             icon = playlist.artworkUri,
             largeIcon = true,
             placeholder = playlistItemArtworkPlaceholder,
-            colors = ChipDefaults.secondaryChipColors()
+            colors = ChipDefaults.secondaryChipColors(),
         )
     }
 
@@ -113,7 +113,7 @@ public fun PlaylistsScreen(
         columnState = columnState,
         playlistsScreenState = playlistsScreenState,
         playlistContent = playlistContent,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -126,7 +126,7 @@ public sealed class PlaylistsScreenState<out T> {
     public object Loading : PlaylistsScreenState<Nothing>()
 
     public data class Loaded<T>(
-        val playlistList: List<T>
+        val playlistList: List<T>,
     ) : PlaylistsScreenState<T>()
 
     public object Failed : PlaylistsScreenState<Nothing>()

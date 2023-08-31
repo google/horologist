@@ -37,18 +37,18 @@ fun SignInPromptScreenPreviewSignedOut() {
         message = "Send messages and create chat groups with your friends",
         onIdleStateObserved = { },
         onAlreadySignedIn = { },
-        columnState = belowTimeTextPreview()
+        columnState = belowTimeTextPreview(),
     ) {
         item {
             SignInChip(
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -63,18 +63,18 @@ fun SignInPromptScreenPreviewLoading() {
         message = "Send messages and create chat groups with your friends",
         onIdleStateObserved = { },
         onAlreadySignedIn = { },
-        columnState = belowTimeTextPreview()
+        columnState = belowTimeTextPreview(),
     ) {
         item {
             SignInChip(
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -94,18 +94,18 @@ fun SignInPromptScreenPreviewCustomLoading() {
             Box(contentAlignment = Alignment.Center) {
                 Text("Loading...")
             }
-        }
+        },
     ) {
         item {
             SignInChip(
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }

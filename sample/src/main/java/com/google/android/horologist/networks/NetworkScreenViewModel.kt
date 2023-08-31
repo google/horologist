@@ -43,7 +43,7 @@ public class NetworkScreenViewModel(
     private val dataRequestRepository: DataRequestRepository,
     private val inMemory: InMemoryStatusLogger,
     private val callFactory: Call.Factory,
-    private val okHttpClient: OkHttpClient
+    private val okHttpClient: OkHttpClient,
 ) : ViewModel() {
     val request = Request.Builder()
         .url("https://github.com/google/horologist/raw/main/media/sample/backend/images/album_art.jpg")
@@ -78,13 +78,13 @@ public class NetworkScreenViewModel(
             networkRepository.networkStatus,
             dataRequestRepository.currentPeriodUsage(),
             inMemory.events,
-            responses
+            responses,
         ) { networkStatus, currentPeriodUsage, requests, responses ->
             NetworkScreenUiState(
                 networks = networkStatus,
                 dataUsage = currentPeriodUsage,
                 requests = requests,
-                responses = responses
+                responses = responses,
             )
         }
             .stateIn(
@@ -94,15 +94,15 @@ public class NetworkScreenViewModel(
                     networks = networkRepository.networkStatus.value,
                     dataUsage = DataUsageReport.Empty,
                     requests = listOf(),
-                    responses = mapOf()
-                )
+                    responses = mapOf(),
+                ),
             )
 
     data class NetworkScreenUiState(
         val networks: Networks,
         val dataUsage: DataUsageReport,
         val requests: List<InMemoryStatusLogger.Event>,
-        val responses: Map<String, String>
+        val responses: Map<String, String>,
     )
 
     public object Factory : ViewModelProvider.Factory {
@@ -118,7 +118,7 @@ public class NetworkScreenViewModel(
                 dataRequestRepository = application.dataRequestRepository,
                 inMemory = application.networkLogger,
                 callFactory = application.networkAwareCallFactory,
-                okHttpClient = application.okHttpClient
+                okHttpClient = application.okHttpClient,
             ) as T
         }
     }

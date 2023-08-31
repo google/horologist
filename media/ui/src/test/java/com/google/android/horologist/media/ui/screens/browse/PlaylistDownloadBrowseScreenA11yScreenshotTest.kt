@@ -28,7 +28,7 @@ import org.junit.Test
 class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         enableA11y = true
-    }
+    },
 ) {
 
     @Test
@@ -46,7 +46,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest(
                     onPlaylistsClick = { },
                     onSettingsClick = { },
                     columnState = columnState,
-                    onDownloadItemInProgressClickActionLabel = "cancel"
+                    onDownloadItemInProgressClickActionLabel = "cancel",
                 )
             }
         }
@@ -67,7 +67,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest(
                         onPlaylistsClick = { },
                         onSettingsClick = { },
                         columnState = columnState,
-                        onDownloadItemInProgressClickActionLabel = "cancel"
+                        onDownloadItemInProgressClickActionLabel = "cancel",
                     )
                 }
             }
@@ -81,10 +81,10 @@ internal val downloadList = buildList {
             PlaylistUiModel(
                 id = "id",
                 title = "Rock Classics",
-                artworkUri = "https://www.example.com/album1.png"
+                artworkUri = "https://www.example.com/album1.png",
             ),
-            percentage = 15
-        )
+            percentage = 15,
+        ),
     )
 
     add(
@@ -92,8 +92,8 @@ internal val downloadList = buildList {
             PlaylistUiModel(
                 id = "id",
                 title = "Pop Punk",
-                artworkUri = "https://www.example.com/album2.png"
-            )
-        )
+                artworkUri = "https://www.example.com/album2.png",
+            ),
+        ),
     )
 }

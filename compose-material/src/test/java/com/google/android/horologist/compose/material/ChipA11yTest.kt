@@ -30,7 +30,7 @@ class ChipA11yTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test
@@ -41,7 +41,7 @@ class ChipA11yTest : ScreenshotBaseTest(
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image
+                    icon = Icons.Default.Image,
                 )
             }
         }
@@ -56,7 +56,7 @@ class ChipA11yTest : ScreenshotBaseTest(
                     onClick = { },
                     secondaryLabel = "Secondary label",
                     icon = Icons.Default.Image,
-                    enabled = false
+                    enabled = false,
                 )
             }
         }

@@ -95,5 +95,15 @@ class PlaybackStateTest {
     }
 
     private fun eventWith(position: Duration?, duration: Duration?, speed: Float = 1f, live: Boolean = false) =
-        PlaybackStateEvent(playbackState = PlaybackState(playerState = PlayerState.Playing, isLive = live, currentPosition = position, duration = duration, playbackSpeed = speed), cause = PlaybackStateEvent.Cause.Other, timestamp = elapsedMilliseconds.milliseconds)
+        PlaybackStateEvent(
+            playbackState = PlaybackState(
+                playerState = PlayerState.Playing,
+                isLive = live,
+                currentPosition = position,
+                duration = duration,
+                playbackSpeed = speed,
+            ),
+            cause = PlaybackStateEvent.Cause.Other,
+            timestamp = elapsedMilliseconds.milliseconds,
+        )
 }

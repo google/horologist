@@ -32,7 +32,7 @@ val GoogleSignInSampleViewModelFactory: ViewModelProvider.Factory = viewModelFac
             application,
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
-                .build()
+                .build(),
         )
 
         GoogleSignInViewModel(googleSignInClient, GoogleSignInEventListenerSample)

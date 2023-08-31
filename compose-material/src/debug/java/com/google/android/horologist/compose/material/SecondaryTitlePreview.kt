@@ -26,7 +26,7 @@ import com.google.android.horologist.compose.tools.WearPreview
 @Composable
 fun SecondaryTitlePreview() {
     SecondaryTitle(
-        text = "Title"
+        text = "Title",
     )
 }
 
@@ -34,7 +34,9 @@ fun SecondaryTitlePreview() {
 @Composable
 fun SecondaryTitlePreviewWithLongText() {
     SecondaryTitle(
-        text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text"
+        text = "Title with a very very very very very very very very very very very very very " +
+            "very very very very very very very very very very very very very very very very " +
+            "very very very very long text",
     )
 }
 
@@ -44,7 +46,7 @@ fun SecondaryTitlePreviewWithIcon() {
     SecondaryTitle(
         text = "Title",
         icon = Icons.Filled.Add,
-        iconTint = Color(0xFF946EB1)
+        iconTint = Color(0xFF946EB1),
     )
 }
 
@@ -52,7 +54,9 @@ fun SecondaryTitlePreviewWithIcon() {
 @Composable
 fun SecondaryTitlePreviewWithIconAndLongText() {
     SecondaryTitle(
-        text = "Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text",
-        icon = Icons.Filled.Add
+        text = "Title with a very very very very very very very very very very very very very " +
+            "very very very very very very very very very very very very very very very very " +
+            "very very very very long text",
+        icon = Icons.Filled.Add,
     )
 }

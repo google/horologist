@@ -46,14 +46,14 @@ public open class NetworkLoggingEventListenerFactory(
     private val logger: NetworkStatusLogger,
     private val networkRepository: NetworkRepository,
     private val delegateEventListenerFactory: EventListener.Factory,
-    private val dataRequestRepository: DataRequestRepository? = null
+    private val dataRequestRepository: DataRequestRepository? = null,
 ) : EventListener.Factory {
     override fun create(call: Call): EventListener = Listener(
-        delegateEventListenerFactory.create(call)
+        delegateEventListenerFactory.create(call),
     )
 
     internal open inner class Listener(
-        delegate: EventListener
+        delegate: EventListener,
     ) : ForwardingEventListener(delegate) {
         private var callDetails: String? = null
         private var bytesTransferred: Long = 0
@@ -64,7 +64,7 @@ public open class NetworkLoggingEventListenerFactory(
             inetSocketAddress: InetSocketAddress,
             proxy: Proxy,
             protocol: Protocol?,
-            ioe: IOException
+            ioe: IOException,
         ) {
             logger.logNetworkEvent("connect failed $inetSocketAddress ${call.request().networkInfo}")
 
@@ -147,14 +147,14 @@ public open class NetworkLoggingEventListenerFactory(
             logger.logNetworkResponse(
                 requestType,
                 networkInfo,
-                bytesTransferred
+                bytesTransferred,
             )
             dataRequestRepository?.storeRequest(
                 DataRequest(
                     requestType,
                     networkInfo,
-                    bytesTransferred
-                )
+                    bytesTransferred,
+                ),
             )
         }
     }

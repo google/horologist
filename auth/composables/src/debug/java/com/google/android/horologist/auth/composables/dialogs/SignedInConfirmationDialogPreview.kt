@@ -25,7 +25,7 @@ fun SignedInConfirmationDialogPreview() {
     SignedInConfirmationDialog(
         onDismissOrTimeout = {},
         name = "Maggie",
-        email = "maggie@example.com"
+        email = "maggie@example.com",
     )
 }
 
@@ -34,7 +34,7 @@ fun SignedInConfirmationDialogPreview() {
 fun SignedInConfirmationDialogPreviewNoName() {
     SignedInConfirmationDialog(
         onDismissOrTimeout = {},
-        email = "maggie@example.com"
+        email = "maggie@example.com",
     )
 }
 
@@ -43,7 +43,7 @@ fun SignedInConfirmationDialogPreviewNoName() {
 fun SignedInConfirmationDialogPreviewNoEmail() {
     SignedInConfirmationDialog(
         onDismissOrTimeout = {},
-        name = "Maggie"
+        name = "Maggie",
     )
 }
 
@@ -59,6 +59,6 @@ fun SignedInConfirmationDialogPreviewTruncation() {
     SignedInConfirmationDialog(
         onDismissOrTimeout = {},
         name = "Wolfeschlegelsteinhausenbergerdorff",
-        email = "wolfeschlegelsteinhausenbergerdorff@example.com"
+        email = "wolfeschlegelsteinhausenbergerdorff@example.com",
     )
 }

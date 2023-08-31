@@ -36,7 +36,7 @@ public fun <T> DataClient.dataItemFlow(
     nodeId: String,
     path: String,
     serializer: Serializer<T>,
-    defaultValue: () -> T = { serializer.defaultValue }
+    defaultValue: () -> T = { serializer.defaultValue },
 ): Flow<T> = callbackFlow {
     val listener = OnDataChangedListener {
         @SuppressWarnings("GmsCoreFirstPartyApiChecker")
@@ -56,7 +56,7 @@ public fun <T> DataClient.dataItemFlow(
     addListener(
         listener,
         uri,
-        DataClient.FILTER_LITERAL
+        DataClient.FILTER_LITERAL,
     ).await() // Ensure we are subscribed to updates first,
 
     val item: DataItem? = this@dataItemFlow.getDataItem(uri).await() // then get the current value.
@@ -76,5 +76,5 @@ public fun <T> DataClient.dataItemFlow(
 }
 
 private suspend fun <T> Serializer<T>.parse(
-    data: ByteArray
+    data: ByteArray,
 ) = readFrom(ByteArrayInputStream(data))

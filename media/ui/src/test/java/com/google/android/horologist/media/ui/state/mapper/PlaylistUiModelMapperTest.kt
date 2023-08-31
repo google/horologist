@@ -33,7 +33,7 @@ class PlaylistUiModelMapperTest {
             id = id,
             name = name,
             artworkUri = artworkUri,
-            mediaList = emptyList()
+            mediaList = emptyList(),
         )
 
         // when
@@ -44,8 +44,8 @@ class PlaylistUiModelMapperTest {
             PlaylistUiModel(
                 id = id,
                 title = name,
-                artworkUri = artworkUri
-            )
+                artworkUri = artworkUri,
+            ),
         )
     }
 }

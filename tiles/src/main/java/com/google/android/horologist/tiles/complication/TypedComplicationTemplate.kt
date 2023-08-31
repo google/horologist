@@ -35,8 +35,9 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  * A complication provider that support distinct render methods.
  */
 @ExperimentalHorologistApi
-public abstract class TypedComplicationTemplate<T>(override val context: Context) :
-    ComplicationTemplate<T> {
+public abstract class TypedComplicationTemplate<T>(
+    override val context: Context,
+) : ComplicationTemplate<T> {
     final override fun render(type: ComplicationType, data: T): ComplicationData {
         return when (type) {
             ComplicationType.LONG_TEXT -> renderLongText(data) ?: NoDataComplicationData()

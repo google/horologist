@@ -21,7 +21,7 @@ import android.graphics.Rect
 internal data class AccessibilityState(
     val width: Int,
     val height: Int,
-    val elements: List<Element>
+    val elements: List<Element>,
 ) {
     internal data class Element(
         val displayBounds: Rect,
@@ -34,7 +34,7 @@ internal data class AccessibilityState(
         val disabled: Boolean,
         val heading: Boolean,
         val customActions: List<CustomAction>?,
-        val progress: Progress?
+        val progress: Progress?,
     )
 
     internal data class CustomAction(val label: String)
@@ -43,7 +43,7 @@ internal data class AccessibilityState(
         val current: Float,
         val range: ClosedRange<Float>,
         val steps: Int,
-        val hasAction: Boolean
+        val hasAction: Boolean,
     ) {
         override fun toString(): String {
             return "$current [$range] ${if (hasAction) "Action" else ""}"

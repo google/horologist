@@ -20,5 +20,5 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class CatalogApiModel(
-    val music: List<MusicApiModel>
+    val music: List<MusicApiModel>,
 )

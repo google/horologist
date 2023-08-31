@@ -42,7 +42,7 @@ class MediaActivity : ComponentActivity() {
             navController = rememberSwipeDismissableNavController()
             UampWearApp(
                 navController = navController,
-                intent = intent
+                intent = intent,
             )
 
             LaunchedEffect(Unit) {

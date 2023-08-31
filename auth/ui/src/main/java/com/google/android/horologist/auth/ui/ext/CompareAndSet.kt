@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 internal fun <T> MutableStateFlow<T>.compareAndSet(
     expect: T,
     update: T,
-    executeOnUpdate: () -> Unit
+    executeOnUpdate: () -> Unit,
 ) {
     if (compareAndSet(expect = expect, update = update)) {
         executeOnUpdate()

@@ -50,7 +50,7 @@ class SampleApplication : Application() {
                 .detectDiskWrites()
                 .detectNetwork()
                 .penaltyDeath()
-                .build()
+                .build(),
         )
     }
 }

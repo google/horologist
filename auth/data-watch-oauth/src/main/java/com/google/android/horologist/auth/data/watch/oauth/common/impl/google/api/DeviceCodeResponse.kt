@@ -24,5 +24,5 @@ public data class DeviceCodeResponse(
     @Json(name = "verification_url") val verificationUri: String,
     @Json(name = "user_code") val userCode: String,
     @Json(name = "device_code") val deviceCode: String,
-    @Json(name = "interval") val interval: Int
+    @Json(name = "interval") val interval: Int,
 )

@@ -44,7 +44,7 @@ import kotlin.reflect.safeCast
 
 public class BinderConnection<T : IBinder>(
     private val context: Context,
-    private val type: KClass<out T>
+    private val type: KClass<out T>,
 ) : ServiceConnection {
     private val mutableBinder = MutableStateFlow<T?>(null)
     private val binder = mutableBinder.asStateFlow()
@@ -81,7 +81,7 @@ public class BinderConnection<T : IBinder>(
 //        }
 
         public inline fun <reified T : IBinder, reified S : Service> Lifecycle.bindService(
-            context: Context
+            context: Context,
         ): BinderConnection<T> {
             val connection = BinderConnection(context, T::class)
             addObserver(object : DefaultLifecycleObserver {
@@ -97,7 +97,7 @@ public class BinderConnection<T : IBinder>(
         }
 
         public inline fun <reified T : IBinder, reified S : Service> CoroutineScope.bindService(
-            context: Context
+            context: Context,
         ): BinderConnection<T> {
             val connection = BinderConnection(context, T::class)
             launch {
@@ -114,7 +114,7 @@ public class BinderConnection<T : IBinder>(
         public fun <S : Service> bindService(
             context: Context,
             service: KClass<S>,
-            connection: BinderConnection<*>
+            connection: BinderConnection<*>,
         ) {
             Intent(context, service.java).also { intent ->
                 context.bindService(intent, connection, Context.BIND_AUTO_CREATE)

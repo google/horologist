@@ -75,7 +75,7 @@ class MediaStatusComplicationService :
             appIconRes = R.drawable.ic_baseline_queue_music_24,
             launchIntent = intentBuilder.buildPlayerIntent(),
             type = SmallImageType.ICON,
-            contentDescription = createContentDescription(mediaTitle, mediaArtist)
+            contentDescription = createContentDescription(mediaTitle, mediaArtist),
         )
     }
 
@@ -83,7 +83,7 @@ class MediaStatusComplicationService :
         val bitmap = withTimeoutOrNull(2.seconds) {
             imageLoader.loadImage(
                 context = this@MediaStatusComplicationService,
-                data = mediaItem.mediaMetadata.artworkUri
+                data = mediaItem.mediaMetadata.artworkUri,
             ) {
                 size(64)
             }
@@ -97,19 +97,19 @@ class MediaStatusComplicationService :
             icon = icon,
             type = SmallImageType.PHOTO,
             launchIntent = intentBuilder.buildPlayerIntent(),
-            contentDescription = createContentDescription(mediaTitle, mediaArtist)
+            contentDescription = createContentDescription(mediaTitle, mediaArtist),
         )
     }
 
     private fun createContentDescription(
         mediaTitle: String,
-        mediaArtist: String
+        mediaArtist: String,
     ): ComplicationText =
         PlainComplicationText.Builder(
             text = getString(
                 R.string.complication_content_description,
                 mediaTitle,
-                mediaArtist
-            )
+                mediaArtist,
+            ),
         ).build()
 }

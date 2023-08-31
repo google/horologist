@@ -28,7 +28,7 @@ import java.time.Instant
 
 @ExperimentalHorologistApi
 public class NetworkRequesterImpl(
-    private val connectivityManager: ConnectivityManager
+    private val connectivityManager: ConnectivityManager,
 ) : NetworkRequester {
     override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
         val lease = NetworkLeaseImpl()

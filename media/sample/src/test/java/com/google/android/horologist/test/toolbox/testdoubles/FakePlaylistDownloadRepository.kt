@@ -22,7 +22,7 @@ import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import kotlinx.coroutines.flow.Flow
 
 class FakePlaylistDownloadRepository(
-    private val fakePlaylistDownloadDataSource: FakePlaylistDownloadDataSource
+    private val fakePlaylistDownloadDataSource: FakePlaylistDownloadDataSource,
 ) : PlaylistDownloadRepository {
 
     override fun get(playlistId: String): Flow<PlaylistDownload?> {

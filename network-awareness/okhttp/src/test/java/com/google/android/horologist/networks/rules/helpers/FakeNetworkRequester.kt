@@ -26,7 +26,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.Instant
 
 class FakeNetworkRequester(
-    private val networkRepository: FakeNetworkRepository
+    private val networkRepository: FakeNetworkRepository,
 ) : NetworkRequester {
     public var supportedNetworks = listOf(Cell, Wifi)
 

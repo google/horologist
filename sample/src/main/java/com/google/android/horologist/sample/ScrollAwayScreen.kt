@@ -53,7 +53,7 @@ fun ScrollScreenLazyColumn(scrollState: LazyListState) {
 
     LazyColumn(
         modifier = Modifier.rotaryWithScroll(scrollState, focusRequester),
-        state = scrollState
+        state = scrollState,
     ) {
         items(3) { i ->
             val modifier = Modifier.fillParentMaxHeight(0.5f)
@@ -64,11 +64,11 @@ fun ScrollScreenLazyColumn(scrollState: LazyListState) {
 
 @Composable
 fun ScrollAwayScreenScalingLazyColumn(
-    columnState: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState,
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         items(3) { i ->
             ExampleCard(Modifier.fillParentMaxHeight(0.5f), i)
@@ -87,12 +87,12 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
         },
         positionIndicator = {
             PositionIndicator(scrollState = scrollState)
-        }
+        },
     ) {
         Column(
             modifier = Modifier
                 .rotaryWithScroll(scrollState, focusRequester)
-                .verticalScroll(scrollState)
+                .verticalScroll(scrollState),
         ) {
             val modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp / 2)
             repeat(3) { i ->
@@ -106,13 +106,13 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
 private fun ExampleCard(modifier: Modifier, i: Int) {
     Card(
         modifier = modifier,
-        onClick = { }
+        onClick = { },
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colors.surface),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Text(text = "Card $i")
         }

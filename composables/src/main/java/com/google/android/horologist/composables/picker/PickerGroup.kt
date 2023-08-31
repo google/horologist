@@ -99,7 +99,7 @@ internal fun PickerGroup(
     propagateMinConstraints: Boolean = false,
     touchExplorationStateProvider: TouchExplorationStateProvider =
         DefaultTouchExplorationStateProvider(),
-    separator: (@Composable (Int) -> Unit)? = null
+    separator: (@Composable (Int) -> Unit)? = null,
 ) {
     val touchExplorationServicesEnabled by touchExplorationStateProvider.touchExplorationState()
 
@@ -112,13 +112,13 @@ internal fun PickerGroup(
                     pickerGroupState.selectedIndex in pickers.indices
                 ) {
                     Modifier.scrollablePicker(
-                        pickers[pickerGroupState.selectedIndex].pickerState
+                        pickers[pickerGroupState.selectedIndex].pickerState,
                     )
                 } else {
                     Modifier
-                }
+                },
             ),
-        propagateMinConstraints = propagateMinConstraints
+        propagateMinConstraints = propagateMinConstraints,
     ) {
         // When no Picker is selected, provide an empty composable as a placeholder
         // and tell the HierarchicalFocusCoordinator to clear the focus.
@@ -138,8 +138,11 @@ internal fun PickerGroup(
                         .then(
                             // If auto center is enabled, apply auto centering modifier on selected
                             // picker to center it
-                            if (pickerSelected && autoCenter) Modifier.autoCenteringTarget()
-                            else Modifier
+                            if (pickerSelected && autoCenter) {
+                                Modifier.autoCenteringTarget()
+                            } else {
+                                Modifier
+                            },
                         )
                         .focusRequester(focusRequester)
                         .focusable(),
@@ -152,24 +155,26 @@ internal fun PickerGroup(
                             Box(
                                 if (touchExplorationServicesEnabled || pickerSelected) {
                                     Modifier
-                                } else Modifier.pointerInput(Unit) {
-                                    coroutineScope {
-                                        // Keep looking for touch events on the picker if it is not
-                                        // selected
-                                        while (true) {
-                                            awaitEachGesture {
-                                                awaitFirstDown(requireUnconsumed = false)
-                                                pickerGroupState.selectedIndex = index
-                                                onSelected(index)
+                                } else {
+                                    Modifier.pointerInput(Unit) {
+                                        coroutineScope {
+                                            // Keep looking for touch events on the picker if it is not
+                                            // selected
+                                            while (true) {
+                                                awaitEachGesture {
+                                                    awaitFirstDown(requireUnconsumed = false)
+                                                    pickerGroupState.selectedIndex = index
+                                                    onSelected(index)
+                                                }
                                             }
                                         }
                                     }
-                                }
+                                },
                             ) {
                                 option(optionIndex, pickerSelected)
                             }
                         }
-                    }
+                    },
                 )
             }
             if (index < pickers.size - 1) {
@@ -186,10 +191,10 @@ internal fun PickerGroup(
  */
 @Composable
 internal fun rememberPickerGroupState(
-    initiallySelectedIndex: Int = 0
+    initiallySelectedIndex: Int = 0,
 ): PickerGroupState = rememberSaveable(
     initiallySelectedIndex,
-    saver = PickerGroupState.Saver
+    saver = PickerGroupState.Saver,
 ) {
     PickerGroupState(initiallySelectedIndex)
 }
@@ -200,7 +205,7 @@ internal fun rememberPickerGroupState(
  * @param initiallySelectedIndex the picker index that will be initially selected
  */
 internal class PickerGroupState constructor(
-    initiallySelectedIndex: Int = 0
+    initiallySelectedIndex: Int = 0,
 ) {
 
     /**
@@ -212,14 +217,14 @@ internal class PickerGroupState constructor(
         val Saver = listSaver<PickerGroupState, Any?>(
             save = {
                 listOf(
-                    it.selectedIndex
+                    it.selectedIndex,
                 )
             },
             restore = { saved ->
                 PickerGroupState(
-                    initiallySelectedIndex = saved[0] as Int
+                    initiallySelectedIndex = saved[0] as Int,
                 )
-            }
+            },
         )
     }
 }
@@ -250,7 +255,7 @@ internal class PickerGroupItem(
     val focusRequester: FocusRequester? = null,
     val onSelected: () -> Unit = {},
     val readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
-    val option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit
+    val option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit,
 )
 
 /*
@@ -263,7 +268,7 @@ internal class PickerGroupItem(
 private fun AutoCenteringRow(
     modifier: Modifier = Modifier,
     propagateMinConstraints: Boolean,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Layout(modifier = modifier, content = content) { measurables, parentConstraints ->
         // Reset the min width and height of the constraints used to measure child composables
@@ -276,8 +281,11 @@ private fun AutoCenteringRow(
         val placeables = measurables.map { it.measure(constraints) }
         val centeringOffset = computeCenteringOffset(placeables)
         val rowWidth =
-            if (constraints.hasBoundedWidth) constraints.maxWidth
-            else constraints.minWidth
+            if (constraints.hasBoundedWidth) {
+                constraints.maxWidth
+            } else {
+                constraints.minWidth
+            }
         val rowHeight = calculateHeight(constraints, placeables)
         layout(width = rowWidth, height = rowHeight) {
             var x = rowWidth / 2f - centeringOffset
@@ -294,13 +302,13 @@ private fun AutoCenteringRow(
  * the specified [Picker] defined by the [PickerState].
  */
 private fun Modifier.scrollablePicker(
-    pickerState: PickerState
+    pickerState: PickerState,
 ) = Modifier.composed {
     this.scrollable(
         state = pickerState,
         orientation = Orientation.Vertical,
         flingBehavior = PickerDefaults.flingBehavior(state = pickerState),
-        reverseDirection = true
+        reverseDirection = true,
     )
 }
 
@@ -336,7 +344,7 @@ private fun calculateHeight(constraints: Constraints, placeables: List<Placeable
 internal fun Modifier.autoCenteringTarget() = this.then(
     object : ParentDataModifier {
         override fun Density.modifyParentData(parentData: Any?) = AutoCenteringRowParentData()
-    }
+    },
 )
 
 internal class AutoCenteringRowParentData

@@ -22,5 +22,5 @@ package com.google.android.horologist.audio
 public data class VolumeState(
     val current: Int,
     val max: Int,
-    val min: Int = 0
+    val min: Int = 0,
 )

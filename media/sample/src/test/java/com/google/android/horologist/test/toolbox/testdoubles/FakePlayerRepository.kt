@@ -53,7 +53,10 @@ class FakePlayerRepository() : PlayerRepository {
     private var currentItemIndex = -1
 
     override fun play() {
-        _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(playerState = PlayerState.Playing), PlaybackStateEvent.Cause.PlayerStateChanged)
+        _latestPlaybackState.value = PlaybackStateEvent(
+            _latestPlaybackState.value.playbackState.copy(playerState = PlayerState.Playing),
+            PlaybackStateEvent.Cause.PlayerStateChanged,
+        )
     }
 
     override fun seekToDefaultPosition(mediaIndex: Int) {
@@ -61,7 +64,10 @@ class FakePlayerRepository() : PlayerRepository {
     }
 
     override fun pause() {
-        _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(playerState = PlayerState.Stopped), PlaybackStateEvent.Cause.PlayerStateChanged)
+        _latestPlaybackState.value = PlaybackStateEvent(
+            _latestPlaybackState.value.playbackState.copy(playerState = PlayerState.Stopped),
+            PlaybackStateEvent.Cause.PlayerStateChanged,
+        )
     }
 
     override fun hasPreviousMedia(): Boolean = currentItemIndex > 0
@@ -111,9 +117,9 @@ class FakePlayerRepository() : PlayerRepository {
         _latestPlaybackState.value = PlaybackStateEvent(
             _latestPlaybackState.value.playbackState.copy(
                 duration = 10.seconds.takeIf { position != null },
-                currentPosition = position
+                currentPosition = position,
             ),
-            PlaybackStateEvent.Cause.PositionDiscontinuity
+            PlaybackStateEvent.Cause.PositionDiscontinuity,
         )
     }
 
@@ -144,7 +150,10 @@ class FakePlayerRepository() : PlayerRepository {
     }
 
     fun setPosition(position: Duration?, duration: Duration?) {
-        _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(duration = duration, currentPosition = position), PlaybackStateEvent.Cause.PositionDiscontinuity)
+        _latestPlaybackState.value = PlaybackStateEvent(
+            _latestPlaybackState.value.playbackState.copy(duration = duration, currentPosition = position),
+            PlaybackStateEvent.Cause.PositionDiscontinuity,
+        )
     }
 
     fun addCommand(command: Command) {

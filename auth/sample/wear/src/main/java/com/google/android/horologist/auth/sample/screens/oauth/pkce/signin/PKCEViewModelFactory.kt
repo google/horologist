@@ -35,18 +35,18 @@ val PKCESampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
         PKCESignInViewModel(
             pkceConfigRepository = PKCEConfigRepositoryGoogleImpl(
                 clientId = BuildConfig.OAUTH_PKCE_CLIENT_ID,
-                clientSecret = BuildConfig.OAUTH_PKCE_CLIENT_SECRET
+                clientSecret = BuildConfig.OAUTH_PKCE_CLIENT_SECRET,
             ),
             pkceOAuthCodeRepository = PKCEOAuthCodeRepositoryImpl(
-                application
+                application,
             ),
             pkceTokenRepository = PKCETokenRepositoryGoogleImpl(
                 GoogleOAuthServiceFactory(
                     okHttpClient = application.okHttpClient,
-                    moshi = application.moshi
-                ).get()
+                    moshi = application.moshi,
+                ).get(),
             ),
-            pkceTokenPayloadListener = PKCETokenPayloadListenerSample
+            pkceTokenPayloadListener = PKCETokenPayloadListenerSample,
         )
     }
 }

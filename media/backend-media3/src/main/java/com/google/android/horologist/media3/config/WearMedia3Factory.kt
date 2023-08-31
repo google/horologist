@@ -30,7 +30,7 @@ public open class WearMedia3Factory(private val context: Context) {
     public fun audioSink(
         attemptOffload: Boolean,
         offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED,
-        audioOffloadListener: AudioOffloadListener?
+        audioOffloadListener: AudioOffloadListener?,
     ): DefaultAudioSink {
         return DefaultAudioSink.Builder(context)
             .setAudioProcessorChain(DefaultAudioSink.DefaultAudioProcessorChain())
@@ -43,14 +43,14 @@ public open class WearMedia3Factory(private val context: Context) {
                         offloadMode
                     } else {
                         DefaultAudioSink.OFFLOAD_MODE_DISABLED
-                    }
+                    },
                 )
             }
     }
 
     public fun audioOnlyRenderersFactory(
         audioSink: AudioSink,
-        mediaCodecSelector: MediaCodecSelector = MediaCodecSelector.DEFAULT
+        mediaCodecSelector: MediaCodecSelector = MediaCodecSelector.DEFAULT,
     ): RenderersFactory =
         RenderersFactory { handler, _, audioListener, _, _ ->
             arrayOf(
@@ -59,8 +59,8 @@ public open class WearMedia3Factory(private val context: Context) {
                     mediaCodecSelector,
                     handler,
                     audioListener,
-                    audioSink
-                )
+                    audioSink,
+                ),
             )
         }
 

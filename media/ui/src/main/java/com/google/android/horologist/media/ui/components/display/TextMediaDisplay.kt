@@ -18,11 +18,13 @@ package com.google.android.horologist.media.ui.components.display
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -40,7 +42,7 @@ public fun TextMediaDisplay(
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = title,
-            modifier = Modifier.fillMaxWidth(0.7f),
+            modifier = Modifier.fillMaxWidth(0.7f).padding(top = 2.dp, bottom = .8.dp),
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,
             maxLines = 1,
@@ -48,7 +50,7 @@ public fun TextMediaDisplay(
         )
         Text(
             text = subtitle,
-            modifier = Modifier.fillMaxWidth(0.8f),
+            modifier = Modifier.fillMaxWidth(0.8f).padding(top = 2.dp, bottom = .6.dp),
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,

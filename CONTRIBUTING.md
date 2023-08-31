@@ -25,7 +25,7 @@ If you change any code affecting screenshot tests, then run the following to upd
 on a Linux host. Alternatively uncomment the same property in gradle.properties.
 
 ```
-./gradlew testDebug -P screenshot.record=record
+./gradlew testDebug -P screenshot.record=repair
 ```
 
 

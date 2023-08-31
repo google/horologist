@@ -37,8 +37,8 @@ object AuthUserRepositoryStreamlineImpl : AuthUserRepository {
                 listOf(
                     AuthUser(
                         displayName = "Maggie",
-                        email = "maggie@example.com"
-                    )
+                        email = "maggie@example.com",
+                    ),
                 )
             }
 
@@ -46,12 +46,12 @@ object AuthUserRepositoryStreamlineImpl : AuthUserRepository {
                 listOf(
                     AuthUser(
                         displayName = "Maggie",
-                        email = "maggie@example.com"
+                        email = "maggie@example.com",
                     ),
                     AuthUser(
                         displayName = "John",
-                        email = "john@example.com"
-                    )
+                        email = "john@example.com",
+                    ),
                 )
             }
         }

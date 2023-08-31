@@ -25,7 +25,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 public data class MediaDownload(
     val media: Media,
     val status: Status,
-    val size: Size
+    val size: Size,
 ) {
 
     /**

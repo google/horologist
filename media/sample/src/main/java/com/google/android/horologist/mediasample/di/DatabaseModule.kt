@@ -39,12 +39,12 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun mediaDatabase(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): MediaDatabase {
         return Room.databaseBuilder(
             context,
             MediaDatabase::class.java,
-            MEDIA_DATABASE_NAME
+            MEDIA_DATABASE_NAME,
         )
             // Until stable, don't require incrementing MediaDatabase version.
             .fallbackToDestructiveMigration()
@@ -54,24 +54,24 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun mediaDownloadDao(
-        database: MediaDatabase
+        database: MediaDatabase,
     ): MediaDownloadDao = database.mediaDownloadDao()
 
     @Provides
     @Singleton
     fun playlistDao(
-        database: MediaDatabase
+        database: MediaDatabase,
     ): PlaylistDao = database.playlistDao()
 
     @Provides
     @Singleton
     fun playlistMediaDao(
-        database: MediaDatabase
+        database: MediaDatabase,
     ): PlaylistMediaDao = database.playlistMediaDao()
 
     @Provides
     @Singleton
     fun mediaDao(
-        database: MediaDatabase
+        database: MediaDatabase,
     ): MediaDao = database.mediaDao()
 }

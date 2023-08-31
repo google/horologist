@@ -50,13 +50,13 @@ public fun Confirmation(
     iconColor: Color = contentColor,
     verticalArrangement: Arrangement.Vertical = DialogDefaults.ConfirmationVerticalArrangement,
     contentPadding: PaddingValues = DialogDefaults.ContentPadding,
-    content: @Composable ColumnScope.() -> Unit
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     val a11yDurationMillis = LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
         originalTimeoutMillis = durationMillis,
         containsIcons = false,
         containsText = true,
-        containsControls = false
+        containsControls = false,
     ) ?: durationMillis
 
     Confirmation(
@@ -70,6 +70,6 @@ public fun Confirmation(
         iconColor = iconColor,
         verticalArrangement = verticalArrangement,
         contentPadding = contentPadding,
-        content = content
+        content = content,
     )
 }

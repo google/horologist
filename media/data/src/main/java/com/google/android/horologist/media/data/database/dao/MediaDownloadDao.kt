@@ -37,7 +37,7 @@ public interface MediaDownloadDao {
         value = """
         SELECT * FROM MediaDownloadEntity
         WHERE mediaId in (:mediaIds)
-    """
+    """,
     )
     public fun getList(mediaIds: List<String>): Flow<List<MediaDownloadEntity>>
 
@@ -45,10 +45,10 @@ public interface MediaDownloadDao {
         value = """
         SELECT * FROM MediaDownloadEntity
         WHERE status = :status
-    """
+    """,
     )
     public suspend fun getAllByStatus(
-        status: MediaDownloadEntityStatus
+        status: MediaDownloadEntityStatus,
     ): List<MediaDownloadEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -59,7 +59,7 @@ public interface MediaDownloadDao {
         UPDATE MediaDownloadEntity
         SET status = :status
         WHERE mediaId = :mediaId
-    """
+    """,
     )
     public suspend fun updateStatus(mediaId: String, status: MediaDownloadEntityStatus)
 
@@ -69,7 +69,7 @@ public interface MediaDownloadDao {
         SET progress = :progress,
         size = :size
         WHERE mediaId = :mediaId
-    """
+    """,
     )
     public suspend fun updateProgress(mediaId: String, progress: Float, size: Long)
 
@@ -80,7 +80,7 @@ public interface MediaDownloadDao {
         """
         DELETE FROM MediaDownloadEntity
         WHERE mediaId = :mediaId
-    """
+    """,
     )
     public suspend fun delete(mediaId: String)
 
@@ -88,14 +88,14 @@ public interface MediaDownloadDao {
         """
         DELETE FROM MediaDownloadEntity
         WHERE mediaId in (:mediaIds)
-    """
+    """,
     )
     public suspend fun delete(mediaIds: List<String>)
 
     public data class StatusAndProgress(
         val mediaId: String,
         val status: MediaDownloadEntityStatus,
-        val progress: Float
+        val progress: Float,
     )
 
     public companion object {

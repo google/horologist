@@ -35,5 +35,5 @@ data class AppConfig(
     val offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED,
     val playbackRules: PlaybackRules? = null,
     val strictMode: Boolean = false,
-    val cacheDir: File? = null
+    val cacheDir: File? = null,
 )

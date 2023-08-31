@@ -28,7 +28,7 @@ import kotlin.time.DurationUnit
 public class CompositionMetric(private val composable: String) : TraceMetric() {
     override fun getResult(
         captureInfo: CaptureInfo,
-        traceSession: PerfettoTraceProcessor.Session
+        traceSession: PerfettoTraceProcessor.Session,
     ): List<Measurement> {
         val shortName = composable.substringAfterLast(".")
 
@@ -40,15 +40,15 @@ public class CompositionMetric(private val composable: String) : TraceMetric() {
                     INNER JOIN process USING(upid)
                 WHERE process.name LIKE "${captureInfo.targetPackageName}"
                     AND slice.name LIKE "$composable (%)"
-            """.trimIndent()
+            """.trimIndent(),
         ).map { it.long("dur") }
 
         return listOf(
             Measurement(
                 "${shortName}RecomposeDurMs",
-                durationsNs.sumOf { it }.nanoseconds.toDouble(DurationUnit.MILLISECONDS)
+                durationsNs.sumOf { it }.nanoseconds.toDouble(DurationUnit.MILLISECONDS),
             ),
-            Measurement("${shortName}RecomposeCount", durationsNs.count().toDouble())
+            Measurement("${shortName}RecomposeCount", durationsNs.count().toDouble()),
         )
     }
 }

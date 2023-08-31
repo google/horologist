@@ -34,7 +34,7 @@ class GuestModeChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             GuestModeChip(
                 onClick = {},
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -44,7 +44,7 @@ class GuestModeChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             GuestModeChip(
                 onClick = {},
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -55,7 +55,7 @@ class GuestModeChipTest : ScreenshotBaseTest() {
             GuestModeChip(
                 onClick = {},
                 colors = ChipDefaults.secondaryChipColors(),
-                enabled = false
+                enabled = false,
             )
         }
     }

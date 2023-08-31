@@ -34,7 +34,7 @@ import org.robolectric.annotation.Config
 class PlayerRepositoryImplCloseTest(
     @Suppress("unused") // it's used by junit to display the test name
     private val description: String,
-    private val whenBlock: (PlayerRepositoryImpl, Context) -> Unit
+    private val whenBlock: (PlayerRepositoryImpl, Context) -> Unit,
 ) {
 
     private lateinit var sut: PlayerRepositoryImpl
@@ -123,12 +123,12 @@ class PlayerRepositoryImplCloseTest(
             },
             param("getCurrentMediaIndex") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.getCurrentMediaIndex()
-            }
+            },
         )
 
         private fun param(
             description: String,
-            whenBlock: (PlayerRepositoryImpl, Context) -> Unit
+            whenBlock: (PlayerRepositoryImpl, Context) -> Unit,
         ) = arrayOf(description, whenBlock)
 
         private fun getDummyMedia() = Media(
@@ -136,7 +136,7 @@ class PlayerRepositoryImplCloseTest(
             uri = "uri",
             title = "title",
             artist = "artist",
-            artworkUri = "artworkUri"
+            artworkUri = "artworkUri",
         )
     }
 }

@@ -63,7 +63,7 @@ fun MediaPlayerTestCase(
             seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
             onSeekToNextButtonClick = { },
             seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-            trackPositionUiModel = playerUiState.trackPositionUiModel
+            trackPositionUiModel = playerUiState.trackPositionUiModel,
         )
     },
     buttons: @Composable RowScope.() -> Unit = {
@@ -74,13 +74,13 @@ fun MediaPlayerTestCase(
             brandIcon = {
                 SettingsButtonsDefaults.BrandIcon(
                     com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
-                    enabled = playerUiState.connected
+                    enabled = playerUiState.connected,
                 )
             },
-            enabled = playerUiState.connected
+            enabled = playerUiState.connected,
         )
     },
-    colors: Colors = MaterialTheme.colors
+    colors: Colors = MaterialTheme.colors,
 ) {
     MaterialTheme(colors = colors) {
         Scaffold(
@@ -89,15 +89,15 @@ fun MediaPlayerTestCase(
                     volumeUiState = {
                         VolumeUiStateMapper.map(volumeState = VolumeState(6, 10))
                     },
-                    displayIndicatorEvents = flowOf()
+                    displayIndicatorEvents = flowOf(),
                 )
-            }
+            },
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 PagerScreen(
                     state = rememberPagerState {
                         2
-                    }
+                    },
                 ) {
                     if (it == 0) {
                         PlayerScreen(
@@ -107,7 +107,7 @@ fun MediaPlayerTestCase(
                                     val background = if (playerUiState.media != null) {
                                         radialBackgroundBrush(
                                             color = colors.primary,
-                                            background = Color.Black
+                                            background = Color.Black,
                                         )
                                     } else {
                                         null
@@ -116,7 +116,7 @@ fun MediaPlayerTestCase(
                                         if (background != null) {
                                             drawRect(
                                                 color = Color.Black,
-                                                blendMode = BlendMode.Clear
+                                                blendMode = BlendMode.Clear,
                                             )
                                         }
                                         drawContent()
@@ -127,7 +127,7 @@ fun MediaPlayerTestCase(
                                 },
                             mediaDisplay = { mediaDisplay() },
                             controlButtons = { controlButtons() },
-                            buttons = { buttons() }
+                            buttons = { buttons() },
                         )
                     }
                 }

@@ -38,7 +38,7 @@ fun SamplePagerScreen(swipeToDismissBoxState: SwipeToDismissBoxState) {
         modifier = Modifier.edgeSwipeToDismiss(swipeToDismissBoxState),
         state = rememberPagerState {
             10
-        }
+        },
     ) {
         PagerItemScreen(item = "item $it")
     }
@@ -46,12 +46,12 @@ fun SamplePagerScreen(swipeToDismissBoxState: SwipeToDismissBoxState) {
 
 @Composable
 private fun PagerItemScreen(
-    item: String
+    item: String,
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.DarkGray)
+            .background(Color.DarkGray),
     ) {
         Text(text = item, modifier = Modifier.align(Alignment.Center))
     }

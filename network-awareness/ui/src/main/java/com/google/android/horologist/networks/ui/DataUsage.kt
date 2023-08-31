@@ -52,7 +52,7 @@ public fun CurvedScope.curveDataUsage(
     networkUsage: DataUsageReport?,
     style: CurvedTextStyle,
     context: Context,
-    pinnedNetworks: Set<NetworkType>
+    pinnedNetworks: Set<NetworkType>,
 ) {
     val activeNetwork = networkStatus.activeNetwork
 
@@ -67,7 +67,7 @@ public fun CurvedScope.curveDataUsage(
                         .alpha(0.6f),
                     imageVector = Icons.Outlined.Square,
                     contentDescription = null,
-                    tint = Color.Yellow
+                    tint = Color.Yellow,
                 )
             }
             Icon(
@@ -75,7 +75,7 @@ public fun CurvedScope.curveDataUsage(
                     .size(12.dp),
                 imageVector = it.networkInfo.type.icon,
                 contentDescription = null,
-                tint = it.tint(active = activeNetwork?.id == it.id)
+                tint = it.tint(active = activeNetwork?.id == it.id),
             )
         }
         val usage = networkUsage?.dataByType?.get(it.networkInfo.type)
@@ -95,7 +95,7 @@ public fun CurvedScope.curveDataUsage(
                             .size(12.dp),
                         imageVector = it.icon,
                         contentDescription = null,
-                        tint = Color.LightGray
+                        tint = Color.LightGray,
                     )
                 }
                 curvedText(text = usage.toSize(context), style = style)
@@ -110,7 +110,7 @@ public fun LinearDataUsage(
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
     style: TextStyle,
-    context: Context
+    context: Context,
 ) {
     val activeNetwork = networkStatus.activeNetwork
 
@@ -119,7 +119,7 @@ public fun LinearDataUsage(
             modifier = Modifier.size(12.dp),
             imageVector = it.networkInfo.type.icon,
             contentDescription = null,
-            tint = it.tint(active = false)
+            tint = it.tint(active = false),
         )
         val usage = networkUsage?.dataByType?.get(it.networkInfo.type)
         if (usage != null) {
@@ -131,13 +131,13 @@ public fun LinearDataUsage(
             modifier = Modifier.size(16.dp),
             imageVector = it.networkInfo.type.icon,
             contentDescription = null,
-            tint = it.tint(active = true)
+            tint = it.tint(active = true),
         )
         val usage = networkUsage?.dataByType?.get(activeNetwork.networkInfo.type)
         if (usage != null) {
             Text(
                 text = usage.toSize(context),
-                style = style
+                style = style,
             )
         }
     }
@@ -151,11 +151,13 @@ internal fun Long.toSize(context: Context): String {
 private fun NetworkStatus.tint(active: Boolean): Color {
     return if (!active && this.status == Status.Available) {
         Color.Blue
-    } else when (this.status) {
-        is Status.Available -> Color.Green
-        is Status.Losing -> Color.Yellow
-        is Status.Lost -> Color.Gray
-        is Status.Unknown -> Color.LightGray
+    } else {
+        when (this.status) {
+            is Status.Available -> Color.Green
+            is Status.Losing -> Color.Yellow
+            is Status.Lost -> Color.Gray
+            is Status.Unknown -> Color.LightGray
+        }
     }
 }
 

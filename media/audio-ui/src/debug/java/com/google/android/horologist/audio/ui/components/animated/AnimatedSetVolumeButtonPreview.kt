@@ -43,7 +43,7 @@ fun AnimatedSetVolumeButtonPreview() {
             },
             decreaseIcon = {
                 DecreaseIcon()
-            }
+            },
         ) {
             AnimatedSetVolumeButton(onVolumeClick = { }, volumeUiState = volumeUiState)
         }

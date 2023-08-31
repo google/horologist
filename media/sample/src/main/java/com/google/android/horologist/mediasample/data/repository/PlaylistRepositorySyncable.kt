@@ -34,7 +34,7 @@ class PlaylistRepositorySyncable(
     private val playlistRemoteDataSource: PlaylistRemoteDataSource,
     private val networkChangeListService: NetworkChangeListService,
     private val mediaLocalDataSource: MediaLocalDataSource,
-    private val playlistMapper: PlaylistMapper
+    private val playlistMapper: PlaylistMapper,
 ) : Syncable {
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
@@ -52,12 +52,12 @@ class PlaylistRepositorySyncable(
                 if (model == PLAYLIST_SYNC_MODEL_NAME) {
                     networkChangeListService.getForPlaylist(
                         localPlaylists = localPlaylists,
-                        remotePlaylists = remotePlaylists
+                        remotePlaylists = remotePlaylists,
                     )
                 } else {
                     networkChangeListService.getForMedia(
                         localPlaylists = localPlaylists,
-                        remotePlaylists = remotePlaylists
+                        remotePlaylists = remotePlaylists,
                     )
                 }
             },
@@ -76,10 +76,10 @@ class PlaylistRepositorySyncable(
                         remotePlaylists
                             .flatMap(Playlist::mediaList)
                             .filter { ids.contains(it.id) }
-                            .distinct()
+                            .distinct(),
                     )
                 }
-            }
+            },
         )
     }
 

@@ -33,8 +33,8 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(
         UiState(
             recommendationSectionState = RecommendationSectionState.Loading,
-            trendingSectionState = TrendingSectionState.Loading
-        )
+            trendingSectionState = TrendingSectionState.Loading,
+        ),
     )
     val uiState: StateFlow<UiState> = _uiState
 
@@ -45,7 +45,7 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
 
     data class UiState(
         val recommendationSectionState: RecommendationSectionState,
-        val trendingSectionState: TrendingSectionState
+        val trendingSectionState: TrendingSectionState,
     )
 
     sealed class RecommendationSectionState {
@@ -56,7 +56,7 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
 
     data class Recommendation(
         val playlistName: String,
-        val icon: ImageVector
+        val icon: ImageVector,
     )
 
     sealed class TrendingSectionState {
@@ -67,13 +67,13 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
 
     data class Trending(
         val name: String,
-        val artist: String
+        val artist: String,
     )
 
     fun loadRecommendations() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(
-                recommendationSectionState = RecommendationSectionState.Loading
+                recommendationSectionState = RecommendationSectionState.Loading,
             )
 
             // pretend it is fetching date over remote
@@ -86,10 +86,10 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
                     RecommendationSectionState.Loaded(
                         list = listOf(
                             Recommendation("Running playlist", Icons.Default.DirectionsRun),
-                            Recommendation("Focus", Icons.Default.SelfImprovement)
-                        )
+                            Recommendation("Focus", Icons.Default.SelfImprovement),
+                        ),
                     )
-                }
+                },
             )
         }
     }
@@ -97,7 +97,7 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
     fun loadTrending() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(
-                trendingSectionState = TrendingSectionState.Loading
+                trendingSectionState = TrendingSectionState.Loading,
             )
 
             // pretend it is fetching date over remote
@@ -110,10 +110,10 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
                     TrendingSectionState.Loaded(
                         list = listOf(
                             Trending("There'd Better Be A Mirrorball", "Arctic Monkeys"),
-                            Trending("180 Hours", "Dudu Kanegae")
-                        )
+                            Trending("180 Hours", "Dudu Kanegae"),
+                        ),
                     )
-                }
+                },
             )
         }
     }

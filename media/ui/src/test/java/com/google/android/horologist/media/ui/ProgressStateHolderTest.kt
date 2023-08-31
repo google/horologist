@@ -46,7 +46,7 @@ class ProgressStateHolderTest {
             eventTimestamp = 500,
             durationMs = 1000,
             currentPositionMs = 100,
-            positionSpeed = 1f
+            positionSpeed = 1f,
         )
         val trackPositionUiModel = TrackPositionUiModel.Predictive(predictor)
         val timestamp = 600L
@@ -66,7 +66,7 @@ class ProgressStateHolderTest {
             eventTimestamp = timestampProvider.getTimestamp(),
             durationMs = 1000,
             currentPositionMs = 100,
-            positionSpeed = 1f
+            positionSpeed = 1f,
         )
         val trackPositionUiModel = TrackPositionUiModel.Predictive(predictor)
         composeTestRule.mainClock.autoAdvance = false
@@ -84,7 +84,7 @@ class ProgressStateHolderTest {
 
     private suspend fun <T> setContentWithResult(
         timestampProvider: TimestampProvider,
-        block: @Composable () -> T
+        block: @Composable () -> T,
     ): T {
         val result = CompletableDeferred<T>()
         composeTestRule.setContent {

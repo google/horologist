@@ -41,54 +41,56 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UampStreamingPlaylistScreenViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
-    private val playlistDownloadRepository: PlaylistDownloadRepository,
-    private val playerRepository: PlayerRepository,
-    private val settingsRepository: SettingsRepository
-) : ViewModel() {
-    private val playlistId: String = savedStateHandle[NavigationScreens.Collection.id]!!
+class UampStreamingPlaylistScreenViewModel
+    @Inject
+    constructor(
+        savedStateHandle: SavedStateHandle,
+        private val playlistDownloadRepository: PlaylistDownloadRepository,
+        private val playerRepository: PlayerRepository,
+        private val settingsRepository: SettingsRepository,
+    ) : ViewModel() {
+        private val playlistId: String = savedStateHandle[NavigationScreens.Collection.id]!!
 
-    private val playlistDownload: StateFlow<PlaylistDownload?> =
-        playlistDownloadRepository.get(playlistId)
-            .stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
+        private val playlistDownload: StateFlow<PlaylistDownload?> =
+            playlistDownloadRepository.get(playlistId)
+                .stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
 
-    val uiState: StateFlow<PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>> =
-        playlistDownload.map { playlistDownload ->
-            if (playlistDownload != null) {
-                createPlaylistDownloadScreenStateLoaded(
-                    playlistModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
-                    downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map)
-                )
-            } else {
-                PlaylistDownloadScreenState.Failed
+        val uiState: StateFlow<PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>> =
+            playlistDownload.map { playlistDownload ->
+                if (playlistDownload != null) {
+                    createPlaylistDownloadScreenStateLoaded(
+                        playlistModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
+                        downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map),
+                    )
+                } else {
+                    PlaylistDownloadScreenState.Failed
+                }
+            }.catch {
+                emit(PlaylistDownloadScreenState.Failed)
+            }.stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                PlaylistDownloadScreenState.Loading,
+            )
+
+        fun play(mediaId: String? = null) {
+            play(shuffled = false, mediaId = mediaId)
+        }
+
+        fun shufflePlay() {
+            play(shuffled = true)
+        }
+
+        private fun play(shuffled: Boolean, mediaId: String? = null) {
+            playlistDownload.value?.let { playlistDownload ->
+                val index = playlistDownload.mediaList
+                    .indexOfFirst { it.media.id == mediaId }
+                    .coerceAtLeast(0)
+                viewModelScope.launch {
+                    settingsRepository.edit { it.copy { currentMediaListId = playlistId } }
+                }
+                playerRepository.setShuffleModeEnabled(shuffled)
+                playerRepository.setMediaList(playlistDownload.playlist.mediaList, index)
             }
-        }.catch {
-            emit(PlaylistDownloadScreenState.Failed)
-        }.stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
-            PlaylistDownloadScreenState.Loading
-        )
-
-    fun play(mediaId: String? = null) {
-        play(shuffled = false, mediaId = mediaId)
-    }
-
-    fun shufflePlay() {
-        play(shuffled = true)
-    }
-
-    private fun play(shuffled: Boolean, mediaId: String? = null) {
-        playlistDownload.value?.let { playlistDownload ->
-            val index = playlistDownload.mediaList
-                .indexOfFirst { it.media.id == mediaId }
-                .coerceAtLeast(0)
-            viewModelScope.launch {
-                settingsRepository.edit { it.copy { currentMediaListId = playlistId } }
-            }
-            playerRepository.setShuffleModeEnabled(shuffled)
-            playerRepository.setMediaList(playlistDownload.playlist.mediaList, index)
         }
     }
-}

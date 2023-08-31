@@ -49,7 +49,7 @@ public fun Button(
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Button(
         icon = imageVector,
@@ -59,7 +59,7 @@ public fun Button(
         colors = colors,
         buttonSize = buttonSize,
         iconRtlMode = iconRtlMode,
-        enabled = enabled
+        enabled = enabled,
     )
 }
 
@@ -78,7 +78,7 @@ public fun Button(
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Button(
         icon = id,
@@ -88,7 +88,7 @@ public fun Button(
         colors = colors,
         buttonSize = buttonSize,
         iconRtlMode = iconRtlMode,
-        enabled = enabled
+        enabled = enabled,
     )
 }
 
@@ -102,13 +102,13 @@ internal fun Button(
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Button(
         onClick = onClick,
         modifier = modifier.size(buttonSize.tapTargetSize),
         enabled = enabled,
-        colors = colors
+        colors = colors,
     ) {
         val iconModifier = Modifier
             .size(buttonSize.iconSize)
@@ -118,7 +118,7 @@ internal fun Button(
             icon = icon,
             contentDescription = contentDescription,
             modifier = iconModifier,
-            rtlMode = iconRtlMode
+            rtlMode = iconRtlMode,
         )
     }
 }
@@ -126,7 +126,7 @@ internal fun Button(
 @ExperimentalHorologistApi
 public sealed class ButtonSize(
     public val iconSize: Dp,
-    public val tapTargetSize: Dp
+    public val tapTargetSize: Dp,
 ) {
     public object Default :
         ButtonSize(iconSize = DefaultIconSize, tapTargetSize = DefaultButtonSize)

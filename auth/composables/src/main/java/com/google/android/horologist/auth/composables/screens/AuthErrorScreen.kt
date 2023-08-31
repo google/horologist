@@ -35,11 +35,11 @@ import com.google.android.horologist.auth.composables.R
  */
 @Composable
 public fun AuthErrorScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
 
     ) {
         Text(
@@ -47,7 +47,7 @@ public fun AuthErrorScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 30.dp),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
     }
 }

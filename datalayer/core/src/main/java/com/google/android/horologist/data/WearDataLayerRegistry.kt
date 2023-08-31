@@ -56,7 +56,7 @@ public class WearDataLayerRegistry(
     public val nodeClient: NodeClient,
     public val messageClient: MessageClient,
     public val capabilityClient: CapabilityClient,
-    private val coroutineScope: CoroutineScope
+    private val coroutineScope: CoroutineScope,
 ) {
     public val serializers: SerializerRegistry = SerializerRegistry()
     private val protoDataListeners: MutableList<ProtoDataListenerRegistration<*>> = mutableListOf()
@@ -77,21 +77,21 @@ public class WearDataLayerRegistry(
         path: String,
         coroutineScope: CoroutineScope,
         serializer: Serializer<T>,
-        started: SharingStarted = SharingStarted.WhileSubscribed(5000)
+        started: SharingStarted = SharingStarted.WhileSubscribed(5000),
     ): DataStore<T> {
         return WearLocalDataStore(
             this,
             started = started,
             coroutineScope = coroutineScope,
             serializer = serializer,
-            path = path
+            path = path,
         )
     }
 
     fun <T> protoFlow(
         targetNodeId: TargetNodeId,
         serializer: Serializer<T>,
-        path: String
+        path: String,
     ): Flow<T> = flow {
         val nodeId = targetNodeId.evaluate(this@WearDataLayerRegistry)
 
@@ -106,7 +106,7 @@ public class WearDataLayerRegistry(
 
     inline fun <reified T : Any> registerProtoDataListener(
         path: String,
-        listener: ProtoDataListener<T>
+        listener: ProtoDataListener<T>,
     ) {
         val serializer = serializers.serializerForType<T>()
         registerProtoDataListener(path, listener, serializer)
@@ -115,7 +115,7 @@ public class WearDataLayerRegistry(
     fun <T : Any> registerProtoDataListener(
         path: String,
         listener: ProtoDataListener<T>,
-        serializer: Serializer<T>
+        serializer: Serializer<T>,
     ) {
         val element = ProtoDataListenerRegistration(path, serializer, listener)
         protoDataListeners.add(element)
@@ -135,7 +135,7 @@ public class WearDataLayerRegistry(
 
     private suspend fun fireListeners(
         dataEvent: DataEvent,
-        listeners: List<ProtoDataListenerRegistration<*>>
+        listeners: List<ProtoDataListenerRegistration<*>>,
     ) {
         val nodeId = dataEvent.dataItem.uri.host!!
         val path = dataEvent.dataItem.uri.path!!
@@ -157,13 +157,13 @@ public class WearDataLayerRegistry(
          */
         fun fromContext(
             application: Context,
-            coroutineScope: CoroutineScope
+            coroutineScope: CoroutineScope,
         ): WearDataLayerRegistry = WearDataLayerRegistry(
             dataClient = Wearable.getDataClient(application),
             nodeClient = Wearable.getNodeClient(application),
             messageClient = Wearable.getMessageClient(application),
             capabilityClient = Wearable.getCapabilityClient(application),
-            coroutineScope = coroutineScope
+            coroutineScope = coroutineScope,
         )
 
         public fun buildUri(nodeId: String, path: String): Uri = Uri.Builder()

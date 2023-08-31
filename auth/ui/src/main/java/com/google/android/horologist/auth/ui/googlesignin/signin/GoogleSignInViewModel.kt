@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
  */
 public open class GoogleSignInViewModel(
     public val googleSignInClient: GoogleSignInClient,
-    private val googleSignInEventListener: GoogleSignInEventListener = GoogleSignInEventListenerNoOpImpl
+    private val googleSignInEventListener: GoogleSignInEventListener = GoogleSignInEventListenerNoOpImpl,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<GoogleSignInScreenState>(GoogleSignInScreenState.Idle)
@@ -46,7 +46,7 @@ public open class GoogleSignInViewModel(
     public fun onIdleStateObserved() {
         _uiState.compareAndSet(
             expect = GoogleSignInScreenState.Idle,
-            update = GoogleSignInScreenState.SelectAccount
+            update = GoogleSignInScreenState.SelectAccount,
         )
     }
 
@@ -59,7 +59,7 @@ public open class GoogleSignInViewModel(
         }
 
         _uiState.value = GoogleSignInScreenState.Success(
-            AccountUiModelMapper.map(account)
+            AccountUiModelMapper.map(account),
         )
     }
 

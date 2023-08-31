@@ -34,7 +34,7 @@ import com.google.android.horologist.audio.VolumeRepository
 @Deprecated("Use Modifier.onRotaryInputAccumulated")
 public class VolumeScrollableState(
     private val volumeRepository: VolumeRepository,
-    private val vibrator: Vibrator
+    private val vibrator: Vibrator,
 ) : ScrollableState {
     override val isScrollInProgress: Boolean
         get() = true
@@ -69,7 +69,7 @@ public class VolumeScrollableState(
 
     override suspend fun scroll(
         scrollPriority: MutatePriority,
-        block: suspend ScrollScope.() -> Unit
+        block: suspend ScrollScope.() -> Unit,
     ) {
         scrollableState.scroll(block = block)
     }

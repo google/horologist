@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 @ExperimentalHorologistApi
 public class DownloadProgressMonitor(
     private val coroutineScope: CoroutineScope,
-    private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource
+    private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
 ) {
 
     private val handler = Handler(Looper.getMainLooper())
@@ -63,7 +63,7 @@ public class DownloadProgressMonitor(
                             progress = download.percentDownloaded
                                 // it can return -1 (C.PERCENTAGE_UNSET)
                                 .coerceAtLeast(DOWNLOAD_PROGRESS_START),
-                            size = download.contentLength
+                            size = download.contentLength,
                         )
                     }
                 }

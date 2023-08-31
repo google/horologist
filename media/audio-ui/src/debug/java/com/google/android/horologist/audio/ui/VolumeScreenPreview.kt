@@ -45,9 +45,9 @@ fun VolumeScreenGuideWithLongText() {
         Scaffold(
             positionIndicator = {
                 VolumePositionIndicator(
-                    volumeUiState = { volumeUiState }
+                    volumeUiState = { volumeUiState },
                 )
-            }
+            },
         ) {
             VolumeScreen(
                 volume = { volumeUiState },
@@ -55,7 +55,7 @@ fun VolumeScreenGuideWithLongText() {
                     .toAudioOutputUi(),
                 increaseVolume = { },
                 decreaseVolume = { },
-                onAudioOutputClick = {}
+                onAudioOutputClick = {},
             )
         }
     }
@@ -65,7 +65,7 @@ fun VolumeScreenGuideWithLongText() {
 @WearPreviewFontScales
 @Composable
 fun VolumeScreenPreview(
-    @PreviewParameter(AudioOutputProvider::class) audioOutput: AudioOutput
+    @PreviewParameter(AudioOutputProvider::class) audioOutput: AudioOutput,
 ) {
     val volume = VolumeState(5, 10)
     val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
@@ -73,16 +73,16 @@ fun VolumeScreenPreview(
     Scaffold(
         positionIndicator = {
             VolumePositionIndicator(
-                volumeUiState = { volumeUiState }
+                volumeUiState = { volumeUiState },
             )
-        }
+        },
     ) {
         VolumeScreen(
             volume = { volumeUiState },
             audioOutputUi = audioOutput.toAudioOutputUi(),
             increaseVolume = { },
             decreaseVolume = { },
-            onAudioOutputClick = {}
+            onAudioOutputClick = {},
         )
     }
 }
@@ -90,7 +90,7 @@ fun VolumeScreenPreview(
 @WearPreviewLargeRound
 @Composable
 fun VolumeScreenTheme(
-    @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues
+    @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues,
 ) {
     val volume = VolumeState(5, 10)
     val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
@@ -100,9 +100,9 @@ fun VolumeScreenTheme(
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeUiState = { volumeUiState }
+                        volumeUiState = { volumeUiState },
                     )
-                }
+                },
             ) {
                 VolumeScreen(
                     volume = { volumeUiState },
@@ -110,7 +110,7 @@ fun VolumeScreenTheme(
                         .toAudioOutputUi(),
                     increaseVolume = { },
                     decreaseVolume = { },
-                    onAudioOutputClick = {}
+                    onAudioOutputClick = {},
                 )
             }
         }
@@ -128,14 +128,14 @@ fun VolumeScreenWithLabel() {
         Scaffold(
             positionIndicator = {
                 VolumePositionIndicator(
-                    volumeUiState = { volumeUiState }
+                    volumeUiState = { volumeUiState },
                 )
-            }
+            },
         ) {
             VolumeWithLabelScreen(
                 volume = { volumeUiState },
                 increaseVolume = { },
-                decreaseVolume = { }
+                decreaseVolume = { },
             )
         }
     }
@@ -145,6 +145,6 @@ class AudioOutputProvider : PreviewParameterProvider<AudioOutput> {
     override val values = sequenceOf(
         AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),
         AudioOutput.WatchSpeaker(id = "2", name = "Galaxy Watch 4"),
-        AudioOutput.BluetoothHeadset(id = "3", name = "Sennheiser Momentum Wireless")
+        AudioOutput.BluetoothHeadset(id = "3", name = "Sennheiser Momentum Wireless"),
     )
 }

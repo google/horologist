@@ -54,7 +54,7 @@ object SampleAppDI {
 
     private fun getNetworkRepository(
         context: Context,
-        coroutineScope: CoroutineScope
+        coroutineScope: CoroutineScope,
     ): NetworkRepository {
         return NetworkRepositoryImpl.fromContext(context, coroutineScope)
     }
@@ -69,7 +69,7 @@ object SampleAppDI {
         networkLogger: NetworkStatusLogger,
         dataRequestRepository: DataRequestRepository,
         coroutineScope: CoroutineScope,
-        okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient,
     ): Call.Factory {
         val networkingRules = NetworkingRules.Conservative
 
@@ -77,20 +77,20 @@ object SampleAppDI {
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         val networkRequester = NetworkRequesterImpl(
-            connectivityManager
+            connectivityManager,
         )
 
         val highBandwidthRequester = StandardHighBandwidthNetworkMediator(
             networkRequester = networkRequester,
             logger = networkLogger,
             coroutineScope = coroutineScope,
-            delayToRelease = 3.seconds
+            delayToRelease = 3.seconds,
         )
 
         val networkingRulesEngine = NetworkingRulesEngine(
             networkRepository = networkRepository,
             logger = networkLogger,
-            networkingRules = networkingRules
+            networkingRules = networkingRules,
         )
 
         return NetworkSelectingCallFactory(
@@ -100,7 +100,7 @@ object SampleAppDI {
             rootClient = okHttpClient,
             networkRepository = networkRepository,
             coroutineScope = coroutineScope,
-            logger = networkLogger
+            logger = networkLogger,
         )
     }
 
@@ -109,7 +109,7 @@ object SampleAppDI {
             .addInterceptor(
                 HttpLoggingInterceptor().also { interceptor ->
                     interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-                }
+                },
             )
             .build()
         sampleApplication.coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -117,7 +117,7 @@ object SampleAppDI {
         sampleApplication.dataRequestRepository = getDataRequestRepository()
         sampleApplication.networkRepository = getNetworkRepository(
             context = sampleApplication,
-            coroutineScope = sampleApplication.coroutineScope
+            coroutineScope = sampleApplication.coroutineScope,
         )
         sampleApplication.networkAwareCallFactory = getNetworkAwareCallFactory(
             context = sampleApplication,
@@ -125,7 +125,7 @@ object SampleAppDI {
             networkLogger = sampleApplication.networkLogger,
             dataRequestRepository = sampleApplication.dataRequestRepository,
             coroutineScope = sampleApplication.coroutineScope,
-            okHttpClient = sampleApplication.okHttpClient
+            okHttpClient = sampleApplication.okHttpClient,
         )
     }
 }

@@ -29,7 +29,7 @@ fun SettingsButtonsPreview() {
     SettingsButtons(
         volumeUiState = VolumeUiState(4, 10),
         onVolumeClick = {},
-        onOutputClick = {}
+        onOutputClick = {},
     )
 }
 
@@ -42,7 +42,7 @@ fun SettingsButtonsWithBrandIconPreview() {
         onOutputClick = {},
         brandIcon = {
             BrandIcon(R.drawable.ic_stat_horologist, enabled = true)
-        }
+        },
     )
 }
 
@@ -56,6 +56,6 @@ fun SettingsButtonsDisabledPreview() {
         enabled = false,
         brandIcon = {
             BrandIcon(R.drawable.ic_stat_horologist, enabled = false)
-        }
+        },
     )
 }

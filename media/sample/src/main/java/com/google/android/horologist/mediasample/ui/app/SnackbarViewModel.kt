@@ -22,6 +22,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-public class SnackbarViewModel @Inject constructor(
-    snackbarManager: SnackbarManager
-) : SnackbarViewModel(snackbarManager)
+public class SnackbarViewModel
+    @Inject
+    constructor(
+        snackbarManager: SnackbarManager,
+    ) : SnackbarViewModel(snackbarManager)

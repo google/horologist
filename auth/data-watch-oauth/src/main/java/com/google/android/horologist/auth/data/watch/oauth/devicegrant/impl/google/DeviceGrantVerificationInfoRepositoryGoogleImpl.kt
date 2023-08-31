@@ -28,7 +28,7 @@ import kotlinx.coroutines.CancellationException
 
 @ExperimentalHorologistApi
 public class DeviceGrantVerificationInfoRepositoryGoogleImpl(
-    private val googleOAuthService: GoogleOAuthService
+    private val googleOAuthService: GoogleOAuthService,
 ) : DeviceGrantVerificationInfoRepository<DeviceGrantDefaultConfig, DeviceCodeResponse> {
 
     override suspend fun fetch(config: DeviceGrantDefaultConfig): Result<DeviceCodeResponse> {

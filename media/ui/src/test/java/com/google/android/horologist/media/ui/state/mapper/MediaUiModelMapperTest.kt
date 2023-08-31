@@ -34,7 +34,7 @@ class MediaUiModelMapperTest {
             uri = "http://www.example.com",
             title = title,
             artist = artist,
-            artworkUri = artworkUri
+            artworkUri = artworkUri,
         )
 
         // when

@@ -84,7 +84,7 @@ public abstract class BaseMediaBaselineProfile {
                 onStartup()
 
                 val mediaController = MediaControllerHelper.lookupController(
-                    mediaApp.playerComponentName
+                    mediaApp.playerComponentName,
                 ).get()
 
                 runBlocking(Dispatchers.Main) {
@@ -102,7 +102,7 @@ public abstract class BaseMediaBaselineProfile {
 
                     mediaController.stopPlaying()
                 }
-            }
+            },
         )
     }
 }

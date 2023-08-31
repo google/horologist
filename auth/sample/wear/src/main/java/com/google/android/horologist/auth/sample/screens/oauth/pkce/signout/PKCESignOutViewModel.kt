@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class PKCESignOutViewModel(
-    private val authUserRepository: PKCEAuthUserRepositorySample
+    private val authUserRepository: PKCEAuthUserRepositorySample,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(PKCESignOutScreenState.Idle)
@@ -37,7 +37,7 @@ class PKCESignOutViewModel(
     fun onIdleStateObserved() {
         if (_uiState.compareAndSet(
                 expect = PKCESignOutScreenState.Idle,
-                update = PKCESignOutScreenState.Loading
+                update = PKCESignOutScreenState.Loading,
             )
         ) {
             viewModelScope.launch {
@@ -68,5 +68,5 @@ enum class PKCESignOutScreenState {
     Idle,
     Loading,
     Success,
-    Failed
+    Failed,
 }

@@ -29,7 +29,7 @@ public class PKCEConfigRepositoryGoogleImpl(
     private val clientId: String,
     private val clientSecret: String,
     private val encodedPath: String = USER_AUTH_ENDPOINT,
-    private val queryParameters: Map<String, String> = mapOf(SCOPE_KEY to USER_INFO_PROFILE_SCOPE_VALUE)
+    private val queryParameters: Map<String, String> = mapOf(SCOPE_KEY to USER_INFO_PROFILE_SCOPE_VALUE),
 ) : PKCEConfigRepository<PKCEDefaultConfig> {
 
     override suspend fun fetch(): PKCEDefaultConfig {
@@ -45,7 +45,7 @@ public class PKCEConfigRepositoryGoogleImpl(
         return PKCEDefaultConfig(
             clientId = clientId,
             clientSecret = clientSecret,
-            authProviderUrl = uri
+            authProviderUrl = uri,
         )
     }
 }

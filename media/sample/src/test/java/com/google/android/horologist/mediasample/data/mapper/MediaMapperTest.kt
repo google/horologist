@@ -42,7 +42,7 @@ class MediaMapperTest {
             source = uri,
             title = title,
             totalTrackCount = 1,
-            trackNumber = 1
+            trackNumber = 1,
         )
 
         // when

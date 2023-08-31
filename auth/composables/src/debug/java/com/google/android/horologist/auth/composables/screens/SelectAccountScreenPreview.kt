@@ -27,10 +27,10 @@ fun SelectAccountScreenPreview() {
     SelectAccountScreen(
         accounts = listOf(
             AccountUiModel(email = "maggie@example.com"),
-            AccountUiModel(email = "thisisaverylongemail@example.com")
+            AccountUiModel(email = "thisisaverylongemail@example.com"),
         ),
         onAccountClicked = { _, _ -> },
-        columnState = belowTimeTextPreview()
+        columnState = belowTimeTextPreview(),
     )
 }
 
@@ -40,10 +40,10 @@ fun SelectAccountScreenPreviewNoAvatar() {
     SelectAccountScreen(
         accounts = listOf(
             AccountUiModel(email = "maggie@example.com"),
-            AccountUiModel(email = "thisisaverylongemailaccountsample@example.com")
+            AccountUiModel(email = "thisisaverylongemailaccountsample@example.com"),
         ),
         onAccountClicked = { _, _ -> },
         columnState = belowTimeTextPreview(),
-        defaultAvatar = null
+        defaultAvatar = null,
     )
 }

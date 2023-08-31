@@ -27,7 +27,7 @@ class AccountChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             AccountChip(
                 email = "maggie@example.com",
-                onClick = {}
+                onClick = {},
             )
         }
     }
@@ -38,7 +38,7 @@ class AccountChipTest : ScreenshotBaseTest() {
             AccountChip(
                 email = "maggie@example.com",
                 onClick = {},
-                enabled = false
+                enabled = false,
             )
         }
     }
@@ -49,7 +49,7 @@ class AccountChipTest : ScreenshotBaseTest() {
             AccountChip(
                 email = "maggie@example.com",
                 onClick = {},
-                largeAvatar = false
+                largeAvatar = false,
             )
         }
     }
@@ -60,7 +60,7 @@ class AccountChipTest : ScreenshotBaseTest() {
             AccountChip(
                 email = "maggie@example.com",
                 onClick = {},
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -70,7 +70,7 @@ class AccountChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             AccountChip(
                 email = "thisisaverylongemailaddresssample@example.com",
-                onClick = {}
+                onClick = {},
             )
         }
     }
@@ -80,7 +80,7 @@ class AccountChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             AccountChip(
                 email = "p.thisisaverylongemailaddress@example.com",
-                onClick = {}
+                onClick = {},
             )
         }
     }

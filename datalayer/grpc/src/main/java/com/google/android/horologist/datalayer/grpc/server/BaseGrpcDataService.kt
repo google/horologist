@@ -40,7 +40,7 @@ public abstract class BaseGrpcDataService<T : BindableService> : WearDataService
 
         rpcServer = MessageClientServer(
             buildService(),
-            lifecycleScope
+            lifecycleScope,
         )
     }
 

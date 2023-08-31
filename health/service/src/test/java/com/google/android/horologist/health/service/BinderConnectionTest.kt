@@ -50,9 +50,9 @@ class BinderConnectionTest {
         shadowOf(application).setComponentNameAndServiceForBindService(
             ComponentName(
                 application,
-                TestService::class.java
+                TestService::class.java,
             ),
-            service.localBinder
+            service.localBinder,
         )
     }
 

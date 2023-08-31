@@ -30,20 +30,20 @@ class ShowPlaylistChipA11yTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test
     fun a11y() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ShowPlaylistChip(
                     artworkUri = R.drawable.horologist_logo,
                     name = "Playlists",
-                    onClick = {}
+                    onClick = {},
                 )
             }
         }

@@ -70,7 +70,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun UampWearApp(
     navController: NavHostController,
-    intent: Intent
+    intent: Intent,
 ) {
     val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
     val volumeViewModel: VolumeViewModel = hiltViewModel()
@@ -83,7 +83,7 @@ fun UampWearApp(
     val timeText: @Composable (Modifier) -> Unit = { modifier ->
         MediaInfoTimeText(
             modifier = modifier,
-            mediaInfoTimeTextViewModel = mediaInfoTimeTextViewModel
+            mediaInfoTimeTextViewModel = mediaInfoTimeTextViewModel,
         )
     }
 
@@ -96,7 +96,7 @@ fun UampWearApp(
                     volumeViewModel = volumeViewModel,
                     onVolumeClick = {
                         navController.navigateToVolume()
-                    }
+                    },
                 )
             },
             libraryScreen = { columnState ->
@@ -104,7 +104,7 @@ fun UampWearApp(
                     UampStreamingBrowseScreen(
                         onPlaylistsClick = { navController.navigateToCollections() },
                         onSettingsClick = { navController.navigateToSettings() },
-                        columnState = columnState
+                        columnState = columnState,
                     )
                 } else {
                     UampBrowseScreen(
@@ -112,12 +112,12 @@ fun UampWearApp(
                         onDownloadItemClick = {
                             navController.navigateToCollection(
                                 it.playlistUiModel.id,
-                                it.playlistUiModel.title
+                                it.playlistUiModel.title,
                             )
                         },
                         onPlaylistsClick = { navController.navigateToCollections() },
                         onSettingsClick = { navController.navigateToSettings() },
-                        columnState = columnState
+                        columnState = columnState,
                     )
                 }
             },
@@ -133,7 +133,7 @@ fun UampWearApp(
                         },
                         onShuffleClick = { navController.navigateToPlayer() },
                         onPlayClick = { navController.navigateToPlayer() },
-                        columnState = columnState
+                        columnState = columnState,
                     )
                 } else {
                     val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
@@ -147,7 +147,7 @@ fun UampWearApp(
                         onShuffleClick = { navController.navigateToPlayer() },
                         onPlayClick = { navController.navigateToPlayer() },
                         onErrorDialogCancelClick = { navController.popBackStack() },
-                        columnState = columnState
+                        columnState = columnState,
                     )
                 }
             },
@@ -165,18 +165,18 @@ fun UampWearApp(
                     onPlaylistItemClick = { playlistUiModel ->
                         navController.navigateToCollection(
                             playlistUiModel.id,
-                            playlistUiModel.title
+                            playlistUiModel.title,
                         )
                     },
                     onErrorDialogCancelClick = { navController.popBackStack() },
-                    columnState = columnState
+                    columnState = columnState,
                 )
             },
             settingsScreen = { columnState ->
                 UampSettingsScreen(
                     columnState = columnState,
                     viewModel = hiltViewModel(),
-                    navController = navController
+                    navController = navController,
                 )
             },
             navHostState = navHostState,
@@ -190,11 +190,11 @@ fun UampWearApp(
                     route = AudioDebug.navRoute,
 
                     arguments = AudioDebug.arguments,
-                    deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix)
+                    deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix),
                 ) {
                     AudioDebugScreen(
                         columnState = it.columnState,
-                        audioDebugScreenViewModel = hiltViewModel()
+                        audioDebugScreenViewModel = hiltViewModel(),
                     )
                 }
 
@@ -202,12 +202,12 @@ fun UampWearApp(
                     route = Samples.navRoute,
 
                     arguments = Samples.arguments,
-                    deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix)
+                    deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix),
                 ) {
                     SamplesScreen(
                         columnState = it.columnState,
                         samplesScreenViewModel = hiltViewModel(),
-                        navController = navController
+                        navController = navController,
                     )
                 }
 
@@ -215,22 +215,22 @@ fun UampWearApp(
                     route = DeveloperOptions.navRoute,
 
                     arguments = DeveloperOptions.arguments,
-                    deepLinks = DeveloperOptions.deepLinks(appViewModel.deepLinkPrefix)
+                    deepLinks = DeveloperOptions.deepLinks(appViewModel.deepLinkPrefix),
                 ) {
                     DeveloperOptionsScreen(
                         columnState = it.columnState,
                         developerOptionsScreenViewModel = hiltViewModel(),
-                        navController = navController
+                        navController = navController,
                     )
                 }
 
                 scrollable(
-                    route = GoogleSignInPromptScreen.navRoute
+                    route = GoogleSignInPromptScreen.navRoute,
                 ) {
                     GoogleSignInPromptScreen(
                         navController = navController,
                         columnState = it.columnState,
-                        viewModel = hiltViewModel()
+                        viewModel = hiltViewModel(),
                     )
                 }
 
@@ -238,17 +238,17 @@ fun UampWearApp(
                     GoogleSignInScreen(
                         onAuthCancelled = { navController.popBackStack() },
                         onAuthSucceed = { navController.navigateToLibrary() },
-                        viewModel = hiltViewModel<UampGoogleSignInViewModel>()
+                        viewModel = hiltViewModel<UampGoogleSignInViewModel>(),
                     )
                 }
 
                 composable(route = GoogleSignOutScreen.navRoute) {
                     GoogleSignOutScreen(
                         navController = navController,
-                        viewModel = hiltViewModel()
+                        viewModel = hiltViewModel(),
                     )
                 }
-            }
+            },
         )
     }
 
@@ -262,7 +262,7 @@ fun UampWearApp(
 private suspend fun startupNavigation(
     intent: Intent,
     appViewModel: MediaPlayerAppViewModel,
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     val collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
     val mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)

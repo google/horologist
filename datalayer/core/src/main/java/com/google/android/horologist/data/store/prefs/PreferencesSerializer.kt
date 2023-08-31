@@ -88,11 +88,11 @@ internal object PreferencesSerializer : Serializer<Preferences> {
             is Long -> Value.newBuilder().setLong(value).build()
             is String -> Value.newBuilder().setString(value).build()
             is Set<*> -> Value.newBuilder().setStringSet(
-                StringSet.newBuilder().addAllStrings(value as Set<String>)
+                StringSet.newBuilder().addAllStrings(value as Set<String>),
             ).build()
 
             else -> throw IllegalStateException(
-                "PreferencesSerializer does not support type: ${value.javaClass.name}"
+                "PreferencesSerializer does not support type: ${value.javaClass.name}",
             )
         }
     }
@@ -100,7 +100,7 @@ internal object PreferencesSerializer : Serializer<Preferences> {
     private fun addProtoEntryToPreferences(
         name: String,
         value: Value,
-        mutablePreferences: MutablePreferences
+        mutablePreferences: MutablePreferences,
     ) {
         return when (value.valueCase) {
             Value.ValueCase.BOOLEAN ->

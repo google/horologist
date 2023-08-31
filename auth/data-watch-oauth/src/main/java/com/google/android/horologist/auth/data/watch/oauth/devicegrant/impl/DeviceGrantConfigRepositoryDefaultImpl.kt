@@ -22,12 +22,12 @@ import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantConf
 @ExperimentalHorologistApi
 public class DeviceGrantConfigRepositoryDefaultImpl(
     private val clientId: String,
-    private val clientSecret: String
+    private val clientSecret: String,
 ) :
     DeviceGrantConfigRepository<DeviceGrantDefaultConfig> {
 
-    override suspend fun fetch(): DeviceGrantDefaultConfig = DeviceGrantDefaultConfig(
-        clientId = clientId,
-        clientSecret = clientSecret
-    )
-}
+        override suspend fun fetch(): DeviceGrantDefaultConfig = DeviceGrantDefaultConfig(
+            clientId = clientId,
+            clientSecret = clientSecret,
+        )
+    }

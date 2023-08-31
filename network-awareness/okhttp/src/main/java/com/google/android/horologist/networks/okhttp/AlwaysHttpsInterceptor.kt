@@ -30,7 +30,7 @@ public object AlwaysHttpsInterceptor : Interceptor {
 
         if (request.url.scheme == "http") {
             request = request.newBuilder().url(
-                request.url.newBuilder().scheme("https").build()
+                request.url.newBuilder().scheme("https").build(),
             ).build()
         }
 

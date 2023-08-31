@@ -26,18 +26,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UampSignInPromptViewModel @Inject constructor(
-    authUserRepository: AuthUserRepository,
-    private val settingsRepository: SettingsRepository
-) :
+class UampSignInPromptViewModel
+    @Inject
+    constructor(
+        authUserRepository: AuthUserRepository,
+        private val settingsRepository: SettingsRepository,
+    ) :
     SignInPromptViewModel(authUserRepository) {
-    fun selectGuestMode() {
-        viewModelScope.launch {
-            settingsRepository.edit {
-                it.copy {
-                    guestMode = true
+        fun selectGuestMode() {
+            viewModelScope.launch {
+                settingsRepository.edit {
+                    it.copy {
+                        guestMode = true
+                    }
                 }
             }
         }
     }
-}

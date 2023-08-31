@@ -29,6 +29,6 @@ object MediaMapper {
         uri = musicApiModel.source,
         title = musicApiModel.title,
         artist = musicApiModel.artist,
-        artworkUri = musicApiModel.image
+        artworkUri = musicApiModel.image,
     )
 }

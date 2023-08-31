@@ -23,8 +23,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class UampGoogleSignInViewModel @Inject constructor(
-    googleSignInClient: GoogleSignInClient,
-    googleSignInEventListener: GoogleSignInEventListener
-) :
+class UampGoogleSignInViewModel
+    @Inject
+    constructor(
+        googleSignInClient: GoogleSignInClient,
+        googleSignInEventListener: GoogleSignInEventListener,
+    ) :
     GoogleSignInViewModel(googleSignInClient, googleSignInEventListener)

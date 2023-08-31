@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 
 class DataLayerViewModel(
     val counterService: CounterServiceCoroutineStub,
-    val counterFlow: Flow<CounterValue>
+    val counterFlow: Flow<CounterValue>,
 ) : ViewModel() {
     init {
         viewModelScope.launch {
@@ -66,7 +66,7 @@ class DataLayerViewModel(
 
     private fun updateIfNewer(
         it: DataLayerScreenState,
-        newValue: CounterValue
+        newValue: CounterValue,
     ): DataLayerScreenState {
         val currentUpdated = it.counterValue?.updatedOrNull
         return if (currentUpdated == null || currentUpdated.isBefore(newValue)) {
@@ -94,5 +94,5 @@ private fun Timestamp.isBefore(other: CounterValue): Boolean =
 
 data class DataLayerScreenState(
     val counterValue: CounterValue? = null,
-    val error: String? = null
+    val error: String? = null,
 )

@@ -17,7 +17,7 @@
 package com.google.android.horologist.navsample
 
 sealed class NavScreen(
-    val route: String
+    val route: String,
 ) {
     object Menu : NavScreen("menu")
     object ScalingLazyColumn : NavScreen("scalinglazycolumn")

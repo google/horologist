@@ -39,7 +39,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
      * The context to avoid passing in through each render method.
      */
     public val context: Context,
-    public val debugResourceMode: Boolean = false
+    public val debugResourceMode: Boolean = false,
 ) : TileLayoutRenderer<T, R> {
     public val theme: Colors by lazy { createTheme() }
 
@@ -47,7 +47,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
 
     final override fun renderTimeline(
         state: T,
-        requestParams: RequestBuilders.TileRequest
+        requestParams: RequestBuilders.TileRequest,
     ): Tile {
         val rootLayout = renderTile(state, requestParams.deviceConfiguration)
 
@@ -57,9 +57,9 @@ public abstract class SingleTileLayoutRenderer<T, R>(
                     .setLayout(
                         Layout.Builder()
                             .setRoot(rootLayout)
-                            .build()
+                            .build(),
                     )
-                    .build()
+                    .build(),
             )
             .build()
 
@@ -69,7 +69,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
                     UUID.randomUUID().toString()
                 } else {
                     getResourcesVersionForTileState(state)
-                }
+                },
             )
             .setState(createState())
             .setTileTimeline(singleTileTimeline)
@@ -89,12 +89,12 @@ public abstract class SingleTileLayoutRenderer<T, R>(
      */
     public abstract fun renderTile(
         state: T,
-        deviceParameters: DeviceParametersBuilders.DeviceParameters
+        deviceParameters: DeviceParametersBuilders.DeviceParameters,
     ): LayoutElement
 
     final override fun produceRequestedResources(
         resourceState: R,
-        requestParams: RequestBuilders.ResourcesRequest
+        requestParams: RequestBuilders.ResourcesRequest,
     ): Resources {
         return Resources.Builder()
             .setVersion(requestParams.version)
@@ -102,7 +102,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
                 produceRequestedResources(
                     resourceState,
                     requestParams.deviceConfiguration,
-                    requestParams.resourceIds
+                    requestParams.resourceIds,
                 )
             }
             .build()
@@ -114,7 +114,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
     public open fun Resources.Builder.produceRequestedResources(
         resourceState: R,
         deviceParameters: DeviceParametersBuilders.DeviceParameters,
-        resourceIds: MutableList<String>
+        resourceIds: MutableList<String>,
     ) {
     }
 

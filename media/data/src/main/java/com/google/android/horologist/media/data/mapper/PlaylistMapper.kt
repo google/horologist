@@ -25,7 +25,7 @@ import com.google.android.horologist.media.model.Playlist
  */
 @ExperimentalHorologistApi
 public class PlaylistMapper(
-    private val mediaMapper: MediaMapper
+    private val mediaMapper: MediaMapper,
 ) {
 
     /**
@@ -36,6 +36,6 @@ public class PlaylistMapper(
             id = populatedPlaylist.playlist.playlistId,
             name = populatedPlaylist.playlist.name,
             artworkUri = populatedPlaylist.playlist.artworkUri,
-            mediaList = populatedPlaylist.mediaList.map(mediaMapper::map)
+            mediaList = populatedPlaylist.mediaList.map(mediaMapper::map),
         )
 }

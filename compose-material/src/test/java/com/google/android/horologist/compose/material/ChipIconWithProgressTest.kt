@@ -30,7 +30,7 @@ class ChipIconWithProgressTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(
             isComponent = true,
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.NotFound
+            fakeImageLoader = FakeImageLoader.NotFound,
         ) {
             ChipIconWithProgress(progress = 75f)
         }
@@ -56,7 +56,7 @@ class ChipIconWithProgressTest : ScreenshotBaseTest() {
             ChipIconWithProgress(
                 progress = 75f,
                 icon = Icon48dp,
-                largeIcon = true
+                largeIcon = true,
             )
         }
     }
@@ -68,7 +68,7 @@ class ChipIconWithProgressTest : ScreenshotBaseTest() {
                 defaultWidth = 12f.dp,
                 defaultHeight = 12f.dp,
                 viewportWidth = 12f,
-                viewportHeight = 12f
+                viewportHeight = 12f,
             ).materialPath {
                 horizontalLineToRelative(12.0f)
                 verticalLineToRelative(12.0f)
@@ -82,7 +82,7 @@ class ChipIconWithProgressTest : ScreenshotBaseTest() {
                 defaultWidth = 32f.dp,
                 defaultHeight = 32f.dp,
                 viewportWidth = 32f,
-                viewportHeight = 32f
+                viewportHeight = 32f,
             ).materialPath {
                 horizontalLineToRelative(32.0f)
                 verticalLineToRelative(32.0f)
@@ -96,7 +96,7 @@ class ChipIconWithProgressTest : ScreenshotBaseTest() {
                 defaultWidth = 48f.dp,
                 defaultHeight = 48f.dp,
                 viewportWidth = 48f,
-                viewportHeight = 48f
+                viewportHeight = 48f,
             ).materialPath {
                 horizontalLineToRelative(48.0f)
                 verticalLineToRelative(48.0f)

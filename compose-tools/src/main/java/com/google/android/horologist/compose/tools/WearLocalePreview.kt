@@ -25,7 +25,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "en"
+    locale = "en",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -33,7 +33,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ar"
+    locale = "ar",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -41,7 +41,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "as"
+    locale = "as",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -49,7 +49,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "b+es+419"
+    locale = "b+es+419",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -57,7 +57,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "bg"
+    locale = "bg",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -65,7 +65,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "bn"
+    locale = "bn",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -73,7 +73,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ca"
+    locale = "ca",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -81,7 +81,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "cs"
+    locale = "cs",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -89,7 +89,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "da"
+    locale = "da",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -97,7 +97,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "de"
+    locale = "de",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -105,7 +105,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "el"
+    locale = "el",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -113,7 +113,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "en-rGB"
+    locale = "en-rGB",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -121,7 +121,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "en-rIE"
+    locale = "en-rIE",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -129,7 +129,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "es"
+    locale = "es",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -137,7 +137,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "es-rUS"
+    locale = "es-rUS",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -145,7 +145,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "et"
+    locale = "et",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -153,7 +153,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "eu"
+    locale = "eu",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -161,7 +161,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "fa"
+    locale = "fa",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -169,7 +169,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "fi"
+    locale = "fi",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -177,7 +177,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "fr"
+    locale = "fr",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -185,7 +185,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "fr-rCA"
+    locale = "fr-rCA",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -193,7 +193,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "gl"
+    locale = "gl",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -201,7 +201,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "gu"
+    locale = "gu",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -209,7 +209,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "hi"
+    locale = "hi",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -217,7 +217,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "hr"
+    locale = "hr",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -225,7 +225,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "hu"
+    locale = "hu",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -233,7 +233,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "hy"
+    locale = "hy",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -241,7 +241,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "in"
+    locale = "in",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -249,7 +249,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "is"
+    locale = "is",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -257,7 +257,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "it"
+    locale = "it",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -265,7 +265,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "iw"
+    locale = "iw",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -273,7 +273,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ja"
+    locale = "ja",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -281,7 +281,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ka"
+    locale = "ka",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -289,7 +289,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "kk"
+    locale = "kk",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -297,7 +297,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "km"
+    locale = "km",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -305,7 +305,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "kn"
+    locale = "kn",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -313,7 +313,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ko"
+    locale = "ko",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -321,7 +321,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ky"
+    locale = "ky",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -329,7 +329,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "lt"
+    locale = "lt",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -337,7 +337,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "lv"
+    locale = "lv",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -345,7 +345,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "mk"
+    locale = "mk",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -353,7 +353,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ml"
+    locale = "ml",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -361,7 +361,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "mn"
+    locale = "mn",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -369,7 +369,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "mr"
+    locale = "mr",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -377,7 +377,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ms"
+    locale = "ms",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -385,7 +385,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "my"
+    locale = "my",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -393,7 +393,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "nb"
+    locale = "nb",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -401,7 +401,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ne"
+    locale = "ne",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -409,7 +409,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "nl"
+    locale = "nl",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -417,7 +417,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "or"
+    locale = "or",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -425,7 +425,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "pa"
+    locale = "pa",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -433,7 +433,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "pl"
+    locale = "pl",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -441,7 +441,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "pt-rBR"
+    locale = "pt-rBR",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -449,7 +449,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "pt-rPT"
+    locale = "pt-rPT",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -457,7 +457,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ro"
+    locale = "ro",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -465,7 +465,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ru"
+    locale = "ru",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -473,7 +473,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "si"
+    locale = "si",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -481,7 +481,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "sk"
+    locale = "sk",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -489,7 +489,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "sl"
+    locale = "sl",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -497,7 +497,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "sq"
+    locale = "sq",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -505,7 +505,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "sr"
+    locale = "sr",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -513,7 +513,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "sv"
+    locale = "sv",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -521,7 +521,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ta"
+    locale = "ta",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -529,7 +529,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "te"
+    locale = "te",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -537,7 +537,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "th"
+    locale = "th",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -545,7 +545,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "tr"
+    locale = "tr",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -553,7 +553,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "uk"
+    locale = "uk",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -561,7 +561,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "ur"
+    locale = "ur",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -569,7 +569,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "uz"
+    locale = "uz",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -577,7 +577,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "vi"
+    locale = "vi",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -585,7 +585,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "zh-rCN"
+    locale = "zh-rCN",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -593,7 +593,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "zh-rHK"
+    locale = "zh-rHK",
 )
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -601,6 +601,6 @@ import androidx.wear.tooling.preview.devices.WearDevices
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Locales",
-    locale = "zh-rTW"
+    locale = "zh-rTW",
 )
 public annotation class WearLocalePreview

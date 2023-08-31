@@ -37,7 +37,7 @@ public class TokenBundleRepositoryImpl<T>(
     private val registry: WearDataLayerRegistry,
     private val key: String = DEFAULT_TOKEN_BUNDLE_KEY,
     private val coroutineScope: CoroutineScope,
-    private val serializer: Serializer<T>
+    private val serializer: Serializer<T>,
 ) : TokenBundleRepository<T> {
 
     override suspend fun update(tokenBundle: T) {
@@ -52,7 +52,7 @@ public class TokenBundleRepositoryImpl<T>(
             registry.protoDataStore(
                 path = buildPath(key),
                 coroutineScope = coroutineScope,
-                serializer = serializer
+                serializer = serializer,
             )
         } else {
             null

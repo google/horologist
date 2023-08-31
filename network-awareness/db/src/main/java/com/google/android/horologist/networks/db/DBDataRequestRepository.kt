@@ -32,7 +32,7 @@ import java.time.ZoneOffset
 @ExperimentalHorologistApi
 public class DBDataRequestRepository(
     public val networkUsageDao: NetworkUsageDao,
-    public val coroutineScope: CoroutineScope
+    public val coroutineScope: CoroutineScope,
 ) : DataRequestRepository {
     public val today: LocalDate = LocalDate.now()
 
@@ -80,10 +80,10 @@ public class DBDataRequestRepository(
                     NetworkType.BT to ble,
                     NetworkType.Cell to cell,
                     NetworkType.Wifi to wifi,
-                    NetworkType.Unknown to unknown
+                    NetworkType.Unknown to unknown,
                 ),
                 from = from,
-                to = to
+                to = to,
             )
         }
     }

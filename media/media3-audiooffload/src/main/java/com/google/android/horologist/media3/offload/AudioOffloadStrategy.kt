@@ -39,7 +39,7 @@ public interface AudioOffloadStrategy {
 
         override fun applyIndefinitely(
             exoPlayer: ExoPlayer,
-            errorReporter: ErrorReporter
+            errorReporter: ErrorReporter,
         ): Flow<String> = flow {
             exoPlayer.experimentalSetOffloadSchedulingEnabled(true)
             emit("Always")
@@ -54,7 +54,7 @@ public interface AudioOffloadStrategy {
 
         override fun applyIndefinitely(
             exoPlayer: ExoPlayer,
-            errorReporter: ErrorReporter
+            errorReporter: ErrorReporter,
         ): Flow<String> = flow {
             exoPlayer.experimentalSetOffloadSchedulingEnabled(false)
             emit("Never")

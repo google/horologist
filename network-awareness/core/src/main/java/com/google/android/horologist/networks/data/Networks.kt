@@ -26,7 +26,7 @@ import java.net.InetAddress
 @ExperimentalHorologistApi
 public data class Networks(
     val activeNetwork: NetworkStatus?,
-    val networks: List<NetworkStatus>
+    val networks: List<NetworkStatus>,
 ) {
     public fun findNetworkByAddress(localSocketAddress: InetAddress): NetworkStatus? {
         return networks.find { networkStatus ->

@@ -64,18 +64,18 @@ public fun SignedInConfirmationDialog(
     name: String? = null,
     email: String? = null,
     avatar: Any? = null,
-    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
+    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis),
 ) {
     Confirmation(
         onTimeout = onDismissOrTimeout,
         modifier = modifier,
-        durationMillis = duration.toMillis()
+        durationMillis = duration.toMillis(),
     ) {
         SignedInConfirmationDialogContent(
             modifier = modifier,
             name = name,
             email = email,
-            avatar = avatar
+            avatar = avatar,
         )
     }
 }
@@ -91,7 +91,7 @@ public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     accountUiModel: AccountUiModel,
-    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
+    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis),
 ) {
     SignedInConfirmationDialog(
         onDismissOrTimeout = onDismissOrTimeout,
@@ -99,7 +99,7 @@ public fun SignedInConfirmationDialog(
         name = accountUiModel.name,
         email = accountUiModel.email,
         avatar = accountUiModel.avatar,
-        duration = duration
+        duration = duration,
     )
 }
 
@@ -108,7 +108,7 @@ private fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
-    avatar: Any? = null
+    avatar: Any? = null,
 ) {
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
@@ -118,7 +118,7 @@ private fun SignedInConfirmationDialogContent(
             .fillMaxSize()
             .padding(horizontal = horizontalPadding),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val hasName = !name.isNullOrEmpty()
         val hasAvatar = avatar != null
@@ -127,14 +127,14 @@ private fun SignedInConfirmationDialogContent(
             modifier = Modifier
                 .size(60.dp)
                 .background(color = Color(AVATAR_BACKGROUND_COLOR), shape = CircleShape),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             if (hasAvatar) {
                 Image(
                     modifier = Modifier.clip(CircleShape),
                     painter = rememberAsyncImagePainter(model = avatar),
                     contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                    contentScale = ContentScale.Fit
+                    contentScale = ContentScale.Fit,
                 )
             } else if (hasName) {
                 Text(
@@ -144,7 +144,7 @@ private fun SignedInConfirmationDialogContent(
                         .fillMaxWidth(),
                     color = Color(AVATAR_TEXT_COLOR),
                     fontSize = 24.sp,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }
@@ -153,7 +153,7 @@ private fun SignedInConfirmationDialogContent(
             text = if (hasName) {
                 stringResource(
                     id = R.string.horologist_signedin_confirmation_greeting,
-                    name!!
+                    name!!,
                 )
             } else {
                 stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)
@@ -164,7 +164,7 @@ private fun SignedInConfirmationDialogContent(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = MaterialTheme.typography.title3
+            style = MaterialTheme.typography.title3,
         )
 
         email?.let {
@@ -177,7 +177,7 @@ private fun SignedInConfirmationDialogContent(
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
     }

@@ -49,7 +49,7 @@ class MediaApplication : Application(), ImageLoaderFactory {
                 .detectDiskWrites()
                 .detectNetwork()
                 .penaltyLog()
-                .build()
+                .build(),
         )
     }
 

@@ -30,7 +30,7 @@ class IconTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Icon(
                 imageVector = Icons.Outlined.VolumeDown,
-                contentDescription = "contentDescription"
+                contentDescription = "contentDescription",
             )
         }
     }
@@ -41,7 +41,7 @@ class IconTest : ScreenshotBaseTest() {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Icon(
                     imageVector = Icons.Outlined.VolumeDown,
-                    contentDescription = "contentDescription"
+                    contentDescription = "contentDescription",
                 )
             }
         }
@@ -53,7 +53,7 @@ class IconTest : ScreenshotBaseTest() {
             Icon(
                 imageVector = Icons.Outlined.VolumeDown,
                 contentDescription = "contentDescription",
-                rtlMode = IconRtlMode.Mirrored
+                rtlMode = IconRtlMode.Mirrored,
             )
         }
     }
@@ -65,7 +65,7 @@ class IconTest : ScreenshotBaseTest() {
                 Icon(
                     imageVector = Icons.Outlined.VolumeDown,
                     contentDescription = "contentDescription",
-                    rtlMode = IconRtlMode.Mirrored
+                    rtlMode = IconRtlMode.Mirrored,
                 )
             }
         }
@@ -76,7 +76,7 @@ class IconTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Icon(
                 id = android.R.drawable.ic_media_play,
-                contentDescription = "contentDescription"
+                contentDescription = "contentDescription",
             )
         }
     }
@@ -87,7 +87,7 @@ class IconTest : ScreenshotBaseTest() {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Icon(
                     id = android.R.drawable.ic_media_play,
-                    contentDescription = "contentDescription"
+                    contentDescription = "contentDescription",
                 )
             }
         }
@@ -99,7 +99,7 @@ class IconTest : ScreenshotBaseTest() {
             Icon(
                 id = android.R.drawable.ic_media_play,
                 contentDescription = "contentDescription",
-                rtlMode = IconRtlMode.Mirrored
+                rtlMode = IconRtlMode.Mirrored,
             )
         }
     }
@@ -111,7 +111,7 @@ class IconTest : ScreenshotBaseTest() {
                 Icon(
                     id = android.R.drawable.ic_media_play,
                     contentDescription = "contentDescription",
-                    rtlMode = IconRtlMode.Mirrored
+                    rtlMode = IconRtlMode.Mirrored,
                 )
             }
         }

@@ -29,11 +29,11 @@ public data class AudioOffloadStatus(
     public val errors: List<AudioError>,
     public val offloadTimes: OffloadTimes,
     public val strategyStatus: String?,
-    public val strategy: AudioOffloadStrategy?
+    public val strategy: AudioOffloadStrategy?,
 ) {
     public fun updateToNow(): OffloadTimes = offloadTimes.timesToNow(
         sleepingForOffload,
-        isPlaying
+        isPlaying,
     )
     public fun describe(): String {
         return "Offload State: " +
@@ -55,7 +55,7 @@ public data class AudioOffloadStatus(
             errors = listOf(),
             offloadTimes = OffloadTimes(),
             strategyStatus = null,
-            strategy = null
+            strategy = null,
         )
     }
 }

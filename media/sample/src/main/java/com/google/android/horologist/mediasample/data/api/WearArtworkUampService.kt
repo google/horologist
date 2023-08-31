@@ -22,7 +22,7 @@ import com.google.android.horologist.mediasample.data.api.model.CatalogApiModel
  * Decorating [UampService] to use wear appropriate image sizes.
  */
 class WearArtworkUampService(
-    private val uampService: UampService
+    private val uampService: UampService,
 ) : UampService {
     private val githubPrefix =
         "https://media.githubusercontent.com/media/google/horologist/main/media/sample/backend/images"
@@ -32,7 +32,7 @@ class WearArtworkUampService(
         return originalCatalog.copy(
             music = originalCatalog.music.map {
                 it.copy(image = wearSizedArtwork(it.image))
-            }
+            },
         )
     }
 

@@ -28,14 +28,14 @@ class VolumeScreenA11yScreenshotTest : ScreenshotBaseTest(
         enableA11y = true
         tolerance = 1.0f
         screenTimeText = { }
-    }
+    },
 ) {
 
     @Test
     fun volumeScreenAtMinimums() {
         val volumeState = VolumeState(
             current = 0,
-            max = 100
+            max = 100,
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
@@ -43,7 +43,7 @@ class VolumeScreenA11yScreenshotTest : ScreenshotBaseTest(
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
-                audioOutput = audioOutput
+                audioOutput = audioOutput,
             )
         }
     }

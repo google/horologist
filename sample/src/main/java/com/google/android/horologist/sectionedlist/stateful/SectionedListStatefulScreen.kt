@@ -64,13 +64,13 @@ import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefu
 fun SectionedListStatefulScreen(
     modifier: Modifier = Modifier,
     viewModel: SectionedListStatefulScreenViewModel = viewModel(),
-    columnState: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     SectionedList(
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier,
     ) {
         topMenuSection()
 
@@ -86,15 +86,15 @@ private fun SectionedListScope.topMenuSection() {
     section(
         listOf(
             Pair(R.string.sectionedlist_downloads_button, Icons.Default.DownloadDone),
-            Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic)
-        )
+            Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic),
+        ),
     ) {
         loaded { (stringResId, icon) ->
             Chip(
                 label = stringResource(stringResId),
                 onClick = { },
                 icon = icon,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -102,13 +102,13 @@ private fun SectionedListScope.topMenuSection() {
 
 private fun SectionedListScope.recommendationsSection(
     state: SectionedListStatefulScreenViewModel.UiState,
-    viewModel: SectionedListStatefulScreenViewModel
+    viewModel: SectionedListStatefulScreenViewModel,
 ) {
     val recommendationsState: Section.State<Recommendation> =
         when (val recommendationSectionState = state.recommendationSectionState) {
             RecommendationSectionState.Loading -> Section.State.Loading
             is RecommendationSectionState.Loaded -> Section.State.Loaded(
-                recommendationSectionState.list
+                recommendationSectionState.list,
             )
 
             RecommendationSectionState.Failed -> Section.State.Failed
@@ -118,7 +118,7 @@ private fun SectionedListScope.recommendationsSection(
         header {
             Title(
                 stringResource(id = R.string.sectionedlist_recommendations_title),
-                Modifier.padding(vertical = 8.dp)
+                Modifier.padding(vertical = 8.dp),
             )
         }
 
@@ -127,7 +127,7 @@ private fun SectionedListScope.recommendationsSection(
                 label = recommendation.playlistName,
                 onClick = { },
                 icon = recommendation.icon,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
 
@@ -145,7 +145,7 @@ private fun SectionedListScope.recommendationsSection(
             Chip(
                 label = stringResource(id = R.string.sectionedlist_see_more_button),
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -153,13 +153,13 @@ private fun SectionedListScope.recommendationsSection(
 
 private fun SectionedListScope.trendingSection(
     state: SectionedListStatefulScreenViewModel.UiState,
-    viewModel: SectionedListStatefulScreenViewModel
+    viewModel: SectionedListStatefulScreenViewModel,
 ) {
     val trendingState: Section.State<Trending> =
         when (val recommendationSectionState = state.trendingSectionState) {
             TrendingSectionState.Loading -> Section.State.Loading
             is TrendingSectionState.Loaded -> Section.State.Loaded(
-                recommendationSectionState.list
+                recommendationSectionState.list,
             )
 
             TrendingSectionState.Failed -> Section.State.Failed
@@ -169,7 +169,7 @@ private fun SectionedListScope.trendingSection(
         header {
             Title(
                 text = stringResource(id = R.string.sectionedlist_trending_title),
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = 8.dp),
             )
         }
 
@@ -179,7 +179,7 @@ private fun SectionedListScope.trendingSection(
                 onClick = { },
                 secondaryLabel = trending.artist,
                 icon = Icons.Default.MusicNote,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
 
@@ -196,10 +196,10 @@ private fun SectionedListScope.trendingSection(
         footer {
             Chip(
                 label = stringResource(
-                    id = R.string.sectionedlist_see_more_button
+                    id = R.string.sectionedlist_see_more_button,
                 ),
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -212,7 +212,7 @@ private fun SectionedListScope.bottomMenuSection() {
                 label = stringResource(R.string.sectionedlist_settings_button),
                 onClick = { },
                 icon = Icons.Default.Settings,
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -225,7 +225,7 @@ private fun FailedView(onClick: () -> Unit) {
             .height(108.dp)
             .clickable { onClick() },
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
             imageVector = Icons.Default.CloudOff,
@@ -233,14 +233,14 @@ private fun FailedView(onClick: () -> Unit) {
             modifier = Modifier
                 .size(ChipDefaults.LargeIconSize)
                 .clip(CircleShape),
-            tint = Color.Gray
+            tint = Color.Gray,
         )
 
         Text(
             text = stringResource(R.string.sectionedlist_failed_to_load),
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.body2,
         )
     }
 }

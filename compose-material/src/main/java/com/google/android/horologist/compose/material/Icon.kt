@@ -41,18 +41,18 @@ public fun Icon(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     tint: Color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current),
-    rtlMode: IconRtlMode = IconRtlMode.Default
+    rtlMode: IconRtlMode = IconRtlMode.Default,
 ) {
     val shouldMirror =
         rtlMode == IconRtlMode.Mirrored && LocalLayoutDirection.current == LayoutDirection.Rtl
     Icon(
         modifier = modifier.scale(
             scaleX = if (shouldMirror) -1f else 1f,
-            scaleY = 1f
+            scaleY = 1f,
         ),
         imageVector = imageVector,
         contentDescription = contentDescription,
-        tint = tint
+        tint = tint,
     )
 }
 
@@ -67,7 +67,7 @@ public fun Icon(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     tint: Color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current),
-    rtlMode: IconRtlMode = IconRtlMode.Default
+    rtlMode: IconRtlMode = IconRtlMode.Default,
 ) {
     val shouldMirror =
         rtlMode == IconRtlMode.Mirrored && LocalLayoutDirection.current == LayoutDirection.Rtl
@@ -77,9 +77,9 @@ public fun Icon(
         contentDescription = contentDescription,
         modifier = modifier.scale(
             scaleX = if (shouldMirror) -1f else 1f,
-            scaleY = 1f
+            scaleY = 1f,
         ),
-        tint = tint
+        tint = tint,
     )
 }
 
@@ -89,14 +89,14 @@ internal fun Icon(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     tint: Color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current),
-    rtlMode: IconRtlMode = IconRtlMode.Default
+    rtlMode: IconRtlMode = IconRtlMode.Default,
 ) {
     val shouldMirror =
         rtlMode == IconRtlMode.Mirrored && LocalLayoutDirection.current == LayoutDirection.Rtl
 
     val iconModifier = modifier.scale(
         scaleX = if (shouldMirror) -1f else 1f,
-        scaleY = 1f
+        scaleY = 1f,
     )
     when (icon) {
         is ImageVector -> {
@@ -104,7 +104,7 @@ internal fun Icon(
                 imageVector = icon,
                 modifier = iconModifier,
                 contentDescription = contentDescription,
-                tint = tint
+                tint = tint,
             )
         }
 
@@ -113,7 +113,7 @@ internal fun Icon(
                 painter = painterResource(id = icon),
                 contentDescription = contentDescription,
                 modifier = iconModifier,
-                tint = tint
+                tint = tint,
             )
         }
 
@@ -124,5 +124,5 @@ internal fun Icon(
 @ExperimentalHorologistApi
 public enum class IconRtlMode {
     Default,
-    Mirrored
+    Mirrored,
 }

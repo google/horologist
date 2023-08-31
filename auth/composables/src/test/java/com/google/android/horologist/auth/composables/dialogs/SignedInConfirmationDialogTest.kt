@@ -29,24 +29,24 @@ import org.junit.Test
 class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = { }
-    }
+    },
 ) {
 
     @Test
     fun signedInConfirmationDialog() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
             Box(
                 modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 SignedInConfirmationDialog(
                     onDismissOrTimeout = {},
                     name = "Maggie",
                     email = "maggie@example.com",
-                    avatar = android.R.drawable.sym_def_app_icon
+                    avatar = android.R.drawable.sym_def_app_icon,
                 )
             }
         }
@@ -56,12 +56,12 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     fun signedInConfirmationDialogNoName() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
             SignedInConfirmationDialog(
                 onDismissOrTimeout = {},
                 email = "maggie@example.com",
-                avatar = android.R.drawable.sym_def_app_icon
+                avatar = android.R.drawable.sym_def_app_icon,
             )
         }
     }
@@ -70,13 +70,13 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     fun signedInConfirmationDialogEmptyName() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
             SignedInConfirmationDialog(
                 onDismissOrTimeout = {},
                 name = "",
                 email = "maggie@example.com",
-                avatar = android.R.drawable.sym_def_app_icon
+                avatar = android.R.drawable.sym_def_app_icon,
             )
         }
     }
@@ -86,7 +86,7 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
         screenshotTestRule.setContent(takeScreenshot = true) {
             SignedInConfirmationDialog(
                 onDismissOrTimeout = {},
-                email = "maggie@example.com"
+                email = "maggie@example.com",
             )
         }
     }
@@ -95,12 +95,12 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     fun signedInConfirmationDialogNoEmail() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
             SignedInConfirmationDialog(
                 onDismissOrTimeout = {},
                 name = "Maggie",
-                avatar = android.R.drawable.sym_def_app_icon
+                avatar = android.R.drawable.sym_def_app_icon,
             )
         }
     }
@@ -116,13 +116,13 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     fun signedInConfirmationDialogTruncation() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
             SignedInConfirmationDialog(
                 onDismissOrTimeout = {},
                 name = "Wolfeschlegelsteinhausenbergerdorff",
                 email = "wolfeschlegelsteinhausenbergerdorff@example.com",
-                avatar = android.R.drawable.sym_def_app_icon
+                avatar = android.R.drawable.sym_def_app_icon,
             )
         }
     }

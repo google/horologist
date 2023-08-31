@@ -50,7 +50,7 @@ class TitleComposeTest {
         composeTestRule.setContent {
             Title(
                 text = "text",
-                modifier = Modifier.clearAndSetSemantics {}
+                modifier = Modifier.clearAndSetSemantics {},
             )
         }
 

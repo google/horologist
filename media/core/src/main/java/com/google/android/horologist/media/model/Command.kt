@@ -28,5 +28,5 @@ public enum class Command {
     SeekForward,
     SkipToPreviousMedia,
     SkipToNextMedia,
-    SetShuffle
+    SetShuffle,
 }

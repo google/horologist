@@ -52,10 +52,10 @@ public class InMemoryDataRequestRepository : DataRequestRepository {
                     NetworkType.Cell to cell,
                     NetworkType.BT to ble,
                     NetworkType.Wifi to wifi,
-                    NetworkType.Unknown to unknown
+                    NetworkType.Unknown to unknown,
                 ),
                 from = from,
-                to = Instant.now()
+                to = Instant.now(),
             )
     }
 }

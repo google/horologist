@@ -59,7 +59,7 @@ class UampEntityScreenViewModelTest {
                 title = "media_name1",
                 artist = "",
                 artworkUri = null,
-                extras = emptyMap()
+                extras = emptyMap(),
             ),
             Media(
                 id = "media2",
@@ -67,14 +67,14 @@ class UampEntityScreenViewModelTest {
                 title = "media_name2",
                 artist = "",
                 artworkUri = null,
-                extras = emptyMap()
-            )
-        )
+                extras = emptyMap(),
+            ),
+        ),
     )
 
     private val playlistUiModel = PlaylistUiModel(
         id = playlistId,
-        title = playlistName
+        title = playlistName,
     )
 
     private val savedStateHandle = SavedStateHandle()
@@ -93,7 +93,7 @@ class UampEntityScreenViewModelTest {
             fakePlaylistDownloadRepository,
             fakeMediaDownloadRepository,
             fakePlayerRepository,
-            fakeSettingsRepository
+            fakeSettingsRepository,
         )
     }
 
@@ -105,7 +105,7 @@ class UampEntityScreenViewModelTest {
             FakePlaylistDownloadRepository(fakePlaylistDownloadDataSource2),
             FakeMediaDownloadRepository(fakePlaylistDownloadDataSource2),
             fakePlayerRepository,
-            fakeSettingsRepository
+            fakeSettingsRepository,
         )
 
         sut2.uiState.test {
@@ -118,7 +118,7 @@ class UampEntityScreenViewModelTest {
         val expectedUiState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel> =
             createPlaylistDownloadScreenStateLoaded(
                 playlistUiModel,
-                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList)
+                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList),
             )
 
         sut.uiState.test {
@@ -131,12 +131,12 @@ class UampEntityScreenViewModelTest {
         val expectedIdleUiState =
             createPlaylistDownloadScreenStateLoaded(
                 playlistUiModel,
-                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList)
+                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList),
             )
         val expectedDownloadedUiState =
             createPlaylistDownloadScreenStateLoaded(
                 playlistUiModel,
-                mediaListToFullyDownloadedMediaUiModelList(playlistToTest.mediaList)
+                mediaListToFullyDownloadedMediaUiModelList(playlistToTest.mediaList),
             )
 
         sut.uiState.test {
@@ -151,7 +151,7 @@ class UampEntityScreenViewModelTest {
         val expectedUiState =
             createPlaylistDownloadScreenStateLoaded(
                 playlistUiModel,
-                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList)
+                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList),
             )
 
         sut.uiState.test {
@@ -168,7 +168,7 @@ class UampEntityScreenViewModelTest {
         val expectedPartialDownloadedUiState =
             createPlaylistDownloadScreenStateLoaded(
                 playlistUiModel,
-                mediaListToFullyDownloadedMediaUiModelListExceptMediaId(playlistToTest.mediaList, "media1")
+                mediaListToFullyDownloadedMediaUiModelListExceptMediaId(playlistToTest.mediaList, "media1"),
             )
 
         // Setup initial load to idle then fully downloaded
@@ -186,7 +186,7 @@ class UampEntityScreenViewModelTest {
                 id = media.id,
                 title = media.title,
                 artist = media.artist,
-                artworkUri = null
+                artworkUri = null,
             )
         }
 
@@ -196,13 +196,13 @@ class UampEntityScreenViewModelTest {
                 id = media.id,
                 title = media.title,
                 artist = media.artist,
-                artworkUri = null
+                artworkUri = null,
             )
         }
 
     private fun mediaListToFullyDownloadedMediaUiModelListExceptMediaId(
         mediaList: List<Media>,
-        mediaId: String
+        mediaId: String,
     ) =
         mediaList.map { media ->
             if (media.id == mediaId) {
@@ -210,14 +210,14 @@ class UampEntityScreenViewModelTest {
                     id = media.id,
                     title = media.title,
                     artist = media.artist,
-                    artworkUri = null
+                    artworkUri = null,
                 )
             } else {
                 DownloadMediaUiModel.Downloaded(
                     id = media.id,
                     title = media.title,
                     artist = media.artist,
-                    artworkUri = null
+                    artworkUri = null,
                 )
             }
         }

@@ -47,7 +47,7 @@ import kotlinx.coroutines.withContext
 public class AudioOffloadManager(
     private val errorReporter: ErrorReporter,
     private val audioOffloadStrategyFlow: Flow<AudioOffloadStrategy> =
-        flowOf(BackgroundAudioOffloadStrategy)
+        flowOf(BackgroundAudioOffloadStrategy),
 ) {
     private val _offloadStatus = MutableStateFlow(
         AudioOffloadStatus(
@@ -59,8 +59,8 @@ public class AudioOffloadManager(
             errors = listOf(),
             offloadTimes = OffloadTimes(),
             strategyStatus = null,
-            strategy = null
-        )
+            strategy = null,
+        ),
     )
     public val offloadStatus: StateFlow<AudioOffloadStatus> = _offloadStatus.asStateFlow()
 
@@ -91,8 +91,8 @@ public class AudioOffloadManager(
                         sleepingForOffload = sleepingForOffload,
                         offloadTimes = it.offloadTimes.timesToNow(
                             it.sleepingForOffload,
-                            it.isPlaying
-                        )
+                            it.isPlaying,
+                        ),
                     )
                 }
 
@@ -112,7 +112,7 @@ public class AudioOffloadManager(
             override fun onAudioInputFormatChanged(
                 eventTime: AnalyticsListener.EventTime,
                 format: Format,
-                decoderReuseEvaluation: DecoderReuseEvaluation?
+                decoderReuseEvaluation: DecoderReuseEvaluation?,
             ) {
                 _offloadStatus.update {
                     it.copy(format = format)
@@ -121,7 +121,7 @@ public class AudioOffloadManager(
 
             override fun onIsPlayingChanged(
                 eventTime: AnalyticsListener.EventTime,
-                isPlaying: Boolean
+                isPlaying: Boolean,
             ) {
                 // accumulate playback time for previous state
                 _offloadStatus.update {
@@ -129,8 +129,8 @@ public class AudioOffloadManager(
                         isPlaying = isPlaying,
                         offloadTimes = it.offloadTimes.timesToNow(
                             sleepingForOffload = offloadStatus.value.sleepingForOffload,
-                            updatedIsPlaying = isPlaying
-                        )
+                            updatedIsPlaying = isPlaying,
+                        ),
                     )
                 }
             }
@@ -139,14 +139,14 @@ public class AudioOffloadManager(
                 eventTime: AnalyticsListener.EventTime,
                 bufferSize: Int,
                 bufferSizeMs: Long,
-                elapsedSinceLastFeedMs: Long
+                elapsedSinceLastFeedMs: Long,
             ) {
                 addError(eventTime, "Audio Underrun")
             }
 
             override fun onAudioSinkError(
                 eventTime: AnalyticsListener.EventTime,
-                audioSinkError: Exception
+                audioSinkError: Exception,
             ) {
                 addError(eventTime, "Audio Sink Error: " + audioSinkError.message)
             }
@@ -173,7 +173,7 @@ public class AudioOffloadManager(
             errors = listOf(),
             offloadTimes = OffloadTimes(),
             strategyStatus = null,
-            strategy = null
+            strategy = null,
         )
 
         exoPlayer.addAudioOffloadListener(audioOffloadListener)
@@ -184,7 +184,7 @@ public class AudioOffloadManager(
                 _offloadStatus.update {
                     it.copy(
                         strategy = strategy,
-                        strategyStatus = null
+                        strategyStatus = null,
                     )
                 }
 
@@ -219,7 +219,7 @@ public class AudioOffloadManager(
             errorReporter.logMessage(
                 "Offload not matching: $strategy track=$offloadedPlayback",
                 category = ErrorReporter.Category.Playback,
-                level = ErrorReporter.Level.Error
+                level = ErrorReporter.Level.Error,
             )
         }
         errorReporter.logMessage(
@@ -229,7 +229,7 @@ public class AudioOffloadManager(
                 "format: ${status.format?.shortDescription} " +
                 "times: ${times.shortDescription} " +
                 "strategyStatus: ${status.strategyStatus} ",
-            category = ErrorReporter.Category.Playback
+            category = ErrorReporter.Category.Playback,
         )
     }
 }

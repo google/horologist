@@ -58,13 +58,13 @@ public fun MediaButton(
     colors: ButtonColors = mediaButtonDefaultColors,
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
-    iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally
+    iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
 ) {
     Button(
         onClick = onClick,
         modifier = modifier.size(tapTargetSize),
         enabled = enabled,
-        colors = colors
+        colors = colors,
     ) {
         Icon(
             modifier = Modifier
@@ -84,7 +84,7 @@ public fun MediaButton(
                 }
                 .align(Alignment.Center),
             imageVector = icon,
-            contentDescription = contentDescription
+            contentDescription = contentDescription,
         )
     }
 }
@@ -96,7 +96,7 @@ public object MediaButtonDefaults {
         get() = ButtonDefaults.buttonColors(
             backgroundColor = Color.Transparent,
             contentColor = MaterialTheme.colors.onSurface,
-            disabledBackgroundColor = Color.Transparent
+            disabledBackgroundColor = Color.Transparent,
         )
 
     public fun seekBackIcon(seekButtonIncrement: SeekButtonIncrement): ImageVector =

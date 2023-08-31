@@ -48,7 +48,7 @@ public abstract class SuspendingTileService : TileService(), LifecycleOwner {
     private val mDispatcher = ServiceLifecycleDispatcher(this)
 
     final override fun onTileRequest(
-        requestParams: TileRequest
+        requestParams: TileRequest,
     ): ListenableFuture<Tile> {
         return CallbackToFutureAdapter.getFuture { completer ->
             val job = lifecycleScope.launch {
@@ -76,7 +76,7 @@ public abstract class SuspendingTileService : TileService(), LifecycleOwner {
     public abstract suspend fun tileRequest(requestParams: TileRequest): Tile
 
     final override fun onTileResourcesRequest(
-        requestParams: ResourcesRequest
+        requestParams: ResourcesRequest,
     ): ListenableFuture<Resources> = CallbackToFutureAdapter.getFuture { completer ->
         val job = lifecycleScope.launch {
             this.ensureActive()

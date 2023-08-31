@@ -48,7 +48,7 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(
     sdk = [30],
-    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 class SnackbarHostTest {
 
@@ -133,7 +133,7 @@ class SnackbarHostTest {
         val job2 = scope.launch {
             val result = hostState.showSnackbar(
                 message = "1",
-                actionLabel = "do not press"
+                actionLabel = "do not press",
             )
             Truth.assertThat(result).isEqualTo(SnackbarResult.Dismissed)
         }
@@ -182,7 +182,7 @@ class SnackbarHostTest {
         }
         rule.onNodeWithText("1").onParent().onParent()
             .assert(
-                SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite)
+                SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite),
             )
             .assert(SemanticsMatcher.keyIsDefined(SemanticsActions.Dismiss))
             .performSemanticsAction(SemanticsActions.Dismiss)
@@ -199,7 +199,7 @@ class SnackbarHostTest {
                 originalTimeoutMillis: Long,
                 containsIcons: Boolean,
                 containsText: Boolean,
-                containsControls: Boolean
+                containsControls: Boolean,
             ): Long = if (originalTimeoutMillis == Long.MAX_VALUE) {
                 Long.MAX_VALUE
             } else if (containsControls == true) {
@@ -210,27 +210,27 @@ class SnackbarHostTest {
         }
         assertEquals(
             Long.MAX_VALUE,
-            SnackbarDuration.Indefinite.toMillis(true, accessibilityManager)
+            SnackbarDuration.Indefinite.toMillis(true, accessibilityManager),
         )
         assertEquals(
             Long.MAX_VALUE,
-            SnackbarDuration.Indefinite.toMillis(false, accessibilityManager)
+            SnackbarDuration.Indefinite.toMillis(false, accessibilityManager),
         )
         assertEquals(
             mockDurationControl,
-            SnackbarDuration.Long.toMillis(true, accessibilityManager)
+            SnackbarDuration.Long.toMillis(true, accessibilityManager),
         )
         assertEquals(
             mockDurationNonControl,
-            SnackbarDuration.Long.toMillis(false, accessibilityManager)
+            SnackbarDuration.Long.toMillis(false, accessibilityManager),
         )
         assertEquals(
             mockDurationControl,
-            SnackbarDuration.Short.toMillis(true, accessibilityManager)
+            SnackbarDuration.Short.toMillis(true, accessibilityManager),
         )
         assertEquals(
             mockDurationNonControl,
-            SnackbarDuration.Short.toMillis(false, accessibilityManager)
+            SnackbarDuration.Short.toMillis(false, accessibilityManager),
         )
     }
 
@@ -238,27 +238,27 @@ class SnackbarHostTest {
     fun snackbarDuration_toMillis_nullAccessibilityManager() {
         assertEquals(
             Long.MAX_VALUE,
-            SnackbarDuration.Indefinite.toMillis(true, null)
+            SnackbarDuration.Indefinite.toMillis(true, null),
         )
         assertEquals(
             Long.MAX_VALUE,
-            SnackbarDuration.Indefinite.toMillis(false, null)
+            SnackbarDuration.Indefinite.toMillis(false, null),
         )
         assertEquals(
             10000L,
-            SnackbarDuration.Long.toMillis(true, null)
+            SnackbarDuration.Long.toMillis(true, null),
         )
         assertEquals(
             10000L,
-            SnackbarDuration.Long.toMillis(false, null)
+            SnackbarDuration.Long.toMillis(false, null),
         )
         assertEquals(
             4000L,
-            SnackbarDuration.Short.toMillis(true, null)
+            SnackbarDuration.Short.toMillis(true, null),
         )
         assertEquals(
             4000L,
-            SnackbarDuration.Short.toMillis(false, null)
+            SnackbarDuration.Short.toMillis(false, null),
         )
     }
 }

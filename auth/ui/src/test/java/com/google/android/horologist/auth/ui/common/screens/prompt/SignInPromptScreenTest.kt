@@ -34,7 +34,7 @@ import org.junit.Test
 class SignInPromptScreenTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test
@@ -46,7 +46,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState()
+                columnState = positionedState(),
             ) {
                 testContent()
             }
@@ -62,7 +62,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState()
+                columnState = positionedState(),
             ) {
                 testContent()
             }
@@ -83,7 +83,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text("Loading...")
                     }
-                }
+                },
             ) {
                 testContent()
             }
@@ -99,7 +99,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState()
+                columnState = positionedState(),
             ) {
                 testContent()
             }
@@ -115,7 +115,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState()
+                columnState = positionedState(),
             ) {
                 testContent()
             }
@@ -136,7 +136,7 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = positionedState(0, -64)
+                columnState = positionedState(0, -64),
             ) {
                 testContent()
             }
@@ -147,13 +147,13 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
         item {
             SignInChip(
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
         item {
             GuestModeChip(
                 onClick = { },
-                colors = ChipDefaults.secondaryChipColors()
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }

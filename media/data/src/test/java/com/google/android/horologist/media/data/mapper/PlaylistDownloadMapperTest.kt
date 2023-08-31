@@ -53,7 +53,7 @@ class PlaylistDownloadMapperTest {
             PlaylistEntity(
                 playlistId = playlistId,
                 name = playlistName,
-                artworkUri = playlistArtworkUri
+                artworkUri = playlistArtworkUri,
             ),
             listOf(
                 MediaEntity(
@@ -61,9 +61,9 @@ class PlaylistDownloadMapperTest {
                     mediaUrl = mediaUrl,
                     artworkUrl = artworkUrl,
                     title = title,
-                    artist = artist
-                )
-            )
+                    artist = artist,
+                ),
+            ),
         )
 
         val expectedMedia = Media(
@@ -71,7 +71,7 @@ class PlaylistDownloadMapperTest {
             uri = mediaUrl,
             title = title,
             artist = artist,
-            artworkUri = artworkUrl
+            artworkUri = artworkUrl,
         )
 
         val mediaDownloadEntity = listOf<MediaDownloadEntity>()
@@ -87,17 +87,17 @@ class PlaylistDownloadMapperTest {
                     name = playlistName,
                     artworkUri = playlistArtworkUri,
                     mediaList = listOf(
-                        expectedMedia
-                    )
+                        expectedMedia,
+                    ),
                 ),
                 mediaList = listOf(
                     MediaDownload(
                         media = expectedMedia,
                         status = MediaDownload.Status.Idle,
-                        size = MediaDownload.Size.Unknown
-                    )
-                )
-            )
+                        size = MediaDownload.Size.Unknown,
+                    ),
+                ),
+            ),
         )
     }
 }

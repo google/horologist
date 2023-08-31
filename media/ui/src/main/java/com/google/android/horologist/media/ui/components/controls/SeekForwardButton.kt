@@ -38,12 +38,12 @@ public fun SeekForwardButton(
     enabled: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp)
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
 ) {
     val contentDescription = when (seekButtonIncrement) {
         is SeekButtonIncrement.Known -> stringResource(
             id = R.string.horologist_seek_forward_button_seconds_content_description,
-            seekButtonIncrement.seconds
+            seekButtonIncrement.seconds,
         )
         SeekButtonIncrement.Unknown -> stringResource(id = R.string.horologist_seek_forward_button_content_description)
     }
@@ -57,6 +57,6 @@ public fun SeekForwardButton(
         colors = colors,
         iconSize = iconSize,
         tapTargetSize = tapTargetSize,
-        iconAlign = Alignment.End
+        iconAlign = Alignment.End,
     )
 }

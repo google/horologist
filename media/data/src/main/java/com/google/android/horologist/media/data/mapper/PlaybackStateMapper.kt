@@ -35,7 +35,7 @@ public class PlaybackStateMapper(private val timestampProvider: TimestampProvide
         PlaybackStateEvent(
             playbackState = map(player),
             cause = cause,
-            timestamp = timestampProvider.getTimestamp().milliseconds
+            timestamp = timestampProvider.getTimestamp().milliseconds,
         )
 
     // should only be mapped as an event
@@ -58,7 +58,7 @@ public class PlaybackStateMapper(private val timestampProvider: TimestampProvide
                 currentPosition = null,
                 duration = null,
                 playbackSpeed = playbackSpeed,
-                isLive = isLive
+                isLive = isLive,
             )
         } else {
             PlaybackState(
@@ -66,7 +66,7 @@ public class PlaybackStateMapper(private val timestampProvider: TimestampProvide
                 currentPosition = player.currentPosition.milliseconds,
                 duration = (player.duration.coerceAtLeast(player.currentPosition)).milliseconds,
                 playbackSpeed = playbackSpeed,
-                isLive = isLive
+                isLive = isLive,
             )
         }
     }

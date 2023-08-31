@@ -22,7 +22,7 @@ import com.google.android.horologist.mediasample.data.api.model.MusicApiModel
 import java.io.IOException
 
 class FakeUampService(
-    public var failing: IOException? = null
+    public var failing: IOException? = null,
 ) : UampService {
 
     override suspend fun catalog(): CatalogApiModel {
@@ -43,9 +43,9 @@ class FakeUampService(
                     source = "source1",
                     title = "title1",
                     totalTrackCount = 1,
-                    trackNumber = 1
-                )
-            )
+                    trackNumber = 1,
+                ),
+            ),
         )
     }
 }

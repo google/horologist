@@ -32,8 +32,10 @@ import kotlinx.coroutines.tasks.await
  * Subclass of [DataLayerAppHelper] for use on phones.
  */
 @ExperimentalHorologistApi
-public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRegistry) :
-    DataLayerAppHelper(context, registry) {
+public class PhoneDataLayerAppHelper(
+    context: Context,
+    registry: WearDataLayerRegistry,
+) : DataLayerAppHelper(context, registry) {
     private val SAMSUNG_COMPANION_PKG = "com.samsung.android.app.watchmanager"
 
     override suspend fun installOnNode(node: String) {

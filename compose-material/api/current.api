@@ -10,16 +10,34 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Button(@DrawableRes int id, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors, optional com.google.android.horologist.compose.material.ButtonSize buttonSize, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean enabled);
   }
 
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum ButtonSize {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract sealed class ButtonSize {
     method public final float getIconSize();
     method public final float getTapTargetSize();
-    method public static com.google.android.horologist.compose.material.ButtonSize valueOf(String name) throws java.lang.IllegalArgumentException;
-    method public static com.google.android.horologist.compose.material.ButtonSize[] values();
     property public final float iconSize;
     property public final float tapTargetSize;
-    enum_constant public static final com.google.android.horologist.compose.material.ButtonSize Default;
-    enum_constant public static final com.google.android.horologist.compose.material.ButtonSize Large;
-    enum_constant public static final com.google.android.horologist.compose.material.ButtonSize Small;
+  }
+
+  public static final class ButtonSize.Custom extends com.google.android.horologist.compose.material.ButtonSize {
+    ctor public ButtonSize.Custom(float customIconSize, float customTapTargetSize);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public com.google.android.horologist.compose.material.ButtonSize.Custom copy-YgX7TsA(float customIconSize, float customTapTargetSize);
+    method public float getCustomIconSize();
+    method public float getCustomTapTargetSize();
+    property public final float customIconSize;
+    property public final float customTapTargetSize;
+  }
+
+  public static final class ButtonSize.Default extends com.google.android.horologist.compose.material.ButtonSize {
+    field public static final com.google.android.horologist.compose.material.ButtonSize.Default INSTANCE;
+  }
+
+  public static final class ButtonSize.Large extends com.google.android.horologist.compose.material.ButtonSize {
+    field public static final com.google.android.horologist.compose.material.ButtonSize.Large INSTANCE;
+  }
+
+  public static final class ButtonSize.Small extends com.google.android.horologist.compose.material.ButtonSize {
+    field public static final com.google.android.horologist.compose.material.ButtonSize.Small INSTANCE;
   }
 
   public final class ChipIconWithProgressKt {
@@ -31,6 +49,12 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional @StringRes Integer? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? icon, optional boolean largeIcon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
+  }
+
+  public final class CompactChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CompactChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CompactChip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CompactChip(Object icon, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
   }
 
   public final class ConfirmationKt {
@@ -50,8 +74,9 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class OutlinedCompactChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void OutlinedCompactChip(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? label, optional Object? icon, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void OutlinedCompactChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void OutlinedCompactChip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void OutlinedCompactChip(Object icon, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
   }
 
   public final class SplitToggleChipKt {
@@ -63,6 +88,16 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SecondaryTitle(String text, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector? icon, optional long iconTint, optional float iconSize, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Title(@StringRes int textId, optional androidx.compose.ui.Modifier modifier);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Title(String text, optional androidx.compose.ui.Modifier modifier);
+  }
+
+  public final class ToggleButtonDefaults {
+    method @androidx.compose.runtime.Composable public androidx.wear.compose.material.ToggleButtonColors iconOnlyColors();
+    field public static final com.google.android.horologist.compose.material.ToggleButtonDefaults INSTANCE;
+  }
+
+  public final class ToggleButtonKt {
+    method @androidx.compose.runtime.Composable public static void ToggleButton(String text, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, optional androidx.compose.ui.Modifier modifier, optional boolean checked, optional boolean enabled, optional androidx.wear.compose.material.ToggleButtonColors colors, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.compose.ui.graphics.Shape shape, optional int role, optional boolean smallSize);
+    method @androidx.compose.runtime.Composable public static void ToggleButton(Object checkedIcon, Object notCheckedIcon, String contentDescription, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, optional androidx.compose.ui.Modifier modifier, optional boolean checked, optional boolean enabled, optional androidx.wear.compose.material.ToggleButtonColors colors, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.compose.ui.graphics.Shape shape, optional int role, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean smallSize);
   }
 
   public final class ToggleChipKt {
@@ -84,10 +119,6 @@ package com.google.android.horologist.compose.material.util {
   public final class A11yKt {
     method public static String? getDECORATIVE_ELEMENT_CONTENT_DESCRIPTION();
     property public static final String? DECORATIVE_ELEMENT_CONTENT_DESCRIPTION;
-  }
-
-  public final class AdjustChipHeightToFontScaleKt {
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier adjustChipHeightToFontScale(androidx.compose.ui.Modifier, float fontScale, optional float padding);
   }
 
   public final class RememberVectorPainterKt {

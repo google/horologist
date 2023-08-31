@@ -70,8 +70,8 @@ class PlaylistMapperTest {
                         source = "source$suffix",
                         title = "title$suffix",
                         totalTrackCount = genreIdx,
-                        trackNumber = musicIdx
-                    )
+                        trackNumber = musicIdx,
+                    ),
                 )
             }
         }

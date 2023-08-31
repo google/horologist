@@ -49,11 +49,11 @@ public fun PlaylistDownloadBrowseScreen(
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,
     downloadItemArtworkPlaceholder: Painter? = null,
-    onDownloadItemInProgressClickActionLabel: String? = null
+    onDownloadItemInProgressClickActionLabel: String? = null,
 ) {
     BrowseScreen(
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier,
     ) {
         val downloadsSectionState = when (browseScreenState) {
             BrowseScreenState.Loading -> Section.State.Loading
@@ -84,7 +84,7 @@ public fun PlaylistDownloadBrowseScreen(
                             icon = download.playlistUiModel.artworkUri,
                             largeIcon = true,
                             placeholder = downloadItemArtworkPlaceholder,
-                            colors = ChipDefaults.secondaryChipColors()
+                            colors = ChipDefaults.secondaryChipColors(),
                         )
                     }
 
@@ -93,7 +93,7 @@ public fun PlaylistDownloadBrowseScreen(
                             Modifier.semantics {
                                 onClick(
                                     label = onDownloadItemInProgressClickActionLabel,
-                                    action = null
+                                    action = null,
                                 )
                             }
                         } ?: Modifier
@@ -104,11 +104,11 @@ public fun PlaylistDownloadBrowseScreen(
                             modifier = customModifier,
                             secondaryLabel = stringResource(
                                 id = R.string.horologist_browse_downloads_progress,
-                                download.percentage
+                                download.percentage,
                             ),
                             icon = Icons.Default.Downloading,
                             placeholder = downloadItemArtworkPlaceholder,
-                            colors = ChipDefaults.secondaryChipColors()
+                            colors = ChipDefaults.secondaryChipColors(),
                         )
                     }
                 }
@@ -120,14 +120,14 @@ public fun PlaylistDownloadBrowseScreen(
                 BrowseScreenPlaylistsSectionButton(
                     textId = R.string.horologist_browse_library_playlists_button,
                     icon = Icons.Default.PlaylistPlay,
-                    onClick = onPlaylistsClick
+                    onClick = onPlaylistsClick,
                 ),
                 BrowseScreenPlaylistsSectionButton(
                     textId = R.string.horologist_browse_library_settings_button,
                     icon = Icons.Default.Settings,
-                    onClick = onSettingsClick
-                )
-            )
+                    onClick = onSettingsClick,
+                ),
+            ),
         )
     }
 }

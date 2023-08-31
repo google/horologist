@@ -21,7 +21,6 @@ import com.google.protobuf.gradle.*
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.kapt")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
@@ -120,7 +119,7 @@ android {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.21.4"
+        artifact = "com.google.protobuf:protoc:3.24.2"
     }
     plugins {
         id("javalite") {
@@ -141,14 +140,9 @@ protobuf {
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.baseUi)
     implementation(projects.media.audio)
     implementation(projects.media.audioUi)
     implementation(projects.composables)
@@ -168,6 +162,10 @@ dependencies {
 
     implementation(
         project.findProject(":media-lib-datasource-okhttp") ?: libs.androidx.media3.datasourceokhttp
+    )
+
+    implementation(
+        project.findProject(":media-lib-ui") ?: libs.androidx.media3.ui
     )
 
     implementation(libs.compose.ui.util)
@@ -217,7 +215,7 @@ dependencies {
     implementation(libs.androidx.complications.rendering)
 
     implementation(libs.dagger.hiltandroid)
-    kapt(libs.dagger.hiltandroidcompiler)
+    ksp(libs.dagger.hiltandroidcompiler)
     implementation(libs.hilt.navigationcompose)
 
     implementation(libs.androidx.metrics.performance)
@@ -263,7 +261,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.uiautomator)
     androidTestImplementation(libs.androidx.complications.rendering)
     androidTestImplementation(libs.dagger.hiltandroidtesting)
-    kaptAndroidTest(libs.dagger.hiltandroidcompiler)
+    kspAndroidTest(libs.dagger.hiltandroidcompiler)
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10") {

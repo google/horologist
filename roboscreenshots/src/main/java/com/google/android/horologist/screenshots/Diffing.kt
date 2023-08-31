@@ -22,6 +22,7 @@ import android.util.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.test.SemanticsNodeInteraction
+import com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode
 import com.quickbird.snapshot.Diffing
 import com.quickbird.snapshot.FileSnapshotting
 import com.quickbird.snapshot.FileStoring
@@ -95,7 +96,7 @@ internal fun Bitmap.asByteString(): ByteString = Buffer().apply {
 
 internal fun Snapshotting<SemanticsNodeInteraction, Bitmap>.fileSnapshottingX() = FileSnapshotting(
     fileStoring = FileStoring.bitmap,
-    snapshotting = this
+    snapshotting = this,
 )
 
 @SuppressLint("NewApi")
@@ -103,22 +104,22 @@ internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.snapshot
     value: SemanticsNodeInteraction,
     testClass: Class<*>,
     testName: String,
-    record: Boolean
+    record: RecordMode,
 ) {
     paparazziCompatibleSnapshot(
         value = value,
         record = record,
         testName = testName,
-        testClass = testClass
+        testClass = testClass,
     )
 }
 
 @SuppressLint("NewApi")
 internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.paparazziCompatibleSnapshot(
     value: SemanticsNodeInteraction,
-    record: Boolean = false,
+    record: RecordMode = RecordMode.Test,
     testClass: Class<*>,
-    testName: String
+    testName: String,
 ) {
     val referenceDirectory = File("src/test/snapshots/images").apply {
         mkdirs()
@@ -135,7 +136,7 @@ internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.paparazz
     val snapshot = snapshotting.snapshot(value)
     val fileStoring = fileStoring.asserted
 
-    if (record) {
+    if (record == RecordMode.Record || (record == RecordMode.Repair && !referenceFile.exists())) {
         fileStoring.store(snapshot, referenceFile)
         diffFileName.deleteRecursively()
         println("Stored snapshot to: ${referenceFile.absolutePath}")
@@ -149,9 +150,13 @@ internal suspend fun FileSnapshotting<SemanticsNodeInteraction, Bitmap>.paparazz
 
             fileStoring.store(diff, diffFileName)
 
-            throw AssertionError(
-                "Snapshot is different from the reference!\nDiff stored to: ${diffFileName.absolutePath}"
-            )
+            if (record == RecordMode.Test) {
+                throw AssertionError(
+                    "Snapshot is different from the reference!\nDiff stored to: ${diffFileName.absolutePath}",
+                )
+            } else if (record == RecordMode.Repair) {
+                fileStoring.store(snapshot, referenceFile)
+            }
         }
     }
 }

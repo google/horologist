@@ -24,5 +24,5 @@ import java.util.UUID
 public data class UiMessage(
     public val message: String,
     public val id: String = UUID.randomUUID().toString(),
-    public val error: Boolean = true
+    public val error: Boolean = true,
 )

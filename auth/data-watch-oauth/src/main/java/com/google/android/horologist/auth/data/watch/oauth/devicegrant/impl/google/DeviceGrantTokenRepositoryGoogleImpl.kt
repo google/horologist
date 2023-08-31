@@ -35,12 +35,12 @@ import kotlinx.coroutines.guava.await
 @ExperimentalHorologistApi
 public class DeviceGrantTokenRepositoryGoogleImpl(
     private val application: Application,
-    private val googleOAuthService: GoogleOAuthService
+    private val googleOAuthService: GoogleOAuthService,
 ) : DeviceGrantTokenRepository<DeviceGrantDefaultConfig, DeviceCodeResponse, String> {
 
     override suspend fun fetch(
         config: DeviceGrantDefaultConfig,
-        verificationInfoPayload: DeviceCodeResponse
+        verificationInfoPayload: DeviceCodeResponse,
     ): Result<String> {
         try {
             RemoteActivityHelper(application).startRemoteActivity(
@@ -48,7 +48,7 @@ public class DeviceGrantTokenRepositoryGoogleImpl(
                     addCategory(Intent.CATEGORY_BROWSABLE)
                     data = Uri.parse(verificationInfoPayload.verificationUri)
                 },
-                targetNodeId = null
+                targetNodeId = null,
             ).await()
         } catch (e: RemoteActivityHelper.RemoteIntentException) {
             Log.e(TAG, "Error starting remote activity", e)
@@ -65,8 +65,8 @@ public class DeviceGrantTokenRepositoryGoogleImpl(
             retrieveToken(
                 config,
                 verificationInfoPayload.deviceCode,
-                verificationInfoPayload.interval
-            )
+                verificationInfoPayload.interval,
+            ),
         )
     }
 
@@ -79,7 +79,7 @@ public class DeviceGrantTokenRepositoryGoogleImpl(
     private tailrec suspend fun retrieveToken(
         config: DeviceGrantDefaultConfig,
         deviceCode: String,
-        interval: Int
+        interval: Int,
     ): String {
         Log.d(TAG, "Polling for token...")
         return fetchToken(config, deviceCode).getOrElse {
@@ -91,14 +91,14 @@ public class DeviceGrantTokenRepositoryGoogleImpl(
 
     private suspend fun fetchToken(
         config: DeviceGrantDefaultConfig,
-        deviceCode: String
+        deviceCode: String,
     ): Result<String> {
         return try {
             val tokenResponse = googleOAuthService.token(
                 clientId = config.clientId,
                 clientSecret = config.clientSecret,
                 grantType = GRANT_TYPE_PARAM_AUTH_DEVICE_GRANT_VALUE,
-                deviceCode = deviceCode
+                deviceCode = deviceCode,
             )
 
             Result.success(tokenResponse.accessToken)

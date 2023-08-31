@@ -39,7 +39,7 @@ import kotlinx.coroutines.withContext
 @ExperimentalHorologistApi
 public class GoogleSignInAuthUserRepository(
     private val applicationContext: Context,
-    private val googleSignInClient: GoogleSignInClient
+    private val googleSignInClient: GoogleSignInClient,
 ) : AuthUserRepository, GoogleSignInEventListener {
     // simple way to trigger refreshes to the sync GoogleSignIn.getLastSignedInAccount
     private val _authTrigger = MutableStateFlow(0)

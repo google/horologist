@@ -18,7 +18,7 @@ from [this link](https://developers.google.com/identity/sign-in/android/start-in
     dependencies {
         implementation "com.google.android.horologist:horologist-auth-composables:<version>"
         implementation "com.google.android.horologist:horologist-auth-ui:<version>"
-        implementation "com.google.android.horologist:horologist-base-ui:<version>"
+        implementation "com.google.android.horologist:horologist-compose-material:<version>"
     }
     ```
 

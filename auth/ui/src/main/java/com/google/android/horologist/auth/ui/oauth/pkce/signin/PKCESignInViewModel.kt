@@ -35,7 +35,7 @@ public open class PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload
     private val pkceConfigRepository: PKCEConfigRepository<PKCEConfig>,
     private val pkceOAuthCodeRepository: PKCEOAuthCodeRepository<PKCEConfig, OAuthCodePayload>,
     private val pkceTokenRepository: PKCETokenRepository<PKCEConfig, OAuthCodePayload, TokenPayload>,
-    private val pkceTokenPayloadListener: PKCETokenPayloadListener<TokenPayload> = PKCETokenPayloadListenerNoOpImpl()
+    private val pkceTokenPayloadListener: PKCETokenPayloadListener<TokenPayload> = PKCETokenPayloadListenerNoOpImpl(),
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PKCEScreenState>(PKCEScreenState.Idle)
@@ -44,7 +44,7 @@ public open class PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload
     public fun startAuthFlow() {
         _uiState.compareAndSet(
             expect = PKCEScreenState.Idle,
-            update = PKCEScreenState.Loading
+            update = PKCEScreenState.Loading,
         ) {
             viewModelScope.launch {
                 val config = pkceConfigRepository.fetch()
@@ -55,7 +55,7 @@ public open class PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload
                 _uiState.value = PKCEScreenState.CheckPhone
                 val oAuthCodePayload = pkceOAuthCodeRepository.fetch(
                     config = config,
-                    codeVerifier = codeVerifier
+                    codeVerifier = codeVerifier,
                 ).getOrElse {
                     _uiState.value = PKCEScreenState.Failed
                     return@launch
@@ -66,7 +66,7 @@ public open class PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload
                 val tokenPayload = pkceTokenRepository.fetch(
                     config = config,
                     codeVerifier = codeVerifier.value,
-                    oAuthCodePayload = oAuthCodePayload
+                    oAuthCodePayload = oAuthCodePayload,
                 )
                     .getOrElse {
                         _uiState.value = PKCEScreenState.Failed

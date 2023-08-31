@@ -16,21 +16,23 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performRotaryScrollInput
-import androidx.wear.compose.material.Picker
-import androidx.wear.compose.material.PickerScope
-import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberPickerState
+import com.google.android.horologist.composables.picker.Picker
+import com.google.android.horologist.composables.picker.PickerScope
+import com.google.android.horologist.composables.picker.PickerState
+import com.google.android.horologist.composables.picker.rememberPickerState
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -42,7 +44,7 @@ import org.robolectric.annotation.GraphicsMode
 @RunWith(RobolectricTestRunner::class)
 @Config(
     sdk = [30],
-    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class RotaryInteractionTest {
@@ -61,7 +63,7 @@ class RotaryInteractionTest {
             pickerState = rememberPickerState(
                 initialNumberOfOptions = numberOfOptions,
                 initiallySelectedOption = selectedOption,
-                repeatItems = false
+                repeatItems = false,
             )
             defaultPickerWithRotaryAccumulator(pickerState)
         }
@@ -88,7 +90,7 @@ class RotaryInteractionTest {
             pickerState = rememberPickerState(
                 initialNumberOfOptions = numberOfOptions,
                 initiallySelectedOption = selectedOption,
-                repeatItems = false
+                repeatItems = false,
             )
             defaultPickerWithRotaryAccumulator(pickerState)
         }
@@ -98,7 +100,7 @@ class RotaryInteractionTest {
         rule.onNodeWithTag(TEST_TAG).performRotaryScrollInput {
             // Scroll by 2 items forward
             rotateToScrollVertically(50.0f)
-            advanceEventTime(50)
+            advanceEventTime(250)
             rotateToScrollVertically(50.0f)
         }
 
@@ -117,7 +119,7 @@ class RotaryInteractionTest {
             pickerState = rememberPickerState(
                 initialNumberOfOptions = numberOfOptions,
                 initiallySelectedOption = selectedOption,
-                repeatItems = false
+                repeatItems = false,
             )
             defaultPickerWithRotaryAccumulator(pickerState)
         }
@@ -144,7 +146,7 @@ class RotaryInteractionTest {
             pickerState = rememberPickerState(
                 initialNumberOfOptions = numberOfOptions,
                 initiallySelectedOption = selectedOption,
-                repeatItems = false
+                repeatItems = false,
             )
             defaultPickerWithRotaryAccumulator(pickerState)
         }
@@ -154,7 +156,7 @@ class RotaryInteractionTest {
         rule.onNodeWithTag(TEST_TAG).performRotaryScrollInput {
             // Scroll by 2 items backward
             rotateToScrollVertically(-50.0f)
-            advanceEventTime(50)
+            advanceEventTime(250)
             rotateToScrollVertically(-50.0f)
         }
 
@@ -164,10 +166,12 @@ class RotaryInteractionTest {
     }
 
     @Composable
-    private fun pickerOption():
-        (@Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit) =
+    private fun pickerOption(): (@Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit) =
         { value: Int, pickerSelected: Boolean ->
-            Text("$value, $pickerSelected")
+            Text(
+                modifier = Modifier.height(with(LocalDensity.current) { 30.toDp() }),
+                text = "$value, $pickerSelected",
+            )
         }
 
     @Composable
@@ -178,7 +182,7 @@ class RotaryInteractionTest {
             contentDescription = null,
             onSelected = {},
             readOnlyLabel = null,
-            option = pickerOption()
+            option = pickerOption(),
         )
 
         Picker(
@@ -189,7 +193,7 @@ class RotaryInteractionTest {
             modifier = pickerGroupItem.modifier
                 .testTag(TEST_TAG)
                 .focusRequester(focusRequester)
-                .focusTarget()
+                .focusTarget(),
         ) {
             pickerGroupItem.option(this, it, true)
         }

@@ -45,5 +45,5 @@ public enum class PlayerState {
     /**
      * The player is playing and position is advancing.
      */
-    Playing
+    Playing,
 }

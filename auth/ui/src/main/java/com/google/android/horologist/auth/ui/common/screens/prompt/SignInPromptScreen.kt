@@ -29,7 +29,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
@@ -56,7 +55,6 @@ import com.google.android.horologist.compose.material.Title
  * @sample com.google.android.horologist.auth.sample.screens.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
  * @sample com.google.android.horologist.auth.sample.screens.oauth.pkce.prompt.PKCESignInPromptScreen
  */
-@ExperimentalHorologistApi
 @Composable
 public fun SignInPromptScreen(
     message: String,
@@ -66,7 +64,7 @@ public fun SignInPromptScreen(
     title: String = stringResource(id = R.string.horologist_signin_prompt_title),
     viewModel: SignInPromptViewModel = viewModel(),
     loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
-    content: ScalingLazyListScope.() -> Unit
+    content: ScalingLazyListScope.() -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -79,7 +77,7 @@ public fun SignInPromptScreen(
         columnState = columnState,
         loadingContent = loadingContent,
         modifier = modifier,
-        content = content
+        content = content,
     )
 }
 
@@ -93,7 +91,7 @@ internal fun SignInPromptScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
-    content: ScalingLazyListScope.() -> Unit
+    content: ScalingLazyListScope.() -> Unit,
 ) {
     when (state) {
         SignInPromptScreenState.Idle -> {
@@ -117,7 +115,7 @@ internal fun SignInPromptScreen(
         SignInPromptScreenState.SignedOut -> {
             ScalingLazyColumn(
                 columnState = columnState,
-                modifier = modifier
+                modifier = modifier,
             ) {
                 item { Title(title, Modifier) }
                 item {
@@ -127,11 +125,11 @@ internal fun SignInPromptScreen(
                             top = 8.dp,
                             bottom = 12.dp,
                             start = 10.dp,
-                            end = 10.dp
+                            end = 10.dp,
                         ),
                         color = MaterialTheme.colors.onBackground,
                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.body2
+                        style = MaterialTheme.typography.body2,
                     )
                 }
                 apply(content)

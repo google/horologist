@@ -42,7 +42,7 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
         Color.Gray,
         Color.Magenta,
         Color.LightGray,
-        Color.Yellow
+        Color.Yellow,
     )
 
     private fun colorForIndex(i: Int): Color {
@@ -69,13 +69,13 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
 
     private fun drawImageWithOverlays(
         canvas: Canvas,
-        originalBitmap: Bitmap
+        originalBitmap: Bitmap,
     ) {
         canvas.drawBitmap(
             originalBitmap,
             0f,
             0f,
-            Paint().apply { alpha = 180 }
+            Paint().apply { alpha = 180 },
         )
 
         elements.forEachIndexed { i, it ->
@@ -91,7 +91,7 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
 
     private fun drawLegend(
         canvas: Canvas,
-        elements: List<AccessibilityState.Element>
+        elements: List<AccessibilityState.Element>,
     ) {
         val height = canvas.height
         val width = canvas.width
@@ -99,7 +99,7 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
 
         canvas.drawRect(
             Rect(leftEdge, 0, width, height),
-            Paint().apply { color = Color.White.toArgb() }
+            Paint().apply { color = Color.White.toArgb() },
         )
 
         var index = 1
@@ -154,9 +154,9 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
                     10 + leftEdge,
                     start * 28 - 21,
                     width - 20,
-                    end * 28 - 21
+                    end * 28 - 21,
                 ),
-                paint
+                paint,
             )
 
             index++
@@ -165,7 +165,7 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
 
     private fun processAccessibleChildren(
         p0: SemanticsNode,
-        fn: (AccessibilityState.Element) -> Unit
+        fn: (AccessibilityState.Element) -> Unit,
     ) {
         val contentDescription = p0.config.getOrNull(SemanticsProperties.ContentDescription)
         val stateDescription = p0.config.getOrNull(SemanticsProperties.StateDescription)
@@ -178,18 +178,20 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
         val progress = p0.config.getOrNull(SemanticsProperties.ProgressBarRangeInfo)
         val hasProgressAction = p0.config.getOrNull(SemanticsActions.SetProgress) != null
 
-        if (contentDescription != null || stateDescription != null || onClickLabel != null || role != null || progress != null || text != null) {
+        if (contentDescription != null || stateDescription != null || onClickLabel != null ||
+            role != null || progress != null || text != null
+        ) {
             val position = Rect(
                 p0.boundsInRoot.left.toInt(),
                 p0.boundsInRoot.top.toInt(),
                 p0.boundsInRoot.right.toInt(),
-                p0.boundsInRoot.bottom.toInt()
+                p0.boundsInRoot.bottom.toInt(),
             )
             val touchBounds = Rect(
                 p0.touchBoundsInRoot.left.toInt(),
                 p0.touchBoundsInRoot.top.toInt(),
                 p0.touchBoundsInRoot.right.toInt(),
-                p0.touchBoundsInRoot.bottom.toInt()
+                p0.touchBoundsInRoot.bottom.toInt(),
             )
             fn(
                 AccessibilityState.Element(
@@ -208,10 +210,10 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
                             it.current,
                             it.range,
                             it.steps,
-                            hasProgressAction
+                            hasProgressAction,
                         )
-                    }
-                )
+                    },
+                ),
             )
         }
 

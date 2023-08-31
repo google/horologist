@@ -16,14 +16,11 @@
 
 package com.google.android.horologist.auth.data.phone.tokenshare
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-
 /**
  * Repository of a bundle of information, related to auth tokens.
  *
  * @sample com.google.android.horologist.auth.sample.MainActivity
  */
-@ExperimentalHorologistApi
 public interface TokenBundleRepository<T> {
 
     public suspend fun update(tokenBundle: T)

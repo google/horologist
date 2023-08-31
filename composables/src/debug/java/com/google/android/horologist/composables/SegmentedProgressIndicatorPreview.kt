@@ -21,12 +21,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSquare
 
-@Preview(device = Devices.WEAR_OS_LARGE_ROUND, showSystemUi = true)
+@WearPreviewLargeRound
 @Composable
 private fun SegmentedProgressIndicatorRoundPreview() {
     val segments = listOf(
@@ -34,7 +34,7 @@ private fun SegmentedProgressIndicatorRoundPreview() {
         ProgressIndicatorSegment(1f, Color.Cyan),
         ProgressIndicatorSegment(1f, Color.Magenta),
         ProgressIndicatorSegment(1f, Color.Yellow),
-        ProgressIndicatorSegment(2f, Color.Red)
+        ProgressIndicatorSegment(2f, Color.Red),
     )
 
     SegmentedProgressIndicator(
@@ -43,17 +43,17 @@ private fun SegmentedProgressIndicatorRoundPreview() {
         modifier = Modifier.fillMaxSize(),
         strokeWidth = 10.dp,
         paddingAngle = 2f,
-        trackColor = Color.Gray
+        trackColor = Color.Gray,
     )
 }
 
-@Preview(device = Devices.WEAR_OS_SQUARE, showSystemUi = true)
+@WearPreviewSquare
 @Composable
 private fun SegmentedProgressIndicatorSquarePreview() {
     val segments = listOf(
         ProgressIndicatorSegment(1f, Color.Cyan),
         ProgressIndicatorSegment(1f, Color.Magenta),
-        ProgressIndicatorSegment(1f, Color.Yellow)
+        ProgressIndicatorSegment(1f, Color.Yellow),
     )
 
     SegmentedProgressIndicator(
@@ -62,7 +62,7 @@ private fun SegmentedProgressIndicatorSquarePreview() {
         modifier = Modifier.fillMaxSize(),
         strokeWidth = 15.dp,
         paddingAngle = 2f,
-        trackColor = Color.Gray
+        trackColor = Color.Gray,
     )
 }
 
@@ -72,20 +72,20 @@ private fun SegmentedProgressIndicatorBrushPreview() {
     val segments = listOf(
         ProgressIndicatorSegment(
             1f,
-            Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+            Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
         ),
         ProgressIndicatorSegment(
             weight = 1f,
             indicatorBrush = Brush.horizontalGradient(
-                listOf(Color.Cyan, Color.Magenta, Color.Yellow)
-            )
+                listOf(Color.Cyan, Color.Magenta, Color.Yellow),
+            ),
         ),
         ProgressIndicatorSegment(
             weight = 1f,
             indicatorBrush = Brush.horizontalGradient(
-                listOf(Color.Yellow, Color.Magenta, Color.Cyan)
-            )
-        )
+                listOf(Color.Yellow, Color.Magenta, Color.Cyan),
+            ),
+        ),
     )
 
     SegmentedProgressIndicator(
@@ -94,7 +94,7 @@ private fun SegmentedProgressIndicatorBrushPreview() {
         modifier = Modifier.fillMaxSize(),
         strokeWidth = 15.dp,
         paddingAngle = 2f,
-        trackColor = Color.Gray
+        trackColor = Color.Gray,
     )
 }
 
@@ -104,18 +104,18 @@ private fun SegmentedProgressIndicatorBrushColorCombinedPreview() {
     val segments = listOf(
         ProgressIndicatorSegment(
             1f,
-            Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+            Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
         ),
         ProgressIndicatorSegment(
             weight = 1f,
-            indicatorColor = Color.Cyan
+            indicatorColor = Color.Cyan,
         ),
         ProgressIndicatorSegment(
             weight = 1f,
             indicatorBrush = Brush.horizontalGradient(
-                listOf(Color.Yellow, Color.Magenta, Color.Cyan)
-            )
-        )
+                listOf(Color.Yellow, Color.Magenta, Color.Cyan),
+            ),
+        ),
     )
 
     SegmentedProgressIndicator(
@@ -124,6 +124,6 @@ private fun SegmentedProgressIndicatorBrushColorCombinedPreview() {
         modifier = Modifier.fillMaxSize(),
         strokeWidth = 15.dp,
         paddingAngle = 2f,
-        trackColor = Color.Gray
+        trackColor = Color.Gray,
     )
 }

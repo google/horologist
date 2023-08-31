@@ -52,71 +52,71 @@ import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 
 class SampleTileRenderer(context: Context) :
     SingleTileLayoutRenderer<SampleTileRenderer.TileState, SampleTileRenderer.ResourceState>(
-        context
+        context,
     ) {
-    override fun renderTile(
-        state: TileState,
-        deviceParameters: DeviceParameters
-    ): LayoutElementBuilders.LayoutElement {
-        return PrimaryLayout.Builder(deviceParameters)
-            .setPrimaryLabelTextContent(
-                Text.Builder(context, "Count: ${state.count}")
-                    .setTypography(Typography.TYPOGRAPHY_CAPTION1)
-                    .setColor(argb(theme.primary))
-                    .build()
-            )
-            .setContent(
-                MultiButtonLayout.Builder()
-                    .addButtonContent(
-                        imageButton(NoOpClickable)
-                    )
-                    .addButtonContent(
-                        iconButton(NoOpClickable)
-                    )
-                    .build()
-            )
-            .setPrimaryChipContent(
-                CompactChip.Builder(context, "Action", NoOpClickable, deviceParameters)
-                    .setChipColors(ChipColors.primaryChipColors(theme))
-                    .build()
-            )
-            .build()
-    }
+        override fun renderTile(
+            state: TileState,
+            deviceParameters: DeviceParameters,
+        ): LayoutElementBuilders.LayoutElement {
+            return PrimaryLayout.Builder(deviceParameters)
+                .setPrimaryLabelTextContent(
+                    Text.Builder(context, "Count: ${state.count}")
+                        .setTypography(Typography.TYPOGRAPHY_CAPTION1)
+                        .setColor(argb(theme.primary))
+                        .build(),
+                )
+                .setContent(
+                    MultiButtonLayout.Builder()
+                        .addButtonContent(
+                            imageButton(NoOpClickable),
+                        )
+                        .addButtonContent(
+                            iconButton(NoOpClickable),
+                        )
+                        .build(),
+                )
+                .setPrimaryChipContent(
+                    CompactChip.Builder(context, "Action", NoOpClickable, deviceParameters)
+                        .setChipColors(ChipColors.primaryChipColors(theme))
+                        .build(),
+                )
+                .build()
+        }
 
-    internal fun iconButton(clickable: Clickable) =
-        Button.Builder(context, clickable)
-            .setIconContent(Icon1)
-            .setButtonColors(ButtonColors.secondaryButtonColors(theme))
-            .build()
+        internal fun iconButton(clickable: Clickable) =
+            Button.Builder(context, clickable)
+                .setIconContent(Icon1)
+                .setButtonColors(ButtonColors.secondaryButtonColors(theme))
+                .build()
 
-    internal fun imageButton(clickable: Clickable) =
-        Button.Builder(context, clickable)
-            .setImageContent(Image1)
-            .setButtonColors(ButtonColors.secondaryButtonColors(theme))
-            .build()
+        internal fun imageButton(clickable: Clickable) =
+            Button.Builder(context, clickable)
+                .setImageContent(Image1)
+                .setButtonColors(ButtonColors.secondaryButtonColors(theme))
+                .build()
 
-    override fun Resources.Builder.produceRequestedResources(
-        resourceState: ResourceState,
-        deviceParameters: DeviceParameters,
-        resourceIds: MutableList<String>
-    ) {
-        addIdToImageMapping(Icon1, drawableResToImageResource(TileIcon))
-        if (resourceState.image != null) {
-            addIdToImageMapping(Image1, resourceState.image)
+        override fun Resources.Builder.produceRequestedResources(
+            resourceState: ResourceState,
+            deviceParameters: DeviceParameters,
+            resourceIds: MutableList<String>,
+        ) {
+            addIdToImageMapping(Icon1, drawableResToImageResource(TileIcon))
+            if (resourceState.image != null) {
+                addIdToImageMapping(Image1, resourceState.image)
+            }
+        }
+
+        data class TileState(val count: Int)
+
+        data class ResourceState(val image: ImageResource?)
+
+        companion object {
+            const val Image1 = "image1"
+            const val Icon1 = "icon1"
+            val TileIcon = R.drawable.ic_android
+            val TileImage = R.drawable.ic_tileicon
         }
     }
-
-    data class TileState(val count: Int)
-
-    data class ResourceState(val image: ImageResource?)
-
-    companion object {
-        const val Image1 = "image1"
-        const val Icon1 = "icon1"
-        val TileIcon = R.drawable.ic_android
-        val TileImage = R.drawable.ic_tileicon
-    }
-}
 
 @WearPreviewDevices
 @WearPreviewFontScales
@@ -138,7 +138,7 @@ fun SampleTilePreview() {
     TileLayoutPreview(
         tileState,
         resourceState,
-        renderer
+        renderer,
     )
 }
 
@@ -152,11 +152,11 @@ fun SampleButtonImagePreview() {
     }
 
     LayoutElementPreview(
-        renderer.imageButton(NoOpClickable)
+        renderer.imageButton(NoOpClickable),
     ) {
         addIdToImageMapping(
             Image1,
-            drawableResToImageResource(TileImage)
+            drawableResToImageResource(TileImage),
         )
     }
 }
@@ -171,11 +171,11 @@ fun SampleButtonIconPreview() {
     }
 
     LayoutElementPreview(
-        renderer.iconButton(NoOpClickable)
+        renderer.iconButton(NoOpClickable),
     ) {
         addIdToImageMapping(
             Icon1,
-            drawableResToImageResource(TileIcon)
+            drawableResToImageResource(TileIcon),
         )
     }
 }
@@ -184,7 +184,7 @@ fun SampleButtonIconPreview() {
     backgroundColor = 0xff000000,
     showBackground = true,
     widthDp = 100,
-    heightDp = 100
+    heightDp = 100,
 )
 public annotation class IconSizePreview
 
@@ -192,6 +192,6 @@ public annotation class IconSizePreview
     backgroundColor = 0xff000000,
     showBackground = true,
     widthDp = 192,
-    heightDp = 100
+    heightDp = 100,
 )
 public annotation class FullWidthPreview

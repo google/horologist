@@ -16,16 +16,14 @@
 
 package com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api
 
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-@ExperimentalHorologistApi
 public class GoogleOAuthServiceFactory(
     private val okHttpClient: OkHttpClient,
-    private val moshi: Moshi
+    private val moshi: Moshi,
 ) {
 
     public fun get(): GoogleOAuthService = Retrofit.Builder()

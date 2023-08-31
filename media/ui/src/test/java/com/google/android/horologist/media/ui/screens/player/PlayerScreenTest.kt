@@ -33,6 +33,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlayerState
@@ -76,7 +77,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -99,10 +100,10 @@ class PlayerScreenTest {
                 controlButtons = { playerUiController, playerUiState ->
                     DefaultPlayerScreenControlButtons(
                         playerController = playerUiController,
-                        playerUiState = playerUiState
+                        playerUiState = playerUiState,
                     )
                 },
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -121,13 +122,13 @@ class PlayerScreenTest {
         val playerViewModel = PlayerViewModel(playerRepository)
 
         assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isNotEqualTo(
-            PlayerState.Playing
+            PlayerState.Playing,
         )
 
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -154,13 +155,13 @@ class PlayerScreenTest {
         val playerViewModel = PlayerViewModel(playerRepository)
 
         assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isEqualTo(
-            PlayerState.Playing
+            PlayerState.Playing,
         )
 
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -195,7 +196,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -228,7 +229,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -252,7 +253,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -283,7 +284,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -309,7 +310,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -335,7 +336,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -367,7 +368,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -393,7 +394,7 @@ class PlayerScreenTest {
             PlayerScreen(
                 playerViewModel = playerViewModel,
                 mediaDisplay = { Text("Custom") },
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -411,7 +412,7 @@ class PlayerScreenTest {
             PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
                 controlButtons = { _, _ -> Text("Custom") },
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -432,7 +433,7 @@ class PlayerScreenTest {
             PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
                 buttons = { Text("Custom") },
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
@@ -447,11 +448,34 @@ class PlayerScreenTest {
             PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
                 background = { Text("Custom") },
-                volumeViewModel = volumeViewModel
+                volumeViewModel = volumeViewModel,
             )
         }
 
         // then
         composeTestRule.onNode(hasText("Custom")).assertExists()
+    }
+
+    @Test
+    fun whenInit_thenVolumeShouldEqualToVolumeRepositoryState() {
+        // given
+        val playerRepository =
+            FakePlayerRepository()
+        val playerViewModel = PlayerViewModel(playerRepository)
+
+        // when
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel,
+            )
+        }
+
+        // then
+        assertThat(volumeViewModel.volumeUiState.value).isEqualTo(
+            VolumeUiStateMapper.map(
+                volumeRepository.volumeState.value,
+            ),
+        )
     }
 }

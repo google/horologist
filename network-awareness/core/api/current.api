@@ -1,11 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.networks {
-
-  @kotlin.RequiresOptIn(message="Horologist Network Awareness is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistNetworksApi {
-  }
-
-}
-
 package com.google.android.horologist.networks.data {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class DataRequest {

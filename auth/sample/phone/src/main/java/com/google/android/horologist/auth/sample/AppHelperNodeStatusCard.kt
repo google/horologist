@@ -34,11 +34,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.auth.sample.ui.theme.HorologistTheme
+import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.data.apphelper.AppHelperNodeType
 import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
+import com.google.android.horologist.data.usageInfo
 import com.google.protobuf.Timestamp
 
 @Composable
@@ -46,44 +48,44 @@ fun AppHelperNodeStatusCard(
     nodeStatus: AppHelperNodeStatus,
     onInstallClick: (String) -> Unit,
     onLaunchClick: (String) -> Unit,
-    onCompanionClick: (String) -> Unit
+    onCompanionClick: (String) -> Unit,
 ) {
     Box(
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Card {
             Column(
                 modifier = Modifier
                     .padding(16.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
 
             ) {
                 Text(stringResource(R.string.app_helper_node_name_label, nodeStatus.displayName))
                 Text(
                     style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(R.string.app_helper_node_id_label, nodeStatus.id)
+                    text = stringResource(R.string.app_helper_node_id_label, nodeStatus.id),
                 )
                 Text(
                     style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(R.string.app_helper_node_type_label, nodeStatus.nodeType)
+                    text = stringResource(R.string.app_helper_node_type_label, nodeStatus.nodeType),
                 )
                 Text(
                     style = MaterialTheme.typography.labelMedium,
                     text = stringResource(
                         R.string.app_helper_is_app_installed_label,
-                        nodeStatus.isAppInstalled
-                    )
+                        nodeStatus.isAppInstalled,
+                    ),
                 )
                 if (nodeStatus.surfacesInfo.complicationsList.isNotEmpty()) {
                     Text(
                         style = MaterialTheme.typography.labelMedium,
                         text = stringResource(
                             R.string.app_helper_complications_label,
-                            nodeStatus.surfacesInfo.complicationsList.joinToString { it.name }
-                        )
+                            nodeStatus.surfacesInfo.complicationsList.joinToString { it.name },
+                        ),
                     )
                 }
                 if (nodeStatus.surfacesInfo.tilesList.isNotEmpty()) {
@@ -91,40 +93,38 @@ fun AppHelperNodeStatusCard(
                         style = MaterialTheme.typography.labelMedium,
                         text = stringResource(
                             R.string.app_helper_tiles_label,
-                            nodeStatus.surfacesInfo.tilesList.joinToString { it.name }
-                        )
+                            nodeStatus.surfacesInfo.tilesList.joinToString { it.name },
+                        ),
                     )
                 }
-                if (nodeStatus.surfacesInfo.activityLaunched.activityLaunchedOnce) {
-                    Text(
-                        style = MaterialTheme.typography.labelMedium,
-                        text = stringResource(
-                            R.string.app_has_been_opened,
-                            nodeStatus.surfacesInfo.activityLaunched.activityLaunchedOnce
-                        )
-                    )
-                }
+                Text(
+                    style = MaterialTheme.typography.labelMedium,
+                    text = stringResource(
+                        R.string.app_helper_usage_status,
+                        nodeStatus.surfacesInfo.usageInfo.usageStatus.name,
+                    ),
+                )
                 Row(
                     modifier = Modifier
                         .padding(8.dp)
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Button(
                         modifier = Modifier.wrapContentHeight(),
-                        onClick = { onInstallClick(nodeStatus.id) }
+                        onClick = { onInstallClick(nodeStatus.id) },
                     ) {
                         Text(stringResource(id = R.string.app_helper_install_button_label))
                     }
                     Button(
                         modifier = Modifier.wrapContentHeight(),
-                        onClick = { onLaunchClick(nodeStatus.id) }
+                        onClick = { onLaunchClick(nodeStatus.id) },
                     ) {
                         Text(stringResource(id = R.string.app_helper_launch_button_label))
                     }
                     Button(
                         modifier = Modifier.wrapContentHeight(),
-                        onClick = { onCompanionClick(nodeStatus.id) }
+                        onClick = { onCompanionClick(nodeStatus.id) },
                     ) {
                         Text(stringResource(id = R.string.app_helper_companion_button_label))
                     }
@@ -147,7 +147,7 @@ fun NodeCardPreview() {
                 tileInfo {
                     name = "Horologist Tile"
                     timestamp = System.currentTimeMillis().toProtoTimestamp()
-                }
+                },
             )
             complications.add(
                 complicationInfo {
@@ -155,16 +155,20 @@ fun NodeCardPreview() {
                     instanceId = 123
                     name = "Horologist Complication"
                     timestamp = System.currentTimeMillis().toProtoTimestamp()
-                }
+                },
             )
-        }
+            usageInfo = usageInfo {
+                usageStatus = UsageStatus.USAGE_STATUS_LAUNCHED_ONCE
+                timestamp = System.currentTimeMillis().toProtoTimestamp()
+            }
+        },
     )
     HorologistTheme {
         AppHelperNodeStatusCard(
             nodeStatus = nodeStatus,
             onCompanionClick = {},
             onInstallClick = {},
-            onLaunchClick = {}
+            onLaunchClick = {},
         )
     }
 }

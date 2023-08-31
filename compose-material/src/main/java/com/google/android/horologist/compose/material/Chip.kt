@@ -31,7 +31,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -42,12 +41,10 @@ import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
-import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-import com.google.android.horologist.compose.material.util.adjustChipHeightToFontScale
 
 /**
  * This component is an alternative to [Chip], providing the following:
@@ -66,7 +63,7 @@ public fun Chip(
     largeIcon: Boolean = false,
     placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     val iconParam: (@Composable BoxScope.() -> Unit)? =
         icon?.let {
@@ -86,26 +83,26 @@ public fun Chip(
                             Icon(
                                 imageVector = icon,
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier
+                                modifier = iconModifier,
                             )
 
                         is Int ->
                             Icon(
                                 painter = painterResource(id = icon),
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier
+                                modifier = iconModifier,
                             )
 
                         else ->
                             Image(
                                 painter = rememberAsyncImagePainter(
                                     model = icon,
-                                    placeholder = placeholder
+                                    placeholder = placeholder,
                                 ),
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                                 modifier = iconModifier,
                                 contentScale = ContentScale.Crop,
-                                alpha = LocalContentAlpha.current
+                                alpha = LocalContentAlpha.current,
                             )
                     }
                 }
@@ -120,7 +117,7 @@ public fun Chip(
         icon = iconParam,
         largeIcon = largeIcon,
         colors = colors,
-        enabled = enabled
+        enabled = enabled,
     )
 }
 
@@ -141,7 +138,7 @@ public fun Chip(
     largeIcon: Boolean = false,
     placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Chip(
         label = stringResource(id = labelId),
@@ -152,7 +149,7 @@ public fun Chip(
         largeIcon = largeIcon,
         placeholder = placeholder,
         colors = colors,
-        enabled = enabled
+        enabled = enabled,
     )
 }
 
@@ -170,7 +167,7 @@ public fun Chip(
     icon: (@Composable BoxScope.() -> Unit)? = null,
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     val hasSecondaryLabel = secondaryLabel != null
     val hasIcon = icon != null
@@ -183,7 +180,6 @@ public fun Chip(
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
-                style = MaterialTheme.typography.button
             )
         }
 
@@ -194,18 +190,17 @@ public fun Chip(
                     text = secondaryLabel,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    style = MaterialTheme.typography.caption2
                 )
             }
         }
 
     val contentPadding = if (largeIcon) {
-        val verticalPadding = 6.dp // same as ChipDefaults.ChipVerticalPadding
+        val verticalPadding = ChipDefaults.ChipVerticalPadding
         PaddingValues(
             start = 10.dp,
             top = verticalPadding,
-            end = 14.dp, // same as ChipDefaults.ChipHorizontalPadding
-            bottom = verticalPadding
+            end = ChipDefaults.ChipHorizontalPadding,
+            bottom = verticalPadding,
         )
     } else {
         ChipDefaults.ContentPadding
@@ -215,12 +210,11 @@ public fun Chip(
         label = labelParam,
         onClick = onClick,
         modifier = modifier
-            .adjustChipHeightToFontScale(LocalConfiguration.current.fontScale)
             .fillMaxWidth(),
         secondaryLabel = secondaryLabelParam,
         icon = icon,
         colors = colors,
         enabled = enabled,
-        contentPadding = contentPadding
+        contentPadding = contentPadding,
     )
 }

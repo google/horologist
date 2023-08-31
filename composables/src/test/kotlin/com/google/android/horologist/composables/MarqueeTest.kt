@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,7 +31,7 @@ import org.junit.Test
 
 class MarqueeTest : ScreenshotBaseTest(
     params = screenshotTestRuleParams {
-    }
+    },
 ) {
     @Test
     fun noMarquee() {
@@ -47,7 +46,7 @@ class MarqueeTest : ScreenshotBaseTest(
     private fun runMarqueeTest(text: String) {
         screenshotTestRule.setContent(
             isComponent = true,
-            takeScreenshot = true
+            takeScreenshot = true,
         ) {
             Box(modifier = Modifier.background(Color.Black)) {
                 MarqueeSample(text)
@@ -55,7 +54,7 @@ class MarqueeTest : ScreenshotBaseTest(
         }
 
         screenshotTestRule.interact {
-            onNodeWithText(text).assertIsDisplayed()
+            onNodeWithText(text).assertExists()
         }
     }
 
@@ -65,7 +64,7 @@ class MarqueeTest : ScreenshotBaseTest(
             text = text,
             textAlign = TextAlign.Center,
             modifier = Modifier
-                .width(192.dp)
+                .width(192.dp),
         )
     }
 }

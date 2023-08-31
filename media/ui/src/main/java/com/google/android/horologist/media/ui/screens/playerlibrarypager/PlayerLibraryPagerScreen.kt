@@ -19,10 +19,12 @@
 package com.google.android.horologist.media.ui.screens.playerlibrarypager
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavBackStackEntry
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -49,7 +51,7 @@ public fun PlayerLibraryPagerScreen(
     playerScreen: @Composable () -> Unit,
     libraryScreen: @Composable (ScalingLazyColumnState) -> Unit,
     backStack: NavBackStackEntry,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val pageParam = NavigationScreens.Player.getPageParam(backStack, remove = true)
 
@@ -66,8 +68,8 @@ public fun PlayerLibraryPagerScreen(
     }
 
     PagerScreen(
-        modifier = modifier,
-        state = pagerState
+        modifier = modifier.background(Color.Transparent),
+        state = pagerState,
     ) { page ->
         when (page) {
             0 -> {
@@ -77,7 +79,7 @@ public fun PlayerLibraryPagerScreen(
                     },
                     positionIndicator = {
                         VolumePositionIndicator(volumeUiState = volumeUiState, displayIndicatorEvents = displayVolumeIndicatorEvents)
-                    }
+                    },
                 ) {
                     playerScreen()
                 }
@@ -91,9 +93,9 @@ public fun PlayerLibraryPagerScreen(
                     },
                     positionIndicator = {
                         PositionIndicator(
-                            scalingLazyListState = config.state
+                            scalingLazyListState = config.state,
                         )
-                    }
+                    },
                 ) {
                     libraryScreen(config)
                 }

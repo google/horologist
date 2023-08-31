@@ -43,15 +43,15 @@ class VolumeScreenA11yTest {
         val volumeState by mutableStateOf(
             VolumeState(
                 current = 5,
-                max = 10
-            )
+                max = 10,
+            ),
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
         composeTestRule.setContent {
             VolumeScreenTestCase(
                 volumeState = volumeState,
-                audioOutput = audioOutput
+                audioOutput = audioOutput,
             )
         }
 

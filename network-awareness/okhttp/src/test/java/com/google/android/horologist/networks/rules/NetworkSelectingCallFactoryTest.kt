@@ -59,14 +59,14 @@ class NetworkSelectingCallFactoryTest {
         logger,
         networkRequester,
         testScope,
-        3.seconds
+        3.seconds,
     )
     private val dataRequestRepository = InMemoryDataRequestRepository()
 
     private val networkingRulesEngine = NetworkingRulesEngine(
         networkRepository = networkRepository,
         logger = logger,
-        networkingRules = networkingRules
+        networkingRules = networkingRules,
     )
 
     private val deadEndInterceptor = DeadEndInterceptor
@@ -82,7 +82,7 @@ class NetworkSelectingCallFactoryTest {
         rootClient = rootClient,
         networkRepository = networkRepository,
         coroutineScope = testScope,
-        logger = logger
+        logger = logger,
     )
 
     @Test

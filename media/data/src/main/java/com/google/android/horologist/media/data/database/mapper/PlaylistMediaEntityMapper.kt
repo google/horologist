@@ -32,6 +32,6 @@ public object PlaylistMediaEntityMapper {
      */
     public fun map(playlist: Playlist, media: Media): PlaylistMediaEntity = PlaylistMediaEntity(
         playlistId = playlist.id,
-        mediaId = media.id
+        mediaId = media.id,
     )
 }

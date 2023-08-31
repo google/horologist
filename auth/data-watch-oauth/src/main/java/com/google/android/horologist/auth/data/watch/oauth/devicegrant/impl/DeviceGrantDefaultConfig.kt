@@ -21,5 +21,5 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @ExperimentalHorologistApi
 public data class DeviceGrantDefaultConfig(
     val clientId: String,
-    val clientSecret: String
+    val clientSecret: String,
 )

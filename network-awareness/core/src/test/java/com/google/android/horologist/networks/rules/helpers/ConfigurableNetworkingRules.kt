@@ -38,7 +38,7 @@ class ConfigurableNetworkingRules : NetworkingRules {
 
     override fun checkValidRequest(
         requestType: RequestType,
-        currentNetworkInfo: NetworkInfo
+        currentNetworkInfo: NetworkInfo,
     ): RequestCheck {
         val allowed = validRequests[Pair(requestType, currentNetworkInfo.type)] ?: true
         val requestCheck =
@@ -48,7 +48,7 @@ class ConfigurableNetworkingRules : NetworkingRules {
 
     override fun getPreferredNetwork(
         networks: Networks,
-        requestType: RequestType
+        requestType: RequestType,
     ): NetworkStatus? {
         val preferredNetwork = preferredNetworks[requestType]
         return if (preferredNetwork != null) {

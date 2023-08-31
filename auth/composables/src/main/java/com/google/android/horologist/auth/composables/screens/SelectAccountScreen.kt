@@ -24,14 +24,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.auth.composables.chips.AccountChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052
@@ -41,7 +42,6 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/select_account_screen.png" height="120" width="120"/>
  */
-@ExperimentalHorologistApi
 @Composable
 public fun SelectAccountScreen(
     accounts: List<AccountUiModel>,
@@ -49,7 +49,7 @@ public fun SelectAccountScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_select_account_title),
-    defaultAvatar: Any? = Icons.Default.AccountCircle
+    defaultAvatar: Any? = Icons.Default.AccountCircle,
 ) {
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
@@ -58,20 +58,30 @@ public fun SelectAccountScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = horizontalPadding),
-        columnState = columnState
+        columnState = columnState,
     ) {
         item { Title(title, Modifier.padding(bottom = 8.dp)) }
 
         items(accounts.size) { index ->
             val account = accounts[index]
-
-            Chip(
-                label = account.email,
-                icon = account.avatar ?: defaultAvatar,
-                largeIcon = true,
-                onClick = { onAccountClicked(index, account) },
-                colors = ChipDefaults.secondaryChipColors()
-            )
+            MaterialTheme(
+                typography = MaterialTheme.typography.copy(
+                    button = MaterialTheme.typography.button.copy(
+                        lineBreak = LineBreak(
+                            strategy = LineBreak.Strategy.Balanced,
+                            strictness = LineBreak.Strictness.Normal,
+                            wordBreak = LineBreak.WordBreak.Default,
+                        ),
+                    ),
+                ),
+            ) {
+                AccountChip(
+                    account = account,
+                    onClick = { onAccountClicked(index, account) },
+                    colors = ChipDefaults.secondaryChipColors(),
+                    defaultAvatar = defaultAvatar,
+                )
+            }
         }
     }
 }

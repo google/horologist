@@ -18,11 +18,10 @@ package com.google.android.horologist.auth.sample
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.DeviceCodeResponse
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.TokenResponse
 import com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.DeviceGrantDefaultConfig
@@ -31,6 +30,7 @@ import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google.PKCE
 import com.google.android.horologist.auth.sample.screens.MainScreen
 import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInMenuScreen
 import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
+import com.google.android.horologist.auth.sample.screens.datalayer.DataLayerScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.signin.GoogleSignInSampleViewModelFactory
 import com.google.android.horologist.auth.sample.screens.googlesignin.signout.GoogleSignOutScreen
@@ -52,77 +52,77 @@ import com.google.android.horologist.compose.navscaffold.scrollable
 @Composable
 fun WearApp(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberSwipeDismissableNavController()
+    navController: NavHostController = rememberSwipeDismissableNavController(),
 ) {
     WearNavScaffold(startDestination = Screen.MainScreen.route, navController = navController) {
         scrollable(
-            route = Screen.MainScreen.route
+            route = Screen.MainScreen.route,
         ) {
             MainScreen(
                 navigateToRoute = navController::navigate,
                 modifier = modifier,
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         scrollable(
-            route = Screen.PKCESignInPromptScreen.route
+            route = Screen.PKCESignInPromptScreen.route,
         ) {
             PKCESignInPromptScreen(
                 navController = navController,
                 modifier = modifier,
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         composable(route = Screen.PKCESignInScreen.route) {
             PKCESignInScreen<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse>(
                 onAuthSucceed = navController::popBackStack,
                 modifier = modifier,
-                viewModel = viewModel(factory = PKCESampleViewModelFactory)
+                viewModel = viewModel(factory = PKCESampleViewModelFactory),
             )
         }
         composable(route = Screen.PKCESignOutScreen.route) {
             PKCESignOutScreen(navController = navController)
         }
         scrollable(
-            route = Screen.DeviceGrantSignInPromptScreen.route
+            route = Screen.DeviceGrantSignInPromptScreen.route,
         ) {
             DeviceGrantSignInPromptScreen(
                 navController = navController,
                 columnState = it.columnState,
-                modifier = modifier
+                modifier = modifier,
             )
         }
         composable(route = Screen.DeviceGrantSignInScreen.route) {
             DeviceGrantSignInScreen<DeviceGrantDefaultConfig, DeviceCodeResponse, String>(
                 onAuthSucceed = navController::popBackStack,
                 modifier = modifier,
-                viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory)
+                viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory),
             )
         }
         composable(route = Screen.DeviceGrantSignOutScreen.route) {
             DeviceGrantSignOutScreen(navController = navController)
         }
         scrollable(
-            route = Screen.GoogleSignInPromptSampleScreen.route
+            route = Screen.GoogleSignInPromptSampleScreen.route,
         ) {
             GoogleSignInPromptSampleScreen(
                 navController = navController,
                 columnState = it.columnState,
-                modifier = modifier
+                modifier = modifier,
             )
         }
         scrollable(route = Screen.StreamlineSignInMenuScreen.route) {
             StreamlineSignInMenuScreen(
                 navController = navController,
                 columnState = it.columnState,
-                modifier = modifier
+                modifier = modifier,
             )
         }
         scrollable(route = Screen.StreamlineSignInSampleScreen.route) {
             StreamlineSignInSampleScreen(
                 navController = navController,
                 columnState = it.columnState,
-                modifier = modifier
+                modifier = modifier,
             )
         }
         composable(route = Screen.GoogleSignInScreen.route) {
@@ -130,7 +130,7 @@ fun WearApp(
                 onAuthCancelled = navController::popBackStack,
                 onAuthSucceed = navController::popBackStack,
                 modifier = modifier,
-                viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory)
+                viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory),
             )
         }
         composable(route = Screen.GoogleSignOutScreen.route) {
@@ -142,10 +142,13 @@ fun WearApp(
         scrollable(route = Screen.TokenShareCustomKeyScreen.route) {
             TokenShareCustomKeyScreen(columnState = it.columnState, modifier = modifier)
         }
+        scrollable(route = Screen.DataLayerScreen.route) {
+            DataLayerScreen(columnState = it.columnState, modifier = modifier)
+        }
     }
 }
 
-@Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
+@WearPreviewSmallRound
 @Composable
 fun DefaultPreview() {
     WearApp()

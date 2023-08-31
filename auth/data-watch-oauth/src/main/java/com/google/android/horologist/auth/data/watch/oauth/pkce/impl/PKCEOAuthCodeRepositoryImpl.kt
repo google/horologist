@@ -34,7 +34,7 @@ import kotlin.coroutines.resume
 
 @ExperimentalHorologistApi
 public class PKCEOAuthCodeRepositoryImpl(
-    private val application: Application
+    private val application: Application,
 ) : PKCEOAuthCodeRepository<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload> {
 
     /**
@@ -49,7 +49,7 @@ public class PKCEOAuthCodeRepositoryImpl(
      */
     override suspend fun fetch(
         config: PKCEDefaultConfig,
-        codeVerifier: CodeVerifier
+        codeVerifier: CodeVerifier,
     ): Result<PKCEOAuthCodeGooglePayload> {
         val oauthRequest = OAuthRequest.Builder(application)
             .setAuthProviderUrl(config.authProviderUrl)
@@ -65,14 +65,14 @@ public class PKCEOAuthCodeRepositoryImpl(
             RemoteAuthClient.create(application).sendAuthorizationRequest(
                 request = oauthRequest,
                 executor = { command -> command?.run() },
-                clientCallback = RemoteAuthClientCallback(oauthRequest, continuation)
+                clientCallback = RemoteAuthClientCallback(oauthRequest, continuation),
             )
         }
     }
 
     private class RemoteAuthClientCallback(
         private val oauthRequest: OAuthRequest,
-        private val continuation: Continuation<Result<PKCEOAuthCodeGooglePayload>>
+        private val continuation: Continuation<Result<PKCEOAuthCodeGooglePayload>>,
     ) : RemoteAuthClient.Callback() {
         override fun onAuthorizationError(request: OAuthRequest, errorCode: Int) {
             Log.w(TAG, "Authorization failed with errorCode $errorCode")
@@ -81,7 +81,7 @@ public class PKCEOAuthCodeRepositoryImpl(
 
         override fun onAuthorizationResponse(
             request: OAuthRequest,
-            response: OAuthResponse
+            response: OAuthResponse,
         ) {
             val responseUrl = response.responseUrl
             Log.d(TAG, "Authorization success. ResponseUrl: $responseUrl")
@@ -89,14 +89,14 @@ public class PKCEOAuthCodeRepositoryImpl(
             if (code.isNullOrBlank()) {
                 Log.w(
                     TAG,
-                    "Google OAuth 2.0 API token exchange failed. No code query parameter in response URL."
+                    "Google OAuth 2.0 API token exchange failed. No code query parameter in response URL.",
                 )
                 continuation.resume(Result.failure(IOException("Authorization failed")))
             } else {
                 continuation.resume(
                     Result.success(
-                        PKCEOAuthCodeGooglePayload(code, oauthRequest.redirectUrl)
-                    )
+                        PKCEOAuthCodeGooglePayload(code, oauthRequest.redirectUrl),
+                    ),
                 )
             }
         }

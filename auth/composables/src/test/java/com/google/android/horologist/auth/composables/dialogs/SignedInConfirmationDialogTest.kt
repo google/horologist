@@ -29,23 +29,24 @@ import org.junit.Test
 class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = { }
-    }
+    },
 ) {
 
     @Test
     fun signedInConfirmationDialog() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
             Box(
                 modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
-                SignedInConfirmationDialogContent(
+                SignedInConfirmationDialog(
+                    onDismissOrTimeout = {},
                     name = "Maggie",
                     email = "maggie@example.com",
-                    avatar = android.R.drawable.sym_def_app_icon
+                    avatar = android.R.drawable.sym_def_app_icon,
                 )
             }
         }
@@ -55,11 +56,27 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     fun signedInConfirmationDialogNoName() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
-            SignedInConfirmationDialogContent(
+            SignedInConfirmationDialog(
+                onDismissOrTimeout = {},
                 email = "maggie@example.com",
-                avatar = android.R.drawable.sym_def_app_icon
+                avatar = android.R.drawable.sym_def_app_icon,
+            )
+        }
+    }
+
+    @Test
+    fun signedInConfirmationDialogEmptyName() {
+        screenshotTestRule.setContent(
+            takeScreenshot = true,
+            fakeImageLoader = FakeImageLoader.Resources,
+        ) {
+            SignedInConfirmationDialog(
+                onDismissOrTimeout = {},
+                name = "",
+                email = "maggie@example.com",
+                avatar = android.R.drawable.sym_def_app_icon,
             )
         }
     }
@@ -67,8 +84,9 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     @Test
     fun signedInConfirmationDialogNoNameNoAvatar() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            SignedInConfirmationDialogContent(
-                email = "maggie@example.com"
+            SignedInConfirmationDialog(
+                onDismissOrTimeout = {},
+                email = "maggie@example.com",
             )
         }
     }
@@ -77,11 +95,12 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     fun signedInConfirmationDialogNoEmail() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
-            SignedInConfirmationDialogContent(
+            SignedInConfirmationDialog(
+                onDismissOrTimeout = {},
                 name = "Maggie",
-                avatar = android.R.drawable.sym_def_app_icon
+                avatar = android.R.drawable.sym_def_app_icon,
             )
         }
     }
@@ -89,7 +108,7 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     @Test
     fun signedInConfirmationDialogNoInformation() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            SignedInConfirmationDialogContent()
+            SignedInConfirmationDialog(onDismissOrTimeout = {})
         }
     }
 
@@ -97,12 +116,13 @@ class SignedInConfirmationDialogTest : ScreenshotBaseTest(
     fun signedInConfirmationDialogTruncation() {
         screenshotTestRule.setContent(
             takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources
+            fakeImageLoader = FakeImageLoader.Resources,
         ) {
-            SignedInConfirmationDialogContent(
+            SignedInConfirmationDialog(
+                onDismissOrTimeout = {},
                 name = "Wolfeschlegelsteinhausenbergerdorff",
                 email = "wolfeschlegelsteinhausenbergerdorff@example.com",
-                avatar = android.R.drawable.sym_def_app_icon
+                avatar = android.R.drawable.sym_def_app_icon,
             )
         }
     }

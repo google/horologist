@@ -30,7 +30,7 @@ class ToggleChipA11yTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test
@@ -43,7 +43,7 @@ class ToggleChipA11yTest : ScreenshotBaseTest(
                     label = "Primary label",
                     toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image
+                    icon = Icons.Default.Image,
                 )
             }
         }
@@ -59,7 +59,7 @@ class ToggleChipA11yTest : ScreenshotBaseTest(
                     label = "Primary label",
                     toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image
+                    icon = Icons.Default.Image,
                 )
             }
         }
@@ -76,7 +76,7 @@ class ToggleChipA11yTest : ScreenshotBaseTest(
                     toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label",
                     icon = Icons.Default.Image,
-                    enabled = false
+                    enabled = false,
                 )
             }
         }
@@ -93,7 +93,7 @@ class ToggleChipA11yTest : ScreenshotBaseTest(
                     toggleControl = ToggleChipToggleControl.Switch,
                     secondaryLabel = "Secondary label",
                     icon = Icons.Default.Image,
-                    enabled = false
+                    enabled = false,
                 )
             }
         }

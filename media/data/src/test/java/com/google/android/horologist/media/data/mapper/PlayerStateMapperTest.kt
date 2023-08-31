@@ -30,7 +30,7 @@ class PlayerStateMapperTest {
     fun `check playback state while playing`() {
         fakeStatePlayer.overrideState(
             playbackState = Player.STATE_READY,
-            playWhenReady = true
+            playWhenReady = true,
         )
         val state = PlayerStateMapper.map(fakeStatePlayer)
 
@@ -41,7 +41,7 @@ class PlayerStateMapperTest {
     fun `check playback state while buffering`() {
         fakeStatePlayer.overrideState(
             playbackState = Player.STATE_BUFFERING,
-            playWhenReady = true
+            playWhenReady = true,
         )
         val state = PlayerStateMapper.map(fakeStatePlayer)
 
@@ -51,7 +51,7 @@ class PlayerStateMapperTest {
     @Test
     fun `check playback state while idle`() {
         fakeStatePlayer.overrideState(
-            playbackState = Player.STATE_IDLE
+            playbackState = Player.STATE_IDLE,
         )
         assertThat(PlayerStateMapper.map(fakeStatePlayer)).isEqualTo(PlayerState.Idle)
 

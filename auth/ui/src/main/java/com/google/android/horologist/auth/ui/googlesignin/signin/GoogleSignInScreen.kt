@@ -37,7 +37,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes.SIGN_IN_CANCELLED
 import com.google.android.gms.common.api.ApiException
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
@@ -48,14 +47,13 @@ import com.google.android.horologist.auth.ui.common.logging.TAG
  *
  * [onAuthCancelled] should be used to navigate away from this screen.
  */
-@ExperimentalHorologistApi
 @Composable
 public fun GoogleSignInScreen(
     onAuthCancelled: () -> Unit,
     failedContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: GoogleSignInViewModel = viewModel(),
-    content: @Composable (successState: GoogleSignInScreenState.Success) -> Unit
+    content: @Composable (successState: GoogleSignInScreenState.Success) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -84,8 +82,8 @@ public fun GoogleSignInScreen(
             } ?: run {
                 val signInRequestLauncher = rememberLauncherForActivityResult(
                     contract = GoogleSignInContract(
-                        viewModel.googleSignInClient
-                    )
+                        viewModel.googleSignInClient,
+                    ),
                 ) { result ->
 
                     when (result) {
@@ -135,13 +133,12 @@ public fun GoogleSignInScreen(
  * Parameters [onAuthCancelled] and [onAuthSucceed] should be used to navigate away from this screen
  * when these events happen.
  */
-@ExperimentalHorologistApi
 @Composable
 public fun GoogleSignInScreen(
     onAuthCancelled: () -> Unit,
     onAuthSucceed: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: GoogleSignInViewModel = viewModel()
+    viewModel: GoogleSignInViewModel = viewModel(),
 ) {
     GoogleSignInScreen(
         onAuthCancelled = {
@@ -150,12 +147,12 @@ public fun GoogleSignInScreen(
         failedContent = {
             AuthErrorScreen(modifier)
         },
-        viewModel = viewModel
+        viewModel = viewModel,
     ) { successState ->
         SignedInConfirmationDialog(
             onDismissOrTimeout = { onAuthSucceed() },
             modifier = modifier,
-            accountUiModel = successState.accountUiModel
+            accountUiModel = successState.accountUiModel,
         )
     }
 }
@@ -164,12 +161,12 @@ public fun GoogleSignInScreen(
  * An [ActivityResultContract] for signing in with the given [GoogleSignInClient].
  */
 private class GoogleSignInContract(
-    private val googleSignInClient: GoogleSignInClient
+    private val googleSignInClient: GoogleSignInClient,
 ) : ActivityResultContract<Unit, GoogleSignInContract.Result>() {
 
     override fun createIntent(
         context: Context,
-        input: Unit
+        input: Unit,
     ): Intent = googleSignInClient.signInIntent
 
     override fun parseResult(resultCode: Int, intent: Intent?): Result {

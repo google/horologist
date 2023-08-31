@@ -17,7 +17,7 @@
 @file:OptIn(
     ExperimentalCoroutinesApi::class,
     ExperimentalFoundationApi::class,
-    ExperimentalWearFoundationApi::class
+    ExperimentalWearFoundationApi::class,
 )
 
 package com.google.android.horologist.compose.pager
@@ -44,7 +44,7 @@ import androidx.test.filters.MediumTest
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.RequestFocusWhenActive
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -61,7 +61,7 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(
     sdk = [30],
-    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 @Ignore("Failing with robolectric")
 class PagerScreenTest {
@@ -82,9 +82,9 @@ class PagerScreenTest {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .rotaryWithFling(focusRequester, scrollState)
+                        .rotaryWithScroll(scrollState, focusRequester)
                         .verticalScroll(scrollState),
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.Center,
                 ) {
                     Text(modifier = Modifier.testTag("text$i"), text = "Text $i")
                 }

@@ -79,9 +79,10 @@ public fun PlayerScreen(
     },
     buttons: SettingsButtons = {},
     background: PlayerBackground = {},
-    focusRequester: FocusRequester = rememberActiveFocusRequester()
+    focusRequester: FocusRequester = rememberActiveFocusRequester(),
 ) {
     val playerUiState by playerViewModel.playerUiState.collectAsStateWithLifecycle()
+    val volumeUiState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
 
     PlayerScreen(
         mediaDisplay = { mediaDisplay(playerUiState) },
@@ -91,12 +92,12 @@ public fun PlayerScreen(
         },
         modifier = modifier.rotaryVolumeControlsWithFocus(
             focusRequester = focusRequester,
-            volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
+            volumeUiStateProvider = { volumeUiState },
             onRotaryVolumeInput = { newVolume -> volumeViewModel.setVolume(newVolume) },
             localView = LocalView.current,
-            isLowRes = isLowResInput()
+            isLowRes = isLowResInput(),
         ),
-        background = { background(playerUiState) }
+        background = { background(playerUiState) },
     )
 }
 
@@ -107,12 +108,12 @@ public fun PlayerScreen(
 @Composable
 public fun DefaultMediaInfoDisplay(
     playerUiState: PlayerUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     MediaInfoDisplay(
         media = playerUiState.media,
         loading = !playerUiState.connected || playerUiState.media?.loading == true,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -123,7 +124,7 @@ public fun DefaultMediaInfoDisplay(
 @Composable
 public fun DefaultPlayerScreenControlButtons(
     playerController: PlayerUiController,
-    playerUiState: PlayerUiState
+    playerUiState: PlayerUiState,
 ) {
     MediaControlButtons(
         onPlayButtonClick = playerController::play,
@@ -134,7 +135,7 @@ public fun DefaultPlayerScreenControlButtons(
         seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
         onSeekToNextButtonClick = playerController::skipToNextMedia,
         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-        trackPositionUiModel = playerUiState.trackPositionUiModel
+        trackPositionUiModel = playerUiState.trackPositionUiModel,
     )
 }
 
@@ -148,26 +149,26 @@ public fun PlayerScreen(
     controlButtons: @Composable RowScope.() -> Unit,
     buttons: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
-    background: @Composable BoxScope.() -> Unit = {}
+    background: @Composable BoxScope.() -> Unit = {},
 ) {
     val isBig = LocalConfiguration.current.screenHeightDp > 210
     val isRound = LocalConfiguration.current.isScreenRound
 
     Box(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         background()
 
         Column(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.38f),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 if (isRound) {
                     Spacer(modifier = Modifier.size(if (isBig) 30.dp else 23.dp))
@@ -182,7 +183,7 @@ public fun PlayerScreen(
                     .fillMaxWidth()
                     .height(60.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceAround
+                horizontalArrangement = Arrangement.SpaceAround,
             ) {
                 controlButtons()
             }
@@ -197,7 +198,7 @@ public fun PlayerScreen(
                     .padding(bottom = bottomPadding)
                     .weight(0.33f),
                 horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Bottom
+                verticalAlignment = Alignment.Bottom,
             ) {
                 buttons()
             }

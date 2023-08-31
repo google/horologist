@@ -40,7 +40,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
@@ -55,22 +54,22 @@ public class ScalingLazyColumnState(
     public val initialScrollPosition: ScrollPosition = ScrollPosition(1, 0),
     public val autoCentering: AutoCenteringParams? = AutoCenteringParams(
         initialScrollPosition.index,
-        initialScrollPosition.offsetPx
+        initialScrollPosition.offsetPx,
     ),
     public val anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
     public val contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-    public val rotaryMode: RotaryMode = RotaryMode.Fling,
+    public val rotaryMode: RotaryMode = RotaryMode.Scroll,
     public val reverseLayout: Boolean = false,
     public val verticalArrangement: Arrangement.Vertical =
         Arrangement.spacedBy(
             space = 4.dp,
-            alignment = if (!reverseLayout) Alignment.Top else Alignment.Bottom
+            alignment = if (!reverseLayout) Alignment.Top else Alignment.Bottom,
         ),
     public val horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     public val flingBehavior: FlingBehavior? = null,
     public val userScrollEnabled: Boolean = true,
     public val scalingParams: ScalingParams = WearScalingLazyColumnDefaults.scalingParams(),
-    public val hapticsEnabled: Boolean = true
+    public val hapticsEnabled: Boolean = true,
 ) {
     private var _state: ScalingLazyListState? = null
     public var state: ScalingLazyListState
@@ -78,7 +77,7 @@ public class ScalingLazyColumnState(
             if (_state == null) {
                 _state = ScalingLazyListState(
                     initialScrollPosition.index,
-                    initialScrollPosition.offsetPx
+                    initialScrollPosition.offsetPx,
                 )
             }
             return _state!!
@@ -88,14 +87,19 @@ public class ScalingLazyColumnState(
         }
 
     public sealed interface RotaryMode {
-        public object Fling : RotaryMode
         public object Snap : RotaryMode
         public object Scroll : RotaryMode
+
+        @Deprecated(
+            "Use RotaryMode.Scroll instead",
+            replaceWith = ReplaceWith("RotaryMode.Scroll"),
+        )
+        public object Fling : RotaryMode
     }
 
     public data class ScrollPosition(
         val index: Int,
-        val offsetPx: Int
+        val offsetPx: Int,
     )
 
     public fun interface Factory {
@@ -105,7 +109,9 @@ public class ScalingLazyColumnState(
 }
 
 @Composable
-public fun rememberColumnState(factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText()): ScalingLazyColumnState {
+public fun rememberColumnState(
+    factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText(),
+): ScalingLazyColumnState {
     val columnState = factory.create()
 
     columnState.state = rememberSaveable(saver = ScalingLazyListState.Saver) {
@@ -120,7 +126,7 @@ public fun rememberColumnState(factory: ScalingLazyColumnState.Factory = Scaling
 public fun ScalingLazyColumn(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    content: ScalingLazyListScope.() -> Unit
+    content: ScalingLazyListScope.() -> Unit,
 ) {
     val focusRequester = rememberActiveFocusRequester()
 
@@ -134,21 +140,14 @@ public fun ScalingLazyColumn(
             focusRequester = focusRequester,
             rotaryScrollAdapter = columnState.state.toRotaryScrollAdapter(),
             reverseDirection = columnState.reverseLayout,
-            rotaryHaptics = rotaryHaptics
+            rotaryHaptics = rotaryHaptics,
         )
 
-        RotaryMode.Fling -> modifier.rotaryWithFling(
+        else -> modifier.rotaryWithScroll(
             focusRequester = focusRequester,
             scrollableState = columnState.state,
             reverseDirection = columnState.reverseLayout,
-            rotaryHaptics = rotaryHaptics
-        )
-
-        RotaryMode.Scroll -> modifier.rotaryWithScroll(
-            focusRequester = focusRequester,
-            scrollableState = columnState.state,
-            reverseDirection = columnState.reverseLayout,
-            rotaryHaptics = rotaryHaptics
+            rotaryHaptics = rotaryHaptics,
         )
     }
 
@@ -164,6 +163,6 @@ public fun ScalingLazyColumn(
         scalingParams = columnState.scalingParams,
         anchorType = columnState.anchorType,
         autoCentering = columnState.autoCentering,
-        content = content
+        content = content,
     )
 }

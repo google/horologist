@@ -29,6 +29,8 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.Section
+import com.google.android.horologist.composables.Section.Companion.ALL_STATES
+import com.google.android.horologist.composables.Section.Companion.LOADED_STATE_ONLY
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
@@ -53,12 +55,12 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
 public fun BrowseScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    content: BrowseScreenScope.() -> Unit
+    content: BrowseScreenScope.() -> Unit,
 ) {
     SectionedList(
         columnState = columnState,
         modifier = modifier,
-        sections = BrowseScreenScope().apply(content).sections
+        sections = BrowseScreenScope().apply(content).sections,
     )
 }
 
@@ -78,7 +80,7 @@ public class BrowseScreenScope {
         @StringRes emptyMessageId: Int,
         @StringRes failedMessageId: Int? = null,
         displayFooterOnlyOnLoadedState: Boolean = true,
-        content: BrowseScreenSectionScope<T>.() -> Unit
+        content: BrowseScreenSectionScope<T>.() -> Unit,
     ) {
         val scope = BrowseScreenSectionScope<T>().apply(content)
         val firstSectionAdded = sections.isEmpty()
@@ -92,7 +94,7 @@ public class BrowseScreenScope {
                             Modifier.padding(bottom = 8.dp)
                         } else {
                             Modifier.padding(top = 8.dp, bottom = 8.dp)
-                        }
+                        },
                     )
                 },
                 loadingContent = scope.loadingContent,
@@ -103,7 +105,7 @@ public class BrowseScreenScope {
                             text = stringResource(id = failedMessageId),
                             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                             textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.body2
+                            style = MaterialTheme.typography.body2,
                         )
                     }
                 },
@@ -112,12 +114,16 @@ public class BrowseScreenScope {
                         text = stringResource(id = emptyMessageId),
                         modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.body2
+                        style = MaterialTheme.typography.body2,
                     )
                 },
                 footerContent = scope.footerContent,
-                displayFooterOnlyOnLoadedState = displayFooterOnlyOnLoadedState
-            )
+                footerVisibleStates = if (displayFooterOnlyOnLoadedState) {
+                    LOADED_STATE_ONLY
+                } else {
+                    ALL_STATES
+                },
+            ),
         )
     }
 
@@ -125,7 +131,7 @@ public class BrowseScreenScope {
     public fun <T> downloadsSection(
         state: Section.State<T>,
         displayFooterOnlyOnLoadedState: Boolean = true,
-        content: BrowseScreenSectionScope<T>.() -> Unit
+        content: BrowseScreenSectionScope<T>.() -> Unit,
     ) {
         section(
             state = state,
@@ -133,7 +139,7 @@ public class BrowseScreenScope {
             emptyMessageId = R.string.horologist_browse_downloads_empty,
             failedMessageId = null,
             displayFooterOnlyOnLoadedState = displayFooterOnlyOnLoadedState,
-            content = content
+            content = content,
         )
     }
 
@@ -150,7 +156,7 @@ public class BrowseScreenScope {
                             Modifier.padding(bottom = 8.dp)
                         } else {
                             Modifier.padding(top = 8.dp, bottom = 8.dp)
-                        }
+                        },
                     )
                 },
                 loadedContent = { item: BrowseScreenPlaylistsSectionButton ->
@@ -158,10 +164,10 @@ public class BrowseScreenScope {
                         labelId = item.textId,
                         onClick = item.onClick,
                         icon = item.icon,
-                        colors = ChipDefaults.secondaryChipColors()
+                        colors = ChipDefaults.secondaryChipColors(),
                     )
-                }
-            )
+                },
+            ),
         )
     }
 
@@ -175,10 +181,10 @@ public class BrowseScreenScope {
                         labelId = item.textId,
                         onClick = item.onClick,
                         icon = item.icon,
-                        colors = ChipDefaults.secondaryChipColors()
+                        colors = ChipDefaults.secondaryChipColors(),
                     )
-                }
-            )
+                },
+            ),
         )
     }
 }
@@ -230,7 +236,7 @@ public sealed class BrowseScreenState {
     public object Loading : BrowseScreenState()
 
     public data class Loaded(
-        val downloadList: List<PlaylistDownloadUiModel>
+        val downloadList: List<PlaylistDownloadUiModel>,
     ) : BrowseScreenState()
 
     public object Failed : BrowseScreenState()
@@ -240,5 +246,5 @@ public sealed class BrowseScreenState {
 public data class BrowseScreenPlaylistsSectionButton(
     @StringRes val textId: Int,
     val icon: ImageVector,
-    val onClick: () -> Unit
+    val onClick: () -> Unit,
 )

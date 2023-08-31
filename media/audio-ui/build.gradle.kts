@@ -19,7 +19,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -62,6 +61,9 @@ android {
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
+            all {
+                it.systemProperty("screenshot.record", findProperty("screenshot.record") ?: "false")
+            }
         }
         animationsDisabled = true
     }
@@ -77,10 +79,6 @@ android {
     }
 
     namespace = "com.google.android.horologist.audio.ui"
-}
-
-kapt {
-    correctErrorTypes = true
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -104,7 +102,6 @@ dependencies {
     api(projects.annotations)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
-    implementation(projects.baseUi)
     debugImplementation(projects.logo)
 
     api(libs.wearcompose.material)

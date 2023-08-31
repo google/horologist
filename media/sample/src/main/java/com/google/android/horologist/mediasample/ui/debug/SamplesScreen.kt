@@ -39,20 +39,20 @@ fun SamplesScreen(
     columnState: ScalingLazyColumnState,
     samplesScreenViewModel: SamplesScreenViewModel,
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val uiState by samplesScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         columnState = columnState,
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         item {
             Text(
                 text = stringResource(id = R.string.sample_samples),
                 modifier = Modifier.padding(bottom = 12.dp),
-                style = MaterialTheme.typography.title3
+                style = MaterialTheme.typography.title3,
             )
         }
         items(uiState.samples) {

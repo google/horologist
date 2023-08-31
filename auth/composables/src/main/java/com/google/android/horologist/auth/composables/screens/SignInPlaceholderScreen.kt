@@ -36,7 +36,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 
 private const val AVATAR_BACKGROUND_COLOR = 0xFF3C4043
@@ -49,11 +48,10 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120"/>
  */
-@ExperimentalHorologistApi
 @Composable
 public fun SignInPlaceholderScreen(
     modifier: Modifier = Modifier,
-    message: String = stringResource(id = R.string.horologist_signin_placeholder_message)
+    message: String = stringResource(id = R.string.horologist_signin_placeholder_message),
 ) {
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
@@ -65,15 +63,15 @@ public fun SignInPlaceholderScreen(
             .padding(horizontal = horizontalPadding)
             .padding(bottom = bottomPadding),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
             modifier = Modifier
                 .size(60.dp)
                 .background(
                     color = Color(AVATAR_BACKGROUND_COLOR),
-                    shape = CircleShape
-                )
+                    shape = CircleShape,
+                ),
         )
 
         Text(
@@ -84,7 +82,7 @@ public fun SignInPlaceholderScreen(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = MaterialTheme.typography.title3
+            style = MaterialTheme.typography.title3,
         )
     }
 }

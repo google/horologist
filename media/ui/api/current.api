@@ -1,11 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.media.ui {
-
-  @kotlin.RequiresOptIn(message="Horologist Media UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistMediaUiApi {
-  }
-
-}
-
 package com.google.android.horologist.media.ui.complication {
 
   public final class MediaStatusTemplate extends com.google.android.horologist.tiles.complication.TypedComplicationTemplate<com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data> {
@@ -49,6 +42,10 @@ package com.google.android.horologist.media.ui.components {
 
   public final class ControlButtonLayoutKt {
     method @androidx.compose.runtime.Composable public static void ControlButtonLayout(kotlin.jvm.functions.Function0<kotlin.Unit> leftButton, kotlin.jvm.functions.Function0<kotlin.Unit> middleButton, kotlin.jvm.functions.Function0<kotlin.Unit> rightButton, optional androidx.compose.ui.Modifier modifier);
+  }
+
+  public final class CustomActionMediaButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CustomActionMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, String contentDescription, String iconUri, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional long tapTargetSize);
   }
 
   public final class EntityButtonKt {
@@ -103,6 +100,7 @@ package com.google.android.horologist.media.ui.components.animated {
 
   public final class AnimatedMediaControlButtonsKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void AnimatedMediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToPreviousButtonClick, boolean seekToPreviousButtonEnabled, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToNextButtonClick, boolean seekToNextButtonEnabled, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel trackPositionUiModel, optional long progressColor, optional androidx.wear.compose.material.ButtonColors colors, optional kotlinx.coroutines.flow.Flow<kotlin.Unit> rotateProgressIndicator);
+    method @androidx.compose.runtime.Composable public static void AnimatedMediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, kotlin.jvm.functions.Function0<kotlin.Unit> leftButton, kotlin.jvm.functions.Function0<kotlin.Unit> rightButton, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel trackPositionUiModel, optional long progressColor, optional androidx.wear.compose.material.ButtonColors colors, optional kotlinx.coroutines.flow.Flow<kotlin.Unit> rotateProgressIndicator);
   }
 
   public final class AnimatedMediaInfoDisplayKt {
@@ -135,12 +133,15 @@ package com.google.android.horologist.media.ui.components.animated {
 package com.google.android.horologist.media.ui.components.background {
 
   public final class ArtworkColorBackgroundKt {
-    method @androidx.compose.runtime.Composable public static void ArtworkColorBackground(Object? artworkUri, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.Color? defaultColor);
-    method @androidx.compose.runtime.Composable public static void ColorBackground(androidx.compose.ui.graphics.Color? color, optional androidx.compose.ui.Modifier modifier, optional long background);
+    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ArtworkColorBackground(Object? artworkUri, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.Color? defaultColor, optional long background);
+    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ColorBackground(androidx.compose.ui.graphics.Color? color, optional androidx.compose.ui.Modifier modifier, optional long background);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.runtime.State<androidx.compose.ui.graphics.Color> rememberArtworkColor(Object? artworkUri, optional long defaultColor);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.runtime.State<androidx.compose.ui.graphics.Brush> rememberArtworkColorBrush(long artworkColor, optional long background);
   }
 
   public final class RadialBackgroundKt {
-    method @androidx.compose.runtime.Composable public static void RadialBackground(androidx.compose.ui.graphics.Color? color);
+    method @androidx.compose.runtime.Composable public static void RadialBackground(androidx.compose.ui.graphics.Color? color, optional long background);
+    method public static androidx.compose.ui.graphics.Brush radialBackgroundBrush(androidx.compose.ui.graphics.Color? color, long background);
   }
 
 }
@@ -230,7 +231,7 @@ package com.google.android.horologist.media.ui.components.display {
   }
 
   public final class TextMediaDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void TextMediaDisplay(optional androidx.compose.ui.Modifier modifier, String title, String subtitle);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void TextMediaDisplay(String title, String subtitle, optional androidx.compose.ui.Modifier modifier);
   }
 
   public final class TrackMediaDisplayKt {

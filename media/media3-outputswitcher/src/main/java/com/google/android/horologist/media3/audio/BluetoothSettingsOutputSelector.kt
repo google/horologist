@@ -29,7 +29,7 @@ import kotlinx.coroutines.withTimeoutOrNull
  */
 @ExperimentalHorologistApi
 public class BluetoothSettingsOutputSelector(
-    private val audioOutputRepository: AudioOutputRepository
+    private val audioOutputRepository: AudioOutputRepository,
 ) : AudioOutputSelector {
     override suspend fun selectNewOutput(currentAudioOutput: AudioOutput): AudioOutput? {
         audioOutputRepository.launchOutputSelection(true)

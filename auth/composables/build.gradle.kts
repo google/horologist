@@ -65,6 +65,9 @@ android {
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
+            all {
+                it.systemProperty("screenshot.record", findProperty("screenshot.record") ?: "false")
+            }
         }
         animationsDisabled = true
     }
@@ -96,7 +99,6 @@ metalava {
 }
 
 dependencies {
-    api(projects.baseUi)
     api(projects.composeLayout)
 
     api(libs.compose.runtime)

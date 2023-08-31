@@ -75,11 +75,17 @@ android {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.21.4"
+        artifact = "com.google.protobuf:protoc:3.24.2"
     }
     plugins {
-        id("javalite") {
+        create("javalite") {
             artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+        }
+        create("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.57.2"
+        }
+        create("grpckt") {
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"
         }
     }
     generateProtoTasks {
@@ -92,12 +98,21 @@ protobuf {
                     option("lite")
                 }
             }
+            task.plugins {
+                create("grpc") {
+                    option("lite")
+                }
+                create("grpckt") {
+                    option("lite")
+                }
+            }
         }
     }
 }
 
 dependencies {
     api(projects.annotations)
+    api(projects.datalayer.grpc)
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.datastore)

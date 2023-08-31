@@ -34,10 +34,10 @@ import com.google.android.horologist.media.data.database.model.PlaylistMediaEnti
         MediaDownloadEntity::class,
         MediaEntity::class,
         PlaylistEntity::class,
-        PlaylistMediaEntity::class
+        PlaylistMediaEntity::class,
     ],
     version = 1,
-    exportSchema = false
+    exportSchema = false,
 )
 public abstract class MediaDatabase : RoomDatabase() {
 

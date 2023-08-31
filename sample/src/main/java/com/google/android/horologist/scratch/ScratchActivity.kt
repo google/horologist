@@ -61,7 +61,7 @@ class ScratchActivity : ComponentActivity() {
 
 data class Offsets(
     val index: Int = 0,
-    val offset: Int = 0
+    val offset: Int = 0,
 )
 
 @Composable
@@ -81,8 +81,8 @@ fun WearApp() {
                 initialCenterIndex = initialOffset.index,
                 initialCenterOffset = initialOffset.offset,
                 autoCentering = autoCentering,
-                anchorType = anchorType
-            )
+                anchorType = anchorType,
+            ),
         )
 
         Scaffold(
@@ -93,23 +93,23 @@ fun WearApp() {
                         .scrollAway(
                             columnState.state,
                             columnState.initialScrollPosition.index,
-                            columnState.initialScrollPosition.offsetPx.dp
+                            columnState.initialScrollPosition.offsetPx.dp,
                         ),
                     startCurvedContent = {
                         curvedText("${columnState.state.centerItemIndex}/${columnState.state.centerItemScrollOffset}")
-                    }
+                    },
                 )
-            }
+            },
         ) {
             ScalingLazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                columnState = columnState
+                columnState = columnState,
             ) {
                 item {
                     val text = "Initial Offset: ${initialOffset.index} / ${initialOffset.offset}"
                     FixedHeightChip(text, itemHeight, onClick = {
                         settings = settings.copy(
-                            initialOffsetsMode = (settings.initialOffsetsMode + 1) % Settings.initialOffsets.size
+                            initialOffsetsMode = (settings.initialOffsetsMode + 1) % Settings.initialOffsets.size,
                         )
                     })
                 }
@@ -118,7 +118,7 @@ fun WearApp() {
                         "Auto Centering: ${Settings.autoCenterings[settings.autoCenteringMode].first}"
                     FixedHeightChip(text, itemHeight, onClick = {
                         settings = settings.copy(
-                            autoCenteringMode = (settings.autoCenteringMode + 1) % Settings.autoCenterings.size
+                            autoCenteringMode = (settings.autoCenteringMode + 1) % Settings.autoCenterings.size,
                         )
                     })
                 }
@@ -126,7 +126,7 @@ fun WearApp() {
                     val text = "Anchor Type: ${Settings.anchorTypes[settings.anchorTypeMode].first}"
                     FixedHeightChip(text, itemHeight, onClick = {
                         settings = settings.copy(
-                            anchorTypeMode = (settings.anchorTypeMode + 1) % Settings.anchorTypes.size
+                            anchorTypeMode = (settings.anchorTypeMode + 1) % Settings.anchorTypes.size,
                         )
                     })
                 }
@@ -134,7 +134,7 @@ fun WearApp() {
                     val text = "Item Height: ${settings.itemHeight}"
                     FixedHeightChip(text, itemHeight, onClick = {
                         settings = settings.copy(
-                            itemHeightMode = (settings.itemHeightMode + 1) % Settings.itemHeights.size
+                            itemHeightMode = (settings.itemHeightMode + 1) % Settings.itemHeights.size,
                         )
                     })
                 }
@@ -143,7 +143,7 @@ fun WearApp() {
                 drawLine(
                     Color.Red,
                     Offset(0f, size.height / 2f),
-                    Offset(size.width, size.height / 2f)
+                    Offset(size.width, size.height / 2f),
                 )
             }
         }
@@ -154,7 +154,7 @@ data class Settings(
     val initialOffsetsMode: Int = 0,
     val autoCenteringMode: Int = 1,
     val itemHeightMode: Int = 0,
-    val anchorTypeMode: Int = 0
+    val anchorTypeMode: Int = 0,
 ) {
     val initialOffset: Offsets = initialOffsets[initialOffsetsMode]
     val itemHeight: Int = itemHeights[itemHeightMode]
@@ -167,7 +167,7 @@ data class Settings(
             Offsets(1, 0),
             Offsets(1, -20),
             Offsets(1, 20),
-            Offsets(2, 0)
+            Offsets(2, 0),
         )
 
         val autoCenterings = listOf(
@@ -175,14 +175,14 @@ data class Settings(
             Pair("0/0", AutoCenteringParams(0, 0)),
             Pair("1/0", AutoCenteringParams(1, 0)),
             Pair("2/0", AutoCenteringParams(2, 0)),
-            Pair("3/0", AutoCenteringParams(3, 0))
+            Pair("3/0", AutoCenteringParams(3, 0)),
         )
 
         val itemHeights = listOf(40, 80, 120)
 
         val anchorTypes = listOf(
             Pair("Center", ScalingLazyListAnchorType.ItemCenter),
-            Pair("Start", ScalingLazyListAnchorType.ItemStart)
+            Pair("Start", ScalingLazyListAnchorType.ItemStart),
         )
 
         val Saver = Saver<Settings, List<Int>>(
@@ -191,12 +191,12 @@ data class Settings(
                     it.initialOffsetsMode,
                     it.autoCenteringMode,
                     it.itemHeightMode,
-                    it.anchorTypeMode
+                    it.anchorTypeMode,
                 )
             },
             restore = {
                 Settings(it[0], it[1], it[2], it[3])
-            }
+            },
         )
     }
 }
@@ -207,7 +207,7 @@ fun FixedHeightChip(text: String, itemHeight: Int, onClick: () -> Unit) {
         modifier = Modifier
             .height(itemHeight.dp)
             .fillMaxWidth()
-            .border(1.dp, Color.DarkGray)
+            .border(1.dp, Color.DarkGray),
     ) {
         Chip(
             modifier = Modifier.fillMaxWidth(),
@@ -215,9 +215,9 @@ fun FixedHeightChip(text: String, itemHeight: Int, onClick: () -> Unit) {
             label = {
                 Text(
                     text = text,
-                    style = MaterialTheme.typography.caption3
+                    style = MaterialTheme.typography.caption3,
                 )
-            }
+            },
         )
     }
 }

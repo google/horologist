@@ -58,7 +58,7 @@ import kotlin.time.Duration.Companion.seconds
 fun PagingScreen(
     navController: NavController,
     columnState: ScalingLazyColumnState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val myBackend = remember { MyBackend() }
 
@@ -67,8 +67,8 @@ fun PagingScreen(
             PagingConfig(
                 pageSize = myBackend.dataBatchSize,
                 enablePlaceholders = true,
-                maxSize = 200
-            )
+                maxSize = 200,
+            ),
         ) { myBackend.getAllData() }
     }
 
@@ -76,7 +76,7 @@ fun PagingScreen(
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
             items(10) {
@@ -98,7 +98,7 @@ fun PagingScreen(
 private fun PagingItemCard(
     item: PagingItem?,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     // Workaround for https://issuetracker.google.com/issues/260343754
     val chipPlaceholderState =
@@ -115,13 +115,13 @@ private fun PagingItemCard(
                 modifier = Modifier
                     .fillMaxWidth(if (chipPlaceholderState.isShowContent) 1f else 0.5f)
                     .placeholder(chipPlaceholderState),
-                text = item?.toString().orEmpty()
+                text = item?.toString().orEmpty(),
             )
         },
         backgroundPainter = PlaceholderDefaults.painterWithPlaceholderOverlayBackgroundBrush(
             placeholderState = chipPlaceholderState,
-            painter = CardDefaults.cardBackgroundPainter()
-        )
+            painter = CardDefaults.cardBackgroundPainter(),
+        ),
     ) {
         Text(
             modifier = Modifier
@@ -133,7 +133,7 @@ private fun PagingItemCard(
                 "\n\n"
             },
             maxLines = 3,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
         )
     }
 
@@ -150,7 +150,7 @@ private class MyBackend {
 
     class DesiredLoadResultPageResponse(
         val data: List<PagingItem>,
-        val itemsAfter: Int = PagingSource.LoadResult.Page.COUNT_UNDEFINED
+        val itemsAfter: Int = PagingSource.LoadResult.Page.COUNT_UNDEFINED,
     )
 
     /**
@@ -196,7 +196,7 @@ private class MyBackend {
                     data = response.data,
                     prevKey = prevKey,
                     nextKey = nextKey,
-                    itemsAfter = response.itemsAfter
+                    itemsAfter = response.itemsAfter,
                 )
             }
 
@@ -212,7 +212,7 @@ private class MyBackend {
 
 data class PagingItem(
     val item: Int,
-    val loadedAt: LocalTime = LocalTime.now()
+    val loadedAt: LocalTime = LocalTime.now(),
 ) {
     override fun toString(): String {
         return "$item (${loadedAt.format(timeFormatter)})"

@@ -43,15 +43,15 @@ internal fun Context.syncForegroundInfo(
     notificationTitle: String,
     @DrawableRes notificationIcon: Int,
     channelName: String,
-    channelDescription: String
+    channelDescription: String,
 ) = ForegroundInfo(
     SyncNotificationId,
     syncWorkNotification(
         notificationTitle = notificationTitle,
         notificationIcon = notificationIcon,
         channelName = channelName,
-        channelDescription = channelDescription
-    )
+        channelDescription = channelDescription,
+    ),
 )
 
 /**
@@ -62,12 +62,12 @@ private fun Context.syncWorkNotification(
     notificationTitle: String,
     @DrawableRes notificationIcon: Int,
     channelName: String,
-    channelDescription: String
+    channelDescription: String,
 ): Notification {
     val channel = NotificationChannel(
         SyncNotificationChannelID,
         channelName,
-        NotificationManager.IMPORTANCE_DEFAULT
+        NotificationManager.IMPORTANCE_DEFAULT,
     ).apply {
         description = channelDescription
     }
@@ -79,7 +79,7 @@ private fun Context.syncWorkNotification(
 
     return NotificationCompat.Builder(
         this,
-        SyncNotificationChannelID
+        SyncNotificationChannelID,
     )
         .setSmallIcon(notificationIcon)
         .setContentTitle(notificationTitle)

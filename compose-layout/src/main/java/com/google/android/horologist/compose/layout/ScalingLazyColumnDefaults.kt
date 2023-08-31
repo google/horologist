@@ -43,16 +43,16 @@ public object ScalingLazyColumnDefaults {
      */
     @ExperimentalHorologistApi
     public fun belowTimeText(
-        rotaryMode: RotaryMode = RotaryMode.Fling,
+        rotaryMode: RotaryMode = RotaryMode.Scroll,
         firstItemIsFullWidth: Boolean = false,
         verticalArrangement: Arrangement.Vertical =
             Arrangement.spacedBy(
                 space = 4.dp,
-                alignment = Alignment.Top
+                alignment = Alignment.Top,
             ),
         horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
         contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-        topPaddingDp: Dp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp)
+        topPaddingDp: Dp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp),
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
@@ -69,13 +69,13 @@ public object ScalingLazyColumnDefaults {
                     ScalingLazyColumnState(
                         initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
                             index = 0,
-                            offsetPx = topScreenOffsetPx
+                            offsetPx = topScreenOffsetPx,
                         ),
                         anchorType = ScalingLazyListAnchorType.ItemStart,
                         rotaryMode = rotaryMode,
                         verticalArrangement = verticalArrangement,
                         horizontalAlignment = horizontalAlignment,
-                        contentPadding = contentPadding
+                        contentPadding = contentPadding,
                     )
                 }
             }
@@ -88,23 +88,23 @@ public object ScalingLazyColumnDefaults {
      */
     @ExperimentalHorologistApi
     public fun scalingLazyColumnDefaults(
-        rotaryMode: RotaryMode = RotaryMode.Fling,
+        rotaryMode: RotaryMode = RotaryMode.Scroll,
         initialCenterIndex: Int = 1,
         initialCenterOffset: Int = 0,
         verticalArrangement: Arrangement.Vertical =
             Arrangement.spacedBy(
                 space = 4.dp,
-                alignment = Alignment.Top
+                alignment = Alignment.Top,
             ),
         horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
         contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
         autoCentering: AutoCenteringParams? = AutoCenteringParams(
             initialCenterIndex,
-            initialCenterOffset
+            initialCenterOffset,
         ),
         anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
         hapticsEnabled: Boolean = true,
-        reverseLayout: Boolean = false
+        reverseLayout: Boolean = false,
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
@@ -113,7 +113,7 @@ public object ScalingLazyColumnDefaults {
                     ScalingLazyColumnState(
                         initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
                             index = initialCenterIndex,
-                            offsetPx = initialCenterOffset
+                            offsetPx = initialCenterOffset,
                         ),
                         rotaryMode = rotaryMode,
                         verticalArrangement = verticalArrangement,
@@ -122,7 +122,7 @@ public object ScalingLazyColumnDefaults {
                         autoCentering = autoCentering,
                         anchorType = anchorType,
                         hapticsEnabled = hapticsEnabled,
-                        reverseLayout = reverseLayout
+                        reverseLayout = reverseLayout,
                     )
                 }
             }

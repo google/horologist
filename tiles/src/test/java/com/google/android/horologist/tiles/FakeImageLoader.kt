@@ -51,23 +51,31 @@ class FakeImageLoader(val imageFn: (ImageRequest) -> ImageResult) : ImageLoader 
     override fun shutdown() {}
 
     companion object {
-        fun loadSuccessBitmap(context: Context, request: ImageRequest, @DrawableRes id: Int): ImageResult {
+        fun loadSuccessBitmap(
+            context: Context,
+            request: ImageRequest,
+            @DrawableRes id: Int,
+        ): ImageResult {
             val bitmap = BitmapFactory.decodeResource(context.resources, id)
             val result = BitmapDrawable(context.resources, bitmap)
             return SuccessResult(
                 drawable = result,
                 request = request,
-                dataSource = DataSource.NETWORK
+                dataSource = DataSource.NETWORK,
             )
         }
 
-        fun loadErrorBitmap(context: Context, request: ImageRequest, @DrawableRes id: Int): ImageResult {
+        fun loadErrorBitmap(
+            context: Context,
+            request: ImageRequest,
+            @DrawableRes id: Int,
+        ): ImageResult {
             val bitmap = BitmapFactory.decodeResource(context.resources, id)
             val result = BitmapDrawable(context.resources, bitmap)
             return ErrorResult(
                 drawable = result,
                 request = request,
-                throwable = IOException("request for ")
+                throwable = IOException("request for "),
             )
         }
     }

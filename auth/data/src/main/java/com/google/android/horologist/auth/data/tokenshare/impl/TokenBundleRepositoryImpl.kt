@@ -17,7 +17,6 @@
 package com.google.android.horologist.auth.data.tokenshare.impl
 
 import androidx.datastore.core.Serializer
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.tokenshare.TokenBundleRepository
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
@@ -29,18 +28,17 @@ import kotlinx.coroutines.flow.Flow
  * @sample com.google.android.horologist.auth.sample.screens.tokenshare.customkey.TokenShareCustomKeyViewModel
  * @sample com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.TokenShareDefaultKeyViewModel
  */
-@ExperimentalHorologistApi
 public class TokenBundleRepositoryImpl<T>(
     private val registry: WearDataLayerRegistry,
     private val serializer: Serializer<T>,
-    private val path: String
+    private val path: String,
 ) : TokenBundleRepository<T> {
 
     override val flow: Flow<T>
         get() = registry.protoFlow(
             targetNodeId = TargetNodeId.PairedPhone,
             serializer = serializer,
-            path = path
+            path = path,
         )
 
     public companion object {
@@ -57,11 +55,11 @@ public class TokenBundleRepositoryImpl<T>(
         public fun <T> create(
             registry: WearDataLayerRegistry,
             serializer: Serializer<T>,
-            key: String = DEFAULT_TOKEN_BUNDLE_KEY
+            key: String = DEFAULT_TOKEN_BUNDLE_KEY,
         ): TokenBundleRepositoryImpl<T> = TokenBundleRepositoryImpl(
             registry = registry,
             serializer = serializer,
-            path = buildPath(key)
+            path = buildPath(key),
         )
 
         private fun buildPath(key: String) =

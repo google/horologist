@@ -17,13 +17,11 @@
 package com.google.android.horologist.auth.ui.googlesignin.mapper
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 
 /**
  * Functions to map models from Google Sign In into a [AccountUiModel].
  */
-@ExperimentalHorologistApi
 public object AccountUiModelMapper {
 
     /**
@@ -31,10 +29,10 @@ public object AccountUiModelMapper {
      */
     public fun map(
         account: GoogleSignInAccount,
-        defaultEmail: String = ""
+        defaultEmail: String = "",
     ): AccountUiModel = AccountUiModel(
         email = account.email ?: defaultEmail,
         name = account.displayName,
-        avatar = account.photoUrl
+        avatar = account.photoUrl,
     )
 }

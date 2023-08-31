@@ -42,7 +42,6 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.DialogDefaults
 import coil.compose.rememberAsyncImagePainter
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.material.Confirmation
@@ -51,7 +50,6 @@ import java.time.Duration
 
 private const val AVATAR_BACKGROUND_COLOR = 0xFF4ECDE6
 private const val AVATAR_TEXT_COLOR = 0xFF202124
-private const val BOTTOM_PADDING_SCREEN_PERCENTAGE = 0.094
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
 
 /**
@@ -59,7 +57,6 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
-@ExperimentalHorologistApi
 @Composable
 public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
@@ -67,18 +64,18 @@ public fun SignedInConfirmationDialog(
     name: String? = null,
     email: String? = null,
     avatar: Any? = null,
-    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
+    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis),
 ) {
     Confirmation(
         onTimeout = onDismissOrTimeout,
         modifier = modifier,
-        durationMillis = duration.toMillis()
+        durationMillis = duration.toMillis(),
     ) {
         SignedInConfirmationDialogContent(
             modifier = modifier,
             name = name,
             email = email,
-            avatar = avatar
+            avatar = avatar,
         )
     }
 }
@@ -89,13 +86,12 @@ public fun SignedInConfirmationDialog(
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
-@ExperimentalHorologistApi
 @Composable
 public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     accountUiModel: AccountUiModel,
-    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
+    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis),
 ) {
     SignedInConfirmationDialog(
         onDismissOrTimeout = onDismissOrTimeout,
@@ -103,45 +99,42 @@ public fun SignedInConfirmationDialog(
         name = accountUiModel.name,
         email = accountUiModel.email,
         avatar = accountUiModel.avatar,
-        duration = duration
+        duration = duration,
     )
 }
 
-@ExperimentalHorologistApi
 @Composable
-internal fun SignedInConfirmationDialogContent(
+private fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
-    avatar: Any? = null
+    avatar: Any? = null,
 ) {
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
-    val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
 
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = horizontalPadding)
-            .padding(bottom = bottomPadding),
+            .padding(horizontal = horizontalPadding),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        val hasName = name != null
+        val hasName = !name.isNullOrEmpty()
         val hasAvatar = avatar != null
 
         Box(
             modifier = Modifier
                 .size(60.dp)
                 .background(color = Color(AVATAR_BACKGROUND_COLOR), shape = CircleShape),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             if (hasAvatar) {
                 Image(
                     modifier = Modifier.clip(CircleShape),
                     painter = rememberAsyncImagePainter(model = avatar),
                     contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                    contentScale = ContentScale.Fit
+                    contentScale = ContentScale.Fit,
                 )
             } else if (hasName) {
                 Text(
@@ -151,7 +144,7 @@ internal fun SignedInConfirmationDialogContent(
                         .fillMaxWidth(),
                     color = Color(AVATAR_TEXT_COLOR),
                     fontSize = 24.sp,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }
@@ -160,7 +153,7 @@ internal fun SignedInConfirmationDialogContent(
             text = if (hasName) {
                 stringResource(
                     id = R.string.horologist_signedin_confirmation_greeting,
-                    name!!
+                    name!!,
                 )
             } else {
                 stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)
@@ -171,7 +164,7 @@ internal fun SignedInConfirmationDialogContent(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = MaterialTheme.typography.title3
+            style = MaterialTheme.typography.title3,
         )
 
         email?.let {
@@ -184,7 +177,7 @@ internal fun SignedInConfirmationDialogContent(
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
     }

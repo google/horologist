@@ -53,7 +53,7 @@ public fun Modifier.rotaryVolumeControlsWithFocus(
     volumeUiStateProvider: () -> VolumeUiState,
     onRotaryVolumeInput: (Int) -> Unit,
     localView: View,
-    isLowRes: Boolean
+    isLowRes: Boolean,
 ): Modifier = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
     RequestFocusWhenActive(localFocusRequester)
@@ -62,13 +62,13 @@ public fun Modifier.rotaryVolumeControlsWithFocus(
         lowResRotaryVolumeControls(
             volumeUiStateProvider = volumeUiStateProvider,
             onRotaryVolumeInput = onRotaryVolumeInput,
-            localView = localView
+            localView = localView,
         )
     } else {
         highResRotaryVolumeControls(
             volumeUiStateProvider = volumeUiStateProvider,
             onRotaryVolumeInput = onRotaryVolumeInput,
-            localView = localView
+            localView = localView,
         )
     }
         .focusRequester(localFocusRequester)
@@ -84,10 +84,10 @@ public fun Modifier.rotaryVolumeControlsWithFocus(
 public fun Modifier.lowResRotaryVolumeControls(
     volumeUiStateProvider: () -> VolumeUiState,
     onRotaryVolumeInput: (Int) -> Unit,
-    localView: View
+    localView: View,
 ): Modifier = onRotaryInputAccumulated(
     rateLimitCoolDownMs = RATE_LIMITING_DISABLED,
-    isLowRes = true
+    isLowRes = true,
 ) { change ->
     Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
 
@@ -99,13 +99,13 @@ public fun Modifier.lowResRotaryVolumeControls(
             TAG,
             "change=$change, " +
                 "currentVolume=${volumeUiStateProvider().current}, " +
-                "targetVolume=$targetVolume "
+                "targetVolume=$targetVolume ",
         )
 
         performHapticFeedback(
             targetVolume = targetVolume,
             volumeUiStateProvider = volumeUiStateProvider,
-            localView = localView
+            localView = localView,
         )
 
         onRotaryVolumeInput(targetVolume)
@@ -121,10 +121,10 @@ public fun Modifier.lowResRotaryVolumeControls(
 public fun Modifier.highResRotaryVolumeControls(
     volumeUiStateProvider: () -> VolumeUiState,
     onRotaryVolumeInput: (Int) -> Unit,
-    localView: View
+    localView: View,
 ): Modifier = onRotaryInputAccumulated(
     rateLimitCoolDownMs = RATE_LIMITING_DISABLED,
-    isLowRes = false
+    isLowRes = false,
 ) { change ->
     Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
 
@@ -135,13 +135,13 @@ public fun Modifier.highResRotaryVolumeControls(
             TAG,
             "change=$change, " +
                 "currentVolume=${volumeUiStateProvider().current}, " +
-                "targetVolume=$targetVolume "
+                "targetVolume=$targetVolume ",
         )
 
         performHapticFeedback(
             targetVolume = targetVolume,
             volumeUiStateProvider = volumeUiStateProvider,
-            localView = localView
+            localView = localView,
         )
 
         onRotaryVolumeInput(targetVolume)
@@ -174,7 +174,7 @@ internal fun convertPixelToVolume(change: Float, volumeUiStateProvider: () -> Vo
 private fun performHapticFeedback(
     targetVolume: Int,
     volumeUiStateProvider: () -> VolumeUiState,
-    localView: View
+    localView: View,
 ) {
     if (targetVolume != volumeUiStateProvider().current) {
         if (targetVolume == volumeUiStateProvider().min || targetVolume == volumeUiStateProvider().max) {

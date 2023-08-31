@@ -29,7 +29,7 @@ public data class MediaDownloadEntity(
     @PrimaryKey val mediaId: String,
     val status: MediaDownloadEntityStatus,
     val progress: Float,
-    val size: Long
+    val size: Long,
 )
 
 /**

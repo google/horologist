@@ -16,7 +16,7 @@
 
 @file:OptIn(
     ExperimentalCoroutinesApi::class,
-    ExperimentalWearFoundationApi::class
+    ExperimentalWearFoundationApi::class,
 )
 
 package com.google.android.horologist.compose.navscaffold
@@ -37,6 +37,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.lifecycle.ViewModelProvider
@@ -54,7 +55,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -72,7 +73,7 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(
     sdk = [30],
-    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav"
+    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 class NavScaffoldTest {
     @get:Rule
@@ -94,23 +95,23 @@ class NavScaffoldTest {
 
         fun NavGraphBuilder.scrollingList(
             route: String,
-            scrollState: ScalingLazyListState
+            scrollState: ScalingLazyListState,
         ) {
             scalingLazyColumnComposable(
                 route = route,
-                scrollStateBuilder = { scrollState }
+                scrollStateBuilder = { scrollState },
             ) {
                 val focusRequester =
                     remember { FocusRequester() }
                 ScalingLazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .rotaryWithFling(
+                        .rotaryWithScroll(
+                            it.scrollableState,
                             focusRequester,
-                            it.scrollableState
                         ),
                     state = it.scrollableState,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     items(11) {
                         Text(text = "Item $it")
@@ -129,7 +130,7 @@ class NavScaffoldTest {
 
             WearNavScaffold(
                 startDestination = "a",
-                navController = navController
+                navController = navController,
             ) {
                 scrollingList("a", aScrollState)
                 scrollingList("b", bScrollState)
@@ -179,14 +180,14 @@ class NavScaffoldTest {
 
             WearNavScaffold(
                 startDestination = "a",
-                navController = navController
+                navController = navController,
             ) {
                 scrollable(
-                    route = "a"
+                    route = "a",
                 ) {
                     ScalingLazyColumn(
                         columnState = it.columnState,
-                        modifier = Modifier.testTag("columna")
+                        modifier = Modifier.testTag("columna"),
                     ) {
                         items(100) {
                             Text("Item $it")
@@ -196,7 +197,7 @@ class NavScaffoldTest {
 
                 scrollStateComposable(
                     route = "b",
-                    scrollStateBuilder = { ScrollState(0) }
+                    scrollStateBuilder = { ScrollState(0) },
                 ) {
                     val focusRequester =
                         remember { FocusRequester() }
@@ -204,8 +205,8 @@ class NavScaffoldTest {
                         modifier = Modifier
                             .testTag("columnb")
                             .fillMaxSize()
-                            .rotaryWithFling(focusRequester, it.scrollableState)
-                            .verticalScroll(it.scrollableState)
+                            .rotaryWithScroll(it.scrollableState, focusRequester)
+                            .verticalScroll(it.scrollableState),
                     ) {
                         (1..100).forEach { i ->
                             Text("$i")
@@ -263,7 +264,7 @@ class NavScaffoldTest {
                                         .onGloballyPositioned {
                                             bounds = it.boundsInWindow()
                                         },
-                                    text = "\uD83D\uDD23"
+                                    text = "\uD83D\uDD23",
                                 )
                             }
                         },
@@ -274,22 +275,22 @@ class NavScaffoldTest {
                                     .onGloballyPositioned {
                                         bounds = it.boundsInWindow()
                                     },
-                                text = "\uD83D\uDD23"
+                                text = "\uD83D\uDD23",
                             )
-                        }
+                        },
                     )
-                }
+                },
             ) {
                 composable(
-                    route = "a"
+                    route = "a",
                 ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
                     ) {
                         Text(
                             modifier = Modifier.testTag("body"),
-                            text = "Lorem Ipsum"
+                            text = "Lorem Ipsum",
                         )
                     }
                 }
@@ -313,7 +314,7 @@ class NavScaffoldTest {
         viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
         composeTestRule.waitForIdle()
 
-        timeText.assertDoesNotExist()
+        timeText.assertIsNotDisplayed()
         body.assertIsDisplayed()
     }
 }

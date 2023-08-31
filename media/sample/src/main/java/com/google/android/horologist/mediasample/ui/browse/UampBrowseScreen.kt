@@ -33,7 +33,7 @@ fun UampBrowseScreen(
     onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val uiState by uampBrowseScreenViewModel.uiState.collectAsStateWithLifecycle()
 
@@ -47,6 +47,6 @@ fun UampBrowseScreen(
         onSettingsClick = onSettingsClick,
         columnState = columnState,
         modifier = modifier,
-        onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.browse_download_cancel_action_label)
+        onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.browse_download_cancel_action_label),
     )
 }

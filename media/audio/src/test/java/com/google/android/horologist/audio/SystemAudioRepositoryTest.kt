@@ -40,7 +40,7 @@ import android.media.MediaRouter as MediaRouterLegacy
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
 @Config(
-    sdk = [30]
+    sdk = [30],
 )
 class SystemAudioRepositoryTest {
     private lateinit var mediaRouter: MediaRouter

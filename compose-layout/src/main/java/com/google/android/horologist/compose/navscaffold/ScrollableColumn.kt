@@ -41,10 +41,10 @@ import kotlinx.coroutines.launch
  * }
  * ```
  */
-@Deprecated("Use .rotaryWithFling, .rotaryWithScroll or .rotaryWithSnap instead")
+@Deprecated("Use .rotaryWithScroll or .rotaryWithSnap instead")
 public fun Modifier.scrollableColumn(
     focusRequester: FocusRequester,
-    scrollableState: ScrollableState
+    scrollableState: ScrollableState,
 ): Modifier = composed {
     val coroutineScope = rememberCoroutineScope()
 

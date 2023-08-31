@@ -24,7 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import androidx.wear.compose.material.rememberSwipeToDismissBoxState
+import androidx.wear.compose.foundation.rememberSwipeToDismissBoxState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.VolumeScreen
@@ -65,31 +65,31 @@ fun SampleWearApp() {
     WearNavScaffold(
         startDestination = Screen.Menu.route,
         navController = navController,
-        state = navHostState
+        state = navHostState,
     ) {
         scrollable(
-            route = Screen.Menu.route
+            route = Screen.Menu.route,
         ) {
             MenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
                 time = time,
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         scrollable(
-            Screen.DataLayerNodes.route
+            Screen.DataLayerNodes.route,
         ) {
             DataLayerNodesScreen(
                 viewModel = viewModel(factory = DataLayerNodesViewModel.Factory),
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         scrollable(
             Screen.Network.route,
-            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true)
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true),
         ) {
             NetworkScreen(
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         composable(Screen.FillMaxRectangle.route) {
@@ -100,21 +100,21 @@ fun SampleWearApp() {
         }
         lazyListComposable(Screen.ScrollAway.route) {
             ScrollScreenLazyColumn(
-                scrollState = it.scrollableState
+                scrollState = it.scrollableState,
             )
         }
         scrollable(
-            Screen.ScrollAwaySLC.route
+            Screen.ScrollAwaySLC.route,
         ) {
             ScrollAwayScreenScalingLazyColumn(
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         scrollStateComposable(
-            Screen.ScrollAwayColumn.route
+            Screen.ScrollAwayColumn.route,
         ) {
             ScrollAwayScreenColumn(
-                scrollState = it.scrollableState
+                scrollState = it.scrollableState,
             )
         }
         composable(Screen.DatePicker.route) {
@@ -125,7 +125,7 @@ fun SampleWearApp() {
                 onDateConfirm = {
                     time = time.toLocalTime().atDate(it)
                     navController.popBackStack()
-                }
+                },
             )
         }
         composable(Screen.TimePicker.route) {
@@ -136,7 +136,7 @@ fun SampleWearApp() {
                 onTimeConfirm = {
                     time = time.toLocalDate().atTime(it)
                     navController.popBackStack()
-                }
+                },
             )
         }
         composable(Screen.TimeWithSecondsPicker.route) {
@@ -147,7 +147,7 @@ fun SampleWearApp() {
                 onTimeConfirm = {
                     time = time.toLocalDate().atTime(it)
                     navController.popBackStack()
-                }
+                },
             )
         }
         composable(Screen.TimeWithoutSecondsPicker.route) {
@@ -159,44 +159,44 @@ fun SampleWearApp() {
                     time = time.toLocalDate().atTime(it)
                     navController.popBackStack()
                 },
-                showSeconds = false
+                showSeconds = false,
             )
         }
         scrollable(
-            route = Screen.SectionedListMenuScreen.route
+            route = Screen.SectionedListMenuScreen.route,
         ) {
             SectionedListMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         scrollable(
-            Screen.SectionedListStatelessScreen.route
+            Screen.SectionedListStatelessScreen.route,
         ) {
             SectionedListStatelessScreen(
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         scrollable(
-            Screen.SectionedListStatefulScreen.route
+            Screen.SectionedListStatefulScreen.route,
         ) {
             SectionedListStatefulScreen(
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         scrollable(
-            Screen.SectionedListExpandableScreen.route
+            Screen.SectionedListExpandableScreen.route,
         ) {
             SectionedListExpandableScreen(
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         scrollable(
-            route = Screen.RotaryMenuScreen.route
+            route = Screen.RotaryMenuScreen.route,
         ) {
             RotaryMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
-                columnState = it.columnState
+                columnState = it.columnState,
             )
         }
         composable(route = Screen.RotaryScrollScreen.route) {
@@ -213,7 +213,7 @@ fun SampleWearApp() {
         }
         scrollable(
             route = Screen.Paging.route,
-            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true)
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true),
         ) {
             PagingScreen(navController = navController, columnState = it.columnState)
         }
@@ -222,8 +222,8 @@ fun SampleWearApp() {
             arguments = listOf(
                 navArgument("id") {
                     type = NavType.IntType
-                }
-            )
+                },
+            ),
         ) {
             PagingItemScreen(it.arguments!!.getInt("id"))
         }

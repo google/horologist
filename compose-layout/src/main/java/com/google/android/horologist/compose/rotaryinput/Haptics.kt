@@ -100,7 +100,7 @@ public interface RotaryHapticHandler {
 public class DefaultRotaryHapticHandler(
     private val scrollableState: ScrollableState,
     private val hapticsChannel: Channel<RotaryHapticsType>,
-    private val hapticsThresholdPx: Long = 50
+    private val hapticsThresholdPx: Long = 50,
 ) : RotaryHapticHandler {
 
     private var overscrollHapticTriggered = false
@@ -219,10 +219,10 @@ public fun rememberDisabledHaptic(): RotaryHapticHandler = remember {
 @Composable
 public fun rememberRotaryHapticHandler(
     scrollableState: ScrollableState,
-    throttleThresholdMs: Long = 40,
+    throttleThresholdMs: Long = 30,
     hapticsThresholdPx: Long = 50,
     hapticsChannel: Channel<RotaryHapticsType> = rememberHapticChannel(),
-    rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback()
+    rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback(),
 ): RotaryHapticHandler {
     return remember(scrollableState, hapticsChannel, rotaryHaptics) {
         DefaultRotaryHapticHandler(scrollableState, hapticsChannel, hapticsThresholdPx)
@@ -252,7 +252,7 @@ private fun rememberHapticChannel() =
     remember {
         Channel<RotaryHapticsType>(
             capacity = 2,
-            onBufferOverflow = BufferOverflow.DROP_OLDEST
+            onBufferOverflow = BufferOverflow.DROP_OLDEST,
         )
     }
 
@@ -278,7 +278,7 @@ public class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticF
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
-        type: RotaryHapticsType
+        type: RotaryHapticsType,
     ) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
@@ -304,25 +304,28 @@ private class PixelWatchRotaryHapticFeedback(private val view: View) : RotaryHap
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
-        type: RotaryHapticsType
+        type: RotaryHapticsType,
     ) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
                 view.performHapticFeedback(
-                    if (Build.VERSION.SDK_INT >= 33) ROTARY_SCROLL_ITEM_FOCUS
-                    else WEAR_SCROLL_ITEM_FOCUS
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        ROTARY_SCROLL_ITEM_FOCUS
+                    } else {
+                        WEAR_SCROLL_ITEM_FOCUS
+                    },
                 )
             }
 
             RotaryHapticsType.ScrollTick -> {
                 view.performHapticFeedback(
-                    if (Build.VERSION.SDK_INT >= 33) ROTARY_SCROLL_TICK else WEAR_SCROLL_TICK
+                    if (Build.VERSION.SDK_INT >= 33) ROTARY_SCROLL_TICK else WEAR_SCROLL_TICK,
                 )
             }
 
             RotaryHapticsType.ScrollLimit -> {
                 view.performHapticFeedback(
-                    if (Build.VERSION.SDK_INT >= 33) ROTARY_SCROLL_LIMIT else WEAR_SCROLL_LIMIT
+                    if (Build.VERSION.SDK_INT >= 33) ROTARY_SCROLL_LIMIT else WEAR_SCROLL_LIMIT,
                 )
             }
         }
@@ -350,7 +353,7 @@ private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryH
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
-        type: RotaryHapticsType
+        type: RotaryHapticsType,
     ) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {

@@ -36,5 +36,5 @@ public data class NetworkChangeList(
      * Summarizes the update to the model; whether it was deleted or updated.
      * Updates include creations.
      */
-    val isDelete: Boolean
+    val isDelete: Boolean,
 )

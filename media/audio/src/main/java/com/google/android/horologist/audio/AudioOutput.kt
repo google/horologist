@@ -56,7 +56,7 @@ public interface AudioOutput {
     public data class BluetoothHeadset(
         override val id: String,
         override val name: String,
-        override val isPlayable: Boolean = true
+        override val isPlayable: Boolean = true,
     ) : AudioOutput {
         override val type: String = TYPE_HEADPHONES
     }
@@ -67,7 +67,7 @@ public interface AudioOutput {
     public data class WatchSpeaker(
         override val id: String,
         override val name: String,
-        override val isPlayable: Boolean = false
+        override val isPlayable: Boolean = false,
     ) : AudioOutput {
         override val type: String = TYPE_WATCH
     }
@@ -78,7 +78,7 @@ public interface AudioOutput {
     public data class Unknown(
         override val id: String,
         override val name: String,
-        override val isPlayable: Boolean = false
+        override val isPlayable: Boolean = false,
     ) : AudioOutput
 
     public companion object {

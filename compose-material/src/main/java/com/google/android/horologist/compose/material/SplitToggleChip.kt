@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -36,7 +35,6 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-import com.google.android.horologist.compose.material.util.adjustChipHeightToFontScale
 
 /**
  * This component is an alternative to [SplitToggleChip], providing the following:
@@ -56,7 +54,7 @@ public fun SplitToggleChip(
     colors: SplitToggleChipColors = ToggleChipDefaults.splitToggleChipColors(),
     enabled: Boolean = true,
     checkedInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    clickInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    clickInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val hasSecondaryLabel = secondaryLabel != null
 
@@ -68,7 +66,7 @@ public fun SplitToggleChip(
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
-                style = MaterialTheme.typography.button
+                style = MaterialTheme.typography.button,
             )
         }
 
@@ -79,7 +77,7 @@ public fun SplitToggleChip(
                     text = secondaryLabel,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    style = MaterialTheme.typography.caption2
+                    style = MaterialTheme.typography.caption2,
                 )
             }
         }
@@ -87,10 +85,10 @@ public fun SplitToggleChip(
     val toggleControlParam: (@Composable BoxScope.() -> Unit) = {
         val stateDescriptionSemantics = stringResource(
             if (checked) {
-                R.string.horologist_split_toggle_chip_on_content_description
+                R.string.horologist_split_toggle_chip_on_state_description
             } else {
-                R.string.horologist_split_toggle_chip_off_content_description
-            }
+                R.string.horologist_split_toggle_chip_off_state_description
+            },
         )
         Icon(
             imageVector = when (toggleControl) {
@@ -102,7 +100,7 @@ public fun SplitToggleChip(
             modifier = Modifier.semantics {
                 stateDescription = stateDescriptionSemantics
             },
-            rtlMode = IconRtlMode.Mirrored
+            rtlMode = IconRtlMode.Mirrored,
         )
     }
 
@@ -112,13 +110,11 @@ public fun SplitToggleChip(
         label = labelParam,
         onClick = onClick,
         toggleControl = toggleControlParam,
-        modifier = modifier
-            .adjustChipHeightToFontScale(LocalConfiguration.current.fontScale)
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         secondaryLabel = secondaryLabelParam,
         colors = colors,
         enabled = enabled,
         checkedInteractionSource = checkedInteractionSource,
-        clickInteractionSource = clickInteractionSource
+        clickInteractionSource = clickInteractionSource,
     )
 }

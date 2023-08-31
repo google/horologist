@@ -58,7 +58,7 @@ private suspend fun <T> suspendRunCatching(block: suspend () -> T): Result<T> = 
     Log.i(
         "suspendRunCatching",
         "Failed to evaluate a suspendRunCatchingBlock. Returning failure Result",
-        exception
+        exception,
     )
     Result.failure(exception)
 }
@@ -77,12 +77,12 @@ public suspend fun Synchronizer.changeListSync(
     model: String,
     changeListFetcher: suspend (currentVersion: Int) -> List<NetworkChangeList>,
     modelDeleter: suspend (ids: List<String>) -> Unit,
-    modelUpdater: suspend (ids: List<String>) -> Unit
+    modelUpdater: suspend (ids: List<String>) -> Unit,
 ): Boolean = changeListSync(
     models = listOf(model),
     changeListFetcher = { _: String, currentVersion: Int -> changeListFetcher(currentVersion) },
     modelDeleter = { _: String, ids: List<String> -> modelDeleter(ids) },
-    modelUpdater = { _: String, ids: List<String> -> modelUpdater(ids) }
+    modelUpdater = { _: String, ids: List<String> -> modelUpdater(ids) },
 )
 
 /**
@@ -99,7 +99,7 @@ public suspend fun Synchronizer.changeListSync(
     models: List<String>,
     changeListFetcher: suspend (model: String, currentVersion: Int) -> List<NetworkChangeList>,
     modelDeleter: suspend (model: String, ids: List<String>) -> Unit,
-    modelUpdater: suspend (model: String, ids: List<String>) -> Unit
+    modelUpdater: suspend (model: String, ids: List<String>) -> Unit,
 ): Boolean = suspendRunCatching {
     for (model in models) {
         // Fetch the change list since last sync (akin to a git fetch)

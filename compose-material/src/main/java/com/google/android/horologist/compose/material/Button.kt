@@ -49,7 +49,7 @@ public fun Button(
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Button(
         icon = imageVector,
@@ -59,7 +59,7 @@ public fun Button(
         colors = colors,
         buttonSize = buttonSize,
         iconRtlMode = iconRtlMode,
-        enabled = enabled
+        enabled = enabled,
     )
 }
 
@@ -78,7 +78,7 @@ public fun Button(
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Button(
         icon = id,
@@ -88,10 +88,11 @@ public fun Button(
         colors = colors,
         buttonSize = buttonSize,
         iconRtlMode = iconRtlMode,
-        enabled = enabled
+        enabled = enabled,
     )
 }
 
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 internal fun Button(
     icon: Any,
@@ -101,13 +102,13 @@ internal fun Button(
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Button(
         onClick = onClick,
         modifier = modifier.size(buttonSize.tapTargetSize),
         enabled = enabled,
-        colors = colors
+        colors = colors,
     ) {
         val iconModifier = Modifier
             .size(buttonSize.iconSize)
@@ -117,17 +118,25 @@ internal fun Button(
             icon = icon,
             contentDescription = contentDescription,
             modifier = iconModifier,
-            rtlMode = iconRtlMode
+            rtlMode = iconRtlMode,
         )
     }
 }
 
 @ExperimentalHorologistApi
-public enum class ButtonSize(
+public sealed class ButtonSize(
     public val iconSize: Dp,
-    public val tapTargetSize: Dp
+    public val tapTargetSize: Dp,
 ) {
-    Default(iconSize = DefaultIconSize, tapTargetSize = DefaultButtonSize),
-    Large(iconSize = LargeIconSize, tapTargetSize = LargeButtonSize),
-    Small(iconSize = SmallIconSize, tapTargetSize = SmallButtonSize)
+    public object Default :
+        ButtonSize(iconSize = DefaultIconSize, tapTargetSize = DefaultButtonSize)
+
+    public object Large : ButtonSize(iconSize = LargeIconSize, tapTargetSize = LargeButtonSize)
+    public object Small : ButtonSize(iconSize = SmallIconSize, tapTargetSize = SmallButtonSize)
+
+    /**
+     * Custom sizes should follow the [accessibility principles and guidance for touch targets](https://developer.android.com/training/wearables/accessibility#set-minimum).
+     */
+    public data class Custom(val customIconSize: Dp, val customTapTargetSize: Dp) :
+        ButtonSize(iconSize = customIconSize, tapTargetSize = customTapTargetSize)
 }

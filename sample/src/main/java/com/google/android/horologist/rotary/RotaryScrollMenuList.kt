@@ -63,7 +63,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
@@ -75,32 +74,32 @@ import kotlin.random.Random
 fun RotaryMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    columnState: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState,
 ) {
     SectionedList(
         columnState = columnState,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         section(
             listOf(
                 Pair(
                     R.string.rotarymenu_scroll_list,
-                    Screen.RotaryScrollScreen.route
+                    Screen.RotaryScrollScreen.route,
                 ),
                 Pair(
                     R.string.rotarymenu_scroll_list_reversed,
-                    Screen.RotaryScrollReversedScreen.route
+                    Screen.RotaryScrollReversedScreen.route,
                 ),
                 Pair(
                     R.string.rotarymenu_scroll_with_fling,
-                    Screen.RotaryScrollWithFlingScreen.route
-                )
-            )
+                    Screen.RotaryScrollWithFlingScreen.route,
+                ),
+            ),
         ) {
             header {
                 Title(
                     stringResource(R.string.rotarymenu_scroll),
-                    Modifier.padding(vertical = 8.dp)
+                    Modifier.padding(vertical = 8.dp),
                 )
             }
 
@@ -111,7 +110,7 @@ fun RotaryMenuScreen(
                     },
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { navigateToRoute(item.second) },
-                    colors = ChipDefaults.primaryChipColors()
+                    colors = ChipDefaults.primaryChipColors(),
                 )
             }
         }
@@ -120,14 +119,14 @@ fun RotaryMenuScreen(
             listOf(
                 Pair(
                     R.string.rotarymenu_snap_list,
-                    Screen.RotarySnapListScreen.route
-                )
-            )
+                    Screen.RotarySnapListScreen.route,
+                ),
+            ),
         ) {
             header {
                 Title(
                     text = stringResource(R.string.rotarymenu_snap),
-                    modifier = Modifier.padding(vertical = 8.dp)
+                    modifier = Modifier.padding(vertical = 8.dp),
                 )
             }
 
@@ -138,7 +137,7 @@ fun RotaryMenuScreen(
                     },
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { navigateToRoute(item.second) },
-                    colors = ChipDefaults.primaryChipColors()
+                    colors = ChipDefaults.primaryChipColors(),
                 )
             }
         }
@@ -149,7 +148,7 @@ fun RotaryMenuScreen(
 fun RotaryScrollScreen(
     reverseDirection: Boolean = false,
     scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = rememberActiveFocusRequester()
+    focusRequester: FocusRequester = rememberActiveFocusRequester(),
 ) {
     ItemsListWithModifier(
         reverseDirection = reverseDirection,
@@ -157,9 +156,9 @@ fun RotaryScrollScreen(
             .rotaryWithScroll(
                 reverseDirection = reverseDirection,
                 focusRequester = focusRequester,
-                scrollableState = scalingLazyListState
+                scrollableState = scalingLazyListState,
             ),
-        scrollableState = scalingLazyListState
+        scrollableState = scalingLazyListState,
     ) {
         ChipsList {}
     }
@@ -168,7 +167,7 @@ fun RotaryScrollScreen(
 @Composable
 fun RotaryScrollWithFlingOrSnapScreen(
     isFling: Boolean,
-    isSnap: Boolean
+    isSnap: Boolean,
 ) {
     var showList by remember { mutableStateOf(false) }
 
@@ -180,31 +179,39 @@ fun RotaryScrollWithFlingOrSnapScreen(
     if (showList) {
         val scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState()
         val rotaryHapticHandler =
-            if (hapticsEnabled) rememberRotaryHapticHandler(scalingLazyListState)
-            else rememberDisabledHaptic()
+            if (hapticsEnabled) {
+                rememberRotaryHapticHandler(scalingLazyListState)
+            } else {
+                rememberDisabledHaptic()
+            }
         val focusRequester = rememberActiveFocusRequester()
         ItemsListWithModifier(
             modifier = Modifier
                 .let {
-                    if (isSnap) it.rotaryWithSnap(
-                        focusRequester,
-                        scalingLazyListState.toRotaryScrollAdapter(),
-                        rotaryHapticHandler
-                    )
-                    else if (isFling) it.rotaryWithFling(
-                        focusRequester = focusRequester,
-                        scrollableState = scalingLazyListState,
-                        rotaryHaptics = rotaryHapticHandler
-                    )
-                    else it.rotaryWithScroll(
-                        focusRequester = focusRequester,
-                        scrollableState = scalingLazyListState,
-                        rotaryHaptics = rotaryHapticHandler
-                    )
+                    if (isSnap) {
+                        it.rotaryWithSnap(
+                            focusRequester = focusRequester,
+                            rotaryScrollAdapter = scalingLazyListState.toRotaryScrollAdapter(),
+                            rotaryHaptics = rotaryHapticHandler,
+                        )
+                    } else if (isFling) {
+                        it.rotaryWithScroll(
+                            focusRequester = focusRequester,
+                            scrollableState = scalingLazyListState,
+                            rotaryHaptics = rotaryHapticHandler,
+                        )
+                    } else {
+                        it.rotaryWithScroll(
+                            focusRequester = focusRequester,
+                            scrollableState = scalingLazyListState,
+                            flingBehavior = null,
+                            rotaryHaptics = rotaryHapticHandler,
+                        )
+                    }
                 }
                 .focusRequester(focusRequester)
                 .focusable(),
-            scrollableState = scalingLazyListState
+            scrollableState = scalingLazyListState,
         ) {
             when (itemTypeIndex) {
                 0 -> ChipsList { showList = false }
@@ -224,7 +231,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
             hapticsEnabled = hapticsEnabled,
             onShowListClicked = { showList = true },
             onItemTypeIndexChanged = { itemTypeIndex = it },
-            onHapticsToggled = { hapticsEnabled = !hapticsEnabled }
+            onHapticsToggled = { hapticsEnabled = !hapticsEnabled },
         )
     }
 }
@@ -235,18 +242,18 @@ private fun ScrollPreferences(
     hapticsEnabled: Boolean,
     onShowListClicked: () -> Unit,
     onItemTypeIndexChanged: (Int) -> Unit,
-    onHapticsToggled: () -> Unit
+    onHapticsToggled: () -> Unit,
 ) {
     val itemTypes = stringArrayResource(R.array.rotarymenu_item_sizes).toList()
 
     ScalingLazyColumn(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         item {
             Text(
                 text = stringResource(R.string.rotarymenu_chips_size),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
         item {
@@ -261,9 +268,9 @@ private fun ScrollPreferences(
                         text = itemTypes[itemTypeIndex],
                         textAlign = TextAlign.Center,
                         maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
                     )
-                }
+                },
             )
         }
         item {
@@ -276,14 +283,17 @@ private fun ScrollPreferences(
                 content = {
                     Text(
                         text = stringResource(
-                            if (hapticsEnabled) R.string.rotarymenu_haptics_on
-                            else R.string.rotarymenu_haptics_off
+                            if (hapticsEnabled) {
+                                R.string.rotarymenu_haptics_on
+                            } else {
+                                R.string.rotarymenu_haptics_off
+                            },
                         ),
                         textAlign = TextAlign.Center,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
                     )
-                }
+                },
             )
         }
         item {
@@ -292,9 +302,9 @@ private fun ScrollPreferences(
                 label = {
                     Text(
                         text = stringResource(R.string.rotarymenu_show_list),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
-                }
+                },
             )
         }
     }
@@ -305,7 +315,7 @@ private fun ItemsListWithModifier(
     reverseDirection: Boolean = false,
     modifier: Modifier,
     scrollableState: ScalingLazyListState,
-    items: ScalingLazyListScope.() -> Unit
+    items: ScalingLazyListScope.() -> Unit,
 ) {
     val flingBehavior = snapFlingBehavior(state = scrollableState)
     ScalingLazyColumn(
@@ -317,9 +327,9 @@ private fun ItemsListWithModifier(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(
             space = 4.dp,
-            alignment = Alignment.Top
+            alignment = Alignment.Top,
         ),
-        content = items
+        content = items,
     )
 }
 
@@ -327,14 +337,14 @@ private fun ScalingLazyListScope.CardsList(
     maxLines: Int = 10,
     itemCount: Int = 300,
     randomHeights: List<Int>? = null,
-    onItemClicked: () -> Unit
+    onItemClicked: () -> Unit,
 ) {
     val colors = listOf(Color.Green, Color.Yellow, Color.Cyan, Color.Magenta)
 
     items(itemCount) {
         Card(
             modifier = Modifier.fillMaxWidth(),
-            onClick = onItemClicked
+            onClick = onItemClicked,
         ) {
             Column {
                 Row {
@@ -342,13 +352,19 @@ private fun ScalingLazyListScope.CardsList(
                         modifier = Modifier
                             .size(15.dp)
                             .clip(CircleShape)
-                            .background(color = colors[it % colors.size])
+                            .background(color = colors[it % colors.size]),
                     )
                     Text(text = "#$it")
                 }
                 Text(
                     maxLines = randomHeights?.let { height -> height[it] } ?: maxLines,
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do " +
+                        "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad " +
+                        "minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip " +
+                        "ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur " +
+                        "adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore " +
+                        "magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation " +
+                        "ullamco laboris nisi ut aliquip ex ea commodo consequat",
                 )
             }
         }
@@ -356,7 +372,7 @@ private fun ScalingLazyListScope.CardsList(
 }
 
 internal fun ScalingLazyListScope.ChipsList(
-    onItemClicked: () -> Unit
+    onItemClicked: () -> Unit,
 ) {
     val colors = listOf(Color.Green, Color.Yellow, Color.Cyan, Color.Magenta)
     items(300) {
@@ -370,9 +386,9 @@ internal fun ScalingLazyListScope.ChipsList(
                     modifier = Modifier
                         .size(15.dp)
                         .clip(CircleShape)
-                        .background(color = colors[it % 4])
+                        .background(color = colors[it % 4]),
                 )
-            }
+            },
         )
     }
 }

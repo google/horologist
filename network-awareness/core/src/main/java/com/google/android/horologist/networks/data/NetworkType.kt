@@ -29,5 +29,5 @@ public enum class NetworkType {
     Wifi,
     Cell,
     BT,
-    Unknown
+    Unknown,
 }

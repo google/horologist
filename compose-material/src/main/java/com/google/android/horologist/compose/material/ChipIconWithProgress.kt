@@ -61,7 +61,7 @@ public fun ChipIconWithProgress(
     largeIcon: Boolean = false,
     placeholder: Painter? = null,
     progressIndicatorColor: Color = MaterialTheme.colors.primary,
-    progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
+    progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
 ) {
     ChipIconWithProgressInternal(
         progress = null,
@@ -70,7 +70,7 @@ public fun ChipIconWithProgress(
         placeholder = placeholder,
         progressIndicatorColor = progressIndicatorColor,
         progressTrackColor = progressTrackColor,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -79,8 +79,8 @@ public fun ChipIconWithProgress(
  * This implementation displays an icon with a circular progress indicator around it.
  * The progress indicator express the proportion of completion of an ongoing task.
  *
- * @param progress The progress of this progress indicator where 0.0 represents no progress and 1.0
- * represents completion. Values outside of this range are coerced into the range 0..1.
+ * @param progress The progress of this progress indicator as a percentage where 0.0 represents no progress and 100.0
+ * represents completion. Values outside of this range are coerced into the range 0..100F.
  * @param modifier [Modifier] to apply to this layout node.
  * @param icon Image or icon to be displayed in the center of this view.
  * @param largeIcon True if it should display the icon with in a large size.
@@ -97,7 +97,7 @@ public fun ChipIconWithProgress(
     largeIcon: Boolean = false,
     placeholder: Painter? = null,
     progressIndicatorColor: Color = MaterialTheme.colors.primary,
-    progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
+    progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
 ) {
     ChipIconWithProgressInternal(
         progress = progress,
@@ -106,7 +106,7 @@ public fun ChipIconWithProgress(
         placeholder = placeholder,
         progressIndicatorColor = progressIndicatorColor,
         progressTrackColor = progressTrackColor,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -118,7 +118,7 @@ private fun ChipIconWithProgressInternal(
     placeholder: Painter?,
     progressIndicatorColor: Color,
     progressTrackColor: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val iconSize = if (largeIcon) {
         ChipDefaults.LargeIconSize
@@ -129,7 +129,7 @@ private fun ChipIconWithProgressInternal(
     Box(
         modifier = modifier
             .size(iconSize)
-            .clip(CircleShape)
+            .clip(CircleShape),
     ) {
         if (progress != null) {
             CircularProgressIndicator(
@@ -138,7 +138,7 @@ private fun ChipIconWithProgressInternal(
                 indicatorColor = progressIndicatorColor,
                 trackColor = progressTrackColor,
                 progress = progress / 100,
-                strokeWidth = progressBarStrokeWidth
+                strokeWidth = progressBarStrokeWidth,
             )
         } else {
             CircularProgressIndicator(
@@ -146,7 +146,7 @@ private fun ChipIconWithProgressInternal(
                     .size(iconSize - progressBarStrokeWidth + indicatorPadding),
                 indicatorColor = progressIndicatorColor,
                 trackColor = progressTrackColor,
-                strokeWidth = progressBarStrokeWidth
+                strokeWidth = progressBarStrokeWidth,
             )
         }
 
@@ -158,14 +158,14 @@ private fun ChipIconWithProgressInternal(
                     modifier = Modifier
                         .align(Alignment.Center)
                         .size(iconSize - indicatorPadding)
-                        .clip(CircleShape)
+                        .clip(CircleShape),
                 )
             }
             else -> {
                 Image(
                     painter = rememberAsyncImagePainter(
                         model = icon,
-                        placeholder = placeholder
+                        placeholder = placeholder,
                     ),
                     contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                     modifier = Modifier
@@ -173,7 +173,7 @@ private fun ChipIconWithProgressInternal(
                         .size(iconSize - indicatorPadding)
                         .clip(CircleShape),
                     contentScale = ContentScale.Crop,
-                    alpha = LocalContentAlpha.current
+                    alpha = LocalContentAlpha.current,
                 )
             }
         }

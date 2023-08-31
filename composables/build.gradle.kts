@@ -46,7 +46,7 @@ android {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
         )
     }
 
@@ -62,10 +62,12 @@ android {
         }
     }
 
-
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
+            all {
+                it.systemProperty("screenshot.record", findProperty("screenshot.record") ?: "false")
+            }
         }
         animationsDisabled = true
     }
@@ -102,16 +104,19 @@ dependencies {
     implementation(libs.wearcompose.foundation)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
+    implementation(libs.compose.ui.util)
     implementation(libs.androidx.corektx)
 
     implementation(libs.compose.ui.toolingpreview)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
     debugImplementation(projects.composeTools)
+    debugImplementation(projects.composeMaterial)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(projects.composeTools)
+    testImplementation(projects.composeMaterial)
     testImplementation(projects.roboscreenshots)
     testImplementation(libs.robolectric)
 }

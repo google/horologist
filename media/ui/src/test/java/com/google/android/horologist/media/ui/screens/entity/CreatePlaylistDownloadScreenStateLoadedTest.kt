@@ -31,30 +31,30 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id",
                 title = "Song name",
                 artist = "Artist name",
-                artworkUri = "artworkUri"
+                artworkUri = "artworkUri",
             ),
             DownloadMediaUiModel.NotDownloaded(
                 id = "id 2",
                 title = "Song name 2",
                 artist = "Artist name 2",
-                artworkUri = "artworkUri"
+                artworkUri = "artworkUri",
             ),
             DownloadMediaUiModel.Downloading(
                 id = "id 3",
                 title = "Song name 3",
                 artworkUri = "artworkUri",
                 progress = DownloadMediaUiModel.Progress.InProgress(60f),
-                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
-            )
+                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049),
+            ),
         )
 
         // when
         val result = createPlaylistDownloadScreenStateLoaded(
             playlistModel = PlaylistUiModel(
                 id = "id",
-                title = "title"
+                title = "title",
             ),
-            downloadMediaList = downloads
+            downloadMediaList = downloads,
         ).downloadMediaListState
 
         // then
@@ -69,30 +69,30 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id",
                 title = "Song name",
                 artist = "Artist name",
-                artworkUri = "artworkUri"
+                artworkUri = "artworkUri",
             ),
             DownloadMediaUiModel.NotDownloaded(
                 id = "id 2",
                 title = "Song name 2",
                 artist = "Artist name 2",
-                artworkUri = "artworkUri"
+                artworkUri = "artworkUri",
             ),
             DownloadMediaUiModel.Downloading(
                 id = "id 3",
                 title = "Song name 3",
                 artworkUri = "artworkUri",
                 progress = DownloadMediaUiModel.Progress.InProgress(60f),
-                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
-            )
+                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049),
+            ),
         )
 
         // when
         val result = createPlaylistDownloadScreenStateLoaded(
             playlistModel = PlaylistUiModel(
                 id = "id",
-                title = "title"
+                title = "title",
             ),
-            downloadMediaList = downloads
+            downloadMediaList = downloads,
         ).downloadMediaListState
 
         // then
@@ -107,24 +107,24 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id",
                 title = "Song name",
                 artist = "Artist name",
-                artworkUri = "artworkUri"
+                artworkUri = "artworkUri",
             ),
             DownloadMediaUiModel.Downloading(
                 id = "id 2",
                 title = "Song name 2",
                 artworkUri = "artworkUri",
                 progress = DownloadMediaUiModel.Progress.InProgress(60f),
-                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
-            )
+                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049),
+            ),
         )
 
         // when
         val result = createPlaylistDownloadScreenStateLoaded(
             playlistModel = PlaylistUiModel(
                 id = "id",
-                title = "title"
+                title = "title",
             ),
-            downloadMediaList = downloads
+            downloadMediaList = downloads,
         ).downloadMediaListState
 
         // then
@@ -139,23 +139,23 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id",
                 title = "Song name",
                 artist = "Artist name",
-                artworkUri = "artworkUri"
+                artworkUri = "artworkUri",
             ),
             DownloadMediaUiModel.Downloaded(
                 id = "id 2",
                 title = "Song name 2",
                 artist = "Artist name 2",
-                artworkUri = "artworkUri"
-            )
+                artworkUri = "artworkUri",
+            ),
         )
 
         // when
         val result = createPlaylistDownloadScreenStateLoaded(
             playlistModel = PlaylistUiModel(
                 id = "id",
-                title = "title"
+                title = "title",
             ),
-            downloadMediaList = downloads
+            downloadMediaList = downloads,
         ).downloadMediaListState
 
         // then
@@ -171,9 +171,9 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
         val result = createPlaylistDownloadScreenStateLoaded(
             playlistModel = PlaylistUiModel(
                 id = "id",
-                title = "title"
+                title = "title",
             ),
-            downloadMediaList = downloads
+            downloadMediaList = downloads,
         ).downloadMediaListState
 
         // then
@@ -188,23 +188,23 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id",
                 title = "Song name",
                 artist = "Artist name",
-                artworkUri = "artworkUri"
+                artworkUri = "artworkUri",
             ),
             DownloadMediaUiModel.NotDownloaded(
                 id = "id 2",
                 title = "Song name 2",
                 artist = "Artist name 2",
-                artworkUri = "artworkUri"
-            )
+                artworkUri = "artworkUri",
+            ),
         )
 
         // when
         val result = createPlaylistDownloadScreenStateLoaded(
             playlistModel = PlaylistUiModel(
                 id = "id",
-                title = "title"
+                title = "title",
             ),
-            downloadMediaList = downloads
+            downloadMediaList = downloads,
         ).downloadsProgress
 
         // then
@@ -219,42 +219,42 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id",
                 title = "Song name",
                 artist = "Artist name",
-                artworkUri = "artworkUri"
+                artworkUri = "artworkUri",
             ),
             DownloadMediaUiModel.NotDownloaded(
                 id = "id 2",
                 title = "Song name 2",
                 artist = "Artist name 2",
-                artworkUri = "artworkUri"
+                artworkUri = "artworkUri",
             ),
             DownloadMediaUiModel.Downloading(
                 id = "id 3",
                 title = "Song name 3",
                 artworkUri = "artworkUri",
                 progress = DownloadMediaUiModel.Progress.InProgress(60f),
-                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
+                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049),
             ),
             DownloadMediaUiModel.Downloading(
                 id = "id 4",
                 title = "Song name 4",
                 artworkUri = "artworkUri",
                 progress = DownloadMediaUiModel.Progress.InProgress(60f),
-                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
-            )
+                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049),
+            ),
         )
 
         // when
         val result = createPlaylistDownloadScreenStateLoaded(
             playlistModel = PlaylistUiModel(
                 id = "id",
-                title = "title"
+                title = "title",
             ),
-            downloadMediaList = downloads
+            downloadMediaList = downloads,
         ).downloadsProgress
 
         // then
         assertThat(result).isEqualTo(
-            PlaylistDownloadScreenState.Loaded.DownloadsProgress.InProgress(0.25F)
+            PlaylistDownloadScreenState.Loaded.DownloadsProgress.InProgress(0.25F),
         )
     }
 
@@ -267,9 +267,9 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
         val result = createPlaylistDownloadScreenStateLoaded(
             playlistModel = PlaylistUiModel(
                 id = "id",
-                title = "title"
+                title = "title",
             ),
-            downloadMediaList = downloads
+            downloadMediaList = downloads,
         ).downloadsProgress
 
         // then

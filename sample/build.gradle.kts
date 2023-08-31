@@ -101,7 +101,7 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.21.4"
+        artifact = "com.google.protobuf:protoc:3.24.2"
     }
     plugins {
         id("javalite") {
@@ -125,7 +125,6 @@ protobuf {
 dependencies {
     api(projects.annotations)
 
-    implementation(projects.baseUi)
     implementation(projects.composeLayout)
     implementation(projects.media.audio)
     implementation(projects.media.audioUi)
@@ -141,8 +140,8 @@ dependencies {
     implementation(projects.media.ui)
     implementation(projects.networkAwareness)
     implementation(projects.tiles)
-    implementation(projects.datalayer)
-    implementation(projects.datalayerWatch)
+    implementation(projects.datalayer.core)
+    implementation(projects.datalayer.watch)
     implementation(projects.logo)
 
     implementation(libs.compose.ui.util)

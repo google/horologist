@@ -36,32 +36,32 @@ import com.google.android.horologist.sample.Screen
 fun SectionedListMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    columnState: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState,
 ) {
     SectionedList(
         columnState = columnState,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         section(
             listOf(
                 Pair(
                     R.string.sectionedlist_stateless_sections_menu,
-                    Screen.SectionedListStatelessScreen.route
+                    Screen.SectionedListStatelessScreen.route,
                 ),
                 Pair(
                     R.string.sectionedlist_stateful_sections_menu,
-                    Screen.SectionedListStatefulScreen.route
+                    Screen.SectionedListStatefulScreen.route,
                 ),
                 Pair(
                     R.string.sectionedlist_expandable_sections_menu,
-                    Screen.SectionedListExpandableScreen.route
-                )
-            )
+                    Screen.SectionedListExpandableScreen.route,
+                ),
+            ),
         ) {
             header {
                 Title(
                     stringResource(R.string.sectionedlist_samples_title),
-                    Modifier.padding(vertical = 8.dp)
+                    Modifier.padding(vertical = 8.dp),
                 )
             }
 
@@ -72,7 +72,7 @@ fun SectionedListMenuScreen(
                     },
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { navigateToRoute(item.second) },
-                    colors = ChipDefaults.primaryChipColors()
+                    colors = ChipDefaults.primaryChipColors(),
                 )
             }
         }

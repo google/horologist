@@ -28,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -42,7 +41,6 @@ import androidx.wear.compose.material.ToggleChipColors
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-import com.google.android.horologist.compose.material.util.adjustChipHeightToFontScale
 
 /**
  * This component is an alternative to [ToggleChip], providing the following:
@@ -63,7 +61,7 @@ public fun ToggleChip(
     secondaryLabel: String? = null,
     colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
     enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val hasSecondaryLabel = secondaryLabel != null
 
@@ -75,7 +73,7 @@ public fun ToggleChip(
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
-                style = MaterialTheme.typography.button
+                style = MaterialTheme.typography.button,
             )
         }
 
@@ -86,7 +84,7 @@ public fun ToggleChip(
                     text = secondaryLabel,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    style = MaterialTheme.typography.caption2
+                    style = MaterialTheme.typography.caption2,
                 )
             }
         }
@@ -101,7 +99,7 @@ public fun ToggleChip(
             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
             // This potentially be removed once this issue is addressed:
             // https://issuetracker.google.com/issues/287087138
-            rtlMode = if (toggleControl == ToggleChipToggleControl.Switch) IconRtlMode.Mirrored else IconRtlMode.Default
+            rtlMode = if (toggleControl == ToggleChipToggleControl.Switch) IconRtlMode.Mirrored else IconRtlMode.Default,
         )
     }
 
@@ -115,7 +113,7 @@ public fun ToggleChip(
                         modifier = Modifier
                             .size(ChipDefaults.IconSize)
                             .clip(CircleShape),
-                        rtlMode = iconRtlMode
+                        rtlMode = iconRtlMode,
                     )
                 }
             }
@@ -123,10 +121,10 @@ public fun ToggleChip(
 
     val stateDescriptionSemantics = stringResource(
         if (checked) {
-            R.string.horologist_toggle_chip_on_content_description
+            R.string.horologist_toggle_chip_on_state_description
         } else {
-            R.string.horologist_toggle_chip_off_content_description
-        }
+            R.string.horologist_toggle_chip_off_state_description
+        },
     )
     ToggleChip(
         checked = checked,
@@ -134,7 +132,6 @@ public fun ToggleChip(
         label = labelParam,
         toggleControl = toggleControlParam,
         modifier = modifier
-            .adjustChipHeightToFontScale(LocalConfiguration.current.fontScale)
             .fillMaxWidth()
             .semantics {
                 stateDescription = stateDescriptionSemantics
@@ -143,6 +140,6 @@ public fun ToggleChip(
         secondaryLabel = secondaryLabelParam,
         colors = colors,
         enabled = enabled,
-        interactionSource = interactionSource
+        interactionSource = interactionSource,
     )
 }

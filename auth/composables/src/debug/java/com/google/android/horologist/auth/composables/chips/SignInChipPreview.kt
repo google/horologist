@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun SignInChipPreview() {

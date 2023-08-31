@@ -29,7 +29,7 @@ import kotlin.time.Duration.Companion.seconds
 class MediaPlayerA11yScreenshotTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         enableA11y = true
-    }
+    },
 ) {
 
     @Test
@@ -39,7 +39,7 @@ class MediaPlayerA11yScreenshotTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = "+w192dp-h192dp"
+        qualifiers = "+w192dp-h192dp",
     )
     @Test
     fun mediaPlayerSmallRound() {
@@ -48,7 +48,7 @@ class MediaPlayerA11yScreenshotTest : ScreenshotBaseTest(
 
     @Config(
         sdk = [30],
-        qualifiers = "w180dp-h180dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav"
+        qualifiers = "w180dp-h180dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
     )
     @Test
     fun mediaPlayerSquare() {
@@ -70,20 +70,20 @@ class MediaPlayerA11yScreenshotTest : ScreenshotBaseTest(
             media = MediaUiModel(
                 id = "",
                 title = "Weather with You",
-                subtitle = "Crowded House"
+                subtitle = "Crowded House",
             ),
             trackPositionUiModel = TrackPositionUiModel.Actual(
                 percent = 0.133f,
                 position = 30.seconds,
-                duration = 225.seconds
+                duration = 225.seconds,
             ),
-            connected = true
+            connected = true,
         )
 
         screenshotTestRule.setContent(takeScreenshot = true) {
             MediaPlayerTestCase(
                 colors = UampColors,
-                playerUiState = playerUiState
+                playerUiState = playerUiState,
             )
         }
     }

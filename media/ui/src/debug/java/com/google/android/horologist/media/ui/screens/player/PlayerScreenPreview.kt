@@ -19,6 +19,7 @@
 package com.google.android.horologist.media.ui.screens.player
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -26,10 +27,10 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
@@ -48,50 +49,30 @@ import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.WearPreviewThemes
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
-import com.google.android.horologist.media.ui.components.background.RadialBackground
+import com.google.android.horologist.media.ui.components.background.radialBackgroundBrush
 import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay
 import com.google.android.horologist.media.ui.components.display.TextMediaDisplay
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampTheme
 import kotlin.time.Duration.Companion.seconds
 
-@Preview(
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
 fun PlayerScreenPreview() {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        timeText = { TimeText() }
+        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
+        timeText = { TimeText() },
     ) {
         PagerScreen(
             state = rememberPagerState {
                 2
-            }
+            },
         ) {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
+                        title = "Don't Stop Believin'",
                         subtitle = "Journey",
-                        title = "Don't Stop Believin'"
                     )
                 },
                 controlButtons = {
@@ -103,12 +84,12 @@ fun PlayerScreenPreview() {
                         trackPositionUiModel = TrackPositionUiModel.Actual(
                             0.25f,
                             25.seconds,
-                            100.seconds
+                            100.seconds,
                         ),
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true
+                        seekToPreviousButtonEnabled = true,
                     )
                 },
                 buttons = {
@@ -119,57 +100,34 @@ fun PlayerScreenPreview() {
                         brandIcon = {
                             SettingsButtonsDefaults.BrandIcon(
                                 R.drawable.ic_stat_horologist,
-                                enabled = true
+                                enabled = true,
                             )
-                        }
+                        },
                     )
-                }
+                },
             )
         }
     }
 }
 
-@Preview(
-    name = "With custom media display",
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom media display",
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom media display",
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
 fun PlayerScreenPreviewCustomMediaDisplay() {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        timeText = { TimeText() }
+        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
+        timeText = { TimeText() },
     ) {
         PagerScreen(
             state = rememberPagerState {
                 2
-            }
+            },
         ) {
             PlayerScreen(
                 mediaDisplay = {
                     Text(
                         "RTÉ Lyric FM\nRTÉ",
                         style = MaterialTheme.typography.title2.copy(color = Color.Red),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                 },
                 controlButtons = {
@@ -181,12 +139,12 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                         trackPositionUiModel = TrackPositionUiModel.Actual(
                             0.75f,
                             75.seconds,
-                            100.seconds
+                            100.seconds,
                         ),
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true
+                        seekToPreviousButtonEnabled = true,
                     )
                 },
                 buttons = {
@@ -197,56 +155,33 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                         brandIcon = {
                             SettingsButtonsDefaults.BrandIcon(
                                 R.drawable.ic_stat_horologist,
-                                enabled = true
+                                enabled = true,
                             )
-                        }
+                        },
                     )
-                }
+                },
             )
         }
     }
 }
 
-@Preview(
-    name = "With custom background",
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom background",
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom background",
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
 fun PlayerScreenPreviewCustomBackground() {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        timeText = { TimeText() }
+        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
+        timeText = { TimeText() },
     ) {
         PagerScreen(
             state = rememberPagerState {
                 2
-            }
+            },
         ) {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
+                        title = "Da Da Da",
                         subtitle = "Casaca",
-                        title = "Da Da Da"
                     )
                 },
                 controlButtons = {
@@ -258,7 +193,7 @@ fun PlayerScreenPreviewCustomBackground() {
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true
+                        seekToPreviousButtonEnabled = true,
                     )
                 },
                 buttons = {
@@ -269,9 +204,9 @@ fun PlayerScreenPreviewCustomBackground() {
                         brandIcon = {
                             SettingsButtonsDefaults.BrandIcon(
                                 R.drawable.ic_stat_horologist,
-                                enabled = true
+                                enabled = true,
                             )
-                        }
+                        },
                     )
                 },
                 background = {
@@ -281,24 +216,24 @@ fun PlayerScreenPreviewCustomBackground() {
                                 .align(Alignment.Center)
                                 .size(124.dp),
                             progress = 0.75f,
-                            indicatorColor = Color.Magenta
+                            indicatorColor = Color.Magenta,
                         )
                         CircularProgressIndicator(
                             modifier = Modifier
                                 .align(Alignment.Center)
                                 .size(132.dp),
                             progress = 0.75f,
-                            indicatorColor = Color.White
+                            indicatorColor = Color.White,
                         )
                         CircularProgressIndicator(
                             modifier = Modifier
                                 .align(Alignment.Center)
                                 .size(140.dp),
                             progress = 0.75f,
-                            indicatorColor = Color.Blue
+                            indicatorColor = Color.Blue,
                         )
                     }
-                }
+                },
             )
         }
     }
@@ -316,7 +251,7 @@ fun PlayerScreenPreviewDevices() {
 @WearPreviewLargeRound
 @Composable
 fun VolumeScreenTheme(
-    @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues
+    @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues,
 ) {
     MaterialTheme(themeValues.colors) {
         DefaultMediaPreview()
@@ -327,18 +262,32 @@ fun VolumeScreenTheme(
 fun DefaultMediaPreview() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        timeText = { TimeText() }
+        timeText = { TimeText() },
     ) {
         PagerScreen(
             state = rememberPagerState {
                 2
-            }
+            },
         ) {
             PlayerScreen(
+                modifier = Modifier.drawWithCache {
+                    val background = radialBackgroundBrush(Color.Yellow, Color.Black)
+                    onDrawWithContent {
+                        // Clear the circular region so we have transparent pixels to blend against
+                        // This enables us to reuse the underlying buffer we are drawing into without
+                        // having to consume additional overhead of an offscreen compositing layer
+                        drawRect(color = Color.Black, blendMode = BlendMode.Clear)
+
+                        drawContent()
+
+                        // Components on media player may use transparency, so draw in the gaps
+                        drawRect(background, blendMode = BlendMode.DstOver)
+                    }
+                },
                 mediaDisplay = {
                     TextMediaDisplay(
+                        title = "Don't Stop Believin'",
                         subtitle = "Journey",
-                        title = "Don't Stop Believin'"
                     )
                 },
                 controlButtons = {
@@ -350,12 +299,12 @@ fun DefaultMediaPreview() {
                         trackPositionUiModel = TrackPositionUiModel.Actual(
                             0.25f,
                             25.seconds,
-                            100.seconds
+                            100.seconds,
                         ),
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true
+                        seekToPreviousButtonEnabled = true,
                     )
                 },
                 buttons = {
@@ -366,53 +315,27 @@ fun DefaultMediaPreview() {
                         brandIcon = {
                             SettingsButtonsDefaults.BrandIcon(
                                 R.drawable.ic_stat_horologist,
-                                enabled = true
+                                enabled = true,
                             )
-                        }
+                        },
                     )
                 },
-                background = {
-                    RadialBackground(color = Color.Yellow)
-                }
             )
         }
     }
 }
 
-@Preview(
-    name = "With custom media display",
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom media display",
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "With custom media display",
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
 fun PlayerScreenPreviewNotingPlayingDisplay() {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        timeText = { TimeText() }
+        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
+        timeText = { TimeText() },
     ) {
         PagerScreen(
             state = rememberPagerState {
                 2
-            }
+            },
         ) {
             PlayerScreen(
                 mediaDisplay = { NothingPlayingDisplay(Modifier) },
@@ -425,7 +348,7 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
                         onSeekToPreviousButtonClick = {},
                         seekToPreviousButtonEnabled = false,
                         onSeekToNextButtonClick = {},
-                        seekToNextButtonEnabled = false
+                        seekToNextButtonEnabled = false,
                     )
                 },
                 buttons = {
@@ -436,15 +359,15 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
                         brandIcon = {
                             SettingsButtonsDefaults.BrandIcon(
                                 R.drawable.ic_stat_horologist,
-                                enabled = true
+                                enabled = true,
                             )
                         },
-                        enabled = false
+                        enabled = false,
                     )
-                }
+                },
             )
         }
     }
 }
 
-private const val BACKGROUND_COLOR = 0xFF313234
+private val BACKGROUND_COLOR = Color(0xFF313234)

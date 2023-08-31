@@ -36,7 +36,7 @@ class MediaEntityMapperTest {
             uri = uri,
             title = title,
             artist = artist,
-            artworkUri = artworkUri
+            artworkUri = artworkUri,
         )
 
         // when
@@ -49,8 +49,8 @@ class MediaEntityMapperTest {
                 mediaUrl = uri,
                 artworkUrl = artworkUri,
                 title = title,
-                artist = artist
-            )
+                artist = artist,
+            ),
         )
     }
 
@@ -67,7 +67,7 @@ class MediaEntityMapperTest {
             uri = uri,
             title = title,
             artist = artist,
-            artworkUri = artworkUri
+            artworkUri = artworkUri,
         )
 
         // when
@@ -80,8 +80,8 @@ class MediaEntityMapperTest {
                 mediaUrl = uri,
                 artworkUrl = "",
                 title = title,
-                artist = artist
-            )
+                artist = artist,
+            ),
         )
     }
 }

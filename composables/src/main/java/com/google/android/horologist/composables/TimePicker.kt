@@ -42,10 +42,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -65,25 +63,23 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.PickerGroup
-import androidx.wear.compose.material.PickerGroupItem
-import androidx.wear.compose.material.PickerGroupState
-import androidx.wear.compose.material.PickerScope
-import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TouchExplorationStateProvider
-import androidx.wear.compose.material.rememberPickerGroupState
-import androidx.wear.compose.material.rememberPickerState
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
-import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.google.android.horologist.composables.picker.PickerGroup
+import com.google.android.horologist.composables.picker.PickerGroupItem
+import com.google.android.horologist.composables.picker.PickerGroupState
+import com.google.android.horologist.composables.picker.PickerScope
+import com.google.android.horologist.composables.picker.PickerState
+import com.google.android.horologist.composables.picker.rememberPickerGroupState
+import com.google.android.horologist.composables.picker.rememberPickerState
+import com.google.android.horologist.composables.picker.toRotaryScrollAdapter
+import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import java.time.LocalTime
 import java.time.temporal.ChronoField
-import kotlin.math.sign
 
 /**
  * A full screen TimePicker with hours, minutes and seconds.
@@ -106,27 +102,27 @@ public fun TimePicker(
     onTimeConfirm: (LocalTime) -> Unit,
     modifier: Modifier = Modifier,
     time: LocalTime = LocalTime.now(),
-    showSeconds: Boolean = true
+    showSeconds: Boolean = true,
 ) {
     val fullyDrawn = remember { Animatable(0f) }
 
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
         display3 = MaterialTheme.typography.display3.copy(
-            fontSize = with(LocalDensity.current) { 30.dp.toSp() }
-        )
+            fontSize = with(LocalDensity.current) { 30.dp.toSp() },
+        ),
     )
     val hourState = rememberPickerState(
         initialNumberOfOptions = 24,
-        initiallySelectedOption = time.hour
+        initiallySelectedOption = time.hour,
     )
     val minuteState = rememberPickerState(
         initialNumberOfOptions = 60,
-        initiallySelectedOption = time.minute
+        initiallySelectedOption = time.minute,
     )
     val secondState = rememberPickerState(
         initialNumberOfOptions = 60,
-        initiallySelectedOption = time.second
+        initiallySelectedOption = time.second,
     )
 
     val touchExplorationStateProvider = remember { DefaultTouchExplorationStateProvider() }
@@ -154,21 +150,21 @@ public fun TimePicker(
             pickerGroupState,
             hourState.selectedOption,
             hourString,
-            R.plurals.horologist_time_picker_hours_content_description
+            R.plurals.horologist_time_picker_hours_content_description,
         )
 
         val minuteContentDescription = createDescription(
             pickerGroupState,
             minuteState.selectedOption,
             minuteString,
-            R.plurals.horologist_time_picker_minutes_content_description
+            R.plurals.horologist_time_picker_minutes_content_description,
         )
 
         val secondContentDescription = createDescription(
             pickerGroupState,
             secondState.selectedOption,
             secondString,
-            R.plurals.horologist_time_picker_seconds_content_description
+            R.plurals.horologist_time_picker_seconds_content_description,
         )
 
         val onPickerSelected =
@@ -183,10 +179,14 @@ public fun TimePicker(
                 }
             }
 
-        Box(modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)) {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .alpha(fullyDrawn.value),
+        ) {
             Column(
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Spacer(Modifier.height(12.dp))
                 Text(
@@ -198,18 +198,18 @@ public fun TimePicker(
                     },
                     color = optionColor,
                     style = MaterialTheme.typography.button,
-                    maxLines = 1
+                    maxLines = 1,
                 )
                 val weightsToCenterVertically = 0.5f
                 Spacer(
                     Modifier
                         .fillMaxWidth()
-                        .weight(weightsToCenterVertically)
+                        .weight(weightsToCenterVertically),
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+                    horizontalArrangement = Arrangement.Center,
                 ) {
                     val pickerGroupItems = mutableListOf(
                         pickerGroupItemWithRSB(
@@ -218,11 +218,11 @@ public fun TimePicker(
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementsTimePicker.HOURS,
-                                    FocusableElementsTimePicker.MINUTES
+                                    FocusableElementsTimePicker.MINUTES,
                                 )
                             },
                             contentDescription = hourContentDescription,
-                            option = pickerOption
+                            option = pickerOption,
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = minuteState,
@@ -230,13 +230,16 @@ public fun TimePicker(
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementsTimePicker.MINUTES,
-                                    if (showSeconds) FocusableElementsTimePicker.SECONDS
-                                    else FocusableElementsTimePicker.CONFIRM_BUTTON
+                                    if (showSeconds) {
+                                        FocusableElementsTimePicker.SECONDS
+                                    } else {
+                                        FocusableElementsTimePicker.CONFIRM_BUTTON
+                                    },
                                 )
                             },
                             contentDescription = minuteContentDescription,
-                            option = pickerOption
-                        )
+                            option = pickerOption,
+                        ),
                     )
                     if (showSeconds) {
                         pickerGroupItems.add(
@@ -246,12 +249,12 @@ public fun TimePicker(
                                 onSelected = {
                                     onPickerSelected(
                                         FocusableElementsTimePicker.SECONDS,
-                                        FocusableElementsTimePicker.CONFIRM_BUTTON
+                                        FocusableElementsTimePicker.CONFIRM_BUTTON,
                                     )
                                 },
                                 contentDescription = secondContentDescription,
-                                option = pickerOption
-                            )
+                                option = pickerOption,
+                            ),
                         )
                     }
                     PickerGroup(
@@ -259,13 +262,13 @@ public fun TimePicker(
                         pickerGroupState = pickerGroupState,
                         separator = { Separator(6.dp, textStyle) },
                         autoCenter = false,
-                        touchExplorationStateProvider = touchExplorationStateProvider
+                        touchExplorationStateProvider = touchExplorationStateProvider,
                     )
                 }
                 Spacer(
                     Modifier
                         .fillMaxWidth()
-                        .weight(weightsToCenterVertically)
+                        .weight(weightsToCenterVertically),
                 )
                 Button(
                     onClick = {
@@ -273,7 +276,7 @@ public fun TimePicker(
                         val confirmedTime = LocalTime.of(
                             hourState.selectedOption,
                             minuteState.selectedOption,
-                            seconds
+                            seconds,
                         )
                         onTimeConfirm(confirmedTime)
                     },
@@ -283,14 +286,14 @@ public fun TimePicker(
                                 FocusableElementsTimePicker.CONFIRM_BUTTON.index
                         }
                         .focusRequester(focusRequesterConfirmButton)
-                        .focusable()
+                        .focusable(),
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Check,
                         contentDescription = stringResource(R.string.horologist_picker_confirm_button_content_description),
                         modifier = Modifier
                             .size(24.dp)
-                            .wrapContentSize(align = Alignment.Center)
+                            .wrapContentSize(align = Alignment.Center),
                     )
                 }
                 Spacer(Modifier.height(12.dp))
@@ -319,28 +322,28 @@ public fun TimePicker(
 public fun TimePickerWith12HourClock(
     onTimeConfirm: (LocalTime) -> Unit,
     modifier: Modifier = Modifier,
-    time: LocalTime = LocalTime.now()
+    time: LocalTime = LocalTime.now(),
 ) {
     val fullyDrawn = remember { Animatable(0f) }
 
     // Omit scaling according to Settings > Display > Font size for this screen,
     val typography = MaterialTheme.typography.copy(
         display1 = MaterialTheme.typography.display1.copy(
-            fontSize = with(LocalDensity.current) { 40.dp.toSp() }
-        )
+            fontSize = with(LocalDensity.current) { 40.dp.toSp() },
+        ),
     )
     val hourState = rememberPickerState(
         initialNumberOfOptions = 12,
-        initiallySelectedOption = time[ChronoField.CLOCK_HOUR_OF_AMPM] - 1
+        initiallySelectedOption = time[ChronoField.CLOCK_HOUR_OF_AMPM] - 1,
     )
     val minuteState = rememberPickerState(
         initialNumberOfOptions = 60,
-        initiallySelectedOption = time.minute
+        initiallySelectedOption = time.minute,
     )
     val periodState = rememberPickerState(
         initialNumberOfOptions = 2,
         initiallySelectedOption = time[ChronoField.AMPM_OF_DAY],
-        repeatItems = false
+        repeatItems = false,
     )
 
     val touchExplorationStateProvider = remember { DefaultTouchExplorationStateProvider() }
@@ -368,37 +371,41 @@ public fun TimePickerWith12HourClock(
             pickerGroupState,
             hourState.selectedOption + 1,
             hourString,
-            R.plurals.horologist_time_picker_hours_content_description
+            R.plurals.horologist_time_picker_hours_content_description,
         )
 
         val minutesContentDescription = createDescription12Hour(
             pickerGroupState,
             minuteState.selectedOption,
             minuteString,
-            R.plurals.horologist_time_picker_minutes_content_description
+            R.plurals.horologist_time_picker_minutes_content_description,
         )
 
         val amString = stringResource(R.string.horologist_time_picker_am)
         val pmString = stringResource(R.string.horologist_time_picker_pm)
         val periodContentDescription by remember(
             pickerGroupState.selectedIndex,
-            periodState.selectedOption
+            periodState.selectedOption,
         ) {
             derivedStateOf {
                 if (pickerGroupState.selectedIndex == FocusableElement12Hour.NONE.index) {
                     periodString
                 } else if (periodState.selectedOption == 0) {
                     amString
-                } else pmString
+                } else {
+                    pmString
+                }
             }
         }
         Box(
-            modifier = modifier.fillMaxSize().alpha(fullyDrawn.value)
+            modifier = modifier
+                .fillMaxSize()
+                .alpha(fullyDrawn.value),
         ) {
             Column(
                 modifier = modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Spacer(Modifier.height(12.dp))
                 Text(
@@ -409,18 +416,18 @@ public fun TimePickerWith12HourClock(
                     },
                     color = MaterialTheme.colors.secondary,
                     style = MaterialTheme.typography.button,
-                    maxLines = 1
+                    maxLines = 1,
                 )
                 val weightsToCenterVertically = 0.5f
                 Spacer(
                     Modifier
                         .fillMaxWidth()
-                        .weight(weightsToCenterVertically)
+                        .weight(weightsToCenterVertically),
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+                    horizontalArrangement = Arrangement.Center,
                 ) {
                     val doubleTapToNext =
                         { current: FocusableElement12Hour, next: FocusableElement12Hour ->
@@ -441,11 +448,11 @@ public fun TimePickerWith12HourClock(
                             onSelected = {
                                 doubleTapToNext(
                                     FocusableElement12Hour.HOURS,
-                                    FocusableElement12Hour.MINUTES
+                                    FocusableElement12Hour.MINUTES,
                                 )
                             },
                             contentDescription = hoursContentDescription,
-                            option = pickerTextOption(textStyle) { "%02d".format(it + 1) }
+                            option = pickerTextOption(textStyle) { "%02d".format(it + 1) },
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = minuteState,
@@ -453,11 +460,11 @@ public fun TimePickerWith12HourClock(
                             onSelected = {
                                 doubleTapToNext(
                                     FocusableElement12Hour.MINUTES,
-                                    FocusableElement12Hour.PERIOD
+                                    FocusableElement12Hour.PERIOD,
                                 )
                             },
                             contentDescription = minutesContentDescription,
-                            option = pickerTextOption(textStyle) { "%02d".format(it) }
+                            option = pickerTextOption(textStyle) { "%02d".format(it) },
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = periodState,
@@ -466,34 +473,36 @@ public fun TimePickerWith12HourClock(
                             onSelected = {
                                 doubleTapToNext(
                                     FocusableElement12Hour.PERIOD,
-                                    FocusableElement12Hour.CONFIRM_BUTTON
+                                    FocusableElement12Hour.CONFIRM_BUTTON,
                                 )
                             },
                             option = pickerTextOption(textStyle) {
                                 if (it == 0) amString else pmString
-                            }
+                            },
                         ),
                         autoCenter = false,
                         pickerGroupState = pickerGroupState,
                         separator = {
                             if (it == 0) {
                                 Separator(2.dp, textStyle)
-                            } else Spacer(Modifier.width(8.dp))
+                            } else {
+                                Spacer(Modifier.width(8.dp))
+                            }
                         },
-                        touchExplorationStateProvider = touchExplorationStateProvider
+                        touchExplorationStateProvider = touchExplorationStateProvider,
                     )
                 }
                 Spacer(
                     Modifier
                         .fillMaxWidth()
-                        .weight(weightsToCenterVertically)
+                        .weight(weightsToCenterVertically),
                 )
                 Button(
                     onClick = {
                         val confirmedTime = LocalTime.of(
                             hourState.selectedOption + 1,
                             minuteState.selectedOption,
-                            0
+                            0,
                         ).with(ChronoField.AMPM_OF_DAY, periodState.selectedOption.toLong())
                         onTimeConfirm(confirmedTime)
                     },
@@ -503,14 +512,14 @@ public fun TimePickerWith12HourClock(
                                 FocusableElement12Hour.CONFIRM_BUTTON.index
                         }
                         .focusRequester(focusRequesterConfirmButton)
-                        .focusable()
+                        .focusable(),
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Check,
                         contentDescription = stringResource(R.string.horologist_picker_confirm_button_content_description),
                         modifier = Modifier
                             .size(24.dp)
-                            .wrapContentSize(align = Alignment.Center)
+                            .wrapContentSize(align = Alignment.Center),
                     )
                 }
                 Spacer(Modifier.height(8.dp))
@@ -530,12 +539,13 @@ private fun Separator(width: Dp, textStyle: TextStyle) {
         text = ":",
         style = textStyle,
         color = MaterialTheme.colors.onBackground,
-        modifier = Modifier.clearAndSetSemantics {}
+        modifier = Modifier.clearAndSetSemantics {},
     )
     Spacer(Modifier.width(width))
 }
 
 @Composable
+@OptIn(ExperimentalWearFoundationApi::class)
 @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
 internal fun pickerGroupItemWithRSB(
     pickerState: PickerState,
@@ -543,41 +553,17 @@ internal fun pickerGroupItemWithRSB(
     contentDescription: String?,
     onSelected: () -> Unit,
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
-    option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit
+    option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit,
 ): PickerGroupItem {
-    val coroutineScope = rememberCoroutineScope()
-    val haptics = rememberRotaryHapticHandler(
-        scrollableState = pickerState,
-        throttleThresholdMs = 10
-    )
-    var animationScrollTarget: Int by remember { mutableIntStateOf(pickerState.selectedOption) }
-    var activeJob: Job? by remember { mutableStateOf(null) }
-
     return PickerGroupItem(
         pickerState = pickerState,
-        modifier = modifier.onRotaryInputAccumulated(rateLimitCoolDownMs = 5L) { change ->
-
-            val diff = sign(change)
-
-            if (activeJob == null || activeJob?.isActive == false) {
-                animationScrollTarget = pickerState.selectedOption
-            }
-            animationScrollTarget += diff.toInt()
-
-            if (!pickerState.repeatItems) {
-                animationScrollTarget =
-                    animationScrollTarget.coerceIn(0, pickerState.numberOfOptions)
-            }
-
-            activeJob = coroutineScope.launch {
-                haptics.handleSnapHaptic(diff)
-                pickerState.animateScrollToOption(animationScrollTarget)
-            }
-        },
+        modifier = modifier.rotaryWithSnap(
+            pickerState.toRotaryScrollAdapter(),
+        ),
         contentDescription = contentDescription,
         onSelected = onSelected,
         readOnlyLabel = readOnlyLabel,
-        option = option
+        option = option,
     )
 }
 
@@ -589,11 +575,14 @@ internal fun pickerTextOption(textStyle: TextStyle, indexToText: (Int) -> String
             maxLines = 1,
             style = textStyle,
             color =
-            if (pickerSelected) MaterialTheme.colors.secondary
-            else MaterialTheme.colors.onBackground,
+                if (pickerSelected) {
+                    MaterialTheme.colors.secondary
+                } else {
+                    MaterialTheme.colors.onBackground
+                },
             modifier = Modifier
                 .align(Alignment.Center)
-                .wrapContentSize()
+                .wrapContentSize(),
         )
     }
 }
@@ -617,7 +606,7 @@ internal class DefaultTouchExplorationStateProvider : TouchExplorationStateProvi
             },
             onDispose = {
                 listener.unregister(accessibilityManager)
-            }
+            },
         )
 
         return remember { derivedStateOf { listener.isEnabled() } }
@@ -626,7 +615,7 @@ internal class DefaultTouchExplorationStateProvider : TouchExplorationStateProvi
     @Composable
     private fun Lifecycle.ObserveState(
         handleEvent: (Lifecycle.Event) -> Unit = {},
-        onDispose: () -> Unit = {}
+        onDispose: () -> Unit = {},
     ) {
         DisposableEffect(this) {
             val observer = LifecycleEventObserver { _, event ->
@@ -677,7 +666,7 @@ private fun createDescription(
     pickerGroupState: PickerGroupState,
     selectedValue: Int,
     label: String,
-    @PluralsRes resourceId: Int
+    @PluralsRes resourceId: Int,
 ): String {
     return when (pickerGroupState.selectedIndex) {
         FocusableElementsTimePicker.NONE.index -> label
@@ -690,7 +679,7 @@ private fun createDescription12Hour(
     pickerGroupState: PickerGroupState,
     selectedValue: Int,
     label: String,
-    @PluralsRes resourceId: Int
+    @PluralsRes resourceId: Int,
 ): String {
     return when (pickerGroupState.selectedIndex) {
         FocusableElement12Hour.NONE.index -> label
@@ -703,7 +692,8 @@ private enum class FocusableElementsTimePicker(val index: Int) {
     MINUTES(1),
     SECONDS(2),
     CONFIRM_BUTTON(3),
-    NONE(-1);
+    NONE(-1),
+    ;
 
     companion object {
         private val map = FocusableElementsTimePicker.values().associateBy { it.index }
@@ -716,7 +706,8 @@ private enum class FocusableElement12Hour(val index: Int) {
     MINUTES(1),
     PERIOD(2),
     CONFIRM_BUTTON(3),
-    NONE(-1);
+    NONE(-1),
+    ;
 
     companion object {
         private val map = FocusableElement12Hour.values().associateBy { it.index }

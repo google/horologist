@@ -135,7 +135,7 @@ class RotaryVolumeControlsTest {
         val actual =
             convertPixelToVolume(
                 change = 30f,
-                volumeUiStateProvider = { VolumeUiState(current = 2, max = 15) }
+                volumeUiStateProvider = { VolumeUiState(current = 2, max = 15) },
             )
 
         assertThat(actual).isEqualTo(3)
@@ -146,7 +146,7 @@ class RotaryVolumeControlsTest {
         val actual =
             convertPixelToVolume(
                 change = -30f,
-                volumeUiStateProvider = { VolumeUiState(current = 2, max = 15) }
+                volumeUiStateProvider = { VolumeUiState(current = 2, max = 15) },
             )
 
         assertThat(actual).isEqualTo(1)
@@ -157,7 +157,7 @@ class RotaryVolumeControlsTest {
         val actual =
             convertPixelToVolume(
                 change = 100f,
-                volumeUiStateProvider = { VolumeUiState(current = 25, max = 25) }
+                volumeUiStateProvider = { VolumeUiState(current = 25, max = 25) },
             )
 
         assertThat(actual).isEqualTo(25)
@@ -168,7 +168,7 @@ class RotaryVolumeControlsTest {
         val actual =
             convertPixelToVolume(
                 change = -100f,
-                volumeUiStateProvider = { VolumeUiState(current = 0, max = 25, min = 0) }
+                volumeUiStateProvider = { VolumeUiState(current = 0, max = 25, min = 0) },
             )
 
         assertThat(actual).isEqualTo(0)
@@ -179,7 +179,7 @@ class RotaryVolumeControlsTest {
         val actual =
             convertPixelToVolume(
                 change = 48f,
-                volumeUiStateProvider = { VolumeUiState(current = 0, max = 5, min = 0) }
+                volumeUiStateProvider = { VolumeUiState(current = 0, max = 5, min = 0) },
             )
 
         assertThat(actual).isEqualTo(1)
@@ -191,14 +191,14 @@ class RotaryVolumeControlsTest {
         val actual =
             convertPixelToVolume(
                 change = 23f,
-                volumeUiStateProvider = { VolumeUiState(current = 0, max = 5, min = 0) }
+                volumeUiStateProvider = { VolumeUiState(current = 0, max = 5, min = 0) },
             )
 
         assertThat(actual).isEqualTo(0)
     }
     private fun setUpViewWithRotaryVolumeModifier(
         volumeState: VolumeState,
-        isLowRes: Boolean
+        isLowRes: Boolean,
     ) {
         this.volumeState = volumeState
         composeTestRule.setContent {
@@ -207,14 +207,14 @@ class RotaryVolumeControlsTest {
 
             Scaffold(
                 modifier =
-                Modifier.rotaryVolumeControlsWithFocus(
-                    focusRequester,
-                    volumeUiStateProvider = { VolumeUiStateMapper.map(volumeState) },
-                    onRotaryVolumeInput = { volume -> volumeRepository.setVolume(volume) },
-                    localView = LocalView.current,
-                    isLowRes = isLowRes
-                )
-                    .testTag(ROTARY_TEST_TAG)
+                    Modifier.rotaryVolumeControlsWithFocus(
+                        focusRequester,
+                        volumeUiStateProvider = { VolumeUiStateMapper.map(volumeState) },
+                        onRotaryVolumeInput = { volume -> volumeRepository.setVolume(volume) },
+                        localView = LocalView.current,
+                        isLowRes = isLowRes,
+                    )
+                        .testTag(ROTARY_TEST_TAG),
             ) {
                 Box(modifier = Modifier.fillMaxSize()) {}
             }

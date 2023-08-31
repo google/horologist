@@ -31,22 +31,24 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class UampPlaylistsScreenViewModel @Inject constructor(
-    playlistRepository: PlaylistRepository
-) : ViewModel() {
+class UampPlaylistsScreenViewModel
+    @Inject
+    constructor(
+        playlistRepository: PlaylistRepository,
+    ) : ViewModel() {
 
-    val uiState: StateFlow<PlaylistsScreenState<PlaylistUiModel>> =
-        playlistRepository.getAll().map {
-            if (it.isNotEmpty()) {
-                PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
-            } else {
-                PlaylistsScreenState.Failed
-            }
-        }.catch {
-            emit(PlaylistsScreenState.Failed)
-        }.stateIn(
-            viewModelScope,
-            started = SharingStarted.Eagerly,
-            initialValue = PlaylistsScreenState.Loading
-        )
-}
+        val uiState: StateFlow<PlaylistsScreenState<PlaylistUiModel>> =
+            playlistRepository.getAll().map {
+                if (it.isNotEmpty()) {
+                    PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
+                } else {
+                    PlaylistsScreenState.Failed
+                }
+            }.catch {
+                emit(PlaylistsScreenState.Failed)
+            }.stateIn(
+                viewModelScope,
+                started = SharingStarted.Eagerly,
+                initialValue = PlaylistsScreenState.Loading,
+            )
+    }

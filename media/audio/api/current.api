@@ -90,9 +90,6 @@ package com.google.android.horologist.audio {
     field public static final com.google.android.horologist.audio.BluetoothSettings INSTANCE;
   }
 
-  @kotlin.RequiresOptIn(message="Horologist Audio is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAudioApi {
-  }
-
   public final class SystemAudioRepository implements com.google.android.horologist.audio.AudioOutputRepository com.google.android.horologist.audio.VolumeRepository {
     ctor public SystemAudioRepository(android.content.Context application, androidx.mediarouter.media.MediaRouter mediaRouter, optional androidx.mediarouter.media.MediaRouteSelector selector);
     method public void close();

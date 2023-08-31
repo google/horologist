@@ -51,7 +51,7 @@ public class SuspendingCancelTileTest {
         tileServiceClient = TestTileClient(
             tileService,
             fakeCoroutineScope,
-            fakeCoroutineScope.coroutineContext[CoroutineDispatcher]!!
+            fakeCoroutineScope.coroutineContext[CoroutineDispatcher]!!,
         )
     }
 

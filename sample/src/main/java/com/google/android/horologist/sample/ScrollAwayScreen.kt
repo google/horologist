@@ -45,15 +45,15 @@ import androidx.wear.compose.material.scrollAway
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 
 @Composable
 fun ScrollScreenLazyColumn(scrollState: LazyListState) {
     val focusRequester = rememberActiveFocusRequester()
 
     LazyColumn(
-        modifier = Modifier.rotaryWithFling(focusRequester, scrollState),
-        state = scrollState
+        modifier = Modifier.rotaryWithScroll(scrollState, focusRequester),
+        state = scrollState,
     ) {
         items(3) { i ->
             val modifier = Modifier.fillParentMaxHeight(0.5f)
@@ -64,11 +64,11 @@ fun ScrollScreenLazyColumn(scrollState: LazyListState) {
 
 @Composable
 fun ScrollAwayScreenScalingLazyColumn(
-    columnState: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState,
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         items(3) { i ->
             ExampleCard(Modifier.fillParentMaxHeight(0.5f), i)
@@ -87,12 +87,12 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
         },
         positionIndicator = {
             PositionIndicator(scrollState = scrollState)
-        }
+        },
     ) {
         Column(
             modifier = Modifier
-                .rotaryWithFling(focusRequester, scrollState)
-                .verticalScroll(scrollState)
+                .rotaryWithScroll(scrollState, focusRequester)
+                .verticalScroll(scrollState),
         ) {
             val modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp / 2)
             repeat(3) { i ->
@@ -106,13 +106,13 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
 private fun ExampleCard(modifier: Modifier, i: Int) {
     Card(
         modifier = modifier,
-        onClick = { }
+        onClick = { },
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colors.surface),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Text(text = "Card $i")
         }

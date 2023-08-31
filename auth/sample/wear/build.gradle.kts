@@ -97,12 +97,12 @@ dependencies {
     implementation(projects.auth.dataWatchOauth)
     implementation(projects.auth.sample.shared)
     implementation(projects.auth.ui)
-    implementation(projects.baseUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
-    implementation(projects.datalayer)
-    implementation(projects.datalayerWatch)
+    implementation(projects.datalayer.core)
+    implementation(projects.datalayer.watch)
+    implementation(projects.datalayer.grpc)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.complications.data)
@@ -126,6 +126,7 @@ dependencies {
     implementation(libs.playservices.wearable)
 
     debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.androidx.wear.tooling.preview)
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
 

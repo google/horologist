@@ -45,7 +45,7 @@ public interface NetworkingRules {
      */
     public fun checkValidRequest(
         requestType: RequestType,
-        currentNetworkInfo: NetworkInfo
+        currentNetworkInfo: NetworkInfo,
     ): RequestCheck
 
     /**
@@ -55,7 +55,7 @@ public interface NetworkingRules {
      */
     public fun getPreferredNetwork(
         networks: Networks,
-        requestType: RequestType
+        requestType: RequestType,
     ): NetworkStatus?
 
     /**
@@ -70,14 +70,14 @@ public interface NetworkingRules {
 
         override fun checkValidRequest(
             requestType: RequestType,
-            currentNetworkInfo: NetworkInfo
+            currentNetworkInfo: NetworkInfo,
         ): RequestCheck {
             return Allow
         }
 
         override fun getPreferredNetwork(
             networks: Networks,
-            requestType: RequestType
+            requestType: RequestType,
         ): NetworkStatus? {
             val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
             return wifi ?: networks.networks.firstOrNull()
@@ -96,7 +96,7 @@ public interface NetworkingRules {
 
         override fun checkValidRequest(
             requestType: RequestType,
-            currentNetworkInfo: NetworkInfo
+            currentNetworkInfo: NetworkInfo,
         ): RequestCheck {
             if (requestType is MediaRequest) {
                 return when (requestType.type) {
@@ -135,7 +135,7 @@ public interface NetworkingRules {
 
         override fun getPreferredNetwork(
             networks: Networks,
-            requestType: RequestType
+            requestType: RequestType,
         ): NetworkStatus? {
             val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
 

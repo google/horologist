@@ -19,7 +19,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -74,10 +73,6 @@ android {
     namespace = "com.google.android.horologist.compose.tools"
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
     if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
@@ -109,6 +104,7 @@ dependencies {
     implementation(libs.coil)
 
     implementation(libs.compose.ui.toolingpreview)
+    implementation(libs.androidx.wear.tooling.preview)
     implementation(libs.kotlinx.coroutines.guava)
     api(libs.wearcompose.tooling)
 

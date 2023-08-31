@@ -38,12 +38,12 @@ class ChipThemeTest : ScreenshotBaseTest() {
             MaterialTheme(
                 colors = CustomColors,
                 typography = CustomTypography,
-                shapes = CustomShapes
+                shapes = CustomShapes,
             ) {
                 Chip(
                     label = "Primary label",
                     onClick = { },
-                    secondaryLabel = "Secondary label"
+                    secondaryLabel = "Secondary label",
                 )
             }
         }
@@ -52,18 +52,18 @@ class ChipThemeTest : ScreenshotBaseTest() {
     companion object {
         private val CustomColors = Colors(
             primary = Color.Blue,
-            onPrimary = Color.Magenta
+            onPrimary = Color.Magenta,
         )
 
         private val CustomTypography = Typography(
             button = TextStyle(
                 fontFamily = FontFamily.Monospace,
-                fontSize = 20.sp
+                fontSize = 20.sp,
             ),
             caption2 = TextStyle(
                 fontSize = 10.sp,
-                fontWeight = FontWeight.Bold
-            )
+                fontWeight = FontWeight.Bold,
+            ),
         )
 
         private val CustomShapes = Shapes(
@@ -71,8 +71,8 @@ class ChipThemeTest : ScreenshotBaseTest() {
                 topStart = 10.dp,
                 topEnd = 20.dp,
                 bottomStart = 10.dp,
-                bottomEnd = 20.dp
-            )
+                bottomEnd = 20.dp,
+            ),
         )
     }
 }

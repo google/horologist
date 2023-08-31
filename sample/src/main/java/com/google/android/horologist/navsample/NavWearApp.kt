@@ -30,13 +30,13 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.wear.compose.foundation.edgeSwipeToDismiss
+import androidx.wear.compose.foundation.rememberSwipeToDismissBoxState
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.dialog.Alert
-import androidx.wear.compose.material.edgeSwipeToDismiss
-import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
@@ -52,7 +52,7 @@ import com.google.android.horologist.networks.ui.DataUsageTimeText
 
 @Composable
 fun NavWearApp(
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     val snackbarViewModel = viewModel<SnackbarViewModel>(factory = SnackbarViewModel.Factory)
     val networkStatusViewModel =
@@ -69,7 +69,7 @@ fun NavWearApp(
         snackbar = {
             DialogSnackbarHost(
                 hostState = snackbarViewModel.snackbarHostState,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             )
         },
         timeText = {
@@ -77,22 +77,22 @@ fun NavWearApp(
                 modifier = it,
                 showData = true,
                 networkStatus = state.networks,
-                networkUsage = state.dataUsage
+                networkUsage = state.dataUsage,
             )
         },
-        state = navState
+        state = navState,
     ) {
         scrollable(
-            NavScreen.Menu.route
+            NavScreen.Menu.route,
         ) {
             NavMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
-                scrollState = it.scrollableState
+                scrollState = it.scrollableState,
             )
         }
 
         scrollable(
-            NavScreen.ScalingLazyColumn.route
+            NavScreen.ScalingLazyColumn.route,
         ) {
             it.timeTextMode = NavScaffoldViewModel.TimeTextMode.ScrollAway
             it.viewModel.vignettePosition =
@@ -101,16 +101,16 @@ fun NavWearApp(
                 NavScaffoldViewModel.PositionIndicatorMode.On
 
             BigScalingLazyColumn(
-                scrollState = it.scrollableState
+                scrollState = it.scrollableState,
             )
         }
 
         scrollStateComposable(
             NavScreen.Column.route,
-            scrollStateBuilder = { ScrollState(initial = 0) }
+            scrollStateBuilder = { ScrollState(initial = 0) },
         ) {
             BigColumn(
-                scrollState = it.scrollableState
+                scrollState = it.scrollableState,
             )
         }
 
@@ -144,7 +144,7 @@ fun NavWearApp(
                 modifier = Modifier
                     .fillMaxSize()
                     .edgeSwipeToDismiss(swipeDismissState),
-                state = pagerState
+                state = pagerState,
             ) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(text = "Screen $it")

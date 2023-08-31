@@ -18,7 +18,6 @@ package com.google.android.horologist.auth.ui.common.screens.streamline
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ext.compareAndSet
@@ -33,9 +32,8 @@ import kotlinx.coroutines.launch
  * It checks if there is a user already signed in, and emits the appropriate
  * [states][StreamlineSignInScreenState] through the [uiState] property.
  */
-@ExperimentalHorologistApi
 public open class StreamlineSignInViewModel(
-    private val authUserRepository: AuthUserRepository
+    private val authUserRepository: AuthUserRepository,
 ) : ViewModel() {
 
     private val _uiState =
@@ -49,7 +47,7 @@ public open class StreamlineSignInViewModel(
     public fun onIdleStateObserved() {
         _uiState.compareAndSet(
             expect = StreamlineSignInScreenState.Idle,
-            update = StreamlineSignInScreenState.Loading
+            update = StreamlineSignInScreenState.Loading,
         ) {
             viewModelScope.launch {
                 val authUsers = authUserRepository.getAvailable()
@@ -61,13 +59,13 @@ public open class StreamlineSignInViewModel(
 
                     authUsers.size == 1 -> {
                         StreamlineSignInScreenState.SingleAccountAvailable(
-                            AccountUiModelMapper.map(authUsers.first())
+                            AccountUiModelMapper.map(authUsers.first()),
                         )
                     }
 
                     else -> {
                         StreamlineSignInScreenState.MultipleAccountsAvailable(
-                            authUsers.map(AccountUiModelMapper::map)
+                            authUsers.map(AccountUiModelMapper::map),
                         )
                     }
                 }
@@ -79,7 +77,6 @@ public open class StreamlineSignInViewModel(
 /**
  * The states for a streamline sign-in screen.
  */
-@ExperimentalHorologistApi
 public sealed class StreamlineSignInScreenState {
 
     public object Idle : StreamlineSignInScreenState()
@@ -87,11 +84,11 @@ public sealed class StreamlineSignInScreenState {
     public object Loading : StreamlineSignInScreenState()
 
     public data class SingleAccountAvailable(
-        val account: AccountUiModel
+        val account: AccountUiModel,
     ) : StreamlineSignInScreenState()
 
     public data class MultipleAccountsAvailable(
-        val accounts: List<AccountUiModel>
+        val accounts: List<AccountUiModel>,
     ) : StreamlineSignInScreenState()
 
     public object NoAccountsAvailable : StreamlineSignInScreenState()

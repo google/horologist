@@ -29,12 +29,12 @@ import java.time.LocalTime
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class PickerThemeTest(
-    private val themeValue: ThemeValues
+    private val themeValue: ThemeValues,
 ) : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
         testLabel = themeValue.safeName
-    }
+    },
 ) {
 
     @Test
@@ -43,7 +43,7 @@ class PickerThemeTest(
             MaterialTheme(colors = themeValue.colors) {
                 DatePicker(
                     onDateConfirm = {},
-                    date = LocalDate.of(2022, 4, 25)
+                    date = LocalDate.of(2022, 4, 25),
                 )
             }
         }
@@ -55,7 +55,7 @@ class PickerThemeTest(
             MaterialTheme(colors = themeValue.colors) {
                 TimePicker(
                     time = LocalTime.of(10, 10, 0),
-                    onTimeConfirm = {}
+                    onTimeConfirm = {},
                 )
             }
         }
@@ -67,7 +67,7 @@ class PickerThemeTest(
             MaterialTheme(colors = themeValue.colors) {
                 TimePickerWith12HourClock(
                     time = LocalTime.of(10, 10, 0),
-                    onTimeConfirm = {}
+                    onTimeConfirm = {},
                 )
             }
         }

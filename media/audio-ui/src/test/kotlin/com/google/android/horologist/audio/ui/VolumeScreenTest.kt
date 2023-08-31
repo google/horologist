@@ -64,7 +64,7 @@ class VolumeScreenTest {
                 modifier = Modifier
                     .fillMaxSize()
                     .focusRequester(focusRequester),
-                model
+                model,
             )
         }
     }
@@ -72,7 +72,7 @@ class VolumeScreenTest {
     @Test
     fun clickVolumeUp_increaseVolume() {
         composeTestRule.onNodeWithContentDescription(
-            context.getString(R.string.horologist_volume_screen_volume_up_content_description)
+            context.getString(R.string.horologist_volume_screen_volume_up_content_description),
         ).performClick()
 
         assertThat(volumeRepository.volumeState.value.current).isEqualTo(6)
@@ -81,7 +81,7 @@ class VolumeScreenTest {
     @Test
     fun clickVolumeDown_decreasesVolume() {
         composeTestRule.onNodeWithContentDescription(
-            context.getString(R.string.horologist_volume_screen_volume_down_content_description)
+            context.getString(R.string.horologist_volume_screen_volume_down_content_description),
         ).performClick()
 
         assertThat(volumeRepository.volumeState.value.current).isEqualTo(4)

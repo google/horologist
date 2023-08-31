@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun SplitToggleChipSwitchPreview() {
@@ -30,13 +30,13 @@ fun SplitToggleChipSwitchPreview() {
         onCheckedChanged = { },
         label = "Primary label",
         onClick = { },
-        toggleControl = ToggleChipToggleControl.Switch
+        toggleControl = ToggleChipToggleControl.Switch,
     )
 }
 
 @Preview(
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun SplitToggleChipRadioPreview() {
@@ -45,13 +45,13 @@ fun SplitToggleChipRadioPreview() {
         onCheckedChanged = { },
         label = "Primary label",
         onClick = { },
-        toggleControl = ToggleChipToggleControl.Radio
+        toggleControl = ToggleChipToggleControl.Radio,
     )
 }
 
 @Preview(
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun SplitToggleChipCheckboxPreview() {
@@ -60,13 +60,13 @@ fun SplitToggleChipCheckboxPreview() {
         onCheckedChanged = { },
         label = "Primary label",
         onClick = { },
-        toggleControl = ToggleChipToggleControl.Checkbox
+        toggleControl = ToggleChipToggleControl.Checkbox,
     )
 }
 
 @Preview(
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun SplitToggleChipUncheckedPreview() {
@@ -75,14 +75,14 @@ fun SplitToggleChipUncheckedPreview() {
         onCheckedChanged = { },
         label = "Primary label",
         onClick = { },
-        toggleControl = ToggleChipToggleControl.Switch
+        toggleControl = ToggleChipToggleControl.Switch,
     )
 }
 
 @Preview(
     name = "With secondary label",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun SplitToggleChipWithSecondaryLabel() {
@@ -92,14 +92,14 @@ fun SplitToggleChipWithSecondaryLabel() {
         label = "Primary label",
         onClick = { },
         toggleControl = ToggleChipToggleControl.Switch,
-        secondaryLabel = "Secondary label"
+        secondaryLabel = "Secondary label",
     )
 }
 
 @Preview(
     name = "Disabled",
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun SplitToggleChipPreviewDisabled() {
@@ -109,13 +109,13 @@ fun SplitToggleChipPreviewDisabled() {
         label = "Primary label",
         onClick = { },
         toggleControl = ToggleChipToggleControl.Switch,
-        enabled = false
+        enabled = false,
     )
 }
 
 @Preview(
     backgroundColor = 0xff000000,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun SplitToggleChipUncheckedAndDisabledPreview() {
@@ -125,6 +125,6 @@ fun SplitToggleChipUncheckedAndDisabledPreview() {
         label = "Primary label",
         onClick = { },
         toggleControl = ToggleChipToggleControl.Switch,
-        enabled = false
+        enabled = false,
     )
 }

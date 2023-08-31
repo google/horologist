@@ -30,13 +30,13 @@ import com.google.android.horologist.audio.ui.R
 public fun AudioOutputButton(
     onOutputClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     SettingsButton(
         modifier = modifier,
         onClick = onOutputClick,
         enabled = enabled,
         imageVector = Icons.Default.Radio,
-        contentDescription = stringResource(R.string.horologist_audio_output_content_description)
+        contentDescription = stringResource(R.string.horologist_audio_output_content_description),
     )
 }

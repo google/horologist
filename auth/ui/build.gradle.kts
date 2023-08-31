@@ -67,6 +67,9 @@ android {
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
+            all {
+                it.systemProperty("screenshot.record", findProperty("screenshot.record") ?: "false")
+            }
         }
         animationsDisabled = true
     }
@@ -109,7 +112,6 @@ dependencies {
     api(libs.kotlinx.coroutines.core)
     api(libs.wearcompose.foundation)
 
-    implementation(projects.baseUi)
     implementation(projects.composeMaterial)
 
     implementation(libs.androidx.activity)

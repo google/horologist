@@ -31,7 +31,7 @@ import kotlinx.coroutines.flow.Flow
  */
 @ExperimentalHorologistApi
 public class MediaDownloadLocalDataSource(
-    private val mediaDownloadDao: MediaDownloadDao
+    private val mediaDownloadDao: MediaDownloadDao,
 ) {
 
     public fun get(mediaIds: List<String>): Flow<List<MediaDownloadEntity>> =
@@ -47,8 +47,8 @@ public class MediaDownloadLocalDataSource(
                 mediaId = mediaId,
                 status = MediaDownloadEntityStatus.NotDownloaded,
                 progress = DOWNLOAD_PROGRESS_START,
-                size = SIZE_UNKNOWN
-            )
+                size = SIZE_UNKNOWN,
+            ),
         )
     }
 
@@ -69,8 +69,8 @@ public class MediaDownloadLocalDataSource(
             MediaDownloadDao.StatusAndProgress(
                 mediaId = mediaId,
                 status = MediaDownloadEntityStatus.Downloaded,
-                progress = DOWNLOAD_PROGRESS_END
-            )
+                progress = DOWNLOAD_PROGRESS_END,
+            ),
         )
     }
 }

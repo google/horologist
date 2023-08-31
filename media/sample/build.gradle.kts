@@ -21,7 +21,6 @@ import com.google.protobuf.gradle.*
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.kapt")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
@@ -141,10 +140,6 @@ protobuf {
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
 dependencies {
     api(projects.annotations)
 
@@ -216,7 +211,7 @@ dependencies {
     implementation(libs.androidx.complications.rendering)
 
     implementation(libs.dagger.hiltandroid)
-    kapt(libs.dagger.hiltandroidcompiler)
+    ksp(libs.dagger.hiltandroidcompiler)
     implementation(libs.hilt.navigationcompose)
 
     implementation(libs.androidx.metrics.performance)
@@ -262,7 +257,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.uiautomator)
     androidTestImplementation(libs.androidx.complications.rendering)
     androidTestImplementation(libs.dagger.hiltandroidtesting)
-    kaptAndroidTest(libs.dagger.hiltandroidcompiler)
+    kspAndroidTest(libs.dagger.hiltandroidcompiler)
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10") {

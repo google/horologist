@@ -48,7 +48,6 @@ plugins {
     alias(libs.plugins.benManes)
     alias(libs.plugins.versionCatalogUpdate)
     alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.kapt) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.gradleMavenPublishPlugin)
     alias(libs.plugins.dependencyAnalysis)
@@ -202,12 +201,6 @@ subprojects {
 
                 // Remove composable previews from docs
                 suppressedFiles.from(file("src/debug/java"))
-            }
-
-            // Workaround for https://github.com/Kotlin/dokka/issues/2954
-            if (project.plugins.hasPlugin("org.jetbrains.kotlin.kapt")) {
-                dependsOn("kaptDebugKotlin")
-                dependsOn("kaptReleaseKotlin")
             }
         }
         if (plugins.hasPlugin("com.android.library")) {

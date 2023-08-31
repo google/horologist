@@ -19,7 +19,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
@@ -80,10 +79,6 @@ android {
     }
 
     namespace = "com.google.android.horologist.audio.ui"
-}
-
-kapt {
-    correctErrorTypes = true
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

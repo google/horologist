@@ -41,11 +41,12 @@ object ConfigModule {
     @Provides
     @IsEmulator
     fun isEmulator() = listOf(Build.PRODUCT, Build.MODEL).any { it.startsWith("sdk_gwear") }
+
     @Singleton
     @Provides
     @SuppressSpeakerPlayback
     fun suppressSpeakerPlayback(
-        @IsEmulator isEmulator: Boolean
+        @IsEmulator isEmulator: Boolean,
     ) = !BuildConfig.BENCHMARK && !isEmulator
 
     @Singleton

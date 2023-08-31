@@ -24,6 +24,10 @@ annotation class IsEmulator
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
+annotation class SuppressSpeakerPlayback
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
 annotation class CacheDir
 
 @Qualifier

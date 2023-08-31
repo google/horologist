@@ -138,6 +138,21 @@ class SectionedListTest : ScreenshotBaseTest(
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
+                    favouritesSection(state = Section.State.Loading)
+
+                    downloadsSection(state = Section.State.Empty)
+                }
+            }
+        }
+    }
+
+    @Test
+    fun emptySectionDuplicated() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            val columnState = positionedState()
+
+            SectionedListPreview(columnState) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Empty)
 
                     favouritesSection(state = Section.State.Loading)

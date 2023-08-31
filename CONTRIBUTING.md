@@ -21,21 +21,13 @@ A good first step is
 
 Also make sure you have ([Git LFS](https://git-lfs.github.com/)) installed.
 
-If you change any code affecting screenshot tests, then run the following and check the failures in the `out` directory.
+If you change any code affecting screenshot tests, then run the following to update changed images
+on a Linux host. Alternatively uncomment the same property in gradle.properties.
 
 ```
-./gradlew testDebug
+./gradlew testDebug -P screenshot.record=repair
 ```
 
-To record the new golden images, pass the `record` param with `RecordMode.Record` value to the base test class and run the tests:
-
-```
-class Test : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        record = ScreenshotTestRule.RecordMode.Record
-    }
-) {
-```
 
 ## Contributor License Agreement
 

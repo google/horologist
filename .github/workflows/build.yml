@@ -34,8 +34,31 @@ jobs:
 
       - name: Unit Tests
         uses: gradle/gradle-build-action@v2
+        id: screenshotsverify
+        continue-on-error: true
         with:
           arguments: testDebug --rerun
+
+      - name: Prevent pushing new screenshots if this is a fork
+        id: checkfork
+        continue-on-error: false
+        if: steps.screenshotsverify.outcome == 'failure' && github.event.pull_request.head.repo.full_name != github.repository
+        run: |
+          echo "::error::Screenshot tests failed, please create a PR in your fork first." && exit 1
+
+      - name: Generate new screenshots if verification failed and it's a PR
+        id: screenshotsrecord
+        if: steps.screenshotsverify.outcome == 'failure' && github.event_name == 'pull_request'
+        run: |
+          ./gradlew testDebug -P screenshot.record=repair
+
+      - name: Push new screenshots if available
+        uses: stefanzweifel/git-auto-commit-action@v4
+        if: steps.screenshotsrecord.outcome == 'success'
+        with:
+          file_pattern: '**/snapshots/images/*.png'
+          disable_globbing: true
+          commit_message: "🤖 Updates screenshots"
 
       - name: Upload test results and reports
         if: always()

@@ -34,7 +34,7 @@ compose = "1.5.0"
 compose-compiler = "1.4.8"
 composesnapshot = "-"
 dependencyAnalysis = "1.20.0"
-dokka = "1.8.20"
+dokka = "1.9.0"
 googleSecretsGradlePlugin = "2.0.1"
 googledagger = "2.48"
 gradlePlugin = "8.1.1"
@@ -49,7 +49,7 @@ metalava = "0.3.3"
 moshi = "1.15.0"
 okio = "3.5.0"
 org-robolectric = "4.10.3"
-playServicesAuth = "20.6.0"
+playServicesAuth = "20.7.0"
 protobuf = "3.24.2"
 room = "2.5.2"
 runtimeTracing = "1.0.0-alpha04"
@@ -182,7 +182,7 @@ moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", ver
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 playservices-base = "com.google.android.gms:play-services-base:18.2.0"
-playservices-wearable = "com.google.android.gms:play-services-wearable:18.0.0"
+playservices-wearable = "com.google.android.gms:play-services-wearable:18.1.0"
 protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
 retrofit2-convertermoshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "com-squareup-retrofit2" }
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "com-squareup-retrofit2" }

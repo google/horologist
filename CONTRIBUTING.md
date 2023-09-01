@@ -28,6 +28,9 @@ on a Linux host. Alternatively uncomment the same property in gradle.properties.
 ./gradlew testDebug -P screenshot.record=repair
 ```
 
+This can be automated For a PR against the same branch, the Github action should commit against
+PR if possible. For maintainers, this means creating the branch in the google/horologist repo.
+For contributors, once your PR fails, create a second PR in your fork, that will fix the issue.
 
 ## Contributor License Agreement
 

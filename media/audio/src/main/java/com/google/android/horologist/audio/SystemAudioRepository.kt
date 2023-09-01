@@ -22,6 +22,7 @@ import androidx.mediarouter.media.MediaRouteSelector
 import androidx.mediarouter.media.MediaRouter
 import androidx.mediarouter.media.MediaRouter.RouteInfo
 import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSettings
+import com.google.android.horologist.audio.OutputSwitcher.launchSystemMediaOutputSwitcherUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -105,7 +106,9 @@ public class SystemAudioRepository(
     }
 
     override fun launchOutputSelection(closeOnConnect: Boolean) {
-        application.launchBluetoothSettings(closeOnConnect)
+        if (!application.launchSystemMediaOutputSwitcherUi()) {
+            application.launchBluetoothSettings(closeOnConnect)
+        }
     }
 
     public companion object {

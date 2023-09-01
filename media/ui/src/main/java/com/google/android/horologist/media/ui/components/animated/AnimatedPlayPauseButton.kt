@@ -319,7 +319,7 @@ private fun CircularProgressIndicatorFast(
 private fun Modifier.progressSemantics(
     value: () -> Float,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
-    @IntRange(from = 0) steps: Int = 0
+    @IntRange(from = 0) steps: Int = 0,
 ): Modifier {
     // Copy of with a lambda
     // https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/foundation/foundation/src/commonMain/kotlin/androidx/compose/foundation/ProgressSemantics.kt?q=progressSemantics

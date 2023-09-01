@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.components.animated
 
+import androidx.annotation.IntRange
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -26,10 +27,10 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.progressSemantics
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -50,7 +51,9 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
@@ -236,7 +239,7 @@ public fun AnimatedPlayPauseProgressButton(
                 modifier = Modifier
                     .fillMaxSize()
                     .rotate(animateChangeAsRotation(rotateProgressIndicator)),
-                progress = progress,
+                progress = { progress.value },
                 indicatorColor = animatedProgressColor.value,
                 trackColor = trackColor,
                 strokeWidth = progressStrokeWidth,
@@ -262,7 +265,7 @@ private fun animateChangeAsRotation(rotateProgressIndicator: Flow<Unit>): Float 
 // From https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/tiles/tiles-material/src/main/java/androidx/wear/tiles/material/CircularProgressIndicator.java?q=CircularProgressIndicator
 @Composable
 private fun CircularProgressIndicatorFast(
-    progress: State<Float>,
+    progress: () -> Float,
     modifier: Modifier = Modifier,
     startAngle: Float = 270f,
     endAngle: Float = startAngle,
@@ -277,16 +280,8 @@ private fun CircularProgressIndicatorFast(
     val truncatedProgress by remember {
         derivedStateOf {
             roundProgress(
-                progress = progress.value,
+                progress = progress(),
                 progressSteps = progressSteps,
-            )
-        }
-    }
-    val semanticsProgress by remember {
-        derivedStateOf {
-            roundProgress(
-                progress = progress.value,
-                progressSteps = 100,
             )
         }
     }
@@ -297,7 +292,7 @@ private fun CircularProgressIndicatorFast(
 
     Canvas(
         modifier
-            .progressSemantics(semanticsProgress)
+            .progressSemantics({ progress() })
             .focusable(),
     ) {
         val backgroundSweep = 360f - ((startAngle - endAngle) % 360 + 360) % 360
@@ -317,6 +312,20 @@ private fun CircularProgressIndicatorFast(
             indicatorColor,
             stroke,
         )
+    }
+}
+
+@Stable
+private fun Modifier.progressSemantics(
+    value: () -> Float,
+    valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
+    @IntRange(from = 0) steps: Int = 0,
+): Modifier {
+    // Copy of with a lambda
+    // https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/foundation/foundation/src/commonMain/kotlin/androidx/compose/foundation/ProgressSemantics.kt?q=progressSemantics
+    return semantics(mergeDescendants = true) {
+        progressBarRangeInfo =
+            ProgressBarRangeInfo(value().coerceIn(valueRange), valueRange, steps)
     }
 }
 

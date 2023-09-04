@@ -89,11 +89,9 @@ com.google.android.horologist.audio.ui.components.actions
 com.google.android.horologist.audio.ui.components.animated
 com.google.android.horologist.audio.ui.mapper
 module:media-backend-media3
-com.google.android.horologist.media3
 com.google.android.horologist.media3.config
 com.google.android.horologist.media3.flows
 com.google.android.horologist.media3.navigation
-com.google.android.horologist.media3.rules
 com.google.android.horologist.media3.service
 com.google.android.horologist.media3.util
 module:media-core

@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
  *
  * @sample com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
  */
-public class StreamlineSignInDefaultViewModel(
+public open class StreamlineSignInDefaultViewModel(
     private val authUserRepository: AuthUserRepository,
 ) : ViewModel() {
 
@@ -60,9 +60,7 @@ public class StreamlineSignInDefaultViewModel(
                     }
 
                     authUsers.size == 1 -> {
-                        _uiState.value = StreamlineSignInDefaultScreenState.SignedIn(
-                            AccountUiModelMapper.map(authUsers.first()),
-                        )
+                        onAccountSelected(AccountUiModelMapper.map(authUsers.first()))
                     }
 
                     else -> {
@@ -76,7 +74,7 @@ public class StreamlineSignInDefaultViewModel(
         }
     }
 
-    public fun onAccountSelected(account: AccountUiModel) {
+    public open fun onAccountSelected(account: AccountUiModel) {
         _uiState.value = StreamlineSignInDefaultScreenState.SignedIn(account)
     }
 }

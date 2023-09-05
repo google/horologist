@@ -36,6 +36,7 @@ package com.google.android.horologist.composables {
   }
 
   public final class RepeatableClickableKt {
+    method public static androidx.compose.ui.Modifier repeatableClickable(androidx.compose.ui.Modifier, androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, androidx.compose.foundation.Indication? indication, optional boolean enabled, optional String? onClickLabel, optional androidx.compose.ui.semantics.Role? role, optional long initialDelay, optional long incrementalDelay, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional kotlin.jvm.functions.Function0<kotlin.Unit> onRepeatableClick);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class Section<T> {

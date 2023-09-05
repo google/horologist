@@ -39,11 +39,13 @@ import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A base button that can send single onClick event or repeated [onRepeatedClick] events by
  * holding it down. This is a modified version of [androidx.wear.compose.materialcore.Button].
  */
+@ExperimentalHorologistApi
 @Composable
 public fun RepeatableClickableButton(
     onClick: () -> Unit,

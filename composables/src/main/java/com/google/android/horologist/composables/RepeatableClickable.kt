@@ -66,7 +66,7 @@ import kotlinx.coroutines.launch
  * @param onRepeatableClick will be called after the [initialDelay] with [incrementalDelay] between
  *   each call until the touch is released
  */
-public fun Modifier.repeatableClickable(
+internal fun Modifier.repeatableClickable(
     interactionSource: MutableInteractionSource,
     indication: Indication?,
     enabled: Boolean = true,

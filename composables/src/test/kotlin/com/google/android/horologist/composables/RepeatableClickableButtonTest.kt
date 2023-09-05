@@ -24,6 +24,7 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.wear.compose.material.Text
 import com.google.common.truth.Truth.assertThat
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,16 +32,16 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class RepeatableClickableButtonTest {
     @get:Rule
-    val rule = createComposeRule()
+    public val rule = createComposeRule()
+    private val text = "myRepeatableClickableButton"
+    private val onClick: () -> Unit = { ++clickCounter }
+    private val onRepeatedClick: () -> Unit = { ++repeatedClickCounter }
 
-    @Test
-    fun findByTextAndClick() {
-        var clickCounter = 0
-        var repeatedClickCounter = 0
-        val onClick: () -> Unit = { ++clickCounter }
-        val onRepeatedClick: () -> Unit = { ++repeatedClickCounter }
-        val text = "myButton"
+    private var clickCounter = 0
+    private var repeatedClickCounter = 0
 
+    @Before
+    fun setup() {
         rule.setContent {
             Box {
                 RepeatableClickableButton(onClick = onClick, onRepeatedClick = onRepeatedClick) {
@@ -49,6 +50,13 @@ class RepeatableClickableButtonTest {
             }
         }
 
+        // Reset counters
+        clickCounter = 0
+        repeatedClickCounter = 0
+    }
+
+    @Test
+    fun findByTextAndClick() {
         rule.onNodeWithText(text).performClick()
 
         rule.runOnIdle {
@@ -59,20 +67,6 @@ class RepeatableClickableButtonTest {
 
     @Test
     fun findByTextAndHoldClick2Seconds() {
-        var clickCounter = 0
-        var repeatedClickCounter = 0
-        val onClick: () -> Unit = { ++clickCounter }
-        val onRepeatedClick: () -> Unit = { ++repeatedClickCounter }
-        val text = "myButton"
-
-        rule.setContent {
-            Box {
-                RepeatableClickableButton(onClick = onClick, onRepeatedClick = onRepeatedClick) {
-                    Text(text)
-                }
-            }
-        }
-
         rule.onNodeWithText(text).performTouchInput {
             down(center)
             advanceEventTime(2000L)

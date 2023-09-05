@@ -90,14 +90,7 @@ public fun RepeatableClickableButton(
             LocalContentAlpha provides contentColor.alpha,
             LocalTextStyle provides MaterialTheme.typography.button,
         ) {
-            val contentColor = colors.contentColor(enabled = enabled).value
-            CompositionLocalProvider(
-                LocalContentColor provides contentColor,
-                LocalContentAlpha provides contentColor.alpha,
-                LocalTextStyle provides MaterialTheme.typography.button,
-            ) {
-                content()
-            }
+            content()
         }
     }
 }

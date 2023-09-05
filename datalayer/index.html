@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.8">
     
     
       
@@ -811,6 +811,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#datalayer-approach" class="md-nav__link">
+    DataLayer approach.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registering-serializers" class="md-nav__link">
+    Registering Serializers.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-androidx-datastore" class="md-nav__link">
+    Use Androidx DataStore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-grpc" class="md-nav__link">
+    Using gRPC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#download" class="md-nav__link">
     Download
   </a>
@@ -1302,6 +1330,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#datalayer-approach" class="md-nav__link">
+    DataLayer approach.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registering-serializers" class="md-nav__link">
+    Registering Serializers.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-androidx-datastore" class="md-nav__link">
+    Use Androidx DataStore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-grpc" class="md-nav__link">
+    Using gRPC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#download" class="md-nav__link">
     Download
   </a>
@@ -1331,12 +1387,118 @@
 <p>For more information, visit the documentation: https://google.github.io/horologist/datalayer</p>
 <p>DataStore documentation https://developer.android.com/topic/libraries/architecture/datastore</p>
 <p>Direct DataLayer sample code https://github.com/android/wear-os-samples</p>
-<p>TODO</p>
-<ul>
-<li>Use CapabilityClient instead of NodeClient</li>
-<li>Consider switching local/remote to owner/reader</li>
-<li>Support WearableListenerService to handle changes to data.</li>
-</ul>
+<h2 id="datalayer-approach">DataLayer approach.<a class="headerlink" href="#datalayer-approach" title="Permanent link">&para;</a></h2>
+<p>The Horologist DataLayer libraries, provide common abstractions on top of the Wearable DataLayer.
+These build upon a common assumption of Google Protobug and gRPC, which allows sharing data
+definitions throughout your Wear and Mobile apps.</p>
+<p>See https://github.com/google/horologist/blob/main/auth/sample/shared/build.gradle.kts
+for an example of configuring a build to use proto definitions.</p>
+<div class="highlight"><pre><span></span><code><span class="k">syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;proto3&quot;</span><span class="p">;</span>
+
+<span class="kd">message</span><span class="w"> </span><span class="nc">CounterValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int64</span><span class="w"> </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="o">.</span><span class="n">google.protobuf.Timestamp</span><span class="w"> </span><span class="na">updated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span><span class="w"> </span><span class="nc">CounterDelta</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int64</span><span class="w"> </span><span class="na">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">service</span><span class="w"> </span><span class="n">CounterService</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">getCounter</span><span class="p">(</span><span class="o">.</span><span class="n">google.protobuf.Empty</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">CounterValue</span><span class="p">);</span>
+<span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">increment</span><span class="p">(</span><span class="n">CounterDelta</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">CounterValue</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="registering-serializers">Registering Serializers.<a class="headerlink" href="#registering-serializers" title="Permanent link">&para;</a></h2>
+<p>The WearDataLayerRegistry is an application singleton to register the Serializers.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">object</span><span class="w"> </span><span class="nc">CounterValueSerializer</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Serializer</span><span class="o">&lt;</span><span class="n">CounterValue</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="n">CounterValue</span>
+<span class="w">        </span><span class="k">get</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CounterValue</span><span class="p">.</span><span class="na">getDefaultInstance</span><span class="p">()</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">readFrom</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="n">InputStream</span><span class="p">):</span><span class="w"> </span><span class="n">CounterValue</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">CounterValue</span><span class="p">.</span><span class="na">parseFrom</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">exception</span><span class="p">:</span><span class="w"> </span><span class="n">InvalidProtocolBufferException</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="n">CorruptionException</span><span class="p">(</span><span class="s">&quot;Cannot read proto.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">exception</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">writeTo</span><span class="p">(</span><span class="n">t</span><span class="p">:</span><span class="w"> </span><span class="n">CounterValue</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">OutputStream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">t</span><span class="p">.</span><span class="na">writeTo</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WearDataLayerRegistry</span><span class="p">.</span><span class="na">fromContext</span><span class="p">(</span>
+<span class="w">    </span><span class="n">application</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sampleApplication</span><span class="p">,</span>
+<span class="w">    </span><span class="n">coroutineScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coroutineScope</span><span class="p">,</span>
+<span class="p">).</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">registerSerializer</span><span class="p">(</span><span class="n">CounterValueSerializer</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="use-androidx-datastore">Use Androidx DataStore<a class="headerlink" href="#use-androidx-datastore" title="Permanent link">&para;</a></h2>
+<p>This library provides a new implementation of Androidx DataStore, in addition to the local
+Proto and Preferences implementations.  The implementation uses the Wearable DataClient
+with a single owner and multiple readers.</p>
+<p>See https://developer.android.com/topic/libraries/architecture/datastore</p>
+<p>Publishing a DataStore.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">dataStore</span><span class="p">:</span><span class="w"> </span><span class="n">DataStore</span><span class="o">&lt;</span><span class="n">CounterValue</span><span class="o">&gt;</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">lazy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">registry</span><span class="p">.</span><span class="na">protoDataStore</span><span class="o">&lt;</span><span class="n">CounterValue</span><span class="o">&gt;</span><span class="p">(</span><span class="n">lifecycleScope</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>Reading a remote DataStore.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">counterFlow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="na">protoFlow</span><span class="o">&lt;</span><span class="n">CounterValue</span><span class="o">&gt;</span><span class="p">(</span><span class="n">TargetNodeId</span><span class="p">.</span><span class="na">PairedPhone</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="using-grpc">Using gRPC<a class="headerlink" href="#using-grpc" title="Permanent link">&para;</a></h2>
+<p>This library implements the gRPC transport over the Wearable MessageClient using the RPC request
+feature.</p>
+<p>Implementing a service.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">CounterService</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">dataStore</span><span class="p">:</span><span class="w"> </span><span class="n">DataStore</span><span class="o">&lt;</span><span class="n">GrpcDemoProto</span><span class="p">.</span><span class="na">CounterValue</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">:</span>
+<span class="w">    </span><span class="n">CounterServiceGrpcKt</span><span class="p">.</span><span class="na">CounterServiceCoroutineImplBase</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">getCounter</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Empty</span><span class="p">):</span><span class="w"> </span><span class="n">GrpcDemoProto</span><span class="p">.</span><span class="na">CounterValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">dataStore</span><span class="p">.</span><span class="na">data</span><span class="p">.</span><span class="na">first</span><span class="p">()</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">increment</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">GrpcDemoProto</span><span class="p">.</span><span class="na">CounterDelta</span><span class="p">):</span><span class="w"> </span><span class="n">GrpcDemoProto</span><span class="p">.</span><span class="na">CounterValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">dataStore</span><span class="p">.</span><span class="na">updateData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nb">it</span><span class="p">.</span><span class="na">copy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">delta</span>
+<span class="w">                    </span><span class="k">this</span><span class="p">.</span><span class="na">updated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">().</span><span class="na">toProtoTimestamp</span><span class="p">()</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nc">WearCounterDataService</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">BaseGrpcDataService</span><span class="o">&lt;</span><span class="n">CounterServiceGrpcKt</span><span class="p">.</span><span class="na">CounterServiceCoroutineImplBase</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">dataStore</span><span class="p">:</span><span class="w"> </span><span class="n">DataStore</span><span class="o">&lt;</span><span class="n">CounterValue</span><span class="o">&gt;</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">lazy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">registry</span><span class="p">.</span><span class="na">protoDataStore</span><span class="o">&lt;</span><span class="n">CounterValue</span><span class="o">&gt;</span><span class="p">(</span><span class="n">lifecycleScope</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">registry</span><span class="p">:</span><span class="w"> </span><span class="n">WearDataLayerRegistry</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">lazy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">WearDataLayerRegistry</span><span class="p">.</span><span class="na">fromContext</span><span class="p">(</span>
+<span class="w">            </span><span class="n">application</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">applicationContext</span><span class="p">,</span>
+<span class="w">            </span><span class="n">coroutineScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lifecycleScope</span><span class="p">,</span>
+<span class="w">        </span><span class="p">).</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">registerSerializer</span><span class="p">(</span><span class="n">CounterValueSerializer</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">buildService</span><span class="p">():</span><span class="w"> </span><span class="n">CounterServiceGrpcKt</span><span class="p">.</span><span class="na">CounterServiceCoroutineImplBase</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">CounterService</span><span class="p">(</span><span class="n">dataStore</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Calling a remote service.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="na">grpcClient</span><span class="p">(</span>
+<span class="w">    </span><span class="n">nodeId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TargetNodeId</span><span class="p">.</span><span class="na">PairedPhone</span><span class="p">,</span>
+<span class="w">    </span><span class="n">coroutineScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sampleApplication</span><span class="p">.</span><span class="na">servicesCoroutineScope</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">CounterServiceGrpcKt</span><span class="p">.</span><span class="na">CounterServiceCoroutineStub</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Call the increment method from the proto service definition</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">newValue</span><span class="p">:</span><span class="w"> </span><span class="n">CounterValue</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">counterService</span><span class="p">.</span><span class="na">increment</span><span class="p">(</span><span class="n">counterDelta</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="na">toLong</span><span class="p">()</span><span class="w"> </span><span class="p">})</span>
+</code></pre></div>
 <h2 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="n">repositories</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="n">mavenCentral</span><span class="o">()</span>

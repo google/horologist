@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.material.com.google.android.horologist.compose.material
+package com.google.android.horologist.composables
 
-import androidx.annotation.RestrictTo
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
@@ -39,6 +38,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
+ * This is a clone of [androidx.wear.compose.materialcore.RepeatableClickable].
+ *
  * This modifier provides functionality to increment or decrement values repeatedly by holding down
  * the composable. Should be used instead of clickable modifier to achieve clickable and repeatable
  * clickable behavior. Can't be used along with clickable modifier as it already implements it.
@@ -65,8 +66,7 @@ import kotlinx.coroutines.launch
  * @param onRepeatableClick will be called after the [initialDelay] with [incrementalDelay] between
  *   each call until the touch is released
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-fun Modifier.repeatableClickable(
+public fun Modifier.repeatableClickable(
     interactionSource: MutableInteractionSource,
     indication: Indication?,
     enabled: Boolean = true,
@@ -75,7 +75,7 @@ fun Modifier.repeatableClickable(
     initialDelay: Long = 500L,
     incrementalDelay: Long = 60L,
     onClick: () -> Unit,
-    onRepeatableClick: () -> Unit = onClick
+    onRepeatableClick: () -> Unit = onClick,
 ): Modifier = composed {
     val currentOnRepeatableClick by rememberUpdatedState(onRepeatableClick)
     val currentOnClick by rememberUpdatedState(onClick)

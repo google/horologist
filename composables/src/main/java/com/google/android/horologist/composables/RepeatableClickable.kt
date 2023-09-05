@@ -38,11 +38,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * This is a clone of [androidx.wear.compose.materialcore.RepeatableClickable].
- *
  * This modifier provides functionality to increment or decrement values repeatedly by holding down
  * the composable. Should be used instead of clickable modifier to achieve clickable and repeatable
  * clickable behavior. Can't be used along with clickable modifier as it already implements it.
+ *
+ * Code from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material-core/src/main/java/androidx/wear/compose/materialcore/RepeatableClickable.kt
  *
  * Callbacks [onClick] and [onRepeatableClick] are different. [onClick] is triggered only when the
  * hold duration is shorter than [initialDelay] and no repeatable clicks happened.
@@ -66,7 +66,7 @@ import kotlinx.coroutines.launch
  * @param onRepeatableClick will be called after the [initialDelay] with [incrementalDelay] between
  *   each call until the touch is released
  */
-internal fun Modifier.repeatableClickable(
+public fun Modifier.repeatableClickable(
     interactionSource: MutableInteractionSource,
     indication: Indication?,
     enabled: Boolean = true,

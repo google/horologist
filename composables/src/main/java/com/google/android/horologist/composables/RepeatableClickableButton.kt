@@ -43,7 +43,10 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A base button that can send single onClick event or repeated [onRepeatedClick] events by
- * holding it down. This is a modified version of [androidx.wear.compose.materialcore.Button].
+ * holding it down.
+ *
+ * Code modified from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material/src/main/java/androidx/wear/compose/material/Button.kt
+ *
  */
 @ExperimentalHorologistApi
 @Composable

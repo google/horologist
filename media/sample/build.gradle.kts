@@ -49,6 +49,12 @@ android {
             "com.google.android.horologist.mediasample.runner.MediaAppRunner"
     }
 
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
@@ -250,6 +256,10 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.turbine)
     testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.work.ktx)
+    testImplementation("com.google.dagger:hilt-android-testing:2.48")
+    kspTest(libs.dagger.hiltandroidcompiler)
+    testImplementation(libs.androidx.work.testing)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.espresso.core)

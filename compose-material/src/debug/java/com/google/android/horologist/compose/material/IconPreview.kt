@@ -17,7 +17,7 @@
 package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.VolumeDown
+import androidx.compose.material.icons.automirrored.outlined.VolumeDown
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -28,7 +28,7 @@ import com.google.android.horologist.compose.tools.WearPreview
 @Composable
 fun IconPreview() {
     Icon(
-        imageVector = Icons.Outlined.VolumeDown,
+        imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
         contentDescription = "contentDescription",
     )
 }
@@ -38,7 +38,7 @@ fun IconPreview() {
 fun IconPreviewMirrored() {
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         Icon(
-            imageVector = Icons.Outlined.VolumeDown,
+            imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
             contentDescription = "contentDescription",
             rtlMode = IconRtlMode.Mirrored,
         )

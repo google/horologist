@@ -19,7 +19,7 @@ package com.google.android.horologist.auth.composables.chips
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.SendToMobile
+import androidx.compose.material.icons.automirrored.outlined.SendToMobile
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,7 +56,7 @@ public fun CreateAccountChip(
                     contentAlignment = Alignment.Center,
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.SendToMobile,
+                        imageVector = Icons.AutoMirrored.Outlined.SendToMobile,
                         contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                         modifier = Modifier.size(ChipDefaults.IconSize),
                     )
@@ -71,7 +71,7 @@ public fun CreateAccountChip(
             label = label,
             onClick = onClick,
             modifier = modifier,
-            icon = Icons.Outlined.SendToMobile,
+            icon = Icons.AutoMirrored.Outlined.SendToMobile,
             colors = colors,
             enabled = enabled,
         )

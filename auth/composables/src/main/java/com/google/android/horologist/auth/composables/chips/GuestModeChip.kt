@@ -17,7 +17,7 @@
 package com.google.android.horologist.auth.composables.chips
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -45,7 +45,7 @@ public fun GuestModeChip(
         label = label,
         onClick = onClick,
         modifier = modifier,
-        icon = Icons.Default.ArrowForward,
+        icon = Icons.AutoMirrored.Default.ArrowForward,
         colors = colors,
         enabled = enabled,
     )

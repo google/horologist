@@ -27,11 +27,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.PlaylistPlay
 import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.PlaylistPlay
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -89,7 +89,7 @@ fun EntityScreenPreview() {
                 )
 
                 Button(
-                    imageVector = Icons.Default.PlaylistPlay,
+                    imageVector = Icons.AutoMirrored.Default.PlaylistPlay,
                     contentDescription = "Play",
                     onClick = { },
                     modifier = Modifier

@@ -17,10 +17,10 @@
 package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Login
+import androidx.compose.material.icons.automirrored.filled.Login
+import androidx.compose.material.icons.automirrored.filled.PlaylistPlay
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.PlaylistPlay
 import androidx.compose.material.icons.filled.Podcasts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
@@ -75,7 +75,7 @@ private fun BrowseScreenPreviewSample(
         button(
             BrowseScreenPlaylistsSectionButton(
                 textId = R.string.horologist_browse_screen_preview_sign_in,
-                icon = Icons.Default.Login,
+                icon = Icons.AutoMirrored.Default.Login,
                 onClick = { },
             ),
         )
@@ -130,7 +130,7 @@ private fun BrowseScreenPreviewSample(
             buttons = listOf(
                 BrowseScreenPlaylistsSectionButton(
                     textId = R.string.horologist_browse_screen_preview_playlists_button,
-                    icon = Icons.Default.PlaylistPlay,
+                    icon = Icons.AutoMirrored.Default.PlaylistPlay,
                     onClick = { },
                 ),
 

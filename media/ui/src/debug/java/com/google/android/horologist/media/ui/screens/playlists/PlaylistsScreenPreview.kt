@@ -17,7 +17,7 @@
 package com.google.android.horologist.media.ui.screens.playlists
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FeaturedPlayList
+import androidx.compose.material.icons.automirrored.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
@@ -51,7 +51,7 @@ fun PlaylistsScreenPreview() {
         ),
         onPlaylistItemClick = { },
         playlistItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.FeaturedPlayList,
+            image = Icons.AutoMirrored.Default.FeaturedPlayList,
             tintColor = Color.Green,
         ),
     )

@@ -90,6 +90,11 @@ package com.google.android.horologist.audio {
     field public static final com.google.android.horologist.audio.BluetoothSettings INSTANCE;
   }
 
+  public final class OutputSwitcher {
+    method public boolean launchSystemMediaOutputSwitcherUi(android.content.Context);
+    field public static final com.google.android.horologist.audio.OutputSwitcher INSTANCE;
+  }
+
   public final class SystemAudioRepository implements com.google.android.horologist.audio.AudioOutputRepository com.google.android.horologist.audio.VolumeRepository {
     ctor public SystemAudioRepository(android.content.Context application, androidx.mediarouter.media.MediaRouter mediaRouter, optional androidx.mediarouter.media.MediaRouteSelector selector);
     method public void close();

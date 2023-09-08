@@ -26,6 +26,7 @@ import com.google.android.horologist.media3.audio.BluetoothSettingsOutputSelecto
 import com.google.android.horologist.mediasample.di.CacheDir
 import com.google.android.horologist.mediasample.di.ConfigModule
 import com.google.android.horologist.mediasample.di.IsEmulator
+import com.google.android.horologist.mediasample.di.SuppressSpeakerPlayback
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.mediasample.ui.util.resetAfter
 import dagger.Module
@@ -48,6 +49,11 @@ object FakeConfigModule {
     @Provides
     @IsEmulator
     fun isEmulator() = Build.PRODUCT.startsWith("sdk_gwear")
+
+    @Singleton
+    @Provides
+    @SuppressSpeakerPlayback
+    fun suppressSpeakerPlayback() = false
 
     @Singleton
     @Provides

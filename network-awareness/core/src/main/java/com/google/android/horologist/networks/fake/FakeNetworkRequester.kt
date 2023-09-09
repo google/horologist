@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.rules.helpers
+package com.google.android.horologist.networks.fake
 
+import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.NetworkType.Cell
 import com.google.android.horologist.networks.data.NetworkType.Wifi
 import com.google.android.horologist.networks.request.HighBandwidthRequest
@@ -25,10 +26,10 @@ import com.google.android.horologist.networks.request.NetworkRequester
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.Instant
 
-class FakeNetworkRequester(
+public class FakeNetworkRequester(
     private val networkRepository: FakeNetworkRepository,
 ) : NetworkRequester {
-    public var supportedNetworks = listOf(Cell, Wifi)
+    public var supportedNetworks: List<NetworkType> = listOf(Cell, Wifi)
 
     override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
         val newNetworkType = if (request.type.cell && supportedNetworks.contains(Cell)) {

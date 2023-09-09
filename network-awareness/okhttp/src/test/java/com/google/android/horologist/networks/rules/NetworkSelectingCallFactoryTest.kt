@@ -24,14 +24,14 @@ import com.google.android.horologist.networks.data.NetworkType.BT
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.DownloadRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType.Download
+import com.google.android.horologist.networks.fake.FakeNetworkRepository
+import com.google.android.horologist.networks.fake.FakeNetworkRequester
 import com.google.android.horologist.networks.highbandwidth.StandardHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.networkInfo
 import com.google.android.horologist.networks.rules.helpers.ConfigurableNetworkingRules
 import com.google.android.horologist.networks.rules.helpers.DeadEndInterceptor
-import com.google.android.horologist.networks.rules.helpers.FakeNetworkRepository
-import com.google.android.horologist.networks.rules.helpers.FakeNetworkRequester
 import com.google.android.horologist.networks.rules.helpers.TestLogger
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi

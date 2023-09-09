@@ -86,14 +86,15 @@ public class SyncWorker
                 newVersion = version,
             )
 
-        companion object {
+        public companion object {
             /**
              * Expedited one time work to sync data on app startup
              */
-            fun startUpSyncWork(): OneTimeWorkRequest = OneTimeWorkRequestBuilder<DelegatingWorker>()
-                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-                .setConstraints(SyncConstraints)
-                .setInputData(SyncWorker::class.delegatedData())
-                .build()
+            public fun startUpSyncWork(): OneTimeWorkRequest =
+                OneTimeWorkRequestBuilder<DelegatingWorker>()
+                    .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                    .setConstraints(SyncConstraints)
+                    .setInputData(SyncWorker::class.delegatedData())
+                    .build()
         }
     }

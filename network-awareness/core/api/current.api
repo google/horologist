@@ -247,6 +247,28 @@ package com.google.android.horologist.networks.data {
 
 }
 
+package com.google.android.horologist.networks.fake {
+
+  public final class FakeNetworkRepository implements com.google.android.horologist.networks.status.NetworkRepository {
+    ctor public FakeNetworkRepository();
+    method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.data.Networks> getNetworkStatus();
+    method public com.google.android.horologist.networks.data.NetworkStatus? networkByAddress(java.net.InetAddress localAddress);
+    method public void pinNetwork(com.google.android.horologist.networks.data.NetworkType? value);
+    method public void setDefaultNetworks(java.util.List<com.google.android.horologist.networks.data.NetworkStatus> networks);
+    method public void updateNetworkAvailability(android.net.Network network);
+    property public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.data.Networks> networkStatus;
+  }
+
+  public final class FakeNetworkRequester implements com.google.android.horologist.networks.request.NetworkRequester {
+    ctor public FakeNetworkRequester(com.google.android.horologist.networks.fake.FakeNetworkRepository networkRepository);
+    method public java.util.List<com.google.android.horologist.networks.data.NetworkType> getSupportedNetworks();
+    method public com.google.android.horologist.networks.request.NetworkLease requestHighBandwidthNetwork(com.google.android.horologist.networks.request.HighBandwidthRequest request);
+    method public void setSupportedNetworks(java.util.List<? extends com.google.android.horologist.networks.data.NetworkType>);
+    property public final java.util.List<com.google.android.horologist.networks.data.NetworkType> supportedNetworks;
+  }
+
+}
+
 package com.google.android.horologist.networks.highbandwidth {
 
   public interface HighBandwidthConnectionLease extends java.lang.AutoCloseable {

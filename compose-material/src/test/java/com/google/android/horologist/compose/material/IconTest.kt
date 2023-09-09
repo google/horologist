@@ -17,7 +17,7 @@
 package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.VolumeDown
+import androidx.compose.material.icons.automirrored.outlined.VolumeDown
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -29,7 +29,7 @@ class IconTest : ScreenshotBaseTest() {
     fun default() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Icon(
-                imageVector = Icons.Outlined.VolumeDown,
+                imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
                 contentDescription = "contentDescription",
             )
         }
@@ -40,7 +40,7 @@ class IconTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Icon(
-                    imageVector = Icons.Outlined.VolumeDown,
+                    imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
                     contentDescription = "contentDescription",
                 )
             }
@@ -51,7 +51,7 @@ class IconTest : ScreenshotBaseTest() {
     fun mirrored() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Icon(
-                imageVector = Icons.Outlined.VolumeDown,
+                imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
                 contentDescription = "contentDescription",
                 rtlMode = IconRtlMode.Mirrored,
             )
@@ -63,7 +63,7 @@ class IconTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Icon(
-                    imageVector = Icons.Outlined.VolumeDown,
+                    imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
                     contentDescription = "contentDescription",
                     rtlMode = IconRtlMode.Mirrored,
                 )

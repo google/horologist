@@ -22,9 +22,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ReceiptLong
+import androidx.compose.material.icons.automirrored.filled.ReceiptLong
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.ViewCarousel
-import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -81,7 +81,7 @@ fun VolumeScreenChip(navigateToRoute: (String) -> Unit) {
         label = "Volume Screen",
         content = {
             Icon(
-                imageVector = Icons.Default.VolumeUp,
+                imageVector = Icons.AutoMirrored.Default.VolumeUp,
                 contentDescription = "Volume Screen",
             )
         },
@@ -231,7 +231,7 @@ fun PagingChip(
         label = stringResource(R.string.paging_chip_label),
         content = {
             Icon(
-                imageVector = Icons.Default.ReceiptLong,
+                imageVector = Icons.AutoMirrored.Default.ReceiptLong,
                 contentDescription = stringResource(R.string.paging_chip_content_description),
             )
         },

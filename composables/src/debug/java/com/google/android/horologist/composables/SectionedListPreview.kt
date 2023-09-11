@@ -20,7 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FeaturedPlayList
+import androidx.compose.material.icons.automirrored.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -116,7 +116,7 @@ private fun DownloadsLoaded(text: String) {
         onClick = { },
         icon = {
             Icon(
-                imageVector = Icons.Default.FeaturedPlayList,
+                imageVector = Icons.AutoMirrored.Default.FeaturedPlayList,
                 contentDescription = null,
                 modifier = Modifier
                     .size(ChipDefaults.LargeIconSize)
@@ -199,7 +199,7 @@ private fun FavouritesLoaded(text: String) {
         onClick = { },
         icon = {
             Icon(
-                imageVector = Icons.Default.FeaturedPlayList,
+                imageVector = Icons.AutoMirrored.Default.FeaturedPlayList,
                 contentDescription = null,
                 modifier = Modifier
                     .size(ChipDefaults.LargeIconSize)

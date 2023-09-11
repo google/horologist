@@ -17,7 +17,7 @@
 package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FeaturedPlayList
+import androidx.compose.material.icons.automirrored.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
@@ -38,7 +38,7 @@ fun PlaylistDownloadBrowseScreenPreview() {
         onPlaylistsClick = { },
         onSettingsClick = { },
         downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.FeaturedPlayList,
+            image = Icons.AutoMirrored.Default.FeaturedPlayList,
             tintColor = Color.Green,
         ),
     )
@@ -82,7 +82,7 @@ fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
             onPlaylistsClick = { },
             onSettingsClick = { },
             downloadItemArtworkPlaceholder = rememberVectorPainter(
-                image = Icons.Default.FeaturedPlayList,
+                image = Icons.AutoMirrored.Default.FeaturedPlayList,
                 tintColor = Color.Green,
             ),
         )

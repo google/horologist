@@ -17,8 +17,8 @@
 package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.DirectionsBike
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.ButtonDefaults
 import com.google.accompanist.testharness.TestHarness
@@ -180,7 +180,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
     fun mirrored() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Button(
-                imageVector = Icons.Default.DirectionsBike,
+                imageVector = Icons.AutoMirrored.Default.DirectionsBike,
                 contentDescription = "contentDescription",
                 onClick = { },
                 iconRtlMode = IconRtlMode.Mirrored,
@@ -193,7 +193,7 @@ internal class ButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Button(
-                    imageVector = Icons.Default.DirectionsBike,
+                    imageVector = Icons.AutoMirrored.Default.DirectionsBike,
                     contentDescription = "contentDescription",
                     onClick = { },
                     iconRtlMode = IconRtlMode.Mirrored,

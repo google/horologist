@@ -17,10 +17,10 @@
 package com.google.android.horologist.audio.ui.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.VolumeOff
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DeviceUnknown
 import androidx.compose.material.icons.filled.Headphones
-import androidx.compose.material.icons.filled.VolumeOff
 import androidx.compose.material.icons.filled.Watch
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -52,7 +52,7 @@ public fun AudioOutput.toAudioOutputUi(): AudioOutputUi {
             imageVector = when (type) {
                 TYPE_HEADPHONES -> Icons.Default.Headphones
                 TYPE_WATCH -> Icons.Default.Watch
-                TYPE_NONE -> Icons.Default.VolumeOff
+                TYPE_NONE -> Icons.AutoMirrored.Default.VolumeOff
                 else -> Icons.Default.DeviceUnknown
             },
             isConnected = this is AudioOutput.BluetoothHeadset,

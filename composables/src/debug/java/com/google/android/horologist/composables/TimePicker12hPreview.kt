@@ -17,10 +17,13 @@
 package com.google.android.horologist.composables
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import androidx.wear.tooling.preview.devices.WearDevices
+import com.google.android.horologist.compose.tools.copy
 import java.time.LocalTime
 
 @WearPreviewDevices
@@ -33,6 +36,25 @@ fun TimePicker12hPreview() {
     )
 }
 
+
+@Composable
+@Preview(
+    device = WearDevices.SMALL_ROUND,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    group = "Fonts - Largest",
+    fontScale = 1.24f,
+)
+fun TimePicker12hPreviewSmallWithBold() {
+    MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
+        TimePickerWith12HourClock(
+            time = LocalTime.of(10, 0, 0),
+            onTimeConfirm = {},
+        )
+    }
+}
+
 @Composable
 @Preview(
     device = WearDevices.LARGE_ROUND,
@@ -42,15 +64,7 @@ fun TimePicker12hPreview() {
     group = "Fonts - Small",
     fontScale = 0.94f
 )
-@Preview(
-    device = WearDevices.SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Fonts - Largest",
-    fontScale = 1.24f,
-)
-fun TimePicker12hSmallWithBold() {
+fun TimePicker12hPreviewLarge() {
     TimePickerWith12HourClock(
         time = LocalTime.of(10, 0, 0),
         onTimeConfirm = {},

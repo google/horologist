@@ -41,7 +41,7 @@ import kotlinx.coroutines.withContext
  * sync functionality.
  */
 @HiltWorker
-internal class SyncWorker
+public class SyncWorker
     @AssistedInject
     constructor(
         @Assisted private val appContext: Context,
@@ -86,14 +86,15 @@ internal class SyncWorker
                 newVersion = version,
             )
 
-        internal companion object {
+        public companion object {
             /**
              * Expedited one time work to sync data on app startup
              */
-            internal fun startUpSyncWork(): OneTimeWorkRequest = OneTimeWorkRequestBuilder<DelegatingWorker>()
-                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-                .setConstraints(SyncConstraints)
-                .setInputData(SyncWorker::class.delegatedData())
-                .build()
+            public fun startUpSyncWork(): OneTimeWorkRequest =
+                OneTimeWorkRequestBuilder<DelegatingWorker>()
+                    .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                    .setConstraints(SyncConstraints)
+                    .setInputData(SyncWorker::class.delegatedData())
+                    .build()
         }
     }

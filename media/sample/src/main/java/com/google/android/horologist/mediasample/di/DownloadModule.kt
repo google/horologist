@@ -40,8 +40,10 @@ import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.I
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.DownloadRequest
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
+import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
+import com.google.android.horologist.networks.status.NetworkRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -166,6 +168,17 @@ object DownloadModule {
     ): DownloadProgressMonitor = DownloadProgressMonitor(
         coroutineScope = coroutineScope,
         mediaDownloadLocalDataSource = mediaDownloadLocalDataSource,
+    )
+
+    @Provides
+    fun networkingRulesEngine(
+        networkRepository: NetworkRepository,
+        networkLogger: NetworkStatusLogger,
+        appConfig: AppConfig,
+    ): NetworkingRulesEngine = NetworkingRulesEngine(
+        networkRepository = networkRepository,
+        logger = networkLogger,
+        networkingRules = appConfig.strictNetworking!!,
     )
 
     @Provides

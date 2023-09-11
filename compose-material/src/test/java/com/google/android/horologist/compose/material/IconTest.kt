@@ -18,18 +18,24 @@ package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.VolumeDown
+import androidx.compose.material.icons.outlined.Abc
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class IconTest : ScreenshotBaseTest() {
+class IconTest : ScreenshotBaseTest(
+    params = ScreenshotTestRule.screenshotTestRuleParams {
+        record = ScreenshotTestRule.RecordMode.Repair
+    }
+) {
 
     @Test
     fun default() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Icon(
-                imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+                imageVector = Icons.Outlined.Abc,
                 contentDescription = "contentDescription",
             )
         }
@@ -40,7 +46,7 @@ class IconTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+                    imageVector = Icons.Outlined.Abc,
                     contentDescription = "contentDescription",
                 )
             }
@@ -51,7 +57,7 @@ class IconTest : ScreenshotBaseTest() {
     fun mirrored() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Icon(
-                imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+                imageVector = Icons.Outlined.Abc,
                 contentDescription = "contentDescription",
                 rtlMode = IconRtlMode.Mirrored,
             )
@@ -63,9 +69,31 @@ class IconTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+                    imageVector = Icons.Outlined.Abc,
                     contentDescription = "contentDescription",
                     rtlMode = IconRtlMode.Mirrored,
+                )
+            }
+        }
+    }
+
+    @Test
+    fun autoMirroredLTR() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+                contentDescription = "contentDescription",
+            )
+        }
+    }
+
+    @Test
+    fun autoMirroredRtl() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            TestHarness(layoutDirection = LayoutDirection.Rtl) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+                    contentDescription = "contentDescription",
                 )
             }
         }

@@ -19,17 +19,20 @@ package com.google.android.horologist.compose.tools
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
 
-public data class ThemeValues(val name: String, val index: Int, val colors: Colors) {
+public data class ThemeValues(val name: String, val index: Int, val themeColors: ThemeColors) {
     val safeName: String
         get() = name.replace("[^A-Za-z0-9]".toRegex(), "")
+
+    val colors: Colors
+        get() = themeColors.toColors()
 }
 
 public val themeValues: List<ThemeValues> = listOf(
-    ThemeValues("Blue (Default - AECBFA)", 0, Colors()),
+    ThemeValues("Blue (Default - AECBFA)", 0, ThemeColors()),
     ThemeValues(
         "Blue (7FCFFF)",
         1,
-        Colors(
+        ThemeColors(
             primary = Color(0xFF7FCFFF),
             primaryVariant = Color(0xFF3998D3),
             secondary = Color(0xFF6DD58C),
@@ -39,7 +42,7 @@ public val themeValues: List<ThemeValues> = listOf(
     ThemeValues(
         "Lilac (D0BCFF)",
         2,
-        Colors(
+        ThemeColors(
             primary = Color(0xFFD0BCFF),
             primaryVariant = Color(0xFF9A82DB),
             secondary = Color(0xFF7FCFFF),
@@ -49,7 +52,7 @@ public val themeValues: List<ThemeValues> = listOf(
     ThemeValues(
         "Green (6DD58C)",
         3,
-        Colors(
+        ThemeColors(
             primary = Color(0xFF6DD58C),
             primaryVariant = Color(0xFF1EA446),
             secondary = Color(0xFFFFBB29),
@@ -59,7 +62,7 @@ public val themeValues: List<ThemeValues> = listOf(
     ThemeValues(
         "Blue with Text (7FCFFF)",
         4,
-        Colors(
+        ThemeColors(
             primary = Color(0xFF7FCFFF),
             primaryVariant = Color(0xFF3998D3),
             onPrimary = Color(0xFF003355),
@@ -78,7 +81,7 @@ public val themeValues: List<ThemeValues> = listOf(
     ThemeValues(
         "Orange-y",
         5,
-        Colors(
+        ThemeColors(
             secondary = Color(0xFFED612B), // Used for RSB
             surface = Color(0xFF202124), // Used for Device Chip
             onPrimary = Color(0xFFED612B),
@@ -88,7 +91,7 @@ public val themeValues: List<ThemeValues> = listOf(
     ThemeValues(
         "Uamp",
         6,
-        Colors(
+        ThemeColors(
             primary = Color(0xFF981F68),
             primaryVariant = Color(0xFF66003d),
             secondary = Color(0xFF981F68),
@@ -100,3 +103,35 @@ public val themeValues: List<ThemeValues> = listOf(
         ),
     ),
 )
+
+public data class ThemeColors(
+    val primary: Color = Color(0xFFAECBFA),
+    val primaryVariant: Color = Color(0xFF8AB4F8),
+    val secondary: Color = Color(0xFFFDE293),
+    val secondaryVariant: Color = Color(0xFF594F33),
+    val background: Color = Color.Black,
+    val surface: Color = Color(0xFF303133),
+    val error: Color = Color(0xFFEE675C),
+    val onPrimary: Color = Color(0xFF303133),
+    val onSecondary: Color = Color(0xFF303133),
+    val onBackground: Color = Color.White,
+    val onSurface: Color = Color.White,
+    val onSurfaceVariant: Color = Color(0xFFDADCE0),
+    val onError: Color = Color(0xFF000000)
+) {
+    fun toColors() = Colors(
+        primary = primary,
+        primaryVariant = primaryVariant,
+        secondary = secondary,
+        secondaryVariant = secondaryVariant,
+        background = background,
+        surface = surface,
+        error = error,
+        onPrimary = onPrimary,
+        onSecondary = onSecondary,
+        onBackground = onBackground,
+        onSurface = onSurface,
+        onSurfaceVariant = onSurfaceVariant,
+        onError = onError
+    )
+}

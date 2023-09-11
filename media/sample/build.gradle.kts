@@ -257,7 +257,7 @@ dependencies {
     testImplementation(libs.turbine)
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.work.ktx)
-    testImplementation("com.google.dagger:hilt-android-testing:2.48")
+    testImplementation(libs.dagger.hiltandroidtesting)
     kspTest(libs.dagger.hiltandroidcompiler)
     testImplementation(libs.androidx.work.testing)
 

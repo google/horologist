@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.fake
+package com.google.android.horologist.networks.testdoubles
 
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.NetworkType.Cell

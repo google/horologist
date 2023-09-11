@@ -24,8 +24,8 @@ import com.google.android.horologist.networks.data.NetworkType.BT
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.DownloadRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType.Download
-import com.google.android.horologist.networks.fake.FakeNetworkRepository
-import com.google.android.horologist.networks.fake.FakeNetworkRequester
+import com.google.android.horologist.networks.testdoubles.FakeNetworkRepository
+import com.google.android.horologist.networks.testdoubles.FakeNetworkRequester
 import com.google.android.horologist.networks.highbandwidth.StandardHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType

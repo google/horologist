@@ -23,7 +23,7 @@ import com.google.android.horologist.mediasample.di.NetworkModule
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
 import com.google.android.horologist.networks.data.NetworkType
-import com.google.android.horologist.networks.fake.FakeNetworkRepository
+import com.google.android.horologist.networks.testdoubles.FakeNetworkRepository
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
 import com.google.android.horologist.networks.logging.NetworkStatusLogger

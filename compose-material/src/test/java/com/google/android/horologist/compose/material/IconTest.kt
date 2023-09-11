@@ -25,11 +25,7 @@ import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class IconTest : ScreenshotBaseTest(
-    params = ScreenshotTestRule.screenshotTestRuleParams {
-        record = ScreenshotTestRule.RecordMode.Repair
-    }
-) {
+class IconTest : ScreenshotBaseTest() {
 
     @Test
     fun default() {

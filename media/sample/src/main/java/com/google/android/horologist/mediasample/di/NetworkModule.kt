@@ -118,17 +118,6 @@ object NetworkModule {
         InMemoryDataRequestRepository()
 
     @Provides
-    fun networkingRulesEngine(
-        networkRepository: NetworkRepository,
-        networkLogger: NetworkStatusLogger,
-        appConfig: AppConfig,
-    ): NetworkingRulesEngine = NetworkingRulesEngine(
-        networkRepository = networkRepository,
-        logger = networkLogger,
-        networkingRules = appConfig.strictNetworking!!,
-    )
-
-    @Provides
     fun connectivityManager(
         @ApplicationContext application: Context,
     ): ConnectivityManager =

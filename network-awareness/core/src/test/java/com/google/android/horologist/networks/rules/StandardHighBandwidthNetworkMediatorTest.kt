@@ -22,9 +22,9 @@ import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.NetworkType.Wifi
 import com.google.android.horologist.networks.highbandwidth.StandardHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.request.HighBandwidthRequest
-import com.google.android.horologist.networks.rules.helpers.FakeNetworkRepository
-import com.google.android.horologist.networks.rules.helpers.FakeNetworkRequester
 import com.google.android.horologist.networks.rules.helpers.TestLogger
+import com.google.android.horologist.networks.testdoubles.FakeNetworkRepository
+import com.google.android.horologist.networks.testdoubles.FakeNetworkRequester
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

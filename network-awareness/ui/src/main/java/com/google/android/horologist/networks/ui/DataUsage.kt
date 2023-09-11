@@ -20,8 +20,8 @@ import android.content.Context
 import android.text.format.Formatter
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.HelpOutline
 import androidx.compose.material.icons.filled.Bluetooth
-import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.SignalCellularAlt
 import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material.icons.outlined.Square
@@ -167,5 +167,5 @@ internal val NetworkType.icon
         NetworkType.Wifi -> Icons.Filled.Wifi
         NetworkType.Cell -> Icons.Filled.SignalCellularAlt
         NetworkType.BT -> Icons.Filled.Bluetooth
-        else -> Icons.Filled.HelpOutline
+        else -> Icons.AutoMirrored.Filled.HelpOutline
     }

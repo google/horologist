@@ -18,7 +18,7 @@ package com.google.android.horologist.sectionedlist.stateless
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DirectionsRun
+import androidx.compose.material.icons.automirrored.filled.DirectionsRun
 import androidx.compose.material.icons.filled.DownloadDone
 import androidx.compose.material.icons.filled.LibraryMusic
 import androidx.compose.material.icons.filled.LightMode
@@ -81,7 +81,7 @@ private fun SectionedListScope.recommendationsSection() {
     // Section with header and footer
     section(
         listOf(
-            Pair("Running playlist", Icons.Default.DirectionsRun),
+            Pair("Running playlist", Icons.AutoMirrored.Default.DirectionsRun),
             Pair("Focus", Icons.Default.SelfImprovement),
             Pair("Summer hits", Icons.Default.LightMode),
         ),

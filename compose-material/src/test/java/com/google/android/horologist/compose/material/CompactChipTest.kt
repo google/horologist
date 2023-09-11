@@ -18,8 +18,8 @@ package com.google.android.horologist.compose.material
 
 import android.R
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
@@ -162,7 +162,7 @@ class CompactChipTest : ScreenshotBaseTest() {
                 CompactChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = Icons.Default.DirectionsBike,
+                    icon = Icons.AutoMirrored.Default.DirectionsBike,
                 )
             }
         }
@@ -174,7 +174,7 @@ class CompactChipTest : ScreenshotBaseTest() {
             CompactChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Default.DirectionsBike,
+                icon = Icons.AutoMirrored.Default.DirectionsBike,
                 iconRtlMode = IconRtlMode.Mirrored,
             )
         }
@@ -187,7 +187,7 @@ class CompactChipTest : ScreenshotBaseTest() {
                 CompactChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = Icons.Default.DirectionsBike,
+                    icon = Icons.AutoMirrored.Default.DirectionsBike,
                     iconRtlMode = IconRtlMode.Mirrored,
                 )
             }

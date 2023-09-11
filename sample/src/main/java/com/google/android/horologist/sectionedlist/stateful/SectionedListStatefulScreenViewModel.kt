@@ -17,7 +17,7 @@
 package com.google.android.horologist.sectionedlist.stateful
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DirectionsRun
+import androidx.compose.material.icons.automirrored.filled.DirectionsRun
 import androidx.compose.material.icons.filled.SelfImprovement
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
@@ -85,7 +85,7 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
                 } else {
                     RecommendationSectionState.Loaded(
                         list = listOf(
-                            Recommendation("Running playlist", Icons.Default.DirectionsRun),
+                            Recommendation("Running playlist", Icons.AutoMirrored.Default.DirectionsRun),
                             Recommendation("Focus", Icons.Default.SelfImprovement),
                         ),
                     )

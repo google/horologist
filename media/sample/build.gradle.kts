@@ -49,6 +49,12 @@ android {
             "com.google.android.horologist.mediasample.runner.MediaAppRunner"
     }
 
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
@@ -119,7 +125,7 @@ android {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.24.2"
+        artifact = "com.google.protobuf:protoc:3.24.3"
     }
     plugins {
         id("javalite") {
@@ -250,6 +256,10 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.turbine)
     testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.work.ktx)
+    testImplementation(libs.dagger.hiltandroidtesting)
+    kspTest(libs.dagger.hiltandroidcompiler)
+    testImplementation(libs.androidx.work.testing)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.espresso.core)

@@ -17,7 +17,7 @@
 package com.google.android.horologist.media.ui.components.actions
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FeaturedPlayList
+import androidx.compose.material.icons.automirrored.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,7 +32,7 @@ fun ShowPlaylistChipPreview() {
         name = "Playlists",
         onClick = {},
         placeholder = rememberVectorPainter(
-            image = Icons.Default.FeaturedPlayList,
+            image = Icons.AutoMirrored.Default.FeaturedPlayList,
             tintColor = Color.Green,
         ),
     )
@@ -64,7 +64,7 @@ fun ShowPlaylistChipPreviewNoName() {
         name = null,
         onClick = {},
         placeholder = rememberVectorPainter(
-            image = Icons.Default.FeaturedPlayList,
+            image = Icons.AutoMirrored.Default.FeaturedPlayList,
             tintColor = Color.Green,
         ),
     )
@@ -82,7 +82,7 @@ fun ShowPlaylistChipPreviewVeryLongName() {
         name = "Very very very very very very very very very very very very very very very very very very very long title",
         onClick = {},
         placeholder = rememberVectorPainter(
-            image = Icons.Default.FeaturedPlayList,
+            image = Icons.AutoMirrored.Default.FeaturedPlayList,
             tintColor = Color.Green,
         ),
     )

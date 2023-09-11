@@ -17,10 +17,10 @@
 package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.VolumeOff
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
-import androidx.compose.material.icons.filled.VolumeOff
-import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -240,8 +240,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 ToggleButton(
-                    checkedIcon = Icons.Filled.VolumeUp,
-                    notCheckedIcon = Icons.Filled.VolumeOff,
+                    checkedIcon = Icons.AutoMirrored.Filled.VolumeUp,
+                    notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff,
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
                 )
@@ -253,8 +253,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun mirrored() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.VolumeUp,
-                notCheckedIcon = Icons.Filled.VolumeOff,
+                checkedIcon = Icons.AutoMirrored.Filled.VolumeUp,
+                notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff,
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 iconRtlMode = IconRtlMode.Mirrored,
@@ -267,8 +267,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 ToggleButton(
-                    checkedIcon = Icons.Filled.VolumeUp,
-                    notCheckedIcon = Icons.Filled.VolumeOff,
+                    checkedIcon = Icons.AutoMirrored.Filled.VolumeUp,
+                    notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff,
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
                     iconRtlMode = IconRtlMode.Mirrored,

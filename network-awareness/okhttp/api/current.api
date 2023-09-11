@@ -39,6 +39,18 @@ package com.google.android.horologist.networks.okhttp {
 
 package com.google.android.horologist.networks.okhttp.impl {
 
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class FailedCall implements okhttp3.Call {
+    ctor public FailedCall(okhttp3.Call.Factory callFactory, okhttp3.Request request, String message);
+    method public void cancel();
+    method public okhttp3.Call clone();
+    method public void enqueue(okhttp3.Callback responseCallback);
+    method public okhttp3.Response execute();
+    method public boolean isCanceled();
+    method public boolean isExecuted();
+    method public okhttp3.Request request();
+    method public okio.Timeout timeout();
+  }
+
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class NetworkAwareEventListenerFactory extends com.google.android.horologist.networks.okhttp.impl.NetworkLoggingEventListenerFactory {
     ctor public NetworkAwareEventListenerFactory(com.google.android.horologist.networks.status.NetworkRepository networkRepository, okhttp3.EventListener.Factory delegateEventListenerFactory, optional com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository, com.google.android.horologist.networks.logging.NetworkStatusLogger logger);
   }

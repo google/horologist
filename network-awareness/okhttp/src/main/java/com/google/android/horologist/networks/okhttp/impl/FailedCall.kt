@@ -30,7 +30,7 @@ import okio.Timeout
  * A call that must fail because no suitable network is available.
  */
 @ExperimentalHorologistApi
-internal class FailedCall(
+public class FailedCall(
     private val callFactory: Call.Factory,
     private val request: Request,
     private val message: String,

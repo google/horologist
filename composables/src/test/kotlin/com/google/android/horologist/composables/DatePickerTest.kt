@@ -16,9 +16,13 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.ui.text.font.FontWeight
+import androidx.wear.compose.material.MaterialTheme
+import com.google.android.horologist.compose.tools.copy
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
+import org.robolectric.annotation.Config
 import java.time.LocalDate
 
 class DatePickerTest : ScreenshotBaseTest(
@@ -28,12 +32,28 @@ class DatePickerTest : ScreenshotBaseTest(
 ) {
 
     @Test
-    fun datePickerInitial() {
+    fun initial() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             DatePicker(
                 onDateConfirm = {},
                 date = LocalDate.of(2022, 4, 25),
             )
+        }
+    }
+
+    @Test
+    @Config(
+        qualifiers = "+w192dp-h192dp",
+        fontScale = 1.24f,
+    )
+    fun smallDeviceLargeFontBold() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
+                DatePicker(
+                    onDateConfirm = {},
+                    date = LocalDate.of(2022, 4, 25),
+                )
+            }
         }
     }
 }

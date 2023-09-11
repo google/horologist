@@ -17,8 +17,7 @@
 package com.google.android.horologist.auth.composables.chips
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.SendToMobile
-import androidx.compose.material.icons.outlined.SendToMobile
+import androidx.compose.material.icons.automirrored.outlined.SendToMobile
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -44,7 +43,7 @@ public fun OtherOptionsChip(
         label = label,
         onClick = onClick,
         modifier = modifier,
-        icon = Icons.Outlined.SendToMobile,
+        icon = Icons.AutoMirrored.Outlined.SendToMobile,
         colors = colors,
         enabled = enabled,
     )

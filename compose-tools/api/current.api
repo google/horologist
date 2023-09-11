@@ -13,20 +13,67 @@ package com.google.android.horologist.compose.tools {
     method @androidx.compose.runtime.Composable public static void RoundPreview(optional boolean round, kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
 
+  public final class ThemeColors {
+    ctor public ThemeColors(optional long primary, optional long primaryVariant, optional long secondary, optional long secondaryVariant, optional long background, optional long surface, optional long error, optional long onPrimary, optional long onSecondary, optional long onBackground, optional long onSurface, optional long onSurfaceVariant, optional long onError);
+    method public long component1-0d7_KjU();
+    method public long component10-0d7_KjU();
+    method public long component11-0d7_KjU();
+    method public long component12-0d7_KjU();
+    method public long component13-0d7_KjU();
+    method public long component2-0d7_KjU();
+    method public long component3-0d7_KjU();
+    method public long component4-0d7_KjU();
+    method public long component5-0d7_KjU();
+    method public long component6-0d7_KjU();
+    method public long component7-0d7_KjU();
+    method public long component8-0d7_KjU();
+    method public long component9-0d7_KjU();
+    method public com.google.android.horologist.compose.tools.ThemeColors copy-daRQuJA(long primary, long primaryVariant, long secondary, long secondaryVariant, long background, long surface, long error, long onPrimary, long onSecondary, long onBackground, long onSurface, long onSurfaceVariant, long onError);
+    method public long getBackground();
+    method public long getError();
+    method public long getOnBackground();
+    method public long getOnError();
+    method public long getOnPrimary();
+    method public long getOnSecondary();
+    method public long getOnSurface();
+    method public long getOnSurfaceVariant();
+    method public long getPrimary();
+    method public long getPrimaryVariant();
+    method public long getSecondary();
+    method public long getSecondaryVariant();
+    method public long getSurface();
+    method public androidx.wear.compose.material.Colors toColors();
+    property public final long background;
+    property public final long error;
+    property public final long onBackground;
+    property public final long onError;
+    property public final long onPrimary;
+    property public final long onSecondary;
+    property public final long onSurface;
+    property public final long onSurfaceVariant;
+    property public final long primary;
+    property public final long primaryVariant;
+    property public final long secondary;
+    property public final long secondaryVariant;
+    property public final long surface;
+  }
+
   public final class ThemeValues {
-    ctor public ThemeValues(String name, int index, androidx.wear.compose.material.Colors colors);
+    ctor public ThemeValues(String name, int index, com.google.android.horologist.compose.tools.ThemeColors themeColors);
     method public String component1();
     method public int component2();
-    method public androidx.wear.compose.material.Colors component3();
-    method public com.google.android.horologist.compose.tools.ThemeValues copy(String name, int index, androidx.wear.compose.material.Colors colors);
+    method public com.google.android.horologist.compose.tools.ThemeColors component3();
+    method public com.google.android.horologist.compose.tools.ThemeValues copy(String name, int index, com.google.android.horologist.compose.tools.ThemeColors themeColors);
     method public androidx.wear.compose.material.Colors getColors();
     method public int getIndex();
     method public String getName();
     method public String getSafeName();
+    method public com.google.android.horologist.compose.tools.ThemeColors getThemeColors();
     property public final androidx.wear.compose.material.Colors colors;
     property public final int index;
     property public final String name;
     property public final String safeName;
+    property public final com.google.android.horologist.compose.tools.ThemeColors themeColors;
   }
 
   public final class ThemeValuesKt {

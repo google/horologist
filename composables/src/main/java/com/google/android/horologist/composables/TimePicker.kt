@@ -52,6 +52,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -104,7 +105,8 @@ public fun TimePicker(
     time: LocalTime = LocalTime.now(),
     showSeconds: Boolean = true,
 ) {
-    val fullyDrawn = remember { Animatable(0f) }
+    val inspectionMode = LocalInspectionMode.current
+    val fullyDrawn = remember { Animatable(if (inspectionMode) 1f else 0f) }
 
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
@@ -301,8 +303,10 @@ public fun TimePicker(
         }
     }
 
-    LaunchedEffect(Unit) {
-        fullyDrawn.animateTo(1f)
+    if (!inspectionMode) {
+        LaunchedEffect(Unit) {
+            fullyDrawn.animateTo(1f)
+        }
     }
 }
 
@@ -324,7 +328,8 @@ public fun TimePickerWith12HourClock(
     modifier: Modifier = Modifier,
     time: LocalTime = LocalTime.now(),
 ) {
-    val fullyDrawn = remember { Animatable(0f) }
+    val inspectionMode = LocalInspectionMode.current
+    val fullyDrawn = remember { Animatable(if (inspectionMode) 1f else 0f) }
 
     // Omit scaling according to Settings > Display > Font size for this screen,
     val typography = MaterialTheme.typography.copy(
@@ -527,8 +532,10 @@ public fun TimePickerWith12HourClock(
         }
     }
 
-    LaunchedEffect(Unit) {
-        fullyDrawn.animateTo(1f)
+    if (!inspectionMode) {
+        LaunchedEffect(Unit) {
+            fullyDrawn.animateTo(1f)
+        }
     }
 }
 

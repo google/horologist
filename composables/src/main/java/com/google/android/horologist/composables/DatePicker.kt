@@ -44,6 +44,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.focused
 import androidx.compose.ui.semantics.semantics
@@ -83,7 +84,8 @@ public fun DatePicker(
     fromDate: LocalDate? = null,
     toDate: LocalDate? = null,
 ) {
-    val fullyDrawn = remember { Animatable(0f) }
+    val inspectionMode = LocalInspectionMode.current
+    val fullyDrawn = remember { Animatable(if (inspectionMode) 1f else 0f) }
 
     if (fromDate != null && toDate != null) {
         verifyDates(date, fromDate, toDate)
@@ -346,8 +348,10 @@ public fun DatePicker(
         }
     }
 
-    LaunchedEffect(Unit) {
-        fullyDrawn.animateTo(1f)
+    if (!inspectionMode) {
+        LaunchedEffect(Unit) {
+            fullyDrawn.animateTo(1f)
+        }
     }
 }
 

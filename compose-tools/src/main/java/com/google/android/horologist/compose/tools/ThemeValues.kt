@@ -119,7 +119,7 @@ public data class ThemeColors(
     val onSurfaceVariant: Color = Color(0xFFDADCE0),
     val onError: Color = Color(0xFF000000),
 ) {
-    fun toColors() = Colors(
+    public fun toColors(): Colors = Colors(
         primary = primary,
         primaryVariant = primaryVariant,
         secondary = secondary,

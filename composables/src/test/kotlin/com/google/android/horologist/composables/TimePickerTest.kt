@@ -32,7 +32,7 @@ class TimePickerTest : ScreenshotBaseTest(
 ) {
 
     @Test
-    fun datePickerInitial() {
+    fun initial() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             TimePicker(
                 time = LocalTime.of(10, 10, 0),
@@ -46,7 +46,7 @@ class TimePickerTest : ScreenshotBaseTest(
         qualifiers = "+w192dp-h192dp",
         fontScale = 1.24f,
     )
-    fun datePickerSmallBold() {
+    fun smallDeviceLargeFontBold() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
                 TimePicker(

@@ -45,7 +45,7 @@ fun TimePicker12hPreview() {
     group = "Fonts - Largest",
     fontScale = 1.24f,
 )
-fun TimePicker12hPreviewSmallWithBold() {
+fun TimePicker12hPreviewSmallDeviceWithLargeFontBold() {
     MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
         TimePickerWith12HourClock(
             time = LocalTime.of(10, 0, 0),
@@ -63,7 +63,7 @@ fun TimePicker12hPreviewSmallWithBold() {
     group = "Fonts - Small",
     fontScale = 0.94f,
 )
-fun TimePicker12hPreviewLarge() {
+fun TimePicker12hPreviewLargeDeviceSmallFont() {
     TimePickerWith12HourClock(
         time = LocalTime.of(10, 0, 0),
         onTimeConfirm = {},

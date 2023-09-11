@@ -45,7 +45,7 @@ fun TimePickerPreview() {
     group = "Fonts - Largest",
     fontScale = 1.24f,
 )
-fun TimePickerPreviewSmallWithBold() {
+fun TimePickerPreviewSmallDeviceWithLargeFontBold() {
     MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
         TimePicker(
             time = LocalTime.of(10, 0, 0),
@@ -63,7 +63,7 @@ fun TimePickerPreviewSmallWithBold() {
     group = "Fonts - Small",
     fontScale = 0.94f,
 )
-fun TimePickerPreviewLarge() {
+fun TimePickerPreviewLargeDeviceSmallFont() {
     TimePicker(
         time = LocalTime.of(10, 0, 0),
         onTimeConfirm = { },

@@ -45,7 +45,7 @@ fun DatePickerPreview() {
     group = "Fonts - Largest",
     fontScale = 1.24f,
 )
-fun DatePickerPreviewSmallWithBold() {
+fun DatePickerPreviewSmallDeviceWithLargeFontBold() {
     MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
         DatePicker(
             onDateConfirm = {},
@@ -63,7 +63,7 @@ fun DatePickerPreviewSmallWithBold() {
     group = "Fonts - Small",
     fontScale = 0.94f,
 )
-fun DatePickerPreviewLarge() {
+fun DatePickerPreviewLargeDeviceSmallFont() {
     DatePicker(
         onDateConfirm = {},
         date = LocalDate.of(2022, 1, 25),

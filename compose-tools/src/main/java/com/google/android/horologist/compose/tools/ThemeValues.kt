@@ -117,7 +117,7 @@ public data class ThemeColors(
     val onBackground: Color = Color.White,
     val onSurface: Color = Color.White,
     val onSurfaceVariant: Color = Color(0xFFDADCE0),
-    val onError: Color = Color(0xFF000000)
+    val onError: Color = Color(0xFF000000),
 ) {
     fun toColors() = Colors(
         primary = primary,
@@ -132,6 +132,6 @@ public data class ThemeColors(
         onBackground = onBackground,
         onSurface = onSurface,
         onSurfaceVariant = onSurfaceVariant,
-        onError = onError
+        onError = onError,
     )
 }

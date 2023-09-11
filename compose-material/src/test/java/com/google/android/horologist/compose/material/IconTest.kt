@@ -22,7 +22,6 @@ import androidx.compose.material.icons.outlined.Abc
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
 class IconTest : ScreenshotBaseTest() {

@@ -22,7 +22,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.wear.compose.material.Typography
 
 @Composable
-fun Typography.copy(fn: TextStyle.() -> TextStyle) = remember(this) {
+public fun Typography.copy(fn: TextStyle.() -> TextStyle): Typography = remember(this) {
     this.copy(
         display1 = fn(this.display1),
         display2 = fn(this.display2),

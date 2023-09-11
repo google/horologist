@@ -109,6 +109,7 @@ dependencies {
     implementation(libs.androidx.corektx)
 
     implementation(libs.compose.ui.toolingpreview)
+    implementation(libs.androidx.wear.tooling.preview)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
     debugImplementation(projects.composeTools)

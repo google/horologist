@@ -16,19 +16,55 @@
 
 package com.google.android.horologist.composables
 
+import android.os.Build
+import android.provider.Settings
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import androidx.wear.tooling.preview.devices.WearDevices
 import java.time.LocalTime
 
 @WearPreviewDevices
 @WearPreviewFontScales
 @Composable
 fun TimePickerPreview() {
-    // Due to a limitation with ScalingLazyColumn,
-    // previews only work in interactive mode.
     TimePicker(
         time = LocalTime.of(10, 10, 0),
+        onTimeConfirm = { },
+    )
+}
+
+@Composable
+@Preview(
+    device = WearDevices.LARGE_ROUND,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    group = "Fonts - Small",
+    fontScale = 0.94f
+)
+@Preview(
+    device = WearDevices.SMALL_ROUND,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    group = "Fonts - Largest",
+    fontScale = 1.24f,
+)
+fun TimePickerSmallWithBold() {
+    TimePicker(
+        time = LocalTime.of(10, 0, 0),
         onTimeConfirm = { },
     )
 }

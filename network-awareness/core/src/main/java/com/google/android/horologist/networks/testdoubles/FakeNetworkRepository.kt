@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.rules.helpers
+package com.google.android.horologist.networks.testdoubles
 
 import android.net.Network
 import com.google.android.horologist.networks.data.NetworkInfo
@@ -26,11 +26,12 @@ import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.net.InetAddress
 
-class FakeNetworkRepository : NetworkRepository {
+public class FakeNetworkRepository : NetworkRepository {
     private var defaultNetworks = listOf(BtNetwork)
     private var pinned: NetworkType? = null
 
-    override val networkStatus = MutableStateFlow(Networks(defaultNetworks.firstOrNull(), defaultNetworks))
+    override val networkStatus: MutableStateFlow<Networks> =
+        MutableStateFlow(Networks(defaultNetworks.firstOrNull(), defaultNetworks))
 
     override fun networkByAddress(localAddress: InetAddress): NetworkStatus? {
         return networkStatus.value.networks.firstOrNull {
@@ -41,14 +42,14 @@ class FakeNetworkRepository : NetworkRepository {
     override fun updateNetworkAvailability(network: Network) {
     }
 
-    fun pinNetwork(value: NetworkType?) {
+    public fun pinNetwork(value: NetworkType?) {
         synchronized(this) {
             pinned = value
             update()
         }
     }
 
-    fun setDefaultNetworks(networks: List<NetworkStatus>) {
+    public fun setDefaultNetworks(networks: List<NetworkStatus>) {
         synchronized(this) {
             defaultNetworks = networks
             update()
@@ -64,8 +65,8 @@ class FakeNetworkRepository : NetworkRepository {
         networkStatus.value = Networks(defaultNetworks.firstOrNull(), networks)
     }
 
-    companion object {
-        val WifiNetwork = NetworkStatus(
+    internal companion object {
+        internal val WifiNetwork = NetworkStatus(
             id = "wifi1",
             status = Status.Available,
             networkInfo = NetworkInfo.Wifi("wifi1"),
@@ -74,7 +75,7 @@ class FakeNetworkRepository : NetworkRepository {
             linkProperties = null,
             bindSocket = {},
         )
-        val CellNetwork = NetworkStatus(
+        internal val CellNetwork = NetworkStatus(
             id = "cell1",
             status = Status.Available,
             networkInfo = NetworkInfo.Cellular("cell1"),
@@ -83,7 +84,7 @@ class FakeNetworkRepository : NetworkRepository {
             linkProperties = null,
             bindSocket = {},
         )
-        val BtNetwork = NetworkStatus(
+        internal val BtNetwork = NetworkStatus(
             id = "bt1",
             status = Status.Available,
             networkInfo = NetworkInfo.Bluetooth("bt1"),

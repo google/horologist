@@ -128,6 +128,7 @@ androidx-wear-tiles-renderer = { module = "androidx.wear.tiles:tiles-renderer", 
 androidx-wear-tiles-testing = { module = "androidx.wear.tiles:tiles-testing", version.ref = "androidxtiles" }
 androidx-wear-tooling-preview = { module = "androidx.wear:wear-tooling-preview", version.ref = "wearToolingPreview" }
 androidx-work-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidxWork" }
+androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "androidxWork" }
 annotation = { module = "androidx.test:annotation", version.ref = "annotation" }
 coil = { module = "io.coil-kt:coil-compose", version.ref = "io-coil-kt" }
 coil-base = { module = "io.coil-kt:coil-compose-base", version.ref = "io-coil-kt" }

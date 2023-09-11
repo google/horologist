@@ -30,9 +30,9 @@ import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Comp
 import com.google.android.horologist.networks.okhttp.networkInfo
 import com.google.android.horologist.networks.rules.helpers.ConfigurableNetworkingRules
 import com.google.android.horologist.networks.rules.helpers.DeadEndInterceptor
-import com.google.android.horologist.networks.rules.helpers.FakeNetworkRepository
-import com.google.android.horologist.networks.rules.helpers.FakeNetworkRequester
 import com.google.android.horologist.networks.rules.helpers.TestLogger
+import com.google.android.horologist.networks.testdoubles.FakeNetworkRepository
+import com.google.android.horologist.networks.testdoubles.FakeNetworkRequester
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope

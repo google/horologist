@@ -36,7 +36,6 @@ fun TimePicker12hPreview() {
     )
 }
 
-
 @Composable
 @Preview(
     device = WearDevices.SMALL_ROUND,
@@ -62,7 +61,7 @@ fun TimePicker12hPreviewSmallWithBold() {
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Fonts - Small",
-    fontScale = 0.94f
+    fontScale = 0.94f,
 )
 fun TimePicker12hPreviewLarge() {
     TimePickerWith12HourClock(

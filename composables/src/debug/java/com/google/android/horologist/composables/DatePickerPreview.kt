@@ -61,7 +61,7 @@ fun DatePickerPreviewSmallWithBold() {
     backgroundColor = 0xff000000,
     showBackground = true,
     group = "Fonts - Small",
-    fontScale = 0.94f
+    fontScale = 0.94f,
 )
 fun DatePickerPreviewLarge() {
     DatePicker(

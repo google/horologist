@@ -44,7 +44,7 @@ class TimePickerTest : ScreenshotBaseTest(
     @Test
     @Config(
         qualifiers = "+w192dp-h192dp",
-        fontScale = 1.24f
+        fontScale = 1.24f,
     )
     fun datePickerSmallBold() {
         screenshotTestRule.setContent(takeScreenshot = true) {

@@ -17,7 +17,7 @@
 package com.google.android.horologist.mediasample.ui.browse
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlaylistPlay
+import androidx.compose.material.icons.automirrored.filled.PlaylistPlay
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -41,7 +41,7 @@ fun UampStreamingBrowseScreen(
             buttons = listOf(
                 BrowseScreenPlaylistsSectionButton(
                     textId = R.string.horologist_browse_library_playlists_button,
-                    icon = Icons.Default.PlaylistPlay,
+                    icon = Icons.AutoMirrored.Default.PlaylistPlay,
                     onClick = onPlaylistsClick,
                 ),
                 BrowseScreenPlaylistsSectionButton(

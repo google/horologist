@@ -81,11 +81,11 @@ package com.google.android.horologist.auth.ui.common.screens.streamline {
     property public final com.google.android.horologist.auth.composables.model.AccountUiModel account;
   }
 
-  public final class StreamlineSignInDefaultViewModel extends androidx.lifecycle.ViewModel {
+  public class StreamlineSignInDefaultViewModel extends androidx.lifecycle.ViewModel {
     ctor public StreamlineSignInDefaultViewModel(com.google.android.horologist.auth.data.common.repository.AuthUserRepository authUserRepository);
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState> getUiState();
+    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState> getUiState();
     method public void onAccountSelected(com.google.android.horologist.auth.composables.model.AccountUiModel account);
-    method public void onIdleStateObserved();
+    method public final void onIdleStateObserved();
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState> uiState;
   }
 

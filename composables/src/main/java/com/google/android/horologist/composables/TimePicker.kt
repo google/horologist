@@ -217,7 +217,9 @@ public fun TimePicker(
                     val textMeasurer = rememberTextMeasurer()
                     val measurements = textMeasurer.measure("00", style = textStyle)
 
-                    val width = measurements.size.width.dp
+                    val width = with (LocalDensity.current) {
+                        measurements.size.width.toDp()
+                    }
 
                     val pickerGroupItems = mutableListOf(
                         pickerGroupItemWithRSB(

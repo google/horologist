@@ -48,6 +48,7 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.focused
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
@@ -122,6 +123,14 @@ public fun DatePicker(
         val textStyle = MaterialTheme.typography.display3
         val optionColor = MaterialTheme.colors.secondary
         val focusRequesterConfirmButton = remember { FocusRequester() }
+
+        val textMeasurer = rememberTextMeasurer()
+        val dayMeasurements = textMeasurer.measure("00", style = textStyle)
+        val yearMeasurements = textMeasurer.measure("0000", style = textStyle)
+
+        val (dayWidth, yearWidth) = with (LocalDensity.current) {
+            Pair(dayMeasurements.size.width.toDp(), yearMeasurements.size.width.toDp())
+        }
 
         val yearString = stringResource(R.string.horologist_picker_year)
         val monthString = stringResource(R.string.horologist_picker_month)
@@ -207,9 +216,7 @@ public fun DatePicker(
                         .weight(weightsToCenterVertically),
                 )
                 val spacerWidth = 8.dp
-                val dayWidth = 54.dp
                 val monthWidth = 80.dp
-                val yearWidth = 100.dp
                 val onPickerSelected = { current: FocusableElementDatePicker, next: FocusableElementDatePicker ->
                     if (pickerGroupState.selectedIndex != current.index) {
                         pickerGroupState.selectedIndex = current.index

@@ -376,6 +376,13 @@ public fun TimePickerWith12HourClock(
         val textStyle = MaterialTheme.typography.display3
         val focusRequesterConfirmButton = remember { FocusRequester() }
 
+        val textMeasurer = rememberTextMeasurer()
+        val measurements = textMeasurer.measure("00", style = textStyle)
+
+        val width = with (LocalDensity.current) {
+            measurements.size.width.toDp()
+        }
+
         val hourString = stringResource(R.string.horologist_time_picker_hour)
         val minuteString = stringResource(R.string.horologist_time_picker_minute)
         val periodString = stringResource(R.string.horologist_time_picker_period)
@@ -457,7 +464,7 @@ public fun TimePickerWith12HourClock(
                     PickerGroup(
                         pickerGroupItemWithRSB(
                             pickerState = hourState,
-                            modifier = Modifier.size(48.dp, 100.dp),
+                            modifier = Modifier.size(width, 100.dp),
                             onSelected = {
                                 doubleTapToNext(
                                     FocusableElement12Hour.HOURS,
@@ -469,7 +476,7 @@ public fun TimePickerWith12HourClock(
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = minuteState,
-                            modifier = Modifier.size(48.dp, 100.dp),
+                            modifier = Modifier.size(width, 100.dp),
                             onSelected = {
                                 doubleTapToNext(
                                     FocusableElement12Hour.MINUTES,

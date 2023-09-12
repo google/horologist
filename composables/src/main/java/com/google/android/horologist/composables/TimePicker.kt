@@ -60,6 +60,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.focused
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -213,10 +214,15 @@ public fun TimePicker(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                 ) {
+                    val textMeasurer = rememberTextMeasurer()
+                    val measurements = textMeasurer.measure("00", style = textStyle)
+
+                    val width = measurements.size.width.dp
+
                     val pickerGroupItems = mutableListOf(
                         pickerGroupItemWithRSB(
                             pickerState = hourState,
-                            modifier = Modifier.size(40.dp, 100.dp),
+                            modifier = Modifier.size(width, 100.dp),
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementsTimePicker.HOURS,
@@ -228,7 +234,7 @@ public fun TimePicker(
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = minuteState,
-                            modifier = Modifier.size(40.dp, 100.dp),
+                            modifier = Modifier.size(width, 100.dp),
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementsTimePicker.MINUTES,
@@ -247,7 +253,7 @@ public fun TimePicker(
                         pickerGroupItems.add(
                             pickerGroupItemWithRSB(
                                 pickerState = secondState,
-                                modifier = Modifier.size(40.dp, 100.dp),
+                                modifier = Modifier.size(width, 100.dp),
                                 onSelected = {
                                     onPickerSelected(
                                         FocusableElementsTimePicker.SECONDS,

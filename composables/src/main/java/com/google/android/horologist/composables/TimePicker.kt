@@ -227,7 +227,7 @@ public fun TimePicker(
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = minuteState,
-                            modifier = Modifier.size(46.dp, 100.dp).offset(x = (3).dp),
+                            modifier = Modifier.size(46.dp, 100.dp).offset(x = (2.5).dp),
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementsTimePicker.MINUTES,

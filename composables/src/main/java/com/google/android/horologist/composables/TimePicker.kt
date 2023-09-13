@@ -583,11 +583,11 @@ internal fun pickerTextOption(textStyle: TextStyle, indexToText: (Int) -> String
             maxLines = 1,
             style = textStyle,
             color =
-            if (pickerSelected) {
-                MaterialTheme.colors.secondary
-            } else {
-                MaterialTheme.colors.onBackground
-            },
+                if (pickerSelected) {
+                    MaterialTheme.colors.secondary
+                } else {
+                    MaterialTheme.colors.onBackground
+                },
             modifier = Modifier
                 .align(Alignment.Center)
                 .wrapContentSize(),

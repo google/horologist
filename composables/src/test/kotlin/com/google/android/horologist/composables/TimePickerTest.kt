@@ -47,7 +47,7 @@ class TimePickerTest : ScreenshotBaseTest(
             TimePicker(
                 time = LocalTime.of(10, 10, 0),
                 onTimeConfirm = {},
-                showSeconds = false
+                showSeconds = false,
             )
         }
     }

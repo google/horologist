@@ -128,11 +128,11 @@ public fun DatePicker(
         val dayMeasurements = textMeasurer.measure("00", style = textStyle)
         val yearMeasurements = textMeasurer.measure("0000", style = textStyle)
 
-        val (dayWidth, yearWidth) = with (LocalDensity.current) {
+        val (dayWidth, yearWidth) = with(LocalDensity.current) {
             // Get back to UX specified 54dp and 100dp with Roboto font
             Pair(
                 dayMeasurements.size.width.toDp() + 17.5.dp,
-                yearMeasurements.size.width.toDp() + 28.dp
+                yearMeasurements.size.width.toDp() + 28.dp,
             )
         }
 

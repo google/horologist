@@ -147,7 +147,7 @@ public fun TimePicker(
         val textMeasurer = rememberTextMeasurer()
         val measurements = textMeasurer.measure("00", style = textStyle)
 
-        val width = with (LocalDensity.current) {
+        val width = with(LocalDensity.current) {
             // Get back to UX specified 40dp with Roboto font
             measurements.size.width.toDp() + 3.5.dp
         }
@@ -379,7 +379,7 @@ public fun TimePickerWith12HourClock(
         val textMeasurer = rememberTextMeasurer()
         val measurements = textMeasurer.measure("00", style = textStyle)
 
-        val width = with (LocalDensity.current) {
+        val width = with(LocalDensity.current) {
             // Get back to UX specified 48dp with Roboto font
             measurements.size.width.toDp() + 11.5.dp
         }

@@ -328,17 +328,17 @@ public fun DatePicker(
             ) {
                 Icon(
                     imageVector =
-                    if (pickerGroupState.selectedIndex < 2) {
-                        Icons.Filled.ChevronRight
-                    } else {
-                        Icons.Filled.Check
-                    },
+                        if (pickerGroupState.selectedIndex < 2) {
+                            Icons.Filled.ChevronRight
+                        } else {
+                            Icons.Filled.Check
+                        },
                     contentDescription =
-                    if (pickerGroupState.selectedIndex >= 2) {
-                        stringResource(R.string.horologist_picker_confirm_button_content_description)
-                    } else {
-                        stringResource(R.string.horologist_picker_next_button_content_description)
-                    },
+                        if (pickerGroupState.selectedIndex >= 2) {
+                            stringResource(R.string.horologist_picker_confirm_button_content_description)
+                        } else {
+                            stringResource(R.string.horologist_picker_next_button_content_description)
+                        },
                     modifier = Modifier
                         .size(24.dp)
                         .wrapContentSize(align = Alignment.Center),

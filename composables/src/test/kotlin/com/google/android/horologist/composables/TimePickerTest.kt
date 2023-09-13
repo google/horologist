@@ -42,6 +42,19 @@ class TimePickerTest : ScreenshotBaseTest(
     }
 
     @Test
+    @Config(
+        fontScale = 1.24f,
+    )
+    fun largestFontScaling() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            TimePicker(
+                time = LocalTime.of(10, 10, 0),
+                onTimeConfirm = {},
+            )
+        }
+    }
+
+    @Test
     fun noSeconds() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             TimePicker(

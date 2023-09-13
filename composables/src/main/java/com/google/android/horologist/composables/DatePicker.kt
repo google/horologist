@@ -118,7 +118,7 @@ public fun DatePicker(
         } else {
             rememberPickerGroupState(FocusableElementDatePicker.DAY.index)
         }
-        val textStyle = MaterialTheme.typography.display3
+        val textStyle = MaterialTheme.typography.display2
         val optionColor = MaterialTheme.colors.secondary
         val focusRequesterConfirmButton = remember { FocusRequester() }
 

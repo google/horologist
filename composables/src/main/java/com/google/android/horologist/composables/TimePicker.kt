@@ -364,7 +364,7 @@ public fun TimePickerWith12HourClock(
             } else {
                 rememberPickerGroupState(FocusableElement12Hour.HOURS.index)
             }
-        val textStyle = MaterialTheme.typography.display3
+        val textStyle = MaterialTheme.typography.display1
         val focusRequesterConfirmButton = remember { FocusRequester() }
 
         val hourString = stringResource(R.string.horologist_time_picker_hour)

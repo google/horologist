@@ -129,7 +129,11 @@ public fun DatePicker(
         val yearMeasurements = textMeasurer.measure("0000", style = textStyle)
 
         val (dayWidth, yearWidth) = with (LocalDensity.current) {
-            Pair(dayMeasurements.size.width.toDp(), yearMeasurements.size.width.toDp())
+            // Get back to UX specified 54dp and 100dp with Roboto font
+            Pair(
+                dayMeasurements.size.width.toDp() + 17.5.dp,
+                yearMeasurements.size.width.toDp() + 28.dp
+            )
         }
 
         val yearString = stringResource(R.string.horologist_picker_year)

@@ -144,6 +144,13 @@ public fun TimePicker(
         val optionColor = MaterialTheme.colors.secondary
         val pickerOption = pickerTextOption(textStyle) { "%02d".format(it) }
         val focusRequesterConfirmButton = remember { FocusRequester() }
+        val textMeasurer = rememberTextMeasurer()
+        val measurements = textMeasurer.measure("00", style = textStyle)
+
+        val width = with (LocalDensity.current) {
+            // Get back to UX specified 40dp with Roboto font
+            measurements.size.width.toDp() + 3.5.dp
+        }
 
         val hourString = stringResource(R.string.horologist_time_picker_hour)
         val minuteString = stringResource(R.string.horologist_time_picker_minute)
@@ -214,13 +221,6 @@ public fun TimePicker(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                 ) {
-                    val textMeasurer = rememberTextMeasurer()
-                    val measurements = textMeasurer.measure("00", style = textStyle)
-
-                    val width = with (LocalDensity.current) {
-                        measurements.size.width.toDp()
-                    }
-
                     val pickerGroupItems = mutableListOf(
                         pickerGroupItemWithRSB(
                             pickerState = hourState,
@@ -380,7 +380,8 @@ public fun TimePickerWith12HourClock(
         val measurements = textMeasurer.measure("00", style = textStyle)
 
         val width = with (LocalDensity.current) {
-            measurements.size.width.toDp()
+            // Get back to UX specified 48dp with Roboto font
+            measurements.size.width.toDp() + 11.5.dp
         }
 
         val hourString = stringResource(R.string.horologist_time_picker_hour)

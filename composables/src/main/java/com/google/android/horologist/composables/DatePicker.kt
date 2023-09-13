@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -207,9 +206,10 @@ public fun DatePicker(
                         .weight(weightsToCenterVertically),
                 )
                 val spacerWidth = 8.dp
-                val dayWidth = 54.dp
-                val monthWidth = 80.dp
-                val yearWidth = 100.dp
+                // Add spaces on to allow room to grow
+                val dayWidth = 54.dp + spacerWidth
+                val monthWidth = 80.dp + spacerWidth
+                val yearWidth = 100.dp + spacerWidth
                 val onPickerSelected = { current: FocusableElementDatePicker, next: FocusableElementDatePicker ->
                     if (pickerGroupState.selectedIndex != current.index) {
                         pickerGroupState.selectedIndex = current.index
@@ -282,7 +282,7 @@ public fun DatePicker(
                         ),
                         pickerGroupState = pickerGroupState,
                         autoCenter = true,
-                        separator = { Spacer(modifier = Modifier.width(spacerWidth)) },
+                        separator = { },
                         touchExplorationStateProvider = touchExplorationStateProvider,
                     )
                 }

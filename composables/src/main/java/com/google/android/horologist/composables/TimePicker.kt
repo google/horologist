@@ -31,8 +31,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -60,7 +60,6 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.focused
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -216,7 +215,7 @@ public fun TimePicker(
                     val pickerGroupItems = mutableListOf(
                         pickerGroupItemWithRSB(
                             pickerState = hourState,
-                            modifier = Modifier.size(40.dp, 100.dp),
+                            modifier = Modifier.size(46.dp, 100.dp).offset(x = (-3).dp),
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementsTimePicker.HOURS,
@@ -228,7 +227,7 @@ public fun TimePicker(
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = minuteState,
-                            modifier = Modifier.size(40.dp, 100.dp),
+                            modifier = Modifier.size(46.dp, 100.dp).offset(x = (3).dp),
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementsTimePicker.MINUTES,
@@ -247,7 +246,7 @@ public fun TimePicker(
                         pickerGroupItems.add(
                             pickerGroupItemWithRSB(
                                 pickerState = secondState,
-                                modifier = Modifier.size(40.dp, 100.dp),
+                                modifier = Modifier.size(46.dp, 100.dp).offset(x = 3.dp),
                                 onSelected = {
                                     onPickerSelected(
                                         FocusableElementsTimePicker.SECONDS,
@@ -262,7 +261,7 @@ public fun TimePicker(
                     PickerGroup(
                         *pickerGroupItems.toTypedArray(),
                         pickerGroupState = pickerGroupState,
-                        separator = { Separator(6.dp, textStyle) },
+                        separator = { Separator(textStyle) },
                         autoCenter = false,
                         touchExplorationStateProvider = touchExplorationStateProvider,
                     )
@@ -445,11 +444,13 @@ public fun TimePickerWith12HourClock(
                                 }
                             }
                         }
-                    Spacer(Modifier.width(8.dp))
+
                     PickerGroup(
                         pickerGroupItemWithRSB(
                             pickerState = hourState,
-                            modifier = Modifier.size(48.dp, 100.dp),
+                            modifier = Modifier
+                                .size(57.dp, 100.dp)
+                                .offset(x = (2.5).dp),
                             onSelected = {
                                 doubleTapToNext(
                                     FocusableElement12Hour.HOURS,
@@ -461,7 +462,9 @@ public fun TimePickerWith12HourClock(
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = minuteState,
-                            modifier = Modifier.size(48.dp, 100.dp),
+                            modifier = Modifier
+                                .size(53.dp, 100.dp)
+                                .offset(x = (0).dp),
                             onSelected = {
                                 doubleTapToNext(
                                     FocusableElement12Hour.MINUTES,
@@ -473,7 +476,9 @@ public fun TimePickerWith12HourClock(
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = periodState,
-                            modifier = Modifier.size(64.dp, 100.dp),
+                            modifier = Modifier
+                                .size(68.dp, 100.dp)
+                                .offset(x = (3).dp),
                             contentDescription = periodContentDescription,
                             onSelected = {
                                 doubleTapToNext(
@@ -489,9 +494,7 @@ public fun TimePickerWith12HourClock(
                         pickerGroupState = pickerGroupState,
                         separator = {
                             if (it == 0) {
-                                Separator(2.dp, textStyle)
-                            } else {
-                                Spacer(Modifier.width(8.dp))
+                                Separator(textStyle)
                             }
                         },
                         touchExplorationStateProvider = touchExplorationStateProvider,
@@ -540,15 +543,13 @@ public fun TimePickerWith12HourClock(
 }
 
 @Composable
-private fun Separator(width: Dp, textStyle: TextStyle) {
-    Spacer(Modifier.width(width))
+private fun Separator(textStyle: TextStyle) {
     Text(
         text = ":",
         style = textStyle,
         color = MaterialTheme.colors.onBackground,
         modifier = Modifier.clearAndSetSemantics {},
     )
-    Spacer(Modifier.width(width))
 }
 
 @Composable
@@ -582,11 +583,11 @@ internal fun pickerTextOption(textStyle: TextStyle, indexToText: (Int) -> String
             maxLines = 1,
             style = textStyle,
             color =
-                if (pickerSelected) {
-                    MaterialTheme.colors.secondary
-                } else {
-                    MaterialTheme.colors.onBackground
-                },
+            if (pickerSelected) {
+                MaterialTheme.colors.secondary
+            } else {
+                MaterialTheme.colors.onBackground
+            },
             modifier = Modifier
                 .align(Alignment.Center)
                 .wrapContentSize(),

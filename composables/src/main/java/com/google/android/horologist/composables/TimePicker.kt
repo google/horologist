@@ -445,6 +445,9 @@ public fun TimePickerWith12HourClock(
                             }
                         }
 
+                    // TODO remove the offsets below, once checked with UX
+                    // these are to refactor the code, remove spacers without changing
+                    // visible layout at the same time.
                     PickerGroup(
                         pickerGroupItemWithRSB(
                             pickerState = hourState,

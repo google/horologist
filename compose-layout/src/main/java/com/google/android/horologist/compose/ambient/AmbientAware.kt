@@ -31,6 +31,12 @@ import androidx.wear.ambient.AmbientLifecycleObserver
  * Composable for general handling of changes and updates to ambient status. A new
  * [AmbientStateUpdate] is generated with any change of ambient state, as well as with any periodic
  * update generated whilst the screen is in ambient mode.
+ *
+ * This composable changes the behavior of the activity, enabling Always-On. See:
+ *
+ *     https://developer.android.com/training/wearables/views/always-on).
+ *
+ * It should therefore be used high up in the tree of composables.
  */
 @Composable
 fun AmbientAware(block: @Composable (AmbientStateUpdate) -> Unit) {
@@ -41,23 +47,23 @@ fun AmbientAware(block: @Composable (AmbientStateUpdate) -> Unit) {
     val observer = remember {
         val callback = object : AmbientLifecycleObserver.AmbientLifecycleCallback {
             override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
-                ambientUpdate = AmbientStateUpdate(AmbientState.AMBIENT)
+                ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(ambientDetails))
             }
 
             override fun onExitAmbient() {
-                ambientUpdate = AmbientStateUpdate(AmbientState.INTERACTIVE)
+                ambientUpdate = AmbientStateUpdate(AmbientState.Interactive)
             }
 
             override fun onUpdateAmbient() {
-                ambientUpdate = AmbientStateUpdate(AmbientState.AMBIENT)
+                ambientUpdate = AmbientStateUpdate(AmbientState.Ambient())
             }
         }
         AmbientLifecycleObserver(activity, callback).also {
             // Necessary to populate the initial value
             val initialAmbientState = if (it.isAmbient) {
-                AmbientState.AMBIENT
+                AmbientState.Ambient()
             } else {
-                AmbientState.INTERACTIVE
+                AmbientState.Interactive
             }
             ambientUpdate = AmbientStateUpdate(initialAmbientState)
         }

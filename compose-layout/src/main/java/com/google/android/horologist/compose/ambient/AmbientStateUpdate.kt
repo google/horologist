@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.compose.ambient
 
+import androidx.wear.ambient.AmbientLifecycleObserver
+
 /**
  * Represent Ambient as updates, with the state and time of change. This is necessary to ensure that
  * when the system provides a (typically) 1min-frequency callback to onUpdateAmbient, the developer
@@ -26,7 +28,9 @@ data class AmbientStateUpdate(
     val changeTimeMillis: Long = System.currentTimeMillis(),
 )
 
-enum class AmbientState {
-    AMBIENT,
-    INTERACTIVE,
+sealed interface AmbientState {
+    data class Ambient(val ambientDetails: AmbientLifecycleObserver.AmbientDetails? = null) :
+        AmbientState
+
+    object Interactive : AmbientState
 }

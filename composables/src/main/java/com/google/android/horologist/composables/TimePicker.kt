@@ -135,11 +135,11 @@ public fun TimePicker(
     // Omit scaling according to Settings > Display > Font size for this screen
     val textStyle = if (showSeconds) {
         MaterialTheme.typography.display3.copy(
-            fontSize = with(LocalDensity.current) { 30.dp.toSp() },
+            fontSize = with(LocalDensity.current) { MaterialTheme.typography.display3.fontSize.value.dp.toSp() },
         )
     } else {
         MaterialTheme.typography.display1.copy(
-            fontSize = with(LocalDensity.current) { 40.dp.toSp() },
+            fontSize = with(LocalDensity.current) { MaterialTheme.typography.display1.fontSize.value.dp.toSp() },
         )
     }
 
@@ -364,7 +364,7 @@ public fun TimePickerWith12HourClock(
     // Omit scaling according to Settings > Display > Font size for this screen,
     val textStyle =
         MaterialTheme.typography.display3.copy(
-            fontSize = with(LocalDensity.current) { 30.dp.toSp() },
+            fontSize = with(LocalDensity.current) { MaterialTheme.typography.display3.fontSize.value.dp.toSp() },
         )
 
     val focusRequesterConfirmButton = remember { FocusRequester() }

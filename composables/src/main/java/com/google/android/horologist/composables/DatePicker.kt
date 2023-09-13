@@ -114,7 +114,7 @@ public fun DatePicker(
 
     // Omit scaling according to Settings > Display > Font size for this screen
     val textStyle = MaterialTheme.typography.display3.copy(
-        fontSize = with(LocalDensity.current) { 30.dp.toSp() },
+        fontSize = with(LocalDensity.current) { MaterialTheme.typography.display3.fontSize.value.dp.toSp() },
     )
 
     val optionColor = MaterialTheme.colors.secondary

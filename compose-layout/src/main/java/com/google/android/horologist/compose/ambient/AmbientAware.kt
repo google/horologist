@@ -55,7 +55,7 @@ fun AmbientAware(block: @Composable (AmbientStateUpdate) -> Unit) {
             }
 
             override fun onUpdateAmbient() {
-                val lastAmbientDetails = (ambientUpdate?.ambientState as? AmbientState.Ambient).ambientDetails
+                val lastAmbientDetails = (ambientUpdate?.ambientState as? AmbientState.Ambient)?.ambientDetails
                 ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(lastAmbientDetails))
             }
         }

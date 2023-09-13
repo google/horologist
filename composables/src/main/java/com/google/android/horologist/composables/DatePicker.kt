@@ -112,10 +112,8 @@ public fun DatePicker(
         rememberPickerGroupState(FocusableElementDatePicker.DAY.index)
     }
 
-    // Omit scaling according to Settings > Display > Font size for this screen
-    val textStyle = MaterialTheme.typography.display3.copy(
-        fontSize = with(LocalDensity.current) { MaterialTheme.typography.display3.fontSize.value.dp.toSp() },
-    )
+    val textStyle =
+        with(LocalDensity.current) { fontScaleIndependent(MaterialTheme.typography.display3) }
 
     val optionColor = MaterialTheme.colors.secondary
     val focusRequesterConfirmButton = remember { FocusRequester() }

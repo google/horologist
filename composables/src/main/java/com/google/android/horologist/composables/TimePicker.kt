@@ -60,6 +60,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.focused
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -132,15 +133,12 @@ public fun TimePicker(
         rememberPickerGroupState(FocusableElementsTimePicker.HOURS.index)
     }
 
-    // Omit scaling according to Settings > Display > Font size for this screen
-    val textStyle = if (showSeconds) {
-        MaterialTheme.typography.display3.copy(
-            fontSize = with(LocalDensity.current) { MaterialTheme.typography.display3.fontSize.value.dp.toSp() },
-        )
-    } else {
-        MaterialTheme.typography.display1.copy(
-            fontSize = with(LocalDensity.current) { MaterialTheme.typography.display1.fontSize.value.dp.toSp() },
-        )
+    val textStyle = with(LocalDensity.current) {
+        if (showSeconds) {
+            fontScaleIndependent(MaterialTheme.typography.display3)
+        } else {
+            fontScaleIndependent(MaterialTheme.typography.display1)
+        }
     }
 
     val optionColor = MaterialTheme.colors.secondary
@@ -361,11 +359,8 @@ public fun TimePickerWith12HourClock(
             rememberPickerGroupState(FocusableElement12Hour.HOURS.index)
         }
 
-    // Omit scaling according to Settings > Display > Font size for this screen,
     val textStyle =
-        MaterialTheme.typography.display3.copy(
-            fontSize = with(LocalDensity.current) { MaterialTheme.typography.display3.fontSize.value.dp.toSp() },
-        )
+        with(LocalDensity.current) { fontScaleIndependent(MaterialTheme.typography.display3) }
 
     val focusRequesterConfirmButton = remember { FocusRequester() }
 
@@ -556,6 +551,14 @@ private fun Separator(textStyle: TextStyle) {
     )
 }
 
+
+// Omit scaling according to Settings > Display > Font size for this screen,
+internal fun Density.fontScaleIndependent(style: TextStyle): TextStyle {
+    return style.copy(
+        fontSize = style.fontSize.value.dp.toSp(),
+    )
+}
+
 @Composable
 @OptIn(ExperimentalWearFoundationApi::class)
 @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
@@ -587,11 +590,11 @@ internal fun pickerTextOption(textStyle: TextStyle, indexToText: (Int) -> String
             maxLines = 1,
             style = textStyle,
             color =
-                if (pickerSelected) {
-                    MaterialTheme.colors.secondary
-                } else {
-                    MaterialTheme.colors.onBackground
-                },
+            if (pickerSelected) {
+                MaterialTheme.colors.secondary
+            } else {
+                MaterialTheme.colors.onBackground
+            },
             modifier = Modifier
                 .align(Alignment.Center)
                 .wrapContentSize(),

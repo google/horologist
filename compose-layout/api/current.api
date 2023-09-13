@@ -1,4 +1,42 @@
 // Signature format: 4.0
+package com.google.android.horologist.compose.ambient {
+
+  public final class AmbientAwareKt {
+    method @androidx.compose.runtime.Composable public static void AmbientAware(kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.ambient.AmbientStateUpdate,kotlin.Unit> block);
+  }
+
+  public final class AmbientAwareTimeKt {
+    method @RequiresApi(android.os.Build.VERSION_CODES.O) @androidx.compose.runtime.Composable public static void AmbientAwareTime(com.google.android.horologist.compose.ambient.AmbientStateUpdate stateUpdate, optional long updatePeriodMillis, kotlin.jvm.functions.Function2<? super java.time.ZonedDateTime,? super java.lang.Boolean,kotlin.Unit> block);
+  }
+
+  public sealed interface AmbientState {
+  }
+
+  public static final class AmbientState.Ambient implements com.google.android.horologist.compose.ambient.AmbientState {
+    ctor public AmbientState.Ambient(optional androidx.wear.ambient.AmbientLifecycleObserver.AmbientDetails? ambientDetails);
+    method public androidx.wear.ambient.AmbientLifecycleObserver.AmbientDetails? component1();
+    method public com.google.android.horologist.compose.ambient.AmbientState.Ambient copy(androidx.wear.ambient.AmbientLifecycleObserver.AmbientDetails? ambientDetails);
+    method public androidx.wear.ambient.AmbientLifecycleObserver.AmbientDetails? getAmbientDetails();
+    property public final androidx.wear.ambient.AmbientLifecycleObserver.AmbientDetails? ambientDetails;
+  }
+
+  public static final class AmbientState.Interactive implements com.google.android.horologist.compose.ambient.AmbientState {
+    field public static final com.google.android.horologist.compose.ambient.AmbientState.Interactive INSTANCE;
+  }
+
+  public final class AmbientStateUpdate {
+    ctor public AmbientStateUpdate(com.google.android.horologist.compose.ambient.AmbientState ambientState, optional long changeTimeMillis);
+    method public com.google.android.horologist.compose.ambient.AmbientState component1();
+    method public long component2();
+    method public com.google.android.horologist.compose.ambient.AmbientStateUpdate copy(com.google.android.horologist.compose.ambient.AmbientState ambientState, long changeTimeMillis);
+    method public com.google.android.horologist.compose.ambient.AmbientState getAmbientState();
+    method public long getChangeTimeMillis();
+    property public final com.google.android.horologist.compose.ambient.AmbientState ambientState;
+    property public final long changeTimeMillis;
+  }
+
+}
+
 package com.google.android.horologist.compose.focus {
 
   public final class FocusNodeKt {

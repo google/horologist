@@ -227,7 +227,7 @@ public fun TimePicker(
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = minuteState,
-                            modifier = Modifier.size(46.dp, 100.dp).offset(x = (2).dp),
+                            modifier = Modifier.size(46.dp, 100.dp).offset(x = (3).dp),
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementsTimePicker.MINUTES,
@@ -464,7 +464,7 @@ public fun TimePickerWith12HourClock(
                             pickerState = minuteState,
                             modifier = Modifier
                                 .size(53.dp, 100.dp)
-                                .offset(x = (0).dp),
+                                .offset(x = (-0.5).dp),
                             onSelected = {
                                 doubleTapToNext(
                                     FocusableElement12Hour.MINUTES,

@@ -43,10 +43,19 @@ fun AmbientAware(block: @Composable (AmbientStateUpdate) -> Unit) {
     val activity = LocalContext.current as Activity
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     var ambientUpdate by remember { mutableStateOf<AmbientStateUpdate?>(null) }
+    // On entering ambient mode, the [onEnterAmbient] callback method provides details of burn-in
+    // protection and low-bit support. These are stored here such that they can be provided as a
+    // convenience with each [AmbientStateUpdate] as [onUpdateAmbient] does not provide them.
+    var lastAmbientDetails by remember {
+        mutableStateOf<AmbientLifecycleObserver.AmbientDetails?>(
+            null,
+        )
+    }
 
     val observer = remember {
         val callback = object : AmbientLifecycleObserver.AmbientLifecycleCallback {
             override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
+                lastAmbientDetails = ambientDetails
                 ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(ambientDetails))
             }
 
@@ -55,13 +64,13 @@ fun AmbientAware(block: @Composable (AmbientStateUpdate) -> Unit) {
             }
 
             override fun onUpdateAmbient() {
-                ambientUpdate = AmbientStateUpdate(AmbientState.Ambient())
+                ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(lastAmbientDetails))
             }
         }
         AmbientLifecycleObserver(activity, callback).also {
             // Necessary to populate the initial value
             val initialAmbientState = if (it.isAmbient) {
-                AmbientState.Ambient()
+                AmbientState.Ambient(lastAmbientDetails)
             } else {
                 AmbientState.Interactive
             }

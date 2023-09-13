@@ -551,7 +551,6 @@ private fun Separator(textStyle: TextStyle) {
     )
 }
 
-
 // Omit scaling according to Settings > Display > Font size for this screen,
 internal fun Density.fontScaleIndependent(style: TextStyle): TextStyle {
     return style.copy(
@@ -590,11 +589,11 @@ internal fun pickerTextOption(textStyle: TextStyle, indexToText: (Int) -> String
             maxLines = 1,
             style = textStyle,
             color =
-            if (pickerSelected) {
-                MaterialTheme.colors.secondary
-            } else {
-                MaterialTheme.colors.onBackground
-            },
+                if (pickerSelected) {
+                    MaterialTheme.colors.secondary
+                } else {
+                    MaterialTheme.colors.onBackground
+                },
             modifier = Modifier
                 .align(Alignment.Center)
                 .wrapContentSize(),

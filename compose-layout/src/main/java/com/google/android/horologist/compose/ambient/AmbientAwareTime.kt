@@ -75,15 +75,15 @@ fun AmbientAwareTime(
     }
 
     LaunchedEffect(stateUpdate) {
-        if (stateUpdate.ambientState == AmbientState.AMBIENT) {
-            isAmbient = true
-            currentTime = ZonedDateTime.now()
-        } else {
+        if (stateUpdate.ambientState == AmbientState.Interactive) {
             while (isActive) {
                 isAmbient = false
                 currentTime = ZonedDateTime.now()
                 delay(updatePeriodMillis - System.currentTimeMillis() % updatePeriodMillis)
             }
+        } else {
+            isAmbient = true
+            currentTime = ZonedDateTime.now()
         }
     }
 }

@@ -9,11 +9,19 @@ package com.google.android.horologist.compose.ambient {
     method @RequiresApi(android.os.Build.VERSION_CODES.O) @androidx.compose.runtime.Composable public static void AmbientAwareTime(com.google.android.horologist.compose.ambient.AmbientStateUpdate stateUpdate, optional long updatePeriodMillis, kotlin.jvm.functions.Function2<? super java.time.ZonedDateTime,? super java.lang.Boolean,kotlin.Unit> block);
   }
 
-  public enum AmbientState {
-    method public static com.google.android.horologist.compose.ambient.AmbientState valueOf(String name) throws java.lang.IllegalArgumentException;
-    method public static com.google.android.horologist.compose.ambient.AmbientState[] values();
-    enum_constant public static final com.google.android.horologist.compose.ambient.AmbientState AMBIENT;
-    enum_constant public static final com.google.android.horologist.compose.ambient.AmbientState INTERACTIVE;
+  public sealed interface AmbientState {
+  }
+
+  public static final class AmbientState.Ambient implements com.google.android.horologist.compose.ambient.AmbientState {
+    ctor public AmbientState.Ambient(optional androidx.wear.ambient.AmbientLifecycleObserver.AmbientDetails? ambientDetails);
+    method public androidx.wear.ambient.AmbientLifecycleObserver.AmbientDetails? component1();
+    method public com.google.android.horologist.compose.ambient.AmbientState.Ambient copy(androidx.wear.ambient.AmbientLifecycleObserver.AmbientDetails? ambientDetails);
+    method public androidx.wear.ambient.AmbientLifecycleObserver.AmbientDetails? getAmbientDetails();
+    property public final androidx.wear.ambient.AmbientLifecycleObserver.AmbientDetails? ambientDetails;
+  }
+
+  public static final class AmbientState.Interactive implements com.google.android.horologist.compose.ambient.AmbientState {
+    field public static final com.google.android.horologist.compose.ambient.AmbientState.Interactive INSTANCE;
   }
 
   public final class AmbientStateUpdate {

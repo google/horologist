@@ -49,14 +49,13 @@ import androidx.wear.ambient.AmbientLifecycleObserver
 @Composable
 fun AmbientAware(
     isAlwaysOnScreen: Boolean = true,
-    block: @Composable (AmbientStateUpdate) -> Unit
+    block: @Composable (AmbientStateUpdate) -> Unit,
 ) {
     val activity = LocalContext.current.findActivityOrNull()
     // Using AmbientAware correctly relies on there being an Activity context. If there isn't, then
     // gracefully allow the composition of [block], but no ambient-mode functionality is enabled.
     if (activity != null && isAlwaysOnScreen) {
         AmbientAwareEnabled(activity, block)
-
     } else {
         AmbientAwareDisabled(block)
     }

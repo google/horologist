@@ -43,6 +43,19 @@ class TimePicker12hTest : ScreenshotBaseTest(
 
     @Test
     @Config(
+        fontScale = 1.24f,
+    )
+    fun largestFontScaling() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            TimePickerWith12HourClock(
+                time = LocalTime.of(10, 10, 0),
+                onTimeConfirm = {},
+            )
+        }
+    }
+
+    @Test
+    @Config(
         qualifiers = "+w192dp-h192dp",
         fontScale = 1.24f,
     )

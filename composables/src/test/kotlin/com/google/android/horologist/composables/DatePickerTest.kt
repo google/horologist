@@ -43,6 +43,19 @@ class DatePickerTest : ScreenshotBaseTest(
 
     @Test
     @Config(
+        fontScale = 1.24f,
+    )
+    fun largestFontScaling() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            DatePicker(
+                onDateConfirm = {},
+                date = LocalDate.of(2022, 4, 25),
+            )
+        }
+    }
+
+    @Test
+    @Config(
         qualifiers = "+w192dp-h192dp",
         fontScale = 1.24f,
     )

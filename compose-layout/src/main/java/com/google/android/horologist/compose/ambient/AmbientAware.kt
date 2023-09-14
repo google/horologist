@@ -39,21 +39,30 @@ import androidx.wear.ambient.AmbientLifecycleObserver
  *     https://developer.android.com/training/wearables/views/always-on).
  *
  * It should therefore be used high up in the tree of composables.
+ *
+ * @param isAlwaysOnScreen If supplied, this indicates whether always-on should be enabled. This can
+ * be used to ensure that some screens display an ambient-mode version, whereas others do not, for
+ * example, a workout screen vs a end-of-workout summary screen.
+ * @param block Lambda that will be used for building the UI, which is passed the current ambient
+ * state.
  */
 @Composable
-fun AmbientAware(block: @Composable (AmbientStateUpdate) -> Unit) {
+fun AmbientAware(
+    isAlwaysOnScreen: Boolean = true,
+    block: @Composable (AmbientStateUpdate) -> Unit,
+) {
     val activity = LocalContext.current.findActivityOrNull()
     // Using AmbientAware correctly relies on there being an Activity context. If there isn't, then
     // gracefully allow the composition of [block], but no ambient-mode functionality is enabled.
-    if (activity == null) {
-        AmbientAwareNoActivity(block)
+    if (activity != null && isAlwaysOnScreen) {
+        AmbientAwareEnabled(activity, block)
     } else {
-        AmbientAwareWithActivity(activity, block)
+        AmbientAwareDisabled(block)
     }
 }
 
 @Composable
-private fun AmbientAwareWithActivity(
+private fun AmbientAwareEnabled(
     activity: Activity,
     block: @Composable (AmbientStateUpdate) -> Unit,
 ) {
@@ -101,7 +110,7 @@ private fun AmbientAwareWithActivity(
 }
 
 @Composable
-private fun AmbientAwareNoActivity(block: @Composable (AmbientStateUpdate) -> Unit) {
+private fun AmbientAwareDisabled(block: @Composable (AmbientStateUpdate) -> Unit) {
     val staticAmbientState by remember { mutableStateOf(AmbientStateUpdate(AmbientState.Interactive)) }
     block(staticAmbientState)
 }

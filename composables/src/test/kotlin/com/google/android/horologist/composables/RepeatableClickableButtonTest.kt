@@ -35,24 +35,31 @@ class RepeatableClickableButtonTest {
     public val rule = createComposeRule()
     private val text = "myRepeatableClickableButton"
     private val onClick: () -> Unit = { ++clickCounter }
-    private val onRepeatedClick: () -> Unit = { ++repeatedClickCounter }
+    private val onLongRepeatableClick: () -> Unit = { ++longRepeatableClickCounter }
+    private val onLongRepeatableClickEnd: () -> Unit = { longRepeatedClickEnd = true }
 
     private var clickCounter = 0
-    private var repeatedClickCounter = 0
+    private var longRepeatableClickCounter = 0
+    private var longRepeatedClickEnd = false
 
     @Before
     fun setup() {
         rule.setContent {
             Box {
-                RepeatableClickableButton(onClick = onClick, onRepeatedClick = onRepeatedClick) {
+                RepeatableClickableButton(
+                    onClick = onClick,
+                    onLongRepeatableClick = onLongRepeatableClick,
+                    onLongRepeatableClickEnd = onLongRepeatableClickEnd,
+                ) {
                     Text(text)
                 }
             }
         }
 
-        // Reset counters
+        // Reset counters and state
         clickCounter = 0
-        repeatedClickCounter = 0
+        longRepeatableClickCounter = 0
+        longRepeatedClickEnd = false
     }
 
     @Test
@@ -61,7 +68,8 @@ class RepeatableClickableButtonTest {
 
         rule.runOnIdle {
             assertThat(clickCounter).isEqualTo(1)
-            assertThat(repeatedClickCounter).isEqualTo(0)
+            assertThat(longRepeatableClickCounter).isEqualTo(0)
+            assertThat(longRepeatedClickEnd).isFalse()
         }
     }
 
@@ -75,7 +83,8 @@ class RepeatableClickableButtonTest {
 
         rule.runOnIdle {
             assertThat(clickCounter).isEqualTo(0)
-            assertThat(repeatedClickCounter).isGreaterThan(0)
+            assertThat(longRepeatableClickCounter).isGreaterThan(0)
+            assertThat(longRepeatedClickEnd).isTrue()
         }
     }
 }

@@ -44,10 +44,10 @@ import kotlinx.coroutines.launch
  *
  * Code from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material-core/src/main/java/androidx/wear/compose/materialcore/RepeatableClickable.kt
  *
- * Callbacks [onClick] and [onRepeatableClick] are different. [onClick] is triggered only when the
+ * Callbacks [onClick] and [onLongRepeatableClick] are different. [onClick] is triggered only when the
  * hold duration is shorter than [initialDelay] and no repeatable clicks happened.
- * [onRepeatableClick] is repeatedly triggered when the hold duration is longer than [initialDelay]
- * with [incrementalDelay] intervals.
+ * [onLongRepeatableClick] is repeatedly triggered when the hold duration is longer than [initialDelay]
+ * with [incrementalDelay] intervals. If [onLongRepeatableClickEnd] is supplied, then it will be called following the onLongRepeatableClick call(s).
  *
  * @param interactionSource [MutableInteractionSource] that will be used to dispatch
  *   [PressInteraction.Press] when this clickable is pressed. Only the initial (first) press will be
@@ -63,8 +63,9 @@ import kotlinx.coroutines.launch
  * @param initialDelay The initial delay before the click starts repeating, in ms
  * @param incrementalDelay The delay between each repeated click, in ms
  * @param onClick will be called when user clicks on the element
- * @param onRepeatableClick will be called after the [initialDelay] with [incrementalDelay] between
+ * @param onLongRepeatableClick will be called after the [initialDelay] with [incrementalDelay] between
  *   each call until the touch is released
+ * @param onLongRepeatableClickEnd will be called after the after the onLongRepeatableClick call(s).
  */
 public fun Modifier.repeatableClickable(
     interactionSource: MutableInteractionSource,
@@ -75,14 +76,16 @@ public fun Modifier.repeatableClickable(
     initialDelay: Long = 500L,
     incrementalDelay: Long = 60L,
     onClick: () -> Unit,
-    onRepeatableClick: () -> Unit = onClick,
+    onLongRepeatableClick: () -> Unit = onClick,
+    onLongRepeatableClickEnd: () -> Unit = {},
 ): Modifier = composed {
-    val currentOnRepeatableClick by rememberUpdatedState(onRepeatableClick)
+    val currentOnRepeatableClick by rememberUpdatedState(onLongRepeatableClick)
+    val currentOnRepeatableClickEnd by rememberUpdatedState(onLongRepeatableClickEnd)
     val currentOnClick by rememberUpdatedState(onClick)
     // This flag is used for checking whether the onClick should be ignored or not.
     // If this flag is true, then it means that repeatable click happened and onClick
     // shouldn't be triggered.
-    var ignoreOnClick by remember { mutableStateOf(false) }
+    var repeatableClickTriggered by remember { mutableStateOf(false) }
     // Repeatable logic should always follow the clickable, as the lowest modifier finishes first,
     // and we have to be sure that repeatable goes before clickable.
     clickable(
@@ -92,20 +95,20 @@ public fun Modifier.repeatableClickable(
         onClickLabel = onClickLabel,
         role = role,
         onClick = {
-            if (!ignoreOnClick) {
+            if (!repeatableClickTriggered) {
                 currentOnClick()
             }
-            ignoreOnClick = false
+            repeatableClickTriggered = false
         },
     )
         .pointerInput(enabled) {
             coroutineScope {
                 awaitEachGesture {
                     awaitFirstDown()
-                    ignoreOnClick = false
+                    repeatableClickTriggered = false
                     val repeatingJob = launch {
                         delay(initialDelay)
-                        ignoreOnClick = true
+                        repeatableClickTriggered = true
                         while (enabled) {
                             currentOnRepeatableClick()
                             delay(incrementalDelay)
@@ -114,6 +117,9 @@ public fun Modifier.repeatableClickable(
                     // Waiting for up or cancellation of the gesture.
                     waitForUpOrCancellation()
                     repeatingJob.cancel()
+                    if (repeatableClickTriggered) {
+                        currentOnRepeatableClickEnd()
+                    }
                 }
             }
         }

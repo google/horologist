@@ -42,7 +42,7 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
- * A base button that can send single onClick event or repeated [onRepeatedClick] events by
+ * A base button that can send single onClick event or repeated [onLongRepeatableClick] events by
  * holding it down.
  *
  * Code modified from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material/src/main/java/androidx/wear/compose/material/Button.kt
@@ -52,8 +52,9 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @Composable
 public fun RepeatableClickableButton(
     onClick: () -> Unit,
-    onRepeatedClick: () -> Unit,
+    onLongRepeatableClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongRepeatableClickEnd: () -> Unit = {},
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -84,7 +85,8 @@ public fun RepeatableClickableButton(
                     role = Role.Button,
                     indication = rememberRipple(),
                     onClick = onClick,
-                    onRepeatableClick = onRepeatedClick,
+                    onLongRepeatableClick = onLongRepeatableClick,
+                    onLongRepeatableClickEnd = onLongRepeatableClickEnd,
                     interactionSource = interactionSource,
                 )
                 .background(color = colors.backgroundColor(enabled = enabled).value, shape = shape),

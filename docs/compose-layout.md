@@ -74,6 +74,34 @@ Box(
 
 ![](fade_away.png){: loading=lazy width=70% align=center }
 
+## AmbientAware composable
+
+`AmbientAware` allows your UI to react to ambient mode changes. For more information on how Ambient
+mode and Always-on work on Wear OS, see the [developer guidance][always-on].
+
+You should place this composable high up in your design, as it alters the behavior of the Activity.
+
+```kotlin
+WearApp {
+    AmbientAware { ambientStateUpdate ->
+        // App Content here
+    }
+}
+```
+
+If you need some screens to use always-on, and others not to, then you can use the additional
+argument supplied to `AmbientAware`:
+
+```kotlin
+WearApp {
+    // Hoist state here for your current screen logic
+    
+    AmbientAware(isAlwaysOnScreen = currentScreen.useAlwaysOn) { ambientStateUpdate ->
+        // App Content here
+    }
+}
+```
+
 ## Download
 
 ```groovy
@@ -85,3 +113,6 @@ dependencies {
     implementation "com.google.android.horologist:horologist-compose-layout:<version>"
 }
 ```
+
+
+[always-on]: https://developer.android.com/training/wearables/views/always-on

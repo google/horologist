@@ -90,6 +90,7 @@ internal class ProgressStateHolder(
 
         private fun TrackPositionUiModel.getCurrentPercent(timestamp: Long) = when (this) {
             is TrackPositionUiModel.Actual -> percent
+            is TrackPositionUiModel.SeekProjection -> percent
             is TrackPositionUiModel.Predictive -> predictor.predictPercent(timestamp)
             else -> 0f
         }

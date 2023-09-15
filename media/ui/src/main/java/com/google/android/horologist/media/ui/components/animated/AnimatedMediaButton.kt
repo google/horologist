@@ -35,6 +35,7 @@ import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.composables.RepeatableClickableButton
 import kotlinx.coroutines.launch
 import androidx.compose.ui.semantics.contentDescription as contentDescriptionProperty
 
@@ -48,6 +49,8 @@ public fun AnimatedMediaButton(
     compositionResult: LottieCompositionResult,
     contentDescription: String,
     modifier: Modifier = Modifier,
+    onLongRepeatableClick: () -> Unit = {},
+    onLongRepeatableClickEnd: () -> Unit = {},
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     dynamicProperties: LottieDynamicProperties? = null,
@@ -58,13 +61,13 @@ public fun AnimatedMediaButton(
     val scope = rememberCoroutineScope()
     val lottieAnimatable = rememberLottieAnimatable()
 
-    Button(
+    RepeatableClickableButton(
         onClick = {
-            scope.launch {
-                lottieAnimatable.animate(composition = compositionResult.value)
-            }
+            scope.launch { lottieAnimatable.animate(composition = compositionResult.value) }
             onClick()
         },
+        onLongRepeatableClick = onLongRepeatableClick,
+        onLongRepeatableClickEnd = onLongRepeatableClickEnd,
         modifier = modifier.size(tapTargetSize),
         enabled = enabled,
         colors = colors,

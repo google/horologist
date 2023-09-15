@@ -6,6 +6,7 @@ com.google.android.horologist.annotations
 module:composables
 com.google.android.horologist.composables
 module:compose-layout
+com.google.android.horologist.compose.ambient
 com.google.android.horologist.compose.layout
 com.google.android.horologist.compose.navscaffold
 com.google.android.horologist.compose.pager
@@ -116,6 +117,7 @@ com.google.android.horologist.media3.audio
 module:media-sync
 com.google.android.horologist.media.sync.api
 com.google.android.horologist.media.sync.initializers
+com.google.android.horologist.media.sync.workers
 module:media-ui
 com.google.android.horologist.media.ui.complication
 com.google.android.horologist.media.ui.components
@@ -142,6 +144,7 @@ com.google.android.horologist.networks.logging
 com.google.android.horologist.networks.request
 com.google.android.horologist.networks.rules
 com.google.android.horologist.networks.status
+com.google.android.horologist.networks.testdoubles
 module:network-awareness-db
 com.google.android.horologist.networks.db
 module:network-awareness-okhttp

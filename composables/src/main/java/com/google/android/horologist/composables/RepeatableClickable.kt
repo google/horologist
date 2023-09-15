@@ -67,7 +67,7 @@ import kotlinx.coroutines.launch
  *   each call until the touch is released
  * @param onLongRepeatableClickEnd will be called after the after the onLongRepeatableClick call(s).
  */
-public fun Modifier.repeatableClickable(
+internal fun Modifier.repeatableClickable(
     interactionSource: MutableInteractionSource,
     indication: Indication?,
     enabled: Boolean = true,

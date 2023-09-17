@@ -346,7 +346,7 @@ private class PixelWatchRotaryHapticFeedback(private val view: View) : RotaryHap
 }
 
 /**
- * Implementation of [RotaryHapticFeedback] for Galaxy Watch 4 Classic
+ * Implementation of [RotaryHapticFeedback] for Galaxy Watch 4 and 6 Classic
  */
 @ExperimentalHorologistApi
 private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryHapticFeedback {
@@ -372,7 +372,7 @@ private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryH
 }
 
 private fun isGalaxyWatchClassic(): Boolean =
-    Build.MODEL.matches("SM-R8[89]5.".toRegex())
+    Build.MODEL.matches("SM-R(?:8[89][05]|9[56][05])".toRegex())
 
 private fun isGooglePixelWatch(): Boolean =
     Build.MODEL.startsWith("Google Pixel Watch")

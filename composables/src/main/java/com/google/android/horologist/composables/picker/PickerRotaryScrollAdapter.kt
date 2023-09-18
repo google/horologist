@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.composables.picker
 
+import androidx.wear.compose.material.PickerState
 import com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter
 
 // TODO(b/294842202): Remove once rotary modifiers are in AndroidX
@@ -23,12 +24,13 @@ import com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter
 /**
  * An extension function for creating [RotaryScrollAdapter] from [Picker]
  */
-internal fun PickerState.toRotaryScrollAdapter(): PickerRotaryScrollAdapter =
+fun PickerState.toRotaryScrollAdapter(): RotaryScrollAdapter =
     PickerRotaryScrollAdapter(this)
 
 /**
  * An implementation of rotary scroll adapter for [Picker]
  */
+@Suppress("INVISIBLE_MEMBER")
 internal class PickerRotaryScrollAdapter(
     override val scrollableState: PickerState,
 ) : RotaryScrollAdapter {

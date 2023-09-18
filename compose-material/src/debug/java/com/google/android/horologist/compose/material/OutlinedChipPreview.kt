@@ -21,10 +21,8 @@ import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ChipDefaults
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -125,56 +123,6 @@ fun OutlinedChipPreviewDisabled() {
         secondaryLabel = "Secondary label",
         icon = Icons.Default.Image,
         enabled = false,
-    )
-}
-
-@Preview(
-    name = "With secondary chip colors",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
-@Composable
-fun OutlinedChipPreviewWithSecondaryChipColors() {
-    OutlinedChip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
-        colors = ChipDefaults.secondaryChipColors(),
-    )
-}
-
-@Preview(
-    name = "With gradient background chip colors",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
-@Composable
-fun OutlinedChipPreviewWithGradientBackgroundChipColors() {
-    OutlinedChip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
-        colors = ChipDefaults.gradientBackgroundChipColors(),
-    )
-}
-
-@Preview(
-    name = "With image background chip colors",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
-@Composable
-fun OutlinedChipPreviewWithImageBackgroundChipColors() {
-    OutlinedChip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
-        colors = ChipDefaults.imageBackgroundChipColors(
-            backgroundImagePainter = painterResource(id = android.R.drawable.ic_dialog_alert),
-        ),
     )
 }
 

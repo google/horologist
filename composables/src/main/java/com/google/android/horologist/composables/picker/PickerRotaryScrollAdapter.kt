@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.composables.picker
 
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter
 
 // TODO(b/294842202): Remove once rotary modifiers are in AndroidX
@@ -31,6 +32,45 @@ internal fun PickerState.toRotaryScrollAdapter(): PickerRotaryScrollAdapter =
  */
 internal class PickerRotaryScrollAdapter(
     override val scrollableState: PickerState,
+) : RotaryScrollAdapter {
+
+    /**
+     * Returns a height of a first item, as all items in picker have the same height.
+     */
+    override fun averageItemSize(): Float =
+        scrollableState.scalingLazyListState
+            .layoutInfo.visibleItemsInfo.first().unadjustedSize.toFloat()
+
+    /**
+     * Current (centred) item index
+     */
+    override fun currentItemIndex(): Int =
+        scrollableState.scalingLazyListState.centerItemIndex
+
+    /**
+     * An offset from the item centre
+     */
+    override fun currentItemOffset(): Float =
+        scrollableState.scalingLazyListState.centerItemScrollOffset.toFloat()
+
+    override fun totalItemsCount(): Int =
+        scrollableState.scalingLazyListState.layoutInfo.totalItemsCount
+}
+
+/**
+ * Temporary implementation of RotaryScrollAdapter for PickerState 
+ * from AndroidX wear-compose library.
+ */
+@ExperimentalHorologistApi
+public fun androidx.wear.compose.material.PickerState.toRotaryScrollAdapter(): RotaryScrollAdapter =
+    AndroidxPickerRotaryScrollAdapter(this)
+
+/**
+ * An implementation of rotary scroll adapter for [Picker]
+ */
+@Suppress("INVISIBLE_MEMBER")
+internal class AndroidxPickerRotaryScrollAdapter(
+    override val scrollableState: androidx.wear.compose.material.PickerState,
 ) : RotaryScrollAdapter {
 
     /**

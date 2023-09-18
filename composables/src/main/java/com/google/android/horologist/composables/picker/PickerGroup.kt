@@ -213,7 +213,7 @@ internal class PickerGroupState constructor(
      */
     var selectedIndex by mutableIntStateOf(initiallySelectedIndex)
 
-    public companion object {
+    internal companion object {
         val Saver = listSaver<PickerGroupState, Any?>(
             save = {
                 listOf(

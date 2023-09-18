@@ -121,7 +121,7 @@ package com.google.android.horologist.media.model {
   }
 
   public final class PlaybackState {
-    ctor public PlaybackState(com.google.android.horologist.media.model.PlayerState playerState, boolean isLive, kotlin.time.Duration? currentPosition, kotlin.time.Duration? seekProjection, kotlin.time.Duration? duration, float playbackSpeed);
+    ctor public PlaybackState(com.google.android.horologist.media.model.PlayerState playerState, boolean isLive, kotlin.time.Duration? currentPosition, optional kotlin.time.Duration? seekProjection, kotlin.time.Duration? duration, float playbackSpeed);
     method public com.google.android.horologist.media.model.PlayerState component1();
     method public boolean component2();
     method public kotlin.time.Duration? component3-FghU774();

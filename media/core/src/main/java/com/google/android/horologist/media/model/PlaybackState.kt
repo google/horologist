@@ -28,7 +28,7 @@ public data class PlaybackState(
     public val playerState: PlayerState,
     public val isLive: Boolean,
     public val currentPosition: Duration?,
-    public val seekProjection: Duration?,
+    public val seekProjection: Duration? = null,
     public val duration: Duration?,
     public val playbackSpeed: Float,
 ) {

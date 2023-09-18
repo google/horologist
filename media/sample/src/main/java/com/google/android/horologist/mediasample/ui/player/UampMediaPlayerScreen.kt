@@ -95,8 +95,10 @@ fun UampMediaPlayerScreen(
                         playPauseButtonEnabled = playerUiState.playPauseEnabled,
                         playing = playerUiState.playing,
                         onSeekToPreviousButtonClick = { playerUiController.skipToPreviousMedia() },
+                        onSeekToPreviousLongRepeatableClick = { playerUiController.seekBack() },
                         seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
                         onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
+                        onSeekToNextLongRepeatableClick = { playerUiController.seekForward() },
                         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
                         trackPositionUiModel = playerUiState.trackPositionUiModel,
                     )

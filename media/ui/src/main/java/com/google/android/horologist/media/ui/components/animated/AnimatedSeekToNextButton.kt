@@ -36,8 +36,8 @@ import com.google.android.horologist.media.ui.components.controls.SeekToNextButt
 public fun AnimatedSeekToNextButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onLongRepeatableClick: () -> Unit = {},
-    onLongRepeatableClickEnd: () -> Unit = {},
+    onLongRepeatableClick: (() -> Unit)? = null,
+    onLongRepeatableClickEnd: (() -> Unit)? = null,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,

@@ -65,7 +65,7 @@ public fun AnimatedMediaControlButtons(
                 onClick = onSeekToPreviousButtonClick,
                 enabled = seekToPreviousButtonEnabled,
                 colors = colors,
-                onLongRepeatableClick =  onSeekToPreviousLongRepeatableClick,
+                onLongRepeatableClick = onSeekToPreviousLongRepeatableClick,
                 onLongRepeatableClickEnd = onSeekToPreviousLongRepeatableClickEnd,
             )
         },
@@ -96,7 +96,7 @@ public fun AnimatedMediaControlButtons(
         rightButton = {
             AnimatedSeekToNextButton(
                 onClick = onSeekToNextButtonClick,
-                onLongRepeatableClick =  onSeekToNextLongRepeatableClick,
+                onLongRepeatableClick = onSeekToNextLongRepeatableClick,
                 onLongRepeatableClickEnd = onSeekToNextLongRepeatableClickEnd,
                 enabled = seekToNextButtonEnabled,
                 colors = colors,

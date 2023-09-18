@@ -30,6 +30,7 @@ public data class PlaybackStateEvent(
         PlayerStateChanged,
         ParametersChanged,
         PositionDiscontinuity,
+        SeekProjecting,
         Other,
     }
 

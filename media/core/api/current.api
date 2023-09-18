@@ -121,18 +121,20 @@ package com.google.android.horologist.media.model {
   }
 
   public final class PlaybackState {
-    ctor public PlaybackState(com.google.android.horologist.media.model.PlayerState playerState, boolean isLive, kotlin.time.Duration? currentPosition, kotlin.time.Duration? duration, float playbackSpeed);
+    ctor public PlaybackState(com.google.android.horologist.media.model.PlayerState playerState, boolean isLive, kotlin.time.Duration? currentPosition, kotlin.time.Duration? seekProjection, kotlin.time.Duration? duration, float playbackSpeed);
     method public com.google.android.horologist.media.model.PlayerState component1();
     method public boolean component2();
     method public kotlin.time.Duration? component3-FghU774();
     method public kotlin.time.Duration? component4-FghU774();
-    method public float component5();
-    method public com.google.android.horologist.media.model.PlaybackState copy-5TNNnBA(com.google.android.horologist.media.model.PlayerState playerState, boolean isLive, kotlin.time.Duration? currentPosition, kotlin.time.Duration? duration, float playbackSpeed);
+    method public kotlin.time.Duration? component5-FghU774();
+    method public float component6();
+    method public com.google.android.horologist.media.model.PlaybackState copy-dOnIrbo(com.google.android.horologist.media.model.PlayerState playerState, boolean isLive, kotlin.time.Duration? currentPosition, kotlin.time.Duration? seekProjection, kotlin.time.Duration? duration, float playbackSpeed);
     method public boolean equals(Object? other);
     method public kotlin.time.Duration? getCurrentPosition();
     method public kotlin.time.Duration? getDuration();
     method public float getPlaybackSpeed();
     method public com.google.android.horologist.media.model.PlayerState getPlayerState();
+    method public kotlin.time.Duration? getSeekProjection();
     method public int hashCode();
     method public boolean isLive();
     method public boolean isPlaying();
@@ -143,6 +145,7 @@ package com.google.android.horologist.media.model {
     property public final boolean isPlaying;
     property public final float playbackSpeed;
     property public final com.google.android.horologist.media.model.PlayerState playerState;
+    property public final kotlin.time.Duration? seekProjection;
     field public static final com.google.android.horologist.media.model.PlaybackState.Companion Companion;
   }
 
@@ -178,6 +181,7 @@ package com.google.android.horologist.media.model {
     enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause ParametersChanged;
     enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause PlayerStateChanged;
     enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause PositionDiscontinuity;
+    enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause SeekProjecting;
   }
 
   public static final class PlaybackStateEvent.Companion {

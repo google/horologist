@@ -28,6 +28,7 @@ public data class PlaybackState(
     public val playerState: PlayerState,
     public val isLive: Boolean,
     public val currentPosition: Duration?,
+    public val seekProjection: Duration?,
     public val duration: Duration?,
     public val playbackSpeed: Float,
 ) {
@@ -38,6 +39,7 @@ public data class PlaybackState(
             playerState = PlayerState.Idle,
             isLive = false,
             currentPosition = null,
+            seekProjection = null,
             duration = null,
             playbackSpeed = 1f,
         )

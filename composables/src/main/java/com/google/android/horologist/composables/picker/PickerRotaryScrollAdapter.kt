@@ -58,7 +58,8 @@ internal class PickerRotaryScrollAdapter(
 }
 
 /**
- * Temporary implementation of RotaryScrollAdapter for PickerState.
+ * Temporary implementation of RotaryScrollAdapter for PickerState 
+ * from AndroidX wear-compose library.
  */
 @ExperimentalHorologistApi
 public fun androidx.wear.compose.material.PickerState.toRotaryScrollAdapter(): RotaryScrollAdapter =

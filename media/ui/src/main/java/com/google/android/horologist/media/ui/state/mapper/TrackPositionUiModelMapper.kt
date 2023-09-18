@@ -21,8 +21,6 @@ import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
 
 /**
  * Functions to map a [TrackPositionUiModel] based on data from other layers.
@@ -46,7 +44,7 @@ public object TrackPositionUiModelMapper {
                 return TrackPositionUiModel.SeekProjection(
                     percent = percent,
                     duration = duration,
-                    position = projection.milliseconds
+                    position = projection.milliseconds,
                 )
             }
         }

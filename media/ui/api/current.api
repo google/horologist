@@ -674,7 +674,7 @@ package com.google.android.horologist.media.ui.state.mapper {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class TrackPositionUiModelMapper {
-    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel map(com.google.android.horologist.media.model.PlaybackStateEvent event);
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel map(com.google.android.horologist.media.model.PlaybackStateEvent event, optional Long? seekProjection);
     field public static final com.google.android.horologist.media.ui.state.mapper.TrackPositionUiModelMapper INSTANCE;
   }
 
@@ -896,6 +896,27 @@ package com.google.android.horologist.media.ui.state.model {
     method public boolean isLoading();
     property public boolean isLoading;
     property public final com.google.android.horologist.media.model.PositionPredictor predictor;
+    property public boolean shouldAnimate;
+    property public boolean showProgress;
+  }
+
+  public static final class TrackPositionUiModel.SeekProjection extends com.google.android.horologist.media.ui.state.model.TrackPositionUiModel {
+    ctor public TrackPositionUiModel.SeekProjection(float percent, long duration, long position, optional boolean shouldAnimate);
+    method public float component1();
+    method public long component2-UwyO8pc();
+    method public long component3-UwyO8pc();
+    method public boolean component4();
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.SeekProjection copy-vLdBGDU(float percent, long duration, long position, boolean shouldAnimate);
+    method public long getDuration();
+    method public float getPercent();
+    method public long getPosition();
+    method public boolean getShouldAnimate();
+    method public boolean getShowProgress();
+    method public boolean isLoading();
+    property public final long duration;
+    property public boolean isLoading;
+    property public final float percent;
+    property public final long position;
     property public boolean shouldAnimate;
     property public boolean showProgress;
   }

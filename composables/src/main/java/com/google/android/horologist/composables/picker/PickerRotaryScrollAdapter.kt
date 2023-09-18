@@ -24,7 +24,7 @@ import com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter
 /**
  * An extension function for creating [RotaryScrollAdapter] from [Picker]
  */
-fun PickerState.toRotaryScrollAdapter(): RotaryScrollAdapter =
+public fun PickerState.toRotaryScrollAdapter(): RotaryScrollAdapter =
     PickerRotaryScrollAdapter(this)
 
 /**

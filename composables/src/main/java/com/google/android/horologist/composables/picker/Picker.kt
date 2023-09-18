@@ -574,7 +574,7 @@ internal class PickerState constructor(
         scalingLazyListState.animateScrollToItem(getClosestTargetItemIndex(index), 0)
     }
 
-    public companion object {
+    internal companion object {
         /**
          * The default [Saver] implementation for [PickerState].
          */

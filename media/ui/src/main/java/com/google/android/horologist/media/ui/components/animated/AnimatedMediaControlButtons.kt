@@ -49,6 +49,10 @@ public fun AnimatedMediaControlButtons(
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
+    onSeekToPreviousLongRepeatableClick: (() -> Unit)? = null,
+    onSeekToPreviousLongRepeatableClickEnd: (() -> Unit)? = null,
+    onSeekToNextLongRepeatableClick: (() -> Unit)? = null,
+    onSeekToNextLongRepeatableClickEnd: (() -> Unit)? = null,
     trackPositionUiModel: TrackPositionUiModel,
     progressColor: Color = MaterialTheme.colors.primary,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
@@ -61,6 +65,8 @@ public fun AnimatedMediaControlButtons(
                 onClick = onSeekToPreviousButtonClick,
                 enabled = seekToPreviousButtonEnabled,
                 colors = colors,
+                onLongRepeatableClick = onSeekToPreviousLongRepeatableClick,
+                onLongRepeatableClickEnd = onSeekToPreviousLongRepeatableClickEnd,
             )
         },
         middleButton = {
@@ -90,6 +96,8 @@ public fun AnimatedMediaControlButtons(
         rightButton = {
             AnimatedSeekToNextButton(
                 onClick = onSeekToNextButtonClick,
+                onLongRepeatableClick = onSeekToNextLongRepeatableClick,
+                onLongRepeatableClickEnd = onSeekToNextLongRepeatableClickEnd,
                 enabled = seekToNextButtonEnabled,
                 colors = colors,
             )

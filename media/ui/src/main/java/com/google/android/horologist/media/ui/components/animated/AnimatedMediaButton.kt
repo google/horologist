@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.components.animated
 
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -31,10 +32,12 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.LocalContentAlpha
+import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.composables.RepeatableClickableButton
 import kotlinx.coroutines.launch
 import androidx.compose.ui.semantics.contentDescription as contentDescriptionProperty
 
@@ -48,6 +51,8 @@ public fun AnimatedMediaButton(
     compositionResult: LottieCompositionResult,
     contentDescription: String,
     modifier: Modifier = Modifier,
+    onLongRepeatableClick: (() -> Unit)? = null,
+    onLongRepeatableClickEnd: (() -> Unit)? = null,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     dynamicProperties: LottieDynamicProperties? = null,
@@ -57,46 +62,88 @@ public fun AnimatedMediaButton(
 ) {
     val scope = rememberCoroutineScope()
     val lottieAnimatable = rememberLottieAnimatable()
+    if (onLongRepeatableClick == null) {
+        Button(
+            onClick = {
+                scope.launch {
+                    lottieAnimatable.animate(composition = compositionResult.value)
+                }
+                onClick()
+            },
+            modifier = modifier.size(tapTargetSize),
+            enabled = enabled,
+            colors = colors,
+        ) {
+            this.mediaButtonContent(
+                compositionResult = compositionResult,
+                contentDescription = contentDescription,
+                iconSize = iconSize,
+                dynamicProperties = dynamicProperties,
+                iconAlign = iconAlign,
+                lottieAnimatable = lottieAnimatable,
+            )
+        }
+    } else {
+        RepeatableClickableButton(
+            onClick = {
+                scope.launch { lottieAnimatable.animate(composition = compositionResult.value) }
+                onClick()
+            },
+            onLongRepeatableClick = onLongRepeatableClick,
+            onLongRepeatableClickEnd = onLongRepeatableClickEnd ?: {},
+            modifier = modifier.size(tapTargetSize),
+            enabled = enabled,
+            colors = colors,
 
-    Button(
-        onClick = {
-            scope.launch {
-                lottieAnimatable.animate(composition = compositionResult.value)
-            }
-            onClick()
-        },
-        modifier = modifier.size(tapTargetSize),
-        enabled = enabled,
-        colors = colors,
-    ) {
-        val contentModifier = Modifier
-            .size(iconSize)
-            .run {
-                when (iconAlign) {
-                    Alignment.Start -> {
-                        offset(x = -7.5.dp)
-                    }
+        ) {
+            this.mediaButtonContent(
+                compositionResult = compositionResult,
+                contentDescription = contentDescription,
+                iconSize = iconSize,
+                dynamicProperties = dynamicProperties,
+                iconAlign = iconAlign,
+                lottieAnimatable = lottieAnimatable,
+            )
+        }
+    }
+}
 
-                    Alignment.End -> {
-                        offset(x = 7.5.dp)
-                    }
+@Composable
+private fun BoxScope.mediaButtonContent(
+    compositionResult: LottieCompositionResult,
+    contentDescription: String,
+    iconSize: Dp = 30.dp,
+    dynamicProperties: LottieDynamicProperties? = null,
+    iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
+    lottieAnimatable: LottieAnimatable,
+) {
+    val contentModifier = Modifier
+        .size(iconSize)
+        .run {
+            when (iconAlign) {
+                Alignment.Start -> {
+                    offset(x = -7.5.dp)
+                }
 
-                    else -> {
-                        this
-                    }
+                Alignment.End -> {
+                    offset(x = 7.5.dp)
+                }
+
+                else -> {
+                    this
                 }
             }
-            .align(Alignment.Center)
-            .graphicsLayer(alpha = LocalContentAlpha.current)
-            .semantics { contentDescriptionProperty = contentDescription }
+        }
+        .align(Alignment.Center)
+        .graphicsLayer(alpha = LocalContentAlpha.current)
+        .semantics { contentDescriptionProperty = contentDescription }
 
-        LottieAnimationWithPlaceholder(
-            lottieCompositionResult = compositionResult,
-            progress = { lottieAnimatable.progress },
-            placeholder = LottiePlaceholders.Next,
-            contentDescription = contentDescription,
-            modifier = contentModifier,
-            dynamicProperties = dynamicProperties,
-        )
-    }
+    LottieAnimationWithPlaceholder(
+        lottieCompositionResult = compositionResult,
+        progress = { lottieAnimatable.progress },
+        placeholder = LottiePlaceholders.Next,
+        contentDescription = contentDescription,
+        modifier = contentModifier,
+        dynamicProperties = dynamicProperties,
+    )
 }

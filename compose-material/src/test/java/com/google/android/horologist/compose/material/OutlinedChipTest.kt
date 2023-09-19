@@ -131,7 +131,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
     @Test
     fun withLongTextAndLargestFontScale() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            TestHarness(fontScale = largestFontScale) {
+            TestHarness(fontScale = LARGEST_FONT_SCALE) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
                     onClick = { },
@@ -143,7 +143,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
     @Test
     fun withLongTextAndMediumFontScale() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            TestHarness(fontScale = 1.06f) {
+            TestHarness(fontScale = MEDIUM_FONT_SCALE) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
                     onClick = { },
@@ -167,7 +167,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
     @Test
     fun withSecondaryLabelAndIconAndLongTextAndLargestFontScale() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            TestHarness(fontScale = largestFontScale) {
+            TestHarness(fontScale = LARGEST_FONT_SCALE) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
@@ -194,7 +194,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
     @Test
     fun withSecondaryLabelAndLargeIconAndLongTextAndLargestFontScale() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            TestHarness(fontScale = largestFontScale) {
+            TestHarness(fontScale = LARGEST_FONT_SCALE) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
@@ -266,11 +266,18 @@ class OutlinedChipTest : ScreenshotBaseTest() {
     @Test
     fun withPlaceholderIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icons.Default.Image,
-            )
+            CompositionLocalProvider(LocalInspectionMode.provides(true)) {
+                OutlinedChip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = "iconUri",
+                    placeholder = rememberVectorPainter(
+                        image = Icons.Default.Image,
+                        tintColor = MaterialTheme.colors.primary,
+                    ),
+                )
+            }
         }
     }
 
@@ -354,7 +361,8 @@ class OutlinedChipTest : ScreenshotBaseTest() {
     }
 
     companion object {
-        private const val largestFontScale = 1.18f
+        private const val LARGEST_FONT_SCALE = 1.18f
+        private const val MEDIUM_FONT_SCALE = 1.06f
 
         private val Icon12dp: ImageVector
             get() = ImageVector.Builder(

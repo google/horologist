@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.3.2">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.046329b4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.30068a00.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.85d0ee34.min.css">
@@ -710,6 +710,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ambientaware-composable" class="md-nav__link">
+    AmbientAware composable
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#download" class="md-nav__link">
     Download
   </a>
@@ -1344,6 +1351,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ambientaware-composable" class="md-nav__link">
+    AmbientAware composable
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#download" class="md-nav__link">
     Download
   </a>
@@ -1432,6 +1446,31 @@ state. The TimeText will scroll out of the way of content automatically.</p>
 <p><img align="center" alt="" loading="lazy" src="fill_max_rectangle.png" width="70%" /></p>
 <h2 id="fade-away-modifier">Fade Away Modifier<a class="headerlink" href="#fade-away-modifier" title="Permanent link">&para;</a></h2>
 <p><img align="center" alt="" loading="lazy" src="fade_away.png" width="70%" /></p>
+<h2 id="ambientaware-composable">AmbientAware composable<a class="headerlink" href="#ambientaware-composable" title="Permanent link">&para;</a></h2>
+<p><code>AmbientAware</code> allows your UI to react to ambient mode changes. For more information on how Ambient
+mode and Always-on work on Wear OS, see the <a href="https://developer.android.com/training/wearables/views/always-on">developer guidance</a>.</p>
+<p>You should place this composable high up in your design, as it alters the behavior of the Activity.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">WearApp</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">AmbientAware</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ambientStateUpdate</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// App Content here</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If you need some screens to use always-on, and others not to, then you can use the additional
+argument supplied to <code>AmbientAware</code>.</p>
+<p>For example, in a workout app, it is desirable that the main  workout screen uses always-on, but the
+workout summary at the end does not. See the <a href="https://developer.android.com/training/wearables/health-services/active-data#work-with-data"><code>ExerciseClient</code></a>
+guide and <a href="https://github.com/android/health-samples">samples</a> for more information on building a workout app.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">WearApp</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Hoist state here for your current screen logic</span>
+
+<span class="w">    </span><span class="n">AmbientAware</span><span class="p">(</span><span class="n">isAlwaysOnScreen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">currentScreen</span><span class="p">.</span><span class="na">useAlwaysOn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ambientStateUpdate</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// App Content here</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <h2 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="n">repositories</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="n">mavenCentral</span><span class="o">()</span>

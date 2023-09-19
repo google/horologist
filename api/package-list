@@ -5,6 +5,7 @@ module:annotations
 com.google.android.horologist.annotations
 module:composables
 com.google.android.horologist.composables
+com.google.android.horologist.composables.picker
 module:compose-layout
 com.google.android.horologist.compose.ambient
 com.google.android.horologist.compose.layout

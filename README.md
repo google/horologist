@@ -5,6 +5,16 @@
 Horologist is a group of libraries that aim to supplement Wear OS developers with features that are
 commonly required by developers but not yet available.
 
+
+## Maintained Versions
+
+The currently maintained branches of Horologist are.
+
+| Version | Branch | Description |
+| ------- | ------ | ----------- |
+| 0.4.x | release-0.4.x | Wear Compose 1.2.x (stable) and Media3, and generally stable APIs. |
+| 0.5.x | main | Wear Compose 1.3 alpha, Media3 and generally latest alphas of Androidx. |
+
 ---
 
 ## 🎵 Media

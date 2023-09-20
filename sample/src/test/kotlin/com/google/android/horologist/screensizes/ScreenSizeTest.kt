@@ -20,15 +20,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.compose.tools.Device
+import com.google.android.horologist.compose.tools.GenericLargeRound
+import com.google.android.horologist.compose.tools.GenericSmallRound
 import com.google.android.horologist.compose.tools.GooglePixelWatch
-import com.google.android.horologist.compose.tools.LargeRound
 import com.google.android.horologist.compose.tools.MobvoiTicWatchPro5
 import com.google.android.horologist.compose.tools.SamsungGalaxyWatch5
 import com.google.android.horologist.compose.tools.SamsungGalaxyWatch6Large
-import com.google.android.horologist.compose.tools.SmallRound
 import com.google.android.horologist.compose.tools.copy
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.defaultScreenTimeText
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -43,10 +42,8 @@ abstract class ScreenSizeTest(
     val showTimeText: Boolean,
 ) : ScreenshotBaseTest(
     screenshotTestRuleParams {
-        screenTimeText = if (showTimeText) {
-            defaultScreenTimeText()
-        } else {
-            { }
+        if (showTimeText) {
+            screenTimeText = { }
         }
         testLabel = device.name.lowercase().replace("\\W+".toRegex(), "")
     },
@@ -83,8 +80,8 @@ abstract class ScreenSizeTest(
             SamsungGalaxyWatch5,
             SamsungGalaxyWatch6Large,
             GooglePixelWatch,
-            SmallRound,
-            LargeRound,
+            GenericSmallRound,
+            GenericLargeRound,
             GooglePixelWatch.copy("Small Device, Big Fonts", fontScale = 1.24f, boldText = true),
             MobvoiTicWatchPro5.copy("Large Device, Small Fonts", fontScale = 0.94f),
         )

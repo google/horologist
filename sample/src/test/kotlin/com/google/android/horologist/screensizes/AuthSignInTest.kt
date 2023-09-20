@@ -27,10 +27,9 @@ import com.google.android.horologist.compose.tools.Device
 
 class AuthSignInTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
 
-    @Suppress("INVISIBLE_MEMBER")
     @Composable
     override fun Content() {
-        com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen(
+        SignInPromptScreen(
             state = SignInPromptScreenState.Idle,
             title = "Sign in",
             message = "Send messages and create chat groups with your friends",

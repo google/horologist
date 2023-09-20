@@ -29,9 +29,33 @@ public data class Device(
     val screenSizeDp: Int = (screenSizePx / density).roundToInt()
 }
 
-public val MobvoiTicWatchPro5: Device = Device("Mobvoi TicWatch Pro 5", 466, 2.0f)
-public val SamsungGalaxyWatch5: Device = Device("Samsung Galaxy Watch 5", 396, 2.0f)
-public val SamsungGalaxyWatch6Large: Device = Device("Samsung Galaxy Watch 6 Large", 480, 2.125f)
-public val GooglePixelWatch: Device = Device("Google Pixel Watch", 384, 2.0f)
-public val SmallRound: Device = Device("Small Round", 384, 2.0f)
-public val LargeRound: Device = Device("Large Round", 454, 2.0f)
+public val MobvoiTicWatchPro5: Device = Device(
+    name = "Mobvoi TicWatch Pro 5",
+    screenSizePx = 466,
+    density = 2.0f,
+)
+public val SamsungGalaxyWatch5: Device = Device(
+    name = "Samsung Galaxy Watch 5",
+    screenSizePx = 396,
+    density = 2.0f,
+)
+public val SamsungGalaxyWatch6Large: Device = Device(
+    name = "Samsung Galaxy Watch 6 Large",
+    screenSizePx = 480,
+    density = 2.125f,
+)
+public val GooglePixelWatch: Device = Device(
+    name = "Google Pixel Watch",
+    screenSizePx = 384,
+    density = 2.0f,
+)
+public val GenericSmallRound: Device = Device(
+    name = "Generic Small Round",
+    screenSizePx = 384,
+    density = 2.0f,
+)
+public val GenericLargeRound: Device = Device(
+    name = "Generic Large Round",
+    screenSizePx = 454,
+    density = 2.0f,
+)

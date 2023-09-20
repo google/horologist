@@ -42,7 +42,7 @@ abstract class ScreenSizeTest(
     val showTimeText: Boolean,
 ) : ScreenshotBaseTest(
     screenshotTestRuleParams {
-        if (showTimeText) {
+        if (!showTimeText) {
             screenTimeText = { }
         }
         testLabel = device.name.lowercase().replace("\\W+".toRegex(), "")

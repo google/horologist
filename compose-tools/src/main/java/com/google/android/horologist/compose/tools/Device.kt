@@ -18,20 +18,20 @@ package com.google.android.horologist.compose.tools
 
 import kotlin.math.roundToInt
 
-data class Device(
+public data class Device(
     val name: String,
     val screenSizePx: Int,
     val density: Float,
     val fontScale: Float = 1.0f,
     val boldText: Boolean = false,
-    val round: Boolean = true
+    val round: Boolean = true,
 ) {
     val screenSizeDp: Int = (screenSizePx / density).roundToInt()
 }
 
-val MobvoiTicWatchPro5 = Device("Mobvoi TicWatch Pro 5", 466, 2.0f)
-val SamsungGalaxyWatch5 = Device("Samsung Galaxy Watch 5", 396, 2.0f)
-val SamsungGalaxyWatch6Large = Device("Samsung Galaxy Watch 6 Large", 480, 2.125f)
-val GooglePixelWatch = Device("Google Pixel Watch", 384, 2.0f)
-val SmallRound = Device("Small Round", 384, 2.0f)
-val LargeRound = Device("Large Round", 454, 2.0f)
+public val MobvoiTicWatchPro5: Device = Device("Mobvoi TicWatch Pro 5", 466, 2.0f)
+public val SamsungGalaxyWatch5: Device = Device("Samsung Galaxy Watch 5", 396, 2.0f)
+public val SamsungGalaxyWatch6Large: Device = Device("Samsung Galaxy Watch 6 Large", 480, 2.125f)
+public val GooglePixelWatch: Device = Device("Google Pixel Watch", 384, 2.0f)
+public val SmallRound: Device = Device("Small Round", 384, 2.0f)
+public val LargeRound: Device = Device("Large Round", 454, 2.0f)

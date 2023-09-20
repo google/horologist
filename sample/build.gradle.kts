@@ -79,6 +79,16 @@ android {
             """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
     }
 
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            all {
+                it.systemProperty("screenshot.record", findProperty("screenshot.record") ?: "false")
+            }
+        }
+        animationsDisabled = true
+    }
+
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
@@ -176,6 +186,13 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(projects.composeTools)
+    testImplementation(projects.composeMaterial)
+    testImplementation(projects.roboscreenshots)
+    testImplementation(libs.robolectric)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.espresso.core)

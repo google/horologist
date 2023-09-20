@@ -315,7 +315,7 @@ public class ScreenshotTestRule(
     }
 
     public companion object {
-        private fun defaultScreenTimeText(): @Composable () -> Unit = {
+        fun defaultScreenTimeText(): @Composable () -> Unit = {
             TimeText(
                 timeSource = FixedTimeSource,
             )

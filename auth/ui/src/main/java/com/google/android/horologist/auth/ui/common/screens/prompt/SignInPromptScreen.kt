@@ -82,7 +82,7 @@ public fun SignInPromptScreen(
 }
 
 @Composable
-internal fun SignInPromptScreen(
+public fun SignInPromptScreen(
     state: SignInPromptScreenState,
     title: String,
     message: String,

@@ -40,18 +40,20 @@ class DevicesTest(device: Device) : ScreenSizeTest(device = device, showTimeText
 
     @Composable
     override fun Content() {
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .drawBehind {
-                val width = 192f * density
-                val offset = Offset(this.size.width / 2, this.size.height / 2)
-                drawCircle(
-                    Color.DarkGray,
-                    radius = width / 2f,
-                    center = offset,
-                    style = Stroke()
-                )
-            }) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .drawBehind {
+                    val width = 192f * density
+                    val offset = Offset(this.size.width / 2, this.size.height / 2)
+                    drawCircle(
+                        Color.DarkGray,
+                        radius = width / 2f,
+                        center = offset,
+                        style = Stroke(),
+                    )
+                },
+        ) {
             ScreenSizeInfo(device)
         }
     }
@@ -62,7 +64,7 @@ fun ScreenSizeInfo(device: Device) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val configuration = LocalConfiguration.current
         val density = LocalDensity.current
@@ -74,20 +76,20 @@ fun ScreenSizeInfo(device: Device) {
             style = MaterialTheme.typography.title3,
             modifier = Modifier.fillMaxWidth(0.65f),
             textAlign = TextAlign.Center,
-            maxLines = 2
+            maxLines = 2,
         )
 
         Text(
             "isScreenRound: ${configuration.isScreenRound}",
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.body2,
         )
         Text(
             "screenSizePx: ${displayMetrics.widthPixels}x${displayMetrics.heightPixels}",
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.body2,
         )
         Text(
             "screenSizeDp: ${configuration.screenWidthDp}x${configuration.screenHeightDp}",
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.body2,
         )
         Text("density: ${density.density}", style = MaterialTheme.typography.body2)
         Text("fontScale: ${density.fontScale}", style = MaterialTheme.typography.body2)

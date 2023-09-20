@@ -40,7 +40,7 @@ import org.robolectric.shadows.ShadowDisplay
 @RunWith(ParameterizedRobolectricTestRunner::class)
 abstract class ScreenSizeTest(
     val device: Device,
-    val showTimeText: Boolean
+    val showTimeText: Boolean,
 ) : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = if (showTimeText) {
@@ -65,12 +65,15 @@ abstract class ScreenSizeTest(
         RuntimeEnvironment.setQualifiers("+w${device.screenSizeDp}dp-h${device.screenSizeDp}dp")
 
         screenshotTestRule.setContent(takeScreenshot = true) {
-            MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = if (device.boldText) FontWeight.Bold else FontWeight.Medium) }) {
+            MaterialTheme(
+                typography = MaterialTheme.typography.copy {
+                    this.copy(fontWeight = if (device.boldText) FontWeight.Bold else FontWeight.Medium)
+                },
+            ) {
                 Content()
             }
         }
     }
-
 
     companion object {
         @JvmStatic
@@ -83,7 +86,7 @@ abstract class ScreenSizeTest(
             SmallRound,
             LargeRound,
             GooglePixelWatch.copy("Small Device, Big Fonts", fontScale = 1.24f, boldText = true),
-            MobvoiTicWatchPro5.copy("Large Device, Small Fonts", fontScale = 0.94f)
+            MobvoiTicWatchPro5.copy("Large Device, Small Fonts", fontScale = 0.94f),
         )
     }
 }

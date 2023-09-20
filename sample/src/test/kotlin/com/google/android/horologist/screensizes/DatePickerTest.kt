@@ -25,10 +25,9 @@ class DatePickerTest(device: Device) : ScreenSizeTest(device = device, showTimeT
 
     @Composable
     override fun Content() {
-            DatePicker(
-                onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25),
-            )
+        DatePicker(
+            onDateConfirm = {},
+            date = LocalDate.of(2022, 4, 25),
+        )
     }
-
 }

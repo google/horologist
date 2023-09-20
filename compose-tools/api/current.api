@@ -1,6 +1,46 @@
 // Signature format: 4.0
 package com.google.android.horologist.compose.tools {
 
+  public final class Device {
+    ctor public Device(String name, int screenSizePx, float density, optional float fontScale, optional boolean boldText, optional boolean round);
+    method public String component1();
+    method public int component2();
+    method public float component3();
+    method public float component4();
+    method public boolean component5();
+    method public boolean component6();
+    method public com.google.android.horologist.compose.tools.Device copy(String name, int screenSizePx, float density, float fontScale, boolean boldText, boolean round);
+    method public boolean getBoldText();
+    method public float getDensity();
+    method public float getFontScale();
+    method public String getName();
+    method public boolean getRound();
+    method public int getScreenSizeDp();
+    method public int getScreenSizePx();
+    property public final boolean boldText;
+    property public final float density;
+    property public final float fontScale;
+    property public final String name;
+    property public final boolean round;
+    property public final int screenSizeDp;
+    property public final int screenSizePx;
+  }
+
+  public final class DeviceKt {
+    method public static com.google.android.horologist.compose.tools.Device getGooglePixelWatch();
+    method public static com.google.android.horologist.compose.tools.Device getLargeRound();
+    method public static com.google.android.horologist.compose.tools.Device getMobvoiTicWatchPro5();
+    method public static com.google.android.horologist.compose.tools.Device getSamsungGalaxyWatch5();
+    method public static com.google.android.horologist.compose.tools.Device getSamsungGalaxyWatch6Large();
+    method public static com.google.android.horologist.compose.tools.Device getSmallRound();
+    property public static final com.google.android.horologist.compose.tools.Device GooglePixelWatch;
+    property public static final com.google.android.horologist.compose.tools.Device LargeRound;
+    property public static final com.google.android.horologist.compose.tools.Device MobvoiTicWatchPro5;
+    property public static final com.google.android.horologist.compose.tools.Device SamsungGalaxyWatch5;
+    property public static final com.google.android.horologist.compose.tools.Device SamsungGalaxyWatch6Large;
+    property public static final com.google.android.horologist.compose.tools.Device SmallRound;
+  }
+
   public final class InteractivePreviewAwareKt {
     method @androidx.compose.runtime.Composable public static void InteractivePreviewAware(kotlin.jvm.functions.Function0<kotlin.Unit> block);
     method public static androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> getLocalInteractivePreview();

@@ -17,11 +17,8 @@
 package com.google.android.horologist.screensizes
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.composables.DatePicker
-import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.tools.Device
-import java.time.LocalDate
 import java.time.LocalTime
 
 class TimePicker12Test(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
@@ -33,5 +30,4 @@ class TimePicker12Test(device: Device) : ScreenSizeTest(device = device, showTim
             onTimeConfirm = {},
         )
     }
-
 }

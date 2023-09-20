@@ -20,8 +20,6 @@ package com.google.android.horologist.screensizes
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -29,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.VolumeState
@@ -38,9 +35,6 @@ import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
-import com.google.android.horologist.composables.DatePicker
-import com.google.android.horologist.composables.TimePicker
-import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.logo.R
@@ -52,8 +46,6 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.flow.flowOf
-import java.time.LocalDate
-import java.time.LocalTime
 import kotlin.time.Duration.Companion.seconds
 
 class MediaPlayerTest(device: Device) : ScreenSizeTest(device = device, showTimeText = true) {
@@ -62,7 +54,6 @@ class MediaPlayerTest(device: Device) : ScreenSizeTest(device = device, showTime
     override fun Content() {
         MediaPlayerTestCase()
     }
-
 }
 
 @Composable
@@ -167,4 +158,3 @@ fun MediaPlayerTestCase() {
         }
     }
 }
-

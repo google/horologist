@@ -46,7 +46,6 @@ class MediaPlayerLibraryTest(device: Device) : ScreenSizeTest(device = device, s
 
     @Composable
     override fun Content() {
-
         val playlistUiModel = PlaylistUiModel(
             id = "id",
             title = "Playlist name",
@@ -111,7 +110,4 @@ class MediaPlayerLibraryTest(device: Device) : ScreenSizeTest(device = device, s
             }
         }
     }
-
 }
-
-

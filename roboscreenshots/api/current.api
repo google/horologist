@@ -27,7 +27,6 @@ package com.google.android.horologist.screenshots {
 
   public static final class ScreenshotTestRule.Companion {
     method public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams.Builder builder();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit> defaultScreenTimeText();
     method public inline com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams screenshotTestRuleParams(kotlin.jvm.functions.Function1<? super com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams.Builder,kotlin.Unit> block);
   }
 

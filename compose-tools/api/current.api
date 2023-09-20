@@ -27,18 +27,18 @@ package com.google.android.horologist.compose.tools {
   }
 
   public final class DeviceKt {
+    method public static com.google.android.horologist.compose.tools.Device getGenericLargeRound();
+    method public static com.google.android.horologist.compose.tools.Device getGenericSmallRound();
     method public static com.google.android.horologist.compose.tools.Device getGooglePixelWatch();
-    method public static com.google.android.horologist.compose.tools.Device getLargeRound();
     method public static com.google.android.horologist.compose.tools.Device getMobvoiTicWatchPro5();
     method public static com.google.android.horologist.compose.tools.Device getSamsungGalaxyWatch5();
     method public static com.google.android.horologist.compose.tools.Device getSamsungGalaxyWatch6Large();
-    method public static com.google.android.horologist.compose.tools.Device getSmallRound();
+    property public static final com.google.android.horologist.compose.tools.Device GenericLargeRound;
+    property public static final com.google.android.horologist.compose.tools.Device GenericSmallRound;
     property public static final com.google.android.horologist.compose.tools.Device GooglePixelWatch;
-    property public static final com.google.android.horologist.compose.tools.Device LargeRound;
     property public static final com.google.android.horologist.compose.tools.Device MobvoiTicWatchPro5;
     property public static final com.google.android.horologist.compose.tools.Device SamsungGalaxyWatch5;
     property public static final com.google.android.horologist.compose.tools.Device SamsungGalaxyWatch6Large;
-    property public static final com.google.android.horologist.compose.tools.Device SmallRound;
   }
 
   public final class InteractivePreviewAwareKt {

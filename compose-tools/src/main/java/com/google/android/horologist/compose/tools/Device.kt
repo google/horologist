@@ -29,7 +29,7 @@ data class Device(
     val screenSizeDp: Int = (screenSizePx / density).roundToInt()
 }
 
-val MobvoiTickWatchPro5 = Device("Mobvoi TickWatch Pro 5", 466, 2.0f)
+val MobvoiTicWatchPro5 = Device("Mobvoi TicWatch Pro 5", 466, 2.0f)
 val SamsungGalaxyWatch5 = Device("Samsung Galaxy Watch 5", 396, 2.0f)
 val SamsungGalaxyWatch6Large = Device("Samsung Galaxy Watch 6 Large", 480, 2.125f)
 val GooglePixelWatch = Device("Google Pixel Watch", 384, 2.0f)

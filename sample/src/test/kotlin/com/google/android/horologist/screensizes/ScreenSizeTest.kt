@@ -22,13 +22,12 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.compose.tools.GooglePixelWatch
 import com.google.android.horologist.compose.tools.LargeRound
-import com.google.android.horologist.compose.tools.MobvoiTickWatchPro5
+import com.google.android.horologist.compose.tools.MobvoiTicWatchPro5
 import com.google.android.horologist.compose.tools.SamsungGalaxyWatch5
 import com.google.android.horologist.compose.tools.SamsungGalaxyWatch6Large
 import com.google.android.horologist.compose.tools.SmallRound
 import com.google.android.horologist.compose.tools.copy
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.defaultScreenTimeText
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
@@ -77,14 +76,14 @@ abstract class ScreenSizeTest(
         @JvmStatic
         @ParameterizedRobolectricTestRunner.Parameters
         fun devices() = listOf(
-            MobvoiTickWatchPro5,
+            MobvoiTicWatchPro5,
             SamsungGalaxyWatch5,
             SamsungGalaxyWatch6Large,
             GooglePixelWatch,
             SmallRound,
             LargeRound,
             GooglePixelWatch.copy("Small Device, Big Fonts", fontScale = 1.24f, boldText = true),
-            MobvoiTickWatchPro5.copy("Large Device, Small Fonts", fontScale = 0.94f)
+            MobvoiTicWatchPro5.copy("Large Device, Small Fonts", fontScale = 0.94f)
         )
     }
 }

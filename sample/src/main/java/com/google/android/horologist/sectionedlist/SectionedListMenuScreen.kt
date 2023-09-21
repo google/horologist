@@ -17,17 +17,19 @@
 package com.google.android.horologist.sectionedlist
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.FormatListBulleted
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
@@ -67,14 +69,21 @@ fun SectionedListMenuScreen(
 
             loaded { item ->
                 Chip(
-                    label = {
-                        Text(text = stringResource(id = item.first))
-                    },
-                    modifier = Modifier.fillMaxWidth(),
+                    label = stringResource(id = item.first),
+                    icon = Icons.AutoMirrored.Default.FormatListBulleted,
                     onClick = { navigateToRoute(item.second) },
                     colors = ChipDefaults.primaryChipColors(),
                 )
             }
         }
     }
+}
+
+@Composable
+@WearPreviewLargeRound
+fun Preview() {
+    SectionedListMenuScreen(
+        navigateToRoute = {},
+        columnState = ScalingLazyColumnDefaults.belowTimeText().create()
+    )
 }

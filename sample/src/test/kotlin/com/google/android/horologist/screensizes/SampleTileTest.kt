@@ -17,8 +17,16 @@
 package com.google.android.horologist.screensizes
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import androidx.wear.protolayout.ActionBuilders
 import com.google.android.horologist.compose.tools.Device
-import com.google.android.horologist.tile.SampleTilePreview
+import com.google.android.horologist.compose.tools.TileLayoutPreview
+import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
+import com.google.android.horologist.media.ui.tiles.toTileColors
+import com.google.android.horologist.media.ui.uamp.UampColors
+import com.google.android.horologist.tiles.images.drawableResToImageResource
 
 class SampleTileTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
 
@@ -26,4 +34,53 @@ class SampleTileTest(device: Device) : ScreenSizeTest(device = device, showTimeT
     override fun Content() {
         SampleTilePreview()
     }
+}
+
+@Composable
+fun SampleTilePreview() {
+    val context = LocalContext.current
+
+    val action = ActionBuilders.LaunchAction.Builder()
+        .build()
+
+    val tileState = remember {
+        MediaCollectionsTileRenderer.MediaCollectionsState(
+            chipName = R.string.sample_playlists_name,
+            chipAction = action,
+            collection1 = MediaCollectionsTileRenderer.MediaCollection(
+                name = "Liked Songs",
+                artworkId = "1",
+                action = action,
+            ),
+            collection2 = MediaCollectionsTileRenderer.MediaCollection(
+                name = "Podcasts",
+                artworkId = "2",
+                action = action,
+            ),
+        )
+    }
+
+    val resourceState = remember {
+        MediaCollectionsTileRenderer.ResourceState(
+            appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
+            images = mapOf(
+                "1" to drawableResToImageResource(R.drawable.ic_baseline_queue_music_24),
+                "2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
+            ),
+        )
+    }
+
+    val renderer = remember {
+        MediaCollectionsTileRenderer(
+            context = context,
+            materialTheme = UampColors.toTileColors(),
+            debugResourceMode = false,
+        )
+    }
+
+    TileLayoutPreview(
+        tileState,
+        resourceState,
+        renderer,
+    )
 }

@@ -84,6 +84,6 @@ fun SectionedListMenuScreen(
 fun Preview() {
     SectionedListMenuScreen(
         navigateToRoute = {},
-        columnState = ScalingLazyColumnDefaults.belowTimeText().create()
+        columnState = ScalingLazyColumnDefaults.belowTimeText().create(),
     )
 }

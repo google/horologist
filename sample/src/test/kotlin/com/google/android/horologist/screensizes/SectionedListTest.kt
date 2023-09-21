@@ -27,7 +27,7 @@ class SectionedListTest(device: Device) : ScreenSizeTest(device = device, showTi
     override fun Content() {
         SectionedListMenuScreen(
             navigateToRoute = {},
-            columnState = ScalingLazyColumnDefaults.belowTimeText().create()
+            columnState = ScalingLazyColumnDefaults.belowTimeText().create(),
         )
     }
 }

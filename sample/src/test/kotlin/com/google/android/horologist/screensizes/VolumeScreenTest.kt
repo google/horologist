@@ -34,7 +34,6 @@ class VolumeScreenTest(device: Device) : ScreenSizeTest(device = device, showTim
     }
 }
 
-
 @Composable
 fun VolumeScreenTestCase() {
     val volumeState = VolumeState(

@@ -193,6 +193,7 @@ dependencies {
     testImplementation(projects.composeMaterial)
     testImplementation(projects.roboscreenshots)
     testImplementation(libs.robolectric)
+    testImplementation(libs.accompanist.testharness)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.espresso.core)

@@ -45,15 +45,15 @@ fun SampleTilePreview() {
 
     val tileState = remember {
         MediaCollectionsTileRenderer.MediaCollectionsState(
-            chipName = R.string.sample_playlists_name,
+            chipName = R.string.horologist_browse_library_playlists,
             chipAction = action,
             collection1 = MediaCollectionsTileRenderer.MediaCollection(
-                name = "Liked Songs",
+                name = context.getString(R.string.horologist_browse_downloads_title),
                 artworkId = "1",
                 action = action,
             ),
             collection2 = MediaCollectionsTileRenderer.MediaCollection(
-                name = "Podcasts",
+                name = context.getString(R.string.horologist_nothing_playing),
                 artworkId = "2",
                 action = action,
             ),

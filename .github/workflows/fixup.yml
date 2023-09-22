@@ -4,37 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  screenshots:
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
-
-    steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
-        with:
-          lfs: 'true'
-
-      - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: 17
-
-      - name: Repair screenshots
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: testDebug -P screenshot.record=repair
-
-      - name: Push new screenshots if available
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          file_pattern: '**/snapshots/images/*.png'
-          disable_globbing: true
-          commit_message: "🤖 Updates screenshots"
-
-  spotless:
+  fixes:
     runs-on: ubuntu-latest
     timeout-minutes: 40
 
@@ -63,3 +33,15 @@ jobs:
           file_pattern: '**/*.kt'
           disable_globbing: true
           commit_message: "🤖 reformat"
+
+      - name: Repair screenshots
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: testDebug -P screenshot.record=repair
+
+      - name: Push new screenshots if available
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: '**/snapshots/images/*.png'
+          disable_globbing: true
+          commit_message: "🤖 Updates screenshots"

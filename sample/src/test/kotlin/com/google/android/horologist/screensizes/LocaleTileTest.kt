@@ -23,18 +23,33 @@ import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
 import java.util.Locale
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class LocaleTileTest(val locale: Locale) : ScreenshotBaseTest(
+class LocaleTileTest(val localeString: String) : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
-        record = ScreenshotTestRule.RecordMode.Repair
-        testLabel = locale.toLanguageTag()
+        record = ScreenshotTestRule.RecordMode.Record
+        testLabel = localeString
+        screenTimeText = { }
     },
 ) {
+    val locale = Locale.forLanguageTag(localeString)
 
     @Test
     fun screenshot() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            TestHarness(locales = LocaleListCompat.create(locale)) {
+                SampleTilePreview()
+            }
+        }
+    }
+
+    @Test
+    fun screenshotSmall() {
+        RuntimeEnvironment.setFontScale(1.24f)
+        RuntimeEnvironment.setQualifiers("+w192dp-h192dp")
+
         screenshotTestRule.setContent(takeScreenshot = true) {
             TestHarness(locales = LocaleListCompat.create(locale)) {
                 SampleTilePreview()
@@ -120,7 +135,7 @@ class LocaleTileTest(val locale: Locale) : ScreenshotBaseTest(
             "zh-rCN",
             "zh-rHK",
             "zh-rTW",
-        ).map { Locale.forLanguageTag(it) }
+        )
     }
 
 }

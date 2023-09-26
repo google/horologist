@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.ui.state.model
 
-import android.os.SystemClock
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.PositionPredictor
 import kotlin.time.Duration
@@ -26,21 +25,6 @@ public sealed class TrackPositionUiModel {
     public abstract val showProgress: Boolean
     public abstract val shouldAnimate: Boolean
     public abstract val isLoading: Boolean
-
-    public fun getCurrentPlaybackDuration(): Duration =
-        when (this) {
-            is Actual -> duration
-            is SeekProjection -> duration
-            is Predictive -> predictor.predictDuration(SystemClock.elapsedRealtime())
-            else -> Duration.INFINITE
-        }
-
-    public fun getCurrentPlaybackPosition(): Duration =
-        when (this) {
-            is Actual -> position
-            is Predictive -> predictor.predictPosition(SystemClock.elapsedRealtime())
-            else -> Duration.ZERO
-        }
 
     public data class Predictive(
         public val predictor: PositionPredictor,

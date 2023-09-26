@@ -38,11 +38,9 @@ public object TrackPositionUiModelMapper {
         if (currentPositionMs == null || durationMs == null || durationMs <= 0) {
             return TrackPositionUiModel.Hidden
         }
-        event.playbackState.seekProjection?.let { seek ->
-            if (seek > Duration.ZERO) {
-                val percent = seek.inWholeMilliseconds.toFloat() / durationMs.toFloat()
-                return TrackPositionUiModel.SeekProjection(percent, duration, seek)
-            }
+        event.playbackState.seekProjection?.takeIf { it > Duration.ZERO }?.let { seek ->
+            val percent = seek.inWholeMilliseconds.toFloat() / durationMs.toFloat()
+            return TrackPositionUiModel.SeekProjection(percent, duration, seek)
         }
         val predictor = event.createPositionPredictor()
         if (event.playbackState.isPlaying && predictor != null) {

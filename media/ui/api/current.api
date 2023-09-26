@@ -825,8 +825,6 @@ package com.google.android.horologist.media.ui.state.model {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract sealed class TrackPositionUiModel {
-    method public final long getCurrentPlaybackDuration();
-    method public final long getCurrentPlaybackPosition();
     method public abstract boolean getShouldAnimate();
     method public abstract boolean getShowProgress();
     method public abstract boolean isLoading();

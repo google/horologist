@@ -24,6 +24,7 @@ import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.model.TimestampProvider
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
@@ -31,15 +32,15 @@ import kotlin.time.Duration.Companion.milliseconds
  */
 @ExperimentalHorologistApi
 public class PlaybackStateMapper(private val timestampProvider: TimestampProvider = TimestampProvider { SystemClock.elapsedRealtime() }) {
-    public fun createEvent(player: Player?, cause: PlaybackStateEvent.Cause): PlaybackStateEvent =
+    public fun createEvent(player: Player?, cause: PlaybackStateEvent.Cause, seekProjection: Duration? = null): PlaybackStateEvent =
         PlaybackStateEvent(
-            playbackState = map(player),
+            playbackState = map(player, seekProjection),
             cause = cause,
             timestamp = timestampProvider.getTimestamp().milliseconds,
         )
 
     // should only be mapped as an event
-    internal fun map(player: Player?): PlaybackState {
+    internal fun map(player: Player?, seekProjection: Duration? = null): PlaybackState {
         if (player == null) {
             return PlaybackState.IDLE
         }
@@ -56,6 +57,7 @@ public class PlaybackStateMapper(private val timestampProvider: TimestampProvide
             PlaybackState(
                 playerState = playerState,
                 currentPosition = null,
+                seekProjection = null,
                 duration = null,
                 playbackSpeed = playbackSpeed,
                 isLive = isLive,
@@ -64,6 +66,7 @@ public class PlaybackStateMapper(private val timestampProvider: TimestampProvide
             PlaybackState(
                 playerState = playerState,
                 currentPosition = player.currentPosition.milliseconds,
+                seekProjection = seekProjection,
                 duration = (player.duration.coerceAtLeast(player.currentPosition)).milliseconds,
                 playbackSpeed = playbackSpeed,
                 isLive = isLive,

@@ -34,6 +34,16 @@ public sealed class TrackPositionUiModel {
         override val showProgress: Boolean get() = true
     }
 
+    public data class SeekProjection(
+        public val percent: Float,
+        public val duration: Duration,
+        public val position: Duration,
+        public override val shouldAnimate: Boolean = false,
+    ) : TrackPositionUiModel() {
+        override val showProgress: Boolean = true
+        override val isLoading: Boolean = false
+    }
+
     public data class Actual(
         public val percent: Float,
         public val duration: Duration,

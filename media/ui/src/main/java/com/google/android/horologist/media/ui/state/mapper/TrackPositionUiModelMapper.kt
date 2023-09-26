@@ -20,6 +20,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import kotlin.time.Duration
 
 /**
  * Functions to map a [TrackPositionUiModel] based on data from other layers.
@@ -36,6 +37,10 @@ public object TrackPositionUiModelMapper {
         }
         if (currentPositionMs == null || durationMs == null || durationMs <= 0) {
             return TrackPositionUiModel.Hidden
+        }
+        event.playbackState.seekProjection?.takeIf { it > Duration.ZERO }?.let { seek ->
+            val percent = seek.inWholeMilliseconds.toFloat() / durationMs.toFloat()
+            return TrackPositionUiModel.SeekProjection(percent, duration, seek)
         }
         val predictor = event.createPositionPredictor()
         if (event.playbackState.isPlaying && predictor != null) {

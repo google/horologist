@@ -900,6 +900,27 @@ package com.google.android.horologist.media.ui.state.model {
     property public boolean showProgress;
   }
 
+  public static final class TrackPositionUiModel.SeekProjection extends com.google.android.horologist.media.ui.state.model.TrackPositionUiModel {
+    ctor public TrackPositionUiModel.SeekProjection(float percent, long duration, long position, optional boolean shouldAnimate);
+    method public float component1();
+    method public long component2-UwyO8pc();
+    method public long component3-UwyO8pc();
+    method public boolean component4();
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.SeekProjection copy-vLdBGDU(float percent, long duration, long position, boolean shouldAnimate);
+    method public long getDuration();
+    method public float getPercent();
+    method public long getPosition();
+    method public boolean getShouldAnimate();
+    method public boolean getShowProgress();
+    method public boolean isLoading();
+    property public final long duration;
+    property public boolean isLoading;
+    property public final float percent;
+    property public final long position;
+    property public boolean shouldAnimate;
+    property public boolean showProgress;
+  }
+
 }
 
 package com.google.android.horologist.media.ui.tiles {

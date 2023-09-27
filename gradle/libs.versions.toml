@@ -2,7 +2,7 @@
 accompanist = "0.32.0"
 androidx-benchmark = "1.2.0-rc01"
 androidx-complications-data = "1.2.0-beta02"
-androidx-compose-material = "1.5.1"
+androidx-compose-material = "1.5.2"
 androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
 androidx-health-services = "1.0.0-rc01"

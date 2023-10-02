@@ -37,6 +37,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -94,6 +97,11 @@ android {
     }
 
     namespace = "com.google.android.horologist.sample"
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 sourceSets {
@@ -182,9 +190,18 @@ dependencies {
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
 
     implementation(libs.compose.ui.toolingpreview)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
+    implementation(platform(libs.androidx.compose.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.material3)
+    androidTestImplementation(platform(libs.androidx.compose.compose.bom))
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
+    debugImplementation(libs.compose.ui.test.manifest)
     releaseCompileOnly(projects.composeTools)
 
     testImplementation(libs.junit)

@@ -23,10 +23,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
+import androidx.navigation.activity
 import androidx.navigation.navArgument
 import androidx.wear.compose.foundation.rememberSwipeToDismissBoxState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
+import com.google.android.horologist.activities.ComposeActivity1
+import com.google.android.horologist.activities.ComposeActivity2
+import com.google.android.horologist.activities.ViewActivity1
+import com.google.android.horologist.activities.ViewActivity2
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
@@ -229,6 +234,18 @@ fun SampleWearApp() {
         }
         composable(route = Screen.PagerScreen.route) {
             SamplePagerScreen(swipeToDismissBoxState)
+        }
+        activity(route = Screen.ViewActivity1.route) {
+            this.activityClass = ViewActivity1::class
+        }
+        activity(route = Screen.ViewActivity2.route) {
+            this.activityClass = ViewActivity2::class
+        }
+        activity(route = Screen.ComposeActivity1.route) {
+            this.activityClass = ComposeActivity1::class
+        }
+        activity(route = Screen.ComposeActivity2.route) {
+            this.activityClass = ComposeActivity2::class
         }
     }
 }

@@ -64,7 +64,7 @@ import kotlin.math.abs
 import kotlin.math.absoluteValue
 import kotlin.math.sign
 
-private const val DEBUG = false
+private const val DEBUG = true
 
 /**
  * Debug logging that can be enabled.

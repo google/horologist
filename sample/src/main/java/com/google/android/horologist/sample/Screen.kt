@@ -20,6 +20,11 @@ sealed class Screen(
     val route: String,
 ) {
     object Menu : Screen("menu")
+
+    object ViewActivity1 : Screen("view1")
+    object ViewActivity2 : Screen("view2")
+    object ComposeActivity1 : Screen("compose1")
+    object ComposeActivity2 : Screen("compose2")
     object FillMaxRectangle : Screen("fmr")
     object ScrollAway : Screen("scrollAway")
     object ScrollAwaySLC : Screen("scrollAwaySLC")

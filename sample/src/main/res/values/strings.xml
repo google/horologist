@@ -67,4 +67,5 @@
     <string name="paging_chip_label">Paging</string>
     <string name="pager_screen_chip_label">Pager Screen</string>
     <string name="pager_screen_chip_content_description">Pager Screen</string>
+    <string name="title_activity_compose1">ComposeActivity1</string>
 </resources>

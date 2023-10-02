@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2022 The Android Open Source Project
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~      https://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.google.android.horologist.sample">
 
@@ -30,6 +15,26 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/ThemeOverlay.Material.Dark">
+        <activity
+            android:name="com.google.android.horologist.activities.ComposeActivity1"
+            android:exported="false"
+            android:label="@string/title_activity_compose1"
+            android:taskAffinity=".stacked"
+            />
+        <activity
+            android:name="com.google.android.horologist.activities.ViewActivity2"
+            android:exported="false"
+            android:taskAffinity=".stacked" />
+        <activity
+            android:name="com.google.android.horologist.activities.ViewActivity1"
+            android:exported="false"
+            android:taskAffinity=".stacked" />
+        <activity
+            android:name="com.google.android.horologist.activities.ComposeActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_compose1"
+            android:taskAffinity=".stacked" />
+
         <uses-library
             android:name="com.google.android.wearable"
             android:required="true" />
@@ -45,10 +50,10 @@
             android:taskAffinity=".main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.google.android.horologist.navsample.NavActivity"
             android:exported="true"
@@ -57,10 +62,10 @@
             android:taskAffinity=".navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.google.android.horologist.scratch.ScratchActivity"
             android:exported="true"
@@ -68,6 +73,7 @@
             android:taskAffinity=".scratch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -87,7 +93,6 @@
                 android:name="androidx.wear.tiles.PREVIEW"
                 android:resource="@drawable/example_tile" />
         </service>
-
         <service
             android:name="com.google.android.horologist.tile.SampleTileService"
             android:description="@string/sample_tile_description"
@@ -103,12 +108,12 @@
                 android:name="androidx.wear.tiles.PREVIEW"
                 android:resource="@drawable/sample_tile" />
         </service>
-
         <service
             android:name="com.google.android.horologist.datalayer.SampleDataService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+
                 <data
                     android:host="*"
                     android:pathPrefix="/proto/"

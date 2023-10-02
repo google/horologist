@@ -52,6 +52,12 @@ fun MenuScreen(
             }
         }
         item {
+            Chip(
+                label = "Activities with Nav",
+                onClick = { navigateToRoute(Screen.ViewActivity1.route) },
+            )
+        }
+        item {
             NetworkChip { navigateToRoute(Screen.Network.route) }
         }
         item {

@@ -25,6 +25,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.Player
+import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
 import androidx.media3.common.util.Clock
 import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.CacheDataSource
@@ -49,9 +50,9 @@ import com.google.android.horologist.media3.logging.AnalyticsEventLogger
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.logging.TransferListener
 import com.google.android.horologist.media3.navigation.IntentBuilder
-import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.tracing.TracingListener
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
+import com.google.android.horologist.mediasample.data.service.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.data.service.playback.UampMediaLibrarySessionCallback
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.StreamRequest
@@ -198,6 +199,16 @@ object PlaybackServiceModule {
                 addListener(dataUpdates.listener)
                 addListener(WearUnsuitableOutputPlaybackSuppressionResolverListener(service))
                 addListener(TracingListener())
+
+                trackSelectionParameters = trackSelectionParameters.buildUpon()
+                    .setAudioOffloadPreferences(
+                        AudioOffloadPreferences.Builder()
+                            .setAudioOffloadMode(AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_ENABLED)
+                            .setIsSpeedChangeSupportRequired(false)
+                            .setIsGaplessSupportRequired(false)
+                            .build(),
+                    )
+                    .build()
 
                 if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
                     serviceCoroutineScope.launch {

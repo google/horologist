@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media3.offload
+package com.google.android.horologist.mediasample.data.service.offload
 
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.media3.common.Format
-import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
-import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_DISABLED
-import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_REQUIRED
 import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences.DEFAULT
 import androidx.media3.exoplayer.DecoderReuseEvaluation
 import androidx.media3.exoplayer.ExoPlayer
@@ -30,11 +27,9 @@ import androidx.media3.exoplayer.analytics.AnalyticsListener
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 
 /**
@@ -46,7 +41,6 @@ import kotlinx.coroutines.flow.update
 @ExperimentalHorologistApi
 public class AudioOffloadManager(
     private val errorReporter: ErrorReporter,
-    private val audioOffloadPreferencesFlow: Flow<AudioOffloadPreferences>,
 ) {
     private val _offloadStatus = MutableStateFlow(
         AudioOffloadStatus(
@@ -151,8 +145,6 @@ public class AudioOffloadManager(
      */
     @RequiresApi(29)
     public suspend fun connect(exoPlayer: ExoPlayer) {
-        val audioOffloadPreferences = audioOffloadPreferencesFlow.first()
-
         _offloadStatus.value = AudioOffloadStatus(
             offloadSchedulingEnabled = false,
             sleepingForOffload = exoPlayer.isSleepingForOffload,
@@ -161,15 +153,11 @@ public class AudioOffloadManager(
             isPlaying = exoPlayer.isPlaying,
             errors = listOf(),
             offloadTimes = OffloadTimes(),
-            audioOffloadPreferences = audioOffloadPreferences,
+            audioOffloadPreferences = exoPlayer.trackSelectionParameters.audioOffloadPreferences,
         )
 
         exoPlayer.addAudioOffloadListener(audioOffloadListener)
         exoPlayer.addAnalyticsListener(analyticsListener)
-
-        exoPlayer.trackSelectionParameters = exoPlayer.trackSelectionParameters.buildUpon()
-            .setAudioOffloadPreferences(audioOffloadPreferences)
-            .build()
     }
 
     @RequiresApi(29)
@@ -181,27 +169,14 @@ public class AudioOffloadManager(
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    internal suspend fun printDebugLogs() {
-        val audioOffloadPreferences = audioOffloadPreferencesFlow.first()
+    internal fun printDebugLogs() {
         val status = _offloadStatus.value
         val times = status.updateToNow()
-        val offloadedPlayback = status.trackOffloadDescription()
-        val requiredOffloadStatus = when (audioOffloadPreferences.audioOffloadMode) {
-            AUDIO_OFFLOAD_MODE_DISABLED -> false
-            AUDIO_OFFLOAD_MODE_REQUIRED -> true
-            else -> null
-        }
-        if (requiredOffloadStatus != null && requiredOffloadStatus != status.trackOffload) {
-            errorReporter.logMessage(
-                "Offload not matching: $audioOffloadPreferences track=$offloadedPlayback",
-                category = ErrorReporter.Category.Playback,
-                level = ErrorReporter.Level.Error,
-            )
-        }
+
         errorReporter.logMessage(
             "Offload State: " +
                 "sleeping: ${status.sleepingForOffload} " +
-                "audioTrackOffload: $offloadedPlayback " +
+                "audioTrackOffload: ${status.trackOffloadDescription()} " +
                 "format: ${status.format?.shortDescription} " +
                 "times: ${times.shortDescription} " +
                 "audioOffloadPreferences: ${status.audioOffloadPreferences} ",

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media3.offload
+package com.google.android.horologist.mediasample.data.service.offload
 
 import androidx.media3.exoplayer.analytics.AnalyticsListener.EventTime
 

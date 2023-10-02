@@ -90,7 +90,6 @@ dependencies {
 
     api(projects.media.audio)
     api(projects.media.core)
-    api(projects.media.media3Audiooffload)
     api(projects.media.media3Logging)
     api(projects.media.media3Outputswitcher)
     api(projects.networkAwareness.core)

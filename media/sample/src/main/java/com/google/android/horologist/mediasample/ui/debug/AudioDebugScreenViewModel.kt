@@ -24,9 +24,9 @@ import androidx.media3.common.Format
 import androidx.media3.session.MediaBrowser
 import androidx.media3.session.MediaController
 import com.google.android.horologist.media.repository.PlayerRepository
-import com.google.android.horologist.media3.offload.AudioOffloadManager
-import com.google.android.horologist.media3.offload.AudioOffloadStatus
 import com.google.android.horologist.media3.util.toAudioFormat
+import com.google.android.horologist.mediasample.data.service.offload.AudioOffloadManager
+import com.google.android.horologist.mediasample.data.service.offload.AudioOffloadStatus
 import com.google.android.horologist.mediasample.ui.AppConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Deferred

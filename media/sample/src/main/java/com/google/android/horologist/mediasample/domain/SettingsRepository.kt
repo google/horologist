@@ -17,9 +17,6 @@
 package com.google.android.horologist.mediasample.domain
 
 import androidx.datastore.core.DataStore
-import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
-import androidx.media3.common.util.UnstableApi
-import com.google.android.horologist.mediasample.domain.proto.SettingsProto
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import kotlinx.coroutines.flow.Flow
 
@@ -35,29 +32,3 @@ class SettingsRepository(
 
     val settingsFlow: Flow<Settings> = dataStore.data
 }
-
-val SettingsProto.OffloadMode.strategy: AudioOffloadPreferences
-    @UnstableApi
-    get() = when (this) {
-        SettingsProto.OffloadMode.OFFLOAD_MODE_ALWAYS -> AudioOffloadPreferences.Builder()
-            .setAudioOffloadMode(
-                AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_REQUIRED,
-            )
-            .build()
-
-        SettingsProto.OffloadMode.OFFLOAD_MODE_NEVER -> AudioOffloadPreferences.Builder()
-            .setAudioOffloadMode(
-                AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_DISABLED,
-            )
-            .build()
-
-        SettingsProto.OffloadMode.OFFLOAD_MODE_IF_SUPPORTED -> AudioOffloadPreferences.Builder()
-            .setAudioOffloadMode(
-                AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_ENABLED,
-            )
-            .setIsGaplessSupportRequired(true)
-            .setIsSpeedChangeSupportRequired(false)
-            .build()
-
-        else -> AudioOffloadPreferences.DEFAULT
-    }

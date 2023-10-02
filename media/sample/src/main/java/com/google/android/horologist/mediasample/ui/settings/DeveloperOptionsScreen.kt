@@ -30,7 +30,6 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
 import com.google.android.horologist.mediasample.ui.navigation.navigateToAudioDebug
 import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
 
@@ -94,19 +93,6 @@ fun DeveloperOptionsScreen(
                 enabled = uiState.writable,
             ) {
                 developerOptionsScreenViewModel.setDebugOffload(it)
-            }
-        }
-        item {
-            ActionSetting(
-                stringResource(id = R.string.offload_mode, uiState.offloadMode.name),
-                enabled = uiState.writable,
-            ) {
-                val newMode = when (uiState.offloadMode) {
-                    OffloadMode.OFFLOAD_MODE_NEVER -> OffloadMode.OFFLOAD_MODE_ALWAYS
-                    OffloadMode.OFFLOAD_MODE_ALWAYS -> OffloadMode.OFFLOAD_MODE_IF_SUPPORTED
-                    else -> OffloadMode.OFFLOAD_MODE_NEVER
-                }
-                developerOptionsScreenViewModel.setOffloadMode(newMode)
             }
         }
         item {

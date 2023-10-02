@@ -16,12 +16,13 @@
 
 package com.google.android.horologist.mediasample.data.service.offload
 
+import android.annotation.SuppressLint
 import androidx.media3.common.Format
 import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
 import androidx.media3.common.util.UnstableApi
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@UnstableApi @ExperimentalHorologistApi
+@ExperimentalHorologistApi
 public data class AudioOffloadStatus(
     public val offloadSchedulingEnabled: Boolean,
     public val sleepingForOffload: Boolean,
@@ -46,6 +47,7 @@ public data class AudioOffloadStatus(
     public fun trackOffloadDescription(): String = if (trackOffload) "HW" else "SW"
 
     public companion object {
+        @SuppressLint("UnsafeOptInUsageError")
         public val Disabled: AudioOffloadStatus = AudioOffloadStatus(
             offloadSchedulingEnabled = false,
             sleepingForOffload = false,

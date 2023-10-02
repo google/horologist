@@ -55,7 +55,7 @@ public data class AudioOffloadStatus(
             errors = listOf(),
             offloadTimes = OffloadTimes(),
             audioOffloadPreferences = AudioOffloadPreferences.Builder()
-                .build()
+                .build(),
         )
     }
 }

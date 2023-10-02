@@ -18,8 +18,6 @@ package com.google.android.horologist.media3.config
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Build
-import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
 import androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener
 import androidx.media3.exoplayer.RenderersFactory
 import androidx.media3.exoplayer.audio.AudioSink

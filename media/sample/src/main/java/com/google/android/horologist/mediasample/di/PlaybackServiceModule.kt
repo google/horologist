@@ -53,8 +53,6 @@ import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.tracing.TracingListener
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
 import com.google.android.horologist.mediasample.data.service.playback.UampMediaLibrarySessionCallback
-import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.strategy
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.StreamRequest
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
@@ -64,9 +62,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.scopes.ServiceScoped
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import okhttp3.CacheControl
 import okhttp3.Call
 import javax.inject.Provider

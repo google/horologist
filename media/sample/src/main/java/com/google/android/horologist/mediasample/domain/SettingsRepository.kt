@@ -41,19 +41,19 @@ val SettingsProto.OffloadMode.strategy: AudioOffloadPreferences
     get() = when (this) {
         SettingsProto.OffloadMode.OFFLOAD_MODE_ALWAYS -> AudioOffloadPreferences.Builder()
             .setAudioOffloadMode(
-                AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_REQUIRED
+                AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_REQUIRED,
             )
             .build()
 
         SettingsProto.OffloadMode.OFFLOAD_MODE_NEVER -> AudioOffloadPreferences.Builder()
             .setAudioOffloadMode(
-                AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_DISABLED
+                AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_DISABLED,
             )
             .build()
 
         SettingsProto.OffloadMode.OFFLOAD_MODE_IF_SUPPORTED -> AudioOffloadPreferences.Builder()
             .setAudioOffloadMode(
-                AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_ENABLED
+                AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_ENABLED,
             )
             .setIsGaplessSupportRequired(true)
             .setIsSpeedChangeSupportRequired(false)

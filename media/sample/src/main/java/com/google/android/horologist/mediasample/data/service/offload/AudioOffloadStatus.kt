@@ -19,7 +19,6 @@ package com.google.android.horologist.mediasample.data.service.offload
 import android.annotation.SuppressLint
 import androidx.media3.common.Format
 import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
-import androidx.media3.common.util.UnstableApi
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi

@@ -74,7 +74,7 @@ class DeveloperOptionsScreenViewModel
             val loadItemsAtStartup: Boolean = false,
             val animated: Boolean = true,
             val debugOffload: Boolean = false,
-            val offloadMode: OffloadMode = OffloadMode.BACKGROUND,
+            val offloadMode: OffloadMode = OffloadMode.OFFLOAD_MODE_IF_SUPPORTED,
             val writable: Boolean = false,
             val networkRequest: HighBandwidthConnectionLease? = null,
             val streamingMode: Boolean = false,

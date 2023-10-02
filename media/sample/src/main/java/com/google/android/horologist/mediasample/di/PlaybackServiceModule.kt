@@ -254,20 +254,11 @@ object PlaybackServiceModule {
     @ServiceScoped
     @Provides
     fun audioSink(
-        appConfig: AppConfig,
         wearMedia3Factory: WearMedia3Factory,
         audioOffloadListener: ExoPlayer.AudioOffloadListener,
-        settingsRepository: SettingsRepository,
         service: Service,
     ): DefaultAudioSink {
-        // TODO check this is basically free at this point
-        val offloadEnabled = runBlocking {
-            settingsRepository.settingsFlow.first().offloadMode.strategy != AudioOffloadStrategy.Never
-        }
-
         return wearMedia3Factory.audioSink(
-            attemptOffload = offloadEnabled && appConfig.offloadEnabled,
-            offloadMode = if (offloadEnabled) appConfig.offloadMode else DefaultAudioSink.OFFLOAD_MODE_DISABLED,
             audioOffloadListener = audioOffloadListener,
         ).also { audioSink ->
             if (service is LifecycleOwner) {

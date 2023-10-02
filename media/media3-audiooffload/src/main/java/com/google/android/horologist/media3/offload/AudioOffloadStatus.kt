@@ -17,9 +17,11 @@
 package com.google.android.horologist.media3.offload
 
 import androidx.media3.common.Format
+import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
+import androidx.media3.common.util.UnstableApi
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-@ExperimentalHorologistApi
+@UnstableApi @ExperimentalHorologistApi
 public data class AudioOffloadStatus(
     public val offloadSchedulingEnabled: Boolean,
     public val sleepingForOffload: Boolean,
@@ -28,8 +30,7 @@ public data class AudioOffloadStatus(
     public val isPlaying: Boolean,
     public val errors: List<AudioError>,
     public val offloadTimes: OffloadTimes,
-    public val strategyStatus: String?,
-    public val strategy: AudioOffloadStrategy?,
+    public val audioOffloadPreferences: AudioOffloadPreferences,
 ) {
     public fun updateToNow(): OffloadTimes = offloadTimes.timesToNow(
         sleepingForOffload,
@@ -39,8 +40,7 @@ public data class AudioOffloadStatus(
         return "Offload State: " +
             "sleeping: $sleepingForOffload " +
             "format: ${format?.shortDescription} " +
-            "times: ${offloadTimes.shortDescription} " +
-            "strategyStatus: $strategyStatus "
+            "times: ${offloadTimes.shortDescription}"
     }
 
     public fun trackOffloadDescription(): String = if (trackOffload) "HW" else "SW"
@@ -54,8 +54,8 @@ public data class AudioOffloadStatus(
             isPlaying = false,
             errors = listOf(),
             offloadTimes = OffloadTimes(),
-            strategyStatus = null,
-            strategy = null,
+            audioOffloadPreferences = AudioOffloadPreferences.Builder()
+                .build()
         )
     }
 }

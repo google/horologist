@@ -18,6 +18,8 @@ package com.google.android.horologist.media3.config
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
+import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
 import androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener
 import androidx.media3.exoplayer.RenderersFactory
 import androidx.media3.exoplayer.audio.AudioSink
@@ -28,8 +30,6 @@ import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
 @SuppressLint("UnsafeOptInUsageError")
 public open class WearMedia3Factory(private val context: Context) {
     public fun audioSink(
-        attemptOffload: Boolean,
-        offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED,
         audioOffloadListener: AudioOffloadListener?,
     ): DefaultAudioSink {
         return DefaultAudioSink.Builder(context)
@@ -37,15 +37,7 @@ public open class WearMedia3Factory(private val context: Context) {
             .setExperimentalAudioOffloadListener(audioOffloadListener)
             .setEnableFloatOutput(false) // default
             .setEnableAudioTrackPlaybackParams(false) // default
-            .build().apply {
-                setOffloadMode(
-                    if (attemptOffload) {
-                        offloadMode
-                    } else {
-                        DefaultAudioSink.OFFLOAD_MODE_DISABLED
-                    },
-                )
-            }
+            .build()
     }
 
     public fun audioOnlyRenderersFactory(

@@ -102,10 +102,9 @@ fun DeveloperOptionsScreen(
                 enabled = uiState.writable,
             ) {
                 val newMode = when (uiState.offloadMode) {
-                    OffloadMode.BACKGROUND -> OffloadMode.NEVER
-                    OffloadMode.NEVER -> OffloadMode.ALWAYS
-                    OffloadMode.ALWAYS -> OffloadMode.BACKGROUND
-                    OffloadMode.UNRECOGNIZED -> OffloadMode.BACKGROUND
+                    OffloadMode.OFFLOAD_MODE_NEVER -> OffloadMode.OFFLOAD_MODE_ALWAYS
+                    OffloadMode.OFFLOAD_MODE_ALWAYS -> OffloadMode.OFFLOAD_MODE_IF_SUPPORTED
+                    else -> OffloadMode.OFFLOAD_MODE_NEVER
                 }
                 developerOptionsScreenViewModel.setOffloadMode(newMode)
             }

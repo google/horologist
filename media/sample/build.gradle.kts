@@ -303,5 +303,5 @@ if (device != null) {
     }
 }
 
-tasks.maybeCreate("prepareKotlinIdeaImport")
-    .dependsOn("generateDebugProto")
+//tasks.maybeCreate("prepareKotlinIdeaImport")
+//    .dependsOn("generateDebugProto")

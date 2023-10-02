@@ -35,26 +35,18 @@ class AudioOffloadListenerList : AudioOffloadListener {
         }
     }
 
-    override fun onExperimentalOffloadSchedulingEnabledChanged(offloadSchedulingEnabled: Boolean) {
+    override fun onSleepingForOffloadChanged(isSleepingForOffload: Boolean) {
         synchronized(audioOffloadListeners) {
             for (it in audioOffloadListeners) {
-                it.onExperimentalOffloadSchedulingEnabledChanged(offloadSchedulingEnabled)
+                it.onSleepingForOffloadChanged(isSleepingForOffload)
             }
         }
     }
 
-    override fun onExperimentalSleepingForOffloadChanged(sleepingForOffload: Boolean) {
+    override fun onOffloadedPlayback(isOffloadedPlayback: Boolean) {
         synchronized(audioOffloadListeners) {
             for (it in audioOffloadListeners) {
-                it.onExperimentalSleepingForOffloadChanged(sleepingForOffload)
-            }
-        }
-    }
-
-    override fun onExperimentalOffloadedPlayback(offloadedPlayback: Boolean) {
-        synchronized(audioOffloadListeners) {
-            for (it in audioOffloadListeners) {
-                it.onExperimentalOffloadedPlayback(offloadedPlayback)
+                it.onOffloadedPlayback(isOffloadedPlayback)
             }
         }
     }

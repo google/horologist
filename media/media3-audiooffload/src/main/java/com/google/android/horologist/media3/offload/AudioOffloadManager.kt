@@ -20,25 +20,22 @@ import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.media3.common.Format
-import androidx.media3.common.PlaybackParameters
-import androidx.media3.common.TrackSelectionParameters
 import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
+import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_DISABLED
+import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_REQUIRED
+import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences.DEFAULT
 import androidx.media3.exoplayer.DecoderReuseEvaluation
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.analytics.AnalyticsListener
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.withContext
 
 /**
  * Coordination point for audio status, such as format, offload status.
@@ -49,7 +46,7 @@ import kotlinx.coroutines.withContext
 @ExperimentalHorologistApi
 public class AudioOffloadManager(
     private val errorReporter: ErrorReporter,
-    private val audioOffloadPreferences: AudioOffloadPreferences,
+    private val audioOffloadPreferencesFlow: Flow<AudioOffloadPreferences>,
 ) {
     private val _offloadStatus = MutableStateFlow(
         AudioOffloadStatus(
@@ -60,8 +57,7 @@ public class AudioOffloadManager(
             isPlaying = false,
             errors = listOf(),
             offloadTimes = OffloadTimes(),
-            strategyStatus = null,
-            strategy = null,
+            audioOffloadPreferences = DEFAULT,
         ),
     )
     public val offloadStatus: StateFlow<AudioOffloadStatus> = _offloadStatus.asStateFlow()
@@ -154,7 +150,9 @@ public class AudioOffloadManager(
      * state and activating it based on App foreground state.
      */
     @RequiresApi(29)
-    public fun connect(exoPlayer: ExoPlayer) {
+    public suspend fun connect(exoPlayer: ExoPlayer) {
+        val audioOffloadPreferences = audioOffloadPreferencesFlow.first()
+
         _offloadStatus.value = AudioOffloadStatus(
             offloadSchedulingEnabled = false,
             sleepingForOffload = exoPlayer.isSleepingForOffload,
@@ -163,8 +161,7 @@ public class AudioOffloadManager(
             isPlaying = exoPlayer.isPlaying,
             errors = listOf(),
             offloadTimes = OffloadTimes(),
-            strategyStatus = null,
-            strategy = null,
+            audioOffloadPreferences = audioOffloadPreferences,
         )
 
         exoPlayer.addAudioOffloadListener(audioOffloadListener)
@@ -184,14 +181,19 @@ public class AudioOffloadManager(
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    internal fun printDebugLogs() {
+    internal suspend fun printDebugLogs() {
+        val audioOffloadPreferences = audioOffloadPreferencesFlow.first()
         val status = _offloadStatus.value
         val times = status.updateToNow()
         val offloadedPlayback = status.trackOffloadDescription()
-        val strategy = status.strategy
-        if (strategy != null && strategy.offloadEnabled != status.trackOffload) {
+        val requiredOffloadStatus = when (audioOffloadPreferences.audioOffloadMode) {
+            AUDIO_OFFLOAD_MODE_DISABLED -> false
+            AUDIO_OFFLOAD_MODE_REQUIRED -> true
+            else -> null
+        }
+        if (requiredOffloadStatus != null && requiredOffloadStatus != status.trackOffload) {
             errorReporter.logMessage(
-                "Offload not matching: $strategy track=$offloadedPlayback",
+                "Offload not matching: $audioOffloadPreferences track=$offloadedPlayback",
                 category = ErrorReporter.Category.Playback,
                 level = ErrorReporter.Level.Error,
             )
@@ -202,7 +204,7 @@ public class AudioOffloadManager(
                 "audioTrackOffload: $offloadedPlayback " +
                 "format: ${status.format?.shortDescription} " +
                 "times: ${times.shortDescription} " +
-                "strategyStatus: ${status.strategyStatus} ",
+                "audioOffloadPreferences: ${status.audioOffloadPreferences} ",
             category = ErrorReporter.Category.Playback,
         )
     }

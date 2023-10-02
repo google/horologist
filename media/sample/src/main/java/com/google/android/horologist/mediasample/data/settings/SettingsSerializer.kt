@@ -33,7 +33,7 @@ object SettingsSerializer : Serializer<Settings> {
         this.animated = true
         this.debugOffload = false
         this.loadItemsAtStartup = false
-        this.offloadMode = SettingsProto.OffloadMode.BACKGROUND
+        this.offloadMode = SettingsProto.OffloadMode.OFFLOAD_MODE_IF_SUPPORTED
         this.podcastControls = false
         this.showTimeTextInfo = false
         this.currentPosition = 0

@@ -22,9 +22,10 @@ option java_package = "com.google.android.horologist.mediasample.domain.proto";
 option java_outer_classname = "SettingsProto";
 
 enum OffloadMode {
-  BACKGROUND = 0;
-  NEVER = 1;
-  ALWAYS = 2;
+  OFFLOAD_MODE_UNSPECIFIED = 0;
+  OFFLOAD_MODE_NEVER = 1;
+  OFFLOAD_MODE_ALWAYS = 2;
+  OFFLOAD_MODE_IF_SUPPORTED = 3;
 }
 
 message Settings {

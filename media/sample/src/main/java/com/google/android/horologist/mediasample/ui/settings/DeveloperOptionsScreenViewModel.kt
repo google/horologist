@@ -23,7 +23,6 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.di.IsEmulator
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
 import com.google.android.horologist.mediasample.domain.proto.copy
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
@@ -55,7 +54,6 @@ class DeveloperOptionsScreenViewModel
                     showTimeTextInfo = it.showTimeTextInfo,
                     podcastControls = it.podcastControls,
                     loadItemsAtStartup = it.loadItemsAtStartup,
-                    offloadMode = it.offloadMode,
                     animated = it.animated,
                     debugOffload = it.debugOffload,
                     writable = true,
@@ -74,7 +72,6 @@ class DeveloperOptionsScreenViewModel
             val loadItemsAtStartup: Boolean = false,
             val animated: Boolean = true,
             val debugOffload: Boolean = false,
-            val offloadMode: OffloadMode = OffloadMode.BACKGROUND,
             val writable: Boolean = false,
             val networkRequest: HighBandwidthConnectionLease? = null,
             val streamingMode: Boolean = false,
@@ -116,14 +113,6 @@ class DeveloperOptionsScreenViewModel
             viewModelScope.launch {
                 settingsRepository.edit {
                     it.copy { debugOffload = enabled }
-                }
-            }
-        }
-
-        fun setOffloadMode(mode: OffloadMode) {
-            viewModelScope.launch {
-                settingsRepository.edit {
-                    it.copy { offloadMode = mode }
                 }
             }
         }

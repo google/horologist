@@ -24,7 +24,7 @@ import androidx.test.annotation.UiThreadTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import com.google.android.horologist.audio.SystemAudioRepository
-import com.google.android.horologist.media3.offload.AudioOffloadManager
+import com.google.android.horologist.mediasample.data.service.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.runner.FakeConfigModule
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.rules.NetworkingRules

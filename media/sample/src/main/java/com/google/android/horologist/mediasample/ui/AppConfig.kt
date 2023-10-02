@@ -18,7 +18,7 @@ package com.google.android.horologist.mediasample.ui
 
 import android.annotation.SuppressLint
 import android.os.Build
-import androidx.media3.exoplayer.audio.DefaultAudioSink
+import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.di.config.UampNetworkingRules
 import com.google.android.horologist.networks.rules.NetworkingRules
@@ -31,7 +31,7 @@ data class AppConfig(
     val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp",
     val cacheItems: Boolean = true,
     val cacheWriteBack: Boolean = true,
-    val offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED,
     val strictMode: Boolean = false,
     val cacheDir: File? = null,
+    val audioOffloadPreferences: AudioOffloadPreferences = AudioOffloadPreferences.Builder().build(),
 )

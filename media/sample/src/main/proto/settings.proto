@@ -21,19 +21,13 @@ package com.google.android.horologist.mediasample.domain.proto;
 option java_package = "com.google.android.horologist.mediasample.domain.proto";
 option java_outer_classname = "SettingsProto";
 
-enum OffloadMode {
-  BACKGROUND = 0;
-  NEVER = 1;
-  ALWAYS = 2;
-}
-
 message Settings {
+  reserved 6;
   bool show_time_text_info = 1;
   bool podcast_controls = 2;
   bool load_items_at_startup = 3;
   bool animated = 4;
   bool debug_offload = 5;
-  OffloadMode offload_mode = 6;
   string currentMediaListId = 7;
   string currentMediaItemId = 8;
   int64 currentPosition = 9;

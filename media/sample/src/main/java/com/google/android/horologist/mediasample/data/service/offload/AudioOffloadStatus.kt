@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media3.offload
+package com.google.android.horologist.mediasample.data.service.offload
 
+import android.annotation.SuppressLint
 import androidx.media3.common.Format
+import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
@@ -28,8 +30,7 @@ public data class AudioOffloadStatus(
     public val isPlaying: Boolean,
     public val errors: List<AudioError>,
     public val offloadTimes: OffloadTimes,
-    public val strategyStatus: String?,
-    public val strategy: AudioOffloadStrategy?,
+    public val audioOffloadPreferences: AudioOffloadPreferences,
 ) {
     public fun updateToNow(): OffloadTimes = offloadTimes.timesToNow(
         sleepingForOffload,
@@ -39,13 +40,13 @@ public data class AudioOffloadStatus(
         return "Offload State: " +
             "sleeping: $sleepingForOffload " +
             "format: ${format?.shortDescription} " +
-            "times: ${offloadTimes.shortDescription} " +
-            "strategyStatus: $strategyStatus "
+            "times: ${offloadTimes.shortDescription}"
     }
 
     public fun trackOffloadDescription(): String = if (trackOffload) "HW" else "SW"
 
     public companion object {
+        @SuppressLint("UnsafeOptInUsageError")
         public val Disabled: AudioOffloadStatus = AudioOffloadStatus(
             offloadSchedulingEnabled = false,
             sleepingForOffload = false,
@@ -54,8 +55,8 @@ public data class AudioOffloadStatus(
             isPlaying = false,
             errors = listOf(),
             offloadTimes = OffloadTimes(),
-            strategyStatus = null,
-            strategy = null,
+            audioOffloadPreferences = AudioOffloadPreferences.Builder()
+                .build(),
         )
     }
 }

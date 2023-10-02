@@ -25,6 +25,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.Player
+import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
 import androidx.media3.common.util.Clock
 import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.CacheDataSource
@@ -49,13 +50,10 @@ import com.google.android.horologist.media3.logging.AnalyticsEventLogger
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.logging.TransferListener
 import com.google.android.horologist.media3.navigation.IntentBuilder
-import com.google.android.horologist.media3.offload.AudioOffloadManager
-import com.google.android.horologist.media3.offload.AudioOffloadStrategy
 import com.google.android.horologist.media3.tracing.TracingListener
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
+import com.google.android.horologist.mediasample.data.service.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.data.service.playback.UampMediaLibrarySessionCallback
-import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.strategy
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.StreamRequest
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
@@ -65,9 +63,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.scopes.ServiceScoped
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import okhttp3.CacheControl
 import okhttp3.Call
 import javax.inject.Provider
@@ -204,6 +200,16 @@ object PlaybackServiceModule {
                 addListener(WearUnsuitableOutputPlaybackSuppressionResolverListener(service))
                 addListener(TracingListener())
 
+                trackSelectionParameters = trackSelectionParameters.buildUpon()
+                    .setAudioOffloadPreferences(
+                        AudioOffloadPreferences.Builder()
+                            .setAudioOffloadMode(AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_ENABLED)
+                            .setIsSpeedChangeSupportRequired(false)
+                            .setIsGaplessSupportRequired(false)
+                            .build(),
+                    )
+                    .build()
+
                 if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
                     serviceCoroutineScope.launch {
                         audioOffloadManager.get().connect(this@apply)
@@ -255,20 +261,11 @@ object PlaybackServiceModule {
     @ServiceScoped
     @Provides
     fun audioSink(
-        appConfig: AppConfig,
         wearMedia3Factory: WearMedia3Factory,
         audioOffloadListener: ExoPlayer.AudioOffloadListener,
-        settingsRepository: SettingsRepository,
         service: Service,
     ): DefaultAudioSink {
-        // TODO check this is basically free at this point
-        val offloadEnabled = runBlocking {
-            settingsRepository.settingsFlow.first().offloadMode.strategy != AudioOffloadStrategy.Never
-        }
-
         return wearMedia3Factory.audioSink(
-            attemptOffload = offloadEnabled && appConfig.offloadEnabled,
-            offloadMode = if (offloadEnabled) appConfig.offloadMode else DefaultAudioSink.OFFLOAD_MODE_DISABLED,
             audioOffloadListener = audioOffloadListener,
         ).also { audioSink ->
             if (service is LifecycleOwner) {

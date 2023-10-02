@@ -28,8 +28,6 @@ import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
 @SuppressLint("UnsafeOptInUsageError")
 public open class WearMedia3Factory(private val context: Context) {
     public fun audioSink(
-        attemptOffload: Boolean,
-        offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED,
         audioOffloadListener: AudioOffloadListener?,
     ): DefaultAudioSink {
         return DefaultAudioSink.Builder(context)
@@ -37,15 +35,7 @@ public open class WearMedia3Factory(private val context: Context) {
             .setExperimentalAudioOffloadListener(audioOffloadListener)
             .setEnableFloatOutput(false) // default
             .setEnableAudioTrackPlaybackParams(false) // default
-            .build().apply {
-                setOffloadMode(
-                    if (attemptOffload) {
-                        offloadMode
-                    } else {
-                        DefaultAudioSink.OFFLOAD_MODE_DISABLED
-                    },
-                )
-            }
+            .build()
     }
 
     public fun audioOnlyRenderersFactory(

@@ -21,7 +21,6 @@ import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
-import com.google.android.horologist.mediasample.domain.proto.SettingsProto
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import com.google.android.horologist.mediasample.domain.proto.settings
 import com.google.protobuf.InvalidProtocolBufferException
@@ -33,7 +32,6 @@ object SettingsSerializer : Serializer<Settings> {
         this.animated = true
         this.debugOffload = false
         this.loadItemsAtStartup = false
-        this.offloadMode = SettingsProto.OffloadMode.BACKGROUND
         this.podcastControls = false
         this.showTimeTextInfo = false
         this.currentPosition = 0

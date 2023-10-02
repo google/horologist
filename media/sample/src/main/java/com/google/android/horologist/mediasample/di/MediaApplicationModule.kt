@@ -34,14 +34,13 @@ import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
-import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.data.log.Logging
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
 import com.google.android.horologist.mediasample.data.service.complication.MediaStatusComplicationService
+import com.google.android.horologist.mediasample.data.service.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.data.settings.settingsStore
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
-import com.google.android.horologist.mediasample.domain.strategy
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.mediasample.ui.util.ResourceProvider
 import dagger.Module
@@ -114,11 +113,8 @@ object MediaApplicationModule {
         appConfig: AppConfig,
         audioOffloadListenerList: AudioOffloadListenerList,
     ): AudioOffloadManager {
-        val audioOffloadStrategyFlow =
-            settingsRepository.settingsFlow.map { it.offloadMode.strategy }
         return AudioOffloadManager(
             logger,
-            audioOffloadStrategyFlow,
         ).also { audioOffloadManager ->
             if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
                 audioOffloadListenerList.addListener(audioOffloadManager.audioOffloadListener)

@@ -17,9 +17,6 @@
 package com.google.android.horologist.mediasample.domain
 
 import androidx.datastore.core.DataStore
-import com.google.android.horologist.media3.offload.AudioOffloadStrategy
-import com.google.android.horologist.media3.offload.BackgroundAudioOffloadStrategy
-import com.google.android.horologist.mediasample.domain.proto.SettingsProto
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import kotlinx.coroutines.flow.Flow
 
@@ -35,11 +32,3 @@ class SettingsRepository(
 
     val settingsFlow: Flow<Settings> = dataStore.data
 }
-
-val SettingsProto.OffloadMode.strategy: AudioOffloadStrategy
-    get() = when (this) {
-        SettingsProto.OffloadMode.BACKGROUND -> BackgroundAudioOffloadStrategy
-        SettingsProto.OffloadMode.ALWAYS -> AudioOffloadStrategy.Always
-        SettingsProto.OffloadMode.NEVER -> AudioOffloadStrategy.Never
-        SettingsProto.OffloadMode.UNRECOGNIZED -> AudioOffloadStrategy.Never
-    }

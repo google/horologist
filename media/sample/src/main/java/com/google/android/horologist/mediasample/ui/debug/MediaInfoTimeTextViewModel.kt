@@ -18,8 +18,8 @@ package com.google.android.horologist.mediasample.ui.debug
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media3.offload.AudioOffloadManager
-import com.google.android.horologist.media3.offload.AudioOffloadStatus
+import com.google.android.horologist.mediasample.data.service.offload.AudioOffloadManager
+import com.google.android.horologist.mediasample.data.service.offload.AudioOffloadStatus
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport

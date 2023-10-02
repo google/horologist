@@ -17,8 +17,6 @@
 package com.google.android.horologist.mediasample.domain
 
 import androidx.datastore.core.DataStore
-import com.google.android.horologist.media3.offload.AudioOffloadStrategy
-import com.google.android.horologist.media3.offload.BackgroundAudioOffloadStrategy
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import kotlinx.coroutines.flow.Flow

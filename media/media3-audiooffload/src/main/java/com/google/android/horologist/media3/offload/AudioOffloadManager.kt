@@ -20,6 +20,9 @@ import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.media3.common.Format
+import androidx.media3.common.PlaybackParameters
+import androidx.media3.common.TrackSelectionParameters
+import androidx.media3.common.TrackSelectionParameters.AudioOffloadPreferences
 import androidx.media3.exoplayer.DecoderReuseEvaluation
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.analytics.AnalyticsListener
@@ -46,8 +49,7 @@ import kotlinx.coroutines.withContext
 @ExperimentalHorologistApi
 public class AudioOffloadManager(
     private val errorReporter: ErrorReporter,
-    private val audioOffloadStrategyFlow: Flow<AudioOffloadStrategy> =
-        flowOf(BackgroundAudioOffloadStrategy),
+    private val audioOffloadPreferences: AudioOffloadPreferences,
 ) {
     private val _offloadStatus = MutableStateFlow(
         AudioOffloadStatus(
@@ -66,17 +68,6 @@ public class AudioOffloadManager(
 
     public val audioOffloadListener: ExoPlayer.AudioOffloadListener =
         object : ExoPlayer.AudioOffloadListener {
-            /**
-             * Logged when the application changes the state of offload scheduling enabled,
-             * this is typically only active when the app is in the background.
-             */
-            override fun onExperimentalOffloadSchedulingEnabledChanged(offloadSchedulingEnabled: Boolean) {
-                _offloadStatus.update {
-                    it.copy(offloadSchedulingEnabled = offloadSchedulingEnabled)
-                }
-
-                errorReporter.logMessage("offload scheduling enabled $offloadSchedulingEnabled")
-            }
 
             /**
              * Logged when the app is able to sleep.
@@ -84,11 +75,11 @@ public class AudioOffloadManager(
              * This listener should only run for development builds, since this additional work
              * negates the effect of offload.
              */
-            override fun onExperimentalSleepingForOffloadChanged(sleepingForOffload: Boolean) {
+            override fun onSleepingForOffloadChanged(isSleepingForOffload: Boolean) {
                 _offloadStatus.update {
                     // accumulate playback time for previous state
                     it.copy(
-                        sleepingForOffload = sleepingForOffload,
+                        sleepingForOffload = isSleepingForOffload,
                         offloadTimes = it.offloadTimes.timesToNow(
                             it.sleepingForOffload,
                             it.isPlaying,
@@ -96,12 +87,12 @@ public class AudioOffloadManager(
                     )
                 }
 
-                errorReporter.logMessage("sleeping for offload $sleepingForOffload")
+                errorReporter.logMessage("sleeping for offload $isSleepingForOffload")
             }
 
-            override fun onExperimentalOffloadedPlayback(offloadedPlayback: Boolean) {
+            override fun onOffloadedPlayback(isOffloadedPlayback: Boolean) {
                 _offloadStatus.update {
-                    it.copy(trackOffload = offloadedPlayback)
+                    it.copy(trackOffload = isOffloadedPlayback)
                 }
             }
         }
@@ -163,10 +154,10 @@ public class AudioOffloadManager(
      * state and activating it based on App foreground state.
      */
     @RequiresApi(29)
-    public suspend fun connect(exoPlayer: ExoPlayer): Unit = withContext(Dispatchers.Main) {
+    public fun connect(exoPlayer: ExoPlayer) {
         _offloadStatus.value = AudioOffloadStatus(
             offloadSchedulingEnabled = false,
-            sleepingForOffload = exoPlayer.experimentalIsSleepingForOffload(),
+            sleepingForOffload = exoPlayer.isSleepingForOffload,
             trackOffload = false,
             format = exoPlayer.audioFormat,
             isPlaying = exoPlayer.isPlaying,
@@ -179,26 +170,9 @@ public class AudioOffloadManager(
         exoPlayer.addAudioOffloadListener(audioOffloadListener)
         exoPlayer.addAnalyticsListener(analyticsListener)
 
-        try {
-            audioOffloadStrategyFlow.collectLatest { strategy ->
-                _offloadStatus.update {
-                    it.copy(
-                        strategy = strategy,
-                        strategyStatus = null,
-                    )
-                }
-
-                strategy.applyIndefinitely(exoPlayer, errorReporter).collect { strategyStatus ->
-                    _offloadStatus.update {
-                        it.copy(strategyStatus = strategyStatus)
-                    }
-                }
-                awaitCancellation()
-            }
-        } finally {
-            exoPlayer.removeAudioOffloadListener(audioOffloadListener)
-            exoPlayer.removeAnalyticsListener(analyticsListener)
-        }
+        exoPlayer.trackSelectionParameters = exoPlayer.trackSelectionParameters.buildUpon()
+            .setAudioOffloadPreferences(audioOffloadPreferences)
+            .build()
     }
 
     @RequiresApi(29)

@@ -14,26 +14,25 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@android:style/ThemeOverlay.Material.Dark">
+        android:theme="@style/AppTheme">
         <activity
             android:name="com.google.android.horologist.activities.ComposeActivity1"
-            android:exported="false"
-            android:label="@string/title_activity_compose1"
-            android:taskAffinity=".stacked"
             />
         <activity
-            android:name="com.google.android.horologist.activities.ViewActivity2"
-            android:exported="false"
-            android:taskAffinity=".stacked" />
+            android:name="com.google.android.horologist.activities.ViewActivity2"/>
         <activity
             android:name="com.google.android.horologist.activities.ViewActivity1"
-            android:exported="false"
-            android:taskAffinity=".stacked" />
+            android:exported="true"
+            >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name="com.google.android.horologist.activities.ComposeActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_compose1"
-            android:taskAffinity=".stacked" />
+            android:name="com.google.android.horologist.activities.ComposeActivity2" />
 
         <uses-library
             android:name="com.google.android.wearable"
@@ -45,9 +44,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher"
-            android:taskAffinity=".main">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

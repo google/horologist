@@ -20,12 +20,40 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
+import androidx.wear.ambient.AmbientLifecycleObserver
+import androidx.wear.widget.SwipeDismissFrameLayout
 import com.google.android.horologist.sample.R
 
 class ViewActivity1 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view)
+
+        val callback: AmbientLifecycleObserver.AmbientLifecycleCallback = object : AmbientLifecycleObserver.AmbientLifecycleCallback {
+            override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
+                println("enter")
+            }
+
+            override fun onExitAmbient() {
+                println("exit")
+            }
+
+            override fun onUpdateAmbient() {
+                println("update")
+            }
+        }
+        val observer = AmbientLifecycleObserver(this, callback)
+
+        lifecycle.addObserver(observer)
+
+//        findViewById<SwipeDismissFrameLayout>(R.id.swipe_dismiss_root).apply {
+//            addCallback(object : SwipeDismissFrameLayout.Callback() {
+//
+//                override fun onDismissed(layout: SwipeDismissFrameLayout) {
+//                    finish()
+//                }
+//            })
+//        }
         findViewById<Button>(R.id.button).apply {
             setOnClickListener {
                 val intent = Intent(this@ViewActivity1, ComposeActivity1::class.java)

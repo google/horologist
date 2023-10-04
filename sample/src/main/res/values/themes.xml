@@ -16,5 +16,6 @@
   -->
 
 <resources>
-
+    <style name="AppTheme" parent="@android:style/Theme.DeviceDefault">
+    </style>
 </resources>

@@ -15,6 +15,12 @@
   ~ limitations under the License.
   -->
 
+<!--<androidx.wear.widget.SwipeDismissFrameLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:id="@+id/swipe_dismiss_root" >-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -29,3 +35,4 @@
         android:layout_gravity="center"
         android:text="Click"/>
 </FrameLayout>
+<!--</androidx.wear.widget.SwipeDismissFrameLayout>-->

@@ -36,7 +36,6 @@ import com.google.android.horologist.data.WearableApiAvailability
 import com.google.android.horologist.data.appHelperResult
 import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.ownAppConfig
-import com.google.android.horologist.datalayer.R
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -208,7 +207,7 @@ abstract class DataLayerAppHelper(
             it.pid == Process.myPid()
         }?.importance == IMPORTANCE_FOREGROUND
         if (!isForeground) {
-            throw SecurityException(context.getString(R.string.datalayerapphelper_foreground_error))
+            throw SecurityException("This method can only be called from the foreground.")
         }
     }
 

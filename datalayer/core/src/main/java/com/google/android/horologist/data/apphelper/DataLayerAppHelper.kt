@@ -16,8 +16,11 @@
 
 package com.google.android.horologist.data.apphelper
 
+import android.app.ActivityManager
+import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
 import android.content.Context
 import android.net.Uri
+import android.os.Process
 import androidx.annotation.CheckResult
 import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.gms.common.api.ApiException
@@ -33,6 +36,7 @@ import com.google.android.horologist.data.WearableApiAvailability
 import com.google.android.horologist.data.appHelperResult
 import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.ownAppConfig
+import com.google.android.horologist.datalayer.R
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -53,6 +57,8 @@ abstract class DataLayerAppHelper(
     protected val registry: WearDataLayerRegistry,
 ) {
     private val installedDeviceCapabilityUri = "wear://*/$CAPABILITY_DEVICE_PREFIX"
+    private val activityManager by lazy { context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager }
+
     protected val playStoreUri = "market://details?id=${context.packageName}"
     protected val remoteActivityHelper by lazy { RemoteActivityHelper(context) }
 
@@ -147,6 +153,7 @@ abstract class DataLayerAppHelper(
         node: String,
         config: ActivityConfig,
     ): AppHelperResultCode {
+        checkIsForegroundOrThrow()
         val request = launchRequest { activity = config }
         return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
     }
@@ -156,6 +163,7 @@ abstract class DataLayerAppHelper(
      */
     @CheckResult
     public suspend fun startRemoteOwnApp(node: String): AppHelperResultCode {
+        checkIsForegroundOrThrow()
         val request = launchRequest { ownApp = ownAppConfig { } }
         return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
     }
@@ -172,6 +180,7 @@ abstract class DataLayerAppHelper(
         data: ByteArray,
         timeoutMs: Long = MESSAGE_REQUEST_TIMEOUT_MS,
     ): AppHelperResultCode {
+        checkIsForegroundOrThrow()
         val response = try {
             withTimeout(timeoutMs) {
                 // Cancellation will not lead to the GMS Task itself being cancelled.
@@ -187,6 +196,20 @@ abstract class DataLayerAppHelper(
             }
         }
         return AppHelperResult.parseFrom(response).code
+    }
+
+    /**
+     * Provides a check that the current process is running in the foreground. This is used in all
+     * methods within AppHelper that start some form of Activity on the other device, to ensure that
+     * apps are not being launched as a result of a background process on the calling device.
+     */
+    protected fun checkIsForegroundOrThrow() {
+        val isForeground = activityManager.runningAppProcesses.find {
+            it.pid == Process.myPid()
+        }?.importance == IMPORTANCE_FOREGROUND
+        if (!isForeground) {
+            throw SecurityException(context.getString(R.string.datalayerapphelper_foreground_error))
+        }
     }
 
     /**

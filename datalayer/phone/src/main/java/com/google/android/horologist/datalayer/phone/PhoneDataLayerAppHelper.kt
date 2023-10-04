@@ -39,7 +39,7 @@ public class PhoneDataLayerAppHelper(
     private val SAMSUNG_COMPANION_PKG = "com.samsung.android.app.watchmanager"
 
     override suspend fun installOnNode(node: String) {
-        super.checkIsForegroundOrThrow()
+        checkIsForegroundOrThrow()
         val intent = Intent(Intent.ACTION_VIEW)
             .addCategory(Intent.CATEGORY_BROWSABLE)
             .setData(Uri.parse(playStoreUri))
@@ -48,7 +48,7 @@ public class PhoneDataLayerAppHelper(
 
     @CheckResult
     override suspend fun startCompanion(node: String): AppHelperResultCode {
-        super.checkIsForegroundOrThrow()
+        checkIsForegroundOrThrow()
         val companionPackage = registry.nodeClient.getCompanionPackageForNode(node).await()
 
         /**

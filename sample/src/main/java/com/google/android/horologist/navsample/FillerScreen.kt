@@ -32,9 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 
 @Composable
 fun FillerScreen(label: String, modifier: Modifier = Modifier) {
@@ -48,12 +47,10 @@ fun BigScalingLazyColumn(
     scrollState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
-    val focusRequester = rememberActiveFocusRequester()
-
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .rotaryWithFling(focusRequester, scrollState),
+            .rotaryWithScroll(scrollState),
         state = scrollState,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -68,13 +65,11 @@ fun BigColumn(
     scrollState: ScrollState,
     modifier: Modifier = Modifier
 ) {
-    val focusRequester = rememberActiveFocusRequester()
-
     Column(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .rotaryWithFling(focusRequester, scrollState),
+            .rotaryWithScroll(scrollState),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.size(30.dp))

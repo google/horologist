@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalWearFoundationApi::class)
-
 package com.google.android.horologist.sample
 
 import androidx.compose.foundation.ScrollState
@@ -33,8 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
@@ -45,14 +41,12 @@ import androidx.wear.compose.material.scrollAway
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 
 @Composable
 fun ScrollScreenLazyColumn(scrollState: LazyListState) {
-    val focusRequester = rememberActiveFocusRequester()
-
     LazyColumn(
-        modifier = Modifier.rotaryWithFling(focusRequester, scrollState),
+        modifier = Modifier.rotaryWithScroll(scrollState),
         state = scrollState
     ) {
         items(3) { i ->
@@ -78,8 +72,6 @@ fun ScrollAwayScreenScalingLazyColumn(
 
 @Composable
 fun ScrollAwayScreenColumn(scrollState: ScrollState) {
-    val focusRequester = rememberActiveFocusRequester()
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = {
@@ -91,7 +83,7 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
     ) {
         Column(
             modifier = Modifier
-                .rotaryWithFling(focusRequester, scrollState)
+                .rotaryWithScroll(scrollState)
                 .verticalScroll(scrollState)
         ) {
             val modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp / 2)

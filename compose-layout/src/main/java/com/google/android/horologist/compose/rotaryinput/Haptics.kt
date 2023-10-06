@@ -219,7 +219,7 @@ public fun rememberDisabledHaptic(): RotaryHapticHandler = remember {
 @Composable
 public fun rememberRotaryHapticHandler(
     scrollableState: ScrollableState,
-    throttleThresholdMs: Long = 40,
+    throttleThresholdMs: Long = 30,
     hapticsThresholdPx: Long = 50,
     hapticsChannel: Channel<RotaryHapticsType> = rememberHapticChannel(),
     rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback()
@@ -309,8 +309,11 @@ private class PixelWatchRotaryHapticFeedback(private val view: View) : RotaryHap
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
                 view.performHapticFeedback(
-                    if (Build.VERSION.SDK_INT >= 33) ROTARY_SCROLL_ITEM_FOCUS
-                    else WEAR_SCROLL_ITEM_FOCUS
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        ROTARY_SCROLL_ITEM_FOCUS
+                    } else {
+                        WEAR_SCROLL_ITEM_FOCUS
+                    }
                 )
             }
 
@@ -343,7 +346,7 @@ private class PixelWatchRotaryHapticFeedback(private val view: View) : RotaryHap
 }
 
 /**
- * Implementation of [RotaryHapticFeedback] for Galaxy Watch 4 Classic
+ * Implementation of [RotaryHapticFeedback] for Galaxy Watch 4 and 6 Classic
  */
 @ExperimentalHorologistApi
 private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryHapticFeedback {
@@ -369,7 +372,7 @@ private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryH
 }
 
 private fun isGalaxyWatchClassic(): Boolean =
-    Build.MODEL.matches("SM-R8[89]5.".toRegex())
+    Build.MODEL.matches("SM-R(?:8[89][05]|9[56][05])".toRegex())
 
 private fun isGooglePixelWatch(): Boolean =
     Build.MODEL.startsWith("Google Pixel Watch")

@@ -16,8 +16,7 @@
 
 @file:OptIn(
     ExperimentalCoroutinesApi::class,
-    ExperimentalFoundationApi::class,
-    ExperimentalWearFoundationApi::class
+    ExperimentalFoundationApi::class
 )
 
 package com.google.android.horologist.compose.pager
@@ -30,9 +29,7 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
@@ -41,10 +38,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onParent
 import androidx.test.filters.MediumTest
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.RequestFocusWhenActive
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -77,18 +72,16 @@ class PagerScreenTest {
                 5
             }
             PagerScreen(modifier = Modifier.fillMaxSize(), state = pagerState) { i ->
-                val focusRequester = remember { FocusRequester() }
                 val scrollState = rememberScrollState()
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .rotaryWithFling(focusRequester, scrollState)
+                        .rotaryWithScroll(scrollState)
                         .verticalScroll(scrollState),
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(modifier = Modifier.testTag("text$i"), text = "Text $i")
                 }
-                RequestFocusWhenActive(focusRequester)
             }
         }
 

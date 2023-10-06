@@ -28,7 +28,7 @@ jobs:
           arguments: spotlessApply
 
       - name: Push reformatted code
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           file_pattern: '**/*.kt'
           disable_globbing: true
@@ -40,7 +40,7 @@ jobs:
           arguments: testDebug -P screenshot.record=repair
 
       - name: Push new screenshots if available
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           file_pattern: '**/snapshots/images/*.png'
           disable_globbing: true

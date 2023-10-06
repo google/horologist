@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalWearFoundationApi::class)
+@file:OptIn(ExperimentalWearFoundationApi::class, ExperimentalHorologistApi::class)
 
 package com.google.android.horologist.rotary
 
@@ -58,6 +58,7 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CompactChip
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Title
@@ -182,28 +183,23 @@ fun RotaryScrollWithFlingOrSnapScreen(
         val rotaryHapticHandler =
             if (hapticsEnabled) rememberRotaryHapticHandler(scalingLazyListState)
             else rememberDisabledHaptic()
-        val focusRequester = rememberActiveFocusRequester()
         ItemsListWithModifier(
             modifier = Modifier
                 .let {
                     if (isSnap) it.rotaryWithSnap(
-                        focusRequester,
                         scalingLazyListState.toRotaryScrollAdapter(),
-                        rotaryHapticHandler
+                        rotaryHaptics = rotaryHapticHandler
                     )
-                    else if (isFling) it.rotaryWithFling(
-                        focusRequester = focusRequester,
+                    else if (isFling) it.rotaryWithScroll(
                         scrollableState = scalingLazyListState,
                         rotaryHaptics = rotaryHapticHandler
                     )
                     else it.rotaryWithScroll(
-                        focusRequester = focusRequester,
                         scrollableState = scalingLazyListState,
+                        flingBehavior = null,
                         rotaryHaptics = rotaryHapticHandler
                     )
-                }
-                .focusRequester(focusRequester)
-                .focusable(),
+                },
             scrollableState = scalingLazyListState
         ) {
             when (itemTypeIndex) {

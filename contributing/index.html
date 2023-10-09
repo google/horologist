@@ -1410,16 +1410,16 @@ an issue https://github.com/google/horologist/issues with the label "Feature Req
 <p>The project should work immediately from a fresh checkout in Android Studio (<a href="https://developer.android.com/studio/releases">Stable</a> or newer) or Gradle (./gradlew).</p>
 <p>When submitting a PR, please check API compatibility and lint rules first.</p>
 <p>A good first step is</p>
-<div class="highlight"><pre><span></span><code>$ ./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSources metalavaGenerateSignature metalavaGenerateSignatureDebug lintDebug
+<div class="highlight"><pre><span></span><code>./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSources metalavaGenerateSignature metalavaGenerateSignatureRelease lintDebug
 </code></pre></div>
 <p>Also make sure you have (<a href="https://git-lfs.github.com/">Git LFS</a>) installed.</p>
-<p>If you change any code affecting screenshot tests, then run the following and check the failures in the <code>out</code> directory.</p>
-<div class="highlight"><pre><span></span><code>$ ./gradlew verifyPaparazziDebug
+<p>If you change any code affecting screenshot tests, then run the following to update changed images
+on a Linux host. Alternatively uncomment the same property in gradle.properties.</p>
+<div class="highlight"><pre><span></span><code>./gradlew testDebug -P screenshot.record=repair
 </code></pre></div>
-<p>To record the new golden images, run the following and check in the specific files that failed. Paparazzi has some tolerance for minor changes,
-so not all diffs need be committed.</p>
-<div class="highlight"><pre><span></span><code>$ ./gradlew recordPaparazziDebug
-</code></pre></div>
+<p>This can be automated For a PR against the same branch, the Github action should commit against
+PR if possible. For maintainers, this means creating the branch in the google/horologist repo.
+For contributors, once your PR fails, create a second PR in your fork, that will fix the issue.</p>
 <h2 id="contributor-license-agreement">Contributor License Agreement<a class="headerlink" href="#contributor-license-agreement" title="Permanent link">&para;</a></h2>
 <p>Contributions to this project must be accompanied by a Contributor License
 Agreement. You (or your employer) retain the copyright to your contribution,

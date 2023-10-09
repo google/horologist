@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.util.lerp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.StepperDefaults
@@ -40,8 +41,18 @@ public fun Stepper(
     onValueChange: (Float) -> Unit,
     steps: Int,
     modifier: Modifier = Modifier,
-    decreaseIcon: @Composable () -> Unit = { Icon(StepperDefaults.Decrease, "Decrease") },
-    increaseIcon: @Composable () -> Unit = { Icon(StepperDefaults.Increase, "Increase") },
+    decreaseIcon: @Composable () -> Unit = {
+        Icon(
+            StepperDefaults.Decrease,
+            stringResource(R.string.horologist_stepper_decrease_content_description)
+        )
+    },
+    increaseIcon: @Composable () -> Unit = {
+        Icon(
+            StepperDefaults.Increase,
+            stringResource(R.string.horologist_stepper_increase_content_description)
+        )
+    },
     valueRange: ClosedFloatingPointRange<Float> = 0f..(steps + 1).toFloat(),
     backgroundColor: Color = MaterialTheme.colors.background,
     contentColor: Color = contentColorFor(backgroundColor),
@@ -97,8 +108,18 @@ public fun Stepper(
     onValueChange: (Int) -> Unit,
     valueProgression: IntProgression,
     modifier: Modifier = Modifier,
-    decreaseIcon: @Composable () -> Unit = { Icon(StepperDefaults.Decrease, "Decrease") },
-    increaseIcon: @Composable () -> Unit = { Icon(StepperDefaults.Increase, "Increase") },
+    decreaseIcon: @Composable () -> Unit = {
+        Icon(
+            StepperDefaults.Decrease,
+            stringResource(R.string.horologist_stepper_decrease_content_description)
+        )
+    },
+    increaseIcon: @Composable () -> Unit = {
+        Icon(
+            StepperDefaults.Increase,
+            stringResource(R.string.horologist_stepper_increase_content_description)
+        )
+    },
     backgroundColor: Color = MaterialTheme.colors.background,
     contentColor: Color = contentColorFor(backgroundColor),
     iconColor: Color = contentColor,

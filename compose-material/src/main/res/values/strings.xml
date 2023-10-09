@@ -21,4 +21,6 @@
     <string description="State description of the SplitToggleChip. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_split_toggle_chip_off_state_description">Off</string>
     <string description="State description of the ToggleButton. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_toggle_button_on_state_description">On</string>
     <string description="State description of the ToggleButton. It lets the user know if the toggle is checked or not. [CHAR_LIMIT=NONE]" name="horologist_toggle_button_off_state_description">Off</string>
+    <string description="Content description of the Stepper Decrease Button. [CHAR_LIMIT=NONE]" name="horologist_stepper_decrease_content_description">Decrease</string>
+    <string description="Content description of the Stepper Increase Button. [CHAR_LIMIT=NONE]" name="horologist_stepper_increase_content_description">Increase</string>
 </resources>

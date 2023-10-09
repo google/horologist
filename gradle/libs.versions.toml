@@ -27,7 +27,6 @@ androidxprotolayout = "1.0.0"
 androidxtiles = "1.2.0"
 annotation = "1.0.1"
 app-cash-turbine = "1.0.0"
-benManes = "0.48.0"
 com-squareup-okhttp3 = "4.11.0"
 com-squareup-retrofit2 = "2.9.0"
 compose = "1.6.0-alpha07"
@@ -56,7 +55,6 @@ runtimeTracing = "1.0.0-alpha04"
 snapshot-android = "1.0.4"
 spotless = "6.22.0"
 truth = "1.1.5"
-versionCatalogUpdate = "0.8.1"
 wearcompose = "1.3.0-alpha07"
 wearToolingPreview = "1.0.0-alpha01"
 
@@ -200,7 +198,6 @@ wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", 
 wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wearcompose" }
 
 [plugins]
-benManes = { id = "com.github.ben-manes.versions", version.ref = "benManes" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = "gradlePublishPlugin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
@@ -208,4 +205,3 @@ kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = "com.google.protobuf:0.9.4"
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }

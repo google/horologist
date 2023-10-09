@@ -116,7 +116,7 @@ dependencies {
     api(libs.androidx.datastore)
     api(libs.protobuf.kotlin.lite)
     implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.wear.remote.interactions)
+    api(libs.androidx.wear.remote.interactions)
     implementation(libs.androidx.lifecycle.service)
 
     testImplementation(libs.junit)

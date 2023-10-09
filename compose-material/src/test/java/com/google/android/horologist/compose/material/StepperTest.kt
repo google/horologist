@@ -23,13 +23,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class StepperTest : ScreenshotBaseTest() {
+class StepperTest : ScreenshotBaseTest(
+    params = ScreenshotTestRule.screenshotTestRuleParams {
+        screenTimeText = {}
+    }
+) {
 
     @Test
     fun float() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        screenshotTestRule.setContent(takeScreenshot = true, roundScreen = true) {
             var value by remember {
                 mutableFloatStateOf(0f)
             }
@@ -46,7 +51,7 @@ class StepperTest : ScreenshotBaseTest() {
 
     @Test
     fun int() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        screenshotTestRule.setContent(takeScreenshot = true, roundScreen = true) {
             var value by remember {
                 mutableIntStateOf(0)
             }

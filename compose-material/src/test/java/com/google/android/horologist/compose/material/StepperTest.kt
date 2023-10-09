@@ -29,7 +29,7 @@ import org.junit.Test
 class StepperTest : ScreenshotBaseTest(
     params = ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test

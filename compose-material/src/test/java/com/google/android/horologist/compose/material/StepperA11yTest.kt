@@ -61,7 +61,7 @@ class StepperA11yTest :
             Stepper(
                 value = value,
                 onValueChange = { value = it },
-                valueProgression = IntProgression.fromClosedRange(0, 100, 10)
+                valueProgression = IntProgression.fromClosedRange(0, 100, 10),
             ) {
                 Text("Value: $value")
             }

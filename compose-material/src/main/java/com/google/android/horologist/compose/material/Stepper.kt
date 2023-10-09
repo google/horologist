@@ -44,13 +44,13 @@ public fun Stepper(
     decreaseIcon: @Composable () -> Unit = {
         Icon(
             StepperDefaults.Decrease,
-            stringResource(R.string.horologist_stepper_decrease_content_description)
+            stringResource(R.string.horologist_stepper_decrease_content_description),
         )
     },
     increaseIcon: @Composable () -> Unit = {
         Icon(
             StepperDefaults.Increase,
-            stringResource(R.string.horologist_stepper_increase_content_description)
+            stringResource(R.string.horologist_stepper_increase_content_description),
         )
     },
     valueRange: ClosedFloatingPointRange<Float> = 0f..(steps + 1).toFloat(),
@@ -111,13 +111,13 @@ public fun Stepper(
     decreaseIcon: @Composable () -> Unit = {
         Icon(
             StepperDefaults.Decrease,
-            stringResource(R.string.horologist_stepper_decrease_content_description)
+            stringResource(R.string.horologist_stepper_decrease_content_description),
         )
     },
     increaseIcon: @Composable () -> Unit = {
         Icon(
             StepperDefaults.Increase,
-            stringResource(R.string.horologist_stepper_increase_content_description)
+            stringResource(R.string.horologist_stepper_increase_content_description),
         )
     },
     backgroundColor: Color = MaterialTheme.colors.background,

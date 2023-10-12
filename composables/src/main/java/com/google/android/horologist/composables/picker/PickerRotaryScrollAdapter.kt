@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.composables.picker
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter
 
@@ -24,8 +26,9 @@ import com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter
 /**
  * An extension function for creating [RotaryScrollAdapter] from [Picker]
  */
+@Composable
 internal fun PickerState.toRotaryScrollAdapter(): PickerRotaryScrollAdapter =
-    PickerRotaryScrollAdapter(this)
+    remember(this) { PickerRotaryScrollAdapter(this) }
 
 /**
  * An implementation of rotary scroll adapter for [Picker]

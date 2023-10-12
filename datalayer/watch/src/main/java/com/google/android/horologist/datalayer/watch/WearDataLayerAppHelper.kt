@@ -65,6 +65,7 @@ public class WearDataLayerAppHelper(
         }
 
         override suspend fun installOnNode(node: String) {
+            checkIsForegroundOrThrow()
             if (appStoreUri != null &&
                 PhoneTypeHelper.getPhoneDeviceType(context) == PhoneTypeHelper.DEVICE_TYPE_IOS
             ) {
@@ -82,6 +83,7 @@ public class WearDataLayerAppHelper(
 
         @CheckResult
         override suspend fun startCompanion(node: String): AppHelperResultCode {
+            checkIsForegroundOrThrow()
             val localNode = registry.nodeClient.localNode.await()
             val request = launchRequest {
                 companion = companionConfig {

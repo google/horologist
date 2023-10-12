@@ -16,8 +16,11 @@
 
 package com.google.android.horologist.data.apphelper
 
+import android.app.ActivityManager
+import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
 import android.content.Context
 import android.net.Uri
+import android.os.Process
 import androidx.annotation.CheckResult
 import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.gms.common.api.ApiException
@@ -52,9 +55,12 @@ abstract class DataLayerAppHelper(
     protected val context: Context,
     protected val registry: WearDataLayerRegistry,
 ) {
-    private val installedDeviceCapabilityUri = "wear://*/$CAPABILITY_DEVICE_PREFIX"
-    protected val playStoreUri = "market://details?id=${context.packageName}"
-    protected val remoteActivityHelper by lazy { RemoteActivityHelper(context) }
+    private val installedDeviceCapabilityUri: String = "wear://*/$CAPABILITY_DEVICE_PREFIX"
+
+    private val activityManager: ActivityManager by lazy { context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager }
+
+    protected val playStoreUri: String = "market://details?id=${context.packageName}"
+    protected val remoteActivityHelper: RemoteActivityHelper by lazy { RemoteActivityHelper(context) }
 
     /**
      * Provides a list of connected nodes and the installation status of the app on these nodes.
@@ -102,12 +108,12 @@ abstract class DataLayerAppHelper(
                     trySend(capability.nodes.filter { it.isNearby }.toSet())
             }
 
-        val allCaps =
-            registry.capabilityClient.getAllCapabilities(
-                CapabilityClient.FILTER_REACHABLE,
-            ).await()
-        val installedCaps = allCaps.filter { it.key.startsWith(CAPABILITY_DEVICE_PREFIX) }
-            .values.flatMap { it.nodes }.filter { it.isNearby }.toSet()
+        val allCaps = registry.capabilityClient.getAllCapabilities(
+            CapabilityClient.FILTER_REACHABLE,
+        ).await()
+        val installedCaps =
+            allCaps.filter { it.key.startsWith(CAPABILITY_DEVICE_PREFIX) }.values.flatMap { it.nodes }
+                .filter { it.isNearby }.toSet()
 
         @Suppress("UNUSED_VARIABLE")
         val unused = trySend(installedCaps)
@@ -147,6 +153,7 @@ abstract class DataLayerAppHelper(
         node: String,
         config: ActivityConfig,
     ): AppHelperResultCode {
+        checkIsForegroundOrThrow()
         val request = launchRequest { activity = config }
         return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
     }
@@ -156,6 +163,7 @@ abstract class DataLayerAppHelper(
      */
     @CheckResult
     public suspend fun startRemoteOwnApp(node: String): AppHelperResultCode {
+        checkIsForegroundOrThrow()
         val request = launchRequest { ownApp = ownAppConfig { } }
         return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
     }
@@ -172,6 +180,7 @@ abstract class DataLayerAppHelper(
         data: ByteArray,
         timeoutMs: Long = MESSAGE_REQUEST_TIMEOUT_MS,
     ): AppHelperResultCode {
+        checkIsForegroundOrThrow()
         val response = try {
             withTimeout(timeoutMs) {
                 // Cancellation will not lead to the GMS Task itself being cancelled.
@@ -187,6 +196,20 @@ abstract class DataLayerAppHelper(
             }
         }
         return AppHelperResult.parseFrom(response).code
+    }
+
+    /**
+     * Provides a check that the current process is running in the foreground. This is used in all
+     * methods within AppHelper that start some form of Activity on the other device, to ensure that
+     * apps are not being launched as a result of a background process on the calling device.
+     */
+    protected fun checkIsForegroundOrThrow() {
+        val isForeground = activityManager.runningAppProcesses.find {
+            it.pid == Process.myPid()
+        }?.importance == IMPORTANCE_FOREGROUND
+        if (!isForeground) {
+            throw SecurityException("This method can only be called from the foreground.")
+        }
     }
 
     /**

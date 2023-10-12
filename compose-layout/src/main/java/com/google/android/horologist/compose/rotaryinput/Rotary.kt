@@ -316,7 +316,6 @@ public object RotaryDefaults {
      * @param flingBehavior Logic describing Fling behavior. If null - fling will not happen
      * @param isLowRes Whether the input is Low-res (a bezel) or high-res(a crown/rsb)
      */
-    @ExperimentalHorologistApi
     @Composable
     internal fun rememberFlingHandler(
         scrollableState: ScrollableState,
@@ -497,7 +496,6 @@ internal class RotaryFlingBehavior(
      * Starts a new fling tracking session
      * with specified timestamp
      */
-    @ExperimentalHorologistApi
     fun startFlingTracking(timestamp: Long) {
         rotaryVelocityTracker.start(timestamp)
         latestEventTimestamp = timestamp
@@ -507,7 +505,6 @@ internal class RotaryFlingBehavior(
     /**
      * Observing new event within a fling tracking session with new timestamp and delta
      */
-    @ExperimentalHorologistApi
     fun observeEvent(timestamp: Long, delta: Float) {
         rotaryVelocityTracker.move(timestamp, delta)
         latestEventTimestamp = timestamp
@@ -516,7 +513,6 @@ internal class RotaryFlingBehavior(
     /**
      * Performing fling if necessary and calling [beforeFling] lambda before it is triggered
      */
-    @ExperimentalHorologistApi
     suspend fun trackFling(beforeFling: () -> Unit) {
         val currentVelocity = rotaryVelocityTracker.velocity
         debugLog { "currentVelocity: $currentVelocity" }
@@ -573,7 +569,6 @@ internal class RotaryScrollBehavior(
     /**
      * Handles scroll event to [targetValue]
      */
-    @ExperimentalHorologistApi
     suspend fun handleEvent(targetValue: Float) {
         scrollableState.scroll(MutatePriority.UserInput) {
             debugLog { "ScrollAnimation value before start: ${scrollAnimation.value}" }
@@ -597,7 +592,6 @@ internal class RotaryScrollBehavior(
  * A helper class for snapping with rotary. Uses animateScrollToItem
  * method for snapping to the Nth item.
  */
-@ExperimentalHorologistApi
 internal class RotarySnapBehavior(
     private val rotaryScrollAdapter: RotaryScrollAdapter,
     private val snapParameters: SnapParameters,
@@ -622,7 +616,6 @@ internal class RotarySnapBehavior(
      *
      * If [sequentialSnap] is false, then [moveForElements] are not summed up together.
      */
-    @ExperimentalHorologistApi
     fun prepareSnapForItems(moveForElements: Int, sequentialSnap: Boolean) {
         this.sequentialSnap = sequentialSnap
         if (sequentialSnap) {
@@ -790,7 +783,6 @@ internal fun Modifier.rotaryHandler(
  * Batching requests for scrolling events. This function combines all events together
  * (except first) within specified timeframe. Should help with performance on high-res devices.
  */
-@ExperimentalHorologistApi
 @OptIn(ExperimentalCoroutinesApi::class)
 internal fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long): Flow<TimestampedDelta> {
     var delta = 0f

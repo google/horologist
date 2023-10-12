@@ -362,7 +362,6 @@ public object RotaryDefaults {
      * @param rotaryScrollAdapter A connection between scrollable objects and rotary events
      * @param snapParameters Snap parameters
      */
-    @ExperimentalHorologistApi
     @Composable
     internal fun rememberSnapHandler(
         rotaryScrollAdapter: RotaryScrollAdapter,

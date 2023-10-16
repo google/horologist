@@ -108,8 +108,6 @@ com.google.android.horologist.media.data.datasource
 com.google.android.horologist.media.data.mapper
 com.google.android.horologist.media.data.repository
 com.google.android.horologist.media.data.service.download
-module:media-media3-audiooffload
-com.google.android.horologist.media3.offload
 module:media-media3-logging
 com.google.android.horologist.media3.logging
 com.google.android.horologist.media3.tracing

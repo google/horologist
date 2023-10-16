@@ -282,15 +282,39 @@ public class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticF
     ) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
-                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                view.performHapticFeedback(
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        PixelWatchRotaryHapticFeedback.ROTARY_SCROLL_ITEM_FOCUS
+                    } else if (Build.VERSION.SDK_INT >= 30) {
+                        PixelWatchRotaryHapticFeedback.WEAR_SCROLL_ITEM_FOCUS
+                    } else {
+                        HapticFeedbackConstants.LONG_PRESS
+                    },
+                )
             }
 
             RotaryHapticsType.ScrollTick -> {
-                view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+                view.performHapticFeedback(
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        PixelWatchRotaryHapticFeedback.ROTARY_SCROLL_TICK
+                    } else if (Build.VERSION.SDK_INT >= 30) {
+                        PixelWatchRotaryHapticFeedback.WEAR_SCROLL_TICK
+                    } else {
+                        HapticFeedbackConstants.KEYBOARD_TAP
+                    },
+                )
             }
 
             RotaryHapticsType.ScrollLimit -> {
-                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                view.performHapticFeedback(
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        PixelWatchRotaryHapticFeedback.ROTARY_SCROLL_LIMIT
+                    } else if (Build.VERSION.SDK_INT >= 30) {
+                        PixelWatchRotaryHapticFeedback.WEAR_SCROLL_LIMIT
+                    } else {
+                        HapticFeedbackConstants.LONG_PRESS
+                    },
+                )
             }
         }
     }
@@ -331,7 +355,7 @@ private class PixelWatchRotaryHapticFeedback(private val view: View) : RotaryHap
         }
     }
 
-    private companion object {
+    internal companion object {
         // Hidden constants from HapticFeedbackConstants.java specific for Pixel Watch
         // API 33
         public const val ROTARY_SCROLL_TICK: Int = 18

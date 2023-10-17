@@ -47,4 +47,22 @@ class VolumeScreenA11yScreenshotTest : ScreenshotBaseTest(
             )
         }
     }
+
+    @Test
+    fun volumeScreenNotConnected() {
+        val volumeState = VolumeState(
+            current = 0,
+            max = 100,
+        )
+        // Media Router returns "Phone"
+        val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
+
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            VolumeScreenTestCase(
+                colors = MaterialTheme.colors,
+                volumeState = volumeState,
+                audioOutput = audioOutput,
+            )
+        }
+    }
 }

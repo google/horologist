@@ -268,8 +268,8 @@ internal fun findDeviceSpecificHapticFeedback(view: View): RotaryHapticFeedback 
     if (isGalaxyWatchClassic()) {
         GalaxyWatchClassicHapticFeedback(view)
     } else if (isWear3point5(view.context)) {
-        Wear_3_5_RotaryHapticFeedback(view)
-    } else if (isWear4AtLeast()){
+        Wear3point5RotaryHapticFeedback(view)
+    } else if (isWear4AtLeast()) {
         Wear4AtLeastRotaryHapticFeedback(view)
     } else {
         PreWear3point5RotaryHapticFeedback(view)
@@ -279,7 +279,7 @@ internal fun findDeviceSpecificHapticFeedback(view: View): RotaryHapticFeedback 
  * Default Rotary implementation for [RotaryHapticFeedback]
  */
 @ExperimentalHorologistApi
-public class PreWear3point5RotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
+private class PreWear3point5RotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
@@ -305,7 +305,7 @@ public class PreWear3point5RotaryHapticFeedback(private val view: View) : Rotary
  * Implementation of [RotaryHapticFeedback] for Pixel Watch
  */
 @ExperimentalHorologistApi
-private class Wear_3_5_RotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
+private class Wear3point5RotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(

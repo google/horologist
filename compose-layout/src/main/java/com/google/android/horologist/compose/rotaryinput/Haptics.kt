@@ -398,7 +398,7 @@ private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryH
 }
 
 private fun isGalaxyWatch(): Boolean =
-    Build.MANUFACTURER.contains("Samsung", true)
+    Build.MANUFACTURER.contains("Samsung", ignoreCase = true)
 
 private fun isGalaxyWatchClassic(): Boolean =
     Build.MODEL.matches("SM-R(?:8[89][05]|9[56][05])".toRegex())

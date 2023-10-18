@@ -412,6 +412,6 @@ private fun isWear4AtLeast(): Boolean =
 
 internal fun getWearPlatformMrNumber(context: Context): Int =
     Settings.Global
-        .getString(context.contentResolver, WEAR_PLATFORM_MR_NUMBER).toIntOrNull() ?: 0
+        .getString(context.contentResolver, WEAR_PLATFORM_MR_NUMBER)?.toIntOrNull() ?: 0
 
 internal const val WEAR_PLATFORM_MR_NUMBER: String = "wear_platform_mr_number"

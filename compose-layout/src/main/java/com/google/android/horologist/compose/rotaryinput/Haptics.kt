@@ -267,19 +267,21 @@ public fun rememberDefaultRotaryHapticFeedback(): RotaryHapticFeedback =
 internal fun findDeviceSpecificHapticFeedback(view: View): RotaryHapticFeedback =
     if (isGalaxyWatchClassic()) {
         GalaxyWatchClassicHapticFeedback(view)
+    } else if (isGalaxyWatch()) {
+        DefaultRotaryHapticFeedback(view)
     } else if (isWear3point5(view.context)) {
         Wear3point5RotaryHapticFeedback(view)
     } else if (isWear4AtLeast()) {
         Wear4AtLeastRotaryHapticFeedback(view)
     } else {
-        PreWear3point5RotaryHapticFeedback(view)
+        DefaultRotaryHapticFeedback(view)
     }
 
 /**
  * Default Rotary implementation for [RotaryHapticFeedback]
  */
 @ExperimentalHorologistApi
-private class PreWear3point5RotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
+private class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
@@ -394,6 +396,9 @@ private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryH
         }
     }
 }
+
+private fun isGalaxyWatch(): Boolean =
+    Build.MANUFACTURER.contains("Samsung")
 
 private fun isGalaxyWatchClassic(): Boolean =
     Build.MODEL.matches("SM-R(?:8[89][05]|9[56][05])".toRegex())

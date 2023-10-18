@@ -16,9 +16,12 @@
 
 package com.google.android.horologist.compose.rotaryinput
 
+import android.content.Context
 import android.os.Build
+import android.provider.Settings
 import android.view.HapticFeedbackConstants
 import android.view.View
+import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -262,10 +265,14 @@ public fun rememberDefaultRotaryHapticFeedback(): RotaryHapticFeedback =
     LocalView.current.let { view -> remember { findDeviceSpecificHapticFeedback(view) } }
 
 internal fun findDeviceSpecificHapticFeedback(view: View): RotaryHapticFeedback =
-    if (isGooglePixelWatch()) {
-        PixelWatchRotaryHapticFeedback(view)
-    } else if (isGalaxyWatchClassic()) {
+    if (isGalaxyWatchClassic()) {
         GalaxyWatchClassicHapticFeedback(view)
+    } else if (isGalaxyWatch()) {
+        DefaultRotaryHapticFeedback(view)
+    } else if (isWear3point5(view.context)) {
+        Wear3point5RotaryHapticFeedback(view)
+    } else if (isWear4AtLeast()) {
+        Wear4AtLeastRotaryHapticFeedback(view)
     } else {
         DefaultRotaryHapticFeedback(view)
     }
@@ -274,7 +281,7 @@ internal fun findDeviceSpecificHapticFeedback(view: View): RotaryHapticFeedback 
  * Default Rotary implementation for [RotaryHapticFeedback]
  */
 @ExperimentalHorologistApi
-public class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
+private class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
@@ -300,7 +307,7 @@ public class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticF
  * Implementation of [RotaryHapticFeedback] for Pixel Watch
  */
 @ExperimentalHorologistApi
-private class PixelWatchRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
+private class Wear3point5RotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
@@ -308,40 +315,59 @@ private class PixelWatchRotaryHapticFeedback(private val view: View) : RotaryHap
     ) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
-                view.performHapticFeedback(
-                    if (Build.VERSION.SDK_INT >= 33) {
-                        ROTARY_SCROLL_ITEM_FOCUS
-                    } else {
-                        WEAR_SCROLL_ITEM_FOCUS
-                    },
-                )
+                view.performHapticFeedback(WEAR_SCROLL_ITEM_FOCUS)
             }
 
             RotaryHapticsType.ScrollTick -> {
-                view.performHapticFeedback(
-                    if (Build.VERSION.SDK_INT >= 33) ROTARY_SCROLL_TICK else WEAR_SCROLL_TICK,
-                )
+                view.performHapticFeedback(WEAR_SCROLL_TICK)
             }
 
             RotaryHapticsType.ScrollLimit -> {
-                view.performHapticFeedback(
-                    if (Build.VERSION.SDK_INT >= 33) ROTARY_SCROLL_LIMIT else WEAR_SCROLL_LIMIT,
-                )
+                view.performHapticFeedback(WEAR_SCROLL_LIMIT)
             }
         }
     }
 
     private companion object {
-        // Hidden constants from HapticFeedbackConstants.java specific for Pixel Watch
+        // Hidden constants from HapticFeedbackConstants.java specific for Wear 3.5
+        // API 30, Wear 3.5
+        public const val WEAR_SCROLL_TICK: Int = 10002
+        public const val WEAR_SCROLL_ITEM_FOCUS: Int = 10003
+        public const val WEAR_SCROLL_LIMIT: Int = 10003
+    }
+}
+
+/**
+ * Implementation of [RotaryHapticFeedback] for Pixel Watch
+ */
+@ExperimentalHorologistApi
+private class Wear4AtLeastRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
+
+    @ExperimentalHorologistApi
+    override fun performHapticFeedback(
+        type: RotaryHapticsType,
+    ) {
+        when (type) {
+            RotaryHapticsType.ScrollItemFocus -> {
+                view.performHapticFeedback(ROTARY_SCROLL_ITEM_FOCUS)
+            }
+
+            RotaryHapticsType.ScrollTick -> {
+                view.performHapticFeedback(ROTARY_SCROLL_TICK)
+            }
+
+            RotaryHapticsType.ScrollLimit -> {
+                view.performHapticFeedback(ROTARY_SCROLL_LIMIT)
+            }
+        }
+    }
+
+    private companion object {
+        // Hidden constants from HapticFeedbackConstants.java
         // API 33
         public const val ROTARY_SCROLL_TICK: Int = 18
         public const val ROTARY_SCROLL_ITEM_FOCUS: Int = 19
         public const val ROTARY_SCROLL_LIMIT: Int = 20
-
-        // API 30
-        public const val WEAR_SCROLL_TICK: Int = 10002
-        public const val WEAR_SCROLL_ITEM_FOCUS: Int = 10003
-        public const val WEAR_SCROLL_LIMIT: Int = 10003
     }
 }
 
@@ -371,8 +397,21 @@ private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryH
     }
 }
 
+private fun isGalaxyWatch(): Boolean =
+    Build.MANUFACTURER.contains("Samsung", ignoreCase = true)
+
 private fun isGalaxyWatchClassic(): Boolean =
     Build.MODEL.matches("SM-R(?:8[89][05]|9[56][05])".toRegex())
 
-private fun isGooglePixelWatch(): Boolean =
-    Build.MODEL.startsWith("Google Pixel Watch")
+private fun isWear3point5(context: Context): Boolean =
+    Build.VERSION.SDK_INT == 30 && getWearPlatformMrNumber(context) >= 5
+
+@ChecksSdkIntAtLeast(api = Build.VERSION_CODES.TIRAMISU)
+private fun isWear4AtLeast(): Boolean =
+    Build.VERSION.SDK_INT >= 33
+
+internal fun getWearPlatformMrNumber(context: Context): Int =
+    Settings.Global
+        .getString(context.contentResolver, WEAR_PLATFORM_MR_NUMBER)?.toIntOrNull() ?: 0
+
+internal const val WEAR_PLATFORM_MR_NUMBER: String = "wear_platform_mr_number"

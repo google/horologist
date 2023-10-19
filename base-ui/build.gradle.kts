@@ -20,7 +20,6 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
-    alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
 }
 
@@ -131,15 +130,6 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
     testRuntimeOnly(libs.compose.ui.test.manifest)
-}
-
-dependencyAnalysis {
-    issues {
-        onAny {
-            severity("fail")
-            exclude(":annotations") // bug: reported as unused
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

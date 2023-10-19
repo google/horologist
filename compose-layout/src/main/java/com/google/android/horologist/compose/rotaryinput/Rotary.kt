@@ -105,8 +105,8 @@ import kotlin.math.sign
     "Use rotaryWithScroll instead",
     ReplaceWith(
         "this.rotaryWithScroll(scrollableState, focusRequester, " +
-            "flingBehavior, rotaryHaptics, reverseDirection)",
-    ),
+            "flingBehavior, rotaryHaptics, reverseDirection)"
+    )
 )
 @Composable
 public fun Modifier.rotaryWithFling(
@@ -114,7 +114,7 @@ public fun Modifier.rotaryWithFling(
     scrollableState: ScrollableState,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     rotaryHaptics: RotaryHapticHandler = rememberRotaryHapticHandler(scrollableState),
-    reverseDirection: Boolean = false,
+    reverseDirection: Boolean = false
 ): Modifier = rotaryHandler(
     rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, flingBehavior),
     reverseDirection = reverseDirection,
@@ -126,7 +126,7 @@ public fun Modifier.rotaryWithFling(
         properties["flingBehavior"] = flingBehavior
         properties["rotaryHaptics"] = rotaryHaptics
         properties["reverseDirection"] = reverseDirection
-    },
+    }
 )
     .focusRequester(focusRequester)
     .focusable()
@@ -153,7 +153,7 @@ public fun Modifier.rotaryWithScroll(
     focusRequester: FocusRequester = rememberActiveFocusRequester(),
     flingBehavior: FlingBehavior? = ScrollableDefaults.flingBehavior(),
     rotaryHaptics: RotaryHapticHandler = rememberRotaryHapticHandler(scrollableState),
-    reverseDirection: Boolean = false,
+    reverseDirection: Boolean = false
 ): Modifier = rotaryHandler(
     rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, flingBehavior),
     reverseDirection = reverseDirection,
@@ -165,7 +165,7 @@ public fun Modifier.rotaryWithScroll(
         properties["flingBehavior"] = flingBehavior
         properties["rotaryHaptics"] = rotaryHaptics
         properties["reverseDirection"] = reverseDirection
-    },
+    }
 )
     .focusRequester(focusRequester)
     .focusable()
@@ -191,7 +191,7 @@ public fun Modifier.rotaryWithSnap(
     focusRequester: FocusRequester = rememberActiveFocusRequester(),
     snapParameters: SnapParameters = RotaryDefaults.snapParametersDefault,
     rotaryHaptics: RotaryHapticHandler = rememberRotaryHapticHandler(rotaryScrollAdapter.scrollableState),
-    reverseDirection: Boolean = false,
+    reverseDirection: Boolean = false
 ): Modifier = rotaryHandler(
     rotaryScrollHandler = RotaryDefaults.rememberSnapHandler(rotaryScrollAdapter, snapParameters),
     reverseDirection = reverseDirection,
@@ -203,7 +203,7 @@ public fun Modifier.rotaryWithSnap(
         properties["snapParameters"] = snapParameters
         properties["rotaryHaptics"] = rotaryHaptics
         properties["reverseDirection"] = reverseDirection
-    },
+    }
 )
     .focusRequester(focusRequester)
     .focusable()
@@ -221,7 +221,7 @@ public fun ScalingLazyListState.toRotaryScrollAdapter(): RotaryScrollAdapter =
  */
 @ExperimentalHorologistApi
 public class ScalingLazyColumnRotaryScrollAdapter(
-    override val scrollableState: ScalingLazyListState,
+    override val scrollableState: ScalingLazyListState
 ) : RotaryScrollAdapter {
 
     /**
@@ -299,7 +299,7 @@ public object RotaryDefaults {
         SnapParameters(
             snapOffset = 0,
             thresholdDivider = 1.5f,
-            resistanceFactor = 3f,
+            resistanceFactor = 3f
         )
 
     /**
@@ -320,7 +320,7 @@ public object RotaryDefaults {
     internal fun rememberFlingHandler(
         scrollableState: ScrollableState,
         flingBehavior: FlingBehavior? = null,
-        isLowRes: Boolean = isLowResInput(),
+        isLowRes: Boolean = isLowResInput()
     ): RotaryScrollHandler {
         val viewConfiguration = ViewConfiguration.get(LocalContext.current)
 
@@ -335,7 +335,7 @@ public object RotaryDefaults {
                         scrollableState,
                         flingBehavior,
                         viewConfiguration,
-                        flingTimeframe = if (isLowRes) lowResFlingTimeframe else highResFlingTimeframe,
+                        flingTimeframe = if (isLowRes) lowResFlingTimeframe else highResFlingTimeframe
                     )
                 }
 
@@ -344,12 +344,12 @@ public object RotaryDefaults {
                 if (isLowRes) {
                     LowResRotaryScrollHandler(
                         rotaryFlingBehaviorFactory = { rotaryFlingBehavior() },
-                        scrollBehaviorFactory = { scrollBehavior() },
+                        scrollBehaviorFactory = { scrollBehavior() }
                     )
                 } else {
                     HighResRotaryScrollHandler(
                         rotaryFlingBehaviorFactory = { rotaryFlingBehavior() },
-                        scrollBehaviorFactory = { scrollBehavior() },
+                        scrollBehaviorFactory = { scrollBehavior() }
                     )
                 }
             }
@@ -365,7 +365,7 @@ public object RotaryDefaults {
     internal fun rememberSnapHandler(
         rotaryScrollAdapter: RotaryScrollAdapter,
         snapParameters: SnapParameters = snapParametersDefault,
-        isLowRes: Boolean = isLowResInput(),
+        isLowRes: Boolean = isLowResInput()
     ): RotaryScrollHandler {
         return remember(rotaryScrollAdapter, snapParameters) {
             // Remove unnecessary recompositions by disabling tracking of changes inside of
@@ -377,7 +377,7 @@ public object RotaryDefaults {
                     LowResSnapHandler(
                         snapBehaviourFactory = {
                             RotarySnapBehavior(rotaryScrollAdapter, snapParameters)
-                        },
+                        }
                     )
                 } else {
                     HighResSnapHandler(
@@ -385,7 +385,7 @@ public object RotaryDefaults {
                         thresholdBehaviorFactory = {
                             ThresholdBehavior(
                                 rotaryScrollAdapter,
-                                snapParameters.thresholdDivider,
+                                snapParameters.thresholdDivider
                             )
                         },
                         snapBehaviourFactory = {
@@ -393,7 +393,7 @@ public object RotaryDefaults {
                         },
                         scrollBehaviourFactory = {
                             RotaryScrollBehavior(rotaryScrollAdapter.scrollableState)
-                        },
+                        }
                     )
                 }
             }
@@ -413,7 +413,7 @@ public object RotaryDefaults {
 public class SnapParameters(
     public val snapOffset: Int,
     public val thresholdDivider: Float,
-    public val resistanceFactor: Float,
+    public val resistanceFactor: Float
 ) {
     /**
      * Returns a snapping offset in [Dp]
@@ -459,7 +459,7 @@ internal interface RotaryScrollHandler {
     public suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticHandler,
+        rotaryHaptics: RotaryHapticHandler
     )
 }
 
@@ -471,7 +471,7 @@ internal class RotaryFlingBehavior(
     private val scrollableState: ScrollableState,
     private val flingBehavior: FlingBehavior,
     viewConfiguration: ViewConfiguration,
-    private val flingTimeframe: Long,
+    private val flingTimeframe: Long
 ) {
 
     // A time range during which the fling is valid.
@@ -560,7 +560,7 @@ internal data class TimestampedDelta(val timestamp: Long, val delta: Float)
  * This animation works well on Rsb(high-res) and Bezel(low-res) devices.
  */
 internal class RotaryScrollBehavior(
-    private val scrollableState: ScrollableState,
+    private val scrollableState: ScrollableState
 ) {
     private var sequentialAnimation = false
     private var scrollAnimation = AnimationState(0f)
@@ -576,7 +576,7 @@ internal class RotaryScrollBehavior(
             scrollAnimation.animateTo(
                 targetValue,
                 animationSpec = spring(),
-                sequentialAnimation = sequentialAnimation,
+                sequentialAnimation = sequentialAnimation
             ) {
                 val delta = value - prevPosition
                 debugLog { "Animated by $delta, value: $value" }
@@ -594,7 +594,7 @@ internal class RotaryScrollBehavior(
  */
 internal class RotarySnapBehavior(
     private val rotaryScrollAdapter: RotaryScrollAdapter,
-    private val snapParameters: SnapParameters,
+    private val snapParameters: SnapParameters
 ) {
     private var snapTarget: Int = rotaryScrollAdapter.currentItemIndex()
     private var sequentialSnap: Boolean = false
@@ -637,7 +637,7 @@ internal class RotarySnapBehavior(
             var prevPosition = 0f
             AnimationState(0f).animateTo(
                 targetValue = -rotaryScrollAdapter.currentItemOffset(),
-                animationSpec = tween(durationMillis = 100, easing = FastOutSlowInEasing),
+                animationSpec = tween(durationMillis = 100, easing = FastOutSlowInEasing)
             ) {
                 val animDelta = value - prevPosition
                 scrollBy(animDelta)
@@ -691,9 +691,9 @@ internal class RotarySnapBehavior(
                         expectedDistance,
                         animationSpec = SpringSpec(
                             stiffness = defaultStiffness,
-                            visibilityThreshold = 0.1f,
+                            visibilityThreshold = 0.1f
                         ),
-                        sequentialAnimation = (anim.velocity != 0f),
+                        sequentialAnimation = (anim.velocity != 0f)
                     ) {
                         val animDelta = value - prevPosition
                         debugLog {
@@ -736,9 +736,9 @@ internal class RotarySnapBehavior(
                     expectedDistance,
                     animationSpec = SpringSpec(
                         stiffness = defaultStiffness,
-                        visibilityThreshold = 0.1f,
+                        visibilityThreshold = 0.1f
                     ),
-                    sequentialAnimation = (anim.velocity != 0f),
+                    sequentialAnimation = (anim.velocity != 0f)
                 ) {
                     // Exit animation if snap target was updated
                     if (snapTargetUpdated) cancelAnimation()
@@ -770,13 +770,13 @@ internal fun Modifier.rotaryHandler(
     rotaryScrollHandler: RotaryScrollHandler,
     reverseDirection: Boolean,
     rotaryHaptics: RotaryHapticHandler,
-    inspectorInfo: InspectorInfo.() -> Unit,
+    inspectorInfo: InspectorInfo.() -> Unit
 
 ): Modifier = this then RotaryHandlerElement(
     rotaryScrollHandler,
     reverseDirection,
     rotaryHaptics,
-    inspectorInfo,
+    inspectorInfo
 )
 
 /**
@@ -822,7 +822,7 @@ internal fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long
 internal class HighResRotaryScrollHandler(
     private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
     private val scrollBehaviorFactory: () -> RotaryScrollBehavior,
-    private val hapticsThreshold: Long = 50,
+    private val hapticsThreshold: Long = 50
 ) : RotaryScrollHandler {
 
     // This constant is specific for high-res devices. Because that input values
@@ -840,7 +840,7 @@ internal class HighResRotaryScrollHandler(
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticHandler,
+        rotaryHaptics: RotaryHapticHandler
     ) {
         val time = event.timestamp
         val isOppositeScrollValue = isOppositeValueAfterScroll(event.delta)
@@ -905,7 +905,7 @@ internal class HighResRotaryScrollHandler(
  */
 internal class LowResRotaryScrollHandler(
     private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
-    private val scrollBehaviorFactory: () -> RotaryScrollBehavior,
+    private val scrollBehaviorFactory: () -> RotaryScrollBehavior
 ) : RotaryScrollHandler {
 
     private val gestureThresholdTime = 200L
@@ -921,7 +921,7 @@ internal class LowResRotaryScrollHandler(
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticHandler,
+        rotaryHaptics: RotaryHapticHandler
     ) {
         val time = event.timestamp
 
@@ -950,7 +950,7 @@ internal class LowResRotaryScrollHandler(
                     debugLog { "Calling before fling section" }
                     scrollJob.cancel()
                     scrollBehavior = scrollBehaviorFactory()
-                },
+                }
             )
         }
     }
@@ -978,7 +978,7 @@ internal class HighResSnapHandler(
     private val resistanceFactor: Float,
     private val thresholdBehaviorFactory: () -> ThresholdBehavior,
     private val snapBehaviourFactory: () -> RotarySnapBehavior,
-    private val scrollBehaviourFactory: () -> RotaryScrollBehavior,
+    private val scrollBehaviourFactory: () -> RotaryScrollBehavior
 ) : RotaryScrollHandler {
     private val gestureThresholdTime = 200L
     private val snapDelay = 100L
@@ -1001,7 +1001,7 @@ internal class HighResSnapHandler(
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticHandler,
+        rotaryHaptics: RotaryHapticHandler
     ) {
         val time = event.timestamp
 
@@ -1116,7 +1116,7 @@ internal class HighResSnapHandler(
  * This scroll handler doesn't support fling.
  */
 internal class LowResSnapHandler(
-    private val snapBehaviourFactory: () -> RotarySnapBehavior,
+    private val snapBehaviourFactory: () -> RotarySnapBehavior
 ) : RotaryScrollHandler {
     private val gestureThresholdTime = 200L
 
@@ -1131,7 +1131,7 @@ internal class LowResSnapHandler(
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticHandler,
+        rotaryHaptics: RotaryHapticHandler
     ) {
         val time = event.timestamp
 
@@ -1192,7 +1192,7 @@ internal class ThresholdBehavior(
     private val thresholdDivider: Float,
     private val minVelocity: Float = 300f,
     private val maxVelocity: Float = 3000f,
-    private val smoothingConstant: Float = 0.4f,
+    private val smoothingConstant: Float = 0.4f
 ) {
     private val thresholdDividerEasing: Easing = CubicBezierEasing(0.5f, 0.0f, 0.5f, 1.0f)
 
@@ -1214,7 +1214,7 @@ internal class ThresholdBehavior(
             smoothedVelocity = exponentialSmoothing(
                 currentVelocity = rotaryVelocityTracker.velocity.absoluteValue,
                 prevVelocity = smoothedVelocity,
-                smoothingConstant = smoothingConstant,
+                smoothingConstant = smoothingConstant
             )
         }
         debugLog { "rotaryVelocityTracker velocity: ${rotaryVelocityTracker.velocity}" }
@@ -1227,20 +1227,20 @@ internal class ThresholdBehavior(
                 inverseLerp(
                     minVelocity,
                     maxVelocity,
-                    smoothedVelocity,
-                ),
+                    smoothedVelocity
+                )
             )
         return rotaryScrollAdapter.averageItemSize() / lerp(
             1f,
             thresholdDivider,
-            thresholdDividerFraction,
+            thresholdDividerFraction
         )
     }
 
     private fun exponentialSmoothing(
         currentVelocity: Float,
         prevVelocity: Float,
-        smoothingConstant: Float,
+        smoothingConstant: Float
     ): Float =
         smoothingConstant * currentVelocity + (1 - smoothingConstant) * prevVelocity
 }
@@ -1249,12 +1249,12 @@ private data class RotaryHandlerElement(
     private val rotaryScrollHandler: RotaryScrollHandler,
     private val reverseDirection: Boolean,
     private val rotaryHaptics: RotaryHapticHandler,
-    private val inspectorInfo: InspectorInfo.() -> Unit,
+    private val inspectorInfo: InspectorInfo.() -> Unit
 ) : ModifierNodeElement<RotaryInputNode>() {
     override fun create(): RotaryInputNode = RotaryInputNode(
         rotaryScrollHandler,
         reverseDirection,
-        rotaryHaptics,
+        rotaryHaptics
     )
 
     override fun update(node: RotaryInputNode) {
@@ -1294,7 +1294,7 @@ private data class RotaryHandlerElement(
 private class RotaryInputNode(
     var rotaryScrollHandler: RotaryScrollHandler,
     var reverseDirection: Boolean,
-    var rotaryHaptics: RotaryHapticHandler,
+    var rotaryHaptics: RotaryHapticHandler
 ) : RotaryInputModifierNode, Modifier.Node() {
 
     val channel = Channel<TimestampedDelta>(capacity = Channel.CONFLATED)
@@ -1319,8 +1319,8 @@ private class RotaryInputNode(
         channel.trySend(
             TimestampedDelta(
                 event.uptimeMillis,
-                event.verticalScrollPixels * if (reverseDirection) -1f else 1f,
-            ),
+                event.verticalScrollPixels * if (reverseDirection) -1f else 1f
+            )
         )
         return true
     }

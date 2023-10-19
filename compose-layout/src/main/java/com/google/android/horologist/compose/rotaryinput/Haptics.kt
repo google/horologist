@@ -103,7 +103,7 @@ public interface RotaryHapticHandler {
 public class DefaultRotaryHapticHandler(
     private val scrollableState: ScrollableState,
     private val hapticsChannel: Channel<RotaryHapticsType>,
-    private val hapticsThresholdPx: Long = 50,
+    private val hapticsThresholdPx: Long = 50
 ) : RotaryHapticHandler {
 
     private var overscrollHapticTriggered = false
@@ -225,7 +225,7 @@ public fun rememberRotaryHapticHandler(
     throttleThresholdMs: Long = 30,
     hapticsThresholdPx: Long = 50,
     hapticsChannel: Channel<RotaryHapticsType> = rememberHapticChannel(),
-    rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback(),
+    rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback()
 ): RotaryHapticHandler {
     return remember(scrollableState, hapticsChannel, rotaryHaptics) {
         DefaultRotaryHapticHandler(scrollableState, hapticsChannel, hapticsThresholdPx)
@@ -255,7 +255,7 @@ private fun rememberHapticChannel() =
     remember {
         Channel<RotaryHapticsType>(
             capacity = 2,
-            onBufferOverflow = BufferOverflow.DROP_OLDEST,
+            onBufferOverflow = BufferOverflow.DROP_OLDEST
         )
     }
 
@@ -285,7 +285,7 @@ private class DefaultRotaryHapticFeedback(private val view: View) : RotaryHaptic
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
-        type: RotaryHapticsType,
+        type: RotaryHapticsType
     ) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
@@ -311,7 +311,7 @@ private class Wear3point5RotaryHapticFeedback(private val view: View) : RotaryHa
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
-        type: RotaryHapticsType,
+        type: RotaryHapticsType
     ) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
@@ -345,7 +345,7 @@ private class Wear4AtLeastRotaryHapticFeedback(private val view: View) : RotaryH
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
-        type: RotaryHapticsType,
+        type: RotaryHapticsType
     ) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
@@ -379,7 +379,7 @@ private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryH
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
-        type: RotaryHapticsType,
+        type: RotaryHapticsType
     ) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {

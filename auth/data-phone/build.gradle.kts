@@ -21,7 +21,6 @@ plugins {
     id("kotlin-android")
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
-    alias(libs.plugins.dependencyAnalysis)
 }
 
 android {
@@ -103,14 +102,6 @@ dependencies {
 
     testImplementation(libs.kotlinx.coroutines.test)
     testRuntimeOnly(libs.robolectric)
-}
-
-dependencyAnalysis {
-    issues {
-        onAny {
-            severity("fail")
-        }
-    }
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {

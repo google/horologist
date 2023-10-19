@@ -45,13 +45,10 @@ buildscript {
 plugins {
     alias(libs.plugins.spotless)
     alias(libs.plugins.kotlinGradle) apply false
-    alias(libs.plugins.benManes)
-    alias(libs.plugins.versionCatalogUpdate)
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.kapt) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.gradleMavenPublishPlugin)
-    alias(libs.plugins.dependencyAnalysis)
 }
 
 apply(plugin = "org.jetbrains.dokka")
@@ -300,20 +297,5 @@ subprojects {
                 }
             }
         }
-    }
-}
-
-tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
-    rejectVersionIf {
-        (candidate.version.matches(".*-alpha.*".toRegex()) && !(currentVersion.matches(".*-alpha.*".toRegex()))) ||
-            (candidate.version.matches(".*-beta.*".toRegex()) && !(currentVersion.matches(".*-(beta|alpha).*".toRegex())))
-    }
-}
-
-apply(plugin = "nl.littlerobots.version-catalog-update")
-
-versionCatalogUpdate {
-    keep {
-        keepUnusedVersions.set(true)
     }
 }

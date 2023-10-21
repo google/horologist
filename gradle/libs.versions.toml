@@ -7,7 +7,7 @@ androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
 androidx-health-services = "1.0.0-rc01"
 androidx-hilt = "1.1.0-rc01"
-androidx-media3 = "1.2.0-alpha02"
+androidx-media3 = "1.2.0-beta01"
 androidx-test-espresso = "3.6.0-alpha01"
 androidx-test-ext = "1.2.0-alpha01"
 androidx-tracingPerfetto = "1.0.0"
@@ -32,7 +32,7 @@ com-squareup-retrofit2 = "2.9.0"
 compose = "1.6.0-alpha08"
 compose-compiler = "1.5.3"
 composesnapshot = "-"
-dependencyAnalysis = "1.20.0"
+dependencyAnalysis = "1.25.0"
 dokka = "1.9.10"
 googleSecretsGradlePlugin = "2.0.1"
 googledagger = "2.48.1"
@@ -160,7 +160,7 @@ gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugi
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 hilt-ext-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
 hilt-navigationcompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
-io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.58.0"
+io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.59.0"
 io-grpc-grpc-kotlin = "io.grpc:grpc-kotlin-stub:1.4.0"
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

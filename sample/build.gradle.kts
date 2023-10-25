@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
-
 import com.google.protobuf.gradle.id
 
 plugins {
@@ -51,7 +49,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
 
             signingConfig = signingConfigs.getByName("debug")
@@ -70,13 +68,16 @@ android {
     kotlinOptions {
         jvmTarget = "11"
         // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs = freeCompilerArgs + """
+        freeCompilerArgs = freeCompilerArgs +
+            """
             androidx.compose.ui.ExperimentalComposeUiApi
             androidx.wear.compose.material.ExperimentalWearMaterialApi
             com.google.android.horologist.annotations.ExperimentalHorologistApi
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
-            """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
+            """.trim().split("\\s+".toRegex()).map {
+                "-opt-in=$it"
+            }
     }
 
     testOptions {
@@ -103,7 +104,7 @@ sourceSets {
                 "build/generated/source/proto/debug/java",
                 "build/generated/source/proto/debug/grpc",
                 "build/generated/source/proto/debug/kotlin",
-                "build/generated/source/proto/debug/grpckt"
+                "build/generated/source/proto/debug/grpckt",
             )
         }
     }

@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
-
+import com.google.protobuf.gradle.id
 import java.util.Properties
-import com.google.protobuf.gradle.*
 
 plugins {
     id("com.android.application")
@@ -69,7 +67,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
 
             signingConfig = signingConfigs.getByName("debug")
@@ -85,7 +83,7 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
-                "proguard-benchmark.pro"
+                "proguard-benchmark.pro",
             )
 
             matchingFallbacks.add("release")
@@ -167,11 +165,11 @@ dependencies {
     implementation(projects.logo)
 
     implementation(
-        project.findProject(":media-lib-datasource-okhttp") ?: libs.androidx.media3.datasourceokhttp
+        project.findProject(":media-lib-datasource-okhttp") ?: libs.androidx.media3.datasourceokhttp,
     )
 
     implementation(
-        project.findProject(":media-lib-ui") ?: libs.androidx.media3.ui
+        project.findProject(":media-lib-ui") ?: libs.androidx.media3.ui,
     )
 
     implementation(libs.compose.ui.util)
@@ -228,7 +226,7 @@ dependencies {
 
     implementation(
         project.findProject(":media-lib-exoplayer-workmanager")
-            ?: libs.androidx.media3.exoplayerworkmanager
+            ?: libs.androidx.media3.exoplayerworkmanager,
     )
 
     implementation(libs.room.common)

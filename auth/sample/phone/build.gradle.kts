@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -53,7 +51,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
 
             signingConfig = signingConfigs.getByName("debug")
@@ -73,9 +71,10 @@ android {
         jvmTarget = "11"
 
         // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-        )
+        freeCompilerArgs = freeCompilerArgs +
+            listOf(
+                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
+            )
     }
 
     composeOptions {

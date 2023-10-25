@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
-
 plugins {
     id("com.android.library")
     id("me.tylerbwong.gradle.metalava")
@@ -43,10 +41,11 @@ android {
 
     packaging {
         resources {
-            excludes += listOf(
-                "/META-INF/AL2.0",
-                "/META-INF/LGPL2.1"
-            )
+            excludes +=
+                listOf(
+                    "/META-INF/AL2.0",
+                    "/META-INF/LGPL2.1",
+                )
         }
     }
 
@@ -101,4 +100,4 @@ dependencies {
 }
 
 // Not publishing it until it's ready
-//apply(plugin = "com.vanniktech.maven.publish")
+// apply(plugin = "com.vanniktech.maven.publish")

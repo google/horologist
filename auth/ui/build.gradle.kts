@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
@@ -45,10 +43,11 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            "-opt-in=kotlin.RequiresOptIn"
-        )
+        freeCompilerArgs = freeCompilerArgs +
+            listOf(
+                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
+                "-opt-in=kotlin.RequiresOptIn",
+            )
     }
 
     composeOptions {
@@ -57,10 +56,11 @@ android {
 
     packaging {
         resources {
-            excludes += listOf(
-                "/META-INF/AL2.0",
-                "/META-INF/LGPL2.1"
-            )
+            excludes +=
+                listOf(
+                    "/META-INF/AL2.0",
+                    "/META-INF/LGPL2.1",
+                )
         }
     }
 

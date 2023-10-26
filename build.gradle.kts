@@ -167,9 +167,9 @@ subprojects {
 
                 // Add samples from :sample module
                 samples.from(
-                    rootProject.file("auth-sample-phone/src/main/java/"),
-                    rootProject.file("auth-sample-wear/src/main/java/"),
-                    rootProject.file("media/media-sample/src/main/java/"),
+                    rootProject.file("auth/sample/src/main/java/"),
+                    rootProject.file("auth/sample/wear/src/main/java/"),
+                    rootProject.file("media/sample/src/main/java/"),
                     rootProject.file("sample/src/main/java/"),
                 )
 

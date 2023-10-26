@@ -62,7 +62,43 @@
   <div class="breadcrumbs"><a href="../../index.html">auth-data-phone</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.auth.data.phone.tokenshare</a><span class="delimiter">/</span><span class="current">TokenBundleRepository</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Token</span><wbr><span>Bundle</span><wbr><span><span>Repository</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data-phone:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">TokenBundleRepository</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span></div><p class="paragraph">Repository of a bundle of information, related to auth tokens.</p><h4 class="">Samples</h4>com.google.android.horologist.auth.sample.MainActivity<h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":auth:data-phone:dokkaHtmlPartial/release" data-filterable-set=":auth:data-phone:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.google.android.horologist.auth.data.phone.tokenshare.impl/-token-bundle-repository-impl/index.html">TokenBundleRepositoryImpl</a></div></span></div><div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data-phone:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">TokenBundleRepository</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span></div><p class="paragraph">Repository of a bundle of information, related to auth tokens.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.lifecycle.lifecycleScope
+import androidx.wear.watchface.complications.data.ComplicationType
+import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
+import kotlinx.coroutines.launch
+fun main() { 
+   //sampleStart 
+   class MainActivity : ComponentActivity() {
+    private lateinit var wearDataLayerAppHelper: WearDataLayerAppHelper
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        wearDataLayerAppHelper = WearDataLayerAppHelper(
+            context = this,
+            registry = (application as SampleApplication).registry,
+            scope = lifecycleScope,
+        )
+
+        lifecycleScope.launch {
+            wearDataLayerAppHelper.markTileAsInstalled("MyTile")
+            wearDataLayerAppHelper.markComplicationAsActivated(
+                complicationName = "MyComplication",
+                complicationInstanceId = 1234,
+                complicationType = ComplicationType.SHORT_TEXT,
+            )
+            wearDataLayerAppHelper.markActivityLaunchedOnce()
+        }
+
+        setContent {
+            WearApp()
+        }
+    }
+} 
+   //sampleEnd
+}</code></pre></div><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":auth:data-phone:dokkaHtmlPartial/release" data-filterable-set=":auth:data-phone:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.google.android.horologist.auth.data.phone.tokenshare.impl/-token-bundle-repository-impl/index.html">TokenBundleRepositoryImpl</a></div></span></div><div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>

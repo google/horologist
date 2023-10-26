@@ -63,7 +63,76 @@
   <div class="cover ">
     <h1 class="cover"><span>Sign</span><wbr><span>In</span><wbr><span><span>Chip</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:composables:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-sign-in-chip.html"><span class="token function">SignInChip</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">label<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>stringResource(id = R.string.horologist_sign_in_chip_label)<span class="token punctuation">, </span></span><span class="parameter ">colors<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ChipColors.html">ChipColors</a><span class="token operator"> = </span>ChipDefaults.primaryChipColors()<span class="token punctuation">, </span></span><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">An opinionated <a href="../../../compose-material/com.google.android.horologist.compose.material/index.html">Chip</a> to represent the "Sign in" action.</p><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/sign_in_chip.png" height="120" width="120"><h4 class="">Samples</h4>com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen</div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:composables:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-sign-in-chip.html"><span class="token function">SignInChip</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">label<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>stringResource(id = R.string.horologist_sign_in_chip_label)<span class="token punctuation">, </span></span><span class="parameter ">colors<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ChipColors.html">ChipColors</a><span class="token operator"> = </span>ChipDefaults.primaryChipColors()<span class="token punctuation">, </span></span><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">An opinionated <a href="../../../compose-material/com.google.android.horologist.compose.material/index.html">Chip</a> to represent the "Sign in" action.</p><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/sign_in_chip.png" height="120" width="120"><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.Text
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+import com.google.android.horologist.auth.composables.chips.GuestModeChip
+import com.google.android.horologist.auth.composables.chips.SignInChip
+import com.google.android.horologist.auth.sample.R
+import com.google.android.horologist.auth.sample.Screen
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
+import com.google.android.horologist.auth.ui.googlesignin.prompt.GoogleSignInPromptViewModelFactory
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Confirmation
+fun main() { 
+   //sampleStart 
+   var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
+
+SignInPromptScreen(
+    message = stringResource(id = R.string.google_sign_in_prompt_message),
+    onAlreadySignedIn = { showAlreadySignedInDialog = true },
+    columnState = columnState,
+    modifier = modifier,
+    viewModel = viewModel,
+) {
+    item {
+        SignInChip(
+            onClick = {
+                navController.navigate(Screen.GoogleSignInScreen.route) {
+                    popUpTo(Screen.MainScreen.route)
+                }
+            },
+            colors = ChipDefaults.secondaryChipColors(),
+        )
+    }
+    item {
+        GuestModeChip(
+            onClick = navController::popBackStack,
+            colors = ChipDefaults.secondaryChipColors(),
+        )
+    }
+}
+
+if (showAlreadySignedInDialog) {
+    Confirmation(
+        onTimeout = {
+            showAlreadySignedInDialog = false
+            navController.popBackStack()
+        },
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            textAlign = TextAlign.Center,
+            text = stringResource(id = R.string.google_sign_in_prompt_already_signed_in_message),
+        )
+    }
+} 
+   //sampleEnd
+}</code></pre></div></div></div>
 </div>
       <div class="footer">
         <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>

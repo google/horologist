@@ -94,10 +94,10 @@ subprojects {
                 .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
             licenseHeaderFile(rootProject.file("spotless/copyright.txt"))
         }
-
-        groovyGradle {
-            target("**/*.gradle")
-            greclipse().configFile(rootProject.file("spotless/greclipse.properties"))
+        kotlinGradle {
+            target("**/*.gradle.kts")
+            ktlint(libs.versions.ktlint.get())
+                .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
             licenseHeaderFile(
                 rootProject.file("spotless/copyright.txt"),
                 "(buildscript|apply|import|plugins)"

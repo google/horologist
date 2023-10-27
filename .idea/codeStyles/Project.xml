@@ -1,6 +1,5 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
-    <option name="ENABLE_SECOND_REFORMAT" value="true" />
     <option name="SOFT_MARGINS" value="100" />
     <JetCodeStyleSettings>
       <option name="NAME_COUNT_TO_USE_STAR_IMPORT" value="2147483647" />

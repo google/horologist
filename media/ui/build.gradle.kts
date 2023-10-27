@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
@@ -45,11 +43,14 @@ android {
     kotlinOptions {
         jvmTarget = "11"
         // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs = freeCompilerArgs + """
+        freeCompilerArgs = freeCompilerArgs +
+            """
             com.google.android.horologist.annotations.ExperimentalHorologistApi
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
-            """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
+            """.trim().split("\\s+".toRegex()).map {
+                "-opt-in=$it"
+            }
     }
 
     composeOptions {
@@ -57,13 +58,13 @@ android {
     }
     packaging {
         resources {
-            excludes += listOf(
-                "/META-INF/AL2.0",
-                "/META-INF/LGPL2.1"
-            )
+            excludes +=
+                listOf(
+                    "/META-INF/AL2.0",
+                    "/META-INF/LGPL2.1",
+                )
         }
     }
-
 
     sourceSets.getByName("main") {
         assets.srcDir("src/main/assets")

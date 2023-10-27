@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
-
-import com.google.protobuf.gradle.*
+import com.google.protobuf.gradle.id
 
 plugins {
     id("com.android.library")
@@ -46,17 +44,19 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
-        )
+        freeCompilerArgs = freeCompilerArgs +
+            listOf(
+                "-opt-in=kotlin.RequiresOptIn",
+                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
+            )
     }
     packaging {
         resources {
-            excludes += listOf(
-                "/META-INF/AL2.0",
-                "/META-INF/LGPL2.1"
-            )
+            excludes +=
+                listOf(
+                    "/META-INF/AL2.0",
+                    "/META-INF/LGPL2.1",
+                )
         }
     }
 

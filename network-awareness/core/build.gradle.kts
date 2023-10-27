@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    
+
     id("com.google.devtools.ksp")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
@@ -47,10 +45,11 @@ android {
 
     packaging {
         resources {
-            excludes += listOf(
-                "/META-INF/AL2.0",
-                "/META-INF/LGPL2.1"
-            )
+            excludes +=
+                listOf(
+                    "/META-INF/AL2.0",
+                    "/META-INF/LGPL2.1",
+                )
         }
     }
 

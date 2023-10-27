@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
-
-import com.google.protobuf.gradle.*
+import com.google.protobuf.gradle.id
 
 plugins {
     id("com.android.library")
@@ -49,10 +47,11 @@ android {
 
     packaging {
         resources {
-            excludes += listOf(
-                "/META-INF/AL2.0",
-                "/META-INF/LGPL2.1"
-            )
+            excludes +=
+                listOf(
+                    "/META-INF/AL2.0",
+                    "/META-INF/LGPL2.1",
+                )
         }
     }
 

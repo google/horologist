@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
-
 plugins {
     id("com.android.library")
     id("com.google.devtools.ksp")
@@ -44,21 +42,22 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            "-opt-in=kotlin.RequiresOptIn"
-        )
+        freeCompilerArgs = freeCompilerArgs +
+            listOf(
+                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
+                "-opt-in=kotlin.RequiresOptIn",
+            )
     }
 
     packaging {
         resources {
-            excludes += listOf(
-                "/META-INF/AL2.0",
-                "/META-INF/LGPL2.1"
-            )
+            excludes +=
+                listOf(
+                    "/META-INF/AL2.0",
+                    "/META-INF/LGPL2.1",
+                )
         }
     }
-
 
     testOptions {
         unitTests {
@@ -94,7 +93,7 @@ dependencies {
     implementation(project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer)
     implementation(
         project.findProject(":media-lib-exoplayer-workmanager")
-            ?: libs.androidx.media3.exoplayerworkmanager
+            ?: libs.androidx.media3.exoplayerworkmanager,
     )
     implementation(libs.room.common)
     implementation(libs.room.ktx)
@@ -107,12 +106,12 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
     testImplementation(
-        project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer
+        project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer,
     )
     testImplementation(project.findProject(":media-test-utils") ?: libs.androidx.media3.testutils)
     testImplementation(
         project.findProject(":media-test-utils-robolectric")
-            ?: libs.androidx.media3.testutils.robolectric
+            ?: libs.androidx.media3.testutils.robolectric,
     )
 }
 

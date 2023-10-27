@@ -63,6 +63,7 @@ fun MediaPlayerTestCase() {
         pauseEnabled = true,
         seekBackEnabled = true,
         seekForwardEnabled = true,
+        seekInCurrentMediaItemEnabled = true,
         seekToPreviousEnabled = false,
         seekToNextEnabled = true,
         shuffleEnabled = false,

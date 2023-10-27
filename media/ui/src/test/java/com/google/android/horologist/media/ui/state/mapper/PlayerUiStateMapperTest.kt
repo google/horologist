@@ -59,6 +59,7 @@ class PlayerUiStateMapperTest {
         assertThat(result.pauseEnabled).isFalse()
         assertThat(result.seekBackEnabled).isFalse()
         assertThat(result.seekForwardEnabled).isFalse()
+        assertThat(result.seekInCurrentMediaItemEnabled).isFalse()
         assertThat(result.seekToPreviousEnabled).isFalse()
         assertThat(result.seekToNextEnabled).isFalse()
         assertThat(result.shuffleEnabled).isFalse()
@@ -147,6 +148,27 @@ class PlayerUiStateMapperTest {
 
         // then
         assertThat(result.seekForwardEnabled).isTrue()
+    }
+
+    @Test
+    fun givenSeekInCurrentMediaItemCommandIsAvailable_thenSeekInCurrentMediaItemIsEnabled() {
+        // given
+        val commands = setOf(Command.SeekInCurrentMediaItem)
+
+        // when
+        val result = PlayerUiStateMapper.map(
+            currentState = PlayerState.Stopped,
+            availableCommands = commands,
+            media = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
+            shuffleModeEnabled = false,
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null,
+        )
+
+        // then
+        assertThat(result.seekInCurrentMediaItemEnabled).isTrue()
     }
 
     @Test

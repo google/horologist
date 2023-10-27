@@ -46,6 +46,7 @@ class PlayerViewModelTest {
                 seekBackEnabled = false,
                 seekForwardEnabled = false,
                 seekToPreviousEnabled = false,
+                seekInCurrentMediaItemEnabled = false,
                 seekToNextEnabled = false,
                 shuffleEnabled = false,
                 shuffleOn = false,

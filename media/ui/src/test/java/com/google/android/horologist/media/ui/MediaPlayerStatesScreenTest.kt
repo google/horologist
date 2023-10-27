@@ -58,6 +58,7 @@ class MediaPlayerStatesScreenTest(
             pauseEnabled = state.connected,
             seekBackEnabled = state.connected,
             seekForwardEnabled = state.connected,
+            seekInCurrentMediaItemEnabled = state.connected,
             seekToPreviousEnabled = false,
             seekToNextEnabled = state.connected,
             shuffleEnabled = false,

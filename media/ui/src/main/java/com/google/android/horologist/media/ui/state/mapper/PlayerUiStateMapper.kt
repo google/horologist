@@ -45,6 +45,7 @@ public object PlayerUiStateMapper {
             pauseEnabled = playPauseCommandAvailable,
             seekBackEnabled = availableCommands.contains(Command.SeekBack),
             seekForwardEnabled = availableCommands.contains(Command.SeekForward),
+            seekInCurrentMediaItemEnabled = availableCommands.contains(Command.SeekInCurrentMediaItem),
             seekToPreviousEnabled = availableCommands.contains(Command.SkipToPreviousMedia),
             seekToNextEnabled = availableCommands.contains(Command.SkipToNextMedia),
             shuffleEnabled = availableCommands.contains(Command.SetShuffle),

@@ -68,6 +68,7 @@ class PlayerUiStateProducerTest {
                 pauseEnabled = true,
                 seekBackEnabled = true,
                 seekForwardEnabled = false,
+                seekInCurrentMediaItemEnabled = false,
                 seekToPreviousEnabled = false,
                 seekToNextEnabled = false,
                 shuffleEnabled = false,

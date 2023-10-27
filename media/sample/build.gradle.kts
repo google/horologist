@@ -112,7 +112,9 @@ android {
             com.google.android.horologist.annotations.ExperimentalHorologistApi
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
-            """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
+            """.trim().split("\\s+".toRegex()).map {
+            "-opt-in=$it"
+        }
     }
 
     composeOptions {
@@ -280,7 +282,10 @@ if (device != null) {
         dependsOn(":media:media-sample:installRelease")
         description = "Launch App"
         commandLine =
-            "adb -s $device shell am start -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.ui.app.MediaActivity"
+            (
+                "adb -s $device shell am start -n com.google.android.horologist.mediasample" +
+                    "/com.google.android.horologist.mediasample.ui.app.MediaActivity"
+                )
                 .split(" ")
     }
 

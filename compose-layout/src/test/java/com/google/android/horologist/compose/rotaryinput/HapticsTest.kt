@@ -80,6 +80,30 @@ class HapticsTest {
         assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("DefaultRotaryHapticFeedback")
     }
 
+    @Test
+    @Config(sdk = [33])
+    fun testGalaxyWatchClassic() {
+        ShadowBuild.setManufacturer("Samsung")
+        // Galaxy Watch4 Classic
+        ShadowBuild.setModel("SM-R890")
+
+        val hapticFeedback = getHapticFeedback()
+
+        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("GalaxyWatchClassicHapticFeedback")
+    }
+
+    @Test
+    @Config(sdk = [33])
+    fun testGalaxyWatch() {
+        ShadowBuild.setManufacturer("Samsung")
+        // Galaxy Watch 5 Pro
+        ShadowBuild.setModel("SM-R925")
+
+        val hapticFeedback = getHapticFeedback()
+
+        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("DefaultRotaryHapticFeedback")
+    }
+
     private fun getHapticFeedback(): RotaryHapticFeedback {
         val activity = Robolectric.buildActivity(Activity::class.java).get()
         val view = activity.findViewById<View>(R.id.content)

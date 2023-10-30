@@ -36,8 +36,11 @@ class HapticsTest {
     fun testPixelWatch1Wear35() {
         ShadowBuild.setManufacturer("Google")
         ShadowBuild.setModel("Google Pixel Watch")
-        Settings.Global.putString(RuntimeEnvironment.getApplication().contentResolver,
-            "wear_platform_mr_number", "5")
+        Settings.Global.putString(
+            RuntimeEnvironment.getApplication().contentResolver,
+            "wear_platform_mr_number",
+            "5",
+        )
 
         val hapticFeedback = getHapticFeedback()
 

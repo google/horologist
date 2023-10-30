@@ -28,6 +28,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
@@ -123,6 +124,59 @@ public object ScalingLazyColumnDefaults {
                         anchorType = anchorType,
                         hapticsEnabled = hapticsEnabled,
                         reverseLayout = reverseLayout,
+                    )
+                }
+            }
+        }
+    }
+
+    @ExperimentalHorologistApi
+    public fun responsive(
+        firstItemIsFullWidth: Boolean = false,
+        verticalArrangement: Arrangement.Vertical =
+            Arrangement.spacedBy(
+                space = 4.dp,
+                alignment = Alignment.Top,
+            ),
+        horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+        horizontalPadding: Float = 0.052f,
+        topPaddingDp: Dp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp),
+    ): ScalingLazyColumnState.Factory {
+        return object : ScalingLazyColumnState.Factory {
+            @Composable
+            override fun create(): ScalingLazyColumnState {
+                val density = LocalDensity.current
+                val configuration = LocalConfiguration.current
+                val screenWidthDp = LocalConfiguration.current.screenWidthDp
+                val padding = screenWidthDp * horizontalPadding
+                val rotaryMode: RotaryMode = RotaryMode.Scroll
+
+                val sizeRatio = ((screenWidthDp - 192) / (240 - 192).toFloat()).coerceIn(0f, 1f)
+                val presetRatio = 0f
+                val scalingParams = ScalingLazyColumnDefaults.scalingParams(
+                    minElementHeight = lerp(0.2f, 0.15f, sizeRatio),
+                    maxElementHeight = lerp(0.6f, 0.15f, sizeRatio),
+                    minTransitionArea = lerp(0.35f, lerp(0.35f, 0.40f, presetRatio), sizeRatio),
+                    maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.60f, presetRatio), sizeRatio)
+                )
+
+                return remember {
+                    val screenHeightPx =
+                        with(density) { configuration.screenHeightDp.dp.roundToPx() }
+                    val topPaddingPx = with(density) { topPaddingDp.roundToPx() }
+                    val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
+
+                    ScalingLazyColumnState(
+                        initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
+                            index = 0,
+                            offsetPx = topScreenOffsetPx,
+                        ),
+                        anchorType = ScalingLazyListAnchorType.ItemStart,
+                        rotaryMode = rotaryMode,
+                        verticalArrangement = verticalArrangement,
+                        horizontalAlignment = horizontalAlignment,
+                        contentPadding = PaddingValues(horizontal = padding.dp),
+                        scalingParams = scalingParams,
                     )
                 }
             }

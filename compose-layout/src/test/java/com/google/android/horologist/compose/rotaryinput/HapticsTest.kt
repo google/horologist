@@ -32,6 +32,17 @@ import org.robolectric.shadows.ShadowBuild
 @RunWith(RobolectricTestRunner::class)
 class HapticsTest {
     @Test
+    @Config(sdk = [33])
+    fun testPixelWatch1Wear4() {
+        ShadowBuild.setManufacturer("Google")
+        ShadowBuild.setModel("Google Pixel Watch")
+
+        val hapticFeedback = getHapticFeedback()
+
+        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
+    }
+
+    @Test
     @Config(sdk = [30])
     fun testPixelWatch1Wear35() {
         ShadowBuild.setManufacturer("Google")
@@ -49,13 +60,29 @@ class HapticsTest {
 
     @Test
     @Config(sdk = [33])
-    fun testPixelWatch1Wear4() {
-        ShadowBuild.setManufacturer("Google")
-        ShadowBuild.setModel("Google Pixel Watch")
+    fun testGenericWear4() {
+        ShadowBuild.setManufacturer("XXX")
+        ShadowBuild.setModel("YYY")
 
         val hapticFeedback = getHapticFeedback()
 
         assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
+    }
+
+    @Test
+    @Config(sdk = [30])
+    fun testGenericWear35() {
+        ShadowBuild.setManufacturer("XXX")
+        ShadowBuild.setModel("YYY")
+        Settings.Global.putString(
+            RuntimeEnvironment.getApplication().contentResolver,
+            "wear_platform_mr_number",
+            "5",
+        )
+
+        val hapticFeedback = getHapticFeedback()
+
+        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear3point5RotaryHapticFeedback")
     }
 
     @Test

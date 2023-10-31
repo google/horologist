@@ -172,13 +172,13 @@ public object ScalingLazyColumnDefaults {
                     32.dp
                 }
 
-                val sizeRatio = ((screenWidthDp - 192) / (240 - 192).toFloat()).coerceIn(0f, 1f)
+                val sizeRatio = (screenWidthDp - 192) / (233 - 192).toFloat()
                 val presetRatio = 0f
                 val scalingParams = ScalingLazyColumnDefaults.scalingParams(
-                    minElementHeight = lerp(0.2f, 0.15f, sizeRatio),
-                    maxElementHeight = lerp(0.6f, 0.15f, sizeRatio),
-                    minTransitionArea = lerp(0.35f, lerp(0.35f, 0.40f, presetRatio), sizeRatio),
-                    maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.60f, presetRatio), sizeRatio),
+                    minElementHeight = lerp(0.2f, 0.157f, sizeRatio),
+                    maxElementHeight = lerp(0.6f, 0.216f, sizeRatio),
+                    minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio),
+                    maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio),
                 )
 
                 return remember {

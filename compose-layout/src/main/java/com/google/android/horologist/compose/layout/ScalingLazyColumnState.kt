@@ -110,7 +110,7 @@ public class ScalingLazyColumnState(
 
 @Composable
 public fun rememberColumnState(
-    factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.responsive(),
+    factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText(),
 ): ScalingLazyColumnState {
     val columnState = factory.create()
 

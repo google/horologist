@@ -19,9 +19,9 @@ package com.google.android.horologist.media.ui.screens.entity
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.ui.graphics.Color
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
-import com.google.android.horologist.media.ui.components.positionedState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -38,7 +38,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
     @Test
     fun playlistDownloadScreenPreviewLoading() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             PlayerLibraryPreview(columnState = columnState) {
                 PlaylistDownloadScreen(
@@ -60,7 +60,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloaded() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             PlayerLibraryPreview(columnState = columnState) {
                 PlaylistDownloadScreen(
@@ -89,7 +89,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             PlayerLibraryPreview(columnState = columnState) {
                 PlaylistDownloadScreen(
@@ -118,7 +118,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloaded() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             PlayerLibraryPreview(columnState = columnState) {
                 PlaylistDownloadScreen(
@@ -147,7 +147,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             PlayerLibraryPreview(columnState = columnState) {
                 PlaylistDownloadScreen(
@@ -176,7 +176,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             PlayerLibraryPreview(columnState = columnState) {
                 PlaylistDownloadScreen(
@@ -205,7 +205,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
     @Test
     fun playlistDownloadScreenPreviewLoadedFullyDownloaded() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             PlayerLibraryPreview(columnState = columnState) {
                 PlaylistDownloadScreen(
@@ -234,7 +234,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
     @Test
     fun playlistDownloadScreenPreviewFailed() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             PlayerLibraryPreview(columnState = columnState) {
                 PlaylistDownloadScreen(

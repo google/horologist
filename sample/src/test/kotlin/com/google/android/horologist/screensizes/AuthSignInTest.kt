@@ -35,7 +35,7 @@ class AuthSignInTest(device: Device) : ScreenSizeTest(device = device, showTimeT
             message = "Send messages and create chat groups with your friends",
             onIdleStateObserved = { },
             onAlreadySignedIn = { },
-            columnState = ScalingLazyColumnDefaults.belowTimeText().create(),
+            columnState = ScalingLazyColumnDefaults.responsive().create(),
         ) {
             item {
                 SignInChip(

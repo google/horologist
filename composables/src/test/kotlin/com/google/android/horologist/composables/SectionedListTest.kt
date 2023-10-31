@@ -21,7 +21,6 @@
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -29,6 +28,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -42,6 +42,7 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.material.Chip
@@ -59,7 +60,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun loadingSection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -74,7 +75,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun loadedSection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -89,7 +90,11 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun loadedSection_secondPage() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState(4)
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
+
+            LaunchedEffect(Unit) {
+                columnState.state.scrollToItem(4, 0)
+            }
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -104,7 +109,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun failedSection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -119,7 +124,11 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun failedSection_secondPage() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState(4)
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
+
+            LaunchedEffect(Unit) {
+                columnState.state.scrollToItem(4, 0)
+            }
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -134,7 +143,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun emptySection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -149,7 +158,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun emptyContentForStates() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = positionedState()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -185,7 +194,9 @@ class SectionedListTest : ScreenshotBaseTest(
             content: @Composable () -> Unit,
         ) {
             Scaffold(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black),
                 positionIndicator = {
                     PositionIndicator(columnState.state)
                 },
@@ -196,9 +207,7 @@ class SectionedListTest : ScreenshotBaseTest(
                     )
                 },
             ) {
-                Box(modifier = Modifier.background(Color.Black)) {
-                    content()
-                }
+                content()
             }
         }
 

@@ -16,18 +16,55 @@
 
 package com.google.android.horologist.screensizes
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.material.PositionIndicator
+import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.tools.Device
+import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.sectionedlist.SectionedListMenuScreen
 
 class SectionedListTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
 
     @Composable
     override fun Content() {
-        SectionedListMenuScreen(
-            navigateToRoute = {},
-            columnState = ScalingLazyColumnDefaults.belowTimeText().create(),
-        )
+        val columnState = ScalingLazyColumnDefaults.responsive().create()
+
+        SectionedListPreview(columnState) {
+            SectionedListMenuScreen(
+                navigateToRoute = {},
+                columnState = columnState,
+            )
+        }
+    }
+
+    @Composable
+    fun SectionedListPreview(
+        columnState: ScalingLazyColumnState,
+        content: @Composable () -> Unit,
+    ) {
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black),
+            positionIndicator = {
+                PositionIndicator(columnState.state)
+            },
+            timeText = {
+                TimeText(
+                    modifier = Modifier.scrollAway(columnState),
+                    timeSource = FixedTimeSource,
+                )
+            },
+        ) {
+            content()
+        }
     }
 }

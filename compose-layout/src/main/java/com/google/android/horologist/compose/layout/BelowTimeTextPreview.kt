@@ -20,5 +20,5 @@ import androidx.compose.runtime.Composable
 
 @Composable
 public fun belowTimeTextPreview(): ScalingLazyColumnState {
-    return ScalingLazyColumnDefaults.belowTimeText().create()
+    return ScalingLazyColumnDefaults.responsive().create()
 }

@@ -19,9 +19,9 @@
 package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.wear.compose.foundation.lazy.ScalingParams
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
-import com.google.android.horologist.media.ui.components.positionedState
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
@@ -46,8 +46,9 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : ScreenshotBaseTest(
                     edgeScale = 1f,
                     edgeAlpha = 1f,
                 )
-            val columnState: ScalingLazyColumnState = positionedState()
-                .copy(scalingParams = scalingParams)
+            val columnState: ScalingLazyColumnState =
+                ScalingLazyColumnDefaults.responsive().create()
+                    .copy(scalingParams = scalingParams)
 
             PlayerLibraryPreview(columnState = columnState, round = false) {
                 PlaylistDownloadBrowseScreen(

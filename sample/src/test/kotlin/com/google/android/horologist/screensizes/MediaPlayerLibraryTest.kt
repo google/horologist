@@ -66,7 +66,7 @@ class MediaPlayerLibraryTest(device: Device) : ScreenSizeTest(device = device, s
             ),
         )
 
-        val columnState = ScalingLazyColumnDefaults.belowTimeText().create()
+        val columnState = ScalingLazyColumnDefaults.responsive().create()
         PagerScreen(
             state = rememberPagerState(1) {
                 2

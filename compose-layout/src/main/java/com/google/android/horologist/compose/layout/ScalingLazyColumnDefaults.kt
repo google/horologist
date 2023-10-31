@@ -28,9 +28,12 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
+import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
+import kotlin.math.sqrt
 
 /**
  * Default layouts for ScalingLazyColumnState, based on UX guidance.
@@ -123,6 +126,84 @@ public object ScalingLazyColumnDefaults {
                         anchorType = anchorType,
                         hapticsEnabled = hapticsEnabled,
                         reverseLayout = reverseLayout,
+                    )
+                }
+            }
+        }
+    }
+
+    @ExperimentalHorologistApi
+    public fun responsive(
+        firstItemIsFullWidth: Boolean = true,
+        verticalArrangement: Arrangement.Vertical =
+            Arrangement.spacedBy(
+                space = 4.dp,
+                alignment = Alignment.Top,
+            ),
+        horizontalPaddingPercent: Float = 0.052f,
+    ): ScalingLazyColumnState.Factory {
+        fun calculateVerticalOffsetForChip(
+            viewportDiameter: Float,
+            horizontalPaddingPercent: Float,
+        ): Dp {
+            val childViewHeight: Float = ChipDefaults.Height.value
+            val childViewWidth: Float = viewportDiameter * (1.0f - (2f * horizontalPaddingPercent))
+            val radius = viewportDiameter / 2f
+            return (
+                radius -
+                    sqrt(
+                        (radius - childViewHeight + childViewWidth * 0.5f) * (radius - childViewWidth * 0.5f),
+                    ) -
+                    childViewHeight * 0.5f
+                ).dp
+        }
+
+        return object : ScalingLazyColumnState.Factory {
+            @Composable
+            override fun create(): ScalingLazyColumnState {
+                val density = LocalDensity.current
+                val configuration = LocalConfiguration.current
+                val screenWidthDp = configuration.screenWidthDp.toFloat()
+                val screenHeightDp = configuration.screenHeightDp.toFloat()
+                val padding = screenWidthDp * horizontalPaddingPercent
+                val topPaddingDp: Dp = if (firstItemIsFullWidth) {
+                    calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
+                } else {
+                    32.dp
+                }
+
+                val sizeRatio = ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
+                val presetRatio = 0f
+
+                val minElementHeight = lerp(0.2f, 0.157f, sizeRatio)
+                val maxElementHeight = lerp(0.6f, 0.216f, sizeRatio).coerceAtLeast(minElementHeight)
+                val minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio)
+                val maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio)
+
+                val scalingParams = ScalingLazyColumnDefaults.scalingParams(
+                    minElementHeight = minElementHeight,
+                    maxElementHeight = maxElementHeight,
+                    minTransitionArea = minTransitionArea,
+                    maxTransitionArea = maxTransitionArea,
+                )
+
+                return remember {
+                    val screenHeightPx =
+                        with(density) { screenHeightDp.dp.roundToPx() }
+                    val topPaddingPx = with(density) { topPaddingDp.roundToPx() }
+                    val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
+
+                    ScalingLazyColumnState(
+                        initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
+                            index = 0,
+                            offsetPx = topScreenOffsetPx,
+                        ),
+                        anchorType = ScalingLazyListAnchorType.ItemStart,
+                        rotaryMode = RotaryMode.Scroll,
+                        verticalArrangement = verticalArrangement,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        contentPadding = PaddingValues(horizontal = padding.dp),
+                        scalingParams = scalingParams,
                     )
                 }
             }

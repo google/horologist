@@ -149,11 +149,13 @@ public object ScalingLazyColumnDefaults {
             val childViewHeight: Float = ChipDefaults.Height.value
             val childViewWidth: Float = viewportDiameter * (1.0f - (2f * horizontalPaddingPercent))
             val radius = viewportDiameter / 2.0
-            return (radius -
-                sqrt(
-                    (radius - childViewHeight + childViewWidth * 0.5) * (radius - childViewWidth * 0.5)
-                ) -
-                childViewHeight * 0.5).dp
+            return (
+                radius -
+                    sqrt(
+                        (radius - childViewHeight + childViewWidth * 0.5) * (radius - childViewWidth * 0.5),
+                    ) -
+                    childViewHeight * 0.5
+                ).dp
         }
 
         return object : ScalingLazyColumnState.Factory {

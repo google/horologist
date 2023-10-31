@@ -47,7 +47,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults as WearSc
 
 /**
  * A Config and State object wrapping up all configuration for a [ScalingLazyColumn].
- * This allows defaults such as [ScalingLazyColumnDefaults.belowTimeText].
+ * This allows defaults such as [ScalingLazyColumnDefaults.responsive].
  */
 @ExperimentalHorologistApi
 public class ScalingLazyColumnState(
@@ -110,7 +110,7 @@ public class ScalingLazyColumnState(
 
 @Composable
 public fun rememberColumnState(
-    factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText(),
+    factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.responsive(),
 ): ScalingLazyColumnState {
     val columnState = factory.create()
 

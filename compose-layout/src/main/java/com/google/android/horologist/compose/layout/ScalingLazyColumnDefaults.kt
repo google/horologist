@@ -138,18 +138,17 @@ public object ScalingLazyColumnDefaults {
                 space = 4.dp,
                 alignment = Alignment.Top,
             ),
-        horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
         horizontalPadding: Float = 0.052f,
-        topPaddingDp: Dp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp),
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
             override fun create(): ScalingLazyColumnState {
                 val density = LocalDensity.current
                 val configuration = LocalConfiguration.current
-                val screenWidthDp = LocalConfiguration.current.screenWidthDp
+                val screenWidthDp = configuration.screenWidthDp.toFloat()
+                val screenHeightDp = configuration.screenHeightDp.toFloat()
                 val padding = screenWidthDp * horizontalPadding
-                val rotaryMode: RotaryMode = RotaryMode.Scroll
+                val topPaddingDp: Dp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp)
 
                 val sizeRatio = ((screenWidthDp - 192) / (240 - 192).toFloat()).coerceIn(0f, 1f)
                 val presetRatio = 0f
@@ -157,12 +156,12 @@ public object ScalingLazyColumnDefaults {
                     minElementHeight = lerp(0.2f, 0.15f, sizeRatio),
                     maxElementHeight = lerp(0.6f, 0.15f, sizeRatio),
                     minTransitionArea = lerp(0.35f, lerp(0.35f, 0.40f, presetRatio), sizeRatio),
-                    maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.60f, presetRatio), sizeRatio)
+                    maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.60f, presetRatio), sizeRatio),
                 )
 
                 return remember {
                     val screenHeightPx =
-                        with(density) { configuration.screenHeightDp.dp.roundToPx() }
+                        with(density) { screenHeightDp.dp.roundToPx() }
                     val topPaddingPx = with(density) { topPaddingDp.roundToPx() }
                     val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
 
@@ -172,9 +171,9 @@ public object ScalingLazyColumnDefaults {
                             offsetPx = topScreenOffsetPx,
                         ),
                         anchorType = ScalingLazyListAnchorType.ItemStart,
-                        rotaryMode = rotaryMode,
+                        rotaryMode = RotaryMode.Scroll,
                         verticalArrangement = verticalArrangement,
-                        horizontalAlignment = horizontalAlignment,
+                        horizontalAlignment = Alignment.CenterHorizontally,
                         contentPadding = PaddingValues(horizontal = padding.dp),
                         scalingParams = scalingParams,
                     )

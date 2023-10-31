@@ -86,7 +86,7 @@ fun SampleWearApp() {
         }
         scrollable(
             Screen.Network.route,
-            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true),
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = true),
         ) {
             NetworkScreen(
                 columnState = it.columnState,
@@ -213,7 +213,7 @@ fun SampleWearApp() {
         }
         scrollable(
             route = Screen.Paging.route,
-            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true),
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = true),
         ) {
             PagingScreen(navController = navController, columnState = it.columnState)
         }

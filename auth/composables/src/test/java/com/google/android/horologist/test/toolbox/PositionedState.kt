@@ -39,7 +39,7 @@ fun positionedState(
 
     val coroutineScope = rememberCoroutineScope()
 
-    return ScalingLazyColumnDefaults.belowTimeText().create().apply {
+    return ScalingLazyColumnDefaults.responsive().create().apply {
         coroutineScope.launch {
             state.scrollToItem(topIndex, initialOffset)
         }

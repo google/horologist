@@ -29,6 +29,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -49,6 +51,7 @@ import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import kotlinx.coroutines.launch
 import org.junit.Test
 
 class SectionedListTest : ScreenshotBaseTest(
@@ -60,7 +63,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun loadingSection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = true).create()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -75,7 +78,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun loadedSection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = true).create()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -90,7 +93,11 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun loadedSection_secondPage() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = true).create()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
+
+            LaunchedEffect(Unit) {
+                columnState.state.scrollToItem(4, 0)
+            }
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -105,7 +112,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun failedSection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = true).create()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -120,7 +127,11 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun failedSection_secondPage() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = true).create()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
+
+            LaunchedEffect(Unit) {
+                columnState.state.scrollToItem(4, 0)
+            }
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -135,7 +146,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun emptySection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = true).create()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -150,7 +161,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun emptyContentForStates() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = true).create()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {

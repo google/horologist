@@ -47,7 +47,7 @@ class SectionedListHeaderFooterTest(
     @Test
     fun test() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = true).create()
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {

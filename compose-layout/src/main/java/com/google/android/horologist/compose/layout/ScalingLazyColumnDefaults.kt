@@ -148,13 +148,13 @@ public object ScalingLazyColumnDefaults {
         ): Dp {
             val childViewHeight: Float = ChipDefaults.Height.value
             val childViewWidth: Float = viewportDiameter * (1.0f - (2f * horizontalPaddingPercent))
-            val radius = viewportDiameter / 2.0
+            val radius = viewportDiameter / 2f
             return (
                 radius -
                     sqrt(
-                        (radius - childViewHeight + childViewWidth * 0.5) * (radius - childViewWidth * 0.5),
+                        (radius - childViewHeight + childViewWidth * 0.5f) * (radius - childViewWidth * 0.5f),
                     ) -
-                    childViewHeight * 0.5
+                    childViewHeight * 0.5f
                 ).dp
         }
 
@@ -172,13 +172,19 @@ public object ScalingLazyColumnDefaults {
                     32.dp
                 }
 
-                val sizeRatio = (screenWidthDp - 192) / (233 - 192).toFloat()
+                val sizeRatio = ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
                 val presetRatio = 0f
+
+                val minElementHeight = lerp(0.2f, 0.157f, sizeRatio)
+                val maxElementHeight = lerp(0.6f, 0.216f, sizeRatio).coerceAtLeast(minElementHeight)
+                val minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio)
+                val maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio)
+
                 val scalingParams = ScalingLazyColumnDefaults.scalingParams(
-                    minElementHeight = lerp(0.2f, 0.157f, sizeRatio),
-                    maxElementHeight = lerp(0.6f, 0.216f, sizeRatio),
-                    minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio),
-                    maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio),
+                    minElementHeight = minElementHeight,
+                    maxElementHeight = maxElementHeight,
+                    minTransitionArea = minTransitionArea,
+                    maxTransitionArea = maxTransitionArea,
                 )
 
                 return remember {

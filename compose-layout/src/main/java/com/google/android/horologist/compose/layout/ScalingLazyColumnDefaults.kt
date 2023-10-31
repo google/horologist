@@ -30,8 +30,10 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
+import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
+import kotlin.math.sqrt
 
 /**
  * Default layouts for ScalingLazyColumnState, based on UX guidance.
@@ -132,14 +134,28 @@ public object ScalingLazyColumnDefaults {
 
     @ExperimentalHorologistApi
     public fun responsive(
-        firstItemIsFullWidth: Boolean = false,
+        firstItemIsFullWidth: Boolean = true,
         verticalArrangement: Arrangement.Vertical =
             Arrangement.spacedBy(
                 space = 4.dp,
                 alignment = Alignment.Top,
             ),
-        horizontalPadding: Float = 0.052f,
+        horizontalPaddingPercent: Float = 0.052f,
     ): ScalingLazyColumnState.Factory {
+        fun calculateVerticalOffsetForChip(
+            viewportDiameter: Float,
+            horizontalPaddingPercent: Float,
+        ): Dp {
+            val childViewHeight: Float = ChipDefaults.Height.value
+            val childViewWidth: Float = viewportDiameter * (1.0f - (2f * horizontalPaddingPercent))
+            val radius = viewportDiameter / 2.0
+            return (radius -
+                sqrt(
+                    (radius - childViewHeight + childViewWidth * 0.5) * (radius - childViewWidth * 0.5)
+                ) -
+                childViewHeight * 0.5).dp
+        }
+
         return object : ScalingLazyColumnState.Factory {
             @Composable
             override fun create(): ScalingLazyColumnState {
@@ -147,8 +163,12 @@ public object ScalingLazyColumnDefaults {
                 val configuration = LocalConfiguration.current
                 val screenWidthDp = configuration.screenWidthDp.toFloat()
                 val screenHeightDp = configuration.screenHeightDp.toFloat()
-                val padding = screenWidthDp * horizontalPadding
-                val topPaddingDp: Dp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp)
+                val padding = screenWidthDp * horizontalPaddingPercent
+                val topPaddingDp: Dp = if (firstItemIsFullWidth) {
+                    calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
+                } else {
+                    32.dp
+                }
 
                 val sizeRatio = ((screenWidthDp - 192) / (240 - 192).toFloat()).coerceIn(0f, 1f)
                 val presetRatio = 0f

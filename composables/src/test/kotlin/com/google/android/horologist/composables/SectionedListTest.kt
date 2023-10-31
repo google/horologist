@@ -21,7 +21,6 @@
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -195,7 +194,9 @@ class SectionedListTest : ScreenshotBaseTest(
             content: @Composable () -> Unit,
         ) {
             Scaffold(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black),
                 positionIndicator = {
                     PositionIndicator(columnState.state)
                 },
@@ -206,9 +207,7 @@ class SectionedListTest : ScreenshotBaseTest(
                     )
                 },
             ) {
-                Box(modifier = Modifier.background(Color.Black)) {
-                    content()
-                }
+                content()
             }
         }
 

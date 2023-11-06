@@ -166,7 +166,7 @@ public object ScalingLazyColumnDefaults {
                 val screenWidthDp = configuration.screenWidthDp.toFloat()
                 val screenHeightDp = configuration.screenHeightDp.toFloat()
                 val padding = screenWidthDp * horizontalPaddingPercent
-                val topPaddingDp: Dp = if (firstItemIsFullWidth) {
+                val topPaddingDp: Dp = if (configuration.isScreenRound && firstItemIsFullWidth) {
                     calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
                 } else {
                     32.dp

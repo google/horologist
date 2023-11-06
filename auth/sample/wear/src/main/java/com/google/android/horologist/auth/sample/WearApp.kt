@@ -116,23 +116,27 @@ fun WearApp(
                 modifier = modifier,
             )
         }
-        scrollable(route = Screen.StreamlineSignInMenuScreen.route,
-            columnStateFactory = ScalingLazyColumnDefaults.responsive(),) {
+        scrollable(
+            route = Screen.StreamlineSignInMenuScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
+        ) {
             StreamlineSignInMenuScreen(
                 navController = navController,
                 columnState = it.columnState,
                 modifier = modifier,
             )
         }
-        scrollable(route = Screen.StreamlineSignInSampleScreen.route,
-            columnStateFactory = ScalingLazyColumnDefaults.responsive(),) {
+        scrollable(
+            route = Screen.StreamlineSignInSampleScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
+        ) {
             StreamlineSignInSampleScreen(
                 navController = navController,
                 columnState = it.columnState,
                 modifier = modifier,
             )
         }
-        composable(route = Screen.GoogleSignInScreen.route,) {
+        composable(route = Screen.GoogleSignInScreen.route) {
             GoogleSignInScreen(
                 onAuthCancelled = navController::popBackStack,
                 onAuthSucceed = navController::popBackStack,
@@ -143,12 +147,16 @@ fun WearApp(
         composable(route = Screen.GoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)
         }
-        scrollable(route = Screen.TokenShareDefaultKeyScreen.route,
-            columnStateFactory = ScalingLazyColumnDefaults.responsive(),) {
+        scrollable(
+            route = Screen.TokenShareDefaultKeyScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
+        ) {
             TokenShareDefaultKeyScreen(columnState = it.columnState, modifier = modifier)
         }
-        scrollable(route = Screen.TokenShareCustomKeyScreen.route,
-            columnStateFactory = ScalingLazyColumnDefaults.responsive(),) {
+        scrollable(
+            route = Screen.TokenShareCustomKeyScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
+        ) {
             TokenShareCustomKeyScreen(columnState = it.columnState, modifier = modifier)
         }
         scrollable(route = Screen.DataLayerScreen.route) {

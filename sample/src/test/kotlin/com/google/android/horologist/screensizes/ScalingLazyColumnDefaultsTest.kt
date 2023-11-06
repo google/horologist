@@ -20,7 +20,8 @@ import androidx.compose.runtime.Composable
 import com.google.android.horologist.compose.tools.Device
 import org.junit.Test
 
-class ScalingLazyColumnDefaultsTest(device: Device) : ScreenSizeTest(device = device, showTimeText = true) {
+class ScalingLazyColumnDefaultsTest(device: Device) :
+    ScreenSizeTest(device = device, showTimeText = false) {
 
     @Composable
     override fun Content() {

@@ -53,6 +53,10 @@ abstract class ScreenSizeTest(
 
     @Test
     fun screenshot() {
+        runTest { Content() }
+    }
+
+    fun runTest(content: @Composable () -> Unit) {
         val shadowDisplay = Shadows.shadowOf(ShadowDisplay.getDefaultDisplay())
         shadowDisplay.setDensity(device.density)
         shadowDisplay.setHeight(device.screenSizePx)
@@ -66,9 +70,8 @@ abstract class ScreenSizeTest(
                 typography = MaterialTheme.typography.copy {
                     this.copy(fontWeight = if (device.boldText) FontWeight.Bold else FontWeight.Medium)
                 },
-            ) {
-                Content()
-            }
+                content = content,
+            )
         }
     }
 

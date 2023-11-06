@@ -30,6 +30,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.navscaffold.composable
 import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
@@ -188,7 +189,7 @@ fun UampWearApp(
             additionalNavRoutes = {
                 scrollable(
                     route = AudioDebug.navRoute,
-
+                    columnStateFactory = ScalingLazyColumnDefaults.responsive(),
                     arguments = AudioDebug.arguments,
                     deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix),
                 ) {
@@ -200,7 +201,7 @@ fun UampWearApp(
 
                 scrollable(
                     route = Samples.navRoute,
-
+                    columnStateFactory = ScalingLazyColumnDefaults.responsive(),
                     arguments = Samples.arguments,
                     deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix),
                 ) {
@@ -213,7 +214,7 @@ fun UampWearApp(
 
                 scrollable(
                     route = DeveloperOptions.navRoute,
-
+                    columnStateFactory = ScalingLazyColumnDefaults.responsive(),
                     arguments = DeveloperOptions.arguments,
                     deepLinks = DeveloperOptions.deepLinks(appViewModel.deepLinkPrefix),
                 ) {
@@ -226,6 +227,7 @@ fun UampWearApp(
 
                 scrollable(
                     route = GoogleSignInPromptScreen.navRoute,
+                    columnStateFactory = ScalingLazyColumnDefaults.responsive(),
                 ) {
                     GoogleSignInPromptScreen(
                         navController = navController,

@@ -55,6 +55,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
@@ -184,6 +185,7 @@ class NavScaffoldTest {
             ) {
                 scrollable(
                     route = "a",
+                    columnStateFactory = ScalingLazyColumnDefaults.responsive(),
                 ) {
                     ScalingLazyColumn(
                         columnState = it.columnState,

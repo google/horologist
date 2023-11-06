@@ -69,6 +69,7 @@ fun SampleWearApp() {
     ) {
         scrollable(
             route = Screen.Menu.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             MenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
@@ -78,6 +79,7 @@ fun SampleWearApp() {
         }
         scrollable(
             Screen.DataLayerNodes.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             DataLayerNodesScreen(
                 viewModel = viewModel(factory = DataLayerNodesViewModel.Factory),
@@ -105,6 +107,7 @@ fun SampleWearApp() {
         }
         scrollable(
             Screen.ScrollAwaySLC.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             ScrollAwayScreenScalingLazyColumn(
                 columnState = it.columnState,
@@ -164,6 +167,7 @@ fun SampleWearApp() {
         }
         scrollable(
             route = Screen.SectionedListMenuScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             SectionedListMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
@@ -172,6 +176,7 @@ fun SampleWearApp() {
         }
         scrollable(
             Screen.SectionedListStatelessScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             SectionedListStatelessScreen(
                 columnState = it.columnState,
@@ -179,6 +184,7 @@ fun SampleWearApp() {
         }
         scrollable(
             Screen.SectionedListStatefulScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             SectionedListStatefulScreen(
                 columnState = it.columnState,
@@ -186,6 +192,7 @@ fun SampleWearApp() {
         }
         scrollable(
             Screen.SectionedListExpandableScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             SectionedListExpandableScreen(
                 columnState = it.columnState,
@@ -193,6 +200,7 @@ fun SampleWearApp() {
         }
         scrollable(
             route = Screen.RotaryMenuScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             RotaryMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },

@@ -45,6 +45,7 @@ import com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.T
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantSignInScreen
 import com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInScreen
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.composable
 import com.google.android.horologist.compose.navscaffold.scrollable
@@ -57,6 +58,7 @@ fun WearApp(
     WearNavScaffold(startDestination = Screen.MainScreen.route, navController = navController) {
         scrollable(
             route = Screen.MainScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             MainScreen(
                 navigateToRoute = navController::navigate,
@@ -66,6 +68,7 @@ fun WearApp(
         }
         scrollable(
             route = Screen.PKCESignInPromptScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             PKCESignInPromptScreen(
                 navController = navController,
@@ -85,6 +88,7 @@ fun WearApp(
         }
         scrollable(
             route = Screen.DeviceGrantSignInPromptScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             DeviceGrantSignInPromptScreen(
                 navController = navController,
@@ -104,6 +108,7 @@ fun WearApp(
         }
         scrollable(
             route = Screen.GoogleSignInPromptSampleScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),
         ) {
             GoogleSignInPromptSampleScreen(
                 navController = navController,
@@ -111,21 +116,23 @@ fun WearApp(
                 modifier = modifier,
             )
         }
-        scrollable(route = Screen.StreamlineSignInMenuScreen.route) {
+        scrollable(route = Screen.StreamlineSignInMenuScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),) {
             StreamlineSignInMenuScreen(
                 navController = navController,
                 columnState = it.columnState,
                 modifier = modifier,
             )
         }
-        scrollable(route = Screen.StreamlineSignInSampleScreen.route) {
+        scrollable(route = Screen.StreamlineSignInSampleScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),) {
             StreamlineSignInSampleScreen(
                 navController = navController,
                 columnState = it.columnState,
                 modifier = modifier,
             )
         }
-        composable(route = Screen.GoogleSignInScreen.route) {
+        composable(route = Screen.GoogleSignInScreen.route,) {
             GoogleSignInScreen(
                 onAuthCancelled = navController::popBackStack,
                 onAuthSucceed = navController::popBackStack,
@@ -136,10 +143,12 @@ fun WearApp(
         composable(route = Screen.GoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)
         }
-        scrollable(route = Screen.TokenShareDefaultKeyScreen.route) {
+        scrollable(route = Screen.TokenShareDefaultKeyScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),) {
             TokenShareDefaultKeyScreen(columnState = it.columnState, modifier = modifier)
         }
-        scrollable(route = Screen.TokenShareCustomKeyScreen.route) {
+        scrollable(route = Screen.TokenShareCustomKeyScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.responsive(),) {
             TokenShareCustomKeyScreen(columnState = it.columnState, modifier = modifier)
         }
         scrollable(route = Screen.DataLayerScreen.route) {

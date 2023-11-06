@@ -191,7 +191,7 @@ public fun NavGraphBuilder.scrollable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    columnStateFactory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.responsive(),
+    columnStateFactory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText(),
     content: @Composable (ScrollableScaffoldContext) -> Unit,
 ) {
     this@scrollable.composable(route, arguments, deepLinks) {

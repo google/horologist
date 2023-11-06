@@ -35,6 +35,7 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
@@ -126,7 +127,7 @@ public fun MediaPlayerScaffold(
 
         scrollable(
             route = NavigationScreens.Collections.navRoute,
-
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(),
             arguments = NavigationScreens.Collections.arguments,
             deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix),
         ) {
@@ -135,7 +136,7 @@ public fun MediaPlayerScaffold(
 
         scrollable(
             route = NavigationScreens.Settings.navRoute,
-
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(),
             arguments = NavigationScreens.Settings.arguments,
             deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix),
         ) {
@@ -154,7 +155,7 @@ public fun MediaPlayerScaffold(
 
         scrollable(
             route = NavigationScreens.MediaItem.navRoute,
-
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(),
             arguments = NavigationScreens.MediaItem.arguments,
             deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix),
         ) {
@@ -163,7 +164,7 @@ public fun MediaPlayerScaffold(
 
         scrollable(
             route = NavigationScreens.Collection.navRoute,
-
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(),
             arguments = NavigationScreens.Collection.arguments,
             deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix),
         ) { scaffoldContext ->

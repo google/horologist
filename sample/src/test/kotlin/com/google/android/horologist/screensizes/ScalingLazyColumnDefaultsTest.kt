@@ -23,18 +23,18 @@ import org.junit.Test
 class ScalingLazyColumnDefaultsTest(device: Device) :
     ScreenSizeTest(device = device, showTimeText = false) {
 
-    @Composable
-    override fun Content() {
-        Standard()
-    }
+        @Composable
+        override fun Content() {
+            Standard()
+        }
 
-    @Test
-    fun responsive() {
-        runTest { Responsive() }
-    }
+        @Test
+        fun responsive() {
+            runTest { Responsive() }
+        }
 
-    @Test
-    fun belowTimeText() {
-        runTest { BelowTimeText() }
+        @Test
+        fun belowTimeText() {
+            runTest { BelowTimeText() }
+        }
     }
-}

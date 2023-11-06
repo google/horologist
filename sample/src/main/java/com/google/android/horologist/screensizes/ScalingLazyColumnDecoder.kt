@@ -54,12 +54,12 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
         timeText = {
             val size = LocalConfiguration.current.screenWidthDp
             TimeText(
-                modifier = Modifier,//.scrollAway(state),
+                modifier = Modifier, // .scrollAway(state),
                 timeSource = FixedTimeSource,
                 startCurvedContent = { curvedText("${state.state.centerItemIndex}/${state.state.centerItemScrollOffset}") },
                 endCurvedContent = { curvedText("${size}dp") },
                 startLinearContent = { Text("${state.state.centerItemIndex}/${state.state.centerItemScrollOffset}") },
-                endLinearContent = { Text("${size}dp") }
+                endLinearContent = { Text("${size}dp") },
             )
         },
     ) {

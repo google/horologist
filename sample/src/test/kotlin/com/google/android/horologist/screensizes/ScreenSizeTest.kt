@@ -66,9 +66,12 @@ abstract class ScreenSizeTest(
         RuntimeEnvironment.setQualifiers("+w${device.screenSizeDp}dp-h${device.screenSizeDp}dp")
 
         screenshotTestRule.setContent(takeScreenshot = true) {
-            MaterialTheme(typography = MaterialTheme.typography.copy {
-                this.copy(fontWeight = if (device.boldText) FontWeight.Bold else FontWeight.Medium)
-            }, content = content)
+            MaterialTheme(
+                typography = MaterialTheme.typography.copy {
+                    this.copy(fontWeight = if (device.boldText) FontWeight.Bold else FontWeight.Medium)
+                },
+                content = content,
+            )
         }
     }
 

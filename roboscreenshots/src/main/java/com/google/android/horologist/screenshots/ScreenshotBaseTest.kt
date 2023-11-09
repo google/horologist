@@ -42,4 +42,13 @@ public abstract class ScreenshotBaseTest(
 
     @get:Rule
     public val screenshotTestRule: ScreenshotTestRule = ScreenshotTestRule(params)
+
+    companion object {
+        const val USE_HARDWARE_RENDERER_NATIVE_ENV = "robolectric.screenshot.hwrdr.native"
+
+        init {
+            // Future looking, not in current release
+            System.setProperty(USE_HARDWARE_RENDERER_NATIVE_ENV, "true")
+        }
+    }
 }

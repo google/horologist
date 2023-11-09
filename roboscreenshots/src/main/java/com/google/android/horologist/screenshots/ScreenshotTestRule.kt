@@ -19,20 +19,12 @@
 package com.google.android.horologist.screenshots
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Application
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Rect
 import android.os.Build
-import android.os.Handler
-import android.os.Looper
-import android.view.PixelCopy
 import android.view.View
-import android.view.Window
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -50,14 +42,13 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
-import androidx.compose.ui.window.DialogWindowProvider
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.platform.graphics.HardwareRendererCompat
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
 import coil.compose.LocalImageLoader
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.screenshots.RobolectricTempHelpers.capture
 import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import com.quickbird.snapshot.Diffing
 import com.quickbird.snapshot.FileSnapshotting
@@ -70,8 +61,7 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 import org.robolectric.RobolectricTestRunner
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
+
 
 /**
  * A [TestRule] that allows you to run screenshot tests of your composable components.
@@ -188,73 +178,10 @@ public class ScreenshotTestRule(
             view.height,
             Bitmap.Config.ARGB_8888,
         ).apply {
-            val latch = CountDownLatch(1)
-            var copyResult = 0
-            val onCopyFinished = PixelCopy.OnPixelCopyFinishedListener { result ->
-                copyResult = result
-                latch.countDown()
-            }
-            withDrawingEnabled {
-                val locationInWindow = intArrayOf(0, 0)
-                view.getLocationInWindow(locationInWindow)
-                val x = locationInWindow[0]
-                val y = locationInWindow[1]
-                val boundsInWindow = Rect(x, y, x + width, y + height)
-
-                val dialogWindow = findDialogWindowProviderInParent(view)?.window
-                val windowToUse = dialogWindow ?: view.context.getActivityWindow()
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    PixelCopy.request(windowToUse, boundsInWindow, this, onCopyFinished, Handler(Looper.getMainLooper()))
-                } else {
-                    TODO("API < 26 not currently supported")
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                capture(view, this)
+            } else {
                 view.draw(Canvas(this))
-            }
-            if (!latch.await(1, TimeUnit.SECONDS)) {
-                throw AssertionError("Failed waiting for PixelCopy!")
-            }
-            if (copyResult != PixelCopy.SUCCESS) {
-                throw AssertionError("PixelCopy failed!")
-            }
-        }
-    }
-
-    internal fun findDialogWindowProviderInParent(view: View): DialogWindowProvider? {
-        if (view is DialogWindowProvider) {
-            return view
-        }
-        val parent = view.parent ?: return null
-        if (parent is View) {
-            return findDialogWindowProviderInParent(parent)
-        }
-        return null
-    }
-
-    private fun Context.getActivityWindow(): Window {
-        fun Context.getActivity(): Activity {
-            return when (this) {
-                is Activity -> this
-                is ContextWrapper -> this.baseContext.getActivity()
-                else -> throw IllegalStateException(
-                    "Context is not an Activity context, but a ${javaClass.simpleName} context. " +
-                        "An Activity context is required to get a Window instance"
-                )
-            }
-        }
-        return getActivity().window
-    }
-
-    private fun <R> withDrawingEnabled(block: () -> R): R {
-        val wasDrawingEnabled = HardwareRendererCompat.isDrawingEnabled()
-        try {
-            if (!wasDrawingEnabled) {
-                HardwareRendererCompat.setDrawingEnabled(true)
-            }
-            return block.invoke()
-        } finally {
-            if (!wasDrawingEnabled) {
-                HardwareRendererCompat.setDrawingEnabled(false)
             }
         }
     }
@@ -368,7 +295,7 @@ public class ScreenshotTestRule(
             public var enableA11y: Boolean = false
             public var screenTimeText: @Composable () -> Unit = defaultScreenTimeText()
             public var testLabel: String? = null
-            public var record: RecordMode = RecordMode.fromProperty(System.getProperty("screenshot.record"))
+            public var record: RecordMode = RecordMode.Record
 
             public fun build(): ScreenshotTestRuleParams {
                 if (enableA11y) {

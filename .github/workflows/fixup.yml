@@ -22,22 +22,10 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-      - name: Reformat
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: spotlessApply
-
       - name: Repair screenshots
         uses: gradle/gradle-build-action@v2
         with:
           arguments: testDebug -P screenshot.record=record
-
-      - name: Push reformatted code
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          file_pattern: '**/*.kt'
-          disable_globbing: true
-          commit_message: "🤖 reformat"
 
       - name: Push new screenshots if available
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -45,3 +33,15 @@ jobs:
           file_pattern: '**/snapshots/images/*.png'
           disable_globbing: true
           commit_message: "🤖 Updates screenshots"
+
+      - name: Reformat
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: spotlessApply
+
+      - name: Push reformatted code
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: '**/*.kt'
+          disable_globbing: true
+          commit_message: "🤖 reformat"

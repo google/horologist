@@ -65,7 +65,7 @@ internal object RobolectricTempHelpers {
                 is ContextWrapper -> this.baseContext.getActivity()
                 else -> throw IllegalStateException(
                     "Context is not an Activity context, but a ${javaClass.simpleName} context. " +
-                        "An Activity context is required to get a Window instance"
+                        "An Activity context is required to get a Window instance",
                 )
             }
         }
@@ -121,13 +121,13 @@ internal object RobolectricTempHelpers {
             dstBuff.put(a + rgb)
         }
         destBitmap.setPixels(
-            renderPixels,  /* offset= */
-            0,  /* stride= */
-            width,  /* x= */
-            0,  /* y= */
+            renderPixels, /* offset= */
+            0, /* stride= */
+            width, /* x= */
+            0, /* y= */
             0,
             width,
-            height
+            height,
         )
     }
 

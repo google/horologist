@@ -67,7 +67,6 @@ import org.junit.runners.model.Statement
 import org.robolectric.RobolectricTestRunner
 import kotlin.math.min
 
-
 /**
  * A [TestRule] that allows you to run screenshot tests of your composable components.
  *
@@ -195,6 +194,7 @@ public class ScreenshotTestRule(
             ClipMode.Round -> true
 
             ClipMode.Auto -> {
+                @Suppress("DEPRECATION")
                 resources.configuration.isScreenRound && view.height == view.display.height && view.width == view.display.width
             }
 
@@ -347,7 +347,7 @@ public class ScreenshotTestRule(
                     screenTimeText = screenTimeText,
                     testLabel = testLabel,
                     record = record,
-                    clipMode = clipMode
+                    clipMode = clipMode,
                 )
             }
         }
@@ -367,7 +367,7 @@ public class ScreenshotTestRule(
     }
 
     public enum class ClipMode {
-        Round, None, Auto;
+        Round, None, Auto
     }
 
     public companion object {

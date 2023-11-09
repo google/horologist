@@ -23,6 +23,9 @@ import android.app.Application
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
 import android.os.Build
 import android.view.View
 import androidx.compose.foundation.background
@@ -42,6 +45,7 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
+import androidx.core.graphics.applyCanvas
 import androidx.test.core.app.ApplicationProvider
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
@@ -61,6 +65,7 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 import org.robolectric.RobolectricTestRunner
+import kotlin.math.min
 
 
 /**
@@ -82,8 +87,9 @@ public class ScreenshotTestRule(
     } else {
         SnapshotTransformer.None
     }
+    private val applicationContext = ApplicationProvider.getApplicationContext<Application>()
     private val resources: Resources =
-        ApplicationProvider.getApplicationContext<Application>().resources
+        applicationContext.resources
 
     private var testContent: View? = null
     private var snapshotCount: Int = 0
@@ -173,17 +179,48 @@ public class ScreenshotTestRule(
     }
 
     private fun captureBitmap(view: View): Bitmap {
-        return Bitmap.createBitmap(
+        val bitmap = Bitmap.createBitmap(
             view.width,
             view.height,
             Bitmap.Config.ARGB_8888,
-        ).apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                capture(view, this)
-            } else {
-                view.draw(Canvas(this))
-            }
+        )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            capture(view, bitmap)
+        } else {
+            view.draw(Canvas(bitmap))
         }
+
+        val shouldClip = when (params.clipMode) {
+            ClipMode.Round -> true
+
+            ClipMode.Auto -> {
+                resources.configuration.isScreenRound && view.height == view.display.height && view.width == view.display.width
+            }
+
+            ClipMode.None -> false
+        }
+        return if (shouldClip) {
+            circularClip(bitmap)
+        } else {
+            bitmap
+        }
+    }
+
+    fun circularClip(image: Bitmap): Bitmap {
+        // From https://github.com/coil-kt/coil/blob/2.0.0-rc01/coil-base/src/main/java/coil/transform/CircleCropTransformation.kt
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
+
+        val minSize = min(image.width, image.height)
+        val radius = minSize / 2f
+        val output = Bitmap.createBitmap(image.width, image.height, Bitmap.Config.ARGB_8888)
+        output.applyCanvas {
+            drawCircle(radius, radius, radius, paint)
+            paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+            drawBitmap(image, radius - image.width / 2f, radius - image.height / 2f, paint)
+        }
+
+        return output
     }
 
     private fun getView(): View = testContent!!
@@ -288,6 +325,7 @@ public class ScreenshotTestRule(
         public val screenTimeText: @Composable () -> Unit,
         public val testLabel: String?,
         public val record: RecordMode,
+        public val clipMode: ClipMode,
     ) {
 
         public class Builder internal constructor() {
@@ -296,6 +334,7 @@ public class ScreenshotTestRule(
             public var screenTimeText: @Composable () -> Unit = defaultScreenTimeText()
             public var testLabel: String? = null
             public var record: RecordMode = RecordMode.Record
+            public var clipMode: ClipMode = ClipMode.Auto
 
             public fun build(): ScreenshotTestRuleParams {
                 if (enableA11y) {
@@ -308,6 +347,7 @@ public class ScreenshotTestRule(
                     screenTimeText = screenTimeText,
                     testLabel = testLabel,
                     record = record,
+                    clipMode = clipMode
                 )
             }
         }
@@ -324,6 +364,10 @@ public class ScreenshotTestRule(
                 else -> Test
             }
         }
+    }
+
+    public enum class ClipMode {
+        Round, None, Auto;
     }
 
     public companion object {

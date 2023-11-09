@@ -102,7 +102,9 @@ internal object RobolectricTempHelpers {
         val renderer = HardwareRenderer()
         renderer.setSurface(imageReader.surface)
         val nativeImage: Image = imageReader.acquireNextImage()
-        setupRendererShadowProperties(renderer, view)
+
+//        setupRendererShadowProperties(renderer, view)
+
         val node = getRenderNode(view)
         renderer.setContentRoot(node)
         renderer.createRenderRequest().syncAndDraw()
@@ -131,27 +133,5 @@ internal object RobolectricTempHelpers {
 
     private fun getRenderNode(view: View): RenderNode {
         return ReflectionHelpers.callInstanceMethod(view, "updateDisplayListIfDirty")
-    }
-
-    private fun setupRendererShadowProperties(renderer: HardwareRenderer, view: View) {
-        val context = view.context
-        val resources = context.resources
-        val displayMetrics = resources.displayMetrics
-
-        // Get the LightSourceGeometry and LightSourceAlpha from resources.
-        // The default values are the ones recommended by the getLightSourceGeometry() and
-        // getLightSourceAlpha() documentation.
-        // This matches LayoutLib's RenderSessionImpl#renderAndBuildResult() implementation.
-//        val a = context.obtainStyledAttributes(null, android.os.R.styleable.Lighting, 0, 0)
-//        val lightX = displayMetrics.widthPixels / 2f
-//        val lightY = a.getDimension(R.styleable.Lighting_lightY, 0f)
-//        val lightZ = a.getDimension(R.styleable.Lighting_lightZ, 600f * displayMetrics.density)
-//        val lightRadius =
-//            a.getDimension(R.styleable.Lighting_lightRadius, 800f * displayMetrics.density)
-//        val ambientShadowAlpha = a.getFloat(R.styleable.Lighting_ambientShadowAlpha, 0.039f)
-//        val spotShadowAlpha = a.getFloat(R.styleable.Lighting_spotShadowAlpha, 0.19f)
-//        a.recycle()
-//        renderer.setLightSourceGeometry(lightX, lightY, lightZ, lightRadius)
-//        renderer.setLightSourceAlpha(ambientShadowAlpha, spotShadowAlpha)
     }
 }

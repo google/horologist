@@ -23,6 +23,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
+import org.robolectric.shadows.ShadowPixelCopy
 
 /**
  * A test class that can be used as base class for tests that require a [ScreenshotTestRule].
@@ -31,6 +32,7 @@ import org.robolectric.annotation.GraphicsMode
 @Config(
     sdk = [30],
     qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
+    shadows = [ShadowPixelCopy::class],
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @ExperimentalHorologistApi

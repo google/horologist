@@ -209,7 +209,7 @@ public class ScreenshotTestRule(
         }
     }
 
-    fun circularClip(image: Bitmap): Bitmap {
+    internal fun circularClip(image: Bitmap): Bitmap {
         // From https://github.com/coil-kt/coil/blob/2.0.0-rc01/coil-base/src/main/java/coil/transform/CircleCropTransformation.kt
         val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
 

@@ -187,7 +187,7 @@ public class ScreenshotTestRule(
         @Suppress("DEPRECATION")
         val isFullScreen = view.height == view.display.height && view.width == view.display.width
 
-        if (isFullScreen && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (isFullScreen && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             capture(view, bitmap)
         } else {
             view.draw(Canvas(bitmap))

@@ -184,7 +184,10 @@ public class ScreenshotTestRule(
             Bitmap.Config.ARGB_8888,
         )
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        @Suppress("DEPRECATION")
+        val isFullScreen = view.height == view.display.height && view.width == view.display.width
+
+        if (isFullScreen && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             capture(view, bitmap)
         } else {
             view.draw(Canvas(bitmap))
@@ -194,8 +197,7 @@ public class ScreenshotTestRule(
             ClipMode.Round -> true
 
             ClipMode.Auto -> {
-                @Suppress("DEPRECATION")
-                resources.configuration.isScreenRound && view.height == view.display.height && view.width == view.display.width
+                resources.configuration.isScreenRound && isFullScreen
             }
 
             ClipMode.None -> false
@@ -333,7 +335,7 @@ public class ScreenshotTestRule(
             public var enableA11y: Boolean = false
             public var screenTimeText: @Composable () -> Unit = defaultScreenTimeText()
             public var testLabel: String? = null
-            public var record: RecordMode = RecordMode.Record
+            public var record: RecordMode = RecordMode.fromProperty(System.getProperty("screenshot.record"))
             public var clipMode: ClipMode = ClipMode.Auto
 
             public fun build(): ScreenshotTestRuleParams {

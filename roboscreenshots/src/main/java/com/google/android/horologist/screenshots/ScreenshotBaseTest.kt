@@ -23,14 +23,16 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
+import org.robolectric.shadows.ShadowPixelCopy
 
 /**
  * A test class that can be used as base class for tests that require a [ScreenshotTestRule].
  */
 @RunWith(RobolectricTestRunner::class)
 @Config(
-    sdk = [30],
+    sdk = [33],
     qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
+    shadows = [ShadowPixelCopy::class],
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @ExperimentalHorologistApi
@@ -40,4 +42,13 @@ public abstract class ScreenshotBaseTest(
 
     @get:Rule
     public val screenshotTestRule: ScreenshotTestRule = ScreenshotTestRule(params)
+
+    internal companion object {
+        internal const val USE_HARDWARE_RENDERER_NATIVE_ENV = "robolectric.screenshot.hwrdr.native"
+
+        init {
+            // Future looking, not in current release
+            System.setProperty(USE_HARDWARE_RENDERER_NATIVE_ENV, "true")
+        }
+    }
 }

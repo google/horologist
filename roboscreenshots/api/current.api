@@ -10,7 +10,7 @@ package com.google.android.horologist.screenshots {
     field public static final com.google.android.horologist.screenshots.FixedTimeSource INSTANCE;
   }
 
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi @org.junit.runner.RunWith(RobolectricTestRunner::class) @org.robolectric.annotation.Config(sdk={30}, qualifiers="w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav") @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class ScreenshotBaseTest {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi @org.junit.runner.RunWith(RobolectricTestRunner::class) @org.robolectric.annotation.Config(sdk={33}, qualifiers="w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav", shadows={ShadowPixelCopy::class}) @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class ScreenshotBaseTest {
     ctor public ScreenshotBaseTest(optional com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams params);
     method @org.junit.Rule public final com.google.android.horologist.screenshots.ScreenshotTestRule getScreenshotTestRule();
     property @org.junit.Rule public final com.google.android.horologist.screenshots.ScreenshotTestRule screenshotTestRule;
@@ -23,6 +23,14 @@ package com.google.android.horologist.screenshots {
     method public void setContent(optional boolean isComponent, optional kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit>? componentDefaultContent, optional boolean takeScreenshot, optional Boolean? roundScreen, optional kotlin.jvm.functions.Function0<kotlin.Unit> timeText, optional kotlin.jvm.functions.Function0<kotlin.Unit> positionIndicator, optional com.google.android.horologist.compose.tools.coil.FakeImageLoader fakeImageLoader, kotlin.jvm.functions.Function0<kotlin.Unit> composable);
     method public void takeScreenshot();
     field public static final com.google.android.horologist.screenshots.ScreenshotTestRule.Companion Companion;
+  }
+
+  public enum ScreenshotTestRule.ClipMode {
+    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode[] values();
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode Auto;
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode None;
+    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode Round;
   }
 
   public static final class ScreenshotTestRule.Companion {
@@ -44,18 +52,21 @@ package com.google.android.horologist.screenshots {
   }
 
   public static final class ScreenshotTestRule.ScreenshotTestRuleParams {
-    ctor public ScreenshotTestRule.ScreenshotTestRuleParams(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record);
+    ctor public ScreenshotTestRule.ScreenshotTestRuleParams(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record, com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode);
     method public float component1();
     method public boolean component2();
     method public kotlin.jvm.functions.Function0<kotlin.Unit> component3();
     method public String? component4();
     method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode component5();
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams copy(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record);
+    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode component6();
+    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams copy(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record, com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode);
+    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode getClipMode();
     method public boolean getEnableA11y();
     method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode getRecord();
     method public kotlin.jvm.functions.Function0<kotlin.Unit> getScreenTimeText();
     method public String? getTestLabel();
     method public float getTolerance();
+    property public final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode;
     property public final boolean enableA11y;
     property public final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record;
     property public final kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText;
@@ -65,16 +76,19 @@ package com.google.android.horologist.screenshots {
 
   public static final class ScreenshotTestRule.ScreenshotTestRuleParams.Builder {
     method public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams build();
+    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode getClipMode();
     method public boolean getEnableA11y();
     method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode getRecord();
     method public kotlin.jvm.functions.Function0<kotlin.Unit> getScreenTimeText();
     method public String? getTestLabel();
     method public float getTolerance();
+    method public void setClipMode(com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode);
     method public void setEnableA11y(boolean);
     method public void setRecord(com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode);
     method public void setScreenTimeText(kotlin.jvm.functions.Function0<kotlin.Unit>);
     method public void setTestLabel(String?);
     method public void setTolerance(float);
+    property public final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode;
     property public final boolean enableA11y;
     property public final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record;
     property public final kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText;

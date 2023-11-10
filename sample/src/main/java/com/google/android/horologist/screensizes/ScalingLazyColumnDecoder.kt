@@ -28,6 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
@@ -74,9 +76,15 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
                 this.color = android.graphics.Color.WHITE
             }
         }
+        val layoutDirection = LocalLayoutDirection.current
+        val density = LocalDensity.current
+        val leftPadding =
+            with(density) { state.contentPadding.calculateLeftPadding(layoutDirection).toPx() }
+        val rightPadding =
+            with(density) { state.contentPadding.calculateRightPadding(layoutDirection).toPx() }
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawLine(
-                Color.Red,
+                Color.LightGray,
                 Offset(0f, size.height / 2f),
                 Offset(size.width, size.height / 2f),
             )
@@ -93,18 +101,57 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
                 Offset(size.width, maxTransition),
             )
             drawLine(
-                Color.Green,
+                Color.Red,
                 Offset(0f, size.height - minTransition),
                 Offset(size.width, size.height - minTransition),
             )
             drawLine(
-                Color.Green,
+                Color.Red,
                 Offset(0f, size.height - maxTransition),
                 Offset(size.width, size.height - maxTransition),
             )
+            drawLine(
+                Color.Green,
+                Offset(leftPadding, 0f),
+                Offset(leftPadding, size.height),
+            )
+            drawLine(
+                Color.Green,
+                Offset(rightPadding, 0f),
+                Offset(rightPadding, size.height),
+            )
             drawIntoCanvas {
-                it.nativeCanvas.drawText("Min Height " + state.scalingParams.minElementHeight, 30f, minTransition, paint)
-                it.nativeCanvas.drawText("Max Height " + state.scalingParams.maxElementHeight, 30f, maxTransition, paint)
+                it.nativeCanvas.drawText(
+                    "Min Height ${state.scalingParams.minElementHeight}",
+                    30f,
+                    size.height / 2,
+                    paint
+                )
+                it.nativeCanvas.drawText(
+                    "Max Height ${state.scalingParams.maxElementHeight}",
+                    size.width / 2,
+                    size.height / 2,
+                    paint
+                )
+                it.nativeCanvas.drawText(
+                    "Min Transition ${state.scalingParams.minTransitionArea}",
+                    30f,
+                    minTransition,
+                    paint
+                )
+                it.nativeCanvas.drawText(
+                    "Max Transition ${state.scalingParams.maxTransitionArea}",
+                    30f,
+                    maxTransition,
+                    paint
+                )
+                it.nativeCanvas.drawText(
+                    "Padding ${
+                        state.contentPadding.calculateRightPadding(
+                            layoutDirection
+                        )
+                    }", size.width - 150, size.height / 2 + 25, paint
+                )
             }
         }
     }

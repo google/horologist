@@ -28,6 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
@@ -74,14 +76,21 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
                 this.color = android.graphics.Color.WHITE
             }
         }
+        val layoutDirection = LocalLayoutDirection.current
+        val density = LocalDensity.current
+        val leftPadding =
+            with(density) { columnState.contentPadding.calculateLeftPadding(layoutDirection).toPx() }
+        val rightPadding =
+            with(density) { columnState.contentPadding.calculateRightPadding(layoutDirection).toPx() }
+        val scalingParams = columnState.scalingParams
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawLine(
-                Color.Red,
+                Color.LightGray,
                 Offset(0f, size.height / 2f),
                 Offset(size.width, size.height / 2f),
             )
-            val minTransition = columnState.scalingParams.minTransitionArea * size.height
-            val maxTransition = columnState.scalingParams.maxTransitionArea * size.height
+            val minTransition = scalingParams.minTransitionArea * size.height
+            val maxTransition = scalingParams.maxTransitionArea * size.height
             drawLine(
                 Color.Green,
                 Offset(0f, minTransition),
@@ -93,18 +102,60 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
                 Offset(size.width, maxTransition),
             )
             drawLine(
-                Color.Green,
+                Color.Red,
                 Offset(0f, size.height - minTransition),
                 Offset(size.width, size.height - minTransition),
             )
             drawLine(
-                Color.Green,
+                Color.Red,
                 Offset(0f, size.height - maxTransition),
                 Offset(size.width, size.height - maxTransition),
             )
+            drawLine(
+                Color.Green,
+                Offset(leftPadding, 0f),
+                Offset(leftPadding, size.height),
+            )
+            drawLine(
+                Color.Green,
+                Offset(rightPadding, 0f),
+                Offset(rightPadding, size.height),
+            )
             drawIntoCanvas {
-                it.nativeCanvas.drawText("Min Height " + columnState.scalingParams.minElementHeight, 30f, minTransition, paint)
-                it.nativeCanvas.drawText("Max Height " + columnState.scalingParams.maxElementHeight, 30f, maxTransition, paint)
+                it.nativeCanvas.drawText(
+                    "Min Height ${scalingParams.minElementHeight}",
+                    30f,
+                    size.height / 2,
+                    paint,
+                )
+                it.nativeCanvas.drawText(
+                    "Max Height ${scalingParams.maxElementHeight}",
+                    size.width / 2,
+                    size.height / 2,
+                    paint,
+                )
+                it.nativeCanvas.drawText(
+                    "Min Transition ${scalingParams.minTransitionArea}",
+                    30f,
+                    minTransition,
+                    paint,
+                )
+                it.nativeCanvas.drawText(
+                    "Max Transition ${scalingParams.maxTransitionArea}",
+                    30f,
+                    maxTransition,
+                    paint,
+                )
+                it.nativeCanvas.drawText(
+                    "Padding ${
+                        columnState.contentPadding.calculateRightPadding(
+                            layoutDirection,
+                        )
+                    }",
+                    size.width - 150,
+                    size.height / 2 + 25,
+                    paint,
+                )
             }
         }
     }

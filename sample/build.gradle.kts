@@ -154,6 +154,7 @@ dependencies {
     implementation(projects.datalayer.core)
     implementation(projects.datalayer.watch)
     implementation(projects.logo)
+    implementation(libs.accompanist.testharness)
 
     implementation(libs.compose.ui.util)
 

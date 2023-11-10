@@ -125,32 +125,35 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
                     "Min Height ${state.scalingParams.minElementHeight}",
                     30f,
                     size.height / 2,
-                    paint
+                    paint,
                 )
                 it.nativeCanvas.drawText(
                     "Max Height ${state.scalingParams.maxElementHeight}",
                     size.width / 2,
                     size.height / 2,
-                    paint
+                    paint,
                 )
                 it.nativeCanvas.drawText(
                     "Min Transition ${state.scalingParams.minTransitionArea}",
                     30f,
                     minTransition,
-                    paint
+                    paint,
                 )
                 it.nativeCanvas.drawText(
                     "Max Transition ${state.scalingParams.maxTransitionArea}",
                     30f,
                     maxTransition,
-                    paint
+                    paint,
                 )
                 it.nativeCanvas.drawText(
                     "Padding ${
                         state.contentPadding.calculateRightPadding(
-                            layoutDirection
+                            layoutDirection,
                         )
-                    }", size.width - 150, size.height / 2 + 25, paint
+                    }",
+                    size.width - 150,
+                    size.height / 2 + 25,
+                    paint,
                 )
             }
         }

@@ -79,17 +79,18 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
         val layoutDirection = LocalLayoutDirection.current
         val density = LocalDensity.current
         val leftPadding =
-            with(density) { state.contentPadding.calculateLeftPadding(layoutDirection).toPx() }
+            with(density) { columnState.contentPadding.calculateLeftPadding(layoutDirection).toPx() }
         val rightPadding =
-            with(density) { state.contentPadding.calculateRightPadding(layoutDirection).toPx() }
+            with(density) { columnState.contentPadding.calculateRightPadding(layoutDirection).toPx() }
+        val scalingParams = columnState.scalingParams
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawLine(
                 Color.LightGray,
                 Offset(0f, size.height / 2f),
                 Offset(size.width, size.height / 2f),
             )
-            val minTransition = columnState.scalingParams.minTransitionArea * size.height
-            val maxTransition = columnState.scalingParams.maxTransitionArea * size.height
+            val minTransition = scalingParams.minTransitionArea * size.height
+            val maxTransition = scalingParams.maxTransitionArea * size.height
             drawLine(
                 Color.Green,
                 Offset(0f, minTransition),
@@ -122,25 +123,25 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
             )
             drawIntoCanvas {
                 it.nativeCanvas.drawText(
-                    "Min Height ${columnState.scalingParams.minElementHeight}",
+                    "Min Height ${scalingParams.minElementHeight}",
                     30f,
                     size.height / 2,
                     paint,
                 )
                 it.nativeCanvas.drawText(
-                    "Max Height ${columnState.scalingParams.maxElementHeight}",
+                    "Max Height ${scalingParams.maxElementHeight}",
                     size.width / 2,
                     size.height / 2,
                     paint,
                 )
                 it.nativeCanvas.drawText(
-                    "Min Transition ${columnState.scalingParams.minTransitionArea}",
+                    "Min Transition ${scalingParams.minTransitionArea}",
                     30f,
                     minTransition,
                     paint,
                 )
                 it.nativeCanvas.drawText(
-                    "Max Transition ${columnState.scalingParams.maxTransitionArea}",
+                    "Max Transition ${scalingParams.maxTransitionArea}",
                     30f,
                     maxTransition,
                     paint,

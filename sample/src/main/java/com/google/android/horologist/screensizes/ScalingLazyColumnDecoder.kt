@@ -42,30 +42,30 @@ import com.google.android.horologist.compose.material.Chip
 
 @Composable
 fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
-    val state = factory.create()
+    val columnState = factory.create()
 
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black),
         positionIndicator = {
-            PositionIndicator(state.state)
+            PositionIndicator(columnState.state)
         },
         timeText = {
             val size = LocalConfiguration.current.screenWidthDp
+            val listState = columnState.state
             TimeText(
-                modifier = Modifier, // .scrollAway(state),
                 timeSource = FixedTimeSource,
-                startCurvedContent = { curvedText("${state.state.centerItemIndex}/${state.state.centerItemScrollOffset}") },
+                startCurvedContent = { curvedText("${listState.centerItemIndex}/${listState.centerItemScrollOffset}") },
                 endCurvedContent = { curvedText("${size}dp") },
-                startLinearContent = { Text("${state.state.centerItemIndex}/${state.state.centerItemScrollOffset}") },
+                startLinearContent = { Text("${listState.centerItemIndex}/${listState.centerItemScrollOffset}") },
                 endLinearContent = { Text("${size}dp") },
             )
         },
     ) {
-        ScalingLazyColumn(columnState = state) {
+        ScalingLazyColumn(columnState = columnState) {
             items(10) {
-                Chip(label = "Item $it", onClick = { /*TODO*/ })
+                Chip(label = "Item $it", onClick = { })
             }
         }
         val paint = remember {
@@ -80,8 +80,8 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
                 Offset(0f, size.height / 2f),
                 Offset(size.width, size.height / 2f),
             )
-            val minTransition = state.scalingParams.minTransitionArea * size.height
-            val maxTransition = state.scalingParams.maxTransitionArea * size.height
+            val minTransition = columnState.scalingParams.minTransitionArea * size.height
+            val maxTransition = columnState.scalingParams.maxTransitionArea * size.height
             drawLine(
                 Color.Green,
                 Offset(0f, minTransition),
@@ -103,8 +103,8 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
                 Offset(size.width, size.height - maxTransition),
             )
             drawIntoCanvas {
-                it.nativeCanvas.drawText("Min Height " + state.scalingParams.minElementHeight, 30f, minTransition, paint)
-                it.nativeCanvas.drawText("Max Height " + state.scalingParams.maxElementHeight, 30f, maxTransition, paint)
+                it.nativeCanvas.drawText("Min Height " + columnState.scalingParams.minElementHeight, 30f, minTransition, paint)
+                it.nativeCanvas.drawText("Max Height " + columnState.scalingParams.maxElementHeight, 30f, maxTransition, paint)
             }
         }
     }

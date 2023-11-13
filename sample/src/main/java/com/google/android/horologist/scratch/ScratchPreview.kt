@@ -34,7 +34,7 @@ import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 
 @WearPreviewLargeRound
 @Composable
-fun WearPreview() {
+fun ScratchPreview() {
     Box(
         modifier = Modifier
             .fillMaxSize()

@@ -1,0 +1,32 @@
+<!--
+  ~ Copyright 2023 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name">Horologist Datalayer Sample</string>
+    <string name="wearable_message_api_unavailable">This device does not have capability to communicate to Wearable Data Layer API</string>
+    <string name="app_helper_node_name_label">Node: %1$s</string>
+    <string name="app_helper_node_id_label">ID: %1$s</string>
+    <string name="app_helper_node_type_label">Type: %1$s</string>
+    <string name="app_helper_is_app_installed_label">App installed: %1$s</string>
+    <string name="app_helper_complications_label">Complications: %1$s</string>
+    <string name="app_helper_tiles_label">Tiles: %1$s</string>
+    <string name="app_helper_usage_status">Usage: %1$s</string>
+    <string name="app_helper_install_button_label">Install</string>
+    <string name="app_helper_companion_button_label">Companion</string>
+    <string name="app_helper_launch_button_label">Launch</string>
+
+    <string name="app_helper_button_list_nodes">List connected nodes</string>
+</resources>

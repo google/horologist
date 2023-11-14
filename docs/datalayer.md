@@ -7,7 +7,7 @@ Direct DataLayer sample code https://github.com/android/wear-os-samples
 ## DataLayer approach.
 
 The Horologist DataLayer libraries, provide common abstractions on top of the Wearable DataLayer.
-These are build upon a common assumption of Google Protobuf and gRPC, which allows sharing data
+These are built upon a common assumption of Google Protobuf and gRPC, which allows sharing data
 definitions throughout your Wear and Mobile apps.
 
 See this 

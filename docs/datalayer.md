@@ -1,9 +1,5 @@
 # DataLayer library
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.google.android.horologist/horologist-datalayer)](https://search.maven.org/search?q=g:com.google.android.horologist)
-
-For more information, visit the documentation: https://google.github.io/horologist/datalayer
-
 DataStore documentation https://developer.android.com/topic/libraries/architecture/datastore
 
 Direct DataLayer sample code https://github.com/android/wear-os-samples
@@ -11,10 +7,11 @@ Direct DataLayer sample code https://github.com/android/wear-os-samples
 ## DataLayer approach.
 
 The Horologist DataLayer libraries, provide common abstractions on top of the Wearable DataLayer.
-These build upon a common assumption of Google Protobug and gRPC, which allows sharing data
+These are build upon a common assumption of Google Protobuf and gRPC, which allows sharing data
 definitions throughout your Wear and Mobile apps.
 
-See https://github.com/google/horologist/blob/main/auth/sample/shared/build.gradle.kts
+See this 
+[gradle build file](https://github.com/google/horologist/blob/main/auth/sample/shared/build.gradle.kts)
 for an example of configuring a build to use proto definitions.
 
 ```protobuf
@@ -70,17 +67,17 @@ This library provides a new implementation of Androidx DataStore, in addition to
 Proto and Preferences implementations.  The implementation uses the Wearable DataClient
 with a single owner and multiple readers.
 
-See https://developer.android.com/topic/libraries/architecture/datastore
+See [DataStore](https://developer.android.com/topic/libraries/architecture/datastore).
 
-Publishing a DataStore.
+### Publishing a DataStore
 
 ```kotlin
-    private val dataStore: DataStore<CounterValue> by lazy {
-        registry.protoDataStore<CounterValue>(lifecycleScope)
-    }
+private val dataStore: DataStore<CounterValue> by lazy {
+  registry.protoDataStore<CounterValue>(lifecycleScope)
+}
 ```
 
-Reading a remote DataStore.
+### Reading a remote DataStore
 
 ```kotlin
 val counterFlow = registry.protoFlow<CounterValue>(TargetNodeId.PairedPhone)
@@ -91,7 +88,7 @@ val counterFlow = registry.protoFlow<CounterValue>(TargetNodeId.PairedPhone)
 This library implements the gRPC transport over the Wearable MessageClient using the RPC request
 feature.
 
-Implementing a service.
+### Implementing a service
 
 ```kotlin
 class CounterService(val dataStore: DataStore<GrpcDemoProto.CounterValue>) :
@@ -131,7 +128,7 @@ class WearCounterDataService : BaseGrpcDataService<CounterServiceGrpcKt.CounterS
 }
 ```
 
-Calling a remote service.
+### Calling a remote service
 
 ```kotlin
 val client = registry.grpcClient(

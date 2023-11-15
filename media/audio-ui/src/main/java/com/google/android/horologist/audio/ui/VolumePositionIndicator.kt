@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import kotlinx.coroutines.delay
@@ -41,6 +42,7 @@ public fun VolumePositionIndicator(
     volumeUiState: () -> VolumeUiState,
     modifier: Modifier = Modifier,
     displayIndicatorEvents: Flow<Unit>? = null,
+    color: Color = MaterialTheme.colors.secondary,
 ) {
     val visible by produceState(displayIndicatorEvents == null, displayIndicatorEvents) {
         displayIndicatorEvents?.collectLatest {
@@ -59,7 +61,7 @@ public fun VolumePositionIndicator(
         PositionIndicator(
             modifier = modifier,
             // RSB indicator uses secondary colors (surface/onSurface)
-            color = MaterialTheme.colors.secondary,
+            color = color,
             value = {
                 uiState.current.toFloat()
             },

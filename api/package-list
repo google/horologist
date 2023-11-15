@@ -151,3 +151,5 @@ com.google.android.horologist.networks.okhttp
 com.google.android.horologist.networks.okhttp.impl
 module:network-awareness-ui
 com.google.android.horologist.networks.ui
+module:shared
+com.google.android.horologist.datalayer.sample.shared

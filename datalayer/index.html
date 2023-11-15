@@ -841,12 +841,52 @@
     Use Androidx DataStore
   </a>
   
+    <nav class="md-nav" aria-label="Use Androidx DataStore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#publishing-a-datastore" class="md-nav__link">
+    Publishing a DataStore
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-a-remote-datastore" class="md-nav__link">
+    Reading a remote DataStore
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#using-grpc" class="md-nav__link">
     Using gRPC
   </a>
+  
+    <nav class="md-nav" aria-label="Using gRPC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementing-a-service" class="md-nav__link">
+    Implementing a service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calling-a-remote-service" class="md-nav__link">
+    Calling a remote service
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1368,12 +1408,52 @@
     Use Androidx DataStore
   </a>
   
+    <nav class="md-nav" aria-label="Use Androidx DataStore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#publishing-a-datastore" class="md-nav__link">
+    Publishing a DataStore
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-a-remote-datastore" class="md-nav__link">
+    Reading a remote DataStore
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#using-grpc" class="md-nav__link">
     Using gRPC
   </a>
+  
+    <nav class="md-nav" aria-label="Using gRPC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementing-a-service" class="md-nav__link">
+    Implementing a service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calling-a-remote-service" class="md-nav__link">
+    Calling a remote service
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1403,15 +1483,14 @@
 
 
 <h1 id="datalayer-library">DataLayer library<a class="headerlink" href="#datalayer-library" title="Permanent link">&para;</a></h1>
-<p><a href="https://search.maven.org/search?q=g:com.google.android.horologist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.android.horologist/horologist-datalayer" /></a></p>
-<p>For more information, visit the documentation: https://google.github.io/horologist/datalayer</p>
 <p>DataStore documentation https://developer.android.com/topic/libraries/architecture/datastore</p>
 <p>Direct DataLayer sample code https://github.com/android/wear-os-samples</p>
 <h2 id="datalayer-approach">DataLayer approach.<a class="headerlink" href="#datalayer-approach" title="Permanent link">&para;</a></h2>
 <p>The Horologist DataLayer libraries, provide common abstractions on top of the Wearable DataLayer.
-These build upon a common assumption of Google Protobug and gRPC, which allows sharing data
+These are built upon a common assumption of Google Protobuf and gRPC, which allows sharing data
 definitions throughout your Wear and Mobile apps.</p>
-<p>See https://github.com/google/horologist/blob/main/auth/sample/shared/build.gradle.kts
+<p>See this 
+<a href="https://github.com/google/horologist/blob/main/auth/sample/shared/build.gradle.kts">gradle build file</a>
 for an example of configuring a build to use proto definitions.</p>
 <div class="highlight"><pre><span></span><code><span class="k">syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;proto3&quot;</span><span class="p">;</span>
 
@@ -1458,19 +1537,19 @@ for an example of configuring a build to use proto definitions.</p>
 <p>This library provides a new implementation of Androidx DataStore, in addition to the local
 Proto and Preferences implementations.  The implementation uses the Wearable DataClient
 with a single owner and multiple readers.</p>
-<p>See https://developer.android.com/topic/libraries/architecture/datastore</p>
-<p>Publishing a DataStore.</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">dataStore</span><span class="p">:</span><span class="w"> </span><span class="n">DataStore</span><span class="o">&lt;</span><span class="n">CounterValue</span><span class="o">&gt;</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">lazy</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">registry</span><span class="p">.</span><span class="na">protoDataStore</span><span class="o">&lt;</span><span class="n">CounterValue</span><span class="o">&gt;</span><span class="p">(</span><span class="n">lifecycleScope</span><span class="p">)</span>
-<span class="w">    </span><span class="p">}</span>
+<p>See <a href="https://developer.android.com/topic/libraries/architecture/datastore">DataStore</a>.</p>
+<h3 id="publishing-a-datastore">Publishing a DataStore<a class="headerlink" href="#publishing-a-datastore" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">dataStore</span><span class="p">:</span><span class="w"> </span><span class="n">DataStore</span><span class="o">&lt;</span><span class="n">CounterValue</span><span class="o">&gt;</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">lazy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">registry</span><span class="p">.</span><span class="na">protoDataStore</span><span class="o">&lt;</span><span class="n">CounterValue</span><span class="o">&gt;</span><span class="p">(</span><span class="n">lifecycleScope</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>Reading a remote DataStore.</p>
+<h3 id="reading-a-remote-datastore">Reading a remote DataStore<a class="headerlink" href="#reading-a-remote-datastore" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">counterFlow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="na">protoFlow</span><span class="o">&lt;</span><span class="n">CounterValue</span><span class="o">&gt;</span><span class="p">(</span><span class="n">TargetNodeId</span><span class="p">.</span><span class="na">PairedPhone</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="using-grpc">Using gRPC<a class="headerlink" href="#using-grpc" title="Permanent link">&para;</a></h2>
 <p>This library implements the gRPC transport over the Wearable MessageClient using the RPC request
 feature.</p>
-<p>Implementing a service.</p>
+<h3 id="implementing-a-service">Implementing a service<a class="headerlink" href="#implementing-a-service" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">CounterService</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">dataStore</span><span class="p">:</span><span class="w"> </span><span class="n">DataStore</span><span class="o">&lt;</span><span class="n">GrpcDemoProto</span><span class="p">.</span><span class="na">CounterValue</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">:</span>
 <span class="w">    </span><span class="n">CounterServiceGrpcKt</span><span class="p">.</span><span class="na">CounterServiceCoroutineImplBase</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">getCounter</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Empty</span><span class="p">):</span><span class="w"> </span><span class="n">GrpcDemoProto</span><span class="p">.</span><span class="na">CounterValue</span><span class="w"> </span><span class="p">{</span>
@@ -1507,7 +1586,7 @@ feature.</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Calling a remote service.</p>
+<h3 id="calling-a-remote-service">Calling a remote service<a class="headerlink" href="#calling-a-remote-service" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="na">grpcClient</span><span class="p">(</span>
 <span class="w">    </span><span class="n">nodeId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TargetNodeId</span><span class="p">.</span><span class="na">PairedPhone</span><span class="p">,</span>
 <span class="w">    </span><span class="n">coroutineScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sampleApplication</span><span class="p">.</span><span class="na">servicesCoroutineScope</span><span class="p">,</span>

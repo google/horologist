@@ -129,7 +129,10 @@ class MainActivity : ComponentActivity() {
                         onCounterIncrement = {
                             coroutineScope.launch {
                                 counterDataStore.updateData {
-                                    it.copy { value = it.value + 1 }
+                                    it.copy {
+                                        value += 1
+                                        updated = System.currentTimeMillis().toProtoTimestamp()
+                                    }
                                 }
                             }
                         },

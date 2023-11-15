@@ -38,7 +38,7 @@ class ScratchTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun onDateConfirm_called_when_confirm_clicked() {
+    fun scratch() {
         composeTestRule.setContent {
             ScratchPreview()
         }

@@ -37,7 +37,7 @@ import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 fun ScratchPreview() {
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         val state = rememberScalingLazyListState()
         val expandableState = rememberExpandableState()
@@ -45,7 +45,7 @@ fun ScratchPreview() {
             modifier = Modifier
                 .fillMaxSize()
                 .rotaryWithScroll(state),
-            state = state
+            state = state,
         ) {
             item {
                 ListHeader {
@@ -60,5 +60,4 @@ fun ScratchPreview() {
             }
         }
     }
-
 }

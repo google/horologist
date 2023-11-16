@@ -8,7 +8,7 @@ package com.google.android.horologist.audio.ui {
   }
 
   public final class VolumePositionIndicatorKt {
-    method @androidx.compose.runtime.Composable public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState, optional androidx.compose.ui.Modifier modifier, optional kotlinx.coroutines.flow.Flow<kotlin.Unit>? displayIndicatorEvents);
+    method @androidx.compose.runtime.Composable public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState, optional androidx.compose.ui.Modifier modifier, optional kotlinx.coroutines.flow.Flow<kotlin.Unit>? displayIndicatorEvents, optional long color);
   }
 
   public final class VolumeScreenDefaults {

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.datalayer.sample
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,8 +29,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,6 +46,7 @@ import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.data.usageInfo
+import com.google.android.horologist.datalayer.sample.prompt.InstallAppDialog
 import com.google.android.horologist.datalayer.sample.ui.theme.HorologistTheme
 import com.google.protobuf.Timestamp
 
@@ -49,7 +56,10 @@ fun AppHelperNodeStatusCard(
     onInstallClick: (String) -> Unit,
     onLaunchClick: (String) -> Unit,
     onCompanionClick: (String) -> Unit,
+    onInstallAppClick: (packageName: String) -> Unit,
 ) {
+    var showInstallAppDialog by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .padding(16.dp)
@@ -129,8 +139,46 @@ fun AppHelperNodeStatusCard(
                         Text(stringResource(id = R.string.app_helper_companion_button_label))
                     }
                 }
+                /*
+                This button should only be displayed when AppHelperNodeStatus.isAppInstalled returns
+                false. However, given our sample app is not published on Play, we are using Gmail as
+                a "sample" in order to display the full flow.
+                 */
+                Button(
+                    modifier = Modifier.wrapContentHeight(),
+                    onClick = {
+                        showInstallAppDialog = true
+                    },
+                ) {
+                    Text(stringResource(id = R.string.app_helper_install_app_prompt_button_label))
+                }
             }
         }
+    }
+
+    if (showInstallAppDialog) {
+        val sampleAppPackage =
+            stringResource(id = R.string.app_helper_install_app_prompt_sample_app_package)
+
+        InstallAppDialog(
+            appName = stringResource(id = R.string.app_helper_install_app_prompt_sample_app_name),
+            watchName = nodeStatus.displayName,
+            message = stringResource(id = R.string.app_helper_install_app_prompt_sample_message),
+            icon = {
+                Image(
+                    painter = painterResource(id = R.drawable.sample_app_wearos_screenshot),
+                    contentDescription = null,
+                )
+            },
+            onDismissRequest = {
+                showInstallAppDialog = false
+            },
+            onConfirmation = {
+                showInstallAppDialog = false
+
+                onInstallAppClick(sampleAppPackage)
+            },
+        )
     }
 }
 
@@ -166,9 +214,10 @@ fun NodeCardPreview() {
     HorologistTheme {
         AppHelperNodeStatusCard(
             nodeStatus = nodeStatus,
-            onCompanionClick = {},
-            onInstallClick = {},
-            onLaunchClick = {},
+            onCompanionClick = { },
+            onInstallClick = { },
+            onLaunchClick = { },
+            onInstallAppClick = { },
         )
     }
 }

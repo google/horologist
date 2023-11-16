@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -43,9 +44,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.WearDataLayerRegistry
@@ -56,6 +59,7 @@ import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
+import com.google.android.horologist.datalayer.sample.play.launchPlay
 import com.google.android.horologist.datalayer.sample.shared.CounterValueSerializer
 import com.google.android.horologist.datalayer.sample.shared.grpc.GrpcDemoProto.CounterValue
 import com.google.android.horologist.datalayer.sample.shared.grpc.copy
@@ -90,13 +94,18 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
+                    val context = LocalContext.current
                     val coroutineScope = rememberCoroutineScope()
                     var nodeList by remember { mutableStateOf<List<AppHelperNodeStatus>>(emptyList()) }
                     var apiAvailable by remember { mutableStateOf(false) }
                     LaunchedEffect(Unit) {
                         coroutineScope.launch {
                             apiAvailable = WearableApiAvailability.isAvailable(registry.dataClient)
-                            nodeList = if (apiAvailable) phoneDataLayerAppHelper.connectedNodes() else listOf()
+                            nodeList = if (apiAvailable) {
+                                phoneDataLayerAppHelper.connectedNodes()
+                            } else {
+                                listOf()
+                            }
                         }
                     }
 
@@ -126,6 +135,9 @@ class MainActivity : ComponentActivity() {
                                 phoneDataLayerAppHelper.installOnNode(nodeId)
                             }
                         },
+                        onInstallAppClick = { packageName ->
+                            context.launchPlay(packageName)
+                        },
                         onCounterIncrement = {
                             coroutineScope.launch {
                                 counterDataStore.updateData {
@@ -151,9 +163,10 @@ fun MainScreen(
     onInstallClick: (String) -> Unit,
     onLaunchClick: (String) -> Unit,
     onCompanionClick: (String) -> Unit,
-    modifier: Modifier = Modifier,
+    onInstallAppClick: (packageName: String) -> Unit,
     counterState: CounterValue,
     onCounterIncrement: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -174,6 +187,7 @@ fun MainScreen(
                 onInstallClick = onInstallClick,
                 onLaunchClick = onLaunchClick,
                 onCompanionClick = onCompanionClick,
+                onInstallAppClick = onInstallAppClick,
             )
         }
 
@@ -187,9 +201,15 @@ fun MainScreen(
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "Counter: " + counterState.value)
-            Button(onClick = onCounterIncrement) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Plus 1")
+            Text(text = stringResource(R.string.app_helper_counter_label, counterState.value))
+            Button(
+                onClick = onCounterIncrement,
+                modifier = Modifier.padding(start = 10.dp),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(id = R.string.app_helper_counter_increase_btn_content_description),
+                )
             }
         }
     }
@@ -230,8 +250,9 @@ fun MainPreview() {
             onInstallClick = { },
             onLaunchClick = { },
             onCompanionClick = { },
+            onInstallAppClick = { },
             counterState = CounterValue.getDefaultInstance(),
-            onCounterIncrement = {},
+            onCounterIncrement = { },
         )
     }
 }

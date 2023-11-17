@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -143,6 +144,7 @@ public fun VolumeWithLabelScreen(
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
+    volumeColor: Color = MaterialTheme.colors.secondary,
 ) {
     VolumeScreen(
         volume = volume,
@@ -160,6 +162,7 @@ public fun VolumeWithLabelScreen(
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon,
         showVolumeIndicator = showVolumeIndicator,
+        volumeColor = volumeColor,
     )
 }
 
@@ -173,6 +176,7 @@ internal fun VolumeScreen(
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
+    volumeColor: Color = MaterialTheme.colors.secondary,
 ) {
     Box(modifier = modifier.fillMaxSize())
     val volumeState = volume()
@@ -193,6 +197,7 @@ internal fun VolumeScreen(
     if (showVolumeIndicator) {
         VolumePositionIndicator(
             volumeUiState = { volume() },
+            color = volumeColor,
         )
     }
 }

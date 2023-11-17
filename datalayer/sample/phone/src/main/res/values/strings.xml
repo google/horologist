@@ -34,6 +34,9 @@
     <string name="app_helper_install_app_prompt_sample_app_name" translatable="false">Gmail</string>
     <string name="app_helper_install_app_prompt_sample_app_package" translatable="false">com.google.android.gm</string>
     <string name="app_helper_install_app_prompt_sample_message">Stay productive and manage emails right from your wrist.</string>
+    <string name="app_helper_add_tile_prompt_sample_tile_name" translatable="false">Quickly check new emails</string>
+    <string name="app_helper_add_tile_prompt_sample_app_name" translatable="false">Gmail</string>
+    <string name="app_helper_add_tile_prompt_button_label">Add Tile prompt</string>
 
     <string name="app_helper_counter_label">Counter: %1$s</string>
     <string name="app_helper_counter_increase_btn_content_description">Increase counter</string>
@@ -41,4 +44,8 @@
     <string name="install_app_prompt_dialog_title">Install %1$s on %2$s</string>
     <string name="install_app_prompt_dialog_install_btn_label">Install</string>
     <string name="install_app_prompt_dialog_cancel_btn_label">Not now</string>
+
+    <string name="add_tile_prompt_message">Add the %1$s tile to your %2$s for easy access wherever you are.</string>
+    <string name="add_tile_prompt_add_btn_label">Add tile</string>
+    <string name="add_tile_prompt_cancel_btn_label">Dismiss</string>
 </resources>

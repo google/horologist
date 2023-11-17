@@ -19,6 +19,7 @@ package com.google.android.horologist.datalayer.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,10 +30,12 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -45,6 +48,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,6 +64,7 @@ import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.sample.play.launchPlay
+import com.google.android.horologist.datalayer.sample.prompt.AddTileBottomSheet
 import com.google.android.horologist.datalayer.sample.shared.CounterValueSerializer
 import com.google.android.horologist.datalayer.sample.shared.grpc.GrpcDemoProto.CounterValue
 import com.google.android.horologist.datalayer.sample.shared.grpc.copy
@@ -148,6 +153,11 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         },
+                        onAddTileClick = { nodeId ->
+                            coroutineScope.launch {
+                                phoneDataLayerAppHelper.startCompanion(nodeId)
+                            }
+                        },
                     )
                 }
             }
@@ -155,6 +165,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     apiAvailable: Boolean,
@@ -164,10 +175,16 @@ fun MainScreen(
     onLaunchClick: (String) -> Unit,
     onCompanionClick: (String) -> Unit,
     onInstallAppClick: (packageName: String) -> Unit,
+    onAddTileClick: (String) -> Unit,
     counterState: CounterValue,
     onCounterIncrement: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val addTileBottomSheetState = rememberModalBottomSheetState()
+    val scope = rememberCoroutineScope()
+    var showAddTileBottomSheet by remember { mutableStateOf(false) }
+    var selectedAppHelperNodeStatus: AppHelperNodeStatus? by remember { mutableStateOf(null) }
+
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -188,6 +205,10 @@ fun MainScreen(
                 onLaunchClick = onLaunchClick,
                 onCompanionClick = onCompanionClick,
                 onInstallAppClick = onInstallAppClick,
+                onAddTileClick = {
+                    selectedAppHelperNodeStatus = nodeStatus
+                    showAddTileBottomSheet = true
+                },
             )
         }
 
@@ -212,6 +233,34 @@ fun MainScreen(
                 )
             }
         }
+    }
+
+    if (showAddTileBottomSheet) {
+        AddTileBottomSheet(
+            tileName = stringResource(id = R.string.app_helper_add_tile_prompt_sample_tile_name),
+            appName = stringResource(id = R.string.app_helper_add_tile_prompt_sample_app_name),
+            watchName = selectedAppHelperNodeStatus?.displayName ?: "",
+            icon = {
+                Image(
+                    painter = painterResource(id = R.drawable.sample_tile_wearos_screenshot),
+                    contentDescription = null,
+                )
+            },
+            onDismissRequest = {
+                scope.launch { addTileBottomSheetState.hide() }.invokeOnCompletion {
+                    if (!addTileBottomSheetState.isVisible) {
+                        showAddTileBottomSheet = false
+                    }
+                }
+            },
+            onConfirmation = {
+                showAddTileBottomSheet = false
+                selectedAppHelperNodeStatus?.let {
+                    onAddTileClick(it.id)
+                }
+            },
+            sheetState = addTileBottomSheetState,
+        )
     }
 }
 
@@ -251,6 +300,7 @@ fun MainPreview() {
             onLaunchClick = { },
             onCompanionClick = { },
             onInstallAppClick = { },
+            onAddTileClick = { },
             counterState = CounterValue.getDefaultInstance(),
             onCounterIncrement = { },
         )

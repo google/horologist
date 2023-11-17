@@ -57,6 +57,7 @@ fun AppHelperNodeStatusCard(
     onLaunchClick: (String) -> Unit,
     onCompanionClick: (String) -> Unit,
     onInstallAppClick: (packageName: String) -> Unit,
+    onAddTileClick: (String) -> Unit,
 ) {
     var showInstallAppDialog by remember { mutableStateOf(false) }
 
@@ -152,33 +153,42 @@ fun AppHelperNodeStatusCard(
                 ) {
                     Text(stringResource(id = R.string.app_helper_install_app_prompt_button_label))
                 }
+
+                Button(
+                    modifier = Modifier.wrapContentHeight(),
+                    onClick = {
+                        onAddTileClick(nodeStatus.displayName)
+                    },
+                ) {
+                    Text(stringResource(id = R.string.app_helper_add_tile_prompt_button_label))
+                }
             }
         }
-    }
 
-    if (showInstallAppDialog) {
-        val sampleAppPackage =
-            stringResource(id = R.string.app_helper_install_app_prompt_sample_app_package)
+        if (showInstallAppDialog) {
+            val sampleAppPackage =
+                stringResource(id = R.string.app_helper_install_app_prompt_sample_app_package)
 
-        InstallAppDialog(
-            appName = stringResource(id = R.string.app_helper_install_app_prompt_sample_app_name),
-            watchName = nodeStatus.displayName,
-            message = stringResource(id = R.string.app_helper_install_app_prompt_sample_message),
-            icon = {
-                Image(
-                    painter = painterResource(id = R.drawable.sample_app_wearos_screenshot),
-                    contentDescription = null,
-                )
-            },
-            onDismissRequest = {
-                showInstallAppDialog = false
-            },
-            onConfirmation = {
-                showInstallAppDialog = false
+            InstallAppDialog(
+                appName = stringResource(id = R.string.app_helper_install_app_prompt_sample_app_name),
+                watchName = nodeStatus.displayName,
+                message = stringResource(id = R.string.app_helper_install_app_prompt_sample_message),
+                icon = {
+                    Image(
+                        painter = painterResource(id = R.drawable.sample_app_wearos_screenshot),
+                        contentDescription = null,
+                    )
+                },
+                onDismissRequest = {
+                    showInstallAppDialog = false
+                },
+                onConfirmation = {
+                    showInstallAppDialog = false
 
-                onInstallAppClick(sampleAppPackage)
-            },
-        )
+                    onInstallAppClick(sampleAppPackage)
+                },
+            )
+        }
     }
 }
 
@@ -218,6 +228,7 @@ fun NodeCardPreview() {
             onInstallClick = { },
             onLaunchClick = { },
             onInstallAppClick = { },
+            onAddTileClick = { },
         )
     }
 }

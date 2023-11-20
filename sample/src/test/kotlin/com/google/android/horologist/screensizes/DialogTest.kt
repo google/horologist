@@ -22,39 +22,33 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
-import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.compose.tools.Device
 
 class DialogTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
 
     @Composable
     override fun Content() {
-        Dialog(
-            showDialog = true,
-            onDismissRequest = { },
-        ) {
-            Alert(
-                title = { Text("Phone app is required", textAlign = TextAlign.Center) },
-                negativeButton = {
-                    Button(
-                        colors = ButtonDefaults.secondaryButtonColors(),
-                        onClick = {
-                            /* Do something e.g. navController.popBackStack()*/
-                        }) {
-                        Text("No")
-                    }
-                },
-                positiveButton = {
-                    Button(onClick = {
+        Alert(
+            title = { Text("Phone app is required", textAlign = TextAlign.Center) },
+            negativeButton = {
+                Button(
+                    colors = ButtonDefaults.secondaryButtonColors(),
+                    onClick = {
                         /* Do something e.g. navController.popBackStack()*/
-                    }) { Text("Yes") }
-                },
-            ) {
-                Text(
-                    text = "Tap the button below to install it on your phone.",
-                    textAlign = TextAlign.Center
-                )
-            }
+                    }) {
+                    Text("No")
+                }
+            },
+            positiveButton = {
+                Button(onClick = {
+                    /* Do something e.g. navController.popBackStack()*/
+                }) { Text("Yes") }
+            },
+        ) {
+            Text(
+                text = "Tap the button below to install it on your phone.",
+                textAlign = TextAlign.Center
+            )
         }
     }
 }

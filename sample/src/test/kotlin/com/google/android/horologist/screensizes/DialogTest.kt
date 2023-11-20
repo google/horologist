@@ -40,7 +40,8 @@ class DialogTest(device: Device) : ScreenSizeTest(device = device, showTimeText 
                         colors = ButtonDefaults.secondaryButtonColors(),
                         onClick = {
                             /* Do something e.g. navController.popBackStack()*/
-                        }) {
+                        },
+                    ) {
                         Text("No")
                     }
                 },
@@ -52,7 +53,7 @@ class DialogTest(device: Device) : ScreenSizeTest(device = device, showTimeText 
             ) {
                 Text(
                     text = "Tap the button below to install it on your phone.",
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }

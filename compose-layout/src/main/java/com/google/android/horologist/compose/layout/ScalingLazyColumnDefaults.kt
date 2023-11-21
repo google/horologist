@@ -171,6 +171,11 @@ public object ScalingLazyColumnDefaults {
                 } else {
                     32.dp
                 }
+                val bottomPaddingDp: Dp = if (configuration.isScreenRound) {
+                    calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
+                } else {
+                    0.dp
+                }
 
                 val sizeRatio = ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
                 val presetRatio = 0f
@@ -198,11 +203,12 @@ public object ScalingLazyColumnDefaults {
                             index = 0,
                             offsetPx = topScreenOffsetPx,
                         ),
+                        autoCentering = null,
                         anchorType = ScalingLazyListAnchorType.ItemStart,
                         rotaryMode = RotaryMode.Scroll,
                         verticalArrangement = verticalArrangement,
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        contentPadding = PaddingValues(horizontal = padding.dp),
+                        contentPadding = PaddingValues(start = padding.dp, end = padding.dp, top = topPaddingDp, bottom = bottomPaddingDp),
                         scalingParams = scalingParams,
                     )
                 }

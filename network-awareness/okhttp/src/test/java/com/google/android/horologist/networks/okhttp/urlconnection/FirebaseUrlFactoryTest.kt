@@ -99,4 +99,33 @@ class FirebaseUrlFactoryTest {
 
         assertThat(headers["If-Modified-Since"]).isEqualTo("Wed, 19 Apr 2023 07:44:14 GMT")
     }
+
+    @Test
+    fun postRequestWithConnect() {
+        server.enqueue(MockResponse().setBody("hello, world!"))
+
+        val conn = urlFactory.open(server.url("/").toUrl())
+
+        conn.requestMethod = "POST"
+        conn.doInput = true
+        conn.connect()
+
+        conn.outputStream.bufferedWriter().use {
+            it.write("Hello from here")
+        }
+
+        val text = conn.inputStream.bufferedReader().use {
+            it.readText()
+        }
+
+        assertThat(text).isEqualTo("hello, world!")
+        assertThat(conn.responseCode).isEqualTo(200)
+
+        val recordedRequest = server.takeRequest()
+        val headers = recordedRequest.headers
+
+        assertThat(recordedRequest.body.readUtf8()).isEqualTo("Hello from here")
+        assertThat(headers["Content-Type"]).isEqualTo("application/x-www-form-urlencoded")
+        assertThat(headers["Transfer-Encoding"]).isEqualTo("chunked")
+    }
 }

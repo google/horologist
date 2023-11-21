@@ -71,6 +71,8 @@ import javax.net.ssl.SSLSocketFactory
  * OkHttp 3.14 dropped support for the long-deprecated OkUrlFactory class, which allows you to use
  * the HttpURLConnection API with OkHttp's implementation. This class does the same thing using only
  * public APIs in OkHttp.
+ *
+ * From https://gist.github.com/swankjesse/dd91c0a8854e1559b00f5fc9c7bfae70
  */
 class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFactory, Cloneable {
     /**
@@ -141,19 +143,6 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             val call = buildCall()
             executed = true
             call.enqueue(this)
-            synchronized(lock) {
-                try {
-                    while (connectPending && response == null && callFailure == null) {
-                        lock.wait() // Wait 'til the network interceptor is reached or the call fails.
-                    }
-                    if (callFailure != null) {
-                        throw propagate(callFailure)
-                    }
-                } catch (e: InterruptedException) {
-                    Thread.currentThread().interrupt() // Retain interrupted status.
-                    throw InterruptedIOException()
-                }
-            }
         }
 
         override fun disconnect() {
@@ -299,7 +288,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
                     contentType = "application/x-www-form-urlencoded"
                     requestHeaders.add("Content-Type", contentType)
                 }
-                val stream = fixedContentLengthLong != -1L || chunkLength > 0
+                val stream = fixedContentLengthLong == -1L || chunkLength > 0
                 var contentLength = -1L
                 val contentLengthString: String? = requestHeaders.get("Content-Length")
                 if (fixedContentLengthLong != -1L) {

@@ -528,7 +528,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
         }
     }
 
-    internal abstract class DelegatingHttpsURLConnection(val delegate: HttpURLConnection) :
+    internal abstract class DelegatingHttpsURLConnection(val delegate: OkHttpURLConnection) :
         HttpsURLConnection(
             delegate.url,
         ) {
@@ -570,7 +570,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                 delegate.disconnect()
             }
 
-            override fun getErrorStream(): InputStream {
+            override fun getErrorStream(): InputStream? {
                 return delegate.errorStream
             }
 
@@ -651,7 +651,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                 return delegate.expiration
             }
 
-            override fun getHeaderField(pos: Int): String {
+            override fun getHeaderField(pos: Int): String? {
                 return delegate.getHeaderField(pos)
             }
 
@@ -667,7 +667,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                 delegate.addRequestProperty(field, newValue)
             }
 
-            override fun getHeaderField(key: String): String {
+            override fun getHeaderField(key: String): String? {
                 return delegate.getHeaderField(key)
             }
 
@@ -684,7 +684,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                 return delegate.getHeaderFieldInt(field, defaultValue)
             }
 
-            override fun getHeaderFieldKey(position: Int): String {
+            override fun getHeaderFieldKey(position: Int): String? {
                 return delegate.getHeaderFieldKey(position)
             }
 
@@ -692,7 +692,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                 return delegate.getIfModifiedSince()
             }
 
-            override fun getInputStream(): InputStream {
+            override fun getInputStream(): InputStream? {
                 return delegate.inputStream
             }
 
@@ -708,7 +708,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                 return delegate.getPermission()
             }
 
-            override fun getRequestProperty(field: String): String {
+            override fun getRequestProperty(field: String): String? {
                 return delegate.getRequestProperty(field)
             }
 

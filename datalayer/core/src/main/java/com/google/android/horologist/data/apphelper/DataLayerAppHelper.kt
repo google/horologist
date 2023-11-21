@@ -76,16 +76,22 @@ abstract class DataLayerAppHelper(
         val allInstalledNodes = installedPhoneNodes + installedWatchNodes
 
         return nearbyNodes.map {
+            val appInstallationStatus = if (allInstalledNodes.contains(it.id)) {
+                val nodeType = when (it.id) {
+                    in installedPhoneNodes -> AppInstallationStatusNodeType.PHONE
+                    in installedWatchNodes -> AppInstallationStatusNodeType.WATCH
+                    else -> AppInstallationStatusNodeType.UNKNOWN
+                }
+                AppInstallationStatus.Installed(nodeType = nodeType)
+            } else {
+                AppInstallationStatus.NotInstalled
+            }
+
             AppHelperNodeStatus(
                 id = it.id,
                 displayName = it.displayName,
-                isAppInstalled = allInstalledNodes.contains(it.id),
+                appInstallationStatus = appInstallationStatus,
                 surfacesInfo = getSurfaceStatus(it.id),
-                nodeType = when (it.id) {
-                    in installedPhoneNodes -> AppHelperNodeType.PHONE
-                    in installedWatchNodes -> AppHelperNodeType.WATCH
-                    else -> AppHelperNodeType.UNKNOWN
-                },
             )
         }
     }

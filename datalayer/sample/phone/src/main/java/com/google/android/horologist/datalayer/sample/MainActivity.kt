@@ -51,7 +51,8 @@ import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearableApiAvailability
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
-import com.google.android.horologist.data.apphelper.AppHelperNodeType
+import com.google.android.horologist.data.apphelper.AppInstallationStatus
+import com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType
 import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
@@ -96,7 +97,8 @@ class MainActivity : ComponentActivity() {
                     LaunchedEffect(Unit) {
                         coroutineScope.launch {
                             apiAvailable = WearableApiAvailability.isAvailable(registry.dataClient)
-                            nodeList = if (apiAvailable) phoneDataLayerAppHelper.connectedNodes() else listOf()
+                            nodeList =
+                                if (apiAvailable) phoneDataLayerAppHelper.connectedNodes() else listOf()
                         }
                     }
 
@@ -202,8 +204,9 @@ fun MainPreview() {
         AppHelperNodeStatus(
             id = "a1b2c3d4",
             displayName = "Pixel Watch",
-            isAppInstalled = true,
-            nodeType = AppHelperNodeType.WATCH,
+            appInstallationStatus = AppInstallationStatus.Installed(
+                nodeType = AppInstallationStatusNodeType.WATCH,
+            ),
             surfacesInfo = surfacesInfo {
                 tiles.add(
                     tileInfo {

@@ -50,8 +50,7 @@ phone.
     AppHelperNodeStatus(
         id=7cd1c38a,
         displayName=Google Pixel Watch,
-        isAppInstalled=true,
-        nodeType=WATCH,
+        appInstallationStatus=Installed(nodeType=WATCH),
         surfacesInfo=# SurfacesInfo@125fcbff
             complications {
                 instance_id: 1234

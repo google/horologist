@@ -93,31 +93,47 @@ package com.google.android.horologist.data {
 package com.google.android.horologist.data.apphelper {
 
   public final class AppHelperNodeStatus {
-    ctor public AppHelperNodeStatus(String id, String displayName, boolean isAppInstalled, com.google.android.horologist.data.apphelper.AppHelperNodeType nodeType, optional error.NonExistentClass surfacesInfo);
+    ctor public AppHelperNodeStatus(String id, String displayName, com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, optional error.NonExistentClass surfacesInfo);
     method public String component1();
     method public String component2();
-    method public boolean component3();
-    method public com.google.android.horologist.data.apphelper.AppHelperNodeType component4();
-    method public error.NonExistentClass! component5();
-    method public com.google.android.horologist.data.apphelper.AppHelperNodeStatus copy(String id, String displayName, boolean isAppInstalled, com.google.android.horologist.data.apphelper.AppHelperNodeType nodeType, error.NonExistentClass! surfacesInfo);
+    method public com.google.android.horologist.data.apphelper.AppInstallationStatus component3();
+    method public error.NonExistentClass! component4();
+    method public com.google.android.horologist.data.apphelper.AppHelperNodeStatus copy(String id, String displayName, com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, error.NonExistentClass! surfacesInfo);
+    method public com.google.android.horologist.data.apphelper.AppInstallationStatus getAppInstallationStatus();
     method public String getDisplayName();
     method public String getId();
-    method public com.google.android.horologist.data.apphelper.AppHelperNodeType getNodeType();
     method public error.NonExistentClass! getSurfacesInfo();
-    method public boolean isAppInstalled();
+    property public final com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus;
     property public final String displayName;
     property public final String id;
-    property public final boolean isAppInstalled;
-    property public final com.google.android.horologist.data.apphelper.AppHelperNodeType nodeType;
     property public final error.NonExistentClass! surfacesInfo;
   }
 
-  public enum AppHelperNodeType {
-    method public static com.google.android.horologist.data.apphelper.AppHelperNodeType valueOf(String name) throws java.lang.IllegalArgumentException;
-    method public static com.google.android.horologist.data.apphelper.AppHelperNodeType[] values();
-    enum_constant public static final com.google.android.horologist.data.apphelper.AppHelperNodeType PHONE;
-    enum_constant public static final com.google.android.horologist.data.apphelper.AppHelperNodeType UNKNOWN;
-    enum_constant public static final com.google.android.horologist.data.apphelper.AppHelperNodeType WATCH;
+  public final class AppHelperNodeStatusKt {
+    method public static boolean getAppInstalled(com.google.android.horologist.data.apphelper.AppHelperNodeStatus);
+  }
+
+  public abstract sealed class AppInstallationStatus {
+  }
+
+  public static final class AppInstallationStatus.Installed extends com.google.android.horologist.data.apphelper.AppInstallationStatus {
+    ctor public AppInstallationStatus.Installed(com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType nodeType);
+    method public com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType component1();
+    method public com.google.android.horologist.data.apphelper.AppInstallationStatus.Installed copy(com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType nodeType);
+    method public com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType getNodeType();
+    property public final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType nodeType;
+  }
+
+  public static final class AppInstallationStatus.NotInstalled extends com.google.android.horologist.data.apphelper.AppInstallationStatus {
+    field public static final com.google.android.horologist.data.apphelper.AppInstallationStatus.NotInstalled INSTANCE;
+  }
+
+  public enum AppInstallationStatusNodeType {
+    method public static com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType[] values();
+    enum_constant public static final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType PHONE;
+    enum_constant public static final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType UNKNOWN;
+    enum_constant public static final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType WATCH;
   }
 
   public abstract class DataLayerAppHelper {

@@ -24,7 +24,6 @@ import okhttp3.Headers
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.MediaType
-import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -74,15 +73,7 @@ import javax.net.ssl.SSLSocketFactory
  *
  * From https://gist.github.com/swankjesse/dd91c0a8854e1559b00f5fc9c7bfae70
  */
-public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFactory,
-    Cloneable {
-    /**
-     * Returns a copy of this stream handler factory that includes a shallow copy of the internal
-     * [HTTP client][OkHttpClient].
-     */
-    public override fun clone(): FirebaseUrlFactory {
-        return FirebaseUrlFactory(client)
-    }
+public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFactory {
 
     internal fun open(url: URL): HttpURLConnection {
         if (url.protocol == "http") return OkHttpURLConnection(url, client)
@@ -838,12 +829,12 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
     }
 
     internal companion object {
-        const val SELECTED_PROTOCOL = "ObsoleteUrlFactory-Selected-Protocol"
-        const val RESPONSE_SOURCE = "ObsoleteUrlFactory-Response-Source"
+        val SELECTED_PROTOCOL = "ObsoleteUrlFactory-Selected-Protocol"
+        val RESPONSE_SOURCE = "ObsoleteUrlFactory-Response-Source"
         val METHODS: Set<String> =
             linkedSetOf("OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "PATCH")
         val UTC = TimeZone.getTimeZone("GMT")
-        const val HTTP_CONTINUE = 100
+        val HTTP_CONTINUE = 100
         val STANDARD_DATE_FORMAT =
             DateTimeFormatter.ofPattern(
                 "EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US

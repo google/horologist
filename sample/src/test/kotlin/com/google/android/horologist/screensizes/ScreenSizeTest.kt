@@ -28,6 +28,7 @@ import com.google.android.horologist.compose.tools.SamsungGalaxyWatch5
 import com.google.android.horologist.compose.tools.SamsungGalaxyWatch6Large
 import com.google.android.horologist.compose.tools.copy
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -46,6 +47,7 @@ abstract class ScreenSizeTest(
             screenTimeText = { }
         }
         testLabel = device.name.lowercase().replace("\\W+".toRegex(), "")
+        record = ScreenshotTestRule.RecordMode.Record
     },
 ) {
     @Composable

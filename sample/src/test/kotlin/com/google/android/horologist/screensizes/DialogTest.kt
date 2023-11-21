@@ -23,6 +23,7 @@ import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import com.google.android.horologist.compose.tools.Device
+import org.junit.Test
 
 class DialogTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
 
@@ -49,6 +50,21 @@ class DialogTest(device: Device) : ScreenSizeTest(device = device, showTimeText 
             Text(
                 text = "Tap the button below to install it on your phone.",
                 textAlign = TextAlign.Center,
+            )
+        }
+    }
+
+
+    @Test
+    fun responsive() {
+        runTest {
+            com.google.android.horologist.compose.material.Alert(
+                title = "Phone app is required",
+                body = "Tap the button below to install it on your phone.",
+                onCancelButtonClick = {},
+                onOKButtonClick = {},
+                okButtonContentDescription = "Yes",
+                cancelButtonContentDescription = "No",
             )
         }
     }

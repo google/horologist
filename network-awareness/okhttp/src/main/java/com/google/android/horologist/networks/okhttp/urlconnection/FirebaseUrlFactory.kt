@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -83,11 +83,6 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
 
     /**
      * Creates a URLStreamHandler as a [java.net.URL.setURLStreamHandlerFactory].
-     *
-     * This code configures OkHttp to handle all HTTP and HTTPS connections
-     * created with [java.net.URL.openConnection]: <pre>   `OkHttpClient okHttpClient = new OkHttpClient();
-     * URL.setURLStreamHandlerFactory(new ObsoleteUrlFactory(okHttpClient));
-    `</pre> *
      */
     override fun createURLStreamHandler(protocol: String): URLStreamHandler? {
         return if (protocol != "http" && protocol != "https") {
@@ -99,8 +94,9 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                 }
 
                 override fun openConnection(url: URL, proxy: Proxy): URLConnection {
-                    if (proxy.type() != Proxy.Type.DIRECT)
+                    if (proxy.type() != Proxy.Type.DIRECT) {
                         throw UnsupportedOperationException()
+                    }
                     return open(url)
                 }
 
@@ -115,7 +111,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
 
     internal class OkHttpURLConnection(
         url: URL?, // These fields are confined to the application thread that uses HttpURLConnection.
-        var client: Call.Factory
+        var client: Call.Factory,
     ) : HttpURLConnection(url), Callback {
         var requestHeaders: Headers.Builder = Headers.Builder()
         var responseHeaders: Headers? = null
@@ -148,7 +144,9 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                 val response = getResponse(true)
                 if (hasBody(response) && response.code >= HTTP_BAD_REQUEST) {
                     response.body?.byteStream()
-                } else null
+                } else {
+                    null
+                }
             } catch (e: IOException) {
                 null
             }
@@ -206,7 +204,6 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
             return toMultimap(requestHeaders.build(), null)
         }
 
-
         override fun getInputStream(): InputStream? {
             if (!doInput) {
                 throw ProtocolException("This protocol does not support input")
@@ -215,7 +212,6 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
             if (response.code >= HTTP_BAD_REQUEST) throw FileNotFoundException(url.toString())
             return response.body?.byteStream()
         }
-
 
         override fun getOutputStream(): OutputStream {
             val requestBody = buildCall().request().body as OutputStreamRequestBody?
@@ -289,9 +285,13 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                     contentLength = contentLengthString.toLong()
                 }
                 requestBody =
-                    if (stream) StreamedRequestBody(contentLength) else BufferedRequestBody(
-                        contentLength
-                    )
+                    if (stream) {
+                        StreamedRequestBody(contentLength)
+                    } else {
+                        BufferedRequestBody(
+                            contentLength,
+                        )
+                    }
             }
 
             val url = getURL().toHttpUrlOrNull() ?: throw MalformedURLException("URL = ${getURL()}")
@@ -312,7 +312,6 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                 call = it
             }
         }
-
 
         private fun getResponse(networkResponseOnError: Boolean): Response {
             synchronized(lock) {
@@ -355,11 +354,9 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
             return false
         }
 
-
         override fun getResponseMessage(): String {
             return getResponse(true).message
         }
-
 
         override fun getResponseCode(): Int {
             return getResponse(true).code
@@ -384,7 +381,6 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
             check(!connected) { "Cannot add request property after connection is made" }
             requestHeaders.add(field, value)
         }
-
 
         override fun setRequestMethod(method: String) {
             if (!METHODS.contains(method)) {
@@ -439,13 +435,12 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                     write(byteArrayOf(b.toByte()), 0, 1)
                 }
 
-
                 override fun write(source: ByteArray, offset: Int, byteCount: Int) {
                     if (closed) throw IOException("closed") // Not IllegalStateException!
                     if (expectedContentLength != -1L && bytesReceived + byteCount > expectedContentLength) {
                         throw ProtocolException(
-                            "expected " + expectedContentLength
-                                + " bytes but received " + bytesReceived + byteCount
+                            "expected " + expectedContentLength +
+                                " bytes but received " + bytesReceived + byteCount,
                         )
                     }
                     bytesReceived += byteCount.toLong()
@@ -456,19 +451,17 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                     }
                 }
 
-
                 override fun flush() {
-                    if (closed) return  // Weird, but consistent with historical behavior.
+                    if (closed) return // Weird, but consistent with historical behavior.
                     sink.flush()
                 }
-
 
                 override fun close() {
                     closed = true
                     if (expectedContentLength != -1L && bytesReceived < expectedContentLength) {
                         throw ProtocolException(
-                            "expected " + expectedContentLength
-                                + " bytes but received " + bytesReceived
+                            "expected " + expectedContentLength +
+                                " bytes but received " + bytesReceived,
                         )
                     }
                     sink.close()
@@ -483,7 +476,6 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
         override fun contentType(): MediaType? {
             return null // Let the caller provide this in a regular header.
         }
-
 
         open fun prepareToSendRequest(request: Request): Request {
             return request
@@ -501,7 +493,6 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
         override fun contentLength(): Long {
             return contentLength
         }
-
 
         override fun prepareToSendRequest(request: Request): Request {
             if (request.header("Content-Length") != null) return request
@@ -529,7 +520,6 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
             return true
         }
 
-
         override fun writeTo(sink: BufferedSink) {
             val buffer = Buffer()
             while (pipe.source.read(buffer, 8192) != -1L) {
@@ -540,293 +530,284 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
 
     internal abstract class DelegatingHttpsURLConnection(val delegate: HttpURLConnection) :
         HttpsURLConnection(
-            delegate.url
+            delegate.url,
         ) {
-        protected abstract fun handshake(): Handshake?
-        abstract override fun setHostnameVerifier(hostnameVerifier: HostnameVerifier)
-        abstract override fun getHostnameVerifier(): HostnameVerifier
-        abstract override fun setSSLSocketFactory(sslSocketFactory: SSLSocketFactory)
-        abstract override fun getSSLSocketFactory(): SSLSocketFactory
-        override fun getCipherSuite(): String? {
-            return handshake()?.cipherSuite?.javaName
+            protected abstract fun handshake(): Handshake?
+            abstract override fun setHostnameVerifier(hostnameVerifier: HostnameVerifier)
+            abstract override fun getHostnameVerifier(): HostnameVerifier
+            abstract override fun setSSLSocketFactory(sslSocketFactory: SSLSocketFactory)
+            abstract override fun getSSLSocketFactory(): SSLSocketFactory
+            override fun getCipherSuite(): String? {
+                return handshake()?.cipherSuite?.javaName
+            }
+
+            override fun getLocalCertificates(): Array<Certificate>? {
+                val handshake = handshake() ?: return null
+                val result = handshake.localCertificates
+                return if (result.isNotEmpty()) result.toTypedArray<Certificate>() else null
+            }
+
+            override fun getServerCertificates(): Array<Certificate>? {
+                val handshake = handshake() ?: return null
+                val result = handshake.peerCertificates
+                return if (result.isNotEmpty()) result.toTypedArray<Certificate>() else null
+            }
+
+            override fun getPeerPrincipal(): Principal? {
+                return handshake()?.peerPrincipal
+            }
+
+            override fun getLocalPrincipal(): Principal? {
+                return handshake()?.localPrincipal
+            }
+
+            override fun connect() {
+                connected = true
+                delegate.connect()
+            }
+
+            override fun disconnect() {
+                delegate.disconnect()
+            }
+
+            override fun getErrorStream(): InputStream {
+                return delegate.errorStream
+            }
+
+            override fun getRequestMethod(): String {
+                return delegate.requestMethod
+            }
+
+            override fun getResponseCode(): Int {
+                return delegate.getResponseCode()
+            }
+
+            override fun getResponseMessage(): String {
+                return delegate.getResponseMessage()
+            }
+
+            override fun setRequestMethod(method: String) {
+                delegate.setRequestMethod(method)
+            }
+
+            override fun usingProxy(): Boolean {
+                return delegate.usingProxy()
+            }
+
+            override fun getInstanceFollowRedirects(): Boolean {
+                return delegate.instanceFollowRedirects
+            }
+
+            override fun setInstanceFollowRedirects(followRedirects: Boolean) {
+                delegate.instanceFollowRedirects = followRedirects
+            }
+
+            override fun getAllowUserInteraction(): Boolean {
+                return delegate.allowUserInteraction
+            }
+
+            override fun getContent(): Any {
+                return delegate.getContent()
+            }
+
+            override fun getContent(types: Array<Class<*>?>?): Any {
+                return delegate.getContent(types)
+            }
+
+            override fun getContentEncoding(): String {
+                return delegate.contentEncoding
+            }
+
+            override fun getContentLength(): Int {
+                return delegate.getContentLength()
+            }
+
+            // Should only be invoked on Java 8+ or Android API 24+.
+            override fun getContentLengthLong(): Long {
+                return delegate.contentLengthLong
+            }
+
+            override fun getContentType(): String {
+                return delegate.contentType
+            }
+
+            override fun getDate(): Long {
+                return delegate.date
+            }
+
+            override fun getDefaultUseCaches(): Boolean {
+                return delegate.defaultUseCaches
+            }
+
+            override fun getDoInput(): Boolean {
+                return delegate.doInput
+            }
+
+            override fun getDoOutput(): Boolean {
+                return delegate.doOutput
+            }
+
+            override fun getExpiration(): Long {
+                return delegate.expiration
+            }
+
+            override fun getHeaderField(pos: Int): String {
+                return delegate.getHeaderField(pos)
+            }
+
+            override fun getHeaderFields(): Map<String, List<String>> {
+                return delegate.headerFields
+            }
+
+            override fun getRequestProperties(): Map<String, List<String>> {
+                return delegate.getRequestProperties()
+            }
+
+            override fun addRequestProperty(field: String, newValue: String) {
+                delegate.addRequestProperty(field, newValue)
+            }
+
+            override fun getHeaderField(key: String): String {
+                return delegate.getHeaderField(key)
+            }
+
+            // Should only be invoked on Java 8+ or Android API 24+.
+            override fun getHeaderFieldLong(field: String, defaultValue: Long): Long {
+                return delegate.getHeaderFieldLong(field, defaultValue)
+            }
+
+            override fun getHeaderFieldDate(field: String, defaultValue: Long): Long {
+                return delegate.getHeaderFieldDate(field, defaultValue)
+            }
+
+            override fun getHeaderFieldInt(field: String, defaultValue: Int): Int {
+                return delegate.getHeaderFieldInt(field, defaultValue)
+            }
+
+            override fun getHeaderFieldKey(position: Int): String {
+                return delegate.getHeaderFieldKey(position)
+            }
+
+            override fun getIfModifiedSince(): Long {
+                return delegate.getIfModifiedSince()
+            }
+
+            override fun getInputStream(): InputStream {
+                return delegate.inputStream
+            }
+
+            override fun getLastModified(): Long {
+                return delegate.lastModified
+            }
+
+            override fun getOutputStream(): OutputStream {
+                return delegate.outputStream
+            }
+
+            override fun getPermission(): Permission {
+                return delegate.getPermission()
+            }
+
+            override fun getRequestProperty(field: String): String {
+                return delegate.getRequestProperty(field)
+            }
+
+            override fun getURL(): URL {
+                return delegate.url
+            }
+
+            override fun getUseCaches(): Boolean {
+                return delegate.useCaches
+            }
+
+            override fun setAllowUserInteraction(newValue: Boolean) {
+                delegate.setAllowUserInteraction(newValue)
+            }
+
+            override fun setDefaultUseCaches(newValue: Boolean) {
+                delegate.defaultUseCaches = newValue
+            }
+
+            override fun setDoInput(newValue: Boolean) {
+                delegate.setDoInput(newValue)
+            }
+
+            override fun setDoOutput(newValue: Boolean) {
+                delegate.setDoOutput(newValue)
+            }
+
+            // Should only be invoked on Java 8+ or Android API 24+.
+            override fun setFixedLengthStreamingMode(contentLength: Long) {
+                delegate.setFixedLengthStreamingMode(contentLength)
+            }
+
+            override fun setIfModifiedSince(newValue: Long) {
+                delegate.setIfModifiedSince(newValue)
+            }
+
+            override fun setRequestProperty(field: String, newValue: String) {
+                delegate.setRequestProperty(field, newValue)
+            }
+
+            override fun setUseCaches(newValue: Boolean) {
+                delegate.setUseCaches(newValue)
+            }
+
+            override fun setConnectTimeout(timeoutMillis: Int) {
+                delegate.setConnectTimeout(timeoutMillis)
+            }
+
+            override fun getConnectTimeout(): Int {
+                return delegate.connectTimeout
+            }
+
+            override fun setReadTimeout(timeoutMillis: Int) {
+                delegate.setReadTimeout(timeoutMillis)
+            }
+
+            override fun getReadTimeout(): Int {
+                return delegate.readTimeout
+            }
+
+            override fun toString(): String {
+                return delegate.toString()
+            }
+
+            override fun setFixedLengthStreamingMode(contentLength: Int) {
+                delegate.setFixedLengthStreamingMode(contentLength)
+            }
+
+            override fun setChunkedStreamingMode(chunkLength: Int) {
+                delegate.setChunkedStreamingMode(chunkLength)
+            }
         }
-
-        override fun getLocalCertificates(): Array<Certificate>? {
-            val handshake = handshake() ?: return null
-            val result = handshake.localCertificates
-            return if (result.isNotEmpty()) result.toTypedArray<Certificate>() else null
-        }
-
-        override fun getServerCertificates(): Array<Certificate>? {
-            val handshake = handshake() ?: return null
-            val result = handshake.peerCertificates
-            return if (result.isNotEmpty()) result.toTypedArray<Certificate>() else null
-        }
-
-        override fun getPeerPrincipal(): Principal? {
-            return handshake()?.peerPrincipal
-        }
-
-        override fun getLocalPrincipal(): Principal? {
-            return handshake()?.localPrincipal
-        }
-
-
-        override fun connect() {
-            connected = true
-            delegate.connect()
-        }
-
-        override fun disconnect() {
-            delegate.disconnect()
-        }
-
-        override fun getErrorStream(): InputStream {
-            return delegate.errorStream
-        }
-
-        override fun getRequestMethod(): String {
-            return delegate.requestMethod
-        }
-
-
-        override fun getResponseCode(): Int {
-            return delegate.getResponseCode()
-        }
-
-
-        override fun getResponseMessage(): String {
-            return delegate.getResponseMessage()
-        }
-
-
-        override fun setRequestMethod(method: String) {
-            delegate.setRequestMethod(method)
-        }
-
-        override fun usingProxy(): Boolean {
-            return delegate.usingProxy()
-        }
-
-        override fun getInstanceFollowRedirects(): Boolean {
-            return delegate.instanceFollowRedirects
-        }
-
-        override fun setInstanceFollowRedirects(followRedirects: Boolean) {
-            delegate.instanceFollowRedirects = followRedirects
-        }
-
-        override fun getAllowUserInteraction(): Boolean {
-            return delegate.allowUserInteraction
-        }
-
-
-        override fun getContent(): Any {
-            return delegate.getContent()
-        }
-
-
-        override fun getContent(types: Array<Class<*>?>?): Any {
-            return delegate.getContent(types)
-        }
-
-        override fun getContentEncoding(): String {
-            return delegate.contentEncoding
-        }
-
-        override fun getContentLength(): Int {
-            return delegate.getContentLength()
-        }
-
-        // Should only be invoked on Java 8+ or Android API 24+.
-        override fun getContentLengthLong(): Long {
-            return delegate.contentLengthLong
-        }
-
-        override fun getContentType(): String {
-            return delegate.contentType
-        }
-
-        override fun getDate(): Long {
-            return delegate.date
-        }
-
-        override fun getDefaultUseCaches(): Boolean {
-            return delegate.defaultUseCaches
-        }
-
-        override fun getDoInput(): Boolean {
-            return delegate.doInput
-        }
-
-        override fun getDoOutput(): Boolean {
-            return delegate.doOutput
-        }
-
-        override fun getExpiration(): Long {
-            return delegate.expiration
-        }
-
-        override fun getHeaderField(pos: Int): String {
-            return delegate.getHeaderField(pos)
-        }
-
-        override fun getHeaderFields(): Map<String, List<String>> {
-            return delegate.headerFields
-        }
-
-        override fun getRequestProperties(): Map<String, List<String>> {
-            return delegate.getRequestProperties()
-        }
-
-        override fun addRequestProperty(field: String, newValue: String) {
-            delegate.addRequestProperty(field, newValue)
-        }
-
-        override fun getHeaderField(key: String): String {
-            return delegate.getHeaderField(key)
-        }
-
-        // Should only be invoked on Java 8+ or Android API 24+.
-        override fun getHeaderFieldLong(field: String, defaultValue: Long): Long {
-            return delegate.getHeaderFieldLong(field, defaultValue)
-        }
-
-        override fun getHeaderFieldDate(field: String, defaultValue: Long): Long {
-            return delegate.getHeaderFieldDate(field, defaultValue)
-        }
-
-        override fun getHeaderFieldInt(field: String, defaultValue: Int): Int {
-            return delegate.getHeaderFieldInt(field, defaultValue)
-        }
-
-        override fun getHeaderFieldKey(position: Int): String {
-            return delegate.getHeaderFieldKey(position)
-        }
-
-        override fun getIfModifiedSince(): Long {
-            return delegate.getIfModifiedSince()
-        }
-
-
-        override fun getInputStream(): InputStream {
-            return delegate.inputStream
-        }
-
-        override fun getLastModified(): Long {
-            return delegate.lastModified
-        }
-
-
-        override fun getOutputStream(): OutputStream {
-            return delegate.outputStream
-        }
-
-
-        override fun getPermission(): Permission {
-            return delegate.getPermission()
-        }
-
-        override fun getRequestProperty(field: String): String {
-            return delegate.getRequestProperty(field)
-        }
-
-        override fun getURL(): URL {
-            return delegate.url
-        }
-
-        override fun getUseCaches(): Boolean {
-            return delegate.useCaches
-        }
-
-        override fun setAllowUserInteraction(newValue: Boolean) {
-            delegate.setAllowUserInteraction(newValue)
-        }
-
-        override fun setDefaultUseCaches(newValue: Boolean) {
-            delegate.defaultUseCaches = newValue
-        }
-
-        override fun setDoInput(newValue: Boolean) {
-            delegate.setDoInput(newValue)
-        }
-
-        override fun setDoOutput(newValue: Boolean) {
-            delegate.setDoOutput(newValue)
-        }
-
-        // Should only be invoked on Java 8+ or Android API 24+.
-        override fun setFixedLengthStreamingMode(contentLength: Long) {
-            delegate.setFixedLengthStreamingMode(contentLength)
-        }
-
-        override fun setIfModifiedSince(newValue: Long) {
-            delegate.setIfModifiedSince(newValue)
-        }
-
-        override fun setRequestProperty(field: String, newValue: String) {
-            delegate.setRequestProperty(field, newValue)
-        }
-
-        override fun setUseCaches(newValue: Boolean) {
-            delegate.setUseCaches(newValue)
-        }
-
-        override fun setConnectTimeout(timeoutMillis: Int) {
-            delegate.setConnectTimeout(timeoutMillis)
-        }
-
-        override fun getConnectTimeout(): Int {
-            return delegate.connectTimeout
-        }
-
-        override fun setReadTimeout(timeoutMillis: Int) {
-            delegate.setReadTimeout(timeoutMillis)
-        }
-
-        override fun getReadTimeout(): Int {
-            return delegate.readTimeout
-        }
-
-        override fun toString(): String {
-            return delegate.toString()
-        }
-
-        override fun setFixedLengthStreamingMode(contentLength: Int) {
-            delegate.setFixedLengthStreamingMode(contentLength)
-        }
-
-        override fun setChunkedStreamingMode(chunkLength: Int) {
-            delegate.setChunkedStreamingMode(chunkLength)
-        }
-    }
 
     internal class OkHttpsURLConnection(url: URL?, client: Call.Factory) :
         DelegatingHttpsURLConnection(
-            OkHttpURLConnection(url, client)
+            OkHttpURLConnection(url, client),
         ) {
 
-        override fun handshake(): Handshake? {
-            checkNotNull((delegate as OkHttpURLConnection).call) { "Connection has not yet been established" }
-            return delegate.handshake
-        }
+            override fun handshake(): Handshake? {
+                checkNotNull((delegate as OkHttpURLConnection).call) { "Connection has not yet been established" }
+                return delegate.handshake
+            }
 
-        override fun setHostnameVerifier(hostnameVerifier: HostnameVerifier) {
-            // ignored
-        }
+            override fun setHostnameVerifier(hostnameVerifier: HostnameVerifier) {
+                // ignored
+            }
 
-        override fun getHostnameVerifier(): HostnameVerifier {
-            TODO()
-        }
+            override fun getHostnameVerifier(): HostnameVerifier {
+                TODO()
+            }
 
-        override fun setSSLSocketFactory(sslSocketFactory: SSLSocketFactory) {
-            // ignored
-        }
+            override fun setSSLSocketFactory(sslSocketFactory: SSLSocketFactory) {
+                // ignored
+            }
 
-        override fun getSSLSocketFactory(): SSLSocketFactory {
-            TODO()
+            override fun getSSLSocketFactory(): SSLSocketFactory {
+                TODO()
+            }
         }
-    }
 
     internal companion object {
         val SELECTED_PROTOCOL = "ObsoleteUrlFactory-Selected-Protocol"
@@ -837,7 +818,8 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
         val HTTP_CONTINUE = 100
         val STANDARD_DATE_FORMAT =
             DateTimeFormatter.ofPattern(
-                "EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US
+                "EEE, dd MMM yyyy HH:mm:ss 'GMT'",
+                Locale.US,
             )
                 .withZone(ZoneId.of("GMT"))
 
@@ -856,17 +838,20 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
             val responseCode = response.code
             if ((responseCode < HTTP_CONTINUE || responseCode >= 200) &&
                 responseCode != HttpURLConnection.HTTP_NO_CONTENT &&
-                responseCode != HttpURLConnection.HTTP_NOT_MODIFIED) {
+                responseCode != HttpURLConnection.HTTP_NOT_MODIFIED
+            ) {
                 return true
             }
 
             // If the Content-Length or Transfer-Encoding headers disagree with the response code, the
             // response is malformed. For best compatibility, we honor the headers.
-            return if (contentLength(response.headers) != -1L
-                || "chunked".equals(response.header("Transfer-Encoding"), ignoreCase = true)
+            return if (contentLength(response.headers) != -1L ||
+                "chunked".equals(response.header("Transfer-Encoding"), ignoreCase = true)
             ) {
                 true
-            } else false
+            } else {
+                false
+            }
         }
 
         fun contentLength(headers: Headers): Long {
@@ -882,14 +867,20 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
             if (response.networkResponse == null) {
                 return if (response.cacheResponse == null) "NONE" else "CACHE " + response.code
             }
-            return if (response.cacheResponse == null) "NETWORK " + response.code else "CONDITIONAL_CACHE " + response.networkResponse!!
-                .code
+            return if (response.cacheResponse == null) {
+                "NETWORK " + response.code
+            } else {
+                "CONDITIONAL_CACHE " + response.networkResponse!!
+                    .code
+            }
         }
 
         fun statusLineToString(response: Response): String {
-            return ((if (response.protocol == Protocol.HTTP_1_0) "HTTP/1.0" else "HTTP/1.1")
-                + ' ' + response.code
-                + ' ' + response.message)
+            return (
+                (if (response.protocol == Protocol.HTTP_1_0) "HTTP/1.0" else "HTTP/1.1") +
+                    ' ' + response.code +
+                    ' ' + response.message
+                )
         }
 
         fun toMultimap(headers: Headers, valueForNullKey: String?): Map<String, List<String>> {

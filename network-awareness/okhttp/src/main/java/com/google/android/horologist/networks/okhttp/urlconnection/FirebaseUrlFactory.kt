@@ -788,7 +788,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
         ) {
 
             override fun handshake(): Handshake? {
-                checkNotNull((delegate as OkHttpURLConnection).call) { "Connection has not yet been established" }
+                checkNotNull(delegate.call) { "Connection has not yet been established" }
                 return delegate.handshake
             }
 

@@ -74,7 +74,8 @@ import javax.net.ssl.SSLSocketFactory
  *
  * From https://gist.github.com/swankjesse/dd91c0a8854e1559b00f5fc9c7bfae70
  */
-class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFactory, Cloneable {
+public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFactory,
+    Cloneable {
     /**
      * Returns a copy of this stream handler factory that includes a shallow copy of the internal
      * [HTTP client][OkHttpClient].
@@ -83,7 +84,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
         return FirebaseUrlFactory(client)
     }
 
-    fun open(url: URL): HttpURLConnection {
+    internal fun open(url: URL): HttpURLConnection {
         if (url.protocol == "http") return OkHttpURLConnection(url, client)
         if (url.protocol == "https") return OkHttpsURLConnection(url, client)
         throw IllegalArgumentException("Unexpected protocol: $url.protocol")
@@ -137,7 +138,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
         var networkResponse: Response? = null
         var connectPending = true
         var handshake: Handshake? = null
-        
+
         override fun connect() {
             if (executed) return
             val call = buildCall()
@@ -161,7 +162,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
                 null
             }
         }
-        
+
         val headers: Headers
             get() {
                 if (responseHeaders == null) {
@@ -214,7 +215,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return toMultimap(requestHeaders.build(), null)
         }
 
-        
+
         override fun getInputStream(): InputStream? {
             if (!doInput) {
                 throw ProtocolException("This protocol does not support input")
@@ -224,7 +225,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return response.body?.byteStream()
         }
 
-        
+
         override fun getOutputStream(): OutputStream {
             val requestBody = buildCall().request().body as OutputStreamRequestBody?
                 ?: throw ProtocolException("method does not support a request body: $method")
@@ -296,7 +297,10 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
                 } else if (contentLengthString != null) {
                     contentLength = contentLengthString.toLong()
                 }
-                requestBody = if (stream) StreamedRequestBody(contentLength) else BufferedRequestBody(contentLength)
+                requestBody =
+                    if (stream) StreamedRequestBody(contentLength) else BufferedRequestBody(
+                        contentLength
+                    )
             }
 
             val url = getURL().toHttpUrlOrNull() ?: throw MalformedURLException("URL = ${getURL()}")
@@ -318,7 +322,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             }
         }
 
-        
+
         private fun getResponse(networkResponseOnError: Boolean): Response {
             synchronized(lock) {
                 if (response != null) return response!!
@@ -360,12 +364,12 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return false
         }
 
-        
+
         override fun getResponseMessage(): String {
             return getResponse(true).message
         }
 
-        
+
         override fun getResponseCode(): Int {
             return getResponse(true).code
         }
@@ -378,7 +382,8 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
         override fun setIfModifiedSince(newValue: Long) {
             super.setIfModifiedSince(newValue)
             if (ifModifiedSince != 0L) {
-                requestHeaders["If-Modified-Since"] = STANDARD_DATE_FORMAT.format(Instant.ofEpochMilli(ifModifiedSince))
+                requestHeaders["If-Modified-Since"] =
+                    STANDARD_DATE_FORMAT.format(Instant.ofEpochMilli(ifModifiedSince))
             } else {
                 requestHeaders.removeAll("If-Modified-Since")
             }
@@ -389,7 +394,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             requestHeaders.add(field, value)
         }
 
-        
+
         override fun setRequestMethod(method: String) {
             if (!METHODS.contains(method)) {
                 throw ProtocolException("Expected one of $METHODS but was $method")
@@ -411,7 +416,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
         override fun onFailure(call: Call, e: IOException) {
             synchronized(lock) {
                 callFailure = e
-                (lock as Any).notifyAll()
+                lock.notifyAll()
             }
         }
 
@@ -438,12 +443,12 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             // exactly that many bytes to be written.
             outputStream = object : OutputStream() {
                 private var bytesReceived: Long = 0
-                
+
                 override fun write(b: Int) {
                     write(byteArrayOf(b.toByte()), 0, 1)
                 }
 
-                
+
                 override fun write(source: ByteArray, offset: Int, byteCount: Int) {
                     if (closed) throw IOException("closed") // Not IllegalStateException!
                     if (expectedContentLength != -1L && bytesReceived + byteCount > expectedContentLength) {
@@ -460,13 +465,13 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
                     }
                 }
 
-                
+
                 override fun flush() {
                     if (closed) return  // Weird, but consistent with historical behavior.
                     sink.flush()
                 }
 
-                
+
                 override fun close() {
                     closed = true
                     if (expectedContentLength != -1L && bytesReceived < expectedContentLength) {
@@ -488,7 +493,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return null // Let the caller provide this in a regular header.
         }
 
-        
+
         open fun prepareToSendRequest(request: Request): Request {
             return request
         }
@@ -506,7 +511,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return contentLength
         }
 
-        
+
         override fun prepareToSendRequest(request: Request): Request {
             if (request.header("Content-Length") != null) return request
             outputStream!!.close()
@@ -533,7 +538,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return true
         }
 
-        
+
         override fun writeTo(sink: BufferedSink) {
             val buffer = Buffer()
             while (pipe.source.read(buffer, 8192) != -1L) {
@@ -542,9 +547,10 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
         }
     }
 
-    internal abstract class DelegatingHttpsURLConnection(val delegate: HttpURLConnection) : HttpsURLConnection(
-        delegate.url
-    ) {
+    internal abstract class DelegatingHttpsURLConnection(val delegate: HttpURLConnection) :
+        HttpsURLConnection(
+            delegate.url
+        ) {
         protected abstract fun handshake(): Handshake?
         abstract override fun setHostnameVerifier(hostnameVerifier: HostnameVerifier)
         abstract override fun getHostnameVerifier(): HostnameVerifier
@@ -574,7 +580,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return handshake()?.localPrincipal
         }
 
-        
+
         override fun connect() {
             connected = true
             delegate.connect()
@@ -592,17 +598,17 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return delegate.requestMethod
         }
 
-        
+
         override fun getResponseCode(): Int {
             return delegate.getResponseCode()
         }
 
-        
+
         override fun getResponseMessage(): String {
             return delegate.getResponseMessage()
         }
 
-        
+
         override fun setRequestMethod(method: String) {
             delegate.setRequestMethod(method)
         }
@@ -623,12 +629,12 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return delegate.allowUserInteraction
         }
 
-        
+
         override fun getContent(): Any {
             return delegate.getContent()
         }
 
-        
+
         override fun getContent(types: Array<Class<*>?>?): Any {
             return delegate.getContent(types)
         }
@@ -711,7 +717,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return delegate.getIfModifiedSince()
         }
 
-        
+
         override fun getInputStream(): InputStream {
             return delegate.inputStream
         }
@@ -720,12 +726,12 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return delegate.lastModified
         }
 
-        
+
         override fun getOutputStream(): OutputStream {
             return delegate.outputStream
         }
 
-        
+
         override fun getPermission(): Permission {
             return delegate.getPermission()
         }
@@ -804,9 +810,10 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
         }
     }
 
-    internal class OkHttpsURLConnection(url: URL?, client: Call.Factory) : DelegatingHttpsURLConnection(
-        OkHttpURLConnection(url, client)
-    ) {
+    internal class OkHttpsURLConnection(url: URL?, client: Call.Factory) :
+        DelegatingHttpsURLConnection(
+            OkHttpURLConnection(url, client)
+        ) {
 
         override fun handshake(): Handshake? {
             checkNotNull((delegate as OkHttpURLConnection).call) { "Connection has not yet been established" }
@@ -830,15 +837,18 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
         }
     }
 
-    companion object {
+    internal companion object {
         const val SELECTED_PROTOCOL = "ObsoleteUrlFactory-Selected-Protocol"
         const val RESPONSE_SOURCE = "ObsoleteUrlFactory-Response-Source"
         val METHODS: Set<String> =
             linkedSetOf("OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "PATCH")
         val UTC = TimeZone.getTimeZone("GMT")
         const val HTTP_CONTINUE = 100
-        val STANDARD_DATE_FORMAT = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US).withZone(
-            ZoneId.of("GMT"))
+        val STANDARD_DATE_FORMAT =
+            DateTimeFormatter.ofPattern(
+                "EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US
+            )
+                .withZone(ZoneId.of("GMT"))
 
         fun permitsRequestBody(method: String): Boolean {
             return !(method == "GET" || method == "HEAD")
@@ -853,7 +863,9 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
                 return false
             }
             val responseCode = response.code
-            if ((responseCode < HTTP_CONTINUE || responseCode >= 200) && responseCode != HttpURLConnection.HTTP_NO_CONTENT && responseCode != HttpURLConnection.HTTP_NOT_MODIFIED) {
+            if ((responseCode < HTTP_CONTINUE || responseCode >= 200) &&
+                responseCode != HttpURLConnection.HTTP_NO_CONTENT &&
+                responseCode != HttpURLConnection.HTTP_NOT_MODIFIED) {
                 return true
             }
 
@@ -912,7 +924,6 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
             return Collections.unmodifiableMap(result)
         }
 
-        
         fun propagate(throwable: Throwable?): IOException {
             if (throwable is IOException) throw (throwable as IOException?)!!
             if (throwable is Error) throw (throwable as Error?)!!

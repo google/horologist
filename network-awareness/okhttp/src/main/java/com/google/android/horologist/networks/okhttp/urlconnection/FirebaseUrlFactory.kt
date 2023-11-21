@@ -54,10 +54,10 @@ import java.net.URLStreamHandlerFactory
 import java.security.Permission
 import java.security.Principal
 import java.security.cert.Certificate
-import java.text.DateFormat
-import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Collections
-import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 import java.util.TreeMap
@@ -389,7 +389,7 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
         override fun setIfModifiedSince(newValue: Long) {
             super.setIfModifiedSince(newValue)
             if (ifModifiedSince != 0L) {
-                requestHeaders["If-Modified-Since"] = format(Date(ifModifiedSince))
+                requestHeaders["If-Modified-Since"] = STANDARD_DATE_FORMAT.format(Instant.ofEpochMilli(ifModifiedSince))
             } else {
                 requestHeaders.removeAll("If-Modified-Since")
             }
@@ -845,22 +845,11 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
         const val SELECTED_PROTOCOL = "ObsoleteUrlFactory-Selected-Protocol"
         const val RESPONSE_SOURCE = "ObsoleteUrlFactory-Response-Source"
         val METHODS: Set<String> =
-            LinkedHashSet(mutableListOf("OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "PATCH"))
+            linkedSetOf("OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "PATCH")
         val UTC = TimeZone.getTimeZone("GMT")
         const val HTTP_CONTINUE = 100
-        val STANDARD_DATE_FORMAT = ThreadLocal.withInitial {
-
-            // Date format specified by RFC 7231 section 7.1.1.1.
-            val rfc1123: DateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US)
-            rfc1123.isLenient = false
-            rfc1123.timeZone = UTC
-            rfc1123
-        }
-        val FIELD_NAME_COMPARATOR = java.lang.String.CASE_INSENSITIVE_ORDER
-
-        fun format(value: Date): String {
-            return STANDARD_DATE_FORMAT.get()!!.format(value)
-        }
+        val STANDARD_DATE_FORMAT = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US).withZone(
+            ZoneId.of("GMT"))
 
         fun permitsRequestBody(method: String): Boolean {
             return !(method == "GET" || method == "HEAD")
@@ -912,7 +901,8 @@ class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHandlerFac
         }
 
         fun toMultimap(headers: Headers, valueForNullKey: String?): Map<String, List<String>> {
-            val result: MutableMap<String?, List<String>> = TreeMap(FIELD_NAME_COMPARATOR)
+            val result: MutableMap<String?, List<String>> =
+                TreeMap(java.lang.String.CASE_INSENSITIVE_ORDER)
             var i = 0
             val size = headers.size
             while (i < size) {

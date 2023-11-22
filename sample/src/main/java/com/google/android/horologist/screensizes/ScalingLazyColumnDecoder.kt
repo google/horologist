@@ -82,6 +82,7 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
             with(density) { columnState.contentPadding.calculateLeftPadding(layoutDirection).toPx() }
         val rightPadding =
             with(density) { columnState.contentPadding.calculateRightPadding(layoutDirection).toPx() }
+        val topPadding = with(density) { columnState.contentPadding.calculateTopPadding().toPx() }
         val scalingParams = columnState.scalingParams
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawLine(
@@ -156,6 +157,13 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
                     size.height / 2 + 25,
                     paint,
                 )
+                if (topPadding > 0f) {
+                    drawLine(
+                        Color.Yellow,
+                        Offset(0f, topPadding),
+                        Offset(size.width, topPadding),
+                    )
+                }
             }
         }
     }

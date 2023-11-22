@@ -165,44 +165,58 @@ public object ScalingLazyColumnDefaults {
                 val configuration = LocalConfiguration.current
                 val screenWidthDp = configuration.screenWidthDp.toFloat()
                 val screenHeightDp = configuration.screenHeightDp.toFloat()
-                val padding = screenWidthDp * horizontalPaddingPercent
-                val topPaddingDp: Dp = if (firstItemIsFullWidth && configuration.isScreenRound) {
-                    calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
-                } else {
-                    32.dp
-                }
-
-                val sizeRatio = ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
-                val presetRatio = 0f
-
-                val minElementHeight = lerp(0.2f, 0.157f, sizeRatio)
-                val maxElementHeight = lerp(0.6f, 0.216f, sizeRatio).coerceAtLeast(minElementHeight)
-                val minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio)
-                val maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio)
-
-                val scalingParams = ScalingLazyColumnDefaults.scalingParams(
-                    minElementHeight = minElementHeight,
-                    maxElementHeight = maxElementHeight,
-                    minTransitionArea = minTransitionArea,
-                    maxTransitionArea = maxTransitionArea,
-                )
 
                 return remember {
+                    val padding = screenWidthDp * horizontalPaddingPercent
+                    val topPaddingDp: Dp = if (firstItemIsFullWidth && configuration.isScreenRound) {
+                        calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
+                    } else {
+                        32.dp
+                    }
+                    val bottomPaddingDp: Dp = if (configuration.isScreenRound) {
+                        calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
+                    } else {
+                        0.dp
+                    }
+                    val contentPadding = PaddingValues(
+                        start = padding.dp,
+                        end = padding.dp,
+                        top = topPaddingDp,
+                        bottom = bottomPaddingDp,
+                    )
+
+                    val sizeRatio = ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
+                    val presetRatio = 0f
+
+                    val minElementHeight = lerp(0.2f, 0.157f, sizeRatio)
+                    val maxElementHeight = lerp(0.6f, 0.216f, sizeRatio).coerceAtLeast(minElementHeight)
+                    val minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio)
+                    val maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio)
+
+                    val scalingParams = ScalingLazyColumnDefaults.scalingParams(
+                        minElementHeight = minElementHeight,
+                        maxElementHeight = maxElementHeight,
+                        minTransitionArea = minTransitionArea,
+                        maxTransitionArea = maxTransitionArea,
+                    )
+
                     val screenHeightPx =
                         with(density) { screenHeightDp.dp.roundToPx() }
                     val topPaddingPx = with(density) { topPaddingDp.roundToPx() }
                     val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
 
+                    val initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
+                        index = 0,
+                        offsetPx = topScreenOffsetPx,
+                    )
                     ScalingLazyColumnState(
-                        initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
-                            index = 0,
-                            offsetPx = topScreenOffsetPx,
-                        ),
+                        initialScrollPosition = initialScrollPosition,
+                        autoCentering = null,
                         anchorType = ScalingLazyListAnchorType.ItemStart,
                         rotaryMode = RotaryMode.Scroll,
                         verticalArrangement = verticalArrangement,
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        contentPadding = PaddingValues(horizontal = padding.dp),
+                        contentPadding = contentPadding,
                         scalingParams = scalingParams,
                     )
                 }

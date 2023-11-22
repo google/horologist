@@ -182,7 +182,7 @@ public object ScalingLazyColumnDefaults {
                         start = padding.dp,
                         end = padding.dp,
                         top = topPaddingDp,
-                        bottom = bottomPaddingDp
+                        bottom = bottomPaddingDp,
                     )
 
                     val sizeRatio = ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)

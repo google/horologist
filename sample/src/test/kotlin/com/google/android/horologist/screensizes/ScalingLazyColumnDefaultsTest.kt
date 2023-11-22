@@ -37,106 +37,106 @@ import org.junit.Test
 class ScalingLazyColumnDefaultsTest(device: Device) :
     ScreenSizeTest(device = device, showTimeText = false) {
 
-    @Composable
-    override fun Content() {
-        Standard()
-    }
-
-    @Test
-    fun responsive() {
-        runTest { Responsive() }
-    }
-
-    @Test
-    fun belowTimeText() {
-        runTest { BelowTimeText() }
-    }
-
-    @Test
-    fun standard_end() {
-        runTest {
-            val columnState = ScalingLazyColumnDefaults.scalingLazyColumnDefaults().create()
-
-            SampleMenu(columnState = columnState)
-
-            LaunchedEffect(Unit) {
-                columnState.state.scrollToItem(100, 0)
-            }
+        @Composable
+        override fun Content() {
+            Standard()
         }
-    }
 
-    @Test
-    fun responsive_end() {
-        runTest {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            SampleMenu(columnState = columnState)
-
-            LaunchedEffect(Unit) {
-                columnState.state.scrollToItem(100, 0)
-            }
+        @Test
+        fun responsive() {
+            runTest { Responsive() }
         }
-    }
 
-    @Test
-    fun belowTimeText_end() {
-        runTest {
-            val columnState = ScalingLazyColumnDefaults.belowTimeText().create()
-
-            SampleMenu(columnState = columnState)
-
-            LaunchedEffect(Unit) {
-                columnState.state.scrollToItem(100, 0)
-            }
+        @Test
+        fun belowTimeText() {
+            runTest { BelowTimeText() }
         }
-    }
 
-    @Composable
-    fun SampleMenu(columnState: ScalingLazyColumnState, modifier: Modifier = Modifier) {
-        SectionedList(
-            columnState = columnState,
-            modifier = modifier.fillMaxSize(),
-        ) {
-            section(
-                listOf(
-                    Pair(
-                        R.string.sectionedlist_stateless_sections_menu,
-                        Screen.SectionedListStatelessScreen.route,
-                    ),
-                    Pair(
-                        R.string.sectionedlist_stateful_sections_menu,
-                        Screen.SectionedListStatefulScreen.route,
-                    ),
-                    Pair(
-                        R.string.sectionedlist_expandable_sections_menu,
-                        Screen.SectionedListExpandableScreen.route,
-                    ),
-                ),
-            ) {
-                header {
-                    Title(
-                        stringResource(R.string.sectionedlist_samples_title),
-                        Modifier.padding(vertical = 8.dp),
-                    )
+        @Test
+        fun standard_end() {
+            runTest {
+                val columnState = ScalingLazyColumnDefaults.scalingLazyColumnDefaults().create()
+
+                SampleMenu(columnState = columnState)
+
+                LaunchedEffect(Unit) {
+                    columnState.state.scrollToItem(100, 0)
                 }
+            }
+        }
 
-                loaded { item ->
-                    AppCard(
-                        onClick = { },
-                        appName = {
-                            Text("App Name")
-                        },
-                        time = {
-                            Text("12:05")
-                        },
-                        title = {
-                            Text("Title")
+        @Test
+        fun responsive_end() {
+            runTest {
+                val columnState = ScalingLazyColumnDefaults.responsive().create()
+
+                SampleMenu(columnState = columnState)
+
+                LaunchedEffect(Unit) {
+                    columnState.state.scrollToItem(100, 0)
+                }
+            }
+        }
+
+        @Test
+        fun belowTimeText_end() {
+            runTest {
+                val columnState = ScalingLazyColumnDefaults.belowTimeText().create()
+
+                SampleMenu(columnState = columnState)
+
+                LaunchedEffect(Unit) {
+                    columnState.state.scrollToItem(100, 0)
+                }
+            }
+        }
+
+        @Composable
+        fun SampleMenu(columnState: ScalingLazyColumnState, modifier: Modifier = Modifier) {
+            SectionedList(
+                columnState = columnState,
+                modifier = modifier.fillMaxSize(),
+            ) {
+                section(
+                    listOf(
+                        Pair(
+                            R.string.sectionedlist_stateless_sections_menu,
+                            Screen.SectionedListStatelessScreen.route,
+                        ),
+                        Pair(
+                            R.string.sectionedlist_stateful_sections_menu,
+                            Screen.SectionedListStatefulScreen.route,
+                        ),
+                        Pair(
+                            R.string.sectionedlist_expandable_sections_menu,
+                            Screen.SectionedListExpandableScreen.route,
+                        ),
+                    ),
+                ) {
+                    header {
+                        Title(
+                            stringResource(R.string.sectionedlist_samples_title),
+                            Modifier.padding(vertical = 8.dp),
+                        )
+                    }
+
+                    loaded { item ->
+                        AppCard(
+                            onClick = { },
+                            appName = {
+                                Text("App Name")
+                            },
+                            time = {
+                                Text("12:05")
+                            },
+                            title = {
+                                Text("Title")
+                            },
+                        ) {
+                            Text("Content\nContent\nContent")
                         }
-                    ) {
-                        Text("Content\nContent\nContent")
                     }
                 }
             }
         }
     }
-}

@@ -16,8 +16,11 @@
 
 package com.google.android.horologist.screensizes
 
+import android.content.Context
+import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
+import androidx.test.core.app.ApplicationProvider
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.compose.tools.GenericLargeRound
@@ -65,6 +68,8 @@ abstract class ScreenSizeTest(
         RuntimeEnvironment.setFontScale(device.fontScale)
         RuntimeEnvironment.setQualifiers("+w${device.screenSizeDp}dp-h${device.screenSizeDp}dp")
 
+        ApplicationProvider.getApplicationContext<Context>().setDisplayScale(device.density)
+
         screenshotTestRule.setContent(takeScreenshot = true) {
             MaterialTheme(
                 typography = MaterialTheme.typography.copy {
@@ -88,5 +93,17 @@ abstract class ScreenSizeTest(
             GooglePixelWatch.copy("Small Device, Big Fonts", fontScale = 1.24f, boldText = true),
             MobvoiTicWatchPro5.copy("Large Device, Small Fonts", fontScale = 0.94f),
         )
+
+        @Suppress("DEPRECATION")
+        fun Context.setDisplayScale(density: Float) = apply {
+            // Modified from https://sergiosastre.hashnode.dev/efficient-testing-with-robolectric-roborazzi-across-many-ui-states-devices-and-configurations?ref=twitter-share
+            val config = Configuration(resources.configuration)
+            config.densityDpi = (density * 160f).toInt()
+
+            resources.updateConfiguration(
+                config,
+                resources.displayMetrics,
+            )
+        }
     }
 }

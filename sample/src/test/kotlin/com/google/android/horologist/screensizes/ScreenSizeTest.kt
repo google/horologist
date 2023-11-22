@@ -96,7 +96,7 @@ abstract class ScreenSizeTest(
 
         @Suppress("DEPRECATION")
         fun Context.setDisplayScale(density: Float) = apply {
-            // Modified from https://medium.com/@summitkumar/understanding-the-relationship-between-dpi-screen-resolution-and-image-pixel-density-in-android-b0ba27b7307a
+            // Modified from https://sergiosastre.hashnode.dev/efficient-testing-with-robolectric-roborazzi-across-many-ui-states-devices-and-configurations?ref=twitter-share
             val config = Configuration(resources.configuration)
             config.densityDpi = (density * 160f).toInt()
 

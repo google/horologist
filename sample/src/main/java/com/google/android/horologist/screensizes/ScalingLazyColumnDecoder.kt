@@ -82,7 +82,7 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
             with(density) { columnState.contentPadding.calculateLeftPadding(layoutDirection).toPx() }
         val rightPadding =
             with(density) { columnState.contentPadding.calculateRightPadding(layoutDirection).toPx() }
-        val topPadding = with(density) {columnState.contentPadding.calculateTopPadding().toPx()}
+        val topPadding = with(density) { columnState.contentPadding.calculateTopPadding().toPx() }
         val scalingParams = columnState.scalingParams
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawLine(

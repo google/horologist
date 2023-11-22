@@ -51,6 +51,7 @@ fun AppHelperNodeStatusCard(
     onInstallClick: (String) -> Unit,
     onLaunchClick: (String) -> Unit,
     onCompanionClick: (String) -> Unit,
+    onInstallAppPromptClick: (watchName: String) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -136,6 +137,21 @@ fun AppHelperNodeStatusCard(
                         Text(stringResource(id = R.string.app_helper_companion_button_label))
                     }
                 }
+                /*
+                This button should only be displayed when AppHelperNodeStatus.isAppInstalled returns
+                false. However, given our sample app is not published on Play, we are using Gmail as
+                a "sample" in order to display the full flow.
+
+                Once the "install" button on the dialog is pushed, Play will be launched with the
+                package name of the current app. Given this sample app is not published on Play, an
+                error will be displayed.
+                 */
+                Button(
+                    modifier = Modifier.wrapContentHeight(),
+                    onClick = { onInstallAppPromptClick(nodeStatus.displayName) },
+                ) {
+                    Text(stringResource(id = R.string.app_helper_install_app_prompt_button_label))
+                }
             }
         }
     }
@@ -174,9 +190,10 @@ fun NodeCardPreview() {
     HorologistTheme {
         AppHelperNodeStatusCard(
             nodeStatus = nodeStatus,
-            onCompanionClick = {},
-            onInstallClick = {},
-            onLaunchClick = {},
+            onCompanionClick = { },
+            onInstallClick = { },
+            onLaunchClick = { },
+            onInstallAppPromptClick = { },
         )
     }
 }

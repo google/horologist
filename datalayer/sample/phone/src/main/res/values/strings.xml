@@ -28,6 +28,11 @@
     <string name="app_helper_install_button_label">Install</string>
     <string name="app_helper_companion_button_label">Companion</string>
     <string name="app_helper_launch_button_label">Launch</string>
+    <string name="app_helper_install_app_prompt_button_label">Install App prompt</string>
+    <string name="app_helper_install_app_prompt_sample_app_name" translatable="false">Gmail</string>
+    <string name="app_helper_install_app_prompt_sample_message">Stay productive and manage emails right from your wrist.</string>
+    <string name="app_helper_counter_label">Counter: %1$s</string>
+    <string name="app_helper_counter_increase_btn_content_description">Increase counter</string>
 
     <string name="app_helper_button_list_nodes">List connected nodes</string>
 </resources>

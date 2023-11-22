@@ -17,13 +17,17 @@
 package com.google.android.horologist.datalayer.sample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -46,6 +50,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.WearDataLayerRegistry
@@ -57,6 +62,7 @@ import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
+import com.google.android.horologist.datalayer.phone.ui.PhoneUiDataLayerHelper
 import com.google.android.horologist.datalayer.sample.shared.CounterValueSerializer
 import com.google.android.horologist.datalayer.sample.shared.grpc.GrpcDemoProto.CounterValue
 import com.google.android.horologist.datalayer.sample.shared.grpc.copy
@@ -66,6 +72,7 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
 
     private lateinit var phoneDataLayerAppHelper: PhoneDataLayerAppHelper
+    private lateinit var phoneUiDataLayerHelper: PhoneUiDataLayerHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +88,7 @@ class MainActivity : ComponentActivity() {
             context = this,
             registry = registry,
         )
+        phoneUiDataLayerHelper = PhoneUiDataLayerHelper()
 
         val counterDataStore = registry.protoDataStore<CounterValue>(lifecycleScope)
 
@@ -104,13 +112,28 @@ class MainActivity : ComponentActivity() {
 
                     val counterState by counterDataStore.data.collectAsState(initial = CounterValue.getDefaultInstance())
 
+                    val sampleAppName =
+                        stringResource(id = R.string.app_helper_install_app_prompt_sample_app_name)
+                    val sampleAppMessage =
+                        stringResource(id = R.string.app_helper_install_app_prompt_sample_message)
+
+                    val installAppPromptLauncher = rememberLauncherForActivityResult(
+                        ActivityResultContracts.StartActivityForResult(),
+                    ) { result ->
+                        Log.d(TAG, "Did user push install? ${result.resultCode == RESULT_OK}")
+                    }
+
                     MainScreen(
                         apiAvailable = apiAvailable,
                         nodeList = nodeList,
-                        counterState = counterState,
                         onListNodes = {
                             coroutineScope.launch {
                                 nodeList = phoneDataLayerAppHelper.connectedNodes()
+                            }
+                        },
+                        onInstallClick = { nodeId ->
+                            coroutineScope.launch {
+                                phoneDataLayerAppHelper.installOnNode(nodeId)
                             }
                         },
                         onLaunchClick = { nodeId ->
@@ -123,11 +146,7 @@ class MainActivity : ComponentActivity() {
                                 phoneDataLayerAppHelper.startCompanion(nodeId)
                             }
                         },
-                        onInstallClick = { nodeId ->
-                            coroutineScope.launch {
-                                phoneDataLayerAppHelper.installOnNode(nodeId)
-                            }
-                        },
+                        counterState = counterState,
                         onCounterIncrement = {
                             coroutineScope.launch {
                                 counterDataStore.updateData {
@@ -138,10 +157,25 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         },
+                        onInstallAppPromptClick = { watchName ->
+                            installAppPromptLauncher.launch(
+                                phoneUiDataLayerHelper.getInstallPromptIntent(
+                                    context = this@MainActivity,
+                                    appName = sampleAppName,
+                                    watchName = watchName,
+                                    message = sampleAppMessage,
+                                    image = R.drawable.sample_app_wearos_screenshot,
+                                ),
+                            )
+                        },
                     )
                 }
             }
         }
+    }
+
+    private companion object {
+        private val TAG = MainActivity::class.java.simpleName
     }
 }
 
@@ -153,9 +187,10 @@ fun MainScreen(
     onInstallClick: (String) -> Unit,
     onLaunchClick: (String) -> Unit,
     onCompanionClick: (String) -> Unit,
-    modifier: Modifier = Modifier,
     counterState: CounterValue,
     onCounterIncrement: () -> Unit,
+    onInstallAppPromptClick: (watchName: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -176,6 +211,7 @@ fun MainScreen(
                 onInstallClick = onInstallClick,
                 onLaunchClick = onLaunchClick,
                 onCompanionClick = onCompanionClick,
+                onInstallAppPromptClick = onInstallAppPromptClick,
             )
         }
 
@@ -189,9 +225,15 @@ fun MainScreen(
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "Counter: " + counterState.value)
-            Button(onClick = onCounterIncrement) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Plus 1")
+            Text(text = stringResource(R.string.app_helper_counter_label, counterState.value))
+            Button(
+                onClick = onCounterIncrement,
+                modifier = Modifier.padding(start = 10.dp),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(id = R.string.app_helper_counter_increase_btn_content_description),
+                )
             }
         }
     }
@@ -234,7 +276,8 @@ fun MainPreview() {
             onLaunchClick = { },
             onCompanionClick = { },
             counterState = CounterValue.getDefaultInstance(),
-            onCounterIncrement = {},
+            onCounterIncrement = { },
+            onInstallAppPromptClick = { },
         )
     }
 }

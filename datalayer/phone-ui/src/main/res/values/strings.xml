@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2023 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string description="Text displayed on a dialog that asks the user if they would like to install an app on a watch device. [CHAR_LIMIT=NONE]" name="horologist_install_app_prompt_dialog_title">Install %1$s on %2$s</string>
+    <string description="Label displayed on button to confirm that the user would like to install the app. [CHAR_LIMIT=40]" name="horologist_install_app_prompt_dialog_ok_btn_label">Install</string>
+    <string description="Label displayed on button to dismiss the prompt to install the app. [CHAR_LIMIT=40]" name="horologist_install_app_prompt_dialog_cancel_btn_label">Not now</string>
+</resources>

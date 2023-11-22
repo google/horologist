@@ -35,7 +35,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
-import com.google.android.horologist.data.apphelper.AppHelperNodeType
+import com.google.android.horologist.data.apphelper.AppInstallationStatus
+import com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType
+import com.google.android.horologist.data.apphelper.appInstalled
 import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
@@ -70,14 +72,19 @@ fun AppHelperNodeStatusCard(
                 )
                 Text(
                     style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(R.string.app_helper_node_type_label, nodeStatus.nodeType),
-                )
-                Text(
-                    style = MaterialTheme.typography.labelMedium,
                     text = stringResource(
                         R.string.app_helper_is_app_installed_label,
-                        nodeStatus.isAppInstalled,
+                        nodeStatus.appInstalled,
                     ),
+                )
+                val nodeType = if (nodeStatus.appInstalled) {
+                    (nodeStatus.appInstallationStatus as AppInstallationStatus.Installed).nodeType
+                } else {
+                    stringResource(id = R.string.app_helper_node_type_unknown_label)
+                }
+                Text(
+                    style = MaterialTheme.typography.labelMedium,
+                    text = stringResource(R.string.app_helper_node_type_label, nodeType),
                 )
                 if (nodeStatus.surfacesInfo.complicationsList.isNotEmpty()) {
                     Text(
@@ -140,8 +147,9 @@ fun NodeCardPreview() {
     val nodeStatus = AppHelperNodeStatus(
         displayName = "Pixel Watch",
         id = "a1b2c3",
-        isAppInstalled = true,
-        nodeType = AppHelperNodeType.WATCH,
+        appInstallationStatus = AppInstallationStatus.Installed(
+            nodeType = AppInstallationStatusNodeType.WATCH,
+        ),
         surfacesInfo = surfacesInfo {
             tiles.add(
                 tileInfo {

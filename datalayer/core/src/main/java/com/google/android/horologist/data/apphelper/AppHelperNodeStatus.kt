@@ -25,13 +25,28 @@ import com.google.android.horologist.data.SurfacesInfo
 public data class AppHelperNodeStatus(
     val id: String,
     val displayName: String,
-    val isAppInstalled: Boolean,
-    val nodeType: AppHelperNodeType,
+    val appInstallationStatus: AppInstallationStatus,
     val surfacesInfo: SurfacesInfo = SurfacesInfo.getDefaultInstance(),
 )
 
-public enum class AppHelperNodeType {
-    UNKNOWN,
+public sealed class AppInstallationStatus {
+    data object NotInstalled : AppInstallationStatus()
+
+    data class Installed(
+        val nodeType: AppInstallationStatusNodeType,
+    ) : AppInstallationStatus()
+}
+
+public enum class AppInstallationStatusNodeType {
     WATCH,
     PHONE,
+
+    /**
+     * This case should not happen, but it's here in order to keep the node listed even in a
+     * scenario where there were issues retrieving the capability of the node.
+     */
+    UNKNOWN,
 }
+
+public val AppHelperNodeStatus.appInstalled: Boolean
+    get() = this.appInstallationStatus is AppInstallationStatus.Installed

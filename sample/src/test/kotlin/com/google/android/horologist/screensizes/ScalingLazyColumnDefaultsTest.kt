@@ -120,7 +120,7 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
                         )
                     }
 
-                    loaded { item ->
+                    loaded { _ ->
                         AppCard(
                             onClick = { },
                             appName = {

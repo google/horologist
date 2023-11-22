@@ -20,6 +20,7 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
+import androidx.test.core.app.ApplicationProvider
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.compose.tools.GenericLargeRound
@@ -66,6 +67,8 @@ abstract class ScreenSizeTest(
 
         RuntimeEnvironment.setFontScale(device.fontScale)
         RuntimeEnvironment.setQualifiers("+w${device.screenSizeDp}dp-h${device.screenSizeDp}dp")
+
+        ApplicationProvider.getApplicationContext<Context>().setDisplayScale(device.density)
 
         screenshotTestRule.setContent(takeScreenshot = true) {
             MaterialTheme(

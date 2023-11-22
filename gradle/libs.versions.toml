@@ -58,6 +58,8 @@ spotless = "6.23.3"
 truth = "1.2.0"
 wearcompose = "1.3.0-beta02"
 wearToolingPreview = "1.0.0"
+appcompat = "1.6.1"
+material = "1.10.0"
 
 [libraries]
 accompanist-testharness = { module = "com.google.accompanist:accompanist-testharness", version.ref = "accompanist" }
@@ -65,6 +67,7 @@ android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref 
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidxActivity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-annotation = "androidx.annotation:annotation:1.7.1"
 androidx-benchmark-junit4 = { module = "androidx.benchmark:benchmark-junit4", version.ref = "androidx-benchmark" }
 androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "androidx-benchmark" }
@@ -198,11 +201,11 @@ wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", 
 wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
 wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
 wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wearcompose" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = "gradlePublishPlugin" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = "com.google.protobuf:0.9.4"

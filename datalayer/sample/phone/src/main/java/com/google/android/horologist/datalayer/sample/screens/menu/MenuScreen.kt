@@ -39,8 +39,18 @@ fun MenuScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = stringResource(id = R.string.menu_screen_apphelper_header))
+
         Button(onClick = { navController.navigate(Screen.AppHelperNodesScreen.route) }) {
             Text(text = stringResource(id = R.string.menu_screen_nodes_item))
+        }
+
+        Text(
+            text = stringResource(id = R.string.menu_screen_inapp_prompts_header),
+            modifier = Modifier.padding(top = 10.dp),
+        )
+
+        Button(onClick = { navController.navigate(Screen.InAppPromptsScreen.route) }) {
+            Text(text = stringResource(id = R.string.menu_screen_install_app_item))
         }
 
         Text(

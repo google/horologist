@@ -19,7 +19,8 @@ package com.google.android.horologist.datalayer.sample.screens
 sealed class Screen(
     val route: String,
 ) {
-    data object MenuScreen : Screen("menu")
-    data object CounterScreen : Screen("counter")
+    data object MenuScreen : Screen("menuScreen")
     data object AppHelperNodesScreen : Screen("appHelperNodesScreen")
+    data object InAppPromptsScreen : Screen("inAppPromptsScreen")
+    data object CounterScreen : Screen("counterScreen")
 }

@@ -98,6 +98,7 @@ dependencies {
     implementation(projects.datalayer.core)
     implementation(projects.datalayer.grpc)
     implementation(projects.datalayer.phone)
+    implementation(projects.datalayer.phoneUi)
     implementation(projects.datalayer.sample.shared)
 
     implementation(libs.androidx.corektx)

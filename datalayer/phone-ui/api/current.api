@@ -1,0 +1,33 @@
+// Signature format: 4.0
+package com.google.android.horologist.datalayer.phone.ui {
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PhoneUiDataLayerHelper {
+    ctor public PhoneUiDataLayerHelper();
+    method public android.content.Intent getInstallPromptIntent(android.content.Context context, String appName, String appPackageName, String watchName, String message, @DrawableRes int image);
+    method public void showInstallAppPrompt(android.app.Activity activity, String appName, String appPackageName, String watchName, String message, @DrawableRes int image, optional int requestCode);
+  }
+
+  public final class PhoneUiDataLayerHelperKt {
+  }
+
+}
+
+package com.google.android.horologist.datalayer.phone.ui.play {
+
+  public final class PlayLauncherKt {
+    method public static void launchPlay(android.content.Context, String packageName);
+  }
+
+}
+
+package com.google.android.horologist.datalayer.phone.ui.prompt.installapp {
+
+  public final class InstallAppBottomSheetActivityKt {
+  }
+
+  public final class InstallAppBottomSheetKt {
+    method @androidx.compose.runtime.Composable public static void InstallAppBottomSheet(String message, String appName, String watchName, kotlin.jvm.functions.Function0<kotlin.Unit>? icon, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, kotlin.jvm.functions.Function0<kotlin.Unit> onConfirmation, optional androidx.compose.material3.SheetState sheetState);
+  }
+
+}
+

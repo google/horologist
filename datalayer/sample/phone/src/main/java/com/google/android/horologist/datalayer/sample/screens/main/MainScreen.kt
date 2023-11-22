@@ -30,11 +30,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.android.horologist.datalayer.sample.screens.Screen
 import com.google.android.horologist.datalayer.sample.screens.counter.CounterScreen
+import com.google.android.horologist.datalayer.sample.screens.inappprompts.InAppPromptsScreen
 import com.google.android.horologist.datalayer.sample.screens.menu.MenuScreen
 import com.google.android.horologist.datalayer.sample.screens.nodes.NodesScreen
 
 @Composable
 fun MainScreen(
+    onShowInstallAppPrompt: () -> Unit,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
@@ -42,7 +44,7 @@ fun MainScreen(
         modifier = modifier,
     ) { padding ->
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
             verticalArrangement = Arrangement.Center,
@@ -56,12 +58,14 @@ fun MainScreen(
                 composable(route = Screen.MenuScreen.route) {
                     MenuScreen(navController = navController)
                 }
-
-                composable(route = Screen.CounterScreen.route) {
-                    CounterScreen()
-                }
                 composable(route = Screen.AppHelperNodesScreen.route) {
                     NodesScreen()
+                }
+                composable(route = Screen.InAppPromptsScreen.route) {
+                    InAppPromptsScreen(onShowInstallAppPrompt = onShowInstallAppPrompt)
+                }
+                composable(route = Screen.CounterScreen.route) {
+                    CounterScreen()
                 }
             }
         }

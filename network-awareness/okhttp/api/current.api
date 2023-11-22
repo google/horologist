@@ -90,3 +90,12 @@ package com.google.android.horologist.networks.okhttp.impl {
 
 }
 
+package com.google.android.horologist.networks.okhttp.urlconnection {
+
+  public final class FirebaseUrlFactory implements java.net.URLStreamHandlerFactory {
+    ctor public FirebaseUrlFactory(okhttp3.Call.Factory client);
+    method public java.net.URLStreamHandler? createURLStreamHandler(String protocol);
+  }
+
+}
+

@@ -102,6 +102,7 @@ dependencies {
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
+    testImplementation(libs.com.squareup.okhttp3.mockwebserver)
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {

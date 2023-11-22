@@ -102,7 +102,7 @@ abstract class ScreenSizeTest(
 
             resources.updateConfiguration(
                 config,
-                resources.displayMetrics
+                resources.displayMetrics,
             )
         }
     }

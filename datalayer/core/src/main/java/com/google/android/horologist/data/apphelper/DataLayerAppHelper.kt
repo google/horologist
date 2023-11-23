@@ -98,7 +98,7 @@ abstract class DataLayerAppHelper(
 
     private suspend fun getSurfaceStatus(nodeId: String) = registry.protoFlow(
         targetNodeId = TargetNodeId.SpecificNodeId(nodeId),
-        serializer = SurfaceInfoSerializer,
+        serializer = SurfacesInfoSerializer,
         path = SURFACE_INFO_PATH,
     ).first()
 

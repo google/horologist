@@ -149,6 +149,7 @@ com.google.android.horologist.networks.db
 module:network-awareness-okhttp
 com.google.android.horologist.networks.okhttp
 com.google.android.horologist.networks.okhttp.impl
+com.google.android.horologist.networks.okhttp.urlconnection
 module:network-awareness-ui
 com.google.android.horologist.networks.ui
 module:shared

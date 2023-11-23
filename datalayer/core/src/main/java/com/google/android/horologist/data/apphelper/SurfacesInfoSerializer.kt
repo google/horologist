@@ -23,7 +23,7 @@ import com.google.protobuf.InvalidProtocolBufferException
 import java.io.InputStream
 import java.io.OutputStream
 
-public object SurfaceInfoSerializer : Serializer<SurfacesInfo> {
+public object SurfacesInfoSerializer : Serializer<SurfacesInfo> {
     override val defaultValue: SurfacesInfo = SurfacesInfo.getDefaultInstance()
 
     override suspend fun readFrom(input: InputStream): SurfacesInfo =

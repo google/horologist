@@ -30,7 +30,7 @@ import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.activityLaunched
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
-import com.google.android.horologist.data.apphelper.SurfaceInfoSerializer
+import com.google.android.horologist.data.apphelper.SurfacesInfoSerializer
 import com.google.android.horologist.data.companionConfig
 import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.copy
@@ -56,11 +56,11 @@ public class WearDataLayerAppHelper(
 ) :
     DataLayerAppHelper(context, registry) {
 
-        private val surfaceInfoDataStore by lazy {
+        private val surfacesInfoDataStore by lazy {
             registry.protoDataStore(
                 path = DataLayerAppHelper.SURFACE_INFO_PATH,
                 coroutineScope = scope,
-                serializer = SurfaceInfoSerializer,
+                serializer = SurfacesInfoSerializer,
             )
         }
 
@@ -100,7 +100,7 @@ public class WearDataLayerAppHelper(
          * @param tileName The name of the tile.
          */
         public suspend fun markTileAsInstalled(tileName: String) {
-            surfaceInfoDataStore.updateData { info ->
+            surfacesInfoDataStore.updateData { info ->
                 val tile = tileInfo {
                     timestamp = System.currentTimeMillis().toProtoTimestamp()
                     name = tileName
@@ -118,7 +118,7 @@ public class WearDataLayerAppHelper(
          * Marks that the main activity has been launched at least once.
          */
         public suspend fun markActivityLaunchedOnce() {
-            surfaceInfoDataStore.updateData { info ->
+            surfacesInfoDataStore.updateData { info ->
                 info.copy {
                     val launchTimestamp = System.currentTimeMillis().toProtoTimestamp()
                     if (usageInfo.usageStatus == UsageStatus.USAGE_STATUS_UNSPECIFIED) {
@@ -145,7 +145,7 @@ public class WearDataLayerAppHelper(
          * use. Typically this should be called when any pairing/login has been completed.
          */
         public suspend fun markSetupComplete() {
-            surfaceInfoDataStore.updateData { info ->
+            surfacesInfoDataStore.updateData { info ->
                 info.copy {
                     if (usageInfo.usageStatus != UsageStatus.USAGE_STATUS_SETUP_COMPLETE) {
                         usageInfo = usageInfo {
@@ -163,7 +163,7 @@ public class WearDataLayerAppHelper(
          * had previously been completed, but will have no effect if this is not the case.
          */
         public suspend fun markSetupNoLongerComplete() {
-            surfaceInfoDataStore.updateData { info ->
+            surfacesInfoDataStore.updateData { info ->
                 info.copy {
                     if (usageInfo.usageStatus == UsageStatus.USAGE_STATUS_SETUP_COMPLETE) {
                         usageInfo = usageInfo {
@@ -182,7 +182,7 @@ public class WearDataLayerAppHelper(
          * @param tileName The name of the tile.
          */
         public suspend fun markTileAsRemoved(tileName: String) {
-            surfaceInfoDataStore.updateData { info ->
+            surfacesInfoDataStore.updateData { info ->
                 val tile = tileInfo {
                     timestamp = System.currentTimeMillis().toProtoTimestamp()
                     name = tileName
@@ -210,7 +210,7 @@ public class WearDataLayerAppHelper(
             complicationInstanceId: Int,
             complicationType: ComplicationType,
         ) {
-            surfaceInfoDataStore.updateData { info ->
+            surfacesInfoDataStore.updateData { info ->
                 val complication = complicationInfo {
                     timestamp = System.currentTimeMillis().toProtoTimestamp()
                     name = complicationName
@@ -239,7 +239,7 @@ public class WearDataLayerAppHelper(
             complicationInstanceId: Int,
             complicationType: ComplicationType,
         ) {
-            surfaceInfoDataStore.updateData { info ->
+            surfacesInfoDataStore.updateData { info ->
                 val complication = complicationInfo {
                     timestamp = System.currentTimeMillis().toProtoTimestamp()
 

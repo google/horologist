@@ -183,12 +183,12 @@ package com.google.android.horologist.data.apphelper {
   public static final class DataLayerAppHelperService.Companion {
   }
 
-  public final class SurfaceInfoSerializer implements androidx.datastore.core.Serializer<error.NonExistentClass> {
+  public final class SurfacesInfoSerializer implements androidx.datastore.core.Serializer<error.NonExistentClass> {
     method public error.NonExistentClass! getDefaultValue();
     method public suspend Object? readFrom(java.io.InputStream input, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
     method public suspend Object? writeTo(error.NonExistentClass t, java.io.OutputStream output, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     property public error.NonExistentClass! defaultValue;
-    field public static final com.google.android.horologist.data.apphelper.SurfaceInfoSerializer INSTANCE;
+    field public static final com.google.android.horologist.data.apphelper.SurfacesInfoSerializer INSTANCE;
   }
 
 }

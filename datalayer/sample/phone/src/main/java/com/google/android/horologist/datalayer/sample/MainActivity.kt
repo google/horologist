@@ -49,7 +49,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.WearDataLayerRegistry
-import com.google.android.horologist.data.WearableApiAvailability
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.data.apphelper.AppInstallationStatus
 import com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType
@@ -96,7 +95,7 @@ class MainActivity : ComponentActivity() {
                     var apiAvailable by remember { mutableStateOf(false) }
                     LaunchedEffect(Unit) {
                         coroutineScope.launch {
-                            apiAvailable = WearableApiAvailability.isAvailable(registry.dataClient)
+                            apiAvailable = phoneDataLayerAppHelper.isAvailable()
                             nodeList =
                                 if (apiAvailable) phoneDataLayerAppHelper.connectedNodes() else listOf()
                         }

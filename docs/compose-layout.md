@@ -1,5 +1,52 @@
 # Compose Layout library
 
+## ScalingLazyColumn responsive() layout.
+
+The `responsive()` layout factory will ensure that your ScalingLazyColumn is positioned correctly
+on all screen sizes.
+
+Pass in a boolean for the `firstItemIsFullWidth` param to indicate whether the first item can
+fit just below TimeText, or must be shifted down further to avoid cutting off the edges.
+
+The overloaded `ScalingLazyColumn` composable with `ScalingLazyColumnState` param, when combined
+with `responsive()` will handle all the following:
+
+- Position the first item near the top on all screen sizes.
+- Ensure the last item can be scrolled into view.
+- Handle RSB/Bezel scrolling with Fling.
+- Size side margins based on a percentage, adapting to different screen sizes.
+
+```kotlin
+val columnState =
+    rememberColumnState(ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = false))
+
+Scaffold(
+    modifier = Modifier
+        .fillMaxSize(),
+    timeText = {
+        TimeText(modifier = Modifier.scrollAway(columnState))
+    }
+) {
+    ScalingLazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        columnState = columnState,
+    ) {
+        item {
+            ListHeader {
+                Text(
+                    text = "Main",
+                    modifier = Modifier.fillMaxWidth(0.6f),
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
+        items(10) {
+            Chip("Item $it", onClick = {})
+        }
+    }
+}
+```
+
 ## Navigation Scaffold.
 
 Syncs the TimeText, PositionIndicator and Scaffold to the current navigation destination

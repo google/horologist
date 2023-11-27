@@ -369,9 +369,7 @@ public class ScreenshotTestRule(
             }
 
             public fun defaultRecordMode(): RecordMode = RecordMode.fromProperty(
-                System.getProperty(
-                    "screenshot.record"
-                )
+                System.getProperty("screenshot.record"),
             )
         }
     }

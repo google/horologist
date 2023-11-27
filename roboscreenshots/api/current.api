@@ -48,6 +48,7 @@ package com.google.android.horologist.screenshots {
   }
 
   public static final class ScreenshotTestRule.RecordMode.Companion {
+    method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode defaultRecordMode();
     method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode fromProperty(String? property);
   }
 

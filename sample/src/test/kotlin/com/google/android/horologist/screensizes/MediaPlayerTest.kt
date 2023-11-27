@@ -45,14 +45,12 @@ import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.screenshots.ScreenshotTestRule
 import kotlinx.coroutines.flow.flowOf
 import kotlin.time.Duration.Companion.seconds
 
 class MediaPlayerTest(device: Device) : ScreenSizeTest(
     device = device,
-    showTimeText = true,
-    recordMode = ScreenshotTestRule.RecordMode.Record,
+    showTimeText = true
 ) {
 
     @Composable

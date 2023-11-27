@@ -50,7 +50,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class MediaPlayerTest(device: Device) : ScreenSizeTest(
     device = device,
-    showTimeText = true
+    showTimeText = true,
 ) {
 
     @Composable

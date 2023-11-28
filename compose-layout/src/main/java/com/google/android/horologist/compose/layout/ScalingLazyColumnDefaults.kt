@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
-import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import kotlin.math.sqrt
@@ -51,11 +50,11 @@ public object ScalingLazyColumnDefaults {
         verticalArrangement: Arrangement.Vertical =
             Arrangement.spacedBy(
                 space = 4.dp,
-                alignment = Alignment.Top,
+                alignment = Alignment.Top
             ),
         horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
         contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-        topPaddingDp: Dp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp),
+        topPaddingDp: Dp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp)
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
@@ -72,13 +71,13 @@ public object ScalingLazyColumnDefaults {
                     ScalingLazyColumnState(
                         initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
                             index = 0,
-                            offsetPx = topScreenOffsetPx,
+                            offsetPx = topScreenOffsetPx
                         ),
                         anchorType = ScalingLazyListAnchorType.ItemStart,
                         rotaryMode = rotaryMode,
                         verticalArrangement = verticalArrangement,
                         horizontalAlignment = horizontalAlignment,
-                        contentPadding = contentPadding,
+                        contentPadding = contentPadding
                     )
                 }
             }
@@ -97,17 +96,17 @@ public object ScalingLazyColumnDefaults {
         verticalArrangement: Arrangement.Vertical =
             Arrangement.spacedBy(
                 space = 4.dp,
-                alignment = Alignment.Top,
+                alignment = Alignment.Top
             ),
         horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
         contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
         autoCentering: AutoCenteringParams? = AutoCenteringParams(
             initialCenterIndex,
-            initialCenterOffset,
+            initialCenterOffset
         ),
         anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
         hapticsEnabled: Boolean = true,
-        reverseLayout: Boolean = false,
+        reverseLayout: Boolean = false
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
@@ -116,7 +115,7 @@ public object ScalingLazyColumnDefaults {
                     ScalingLazyColumnState(
                         initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
                             index = initialCenterIndex,
-                            offsetPx = initialCenterOffset,
+                            offsetPx = initialCenterOffset
                         ),
                         rotaryMode = rotaryMode,
                         verticalArrangement = verticalArrangement,
@@ -125,7 +124,7 @@ public object ScalingLazyColumnDefaults {
                         autoCentering = autoCentering,
                         anchorType = anchorType,
                         hapticsEnabled = hapticsEnabled,
-                        reverseLayout = reverseLayout,
+                        reverseLayout = reverseLayout
                     )
                 }
             }
@@ -138,13 +137,13 @@ public object ScalingLazyColumnDefaults {
         verticalArrangement: Arrangement.Vertical =
             Arrangement.spacedBy(
                 space = 4.dp,
-                alignment = Alignment.Top,
+                alignment = Alignment.Top
             ),
-        horizontalPaddingPercent: Float = 0.052f,
+        horizontalPaddingPercent: Float = 0.052f
     ): ScalingLazyColumnState.Factory {
         fun calculateVerticalOffsetForChip(
             viewportDiameter: Float,
-            horizontalPaddingPercent: Float,
+            horizontalPaddingPercent: Float
         ): Dp {
             val childViewHeight: Float = 52.dp.value
             val childViewWidth: Float = viewportDiameter * (1.0f - (2f * horizontalPaddingPercent))
@@ -152,7 +151,7 @@ public object ScalingLazyColumnDefaults {
             return (
                 radius -
                     sqrt(
-                        (radius - childViewHeight + childViewWidth * 0.5f) * (radius - childViewWidth * 0.5f),
+                        (radius - childViewHeight + childViewWidth * 0.5f) * (radius - childViewWidth * 0.5f)
                     ) -
                     childViewHeight * 0.5f
                 ).dp
@@ -182,7 +181,7 @@ public object ScalingLazyColumnDefaults {
                         start = padding.dp,
                         end = padding.dp,
                         top = topPaddingDp,
-                        bottom = bottomPaddingDp,
+                        bottom = bottomPaddingDp
                     )
 
                     val sizeRatio = ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
@@ -197,7 +196,7 @@ public object ScalingLazyColumnDefaults {
                         minElementHeight = minElementHeight,
                         maxElementHeight = maxElementHeight,
                         minTransitionArea = minTransitionArea,
-                        maxTransitionArea = maxTransitionArea,
+                        maxTransitionArea = maxTransitionArea
                     )
 
                     val screenHeightPx =
@@ -207,7 +206,7 @@ public object ScalingLazyColumnDefaults {
 
                     val initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
                         index = 0,
-                        offsetPx = topScreenOffsetPx,
+                        offsetPx = topScreenOffsetPx
                     )
                     ScalingLazyColumnState(
                         initialScrollPosition = initialScrollPosition,
@@ -217,7 +216,7 @@ public object ScalingLazyColumnDefaults {
                         verticalArrangement = verticalArrangement,
                         horizontalAlignment = Alignment.CenterHorizontally,
                         contentPadding = contentPadding,
-                        scalingParams = scalingParams,
+                        scalingParams = scalingParams
                     )
                 }
             }

@@ -190,7 +190,7 @@ class SectionedListTest : ScreenshotBaseTest(
         @Composable
         fun SectionedListPreview(
             columnState: ScalingLazyColumnState,
-            content: @Composable () -> Unit,
+            content: @Composable () -> Unit
         ) {
             Scaffold(
                 modifier = Modifier
@@ -202,9 +202,9 @@ class SectionedListTest : ScreenshotBaseTest(
                 timeText = {
                     TimeText(
                         modifier = Modifier.scrollAway(columnState),
-                        timeSource = FixedTimeSource,
+                        timeSource = FixedTimeSource
                     )
-                },
+                }
             ) {
                 content()
             }
@@ -235,7 +235,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 modifier = Modifier.padding(bottom = 12.dp),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 3,
-                style = MaterialTheme.typography.title3,
+                style = MaterialTheme.typography.title3
             )
         }
 
@@ -278,7 +278,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 text = "Failed to load downloads. Please try again later.",
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2,
+                style = MaterialTheme.typography.body2
             )
         }
 
@@ -288,7 +288,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 text = "Download music to start listening.",
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2,
+                style = MaterialTheme.typography.body2
             )
         }
 
@@ -335,7 +335,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 3,
-                style = MaterialTheme.typography.title3,
+                style = MaterialTheme.typography.title3
             )
         }
 
@@ -378,7 +378,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 text = "Failed to load favourites. Please try again later.",
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2,
+                style = MaterialTheme.typography.body2
             )
         }
 
@@ -388,7 +388,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 text = "Mark songs or albums as favourites to see them here.",
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2,
+                style = MaterialTheme.typography.body2
             )
         }
 

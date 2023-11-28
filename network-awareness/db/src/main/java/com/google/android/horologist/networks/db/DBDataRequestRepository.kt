@@ -44,16 +44,17 @@ public class DBDataRequestRepository(
 
     override fun storeRequest(dataRequest: DataRequest) {
         val bytes = dataRequest.dataBytes
+        val networkType = dataRequest.networkInfo.type.name
         coroutineScope.launch {
-            var rows = networkUsageDao.updateBytes(day, bytes)
+            var rows = networkUsageDao.updateBytes(day, bytes, networkType)
 
             if (rows == 0) {
                 rows =
-                    networkUsageDao.insert(DataUsage(dataRequest.networkInfo.type.name, bytes, day))
+                    networkUsageDao.insert(DataUsage(networkType, bytes, day))
                         .toInt()
 
                 if (rows == -1) {
-                    networkUsageDao.updateBytes(day, bytes)
+                    networkUsageDao.updateBytes(day, bytes, networkType)
                 }
             }
         }
@@ -68,10 +69,10 @@ public class DBDataRequestRepository(
 
             for (it in list) {
                 when (it.networkType) {
-                    "ble" -> ble += it.bytesTotal
-                    "cell" -> cell += it.bytesTotal
-                    "wifi" -> wifi += it.bytesTotal
-                    "unknown" -> unknown += it.bytesTotal
+                    NetworkType.BT.name -> ble += it.bytesTotal
+                    NetworkType.Cell.name -> cell += it.bytesTotal
+                    NetworkType.Wifi.name -> wifi += it.bytesTotal
+                    NetworkType.Unknown.name -> unknown += it.bytesTotal
                 }
             }
 

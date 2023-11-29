@@ -53,6 +53,7 @@ import org.junit.Test
 class SectionedListTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
+        record = true
     }
 ) {
 

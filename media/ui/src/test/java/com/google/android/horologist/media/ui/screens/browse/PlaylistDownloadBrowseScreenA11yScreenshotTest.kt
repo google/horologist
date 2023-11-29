@@ -29,7 +29,7 @@ import org.junit.Test
 class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         enableA11y = true
-        this.screenTimeText = {}
+        screenTimeText = {}
     }
 ) {
 

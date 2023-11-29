@@ -47,7 +47,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults as WearSc
 
 /**
  * A Config and State object wrapping up all configuration for a [ScalingLazyColumn].
- * This allows defaults such as [ScalingLazyColumnDefaults.belowTimeText].
+ * This allows defaults such as [ScalingLazyColumnDefaults.responsive].
  */
 @ExperimentalHorologistApi
 public class ScalingLazyColumnState(
@@ -58,7 +58,7 @@ public class ScalingLazyColumnState(
     ),
     public val anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
     public val contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-    public val rotaryMode: RotaryMode = RotaryMode.Fling,
+    public val rotaryMode: RotaryMode = RotaryMode.Scroll,
     public val reverseLayout: Boolean = false,
     public val verticalArrangement: Arrangement.Vertical =
         Arrangement.spacedBy(
@@ -87,9 +87,14 @@ public class ScalingLazyColumnState(
         }
 
     public sealed interface RotaryMode {
-        public object Fling : RotaryMode
         public object Snap : RotaryMode
         public object Scroll : RotaryMode
+
+        @Deprecated(
+            "Use RotaryMode.Scroll instead",
+            replaceWith = ReplaceWith("RotaryMode.Scroll")
+        )
+        public object Fling : RotaryMode
     }
 
     public data class ScrollPosition(
@@ -104,7 +109,9 @@ public class ScalingLazyColumnState(
 }
 
 @Composable
-public fun rememberColumnState(factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText()): ScalingLazyColumnState {
+public fun rememberColumnState(
+    factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.responsive()
+): ScalingLazyColumnState {
     val columnState = factory.create()
 
     columnState.state = rememberSaveable(saver = ScalingLazyListState.Saver) {

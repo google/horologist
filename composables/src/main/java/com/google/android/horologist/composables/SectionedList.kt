@@ -34,7 +34,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 @Composable
 public fun SectionedList(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState = ScalingLazyColumnDefaults.belowTimeText().create(),
+    columnState: ScalingLazyColumnState = ScalingLazyColumnDefaults.responsive().create(),
     content: SectionedListScope.() -> Unit
 ) {
     SectionedList(
@@ -52,7 +52,7 @@ public fun SectionedList(
 @Composable
 public fun SectionedList(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState = ScalingLazyColumnDefaults.belowTimeText().create(),
+    columnState: ScalingLazyColumnState = ScalingLazyColumnDefaults.responsive().create(),
     sections: List<Section<*>> = emptyList()
 ) {
     ScalingLazyColumn(

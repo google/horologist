@@ -36,7 +36,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
@@ -60,9 +59,10 @@ public fun MediaButton(
     tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
     iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
 ) {
-    Button(
+    UnboundedRippleButton(
         onClick = onClick,
         modifier = modifier.size(tapTargetSize),
+        rippleRadius = 35.dp,
         enabled = enabled,
         colors = colors,
     ) {
@@ -74,9 +74,11 @@ public fun MediaButton(
                         Alignment.Start -> {
                             offset(x = -7.5.dp)
                         }
+
                         Alignment.End -> {
                             offset(x = 7.5.dp)
                         }
+
                         else -> {
                             this
                         }

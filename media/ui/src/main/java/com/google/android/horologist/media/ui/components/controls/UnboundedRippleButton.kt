@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.composables
+package com.google.android.horologist.media.ui.components.controls
 
-import androidx.compose.foundation.Indication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.Dp
 import androidx.wear.compose.material.ButtonBorder
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
@@ -42,54 +43,54 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
- * A base button that can send single onClick event or repeated [onLongRepeatableClick] events by
- * holding it down.
+ * A button that when clicked shows an unbounded ripple effect that can be larger than the button
+ * itself.
  *
  * Code modified from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material/src/main/java/androidx/wear/compose/material/Button.kt
  *
  */
 @ExperimentalHorologistApi
 @Composable
-public fun RepeatableClickableButton(
+public fun UnboundedRippleButton(
     onClick: () -> Unit,
-    onLongRepeatableClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onLongRepeatableClickEnd: () -> Unit = {},
+    rippleRadius: Dp = Dp.Unspecified,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = CircleShape,
     border: ButtonBorder = ButtonDefaults.buttonBorder(),
-    indication: Indication = rememberRipple(),
     content: @Composable BoxScope.() -> Unit,
 ) {
     val borderStroke = border.borderStroke(enabled = enabled).value
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier =
-            modifier
-                .defaultMinSize(
-                    minWidth = ButtonDefaults.DefaultButtonSize,
-                    minHeight = ButtonDefaults.DefaultButtonSize,
-                )
-                .then(
-                    if (borderStroke != null) {
-                        Modifier.border(border = borderStroke, shape = shape)
-                    } else {
-                        Modifier
-                    },
-                )
-                .repeatableClickable(
-                    enabled = enabled,
-                    role = Role.Button,
-                    indication = indication,
-                    onClick = onClick,
-                    onLongRepeatableClick = onLongRepeatableClick,
-                    onLongRepeatableClickEnd = onLongRepeatableClickEnd,
-                    interactionSource = interactionSource,
-                )
-                .background(color = colors.backgroundColor(enabled = enabled).value, shape = shape),
+        modifier = modifier
+            .defaultMinSize(
+                minWidth = ButtonDefaults.DefaultButtonSize,
+                minHeight = ButtonDefaults.DefaultButtonSize,
+            )
+            .then(
+                if (borderStroke != null) {
+                    Modifier.border(border = borderStroke, shape = shape)
+                } else {
+                    Modifier
+                },
+            )
+            .clickable(
+                interactionSource = interactionSource,
+                indication = rememberRipple(
+                    bounded = false,
+                    radius = rippleRadius,
+                ),
+                onClick = {
+                    onClick()
+                },
+                role = Role.Button,
+                enabled = enabled,
+            )
+            .background(color = colors.backgroundColor(enabled = enabled).value, shape = shape),
     ) {
         val contentColor = colors.contentColor(enabled = enabled).value
         CompositionLocalProvider(

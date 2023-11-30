@@ -19,6 +19,7 @@ package com.google.android.horologist.media.ui.components.animated
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -28,7 +29,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.LocalContentAlpha
@@ -38,6 +38,7 @@ import com.airbnb.lottie.compose.LottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.RepeatableClickableButton
+import com.google.android.horologist.media.ui.components.controls.UnboundedRippleButton
 import kotlinx.coroutines.launch
 import androidx.compose.ui.semantics.contentDescription as contentDescriptionProperty
 
@@ -63,14 +64,13 @@ public fun AnimatedMediaButton(
     val scope = rememberCoroutineScope()
     val lottieAnimatable = rememberLottieAnimatable()
     if (onLongRepeatableClick == null) {
-        Button(
+        UnboundedRippleButton(
             onClick = {
-                scope.launch {
-                    lottieAnimatable.animate(composition = compositionResult.value)
-                }
+                scope.launch { lottieAnimatable.animate(composition = compositionResult.value) }
                 onClick()
             },
             modifier = modifier.size(tapTargetSize),
+            rippleRadius = 35.dp,
             enabled = enabled,
             colors = colors,
         ) {
@@ -94,7 +94,10 @@ public fun AnimatedMediaButton(
             modifier = modifier.size(tapTargetSize),
             enabled = enabled,
             colors = colors,
-
+            indication = rememberRipple(
+                bounded = false,
+                radius = 35.dp,
+            ),
         ) {
             this.mediaButtonContent(
                 compositionResult = compositionResult,

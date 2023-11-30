@@ -53,6 +53,7 @@ import coil.compose.LocalImageLoader
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.RobolectricTempHelpers.capture
+import com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode.Companion.defaultRecordMode
 import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import com.quickbird.snapshot.Diffing
 import com.quickbird.snapshot.FileSnapshotting
@@ -335,7 +336,8 @@ public class ScreenshotTestRule(
             public var enableA11y: Boolean = false
             public var screenTimeText: @Composable () -> Unit = defaultScreenTimeText()
             public var testLabel: String? = null
-            public var record: RecordMode = RecordMode.fromProperty(System.getProperty("screenshot.record"))
+            public var record: RecordMode = defaultRecordMode()
+
             public var clipMode: ClipMode = ClipMode.Auto
 
             public fun build(): ScreenshotTestRuleParams {
@@ -365,6 +367,10 @@ public class ScreenshotTestRule(
                 "repair" -> Repair
                 else -> Test
             }
+
+            public fun defaultRecordMode(): RecordMode = RecordMode.fromProperty(
+                System.getProperty("screenshot.record"),
+            )
         }
     }
 

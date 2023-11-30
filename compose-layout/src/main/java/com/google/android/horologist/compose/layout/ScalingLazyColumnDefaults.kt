@@ -189,7 +189,7 @@ public object ScalingLazyColumnDefaults {
                     val presetRatio = 0f
 
                     val minElementHeight = lerp(0.2f, 0.157f, sizeRatio)
-                    val maxElementHeight = lerp(0.6f, 0.216f, sizeRatio).coerceAtLeast(minElementHeight)
+                    val maxElementHeight = lerp(0.6f, 0.472f, sizeRatio).coerceAtLeast(minElementHeight)
                     val minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio)
                     val maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio)
 

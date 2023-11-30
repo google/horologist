@@ -31,7 +31,9 @@ import com.google.android.horologist.compose.tools.SamsungGalaxyWatch5
 import com.google.android.horologist.compose.tools.SamsungGalaxyWatch6Large
 import com.google.android.horologist.compose.tools.copy
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode.Companion.defaultRecordMode
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -43,12 +45,14 @@ import org.robolectric.shadows.ShadowDisplay
 abstract class ScreenSizeTest(
     val device: Device,
     val showTimeText: Boolean,
+    recordMode: ScreenshotTestRule.RecordMode = defaultRecordMode(),
 ) : ScreenshotBaseTest(
     screenshotTestRuleParams {
         if (!showTimeText) {
             screenTimeText = { }
         }
         testLabel = device.name.lowercase().replace("\\W+".toRegex(), "")
+        record = recordMode
     },
 ) {
     @Composable

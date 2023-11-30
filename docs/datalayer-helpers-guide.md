@@ -120,10 +120,10 @@ phone.
     user the option to navigate to the companion app to install it:
 
     ```kotlin
-    if (node.installedTiles.isEmpty() && askUserAttempts < MAX_ATTEMPTS) {
+    if (node.surfacesInfo.tilesList.isEmpty() && askUserAttempts < MAX_ATTEMPTS) {
         // Show guidance to the user and then launch companion
         // to allow the to install the Tile.
-        val result = appHelper.startCompanion(nodeStatus.id)
+        val result = appHelper.startCompanion(node.id)
     }
     ```
 

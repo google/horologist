@@ -39,8 +39,8 @@ import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
+import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.radialBackgroundBrush
-import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
@@ -48,7 +48,10 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.flow.flowOf
 import kotlin.time.Duration.Companion.seconds
 
-class MediaPlayerTest(device: Device) : ScreenSizeTest(device = device, showTimeText = true) {
+class MediaPlayerTest(device: Device) : ScreenSizeTest(
+    device = device,
+    showTimeText = true,
+) {
 
     @Composable
     override fun Content() {
@@ -72,7 +75,7 @@ fun MediaPlayerTestCase() {
         playing = true,
         media = MediaUiModel(
             id = "",
-            title = "Weather with You",
+            title = "Four Seasons In One Day",
             subtitle = "Crowded House",
         ),
         trackPositionUiModel = TrackPositionUiModel.Actual(
@@ -125,7 +128,12 @@ fun MediaPlayerTestCase() {
                                     }
                                 }
                             },
-                        mediaDisplay = { DefaultMediaInfoDisplay(playerUiState) },
+                        mediaDisplay = {
+                            AnimatedMediaInfoDisplay(
+                                playerUiState.media,
+                                loading = false,
+                            )
+                        },
                         controlButtons = {
                             AnimatedMediaControlButtons(
                                 onPlayButtonClick = { },

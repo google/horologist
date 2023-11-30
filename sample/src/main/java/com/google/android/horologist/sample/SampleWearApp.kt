@@ -40,6 +40,7 @@ import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
+import com.google.android.horologist.materialcomponents.SampleButtonScreen
 import com.google.android.horologist.networks.NetworkScreen
 import com.google.android.horologist.pager.SamplePagerScreen
 import com.google.android.horologist.paging.PagingItemScreen
@@ -161,6 +162,11 @@ fun SampleWearApp() {
                 },
                 showSeconds = false,
             )
+        }
+        scrollable(
+            route = Screen.MaterialButtons.route
+        ) {
+            SampleButtonScreen(columnState = it.columnState)
         }
         scrollable(
             route = Screen.SectionedListMenuScreen.route,

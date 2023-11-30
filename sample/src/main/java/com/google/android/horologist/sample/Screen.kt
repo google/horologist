@@ -31,6 +31,9 @@ sealed class Screen(
     object TimeWithoutSecondsPicker : Screen("timeWithoutSecondsPicker")
     object Network : Screen("network")
 
+
+    object MaterialButtons: Screen("materialButtons")
+
     object DataLayerNodes : Screen("nodes")
 
     object SectionedListMenuScreen : Screen("sectionedListMenuScreen")

@@ -24,6 +24,8 @@
     <string name="tile_sample_label">Sample Tile</string>
     <string name="sample_tile_description">Sample tile description</string>
 
+    <string name="sample_material_buttons">Material Buttons Sample</string>
+
     <string name="sectionedlist_samples_menu">SectionedList Samples</string>
     <string name="sectionedlist_stateless_sections_menu">Stateless sections</string>
     <string name="sectionedlist_stateful_sections_menu">Stateful sections</string>

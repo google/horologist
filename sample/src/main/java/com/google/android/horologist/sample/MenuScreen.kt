@@ -94,6 +94,7 @@ fun MenuScreen(
         item {
             TimeWithoutSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithoutSecondsPicker.route) }
         }
+
         item {
             Chip(
                 label = stringResource(id = R.string.sectionedlist_samples_menu),
@@ -101,6 +102,21 @@ fun MenuScreen(
                 onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) },
             )
         }
+
+        item {
+            ListHeader {
+                Text(text = "Material Components")
+            }
+        }
+
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_buttons),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialButtons.route) },
+            )
+        }
+
         item {
             ListHeader {
                 Text(text = "Rotary Scrolling")

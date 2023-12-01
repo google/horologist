@@ -151,6 +151,13 @@ fun MenuScreen(
             )
         }
         item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_outlined_chips),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialOutlinedChip.route) },
+            )
+        }
+        item {
             ListHeader {
                 Text(text = "Rotary Scrolling")
             }

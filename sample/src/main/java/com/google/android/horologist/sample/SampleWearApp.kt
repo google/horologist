@@ -46,6 +46,7 @@ import com.google.android.horologist.materialcomponents.SampleChipScreen
 import com.google.android.horologist.materialcomponents.SampleCompactChipScreen
 import com.google.android.horologist.materialcomponents.SampleConfirmationScreen
 import com.google.android.horologist.materialcomponents.SampleIconScreen
+import com.google.android.horologist.materialcomponents.SampleOutlinedChipScreen
 import com.google.android.horologist.networks.NetworkScreen
 import com.google.android.horologist.pager.SamplePagerScreen
 import com.google.android.horologist.paging.PagingItemScreen
@@ -197,6 +198,11 @@ fun SampleWearApp() {
             route = Screen.MaterialIcon.route
         ) {
             SampleIconScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialOutlinedChip.route
+        ) {
+            SampleOutlinedChipScreen(columnState = it.columnState)
         }
         scrollable(
             route = Screen.SectionedListMenuScreen.route,

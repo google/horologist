@@ -32,8 +32,9 @@ sealed class Screen(
     object Network : Screen("network")
 
 
-    object MaterialButtons: Screen("materialButtons")
-    object MaterialChips: Screen("materialChips")
+    object MaterialButtons : Screen("materialButtons")
+    object MaterialChips : Screen("materialChips")
+    object MaterialChipIconWithProgress : Screen("materialChipIconWithProgress")
 
     object DataLayerNodes : Screen("nodes")
 

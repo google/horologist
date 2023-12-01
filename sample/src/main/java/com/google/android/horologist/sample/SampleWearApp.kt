@@ -176,67 +176,67 @@ fun SampleWearApp() {
             )
         }
         scrollable(
-            route = Screen.MaterialButtons.route
+            route = Screen.MaterialButtons.route,
         ) {
             SampleButtonScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialChips.route
+            route = Screen.MaterialChips.route,
         ) {
             SampleChipScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialChipIconWithProgress.route
+            route = Screen.MaterialChipIconWithProgress.route,
         ) {
             SampleChipIconWithProgressScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialCompactChips.route
+            route = Screen.MaterialCompactChips.route,
         ) {
             SampleCompactChipScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialConfirmation.route
+            route = Screen.MaterialConfirmation.route,
         ) {
             SampleConfirmationScreen()
         }
         scrollable(
-            route = Screen.MaterialIcon.route
+            route = Screen.MaterialIcon.route,
         ) {
             SampleIconScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialOutlinedChip.route
+            route = Screen.MaterialOutlinedChip.route,
         ) {
             SampleOutlinedChipScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialOutlinedCompactChip.route
+            route = Screen.MaterialOutlinedCompactChip.route,
         ) {
             SampleOutlinedCompactChipScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialSplitToggleChip.route
+            route = Screen.MaterialSplitToggleChip.route,
         ) {
             SampleSplitToggleChipScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialStepper.route
+            route = Screen.MaterialStepper.route,
         ) {
             SampleStepperScreen()
         }
         scrollable(
-            route = Screen.MaterialTitle.route
+            route = Screen.MaterialTitle.route,
         ) {
             SampleTitleScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialToggleButton.route
+            route = Screen.MaterialToggleButton.route,
         ) {
             SampleToggleButtonScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialToggleChip.route
+            route = Screen.MaterialToggleChip.route,
         ) {
             SampleToggleChipScreen(columnState = it.columnState)
         }

@@ -31,7 +31,6 @@ sealed class Screen(
     object TimeWithoutSecondsPicker : Screen("timeWithoutSecondsPicker")
     object Network : Screen("network")
 
-
     object MaterialButtons : Screen("materialButtons")
     object MaterialChips : Screen("materialChips")
     object MaterialChipIconWithProgress : Screen("materialChipIconWithProgress")

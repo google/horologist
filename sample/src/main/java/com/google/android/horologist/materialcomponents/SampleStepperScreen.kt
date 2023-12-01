@@ -26,7 +26,6 @@ import com.google.android.horologist.compose.material.Stepper
 
 @Composable
 internal fun SampleStepperScreen() {
-
     var value by remember {
         mutableFloatStateOf(0f)
     }

@@ -193,7 +193,11 @@ fun SampleWearApp() {
         ) {
             SampleConfirmationScreen()
         }
-
+        scrollable(
+            route = Screen.MaterialIcon.route
+        ) {
+            SampleIconScreen(columnState = it.columnState)
+        }
         scrollable(
             route = Screen.SectionedListMenuScreen.route,
         ) {

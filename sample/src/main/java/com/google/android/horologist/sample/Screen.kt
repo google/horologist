@@ -37,6 +37,7 @@ sealed class Screen(
     object MaterialChipIconWithProgress : Screen("materialChipIconWithProgress")
     object MaterialCompactChips : Screen("materialCompactChips")
     object MaterialConfirmation : Screen("materialConfirmationScreen")
+    object MaterialIcon : Screen("materialIcon")
 
     object DataLayerNodes : Screen("nodes")
 

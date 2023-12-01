@@ -52,6 +52,7 @@ import com.google.android.horologist.materialcomponents.SampleSplitToggleChipScr
 import com.google.android.horologist.materialcomponents.SampleStepperScreen
 import com.google.android.horologist.materialcomponents.SampleTitleScreen
 import com.google.android.horologist.materialcomponents.SampleToggleButtonScreen
+import com.google.android.horologist.materialcomponents.SampleToggleChipScreen
 import com.google.android.horologist.networks.NetworkScreen
 import com.google.android.horologist.pager.SamplePagerScreen
 import com.google.android.horologist.paging.PagingItemScreen
@@ -233,6 +234,11 @@ fun SampleWearApp() {
             route = Screen.MaterialToggleButton.route
         ) {
             SampleToggleButtonScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialToggleChip.route
+        ) {
+            SampleToggleChipScreen(columnState = it.columnState)
         }
         scrollable(
             route = Screen.SectionedListMenuScreen.route,

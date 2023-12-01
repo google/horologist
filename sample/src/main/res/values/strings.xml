@@ -28,6 +28,7 @@
     <string name="sample_material_chips">Material Chips Sample</string>
     <string name="sample_material_chip_icon_with_progress">Material Chip Icon With Progress</string>
     <string name="sample_material_compact_chip">Material Compact Chips</string>
+    <string name="sample_material_confirmation_dialog">Material Confirmation Dialog</string>
 
     <string name="sectionedlist_samples_menu">SectionedList Samples</string>
     <string name="sectionedlist_stateless_sections_menu">Stateless sections</string>

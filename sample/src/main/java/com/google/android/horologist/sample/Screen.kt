@@ -42,6 +42,7 @@ sealed class Screen(
     object MaterialOutlinedCompactChip : Screen("materialOutlinedCompactChip")
     object MaterialSplitToggleChip : Screen("materialSplitToggleChip")
     object MaterialStepper : Screen("materialStepper")
+    object MaterialTitle : Screen("materialTitle")
 
     object DataLayerNodes : Screen("nodes")
 

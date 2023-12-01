@@ -43,6 +43,7 @@ import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.materialcomponents.SampleButtonScreen
 import com.google.android.horologist.materialcomponents.SampleChipIconWithProgressScreen
 import com.google.android.horologist.materialcomponents.SampleChipScreen
+import com.google.android.horologist.materialcomponents.SampleCompactChipScreen
 import com.google.android.horologist.networks.NetworkScreen
 import com.google.android.horologist.pager.SamplePagerScreen
 import com.google.android.horologist.paging.PagingItemScreen
@@ -179,6 +180,11 @@ fun SampleWearApp() {
             route = Screen.MaterialChipIconWithProgress.route
         ) {
             SampleChipIconWithProgressScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialCompactChips.route
+        ) {
+            SampleCompactChipScreen(columnState = it.columnState)
         }
         scrollable(
             route = Screen.SectionedListMenuScreen.route,

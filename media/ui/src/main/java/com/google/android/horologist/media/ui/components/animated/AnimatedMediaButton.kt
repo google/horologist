@@ -57,7 +57,7 @@ public fun AnimatedMediaButton(
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     dynamicProperties: LottieDynamicProperties? = null,
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(56.dp, 80.dp),
     iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
 ) {
     val scope = rememberCoroutineScope()
@@ -122,11 +122,11 @@ private fun BoxScope.mediaButtonContent(
         .run {
             when (iconAlign) {
                 Alignment.Start -> {
-                    offset(x = -7.5.dp)
+                    offset(x = 5.dp)
                 }
 
                 Alignment.End -> {
-                    offset(x = 7.5.dp)
+                    offset(x = -5.dp)
                 }
 
                 else -> {

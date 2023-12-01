@@ -41,7 +41,7 @@ public fun AnimatedSeekToNextButton(
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(56.dp, 80.dp),
 ) {
     if (LocalStaticPreview.current) {
         SeekToNextButton(

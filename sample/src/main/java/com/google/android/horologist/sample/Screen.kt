@@ -33,6 +33,7 @@ sealed class Screen(
 
 
     object MaterialButtons: Screen("materialButtons")
+    object MaterialChips: Screen("materialChips")
 
     object DataLayerNodes : Screen("nodes")
 

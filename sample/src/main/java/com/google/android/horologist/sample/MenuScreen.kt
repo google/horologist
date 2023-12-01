@@ -108,7 +108,6 @@ fun MenuScreen(
                 Text(text = "Material Components")
             }
         }
-
         item {
             Chip(
                 label = stringResource(id = R.string.sample_material_buttons),
@@ -116,7 +115,13 @@ fun MenuScreen(
                 onClick = { navigateToRoute(Screen.MaterialButtons.route) },
             )
         }
-
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_chips),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialChips.route) },
+            )
+        }
         item {
             ListHeader {
                 Text(text = "Rotary Scrolling")

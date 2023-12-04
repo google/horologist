@@ -26,7 +26,6 @@ import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import org.robolectric.Shadows
@@ -36,7 +35,6 @@ class DatePickerA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
         enableA11y = true
-        record = ScreenshotTestRule.RecordMode.Record
     },
 ) {
     @Test

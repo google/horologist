@@ -28,7 +28,6 @@ class TimePickerA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
         enableA11y = true
-        record = ScreenshotTestRule.RecordMode.Record
     },
 ) {
 

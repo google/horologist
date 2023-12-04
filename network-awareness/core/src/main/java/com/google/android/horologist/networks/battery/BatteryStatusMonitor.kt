@@ -36,7 +36,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 
-class BatteryStatusMonitor(
+public class BatteryStatusMonitor(
     private val context: Context,
 ) {
     private val powerManager: PowerManager = context.getSystemService(PowerManager::class.java)
@@ -69,7 +69,7 @@ class BatteryStatusMonitor(
         }
     }
 
-    val status: Flow<BatteryStatus> = flow {
+    public val status: Flow<BatteryStatus> = flow {
         emit(batteryStatus())
         emitAll(subscriptionFlow)
     }
@@ -81,7 +81,7 @@ class BatteryStatusMonitor(
             powerManager.isPowerSaveMode,
         )
 
-    data class BatteryStatus(
+    public data class BatteryStatus(
         val charging: Boolean,
         val deviceIdleMode: Boolean,
         val powerSaveMode: Boolean,

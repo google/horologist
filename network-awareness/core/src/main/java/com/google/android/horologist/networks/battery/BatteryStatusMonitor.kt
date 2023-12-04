@@ -37,7 +37,7 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 
 class BatteryStatusMonitor(
-    private val context: Context
+    private val context: Context,
 ) {
     private val powerManager: PowerManager = context.getSystemService(PowerManager::class.java)
     private val batteryManager: BatteryManager =
@@ -61,7 +61,7 @@ class BatteryStatusMonitor(
                 addAction(ACTION_BATTERY_LOW)
                 addAction(ACTION_BATTERY_OKAY)
             },
-            RECEIVER_EXPORTED
+            RECEIVER_EXPORTED,
         )
 
         awaitClose {
@@ -78,12 +78,12 @@ class BatteryStatusMonitor(
         BatteryStatus(
             batteryManager.isCharging,
             powerManager.isDeviceIdleMode,
-            powerManager.isPowerSaveMode
+            powerManager.isPowerSaveMode,
         )
 
     data class BatteryStatus(
         val charging: Boolean,
         val deviceIdleMode: Boolean,
-        val powerSaveMode: Boolean
+        val powerSaveMode: Boolean,
     )
 }

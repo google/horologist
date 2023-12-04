@@ -56,8 +56,8 @@ class BatteryStatusMonitorTest {
             BatteryStatusMonitor.BatteryStatus(
                 batteryManager.isCharging,
                 powerManager.isDeviceIdleMode,
-                powerManager.isPowerSaveMode
-            )
+                powerManager.isPowerSaveMode,
+            ),
         )
 
         shadowOf(batteryManager).setIsCharging(false)
@@ -67,8 +67,8 @@ class BatteryStatusMonitorTest {
             BatteryStatusMonitor.BatteryStatus(
                 false,
                 powerManager.isDeviceIdleMode,
-                powerManager.isPowerSaveMode
-            )
+                powerManager.isPowerSaveMode,
+            ),
         )
 
         shadowOf(batteryManager).setIsCharging(true)
@@ -78,8 +78,8 @@ class BatteryStatusMonitorTest {
             BatteryStatusMonitor.BatteryStatus(
                 true,
                 powerManager.isDeviceIdleMode,
-                powerManager.isPowerSaveMode
-            )
+                powerManager.isPowerSaveMode,
+            ),
         )
     }
 }

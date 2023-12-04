@@ -22,4 +22,6 @@ sealed class Screen(
     object MainScreen : Screen("mainScreen")
 
     object DataLayerScreen : Screen("dataLayerScreen")
+
+    object DataLayerNodes : Screen("nodes")
 }

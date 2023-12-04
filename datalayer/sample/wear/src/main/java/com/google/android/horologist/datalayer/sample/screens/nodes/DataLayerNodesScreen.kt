@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer
+package com.google.android.horologist.datalayer.sample.screens.nodes
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -22,12 +22,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.lazy.items
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Chip
 
 @Composable
 fun DataLayerNodesScreen(
@@ -48,10 +47,8 @@ fun DataLayerNodesScreen(
         }
         items(state.nodes) {
             Chip(
+                label = "${it.displayName}(${it.id}) ${if (it.isNearby) "NEAR" else ""}",
                 onClick = { },
-                label = {
-                    Text("${it.displayName}(${it.id}) ${if (it.isNearby) "NEAR" else ""}")
-                },
             )
         }
         item {
@@ -62,11 +59,12 @@ fun DataLayerNodesScreen(
         item {
             val thisData = state.thisData
             if (thisData != null) {
-                Button(onClick = {
-                    viewModel.increment()
-                }) {
-                    Text("This Value: ${thisData.value} (${thisData.name})")
-                }
+                Chip(
+                    label = "This Value: ${thisData.value} (${thisData.name})",
+                    onClick = {
+                        viewModel.increment()
+                    },
+                )
             } else {
                 Text("This Value: None")
             }

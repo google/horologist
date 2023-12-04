@@ -18,6 +18,7 @@ package com.google.android.horologist.datalayer.sample
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
@@ -25,6 +26,8 @@ import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.datalayer.sample.screens.MainScreen
 import com.google.android.horologist.datalayer.sample.screens.datalayer.DataLayerScreen
+import com.google.android.horologist.datalayer.sample.screens.nodes.DataLayerNodesScreen
+import com.google.android.horologist.datalayer.sample.screens.nodes.DataLayerNodesViewModel
 
 @Composable
 fun WearApp(
@@ -43,6 +46,14 @@ fun WearApp(
         }
         scrollable(route = Screen.DataLayerScreen.route) {
             DataLayerScreen(columnState = it.columnState, modifier = modifier)
+        }
+        scrollable(
+            Screen.DataLayerNodes.route,
+        ) {
+            DataLayerNodesScreen(
+                viewModel = viewModel(factory = DataLayerNodesViewModel.Factory),
+                columnState = it.columnState,
+            )
         }
     }
 }

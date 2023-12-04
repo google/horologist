@@ -22,8 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.composables.SectionedListScope
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.material.Chip
@@ -37,31 +36,27 @@ fun MainScreen(
     modifier: Modifier = Modifier,
     columnState: ScalingLazyColumnState,
 ) {
-    SectionedList(
+    ScalingLazyColumn(
         columnState = columnState,
         modifier = modifier.fillMaxSize(),
     ) {
-        dataLayerSection(navigateToRoute)
-    }
-}
-
-private fun SectionedListScope.dataLayerSection(navigateToRoute: (String) -> Unit) {
-    section(
-        listOf(
-            Pair(
-                R.string.main_menu_datalayer_item,
-                Screen.DataLayerScreen.route,
-            ),
-        ),
-    ) {
-        header {
+        item {
             Title(stringResource(id = R.string.main_menu_datalayer_header))
         }
-        loaded { (textId, route) ->
+
+        item {
             Chip(
-                label = stringResource(id = textId),
+                label = stringResource(id = R.string.main_menu_datalayer_item),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
+                onClick = { navigateToRoute(Screen.DataLayerScreen.route) },
+            )
+        }
+
+        item {
+            Chip(
+                label = stringResource(id = R.string.main_menu_datalayer_nodes),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.DataLayerNodes.route) },
             )
         }
     }

@@ -24,4 +24,5 @@
     <string name="data_layer_missing_message">Missing</string>
     <string name="data_layer_error_message">Error: %1$s</string>
     <string name="data_layer_value_message">Value: %1$s</string>
+    <string name="main_menu_datalayer_nodes">Data Layer Nodes</string>
 </resources>

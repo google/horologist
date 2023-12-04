@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer
+package com.google.android.horologist.datalayer.sample.screens.nodes
 
 import android.os.Build
 import androidx.datastore.core.DataStore
@@ -23,13 +23,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.android.gms.wearable.Node
-import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoFlow
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.proto.SampleProto.Data
 import com.google.android.horologist.data.proto.copy
+import com.google.android.horologist.datalayer.sample.SampleApplication
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -85,7 +85,7 @@ public class DataLayerNodesViewModel(
         viewModelScope.launch {
             thisDataStore.updateData { current ->
                 current.copy {
-                    value += +1
+                    value += 1
                     name = Build.DEVICE
                 }
             }

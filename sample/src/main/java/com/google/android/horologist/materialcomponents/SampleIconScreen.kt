@@ -20,14 +20,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.VolumeDown
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.unit.LayoutDirection
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Icon
-import com.google.android.horologist.compose.material.IconRtlMode
 
 @Composable
 internal fun SampleIconScreen(
@@ -43,15 +39,6 @@ internal fun SampleIconScreen(
                 imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
                 contentDescription = "contentDescription",
             )
-        }
-        item {
-            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
-                    contentDescription = "contentDescription",
-                    rtlMode = IconRtlMode.Mirrored,
-                )
-            }
         }
     }
 }

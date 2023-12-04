@@ -176,67 +176,67 @@ fun SampleWearApp() {
             )
         }
         scrollable(
-            route = Screen.MaterialButtons.route,
+            route = Screen.MaterialButtonsScreen.route,
         ) {
             SampleButtonScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialChips.route,
+            route = Screen.MaterialChipsScreen.route,
         ) {
             SampleChipScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialChipIconWithProgress.route,
+            route = Screen.MaterialChipIconWithProgressScreen.route,
         ) {
             SampleChipIconWithProgressScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialCompactChips.route,
+            route = Screen.MaterialCompactChipsScreen.route,
         ) {
             SampleCompactChipScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialConfirmation.route,
+            route = Screen.MaterialConfirmationScreen.route,
         ) {
             SampleConfirmationScreen()
         }
         scrollable(
-            route = Screen.MaterialIcon.route,
+            route = Screen.MaterialIconScreen.route,
         ) {
             SampleIconScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialOutlinedChip.route,
+            route = Screen.MaterialOutlinedChipScreen.route,
         ) {
             SampleOutlinedChipScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialOutlinedCompactChip.route,
+            route = Screen.MaterialOutlinedCompactChipScreen.route,
         ) {
             SampleOutlinedCompactChipScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialSplitToggleChip.route,
+            route = Screen.MaterialSplitToggleChipScreen.route,
         ) {
             SampleSplitToggleChipScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialStepper.route,
+            route = Screen.MaterialStepperScreen.route,
         ) {
             SampleStepperScreen()
         }
         scrollable(
-            route = Screen.MaterialTitle.route,
+            route = Screen.MaterialTitleScreen.route,
         ) {
             SampleTitleScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialToggleButton.route,
+            route = Screen.MaterialToggleButtonScreen.route,
         ) {
             SampleToggleButtonScreen(columnState = it.columnState)
         }
         scrollable(
-            route = Screen.MaterialToggleChip.route,
+            route = Screen.MaterialToggleChipScreen.route,
         ) {
             SampleToggleChipScreen(columnState = it.columnState)
         }

@@ -35,12 +35,5 @@ internal fun SampleTitleScreen(
         item {
             Title("Title")
         }
-        item {
-            Title(
-                "Title with a very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very " +
-                    "very very very very very very very very long text",
-            )
-        }
     }
 }

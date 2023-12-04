@@ -17,12 +17,16 @@
 package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.VolumeDown
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 
@@ -176,6 +180,24 @@ fun ChipPreviewWithImageBackgroundChipColors() {
             backgroundImagePainter = painterResource(id = android.R.drawable.ic_dialog_alert),
         ),
     )
+}
+
+@Preview(
+    name = "With icon and forced rtl mode",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+private fun ChipPreviewWithIconMirroredMode() {
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+        Chip(
+            label = "Primary label",
+            onClick = { },
+            secondaryLabel = "Secondary label",
+            icon = Icons.AutoMirrored.Outlined.VolumeDown,
+            iconRtlMode = IconRtlMode.Mirrored,
+        )
+    }
 }
 
 private val Icon32dp: ImageVector

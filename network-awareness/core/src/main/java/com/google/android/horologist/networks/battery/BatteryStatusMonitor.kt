@@ -43,7 +43,7 @@ class BatteryStatusMonitor(
     private val batteryManager: BatteryManager =
         context.getSystemService(BatteryManager::class.java)
 
-    val subscriptionFlow = callbackFlow {
+    private val subscriptionFlow = callbackFlow {
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 trySend(batteryStatus())

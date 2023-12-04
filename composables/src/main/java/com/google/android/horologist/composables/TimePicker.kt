@@ -611,6 +611,8 @@ internal class DefaultTouchExplorationStateProvider : TouchExplorationStateProvi
         }
 
         val listener = remember { Listener() }
+        listener.onAccessibilityStateChanged(accessibilityManager.isEnabled)
+        listener.onTouchExplorationStateChanged(accessibilityManager.isTouchExplorationEnabled)
 
         LocalLifecycleOwner.current.lifecycle.ObserveState(
             handleEvent = { event ->

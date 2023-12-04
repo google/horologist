@@ -89,6 +89,7 @@ dependencies {
     api(libs.kotlin.stdlib)
     api(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.tracing.ktx)
+    implementation(libs.androidx.core)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

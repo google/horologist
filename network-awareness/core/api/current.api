@@ -1,4 +1,28 @@
 // Signature format: 4.0
+package com.google.android.horologist.networks.battery {
+
+  public final class BatteryStatusMonitor {
+    ctor public BatteryStatusMonitor(android.content.Context context);
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.battery.BatteryStatusMonitor.BatteryStatus> getStatus();
+    property public final kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.battery.BatteryStatusMonitor.BatteryStatus> status;
+  }
+
+  public static final class BatteryStatusMonitor.BatteryStatus {
+    ctor public BatteryStatusMonitor.BatteryStatus(boolean charging, boolean deviceIdleMode, boolean powerSaveMode);
+    method public boolean component1();
+    method public boolean component2();
+    method public boolean component3();
+    method public com.google.android.horologist.networks.battery.BatteryStatusMonitor.BatteryStatus copy(boolean charging, boolean deviceIdleMode, boolean powerSaveMode);
+    method public boolean getCharging();
+    method public boolean getDeviceIdleMode();
+    method public boolean getPowerSaveMode();
+    property public final boolean charging;
+    property public final boolean deviceIdleMode;
+    property public final boolean powerSaveMode;
+  }
+
+}
+
 package com.google.android.horologist.networks.data {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class DataRequest {

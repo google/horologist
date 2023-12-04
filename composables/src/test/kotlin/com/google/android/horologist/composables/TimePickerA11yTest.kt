@@ -19,6 +19,7 @@ package com.google.android.horologist.composables
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.onNodeWithContentDescription
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 import java.time.LocalTime
@@ -27,11 +28,14 @@ class TimePickerA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}
         enableA11y = true
+        record = ScreenshotTestRule.RecordMode.Record
     },
 ) {
 
     @Test
     fun initial() {
+        DatePickerA11yTest.enableTouchExploration()
+
         screenshotTestRule.setContent {
             TimePicker(
                 time = LocalTime.of(10, 10, 0),

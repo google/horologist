@@ -137,6 +137,7 @@ com.google.android.horologist.media.ui.state.mapper
 com.google.android.horologist.media.ui.state.model
 com.google.android.horologist.media.ui.tiles
 module:network-awareness-core
+com.google.android.horologist.networks.battery
 com.google.android.horologist.networks.data
 com.google.android.horologist.networks.highbandwidth
 com.google.android.horologist.networks.logging

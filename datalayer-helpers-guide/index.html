@@ -1540,6 +1540,18 @@ user the option to navigate to the companion app to install it:</p>
 <p>To determine if your main activity has been launched once, use: </p>
 <p><code>kotlin
     wearAppHelper.markActivityLaunchedOnce()</code>    </p>
+<ol>
+<li>
+<p><strong>Tracking the app has been set up</strong> (Wear-only)</p>
+<p>To mark that the user has completed in the app the necessary setup steps such that it is ready 
+for use, use the following:</p>
+<div class="highlight"><pre><span></span><code><span class="n">wearAppHelper</span><span class="p">.</span><span class="na">markSetupComplete</span><span class="p">()</span>
+</code></pre></div>
+<p>And when the app is no longer considered in a fully setup state, use the following:</p>
+<div class="highlight"><pre><span></span><code><span class="n">wearAppHelper</span><span class="p">.</span><span class="na">markSetupNoLongerComplete</span><span class="p">()</span>
+</code></pre></div>
+</li>
+</ol>
 
 
 

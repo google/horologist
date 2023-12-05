@@ -159,7 +159,7 @@ phone.
     wearAppHelper.markComplicationAsDeactivated("GoalsComplication")
     ```
 
-3. **Tracking the main activity has been launched at least once** (Wear-only)
+1. **Tracking the main activity has been launched at least once** (Wear-only)
 
    To determine if your main activity has been launched once, use: 
 
@@ -167,6 +167,18 @@ phone.
     wearAppHelper.markActivityLaunchedOnce()
     ```    
 
+1.  **Tracking the app has been set up** (Wear-only)
 
+    To mark that the user has completed in the app the necessary setup steps such that it is ready 
+    for use, use the following:
 
-    
+    ```kotlin
+    wearAppHelper.markSetupComplete()
+    ```
+
+    And when the app is no longer considered in a fully setup state, use the following:
+
+    ```kotlin
+    wearAppHelper.markSetupNoLongerComplete()
+    ```
+

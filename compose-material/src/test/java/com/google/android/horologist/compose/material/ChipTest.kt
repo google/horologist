@@ -21,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.VolumeDown
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
+import androidx.compose.material.icons.outlined.VolumeDown
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -363,7 +364,7 @@ class ChipTest : ScreenshotBaseTest() {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = Icons.AutoMirrored.Outlined.VolumeDown,
+                    icon = Icons.Outlined.VolumeDown,
                     iconRtlMode = IconRtlMode.Mirrored,
                 )
             }

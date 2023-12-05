@@ -40,6 +40,19 @@ import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
+import com.google.android.horologist.materialcomponents.SampleButtonScreen
+import com.google.android.horologist.materialcomponents.SampleChipIconWithProgressScreen
+import com.google.android.horologist.materialcomponents.SampleChipScreen
+import com.google.android.horologist.materialcomponents.SampleCompactChipScreen
+import com.google.android.horologist.materialcomponents.SampleConfirmationScreen
+import com.google.android.horologist.materialcomponents.SampleIconScreen
+import com.google.android.horologist.materialcomponents.SampleOutlinedChipScreen
+import com.google.android.horologist.materialcomponents.SampleOutlinedCompactChipScreen
+import com.google.android.horologist.materialcomponents.SampleSplitToggleChipScreen
+import com.google.android.horologist.materialcomponents.SampleStepperScreen
+import com.google.android.horologist.materialcomponents.SampleTitleScreen
+import com.google.android.horologist.materialcomponents.SampleToggleButtonScreen
+import com.google.android.horologist.materialcomponents.SampleToggleChipScreen
 import com.google.android.horologist.networks.NetworkScreen
 import com.google.android.horologist.pager.SamplePagerScreen
 import com.google.android.horologist.paging.PagingItemScreen
@@ -161,6 +174,71 @@ fun SampleWearApp() {
                 },
                 showSeconds = false,
             )
+        }
+        scrollable(
+            route = Screen.MaterialButtonsScreen.route,
+        ) {
+            SampleButtonScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialChipsScreen.route,
+        ) {
+            SampleChipScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialChipIconWithProgressScreen.route,
+        ) {
+            SampleChipIconWithProgressScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialCompactChipsScreen.route,
+        ) {
+            SampleCompactChipScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialConfirmationScreen.route,
+        ) {
+            SampleConfirmationScreen()
+        }
+        scrollable(
+            route = Screen.MaterialIconScreen.route,
+        ) {
+            SampleIconScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialOutlinedChipScreen.route,
+        ) {
+            SampleOutlinedChipScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialOutlinedCompactChipScreen.route,
+        ) {
+            SampleOutlinedCompactChipScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialSplitToggleChipScreen.route,
+        ) {
+            SampleSplitToggleChipScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialStepperScreen.route,
+        ) {
+            SampleStepperScreen()
+        }
+        scrollable(
+            route = Screen.MaterialTitleScreen.route,
+        ) {
+            SampleTitleScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialToggleButtonScreen.route,
+        ) {
+            SampleToggleButtonScreen(columnState = it.columnState)
+        }
+        scrollable(
+            route = Screen.MaterialToggleChipScreen.route,
+        ) {
+            SampleToggleChipScreen(columnState = it.columnState)
         }
         scrollable(
             route = Screen.SectionedListMenuScreen.route,

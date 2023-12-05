@@ -94,11 +94,109 @@ fun MenuScreen(
         item {
             TimeWithoutSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithoutSecondsPicker.route) }
         }
+
         item {
             Chip(
                 label = stringResource(id = R.string.sectionedlist_samples_menu),
                 modifier = modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) },
+            )
+        }
+
+        item {
+            ListHeader {
+                Text(text = "Material Components")
+            }
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_buttons),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialButtonsScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_chips),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialChipsScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_chip_icon_with_progress),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialChipIconWithProgressScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_compact_chip),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialCompactChipsScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_confirmation_dialog),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialConfirmationScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_icon),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialIconScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_outlined_chips),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialOutlinedChipScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_outlined_compact_chips),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialOutlinedCompactChipScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_split_toggle_chips),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialSplitToggleChipScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_stepper),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialStepperScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_title),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialTitleScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_toggle_button),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialToggleButtonScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_toggle_chip),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialToggleChipScreen.route) },
             )
         }
         item {

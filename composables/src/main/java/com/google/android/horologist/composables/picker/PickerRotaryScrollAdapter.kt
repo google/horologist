@@ -71,7 +71,7 @@ public fun androidx.wear.compose.material.PickerState.toRotaryScrollAdapter(): R
 /**
  * An implementation of rotary scroll adapter for [Picker]
  */
-@Suppress("INVISIBLE_MEMBER")
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 internal class AndroidxPickerRotaryScrollAdapter(
     override val scrollableState: androidx.wear.compose.material.PickerState,
 ) : RotaryScrollAdapter {

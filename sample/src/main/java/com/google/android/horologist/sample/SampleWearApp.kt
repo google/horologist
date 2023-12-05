@@ -21,7 +21,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.wear.compose.foundation.rememberSwipeToDismissBoxState
@@ -38,8 +37,6 @@ import com.google.android.horologist.compose.navscaffold.composable
 import com.google.android.horologist.compose.navscaffold.lazyListComposable
 import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.navscaffold.scrollable
-import com.google.android.horologist.datalayer.DataLayerNodesScreen
-import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.materialcomponents.SampleButtonScreen
 import com.google.android.horologist.materialcomponents.SampleChipIconWithProgressScreen
 import com.google.android.horologist.materialcomponents.SampleChipScreen
@@ -86,14 +83,6 @@ fun SampleWearApp() {
             MenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
                 time = time,
-                columnState = it.columnState,
-            )
-        }
-        scrollable(
-            Screen.DataLayerNodes.route,
-        ) {
-            DataLayerNodesScreen(
-                viewModel = viewModel(factory = DataLayerNodesViewModel.Factory),
                 columnState = it.columnState,
             )
         }

@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-import com.google.protobuf.gradle.id
-
 plugins {
     id("com.android.application")
-    id("com.google.protobuf")
     kotlin("android")
 }
 
@@ -97,42 +94,6 @@ android {
     namespace = "com.google.android.horologist.sample"
 }
 
-sourceSets {
-    create("main") {
-        java {
-            srcDirs(
-                "build/generated/source/proto/debug/java",
-                "build/generated/source/proto/debug/grpc",
-                "build/generated/source/proto/debug/kotlin",
-                "build/generated/source/proto/debug/grpckt",
-            )
-        }
-    }
-}
-
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.25.1"
-    }
-    plugins {
-        id("javalite") {
-            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
-        }
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                create("java") {
-                    option("lite")
-                }
-                create("kotlin") {
-                    option("lite")
-                }
-            }
-        }
-    }
-}
-
 dependencies {
     api(projects.annotations)
 
@@ -151,8 +112,6 @@ dependencies {
     implementation(projects.media.ui)
     implementation(projects.networkAwareness)
     implementation(projects.tiles)
-    implementation(projects.datalayer.core)
-    implementation(projects.datalayer.watch)
     implementation(projects.logo)
 
     implementation(libs.compose.ui.util)
@@ -178,8 +137,6 @@ dependencies {
 
     implementation(libs.lottie.compose)
 
-    implementation(libs.protobuf.kotlin.lite)
-
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
 
     implementation(libs.compose.ui.toolingpreview)
@@ -201,6 +158,3 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.ext.ktx)
 }
-
-tasks.maybeCreate("prepareKotlinIdeaImport")
-    .dependsOn("generateDebugProto")

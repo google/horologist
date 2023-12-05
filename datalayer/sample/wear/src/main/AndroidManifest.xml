@@ -51,6 +51,18 @@
 
         </activity>
 
+        <service
+            android:name="com.google.android.horologist.datalayer.sample.screens.nodes.SampleDataService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+                <data
+                    android:host="*"
+                    android:pathPrefix="/proto/"
+                    android:scheme="wear" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

@@ -18,8 +18,11 @@ package com.google.android.horologist.datalayer.sample.di
 
 import android.util.Log
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoFlow
+import com.google.android.horologist.data.ProtoDataStoreHelper.registerProtoDataListener
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.proto.SampleProto
+import com.google.android.horologist.data.store.ProtoDataListener
 import com.google.android.horologist.datalayer.grpc.GrpcExtensions.grpcClient
 import com.google.android.horologist.datalayer.sample.SampleApplication
 import com.google.android.horologist.datalayer.sample.shared.CounterValueSerializer
@@ -55,6 +58,18 @@ object SampleAppDI {
         coroutineScope = coroutineScope,
     ).apply {
         registerSerializer(CounterValueSerializer)
+
+        registerSerializer(com.google.android.horologist.datalayer.sample.screens.nodes.SampleDataSerializer)
+
+        registerProtoDataListener(object : ProtoDataListener<SampleProto.Data> {
+            override fun dataAdded(nodeId: String, path: String, value: SampleProto.Data) {
+                println("Data Added: $nodeId $path $value")
+            }
+
+            override fun dataDeleted(nodeId: String, path: String) {
+                println("Data Deleted: $nodeId $path")
+            }
+        })
     }
 
     private fun servicesCoroutineScope(): CoroutineScope {

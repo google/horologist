@@ -360,6 +360,7 @@ class ChipTest : ScreenshotBaseTest() {
     fun withIconMirrored() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+                @Suppress("Deprecation")
                 Chip(
                     label = "Primary label",
                     onClick = { },

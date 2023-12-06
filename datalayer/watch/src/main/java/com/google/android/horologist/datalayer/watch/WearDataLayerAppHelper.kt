@@ -58,7 +58,7 @@ public class WearDataLayerAppHelper(
 
         private val surfacesInfoDataStore by lazy {
             registry.protoDataStore(
-                path = DataLayerAppHelper.SURFACE_INFO_PATH,
+                path = SURFACE_INFO_PATH,
                 coroutineScope = scope,
                 serializer = SurfacesInfoSerializer,
             )

@@ -17,10 +17,14 @@
 package com.google.android.horologist.materialcomponents
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.SecondaryTitle
 import com.google.android.horologist.compose.material.Title
 
 @Composable
@@ -33,7 +37,21 @@ internal fun SampleTitleScreen(
         modifier = modifier.fillMaxSize(),
     ) {
         item {
-            Title("Title")
+            Title(
+                text = "Title",
+            )
+        }
+        item {
+            SecondaryTitle(
+                text = "Title",
+            )
+        }
+        item {
+            SecondaryTitle(
+                text = "Title",
+                icon = Icons.Filled.Add,
+                iconTint = Color(0xFF946EB1),
+            )
         }
     }
 }

@@ -1465,6 +1465,14 @@ phone.</p>
                 seconds: 1680016845
             }
         }
+        usage_info {
+            timestamp {
+                nanos: 669000000
+                seconds: 1701708501
+            }
+            usage_status: USAGE_STATUS_LAUNCHED_ONCE
+            usage_status_value: 1
+        }
 )
 </code></pre></div>
 </li>
@@ -1537,9 +1545,19 @@ user the option to navigate to the companion app to install it:</p>
 <p><strong>Tracking the main activity has been launched at least once</strong> (Wear-only)</p>
 </li>
 </ol>
-<p>To determine if your main activity has been launched once, use: </p>
-<p><code>kotlin
-    wearAppHelper.markActivityLaunchedOnce()</code>    </p>
+<p>To mark that your main activity on the watch app has been launched once, use: </p>
+<div class="codehilite"><pre><span></span><code>```kotlin
+wearAppHelper.markActivityLaunchedOnce()
+```
+
+To check it on the phone side, use:
+```kotlin
+val connectedNodes = appHelper.connectedNodes()
+// after picking a node, check if value is USAGE_STATUS_LAUNCHED_ONCE:
+node.surfacesInfo.usageInfo.usageStatus
+```
+</code></pre></div>
+
 <ol>
 <li>
 <p><strong>Tracking the app has been set up</strong> (Wear-only)</p>
@@ -1550,6 +1568,12 @@ for use, use the following:</p>
 <p>And when the app is no longer considered in a fully setup state, use the following:</p>
 <div class="highlight"><pre><span></span><code><span class="n">wearAppHelper</span><span class="p">.</span><span class="na">markSetupNoLongerComplete</span><span class="p">()</span>
 </code></pre></div>
+<p>To check it on the phone side, use:
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">connectedNodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">appHelper</span><span class="p">.</span><span class="na">connectedNodes</span><span class="p">()</span>
+<span class="c1">// after picking a node, check if value is either USAGE_STATUS_LAUNCHED_ONCE</span>
+<span class="c1">// or USAGE_STATUS_SETUP_COMPLETE</span>
+<span class="n">node</span><span class="p">.</span><span class="na">surfacesInfo</span><span class="p">.</span><span class="na">usageInfo</span><span class="p">.</span><span class="na">usageStatus</span>
+</code></pre></div></p>
 </li>
 </ol>
 

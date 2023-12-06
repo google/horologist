@@ -46,7 +46,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  */
 @Composable
 @ExperimentalHorologistApi
-@Deprecated("Prefer background modifier")
 public fun ArtworkColorBackground(
     artworkUri: Any?,
     modifier: Modifier = Modifier,
@@ -121,7 +120,6 @@ public fun rememberArtworkColor(
 }
 
 @Composable
-@Deprecated("Prefer background modifier")
 @ExperimentalHorologistApi
 public fun ColorBackground(
     color: Color?,

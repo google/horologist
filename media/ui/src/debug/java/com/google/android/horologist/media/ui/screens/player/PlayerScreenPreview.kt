@@ -27,8 +27,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithCache
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -49,7 +47,7 @@ import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.WearPreviewThemes
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
-import com.google.android.horologist.media.ui.components.background.radialBackgroundBrush
+import com.google.android.horologist.media.ui.components.background.RadialBackground
 import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay
 import com.google.android.horologist.media.ui.components.display.TextMediaDisplay
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -270,20 +268,6 @@ fun DefaultMediaPreview() {
             },
         ) {
             PlayerScreen(
-                modifier = Modifier.drawWithCache {
-                    val background = radialBackgroundBrush(Color.Yellow, Color.Black)
-                    onDrawWithContent {
-                        // Clear the circular region so we have transparent pixels to blend against
-                        // This enables us to reuse the underlying buffer we are drawing into without
-                        // having to consume additional overhead of an offscreen compositing layer
-                        drawRect(color = Color.Black, blendMode = BlendMode.Clear)
-
-                        drawContent()
-
-                        // Components on media player may use transparency, so draw in the gaps
-                        drawRect(background, blendMode = BlendMode.DstOver)
-                    }
-                },
                 mediaDisplay = {
                     TextMediaDisplay(
                         title = "Don't Stop Believin'",
@@ -319,6 +303,9 @@ fun DefaultMediaPreview() {
                             )
                         },
                     )
+                },
+                background = {
+                    RadialBackground(color = Color.Yellow)
                 },
             )
         }

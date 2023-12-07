@@ -27,9 +27,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
@@ -52,19 +54,27 @@ public fun ArtworkColorBackground(
     defaultColor: Color? = null,
     background: Color = MaterialTheme.colors.background,
 ) {
-    val artworkColor = rememberArtworkColor(
+    val artworkColor by rememberArtworkColor(
         artworkUri = artworkUri,
         defaultColor = defaultColor ?: Color.Black,
     )
 
-    val radialGradiant = rememberArtworkColorBrush(
-        artworkColor = artworkColor.value,
-        background = background,
+    val animatedBackgroundColor = animateColorAsState(
+        targetValue = artworkColor,
+        animationSpec = tween(450, 0, LinearEasing),
+        label = "ColorBackground",
     )
 
-    Canvas(modifier = modifier) {
-        drawRect(radialGradiant.value)
-    }
+    Box(modifier = modifier.drawWithCache {
+        val radialGradiant = Brush.radialGradient(
+            listOf(
+                animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
+                background,
+            ),
+        )
+
+        onDrawBehind { drawRect(radialGradiant) }
+    })
 }
 
 @Composable
@@ -135,16 +145,16 @@ public fun ColorBackground(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                Brush.radialGradient(
+            .drawWithCache {
+                val radialGradiant = Brush.radialGradient(
                     listOf(
-                        animatedBackgroundColor.value
-                            .copy(alpha = 0.3f)
-                            .compositeOver(background),
+                        animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
                         background,
                     ),
-                ),
-            ),
+                )
+
+                onDrawBehind { drawRect(radialGradiant) }
+            },
     )
 }
 

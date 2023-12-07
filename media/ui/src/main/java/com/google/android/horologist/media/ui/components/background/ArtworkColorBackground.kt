@@ -20,6 +20,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,14 +35,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.core.graphics.drawable.toBitmap
 import androidx.palette.graphics.Palette
 import androidx.wear.compose.material.MaterialTheme
 import coil.imageLoader
 import coil.request.ImageRequest
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.media.ui.R
 
 /**
  * Background using a radial gradient extracted from artwork.
@@ -53,6 +57,7 @@ public fun ArtworkColorBackground(
     modifier: Modifier = Modifier,
     defaultColor: Color? = null,
     background: Color = MaterialTheme.colors.background,
+    useImage: Boolean = true,
 ) {
     val artworkColor by rememberArtworkColor(
         artworkUri = artworkUri,
@@ -65,16 +70,7 @@ public fun ArtworkColorBackground(
         label = "ColorBackground",
     )
 
-    Box(modifier = modifier.drawWithCache {
-        val radialGradiant = Brush.radialGradient(
-            listOf(
-                animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
-                background,
-            ),
-        )
-
-        onDrawBehind { drawRect(radialGradiant) }
-    })
+    ColorBackground(useImage = useImage, tintColor = { animatedBackgroundColor.value }, modifier = modifier, background = background)
 }
 
 @Composable
@@ -135,6 +131,7 @@ public fun ColorBackground(
     color: Color?,
     modifier: Modifier = Modifier,
     background: Color = MaterialTheme.colors.background,
+    useImage: Boolean = true
 ) {
     val animatedBackgroundColor = animateColorAsState(
         targetValue = color ?: Color.Black,
@@ -142,20 +139,41 @@ public fun ColorBackground(
         label = "ColorBackground",
     )
 
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .drawWithCache {
-                val radialGradiant = Brush.radialGradient(
-                    listOf(
-                        animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
-                        background,
-                    ),
-                )
+    ColorBackground(useImage = useImage, tintColor = { animatedBackgroundColor.value }, modifier = modifier, background = background)
+}
 
-                onDrawBehind { drawRect(radialGradiant) }
-            },
-    )
+@Composable
+private fun ColorBackground(
+    tintColor: () -> Color,
+    modifier: Modifier = Modifier,
+    background: Color = Color.Black,
+    useImage: Boolean  = true,
+) {
+    if (useImage) {
+        Image(
+            painter = painterResource(R.drawable.wear_blurred_background_glow_gradient),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            colorFilter = ColorFilter.tint(color = tintColor())
+        )
+    } else {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .drawWithCache {
+                    val radialGradiant = Brush.radialGradient(
+                        listOf(
+                            tintColor()
+                                .copy(alpha = 0.3f)
+                                .compositeOver(background),
+                            background,
+                        ),
+                    )
+
+                    onDrawBehind { drawRect(radialGradiant) }
+                },
+        )
+    }
 }
 
 private fun centerColor(palette: Palette?) =

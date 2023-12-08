@@ -31,14 +31,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.OutlinedChip
 import androidx.wear.compose.material.Text
@@ -58,6 +56,7 @@ public fun OutlinedChip(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     secondaryLabel: String? = null,
     icon: Any? = null,
     largeIcon: Boolean = false,
@@ -82,13 +81,15 @@ public fun OutlinedChip(
                         is ImageVector ->
                             Icon(
                                 imageVector = icon,
+                                rtlMode = iconRtlMode,
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                                 modifier = iconModifier,
                             )
 
                         is Int ->
                             Icon(
-                                painter = painterResource(id = icon),
+                                id = icon,
+                                rtlMode = iconRtlMode,
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                                 modifier = iconModifier,
                             )
@@ -133,6 +134,7 @@ public fun OutlinedChip(
     @StringRes labelId: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     @StringRes secondaryLabel: Int? = null,
     icon: Any? = null,
     largeIcon: Boolean = false,
@@ -148,6 +150,7 @@ public fun OutlinedChip(
         icon = icon,
         largeIcon = largeIcon,
         placeholder = placeholder,
+        iconRtlMode = iconRtlMode,
         colors = colors,
         enabled = enabled,
     )

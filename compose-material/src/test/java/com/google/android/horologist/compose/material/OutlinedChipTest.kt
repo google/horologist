@@ -20,9 +20,11 @@ import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
+import androidx.compose.material.icons.outlined.VolumeDown
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -357,6 +359,25 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                     backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
                 ),
             )
+        }
+    }
+
+    @Test
+    fun withIconMirrored() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+                @Suppress("Deprecation")
+                OutlinedChip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Outlined.VolumeDown,
+                    iconRtlMode = IconRtlMode.Mirrored,
+                    colors = ChipDefaults.imageBackgroundChipColors(
+                        backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
+                    ),
+                )
+            }
         }
     }
 

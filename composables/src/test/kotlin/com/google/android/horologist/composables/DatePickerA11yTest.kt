@@ -24,6 +24,7 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.filters.FlakyTest
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
@@ -31,7 +32,7 @@ import org.junit.Test
 import org.robolectric.Shadows
 import java.time.LocalDate
 
-@FlakyTest(detail = "https://github.com/google/horologist/issues/407")
+@FlakyTest(detail = "https://github.com/google/horologist/issues/1806")
 class DatePickerA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}

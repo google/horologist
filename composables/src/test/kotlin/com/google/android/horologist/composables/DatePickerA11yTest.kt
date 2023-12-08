@@ -31,6 +31,7 @@ import org.junit.Test
 import org.robolectric.Shadows
 import java.time.LocalDate
 
+@FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 class DatePickerA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         screenTimeText = {}

@@ -121,6 +121,7 @@ dependencies {
     testImplementation(projects.composeMaterial)
     testImplementation(projects.roboscreenshots)
     testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.test.runner)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

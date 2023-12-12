@@ -21,13 +21,21 @@ package com.google.android.horologist.composables
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.MarqueeSpacing
 import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
@@ -36,6 +44,7 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -76,6 +85,7 @@ import kotlin.time.Duration.Companion.seconds
 public fun MarqueeText(
     text: String,
     modifier: Modifier = Modifier,
+    iconSlot: (@Composable () -> Unit)? = null,
     color: Color = Color.Unspecified,
     style: TextStyle = LocalTextStyle.current,
     textAlign: TextAlign = TextAlign.Left,
@@ -86,24 +96,48 @@ public fun MarqueeText(
 ) {
     val controller = remember(text, style) { MarqueeController(edgeGradientWidth) }
     controller.edgeGradientWidth = edgeGradientWidth
+    val parentModifier = modifier
+        .then(controller.outsideMarqueeModifier)
+        .basicMarquee(
+            iterations = Int.MAX_VALUE,
+            delayMillis = pauseTime.inWholeMilliseconds.toInt(),
+            initialDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
+            spacing = MarqueeSpacing(followGap),
+            velocity = marqueeDpPerSecond,
+        )
+        .then(controller.insideMarqueeModifier)
 
-    Text(
-        text = text,
-        modifier = modifier
-            .then(controller.outsideMarqueeModifier)
-            .basicMarquee(
-                iterations = Int.MAX_VALUE,
-                delayMillis = pauseTime.inWholeMilliseconds.toInt(),
-                initialDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
-                spacing = MarqueeSpacing(followGap),
-                velocity = marqueeDpPerSecond,
+    if (iconSlot != null) {
+        Row(
+            modifier = parentModifier.height(IntrinsicSize.Min).semantics(mergeDescendants = true) {},
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Box(
+                modifier = Modifier.fillMaxHeight(),
+                propagateMinConstraints = true,
+                contentAlignment = Alignment.Center,
+            ) {
+                iconSlot()
+            }
+            Text(
+                text = text,
+                textAlign = textAlign,
+                color = color,
+                style = style,
+                maxLines = 1,
             )
-            .then(controller.insideMarqueeModifier),
-        textAlign = textAlign,
-        color = color,
-        style = style,
-        maxLines = 1,
-    )
+        }
+    } else {
+        Text(
+            text = text,
+            modifier = parentModifier,
+            textAlign = textAlign,
+            color = color,
+            style = style,
+            maxLines = 1,
+        )
+    }
 }
 
 private class MarqueeController(edgeGradientWidth: Dp) {

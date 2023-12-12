@@ -28,7 +28,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
-import coil.compose.rememberAsyncImagePainter
 
 /** Represents an image or graphic that can be displayed in a compose context via a [Painter]. */
 @Stable
@@ -81,15 +80,3 @@ public value class BitmapPaintable(private val bitmap: ImageBitmap) : Paintable 
         public fun Bitmap.asPaintable(): BitmapPaintable = this.asImageBitmap().asPaintable()
     }
 }
-
-/** A wrapper around a coil-compatible model that can be represented as a [Painter]. */
-@Stable
-public class CoilPaintable(private val model: Any?, private val placeholder: Painter? = null) :
-    Paintable {
-
-        @Composable
-        override fun rememberPainter(): Painter = rememberAsyncImagePainter(
-            model = model,
-            placeholder = placeholder,
-        )
-    }

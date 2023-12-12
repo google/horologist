@@ -76,7 +76,7 @@ android {
         checkReleaseBuilds = false
         textReport = true
     }
-    namespace = "com.google.android.horologist.compose.material"
+    namespace = "com.google.android.horologist.compose.material.coil"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -95,34 +95,15 @@ metalava {
 }
 
 dependencies {
-    api(projects.annotations)
-    api(projects.composeLayout)
+    api(projects.composeMaterial)
 
-    api(libs.compose.foundation.foundation)
-    api(libs.compose.foundation.foundation.layout)
-    api(libs.compose.runtime)
-    api(libs.compose.ui)
-    api(libs.compose.ui.graphics)
-    api(libs.wearcompose.material)
-    api(libs.wearcompose.foundation)
-
-    implementation(libs.androidx.annotation)
-    implementation(libs.compose.material.iconscore)
-    implementation(libs.compose.ui.text)
-    implementation(libs.compose.ui.unit)
+    implementation(libs.coil)
+    implementation(libs.coil.base)
+    implementation(libs.androidx.palette.ktx)
     implementation(libs.kotlin.stdlib)
-
-    debugApi(projects.composeTools)
-    debugApi(libs.wearcompose.tooling)
-
-    debugImplementation(libs.compose.material.iconsext)
-    debugImplementation(libs.compose.ui.toolingpreview)
-    debugRuntimeOnly(libs.compose.ui.tooling)
-    debugRuntimeOnly(libs.compose.ui.test.manifest)
 
     testImplementation(projects.composeTools)
     testImplementation(projects.roboscreenshots)
-    testImplementation(libs.accompanist.testharness)
     testImplementation(libs.androidx.core)
     testImplementation(libs.compose.material.iconsext)
     testImplementation(libs.compose.ui.test)

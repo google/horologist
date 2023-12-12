@@ -19,7 +19,7 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.compose.material.DrawableResPaintable
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -30,74 +30,62 @@ class MediaChipTest : ScreenshotBaseTest() {
     @Test
     fun givenMediaWithArtwork_thenDisplaysArtwork() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            FakeImageLoader.Resources.override {
-                MediaChip(
-                    title = "Red Hot Chilli Peppers",
-                    artworkUri = R.drawable.horologist_logo,
-                    onClick = {},
-                )
-            }
+            MediaChip(
+                title = "Red Hot Chilli Peppers",
+                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+                onClick = {},
+            )
         }
     }
 
     @Test
     fun givenMediaWithNOArtwork_thenDoesNOTDisplayArtwork() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            FakeImageLoader.Resources.override {
-                MediaChip(
-                    title = "Red Hot Chilli Peppers",
-                    artworkUri = null,
-                    onClick = {},
-                )
-            }
+            MediaChip(
+                title = "Red Hot Chilli Peppers",
+                artworkPaintable = null,
+                onClick = {},
+            )
         }
     }
 
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            FakeImageLoader.Resources.override {
-                MediaChip(
-                    title = "Very very very very very very very very very very very long title",
-                    artworkUri = R.drawable.horologist_logo,
-                    onClick = {},
-                )
-            }
+            MediaChip(
+                title = "Very very very very very very very very very very very long title",
+                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+                onClick = {},
+            )
         }
     }
 
     @Test
     fun givenNOTitle_thenDisplaysDefaultTitle() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            FakeImageLoader.Resources.override {
-                MediaChip(
-                    media = MediaUiModel(
-                        id = "id",
-                        title = "",
-                        artworkUri = FakeImageLoader.TestIconResourceUri,
-                    ),
-                    onClick = {},
-                    defaultTitle = "No title",
-                )
-            }
+            MediaChip(
+                media = MediaUiModel(
+                    id = "id",
+                    title = "",
+                ),
+                onClick = {},
+                defaultTitle = "No title",
+            )
         }
     }
 
     @Test
     fun givenModifier_thenAppliesModifierCorrectly() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            FakeImageLoader.Resources.override {
-                MediaChip(
-                    media = MediaUiModel(
-                        id = "id",
-                        title = "Red Hot Chilli Peppers",
-                        artworkUri = FakeImageLoader.TestIconResourceUri,
-                    ),
-                    onClick = {},
-                    modifier = Modifier
-                        .height(120.dp),
-                )
-            }
+            MediaChip(
+                media = MediaUiModel(
+                    id = "id",
+                    title = "Red Hot Chilli Peppers",
+                ),
+                onClick = {},
+                modifier = Modifier
+                    .height(120.dp),
+            )
         }
     }
 }

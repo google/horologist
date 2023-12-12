@@ -24,22 +24,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
-import androidx.compose.ui.platform.LocalContext
-import androidx.core.graphics.drawable.toBitmap
-import androidx.palette.graphics.Palette
 import androidx.wear.compose.material.MaterialTheme
-import coil.imageLoader
-import coil.request.ImageRequest
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.coil.rememberArtworkColor
 
 /**
  * Background using a radial gradient extracted from artwork.
@@ -93,34 +87,6 @@ public fun rememberArtworkColorBrush(
 }
 
 @Composable
-@ExperimentalHorologistApi
-public fun rememberArtworkColor(
-    artworkUri: Any?,
-    defaultColor: Color = MaterialTheme.colors.primary,
-): State<Color> {
-    val context = LocalContext.current
-    val imageLoader = context.imageLoader
-
-    val artworkColor = remember { mutableStateOf(defaultColor) }
-
-    LaunchedEffect(artworkUri) {
-        artworkColor.value = if (artworkUri != null) {
-            val request =
-                ImageRequest.Builder(context)
-                    .data(artworkUri)
-                    .allowHardware(false)
-                    .build()
-            val result = imageLoader.execute(request)
-            val palette = result.drawable?.let { Palette.Builder(it.toBitmap()).generate() }
-            centerColor(palette)
-        } else {
-            defaultColor
-        }
-    }
-    return artworkColor
-}
-
-@Composable
 @Deprecated("Prefer background modifier")
 @ExperimentalHorologistApi
 public fun ColorBackground(
@@ -149,10 +115,3 @@ public fun ColorBackground(
             ),
     )
 }
-
-private fun centerColor(palette: Palette?) =
-    palette?.lightVibrantSwatch?.rgb?.color
-        ?: palette?.lightMutedSwatch?.rgb?.color ?: Color.Black
-
-private val Int.color: Color
-    get() = Color(this)

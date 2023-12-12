@@ -62,11 +62,6 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? icon, optional boolean largeIcon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
   }
 
-  @androidx.compose.runtime.Stable public final class CoilPaintable implements com.google.android.horologist.compose.material.Paintable {
-    ctor public CoilPaintable(Object? model, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
-    method @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
-  }
-
   public final class CompactChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CompactChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.material.Paintable? icon, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CompactChip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.material.Paintable? icon, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);

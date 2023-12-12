@@ -16,12 +16,17 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FireTruck
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
@@ -83,6 +88,27 @@ fun MarqueeTextShortTextRtlPreview() {
 fun MarqueeTextConstantScrollingPreview() {
     MarqueeText(
         text = "A very long text strings",
+        modifier = Modifier
+            .background(Color.DarkGray)
+            .width(100.dp),
+        textAlign = TextAlign.Center,
+        pauseTime = 0.seconds,
+    )
+}
+
+@WearPreview
+@Composable
+fun MarqueeTextConstantWithIconScrollingPreview() {
+    MarqueeText(
+        text = "A very long text strings",
+        iconSlot = {
+            Image(
+                imageVector = Icons.Default.FireTruck,
+                contentDescription = null,
+                colorFilter = ColorFilter.tint(Color.White),
+                contentScale = ContentScale.FillHeight,
+            )
+        },
         modifier = Modifier
             .background(Color.DarkGray)
             .width(100.dp),

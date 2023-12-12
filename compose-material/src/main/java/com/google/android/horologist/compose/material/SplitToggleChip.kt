@@ -34,6 +34,7 @@ import androidx.wear.compose.material.SplitToggleChipColors
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 /**
@@ -91,11 +92,11 @@ public fun SplitToggleChip(
             },
         )
         Icon(
-            imageVector = when (toggleControl) {
+            paintable = when (toggleControl) {
                 ToggleChipToggleControl.Switch -> ToggleChipDefaults.switchIcon(checked)
                 ToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
                 ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
-            },
+            }.asPaintable(),
             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
             modifier = Modifier.semantics {
                 stateDescription = stateDescriptionSemantics

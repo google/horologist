@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.CompactChip
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 
 @Composable
 internal fun SampleCompactChipScreen(
@@ -44,13 +45,13 @@ internal fun SampleCompactChipScreen(
             CompactChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Filled.Add,
+                icon = Icons.Filled.Add.asPaintable(),
             )
         }
         item {
             CompactChip(
                 onClick = { },
-                icon = Icons.Filled.Add,
+                icon = Icons.Filled.Add.asPaintable(),
                 contentDescription = "contentDescription",
             )
         }

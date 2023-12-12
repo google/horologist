@@ -33,6 +33,8 @@ import com.google.android.horologist.auth.composables.chips.AccountChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.compose.material.Paintable
 import com.google.android.horologist.compose.material.Title
 
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052
@@ -49,7 +51,7 @@ public fun SelectAccountScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_select_account_title),
-    defaultAvatar: Any? = Icons.Default.AccountCircle,
+    defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
 ) {
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp

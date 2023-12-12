@@ -18,6 +18,7 @@ package com.google.android.horologist.auth.ui.googlesignin.mapper
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.horologist.auth.composables.model.AccountUiModel
+import com.google.android.horologist.compose.material.CoilPaintable
 
 /**
  * Functions to map models from Google Sign In into a [AccountUiModel].
@@ -33,6 +34,6 @@ public object AccountUiModelMapper {
     ): AccountUiModel = AccountUiModel(
         email = account.email ?: defaultEmail,
         name = account.displayName,
-        avatar = account.photoUrl,
+        avatar = account.photoUrl?.let { CoilPaintable(it) },
     )
 }

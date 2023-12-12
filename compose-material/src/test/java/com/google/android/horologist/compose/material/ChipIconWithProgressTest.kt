@@ -19,6 +19,7 @@ package com.google.android.horologist.compose.material
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
@@ -39,14 +40,14 @@ class ChipIconWithProgressTest : ScreenshotBaseTest() {
     @Test
     fun withProgressSmallIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            ChipIconWithProgress(progress = 75f, icon = Icon12dp)
+            ChipIconWithProgress(progress = 75f, icon = Icon12dp.asPaintable())
         }
     }
 
     @Test
     fun withProgressMediumIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            ChipIconWithProgress(progress = 75f, icon = Icon32dp)
+            ChipIconWithProgress(progress = 75f, icon = Icon32dp.asPaintable())
         }
     }
 
@@ -55,7 +56,7 @@ class ChipIconWithProgressTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ChipIconWithProgress(
                 progress = 75f,
-                icon = Icon48dp,
+                icon = Icon48dp.asPaintable(),
                 largeIcon = true,
             )
         }

@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
@@ -42,7 +43,7 @@ class OutlinedCompactChipA11yTest : ScreenshotBaseTest(
                 OutlinedCompactChip(
                     onClick = { },
                     label = "Primary label",
-                    icon = Icons.Filled.Add,
+                    icon = Icons.Filled.Add.asPaintable(),
                 )
             }
         }
@@ -58,7 +59,7 @@ class OutlinedCompactChipA11yTest : ScreenshotBaseTest(
                 OutlinedCompactChip(
                     onClick = { },
                     label = "Primary label",
-                    icon = Icons.Filled.Add,
+                    icon = Icons.Filled.Add.asPaintable(),
                     enabled = false,
                 )
             }
@@ -74,7 +75,7 @@ class OutlinedCompactChipA11yTest : ScreenshotBaseTest(
             ) {
                 OutlinedCompactChip(
                     onClick = { },
-                    icon = Icons.Filled.Add,
+                    icon = Icons.Filled.Add.asPaintable(),
                     contentDescription = "contentDescription",
                 )
             }

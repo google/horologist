@@ -52,7 +52,7 @@ public fun Button(
     enabled: Boolean = true,
 ) {
     Button(
-        icon = imageVector,
+        icon = ImageVectorPaintable(imageVector),
         contentDescription = contentDescription,
         onClick = onClick,
         modifier = modifier,
@@ -81,7 +81,7 @@ public fun Button(
     enabled: Boolean = true,
 ) {
     Button(
-        icon = id,
+        icon = DrawableResPaintable(id),
         contentDescription = contentDescription,
         onClick = onClick,
         modifier = modifier,
@@ -95,7 +95,7 @@ public fun Button(
 @OptIn(ExperimentalHorologistApi::class)
 @Composable
 internal fun Button(
-    icon: Any,
+    icon: PaintableIcon,
     contentDescription: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -115,7 +115,7 @@ internal fun Button(
             .align(Alignment.Center)
 
         Icon(
-            icon = icon,
+            paintable = icon,
             contentDescription = contentDescription,
             modifier = iconModifier,
             rtlMode = iconRtlMode,

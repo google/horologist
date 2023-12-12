@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.ToggleButton
 import com.google.android.horologist.compose.material.ToggleButtonDefaults
 
@@ -51,8 +52,8 @@ internal fun SampleToggleButtonScreen(
         }
         item {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 smallSize = true,
@@ -60,8 +61,8 @@ internal fun SampleToggleButtonScreen(
         }
         item {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 checked = false,
@@ -70,8 +71,8 @@ internal fun SampleToggleButtonScreen(
         }
         item {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 colors = ToggleButtonDefaults.iconOnlyColors(),
@@ -80,8 +81,8 @@ internal fun SampleToggleButtonScreen(
         }
         item {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 checked = false,

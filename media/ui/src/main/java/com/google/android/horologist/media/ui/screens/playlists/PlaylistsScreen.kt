@@ -29,6 +29,7 @@ import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.CoilPaintable
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -102,9 +103,8 @@ public fun PlaylistsScreen(
         Chip(
             label = playlist.title,
             onClick = { onPlaylistItemClick(playlist) },
-            icon = playlist.artworkUri,
+            icon = CoilPaintable(playlist.artworkUri, playlistItemArtworkPlaceholder),
             largeIcon = true,
-            placeholder = playlistItemArtworkPlaceholder,
             colors = ChipDefaults.secondaryChipColors(),
         )
     }

@@ -54,7 +54,7 @@ package com.google.android.horologist.media.ui.components {
 
   public final class MediaArtworkKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaArtwork(com.google.android.horologist.media.ui.state.model.MediaUiModel media, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaArtwork(Object? artworkUri, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaArtwork(com.google.android.horologist.compose.material.Paintable artworkPaintable, String? contentDescription, optional androidx.compose.ui.Modifier modifier);
   }
 
   public final class MediaChipKt {
@@ -87,7 +87,7 @@ package com.google.android.horologist.media.ui.components {
 package com.google.android.horologist.media.ui.components.actions {
 
   public final class ShowPlaylistChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ShowPlaylistChip(Object? artworkUri, String? name, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ShowPlaylistChip(com.google.android.horologist.compose.material.Paintable? artworkPaintable, String? name, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier);
   }
 
 }

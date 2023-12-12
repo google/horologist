@@ -32,6 +32,8 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.CoilPaintable
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
@@ -81,9 +83,8 @@ public fun PlaylistDownloadBrowseScreen(
                         Chip(
                             label = download.playlistUiModel.title,
                             onClick = { onDownloadItemClick(download) },
-                            icon = download.playlistUiModel.artworkUri,
+                            icon = CoilPaintable(download.playlistUiModel.artworkUri, downloadItemArtworkPlaceholder),
                             largeIcon = true,
-                            placeholder = downloadItemArtworkPlaceholder,
                             colors = ChipDefaults.secondaryChipColors(),
                         )
                     }
@@ -106,8 +107,7 @@ public fun PlaylistDownloadBrowseScreen(
                                 id = R.string.horologist_browse_downloads_progress,
                                 download.percentage,
                             ),
-                            icon = Icons.Default.Downloading,
-                            placeholder = downloadItemArtworkPlaceholder,
+                            icon = Icons.Default.Downloading.asPaintable(),
                             colors = ChipDefaults.secondaryChipColors(),
                         )
                     }

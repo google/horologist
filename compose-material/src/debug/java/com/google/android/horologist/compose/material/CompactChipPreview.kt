@@ -36,7 +36,7 @@ fun CompactChipPreviewWithIcon() {
     CompactChip(
         label = "Primary label",
         onClick = { },
-        icon = Icons.Filled.Add,
+        icon = ImageVectorPaintable(Icons.Filled.Add),
     )
 }
 
@@ -45,7 +45,7 @@ fun CompactChipPreviewWithIcon() {
 fun CompactChipPreviewIconOnly() {
     CompactChip(
         onClick = { },
-        icon = Icons.Filled.Add,
+        icon = ImageVectorPaintable(Icons.Filled.Add),
         contentDescription = "contentDescription",
     )
 }

@@ -27,8 +27,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -39,7 +37,6 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.OutlinedCompactChip
 import androidx.wear.compose.material.Text
-import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
@@ -54,9 +51,8 @@ public fun OutlinedCompactChip(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    icon: Any? = null,
+    icon: Paintable? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
-    placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -68,7 +64,6 @@ public fun OutlinedCompactChip(
         label = label,
         icon = icon,
         iconRtlMode = iconRtlMode,
-        placeholder = placeholder,
         contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
         colors = colors,
         enabled = enabled,
@@ -88,9 +83,8 @@ public fun OutlinedCompactChip(
     @StringRes labelId: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    icon: Any? = null,
+    icon: Paintable? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
-    placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -102,7 +96,6 @@ public fun OutlinedCompactChip(
         label = stringResource(id = labelId),
         icon = icon,
         iconRtlMode = iconRtlMode,
-        placeholder = placeholder,
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource,
@@ -118,12 +111,11 @@ public fun OutlinedCompactChip(
 @ExperimentalHorologistApi
 @Composable
 public fun OutlinedCompactChip(
-    icon: Any,
+    icon: Paintable,
     contentDescription: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
-    placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -135,7 +127,6 @@ public fun OutlinedCompactChip(
         label = null,
         icon = icon,
         iconRtlMode = iconRtlMode,
-        placeholder = placeholder,
         contentDescription = contentDescription,
         colors = colors,
         enabled = enabled,
@@ -149,9 +140,8 @@ internal fun OutlinedCompactChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     label: String? = null,
-    icon: Any? = null,
+    icon: Paintable? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
-    placeholder: Painter? = null,
     contentDescription: String? = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
     enabled: Boolean = true,
@@ -163,34 +153,21 @@ internal fun OutlinedCompactChip(
             Row {
                 val iconModifier = Modifier.size(ChipDefaults.SmallIconSize)
 
-                when (icon) {
-                    is ImageVector ->
-                        Icon(
-                            imageVector = icon,
-                            contentDescription = contentDescription,
-                            modifier = iconModifier,
-                            rtlMode = iconRtlMode,
-                        )
-
-                    is Int ->
-                        Icon(
-                            id = icon,
-                            contentDescription = contentDescription,
-                            modifier = iconModifier,
-                            rtlMode = iconRtlMode,
-                        )
-
-                    else ->
-                        Image(
-                            painter = rememberAsyncImagePainter(
-                                model = icon,
-                                placeholder = placeholder,
-                            ),
-                            contentDescription = contentDescription,
-                            modifier = iconModifier,
-                            contentScale = ContentScale.Crop,
-                            alpha = LocalContentAlpha.current,
-                        )
+                if (it is PaintableIcon) {
+                    Icon(
+                        paintable = it,
+                        contentDescription = contentDescription,
+                        modifier = iconModifier,
+                        rtlMode = iconRtlMode,
+                    )
+                } else {
+                    Image(
+                        painter = it.rememberPainter(),
+                        contentDescription = contentDescription,
+                        modifier = iconModifier,
+                        contentScale = ContentScale.Crop,
+                        alpha = LocalContentAlpha.current,
+                    )
                 }
             }
         }

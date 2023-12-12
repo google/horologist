@@ -41,10 +41,10 @@ import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.DialogDefaults
-import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.material.Confirmation
+import com.google.android.horologist.compose.material.Paintable
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import java.time.Duration
 
@@ -63,7 +63,7 @@ public fun SignedInConfirmationDialog(
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
-    avatar: Any? = null,
+    avatar: Paintable? = null,
     duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis),
 ) {
     Confirmation(
@@ -108,7 +108,7 @@ private fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
-    avatar: Any? = null,
+    avatar: Paintable? = null,
 ) {
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
@@ -121,7 +121,6 @@ private fun SignedInConfirmationDialogContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val hasName = !name.isNullOrEmpty()
-        val hasAvatar = avatar != null
 
         Box(
             modifier = Modifier
@@ -129,10 +128,10 @@ private fun SignedInConfirmationDialogContent(
                 .background(color = Color(AVATAR_BACKGROUND_COLOR), shape = CircleShape),
             contentAlignment = Alignment.Center,
         ) {
-            if (hasAvatar) {
+            if (avatar != null) {
                 Image(
                     modifier = Modifier.clip(CircleShape),
-                    painter = rememberAsyncImagePainter(model = avatar),
+                    painter = avatar.rememberPainter(),
                     contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                     contentScale = ContentScale.Fit,
                 )

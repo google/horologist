@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.components.actions
 
+import com.google.android.horologist.compose.material.DrawableResPaintable
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -28,7 +29,7 @@ class ShowPlaylistChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
-                    artworkUri = R.drawable.horologist_logo,
+                    artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
                     name = "Playlists",
                     onClick = {},
                 )
@@ -41,7 +42,7 @@ class ShowPlaylistChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
-                    artworkUri = null,
+                    artworkPaintable = null,
                     name = "Playlists",
                     onClick = {},
                 )
@@ -54,7 +55,7 @@ class ShowPlaylistChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
-                    artworkUri = R.drawable.horologist_logo,
+                    artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
                     name = null,
                     onClick = {},
                 )
@@ -67,7 +68,7 @@ class ShowPlaylistChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             FakeImageLoader.Resources.override {
                 ShowPlaylistChip(
-                    artworkUri = R.drawable.horologist_logo,
+                    artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
                     name = "Very very very very very very very very very very very very very very very very very very very long title",
                     onClick = {},
                 )

@@ -87,8 +87,8 @@ public fun ToggleButton(
  */
 @Composable
 public fun ToggleButton(
-    checkedIcon: Any,
-    notCheckedIcon: Any,
+    checkedIcon: PaintableIcon,
+    notCheckedIcon: PaintableIcon,
     contentDescription: String,
     onCheckedChanged: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -126,7 +126,7 @@ public fun ToggleButton(
         role = role,
     ) {
         Icon(
-            icon = if (checked) {
+            paintable = if (checked) {
                 checkedIcon
             } else {
                 notCheckedIcon

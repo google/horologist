@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.google.android.horologist.compose.material.DrawableResPaintable
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -41,7 +42,7 @@ class ShowPlaylistChipA11yTest : ScreenshotBaseTest(
         ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ShowPlaylistChip(
-                    artworkUri = R.drawable.horologist_logo,
+                    artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
                     name = "Playlists",
                     onClick = {},
                 )

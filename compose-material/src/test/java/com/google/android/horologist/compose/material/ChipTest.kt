@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import com.google.accompanist.testharness.TestHarness
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -66,7 +67,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
     }
@@ -77,7 +78,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon32dp,
+                icon = Icon32dp.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -90,7 +91,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
     }
@@ -102,7 +103,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icon32dp,
+                icon = Icon32dp.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -115,7 +116,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 enabled = false,
             )
         }
@@ -162,7 +163,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
     }
@@ -175,7 +176,7 @@ class ChipTest : ScreenshotBaseTest() {
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image.asPaintable(),
                 )
             }
         }
@@ -188,7 +189,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -202,7 +203,7 @@ class ChipTest : ScreenshotBaseTest() {
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image.asPaintable(),
                     largeIcon = true,
                 )
             }
@@ -215,7 +216,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon12dp,
+                icon = Icon12dp.asPaintable(),
             )
         }
     }
@@ -226,7 +227,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = android.R.drawable.ic_delete,
+                icon = DrawableResPaintable(android.R.drawable.ic_delete),
             )
         }
     }
@@ -237,7 +238,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon12dp,
+                icon = Icon12dp.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -249,7 +250,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon48dp,
+                icon = Icon48dp.asPaintable(),
             )
         }
     }
@@ -260,7 +261,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon48dp,
+                icon = Icon48dp.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -272,7 +273,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
     }
@@ -290,10 +291,12 @@ class ChipTest : ScreenshotBaseTest() {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Image,
-                        tintColor = Color.Black,
+                    icon = CoilPaintable(
+                        "iconUri",
+                        placeholder = rememberVectorPainter(
+                            image = Icons.Default.Image,
+                            tintColor = Color.Black,
+                        ),
                     ),
                     enabled = false,
                 )
@@ -309,7 +312,7 @@ class ChipTest : ScreenshotBaseTest() {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image.asPaintable(),
                 )
             }
         }
@@ -322,7 +325,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.secondaryChipColors(),
             )
         }
@@ -335,7 +338,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.gradientBackgroundChipColors(),
             )
         }
@@ -348,7 +351,7 @@ class ChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.imageBackgroundChipColors(
                     backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
                 ),
@@ -365,7 +368,7 @@ class ChipTest : ScreenshotBaseTest() {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Outlined.VolumeDown,
+                    icon = Icons.Outlined.VolumeDown.asPaintable(),
                     iconRtlMode = IconRtlMode.Mirrored,
                 )
             }

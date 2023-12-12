@@ -21,8 +21,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.CoilPaintable
+import com.google.android.horologist.compose.material.Paintable
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @ExperimentalHorologistApi
@@ -33,24 +34,22 @@ public fun MediaArtwork(
     placeholder: Painter? = null,
 ) {
     MediaArtwork(
-        artworkUri = media.artworkUri,
+        artworkPaintable = CoilPaintable(media.artworkUri, placeholder),
         contentDescription = media.title,
         modifier = modifier,
-        placeholder = placeholder,
     )
 }
 
 @ExperimentalHorologistApi
 @Composable
 public fun MediaArtwork(
-    artworkUri: Any?,
+    artworkPaintable: Paintable,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    placeholder: Painter? = null,
 ) {
     Image(
         modifier = modifier,
-        painter = rememberAsyncImagePainter(model = artworkUri, placeholder = placeholder),
+        painter = artworkPaintable.rememberPainter(),
         contentDescription = contentDescription,
         contentScale = ContentScale.Fit,
     )

@@ -25,12 +25,15 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -38,6 +41,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.MarqueeText
+import com.google.android.horologist.images.base.paintable.Paintable
 import kotlin.math.roundToInt
 
 /**
@@ -49,6 +53,7 @@ public fun MarqueeTextMediaDisplay(
     modifier: Modifier = Modifier,
     title: String? = null,
     artist: String? = null,
+    titleIcon: Paintable? = null,
     enterTransitionDelay: Int = 60,
     subtextTransitionDelay: Int = 30,
     @FloatRange(from = 0.0, to = 1.0) transitionLength: Float = 0.125f,
@@ -71,7 +76,19 @@ public fun MarqueeTextMediaDisplay(
                 currentTitle ->
             MarqueeText(
                 text = currentTitle.orEmpty(),
-                modifier = Modifier.fillMaxWidth(0.7f).padding(top = 2.dp, bottom = .8.dp),
+                iconSlot = titleIcon?.let {
+                    {
+                        Image(
+                            painter = it.rememberPainter(),
+                            contentDescription = null,
+                            colorFilter = ColorFilter.tint(MaterialTheme.colors.onBackground),
+                            contentScale = ContentScale.FillHeight,
+                        )
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth(0.7f)
+                    .padding(top = 2.dp, bottom = .8.dp),
                 color = MaterialTheme.colors.onBackground,
                 style = MaterialTheme.typography.button,
                 textAlign = TextAlign.Center,
@@ -85,7 +102,9 @@ public fun MarqueeTextMediaDisplay(
         ) { currentArtist ->
             Text(
                 text = currentArtist.orEmpty(),
-                modifier = Modifier.fillMaxWidth(0.8f).padding(top = 2.dp, bottom = .6.dp),
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .padding(top = 2.dp, bottom = .6.dp),
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,

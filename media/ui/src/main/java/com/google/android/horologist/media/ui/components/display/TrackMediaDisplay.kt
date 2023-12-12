@@ -33,6 +33,7 @@ public fun TrackMediaDisplay(
     TextMediaDisplay(
         title = media.title,
         subtitle = media.subtitle,
+        titleIcon = media.titleIcon,
         modifier = modifier,
     )
 }

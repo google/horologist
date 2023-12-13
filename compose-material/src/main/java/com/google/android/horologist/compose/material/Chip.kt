@@ -31,7 +31,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -39,7 +38,6 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
@@ -59,6 +57,7 @@ public fun Chip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     secondaryLabel: String? = null,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     icon: Any? = null,
     largeIcon: Boolean = false,
     placeholder: Painter? = null,
@@ -84,13 +83,15 @@ public fun Chip(
                                 imageVector = icon,
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                                 modifier = iconModifier,
+                                rtlMode = iconRtlMode,
                             )
 
                         is Int ->
                             Icon(
-                                painter = painterResource(id = icon),
+                                id = icon,
                                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                                 modifier = iconModifier,
+                                rtlMode = iconRtlMode,
                             )
 
                         else ->
@@ -134,6 +135,7 @@ public fun Chip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     @StringRes secondaryLabel: Int? = null,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     icon: Any? = null,
     largeIcon: Boolean = false,
     placeholder: Painter? = null,
@@ -150,6 +152,7 @@ public fun Chip(
         placeholder = placeholder,
         colors = colors,
         enabled = enabled,
+        iconRtlMode = iconRtlMode,
     )
 }
 

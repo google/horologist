@@ -68,6 +68,14 @@ phone.
                     seconds: 1680016845
                 }
             }
+            usage_info {
+                timestamp {
+                    nanos: 669000000
+                    seconds: 1701708501
+                }
+                usage_status: USAGE_STATUS_LAUNCHED_ONCE
+                usage_status_value: 1
+            }
     )
     ```
 
@@ -159,14 +167,40 @@ phone.
     wearAppHelper.markComplicationAsDeactivated("GoalsComplication")
     ```
 
-3. **Tracking the main activity has been launched at least once** (Wear-only)
+1. **Tracking the main activity has been launched at least once** (Wear-only)
 
-   To determine if your main activity has been launched once, use: 
+   To mark that your main activity on the watch app has been launched once, use: 
 
-   ```kotlin
+    ```kotlin
     wearAppHelper.markActivityLaunchedOnce()
-    ```    
+    ```
 
+    To check it on the phone side, use:
+    ```kotlin
+    val connectedNodes = appHelper.connectedNodes()
+    // after picking a node, check if value is USAGE_STATUS_LAUNCHED_ONCE:
+    node.surfacesInfo.usageInfo.usageStatus
+    ```
 
+1.  **Tracking the app has been set up** (Wear-only)
 
-    
+    To mark that the user has completed in the app the necessary setup steps such that it is ready 
+    for use, use the following:
+
+    ```kotlin
+    wearAppHelper.markSetupComplete()
+    ```
+
+    And when the app is no longer considered in a fully setup state, use the following:
+
+    ```kotlin
+    wearAppHelper.markSetupNoLongerComplete()
+    ```
+
+    To check it on the phone side, use:
+    ```kotlin
+    val connectedNodes = appHelper.connectedNodes()
+    // after picking a node, check if value is either USAGE_STATUS_LAUNCHED_ONCE
+    // or USAGE_STATUS_SETUP_COMPLETE
+    node.surfacesInfo.usageInfo.usageStatus
+    ```

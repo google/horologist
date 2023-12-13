@@ -129,7 +129,7 @@ public fun ColorBackground(
     color: Color?,
     modifier: Modifier = Modifier,
     background: Color = MaterialTheme.colors.background,
-    useImage: Boolean = true
+    useImage: Boolean = true,
 ) {
     val animatedBackgroundColor = animateColorAsState(
         targetValue = color ?: Color.Black,
@@ -145,14 +145,14 @@ private fun ColorBackground(
     tintColor: () -> Color,
     modifier: Modifier = Modifier,
     background: Color = Color.Black,
-    useImage: Boolean  = true,
+    useImage: Boolean = true,
 ) {
     if (useImage) {
         Image(
             painter = painterResource(R.drawable.wear_blurred_background_glow_gradient),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
-            colorFilter = ColorFilter.tint(color = tintColor())
+            colorFilter = ColorFilter.tint(color = tintColor()),
         )
     } else {
         Box(

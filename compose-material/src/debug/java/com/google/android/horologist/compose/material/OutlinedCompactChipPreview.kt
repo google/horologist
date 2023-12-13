@@ -36,7 +36,7 @@ fun OutlinedCompactChipPreviewWithIcon() {
     OutlinedCompactChip(
         onClick = { },
         label = "Primary label",
-        icon = Icons.Filled.Add,
+        icon = ImageVectorPaintable(Icons.Filled.Add),
     )
 }
 
@@ -45,7 +45,7 @@ fun OutlinedCompactChipPreviewWithIcon() {
 fun OutlinedCompactChipPreviewIconOnly() {
     OutlinedCompactChip(
         onClick = { },
-        icon = Icons.Filled.Add,
+        icon = ImageVectorPaintable(Icons.Filled.Add),
         contentDescription = "contentDescription",
     )
 }

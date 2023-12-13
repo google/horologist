@@ -30,6 +30,7 @@ import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 
 @Composable
 internal fun SampleChipScreen(
@@ -50,14 +51,14 @@ internal fun SampleChipScreen(
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
         item {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon32dp,
+                icon = Icon32dp.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -66,7 +67,7 @@ internal fun SampleChipScreen(
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
         item {
@@ -74,7 +75,7 @@ internal fun SampleChipScreen(
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icon32dp,
+                icon = Icon32dp.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -83,7 +84,7 @@ internal fun SampleChipScreen(
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 enabled = false,
             )
         }
@@ -92,7 +93,7 @@ internal fun SampleChipScreen(
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.secondaryChipColors(),
             )
         }
@@ -101,7 +102,7 @@ internal fun SampleChipScreen(
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.gradientBackgroundChipColors(),
             )
         }
@@ -110,7 +111,7 @@ internal fun SampleChipScreen(
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.imageBackgroundChipColors(
                     backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
                 ),

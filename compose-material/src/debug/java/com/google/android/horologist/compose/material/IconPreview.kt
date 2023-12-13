@@ -28,7 +28,7 @@ import com.google.android.horologist.compose.tools.WearPreview
 @Composable
 fun IconPreview() {
     Icon(
-        imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+        paintable = ImageVectorPaintable(Icons.AutoMirrored.Outlined.VolumeDown),
         contentDescription = "contentDescription",
     )
 }
@@ -38,7 +38,7 @@ fun IconPreview() {
 fun IconPreviewMirrored() {
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         Icon(
-            imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+            paintable = ImageVectorPaintable(Icons.AutoMirrored.Outlined.VolumeDown),
             contentDescription = "contentDescription",
             rtlMode = IconRtlMode.Mirrored,
         )

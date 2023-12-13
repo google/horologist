@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
@@ -32,8 +33,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun default() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
             )
@@ -44,8 +45,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun notChecked() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 checked = false,
@@ -57,8 +58,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun disabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 enabled = false,
@@ -70,8 +71,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun notCheckedDisabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 checked = false,
@@ -128,8 +129,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun small() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 smallSize = true,
@@ -141,8 +142,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun smallNotChecked() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 checked = false,
@@ -155,8 +156,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun smallDisabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 enabled = false,
@@ -168,8 +169,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun smallNotCheckedDisabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 checked = false,
@@ -182,8 +183,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun iconOnly() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 colors = ToggleButtonDefaults.iconOnlyColors(),
@@ -195,8 +196,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun iconOnlyNotChecked() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 checked = false,
@@ -209,8 +210,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun iconOnlyDisabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 enabled = false,
@@ -223,8 +224,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun iconOnlyNotCheckedDisabled() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive,
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 checked = false,
@@ -240,8 +241,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 ToggleButton(
-                    checkedIcon = Icons.AutoMirrored.Filled.VolumeUp,
-                    notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff,
+                    checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
+                    notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
                 )
@@ -253,8 +254,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     fun mirrored() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             ToggleButton(
-                checkedIcon = Icons.AutoMirrored.Filled.VolumeUp,
-                notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff,
+                checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
+                notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
                 contentDescription = "contentDescription",
                 onCheckedChanged = {},
                 iconRtlMode = IconRtlMode.Mirrored,
@@ -267,8 +268,8 @@ class ToggleButtonTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 ToggleButton(
-                    checkedIcon = Icons.AutoMirrored.Filled.VolumeUp,
-                    notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff,
+                    checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
+                    notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
                     iconRtlMode = IconRtlMode.Mirrored,

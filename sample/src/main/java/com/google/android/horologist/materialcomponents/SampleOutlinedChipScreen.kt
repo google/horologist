@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.OutlinedChip
 
 @Composable
@@ -41,14 +42,14 @@ internal fun SampleOutlinedChipScreen(
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
         item {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon32dp,
+                icon = Icon32dp.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -57,7 +58,7 @@ internal fun SampleOutlinedChipScreen(
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
         item {
@@ -65,7 +66,7 @@ internal fun SampleOutlinedChipScreen(
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icon32dp,
+                icon = Icon32dp.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -74,7 +75,7 @@ internal fun SampleOutlinedChipScreen(
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 enabled = false,
             )
         }

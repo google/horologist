@@ -51,7 +51,7 @@ fun ChipIconWithProgressInProgressPreview() {
 fun ChipIconWithProgressInProgressLargeIconPreview() {
     ChipIconWithProgress(
         progress = 75f,
-        icon = Icon48dp,
+        icon = ImageVectorPaintable(Icon48dp),
         largeIcon = true,
     )
 }
@@ -63,7 +63,7 @@ fun ChipIconWithProgressInProgressLargeIconPreview() {
 )
 @Composable
 fun ChipIconWithProgressInProgressMediumIconPreview() {
-    ChipIconWithProgress(progress = 75f, icon = Icon32dp)
+    ChipIconWithProgress(progress = 75f, icon = ImageVectorPaintable(Icon32dp))
 }
 
 @Preview(
@@ -73,7 +73,7 @@ fun ChipIconWithProgressInProgressMediumIconPreview() {
 )
 @Composable
 fun ChipIconWithProgressInProgressSmallIconPreview() {
-    ChipIconWithProgress(progress = 75f, icon = Icon12dp)
+    ChipIconWithProgress(progress = 75f, icon = ImageVectorPaintable(Icon12dp))
 }
 
 private val Icon12dp: ImageVector

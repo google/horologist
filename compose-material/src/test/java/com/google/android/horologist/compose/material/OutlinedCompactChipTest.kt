@@ -26,6 +26,7 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.MaterialTheme
 import com.google.accompanist.testharness.TestHarness
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -49,7 +50,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
-                icon = Icons.Filled.Add,
+                icon = Icons.Filled.Add.asPaintable(),
             )
         }
     }
@@ -59,7 +60,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             OutlinedCompactChip(
                 onClick = { },
-                icon = Icons.Filled.Add,
+                icon = Icons.Filled.Add.asPaintable(),
             )
         }
     }
@@ -70,7 +71,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
-                icon = Icons.Filled.Add,
+                icon = Icons.Filled.Add.asPaintable(),
                 enabled = false,
             )
         }
@@ -104,7 +105,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
-                icon = R.drawable.ic_delete,
+                icon = DrawableResPaintable(R.drawable.ic_delete),
             )
         }
     }
@@ -117,10 +118,12 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                 OutlinedCompactChip(
                     onClick = { },
                     label = "Primary label",
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Image,
-                        tintColor = MaterialTheme.colors.primary,
+                    icon = CoilPaintable(
+                        "iconUri",
+                        placeholder = rememberVectorPainter(
+                            image = Icons.Default.Image,
+                            tintColor = MaterialTheme.colors.primary,
+                        ),
                     ),
                 )
             }
@@ -139,10 +142,12 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                 OutlinedCompactChip(
                     onClick = { },
                     label = "Primary label",
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Image,
-                        tintColor = MaterialTheme.colors.primary,
+                    icon = CoilPaintable(
+                        "iconUri",
+                        placeholder = rememberVectorPainter(
+                            image = Icons.Default.Image,
+                            tintColor = MaterialTheme.colors.primary,
+                        ),
                     ),
                     enabled = false,
                 )
@@ -157,7 +162,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                 OutlinedCompactChip(
                     onClick = { },
                     label = "Primary label",
-                    icon = Icons.AutoMirrored.Default.DirectionsBike,
+                    icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
                 )
             }
         }
@@ -169,7 +174,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
-                icon = Icons.AutoMirrored.Default.DirectionsBike,
+                icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
                 iconRtlMode = IconRtlMode.Mirrored,
             )
         }
@@ -182,7 +187,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                 OutlinedCompactChip(
                     onClick = { },
                     label = "Primary label",
-                    icon = Icons.AutoMirrored.Default.DirectionsBike,
+                    icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
                     iconRtlMode = IconRtlMode.Mirrored,
                 )
             }
@@ -196,7 +201,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                 OutlinedCompactChip(
                     onClick = { },
                     label = "Primary label",
-                    icon = R.drawable.ic_media_play,
+                    icon = DrawableResPaintable(R.drawable.ic_media_play),
                     iconRtlMode = IconRtlMode.Mirrored,
                 )
             }

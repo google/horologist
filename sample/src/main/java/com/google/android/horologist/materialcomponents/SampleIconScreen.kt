@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Icon
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 
 @Composable
 internal fun SampleIconScreen(
@@ -36,7 +37,7 @@ internal fun SampleIconScreen(
     ) {
         item {
             Icon(
-                imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+                paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
                 contentDescription = "contentDescription",
             )
         }

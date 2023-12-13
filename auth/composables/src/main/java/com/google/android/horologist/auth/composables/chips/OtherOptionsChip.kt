@@ -25,6 +25,7 @@ import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 
 /**
  * An opinionated [Chip] to represent the "Other options to authentication" action.
@@ -43,7 +44,7 @@ public fun OtherOptionsChip(
         label = label,
         onClick = onClick,
         modifier = modifier,
-        icon = Icons.AutoMirrored.Outlined.SendToMobile,
+        icon = Icons.AutoMirrored.Outlined.SendToMobile.asPaintable(),
         colors = colors,
         enabled = enabled,
     )

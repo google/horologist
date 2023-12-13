@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.MaterialTheme
 import com.google.accompanist.testharness.TestHarness
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
@@ -50,7 +51,7 @@ class CompactChipTest : ScreenshotBaseTest() {
             CompactChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Filled.Add,
+                icon = Icons.Filled.Add.asPaintable(),
             )
         }
     }
@@ -60,7 +61,7 @@ class CompactChipTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             CompactChip(
                 onClick = { },
-                icon = Icons.Filled.Add,
+                icon = Icons.Filled.Add.asPaintable(),
                 contentDescription = "Add Icon",
             )
         }
@@ -72,7 +73,7 @@ class CompactChipTest : ScreenshotBaseTest() {
             CompactChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Filled.Add,
+                icon = Icons.Filled.Add.asPaintable(),
                 enabled = false,
             )
         }
@@ -106,7 +107,7 @@ class CompactChipTest : ScreenshotBaseTest() {
             CompactChip(
                 label = "Primary label",
                 onClick = { },
-                icon = R.drawable.ic_delete,
+                icon = DrawableResPaintable(R.drawable.ic_delete),
             )
         }
     }
@@ -122,10 +123,12 @@ class CompactChipTest : ScreenshotBaseTest() {
                 CompactChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Filled.Image,
-                        tintColor = Color.Black,
+                    icon = CoilPaintable(
+                        "iconUri",
+                        placeholder = rememberVectorPainter(
+                            image = Icons.Filled.Image,
+                            tintColor = Color.Black,
+                        ),
                     ),
                 )
             }
@@ -144,10 +147,12 @@ class CompactChipTest : ScreenshotBaseTest() {
                 CompactChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Image,
-                        tintColor = MaterialTheme.colors.primary,
+                    icon = CoilPaintable(
+                        "iconUri",
+                        placeholder = rememberVectorPainter(
+                            image = Icons.Default.Image,
+                            tintColor = MaterialTheme.colors.primary,
+                        ),
                     ),
                     enabled = false,
                 )
@@ -162,7 +167,7 @@ class CompactChipTest : ScreenshotBaseTest() {
                 CompactChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = Icons.AutoMirrored.Default.DirectionsBike,
+                    icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
                 )
             }
         }
@@ -174,7 +179,7 @@ class CompactChipTest : ScreenshotBaseTest() {
             CompactChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.AutoMirrored.Default.DirectionsBike,
+                icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
                 iconRtlMode = IconRtlMode.Mirrored,
             )
         }
@@ -187,7 +192,7 @@ class CompactChipTest : ScreenshotBaseTest() {
                 CompactChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = Icons.AutoMirrored.Default.DirectionsBike,
+                    icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
                     iconRtlMode = IconRtlMode.Mirrored,
                 )
             }
@@ -201,7 +206,7 @@ class CompactChipTest : ScreenshotBaseTest() {
                 CompactChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = R.drawable.ic_media_play,
+                    icon = DrawableResPaintable(R.drawable.ic_media_play),
                     iconRtlMode = IconRtlMode.Mirrored,
                 )
             }

@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.OutlinedCompactChip
 
 @Composable
@@ -44,13 +45,13 @@ internal fun SampleOutlinedCompactChipScreen(
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
-                icon = Icons.Filled.Add,
+                icon = Icons.Filled.Add.asPaintable(),
             )
         }
         item {
             OutlinedCompactChip(
                 onClick = { },
-                icon = Icons.Filled.Add,
+                icon = Icons.Filled.Add.asPaintable(),
                 contentDescription = "contentDescription",
             )
         }

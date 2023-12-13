@@ -40,6 +40,7 @@ import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipColors
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 /**
@@ -91,11 +92,11 @@ public fun ToggleChip(
 
     val toggleControlParam: (@Composable () -> Unit) = {
         Icon(
-            imageVector = when (toggleControl) {
+            paintable = when (toggleControl) {
                 ToggleChipToggleControl.Switch -> ToggleChipDefaults.switchIcon(checked)
                 ToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
                 ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
-            },
+            }.asPaintable(),
             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
             // This potentially be removed once this issue is addressed:
             // https://issuetracker.google.com/issues/287087138
@@ -108,7 +109,7 @@ public fun ToggleChip(
             {
                 Row {
                     Icon(
-                        imageVector = icon,
+                        paintable = it.asPaintable(),
                         contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                         modifier = Modifier
                             .size(ChipDefaults.IconSize)

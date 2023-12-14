@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer.sample
+package com.google.android.horologist.datalayer.sample.screens.listnodes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,8 +42,9 @@ import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.data.usageInfo
+import com.google.android.horologist.datalayer.sample.R
 import com.google.android.horologist.datalayer.sample.ui.theme.HorologistTheme
-import com.google.protobuf.Timestamp
+import com.google.android.horologist.datalayer.sample.util.toProtoTimestamp
 
 @Composable
 fun AppHelperNodeStatusCard(
@@ -179,11 +180,4 @@ fun NodeCardPreview() {
             onLaunchClick = {},
         )
     }
-}
-
-fun Long.toProtoTimestamp(): Timestamp {
-    return Timestamp.newBuilder()
-        .setSeconds(this / 1000)
-        .setNanos((this % 1000).toInt() * 1000000)
-        .build()
 }

@@ -30,13 +30,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun CounterScreen(
-    viewModel: CounterScreenViewModel,
     modifier: Modifier = Modifier,
+    viewModel: CounterScreenViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 

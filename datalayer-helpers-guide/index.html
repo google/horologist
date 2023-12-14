@@ -1551,6 +1551,7 @@ wearAppHelper.markActivityLaunchedOnce()
 ```
 
 To check it on the phone side, use:
+
 ```kotlin
 val connectedNodes = appHelper.connectedNodes()
 // after picking a node, check if value is USAGE_STATUS_LAUNCHED_ONCE:
@@ -1568,12 +1569,12 @@ for use, use the following:</p>
 <p>And when the app is no longer considered in a fully setup state, use the following:</p>
 <div class="highlight"><pre><span></span><code><span class="n">wearAppHelper</span><span class="p">.</span><span class="na">markSetupNoLongerComplete</span><span class="p">()</span>
 </code></pre></div>
-<p>To check it on the phone side, use:
+<p>To check it on the phone side, use:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">connectedNodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">appHelper</span><span class="p">.</span><span class="na">connectedNodes</span><span class="p">()</span>
 <span class="c1">// after picking a node, check if value is either USAGE_STATUS_LAUNCHED_ONCE</span>
 <span class="c1">// or USAGE_STATUS_SETUP_COMPLETE</span>
 <span class="n">node</span><span class="p">.</span><span class="na">surfacesInfo</span><span class="p">.</span><span class="na">usageInfo</span><span class="p">.</span><span class="na">usageStatus</span>
-</code></pre></div></p>
+</code></pre></div>
 </li>
 </ol>
 

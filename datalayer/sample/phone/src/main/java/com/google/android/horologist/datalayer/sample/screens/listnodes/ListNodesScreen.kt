@@ -20,8 +20,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
@@ -86,12 +90,16 @@ fun ListNodesScreen(
         ) { Text(stringResource(R.string.app_helper_button_list_nodes)) }
 
         when (state) {
-            ListNodesScreenUiState.Idle,
-            ListNodesScreenUiState.Loading,
-            -> {
-//                CircularProgressIndicator(
-//                    modifier = Modifier.width(64.dp),
-//                )
+            ListNodesScreenUiState.Idle -> {
+                /* show nothing */
+            }
+
+            ListNodesScreenUiState.Loading -> {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                        .width(64.dp),
+                )
             }
 
             is ListNodesScreenUiState.Loaded -> {

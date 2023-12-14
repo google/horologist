@@ -18,7 +18,6 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
-    alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
 }
 
@@ -121,11 +120,10 @@ dependencies {
     testRuntimeOnly(libs.compose.ui.test.manifest)
 }
 
-dependencyAnalysis {
-    issues {
-        onAny {
-            severity("fail")
-            exclude(":annotations") // bug: reported as unused
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("images-coil")
         }
     }
 }

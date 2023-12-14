@@ -20,57 +20,62 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ListNodesViewModel(
-    private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-) : ViewModel() {
+@HiltViewModel
+class ListNodesViewModel
+    @Inject
+    constructor(
+        private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+    ) : ViewModel() {
 
-    private var initializeCalled = false
+        private var initializeCalled = false
 
-    private val _uiState = MutableStateFlow<ListNodesScreenUiState>(ListNodesScreenUiState.Idle)
-    public val uiState: StateFlow<ListNodesScreenUiState> = _uiState
+        private val _uiState = MutableStateFlow<ListNodesScreenUiState>(ListNodesScreenUiState.Idle)
+        public val uiState: StateFlow<ListNodesScreenUiState> = _uiState
 
-    fun initialize() {
-        if (initializeCalled) return
-        initializeCalled = true
+        fun initialize() {
+            if (initializeCalled) return
+            initializeCalled = true
 
-        viewModelScope.launch {
-            _uiState.value = ListNodesScreenUiState.Loading
-            if (!phoneDataLayerAppHelper.isAvailable()) {
-                _uiState.value = ListNodesScreenUiState.ApiNotAvailable
+            viewModelScope.launch {
+                _uiState.value = ListNodesScreenUiState.Loading
+                if (!phoneDataLayerAppHelper.isAvailable()) {
+                    _uiState.value = ListNodesScreenUiState.ApiNotAvailable
+                }
+            }
+        }
+
+        fun onListNodesClick() {
+            viewModelScope.launch {
+                _uiState.value = ListNodesScreenUiState.Loading
+                val nodeList = phoneDataLayerAppHelper.connectedNodes()
+                _uiState.value = ListNodesScreenUiState.Loaded(nodeList = nodeList)
+            }
+        }
+
+        fun onInstallClick(nodeId: String) {
+            viewModelScope.launch {
+                phoneDataLayerAppHelper.installOnNode(nodeId)
+            }
+        }
+
+        fun onLaunchClick(nodeId: String) {
+            viewModelScope.launch {
+                phoneDataLayerAppHelper.startRemoteOwnApp(nodeId)
+            }
+        }
+
+        fun onCompanionClick(nodeId: String) {
+            viewModelScope.launch {
+                phoneDataLayerAppHelper.startCompanion(nodeId)
             }
         }
     }
-
-    fun onListNodesClick() {
-        viewModelScope.launch {
-            _uiState.value = ListNodesScreenUiState.Loading
-            val nodeList = phoneDataLayerAppHelper.connectedNodes()
-            _uiState.value = ListNodesScreenUiState.Loaded(nodeList = nodeList)
-        }
-    }
-
-    fun onInstallClick(nodeId: String) {
-        viewModelScope.launch {
-            phoneDataLayerAppHelper.installOnNode(nodeId)
-        }
-    }
-
-    fun onLaunchClick(nodeId: String) {
-        viewModelScope.launch {
-            phoneDataLayerAppHelper.startRemoteOwnApp(nodeId)
-        }
-    }
-
-    fun onCompanionClick(nodeId: String) {
-        viewModelScope.launch {
-            phoneDataLayerAppHelper.startCompanion(nodeId)
-        }
-    }
-}
 
 public sealed class ListNodesScreenUiState {
     public data object Idle : ListNodesScreenUiState()

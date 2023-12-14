@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.data.apphelper.AppInstallationStatus
@@ -38,14 +39,13 @@ import com.google.android.horologist.data.apphelper.AppInstallationStatusNodeTyp
 import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.surfacesInfo
 import com.google.android.horologist.data.tileInfo
-import com.google.android.horologist.datalayer.sample.AppHelperNodeStatusCard
 import com.google.android.horologist.datalayer.sample.R
-import com.google.android.horologist.datalayer.sample.toProtoTimestamp
+import com.google.android.horologist.datalayer.sample.util.toProtoTimestamp
 
 @Composable
 fun ListNodesScreen(
-    viewModel: ListNodesViewModel,
     modifier: Modifier = Modifier,
+    viewModel: ListNodesViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 

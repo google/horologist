@@ -33,24 +33,17 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.android.horologist.datalayer.sample.di.SampleAppDI
 import com.google.android.horologist.datalayer.sample.screens.Screen
 import com.google.android.horologist.datalayer.sample.screens.counter.CounterScreen
-import com.google.android.horologist.datalayer.sample.screens.counter.CounterScreenViewModel
 import com.google.android.horologist.datalayer.sample.screens.listnodes.ListNodesScreen
-import com.google.android.horologist.datalayer.sample.screens.listnodes.ListNodesViewModel
 import com.google.android.horologist.datalayer.sample.screens.menu.MenuScreen
 import com.google.android.horologist.datalayer.sample.ui.theme.HorologistTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint(ComponentActivity::class)
 class MainActivity : ComponentActivity() {
-
-    lateinit var listNodesViewModel: ListNodesViewModel
-    lateinit var counterScreenViewModel: CounterScreenViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        SampleAppDI.inject(this)
 
         setContent {
             HorologistTheme {
@@ -59,10 +52,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MainScreen(
-                        listNodesViewModel = listNodesViewModel,
-                        counterScreenViewModel = counterScreenViewModel,
-                    )
+                    MainScreen()
                 }
             }
         }
@@ -71,8 +61,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(
-    listNodesViewModel: ListNodesViewModel,
-    counterScreenViewModel: CounterScreenViewModel,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
@@ -96,11 +84,11 @@ fun MainScreen(
                 }
 
                 composable(route = Screen.ListNodesScreen.route) {
-                    ListNodesScreen(viewModel = listNodesViewModel)
+                    ListNodesScreen()
                 }
 
                 composable(route = Screen.CounterScreen.route) {
-                    CounterScreen(viewModel = counterScreenViewModel)
+                    CounterScreen()
                 }
             }
         }

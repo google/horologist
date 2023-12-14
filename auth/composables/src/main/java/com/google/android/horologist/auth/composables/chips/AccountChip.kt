@@ -26,8 +26,8 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.compose.material.Paintable
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.base.paintable.Paintable
 
 /**
  * A [Chip] to display the [AccountUiModel]'s email address and avatar.

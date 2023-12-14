@@ -30,7 +30,7 @@ import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
-import com.google.android.horologist.compose.material.coil.CoilPaintable
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 

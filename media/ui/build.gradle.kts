@@ -115,7 +115,7 @@ dependencies {
     implementation(projects.media.audioUi)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
-    implementation(projects.composeMaterialCoil)
+    implementation(projects.images.coil)
     implementation(projects.tiles)
 
     implementation(libs.kotlin.stdlib)

@@ -29,8 +29,8 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.material.Paintable
-import com.google.android.horologist.compose.material.coil.CoilPaintable
+import com.google.android.horologist.images.base.paintable.Paintable
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**

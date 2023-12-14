@@ -60,8 +60,8 @@ import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.ButtonSize
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ChipIconWithProgress
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.compose.material.coil.CoilPaintable
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel

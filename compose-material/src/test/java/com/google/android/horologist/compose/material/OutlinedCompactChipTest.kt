@@ -22,7 +22,8 @@ import androidx.compose.material.icons.automirrored.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 

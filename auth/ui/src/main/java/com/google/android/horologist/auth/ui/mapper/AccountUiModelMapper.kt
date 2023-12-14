@@ -18,7 +18,7 @@ package com.google.android.horologist.auth.ui.mapper
 
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.compose.material.coil.CoilPaintable
+import com.google.android.horologist.images.coil.CoilPaintable
 
 /**
  * Functions to map models from other layers and / or packages into a [AccountUiModel].

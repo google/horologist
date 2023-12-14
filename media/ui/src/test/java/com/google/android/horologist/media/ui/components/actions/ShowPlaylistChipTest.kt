@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.ui.components.actions
 
-import com.google.android.horologist.compose.material.DrawableResPaintable
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test

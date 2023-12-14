@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.audio.ui.VolumeViewModel
-import com.google.android.horologist.compose.material.coil.rememberArtworkColor
+import com.google.android.horologist.images.coil.rememberArtworkColor
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay

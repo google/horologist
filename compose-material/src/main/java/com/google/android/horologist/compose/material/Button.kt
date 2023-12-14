@@ -33,6 +33,9 @@ import androidx.wear.compose.material.ButtonDefaults.LargeIconSize
 import androidx.wear.compose.material.ButtonDefaults.SmallButtonSize
 import androidx.wear.compose.material.ButtonDefaults.SmallIconSize
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
+import com.google.android.horologist.images.base.paintable.PaintableIcon
 
 /**
  * This component is an alternative to [Button], providing the following:

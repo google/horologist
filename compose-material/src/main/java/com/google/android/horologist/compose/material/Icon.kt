@@ -26,7 +26,7 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.LocalContentColor
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-
+import com.google.android.horologist.images.base.paintable.PaintableIcon
 /**
  * This component is an alternative to [Icon], providing the following:
  * - a convenient way of setting the icon to be mirrored in RTL mode;

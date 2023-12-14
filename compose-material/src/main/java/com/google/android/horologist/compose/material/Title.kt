@@ -38,9 +38,8 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 /**
  * A primary title heading to group and identify items.
  */

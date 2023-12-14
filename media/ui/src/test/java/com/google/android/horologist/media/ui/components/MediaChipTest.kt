@@ -19,7 +19,7 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.compose.material.DrawableResPaintable
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.screenshots.ScreenshotBaseTest

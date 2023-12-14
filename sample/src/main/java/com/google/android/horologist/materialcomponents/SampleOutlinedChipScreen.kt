@@ -26,8 +26,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.OutlinedChip
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 @Composable
 internal fun SampleOutlinedChipScreen(

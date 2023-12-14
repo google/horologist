@@ -19,8 +19,8 @@ package com.google.android.horologist.compose.material
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 

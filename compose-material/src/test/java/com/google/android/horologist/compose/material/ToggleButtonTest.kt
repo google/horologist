@@ -23,7 +23,7 @@ import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 

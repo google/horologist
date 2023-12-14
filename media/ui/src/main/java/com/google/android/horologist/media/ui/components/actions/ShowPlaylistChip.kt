@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.Paintable
+import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.components.MediaArtwork
 
 /**

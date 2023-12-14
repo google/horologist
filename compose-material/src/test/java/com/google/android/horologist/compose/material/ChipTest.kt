@@ -18,7 +18,6 @@ package com.google.android.horologist.compose.material
 
 import android.R
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.VolumeDown
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
 import androidx.compose.material.icons.outlined.VolumeDown
@@ -30,7 +29,8 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import com.google.accompanist.testharness.TestHarness
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
@@ -223,7 +223,7 @@ class ChipTest : ScreenshotBaseTest() {
             Chip(
                 label = "Primary label",
                 onClick = { },
-                icon = DrawableResPaintable(android.R.drawable.ic_delete),
+                icon = DrawableResPaintable(R.drawable.ic_delete),
             )
         }
     }
@@ -259,17 +259,6 @@ class ChipTest : ScreenshotBaseTest() {
                 onClick = { },
                 icon = Icon48dp.asPaintable(),
                 largeIcon = true,
-            )
-        }
-    }
-
-    @Test
-    fun withPlaceholderIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icons.Default.Image.asPaintable(),
             )
         }
     }

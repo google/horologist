@@ -30,7 +30,7 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.material.Paintable
+import com.google.android.horologist.images.base.paintable.Paintable
 
 /**
  * A base button for custom action media controls.

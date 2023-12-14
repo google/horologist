@@ -33,7 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.material.coil.rememberArtworkColor
+import com.google.android.horologist.images.coil.rememberArtworkColor
 
 /**
  * Background using a radial gradient extracted from artwork.
@@ -42,7 +42,7 @@ import com.google.android.horologist.compose.material.coil.rememberArtworkColor
 @ExperimentalHorologistApi
 @Deprecated("Prefer background modifier")
 public fun ArtworkColorBackground(
-    artworkUri: Any?,
+    artworkUri: String?,
     modifier: Modifier = Modifier,
     defaultColor: Color? = null,
     background: Color = MaterialTheme.colors.background,

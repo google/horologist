@@ -25,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @Preview(
     backgroundColor = 0xff000000,

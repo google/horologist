@@ -52,9 +52,9 @@ import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.Recommendation
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.RecommendationSectionState

@@ -21,7 +21,7 @@ import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 @Preview(
     backgroundColor = 0xff000000,

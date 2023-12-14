@@ -97,6 +97,7 @@ metalava {
 dependencies {
     api(projects.annotations)
     api(projects.composeLayout)
+    api(projects.images.base)
 
     api(libs.compose.foundation.foundation)
     api(libs.compose.foundation.foundation.layout)

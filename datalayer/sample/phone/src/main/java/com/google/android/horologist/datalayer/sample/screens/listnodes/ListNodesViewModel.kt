@@ -46,6 +46,8 @@ class ListNodesViewModel
                 _uiState.value = ListNodesScreenUiState.Loading
                 if (!phoneDataLayerAppHelper.isAvailable()) {
                     _uiState.value = ListNodesScreenUiState.ApiNotAvailable
+                } else {
+                    _uiState.value = ListNodesScreenUiState.Loaded(nodeList = emptyList())
                 }
             }
         }

@@ -29,7 +29,6 @@ import org.robolectric.annotation.Config
 
 class MetricsScreenTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
-        record = ScreenshotTestRule.RecordMode.Record
     },
 ) {
     @Test

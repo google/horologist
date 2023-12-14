@@ -30,9 +30,7 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
@@ -42,7 +40,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onParent
 import androidx.test.filters.MediumTest
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.RequestFocusWhenActive
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.common.truth.Truth.assertThat
@@ -77,7 +75,7 @@ class PagerScreenTest {
                 5
             }
             PagerScreen(modifier = Modifier.fillMaxSize(), state = pagerState) { i ->
-                val focusRequester = remember { FocusRequester() }
+                val focusRequester = rememberActiveFocusRequester()
                 val scrollState = rememberScrollState()
                 Column(
                     modifier = Modifier
@@ -88,7 +86,6 @@ class PagerScreenTest {
                 ) {
                     Text(modifier = Modifier.testTag("text$i"), text = "Text $i")
                 }
-                RequestFocusWhenActive(focusRequester)
             }
         }
 

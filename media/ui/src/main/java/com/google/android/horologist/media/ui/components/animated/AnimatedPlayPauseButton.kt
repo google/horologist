@@ -90,8 +90,7 @@ public fun AnimatedPlayPauseButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
+    iconSize: Dp = 32.dp,
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
     progress: @Composable () -> Unit = {},
 ) {
@@ -104,7 +103,6 @@ public fun AnimatedPlayPauseButton(
             enabled = enabled,
             colors = colors,
             iconSize = iconSize,
-            tapTargetSize = tapTargetSize,
             progress = progress,
             backgroundColor = backgroundColor,
         )
@@ -118,8 +116,6 @@ public fun AnimatedPlayPauseButton(
             animateLottieProgressAsState(playing = playing, composition = compositionResult.value)
         Box(
             modifier = modifier
-                .size(tapTargetSize)
-                .fillMaxSize()
                 .clip(CircleShape)
                 .background(backgroundColor),
             contentAlignment = Alignment.Center,
@@ -133,7 +129,6 @@ public fun AnimatedPlayPauseButton(
             Button(
                 onClick = { if (playing) onPauseClick() else onPlayClick() },
                 modifier = modifier
-                    .size(tapTargetSize)
                     .semantics {
                         contentDescription = if (playing) {
                             pauseContentDescription
@@ -222,7 +217,6 @@ public fun AnimatedPlayPauseProgressButton(
         modifier = modifier,
         colors = colors,
         iconSize = iconSize,
-        tapTargetSize = tapTargetSize,
         backgroundColor = backgroundColor,
     ) {
         if (trackPositionUiModel.isLoading) {

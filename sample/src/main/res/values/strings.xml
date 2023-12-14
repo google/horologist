@@ -81,4 +81,5 @@
     <string name="paging_chip_label">Paging</string>
     <string name="pager_screen_chip_label">Pager Screen</string>
     <string name="pager_screen_chip_content_description">Pager Screen</string>
+    <string name="vertical_pager_screen_chip_content_description">Vertical Pager Screen</string>
 </resources>

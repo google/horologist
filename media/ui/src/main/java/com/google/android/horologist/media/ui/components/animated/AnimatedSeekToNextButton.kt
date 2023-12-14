@@ -18,11 +18,9 @@ package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
@@ -40,8 +38,7 @@ public fun AnimatedSeekToNextButton(
     onLongRepeatableClickEnd: (() -> Unit)? = null,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    iconSize: Dp = 32.dp,
 ) {
     if (LocalStaticPreview.current) {
         SeekToNextButton(
@@ -54,7 +51,6 @@ public fun AnimatedSeekToNextButton(
         val compositionResult = rememberLottieComposition(
             spec = LottieCompositionSpec.Asset("lottie/Next.json"),
         )
-
         AnimatedMediaButton(
             modifier = modifier,
             onClick = onClick,
@@ -62,9 +58,7 @@ public fun AnimatedSeekToNextButton(
             enabled = enabled,
             colors = colors,
             iconSize = iconSize,
-            tapTargetSize = tapTargetSize,
             compositionResult = compositionResult,
-            iconAlign = Alignment.End,
             onLongRepeatableClick = onLongRepeatableClick,
             onLongRepeatableClickEnd = onLongRepeatableClickEnd,
         )

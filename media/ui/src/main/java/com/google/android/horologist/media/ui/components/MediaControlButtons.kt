@@ -16,14 +16,18 @@
 
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import com.google.android.horologist.media.ui.util.isLargeScreen
 
 /**
  * Standard media control buttons with no progress indicator, showing [SeekToPreviousButton],
@@ -81,6 +85,7 @@ public fun MediaControlButtons(
         modifier = modifier,
         leftButton = {
             SeekToPreviousButton(
+                modifier = Modifier.fillMaxSize(),
                 onClick = onSeekToPreviousButtonClick,
                 enabled = seekToPreviousButtonEnabled,
                 colors = colors,
@@ -88,16 +93,19 @@ public fun MediaControlButtons(
         },
         middleButton = {
             PlayPauseProgressButton(
+                modifier = Modifier.fillMaxSize(),
                 onPlayClick = onPlayButtonClick,
                 onPauseClick = onPauseButtonClick,
                 enabled = playPauseButtonEnabled,
                 playing = playing,
                 trackPositionUiModel = trackPositionUiModel,
                 colors = colors,
+                iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
             )
         },
         rightButton = {
             SeekToNextButton(
+                modifier = Modifier.fillMaxSize(),
                 onClick = onSeekToNextButtonClick,
                 enabled = seekToNextButtonEnabled,
                 colors = colors,

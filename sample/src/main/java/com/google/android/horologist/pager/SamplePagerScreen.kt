@@ -45,7 +45,7 @@ fun SamplePagerScreen(swipeToDismissBoxState: SwipeToDismissBoxState) {
 }
 
 @Composable
-private fun PagerItemScreen(
+internal fun PagerItemScreen(
     item: String,
 ) {
     Box(

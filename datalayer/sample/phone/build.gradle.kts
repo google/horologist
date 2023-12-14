@@ -108,7 +108,9 @@ dependencies {
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.compose.material3)
     implementation(libs.playservices.wearable)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.service)
+    implementation(libs.androidx.navigation.compose)
 
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)

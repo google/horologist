@@ -176,6 +176,7 @@ phone.
     ```
 
     To check it on the phone side, use:
+
     ```kotlin
     val connectedNodes = appHelper.connectedNodes()
     // after picking a node, check if value is USAGE_STATUS_LAUNCHED_ONCE:
@@ -198,6 +199,7 @@ phone.
     ```
 
     To check it on the phone side, use:
+
     ```kotlin
     val connectedNodes = appHelper.connectedNodes()
     // after picking a node, check if value is either USAGE_STATUS_LAUNCHED_ONCE

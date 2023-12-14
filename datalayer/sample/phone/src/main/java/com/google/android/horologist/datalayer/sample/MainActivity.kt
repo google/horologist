@@ -21,68 +21,36 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.lifecycleScope
-import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
-import com.google.android.horologist.data.WearDataLayerRegistry
-import com.google.android.horologist.data.WearableApiAvailability
-import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
-import com.google.android.horologist.data.apphelper.AppInstallationStatus
-import com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType
-import com.google.android.horologist.data.complicationInfo
-import com.google.android.horologist.data.surfacesInfo
-import com.google.android.horologist.data.tileInfo
-import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
-import com.google.android.horologist.datalayer.sample.shared.CounterValueSerializer
-import com.google.android.horologist.datalayer.sample.shared.grpc.GrpcDemoProto.CounterValue
-import com.google.android.horologist.datalayer.sample.shared.grpc.copy
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.google.android.horologist.datalayer.sample.di.SampleAppDI
+import com.google.android.horologist.datalayer.sample.screens.Screen
+import com.google.android.horologist.datalayer.sample.screens.counter.CounterScreen
+import com.google.android.horologist.datalayer.sample.screens.counter.CounterScreenViewModel
+import com.google.android.horologist.datalayer.sample.screens.listnodes.ListNodesScreen
+import com.google.android.horologist.datalayer.sample.screens.listnodes.ListNodesViewModel
+import com.google.android.horologist.datalayer.sample.screens.menu.MenuScreen
 import com.google.android.horologist.datalayer.sample.ui.theme.HorologistTheme
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var phoneDataLayerAppHelper: PhoneDataLayerAppHelper
+    lateinit var listNodesViewModel: ListNodesViewModel
+    lateinit var counterScreenViewModel: CounterScreenViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val registry = WearDataLayerRegistry.fromContext(
-            application = this@MainActivity.applicationContext,
-            coroutineScope = lifecycleScope,
-        ).apply {
-            registerSerializer(CounterValueSerializer)
-        }
-
-        phoneDataLayerAppHelper = PhoneDataLayerAppHelper(
-            context = this,
-            registry = registry,
-        )
-
-        val counterDataStore = registry.protoDataStore<CounterValue>(lifecycleScope)
+        SampleAppDI.inject(this)
 
         setContent {
             HorologistTheme {
@@ -91,53 +59,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    val coroutineScope = rememberCoroutineScope()
-                    var nodeList by remember { mutableStateOf<List<AppHelperNodeStatus>>(emptyList()) }
-                    var apiAvailable by remember { mutableStateOf(false) }
-                    LaunchedEffect(Unit) {
-                        coroutineScope.launch {
-                            apiAvailable = WearableApiAvailability.isAvailable(registry.dataClient)
-                            nodeList =
-                                if (apiAvailable) phoneDataLayerAppHelper.connectedNodes() else listOf()
-                        }
-                    }
-
-                    val counterState by counterDataStore.data.collectAsState(initial = CounterValue.getDefaultInstance())
-
                     MainScreen(
-                        apiAvailable = apiAvailable,
-                        nodeList = nodeList,
-                        counterState = counterState,
-                        onListNodes = {
-                            coroutineScope.launch {
-                                nodeList = phoneDataLayerAppHelper.connectedNodes()
-                            }
-                        },
-                        onLaunchClick = { nodeId ->
-                            coroutineScope.launch {
-                                phoneDataLayerAppHelper.startRemoteOwnApp(nodeId)
-                            }
-                        },
-                        onCompanionClick = { nodeId ->
-                            coroutineScope.launch {
-                                phoneDataLayerAppHelper.startCompanion(nodeId)
-                            }
-                        },
-                        onInstallClick = { nodeId ->
-                            coroutineScope.launch {
-                                phoneDataLayerAppHelper.installOnNode(nodeId)
-                            }
-                        },
-                        onCounterIncrement = {
-                            coroutineScope.launch {
-                                counterDataStore.updateData {
-                                    it.copy {
-                                        value += 1
-                                        updated = System.currentTimeMillis().toProtoTimestamp()
-                                    }
-                                }
-                            }
-                        },
+                        listNodesViewModel = listNodesViewModel,
+                        counterScreenViewModel = counterScreenViewModel,
                     )
                 }
             }
@@ -147,94 +71,38 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(
-    apiAvailable: Boolean,
-    nodeList: List<AppHelperNodeStatus>,
-    onListNodes: () -> Unit,
-    onInstallClick: (String) -> Unit,
-    onLaunchClick: (String) -> Unit,
-    onCompanionClick: (String) -> Unit,
+    listNodesViewModel: ListNodesViewModel,
+    counterScreenViewModel: CounterScreenViewModel,
     modifier: Modifier = Modifier,
-    counterState: CounterValue,
-    onCounterIncrement: () -> Unit,
+    navController: NavHostController = rememberNavController(),
 ) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Button(
-            onClick = {
-                onListNodes()
-            },
-            modifier = Modifier.wrapContentHeight(),
-            enabled = apiAvailable,
-        ) { Text(stringResource(R.string.app_helper_button_list_nodes)) }
+    Scaffold(
+        modifier = modifier,
+    ) { padding ->
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(padding),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            NavHost(
+                navController = navController,
+                startDestination = Screen.MenuScreen.route,
+                modifier = modifier,
+            ) {
+                composable(route = Screen.MenuScreen.route) {
+                    MenuScreen(navController = navController)
+                }
 
-        nodeList.forEach { nodeStatus ->
-            AppHelperNodeStatusCard(
-                nodeStatus = nodeStatus,
-                onInstallClick = onInstallClick,
-                onLaunchClick = onLaunchClick,
-                onCompanionClick = onCompanionClick,
-            )
-        }
+                composable(route = Screen.ListNodesScreen.route) {
+                    ListNodesScreen(viewModel = listNodesViewModel)
+                }
 
-        if (!apiAvailable) {
-            Text(
-                text = stringResource(R.string.wearable_message_api_unavailable),
-                modifier.fillMaxWidth(),
-                color = Color.Red,
-                textAlign = TextAlign.Center,
-            )
-        }
-
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "Counter: " + counterState.value)
-            Button(onClick = onCounterIncrement) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Plus 1")
+                composable(route = Screen.CounterScreen.route) {
+                    CounterScreen(viewModel = counterScreenViewModel)
+                }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MainPreview() {
-    val nodeList = listOf(
-        AppHelperNodeStatus(
-            id = "a1b2c3d4",
-            displayName = "Pixel Watch",
-            appInstallationStatus = AppInstallationStatus.Installed(
-                nodeType = AppInstallationStatusNodeType.WATCH,
-            ),
-            surfacesInfo = surfacesInfo {
-                tiles.add(
-                    tileInfo {
-                        name = "MyTile"
-                        timestamp = System.currentTimeMillis().toProtoTimestamp()
-                    },
-                )
-                complications.add(
-                    complicationInfo {
-                        name = "MyComplication"
-                        instanceId = 101
-                        type = "SHORT_TEXT"
-                        timestamp = System.currentTimeMillis().toProtoTimestamp()
-                    },
-                )
-            },
-        ),
-    )
-    HorologistTheme {
-        MainScreen(
-            apiAvailable = true,
-            nodeList = nodeList,
-            onListNodes = { },
-            onInstallClick = { },
-            onLaunchClick = { },
-            onCompanionClick = { },
-            counterState = CounterValue.getDefaultInstance(),
-            onCounterIncrement = {},
-        )
     }
 }

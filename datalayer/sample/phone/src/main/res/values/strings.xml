@@ -16,6 +16,10 @@
 
 <resources>
     <string name="app_name">Horologist Datalayer Sample</string>
+
+    <string name="menu_screen_list_nodes_item">List of nodes sample</string>
+    <string name="menu_screen_counter_item">Counter sample</string>
+
     <string name="wearable_message_api_unavailable">This device does not have capability to communicate to Wearable Data Layer API</string>
     <string name="app_helper_node_name_label">Node: %1$s</string>
     <string name="app_helper_node_id_label">ID: %1$s</string>

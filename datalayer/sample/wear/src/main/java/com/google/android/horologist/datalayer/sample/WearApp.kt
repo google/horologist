@@ -18,7 +18,6 @@ package com.google.android.horologist.datalayer.sample
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
@@ -27,10 +26,8 @@ import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.datalayer.sample.screens.MainScreen
 import com.google.android.horologist.datalayer.sample.screens.datalayer.DataLayerScreen
 import com.google.android.horologist.datalayer.sample.screens.nodes.DataLayerNodesScreen
-import com.google.android.horologist.datalayer.sample.screens.nodes.DataLayerNodesViewModel
 import com.google.android.horologist.datalayer.sample.screens.nodesactions.NodesActionsScreen
 import com.google.android.horologist.datalayer.sample.screens.tracking.TrackingScreen
-import com.google.android.horologist.datalayer.sample.screens.tracking.TrackingScreenViewModel
 
 @Composable
 fun WearApp(
@@ -51,19 +48,13 @@ fun WearApp(
             )
         }
         scrollable(route = Screen.CounterScreen.route) {
-            DataLayerScreen(columnState = it.columnState, modifier = modifier)
+            DataLayerScreen(columnState = it.columnState)
         }
         scrollable(route = Screen.ListNodesScreen.route) {
-            DataLayerNodesScreen(
-                viewModel = viewModel(factory = DataLayerNodesViewModel.Factory),
-                columnState = it.columnState,
-            )
+            DataLayerNodesScreen(columnState = it.columnState)
         }
         scrollable(route = Screen.AppHelperTrackingScreen.route) {
-            TrackingScreen(
-                viewModel = viewModel(factory = TrackingScreenViewModel.Factory),
-                columnState = it.columnState,
-            )
+            TrackingScreen(columnState = it.columnState)
         }
         scrollable(route = Screen.AppHelperNodesActionsScreen.route) {
             NodesActionsScreen(columnState = it.columnState)

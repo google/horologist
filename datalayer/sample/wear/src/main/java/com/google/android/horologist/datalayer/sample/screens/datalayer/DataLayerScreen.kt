@@ -27,8 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
@@ -41,7 +41,7 @@ import com.google.android.horologist.datalayer.sample.R
 fun DataLayerScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: DataLayerViewModel = viewModel(factory = DataLayerViewModel.Factory),
+    viewModel: DataLayerViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 

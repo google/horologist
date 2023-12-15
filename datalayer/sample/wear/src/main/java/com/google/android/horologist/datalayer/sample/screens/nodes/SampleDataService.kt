@@ -18,14 +18,12 @@ package com.google.android.horologist.datalayer.sample.screens.nodes
 
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearDataService
-import com.google.android.horologist.datalayer.sample.SampleApplication
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SampleDataService : WearDataService() {
+
+    @Inject
     override lateinit var registry: WearDataLayerRegistry
-
-    override fun onCreate() {
-        super.onCreate()
-
-        registry = (application as SampleApplication).registry
-    }
 }

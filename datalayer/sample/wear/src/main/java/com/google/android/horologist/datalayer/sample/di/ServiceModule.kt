@@ -16,50 +16,54 @@
 
 package com.google.android.horologist.datalayer.sample.di
 
+import android.content.Context
 import android.util.Log
-import com.google.android.horologist.data.ProtoDataStoreHelper.protoFlow
 import com.google.android.horologist.data.ProtoDataStoreHelper.registerProtoDataListener
-import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.proto.SampleProto
 import com.google.android.horologist.data.store.ProtoDataListener
-import com.google.android.horologist.datalayer.grpc.GrpcExtensions.grpcClient
-import com.google.android.horologist.datalayer.sample.SampleApplication
+import com.google.android.horologist.datalayer.sample.screens.nodes.SampleDataSerializer
 import com.google.android.horologist.datalayer.sample.shared.CounterValueSerializer
-import com.google.android.horologist.datalayer.sample.shared.grpc.CounterServiceGrpcKt
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ServiceComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.scopes.ServiceScoped
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 
-/**
- * Simple DI implementation.
- */
-object SampleAppDI {
+@Module
+@InstallIn(ServiceComponent::class)
+object ServiceModule {
 
-    fun inject(sampleApplication: SampleApplication) {
-        sampleApplication.registry = registry(sampleApplication, servicesCoroutineScope())
-        sampleApplication.servicesCoroutineScope = servicesCoroutineScope()
-        sampleApplication.counterFlow =
-            sampleApplication.registry.protoFlow(TargetNodeId.PairedPhone)
-        sampleApplication.counterService = sampleApplication.registry.grpcClient(
-            nodeId = TargetNodeId.PairedPhone,
-            coroutineScope = sampleApplication.servicesCoroutineScope,
-        ) {
-            CounterServiceGrpcKt.CounterServiceCoroutineStub(it)
+    @ServiceScoped
+    @Provides
+    fun coroutineScope(): CoroutineScope {
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Log.e(
+                "SampleApplication",
+                "Uncaught exception thrown by a service: ${throwable.message}",
+                throwable,
+            )
         }
+        return CoroutineScope(Dispatchers.IO + SupervisorJob() + coroutineExceptionHandler)
     }
 
-    private fun registry(
-        sampleApplication: SampleApplication,
+    @ServiceScoped
+    @Provides
+    fun wearDataLayerRegistry(
+        @ApplicationContext applicationContext: Context,
         coroutineScope: CoroutineScope,
     ): WearDataLayerRegistry = WearDataLayerRegistry.fromContext(
-        application = sampleApplication,
+        application = applicationContext,
         coroutineScope = coroutineScope,
     ).apply {
         registerSerializer(CounterValueSerializer)
 
-        registerSerializer(com.google.android.horologist.datalayer.sample.screens.nodes.SampleDataSerializer)
+        registerSerializer(SampleDataSerializer)
 
         registerProtoDataListener(object : ProtoDataListener<SampleProto.Data> {
             override fun dataAdded(nodeId: String, path: String, value: SampleProto.Data) {
@@ -70,16 +74,5 @@ object SampleAppDI {
                 println("Data Deleted: $nodeId $path")
             }
         })
-    }
-
-    private fun servicesCoroutineScope(): CoroutineScope {
-        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-            Log.e(
-                "SampleApplication",
-                "Uncaught exception thrown by a service: ${throwable.message}",
-                throwable,
-            )
-        }
-        return CoroutineScope(Dispatchers.IO + SupervisorJob() + coroutineExceptionHandler)
     }
 }

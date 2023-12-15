@@ -40,7 +40,7 @@ import com.google.android.horologist.datalayer.sample.screens.menu.MenuScreen
 import com.google.android.horologist.datalayer.sample.ui.theme.HorologistTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint(ComponentActivity::class)
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -66,7 +66,7 @@ public fun Modifier.scrollAway(
                 yPx = scrollState.scalingLazyListState.layoutInfo.visibleItemsInfo.find { it.index == scrollState.initialIndex }
                     ?.let {
                         -it.offset - initialOffsetDp.toPx()
-                    }
+                    },
             )
         }
 
@@ -79,7 +79,7 @@ public fun Modifier.scrollAway(
                 yPx = scrollState.state.layoutInfo.visibleItemsInfo.find { it.index == scrollState.initialScrollPosition.index }
                     ?.let {
                         -it.offset - initialOffsetDp.toPx()
-                    }
+                    },
             )
         }
 
@@ -89,7 +89,7 @@ public fun Modifier.scrollAway(
                 isScrollInProgress = scrollState.isScrollInProgress,
                 yPx = scrollState.layoutInfo.visibleItemsInfo.find { it.index == 0 }?.let {
                     -it.offset - 0f
-                }
+                },
             )
         }
 
@@ -97,7 +97,7 @@ public fun Modifier.scrollAway(
             ScrollParams(
                 valid = true,
                 isScrollInProgress = scrollState.isScrollInProgress,
-                yPx = scrollState.value.toFloat()
+                yPx = scrollState.value.toFloat(),
             )
         }
 
@@ -106,15 +106,14 @@ public fun Modifier.scrollAway(
             ScrollParams(
                 true,
                 false,
-                10000f
+                10000f,
             )
         }
     }
-
 }
 
 private fun Modifier.scrollAwayImpl(
-    scrollFn: Density.() -> ScrollParams
+    scrollFn: Density.() -> ScrollParams,
 ): Modifier = composed {
     val coroutineScope = rememberCoroutineScope()
     var animatable by remember {
@@ -128,7 +127,7 @@ private fun Modifier.scrollAwayImpl(
         object : LayoutModifier {
             override fun MeasureScope.measure(
                 measurable: Measurable,
-                constraints: Constraints
+                constraints: Constraints,
             ): MeasureResult {
                 val placeable = measurable.measure(constraints)
                 return layout(placeable.width, placeable.height) {
@@ -160,7 +159,7 @@ private fun Modifier.scrollAwayImpl(
                                         coroutineScope.launch {
                                             anim.animateTo(
                                                 targetProgress,
-                                                tween(durationMillis = SHORT_4, easing = STANDARD)
+                                                tween(durationMillis = SHORT_4, easing = STANDARD),
                                             )
                                         }
                                     }
@@ -184,14 +183,14 @@ private fun Modifier.scrollAwayImpl(
                     }
                 }
             }
-        }
+        },
     )
 }
 
 private data class ScrollParams(
     val valid: Boolean,
     val isScrollInProgress: Boolean,
-    val yPx: Float?
+    val yPx: Float?,
 )
 
 // The scroll motion effects take place between 0dp and 36dp.

@@ -73,7 +73,7 @@ public class ScalingLazyColumnState(
     public val userScrollEnabled: Boolean = true,
     public val scalingParams: ScalingParams = WearScalingLazyColumnDefaults.scalingParams(),
     public val hapticsEnabled: Boolean = true,
-): ScrollableState {
+) : ScrollableState {
     private var _state: ScalingLazyListState? = null
     public var state: ScalingLazyListState
         get() {
@@ -99,7 +99,7 @@ public class ScalingLazyColumnState(
 
     override suspend fun scroll(
         scrollPriority: MutatePriority,
-        block: suspend ScrollScope.() -> Unit
+        block: suspend ScrollScope.() -> Unit,
     ) {
         state.scroll(scrollPriority, block)
     }

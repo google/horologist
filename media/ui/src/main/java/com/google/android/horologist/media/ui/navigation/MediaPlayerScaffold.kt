@@ -31,15 +31,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
+import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
-import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.composable
-import com.google.android.horologist.compose.navscaffold.scrollable
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.media.ui.screens.playerlibrarypager.PlayerLibraryPagerScreen
 import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
@@ -68,11 +68,11 @@ public fun MediaPlayerScaffold(
     snackbarViewModel: SnackbarViewModel,
     volumeViewModel: VolumeViewModel,
     playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable (ScalingLazyColumnState) -> Unit,
-    categoryEntityScreen: @Composable (id: String, name: String, ScalingLazyColumnState) -> Unit,
-    mediaEntityScreen: @Composable (ScalingLazyColumnState) -> Unit,
-    playlistsScreen: @Composable (ScalingLazyColumnState) -> Unit,
-    settingsScreen: @Composable (ScalingLazyColumnState) -> Unit,
+    libraryScreen: @Composable () -> Unit,
+    categoryEntityScreen: @Composable (id: String, name: String) -> Unit,
+    mediaEntityScreen: @Composable () -> Unit,
+    playlistsScreen: @Composable () -> Unit,
+    settingsScreen: @Composable () -> Unit,
     deepLinkPrefix: String,
     navController: NavHostController,
     modifier: Modifier = Modifier,
@@ -85,101 +85,100 @@ public fun MediaPlayerScaffold(
     navHostState: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
     additionalNavRoutes: NavGraphBuilder.() -> Unit = {},
 ) {
-    WearNavScaffold(
-        startDestination = NavigationScreens.Player.navRoute,
-        navController = navController,
-        modifier = modifier.background(Color.Transparent),
+    AppScaffold(
+        timeText = { timeText(Modifier) },
         snackbar = {
             DialogSnackbarHost(
                 modifier = Modifier.fillMaxSize(),
                 hostState = snackbarViewModel.snackbarHostState,
             )
         },
-        timeText = timeText,
-        state = navHostState,
     ) {
-        composable(
-            route = NavigationScreens.Player.navRoute,
-            arguments = NavigationScreens.Player.arguments,
-            deepLinks = NavigationScreens.Player.deepLinks(deepLinkPrefix),
+        SwipeDismissableNavHost(
+            startDestination = NavigationScreens.Player.navRoute,
+            navController = navController,
+            modifier = modifier.background(Color.Transparent),
+            state = navHostState,
         ) {
-            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
-            it.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
+            composable(
+                route = NavigationScreens.Player.navRoute,
+                arguments = NavigationScreens.Player.arguments,
+                deepLinks = NavigationScreens.Player.deepLinks(deepLinkPrefix),
+            ) {
+                ScreenScaffold(timeText = {}) {
+                    val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
+                    val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
 
-            val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
-            val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
+                    PlayerLibraryPagerScreen(
+                        pagerState = pagerState,
+                        volumeUiState = { volumeState },
+                        displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
+                        playerScreen = {
+                            playerScreen()
+                        },
+                        libraryScreen = {
+                            libraryScreen()
+                        },
+                        backStack = it,
+                    )
+                }
+            }
 
-            PlayerLibraryPagerScreen(
-                pagerState = pagerState,
-                volumeUiState = { volumeState },
-                displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
-                timeText = timeText,
-                playerScreen = {
-                    playerScreen()
-                },
-                libraryScreen = { listState ->
-                    libraryScreen(listState)
-                },
-                backStack = it.backStackEntry,
-            )
+            composable(
+                route = NavigationScreens.Collections.navRoute,
+                arguments = NavigationScreens.Collections.arguments,
+                deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix),
+            ) {
+                playlistsScreen()
+            }
+
+            composable(
+                route = NavigationScreens.Settings.navRoute,
+
+                arguments = NavigationScreens.Settings.arguments,
+                deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix),
+            ) {
+                settingsScreen()
+            }
+
+            composable(
+                route = NavigationScreens.Volume.navRoute,
+                arguments = NavigationScreens.Volume.arguments,
+                deepLinks = NavigationScreens.Volume.deepLinks(deepLinkPrefix),
+            ) {
+                ScreenScaffold(timeText = {}) {
+                    volumeScreen()
+                }
+            }
+
+            composable(
+                route = NavigationScreens.MediaItem.navRoute,
+
+                arguments = NavigationScreens.MediaItem.arguments,
+                deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix),
+            ) {
+                mediaEntityScreen()
+            }
+
+            composable(
+                route = NavigationScreens.Collection.navRoute,
+
+                arguments = NavigationScreens.Collection.arguments,
+                deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix),
+            ) {
+                val arguments = it.arguments
+                val id = arguments?.getString(NavigationScreens.Collection.id)
+                val name = arguments?.getString(NavigationScreens.Collection.name)
+                checkNotNull(id)
+                checkNotNull(name)
+
+                categoryEntityScreen(
+                    id,
+                    name
+                )
+            }
+
+            additionalNavRoutes()
         }
-
-        scrollable(
-            route = NavigationScreens.Collections.navRoute,
-
-            arguments = NavigationScreens.Collections.arguments,
-            deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix),
-        ) {
-            playlistsScreen(it.columnState)
-        }
-
-        scrollable(
-            route = NavigationScreens.Settings.navRoute,
-
-            arguments = NavigationScreens.Settings.arguments,
-            deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix),
-        ) {
-            settingsScreen(it.columnState)
-        }
-
-        composable(
-            route = NavigationScreens.Volume.navRoute,
-            arguments = NavigationScreens.Volume.arguments,
-            deepLinks = NavigationScreens.Volume.deepLinks(deepLinkPrefix),
-        ) {
-            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
-
-            volumeScreen()
-        }
-
-        scrollable(
-            route = NavigationScreens.MediaItem.navRoute,
-
-            arguments = NavigationScreens.MediaItem.arguments,
-            deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix),
-        ) {
-            mediaEntityScreen(it.columnState)
-        }
-
-        scrollable(
-            route = NavigationScreens.Collection.navRoute,
-
-            arguments = NavigationScreens.Collection.arguments,
-            deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix),
-        ) { scaffoldContext ->
-            val arguments = scaffoldContext.backStackEntry.arguments
-            val id = arguments?.getString(NavigationScreens.Collection.id)
-            val name = arguments?.getString(NavigationScreens.Collection.name)
-            checkNotNull(id)
-            checkNotNull(name)
-
-            categoryEntityScreen(
-                id,
-                name,
-                scaffoldContext.columnState,
-            )
-        }
-
-        additionalNavRoutes()
     }
 }

@@ -19,8 +19,11 @@
 
 package com.google.android.horologist.compose.layout
 
+import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.gestures.FlingBehavior
+import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.gestures.ScrollableDefaults
+import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
@@ -70,7 +73,7 @@ public class ScalingLazyColumnState(
     public val userScrollEnabled: Boolean = true,
     public val scalingParams: ScalingParams = WearScalingLazyColumnDefaults.scalingParams(),
     public val hapticsEnabled: Boolean = true,
-) {
+) : ScrollableState {
     private var _state: ScalingLazyListState? = null
     public var state: ScalingLazyListState
         get() {
@@ -85,6 +88,21 @@ public class ScalingLazyColumnState(
         set(value) {
             _state = value
         }
+
+    override val canScrollBackward: Boolean
+        get() = state.canScrollBackward
+    override val canScrollForward: Boolean
+        get() = state.canScrollForward
+    override val isScrollInProgress: Boolean
+        get() = state.isScrollInProgress
+    override fun dispatchRawDelta(delta: Float): Float = state.dispatchRawDelta(delta)
+
+    override suspend fun scroll(
+        scrollPriority: MutatePriority,
+        block: suspend ScrollScope.() -> Unit,
+    ) {
+        state.scroll(scrollPriority, block)
+    }
 
     public sealed interface RotaryMode {
         public object Snap : RotaryMode

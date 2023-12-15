@@ -19,10 +19,10 @@
 package com.google.android.horologist.navsample
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -35,15 +35,15 @@ import androidx.wear.compose.foundation.rememberSwipeToDismissBoxState
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.dialog.Alert
+import androidx.wear.compose.navigation.SwipeDismissableNavHost
+import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.VolumeScreen
-import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
-import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.composable
-import com.google.android.horologist.compose.navscaffold.scrollStateComposable
-import com.google.android.horologist.compose.navscaffold.scrollable
+import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.navsample.snackbar.SnackbarViewModel
@@ -63,97 +63,110 @@ fun NavWearApp(
 
     val state by networkStatusViewModel.state.collectAsStateWithLifecycle()
 
-    WearNavScaffold(
-        startDestination = NavScreen.Menu.route,
-        navController = navController,
+    AppScaffold(
+        timeText = {
+            DataUsageTimeText(
+                showData = true,
+                networkStatus = state.networks,
+                networkUsage = state.dataUsage,
+            )
+        },
         snackbar = {
             DialogSnackbarHost(
                 hostState = snackbarViewModel.snackbarHostState,
                 modifier = Modifier.fillMaxSize(),
             )
         },
-        timeText = {
-            DataUsageTimeText(
-                modifier = it,
-                showData = true,
-                networkStatus = state.networks,
-                networkUsage = state.dataUsage,
-            )
-        },
-        state = navState,
     ) {
-        scrollable(
-            NavScreen.Menu.route,
+        SwipeDismissableNavHost(
+            startDestination = NavScreen.Menu.route,
+            navController = navController,
+            state = navState,
         ) {
-            NavMenuScreen(
-                navigateToRoute = { route -> navController.navigate(route) },
-                scrollState = it.scrollableState,
-            )
-        }
-
-        scrollable(
-            NavScreen.ScalingLazyColumn.route,
-        ) {
-            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.ScrollAway
-            it.viewModel.vignettePosition =
-                NavScaffoldViewModel.VignetteMode.On(VignettePosition.TopAndBottom)
-            it.positionIndicatorMode =
-                NavScaffoldViewModel.PositionIndicatorMode.On
-
-            BigScalingLazyColumn(
-                scrollState = it.scrollableState,
-            )
-        }
-
-        scrollStateComposable(
-            NavScreen.Column.route,
-            scrollStateBuilder = { ScrollState(initial = 0) },
-        ) {
-            BigColumn(
-                scrollState = it.scrollableState,
-            )
-        }
-
-        composable(NavScreen.Dialog.route) {
-            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
-
-            Alert(title = { Text("Error") }) {
-                item {
-                    Chip(onClick = {}, label = { Text("Hello") })
-                }
-            }
-        }
-
-        composable(NavScreen.Snackbar.route) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Button(onClick = { snackbarViewModel.showMessage("Test") }) {
-                    Text(text = "Test")
-                }
-            }
-        }
-
-        composable(NavScreen.Pager.route) {
-            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
-
-            val pagerState = rememberPagerState { 10 }
-            PagerScreen(
-                // When using Modifier.edgeSwipeToDismiss, it is required that the element on
-                // which the modifier applies exists within a SwipeToDismissBox which shares
-                // the same state. Here, swipeDismissState is shared with
-                // our SwipeDismissableNavHost, which in turns passes it to its SwipeToDismissBox.
-                modifier = Modifier
-                    .fillMaxSize()
-                    .edgeSwipeToDismiss(swipeDismissState),
-                state = pagerState,
+            composable(
+                NavScreen.Menu.route,
             ) {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(text = "Screen $it")
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(scrollState = columnState) {
+                    NavMenuScreen(
+                        navigateToRoute = { route -> navController.navigate(route) },
+                        columnState = columnState,
+                    )
                 }
             }
-        }
 
-        composable(NavScreen.Volume.route) {
-            VolumeScreen()
+            composable(
+                NavScreen.ScalingLazyColumn.route,
+            ) {
+                val columnState = rememberColumnState()
+
+                // TODO move all inside Screen
+                ScreenScaffold(scrollState = columnState) {
+                    BigScalingLazyColumn(
+                        columnState = columnState,
+                    )
+                }
+            }
+
+            composable(
+                NavScreen.Column.route,
+            ) {
+                val scrollState = rememberScrollState()
+
+                // TODO move all inside PagerScreen
+                ScreenScaffold(scrollState = scrollState) {
+                    BigColumn(
+                        scrollState = scrollState,
+                    )
+                }
+            }
+
+            composable(NavScreen.Dialog.route) {
+                ScreenScaffold {
+                    Alert(title = { Text("Error") }) {
+                        item {
+                            Chip(onClick = {}, label = { Text("Hello") })
+                        }
+                    }
+                }
+            }
+
+            composable(NavScreen.Snackbar.route) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Button(onClick = { snackbarViewModel.showMessage("Test") }) {
+                        Text(text = "Test")
+                    }
+                }
+            }
+
+            composable(NavScreen.Pager.route) {
+                // TODO move all inside PagerScreen
+                ScreenScaffold {
+                    val pagerState = rememberPagerState { 10 }
+                    PagerScreen(
+                        // When using Modifier.edgeSwipeToDismiss, it is required that the element on
+                        // which the modifier applies exists within a SwipeToDismissBox which shares
+                        // the same state. Here, swipeDismissState is shared with
+                        // our SwipeDismissableNavHost, which in turns passes it to its SwipeToDismissBox.
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .edgeSwipeToDismiss(swipeDismissState),
+                        state = pagerState,
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = "Screen $it")
+                        }
+                    }
+                }
+            }
+
+            composable(NavScreen.Volume.route) {
+                VolumeScreen()
+            }
         }
     }
 }

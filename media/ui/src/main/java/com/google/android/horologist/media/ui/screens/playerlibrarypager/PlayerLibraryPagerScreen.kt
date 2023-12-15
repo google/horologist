@@ -30,6 +30,7 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeUiState
+import com.google.android.horologist.compose.layout.PageScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.layout.scrollAway
@@ -47,9 +48,8 @@ public fun PlayerLibraryPagerScreen(
     pagerState: PagerState,
     volumeUiState: () -> VolumeUiState,
     displayVolumeIndicatorEvents: Flow<Unit>,
-    timeText: @Composable (Modifier) -> Unit,
     playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable (ScalingLazyColumnState) -> Unit,
+    libraryScreen: @Composable () -> Unit,
     backStack: NavBackStackEntry,
     modifier: Modifier = Modifier,
 ) {
@@ -73,10 +73,7 @@ public fun PlayerLibraryPagerScreen(
     ) { page ->
         when (page) {
             0 -> {
-                Scaffold(
-                    timeText = {
-                        timeText(Modifier)
-                    },
+                PageScaffold(
                     positionIndicator = {
                         VolumePositionIndicator(volumeUiState = volumeUiState, displayIndicatorEvents = displayVolumeIndicatorEvents)
                     },
@@ -87,17 +84,15 @@ public fun PlayerLibraryPagerScreen(
 
             1 -> {
                 val config = belowTimeTextPreview()
-                Scaffold(
-                    timeText = {
-                        timeText(Modifier.scrollAway(config))
-                    },
+                PageScaffold(
+                    scrollState = { config },
                     positionIndicator = {
                         PositionIndicator(
                             scalingLazyListState = config.state,
                         )
                     },
                 ) {
-                    libraryScreen(config)
+                    libraryScreen()
                 }
             }
         }

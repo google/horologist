@@ -102,10 +102,11 @@ public fun Modifier.scrollAway(
         }
 
         else -> {
+            // Hide by display as offscreen
             ScrollParams(
                 true,
                 false,
-                0f
+                10000f
             )
         }
     }

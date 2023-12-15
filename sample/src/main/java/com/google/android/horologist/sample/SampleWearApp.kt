@@ -98,6 +98,8 @@ fun SampleWearApp() {
             FillMaxRectangleScreen()
         }
         composable(Screen.Volume.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
             VolumeScreen()
         }
         lazyListComposable(Screen.ScrollAway.route) {

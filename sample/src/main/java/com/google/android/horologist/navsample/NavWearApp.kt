@@ -153,6 +153,8 @@ fun NavWearApp(
         }
 
         composable(NavScreen.Volume.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
             VolumeScreen()
         }
     }

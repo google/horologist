@@ -48,7 +48,7 @@ fun TokenShareDefaultKeyScreen(
         modifier = modifier.fillMaxSize(),
     ) {
         item {
-            Title(R.string.token_share_default_key_title, Modifier)
+            Title(R.string.token_share_default_key_title)
         }
         item {
             Text(

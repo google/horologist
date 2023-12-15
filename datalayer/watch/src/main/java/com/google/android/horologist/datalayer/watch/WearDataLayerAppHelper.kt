@@ -22,6 +22,7 @@ import android.net.Uri
 import androidx.annotation.CheckResult
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.watchface.complications.data.ComplicationType
+import androidx.wear.watchface.complications.datasource.ComplicationDataSourceService
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.ComplicationInfo
@@ -206,11 +207,11 @@ public class WearDataLayerAppHelper(
 
         /**
          * Marks a complication as activated. Call this in
-         * [ComplicationDataSourceService#onComplicationActivated].
+         * [ComplicationDataSourceService.onComplicationActivated].
          *
          * @param complicationName The name of the complication, to disambiguate from others.
-         * @param complicationInstanceId Passed from onComplicationActivated
-         * @param complicationType Passedfrom onComplicationActivated
+         * @param complicationInstanceId Passed from [ComplicationDataSourceService.onComplicationActivated]
+         * @param complicationType Passed from [ComplicationDataSourceService.onComplicationActivated]
          */
         public suspend fun markComplicationAsActivated(
             complicationName: String,
@@ -235,11 +236,11 @@ public class WearDataLayerAppHelper(
 
         /**
          * Marks a complication as deactivated. Call this in
-         * [ComplicationDataSourceService#onComplicationDeactivated].
+         * [ComplicationDataSourceService.onComplicationDeactivated].
          *
          * @param complicationName The name of the complication, to disambiguate from others.
-         * @param complicationInstanceId Passed from onComplicationDeactivated
-         * @param complicationType Passedfrom onComplicationDeactivated
+         * @param complicationInstanceId Passed from [ComplicationDataSourceService.onComplicationDeactivated]
+         * @param complicationType Passed from [ComplicationDataSourceService.onComplicationDeactivated]
          */
         public suspend fun markComplicationAsDeactivated(
             complicationName: String,

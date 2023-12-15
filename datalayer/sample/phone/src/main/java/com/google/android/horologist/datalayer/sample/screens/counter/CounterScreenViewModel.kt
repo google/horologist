@@ -29,12 +29,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -52,30 +49,17 @@ class CounterScreenViewModel
         private lateinit var counterDataStore: DataStore<GrpcDemoProto.CounterValue>
 
         @OptIn(ExperimentalCoroutinesApi::class)
-        private val counterState: Flow<GrpcDemoProto.CounterValue> =
+        private val counterState: Flow<GrpcDemoProto.CounterValue?> =
             apiAvailable.flatMapLatest { apiAvailable ->
                 if (!apiAvailable) {
-                    flowOf(GrpcDemoProto.CounterValue.getDefaultInstance())
+                    flowOf(null)
                 } else {
                     counterDataStore.data
                 }
             }
 
         private val _uiState = MutableStateFlow<CounterScreenUiState>(CounterScreenUiState.Idle)
-        public val uiState: StateFlow<CounterScreenUiState> =
-            combine(_uiState, counterState) { uiState, counterState ->
-                when (uiState) {
-                    CounterScreenUiState.Loading,
-                    is CounterScreenUiState.Loaded,
-                    -> CounterScreenUiState.Loaded(counter = counterState.value)
-
-                    else -> uiState
-                }
-            }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000),
-                initialValue = CounterScreenUiState.Idle,
-            )
+        public val uiState: StateFlow<CounterScreenUiState> = _uiState
 
         fun initialize() {
             if (initializeCalled) return
@@ -90,6 +74,19 @@ class CounterScreenViewModel
                     counterDataStore =
                         registry.protoDataStore<GrpcDemoProto.CounterValue>(viewModelScope)
                     _uiState.value = CounterScreenUiState.Loading
+                }
+
+                counterState.collect { counter ->
+                    if (counter != null) {
+                        when (_uiState.value) {
+                            CounterScreenUiState.Loading,
+                            is CounterScreenUiState.Loaded,
+                            -> {
+                                _uiState.value = CounterScreenUiState.Loaded(counter = counter.value)
+                            }
+                            else -> { /* noop */ }
+                        }
+                    }
                 }
             }
         }

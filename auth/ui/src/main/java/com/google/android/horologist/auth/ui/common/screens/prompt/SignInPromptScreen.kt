@@ -117,7 +117,7 @@ public fun SignInPromptScreen(
                 columnState = columnState,
                 modifier = modifier,
             ) {
-                item { Title(title, Modifier) }
+                item { Title(title) }
                 item {
                     Text(
                         text = message,

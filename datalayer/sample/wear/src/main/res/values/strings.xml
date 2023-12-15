@@ -17,12 +17,30 @@
 <resources>
     <string name="app_name">Horologist Datalayer Sample</string>
 
-    <string name="main_menu_datalayer_item">Data Layer</string>
     <string name="main_menu_datalayer_header">Data Layer</string>
+    <string name="main_menu_datalayer_counter_item">Counter</string>
+    <string name="main_menu_datalayer_nodes_item">Data Layer Nodes</string>
+
+    <string name="main_menu_apphelpers_header">App Helpers</string>
+    <string name="main_menu_apphelpers_tracking_item">Tracking</string>
+    <string name="main_menu_apphelpers_nodes_actions_item">Nodes actions</string>
+
     <string name="server_counter_message">Value of the counter from Phone</string>
     <string name="data_layer_title">Data Layer</string>
     <string name="data_layer_missing_message">Missing</string>
     <string name="data_layer_error_message">Error: %1$s</string>
     <string name="data_layer_value_message">Value: %1$s</string>
-    <string name="main_menu_datalayer_nodes">Data Layer Nodes</string>
+
+    <string name="apphelper_tracking_title">AppHelper Tracking</string>
+    <string name="apphelper_tracking_message">Tap on an item to learn more about it.</string>
+    <string name="apphelper_tracking_activity_launched_chip_label">Activity launched once</string>
+    <string name="apphelper_tracking_activity_launched_info">Mark that the main activity of this app on the watch has been launched at least once.</string>
+    <string name="apphelper_tracking_setup_completed_chip_label">Setup Completed</string>
+    <string name="apphelper_tracking_setup_completed_info">Mark that the user has completed in the app the necessary setup steps such that this app on the watch is ready for use.</string>
+    <string name="apphelper_tracking_tile_header">Tiles</string>
+    <string name="apphelper_tracking_tile_installation_chip_label">Installation status</string>
+    <string name="apphelper_tracking_tile_installation_info">Indicates that tile with name %1$s is installed on this watch.</string>
+    <string name="apphelper_tracking_complication_header">Complications</string>
+    <string name="apphelper_tracking_complication_installation_chip_label">Installation status</string>
+    <string name="apphelper_tracking_complication_installation_info">Indicates that complication with name %1$s is installed on this watch.</string>
 </resources>

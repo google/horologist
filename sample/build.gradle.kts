@@ -133,8 +133,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.kotlin.stdlib)
 
-    implementation(libs.coil)
-
     implementation(libs.lottie.compose)
 
     implementation(libs.com.squareup.okhttp3.logging.interceptor)

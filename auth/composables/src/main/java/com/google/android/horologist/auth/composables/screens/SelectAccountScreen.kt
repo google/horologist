@@ -33,9 +33,9 @@ import com.google.android.horologist.auth.composables.chips.AccountChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.compose.material.Paintable
 import com.google.android.horologist.compose.material.Title
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.base.paintable.Paintable
 
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052
 

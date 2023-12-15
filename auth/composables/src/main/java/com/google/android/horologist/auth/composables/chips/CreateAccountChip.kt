@@ -29,8 +29,8 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 /**
  * An opinionated [Chip] to represent the "Create account" action.

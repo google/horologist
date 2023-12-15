@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.tools.coil
+package com.google.android.horologist.images.coil
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.annotation.DrawableRes
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.core.content.ContextCompat
 import coil.Coil
 import coil.ComponentRegistry
 import coil.ImageLoader
+import coil.compose.LocalImageLoader
 import coil.decode.DataSource
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
@@ -31,7 +35,6 @@ import coil.request.ErrorResult
 import coil.request.ImageRequest
 import coil.request.ImageResult
 import coil.request.SuccessResult
-import com.google.android.horologist.compose.tools.R
 import kotlinx.coroutines.awaitCancellation
 import java.io.IOException
 
@@ -63,6 +66,19 @@ public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> Imag
                 Coil::class.java.getDeclaredField("imageLoader").apply {
                     isAccessible = true
                 }.set(null, null)
+            }
+        }
+
+        @SuppressLint("ComposableNaming")
+        @Suppress("DEPRECATION")
+        @Composable
+        public fun apply(content: @Composable () -> Unit) {
+            // Not sure why this is needed, but Coil has improved
+            // test support in next release
+            this.override {
+                CompositionLocalProvider(LocalImageLoader provides this) {
+                    content()
+                }
             }
         }
 

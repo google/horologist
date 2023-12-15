@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.material.CoilPaintable
-import com.google.android.horologist.compose.material.Paintable
+import com.google.android.horologist.images.base.paintable.Paintable
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @ExperimentalHorologistApi

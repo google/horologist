@@ -23,6 +23,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.android.horologist.compose.tools.WearPreview
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @WearPreview
 @Composable

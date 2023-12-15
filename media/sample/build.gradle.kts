@@ -154,6 +154,7 @@ dependencies {
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
+    implementation(projects.images.coil)
     implementation(projects.media.core)
     implementation(projects.media.backendMedia3)
     implementation(projects.media.data)

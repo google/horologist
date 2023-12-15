@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.material.util
+package com.google.android.horologist.images.base.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.BlendMode

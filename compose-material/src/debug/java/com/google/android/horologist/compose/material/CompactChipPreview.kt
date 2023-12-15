@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.compose.tools.WearPreview
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @WearPreview
 @Composable

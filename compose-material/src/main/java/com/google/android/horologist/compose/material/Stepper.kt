@@ -26,11 +26,10 @@ import androidx.compose.ui.util.lerp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.StepperDefaults
 import androidx.wear.compose.material.contentColorFor
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.rotaryinput.RotaryDefaults
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import kotlin.math.roundToInt
-
 /**
  * Wrapper for androidx.wear.compose.material.Stepper with default RSB scroll support.
  *

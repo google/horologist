@@ -20,15 +20,10 @@ import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Image
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.wear.compose.material.MaterialTheme
 import com.google.accompanist.testharness.TestHarness
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.compose.material.util.rememberVectorPainter
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
@@ -107,51 +102,6 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 icon = DrawableResPaintable(R.drawable.ic_delete),
             )
-        }
-    }
-
-    @Test
-    fun withPlaceholderIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            // In inspection mode will jump to placeholder
-            CompositionLocalProvider(LocalInspectionMode.provides(true)) {
-                OutlinedCompactChip(
-                    onClick = { },
-                    label = "Primary label",
-                    icon = CoilPaintable(
-                        "iconUri",
-                        placeholder = rememberVectorPainter(
-                            image = Icons.Default.Image,
-                            tintColor = MaterialTheme.colors.primary,
-                        ),
-                    ),
-                )
-            }
-        }
-    }
-
-    @Test
-    fun disabledWithIconPlaceholder() {
-        screenshotTestRule.setContent(
-            isComponent = true,
-            takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Never,
-        ) {
-            // In inspection mode will jump to placeholder
-            CompositionLocalProvider(LocalInspectionMode.provides(true)) {
-                OutlinedCompactChip(
-                    onClick = { },
-                    label = "Primary label",
-                    icon = CoilPaintable(
-                        "iconUri",
-                        placeholder = rememberVectorPainter(
-                            image = Icons.Default.Image,
-                            tintColor = MaterialTheme.colors.primary,
-                        ),
-                    ),
-                    enabled = false,
-                )
-            }
         }
     }
 

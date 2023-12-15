@@ -25,7 +25,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 25
+        minSdk = 26
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -91,15 +91,16 @@ dependencies {
     api(projects.annotations)
     api(projects.composeTools)
     api(projects.composeLayout)
+    api(projects.images.coil)
 
     api(libs.kotlin.stdlib)
     api(libs.okio)
     api(libs.snapshot.android)
     api(libs.compose.ui.test.junit4)
     api(libs.robolectric)
+    api(libs.coil)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
-    implementation(libs.coil)
 
     testImplementation(libs.robolectric)
 }

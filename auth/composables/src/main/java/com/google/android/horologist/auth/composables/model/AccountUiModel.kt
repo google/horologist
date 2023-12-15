@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.auth.composables.model
 
-import com.google.android.horologist.compose.material.Paintable
+import com.google.android.horologist.images.base.paintable.Paintable
 
 /**
  * A UI model to represent an account.

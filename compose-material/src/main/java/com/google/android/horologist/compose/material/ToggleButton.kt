@@ -35,7 +35,7 @@ import androidx.wear.compose.material.ToggleButton
 import androidx.wear.compose.material.ToggleButtonColors
 import androidx.wear.compose.material.ToggleButtonDefaults
 import androidx.wear.compose.material.contentColorFor
-
+import com.google.android.horologist.images.base.paintable.PaintableIcon
 /**
  * This component is an alternative to [ToggleButton], providing the following:
  * - a convenient way of providing text;

@@ -34,9 +34,8 @@ import androidx.wear.compose.material.SplitToggleChipColors
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.material.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 /**
  * This component is an alternative to [SplitToggleChip], providing the following:
  * - a convenient way of providing a label and a secondary label;

@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.material.ListHeader
@@ -30,9 +31,9 @@ import com.google.android.horologist.compose.material.Chip
 
 @Composable
 fun DataLayerNodesScreen(
-    viewModel: DataLayerNodesViewModel,
     modifier: Modifier = Modifier,
     columnState: ScalingLazyColumnState,
+    viewModel: DataLayerNodesViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

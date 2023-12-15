@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Text
@@ -37,9 +38,9 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun TrackingScreen(
-    viewModel: TrackingScreenViewModel,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
+    viewModel: TrackingScreenViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 

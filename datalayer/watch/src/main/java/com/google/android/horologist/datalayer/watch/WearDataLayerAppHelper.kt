@@ -25,6 +25,7 @@ import androidx.wear.watchface.complications.data.ComplicationType
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.ComplicationInfo
+import com.google.android.horologist.data.SurfacesInfo
 import com.google.android.horologist.data.TileInfo
 import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.data.WearDataLayerRegistry
@@ -39,6 +40,7 @@ import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.data.usageInfo
 import com.google.protobuf.Timestamp
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.tasks.await
 
@@ -63,6 +65,11 @@ public class WearDataLayerAppHelper(
                 serializer = SurfacesInfoSerializer,
             )
         }
+
+        /**
+         * Return the [SurfacesInfo] of this node.
+         */
+        public val surfacesInfo: Flow<SurfacesInfo> = surfacesInfoDataStore.data
 
         override suspend fun installOnNode(node: String) {
             checkIsForegroundOrThrow()

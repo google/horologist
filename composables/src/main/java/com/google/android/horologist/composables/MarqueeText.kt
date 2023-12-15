@@ -29,7 +29,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,6 +42,8 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
@@ -159,6 +160,12 @@ private class MarqueeController(edgeGradientWidth: Dp) {
             layout(placeable.width, placeable.height) {
                 placeable.placeRelative(IntOffset.Zero)
             }
+        }
+        .graphicsLayer {
+            // Required to make the faded edges only clear the alpha for the marquee content's
+            // pixels and not punch a hole through whatever is beneath this composable.
+            compositingStrategy = CompositingStrategy.Offscreen
+            clip = true
         }
         .drawFadeGradient()
 

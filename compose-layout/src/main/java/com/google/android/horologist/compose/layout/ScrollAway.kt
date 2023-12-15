@@ -41,8 +41,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.material.scrollAway
+import com.google.android.horologist.compose.navscaffold.ScalingLazyColumnScrollableState
 import kotlinx.coroutines.launch
 
 /**
@@ -56,46 +55,64 @@ import kotlinx.coroutines.launch
  */
 public fun Modifier.scrollAway(
     scrollableState: () -> ScrollableState?,
-): Modifier = scrollAway {
-    val scrollState = scrollableState()
+): Modifier = scrollAwayImpl {
+    when (val scrollState = scrollableState()) {
+        is ScalingLazyColumnScrollableState -> {
+            val initialOffsetDp = scrollState.initialOffsetPx.toDp()
 
-    if (scrollState is ScalingLazyListState) {
+            ScrollParams(
+                valid = scrollState.initialIndex < scrollState.scalingLazyListState.layoutInfo.totalItemsCount,
+                isScrollInProgress = scrollState.isScrollInProgress,
+                yPx = scrollState.scalingLazyListState.layoutInfo.visibleItemsInfo.find { it.index == scrollState.initialIndex }
+                    ?.let {
+                        -it.offset - initialOffsetDp.toPx()
+                    }
+            )
+        }
 
-        val offsetDp = (scrollState as ScalingLazyListState).initialOffsetPx.toDp()
-        this.scrollAway(state.scalingLazyListState, state.initialIndex, offsetDp)
+        is ScalingLazyColumnState -> {
+            val initialOffsetDp = scrollState.initialScrollPosition.offsetPx.toDp()
 
-        ScrollParams(
-            valid = itemIndex < scrollState.layoutInfo.totalItemsCount,
-            isScrollInProgress = scrollState.isScrollInProgress,
-            yPx = scrollState.layoutInfo.visibleItemsInfo.find { it.index == itemIndex }?.let {
-                -it.offset - offset.toPx()
-            }
-        )
-    } else if (scrollState is LazyListState) {
-        ScrollParams(
-            valid = 0 < scrollState.layoutInfo.totalItemsCount,
-            isScrollInProgress = scrollState.isScrollInProgress,
-            yPx = scrollState.layoutInfo.visibleItemsInfo.find { it.index == 0 }?.let {
-                -it.offset - 0f
-            }
-        )
-    } else if (scrollState is ScrollState) {
-        ScrollParams(
-            valid = true,
-            isScrollInProgress = scrollState.isScrollInProgress,
-            yPx = scrollState.value.toFloat()
-        )
-    } else {
-        ScrollParams(
-            true,
-            false,
-            0f
-        )
+            ScrollParams(
+                valid = scrollState.initialScrollPosition.index < scrollState.state.layoutInfo.totalItemsCount,
+                isScrollInProgress = scrollState.isScrollInProgress,
+                yPx = scrollState.state.layoutInfo.visibleItemsInfo.find { it.index == scrollState.initialScrollPosition.index }
+                    ?.let {
+                        -it.offset - initialOffsetDp.toPx()
+                    }
+            )
+        }
+
+        is LazyListState -> {
+            ScrollParams(
+                valid = 0 < scrollState.layoutInfo.totalItemsCount,
+                isScrollInProgress = scrollState.isScrollInProgress,
+                yPx = scrollState.layoutInfo.visibleItemsInfo.find { it.index == 0 }?.let {
+                    -it.offset - 0f
+                }
+            )
+        }
+
+        is ScrollState -> {
+            ScrollParams(
+                valid = true,
+                isScrollInProgress = scrollState.isScrollInProgress,
+                yPx = scrollState.value.toFloat()
+            )
+        }
+
+        else -> {
+            ScrollParams(
+                true,
+                false,
+                0f
+            )
+        }
     }
 
 }
 
-private fun Modifier.scrollAway(
+private fun Modifier.scrollAwayImpl(
     scrollFn: Density.() -> ScrollParams
 ): Modifier = composed {
     val coroutineScope = rememberCoroutineScope()

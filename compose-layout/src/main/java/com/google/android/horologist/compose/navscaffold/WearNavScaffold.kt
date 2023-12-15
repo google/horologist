@@ -98,7 +98,7 @@ public fun WearNavScaffold(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         timeText = {
-            timeText(Modifier.scrollAway(scrollState))
+            timeText(Modifier.scrollAway { scrollState.value })
         },
         positionIndicator = {
             key(currentBackStackEntry?.destination?.route) {

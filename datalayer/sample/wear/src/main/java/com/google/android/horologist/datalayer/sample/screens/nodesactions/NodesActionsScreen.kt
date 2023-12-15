@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.sample
+package com.google.android.horologist.datalayer.sample.screens.nodesactions
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.wear.compose.material.Text
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            WearApp()
+@Composable
+fun NodesActionsScreen(
+    columnState: ScalingLazyColumnState,
+    modifier: Modifier = Modifier,
+) {
+    ScalingLazyColumn(
+        columnState = columnState,
+        modifier = modifier,
+    ) {
+        item {
+            Text("To be implemented")
         }
     }
 }

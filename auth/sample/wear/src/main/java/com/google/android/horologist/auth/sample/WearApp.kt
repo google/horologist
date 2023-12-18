@@ -45,7 +45,6 @@ import com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.T
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantSignInScreen
 import com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInScreen
-import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.composable
 import com.google.android.horologist.compose.navscaffold.scrollable
 

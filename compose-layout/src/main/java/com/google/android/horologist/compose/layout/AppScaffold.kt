@@ -39,6 +39,16 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
 
+/**
+ * App Scaffold to place *above* the SwipeDismissableNavHost.
+ * The TimeText will be shown here, but can be customised in either ScreenScaffold or
+ * PageScaffold.
+ *
+ * @param modifier the Scaffold modifier.
+ * @param timeText the app default time text, defaults to TimeText().
+ * @param snackbar a snackbar slot.
+ * @param content the content block.
+ */
 @Composable
 fun AppScaffold(
     modifier: Modifier = Modifier,
@@ -62,6 +72,17 @@ fun AppScaffold(
     }
 }
 
+/**
+ * Navigation Route (Screen) Scaffold to place *inside* composable.
+ * The TimeText if set will override the AppScaffold timeText.
+ *
+ * @param modifier the Scaffold modifier.
+ * @param timeText the page specific time text.
+ * @param scrollState the ScrollableState to show in a default PositionIndicator.
+ * @param pageIndicatorState state for a HorizontalPager.
+ * @param positionIndicator set a non default PositionIndicator or disable with an no-op lambda.
+ * @param content the content block.
+ */
 @Composable
 fun ScreenScaffold(
     modifier: Modifier = Modifier,
@@ -107,6 +128,16 @@ fun ScreenScaffold(
     )
 }
 
+/**
+ * Pager Scaffold to place *inside* a single page of HorizontalPager.
+ * The TimeText if set will override the AppScaffold timeText.
+ *
+ * @param modifier the Scaffold modifier.
+ * @param timeText the page specific time text.
+ * @param scrollState the ScrollableState to show in a default PositionIndicator.
+ * @param positionIndicator set a non default PositionIndicator or disable with an no-op lambda.
+ * @param content the content block.
+ */
 @Composable
 fun PageScaffold(
     modifier: Modifier = Modifier,
@@ -118,7 +149,7 @@ fun PageScaffold(
     ScreenScaffold(modifier = modifier, timeText, scrollState, null, positionIndicator, content)
 }
 
-internal class ScaffoldState() {
+internal class ScaffoldState {
     fun removeScreenTimeText(key: Any) {
         screenContent.removeIf { it.key === key }
     }

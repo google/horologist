@@ -125,7 +125,7 @@ package com.google.android.horologist.media.ui.components.animated {
   }
 
   public final class MarqueeTextMediaDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MarqueeTextMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? title, optional String? artist, optional int enterTransitionDelay, optional int subtextTransitionDelay, optional @FloatRange(from=0.0, to=1.0) float transitionLength);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MarqueeTextMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? title, optional String? artist, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon, optional int enterTransitionDelay, optional int subtextTransitionDelay, optional @FloatRange(from=0.0, to=1.0) float transitionLength);
   }
 
 }
@@ -230,7 +230,7 @@ package com.google.android.horologist.media.ui.components.display {
   }
 
   public final class TextMediaDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void TextMediaDisplay(String title, String subtitle, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void TextMediaDisplay(String title, String subtitle, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon, optional androidx.compose.ui.Modifier modifier);
   }
 
   public final class TrackMediaDisplayKt {
@@ -769,25 +769,28 @@ package com.google.android.horologist.media.ui.state.model {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaUiModel {
-    ctor public MediaUiModel(String id, String title, optional String subtitle, optional String? artworkUri, optional androidx.compose.ui.graphics.Color? artworkColor);
+    ctor public MediaUiModel(String id, String title, optional String subtitle, optional String? artworkUri, optional androidx.compose.ui.graphics.Color? artworkColor, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon);
     method public String component1();
     method public String component2();
     method public String component3();
     method public String? component4();
     method public androidx.compose.ui.graphics.Color? component5-QN2ZGVo();
-    method public com.google.android.horologist.media.ui.state.model.MediaUiModel copy-6nskv5g(String id, String title, String subtitle, String? artworkUri, androidx.compose.ui.graphics.Color? artworkColor);
+    method public com.google.android.horologist.images.base.paintable.Paintable? component6();
+    method public com.google.android.horologist.media.ui.state.model.MediaUiModel copy-gCxFOHY(String id, String title, String subtitle, String? artworkUri, androidx.compose.ui.graphics.Color? artworkColor, com.google.android.horologist.images.base.paintable.Paintable? titleIcon);
     method public androidx.compose.ui.graphics.Color? getArtworkColor();
     method public String? getArtworkUri();
     method public String getId();
     method public boolean getLoading();
     method public String getSubtitle();
     method public String getTitle();
+    method public com.google.android.horologist.images.base.paintable.Paintable? getTitleIcon();
     property public final androidx.compose.ui.graphics.Color? artworkColor;
     property public final String? artworkUri;
     property public final String id;
     property public final boolean loading;
     property public final String subtitle;
     property public final String title;
+    property public final com.google.android.horologist.images.base.paintable.Paintable? titleIcon;
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract sealed class PlaylistDownloadUiModel {

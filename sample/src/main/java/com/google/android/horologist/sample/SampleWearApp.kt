@@ -35,7 +35,6 @@ import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.layout.AppScaffold
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.materialcomponents.SampleButtonScreen
@@ -139,49 +138,41 @@ fun SampleWearApp() {
                 }
             }
             composable(Screen.DatePicker.route) {
-                ScreenScaffold(timeText = {}) {
-                    DatePicker(
-                        date = time.toLocalDate(),
-                        onDateConfirm = {
-                            time = time.toLocalTime().atDate(it)
-                            navController.popBackStack()
-                        },
-                    )
-                }
+                DatePicker(
+                    date = time.toLocalDate(),
+                    onDateConfirm = {
+                        time = time.toLocalTime().atDate(it)
+                        navController.popBackStack()
+                    },
+                )
             }
             composable(Screen.TimePicker.route) {
-                ScreenScaffold(timeText = {}) {
-                    TimePickerWith12HourClock(
-                        time = time.toLocalTime(),
-                        onTimeConfirm = {
-                            time = time.toLocalDate().atTime(it)
-                            navController.popBackStack()
-                        },
-                    )
-                }
+                TimePickerWith12HourClock(
+                    time = time.toLocalTime(),
+                    onTimeConfirm = {
+                        time = time.toLocalDate().atTime(it)
+                        navController.popBackStack()
+                    },
+                )
             }
             composable(Screen.TimeWithSecondsPicker.route) {
-                ScreenScaffold(timeText = {}) {
-                    TimePicker(
-                        time = time.toLocalTime(),
-                        onTimeConfirm = {
-                            time = time.toLocalDate().atTime(it)
-                            navController.popBackStack()
-                        },
-                    )
-                }
+                TimePicker(
+                    time = time.toLocalTime(),
+                    onTimeConfirm = {
+                        time = time.toLocalDate().atTime(it)
+                        navController.popBackStack()
+                    },
+                )
             }
             composable(Screen.TimeWithoutSecondsPicker.route) {
-                ScreenScaffold(timeText = {}) {
-                    TimePicker(
-                        time = time.toLocalTime(),
-                        onTimeConfirm = {
-                            time = time.toLocalDate().atTime(it)
-                            navController.popBackStack()
-                        },
-                        showSeconds = false,
-                    )
-                }
+                TimePicker(
+                    time = time.toLocalTime(),
+                    onTimeConfirm = {
+                        time = time.toLocalDate().atTime(it)
+                        navController.popBackStack()
+                    },
+                    showSeconds = false,
+                )
             }
             composable(
                 route = Screen.MaterialButtonsScreen.route,

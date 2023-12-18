@@ -85,12 +85,7 @@ public fun PlayerLibraryPagerScreen(
             1 -> {
                 val config = belowTimeTextPreview()
                 PageScaffold(
-                    scrollState = { config },
-                    positionIndicator = {
-                        PositionIndicator(
-                            scalingLazyListState = config.state,
-                        )
-                    },
+                    scrollState = config,
                 ) {
                     libraryScreen()
                 }

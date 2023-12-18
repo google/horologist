@@ -188,6 +188,7 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
  *
  * The [ScalingLazyColumnState] must be taken from the [ScrollableScaffoldContext].
  */
+@Deprecated("Use AppScaffold")
 @ExperimentalHorologistApi
 public fun NavGraphBuilder.scrollable(
     route: String,

@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.DeviceCodeResponse
@@ -53,7 +54,7 @@ fun WearApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberSwipeDismissableNavController(),
 ) {
-    WearNavScaffold(startDestination = Screen.MainScreen.route, navController = navController) {
+    SwipeDismissableNavHost(startDestination = Screen.MainScreen.route, navController = navController) {
         scrollable(
             route = Screen.MainScreen.route,
         ) {

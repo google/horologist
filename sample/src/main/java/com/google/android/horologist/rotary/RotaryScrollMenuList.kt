@@ -138,10 +138,18 @@ fun RotaryMenuScreen(
 fun RotaryScrollScreen(
     reverseDirection: Boolean = false,
 ) {
-    ScalingLazyColumn(
-        columnState = rememberColumnState(ScalingLazyColumnDefaults.responsive(reverseLayout = reverseDirection)),
-    ) {
-        ChipsList {}
+    val columnState =
+        rememberColumnState(ScalingLazyColumnDefaults.responsive(reverseLayout = reverseDirection))
+    Scaffold(timeText = {
+        if (!reverseDirection) {
+            TimeText(modifier = Modifier.scrollAway(columnState))
+        }
+    }) {
+        ScalingLazyColumn(
+            columnState = columnState,
+        ) {
+            ChipsList {}
+        }
     }
 }
 

@@ -268,9 +268,11 @@ fun SampleWearApp() {
             )
         }
         composable(route = Screen.RotaryScrollScreen.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
             RotaryScrollScreen()
         }
         composable(route = Screen.RotaryScrollReversedScreen.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
             RotaryScrollScreen(reverseDirection = true)
         }
         composable(route = Screen.RotaryScrollWithFlingScreen.route) {

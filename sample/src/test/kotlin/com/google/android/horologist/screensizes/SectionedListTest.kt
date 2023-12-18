@@ -59,7 +59,7 @@ class SectionedListTest(device: Device) : ScreenSizeTest(device = device, showTi
             },
             timeText = {
                 TimeText(
-                    modifier = Modifier.scrollAway(columnState),
+                    modifier = Modifier.scrollAway { columnState },
                     timeSource = FixedTimeSource,
                 )
             },

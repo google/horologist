@@ -202,7 +202,7 @@ class SectionedListTest : ScreenshotBaseTest(
                 },
                 timeText = {
                     TimeText(
-                        modifier = Modifier.scrollAway(columnState),
+                        modifier = Modifier.scrollAway { columnState },
                         timeSource = FixedTimeSource,
                     )
                 },

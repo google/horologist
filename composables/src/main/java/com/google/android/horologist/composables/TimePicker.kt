@@ -183,12 +183,11 @@ public fun TimePicker(
             }
         }
 
-
     ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
             .alpha(fullyDrawn.value),
-        timeText = {}
+        timeText = {},
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -406,7 +405,7 @@ public fun TimePickerWith12HourClock(
         modifier = modifier
             .fillMaxSize()
             .alpha(fullyDrawn.value),
-        timeText = {}
+        timeText = {},
     ) {
         Column(
             modifier = modifier.fillMaxSize(),

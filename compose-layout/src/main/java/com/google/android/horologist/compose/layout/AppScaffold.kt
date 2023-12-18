@@ -44,7 +44,7 @@ fun AppScaffold(
     modifier: Modifier = Modifier,
     timeText: @Composable () -> Unit = { TimeText() },
     snackbar: @Composable () -> Unit = {},
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val scaffoldState = LocalScaffoldState.current.apply {
         appTimeText.value = timeText
@@ -52,7 +52,7 @@ fun AppScaffold(
 
     Scaffold(
         modifier = modifier,
-        timeText = scaffoldState.timeText
+        timeText = scaffoldState.timeText,
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             content()
@@ -69,7 +69,7 @@ fun ScreenScaffold(
     scrollState: ScrollableState? = null,
     pageIndicatorState: PageIndicatorState? = null,
     positionIndicator: (@Composable () -> Unit)? = null,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val scaffoldState = LocalScaffoldState.current
     val key = remember { Any() }
@@ -103,7 +103,7 @@ fun ScreenScaffold(
                 PositionIndicator(scrollState)
             }
         },
-        content = content
+        content = content,
     )
 }
 
@@ -113,7 +113,7 @@ fun PageScaffold(
     timeText: (@Composable () -> Unit)? = null,
     scrollState: ScrollableState? = null,
     positionIndicator: (@Composable () -> Unit)? = null,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     ScreenScaffold(modifier = modifier, timeText, scrollState, null, positionIndicator, content)
 }
@@ -126,7 +126,7 @@ internal class ScaffoldState() {
     fun addScreenTimeText(
         key: Any,
         timeText: @Composable (() -> Unit)?,
-        scrollState: ScrollableState?
+        scrollState: ScrollableState?,
     ) {
         screenContent.add(PageContent(key, scrollState, timeText))
     }
@@ -139,11 +139,13 @@ internal class ScaffoldState() {
         get() = {
             val (scrollState, timeText) = currentContent()
 
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .scrollAway {
-                    scrollState ?: ScrollState(0)
-                }) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .scrollAway {
+                        scrollState ?: ScrollState(0)
+                    },
+            ) {
                 timeText()
             }
         }

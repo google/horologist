@@ -379,4 +379,3 @@ fun SampleWearApp() {
         }
     }
 }
-

@@ -33,7 +33,7 @@ fun NavMenuScreen(
 ) {
     ScalingLazyColumn(
         modifier = modifier,
-        columnState = columnState
+        columnState = columnState,
     ) {
         item {
             SampleChip(

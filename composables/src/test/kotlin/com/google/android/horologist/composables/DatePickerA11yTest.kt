@@ -50,6 +50,8 @@ class DatePickerA11yTest : ScreenshotBaseTest(
                 date = LocalDate.of(2022, 4, 25),
             )
         }
+
+        screenshotTestRule.takeScreenshot()
     }
 
     @Test

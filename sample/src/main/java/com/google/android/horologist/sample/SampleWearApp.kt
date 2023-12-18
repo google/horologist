@@ -31,6 +31,7 @@ import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.composable
@@ -273,10 +274,10 @@ fun SampleWearApp() {
             RotaryScrollScreen(reverseDirection = true)
         }
         composable(route = Screen.RotaryScrollWithFlingScreen.route) {
-            RotaryScrollWithFlingOrSnapScreen(isFling = true, isSnap = false)
+            RotaryScrollWithFlingOrSnapScreen(rotaryMode = RotaryMode.Scroll)
         }
         composable(route = Screen.RotarySnapListScreen.route) {
-            RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
+            RotaryScrollWithFlingOrSnapScreen(rotaryMode = RotaryMode.Snap)
         }
         scrollable(
             route = Screen.Paging.route,

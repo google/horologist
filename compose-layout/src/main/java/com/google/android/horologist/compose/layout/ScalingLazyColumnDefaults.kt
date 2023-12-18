@@ -132,6 +132,19 @@ public object ScalingLazyColumnDefaults {
         }
     }
 
+    /**
+     * Creates a Responsive layout for ScalingLazyColumn. The first and last items will scroll
+     * just onto screen at full size, assuming rounded corners of a Chip.
+     *
+     * @param firstItemIsFullWidth set to false if the first item is small enough to fit at the top,
+     * however it may be scaled.
+     * @param verticalArrangement the ScalingLazyColumn verticalArrangement.
+     * @param horizontalPaddingPercent the amount of horizontal padding as a percent.
+     * @param rotaryMode the rotary handling, such as Fling or Snap.
+     * @param hapticsEnabled whether haptics are enabled.
+     * @param reverseLayout whether to start at the bottom.
+     * @param userScrollEnabled whether to allow user to scroll.
+     */
     @ExperimentalHorologistApi
     public fun responsive(
         firstItemIsFullWidth: Boolean = true,
@@ -141,6 +154,10 @@ public object ScalingLazyColumnDefaults {
                 alignment = Alignment.Top,
             ),
         horizontalPaddingPercent: Float = 0.052f,
+        rotaryMode: RotaryMode? = RotaryMode.Scroll,
+        hapticsEnabled: Boolean = true,
+        reverseLayout: Boolean = false,
+        userScrollEnabled: Boolean = true,
     ): ScalingLazyColumnState.Factory {
         fun calculateVerticalOffsetForChip(
             viewportDiameter: Float,
@@ -213,11 +230,14 @@ public object ScalingLazyColumnDefaults {
                         initialScrollPosition = initialScrollPosition,
                         autoCentering = null,
                         anchorType = ScalingLazyListAnchorType.ItemStart,
-                        rotaryMode = RotaryMode.Scroll,
+                        rotaryMode = rotaryMode,
                         verticalArrangement = verticalArrangement,
                         horizontalAlignment = Alignment.CenterHorizontally,
                         contentPadding = contentPadding,
                         scalingParams = scalingParams,
+                        hapticsEnabled = hapticsEnabled,
+                        reverseLayout = reverseLayout,
+                        userScrollEnabled = userScrollEnabled,
                     )
                 }
             }

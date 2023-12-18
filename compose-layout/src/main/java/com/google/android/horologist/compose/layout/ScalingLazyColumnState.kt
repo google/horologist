@@ -58,7 +58,7 @@ public class ScalingLazyColumnState(
     ),
     public val anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
     public val contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-    public val rotaryMode: RotaryMode = RotaryMode.Scroll,
+    public val rotaryMode: RotaryMode? = RotaryMode.Scroll,
     public val reverseLayout: Boolean = false,
     public val verticalArrangement: Arrangement.Vertical =
         Arrangement.spacedBy(
@@ -135,6 +135,8 @@ public fun ScalingLazyColumn(
     } else {
         rememberDisabledHaptic()
     }
+
+    @Suppress("DEPRECATION")
     val modifierWithRotary = when (columnState.rotaryMode) {
         RotaryMode.Snap -> modifier.rotaryWithSnap(
             focusRequester = focusRequester,
@@ -143,12 +145,14 @@ public fun ScalingLazyColumn(
             rotaryHaptics = rotaryHaptics,
         )
 
-        else -> modifier.rotaryWithScroll(
+        RotaryMode.Scroll, RotaryMode.Fling -> modifier.rotaryWithScroll(
             focusRequester = focusRequester,
             scrollableState = columnState.state,
             reverseDirection = columnState.reverseLayout,
             rotaryHaptics = rotaryHaptics,
         )
+
+        else -> modifier
     }
 
     ScalingLazyColumn(

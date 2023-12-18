@@ -41,18 +41,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CompactChip
+import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
@@ -162,34 +164,46 @@ fun RotaryScrollWithFlingOrSnapScreen(
             ),
         )
 
-        ScalingLazyColumn(
-            columnState = columnState,
-        ) {
-            when (itemTypeIndex) {
-                0 -> ChipsList { showList = false }
-                1 -> CardsList(2) { showList = false }
-                2 -> CardsList(10) { showList = false }
-                3 -> CardsList(10, randomHeights = randomHeights) { showList = false }
-                4 -> CardsList(10, itemCount = 10, randomHeights = tenSmallOneBig) {
-                    showList = false
-                }
+        Scaffold(timeText = { TimeText(modifier = Modifier.scrollAway(columnState)) }) {
+            ScalingLazyColumn(
+                columnState = columnState,
+            ) {
+                when (itemTypeIndex) {
+                    0 -> ChipsList { showList = false }
+                    1 -> CardsList(2) { showList = false }
+                    2 -> CardsList(10) { showList = false }
+                    3 -> CardsList(10, randomHeights = randomHeights) { showList = false }
+                    4 -> CardsList(10, itemCount = 10, randomHeights = tenSmallOneBig) {
+                        showList = false
+                    }
 
-                else -> {}
+                    else -> {}
+                }
             }
         }
     } else {
-        ScrollPreferences(
-            itemTypeIndex = itemTypeIndex,
-            hapticsEnabled = hapticsEnabled,
-            onShowListClicked = { showList = true },
-            onItemTypeIndexChanged = { itemTypeIndex = it },
-            onHapticsToggled = { hapticsEnabled = !hapticsEnabled },
+        val columnState = rememberColumnState(
+            ScalingLazyColumnDefaults.responsive(
+                rotaryMode = rotaryMode,
+                hapticsEnabled = hapticsEnabled,
+            ),
         )
+        Scaffold(timeText = { TimeText(modifier = Modifier.scrollAway(columnState)) }) {
+            ScrollPreferences(
+                columnState = columnState,
+                itemTypeIndex = itemTypeIndex,
+                hapticsEnabled = hapticsEnabled,
+                onShowListClicked = { showList = true },
+                onItemTypeIndexChanged = { itemTypeIndex = it },
+                onHapticsToggled = { hapticsEnabled = !hapticsEnabled },
+            )
+        }
     }
 }
 
 @Composable
 private fun ScrollPreferences(
+    columnState: ScalingLazyColumnState,
     itemTypeIndex: Int,
     hapticsEnabled: Boolean,
     onShowListClicked: () -> Unit,
@@ -199,8 +213,8 @@ private fun ScrollPreferences(
     val itemTypes = stringArrayResource(R.array.rotarymenu_item_sizes).toList()
 
     ScalingLazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
+        columnState = columnState
     ) {
         item {
             Text(

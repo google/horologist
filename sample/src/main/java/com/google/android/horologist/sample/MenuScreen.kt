@@ -232,6 +232,8 @@ fun SampleChip(
         onClick = onClick,
         label = {
             Text(modifier = Modifier.weight(1f), text = label)
+        },
+        icon = {
             if (content != null) {
                 Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
                     content()

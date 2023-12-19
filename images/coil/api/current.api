@@ -7,7 +7,9 @@ package com.google.android.horologist.images.coil {
 
   @androidx.compose.runtime.Stable public final class CoilPaintable implements com.google.android.horologist.images.base.paintable.Paintable {
     ctor public CoilPaintable(Object? model, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+    method public Object? getModel();
     method @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
+    property public final Object? model;
   }
 
   public final class FakeImageLoader implements coil.ImageLoader {

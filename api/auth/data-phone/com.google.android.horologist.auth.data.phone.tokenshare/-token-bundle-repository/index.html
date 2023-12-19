@@ -65,32 +65,11 @@
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data-phone:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">TokenBundleRepository</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span></div><p class="paragraph">Repository of a bundle of information, related to auth tokens.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.lifecycle.lifecycleScope
-import androidx.wear.watchface.complications.data.ComplicationType
-import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
-import kotlinx.coroutines.launch
 fun main() { 
    //sampleStart 
    class MainActivity : ComponentActivity() {
-    private lateinit var wearDataLayerAppHelper: WearDataLayerAppHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        wearDataLayerAppHelper = WearDataLayerAppHelper(
-            context = this,
-            registry = (application as SampleApplication).registry,
-            scope = lifecycleScope,
-        )
-
-        lifecycleScope.launch {
-            wearDataLayerAppHelper.markTileAsInstalled("MyTile")
-            wearDataLayerAppHelper.markComplicationAsActivated(
-                complicationName = "MyComplication",
-                complicationInstanceId = 1234,
-                complicationType = ComplicationType.SHORT_TEXT,
-            )
-            wearDataLayerAppHelper.markActivityLaunchedOnce()
-        }
 
         setContent {
             WearApp()

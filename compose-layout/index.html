@@ -742,15 +742,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fade-away-modifier" class="md-nav__link">
-    <span class="md-ellipsis">
-      Fade Away Modifier
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#ambientaware-composable" class="md-nav__link">
     <span class="md-ellipsis">
       AmbientAware composable
@@ -1436,15 +1427,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fade-away-modifier" class="md-nav__link">
-    <span class="md-ellipsis">
-      Fade Away Modifier
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#ambientaware-composable" class="md-nav__link">
     <span class="md-ellipsis">
       AmbientAware composable
@@ -1526,49 +1508,44 @@ with <code>responsive()</code> will handle all the following:</p>
 <h2 id="navigation-scaffold">Navigation Scaffold.<a class="headerlink" href="#navigation-scaffold" title="Permanent link">&para;</a></h2>
 <p>Syncs the TimeText, PositionIndicator and Scaffold to the current navigation destination
 state. The TimeText will scroll out of the way of content automatically.</p>
-<div class="highlight"><pre><span></span><code><span class="n">WearNavScaffold</span><span class="p">(</span>
-<span class="w">    </span><span class="n">startDestination</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;home&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">navController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">navController</span>
-<span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">scalingLazyColumnComposable</span><span class="p">(</span>
-<span class="w">        </span><span class="s">&quot;home&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">scrollStateBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ScalingLazyListState</span><span class="p">(</span><span class="n">initialCenterItemIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="n">AppScaffold</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">SwipeDismissableNavHost</span><span class="p">(</span>
+<span class="w">        </span><span class="n">startDestination</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;home&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">navController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">navController</span>
 <span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">MenuScreen</span><span class="p">(</span>
-<span class="w">            </span><span class="n">scrollState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">scrollableState</span><span class="p">,</span>
-<span class="w">            </span><span class="n">focusRequester</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">viewModel</span><span class="p">.</span><span class="na">focusRequester</span>
-<span class="w">        </span><span class="p">)</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="n">scalingLazyColumnComposable</span><span class="p">(</span>
-<span class="w">        </span><span class="s">&quot;items&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">scrollStateBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ScalingLazyListState</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">ScalingLazyColumn</span><span class="p">(</span>
-<span class="w">            </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
-<span class="w">                </span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
-<span class="w">                </span><span class="p">.</span><span class="na">scrollableColumn</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">viewModel</span><span class="p">.</span><span class="na">focusRequester</span><span class="p">,</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">scrollableState</span><span class="p">),</span>
-<span class="w">            </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">scrollableState</span>
+<span class="w">        </span><span class="n">composable</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;home&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">items</span><span class="p">(</span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;i = </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">columnState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rememberColumnState</span><span class="p">()</span>
+<span class="w">            </span><span class="n">ScreenScaffold</span><span class="p">(</span><span class="n">scrollState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">columnState</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">ScalingLazyColumn</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">(),</span>
+<span class="w">                    </span><span class="n">columnState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">columnState</span>
+<span class="w">                </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">items</span><span class="p">(</span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;i = </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">scrollStateComposable</span><span class="p">(</span>
-<span class="w">        </span><span class="s">&quot;settings&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">scrollStateBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ScrollState</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Column</span><span class="p">(</span>
-<span class="w">            </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
-<span class="w">                </span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
-<span class="w">                </span><span class="p">.</span><span class="na">verticalScroll</span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">scrollableState</span><span class="p">)</span>
-<span class="w">                </span><span class="p">.</span><span class="na">scrollableColumn</span><span class="p">(</span><span class="n">focusRequester</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">viewModel</span><span class="p">.</span><span class="na">focusRequester</span><span class="p">,</span><span class="w"> </span><span class="n">scrollableState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">scrollableState</span><span class="p">),</span>
-<span class="w">            </span><span class="n">horizontalAlignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span>
+<span class="w">        </span><span class="n">composable</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;settings&quot;</span>
 <span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">100</span><span class="p">).</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;i = </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">scrollState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rememberScrollState</span><span class="p">()</span>
+<span class="w">            </span><span class="n">ScreenScaffold</span><span class="p">(</span><span class="n">scrollState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scrollState</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Column</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">rotaryWithScroll</span><span class="p">(</span><span class="n">scrollState</span><span class="p">,</span><span class="w"> </span><span class="n">rememberActiveFocusRequester</span><span class="p">())</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">verticalScroll</span><span class="p">(</span><span class="n">scrollState</span><span class="p">),</span>
+<span class="w">                    </span><span class="n">horizontalAlignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span>
+<span class="w">                </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">100</span><span class="p">).</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;i = </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
@@ -1584,8 +1561,6 @@ state. The TimeText will scroll out of the way of content automatically.</p>
 <span class="p">}</span>
 </code></pre></div>
 <p><img align="center" alt="" loading="lazy" src="fill_max_rectangle.png" width="70%" /></p>
-<h2 id="fade-away-modifier">Fade Away Modifier<a class="headerlink" href="#fade-away-modifier" title="Permanent link">&para;</a></h2>
-<p><img align="center" alt="" loading="lazy" src="fade_away.png" width="70%" /></p>
 <h2 id="ambientaware-composable">AmbientAware composable<a class="headerlink" href="#ambientaware-composable" title="Permanent link">&para;</a></h2>
 <p><code>AmbientAware</code> allows your UI to react to ambient mode changes. For more information on how Ambient
 mode and Always-on work on Wear OS, see the <a href="https://developer.android.com/training/wearables/views/always-on">developer guidance</a>.</p>

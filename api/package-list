@@ -20,7 +20,6 @@ com.google.android.horologist.compose.material.util
 module:compose-tools
 com.google.android.horologist.compose.tools
 com.google.android.horologist.compose.tools.a11y
-com.google.android.horologist.compose.tools.coil
 module:roboscreenshots
 com.google.android.horologist.screenshots
 module:tiles
@@ -82,6 +81,11 @@ com.google.android.horologist.health.composables.model
 com.google.android.horologist.health.composables.screens
 module:health-service
 com.google.android.horologist.health.service
+module:images-base
+com.google.android.horologist.images.base.paintable
+com.google.android.horologist.images.base.util
+module:images-coil
+com.google.android.horologist.images.coil
 module:media-audio
 com.google.android.horologist.audio
 module:media-audio-ui

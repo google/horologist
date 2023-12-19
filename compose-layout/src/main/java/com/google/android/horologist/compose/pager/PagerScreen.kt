@@ -22,7 +22,6 @@ import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -32,20 +31,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
-import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.PageIndicatorState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.layout.ScreenScaffold
 
 /**
  * A Wear Material Compliant Pager screen.
@@ -60,9 +57,9 @@ public fun PagerScreen(
     state: PagerState,
     content: @Composable ((Int) -> Unit),
 ) {
-    Box(
+    ScreenScaffold(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
+        pagerState = state,
     ) {
         HorizontalPager(
             modifier = modifier,
@@ -75,12 +72,6 @@ public fun PagerScreen(
                 }
             }
         }
-
-        val pagerScreenState = remember(state) { PageScreenIndicatorState(state) }
-        HorizontalPageIndicator(
-            modifier = Modifier.padding(6.dp),
-            pageIndicatorState = pagerScreenState,
-        )
     }
 }
 

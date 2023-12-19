@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.google.android.horologist.compose.layout
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
@@ -40,5 +43,12 @@ fun PageScaffold(
     positionIndicator: (@Composable () -> Unit)? = null,
     content: @Composable BoxScope.() -> Unit,
 ) {
-    ScreenScaffold(modifier = modifier, timeText, scrollState, null, positionIndicator, content)
+    ScreenScaffold(
+        modifier = modifier,
+        timeText = timeText,
+        scrollState = scrollState,
+        pagerState = null,
+        positionIndicator = positionIndicator,
+        content = content,
+    )
 }

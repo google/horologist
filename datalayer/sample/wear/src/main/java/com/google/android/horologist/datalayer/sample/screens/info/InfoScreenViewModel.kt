@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer.sample
+package com.google.android.horologist.datalayer.sample.screens.info
 
-import com.google.android.horologist.datalayer.sample.screens.info.infoScreenRoute
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 
-sealed class Screen(
-    val route: String,
-) {
-    data object MainScreen : Screen("mainScreen")
+class InfoScreenViewModel(
+    savedStateHandle: SavedStateHandle,
+) : ViewModel() {
 
-    data object CounterScreen : Screen("counterScreen")
-    data object ListNodesScreen : Screen("listNodesScreen")
+    private val infoScreenArgs: InfoScreenArgs = InfoScreenArgs(savedStateHandle)
 
-    data object AppHelperTrackingScreen : Screen("appHelperTrackingScreen")
-    data object AppHelperNodesActionsScreen : Screen("appHelperNodesActionsScreen")
-    data object InfoScreen : Screen(infoScreenRoute)
+    val message: String
+        get() = infoScreenArgs.message
 }

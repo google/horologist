@@ -31,6 +31,8 @@
     <string name="data_layer_error_message">Error: %1$s</string>
     <string name="data_layer_value_message">Value: %1$s</string>
 
+    <string name="info_done_button_content_description">Close</string>
+
     <string name="apphelper_tracking_title">AppHelper Tracking</string>
     <string name="apphelper_tracking_message">Tap on an item to learn more about it.</string>
     <string name="apphelper_tracking_activity_launched_chip_label">Activity launched once</string>

@@ -222,7 +222,7 @@ private fun ScrollPreferences(
 
     ScalingLazyColumn(
         modifier = Modifier.fillMaxSize(),
-        columnState = columnState
+        columnState = columnState,
     ) {
         item {
             Text(

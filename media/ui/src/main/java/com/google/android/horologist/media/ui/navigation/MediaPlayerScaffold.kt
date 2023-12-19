@@ -21,7 +21,6 @@ package com.google.android.horologist.media.ui.navigation
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -84,12 +83,6 @@ public fun MediaPlayerScaffold(
 ) {
     AppScaffold(
         timeText = { timeText() },
-        snackbar = {
-            DialogSnackbarHost(
-                modifier = Modifier.fillMaxSize(),
-                hostState = snackbarViewModel.snackbarHostState,
-            )
-        },
     ) {
         SwipeDismissableNavHost(
             startDestination = NavigationScreens.Player.navRoute,
@@ -175,5 +168,10 @@ public fun MediaPlayerScaffold(
 
             additionalNavRoutes()
         }
+
+        DialogSnackbarHost(
+            modifier = Modifier.fillMaxSize(),
+            hostState = snackbarViewModel.snackbarHostState,
+        )
     }
 }

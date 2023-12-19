@@ -77,12 +77,8 @@ public fun MediaPlayerScaffold(
     deepLinkPrefix: String,
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    volumeScreen: @Composable () -> Unit = {
-        VolumeScreen(volumeViewModel = volumeViewModel)
-    },
-    timeText: @Composable () -> Unit = {
-        TimeText()
-    },
+    volumeScreen: @Composable () -> Unit = { VolumeScreen(volumeViewModel = volumeViewModel) },
+    timeText: @Composable () -> Unit = { TimeText() },
     navHostState: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
     additionalNavRoutes: NavGraphBuilder.() -> Unit = {},
 ) {

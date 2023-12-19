@@ -26,13 +26,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavBackStackEntry
-import androidx.wear.compose.material.PositionIndicator
-import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeUiState
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.PageScaffold
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import kotlinx.coroutines.flow.Flow
@@ -47,9 +44,8 @@ public fun PlayerLibraryPagerScreen(
     pagerState: PagerState,
     volumeUiState: () -> VolumeUiState,
     displayVolumeIndicatorEvents: Flow<Unit>,
-    timeText: @Composable (Modifier) -> Unit,
     playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable (ScalingLazyColumnState) -> Unit,
+    libraryScreen: @Composable () -> Unit,
     backStack: NavBackStackEntry,
     modifier: Modifier = Modifier,
 ) {
@@ -73,10 +69,7 @@ public fun PlayerLibraryPagerScreen(
     ) { page ->
         when (page) {
             0 -> {
-                Scaffold(
-                    timeText = {
-                        timeText(Modifier)
-                    },
+                PageScaffold(
                     positionIndicator = {
                         VolumePositionIndicator(volumeUiState = volumeUiState, displayIndicatorEvents = displayVolumeIndicatorEvents)
                     },
@@ -87,17 +80,10 @@ public fun PlayerLibraryPagerScreen(
 
             1 -> {
                 val config = belowTimeTextPreview()
-                Scaffold(
-                    timeText = {
-                        timeText(Modifier.scrollAway(config))
-                    },
-                    positionIndicator = {
-                        PositionIndicator(
-                            scalingLazyListState = config.state,
-                        )
-                    },
+                PageScaffold(
+                    scrollState = config,
                 ) {
-                    libraryScreen(config)
+                    libraryScreen()
                 }
             }
         }

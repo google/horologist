@@ -30,10 +30,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 
 @Composable
@@ -45,17 +45,12 @@ fun FillerScreen(label: String, modifier: Modifier = Modifier) {
 
 @Composable
 fun BigScalingLazyColumn(
-    scrollState: ScalingLazyListState,
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
 ) {
-    val focusRequester = rememberActiveFocusRequester()
-
     ScalingLazyColumn(
-        modifier = modifier
-            .fillMaxSize()
-            .rotaryWithScroll(scrollState, focusRequester),
-        state = scrollState,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier,
+        columnState = columnState,
     ) {
         items(100) {
             Text("i = $it")

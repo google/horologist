@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,10 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.layout.layout
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -49,6 +52,7 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
+import androidx.wear.compose.material.scrollAway
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.composable
@@ -57,7 +61,6 @@ import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.scrollAway
 
 /**
  * A Navigation and Scroll aware [Scaffold].
@@ -131,6 +134,28 @@ public fun WearNavScaffold(
         }
     }
 }
+
+private fun Modifier.scrollAway(
+    scrollState: State<ScrollableState?>,
+): Modifier = composed {
+    when (val state = scrollState.value) {
+        is ScalingLazyColumnScrollableState -> {
+            val offsetDp = with(LocalDensity.current) {
+                state.initialOffsetPx.toDp()
+            }
+            this.scrollAway(state.scalingLazyListState, state.initialIndex, offsetDp)
+        }
+        is ScalingLazyListState -> this.scrollAway(state)
+        is LazyListState -> this.scrollAway(state)
+        is ScrollState -> this.scrollAway(state)
+        // Disabled
+        null -> this.hidden()
+        // Enabled but no scroll state
+        else -> this
+    }
+}
+
+private fun Modifier.hidden(): Modifier = layout { _, _ -> layout(0, 0) {} }
 
 @Composable
 private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {

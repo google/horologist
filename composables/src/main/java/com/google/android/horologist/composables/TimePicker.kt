@@ -78,6 +78,7 @@ import com.google.android.horologist.composables.picker.PickerState
 import com.google.android.horologist.composables.picker.rememberPickerGroupState
 import com.google.android.horologist.composables.picker.rememberPickerState
 import com.google.android.horologist.composables.picker.toRotaryScrollAdapter
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import java.time.LocalTime
 import java.time.temporal.ChronoField
@@ -182,10 +183,11 @@ public fun TimePicker(
             }
         }
 
-    Box(
+    ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
             .alpha(fullyDrawn.value),
+        timeText = {},
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -398,10 +400,12 @@ public fun TimePickerWith12HourClock(
             }
         }
     }
-    Box(
+
+    ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
             .alpha(fullyDrawn.value),
+        timeText = {},
     ) {
         Column(
             modifier = modifier.fillMaxSize(),

@@ -53,49 +53,44 @@ Syncs the TimeText, PositionIndicator and Scaffold to the current navigation des
 state. The TimeText will scroll out of the way of content automatically.
 
 ```kotlin
-WearNavScaffold(
-    startDestination = "home",
-    navController = navController
-) {
-    scalingLazyColumnComposable(
-        "home",
-        scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
+AppScaffold {
+    SwipeDismissableNavHost(
+        startDestination = "home",
+        navController = navController
     ) {
-        MenuScreen(
-            scrollState = it.scrollableState,
-            focusRequester = it.viewModel.focusRequester
-        )
-    }
-
-    scalingLazyColumnComposable(
-        "items",
-        scrollStateBuilder = { ScalingLazyListState() }
-    ) {
-        ScalingLazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .scrollableColumn(it.viewModel.focusRequester, it.scrollableState),
-            state = it.scrollableState
+        composable(
+            "home",
         ) {
-            items(100) {
-                Text("i = $it")
+            val columnState = rememberColumnState()
+            ScreenScaffold(scrollState = columnState) {
+                ScalingLazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    columnState = columnState
+                ) {
+                    items(100) {
+                        Text("i = $it")
+                    }
+                }
             }
         }
-    }
 
-    scrollStateComposable(
-        "settings",
-        scrollStateBuilder = { ScrollState(0) }
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(state = it.scrollableState)
-                .scrollableColumn(focusRequester = it.viewModel.focusRequester, scrollableState = it.scrollableState),
-            horizontalAlignment = Alignment.CenterHorizontally
+        composable(
+            "settings"
         ) {
-            (1..100).forEach {
-                Text("i = $it")
+            val scrollState = rememberScrollState()
+            ScreenScaffold(scrollState = scrollState) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .rotaryWithScroll(scrollState, rememberActiveFocusRequester())
+                        .verticalScroll(scrollState),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    (1..100).forEach {
+                        Text("i = $it")
+                    }
+                }
             }
         }
     }
@@ -116,10 +111,6 @@ Box(
 ```
 
 ![](fill_max_rectangle.png){: loading=lazy width=70% align=center }
-
-## Fade Away Modifier
-
-![](fade_away.png){: loading=lazy width=70% align=center }
 
 ## AmbientAware composable
 

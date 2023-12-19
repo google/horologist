@@ -77,7 +77,7 @@ class MediaPlayerLibraryTest(device: Device) : ScreenSizeTest(device = device, s
                     modifier = Modifier.fillMaxSize(),
                     timeText = {
                         TimeText(
-                            modifier = Modifier.scrollAway(scalingLazyColumnState = columnState),
+                            modifier = Modifier.scrollAway(columnState),
                             timeSource = FixedTimeSource,
                         )
                     },

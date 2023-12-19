@@ -21,7 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 
-/** An drawable resource ID that can be represented as a [Painter]. */
+/** A drawable resource ID that can be represented as a [Painter]. */
 @JvmInline
 public value class DrawableResPaintable(
     @DrawableRes private val id: Int,

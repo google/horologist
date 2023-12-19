@@ -24,7 +24,7 @@ import com.google.android.horologist.images.base.paintable.Paintable
 
 /** A wrapper around a coil-compatible model that can be represented as a [Painter]. */
 @Stable
-public class CoilPaintable(public val model: Any?, private val placeholder: Painter? = null) :
+public data class CoilPaintable(public val model: Any?, private val placeholder: Painter? = null) :
     Paintable {
 
         @Composable

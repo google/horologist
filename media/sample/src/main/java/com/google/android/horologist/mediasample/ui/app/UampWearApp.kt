@@ -31,6 +31,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
+import com.google.android.horologist.compose.layout.PageScaffold
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
@@ -81,13 +82,6 @@ fun UampWearApp(
 
     val appState by appViewModel.appState.collectAsStateWithLifecycle()
 
-    val timeText: @Composable (Modifier) -> Unit = { modifier ->
-        MediaInfoTimeText(
-            modifier = modifier,
-            mediaInfoTimeTextViewModel = mediaInfoTimeTextViewModel,
-        )
-    }
-
     UampTheme {
         MediaPlayerScaffold(
             playerScreen = {
@@ -103,7 +97,7 @@ fun UampWearApp(
             libraryScreen = {
                 val columnState = rememberColumnState()
 
-                ScreenScaffold(scrollState = columnState) {
+                PageScaffold(scrollState = columnState) {
                     if (appState.streamingMode == true) {
                         UampStreamingBrowseScreen(
                             onPlaylistsClick = { navController.navigateToCollections() },
@@ -199,7 +193,11 @@ fun UampWearApp(
             navHostState = navHostState,
             snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
             volumeViewModel = volumeViewModel,
-            timeText = timeText,
+            timeText = {
+                MediaInfoTimeText(
+                    mediaInfoTimeTextViewModel = mediaInfoTimeTextViewModel,
+                )
+            },
             deepLinkPrefix = appViewModel.deepLinkPrefix,
             navController = navController,
             additionalNavRoutes = {

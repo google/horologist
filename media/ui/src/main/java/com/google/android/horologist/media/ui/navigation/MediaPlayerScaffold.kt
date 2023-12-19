@@ -59,8 +59,10 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
  * @param deepLinkPrefix the app specific prefix for external deeplinks
  * @param navController the media focused navigation controller.
  * @param additionalNavRoutes additional nav routes exposed for extra screens.
- * @param pagerState the [PagerState] controlling the Player / Browse screen position.
  * @param navHostState the [SwipeDismissableNavHostState] including swipe to dismiss state.
+ * @param settingsScreen the settings screen.
+ * @param timeText the TimeText() composable.
+ * @param volumeScreen the volume screen.
  */
 @Composable
 public fun MediaPlayerScaffold(
@@ -78,14 +80,14 @@ public fun MediaPlayerScaffold(
     volumeScreen: @Composable () -> Unit = {
         VolumeScreen(volumeViewModel = volumeViewModel)
     },
-    timeText: @Composable (Modifier) -> Unit = {
-        TimeText(modifier = it)
+    timeText: @Composable () -> Unit = {
+        TimeText()
     },
     navHostState: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
     additionalNavRoutes: NavGraphBuilder.() -> Unit = {},
 ) {
     AppScaffold(
-        timeText = { timeText(Modifier) },
+        timeText = { timeText() },
         snackbar = {
             DialogSnackbarHost(
                 modifier = Modifier.fillMaxSize(),
@@ -104,23 +106,21 @@ public fun MediaPlayerScaffold(
                 arguments = NavigationScreens.Player.arguments,
                 deepLinks = NavigationScreens.Player.deepLinks(deepLinkPrefix),
             ) {
-                ScreenScaffold(timeText = {}) {
-                    val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
-                    val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
+                val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
+                val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
 
-                    PlayerLibraryPagerScreen(
-                        pagerState = pagerState,
-                        volumeUiState = { volumeState },
-                        displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
-                        playerScreen = {
-                            playerScreen()
-                        },
-                        libraryScreen = {
-                            libraryScreen()
-                        },
-                        backStack = it,
-                    )
-                }
+                PlayerLibraryPagerScreen(
+                    pagerState = pagerState,
+                    volumeUiState = { volumeState },
+                    displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
+                    playerScreen = {
+                        playerScreen()
+                    },
+                    libraryScreen = {
+                        libraryScreen()
+                    },
+                    backStack = it,
+                )
             }
 
             composable(

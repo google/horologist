@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
@@ -56,7 +57,14 @@ fun ScreenScaffold(
     content: @Composable BoxScope.() -> Unit,
 ) {
     val scaffoldState = LocalScaffoldState.current
+
     val key = remember { Any() }
+
+    DisposableEffect(key) {
+        onDispose {
+            scaffoldState.removeScreenTimeText(key)
+        }
+    }
 
     OnFocusChange { focused ->
         if (focused) {

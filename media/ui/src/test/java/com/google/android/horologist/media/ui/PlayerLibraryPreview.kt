@@ -52,7 +52,7 @@ fun PlayerLibraryPreview(
                     modifier = Modifier.fillMaxSize(),
                     timeText = {
                         TimeText(
-                            modifier = Modifier.scrollAway { columnState },
+                            modifier = Modifier.scrollAway(columnState),
                             timeSource = FixedTimeSource,
                         )
                     },

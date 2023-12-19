@@ -15,7 +15,6 @@
  */
 
 @file:OptIn(SavedStateHandleSaveableApi::class)
-@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.compose.navscaffold
 
@@ -53,7 +52,6 @@ import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.Vi
  * A ViewModel is used to allow the same current instance to be shared between the WearNavScaffold
  * and the composable screen via [NavHostController.currentBackStackEntry].
  */
-@Deprecated("Prefer AppScaffold")
 public open class NavScaffoldViewModel(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {

@@ -41,7 +41,20 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.material.scrollAway
 import kotlinx.coroutines.launch
+
+/**
+ * Scroll an item vertically in/out of view based on a [ScalingLazyListState].
+ * Typically used to scroll a [TimeText] item out of view as the user starts to scroll
+ * a [ScalingLazyColumn] of items upwards and bring additional items into view.
+ *
+ * @param scalingLazyColumnState The list config.
+ */
+public fun Modifier.scrollAway(
+    scalingLazyColumnState: ScalingLazyColumnState,
+): Modifier = this.scrollAway { scalingLazyColumnState }
 
 /**
  * Scroll an item vertically in/out of view based on a [ScrollState].

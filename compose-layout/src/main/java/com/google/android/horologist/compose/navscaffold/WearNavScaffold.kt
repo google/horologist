@@ -15,7 +15,6 @@
  */
 
 @file:OptIn(ExperimentalWearFoundationApi::class)
-@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.compose.navscaffold
 
@@ -70,7 +69,6 @@ import com.google.android.horologist.compose.layout.scrollAway
  * These should be used to build the [ScrollableState] or [FocusRequester] as well as
  * configure the behaviour of [TimeText], [PositionIndicator] or [Vignette].
  */
-@Deprecated("Prefer AppScaffold")
 @Composable
 public fun WearNavScaffold(
     startDestination: String,
@@ -188,7 +186,6 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
  *
  * The [ScalingLazyColumnState] must be taken from the [ScrollableScaffoldContext].
  */
-@Deprecated("Use AppScaffold")
 @ExperimentalHorologistApi
 public fun NavGraphBuilder.scrollable(
     route: String,

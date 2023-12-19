@@ -172,6 +172,8 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.robolectric)
+
+    androidTestImplementation(libs.androidx.test.runner)
 }
 
 tasks.maybeCreate("prepareKotlinIdeaImport")

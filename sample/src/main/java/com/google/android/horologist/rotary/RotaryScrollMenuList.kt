@@ -19,8 +19,6 @@
 package com.google.android.horologist.rotary
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.focusable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,11 +32,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
@@ -46,26 +41,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.snapFlingBehavior
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CompactChip
+import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.material.Title
-import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
-import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
-import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
-import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
-import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
 import kotlin.random.Random
@@ -147,27 +137,25 @@ fun RotaryMenuScreen(
 @Composable
 fun RotaryScrollScreen(
     reverseDirection: Boolean = false,
-    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = rememberActiveFocusRequester(),
 ) {
-    ItemsListWithModifier(
-        reverseDirection = reverseDirection,
-        modifier = Modifier
-            .rotaryWithScroll(
-                reverseDirection = reverseDirection,
-                focusRequester = focusRequester,
-                scrollableState = scalingLazyListState,
-            ),
-        scrollableState = scalingLazyListState,
-    ) {
-        ChipsList {}
+    val columnState =
+        rememberColumnState(ScalingLazyColumnDefaults.responsive(reverseLayout = reverseDirection))
+    Scaffold(timeText = {
+        if (!reverseDirection) {
+            TimeText(modifier = Modifier.scrollAway(columnState))
+        }
+    }) {
+        ScalingLazyColumn(
+            columnState = columnState,
+        ) {
+            ChipsList {}
+        }
     }
 }
 
 @Composable
 fun RotaryScrollWithFlingOrSnapScreen(
-    isFling: Boolean,
-    isSnap: Boolean,
+    rotaryMode: ScalingLazyColumnState.RotaryMode,
 ) {
     var showList by remember { mutableStateOf(false) }
 
@@ -177,67 +165,53 @@ fun RotaryScrollWithFlingOrSnapScreen(
     val randomHeights: List<Int> = remember { (0..300).map { Random.nextInt(1, 10) } }
     val tenSmallOneBig: List<Int> = remember { (0..4).map { 1 }.plus(20).plus((0..4).map { 1 }) }
     if (showList) {
-        val scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState()
-        val rotaryHapticHandler =
-            if (hapticsEnabled) {
-                rememberRotaryHapticHandler(scalingLazyListState)
-            } else {
-                rememberDisabledHaptic()
-            }
-        val focusRequester = rememberActiveFocusRequester()
-        ItemsListWithModifier(
-            modifier = Modifier
-                .let {
-                    if (isSnap) {
-                        it.rotaryWithSnap(
-                            focusRequester = focusRequester,
-                            rotaryScrollAdapter = scalingLazyListState.toRotaryScrollAdapter(),
-                            rotaryHaptics = rotaryHapticHandler,
-                        )
-                    } else if (isFling) {
-                        it.rotaryWithScroll(
-                            focusRequester = focusRequester,
-                            scrollableState = scalingLazyListState,
-                            rotaryHaptics = rotaryHapticHandler,
-                        )
-                    } else {
-                        it.rotaryWithScroll(
-                            focusRequester = focusRequester,
-                            scrollableState = scalingLazyListState,
-                            flingBehavior = null,
-                            rotaryHaptics = rotaryHapticHandler,
-                        )
-                    }
-                }
-                .focusRequester(focusRequester)
-                .focusable(),
-            scrollableState = scalingLazyListState,
-        ) {
-            when (itemTypeIndex) {
-                0 -> ChipsList { showList = false }
-                1 -> CardsList(2) { showList = false }
-                2 -> CardsList(10) { showList = false }
-                3 -> CardsList(10, randomHeights = randomHeights) { showList = false }
-                4 -> CardsList(10, itemCount = 10, randomHeights = tenSmallOneBig) {
-                    showList = false
-                }
+        val columnState = rememberColumnState(
+            ScalingLazyColumnDefaults.responsive(
+                rotaryMode = rotaryMode,
+                hapticsEnabled = hapticsEnabled,
+            ),
+        )
 
-                else -> {}
+        Scaffold(timeText = { TimeText(modifier = Modifier.scrollAway(columnState)) }) {
+            ScalingLazyColumn(
+                columnState = columnState,
+            ) {
+                when (itemTypeIndex) {
+                    0 -> ChipsList { showList = false }
+                    1 -> CardsList(2) { showList = false }
+                    2 -> CardsList(10) { showList = false }
+                    3 -> CardsList(10, randomHeights = randomHeights) { showList = false }
+                    4 -> CardsList(10, itemCount = 10, randomHeights = tenSmallOneBig) {
+                        showList = false
+                    }
+
+                    else -> {}
+                }
             }
         }
     } else {
-        ScrollPreferences(
-            itemTypeIndex = itemTypeIndex,
-            hapticsEnabled = hapticsEnabled,
-            onShowListClicked = { showList = true },
-            onItemTypeIndexChanged = { itemTypeIndex = it },
-            onHapticsToggled = { hapticsEnabled = !hapticsEnabled },
+        val columnState = rememberColumnState(
+            ScalingLazyColumnDefaults.responsive(
+                rotaryMode = rotaryMode,
+                hapticsEnabled = hapticsEnabled,
+            ),
         )
+        Scaffold(timeText = { TimeText(modifier = Modifier.scrollAway(columnState)) }) {
+            ScrollPreferences(
+                columnState = columnState,
+                itemTypeIndex = itemTypeIndex,
+                hapticsEnabled = hapticsEnabled,
+                onShowListClicked = { showList = true },
+                onItemTypeIndexChanged = { itemTypeIndex = it },
+                onHapticsToggled = { hapticsEnabled = !hapticsEnabled },
+            )
+        }
     }
 }
 
 @Composable
 private fun ScrollPreferences(
+    columnState: ScalingLazyColumnState,
     itemTypeIndex: Int,
     hapticsEnabled: Boolean,
     onShowListClicked: () -> Unit,
@@ -247,8 +221,8 @@ private fun ScrollPreferences(
     val itemTypes = stringArrayResource(R.array.rotarymenu_item_sizes).toList()
 
     ScalingLazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
+        columnState = columnState,
     ) {
         item {
             Text(
@@ -308,29 +282,6 @@ private fun ScrollPreferences(
             )
         }
     }
-}
-
-@Composable
-private fun ItemsListWithModifier(
-    reverseDirection: Boolean = false,
-    modifier: Modifier,
-    scrollableState: ScalingLazyListState,
-    items: ScalingLazyListScope.() -> Unit,
-) {
-    val flingBehavior = snapFlingBehavior(state = scrollableState)
-    ScalingLazyColumn(
-        modifier = modifier.fillMaxSize(),
-        state = scrollableState,
-        reverseLayout = reverseDirection,
-        flingBehavior = flingBehavior,
-        scalingParams = scalingParams(),
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(
-            space = 4.dp,
-            alignment = Alignment.Top,
-        ),
-        content = items,
-    )
 }
 
 private fun ScalingLazyListScope.CardsList(

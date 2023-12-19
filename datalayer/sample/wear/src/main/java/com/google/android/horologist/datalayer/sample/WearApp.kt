@@ -25,6 +25,8 @@ import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.datalayer.sample.screens.MainScreen
 import com.google.android.horologist.datalayer.sample.screens.datalayer.DataLayerScreen
+import com.google.android.horologist.datalayer.sample.screens.info.infoScreen
+import com.google.android.horologist.datalayer.sample.screens.info.navigateToInfoScreen
 import com.google.android.horologist.datalayer.sample.screens.nodes.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.sample.screens.nodesactions.NodesActionsScreen
 import com.google.android.horologist.datalayer.sample.screens.tracking.TrackingScreen
@@ -53,12 +55,18 @@ fun WearApp(
         scrollable(route = Screen.ListNodesScreen.route) {
             DataLayerNodesScreen(columnState = it.columnState)
         }
-        scrollable(route = Screen.AppHelperTrackingScreen.route) {
-            TrackingScreen(columnState = it.columnState)
+        scrollable(route = Screen.AppHelperTrackingScreen.route) { scrolllableScaffoldContext ->
+            TrackingScreen(
+                onDisplayInfoClicked = navController::navigateToInfoScreen,
+                columnState = scrolllableScaffoldContext.columnState,
+            )
         }
         scrollable(route = Screen.AppHelperNodesActionsScreen.route) {
             NodesActionsScreen(columnState = it.columnState)
         }
+        infoScreen(
+            onDismissClick = navController::popBackStack,
+        )
     }
 }
 

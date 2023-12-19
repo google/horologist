@@ -38,6 +38,7 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun TrackingScreen(
+    onDisplayInfoClicked: (info: String) -> Unit,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: TrackingScreenViewModel = hiltViewModel(),
@@ -54,7 +55,7 @@ fun TrackingScreen(
         onSetupCompletedCheckedChanged = viewModel::onSetupCompletedCheckedChanged,
         onTileCheckedChanged = viewModel::onTileCheckedChanged,
         onComplicationCheckedChanged = viewModel::onComplicationCheckedChanged,
-        onDisplayInfoClicked = { /* TODO */ },
+        onDisplayInfoClicked = onDisplayInfoClicked,
         columnState = columnState,
         modifier = modifier,
     )
@@ -156,7 +157,7 @@ fun TrackingScreen(
                 for (complicationEntry in state.complicationsInstalled) {
                     item {
                         val info = stringResource(
-                            id = R.string.apphelper_tracking_tile_installation_info,
+                            id = R.string.apphelper_tracking_complication_installation_info,
                             complicationEntry.key,
                         )
                         SplitToggleChip(

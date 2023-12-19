@@ -20,10 +20,11 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.wear.compose.material.TimeText
 
 /**
  * Pager Scaffold to place *inside* a single page of HorizontalPager.
- * The TimeText if set will override the AppScaffold timeText.
+ * The [TimeText] if set will override the AppScaffold timeText.
  *
  * @param modifier the Scaffold modifier.
  * @param timeText the page specific time text.

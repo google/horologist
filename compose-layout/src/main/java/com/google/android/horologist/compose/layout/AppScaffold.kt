@@ -24,18 +24,18 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.navigation.SwipeDismissableNavHost
 
 /**
  *  An app scaffold, to be used to wrap a [SwipeDismissableNavHost].
- * The TimeText will be shown here, but can be customised in either ScreenScaffold or
- * PageScaffold.
+ * The [TimeText] will be shown here, but can be customised in either [ScreenScaffold] or
+ * [PageScaffold].
  *
  * Without this, the vanilla [Scaffold] is likely placed on each individual screen and [TimeText]
  * moves with the screen, or shown twice when swiping to dimiss.
  *
  * @param modifier the Scaffold modifier.
  * @param timeText the app default time text, defaults to TimeText().
- * @param snackbar a snackbar slot.
  * @param content the content block.
  */
 @Composable

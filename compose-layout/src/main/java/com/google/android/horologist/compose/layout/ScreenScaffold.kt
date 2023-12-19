@@ -37,7 +37,7 @@ import androidx.wear.compose.material.Scaffold
 /**
  * Navigation Route (Screen) Scaffold to place *inside*
  * [androidx.wear.compose.navigation.composable]. The TimeText if set will override the
- * AppScaffold timeText.
+ * [AppScaffold] timeText.
  *
  * @param modifier the Scaffold modifier.
  * @param timeText the page specific time text.

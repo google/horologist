@@ -28,6 +28,7 @@ import androidx.test.filters.FlakyTest
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import org.junit.Ignore
 import org.junit.Test
 import org.robolectric.Shadows
 import java.time.LocalDate
@@ -40,6 +41,21 @@ class DatePickerA11yTest : ScreenshotBaseTest(
     },
 ) {
     @Test
+    fun screenshot() {
+        enableTouchExploration()
+
+        screenshotTestRule.setContent {
+            DatePicker(
+                onDateConfirm = {},
+                date = LocalDate.of(2022, 4, 25),
+            )
+        }
+
+        screenshotTestRule.takeScreenshot()
+    }
+
+    @Test
+    @Ignore("https://github.com/google/horologist/issues/1806")
     fun interactionTest() {
         enableTouchExploration()
 

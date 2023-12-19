@@ -14,26 +14,30 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalWearFoundationApi::class)
+@file:OptIn(ExperimentalWearFoundationApi::class, ExperimentalFoundationApi::class)
 
 package com.google.android.horologist.compose.layout
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.OnFocusChange
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.material.HorizontalPageIndicator
-import androidx.wear.compose.material.PageIndicatorState
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
+import com.google.android.horologist.compose.pager.PageScreenIndicatorState
 
 /**
  * Navigation Route (Screen) Scaffold to place *inside*
@@ -43,7 +47,7 @@ import androidx.wear.compose.material.Scaffold
  * @param modifier the Scaffold modifier.
  * @param timeText the page specific time text.
  * @param scrollState the ScrollableState to show in a default PositionIndicator.
- * @param pageIndicatorState state for a HorizontalPager.
+ * @param pagerState state for a HorizontalPager.
  * @param positionIndicator set a non default PositionIndicator or disable with an no-op lambda.
  * @param content the content block.
  */
@@ -52,7 +56,7 @@ fun ScreenScaffold(
     modifier: Modifier = Modifier,
     timeText: (@Composable () -> Unit)? = null,
     scrollState: ScrollableState? = null,
-    pageIndicatorState: PageIndicatorState? = null,
+    pagerState: PagerState? = null,
     positionIndicator: (@Composable () -> Unit)? = null,
     content: @Composable BoxScope.() -> Unit,
 ) {
@@ -78,8 +82,13 @@ fun ScreenScaffold(
         modifier = modifier,
         timeText = timeText,
         pageIndicator = {
-            if (pageIndicatorState != null) {
-                HorizontalPageIndicator(pageIndicatorState = pageIndicatorState)
+            if (pagerState != null) {
+                val pageIndicatorState = remember(pagerState) { PageScreenIndicatorState(pagerState) }
+
+                HorizontalPageIndicator(
+                    modifier = Modifier.padding(6.dp),
+                    pageIndicatorState = pageIndicatorState,
+                )
             }
         },
         positionIndicator = {

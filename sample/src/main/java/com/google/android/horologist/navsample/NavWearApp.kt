@@ -70,12 +70,6 @@ fun NavWearApp(
                 networkUsage = state.dataUsage,
             )
         },
-        snackbar = {
-            DialogSnackbarHost(
-                hostState = snackbarViewModel.snackbarHostState,
-                modifier = Modifier.fillMaxSize(),
-            )
-        },
     ) {
         SwipeDismissableNavHost(
             startDestination = NavScreen.Menu.route,
@@ -164,5 +158,10 @@ fun NavWearApp(
                 VolumeScreen()
             }
         }
+
+        DialogSnackbarHost(
+            hostState = snackbarViewModel.snackbarHostState,
+            modifier = Modifier.fillMaxSize(),
+        )
     }
 }

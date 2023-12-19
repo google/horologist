@@ -35,16 +35,9 @@ import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
-import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
-import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.composable
-import com.google.android.horologist.compose.navscaffold.lazyListComposable
-import com.google.android.horologist.compose.navscaffold.scrollStateComposable
-import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.materialcomponents.SampleButtonScreen
 import com.google.android.horologist.materialcomponents.SampleChipIconWithProgressScreen
 import com.google.android.horologist.materialcomponents.SampleChipScreen
@@ -351,16 +344,24 @@ fun SampleWearApp() {
                 }
             }
             composable(route = Screen.RotaryScrollScreen.route) {
-                RotaryScrollScreen()
+                ScreenScaffold(timeText = {}) {
+                    RotaryScrollScreen()
+                }
             }
             composable(route = Screen.RotaryScrollReversedScreen.route) {
-                RotaryScrollScreen(reverseDirection = true)
+                ScreenScaffold(timeText = {}) {
+                    RotaryScrollScreen(reverseDirection = true)
+                }
             }
             composable(route = Screen.RotaryScrollWithFlingScreen.route) {
-                RotaryScrollWithFlingOrSnapScreen(isFling = true, isSnap = false)
+                ScreenScaffold(timeText = {}) {
+                    RotaryScrollWithFlingOrSnapScreen(RotaryMode.Scroll)
+                }
             }
             composable(route = Screen.RotarySnapListScreen.route) {
-                RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
+                ScreenScaffold(timeText = {}) {
+                    RotaryScrollWithFlingOrSnapScreen(RotaryMode.Snap)
+                }
             }
             composable(
                 route = Screen.Paging.route,

@@ -100,7 +100,6 @@ fun NavWearApp(
             ) {
                 val columnState = rememberColumnState()
 
-                // TODO move all inside Screen
                 ScreenScaffold(scrollState = columnState) {
                     BigScalingLazyColumn(
                         columnState = columnState,
@@ -113,7 +112,6 @@ fun NavWearApp(
             ) {
                 val scrollState = rememberScrollState()
 
-                // TODO move all inside PagerScreen
                 ScreenScaffold(scrollState = scrollState) {
                     BigColumn(
                         scrollState = scrollState,
@@ -140,7 +138,6 @@ fun NavWearApp(
             }
 
             composable(NavScreen.Pager.route) {
-                // TODO move all inside PagerScreen
                 ScreenScaffold {
                     val pagerState = rememberPagerState { 10 }
                     PagerScreen(

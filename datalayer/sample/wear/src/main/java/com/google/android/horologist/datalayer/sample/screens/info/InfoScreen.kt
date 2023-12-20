@@ -64,7 +64,7 @@ fun InfoScreen(
         item {
             Button(
                 imageVector = Icons.Default.Done,
-                contentDescription = stringResource(id = R.string.info_done_button_content_description),
+                contentDescription = stringResource(id = R.string.close_button_content_description),
                 onClick = onDismissClick,
                 modifier = Modifier.padding(top = 10.dp),
             )

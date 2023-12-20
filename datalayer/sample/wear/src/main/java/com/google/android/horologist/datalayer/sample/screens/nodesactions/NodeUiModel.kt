@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer.sample.screens.info
+package com.google.android.horologist.datalayer.sample.screens.nodesactions
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+data class NodeUiModel(
+    val id: String,
+    val name: String,
+    val appInstalled: Boolean,
+    val type: NodeTypeUiModel,
+)
 
-@HiltViewModel
-class InfoScreenViewModel
-    @Inject
-    constructor(
-        savedStateHandle: SavedStateHandle,
-    ) : ViewModel() {
-
-        private val infoScreenArgs: InfoScreenArgs = InfoScreenArgs(savedStateHandle)
-
-        val message: String
-            get() = infoScreenArgs.message
-    }
+enum class NodeTypeUiModel {
+    WATCH,
+    PHONE,
+    UNKNOWN,
+}

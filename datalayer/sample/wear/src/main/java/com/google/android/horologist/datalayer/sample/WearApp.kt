@@ -35,6 +35,8 @@ import com.google.android.horologist.datalayer.sample.screens.info.infoScreen
 import com.google.android.horologist.datalayer.sample.screens.info.navigateToInfoScreen
 import com.google.android.horologist.datalayer.sample.screens.nodes.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.sample.screens.nodesactions.NodesActionsScreen
+import com.google.android.horologist.datalayer.sample.screens.nodesactions.navigateToNodeDetailsScreen
+import com.google.android.horologist.datalayer.sample.screens.nodesactions.nodeDetailsScreen
 import com.google.android.horologist.datalayer.sample.screens.tracking.TrackingScreen
 
 @Composable
@@ -88,9 +90,13 @@ fun WearApp(
                 val columnState = rememberColumnState()
 
                 ScreenScaffold(scrollState = columnState) {
-                    NodesActionsScreen(columnState = columnState)
+                    NodesActionsScreen(
+                        onNodeClick = navController::navigateToNodeDetailsScreen,
+                        columnState = columnState,
+                    )
                 }
             }
+            nodeDetailsScreen()
             infoScreen(
                 onDismissClick = navController::popBackStack,
             )

@@ -17,6 +17,7 @@
 package com.google.android.horologist.datalayer.sample
 
 import com.google.android.horologist.datalayer.sample.screens.info.infoScreenRoute
+import com.google.android.horologist.datalayer.sample.screens.nodesactions.nodeDetailsScreenRoute
 
 sealed class Screen(
     val route: String,
@@ -28,5 +29,8 @@ sealed class Screen(
 
     data object AppHelperTrackingScreen : Screen("appHelperTrackingScreen")
     data object AppHelperNodesActionsScreen : Screen("appHelperNodesActionsScreen")
+
+    data object AppHelperNodeDetailsScreen : Screen(nodeDetailsScreenRoute)
+
     data object InfoScreen : Screen(infoScreenRoute)
 }

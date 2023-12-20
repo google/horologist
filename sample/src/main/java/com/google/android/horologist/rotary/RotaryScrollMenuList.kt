@@ -221,7 +221,6 @@ private fun ScrollPreferences(
     val itemTypes = stringArrayResource(R.array.rotarymenu_item_sizes).toList()
 
     ScalingLazyColumn(
-        modifier = Modifier.fillMaxSize(),
         columnState = columnState,
     ) {
         item {

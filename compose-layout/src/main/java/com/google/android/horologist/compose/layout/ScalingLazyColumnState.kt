@@ -26,6 +26,7 @@ import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -174,7 +175,7 @@ public fun ScalingLazyColumn(
     }
 
     ScalingLazyColumn(
-        modifier = modifierWithRotary,
+        modifier = modifierWithRotary.fillMaxSize(),
         state = columnState.state,
         contentPadding = columnState.contentPadding,
         reverseLayout = columnState.reverseLayout,

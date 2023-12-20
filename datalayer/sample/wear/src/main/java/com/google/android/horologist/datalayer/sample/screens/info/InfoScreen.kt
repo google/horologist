@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.datalayer.sample.screens.info
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
@@ -57,8 +56,7 @@ fun InfoScreen(
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier,
     ) {
         item {
             Text(text = message, modifier = Modifier.padding(top = 20.dp))

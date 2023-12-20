@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.materialcomponents
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
@@ -34,7 +33,7 @@ internal fun SampleButtonScreen(
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
     ) {
         item {
             Button(

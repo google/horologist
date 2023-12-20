@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.mediasample.ui.settings
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -44,8 +43,7 @@ fun DeveloperOptionsScreen(
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier,
     ) {
         item {
             Text(

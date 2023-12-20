@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.datalayer.sample.screens.nodes
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -39,7 +38,7 @@ fun DataLayerNodesScreen(
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
     ) {
         item {
             ListHeader {

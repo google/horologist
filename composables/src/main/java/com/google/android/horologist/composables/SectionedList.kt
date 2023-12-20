@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
@@ -59,8 +58,7 @@ public fun SectionedList(
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier,
     ) {
         for (section in sections) {
             section.display(this)

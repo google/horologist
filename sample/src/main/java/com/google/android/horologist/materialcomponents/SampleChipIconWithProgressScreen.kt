@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.materialcomponents
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
@@ -30,7 +29,7 @@ internal fun SampleChipIconWithProgressScreen(
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
     ) {
         item {
             ChipIconWithProgress()

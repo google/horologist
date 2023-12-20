@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.material.Stepper
+import kotlin.math.round
 
 @Composable
 internal fun SampleStepperScreen() {
@@ -31,7 +32,7 @@ internal fun SampleStepperScreen() {
     }
     Stepper(
         value = value,
-        onValueChange = { value = it },
+        onValueChange = { value = round(it) },
         valueRange = 0f..100f,
         steps = 9,
     ) {

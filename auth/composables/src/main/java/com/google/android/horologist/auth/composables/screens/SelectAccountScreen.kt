@@ -50,8 +50,6 @@ public fun SelectAccountScreen(
     title: String = stringResource(id = R.string.horologist_select_account_title),
     defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
 ) {
-    val configuration = LocalConfiguration.current
-
     ScalingLazyColumn(
         modifier = modifier,
         columnState = columnState,

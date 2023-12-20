@@ -40,7 +40,7 @@ import com.google.android.horologist.compose.pager.PageScreenIndicatorState
  * The [TimeText] if set will override the AppScaffold timeText.
  *
  * @param modifier the Scaffold modifier.
- * @param timeText the page specific time text.
+ * @param timeText specific time text for the pages on this pager screen.
  * @param pagerState state for a HorizontalPager.
  * @param content the content block.
  */

@@ -25,6 +25,35 @@ phone.
 
     For your watch and phone projects respectively.
 
+1.  Add the capability
+
+    Add a `wear.xml` file in the `res/values` folder with the following content:
+
+    ```xml
+    <resources xmlns:tools="http://schemas.android.com/tools"
+        tools:keep="@array/android_wear_capabilities">
+        <string-array name="android_wear_capabilities">
+            <item>data_layer_app_helper_device_watch</item>
+        </string-array>
+    </resources>
+    ```
+
+    and
+
+    ```xml
+    <resources xmlns:tools="http://schemas.android.com/tools"
+        tools:keep="@array/android_wear_capabilities">
+        <string-array name="android_wear_capabilities">
+            <item>data_layer_app_helper_device_phone</item>
+        </string-array>
+    </resources>
+    ```
+
+    On your watch and phone projects respectively.
+
+    For more details, see
+    [Specify capability names for detecting your apps](https://developer.android.com/training/wearables/apps/standalone-apps#capability-names).
+
 1.  Initialize the client, including passing a `WearDataLayerRegistry`.
 
     ```kotlin

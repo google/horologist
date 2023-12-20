@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.google.android.horologist.datalayer.sample
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
+import com.google.android.horologist.compose.navscaffold.composable
 import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.datalayer.sample.screens.MainScreen
 import com.google.android.horologist.datalayer.sample.screens.datalayer.DataLayerScreen
@@ -36,37 +44,59 @@ fun WearApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberSwipeDismissableNavController(),
 ) {
-    WearNavScaffold(
-        startDestination = Screen.MainScreen.route,
-        navController = navController,
-        modifier = modifier,
-    ) {
-        scrollable(
-            route = Screen.MainScreen.route,
+    AppScaffold {
+        SwipeDismissableNavHost(
+            startDestination = Screen.MainScreen.route,
+            navController = navController,
+            modifier = modifier,
         ) {
-            MainScreen(
-                navigateToRoute = navController::navigate,
-                columnState = it.columnState,
+            composable(
+                route = Screen.MainScreen.route,
+            ) {
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(scrollState = columnState) {
+                    MainScreen(
+                        navigateToRoute = navController::navigate,
+                        columnState = columnState,
+                    )
+                }
+            }
+            composable(route = Screen.CounterScreen.route) {
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(scrollState = columnState) {
+                    DataLayerScreen(columnState = columnState)
+                }
+            }
+            composable(route = Screen.ListNodesScreen.route) {
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(scrollState = columnState) {
+                    DataLayerNodesScreen(columnState = columnState)
+                }
+            }
+            composable(route = Screen.AppHelperTrackingScreen.route) {
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(scrollState = columnState) {
+                    TrackingScreen(
+                        onDisplayInfoClicked = navController::navigateToInfoScreen,
+                        columnState = columnState,
+                    )
+                }
+            }
+            composable(route = Screen.AppHelperNodesActionsScreen.route) {
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(scrollState = columnState) {
+                    NodesActionsScreen(columnState = columnState)
+                }
+            }
+            infoScreen(
+                onDismissClick = navController::popBackStack,
             )
         }
-        scrollable(route = Screen.CounterScreen.route) {
-            DataLayerScreen(columnState = it.columnState)
-        }
-        scrollable(route = Screen.ListNodesScreen.route) {
-            DataLayerNodesScreen(columnState = it.columnState)
-        }
-        scrollable(route = Screen.AppHelperTrackingScreen.route) { scrolllableScaffoldContext ->
-            TrackingScreen(
-                onDisplayInfoClicked = navController::navigateToInfoScreen,
-                columnState = scrolllableScaffoldContext.columnState,
-            )
-        }
-        scrollable(route = Screen.AppHelperNodesActionsScreen.route) {
-            NodesActionsScreen(columnState = it.columnState)
-        }
-        infoScreen(
-            onDismissClick = navController::popBackStack,
-        )
     }
 }
 

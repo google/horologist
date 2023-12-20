@@ -24,21 +24,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -46,7 +41,6 @@ import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -145,6 +139,7 @@ private fun Modifier.scrollAway(
             }
             this.scrollAway(state.scalingLazyListState, state.initialIndex, offsetDp)
         }
+
         is ScalingLazyListState -> this.scrollAway(state)
         is LazyListState -> this.scrollAway(state)
         is ScrollState -> this.scrollAway(state)
@@ -194,15 +189,13 @@ public fun NavGraphBuilder.scrollable(
     content: @Composable (ScrollableScaffoldContext) -> Unit,
 ) {
     this@scrollable.composable(route, arguments, deepLinks) {
-        FocusedDestination {
-            val columnState = columnStateFactory.create()
+        val columnState = columnStateFactory.create()
 
-            val viewModel: NavScaffoldViewModel = viewModel(it)
+        val viewModel: NavScaffoldViewModel = viewModel(it)
 
-            viewModel.initializeScalingLazyListState(columnState)
+        viewModel.initializeScalingLazyListState(columnState)
 
-            content(ScrollableScaffoldContext(it, columnState, viewModel))
-        }
+        content(ScrollableScaffoldContext(it, columnState, viewModel))
     }
 }
 
@@ -219,13 +212,11 @@ public fun NavGraphBuilder.scrollStateComposable(
     content: @Composable (ScaffoldContext<ScrollState>) -> Unit,
 ) {
     composable(route, arguments, deepLinks) {
-        FocusedDestination {
-            val viewModel: NavScaffoldViewModel = viewModel(it)
+        val viewModel: NavScaffoldViewModel = viewModel(it)
 
-            val scrollState = viewModel.initializeScrollState(scrollStateBuilder)
+        val scrollState = viewModel.initializeScrollState(scrollStateBuilder)
 
-            content(ScaffoldContext(it, scrollState, viewModel))
-        }
+        content(ScaffoldContext(it, scrollState, viewModel))
     }
 }
 
@@ -242,13 +233,11 @@ public fun NavGraphBuilder.lazyListComposable(
     content: @Composable (ScaffoldContext<LazyListState>) -> Unit,
 ) {
     composable(route, arguments, deepLinks) {
-        FocusedDestination {
-            val viewModel: NavScaffoldViewModel = viewModel(it)
+        val viewModel: NavScaffoldViewModel = viewModel(it)
 
-            val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
+        val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
 
-            content(ScaffoldContext(it, scrollState, viewModel))
-        }
+        content(ScaffoldContext(it, scrollState, viewModel))
     }
 }
 
@@ -265,31 +254,8 @@ public fun NavGraphBuilder.composable(
     content: @Composable (NonScrollableScaffoldContext) -> Unit,
 ) {
     this@composable.composable(route, arguments, deepLinks) {
-        FocusedDestination {
-            val viewModel: NavScaffoldViewModel = viewModel()
+        val viewModel: NavScaffoldViewModel = viewModel()
 
-            content(NonScrollableScaffoldContext(it, viewModel))
-        }
-    }
-}
-
-@Composable
-internal fun FocusedDestination(content: @Composable () -> Unit) {
-    val lifecycle = LocalLifecycleOwner.current.lifecycle
-    val focused =
-        remember { mutableStateOf(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
-
-    DisposableEffect(lifecycle) {
-        val listener = LifecycleEventObserver { _, _ ->
-            focused.value = lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
-        }
-        lifecycle.addObserver(listener)
-        onDispose {
-            lifecycle.removeObserver(listener)
-        }
-    }
-
-    HierarchicalFocusCoordinator(requiresFocus = { focused.value }) {
-        content()
+        content(NonScrollableScaffoldContext(it, viewModel))
     }
 }

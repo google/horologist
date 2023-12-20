@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.networks
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,7 +38,6 @@ fun NetworkScreen(
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = Modifier.fillMaxSize(),
     ) {
         item {
             Chip(

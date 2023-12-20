@@ -17,7 +17,6 @@
 package com.google.android.horologist.materialcomponents
 
 import android.R
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
@@ -39,7 +38,7 @@ internal fun SampleChipScreen(
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
     ) {
         item {
             Chip(

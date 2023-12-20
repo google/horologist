@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.auth.composables.screens
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -37,8 +36,6 @@ import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
 
-private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052
-
 /**
  * A screen to display a list of available accounts and to allow the user select one of them.
  *
@@ -54,12 +51,9 @@ public fun SelectAccountScreen(
     defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
 ) {
     val configuration = LocalConfiguration.current
-    val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
 
     ScalingLazyColumn(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = horizontalPadding),
+        modifier = modifier,
         columnState = columnState,
     ) {
         item { Title(title, Modifier.padding(bottom = 8.dp)) }

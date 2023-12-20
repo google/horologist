@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.materialcomponents
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
@@ -35,7 +34,7 @@ internal fun SampleToggleButtonScreen(
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
     ) {
         item {
             ToggleButton(

@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.materialcomponents
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.VolumeDown
 import androidx.compose.runtime.Composable
@@ -33,7 +32,7 @@ internal fun SampleIconScreen(
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
     ) {
         item {
             Icon(

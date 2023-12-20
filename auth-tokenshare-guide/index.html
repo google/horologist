@@ -1478,12 +1478,15 @@ your phone and watch apps must:</p>
 <p>Add capability to phone app project</p>
 <p>On the phone app project, add a <code>wear.xml</code> file in the <code>res/values</code> folder with the following
 content:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;resources&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;resources</span><span class="w"> </span><span class="na">xmlns:tools=</span><span class="s">&quot;http://schemas.android.com/tools&quot;</span>
+<span class="w">    </span><span class="na">tools:keep=</span><span class="s">&quot;@array/android_wear_capabilities&quot;</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nt">&lt;string-array</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;android_wear_capabilities&quot;</span><span class="nt">&gt;</span>
 <span class="w">        </span><span class="nt">&lt;item&gt;</span>horologist_phone<span class="nt">&lt;/item&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/string-array&gt;</span>
 <span class="nt">&lt;/resources&gt;</span>
 </code></pre></div>
+<p>For more details, see
+<a href="https://developer.android.com/training/wearables/apps/standalone-apps#capability-names">Specify capability names for detecting your apps</a>.</p>
 </li>
 <li>
 <p>Create a <code>WearDataLayerRegistry</code></p>

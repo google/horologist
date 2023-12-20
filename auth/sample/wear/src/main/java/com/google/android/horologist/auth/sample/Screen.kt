@@ -21,14 +21,6 @@ sealed class Screen(
 ) {
     object MainScreen : Screen("mainScreen")
 
-    object PKCESignInPromptScreen : Screen("pkceSignInPromptScreen")
-    object PKCESignInScreen : Screen("pkceSignInScreen")
-    object PKCESignOutScreen : Screen("pkceSignOutScreen")
-
-    object DeviceGrantSignInPromptScreen : Screen("deviceGrantSignInPromptScreen")
-    object DeviceGrantSignInScreen : Screen("deviceGrantSignInScreen")
-    object DeviceGrantSignOutScreen : Screen("deviceGrantSignOutScreen")
-
     object GoogleSignInPromptSampleScreen : Screen("googleSignInPromptSampleScreen")
     object GoogleSignInScreen : Screen("googleSignInScreen")
     object GoogleSignOutScreen : Screen("googleSignOutScreen")

@@ -36,7 +36,6 @@ compose-material3 = "1.2.0-beta01"
 composesnapshot = "-"
 dependencyAnalysis = "1.28.0"
 dokka = "1.9.10"
-googleSecretsGradlePlugin = "2.0.1"
 googledagger = "2.50"
 gradlePlugin = "8.2.0"
 gradlePublishPlugin = "0.26.0"
@@ -159,7 +158,6 @@ dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plu
 dagger-hiltandroidtesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "googledagger" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
-googleSecretsGradlePlugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "googleSecretsGradlePlugin" }
 gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradlePublishPlugin" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 hilt-ext-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }

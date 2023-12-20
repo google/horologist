@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.google.android.horologist.datalayer.sample.screens.info
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.google.android.horologist.compose.navscaffold.scrollable
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.navscaffold.composable
 import com.google.android.horologist.datalayer.sample.Screen
 import java.net.URLDecoder
 import java.net.URLEncoder
@@ -46,15 +51,19 @@ fun NavController.navigateToInfoScreen(message: String) {
 fun NavGraphBuilder.infoScreen(
     onDismissClick: () -> Unit,
 ) {
-    scrollable(
+    composable(
         route = Screen.InfoScreen.route,
         arguments = listOf(
             navArgument(messageArg) { type = NavType.StringType },
         ),
     ) {
-        InfoScreen(
-            onDismissClick = onDismissClick,
-            columnState = it.columnState,
-        )
+        val columnState = rememberColumnState()
+
+        ScreenScaffold(scrollState = columnState) {
+            InfoScreen(
+                onDismissClick = onDismissClick,
+                columnState = columnState,
+            )
+        }
     }
 }

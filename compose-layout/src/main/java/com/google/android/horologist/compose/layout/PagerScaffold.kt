@@ -14,42 +14,41 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalWearFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalWearFoundationApi::class)
 
 package com.google.android.horologist.compose.layout
 
-import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.gestures.ScrollableState
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.OnFocusChange
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.material.PositionIndicator
+import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.TimeText
+import com.google.android.horologist.compose.pager.PageScreenIndicatorState
 
 /**
- * Navigation Route (Screen) Scaffold to place *inside*
- * [androidx.wear.compose.navigation.composable]. The TimeText if set will override the
- * [AppScaffold] timeText.
+ * Pager Scaffold to place *above* a HorizontalPager.
+ * The [TimeText] if set will override the AppScaffold timeText.
  *
  * @param modifier the Scaffold modifier.
  * @param timeText the page specific time text.
- * @param scrollState the ScrollableState to show in a default PositionIndicator.
- * @param positionIndicator set a non default PositionIndicator or disable with an no-op lambda.
+ * @param pagerState state for a HorizontalPager.
  * @param content the content block.
  */
 @Composable
-fun ScreenScaffold(
+fun PagerScaffold(
     modifier: Modifier = Modifier,
     timeText: (@Composable () -> Unit)? = null,
-    scrollState: ScrollableState? = null,
-    positionIndicator: (@Composable () -> Unit)? = null,
+    pagerState: PagerState? = null,
     content: @Composable BoxScope.() -> Unit,
 ) {
     val scaffoldState = LocalScaffoldState.current
@@ -64,7 +63,7 @@ fun ScreenScaffold(
 
     OnFocusChange { focused ->
         if (focused) {
-            scaffoldState.addScreen(key, timeText, scrollState)
+            scaffoldState.addScreen(key, timeText, null)
         } else {
             scaffoldState.removeScreen(key)
         }
@@ -73,17 +72,14 @@ fun ScreenScaffold(
     Scaffold(
         modifier = modifier,
         timeText = timeText,
-        positionIndicator = {
-            if (positionIndicator != null) {
-                positionIndicator()
-            } else if (scrollState is ScalingLazyColumnState) {
-                PositionIndicator(scalingLazyListState = scrollState.state)
-            } else if (scrollState is ScalingLazyListState) {
-                PositionIndicator(scalingLazyListState = scrollState)
-            } else if (scrollState is LazyListState) {
-                PositionIndicator(scrollState)
-            } else if (scrollState is ScrollState) {
-                PositionIndicator(scrollState)
+        pageIndicator = {
+            if (pagerState != null) {
+                val pageIndicatorState = remember(pagerState) { PageScreenIndicatorState(pagerState) }
+
+                HorizontalPageIndicator(
+                    modifier = Modifier.padding(6.dp),
+                    pageIndicatorState = pageIndicatorState,
+                )
             }
         },
         content = { Box { content() } },

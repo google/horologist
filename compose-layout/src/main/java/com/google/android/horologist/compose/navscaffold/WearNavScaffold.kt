@@ -183,32 +183,6 @@ private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
 /**
  * Add a screen to the navigation graph featuring a ScalingLazyColumn.
  *
- * The scalingLazyListState must be taken from the [ScaffoldContext].
- */
-@Deprecated(
-    "Use listComposable",
-)
-public fun NavGraphBuilder.scalingLazyColumnComposable(
-    route: String,
-    arguments: List<NamedNavArgument> = emptyList(),
-    deepLinks: List<NavDeepLink> = emptyList(),
-    scrollStateBuilder: () -> ScalingLazyListState,
-    content: @Composable (ScaffoldContext<ScalingLazyListState>) -> Unit,
-) {
-    composable(route, arguments, deepLinks) {
-        FocusedDestination {
-            val viewModel: NavScaffoldViewModel = viewModel(it)
-
-            val scrollState = viewModel.initializeScalingLazyListState(scrollStateBuilder)
-
-            content(ScaffoldContext(it, scrollState, viewModel))
-        }
-    }
-}
-
-/**
- * Add a screen to the navigation graph featuring a ScalingLazyColumn.
- *
  * The [ScalingLazyColumnState] must be taken from the [ScrollableScaffoldContext].
  */
 @ExperimentalHorologistApi
@@ -274,30 +248,6 @@ public fun NavGraphBuilder.lazyListComposable(
             val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
 
             content(ScaffoldContext(it, scrollState, viewModel))
-        }
-    }
-}
-
-/**
- * Add non scrolling screen to the navigation graph. The [NavBackStackEntry] and
- * [NavScaffoldViewModel] are passed into the [content] block so that
- * the Scaffold may be customised, such as disabling TimeText.
- */
-@Deprecated(
-    "Use composable",
-    ReplaceWith("composable(route, arguments, deepLinks, lazyListStateBuilder, content)"),
-)
-public fun NavGraphBuilder.wearNavComposable(
-    route: String,
-    arguments: List<NamedNavArgument> = emptyList(),
-    deepLinks: List<NavDeepLink> = emptyList(),
-    content: @Composable (NavBackStackEntry, NavScaffoldViewModel) -> Unit,
-) {
-    composable(route, arguments, deepLinks) {
-        FocusedDestination {
-            val viewModel: NavScaffoldViewModel = viewModel()
-
-            content(it, viewModel)
         }
     }
 }

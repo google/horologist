@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavBackStackEntry
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeUiState
-import com.google.android.horologist.compose.layout.PageScaffold
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
@@ -69,7 +69,7 @@ public fun PlayerLibraryPagerScreen(
     ) { page ->
         when (page) {
             0 -> {
-                PageScaffold(
+                ScreenScaffold(
                     positionIndicator = {
                         VolumePositionIndicator(volumeUiState = volumeUiState, displayIndicatorEvents = displayVolumeIndicatorEvents)
                     },
@@ -80,7 +80,7 @@ public fun PlayerLibraryPagerScreen(
 
             1 -> {
                 val config = belowTimeTextPreview()
-                PageScaffold(
+                ScreenScaffold(
                     scrollState = config,
                 ) {
                     libraryScreen()

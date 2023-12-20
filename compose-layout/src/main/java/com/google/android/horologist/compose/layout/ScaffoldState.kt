@@ -28,21 +28,21 @@ import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.TimeText
 
 internal class ScaffoldState {
-    fun removeScreenTimeText(key: Any) {
+    fun removeScreen(key: Any) {
         screenContent.removeIf { it.key === key }
     }
 
-    fun addScreenTimeText(
+    fun addScreen(
         key: Any,
         timeText: @Composable (() -> Unit)?,
         scrollState: ScrollableState?,
     ) {
-        screenContent.add(PageContent(key, scrollState, timeText))
+        screenContent.add(ScreenContent(key, scrollState, timeText))
     }
 
     internal val appTimeText: MutableState<(@Composable (() -> Unit))> =
         mutableStateOf({ TimeText() })
-    internal val screenContent = mutableStateListOf<PageContent>()
+    internal val screenContent = mutableStateListOf<ScreenContent>()
 
     val timeText: @Composable (() -> Unit)
         get() = {
@@ -73,7 +73,7 @@ internal class ScaffoldState {
         return Pair(resultState, resultTimeText ?: appTimeText.value)
     }
 
-    internal data class PageContent(
+    internal data class ScreenContent(
         val key: Any,
         val scrollState: ScrollableState? = null,
         val timeText: (@Composable () -> Unit)? = null,

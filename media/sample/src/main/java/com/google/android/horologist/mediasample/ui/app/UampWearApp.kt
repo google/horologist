@@ -31,7 +31,6 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
-import com.google.android.horologist.compose.layout.PageScaffold
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
@@ -97,7 +96,7 @@ fun UampWearApp(
             libraryScreen = {
                 val columnState = rememberColumnState()
 
-                PageScaffold(scrollState = columnState) {
+                ScreenScaffold(scrollState = columnState) {
                     if (appState.streamingMode == true) {
                         UampStreamingBrowseScreen(
                             onPlaylistsClick = { navController.navigateToCollections() },

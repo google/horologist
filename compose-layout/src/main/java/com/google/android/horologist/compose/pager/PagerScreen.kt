@@ -18,7 +18,6 @@
 
 package com.google.android.horologist.compose.pager
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,22 +26,16 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
 import androidx.wear.compose.material.PageIndicatorState
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.PagerScaffold
 
 /**
  * A Wear Material Compliant Pager screen.
@@ -57,7 +50,7 @@ public fun PagerScreen(
     state: PagerState,
     content: @Composable ((Int) -> Unit),
 ) {
-    ScreenScaffold(
+    PagerScaffold(
         modifier = Modifier.fillMaxSize(),
         pagerState = state,
     ) {
@@ -125,29 +118,4 @@ public class PageScreenIndicatorState(
 
     override val selectedPage: Int
         get() = state.currentPage
-}
-
-/**
- * Utility to Focus the page when it is resumed.
- */
-@Deprecated(
-    message = "Use RequestFocusWhenActive",
-    replaceWith = ReplaceWith(
-        "RequestFocusWhenActive(focusRequester=focusRequester)",
-        "androidx.wear.compose.foundation.RequestFocusWhenActive",
-    ),
-)
-@ExperimentalHorologistApi
-@Composable
-public fun FocusOnResume(focusRequester: FocusRequester) {
-    val lifecycleOwner = LocalLifecycleOwner.current
-    LaunchedEffect(Unit) {
-        lifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.RESUMED) {
-            try {
-                focusRequester.requestFocus()
-            } catch (ise: IllegalStateException) {
-                Log.w("pager", "Focus Requestor not installed", ise)
-            }
-        }
-    }
 }

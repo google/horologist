@@ -61,7 +61,7 @@ fun WearApp(
     AppScaffold {
         SwipeDismissableNavHost(
             startDestination = Screen.MainScreen.route,
-            navController = navController
+            navController = navController,
         ) {
             composable(
                 route = Screen.MainScreen.route,

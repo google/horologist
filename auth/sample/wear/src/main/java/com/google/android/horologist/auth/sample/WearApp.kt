@@ -49,6 +49,7 @@ import com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.T
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantSignInScreen
 import com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInScreen
+import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
 
@@ -57,127 +58,129 @@ fun WearApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberSwipeDismissableNavController(),
 ) {
-    SwipeDismissableNavHost(
-        startDestination = Screen.MainScreen.route,
-        navController = navController
-    ) {
-        composable(
-            route = Screen.MainScreen.route,
+    AppScaffold {
+        SwipeDismissableNavHost(
+            startDestination = Screen.MainScreen.route,
+            navController = navController
         ) {
-            val columnState = rememberColumnState()
+            composable(
+                route = Screen.MainScreen.route,
+            ) {
+                val columnState = rememberColumnState()
 
-            ScreenScaffold(scrollState = columnState) {
-                MainScreen(
-                    navigateToRoute = navController::navigate,
+                ScreenScaffold(scrollState = columnState) {
+                    MainScreen(
+                        navigateToRoute = navController::navigate,
+                        modifier = modifier,
+                        columnState = columnState,
+                    )
+                }
+            }
+            composable(
+                route = Screen.PKCESignInPromptScreen.route,
+            ) {
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(scrollState = columnState) {
+                    PKCESignInPromptScreen(
+                        navController = navController,
+                        modifier = modifier,
+                        columnState = columnState,
+                    )
+                }
+            }
+            composable(route = Screen.PKCESignInScreen.route) {
+                PKCESignInScreen<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse>(
+                    onAuthSucceed = navController::popBackStack,
                     modifier = modifier,
-                    columnState = columnState,
+                    viewModel = viewModel(factory = PKCESampleViewModelFactory),
                 )
             }
-        }
-        composable(
-            route = Screen.PKCESignInPromptScreen.route,
-        ) {
-            val columnState = rememberColumnState()
+            composable(route = Screen.PKCESignOutScreen.route) {
+                PKCESignOutScreen(navController = navController)
+            }
+            composable(
+                route = Screen.DeviceGrantSignInPromptScreen.route,
+            ) {
+                val columnState = rememberColumnState()
 
-            ScreenScaffold(scrollState = columnState) {
-                PKCESignInPromptScreen(
-                    navController = navController,
+                ScreenScaffold(scrollState = columnState) {
+                    DeviceGrantSignInPromptScreen(
+                        navController = navController,
+                        columnState = columnState,
+                        modifier = modifier,
+                    )
+                }
+            }
+            composable(route = Screen.DeviceGrantSignInScreen.route) {
+                DeviceGrantSignInScreen<DeviceGrantDefaultConfig, DeviceCodeResponse, String>(
+                    onAuthSucceed = navController::popBackStack,
                     modifier = modifier,
-                    columnState = columnState,
+                    viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory),
                 )
             }
-        }
-        composable(route = Screen.PKCESignInScreen.route) {
-            PKCESignInScreen<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse>(
-                onAuthSucceed = navController::popBackStack,
-                modifier = modifier,
-                viewModel = viewModel(factory = PKCESampleViewModelFactory),
-            )
-        }
-        composable(route = Screen.PKCESignOutScreen.route) {
-            PKCESignOutScreen(navController = navController)
-        }
-        composable(
-            route = Screen.DeviceGrantSignInPromptScreen.route,
-        ) {
-            val columnState = rememberColumnState()
+            composable(route = Screen.DeviceGrantSignOutScreen.route) {
+                DeviceGrantSignOutScreen(navController = navController)
+            }
+            composable(
+                route = Screen.GoogleSignInPromptSampleScreen.route,
+            ) {
+                val columnState = rememberColumnState()
 
-            ScreenScaffold(scrollState = columnState) {
-                DeviceGrantSignInPromptScreen(
-                    navController = navController,
-                    columnState = columnState,
+                ScreenScaffold(scrollState = columnState) {
+                    GoogleSignInPromptSampleScreen(
+                        navController = navController,
+                        columnState = columnState,
+                        modifier = modifier,
+                    )
+                }
+            }
+            composable(route = Screen.StreamlineSignInMenuScreen.route) {
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(scrollState = columnState) {
+                    StreamlineSignInMenuScreen(
+                        navController = navController,
+                        columnState = columnState,
+                        modifier = modifier,
+                    )
+                }
+            }
+            composable(route = Screen.StreamlineSignInSampleScreen.route) {
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(scrollState = columnState) {
+                    StreamlineSignInSampleScreen(
+                        navController = navController,
+                        columnState = columnState,
+                        modifier = modifier,
+                    )
+                }
+            }
+            composable(route = Screen.GoogleSignInScreen.route) {
+                GoogleSignInScreen(
+                    onAuthCancelled = navController::popBackStack,
+                    onAuthSucceed = navController::popBackStack,
                     modifier = modifier,
+                    viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory),
                 )
             }
-        }
-        composable(route = Screen.DeviceGrantSignInScreen.route) {
-            DeviceGrantSignInScreen<DeviceGrantDefaultConfig, DeviceCodeResponse, String>(
-                onAuthSucceed = navController::popBackStack,
-                modifier = modifier,
-                viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory),
-            )
-        }
-        composable(route = Screen.DeviceGrantSignOutScreen.route) {
-            DeviceGrantSignOutScreen(navController = navController)
-        }
-        composable(
-            route = Screen.GoogleSignInPromptSampleScreen.route,
-        ) {
-            val columnState = rememberColumnState()
-
-            ScreenScaffold(scrollState = columnState) {
-                GoogleSignInPromptSampleScreen(
-                    navController = navController,
-                    columnState = columnState,
-                    modifier = modifier,
-                )
+            composable(route = Screen.GoogleSignOutScreen.route) {
+                GoogleSignOutScreen(navController = navController)
             }
-        }
-        composable(route = Screen.StreamlineSignInMenuScreen.route) {
-            val columnState = rememberColumnState()
+            composable(route = Screen.TokenShareDefaultKeyScreen.route) {
+                val columnState = rememberColumnState()
 
-            ScreenScaffold(scrollState = columnState) {
-                StreamlineSignInMenuScreen(
-                    navController = navController,
-                    columnState = columnState,
-                    modifier = modifier,
-                )
+                ScreenScaffold(scrollState = columnState) {
+                    TokenShareDefaultKeyScreen(columnState = columnState, modifier = modifier)
+                }
             }
-        }
-        composable(route = Screen.StreamlineSignInSampleScreen.route) {
-            val columnState = rememberColumnState()
+            composable(route = Screen.TokenShareCustomKeyScreen.route) {
+                val columnState = rememberColumnState()
 
-            ScreenScaffold(scrollState = columnState) {
-                StreamlineSignInSampleScreen(
-                    navController = navController,
-                    columnState = columnState,
-                    modifier = modifier,
-                )
-            }
-        }
-        composable(route = Screen.GoogleSignInScreen.route) {
-            GoogleSignInScreen(
-                onAuthCancelled = navController::popBackStack,
-                onAuthSucceed = navController::popBackStack,
-                modifier = modifier,
-                viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory),
-            )
-        }
-        composable(route = Screen.GoogleSignOutScreen.route) {
-            GoogleSignOutScreen(navController = navController)
-        }
-        composable(route = Screen.TokenShareDefaultKeyScreen.route) {
-            val columnState = rememberColumnState()
-
-            ScreenScaffold(scrollState = columnState) {
-                TokenShareDefaultKeyScreen(columnState = columnState, modifier = modifier)
-            }
-        }
-        composable(route = Screen.TokenShareCustomKeyScreen.route) {
-            val columnState = rememberColumnState()
-
-            ScreenScaffold(scrollState = columnState) {
-                TokenShareCustomKeyScreen(columnState = columnState, modifier = modifier)
+                ScreenScaffold(scrollState = columnState) {
+                    TokenShareCustomKeyScreen(columnState = columnState, modifier = modifier)
+                }
             }
         }
     }

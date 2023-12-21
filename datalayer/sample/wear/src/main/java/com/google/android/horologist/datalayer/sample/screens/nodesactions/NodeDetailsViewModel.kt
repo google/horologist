@@ -20,12 +20,16 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.data.AppHelperResultCode
+import com.google.android.horologist.data.activityConfig
 import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private const val REMOTE_ACTIVITY_SAMPLE_PACKAGE_NAME = "com.google.android.gm"
+private const val REMOTE_ACTIVITY_SAMPLE_CLASS_FULL_NAME = "com.google.android.gm.ConversationListActivityGmail"
 
 @HiltViewModel
 class NodeDetailsViewModel
@@ -67,6 +71,16 @@ class NodeDetailsViewModel
         fun onStartRemoteOwnAppClick() {
             runActionAndHandleAppHelperResult {
                 wearDataLayerAppHelper.startRemoteOwnApp(node = nodeId)
+            }
+        }
+
+        fun onStartRemoteActivityClick() {
+            runActionAndHandleAppHelperResult {
+                val config = activityConfig {
+                    packageName = REMOTE_ACTIVITY_SAMPLE_PACKAGE_NAME
+                    classFullName = REMOTE_ACTIVITY_SAMPLE_CLASS_FULL_NAME
+                }
+                wearDataLayerAppHelper.startRemoteActivity(nodeId, config)
             }
         }
 

@@ -66,6 +66,7 @@
     <string name="node_details_start_companion_chip_label">Start companion</string>
     <string name="node_details_install_on_node_chip_label">Install on node</string>
     <string name="node_details_start_remote_own_app_chip_label">Start remote own app</string>
+    <string name="node_details_start_remote_activity_chip_label">Start remote activity</string>
     <string name="node_details_success_dialog_message">Success!</string>
     <string name="node_details_failure_dialog_message">Failed: \n%1$s</string>
 </resources>

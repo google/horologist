@@ -63,6 +63,7 @@ fun NodeDetailsScreen(
         onStartCompanionClick = viewModel::onStartCompanionClick,
         onInstallOnNodeClick = viewModel::onInstallOnNodeClick,
         onStartRemoteOwnAppClick = viewModel::onStartRemoteOwnAppClick,
+        onStartRemoteActivityClick = viewModel::onStartRemoteActivityClick,
         onDialogDismiss = viewModel::onDialogDismiss,
         columnState = columnState,
         modifier = modifier,
@@ -76,6 +77,7 @@ fun NodeDetailsScreen(
     onStartCompanionClick: () -> Unit,
     onInstallOnNodeClick: () -> Unit,
     onStartRemoteOwnAppClick: () -> Unit,
+    onStartRemoteActivityClick: () -> Unit,
     onDialogDismiss: () -> Unit,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
@@ -118,6 +120,12 @@ fun NodeDetailsScreen(
                     Chip(
                         label = stringResource(id = R.string.node_details_start_remote_own_app_chip_label),
                         onClick = onStartRemoteOwnAppClick,
+                    )
+                }
+                item {
+                    Chip(
+                        label = stringResource(id = R.string.node_details_start_remote_activity_chip_label),
+                        onClick = onStartRemoteActivityClick,
                     )
                 }
             }
@@ -209,6 +217,7 @@ fun NodeDetailsScreenPreview() {
         onStartCompanionClick = { },
         onInstallOnNodeClick = { },
         onStartRemoteOwnAppClick = { },
+        onStartRemoteActivityClick = { },
         onDialogDismiss = { },
         columnState = belowTimeTextPreview(),
     )

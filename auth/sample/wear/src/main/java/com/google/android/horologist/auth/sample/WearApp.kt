@@ -27,28 +27,15 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
-import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.DeviceCodeResponse
-import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.TokenResponse
-import com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.DeviceGrantDefaultConfig
-import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.PKCEDefaultConfig
-import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload
 import com.google.android.horologist.auth.sample.screens.MainScreen
 import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInMenuScreen
 import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.signin.GoogleSignInSampleViewModelFactory
 import com.google.android.horologist.auth.sample.screens.googlesignin.signout.GoogleSignOutScreen
-import com.google.android.horologist.auth.sample.screens.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
-import com.google.android.horologist.auth.sample.screens.oauth.devicegrant.signin.DeviceGrantSampleViewModelFactory
-import com.google.android.horologist.auth.sample.screens.oauth.devicegrant.signout.DeviceGrantSignOutScreen
-import com.google.android.horologist.auth.sample.screens.oauth.pkce.prompt.PKCESignInPromptScreen
-import com.google.android.horologist.auth.sample.screens.oauth.pkce.signin.PKCESampleViewModelFactory
-import com.google.android.horologist.auth.sample.screens.oauth.pkce.signout.PKCESignOutScreen
 import com.google.android.horologist.auth.sample.screens.tokenshare.customkey.TokenShareCustomKeyScreen
 import com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.TokenShareDefaultKeyScreen
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
-import com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantSignInScreen
-import com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInScreen
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
@@ -75,52 +62,6 @@ fun WearApp(
                         columnState = columnState,
                     )
                 }
-            }
-            composable(
-                route = Screen.PKCESignInPromptScreen.route,
-            ) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    PKCESignInPromptScreen(
-                        navController = navController,
-                        modifier = modifier,
-                        columnState = columnState,
-                    )
-                }
-            }
-            composable(route = Screen.PKCESignInScreen.route) {
-                PKCESignInScreen<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse>(
-                    onAuthSucceed = navController::popBackStack,
-                    modifier = modifier,
-                    viewModel = viewModel(factory = PKCESampleViewModelFactory),
-                )
-            }
-            composable(route = Screen.PKCESignOutScreen.route) {
-                PKCESignOutScreen(navController = navController)
-            }
-            composable(
-                route = Screen.DeviceGrantSignInPromptScreen.route,
-            ) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    DeviceGrantSignInPromptScreen(
-                        navController = navController,
-                        columnState = columnState,
-                        modifier = modifier,
-                    )
-                }
-            }
-            composable(route = Screen.DeviceGrantSignInScreen.route) {
-                DeviceGrantSignInScreen<DeviceGrantDefaultConfig, DeviceCodeResponse, String>(
-                    onAuthSucceed = navController::popBackStack,
-                    modifier = modifier,
-                    viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory),
-                )
-            }
-            composable(route = Screen.DeviceGrantSignOutScreen.route) {
-                DeviceGrantSignOutScreen(navController = navController)
             }
             composable(
                 route = Screen.GoogleSignInPromptSampleScreen.route,

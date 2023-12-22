@@ -44,7 +44,7 @@
 
         <activity
             android:name=".screens.startremote.StartRemoteSampleActivity"
-            android:exported="true"
+            android:exported="false"
             android:taskAffinity=".main"
             android:theme="@style/Theme.Horologist">
         </activity>

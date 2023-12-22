@@ -28,8 +28,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val REMOTE_ACTIVITY_SAMPLE_PACKAGE_NAME = "com.google.android.gm"
-private const val REMOTE_ACTIVITY_SAMPLE_CLASS_FULL_NAME = "com.google.android.gm.ConversationListActivityGmail"
+private const val REMOTE_ACTIVITY_SAMPLE_CLASS_FULL_NAME =
+    "com.google.android.horologist.datalayer.sample.screens.startremote.StartRemoteSampleActivity"
 
 @HiltViewModel
 class NodeDetailsViewModel
@@ -77,7 +77,6 @@ class NodeDetailsViewModel
         fun onStartRemoteActivityClick() {
             runActionAndHandleAppHelperResult {
                 val config = activityConfig {
-                    packageName = REMOTE_ACTIVITY_SAMPLE_PACKAGE_NAME
                     classFullName = REMOTE_ACTIVITY_SAMPLE_CLASS_FULL_NAME
                 }
                 wearDataLayerAppHelper.startRemoteActivity(nodeId, config)

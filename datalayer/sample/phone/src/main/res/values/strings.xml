@@ -34,4 +34,6 @@
     <string name="app_helper_launch_button_label">Launch</string>
 
     <string name="app_helper_button_list_nodes">List connected nodes</string>
+
+    <string name="app_helper_start_remote_activity_message">This is a sample activity to demonstrate it being launched remotely from the watch.</string>
 </resources>

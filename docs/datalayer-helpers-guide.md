@@ -143,7 +143,6 @@ phone.
 
     ```kotlin
     val config = activityConfig { 
-        packageName = "com.example.myapp"
         classFullName = "com.example.myapp.MyActivity"
     }
     appHelper.startRemoteActivity(node.id, config)
@@ -208,7 +207,7 @@ phone.
 
     ```kotlin
     val connectedNodes = appHelper.connectedNodes()
-    // after picking a node, check if value is USAGE_STATUS_LAUNCHED_ONCE:
+    // after picking a node, check if value is USAGE_STATUS_LAUNCHED_ONCE
     node.surfacesInfo.usageInfo.usageStatus
     ```
 

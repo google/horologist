@@ -17,12 +17,14 @@
 package com.google.android.horologist.datalayer.sample.screens.menu
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.google.android.horologist.datalayer.sample.R
 import com.google.android.horologist.datalayer.sample.screens.Screen
@@ -36,9 +38,15 @@ fun MenuScreen(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Button(onClick = { navController.navigate(Screen.ListNodesScreen.route) }) {
-            Text(text = stringResource(id = R.string.menu_screen_list_nodes_item))
+        Text(text = stringResource(id = R.string.menu_screen_apphelper_header))
+        Button(onClick = { navController.navigate(Screen.AppHelperNodesScreen.route) }) {
+            Text(text = stringResource(id = R.string.menu_screen_nodes_item))
         }
+
+        Text(
+            text = stringResource(id = R.string.menu_screen_datalayer_header),
+            modifier = Modifier.padding(top = 10.dp),
+        )
 
         Button(onClick = { navController.navigate(Screen.CounterScreen.route) }) {
             Text(text = stringResource(id = R.string.menu_screen_counter_item))

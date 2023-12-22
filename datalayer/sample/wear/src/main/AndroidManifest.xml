@@ -51,6 +51,11 @@
 
         </activity>
 
+        <activity
+            android:name=".screens.startremote.StartRemoteSampleActivity"
+            android:exported="false"
+            android:taskAffinity=".main" />
+
         <service
             android:name="com.google.android.horologist.datalayer.sample.screens.nodes.SampleDataService"
             android:exported="true">

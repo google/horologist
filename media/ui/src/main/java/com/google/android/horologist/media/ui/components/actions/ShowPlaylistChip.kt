@@ -20,10 +20,10 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.components.MediaArtwork
 
 /**
@@ -32,19 +32,17 @@ import com.google.android.horologist.media.ui.components.MediaArtwork
 @ExperimentalHorologistApi
 @Composable
 public fun ShowPlaylistChip(
-    artworkUri: Any?,
+    artworkPaintable: Paintable?,
     name: String?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: Painter? = null,
 ) {
-    val appIcon: (@Composable BoxScope.() -> Unit)? = artworkUri?.let {
+    val appIcon: (@Composable BoxScope.() -> Unit)? = artworkPaintable?.let {
         {
             MediaArtwork(
                 modifier = Modifier.size(ChipDefaults.LargeIconSize),
                 contentDescription = name,
-                artworkUri = artworkUri,
-                placeholder = placeholder,
+                artworkPaintable = it,
             )
         }
     }

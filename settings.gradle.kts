@@ -17,7 +17,7 @@
 import java.util.Properties
 
 plugins {
-    id("com.gradle.enterprise") version "3.15.1"
+    id("com.gradle.enterprise") version "3.16.1"
 }
 
 gradleEnterprise {
@@ -33,7 +33,6 @@ include(":annotations")
 include(":auth:composables")
 include(":auth:data")
 include(":auth:data-phone")
-include(":auth:data-watch-oauth")
 include(":auth:sample:phone")
 include(":auth:sample:shared")
 include(":auth:sample:wear")
@@ -51,6 +50,8 @@ include(":datalayer:sample:shared")
 include(":datalayer:sample:wear")
 include(":health:composables")
 include(":health:service")
+include(":images:base")
+include(":images:coil")
 include(":logo")
 include(":media:audio")
 include(":media:audio-ui")

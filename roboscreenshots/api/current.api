@@ -20,7 +20,7 @@ package com.google.android.horologist.screenshots {
     ctor public ScreenshotTestRule(optional com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams params);
     method public org.junit.runners.model.Statement apply(org.junit.runners.model.Statement base, org.junit.runner.Description description);
     method public void interact(optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.test.junit4.ComposeTestRule,kotlin.Unit> block);
-    method public void setContent(optional boolean isComponent, optional kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit>? componentDefaultContent, optional boolean takeScreenshot, optional Boolean? roundScreen, optional kotlin.jvm.functions.Function0<kotlin.Unit> timeText, optional kotlin.jvm.functions.Function0<kotlin.Unit> positionIndicator, optional com.google.android.horologist.compose.tools.coil.FakeImageLoader fakeImageLoader, kotlin.jvm.functions.Function0<kotlin.Unit> composable);
+    method public void setContent(optional boolean isComponent, optional kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit>? componentDefaultContent, optional boolean takeScreenshot, optional Boolean? roundScreen, optional kotlin.jvm.functions.Function0<kotlin.Unit> timeText, optional kotlin.jvm.functions.Function0<kotlin.Unit> positionIndicator, optional com.google.android.horologist.images.coil.FakeImageLoader fakeImageLoader, kotlin.jvm.functions.Function0<kotlin.Unit> composable);
     method public void takeScreenshot();
     field public static final com.google.android.horologist.screenshots.ScreenshotTestRule.Companion Companion;
   }
@@ -48,6 +48,7 @@ package com.google.android.horologist.screenshots {
   }
 
   public static final class ScreenshotTestRule.RecordMode.Companion {
+    method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode defaultRecordMode();
     method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode fromProperty(String? property);
   }
 

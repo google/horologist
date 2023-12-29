@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -28,8 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
-import coil.compose.AsyncImage
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.base.paintable.Paintable
 
 /**
  * A base button for custom action media controls.
@@ -39,7 +40,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 public fun CustomActionMediaButton(
     onClick: () -> Unit,
     contentDescription: String,
-    iconUri: String,
+    icon: Paintable,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
@@ -53,8 +54,8 @@ public fun CustomActionMediaButton(
         enabled = enabled,
         colors = colors,
     ) {
-        AsyncImage(
-            model = iconUri,
+        Image(
+            painter = icon.rememberPainter(),
             contentDescription = contentDescription,
             colorFilter = ColorFilter.tint(colors.contentColor(enabled = enabled).value),
             modifier = Modifier
@@ -64,9 +65,11 @@ public fun CustomActionMediaButton(
                         Alignment.Start -> {
                             offset(x = -7.5.dp)
                         }
+
                         Alignment.End -> {
                             offset(x = 7.5.dp)
                         }
+
                         else -> {
                             this
                         }

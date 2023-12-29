@@ -33,6 +33,9 @@ import androidx.wear.compose.material.ButtonDefaults.LargeIconSize
 import androidx.wear.compose.material.ButtonDefaults.SmallButtonSize
 import androidx.wear.compose.material.ButtonDefaults.SmallIconSize
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
+import com.google.android.horologist.images.base.paintable.PaintableIcon
 
 /**
  * This component is an alternative to [Button], providing the following:
@@ -52,7 +55,7 @@ public fun Button(
     enabled: Boolean = true,
 ) {
     Button(
-        icon = imageVector,
+        icon = ImageVectorPaintable(imageVector),
         contentDescription = contentDescription,
         onClick = onClick,
         modifier = modifier,
@@ -81,7 +84,7 @@ public fun Button(
     enabled: Boolean = true,
 ) {
     Button(
-        icon = id,
+        icon = DrawableResPaintable(id),
         contentDescription = contentDescription,
         onClick = onClick,
         modifier = modifier,
@@ -95,7 +98,7 @@ public fun Button(
 @OptIn(ExperimentalHorologistApi::class)
 @Composable
 internal fun Button(
-    icon: Any,
+    icon: PaintableIcon,
     contentDescription: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -115,7 +118,7 @@ internal fun Button(
             .align(Alignment.Center)
 
         Icon(
-            icon = icon,
+            paintable = icon,
             contentDescription = contentDescription,
             modifier = iconModifier,
             rtlMode = iconRtlMode,

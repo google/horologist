@@ -23,7 +23,7 @@ import androidx.compose.material.icons.filled.Album
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule

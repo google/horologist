@@ -15,13 +15,58 @@
   -->
 
 <resources>
+    <!-- General -->
     <string name="app_name">Horologist Datalayer Sample</string>
+    <string name="close_button_content_description">Close</string>
+    <string name="wearable_message_api_unavailable">This device does not have capability to communicate to Wearable Data Layer API</string>
 
-    <string name="main_menu_datalayer_item">Data Layer</string>
+    <!-- Main Menu screen -->
     <string name="main_menu_datalayer_header">Data Layer</string>
+    <string name="main_menu_datalayer_counter_item">Counter</string>
+    <string name="main_menu_datalayer_nodes_item">Data Layer Nodes</string>
+
+    <string name="main_menu_apphelpers_header">App Helpers</string>
+    <string name="main_menu_apphelpers_tracking_item">Tracking</string>
+    <string name="main_menu_apphelpers_nodes_actions_item">Nodes actions</string>
+
+    <!-- Counter screen -->
     <string name="server_counter_message">Value of the counter from Phone</string>
+
+    <!-- Data Layer screen -->
     <string name="data_layer_title">Data Layer</string>
     <string name="data_layer_missing_message">Missing</string>
     <string name="data_layer_error_message">Error: %1$s</string>
     <string name="data_layer_value_message">Value: %1$s</string>
+
+    <!-- App Helper Tracking screen -->
+    <string name="apphelper_tracking_title">AppHelper Tracking</string>
+    <string name="apphelper_tracking_message">Tap on an item to learn more about it.</string>
+    <string name="apphelper_tracking_activity_launched_chip_label">Activity launched once</string>
+    <string name="apphelper_tracking_activity_launched_info">Mark that the main activity of this app on the watch has been launched at least once.</string>
+    <string name="apphelper_tracking_setup_completed_chip_label">Setup Completed</string>
+    <string name="apphelper_tracking_setup_completed_info">Mark that the user has completed in the app the necessary setup steps such that this app on the watch is ready for use.</string>
+    <string name="apphelper_tracking_tile_header">Tiles</string>
+    <string name="apphelper_tracking_tile_installation_chip_label">Installation status</string>
+    <string name="apphelper_tracking_tile_installation_info">Indicates that tile with name %1$s is installed on this watch.</string>
+    <string name="apphelper_tracking_complication_header">Complications</string>
+    <string name="apphelper_tracking_complication_installation_chip_label">Installation status</string>
+    <string name="apphelper_tracking_complication_installation_info">Indicates that complication with name %1$s is installed on this watch.</string>
+
+    <!-- App Helper Nodes Actions screen -->
+    <string name="nodes_actions_header">Nodes Actions</string>
+    <string name="nodes_actions_message">Tap on a node to display the list of actions:</string>
+    <string name="nodes_actions_no_nodes">No nodes were found.</string>
+    <string name="nodes_actions_app_installed_label">App installed</string>
+    <string name="nodes_actions_app_not_installed_label">App NOT installed</string>
+    <string name="nodes_actions_refresh_chip_label">Refresh</string>
+
+    <!-- App Helper Nodes Details screen -->
+    <string name="node_details_header">Node Details</string>
+    <string name="node_details_id">ID: %1$s</string>
+    <string name="node_details_start_companion_chip_label">Start companion</string>
+    <string name="node_details_install_on_node_chip_label">Install on node</string>
+    <string name="node_details_start_remote_own_app_chip_label">Start remote own app</string>
+    <string name="node_details_start_remote_activity_chip_label">Start remote activity</string>
+    <string name="node_details_success_dialog_message">Success!</string>
+    <string name="node_details_failure_dialog_message">Failed: \n%1$s</string>
 </resources>

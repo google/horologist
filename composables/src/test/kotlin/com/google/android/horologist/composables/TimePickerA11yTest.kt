@@ -32,6 +32,8 @@ class TimePickerA11yTest : ScreenshotBaseTest(
 
     @Test
     fun initial() {
+        DatePickerA11yTest.enableTouchExploration()
+
         screenshotTestRule.setContent {
             TimePicker(
                 time = LocalTime.of(10, 10, 0),

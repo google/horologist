@@ -40,6 +40,7 @@ public fun AnimatedMediaInfoDisplay(
             modifier = modifier,
             title = media.title,
             artist = media.subtitle,
+            titleIcon = media.titleIcon,
         )
     } else {
         NothingPlayingDisplay(modifier)

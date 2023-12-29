@@ -43,12 +43,16 @@ your phone and watch apps must:
     content:
 
     ```xml
-    <resources>
+    <resources xmlns:tools="http://schemas.android.com/tools"
+        tools:keep="@array/android_wear_capabilities">
         <string-array name="android_wear_capabilities">
             <item>horologist_phone</item>
         </string-array>
     </resources>
     ```
+    
+    For more details, see
+    [Specify capability names for detecting your apps](https://developer.android.com/training/wearables/apps/standalone-apps#capability-names).
 
 1.  Create a `WearDataLayerRegistry`
 

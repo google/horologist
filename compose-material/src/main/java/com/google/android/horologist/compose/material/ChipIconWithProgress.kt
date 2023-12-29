@@ -26,18 +26,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
-import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-
+import com.google.android.horologist.images.base.paintable.Paintable
+import com.google.android.horologist.images.base.paintable.PaintableIcon
 private val indicatorPadding = 8.dp
 private val progressBarStrokeWidth = 2.dp
 
@@ -57,9 +55,8 @@ private val progressBarStrokeWidth = 2.dp
 @Composable
 public fun ChipIconWithProgress(
     modifier: Modifier = Modifier,
-    icon: Any? = null,
+    icon: Paintable? = null,
     largeIcon: Boolean = false,
-    placeholder: Painter? = null,
     progressIndicatorColor: Color = MaterialTheme.colors.primary,
     progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
 ) {
@@ -67,7 +64,6 @@ public fun ChipIconWithProgress(
         progress = null,
         icon = icon,
         largeIcon = largeIcon,
-        placeholder = placeholder,
         progressIndicatorColor = progressIndicatorColor,
         progressTrackColor = progressTrackColor,
         modifier = modifier,
@@ -93,9 +89,8 @@ public fun ChipIconWithProgress(
 public fun ChipIconWithProgress(
     progress: Float,
     modifier: Modifier = Modifier,
-    icon: Any? = null,
+    icon: Paintable? = null,
     largeIcon: Boolean = false,
-    placeholder: Painter? = null,
     progressIndicatorColor: Color = MaterialTheme.colors.primary,
     progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
 ) {
@@ -103,7 +98,6 @@ public fun ChipIconWithProgress(
         progress = progress,
         icon = icon,
         largeIcon = largeIcon,
-        placeholder = placeholder,
         progressIndicatorColor = progressIndicatorColor,
         progressTrackColor = progressTrackColor,
         modifier = modifier,
@@ -113,9 +107,8 @@ public fun ChipIconWithProgress(
 @Composable
 private fun ChipIconWithProgressInternal(
     progress: Float?,
-    icon: Any?,
+    icon: Paintable?,
     largeIcon: Boolean,
-    placeholder: Painter?,
     progressIndicatorColor: Color,
     progressTrackColor: Color,
     modifier: Modifier = Modifier,
@@ -150,32 +143,27 @@ private fun ChipIconWithProgressInternal(
             )
         }
 
-        when (icon) {
-            is ImageVector -> {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(iconSize - indicatorPadding)
-                        .clip(CircleShape),
-                )
-            }
-            else -> {
-                Image(
-                    painter = rememberAsyncImagePainter(
-                        model = icon,
-                        placeholder = placeholder,
-                    ),
-                    contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(iconSize - indicatorPadding)
-                        .clip(CircleShape),
-                    contentScale = ContentScale.Crop,
-                    alpha = LocalContentAlpha.current,
-                )
-            }
+        icon ?: return
+        if (icon is PaintableIcon) {
+            Icon(
+                paintable = icon,
+                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(iconSize - indicatorPadding)
+                    .clip(CircleShape),
+            )
+        } else {
+            Image(
+                painter = icon.rememberPainter(),
+                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(iconSize - indicatorPadding)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop,
+                alpha = LocalContentAlpha.current,
+            )
         }
     }
 }

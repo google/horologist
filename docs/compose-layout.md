@@ -1,54 +1,96 @@
 # Compose Layout library
 
+## ScalingLazyColumn responsive() layout.
+
+The `responsive()` layout factory will ensure that your ScalingLazyColumn is positioned correctly
+on all screen sizes.
+
+Pass in a boolean for the `firstItemIsFullWidth` param to indicate whether the first item can
+fit just below TimeText, or must be shifted down further to avoid cutting off the edges.
+
+The overloaded `ScalingLazyColumn` composable with `ScalingLazyColumnState` param, when combined
+with `responsive()` will handle all the following:
+
+- Position the first item near the top on all screen sizes.
+- Ensure the last item can be scrolled into view.
+- Handle RSB/Bezel scrolling with Fling.
+- Size side margins based on a percentage, adapting to different screen sizes.
+
+```kotlin
+val columnState =
+    rememberColumnState(ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = false))
+
+Scaffold(
+    modifier = Modifier
+        .fillMaxSize(),
+    timeText = {
+        TimeText(modifier = Modifier.scrollAway(columnState))
+    }
+) {
+    ScalingLazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        columnState = columnState,
+    ) {
+        item {
+            ListHeader {
+                Text(
+                    text = "Main",
+                    modifier = Modifier.fillMaxWidth(0.6f),
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
+        items(10) {
+            Chip("Item $it", onClick = {})
+        }
+    }
+}
+```
+
 ## Navigation Scaffold.
 
 Syncs the TimeText, PositionIndicator and Scaffold to the current navigation destination
 state. The TimeText will scroll out of the way of content automatically.
 
 ```kotlin
-WearNavScaffold(
-    startDestination = "home",
-    navController = navController
-) {
-    scalingLazyColumnComposable(
-        "home",
-        scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
+AppScaffold {
+    SwipeDismissableNavHost(
+        startDestination = "home",
+        navController = navController
     ) {
-        MenuScreen(
-            scrollState = it.scrollableState,
-            focusRequester = it.viewModel.focusRequester
-        )
-    }
-
-    scalingLazyColumnComposable(
-        "items",
-        scrollStateBuilder = { ScalingLazyListState() }
-    ) {
-        ScalingLazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .scrollableColumn(it.viewModel.focusRequester, it.scrollableState),
-            state = it.scrollableState
+        composable(
+            "home",
         ) {
-            items(100) {
-                Text("i = $it")
+            val columnState = rememberColumnState()
+            ScreenScaffold(scrollState = columnState) {
+                ScalingLazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    columnState = columnState
+                ) {
+                    items(100) {
+                        Text("i = $it")
+                    }
+                }
             }
         }
-    }
 
-    scrollStateComposable(
-        "settings",
-        scrollStateBuilder = { ScrollState(0) }
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(state = it.scrollableState)
-                .scrollableColumn(focusRequester = it.viewModel.focusRequester, scrollableState = it.scrollableState),
-            horizontalAlignment = Alignment.CenterHorizontally
+        composable(
+            "settings"
         ) {
-            (1..100).forEach {
-                Text("i = $it")
+            val scrollState = rememberScrollState()
+            ScreenScaffold(scrollState = scrollState) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .rotaryWithScroll(scrollState, rememberActiveFocusRequester())
+                        .verticalScroll(scrollState),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    (1..100).forEach {
+                        Text("i = $it")
+                    }
+                }
             }
         }
     }
@@ -69,10 +111,6 @@ Box(
 ```
 
 ![](fill_max_rectangle.png){: loading=lazy width=70% align=center }
-
-## Fade Away Modifier
-
-![](fade_away.png){: loading=lazy width=70% align=center }
 
 ## AmbientAware composable
 

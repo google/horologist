@@ -33,9 +33,9 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.scrollAway
-import com.google.android.horologist.compose.material.util.rememberVectorPainter
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.Device
+import com.google.android.horologist.images.base.util.rememberVectorPainter
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.createPlaylistDownloadScreenStateLoaded
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -77,7 +77,7 @@ class MediaPlayerLibraryTest(device: Device) : ScreenSizeTest(device = device, s
                     modifier = Modifier.fillMaxSize(),
                     timeText = {
                         TimeText(
-                            modifier = Modifier.scrollAway(scalingLazyColumnState = columnState),
+                            modifier = Modifier.scrollAway(columnState),
                             timeSource = FixedTimeSource,
                         )
                     },

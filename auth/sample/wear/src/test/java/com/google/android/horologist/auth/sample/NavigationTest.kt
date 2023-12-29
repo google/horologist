@@ -55,12 +55,12 @@ class NavigationTest {
         assertThat(navController.currentBackStackEntry?.destination?.route)
             .isEqualTo("mainScreen")
 
-        composeTestRule.onAllNodesWithText("Sign in")
+        composeTestRule.onAllNodesWithText("Sign-in Prompt")
             .onFirst()
             .performClick()
 
         assertThat(navController.currentBackStackEntry?.destination?.route)
-            .isEqualTo("pkceSignInPromptScreen")
+            .isEqualTo("googleSignInPromptSampleScreen")
 
         navigateBack()
 

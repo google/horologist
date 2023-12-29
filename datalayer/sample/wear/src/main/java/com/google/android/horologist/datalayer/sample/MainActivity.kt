@@ -19,31 +19,12 @@ package com.google.android.horologist.datalayer.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.lifecycle.lifecycleScope
-import androidx.wear.watchface.complications.data.ComplicationType
-import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
-import kotlinx.coroutines.launch
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private lateinit var wearDataLayerAppHelper: WearDataLayerAppHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        wearDataLayerAppHelper = WearDataLayerAppHelper(
-            context = this,
-            registry = (application as SampleApplication).registry,
-            scope = lifecycleScope,
-        )
-
-        lifecycleScope.launch {
-            wearDataLayerAppHelper.markTileAsInstalled("MyTile")
-            wearDataLayerAppHelper.markComplicationAsActivated(
-                complicationName = "MyComplication",
-                complicationInstanceId = 1234,
-                complicationType = ComplicationType.SHORT_TEXT,
-            )
-            wearDataLayerAppHelper.markActivityLaunchedOnce()
-        }
 
         setContent {
             WearApp()

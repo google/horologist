@@ -25,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -62,7 +63,7 @@ fun ChipPreviewWithIcon() {
     Chip(
         label = "Primary label",
         onClick = { },
-        icon = Icons.Default.Image,
+        icon = ImageVectorPaintable(Icons.Default.Image),
     )
 }
 
@@ -76,7 +77,7 @@ fun ChipPreviewWithLargeIcon() {
     Chip(
         label = "Primary label",
         onClick = { },
-        icon = Icon32dp,
+        icon = ImageVectorPaintable(Icon32dp),
         largeIcon = true,
     )
 }
@@ -92,7 +93,7 @@ fun ChipPreviewWithSecondaryLabelAndIcon() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
+        icon = ImageVectorPaintable(Icons.Default.Image),
     )
 }
 
@@ -107,7 +108,7 @@ fun ChipPreviewWithSecondaryLabelAndLargeIcon() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icon32dp,
+        icon = ImageVectorPaintable(Icon32dp),
         largeIcon = true,
     )
 }
@@ -123,7 +124,7 @@ fun ChipPreviewDisabled() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
+        icon = ImageVectorPaintable(Icons.Default.Image),
         enabled = false,
     )
 }
@@ -139,7 +140,7 @@ fun ChipPreviewWithSecondaryChipColors() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
+        icon = ImageVectorPaintable(Icons.Default.Image),
         colors = ChipDefaults.secondaryChipColors(),
     )
 }
@@ -155,7 +156,7 @@ fun ChipPreviewWithGradientBackgroundChipColors() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
+        icon = ImageVectorPaintable(Icons.Default.Image),
         colors = ChipDefaults.gradientBackgroundChipColors(),
     )
 }
@@ -171,7 +172,7 @@ fun ChipPreviewWithImageBackgroundChipColors() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
+        icon = ImageVectorPaintable(Icons.Default.Image),
         colors = ChipDefaults.imageBackgroundChipColors(
             backgroundImagePainter = painterResource(id = android.R.drawable.ic_dialog_alert),
         ),

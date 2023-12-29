@@ -25,7 +25,6 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -42,27 +41,18 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.test.filters.MediumTest
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.RequestFocusWhenActive
 import androidx.wear.compose.foundation.curvedComposable
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withContext
-import org.junit.Assert.assertSame
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -80,96 +70,6 @@ class NavScaffoldTest {
     val composeTestRule = createComposeRule()
 
     lateinit var navController: NavHostController
-
-    @Suppress("DEPRECATION")
-    @Ignore("Failing ith robolectric")
-    @Test
-    fun testNavScaffoldScroll() = runTest {
-        // Test that when we move between two scrollable destinations
-        // we get the right scroll state used at the right times
-
-        lateinit var aScrollState: ScalingLazyListState
-        lateinit var bScrollState: ScalingLazyListState
-        lateinit var cScrollState: ScalingLazyListState
-        lateinit var navController: NavHostController
-
-        fun NavGraphBuilder.scrollingList(
-            route: String,
-            scrollState: ScalingLazyListState,
-        ) {
-            scalingLazyColumnComposable(
-                route = route,
-                scrollStateBuilder = { scrollState },
-            ) {
-                val focusRequester =
-                    remember { FocusRequester() }
-                ScalingLazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .rotaryWithScroll(
-                            it.scrollableState,
-                            focusRequester,
-                        ),
-                    state = it.scrollableState,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    items(11) {
-                        Text(text = "Item $it")
-                    }
-                }
-
-                RequestFocusWhenActive(focusRequester)
-            }
-        }
-
-        composeTestRule.setContent {
-            navController = rememberSwipeDismissableNavController()
-            aScrollState = rememberScalingLazyListState(initialCenterItemIndex = 0)
-            bScrollState = rememberScalingLazyListState(initialCenterItemIndex = 10)
-            cScrollState = rememberScalingLazyListState(initialCenterItemScrollOffset = 50)
-
-            WearNavScaffold(
-                startDestination = "a",
-                navController = navController,
-            ) {
-                scrollingList("a", aScrollState)
-                scrollingList("b", bScrollState)
-                scrollingList("c", cScrollState)
-            }
-        }
-
-        composeTestRule.waitUntil {
-            navController.currentBackStackEntry?.destination?.route == "a"
-        }
-
-        val aViewModel =
-            ViewModelProvider(navController.currentBackStackEntry!!).get<NavScaffoldViewModel>()
-        assertSame(aScrollState, aViewModel.scrollableState)
-
-        withContext(Dispatchers.Main) {
-            navController.navigate("b")
-        }
-
-        composeTestRule.waitUntil {
-            navController.currentBackStackEntry?.destination?.route == "b"
-        }
-
-        val bViewModel =
-            ViewModelProvider(navController.currentBackStackEntry!!).get<NavScaffoldViewModel>()
-        assertSame(bScrollState, bViewModel.scrollableState)
-
-        withContext(Dispatchers.Main) {
-            navController.navigate("c")
-        }
-
-        composeTestRule.waitUntil {
-            navController.currentBackStackEntry?.destination?.route == "c"
-        }
-
-        val cViewModel =
-            ViewModelProvider(navController.currentBackStackEntry!!).get<NavScaffoldViewModel>()
-        assertSame(cScrollState, cViewModel.scrollableState)
-    }
 
     @Test
     fun testNavScaffoldNavigation() {

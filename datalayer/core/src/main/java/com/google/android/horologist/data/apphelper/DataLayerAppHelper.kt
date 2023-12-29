@@ -98,7 +98,7 @@ abstract class DataLayerAppHelper(
 
     private suspend fun getSurfaceStatus(nodeId: String) = registry.protoFlow(
         targetNodeId = TargetNodeId.SpecificNodeId(nodeId),
-        serializer = SurfaceInfoSerializer,
+        serializer = SurfacesInfoSerializer,
         path = SURFACE_INFO_PATH,
     ).first()
 
@@ -152,7 +152,10 @@ abstract class DataLayerAppHelper(
     abstract suspend fun startCompanion(node: String): AppHelperResultCode
 
     /**
-     * Launch an activity on the specified node.
+     * Launch an activity, which belongs to the same app (same package name), on the specified node.
+     *
+     * [Class name][ActivityConfig.getClassFullName] should be a fully qualified class name, such
+     * as, "com.example.project.SampleActivity".
      */
     @CheckResult
     public suspend fun startRemoteActivity(

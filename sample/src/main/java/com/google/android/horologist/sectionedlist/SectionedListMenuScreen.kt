@@ -31,6 +31,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
 
@@ -70,7 +71,7 @@ fun SectionedListMenuScreen(
             loaded { item ->
                 Chip(
                     label = stringResource(id = item.first),
-                    icon = Icons.AutoMirrored.Default.FormatListBulleted,
+                    icon = Icons.AutoMirrored.Default.FormatListBulleted.asPaintable(),
                     onClick = { navigateToRoute(item.second) },
                     colors = ChipDefaults.primaryChipColors(),
                 )

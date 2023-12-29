@@ -38,7 +38,7 @@ android {
         applicationId = "com.google.android.horologist.mediasample"
         // Min because of Tiles
         minSdk = 26
-        targetSdk = 30
+        targetSdk = 33
 
         versionCode = 1
         versionName = "1.0"
@@ -154,6 +154,7 @@ dependencies {
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
+    implementation(projects.images.coil)
     implementation(projects.media.core)
     implementation(projects.media.backendMedia3)
     implementation(projects.media.data)

@@ -18,6 +18,7 @@ package com.google.android.horologist.media.ui.state.model
 
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.base.paintable.Paintable
 
 @ExperimentalHorologistApi
 public data class MediaUiModel(
@@ -26,6 +27,7 @@ public data class MediaUiModel(
     val subtitle: String = "",
     val artworkUri: String? = null,
     val artworkColor: Color? = null,
+    val titleIcon: Paintable? = null,
 ) {
     // Consider making this a field
     val loading: Boolean get() = title.isEmpty() && subtitle.isEmpty()

@@ -102,7 +102,6 @@ fun WearApp() {
             },
         ) {
             ScalingLazyColumn(
-                modifier = Modifier.fillMaxSize(),
                 columnState = columnState,
             ) {
                 item {

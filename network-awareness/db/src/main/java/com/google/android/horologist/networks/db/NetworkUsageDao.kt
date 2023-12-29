@@ -24,8 +24,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 public interface NetworkUsageDao {
-    @Query("UPDATE DataUsage SET bytesTotal = bytesTotal + :bytes WHERE day = :day")
-    public suspend fun updateBytes(day: Int, bytes: Long): Int
+    @Query("UPDATE DataUsage SET bytesTotal = bytesTotal + :bytes WHERE day = :day AND networkType = :networkType")
+    public suspend fun updateBytes(day: Int, bytes: Long, networkType: String): Int
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     public suspend fun insert(media: DataUsage): Long

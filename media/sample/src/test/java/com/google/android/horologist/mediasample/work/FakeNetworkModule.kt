@@ -17,7 +17,7 @@
 package com.google.android.horologist.mediasample.work
 
 import coil.ImageLoader
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.di.NetworkModule
 import com.google.android.horologist.networks.data.DataRequestRepository

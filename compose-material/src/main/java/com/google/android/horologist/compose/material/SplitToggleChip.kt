@@ -35,7 +35,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 /**
  * This component is an alternative to [SplitToggleChip], providing the following:
  * - a convenient way of providing a label and a secondary label;
@@ -91,11 +91,11 @@ public fun SplitToggleChip(
             },
         )
         Icon(
-            imageVector = when (toggleControl) {
+            paintable = when (toggleControl) {
                 ToggleChipToggleControl.Switch -> ToggleChipDefaults.switchIcon(checked)
                 ToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
                 ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
-            },
+            }.asPaintable(),
             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
             modifier = Modifier.semantics {
                 stateDescription = stateDescriptionSemantics

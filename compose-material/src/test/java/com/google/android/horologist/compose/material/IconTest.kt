@@ -21,6 +21,8 @@ import androidx.compose.material.icons.automirrored.outlined.VolumeDown
 import androidx.compose.material.icons.outlined.Abc
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
@@ -30,7 +32,7 @@ class IconTest : ScreenshotBaseTest() {
     fun default() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Icon(
-                imageVector = Icons.Outlined.Abc,
+                paintable = Icons.Outlined.Abc.asPaintable(),
                 contentDescription = "contentDescription",
             )
         }
@@ -41,7 +43,7 @@ class IconTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Icon(
-                    imageVector = Icons.Outlined.Abc,
+                    paintable = Icons.Outlined.Abc.asPaintable(),
                     contentDescription = "contentDescription",
                 )
             }
@@ -52,7 +54,7 @@ class IconTest : ScreenshotBaseTest() {
     fun mirrored() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Icon(
-                imageVector = Icons.Outlined.Abc,
+                paintable = Icons.Outlined.Abc.asPaintable(),
                 contentDescription = "contentDescription",
                 rtlMode = IconRtlMode.Mirrored,
             )
@@ -64,7 +66,7 @@ class IconTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Icon(
-                    imageVector = Icons.Outlined.Abc,
+                    paintable = Icons.Outlined.Abc.asPaintable(),
                     contentDescription = "contentDescription",
                     rtlMode = IconRtlMode.Mirrored,
                 )
@@ -76,7 +78,7 @@ class IconTest : ScreenshotBaseTest() {
     fun autoMirroredLTR() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Icon(
-                imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+                paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
                 contentDescription = "contentDescription",
             )
         }
@@ -87,7 +89,7 @@ class IconTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+                    paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
                     contentDescription = "contentDescription",
                 )
             }
@@ -98,7 +100,7 @@ class IconTest : ScreenshotBaseTest() {
     fun usingDrawableResAsIcon() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Icon(
-                id = android.R.drawable.ic_media_play,
+                paintable = DrawableResPaintable(android.R.drawable.ic_media_play),
                 contentDescription = "contentDescription",
             )
         }
@@ -109,7 +111,7 @@ class IconTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Icon(
-                    id = android.R.drawable.ic_media_play,
+                    paintable = DrawableResPaintable(android.R.drawable.ic_media_play),
                     contentDescription = "contentDescription",
                 )
             }
@@ -120,7 +122,7 @@ class IconTest : ScreenshotBaseTest() {
     fun usingDrawableResAsIconMirrored() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             Icon(
-                id = android.R.drawable.ic_media_play,
+                paintable = DrawableResPaintable(android.R.drawable.ic_media_play),
                 contentDescription = "contentDescription",
                 rtlMode = IconRtlMode.Mirrored,
             )
@@ -132,7 +134,7 @@ class IconTest : ScreenshotBaseTest() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Icon(
-                    id = android.R.drawable.ic_media_play,
+                    paintable = DrawableResPaintable(android.R.drawable.ic_media_play),
                     contentDescription = "contentDescription",
                     rtlMode = IconRtlMode.Mirrored,
                 )

@@ -100,7 +100,6 @@ dependencies {
 
     implementation(libs.androidx.wear.tiles)
     implementation(libs.androidx.wear.tiles.renderer)
-    implementation(libs.coil)
 
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.androidx.wear.tooling.preview)

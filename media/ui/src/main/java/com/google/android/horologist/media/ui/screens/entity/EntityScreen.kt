@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.ui.screens.entity
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -41,8 +40,7 @@ public fun EntityScreen(
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier,
     ) {
         item {
             headerContent()

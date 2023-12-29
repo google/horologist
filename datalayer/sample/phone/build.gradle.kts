@@ -16,6 +16,8 @@
 
 plugins {
     id("com.android.application")
+    id("com.google.devtools.ksp")
+    id("dagger.hilt.android.plugin")
     kotlin("android")
 }
 
@@ -108,11 +110,19 @@ dependencies {
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.compose.material3)
     implementation(libs.playservices.wearable)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.service)
+    implementation(libs.androidx.navigation.compose)
+
+    implementation(libs.dagger.hiltandroid)
+    ksp(libs.dagger.hiltandroidcompiler)
+    implementation(libs.hilt.navigationcompose)
 
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
+
+    androidTestImplementation(libs.androidx.test.runner)
 }

@@ -68,7 +68,6 @@ fun ScrollAwayScreenScalingLazyColumn(
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = Modifier.fillMaxSize(),
     ) {
         items(3) { i ->
             ExampleCard(Modifier.fillParentMaxHeight(0.5f), i)

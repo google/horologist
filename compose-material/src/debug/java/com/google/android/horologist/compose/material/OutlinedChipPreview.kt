@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -60,7 +61,7 @@ fun OutlinedChipPreviewWithIcon() {
     OutlinedChip(
         label = "Primary label",
         onClick = { },
-        icon = Icons.Default.Image,
+        icon = ImageVectorPaintable(Icons.Default.Image),
     )
 }
 
@@ -74,7 +75,7 @@ fun OutlinedChipPreviewWithLargeIcon() {
     OutlinedChip(
         label = "Primary label",
         onClick = { },
-        icon = Icon32dp,
+        icon = ImageVectorPaintable(Icon32dp),
         largeIcon = true,
     )
 }
@@ -90,7 +91,7 @@ fun OutlinedChipPreviewWithSecondaryLabelAndIcon() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
+        icon = ImageVectorPaintable(Icons.Default.Image),
     )
 }
 
@@ -105,7 +106,7 @@ fun OutlinedChipPreviewWithSecondaryLabelAndLargeIcon() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icon32dp,
+        icon = ImageVectorPaintable(Icon32dp),
         largeIcon = true,
     )
 }
@@ -121,7 +122,7 @@ fun OutlinedChipPreviewDisabled() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
+        icon = ImageVectorPaintable(Icons.Default.Image),
         enabled = false,
     )
 }

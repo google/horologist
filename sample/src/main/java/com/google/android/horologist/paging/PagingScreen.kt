@@ -76,7 +76,7 @@ fun PagingScreen(
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
     ) {
         if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
             items(10) {

@@ -25,6 +25,35 @@ phone.
 
     For your watch and phone projects respectively.
 
+1.  Add the capability
+
+    Add a `wear.xml` file in the `res/values` folder with the following content:
+
+    ```xml
+    <resources xmlns:tools="http://schemas.android.com/tools"
+        tools:keep="@array/android_wear_capabilities">
+        <string-array name="android_wear_capabilities">
+            <item>data_layer_app_helper_device_watch</item>
+        </string-array>
+    </resources>
+    ```
+
+    and
+
+    ```xml
+    <resources xmlns:tools="http://schemas.android.com/tools"
+        tools:keep="@array/android_wear_capabilities">
+        <string-array name="android_wear_capabilities">
+            <item>data_layer_app_helper_device_phone</item>
+        </string-array>
+    </resources>
+    ```
+
+    On your watch and phone projects respectively.
+
+    For more details, see
+    [Specify capability names for detecting your apps](https://developer.android.com/training/wearables/apps/standalone-apps#capability-names).
+
 1.  Initialize the client, including passing a `WearDataLayerRegistry`.
 
     ```kotlin
@@ -68,6 +97,14 @@ phone.
                     seconds: 1680016845
                 }
             }
+            usage_info {
+                timestamp {
+                    nanos: 669000000
+                    seconds: 1701708501
+                }
+                usage_status: USAGE_STATUS_LAUNCHED_ONCE
+                usage_status_value: 1
+            }
     )
     ```
 
@@ -106,7 +143,6 @@ phone.
 
     ```kotlin
     val config = activityConfig { 
-        packageName = "com.example.myapp"
         classFullName = "com.example.myapp.MyActivity"
     }
     appHelper.startRemoteActivity(node.id, config)
@@ -120,10 +156,10 @@ phone.
     user the option to navigate to the companion app to install it:
 
     ```kotlin
-    if (node.installedTiles.isEmpty() && askUserAttempts < MAX_ATTEMPTS) {
+    if (node.surfacesInfo.tilesList.isEmpty() && askUserAttempts < MAX_ATTEMPTS) {
         // Show guidance to the user and then launch companion
         // to allow the to install the Tile.
-        val result = appHelper.startCompanion(nodeStatus.id)
+        val result = appHelper.startCompanion(node.id)
     }
     ```
 
@@ -159,14 +195,42 @@ phone.
     wearAppHelper.markComplicationAsDeactivated("GoalsComplication")
     ```
 
-3. **Tracking the main activity has been launched at least once** (Wear-only)
+1. **Tracking the main activity has been launched at least once** (Wear-only)
 
-   To determine if your main activity has been launched once, use: 
+   To mark that your main activity on the watch app has been launched once, use: 
 
-   ```kotlin
+    ```kotlin
     wearAppHelper.markActivityLaunchedOnce()
-    ```    
+    ```
 
+    To check it on the phone side, use:
 
+    ```kotlin
+    val connectedNodes = appHelper.connectedNodes()
+    // after picking a node, check if value is USAGE_STATUS_LAUNCHED_ONCE
+    node.surfacesInfo.usageInfo.usageStatus
+    ```
 
-    
+1.  **Tracking the app has been set up** (Wear-only)
+
+    To mark that the user has completed in the app the necessary setup steps such that it is ready 
+    for use, use the following:
+
+    ```kotlin
+    wearAppHelper.markSetupComplete()
+    ```
+
+    And when the app is no longer considered in a fully setup state, use the following:
+
+    ```kotlin
+    wearAppHelper.markSetupNoLongerComplete()
+    ```
+
+    To check it on the phone side, use:
+
+    ```kotlin
+    val connectedNodes = appHelper.connectedNodes()
+    // after picking a node, check if value is either USAGE_STATUS_LAUNCHED_ONCE
+    // or USAGE_STATUS_SETUP_COMPLETE
+    node.surfacesInfo.usageInfo.usageStatus
+    ```

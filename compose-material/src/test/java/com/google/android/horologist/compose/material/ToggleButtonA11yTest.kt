@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
@@ -40,8 +41,8 @@ class ToggleButtonA11yTest :
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
-                    checkedIcon = Icons.Filled.AirplanemodeActive,
-                    notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
                 )
@@ -54,8 +55,8 @@ class ToggleButtonA11yTest :
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
-                    checkedIcon = Icons.Filled.AirplanemodeActive,
-                    notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
                     checked = false,
@@ -69,8 +70,8 @@ class ToggleButtonA11yTest :
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
-                    checkedIcon = Icons.Filled.AirplanemodeActive,
-                    notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
                     enabled = false,
@@ -84,8 +85,8 @@ class ToggleButtonA11yTest :
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
-                    checkedIcon = Icons.Filled.AirplanemodeActive,
-                    notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
                     checked = false,
@@ -112,8 +113,8 @@ class ToggleButtonA11yTest :
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 ToggleButton(
-                    checkedIcon = Icons.Filled.AirplanemodeActive,
-                    notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
                     contentDescription = "contentDescription",
                     onCheckedChanged = {},
                     colors = ToggleButtonDefaults.iconOnlyColors(),

@@ -20,13 +20,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.LineBreak
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.base.paintable.Paintable
 
 /**
  * A [Chip] to display the [AccountUiModel]'s email address and avatar.
@@ -38,9 +39,8 @@ public fun AccountChip(
     account: AccountUiModel,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    defaultAvatar: Any? = Icons.Default.AccountCircle,
+    defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
     largeAvatar: Boolean = true,
-    placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
 ) {
@@ -51,7 +51,6 @@ public fun AccountChip(
         avatar = account.avatar,
         defaultAvatar = defaultAvatar,
         largeAvatar = largeAvatar,
-        placeholder = placeholder,
         colors = colors,
         enabled = enabled,
     )
@@ -67,10 +66,9 @@ public fun AccountChip(
     email: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    avatar: Any? = null,
-    defaultAvatar: Any? = Icons.Default.AccountCircle,
+    avatar: Paintable? = null,
+    defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
     largeAvatar: Boolean = true,
-    placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
 ) {
@@ -91,7 +89,6 @@ public fun AccountChip(
             modifier = modifier,
             icon = avatar ?: defaultAvatar,
             largeIcon = largeAvatar,
-            placeholder = placeholder,
             colors = colors,
             enabled = enabled,
         )

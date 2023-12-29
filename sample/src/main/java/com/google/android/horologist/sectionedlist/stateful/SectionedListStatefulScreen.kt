@@ -54,6 +54,7 @@ import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.Recommendation
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.RecommendationSectionState
@@ -93,7 +94,7 @@ private fun SectionedListScope.topMenuSection() {
             Chip(
                 label = stringResource(stringResId),
                 onClick = { },
-                icon = icon,
+                icon = icon.asPaintable(),
                 colors = ChipDefaults.secondaryChipColors(),
             )
         }
@@ -126,7 +127,7 @@ private fun SectionedListScope.recommendationsSection(
             Chip(
                 label = recommendation.playlistName,
                 onClick = { },
-                icon = recommendation.icon,
+                icon = recommendation.icon.asPaintable(),
                 colors = ChipDefaults.secondaryChipColors(),
             )
         }
@@ -178,7 +179,7 @@ private fun SectionedListScope.trendingSection(
                 label = trending.name,
                 onClick = { },
                 secondaryLabel = trending.artist,
-                icon = Icons.Default.MusicNote,
+                icon = Icons.Default.MusicNote.asPaintable(),
                 colors = ChipDefaults.secondaryChipColors(),
             )
         }
@@ -211,7 +212,7 @@ private fun SectionedListScope.bottomMenuSection() {
             Chip(
                 label = stringResource(R.string.sectionedlist_settings_button),
                 onClick = { },
-                icon = Icons.Default.Settings,
+                icon = Icons.Default.Settings.asPaintable(),
                 colors = ChipDefaults.secondaryChipColors(),
             )
         }

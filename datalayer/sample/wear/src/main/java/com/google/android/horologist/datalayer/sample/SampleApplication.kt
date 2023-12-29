@@ -18,25 +18,14 @@ package com.google.android.horologist.datalayer.sample
 
 import android.app.Application
 import android.os.StrictMode
-import com.google.android.horologist.data.WearDataLayerRegistry
-import com.google.android.horologist.datalayer.sample.di.SampleAppDI
-import com.google.android.horologist.datalayer.sample.shared.grpc.CounterServiceGrpcKt
-import com.google.android.horologist.datalayer.sample.shared.grpc.GrpcDemoProto
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class SampleApplication : Application() {
-    lateinit var counterFlow: Flow<GrpcDemoProto.CounterValue>
-    lateinit var counterService: CounterServiceGrpcKt.CounterServiceCoroutineStub
-    lateinit var registry: WearDataLayerRegistry
-    lateinit var servicesCoroutineScope: CoroutineScope
-
     override fun onCreate() {
         super.onCreate()
 
         setStrictMode()
-
-        SampleAppDI.inject(this)
     }
 
     private fun setStrictMode() {

@@ -103,18 +103,6 @@
                 android:name="androidx.wear.tiles.PREVIEW"
                 android:resource="@drawable/sample_tile" />
         </service>
-
-        <service
-            android:name="com.google.android.horologist.datalayer.SampleDataService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
-                <data
-                    android:host="*"
-                    android:pathPrefix="/proto/"
-                    android:scheme="wear" />
-            </intent-filter>
-        </service>
     </application>
 
 </manifest>

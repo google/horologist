@@ -19,10 +19,14 @@
 
 package com.google.android.horologist.compose.layout
 
+import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.gestures.FlingBehavior
+import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.gestures.ScrollableDefaults
+import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -58,7 +62,7 @@ public class ScalingLazyColumnState(
     ),
     public val anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
     public val contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-    public val rotaryMode: RotaryMode = RotaryMode.Scroll,
+    public val rotaryMode: RotaryMode? = RotaryMode.Scroll,
     public val reverseLayout: Boolean = false,
     public val verticalArrangement: Arrangement.Vertical =
         Arrangement.spacedBy(
@@ -70,7 +74,7 @@ public class ScalingLazyColumnState(
     public val userScrollEnabled: Boolean = true,
     public val scalingParams: ScalingParams = WearScalingLazyColumnDefaults.scalingParams(),
     public val hapticsEnabled: Boolean = true,
-) {
+) : ScrollableState {
     private var _state: ScalingLazyListState? = null
     public var state: ScalingLazyListState
         get() {
@@ -85,6 +89,21 @@ public class ScalingLazyColumnState(
         set(value) {
             _state = value
         }
+
+    override val canScrollBackward: Boolean
+        get() = state.canScrollBackward
+    override val canScrollForward: Boolean
+        get() = state.canScrollForward
+    override val isScrollInProgress: Boolean
+        get() = state.isScrollInProgress
+    override fun dispatchRawDelta(delta: Float): Float = state.dispatchRawDelta(delta)
+
+    override suspend fun scroll(
+        scrollPriority: MutatePriority,
+        block: suspend ScrollScope.() -> Unit,
+    ) {
+        state.scroll(scrollPriority, block)
+    }
 
     public sealed interface RotaryMode {
         public object Snap : RotaryMode
@@ -135,6 +154,8 @@ public fun ScalingLazyColumn(
     } else {
         rememberDisabledHaptic()
     }
+
+    @Suppress("DEPRECATION")
     val modifierWithRotary = when (columnState.rotaryMode) {
         RotaryMode.Snap -> modifier.rotaryWithSnap(
             focusRequester = focusRequester,
@@ -143,16 +164,18 @@ public fun ScalingLazyColumn(
             rotaryHaptics = rotaryHaptics,
         )
 
-        else -> modifier.rotaryWithScroll(
+        RotaryMode.Scroll, RotaryMode.Fling -> modifier.rotaryWithScroll(
             focusRequester = focusRequester,
             scrollableState = columnState.state,
             reverseDirection = columnState.reverseLayout,
             rotaryHaptics = rotaryHaptics,
         )
+
+        else -> modifier
     }
 
     ScalingLazyColumn(
-        modifier = modifierWithRotary,
+        modifier = modifierWithRotary.fillMaxSize(),
         state = columnState.state,
         contentPadding = columnState.contentPadding,
         reverseLayout = columnState.reverseLayout,

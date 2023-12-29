@@ -64,13 +64,14 @@ public abstract class DataLayerAppHelperService : WearableListenerService() {
     }
 
     /**
-     * Attempts to launch an activity on the device.
+     * Attempts to launch an activity, which belongs to the same app (same package name), on this
+     * device.
      */
     private fun launchActivity(activityConfig: ActivityConfig): AppHelperResultCode {
         try {
             val intent = Intent().apply {
-                setPackage(activityConfig.packageName)
-                setClassName(activityConfig.packageName, activityConfig.classFullName)
+                setPackage(packageName)
+                setClassName(packageName, activityConfig.classFullName)
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
             }
             wakeDeviceAndStartActivity(intent)

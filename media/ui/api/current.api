@@ -45,7 +45,7 @@ package com.google.android.horologist.media.ui.components {
   }
 
   public final class CustomActionMediaButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CustomActionMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, String contentDescription, String iconUri, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize, optional androidx.compose.ui.Alignment.Horizontal iconAlign);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CustomActionMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, String contentDescription, com.google.android.horologist.images.base.paintable.Paintable icon, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize, optional androidx.compose.ui.Alignment.Horizontal iconAlign);
   }
 
   public final class EntityButtonKt {
@@ -54,12 +54,12 @@ package com.google.android.horologist.media.ui.components {
 
   public final class MediaArtworkKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaArtwork(com.google.android.horologist.media.ui.state.model.MediaUiModel media, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaArtwork(Object? artworkUri, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaArtwork(com.google.android.horologist.images.base.paintable.Paintable artworkPaintable, String? contentDescription, optional androidx.compose.ui.Modifier modifier);
   }
 
   public final class MediaChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaChip(com.google.android.horologist.media.ui.state.model.MediaUiModel media, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String defaultTitle, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaChip(String title, Object? artworkUri, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaChip(String title, com.google.android.horologist.images.base.paintable.Paintable? artworkPaintable, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier);
   }
 
   public final class MediaControlButtonsKt {
@@ -87,7 +87,7 @@ package com.google.android.horologist.media.ui.components {
 package com.google.android.horologist.media.ui.components.actions {
 
   public final class ShowPlaylistChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ShowPlaylistChip(Object? artworkUri, String? name, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ShowPlaylistChip(com.google.android.horologist.images.base.paintable.Paintable? artworkPaintable, String? name, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier);
   }
 
 }
@@ -125,7 +125,7 @@ package com.google.android.horologist.media.ui.components.animated {
   }
 
   public final class MarqueeTextMediaDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MarqueeTextMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? title, optional String? artist, optional int enterTransitionDelay, optional int subtextTransitionDelay, optional @FloatRange(from=0.0, to=1.0) float transitionLength);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MarqueeTextMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? title, optional String? artist, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon, optional int enterTransitionDelay, optional int subtextTransitionDelay, optional @FloatRange(from=0.0, to=1.0) float transitionLength);
   }
 
 }
@@ -133,9 +133,8 @@ package com.google.android.horologist.media.ui.components.animated {
 package com.google.android.horologist.media.ui.components.background {
 
   public final class ArtworkColorBackgroundKt {
-    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ArtworkColorBackground(Object? artworkUri, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.Color? defaultColor, optional long background);
-    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ColorBackground(androidx.compose.ui.graphics.Color? color, optional androidx.compose.ui.Modifier modifier, optional long background);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.runtime.State<androidx.compose.ui.graphics.Color> rememberArtworkColor(Object? artworkUri, optional long defaultColor);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ArtworkColorBackground(String? artworkUri, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.Color? defaultColor, optional long background);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ColorBackground(androidx.compose.ui.graphics.Color? color, optional androidx.compose.ui.Modifier modifier, optional long background);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.runtime.State<androidx.compose.ui.graphics.Brush> rememberArtworkColorBrush(long artworkColor, optional long background);
   }
 
@@ -231,7 +230,7 @@ package com.google.android.horologist.media.ui.components.display {
   }
 
   public final class TextMediaDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void TextMediaDisplay(String title, String subtitle, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void TextMediaDisplay(String title, String subtitle, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon, optional androidx.compose.ui.Modifier modifier);
   }
 
   public final class TrackMediaDisplayKt {
@@ -254,7 +253,7 @@ package com.google.android.horologist.media.ui.navigation {
   }
 
   public final class MediaPlayerScaffoldKt {
-    method @androidx.compose.runtime.Composable public static void MediaPlayerScaffold(com.google.android.horologist.media.ui.snackbar.SnackbarViewModel snackbarViewModel, com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, kotlin.jvm.functions.Function0<kotlin.Unit> playerScreen, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.layout.ScalingLazyColumnState,kotlin.Unit> libraryScreen, kotlin.jvm.functions.Function3<? super java.lang.String,? super java.lang.String,? super com.google.android.horologist.compose.layout.ScalingLazyColumnState,kotlin.Unit> categoryEntityScreen, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.layout.ScalingLazyColumnState,kotlin.Unit> mediaEntityScreen, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.layout.ScalingLazyColumnState,kotlin.Unit> playlistsScreen, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.layout.ScalingLazyColumnState,kotlin.Unit> settingsScreen, String deepLinkPrefix, androidx.navigation.NavHostController navController, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> volumeScreen, optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.Modifier,kotlin.Unit> timeText, optional androidx.wear.compose.navigation.SwipeDismissableNavHostState navHostState, optional kotlin.jvm.functions.Function1<? super androidx.navigation.NavGraphBuilder,kotlin.Unit> additionalNavRoutes);
+    method @androidx.compose.runtime.Composable public static void MediaPlayerScaffold(com.google.android.horologist.media.ui.snackbar.SnackbarViewModel snackbarViewModel, com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, kotlin.jvm.functions.Function0<kotlin.Unit> playerScreen, kotlin.jvm.functions.Function0<kotlin.Unit> libraryScreen, kotlin.jvm.functions.Function2<? super java.lang.String,? super java.lang.String,kotlin.Unit> categoryEntityScreen, kotlin.jvm.functions.Function0<kotlin.Unit> mediaEntityScreen, kotlin.jvm.functions.Function0<kotlin.Unit> playlistsScreen, kotlin.jvm.functions.Function0<kotlin.Unit> settingsScreen, String deepLinkPrefix, androidx.navigation.NavHostController navController, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> volumeScreen, optional kotlin.jvm.functions.Function0<kotlin.Unit> timeText, optional androidx.wear.compose.navigation.SwipeDismissableNavHostState navHostState, optional kotlin.jvm.functions.Function1<? super androidx.navigation.NavGraphBuilder,kotlin.Unit> additionalNavRoutes);
   }
 
   public class NavigationScreens {
@@ -480,7 +479,7 @@ package com.google.android.horologist.media.ui.screens.player {
 package com.google.android.horologist.media.ui.screens.playerlibrarypager {
 
   public final class PlayerLibraryPagerScreenKt {
-    method @androidx.compose.runtime.Composable public static void PlayerLibraryPagerScreen(androidx.compose.foundation.pager.PagerState pagerState, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState, kotlinx.coroutines.flow.Flow<kotlin.Unit> displayVolumeIndicatorEvents, kotlin.jvm.functions.Function1<? super androidx.compose.ui.Modifier,kotlin.Unit> timeText, kotlin.jvm.functions.Function0<kotlin.Unit> playerScreen, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.layout.ScalingLazyColumnState,kotlin.Unit> libraryScreen, androidx.navigation.NavBackStackEntry backStack, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable public static void PlayerLibraryPagerScreen(androidx.compose.foundation.pager.PagerState pagerState, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState, kotlinx.coroutines.flow.Flow<kotlin.Unit> displayVolumeIndicatorEvents, kotlin.jvm.functions.Function0<kotlin.Unit> playerScreen, kotlin.jvm.functions.Function0<kotlin.Unit> libraryScreen, androidx.navigation.NavBackStackEntry backStack, optional androidx.compose.ui.Modifier modifier);
   }
 
 }
@@ -770,25 +769,28 @@ package com.google.android.horologist.media.ui.state.model {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaUiModel {
-    ctor public MediaUiModel(String id, String title, optional String subtitle, optional String? artworkUri, optional androidx.compose.ui.graphics.Color? artworkColor);
+    ctor public MediaUiModel(String id, String title, optional String subtitle, optional String? artworkUri, optional androidx.compose.ui.graphics.Color? artworkColor, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon);
     method public String component1();
     method public String component2();
     method public String component3();
     method public String? component4();
     method public androidx.compose.ui.graphics.Color? component5-QN2ZGVo();
-    method public com.google.android.horologist.media.ui.state.model.MediaUiModel copy-6nskv5g(String id, String title, String subtitle, String? artworkUri, androidx.compose.ui.graphics.Color? artworkColor);
+    method public com.google.android.horologist.images.base.paintable.Paintable? component6();
+    method public com.google.android.horologist.media.ui.state.model.MediaUiModel copy-gCxFOHY(String id, String title, String subtitle, String? artworkUri, androidx.compose.ui.graphics.Color? artworkColor, com.google.android.horologist.images.base.paintable.Paintable? titleIcon);
     method public androidx.compose.ui.graphics.Color? getArtworkColor();
     method public String? getArtworkUri();
     method public String getId();
     method public boolean getLoading();
     method public String getSubtitle();
     method public String getTitle();
+    method public com.google.android.horologist.images.base.paintable.Paintable? getTitleIcon();
     property public final androidx.compose.ui.graphics.Color? artworkColor;
     property public final String? artworkUri;
     property public final String id;
     property public final boolean loading;
     property public final String subtitle;
     property public final String title;
+    property public final com.google.android.horologist.images.base.paintable.Paintable? titleIcon;
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract sealed class PlaylistDownloadUiModel {

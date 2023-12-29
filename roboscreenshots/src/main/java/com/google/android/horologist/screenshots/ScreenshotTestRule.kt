@@ -18,7 +18,6 @@
 
 package com.google.android.horologist.screenshots
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -34,7 +33,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -49,10 +47,10 @@ import androidx.core.graphics.applyCanvas
 import androidx.test.core.app.ApplicationProvider
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
-import coil.compose.LocalImageLoader
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.RobolectricTempHelpers.capture
+import com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode.Companion.defaultRecordMode
 import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import com.quickbird.snapshot.Diffing
 import com.quickbird.snapshot.FileSnapshotting
@@ -247,19 +245,6 @@ public class ScreenshotTestRule(
         return testClassInfoRule.methodName + label + suffix
     }
 
-    @SuppressLint("ComposableNaming")
-    @Suppress("DEPRECATION")
-    @Composable
-    private fun FakeImageLoader.apply(content: @Composable () -> Unit) {
-        // Not sure why this is needed, but Coil has improved
-        // test support in next release
-        this.override {
-            CompositionLocalProvider(LocalImageLoader provides this) {
-                content()
-            }
-        }
-    }
-
     @Composable
     private fun ScreenshotDefaults(
         fakeImageLoader: FakeImageLoader,
@@ -335,7 +320,8 @@ public class ScreenshotTestRule(
             public var enableA11y: Boolean = false
             public var screenTimeText: @Composable () -> Unit = defaultScreenTimeText()
             public var testLabel: String? = null
-            public var record: RecordMode = RecordMode.fromProperty(System.getProperty("screenshot.record"))
+            public var record: RecordMode = defaultRecordMode()
+
             public var clipMode: ClipMode = ClipMode.Auto
 
             public fun build(): ScreenshotTestRuleParams {
@@ -365,6 +351,10 @@ public class ScreenshotTestRule(
                 "repair" -> Repair
                 else -> Test
             }
+
+            public fun defaultRecordMode(): RecordMode = RecordMode.fromProperty(
+                System.getProperty("screenshot.record"),
+            )
         }
     }
 

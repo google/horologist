@@ -60,12 +60,10 @@ internal class ProgressStateHolder(
     }
 
     suspend fun predictProgress(predictor: (Long) -> Float) = coroutineScope {
-        val timestamp = timestampProvider.getTimestamp()
-        val initialFrameTime = withFrameMillis { it }
+        val initialFrameTime = withFrameMillis { timestampProvider.getTimestamp() - it }
         do {
             withFrameMillis {
-                val frameTimeOffset = it - initialFrameTime
-                actual.value = predictor(timestamp + frameTimeOffset)
+                actual.value = predictor(initialFrameTime + it)
             }
         } while (isActive)
     }

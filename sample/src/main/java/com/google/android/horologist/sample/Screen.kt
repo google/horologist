@@ -31,6 +31,20 @@ sealed class Screen(
     object TimeWithoutSecondsPicker : Screen("timeWithoutSecondsPicker")
     object Network : Screen("network")
 
+    object MaterialButtonsScreen : Screen("materialButtonsScreen")
+    object MaterialChipsScreen : Screen("materialChipsScreen")
+    object MaterialChipIconWithProgressScreen : Screen("materialChipIconWithProgressScreen")
+    object MaterialCompactChipsScreen : Screen("materialCompactChips")
+    object MaterialConfirmationScreen : Screen("materialConfirmationScreen")
+    object MaterialIconScreen : Screen("materialIconScreen")
+    object MaterialOutlinedChipScreen : Screen("materialOutlinedChipScreen")
+    object MaterialOutlinedCompactChipScreen : Screen("materialOutlinedCompactChipScreen")
+    object MaterialSplitToggleChipScreen : Screen("materialSplitToggleChipScreen")
+    object MaterialStepperScreen : Screen("materialStepperScreen")
+    object MaterialTitleScreen : Screen("materialTitleScreen")
+    object MaterialToggleButtonScreen : Screen("materialToggleButtonScreen")
+    object MaterialToggleChipScreen : Screen("materialToggleChipScreen")
+
     object DataLayerNodes : Screen("nodes")
 
     object SectionedListMenuScreen : Screen("sectionedListMenuScreen")

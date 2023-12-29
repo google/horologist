@@ -46,6 +46,7 @@ import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.compose.material.IconRtlMode
 import com.google.android.horologist.compose.rotaryinput.RotaryDefaults.isLowResInput
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 /**
  * Volume Screen with an [InlineSlider] and Increase/Decrease buttons for the Audio Stream Volume.
@@ -115,7 +116,7 @@ public fun VolumeScreen(
                 deviceName = audioOutputUi.displayName,
                 icon = {
                     Icon(
-                        imageVector = audioOutputUi.imageVector,
+                        paintable = audioOutputUi.imageVector.asPaintable(),
                         contentDescription = audioOutputUi.displayName,
                         tint = MaterialTheme.colors.onSurfaceVariant,
                     )
@@ -207,7 +208,7 @@ public object VolumeScreenDefaults {
     public fun IncreaseIcon() {
         Icon(
             modifier = Modifier.size(26.dp),
-            imageVector = Icons.AutoMirrored.Outlined.VolumeUp,
+            paintable = Icons.AutoMirrored.Outlined.VolumeUp.asPaintable(),
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description),
             rtlMode = IconRtlMode.Mirrored,
         )
@@ -217,7 +218,7 @@ public object VolumeScreenDefaults {
     public fun DecreaseIcon() {
         Icon(
             modifier = Modifier.size(26.dp),
-            imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+            paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description),
             rtlMode = IconRtlMode.Mirrored,
         )

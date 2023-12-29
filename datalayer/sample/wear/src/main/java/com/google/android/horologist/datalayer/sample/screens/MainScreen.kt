@@ -41,22 +41,23 @@ fun MainScreen(
         columnState = columnState,
         modifier = modifier.fillMaxSize(),
     ) {
-        dataLayerSection(navigateToRoute)
+        appHelpersSection(navigateToRoute)
+
+        generalSection(navigateToRoute)
     }
 }
 
-private fun SectionedListScope.dataLayerSection(navigateToRoute: (String) -> Unit) {
+private fun SectionedListScope.appHelpersSection(navigateToRoute: (String) -> Unit) {
     section(
         listOf(
-            Pair(
-                R.string.main_menu_datalayer_item,
-                Screen.DataLayerScreen.route,
-            ),
+            Pair(R.string.main_menu_apphelpers_tracking_item, Screen.AppHelperTrackingScreen.route),
+            Pair(R.string.main_menu_apphelpers_nodes_actions_item, Screen.AppHelperNodesActionsScreen.route),
         ),
     ) {
         header {
-            Title(stringResource(id = R.string.main_menu_datalayer_header))
+            Title(stringResource(id = R.string.main_menu_apphelpers_header))
         }
+
         loaded { (textId, route) ->
             Chip(
                 label = stringResource(id = textId),
@@ -67,7 +68,27 @@ private fun SectionedListScope.dataLayerSection(navigateToRoute: (String) -> Uni
     }
 }
 
-@Suppress("unused")
+private fun SectionedListScope.generalSection(navigateToRoute: (String) -> Unit) {
+    section(
+        listOf(
+            Pair(R.string.main_menu_datalayer_counter_item, Screen.CounterScreen.route),
+            Pair(R.string.main_menu_datalayer_nodes_item, Screen.ListNodesScreen.route),
+        ),
+    ) {
+        header {
+            Title(stringResource(id = R.string.main_menu_datalayer_header))
+        }
+
+        loaded { (textId, route) ->
+            Chip(
+                label = stringResource(id = textId),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(route) },
+            )
+        }
+    }
+}
+
 @WearPreviewDevices
 @Composable
 fun MainScreenPreview() {

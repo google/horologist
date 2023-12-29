@@ -19,7 +19,9 @@
         name="android_wear_capabilities"
         translatable="false"
         tools:ignore="UnusedResources">
-        <!-- declaring the provided capabilities -->
+        <!-- Used to indicate that the app is installed on this device -->
+        <item>data_layer_app_helper_device_phone</item>
+        <!-- Used to indicate the device is a phone -->
         <item>horologist_phone</item>
     </string-array>
 </resources>

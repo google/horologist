@@ -23,12 +23,13 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.android.horologist.compose.tools.WearPreview
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @WearPreview
 @Composable
 fun IconPreview() {
     Icon(
-        imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+        paintable = ImageVectorPaintable(Icons.AutoMirrored.Outlined.VolumeDown),
         contentDescription = "contentDescription",
     )
 }
@@ -38,7 +39,7 @@ fun IconPreview() {
 fun IconPreviewMirrored() {
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         Icon(
-            imageVector = Icons.AutoMirrored.Outlined.VolumeDown,
+            paintable = ImageVectorPaintable(Icons.AutoMirrored.Outlined.VolumeDown),
             contentDescription = "contentDescription",
             rtlMode = IconRtlMode.Mirrored,
         )

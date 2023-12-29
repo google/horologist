@@ -27,12 +27,12 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -41,7 +41,9 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.MarqueeText
+import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.images.base.paintable.Paintable
+import com.google.android.horologist.images.base.paintable.PaintableIcon
 import kotlin.math.roundToInt
 
 /**
@@ -78,12 +80,21 @@ public fun MarqueeTextMediaDisplay(
                 text = currentTitle.orEmpty(),
                 iconSlot = titleIcon?.let {
                     {
-                        Image(
-                            painter = it.rememberPainter(),
-                            contentDescription = null,
-                            colorFilter = ColorFilter.tint(MaterialTheme.colors.onBackground),
-                            contentScale = ContentScale.FillHeight,
-                        )
+                        if (it is PaintableIcon) {
+                            Icon(
+                                modifier = Modifier.fillMaxSize(),
+                                paintable = it,
+                                contentDescription = null,
+                                tint = MaterialTheme.colors.onBackground,
+                            )
+                        } else {
+                            Image(
+                                modifier = Modifier.fillMaxSize(),
+                                painter = it.rememberPainter(),
+                                contentDescription = null,
+                                contentScale = ContentScale.FillHeight,
+                            )
+                        }
                     }
                 },
                 modifier = Modifier

@@ -45,6 +45,7 @@ import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.compose.material.IconRtlMode
+import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.compose.rotaryinput.RotaryDefaults.isLowResInput
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
@@ -117,7 +118,7 @@ public fun VolumeScreen(
                 icon = {
                     Icon(
                         paintable = audioOutputUi.imageVector.asPaintable(),
-                        contentDescription = null,
+                        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                         tint = MaterialTheme.colors.onSurfaceVariant,
                     )
                 },

@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -1525,7 +1525,6 @@ a one step option to launch installation:</p>
 <p>In addition to launching your own app, you may wish to launch a different
 activity as part of the user journey:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activityConfig</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-<span class="w">    </span><span class="n">packageName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;com.example.myapp&quot;</span>
 <span class="w">    </span><span class="n">classFullName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;com.example.myapp.MyActivity&quot;</span>
 <span class="p">}</span>
 <span class="n">appHelper</span><span class="p">.</span><span class="na">startRemoteActivity</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">id</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">)</span>
@@ -1576,7 +1575,7 @@ To check it on the phone side, use:
 
 ```kotlin
 val connectedNodes = appHelper.connectedNodes()
-// after picking a node, check if value is USAGE_STATUS_LAUNCHED_ONCE:
+// after picking a node, check if value is USAGE_STATUS_LAUNCHED_ONCE
 node.surfacesInfo.usageInfo.usageStatus
 ```
 </code></pre></div>

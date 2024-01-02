@@ -62,7 +62,7 @@
   <div class="breadcrumbs"><a href="../../index.html">auth-ui</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.auth.ui.common.screens.prompt</a><span class="delimiter">/</span><span class="current">SignInPromptViewModel</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Sign</span><wbr><span>In</span><wbr><span>Prompt</span><wbr><span>View</span><wbr><span><span>Model</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">SignInPromptViewModel</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">authUserRepository<span class="token operator">: </span><a href="../../../../auth/data/com.google.android.horologist.auth.data.common.repository/-auth-user-repository/index.html">AuthUserRepository</a></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/androidx/lifecycle/ViewModel.html">ViewModel</a></div><p class="paragraph">A view model for a sign-in prompt screen.</p><p class="paragraph">It checks if there is a user already signed in, and emits the appropriate <a href="../-sign-in-prompt-screen-state/index.html">states</a> through the <a href="ui-state.html">uiState</a> property.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import androidx.compose.runtime.Composable
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">SignInPromptViewModel</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">authUserRepository<span class="token operator">: </span><a href="../../../../auth/data/com.google.android.horologist.auth.data.common.repository/-auth-user-repository/index.html">AuthUserRepository</a></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/ViewModel.html">ViewModel</a></div><p class="paragraph">A view model for a sign-in prompt screen.</p><p class="paragraph">It checks if there is a user already signed in, and emits the appropriate <a href="../-sign-in-prompt-screen-state/index.html">states</a> through the <a href="ui-state.html">uiState</a> property.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -131,146 +131,6 @@ if (showAlreadySignedInDialog) {
     }
 } 
    //sampleEnd
-}</code></pre></div><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.horologist.auth.composables.chips.GuestModeChip
-import com.google.android.horologist.auth.composables.chips.SignInChip
-import com.google.android.horologist.auth.sample.R
-import com.google.android.horologist.auth.sample.Screen
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.material.Confirmation
-fun main() { 
-   //sampleStart 
-   var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
-
-SignInPromptScreen(
-    message = stringResource(id = R.string.device_grant_sign_in_prompt_message),
-    onAlreadySignedIn = {
-        showAlreadySignedInDialog = true
-    },
-    columnState = columnState,
-    modifier = modifier,
-    viewModel = viewModel,
-) {
-    item {
-        SignInChip(
-            onClick = {
-                navController.navigate(Screen.DeviceGrantSignInScreen.route) {
-                    popUpTo(Screen.MainScreen.route)
-                }
-            },
-            colors = ChipDefaults.secondaryChipColors(),
-        )
-    }
-    item {
-        GuestModeChip(
-            onClick = navController::popBackStack,
-            colors = ChipDefaults.secondaryChipColors(),
-        )
-    }
-}
-
-if (showAlreadySignedInDialog) {
-    Confirmation(
-        onTimeout = {
-            showAlreadySignedInDialog = false
-            navController.popBackStack()
-        },
-    ) {
-        Text(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-            text = stringResource(id = R.string.device_grant_sign_in_prompt_already_signed_in_message),
-        )
-    }
-} 
-   //sampleEnd
-}</code></pre></div><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.horologist.auth.composables.chips.GuestModeChip
-import com.google.android.horologist.auth.composables.chips.SignInChip
-import com.google.android.horologist.auth.sample.R
-import com.google.android.horologist.auth.sample.Screen
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.material.Confirmation
-fun main() { 
-   //sampleStart 
-   var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
-
-SignInPromptScreen(
-    message = stringResource(id = R.string.pkce_sign_in_prompt_message),
-    onAlreadySignedIn = {
-        showAlreadySignedInDialog = true
-    },
-    columnState = columnState,
-    modifier = modifier,
-    viewModel = viewModel,
-) {
-    item {
-        SignInChip(
-            onClick = {
-                navController.navigate(Screen.PKCESignInScreen.route) {
-                    popUpTo(Screen.MainScreen.route)
-                }
-            },
-            colors = ChipDefaults.secondaryChipColors(),
-        )
-    }
-    item {
-        GuestModeChip(
-            onClick = navController::popBackStack,
-            colors = ChipDefaults.secondaryChipColors(),
-        )
-    }
-}
-
-if (showAlreadySignedInDialog) {
-    Confirmation(
-        onTimeout = {
-            showAlreadySignedInDialog = false
-            navController.popBackStack()
-        },
-    ) {
-        Text(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-            text = stringResource(id = R.string.pkce_sign_in_prompt_already_signed_in_message),
-        )
-    }
-} 
-   //sampleEnd
 }</code></pre></div></div></div>
   </div>
   <div class="tabbedcontent">
@@ -320,13 +180,13 @@ if (showAlreadySignedInDialog) {
           <div class="table-row" data-filterable-current=":auth:ui:dokkaHtmlPartial/release" data-filterable-set=":auth:ui:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="../../com.google.android.horologist.auth.ui.oauth.pkce.signin/-p-k-c-e-sign-in-view-model/index.html#264516373%2FFunctions%2F-585161985"><span>add</span><wbr><span><span>Closeable</span></span></a></div>
+                  <div><a href="../../com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-view-model/index.html#264516373%2FFunctions%2F-585161985"><span>add</span><wbr><span><span>Closeable</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="264516373%2FFunctions%2F-585161985"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../com.google.android.horologist.auth.ui.oauth.pkce.signin/-p-k-c-e-sign-in-view-model/index.html#264516373%2FFunctions%2F-585161985"><span class="token function">addCloseable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/androidx/annotation/NonNull.html"><span class="token annotation builtin">NonNull</span></a>&nbsp;</span>p0<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/io/Closeable.html">Closeable</a></span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-view-model/index.html#264516373%2FFunctions%2F-585161985"><span class="token function">addCloseable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/NonNull.html"><span class="token annotation builtin">NonNull</span></a>&nbsp;</span>p0<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/io/Closeable.html">Closeable</a></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -352,7 +212,7 @@ if (showAlreadySignedInDialog) {
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
             </div>
         </div>

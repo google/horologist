@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -462,39 +462,6 @@
   <a href="#googlesigninscreen" class="md-nav__link">
     <span class="md-ellipsis">
       GoogleSignInScreen
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oauth" class="md-nav__link">
-    <span class="md-ellipsis">
-      OAuth
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="OAuth">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pkcesigninscreen" class="md-nav__link">
-    <span class="md-ellipsis">
-      PKCESignInScreen
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#devicegrantsigninscreen" class="md-nav__link">
-    <span class="md-ellipsis">
-      DeviceGrantSignInScreen
     </span>
   </a>
   
@@ -1508,39 +1475,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#oauth" class="md-nav__link">
-    <span class="md-ellipsis">
-      OAuth
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="OAuth">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pkcesigninscreen" class="md-nav__link">
-    <span class="md-ellipsis">
-      PKCESignInScreen
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#devicegrantsigninscreen" class="md-nav__link">
-    <span class="md-ellipsis">
-      DeviceGrantSignInScreen
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1608,63 +1542,6 @@ the <a href="https://developers.google.com/identity/sign-in/android/start">Googl
 library for authentication and account selection. So an instance
 of <a href="https://developers.google.com/android/reference/com/google/android/gms/auth/api/signin/GoogleSignInClient">GoogleSignInClient</a>
 has to be provided to <code>GoogleSignInViewModel</code>.</p>
-<h3 id="oauth">OAuth<a class="headerlink" href="#oauth" title="Permanent link">&para;</a></h3>
-<h4 id="pkcesigninscreen"><a href="https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.oauth.pkce.signin/-p-k-c-e-sign-in-screen.html">PKCESignInScreen</a><a class="headerlink" href="#pkcesigninscreen" title="Permanent link">&para;</a></h4>
-<p>A screen for
-the <a href="https://developer.android.com/training/wearables/apps/auth-wear#pkce">OAuth (PKCE)</a>
-authentication method.</p>
-<p>It uses different screens from <a href="../auth-composables/">auth-composables</a> to display the full
-authentication flow.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" ></th>
-<th style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/check_your_phone_screen.png" height="120" width="120" ></th>
-<th style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" ></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>A implementation for the following repositories are required to be provided:</p>
-<ul>
-<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-config-repository/index.html">PKCEConfigRepository</a></li>
-<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-o-auth-code-repository/index.html">PKCEOAuthCodeRepository</a></li>
-<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-token-repository/index.html">PKCETokenRepository</a></li>
-</ul>
-<h4 id="devicegrantsigninscreen"><a href="https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.oauth.devicegrant.signin/-device-grant-sign-in-screen.html">DeviceGrantSignInScreen</a><a class="headerlink" href="#devicegrantsigninscreen" title="Permanent link">&para;</a></h4>
-<p>A screen for
-the <a href="https://developer.android.com/training/wearables/apps/auth-wear#DAG">OAuth (Device Grant)</a>
-authentication method.</p>
-<p>It uses different screens from <a href="../auth-composables/">auth-composables</a> to display the full
-authentication flow.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" ></th>
-<th style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/check_your_phone_screen_code.png" height="120" width="120" ></th>
-<th style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" ></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>A implementation for the following repositories are required to be provided:</p>
-<ul>
-<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-config-repository/index.html">DeviceGrantConfigRepository</a></li>
-<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-verification-info-repository/index.html">DeviceGrantVerificationInfoRepository</a></li>
-<li><a href="https://google.github.io/horologist/api/auth/data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-token-repository/index.html">DeviceGrantTokenRepository</a></li>
-</ul>
 
 
 

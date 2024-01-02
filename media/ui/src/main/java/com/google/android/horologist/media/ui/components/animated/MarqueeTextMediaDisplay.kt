@@ -30,10 +30,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -76,32 +81,33 @@ public fun MarqueeTextMediaDisplay(
             label = "AnimatedTitle",
         ) {
                 currentTitle ->
+            val textStyle = MaterialTheme.typography.button
+            val text = buildAnnotatedString {
+                if (titleIcon != null) {
+                    appendInlineContent(id = "iconSlot")
+                    append(" ")
+                }
+                append(currentTitle.orEmpty())
+            }
+            val inlineContent = if (titleIcon != null) {
+                mapOf(
+                    "iconSlot" to InlineTextContent(
+                        Placeholder(textStyle.fontSize, textStyle.fontSize, PlaceholderVerticalAlign.TextCenter),
+                    ) {
+                        MediaTitleIcon(titleIcon)
+                    },
+                )
+            } else {
+                emptyMap()
+            }
             MarqueeText(
-                text = currentTitle.orEmpty(),
-                iconSlot = titleIcon?.let {
-                    {
-                        if (it is PaintableIcon) {
-                            Icon(
-                                modifier = Modifier.fillMaxSize(),
-                                paintable = it,
-                                contentDescription = null,
-                                tint = MaterialTheme.colors.onBackground,
-                            )
-                        } else {
-                            Image(
-                                modifier = Modifier.fillMaxSize(),
-                                painter = it.rememberPainter(),
-                                contentDescription = null,
-                                contentScale = ContentScale.FillHeight,
-                            )
-                        }
-                    }
-                },
+                text = text,
+                inlineContent = inlineContent,
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
                     .padding(top = 2.dp, bottom = .8.dp),
                 color = MaterialTheme.colors.onBackground,
-                style = MaterialTheme.typography.button,
+                style = textStyle,
                 textAlign = TextAlign.Center,
             )
         }
@@ -123,5 +129,24 @@ public fun MarqueeTextMediaDisplay(
                 style = MaterialTheme.typography.body2,
             )
         }
+    }
+}
+
+@Composable
+private fun MediaTitleIcon(icon: Paintable) {
+    if (icon is PaintableIcon) {
+        Icon(
+            modifier = Modifier.fillMaxSize(),
+            paintable = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colors.onBackground,
+        )
+    } else {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = icon.rememberPainter(),
+            contentDescription = null,
+            contentScale = ContentScale.FillHeight,
+        )
     }
 }

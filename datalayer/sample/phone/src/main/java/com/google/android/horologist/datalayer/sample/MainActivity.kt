@@ -19,24 +19,11 @@ package com.google.android.horologist.datalayer.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.google.android.horologist.datalayer.sample.screens.Screen
-import com.google.android.horologist.datalayer.sample.screens.counter.CounterScreen
-import com.google.android.horologist.datalayer.sample.screens.listnodes.ListNodesScreen
-import com.google.android.horologist.datalayer.sample.screens.menu.MenuScreen
+import com.google.android.horologist.datalayer.sample.screens.main.MainScreen
 import com.google.android.horologist.datalayer.sample.ui.theme.HorologistTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -47,48 +34,11 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             HorologistTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     MainScreen()
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun MainScreen(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController(),
-) {
-    Scaffold(
-        modifier = modifier,
-    ) { padding ->
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(padding),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            NavHost(
-                navController = navController,
-                startDestination = Screen.MenuScreen.route,
-                modifier = modifier,
-            ) {
-                composable(route = Screen.MenuScreen.route) {
-                    MenuScreen(navController = navController)
-                }
-
-                composable(route = Screen.ListNodesScreen.route) {
-                    ListNodesScreen()
-                }
-
-                composable(route = Screen.CounterScreen.route) {
-                    CounterScreen()
                 }
             }
         }

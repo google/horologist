@@ -46,8 +46,7 @@
             android:name=".screens.startremote.StartRemoteSampleActivity"
             android:exported="false"
             android:taskAffinity=".main"
-            android:theme="@style/Theme.Horologist">
-        </activity>
+            android:theme="@style/Theme.Horologist" />
 
         <service android:name=".grpc.WearCounterDataService" android:exported="true"
             tools:ignore="ExportedService">

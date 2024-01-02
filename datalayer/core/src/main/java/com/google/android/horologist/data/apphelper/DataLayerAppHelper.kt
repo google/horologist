@@ -213,7 +213,8 @@ abstract class DataLayerAppHelper(
      * apps are not being launched as a result of a background process on the calling device.
      */
     protected fun checkIsForegroundOrThrow() {
-        val isForeground = activityManager.runningAppProcesses.find {
+        val runningAppProcesses = activityManager.runningAppProcesses ?: emptyList()
+        val isForeground = runningAppProcesses.find {
             it.pid == Process.myPid()
         }?.importance == IMPORTANCE_FOREGROUND
         if (!isForeground) {

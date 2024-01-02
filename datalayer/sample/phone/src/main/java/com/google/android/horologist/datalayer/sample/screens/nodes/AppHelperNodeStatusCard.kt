@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer.sample.screens.listnodes
+package com.google.android.horologist.datalayer.sample.screens.nodes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.data.UsageStatus
@@ -49,9 +50,10 @@ import com.google.android.horologist.datalayer.sample.util.toProtoTimestamp
 @Composable
 fun AppHelperNodeStatusCard(
     nodeStatus: AppHelperNodeStatus,
-    onInstallClick: (String) -> Unit,
-    onLaunchClick: (String) -> Unit,
-    onCompanionClick: (String) -> Unit,
+    onInstallOnNodeClick: (String) -> Unit,
+    onStartCompanionClick: (String) -> Unit,
+    onStartRemoteOwnAppClick: (String) -> Unit,
+    onStartRemoteActivityClick: (nodeId: String) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -66,32 +68,32 @@ fun AppHelperNodeStatusCard(
                     .fillMaxWidth(),
 
             ) {
-                Text(stringResource(R.string.app_helper_node_name_label, nodeStatus.displayName))
+                Text(stringResource(R.string.node_status_node_name_label, nodeStatus.displayName))
                 Text(
                     style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(R.string.app_helper_node_id_label, nodeStatus.id),
+                    text = stringResource(R.string.node_status_node_id_label, nodeStatus.id),
                 )
                 Text(
                     style = MaterialTheme.typography.labelMedium,
                     text = stringResource(
-                        R.string.app_helper_is_app_installed_label,
+                        R.string.node_status_is_app_installed_label,
                         nodeStatus.appInstalled,
                     ),
                 )
                 val nodeType = if (nodeStatus.appInstalled) {
                     (nodeStatus.appInstallationStatus as AppInstallationStatus.Installed).nodeType
                 } else {
-                    stringResource(id = R.string.app_helper_node_type_unknown_label)
+                    stringResource(id = R.string.node_status_node_type_unknown_label)
                 }
                 Text(
                     style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(R.string.app_helper_node_type_label, nodeType),
+                    text = stringResource(R.string.node_status_node_type_label, nodeType),
                 )
                 if (nodeStatus.surfacesInfo.complicationsList.isNotEmpty()) {
                     Text(
                         style = MaterialTheme.typography.labelMedium,
                         text = stringResource(
-                            R.string.app_helper_complications_label,
+                            R.string.node_status_complications_label,
                             nodeStatus.surfacesInfo.complicationsList.joinToString { it.name },
                         ),
                     )
@@ -100,7 +102,7 @@ fun AppHelperNodeStatusCard(
                     Text(
                         style = MaterialTheme.typography.labelMedium,
                         text = stringResource(
-                            R.string.app_helper_tiles_label,
+                            R.string.node_status_tiles_label,
                             nodeStatus.surfacesInfo.tilesList.joinToString { it.name },
                         ),
                     )
@@ -108,7 +110,7 @@ fun AppHelperNodeStatusCard(
                 Text(
                     style = MaterialTheme.typography.labelMedium,
                     text = stringResource(
-                        R.string.app_helper_usage_status,
+                        R.string.node_status_usage_status,
                         nodeStatus.surfacesInfo.usageInfo.usageStatus.name,
                     ),
                 )
@@ -120,21 +122,48 @@ fun AppHelperNodeStatusCard(
                 ) {
                     Button(
                         modifier = Modifier.wrapContentHeight(),
-                        onClick = { onInstallClick(nodeStatus.id) },
+                        onClick = { onStartCompanionClick(nodeStatus.id) },
                     ) {
-                        Text(stringResource(id = R.string.app_helper_install_button_label))
+                        Text(
+                            stringResource(id = R.string.node_status_start_companion_button_label),
+                            textAlign = TextAlign.Center,
+                        )
                     }
                     Button(
-                        modifier = Modifier.wrapContentHeight(),
-                        onClick = { onLaunchClick(nodeStatus.id) },
+                        modifier = Modifier.wrapContentHeight().padding(start = 10.dp),
+                        onClick = { onInstallOnNodeClick(nodeStatus.id) },
                     ) {
-                        Text(stringResource(id = R.string.app_helper_launch_button_label))
+                        Text(
+                            stringResource(id = R.string.node_status_install_on_node_button_label),
+                            textAlign = TextAlign.Center,
+                        )
                     }
+                }
+                Row(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
                     Button(
                         modifier = Modifier.wrapContentHeight(),
-                        onClick = { onCompanionClick(nodeStatus.id) },
+                        onClick = { onStartRemoteOwnAppClick(nodeStatus.id) },
                     ) {
-                        Text(stringResource(id = R.string.app_helper_companion_button_label))
+                        Text(
+                            stringResource(id = R.string.node_status_start_own_app_button_label),
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                    Button(
+                        modifier = Modifier
+                            .wrapContentHeight()
+                            .padding(start = 10.dp),
+                        onClick = { onStartRemoteActivityClick(nodeStatus.id) },
+                    ) {
+                        Text(
+                            stringResource(id = R.string.node_status_start_remote_activity_button_label),
+                            textAlign = TextAlign.Center,
+                        )
                     }
                 }
             }
@@ -175,9 +204,10 @@ fun NodeCardPreview() {
     HorologistTheme {
         AppHelperNodeStatusCard(
             nodeStatus = nodeStatus,
-            onCompanionClick = {},
-            onInstallClick = {},
-            onLaunchClick = {},
+            onStartCompanionClick = { },
+            onInstallOnNodeClick = { },
+            onStartRemoteOwnAppClick = { },
+            onStartRemoteActivityClick = { },
         )
     }
 }

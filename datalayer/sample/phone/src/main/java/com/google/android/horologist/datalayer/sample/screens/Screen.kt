@@ -20,6 +20,6 @@ sealed class Screen(
     val route: String,
 ) {
     data object MenuScreen : Screen("menu")
-    data object ListNodesScreen : Screen("listNodes")
     data object CounterScreen : Screen("counter")
+    data object AppHelperNodesScreen : Screen("appHelperNodesScreen")
 }

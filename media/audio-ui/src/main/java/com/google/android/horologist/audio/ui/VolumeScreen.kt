@@ -117,7 +117,7 @@ public fun VolumeScreen(
                 icon = {
                     Icon(
                         paintable = audioOutputUi.imageVector.asPaintable(),
-                        contentDescription = audioOutputUi.displayName,
+                        contentDescription = null,
                         tint = MaterialTheme.colors.onSurfaceVariant,
                     )
                 },

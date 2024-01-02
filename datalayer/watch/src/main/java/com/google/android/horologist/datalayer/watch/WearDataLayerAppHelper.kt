@@ -20,6 +20,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.annotation.CheckResult
+import androidx.concurrent.futures.await
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceService
@@ -42,7 +43,6 @@ import com.google.android.horologist.data.usageInfo
 import com.google.protobuf.Timestamp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.tasks.await
 
 private const val TAG = "DataLayerAppHelper"

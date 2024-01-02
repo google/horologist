@@ -27,13 +27,18 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -41,7 +46,9 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.MarqueeText
+import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.images.base.paintable.Paintable
+import com.google.android.horologist.images.base.paintable.PaintableIcon
 import kotlin.math.roundToInt
 
 /**
@@ -74,23 +81,33 @@ public fun MarqueeTextMediaDisplay(
             label = "AnimatedTitle",
         ) {
                 currentTitle ->
+            val textStyle = MaterialTheme.typography.button
+            val text = buildAnnotatedString {
+                if (titleIcon != null) {
+                    appendInlineContent(id = "iconSlot")
+                    append(" ")
+                }
+                append(currentTitle.orEmpty())
+            }
+            val inlineContent = if (titleIcon != null) {
+                mapOf(
+                    "iconSlot" to InlineTextContent(
+                        Placeholder(textStyle.fontSize, textStyle.fontSize, PlaceholderVerticalAlign.TextCenter),
+                    ) {
+                        MediaTitleIcon(titleIcon)
+                    },
+                )
+            } else {
+                emptyMap()
+            }
             MarqueeText(
-                text = currentTitle.orEmpty(),
-                iconSlot = titleIcon?.let {
-                    {
-                        Image(
-                            painter = it.rememberPainter(),
-                            contentDescription = null,
-                            colorFilter = ColorFilter.tint(MaterialTheme.colors.onBackground),
-                            contentScale = ContentScale.FillHeight,
-                        )
-                    }
-                },
+                text = text,
+                inlineContent = inlineContent,
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
                     .padding(top = 2.dp, bottom = .8.dp),
                 color = MaterialTheme.colors.onBackground,
-                style = MaterialTheme.typography.button,
+                style = textStyle,
                 textAlign = TextAlign.Center,
             )
         }
@@ -112,5 +129,24 @@ public fun MarqueeTextMediaDisplay(
                 style = MaterialTheme.typography.body2,
             )
         }
+    }
+}
+
+@Composable
+private fun MediaTitleIcon(icon: Paintable) {
+    if (icon is PaintableIcon) {
+        Icon(
+            modifier = Modifier.fillMaxSize(),
+            paintable = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colors.onBackground,
+        )
+    } else {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = icon.rememberPainter(),
+            contentDescription = null,
+            contentScale = ContentScale.FillHeight,
+        )
     }
 }

@@ -128,7 +128,8 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
             }
             if (it.contentDescription != null) {
                 drawItem("Content Description \"${it.contentDescription.joinToString(", ")}\"")
-            } else if (it.text != null) {
+            }
+            if (it.text != null) {
                 drawItem("Text \"${it.text.joinToString(", ")}\"")
             }
             if (it.stateDescription != null) {

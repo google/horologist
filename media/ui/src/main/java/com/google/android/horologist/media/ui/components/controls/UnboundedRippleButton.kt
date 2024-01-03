@@ -40,7 +40,6 @@ import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A button that when clicked shows an unbounded ripple effect that can be larger than the button
@@ -49,9 +48,8 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  * Code modified from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material/src/main/java/androidx/wear/compose/material/Button.kt
  *
  */
-@ExperimentalHorologistApi
 @Composable
-public fun UnboundedRippleButton(
+internal fun UnboundedRippleButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     rippleRadius: Dp = Dp.Unspecified,

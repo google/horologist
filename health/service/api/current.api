@@ -13,8 +13,8 @@ package com.google.android.horologist.health.service {
 
   public static final class BinderConnection.Companion {
     method public <S extends android.app.Service> void bindService(android.content.Context context, kotlin.reflect.KClass<S> service, com.google.android.horologist.health.service.BinderConnection<?> connection);
-    method public inline <reified T extends android.os.IBinder, reified S extends android.app.Service> com.google.android.horologist.health.service.BinderConnection<T>! bindService(androidx.lifecycle.Lifecycle, android.content.Context context);
-    method public inline <reified T extends android.os.IBinder, reified S extends android.app.Service> com.google.android.horologist.health.service.BinderConnection<T>! bindService(kotlinx.coroutines.CoroutineScope, android.content.Context context);
+    method public inline <reified T extends android.os.IBinder, reified S extends android.app.Service> com.google.android.horologist.health.service.BinderConnection<T> bindService(androidx.lifecycle.Lifecycle, android.content.Context context);
+    method public inline <reified T extends android.os.IBinder, reified S extends android.app.Service> com.google.android.horologist.health.service.BinderConnection<T> bindService(kotlinx.coroutines.CoroutineScope, android.content.Context context);
   }
 
 }

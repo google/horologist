@@ -67,9 +67,6 @@ package com.google.android.horologist.networks.data {
     property public final com.google.android.horologist.networks.data.DataUsageReport Empty;
   }
 
-  public final class IdKt {
-  }
-
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class InMemoryDataRequestRepository implements com.google.android.horologist.networks.data.DataRequestRepository {
     ctor public InMemoryDataRequestRepository();
     method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.data.DataUsageReport> currentPeriodUsage();
@@ -177,7 +174,7 @@ package com.google.android.horologist.networks.data {
   }
 
   public enum NetworkType {
-    method public static com.google.android.horologist.networks.data.NetworkType valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.networks.data.NetworkType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.networks.data.NetworkType[] values();
     enum_constant public static final com.google.android.horologist.networks.data.NetworkType BT;
     enum_constant public static final com.google.android.horologist.networks.data.NetworkType Cell;
@@ -235,7 +232,7 @@ package com.google.android.horologist.networks.data {
   }
 
   public enum RequestType.MediaRequest.MediaRequestType {
-    method public static com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType[] values();
     enum_constant public static final com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType Download;
     enum_constant public static final com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType Live;
@@ -352,7 +349,7 @@ package com.google.android.horologist.networks.request {
   public enum HighBandwidthRequest.Type {
     method public final boolean getCell();
     method public final boolean getWifi();
-    method public static com.google.android.horologist.networks.request.HighBandwidthRequest.Type valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.networks.request.HighBandwidthRequest.Type valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.networks.request.HighBandwidthRequest.Type[] values();
     property public final boolean cell;
     property public final boolean wifi;

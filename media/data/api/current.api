@@ -113,7 +113,7 @@ package com.google.android.horologist.media.data.database.model {
   }
 
   public enum MediaDownloadEntityStatus {
-    method public static com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus[] values();
     enum_constant public static final com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus Downloaded;
     enum_constant public static final com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus Downloading;

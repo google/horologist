@@ -55,18 +55,9 @@ package com.google.android.horologist.media.sync.initializers {
     field public static final com.google.android.horologist.media.sync.initializers.Sync INSTANCE;
   }
 
-  public final class SyncInitializerKt {
-  }
-
 }
 
 package com.google.android.horologist.media.sync.workers {
-
-  public final class DelegatingWorkerKt {
-  }
-
-  public final class SyncWorkHelpersKt {
-  }
 
   @androidx.hilt.work.HiltWorker public final class SyncWorker extends androidx.work.CoroutineWorker implements com.google.android.horologist.media.sync.api.Synchronizer {
     ctor @dagger.assisted.AssistedInject public SyncWorker(@dagger.assisted.Assisted android.content.Context appContext, @dagger.assisted.Assisted androidx.work.WorkerParameters workerParams, com.google.android.horologist.media.sync.api.CoroutineDispatcherProvider coroutineDispatcherProvider, com.google.android.horologist.media.sync.api.NotificationConfigurationProvider notificationConfigurationProvider, com.google.android.horologist.media.sync.api.ChangeListVersionRepository changeListVersionRepository, com.google.android.horologist.media.sync.api.Syncable![] syncables);

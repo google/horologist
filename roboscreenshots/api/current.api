@@ -1,9 +1,6 @@
 // Signature format: 4.0
 package com.google.android.horologist.screenshots {
 
-  public final class DiffingKt {
-  }
-
   public final class FixedTimeSource implements androidx.wear.compose.material.TimeSource {
     method @androidx.compose.runtime.Composable public String getCurrentTime();
     property @androidx.compose.runtime.Composable public String currentTime;
@@ -26,7 +23,7 @@ package com.google.android.horologist.screenshots {
   }
 
   public enum ScreenshotTestRule.ClipMode {
-    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode[] values();
     enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode Auto;
     enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode None;
@@ -39,7 +36,7 @@ package com.google.android.horologist.screenshots {
   }
 
   public enum ScreenshotTestRule.RecordMode {
-    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode[] values();
     enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode Record;
     enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode Repair;

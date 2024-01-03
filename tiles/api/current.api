@@ -28,8 +28,8 @@ package com.google.android.horologist.tiles.complication {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface ComplicationTemplate<D> {
     method public android.content.Context getContext();
-    method public D! previewData();
-    method public androidx.wear.watchface.complications.data.ComplicationData render(androidx.wear.watchface.complications.data.ComplicationType type, D? data);
+    method public D previewData();
+    method public androidx.wear.watchface.complications.data.ComplicationData render(androidx.wear.watchface.complications.data.ComplicationType type, D data);
     method public java.util.List<androidx.wear.watchface.complications.data.ComplicationType> supportedTypes();
     property public abstract android.content.Context context;
   }
@@ -40,8 +40,8 @@ package com.google.android.horologist.tiles.complication {
     method public androidx.wear.watchface.complications.data.ComplicationData? getPreviewData(androidx.wear.watchface.complications.data.ComplicationType type);
     method public abstract R getRenderer();
     method public suspend Object? onComplicationRequest(androidx.wear.watchface.complications.datasource.ComplicationRequest request, kotlin.coroutines.Continuation<? super androidx.wear.watchface.complications.data.ComplicationData>);
-    method public abstract D! previewData(androidx.wear.watchface.complications.data.ComplicationType type);
-    method public final androidx.wear.watchface.complications.data.ComplicationData render(androidx.wear.watchface.complications.data.ComplicationType type, D? data);
+    method public abstract D previewData(androidx.wear.watchface.complications.data.ComplicationType type);
+    method public final androidx.wear.watchface.complications.data.ComplicationData render(androidx.wear.watchface.complications.data.ComplicationType type, D data);
     property public abstract R renderer;
   }
 
@@ -59,13 +59,13 @@ package com.google.android.horologist.tiles.complication {
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract class TypedComplicationTemplate<T> implements com.google.android.horologist.tiles.complication.ComplicationTemplate<T> {
     ctor public TypedComplicationTemplate(android.content.Context context);
     method public android.content.Context getContext();
-    method public final androidx.wear.watchface.complications.data.ComplicationData render(androidx.wear.watchface.complications.data.ComplicationType type, T? data);
-    method public androidx.wear.watchface.complications.data.LongTextComplicationData? renderLongText(T? data);
-    method public androidx.wear.watchface.complications.data.MonochromaticImageComplicationData? renderMonochromaticImage(T? data);
-    method public androidx.wear.watchface.complications.data.PhotoImageComplicationData? renderPhotoImage(T? data);
-    method public androidx.wear.watchface.complications.data.RangedValueComplicationData? renderRangedValue(T? data);
-    method public abstract androidx.wear.watchface.complications.data.ShortTextComplicationData? renderShortText(T? data);
-    method public androidx.wear.watchface.complications.data.SmallImageComplicationData? renderSmallImage(T? data);
+    method public final androidx.wear.watchface.complications.data.ComplicationData render(androidx.wear.watchface.complications.data.ComplicationType type, T data);
+    method public androidx.wear.watchface.complications.data.LongTextComplicationData? renderLongText(T data);
+    method public androidx.wear.watchface.complications.data.MonochromaticImageComplicationData? renderMonochromaticImage(T data);
+    method public androidx.wear.watchface.complications.data.PhotoImageComplicationData? renderPhotoImage(T data);
+    method public androidx.wear.watchface.complications.data.RangedValueComplicationData? renderRangedValue(T data);
+    method public abstract androidx.wear.watchface.complications.data.ShortTextComplicationData? renderShortText(T data);
+    method public androidx.wear.watchface.complications.data.SmallImageComplicationData? renderSmallImage(T data);
     method public java.util.List<androidx.wear.watchface.complications.data.ComplicationType> supportedTypes();
     property public android.content.Context context;
   }
@@ -123,12 +123,12 @@ package com.google.android.horologist.tiles.render {
     method public final android.content.Context getContext();
     method public final boolean getDebugResourceMode();
     method public long getFreshnessIntervalMillis();
-    method public String getResourcesVersionForTileState(T? state);
+    method public String getResourcesVersionForTileState(T state);
     method public final androidx.wear.protolayout.material.Colors getTheme();
-    method public final androidx.wear.protolayout.ResourceBuilders.Resources produceRequestedResources(R? resourceState, androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
-    method public void produceRequestedResources(androidx.wear.protolayout.ResourceBuilders.Resources.Builder, R? resourceState, androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
-    method public abstract androidx.wear.protolayout.LayoutElementBuilders.LayoutElement renderTile(T? state, androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters deviceParameters);
-    method public final androidx.wear.tiles.TileBuilders.Tile renderTimeline(T? state, androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
+    method public void produceRequestedResources(androidx.wear.protolayout.ResourceBuilders.Resources.Builder, R resourceState, androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
+    method public final androidx.wear.protolayout.ResourceBuilders.Resources produceRequestedResources(R resourceState, androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
+    method public abstract androidx.wear.protolayout.LayoutElementBuilders.LayoutElement renderTile(T state, androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters deviceParameters);
+    method public final androidx.wear.tiles.TileBuilders.Tile renderTimeline(T state, androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
     property public final android.content.Context context;
     property public final boolean debugResourceMode;
     property public long freshnessIntervalMillis;
@@ -140,8 +140,8 @@ package com.google.android.horologist.tiles.render {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface TileLayoutRenderer<T, R> {
-    method public androidx.wear.protolayout.ResourceBuilders.Resources produceRequestedResources(R? resourceState, androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
-    method public androidx.wear.tiles.TileBuilders.Tile renderTimeline(T? state, androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
+    method public androidx.wear.protolayout.ResourceBuilders.Resources produceRequestedResources(R resourceState, androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
+    method public androidx.wear.tiles.TileBuilders.Tile renderTimeline(T state, androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
   }
 
 }

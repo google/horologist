@@ -163,14 +163,14 @@ package com.google.android.horologist.compose.navscaffold {
   }
 
   public enum NavScaffoldViewModel.PositionIndicatorMode {
-    method public static com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode[] values();
     enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode Off;
     enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode On;
   }
 
   public enum NavScaffoldViewModel.TimeTextMode {
-    method public static com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode[] values();
     enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode Off;
     enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode On;
@@ -433,7 +433,7 @@ package com.google.android.horologist.compose.snackbar {
   }
 
   public enum SnackbarDuration {
-    method public static com.google.android.horologist.compose.snackbar.SnackbarDuration valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.snackbar.SnackbarDuration valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.compose.snackbar.SnackbarDuration[] values();
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarDuration Indefinite;
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarDuration Long;
@@ -452,7 +452,7 @@ package com.google.android.horologist.compose.snackbar {
   }
 
   public enum SnackbarResult {
-    method public static com.google.android.horologist.compose.snackbar.SnackbarResult valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.snackbar.SnackbarResult valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.compose.snackbar.SnackbarResult[] values();
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarResult ActionPerformed;
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarResult Dismissed;

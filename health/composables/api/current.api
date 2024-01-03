@@ -60,10 +60,3 @@ package com.google.android.horologist.health.composables.screens {
 
 }
 
-package com.google.android.horologist.health.composables.theme {
-
-  public final class ColorsKt {
-  }
-
-}
-

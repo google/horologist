@@ -10,10 +10,10 @@ package com.google.android.horologist.data {
 
   public final class SerializerRegistry {
     ctor public SerializerRegistry();
-    method public <T> void registerSerializer(kotlin.reflect.KClass<T> type, androidx.datastore.core.Serializer<T> serializer);
     method public inline <reified T> void registerSerializer(androidx.datastore.core.Serializer<T> serializer);
-    method public <T> androidx.datastore.core.Serializer<T> serializerForType(kotlin.reflect.KClass<T> type);
+    method public <T> void registerSerializer(kotlin.reflect.KClass<T> type, androidx.datastore.core.Serializer<T> serializer);
     method public inline <reified T> androidx.datastore.core.Serializer<T>! serializerForType();
+    method public <T> androidx.datastore.core.Serializer<T> serializerForType(kotlin.reflect.KClass<T> type);
   }
 
   public interface TargetNodeId {
@@ -55,8 +55,8 @@ package com.google.android.horologist.data {
     method public void onDataChanged(java.util.List<? extends com.google.android.gms.wearable.DataEvent> dataEvents);
     method public <T> androidx.datastore.core.DataStore<T> protoDataStore(String path, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<T> serializer, optional kotlinx.coroutines.flow.SharingStarted started);
     method public <T> kotlinx.coroutines.flow.Flow<T> protoFlow(com.google.android.horologist.data.TargetNodeId targetNodeId, androidx.datastore.core.Serializer<T> serializer, String path);
-    method public <T> void registerProtoDataListener(String path, com.google.android.horologist.data.store.ProtoDataListener<T> listener, androidx.datastore.core.Serializer<T> serializer);
     method public inline <reified T> void registerProtoDataListener(String path, com.google.android.horologist.data.store.ProtoDataListener<T> listener);
+    method public <T> void registerProtoDataListener(String path, com.google.android.horologist.data.store.ProtoDataListener<T> listener, androidx.datastore.core.Serializer<T> serializer);
     method public inline <reified T> void registerSerializer(androidx.datastore.core.Serializer<T> serializer);
     property public final com.google.android.gms.wearable.CapabilityClient capabilityClient;
     property public final com.google.android.gms.wearable.DataClient dataClient;
@@ -129,7 +129,7 @@ package com.google.android.horologist.data.apphelper {
   }
 
   public enum AppInstallationStatusNodeType {
-    method public static com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType[] values();
     enum_constant public static final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType PHONE;
     enum_constant public static final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType UNKNOWN;
@@ -196,7 +196,7 @@ package com.google.android.horologist.data.apphelper {
 package com.google.android.horologist.data.store {
 
   public interface ProtoDataListener<T> {
-    method public void dataAdded(String nodeId, String path, T? value);
+    method public void dataAdded(String nodeId, String path, T value);
     method public void dataDeleted(String nodeId, String path);
   }
 

@@ -22,9 +22,16 @@
     <!-- Main Menu screen -->
     <string name="menu_screen_apphelper_header">App Helper</string>
     <string name="menu_screen_nodes_item">Nodes</string>
+    <string name="menu_screen_inapp_prompts_header">In-App prompts</string>
+    <string name="menu_screen_install_app_item">Install app</string>
     <string name="menu_screen_datalayer_header">Data Layer</string>
-    <string name="menu_screen_list_nodes_item">List of nodes sample</string>
     <string name="menu_screen_counter_item">Counter sample</string>
+
+    <!-- In-app prompt sample app -->
+    <string name="install_app_prompt_sample_app_name" translatable="false">Gmail</string>
+    <string name="install_app_prompt_sample_app_package_name" translatable="false">com.google.android.gm</string>
+    <string name="install_app_prompt_sample_watch_name" translatable="false">Pixel Watch</string>
+    <string name="install_app_prompt_sample_message">Stay productive and manage emails right from your wrist</string>
 
     <!-- App Helper Nodes screen -->
     <string name="nodes_screen_header">Nodes</string>
@@ -47,6 +54,14 @@
     <string name="node_status_start_companion_button_label">Start companion</string>
     <string name="node_status_start_own_app_button_label">Start remote own app</string>
     <string name="node_status_start_remote_activity_button_label">Start remote activity</string>
+
+    <!-- In-app prompt - Install App screen -->
+    <string name="install_app_prompt_api_call_demo_message">This demo calls the API to display the install app prompt. The developer has to gather all the information to display on the prompt, such as app name and watch name.</string>
+    <string name="install_app_prompt_run_demo_button_label">Run demo</string>
+
+    <!-- Counter screen -->
+    <string name="app_helper_counter_label">Counter: %1$s</string>
+    <string name="app_helper_counter_increase_btn_content_description">Increase counter</string>
 
     <!-- Start Remote Sample Activity screen -->
     <string name="app_helper_start_remote_activity_message">This is a sample activity to demonstrate it being launched remotely from the watch.</string>

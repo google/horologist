@@ -8,8 +8,8 @@ package com.google.android.horologist.images.base.paintable {
   }
 
   public static final class BitmapPaintable.Companion {
-    method public androidx.compose.ui.graphics.ImageBitmap asPaintable(androidx.compose.ui.graphics.ImageBitmap);
     method public androidx.compose.ui.graphics.ImageBitmap asPaintable(android.graphics.Bitmap);
+    method public androidx.compose.ui.graphics.ImageBitmap asPaintable(androidx.compose.ui.graphics.ImageBitmap);
   }
 
   @kotlin.jvm.JvmInline public final value class DrawableResPaintable implements com.google.android.horologist.images.base.paintable.PaintableIcon {

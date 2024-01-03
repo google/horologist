@@ -11,7 +11,7 @@ package com.google.android.horologist.media3.logging {
   }
 
   public enum ErrorReporter.Category {
-    method public static com.google.android.horologist.media3.logging.ErrorReporter.Category valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.media3.logging.ErrorReporter.Category valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.media3.logging.ErrorReporter.Category[] values();
     enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category App;
     enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category DB;
@@ -23,7 +23,7 @@ package com.google.android.horologist.media3.logging {
   }
 
   public enum ErrorReporter.Level {
-    method public static com.google.android.horologist.media3.logging.ErrorReporter.Level valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.media3.logging.ErrorReporter.Level valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.media3.logging.ErrorReporter.Level[] values();
     enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Debug;
     enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Error;

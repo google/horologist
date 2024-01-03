@@ -2,7 +2,7 @@
 package com.google.android.horologist.media.model {
 
   public enum Command {
-    method public static com.google.android.horologist.media.model.Command valueOf(String name);
+    method public static com.google.android.horologist.media.model.Command valueOf(String value);
     method public static com.google.android.horologist.media.model.Command[] values();
     enum_constant public static final com.google.android.horologist.media.model.Command PlayPause;
     enum_constant public static final com.google.android.horologist.media.model.Command SeekBack;
@@ -175,7 +175,7 @@ package com.google.android.horologist.media.model {
   }
 
   public enum PlaybackStateEvent.Cause {
-    method public static com.google.android.horologist.media.model.PlaybackStateEvent.Cause valueOf(String name);
+    method public static com.google.android.horologist.media.model.PlaybackStateEvent.Cause valueOf(String value);
     method public static com.google.android.horologist.media.model.PlaybackStateEvent.Cause[] values();
     enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause Initial;
     enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause Other;
@@ -191,7 +191,7 @@ package com.google.android.horologist.media.model {
   }
 
   public enum PlayerState {
-    method public static com.google.android.horologist.media.model.PlayerState valueOf(String name);
+    method public static com.google.android.horologist.media.model.PlayerState valueOf(String value);
     method public static com.google.android.horologist.media.model.PlayerState[] values();
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Idle;
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Loading;

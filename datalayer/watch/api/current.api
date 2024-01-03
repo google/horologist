@@ -16,9 +16,6 @@ package com.google.android.horologist.datalayer.watch {
     property public final kotlinx.coroutines.flow.Flow<com.google.android.horologist.data.SurfacesInfo> surfacesInfo;
   }
 
-  public final class WearDataLayerAppHelperKt {
-  }
-
   public final class WearDataLayerListenerService extends com.google.android.horologist.data.apphelper.DataLayerAppHelperService {
     ctor public WearDataLayerListenerService();
     method public com.google.android.horologist.data.apphelper.DataLayerAppHelper getAppHelper();

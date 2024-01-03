@@ -115,9 +115,6 @@ package com.google.android.horologist.audio {
     method public com.google.android.horologist.audio.SystemAudioRepository fromContext(android.content.Context application);
   }
 
-  public final class SystemAudioRepositoryKt {
-  }
-
   public interface VolumeRepository extends java.lang.AutoCloseable {
     method public void decreaseVolume();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();

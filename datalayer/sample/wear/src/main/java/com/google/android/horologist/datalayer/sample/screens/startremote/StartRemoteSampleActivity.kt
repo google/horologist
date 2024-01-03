@@ -21,15 +21,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.datalayer.sample.R
-import com.google.android.horologist.datalayer.sample.ui.theme.HorologistTheme
 
 class StartRemoteSampleActivity : ComponentActivity() {
 
@@ -37,19 +36,17 @@ class StartRemoteSampleActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            HorologistTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        Text(
-                            text = stringResource(id = R.string.app_helper_start_remote_activity_message),
-                            modifier = Modifier.align(Alignment.Center),
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                }
+            val scrollState = rememberScrollState()
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(state = scrollState),
+            ) {
+                Text(
+                    text = stringResource(id = R.string.app_helper_start_remote_activity_message),
+                    modifier = Modifier.align(Alignment.Center),
+                    textAlign = TextAlign.Center,
+                )
             }
         }
     }

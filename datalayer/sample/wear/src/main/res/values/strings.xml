@@ -69,4 +69,7 @@
     <string name="node_details_start_remote_activity_chip_label">Start remote activity</string>
     <string name="node_details_success_dialog_message">Success!</string>
     <string name="node_details_failure_dialog_message">Failed: \n%1$s</string>
+
+    <!--  Start Remote Sample Activity screen -->
+    <string name="app_helper_start_remote_activity_message">This is a sample activity to demonstrate it being launched remotely from the phone.</string>
 </resources>

@@ -25,12 +25,20 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -38,6 +46,9 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.MarqueeText
+import com.google.android.horologist.compose.material.Icon
+import com.google.android.horologist.images.base.paintable.Paintable
+import com.google.android.horologist.images.base.paintable.PaintableIcon
 import kotlin.math.roundToInt
 
 /**
@@ -49,6 +60,7 @@ public fun MarqueeTextMediaDisplay(
     modifier: Modifier = Modifier,
     title: String? = null,
     artist: String? = null,
+    titleIcon: Paintable? = null,
     enterTransitionDelay: Int = 60,
     subtextTransitionDelay: Int = 30,
     @FloatRange(from = 0.0, to = 1.0) transitionLength: Float = 0.125f,
@@ -69,11 +81,33 @@ public fun MarqueeTextMediaDisplay(
             label = "AnimatedTitle",
         ) {
                 currentTitle ->
+            val textStyle = MaterialTheme.typography.button
+            val text = buildAnnotatedString {
+                if (titleIcon != null) {
+                    appendInlineContent(id = "iconSlot")
+                    append(" ")
+                }
+                append(currentTitle.orEmpty())
+            }
+            val inlineContent = if (titleIcon != null) {
+                mapOf(
+                    "iconSlot" to InlineTextContent(
+                        Placeholder(textStyle.fontSize, textStyle.fontSize, PlaceholderVerticalAlign.TextCenter),
+                    ) {
+                        MediaTitleIcon(titleIcon)
+                    },
+                )
+            } else {
+                emptyMap()
+            }
             MarqueeText(
-                text = currentTitle.orEmpty(),
-                modifier = Modifier.fillMaxWidth(0.7f).padding(top = 2.dp, bottom = .8.dp),
+                text = text,
+                inlineContent = inlineContent,
+                modifier = Modifier
+                    .fillMaxWidth(0.7f)
+                    .padding(top = 2.dp, bottom = .8.dp),
                 color = MaterialTheme.colors.onBackground,
-                style = MaterialTheme.typography.button,
+                style = textStyle,
                 textAlign = TextAlign.Center,
             )
         }
@@ -85,7 +119,9 @@ public fun MarqueeTextMediaDisplay(
         ) { currentArtist ->
             Text(
                 text = currentArtist.orEmpty(),
-                modifier = Modifier.fillMaxWidth(0.8f).padding(top = 2.dp, bottom = .6.dp),
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .padding(top = 2.dp, bottom = .6.dp),
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
@@ -93,5 +129,24 @@ public fun MarqueeTextMediaDisplay(
                 style = MaterialTheme.typography.body2,
             )
         }
+    }
+}
+
+@Composable
+private fun MediaTitleIcon(icon: Paintable) {
+    if (icon is PaintableIcon) {
+        Icon(
+            modifier = Modifier.fillMaxSize(),
+            paintable = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colors.onBackground,
+        )
+    } else {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = icon.rememberPainter(),
+            contentDescription = null,
+            contentScale = ContentScale.FillHeight,
+        )
     }
 }

@@ -39,7 +39,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 /**
  * A primary title heading to group and identify items.
  */
@@ -119,7 +119,7 @@ public fun SecondaryTitle(
     ) {
         icon?.let {
             Icon(
-                imageVector = icon,
+                paintable = icon.asPaintable(),
                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                 modifier = Modifier
                     .size(iconSize),

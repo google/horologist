@@ -52,8 +52,6 @@ import com.google.android.horologist.compose.material.Title
  * [sign-in alternatives](https://developer.android.com/training/wearables/design/sign-in#alternatives).
  *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
- * @sample com.google.android.horologist.auth.sample.screens.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
- * @sample com.google.android.horologist.auth.sample.screens.oauth.pkce.prompt.PKCESignInPromptScreen
  */
 @Composable
 public fun SignInPromptScreen(
@@ -117,7 +115,7 @@ public fun SignInPromptScreen(
                 columnState = columnState,
                 modifier = modifier,
             ) {
-                item { Title(title, Modifier) }
+                item { Title(title) }
                 item {
                     Text(
                         text = message,

@@ -36,7 +36,7 @@ message CompanionConfig {
 }
 
 message ActivityConfig {
-  string packageName = 1;
+  reserved 1;
   string classFullName = 2;
 }
 

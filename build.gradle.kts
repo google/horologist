@@ -37,8 +37,6 @@ buildscript {
         classpath(libs.metalavaGradle)
 
         classpath(libs.dagger.hiltandroidplugin)
-
-        classpath(libs.googleSecretsGradlePlugin)
     }
 }
 
@@ -52,7 +50,6 @@ plugins {
 }
 
 apply(plugin = "org.jetbrains.dokka")
-apply(plugin = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach {
     outputDirectory.set(rootProject.file("docs/api"))

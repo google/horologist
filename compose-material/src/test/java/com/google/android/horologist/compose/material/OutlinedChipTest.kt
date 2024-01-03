@@ -20,17 +20,17 @@ import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
+import androidx.compose.material.icons.outlined.VolumeDown
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.MaterialTheme
 import com.google.accompanist.testharness.TestHarness
-import com.google.android.horologist.compose.material.util.rememberVectorPainter
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
@@ -63,7 +63,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
     }
@@ -74,7 +74,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon32dp,
+                icon = Icon32dp.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -87,7 +87,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
     }
@@ -99,7 +99,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icon32dp,
+                icon = Icon32dp.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -112,7 +112,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 enabled = false,
             )
         }
@@ -159,7 +159,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
     }
@@ -172,7 +172,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image.asPaintable(),
                 )
             }
         }
@@ -185,7 +185,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
                 secondaryLabel = "Secondary label very very very very very very very very very long text",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -199,7 +199,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image.asPaintable(),
                     largeIcon = true,
                 )
             }
@@ -212,7 +212,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon12dp,
+                icon = Icon12dp.asPaintable(),
             )
         }
     }
@@ -223,7 +223,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
-                icon = android.R.drawable.ic_delete,
+                icon = DrawableResPaintable(android.R.drawable.ic_delete),
             )
         }
     }
@@ -234,7 +234,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon12dp,
+                icon = Icon12dp.asPaintable(),
                 largeIcon = true,
             )
         }
@@ -246,7 +246,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon48dp,
+                icon = Icon48dp.asPaintable(),
             )
         }
     }
@@ -257,51 +257,9 @@ class OutlinedChipTest : ScreenshotBaseTest() {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
-                icon = Icon48dp,
+                icon = Icon48dp.asPaintable(),
                 largeIcon = true,
             )
-        }
-    }
-
-    @Test
-    fun withPlaceholderIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            CompositionLocalProvider(LocalInspectionMode.provides(true)) {
-                OutlinedChip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Image,
-                        tintColor = MaterialTheme.colors.primary,
-                    ),
-                )
-            }
-        }
-    }
-
-    @Test
-    fun disabledWithIconPlaceholder() {
-        screenshotTestRule.setContent(
-            isComponent = true,
-            takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Never,
-        ) {
-            // In inspection mode will jump to placeholder
-            CompositionLocalProvider(LocalInspectionMode.provides(true)) {
-                OutlinedChip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Image,
-                        tintColor = MaterialTheme.colors.primary,
-                    ),
-                    enabled = false,
-                )
-            }
         }
     }
 
@@ -313,7 +271,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image.asPaintable(),
                 )
             }
         }
@@ -326,7 +284,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.secondaryChipColors(),
             )
         }
@@ -339,7 +297,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.gradientBackgroundChipColors(),
             )
         }
@@ -352,11 +310,30 @@ class OutlinedChipTest : ScreenshotBaseTest() {
                 label = "Primary label",
                 onClick = { },
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.imageBackgroundChipColors(
                     backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
                 ),
             )
+        }
+    }
+
+    @Test
+    fun withIconMirrored() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+                @Suppress("Deprecation")
+                OutlinedChip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Outlined.VolumeDown.asPaintable(),
+                    iconRtlMode = IconRtlMode.Mirrored,
+                    colors = ChipDefaults.imageBackgroundChipColors(
+                        backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
+                    ),
+                )
+            }
         }
     }
 

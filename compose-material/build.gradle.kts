@@ -97,6 +97,7 @@ metalava {
 dependencies {
     api(projects.annotations)
     api(projects.composeLayout)
+    api(projects.images.base)
 
     api(libs.compose.foundation.foundation)
     api(libs.compose.foundation.foundation.layout)
@@ -110,8 +111,6 @@ dependencies {
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.ui.text)
     implementation(libs.compose.ui.unit)
-    implementation(libs.coil)
-    implementation(libs.coil.base)
     implementation(libs.kotlin.stdlib)
 
     debugApi(projects.composeTools)

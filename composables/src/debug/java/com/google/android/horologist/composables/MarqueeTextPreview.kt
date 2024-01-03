@@ -16,16 +16,30 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FireTruck
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.google.android.horologist.compose.tools.WearPreview
 import kotlin.time.Duration.Companion.seconds
 
@@ -34,6 +48,24 @@ import kotlin.time.Duration.Companion.seconds
 fun MarqueeTextTypicalPreview() {
     MarqueeText(
         text = "A very long text strings",
+        modifier = Modifier
+            .background(Color.DarkGray)
+            .width(100.dp),
+        textAlign = TextAlign.Center,
+    )
+}
+
+@WearPreview
+@Composable
+fun MarqueeTextStyledPreview() {
+    MarqueeText(
+        text = buildAnnotatedString {
+            append("A very long ")
+            withStyle(style = SpanStyle(fontStyle = FontStyle.Italic)) {
+                append("italic")
+            }
+            append(" text")
+        },
         modifier = Modifier
             .background(Color.DarkGray)
             .width(100.dp),
@@ -83,6 +115,32 @@ fun MarqueeTextShortTextRtlPreview() {
 fun MarqueeTextConstantScrollingPreview() {
     MarqueeText(
         text = "A very long text strings",
+        modifier = Modifier
+            .background(Color.DarkGray)
+            .width(100.dp),
+        textAlign = TextAlign.Center,
+        pauseTime = 0.seconds,
+    )
+}
+
+@WearPreview
+@Composable
+fun MarqueeTextConstantWithIconScrollingPreview() {
+    MarqueeText(
+        text = buildAnnotatedString {
+            appendInlineContent("firetruck")
+            append("A long string next to an icon")
+        },
+        inlineContent = mapOf(
+            "firetruck" to InlineTextContent(Placeholder(20.sp, 20.sp, PlaceholderVerticalAlign.Center)) {
+                Image(
+                    imageVector = Icons.Default.FireTruck,
+                    contentDescription = null,
+                    colorFilter = ColorFilter.tint(Color.White),
+                    contentScale = ContentScale.FillHeight,
+                )
+            },
+        ),
         modifier = Modifier
             .background(Color.DarkGray)
             .width(100.dp),

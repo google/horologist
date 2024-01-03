@@ -18,6 +18,7 @@ package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -34,6 +35,9 @@ import com.google.android.horologist.composables.picker.PickerScope
 import com.google.android.horologist.composables.picker.PickerState
 import com.google.android.horologist.composables.picker.rememberPickerState
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -162,6 +166,37 @@ class RotaryInteractionTest {
 
         rule.runOnIdle {
             assertThat(pickerState.selectedOption).isEqualTo(selectedOption - 2)
+        }
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun scrollPicker_receiveRotaryEventsBeforeInitialisation() {
+        lateinit var pickerState: PickerState
+        val selectedOption = 5
+        val numberOfOptions = 15
+        lateinit var scope: CoroutineScope
+
+        // Disable clock so that we'll be able to send events before composition finishes
+        rule.mainClock.autoAdvance = false
+
+        rule.setContent {
+            pickerState = rememberPickerState(
+                initialNumberOfOptions = numberOfOptions,
+                initiallySelectedOption = selectedOption,
+                repeatItems = true,
+            )
+            defaultPickerWithRotaryAccumulator(pickerState)
+            scope = rememberCoroutineScope()
+        }
+
+        scope.launch {
+            focusRequester.requestFocus()
+            async {
+                rule.onNodeWithTag(TEST_TAG).performRotaryScrollInput {
+                    rotateToScrollVertically(50.0f)
+                }
+            }
         }
     }
 

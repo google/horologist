@@ -35,7 +35,7 @@ import androidx.wear.compose.material.ToggleButton
 import androidx.wear.compose.material.ToggleButtonColors
 import androidx.wear.compose.material.ToggleButtonDefaults
 import androidx.wear.compose.material.contentColorFor
-
+import com.google.android.horologist.images.base.paintable.PaintableIcon
 /**
  * This component is an alternative to [ToggleButton], providing the following:
  * - a convenient way of providing text;
@@ -87,8 +87,8 @@ public fun ToggleButton(
  */
 @Composable
 public fun ToggleButton(
-    checkedIcon: Any,
-    notCheckedIcon: Any,
+    checkedIcon: PaintableIcon,
+    notCheckedIcon: PaintableIcon,
     contentDescription: String,
     onCheckedChanged: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -126,7 +126,7 @@ public fun ToggleButton(
         role = role,
     ) {
         Icon(
-            icon = if (checked) {
+            paintable = if (checked) {
                 checkedIcon
             } else {
                 notCheckedIcon

@@ -17,7 +17,6 @@
 package com.google.android.horologist.mediasample.ui.settings
 
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DataObject
@@ -56,8 +55,7 @@ fun UampSettingsScreen(
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier,
     ) {
         item {
             ListHeader {

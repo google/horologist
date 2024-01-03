@@ -28,8 +28,8 @@ import androidx.wear.compose.material.StepperDefaults
 import androidx.wear.compose.material.contentColorFor
 import com.google.android.horologist.compose.rotaryinput.RotaryDefaults
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import kotlin.math.roundToInt
-
 /**
  * Wrapper for androidx.wear.compose.material.Stepper with default RSB scroll support.
  *
@@ -43,13 +43,13 @@ public fun Stepper(
     modifier: Modifier = Modifier,
     decreaseIcon: @Composable () -> Unit = {
         Icon(
-            StepperDefaults.Decrease,
+            StepperDefaults.Decrease.asPaintable(),
             stringResource(R.string.horologist_stepper_decrease_content_description),
         )
     },
     increaseIcon: @Composable () -> Unit = {
         Icon(
-            StepperDefaults.Increase,
+            StepperDefaults.Increase.asPaintable(),
             stringResource(R.string.horologist_stepper_increase_content_description),
         )
     },
@@ -110,13 +110,13 @@ public fun Stepper(
     modifier: Modifier = Modifier,
     decreaseIcon: @Composable () -> Unit = {
         Icon(
-            StepperDefaults.Decrease,
+            StepperDefaults.Decrease.asPaintable(),
             stringResource(R.string.horologist_stepper_decrease_content_description),
         )
     },
     increaseIcon: @Composable () -> Unit = {
         Icon(
-            StepperDefaults.Increase,
+            StepperDefaults.Increase.asPaintable(),
             stringResource(R.string.horologist_stepper_increase_content_description),
         )
     },

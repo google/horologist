@@ -20,11 +20,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.annotation.CheckResult
+import androidx.concurrent.futures.await
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.watchface.complications.data.ComplicationType
+import androidx.wear.watchface.complications.datasource.ComplicationDataSourceService
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.ComplicationInfo
+import com.google.android.horologist.data.SurfacesInfo
 import com.google.android.horologist.data.TileInfo
 import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.data.WearDataLayerRegistry
@@ -39,7 +42,7 @@ import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.data.usageInfo
 import com.google.protobuf.Timestamp
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.guava.await
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.tasks.await
 
 private const val TAG = "DataLayerAppHelper"
@@ -58,11 +61,16 @@ public class WearDataLayerAppHelper(
 
         private val surfacesInfoDataStore by lazy {
             registry.protoDataStore(
-                path = DataLayerAppHelper.SURFACE_INFO_PATH,
+                path = SURFACE_INFO_PATH,
                 coroutineScope = scope,
                 serializer = SurfacesInfoSerializer,
             )
         }
+
+        /**
+         * Return the [SurfacesInfo] of this node.
+         */
+        public val surfacesInfo: Flow<SurfacesInfo> = surfacesInfoDataStore.data
 
         override suspend fun installOnNode(node: String) {
             checkIsForegroundOrThrow()
@@ -199,11 +207,11 @@ public class WearDataLayerAppHelper(
 
         /**
          * Marks a complication as activated. Call this in
-         * [ComplicationDataSourceService#onComplicationActivated].
+         * [ComplicationDataSourceService.onComplicationActivated].
          *
          * @param complicationName The name of the complication, to disambiguate from others.
-         * @param complicationInstanceId Passed from onComplicationActivated
-         * @param complicationType Passedfrom onComplicationActivated
+         * @param complicationInstanceId Passed from [ComplicationDataSourceService.onComplicationActivated]
+         * @param complicationType Passed from [ComplicationDataSourceService.onComplicationActivated]
          */
         public suspend fun markComplicationAsActivated(
             complicationName: String,
@@ -228,11 +236,11 @@ public class WearDataLayerAppHelper(
 
         /**
          * Marks a complication as deactivated. Call this in
-         * [ComplicationDataSourceService#onComplicationDeactivated].
+         * [ComplicationDataSourceService.onComplicationDeactivated].
          *
          * @param complicationName The name of the complication, to disambiguate from others.
-         * @param complicationInstanceId Passed from onComplicationDeactivated
-         * @param complicationType Passedfrom onComplicationDeactivated
+         * @param complicationInstanceId Passed from [ComplicationDataSourceService.onComplicationDeactivated]
+         * @param complicationType Passed from [ComplicationDataSourceService.onComplicationDeactivated]
          */
         public suspend fun markComplicationAsDeactivated(
             complicationName: String,

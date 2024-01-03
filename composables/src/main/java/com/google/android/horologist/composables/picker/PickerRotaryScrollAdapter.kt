@@ -42,7 +42,7 @@ internal class PickerRotaryScrollAdapter(
      */
     override fun averageItemSize(): Float =
         scrollableState.scalingLazyListState
-            .layoutInfo.visibleItemsInfo.first().unadjustedSize.toFloat()
+            .layoutInfo.visibleItemsInfo.firstOrNull()?.unadjustedSize?.toFloat() ?: 0f
 
     /**
      * Current (centred) item index
@@ -71,7 +71,7 @@ public fun androidx.wear.compose.material.PickerState.toRotaryScrollAdapter(): R
 /**
  * An implementation of rotary scroll adapter for [Picker]
  */
-@Suppress("INVISIBLE_MEMBER")
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 internal class AndroidxPickerRotaryScrollAdapter(
     override val scrollableState: androidx.wear.compose.material.PickerState,
 ) : RotaryScrollAdapter {
@@ -81,7 +81,7 @@ internal class AndroidxPickerRotaryScrollAdapter(
      */
     override fun averageItemSize(): Float =
         scrollableState.scalingLazyListState
-            .layoutInfo.visibleItemsInfo.first().unadjustedSize.toFloat()
+            .layoutInfo.visibleItemsInfo.firstOrNull()?.unadjustedSize?.toFloat() ?: 0f
 
     /**
      * Current (centred) item index

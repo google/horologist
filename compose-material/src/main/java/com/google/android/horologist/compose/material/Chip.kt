@@ -28,10 +28,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -39,13 +36,12 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.Text
-import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-
+import com.google.android.horologist.images.base.paintable.Paintable
+import com.google.android.horologist.images.base.paintable.PaintableIcon
 /**
  * This component is an alternative to [Chip], providing the following:
  * - a convenient way of providing a label and a secondary label;
@@ -59,9 +55,9 @@ public fun Chip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     secondaryLabel: String? = null,
-    icon: Any? = null,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
+    icon: Paintable? = null,
     largeIcon: Boolean = false,
-    placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
 ) {
@@ -78,32 +74,21 @@ public fun Chip(
                     val iconModifier = Modifier
                         .size(iconSize)
                         .clip(CircleShape)
-                    when (icon) {
-                        is ImageVector ->
-                            Icon(
-                                imageVector = icon,
-                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier,
-                            )
-
-                        is Int ->
-                            Icon(
-                                painter = painterResource(id = icon),
-                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier,
-                            )
-
-                        else ->
-                            Image(
-                                painter = rememberAsyncImagePainter(
-                                    model = icon,
-                                    placeholder = placeholder,
-                                ),
-                                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                                modifier = iconModifier,
-                                contentScale = ContentScale.Crop,
-                                alpha = LocalContentAlpha.current,
-                            )
+                    if (it is PaintableIcon) {
+                        Icon(
+                            paintable = it,
+                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                            modifier = iconModifier,
+                            rtlMode = iconRtlMode,
+                        )
+                    } else {
+                        Image(
+                            painter = it.rememberPainter(),
+                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                            modifier = iconModifier,
+                            contentScale = ContentScale.Crop,
+                            alpha = LocalContentAlpha.current,
+                        )
                     }
                 }
             }
@@ -134,9 +119,9 @@ public fun Chip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     @StringRes secondaryLabel: Int? = null,
-    icon: Any? = null,
+    iconRtlMode: IconRtlMode = IconRtlMode.Default,
+    icon: Paintable? = null,
     largeIcon: Boolean = false,
-    placeholder: Painter? = null,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
 ) {
@@ -147,9 +132,9 @@ public fun Chip(
         secondaryLabel = secondaryLabel?.let { stringResource(id = it) },
         icon = icon,
         largeIcon = largeIcon,
-        placeholder = placeholder,
         colors = colors,
         enabled = enabled,
+        iconRtlMode = iconRtlMode,
     )
 }
 

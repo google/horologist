@@ -19,14 +19,12 @@
 package com.google.android.horologist.screensizes
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithCache
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.VolumeState
@@ -40,7 +38,7 @@ import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
-import com.google.android.horologist.media.ui.components.background.radialBackgroundBrush
+import com.google.android.horologist.media.ui.components.background.RadialBackground
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
@@ -96,7 +94,7 @@ fun MediaPlayerTestCase() {
         },
     ) {
         val colors = MaterialTheme.colors
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background)) {
             PagerScreen(
                 state = rememberPagerState {
                     2
@@ -104,30 +102,7 @@ fun MediaPlayerTestCase() {
             ) {
                 if (it == 0) {
                     PlayerScreen(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .drawWithCache {
-                                val background = if (playerUiState.media != null) {
-                                    radialBackgroundBrush(
-                                        color = colors.primary,
-                                        background = Color.Black,
-                                    )
-                                } else {
-                                    null
-                                }
-                                onDrawWithContent {
-                                    if (background != null) {
-                                        drawRect(
-                                            color = Color.Black,
-                                            blendMode = BlendMode.Clear,
-                                        )
-                                    }
-                                    drawContent()
-                                    if (background != null) {
-                                        drawRect(background, blendMode = BlendMode.DstOver)
-                                    }
-                                }
-                            },
+                        modifier = Modifier.fillMaxSize(),
                         mediaDisplay = {
                             AnimatedMediaInfoDisplay(
                                 playerUiState.media,
@@ -161,6 +136,7 @@ fun MediaPlayerTestCase() {
                                 enabled = playerUiState.connected,
                             )
                         },
+                        background = { RadialBackground(color = colors.primary) },
                     )
                 }
             }

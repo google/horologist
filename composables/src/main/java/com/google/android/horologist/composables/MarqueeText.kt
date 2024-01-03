@@ -22,7 +22,9 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.MarqueeSpacing
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,7 +37,10 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -48,6 +53,67 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+
+/**
+ * Show a single line Marquee text, with a pause (initial and between cycles) and speed.
+ *
+ * Otherwise is mostly the same as the [Text] composable, without params that don't apply for
+ * marquee, such as maxLines.
+ *
+ * Only scrolls if required, and otherwise uses textAlign to show the content in a
+ * stationary position.
+ *
+ * @param text The text to be displayed, where [AnnotatedString] allows multiple styles to be used.
+ * @param modifier [Modifier] to apply to this layout node.
+ * @param inlineContent A map store composables that replaces certain ranges of the text. It's
+ * used to insert composables into text layout. Check [InlineTextContent] for more information.
+ * @param color [Color] to apply to the text. If [Color.Unspecified], and [style] has no color set,
+ * this will be [LocalContentColor].
+ * @param style Style configuration for the text such as color, font, line height etc.
+ * @param textAlign The alignment of the text within the lines of the paragraph.
+ * See [TextStyle.textAlign].
+ * @param followGap the width between end of each scrolling text and the start of the following one.
+ * @param edgeGradientWidth the width of the fade out zone on the edges, so text isn't cut off
+ * harshly.
+ * @param marqueeDpPerSecond the speed of scrolling in dp per second.
+ * @param pauseTime the duration before initially scrolling and each additional scroll.
+ */
+@ExperimentalHorologistApi
+@Composable
+public fun MarqueeText(
+    text: AnnotatedString,
+    modifier: Modifier = Modifier,
+    inlineContent: Map<String, InlineTextContent> = mapOf(),
+    color: Color = Color.Unspecified,
+    style: TextStyle = LocalTextStyle.current,
+    textAlign: TextAlign = TextAlign.Left,
+    followGap: Dp = 96.dp,
+    edgeGradientWidth: Dp = 16.dp,
+    marqueeDpPerSecond: Dp = 64.dp,
+    pauseTime: Duration = 4.seconds,
+) {
+    val controller = remember(text, style) { MarqueeController(edgeGradientWidth) }
+    controller.edgeGradientWidth = edgeGradientWidth
+
+    Text(
+        text = text,
+        inlineContent = inlineContent,
+        modifier = modifier
+            .then(controller.outsideMarqueeModifier)
+            .basicMarquee(
+                iterations = Int.MAX_VALUE,
+                delayMillis = pauseTime.inWholeMilliseconds.toInt(),
+                initialDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
+                spacing = MarqueeSpacing(followGap),
+                velocity = marqueeDpPerSecond,
+            )
+            .then(controller.insideMarqueeModifier),
+        textAlign = textAlign,
+        color = color,
+        style = style,
+        maxLines = 1,
+    )
+}
 
 /**
  * Show a single line Marquee text, with a pause (initial and between cycles) and speed.
@@ -84,25 +150,17 @@ public fun MarqueeText(
     marqueeDpPerSecond: Dp = 64.dp,
     pauseTime: Duration = 4.seconds,
 ) {
-    val controller = remember(text, style) { MarqueeController(edgeGradientWidth) }
-    controller.edgeGradientWidth = edgeGradientWidth
-
-    Text(
-        text = text,
-        modifier = modifier
-            .then(controller.outsideMarqueeModifier)
-            .basicMarquee(
-                iterations = Int.MAX_VALUE,
-                delayMillis = pauseTime.inWholeMilliseconds.toInt(),
-                initialDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
-                spacing = MarqueeSpacing(followGap),
-                velocity = marqueeDpPerSecond,
-            )
-            .then(controller.insideMarqueeModifier),
-        textAlign = textAlign,
+    MarqueeText(
+        text = AnnotatedString(text),
+        inlineContent = emptyMap(),
+        modifier = modifier,
         color = color,
         style = style,
-        maxLines = 1,
+        textAlign = textAlign,
+        followGap = followGap,
+        edgeGradientWidth = edgeGradientWidth,
+        marqueeDpPerSecond = marqueeDpPerSecond,
+        pauseTime = pauseTime,
     )
 }
 
@@ -125,6 +183,12 @@ private class MarqueeController(edgeGradientWidth: Dp) {
             layout(placeable.width, placeable.height) {
                 placeable.placeRelative(IntOffset.Zero)
             }
+        }
+        .graphicsLayer {
+            // Required to make the faded edges only clear the alpha for the marquee content's
+            // pixels and not punch a hole through whatever is beneath this composable.
+            compositingStrategy = CompositingStrategy.Offscreen
+            clip = true
         }
         .drawFadeGradient()
 

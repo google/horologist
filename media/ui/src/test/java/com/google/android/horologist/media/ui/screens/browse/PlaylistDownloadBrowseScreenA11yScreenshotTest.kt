@@ -18,7 +18,6 @@ package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.compose.runtime.LaunchedEffect
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -55,27 +54,25 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest(
 
     @Test
     fun secondPage() {
-        FakeImageLoader.NotFound.override {
-            val screenState = BrowseScreenState.Loaded(downloadList)
+        val screenState = BrowseScreenState.Loaded(downloadList)
 
-            screenshotTestRule.setContent(takeScreenshot = true) {
-                val columnState = ScalingLazyColumnDefaults.responsive().create()
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
 
-                LaunchedEffect(Unit) {
-                    columnState.state.scrollToItem(4, 0)
-                }
+            LaunchedEffect(Unit) {
+                columnState.state.scrollToItem(4, 0)
+            }
 
-                PlayerLibraryPreview(columnState = columnState) {
-                    PlaylistDownloadBrowseScreen(
-                        browseScreenState = screenState,
-                        onDownloadItemClick = { },
-                        onDownloadItemInProgressClick = { },
-                        onPlaylistsClick = { },
-                        onSettingsClick = { },
-                        columnState = columnState,
-                        onDownloadItemInProgressClickActionLabel = "cancel",
-                    )
-                }
+            PlayerLibraryPreview(columnState = columnState) {
+                PlaylistDownloadBrowseScreen(
+                    browseScreenState = screenState,
+                    onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
+                    onPlaylistsClick = { },
+                    onSettingsClick = { },
+                    columnState = columnState,
+                    onDownloadItemInProgressClickActionLabel = "cancel",
+                )
             }
         }
     }

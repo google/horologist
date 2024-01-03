@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -29,8 +30,8 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun ToggleButtonPreview() {
     ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive,
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
         contentDescription = "contentDescription",
         onCheckedChanged = {},
     )
@@ -43,8 +44,8 @@ fun ToggleButtonPreview() {
 @Composable
 fun ToggleButtonPreviewNotChecked() {
     ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive,
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
         contentDescription = "contentDescription",
         onCheckedChanged = {},
         checked = false,
@@ -58,8 +59,8 @@ fun ToggleButtonPreviewNotChecked() {
 @Composable
 fun ToggleButtonPreviewDisabled() {
     ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive,
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
         contentDescription = "contentDescription",
         onCheckedChanged = {},
         enabled = false,
@@ -73,8 +74,8 @@ fun ToggleButtonPreviewDisabled() {
 @Composable
 fun ToggleButtonPreviewNotCheckedDisabled() {
     ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive,
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
         contentDescription = "contentDescription",
         onCheckedChanged = {},
         checked = false,
@@ -114,8 +115,8 @@ fun ToggleButtonPreviewTextNotChecked() {
 @Composable
 fun ToggleButtonPreviewSmall() {
     ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive,
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
         contentDescription = "contentDescription",
         onCheckedChanged = {},
         smallSize = true,
@@ -129,8 +130,8 @@ fun ToggleButtonPreviewSmall() {
 @Composable
 fun ToggleButtonPreviewSmallNotChecked() {
     ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive,
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
         contentDescription = "contentDescription",
         onCheckedChanged = {},
         checked = false,
@@ -145,8 +146,8 @@ fun ToggleButtonPreviewSmallNotChecked() {
 @Composable
 fun ToggleButtonPreviewIconOnly() {
     ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive,
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
         contentDescription = "contentDescription",
         onCheckedChanged = {},
         colors = ToggleButtonDefaults.iconOnlyColors(),
@@ -161,8 +162,8 @@ fun ToggleButtonPreviewIconOnly() {
 @Composable
 fun ToggleButtonPreviewIconOnlyNotChecked() {
     ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive,
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive,
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
         contentDescription = "contentDescription",
         onCheckedChanged = {},
         checked = false,

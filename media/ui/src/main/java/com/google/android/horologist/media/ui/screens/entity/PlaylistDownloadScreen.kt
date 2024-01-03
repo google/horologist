@@ -60,6 +60,8 @@ import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.ButtonSize
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ChipIconWithProgress
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -179,9 +181,8 @@ private fun MediaContent(
                 label = mediaTitle,
                 onClick = { onDownloadItemClick(downloadMediaUiModel) },
                 secondaryLabel = secondaryLabel,
-                icon = downloadMediaUiModel.artworkUri,
+                icon = CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder),
                 largeIcon = true,
-                placeholder = downloadItemArtworkPlaceholder,
                 colors = ChipDefaults.secondaryChipColors(),
                 enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded,
             )
@@ -200,9 +201,8 @@ private fun MediaContent(
                             ChipIconWithProgress(
                                 progress = progress,
                                 modifier = Modifier.clearAndSetSemantics { },
-                                icon = downloadMediaUiModel.artworkUri,
+                                icon = CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder),
                                 largeIcon = true,
-                                placeholder = downloadItemArtworkPlaceholder,
                             )
                         }
                     }
@@ -211,9 +211,8 @@ private fun MediaContent(
                         {
                             ChipIconWithProgress(
                                 modifier = Modifier.clearAndSetSemantics { },
-                                icon = downloadMediaUiModel.artworkUri,
+                                icon = CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder),
                                 largeIcon = true,
-                                placeholder = downloadItemArtworkPlaceholder,
                             )
                         }
                     }
@@ -265,7 +264,7 @@ private fun ButtonsContent(
                 label = stringResource(id = R.string.horologist_playlist_download_button_download),
                 onClick = { /* do nothing */ },
                 modifier = Modifier.padding(bottom = 16.dp),
-                icon = Icons.Default.Download,
+                icon = Icons.Default.Download.asPaintable(),
                 enabled = false,
             )
         }
@@ -277,14 +276,14 @@ private fun ButtonsContent(
                         label = stringResource(id = R.string.horologist_playlist_download_button_cancel),
                         onClick = { onCancelDownloadButtonClick(state.collectionModel) },
                         modifier = Modifier.padding(bottom = 16.dp),
-                        icon = Icons.Default.Close,
+                        icon = Icons.Default.Close.asPaintable(),
                     )
                 } else {
                     Chip(
                         label = stringResource(id = R.string.horologist_playlist_download_button_download),
                         onClick = { onDownloadButtonClick(state.collectionModel) },
                         modifier = Modifier.padding(bottom = 16.dp),
-                        icon = Icons.Default.Download,
+                        icon = Icons.Default.Download.asPaintable(),
                     )
                 }
             } else {

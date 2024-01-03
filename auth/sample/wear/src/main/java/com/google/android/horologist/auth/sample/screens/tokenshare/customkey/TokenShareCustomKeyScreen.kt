@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.auth.sample.screens.tokenshare.customkey
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,10 +44,10 @@ fun TokenShareCustomKeyScreen(
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
     ) {
         item {
-            Title(R.string.token_share_custom_key_title, Modifier)
+            Title(R.string.token_share_custom_key_title)
         }
         item {
             Text(

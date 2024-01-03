@@ -19,13 +19,10 @@ package com.google.android.horologist.auth.sample.di
 import android.util.Log
 import com.google.android.horologist.auth.sample.SampleApplication
 import com.google.android.horologist.data.WearDataLayerRegistry
-import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 
 /**
  * Simple DI implementation.
@@ -34,8 +31,6 @@ object SampleAppDI {
 
     fun inject(sampleApplication: SampleApplication) {
         sampleApplication.registry = registry(sampleApplication, servicesCoroutineScope())
-        sampleApplication.okHttpClient = okHttpClient()
-        sampleApplication.moshi = moshi()
     }
 
     private fun registry(
@@ -56,13 +51,4 @@ object SampleAppDI {
         }
         return CoroutineScope(Dispatchers.IO + SupervisorJob() + coroutineExceptionHandler)
     }
-
-    private fun okHttpClient(): OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(
-            HttpLoggingInterceptor().also { interceptor ->
-                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-            },
-        ).build()
-
-    private fun moshi(): Moshi = Moshi.Builder().build()
 }

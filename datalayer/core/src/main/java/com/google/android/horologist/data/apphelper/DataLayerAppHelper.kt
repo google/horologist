@@ -152,7 +152,10 @@ abstract class DataLayerAppHelper(
     abstract suspend fun startCompanion(node: String): AppHelperResultCode
 
     /**
-     * Launch an activity on the specified node.
+     * Launch an activity, which belongs to the same app (same package name), on the specified node.
+     *
+     * [Class name][ActivityConfig.getClassFullName] should be a fully qualified class name, such
+     * as, "com.example.project.SampleActivity".
      */
     @CheckResult
     public suspend fun startRemoteActivity(
@@ -210,7 +213,8 @@ abstract class DataLayerAppHelper(
      * apps are not being launched as a result of a background process on the calling device.
      */
     protected fun checkIsForegroundOrThrow() {
-        val isForeground = activityManager.runningAppProcesses.find {
+        val runningAppProcesses = activityManager.runningAppProcesses ?: emptyList()
+        val isForeground = runningAppProcesses.find {
             it.pid == Process.myPid()
         }?.importance == IMPORTANCE_FOREGROUND
         if (!isForeground) {

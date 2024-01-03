@@ -18,33 +18,22 @@
 
 package com.google.android.horologist.navsample
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.lazy.AutoCenteringParams
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
-import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.sample.SampleChip
 
 @Composable
 fun NavMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    scrollState: ScalingLazyListState,
+    columnState: ScalingLazyColumnState,
 ) {
-    val focusRequester = rememberActiveFocusRequester()
-
     ScalingLazyColumn(
-        modifier = modifier
-            .fillMaxSize()
-            .rotaryWithScroll(scrollState, focusRequester),
-        state = scrollState,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        autoCentering = AutoCenteringParams(itemIndex = 0),
+        modifier = modifier,
+        columnState = columnState,
     ) {
         item {
             SampleChip(

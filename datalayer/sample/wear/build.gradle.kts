@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
+import com.google.protobuf.gradle.id
+
 plugins {
     id("com.android.application")
+    id("com.google.devtools.ksp")
+    id("com.google.protobuf")
+    id("dagger.hilt.android.plugin")
     kotlin("android")
 }
 
@@ -87,6 +92,42 @@ android {
     namespace = "com.google.android.horologist.datalayer.sample"
 }
 
+sourceSets {
+    create("main") {
+        java {
+            srcDirs(
+                "build/generated/source/proto/debug/java",
+                "build/generated/source/proto/debug/grpc",
+                "build/generated/source/proto/debug/kotlin",
+                "build/generated/source/proto/debug/grpckt",
+            )
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.1"
+    }
+    plugins {
+        id("javalite") {
+            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+        }
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+                create("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
 dependencies {
     api(projects.annotations)
 
@@ -112,10 +153,17 @@ dependencies {
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)
 
+    implementation(libs.kotlinx.coroutines.playservices)
+    implementation(libs.protobuf.kotlin.lite)
+
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.androidx.wear.tooling.preview)
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
+
+    implementation(libs.dagger.hiltandroid)
+    ksp(libs.dagger.hiltandroidcompiler)
+    implementation(libs.hilt.navigationcompose)
 
     testImplementation(libs.androidx.navigation.testing)
     testImplementation(libs.androidx.test.espressocore)
@@ -124,4 +172,9 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.robolectric)
+
+    androidTestImplementation(libs.androidx.test.runner)
 }
+
+tasks.maybeCreate("prepareKotlinIdeaImport")
+    .dependsOn("generateDebugProto")

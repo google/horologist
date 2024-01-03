@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
@@ -41,7 +42,7 @@ class ChipA11yTest : ScreenshotBaseTest(
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image.asPaintable(),
                 )
             }
         }
@@ -55,7 +56,7 @@ class ChipA11yTest : ScreenshotBaseTest(
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image.asPaintable(),
                     enabled = false,
                 )
             }

@@ -22,6 +22,7 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.filters.MediumTest
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
@@ -59,7 +60,7 @@ class VolumeScreenA11yTest {
             .assertIsDisplayed()
             .assertHasClickAction()
 
-        composeTestRule.onNodeWithContentDescription("Pixelbuds")
+        composeTestRule.onNodeWithText("Pixelbuds")
             .assertIsDisplayed()
             .assertHasClickAction()
             .assertHasStateDescription("Connected, Volume 5")

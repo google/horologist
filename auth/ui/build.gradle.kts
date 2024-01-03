@@ -113,6 +113,7 @@ dependencies {
     api(libs.wearcompose.foundation)
 
     implementation(projects.composeMaterial)
+    implementation(projects.images.coil)
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)

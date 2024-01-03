@@ -15,19 +15,39 @@
   -->
 
 <resources>
+    <!-- General -->
     <string name="app_name">Horologist Datalayer Sample</string>
     <string name="wearable_message_api_unavailable">This device does not have capability to communicate to Wearable Data Layer API</string>
-    <string name="app_helper_node_name_label">Node: %1$s</string>
-    <string name="app_helper_node_id_label">ID: %1$s</string>
-    <string name="app_helper_is_app_installed_label">App installed: %1$s</string>
-    <string name="app_helper_node_type_label">Type: %1$s</string>
-    <string name="app_helper_node_type_unknown_label">UNKNOWN (app not installed)</string>
-    <string name="app_helper_complications_label">Complications: %1$s</string>
-    <string name="app_helper_tiles_label">Tiles: %1$s</string>
-    <string name="app_helper_usage_status">Usage: %1$s</string>
-    <string name="app_helper_install_button_label">Install</string>
-    <string name="app_helper_companion_button_label">Companion</string>
-    <string name="app_helper_launch_button_label">Launch</string>
 
-    <string name="app_helper_button_list_nodes">List connected nodes</string>
+    <!-- Main Menu screen -->
+    <string name="menu_screen_apphelper_header">App Helper</string>
+    <string name="menu_screen_nodes_item">Nodes</string>
+    <string name="menu_screen_datalayer_header">Data Layer</string>
+    <string name="menu_screen_list_nodes_item">List of nodes sample</string>
+    <string name="menu_screen_counter_item">Counter sample</string>
+
+    <!-- App Helper Nodes screen -->
+    <string name="nodes_screen_header">Nodes</string>
+    <string name="nodes_screen_no_nodes">No nodes were found.</string>
+    <string name="nodes_screen_refresh_button_label">Refresh</string>
+    <string name="node_screen_success_dialog_message">Success!</string>
+    <string name="node_screen_failure_dialog_message">Failed: \n%1$s</string>
+    <string name="node_screen_action_dialog_dismiss_button_label">Dismiss</string>
+
+    <!-- App Helper Node Status card -->
+    <string name="node_status_node_name_label">Node: %1$s</string>
+    <string name="node_status_node_id_label">ID: %1$s</string>
+    <string name="node_status_is_app_installed_label">App installed: %1$s</string>
+    <string name="node_status_node_type_label">Type: %1$s</string>
+    <string name="node_status_node_type_unknown_label">UNKNOWN (app not installed)</string>
+    <string name="node_status_complications_label">Complications: %1$s</string>
+    <string name="node_status_tiles_label">Tiles: %1$s</string>
+    <string name="node_status_usage_status">Usage: %1$s</string>
+    <string name="node_status_install_on_node_button_label">Install on node</string>
+    <string name="node_status_start_companion_button_label">Start companion</string>
+    <string name="node_status_start_own_app_button_label">Start remote own app</string>
+    <string name="node_status_start_remote_activity_button_label">Start remote activity</string>
+
+    <!-- Start Remote Sample Activity screen -->
+    <string name="app_helper_start_remote_activity_message">This is a sample activity to demonstrate it being launched remotely from the watch.</string>
 </resources>

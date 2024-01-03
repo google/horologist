@@ -45,7 +45,7 @@ public fun DeviceChip(
     Chip(
         modifier = modifier
             .width(intrinsicSize = IntrinsicSize.Max)
-            .semantics {
+            .semantics(mergeDescendants = true) {
                 stateDescription = volumeDescription
                 onClick(onClickLabel) {
                     onAudioOutputClick()

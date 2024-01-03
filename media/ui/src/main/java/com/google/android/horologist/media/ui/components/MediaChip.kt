@@ -29,6 +29,8 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.base.paintable.Paintable
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
@@ -56,10 +58,9 @@ public fun MediaChip(
 
     MediaChip(
         title = title.takeIf { it.isNotEmpty() } ?: defaultTitle,
-        artworkUri = artworkUri,
+        artworkPaintable = CoilPaintable(artworkUri, placeholder),
         onClick = onClick,
         modifier = modifier,
-        placeholder = placeholder,
     )
 }
 
@@ -70,18 +71,16 @@ public fun MediaChip(
 @Composable
 public fun MediaChip(
     title: String,
-    artworkUri: Any?,
+    artworkPaintable: Paintable?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: Painter? = null,
 ) {
-    val appIcon: (@Composable BoxScope.() -> Unit)? = artworkUri?.let {
+    val appIcon: (@Composable BoxScope.() -> Unit)? = artworkPaintable?.let {
         {
             MediaArtwork(
                 modifier = Modifier.size(ChipDefaults.LargeIconSize),
                 contentDescription = title,
-                artworkUri = artworkUri,
-                placeholder = placeholder,
+                artworkPaintable = artworkPaintable,
             )
         }
     }

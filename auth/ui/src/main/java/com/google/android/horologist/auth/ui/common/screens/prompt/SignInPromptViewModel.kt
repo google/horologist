@@ -33,8 +33,6 @@ import kotlinx.coroutines.launch
  * [states][SignInPromptScreenState] through the [uiState] property.
  *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
- * @sample com.google.android.horologist.auth.sample.screens.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
- * @sample com.google.android.horologist.auth.sample.screens.oauth.pkce.prompt.PKCESignInPromptScreen
  */
 public open class SignInPromptViewModel(
     private val authUserRepository: AuthUserRepository,

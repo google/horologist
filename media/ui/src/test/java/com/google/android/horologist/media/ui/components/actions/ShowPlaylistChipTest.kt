@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.ui.components.actions
 
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
@@ -26,52 +26,44 @@ class ShowPlaylistChipTest : ScreenshotBaseTest() {
     @Test
     fun givenArtwork_thenDisplaysArtwork() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            FakeImageLoader.Resources.override {
-                ShowPlaylistChip(
-                    artworkUri = R.drawable.horologist_logo,
-                    name = "Playlists",
-                    onClick = {},
-                )
-            }
+            ShowPlaylistChip(
+                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+                name = "Playlists",
+                onClick = {},
+            )
         }
     }
 
     @Test
     fun givenNOArtwork_thenDoesNOTDisplayArtwork() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            FakeImageLoader.Resources.override {
-                ShowPlaylistChip(
-                    artworkUri = null,
-                    name = "Playlists",
-                    onClick = {},
-                )
-            }
+            ShowPlaylistChip(
+                artworkPaintable = null,
+                name = "Playlists",
+                onClick = {},
+            )
         }
     }
 
     @Test
     fun givenNOName_thenDoesDisplayArtwork() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            FakeImageLoader.Resources.override {
-                ShowPlaylistChip(
-                    artworkUri = R.drawable.horologist_logo,
-                    name = null,
-                    onClick = {},
-                )
-            }
+            ShowPlaylistChip(
+                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+                name = null,
+                onClick = {},
+            )
         }
     }
 
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            FakeImageLoader.Resources.override {
-                ShowPlaylistChip(
-                    artworkUri = R.drawable.horologist_logo,
-                    name = "Very very very very very very very very very very very very very very very very very very very long title",
-                    onClick = {},
-                )
-            }
+            ShowPlaylistChip(
+                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+                name = "Very very very very very very very very very very very very very very very very very very very long title",
+                onClick = {},
+            )
         }
     }
 }

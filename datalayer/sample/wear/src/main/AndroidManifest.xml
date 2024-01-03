@@ -24,7 +24,7 @@
     <application
         android:name=".SampleApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/ThemeOverlay.Material.Dark">
@@ -50,6 +50,23 @@
             </intent-filter>
 
         </activity>
+
+        <activity
+            android:name=".screens.startremote.StartRemoteSampleActivity"
+            android:exported="false"
+            android:taskAffinity=".main" />
+
+        <service
+            android:name="com.google.android.horologist.datalayer.sample.screens.nodes.SampleDataService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+                <data
+                    android:host="*"
+                    android:pathPrefix="/proto/"
+                    android:scheme="wear" />
+            </intent-filter>
+        </service>
 
     </application>
 

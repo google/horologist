@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.google.android.horologist.composables
 
 import android.content.Context
@@ -21,6 +23,7 @@ import android.view.accessibility.AccessibilityManager
 import androidx.annotation.PluralsRes
 import androidx.annotation.VisibleForTesting
 import androidx.compose.animation.core.Animatable
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -78,6 +81,7 @@ import com.google.android.horologist.composables.picker.PickerState
 import com.google.android.horologist.composables.picker.rememberPickerGroupState
 import com.google.android.horologist.composables.picker.rememberPickerState
 import com.google.android.horologist.composables.picker.toRotaryScrollAdapter
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import java.time.LocalTime
 import java.time.temporal.ChronoField
@@ -182,10 +186,11 @@ public fun TimePicker(
             }
         }
 
-    Box(
+    ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
             .alpha(fullyDrawn.value),
+        timeText = {},
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -398,10 +403,12 @@ public fun TimePickerWith12HourClock(
             }
         }
     }
-    Box(
+
+    ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
             .alpha(fullyDrawn.value),
+        timeText = {},
     ) {
         Column(
             modifier = modifier.fillMaxSize(),
@@ -611,6 +618,8 @@ internal class DefaultTouchExplorationStateProvider : TouchExplorationStateProvi
         }
 
         val listener = remember { Listener() }
+        listener.onAccessibilityStateChanged(accessibilityManager.isEnabled)
+        listener.onTouchExplorationStateChanged(accessibilityManager.isTouchExplorationEnabled)
 
         LocalLifecycleOwner.current.lifecycle.ObserveState(
             handleEvent = { event ->

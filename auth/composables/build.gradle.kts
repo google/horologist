@@ -104,9 +104,8 @@ dependencies {
     api(libs.compose.ui)
 
     implementation(projects.composeMaterial)
+    implementation(projects.images.coil)
 
-    implementation(libs.coil)
-    implementation(libs.coil.base)
     implementation(libs.compose.foundation.foundation)
     implementation(libs.compose.foundation.foundation.layout)
     implementation(libs.compose.material.iconscore)

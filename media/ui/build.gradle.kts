@@ -115,6 +115,7 @@ dependencies {
     implementation(projects.media.audioUi)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
+    implementation(projects.images.coil)
     implementation(projects.tiles)
 
     implementation(libs.kotlin.stdlib)
@@ -126,9 +127,7 @@ dependencies {
     implementation(libs.compose.material.ripple)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    implementation(libs.coil)
     implementation(libs.lottie.compose)
-    implementation(libs.androidx.palette.ktx)
 
     implementation(libs.androidx.complications.datasource.ktx)
     implementation(libs.androidx.wear.tiles)

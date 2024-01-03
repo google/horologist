@@ -18,7 +18,6 @@ package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -41,7 +40,7 @@ public fun AnimatedSeekToNextButton(
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(56.dp, 80.dp),
+    tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
 ) {
     if (LocalStaticPreview.current) {
         SeekToNextButton(
@@ -64,7 +63,6 @@ public fun AnimatedSeekToNextButton(
             iconSize = iconSize,
             tapTargetSize = tapTargetSize,
             compositionResult = compositionResult,
-            iconAlign = Alignment.End,
             onLongRepeatableClick = onLongRepeatableClick,
             onLongRepeatableClickEnd = onLongRepeatableClickEnd,
         )

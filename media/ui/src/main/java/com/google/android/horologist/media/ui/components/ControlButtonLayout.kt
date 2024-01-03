@@ -39,7 +39,9 @@ public fun ControlButtonLayout(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Absolute.Center,
     ) {
-        leftButton()
+        Box(modifier = Modifier.padding(start = 3.dp)) {
+            leftButton()
+        }
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -47,6 +49,8 @@ public fun ControlButtonLayout(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        rightButton()
+        Box(modifier = Modifier.padding(end = 3.dp)) {
+            rightButton()
+        }
     }
 }

@@ -57,7 +57,7 @@ public fun MediaButton(
     enabled: Boolean = true,
     colors: ButtonColors = mediaButtonDefaultColors,
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
     iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
 ) {
     Button(

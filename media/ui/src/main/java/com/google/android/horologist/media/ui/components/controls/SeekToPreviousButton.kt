@@ -19,7 +19,6 @@ package com.google.android.horologist.media.ui.components.controls
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -37,7 +36,7 @@ public fun SeekToPreviousButton(
     enabled: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
 ) {
     MediaButton(
         onClick = onClick,
@@ -48,6 +47,5 @@ public fun SeekToPreviousButton(
         colors = colors,
         iconSize = iconSize,
         tapTargetSize = tapTargetSize,
-        iconAlign = Alignment.Start,
     )
 }

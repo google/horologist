@@ -37,8 +37,8 @@ import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
+import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.RadialBackground
-import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import kotlinx.coroutines.flow.flowOf
@@ -48,7 +48,7 @@ import kotlinx.coroutines.flow.flowOf
 fun MediaPlayerTestCase(
     playerUiState: PlayerUiState,
     mediaDisplay: @Composable ColumnScope.() -> Unit = {
-        DefaultMediaInfoDisplay(playerUiState)
+        AnimatedMediaInfoDisplay(media = playerUiState.media, loading = false)
     },
     controlButtons: @Composable RowScope.() -> Unit = {
         AnimatedMediaControlButtons(

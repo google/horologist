@@ -30,18 +30,26 @@ import org.junit.Test
 class ChipTest : ScreenshotBaseTest() {
     @Test
     fun withPlaceholderIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                icon = CoilPaintable(
-                    "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Image,
-                        tintColor = Color.Black,
+        screenshotTestRule.setContent(
+            isComponent = true,
+            takeScreenshot = true,
+            fakeImageLoader = FakeImageLoader.Never,
+        ) {
+            // TODO https://github.com/google/horologist/issues/1927
+            // In inspection mode will jump to placeholder
+            CompositionLocalProvider(LocalInspectionMode.provides(true)) {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    icon = CoilPaintable(
+                        "iconUri",
+                        placeholder = rememberVectorPainter(
+                            image = Icons.Default.Image,
+                            tintColor = Color.Black,
+                        ),
                     ),
-                ),
-            )
+                )
+            }
         }
     }
 
@@ -52,6 +60,7 @@ class ChipTest : ScreenshotBaseTest() {
             takeScreenshot = true,
             fakeImageLoader = FakeImageLoader.Never,
         ) {
+            // TODO https://github.com/google/horologist/issues/1927
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
                 Chip(

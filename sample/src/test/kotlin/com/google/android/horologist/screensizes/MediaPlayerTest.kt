@@ -19,6 +19,7 @@
 package com.google.android.horologist.screensizes
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
@@ -93,7 +94,7 @@ fun MediaPlayerTestCase() {
         },
     ) {
         val colors = MaterialTheme.colors
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background)) {
             PagerScreen(
                 state = rememberPagerState {
                     2

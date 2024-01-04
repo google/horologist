@@ -42,7 +42,7 @@ jobs:
       - name: Push new apis
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: '**/*.kt'
+          file_pattern: '**/current.api'
           disable_globbing: true
           commit_message: "🤖 metalava"
 

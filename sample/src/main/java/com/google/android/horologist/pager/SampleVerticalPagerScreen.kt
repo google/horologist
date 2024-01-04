@@ -24,16 +24,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.SwipeToDismissBoxState
 import androidx.wear.compose.foundation.edgeSwipeToDismiss
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.pager.VerticalPagerScreen
 
 @Composable
 fun SampleVerticalPagerScreen(swipeToDismissBoxState: SwipeToDismissBoxState) {
-    VerticalPagerScreen(
-        modifier = Modifier.edgeSwipeToDismiss(swipeToDismissBoxState),
-        state = rememberPagerState {
-            10
-        },
-    ) {
-        PagerItemScreen(item = "item $it")
+    ScreenScaffold(timeText = {}) {
+        VerticalPagerScreen(
+            modifier = Modifier.edgeSwipeToDismiss(swipeToDismissBoxState),
+            state = rememberPagerState {
+                10
+            },
+        ) {
+            PagerItemScreen(item = "item $it")
+        }
     }
 }

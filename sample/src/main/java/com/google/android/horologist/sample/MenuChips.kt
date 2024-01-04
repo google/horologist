@@ -251,7 +251,7 @@ fun VerticalPagerScreenChip(
         content = {
             Icon(
                 imageVector = Icons.Default.ViewCarousel,
-                contentDescription = stringResource(R.string.pager_screen_chip_content_description),
+                contentDescription = stringResource(R.string.vertical_pager_screen_chip_content_description),
             )
         },
     )

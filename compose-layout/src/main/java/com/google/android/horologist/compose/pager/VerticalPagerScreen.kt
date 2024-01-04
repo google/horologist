@@ -32,7 +32,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.compose.rotaryinput.rotaryWithPager
-import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 
 /**
  * A Wear Material Compliant Vertical Pager screen.

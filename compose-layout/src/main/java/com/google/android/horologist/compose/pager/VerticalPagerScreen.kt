@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalWearFoundationApi::class)
 
 package com.google.android.horologist.compose.pager
 
@@ -26,10 +26,21 @@ import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
+import com.google.android.horologist.compose.rotaryinput.rotaryWithPager
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 
+/**
+ * A Wear Material Compliant Vertical Pager screen.
+ *
+ * Combines the Compose Foundation Pager, with a VerticalPageIndicator.
+ *
+ * The screens gets an [onRotaryInputAccumulated] modifier added for RSB handling.
+ */
 @Composable
 @ExperimentalHorologistApi
 public fun VerticalPagerScreen(
@@ -47,7 +58,9 @@ public fun VerticalPagerScreen(
         },
     ) {
         VerticalPager(
-            modifier = Modifier.fillMaxSize().rotaryWithScroll(state),
+            modifier = Modifier
+                .fillMaxSize()
+                .rotaryWithPager(state, rememberActiveFocusRequester()),
             state = state,
             flingBehavior = HorizontalPagerDefaults.flingParams(state),
         ) { page ->

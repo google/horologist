@@ -32,6 +32,9 @@ import androidx.wear.compose.material.PageIndicatorState
 import androidx.wear.compose.material.PageIndicatorStyle
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
+/**
+ * A Wear Material Compliant Vertical Page Indicator.
+ */
 @Composable
 @ExperimentalHorologistApi
 fun VerticalPageIndicator(

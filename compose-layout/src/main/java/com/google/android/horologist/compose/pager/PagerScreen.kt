@@ -40,9 +40,9 @@ import com.google.android.horologist.compose.layout.PagerScaffold
 /**
  * A Wear Material Compliant Pager screen.
  *
- * Combines the Accompanist Pager, with the Wear Compose HorizontalPageIndicator.
- * Also uses lifecycle, which allows attaching logic such requesting focus
- * to page events.
+ * Combines the Compose Foundation Pager, with the Wear Compose HorizontalPageIndicator.
+ *
+ * The current page gets the Hierarchical Focus.
  */
 @Composable
 public fun PagerScreen(

@@ -134,6 +134,8 @@ dependencies {
     implementation(libs.androidx.wear.protolayout.material)
     implementation(libs.compose.ui.util)
     implementation(libs.compose.ui.toolingpreview)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.constraintlayout.compose)
 
     debugImplementation(projects.logo)
 

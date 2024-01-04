@@ -19,12 +19,14 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -34,22 +36,22 @@ public fun ControlButtonLayout(
     rightButton: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val isLargeScreen = LocalConfiguration.current.screenHeightDp > 224
+    val size = if (isLargeScreen) 80.dp else 60.dp
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().height(size),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Absolute.Center,
     ) {
-        Box(modifier = Modifier.padding(start = 17.dp)) {
+        Box(modifier = Modifier.fillMaxHeight().weight(1.0f)) {
             leftButton()
         }
 
-        Spacer(modifier = Modifier.weight(1f))
+        Box(modifier = Modifier.size(size)) {
+            middleButton()
+        }
 
-        middleButton()
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        Box(modifier = Modifier.padding(end = 17.dp)) {
+        Box(modifier = Modifier.fillMaxHeight().weight(1.0f)) {
             rightButton()
         }
     }

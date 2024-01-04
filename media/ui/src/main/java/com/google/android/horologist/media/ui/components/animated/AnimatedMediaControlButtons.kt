@@ -16,10 +16,13 @@
 
 package com.google.android.horologist.media.ui.components.animated
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.MaterialTheme
@@ -58,10 +61,12 @@ public fun AnimatedMediaControlButtons(
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     rotateProgressIndicator: Flow<Unit> = flowOf(),
 ) {
+    val isLargeScreen = LocalConfiguration.current.screenHeightDp > 224
     ControlButtonLayout(
         modifier = modifier,
         leftButton = {
             AnimatedSeekToPreviousButton(
+                modifier = Modifier.fillMaxSize(),
                 onClick = onSeekToPreviousButtonClick,
                 enabled = seekToPreviousButtonEnabled,
                 colors = colors,
@@ -77,10 +82,11 @@ public fun AnimatedMediaControlButtons(
                     enabled = playPauseButtonEnabled,
                     playing = playing,
                     trackPositionUiModel = trackPositionUiModel,
-                    modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
+                    modifier = Modifier.fillMaxSize(),
                     colors = colors,
                     progressColor = progressColor,
                     rotateProgressIndicator = rotateProgressIndicator,
+                    iconSize = if (isLargeScreen) 38.dp else 32.dp,
                 )
             } else {
                 AnimatedPlayPauseButton(
@@ -88,13 +94,15 @@ public fun AnimatedMediaControlButtons(
                     onPauseClick = onPauseButtonClick,
                     enabled = playPauseButtonEnabled,
                     playing = playing,
-                    modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
+                    modifier = Modifier.fillMaxSize(),
                     colors = colors,
+                    iconSize = if (isLargeScreen) 38.dp else 32.dp,
                 )
             }
         },
         rightButton = {
             AnimatedSeekToNextButton(
+                modifier = Modifier.fillMaxSize(),
                 onClick = onSeekToNextButtonClick,
                 onLongRepeatableClick = onSeekToNextLongRepeatableClick,
                 onLongRepeatableClickEnd = onSeekToNextLongRepeatableClickEnd,

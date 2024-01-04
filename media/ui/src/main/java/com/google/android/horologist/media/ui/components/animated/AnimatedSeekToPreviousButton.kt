@@ -16,15 +16,12 @@
 
 package com.google.android.horologist.media.ui.components.animated
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
@@ -42,8 +39,7 @@ public fun AnimatedSeekToPreviousButton(
     onLongRepeatableClickEnd: (() -> Unit)? = null,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    iconSize: Dp = 32.dp,
 ) {
     if (LocalStaticPreview.current) {
         SeekToPreviousButton(
@@ -56,20 +52,16 @@ public fun AnimatedSeekToPreviousButton(
         val compositionResult = rememberLottieComposition(
             spec = LottieCompositionSpec.Asset("lottie/Next.json"),
         )
-        Box(modifier = Modifier.graphicsLayer(scaleX = -1f)) {
-            AnimatedMediaButton(
-                modifier = modifier,
-                onClick = onClick,
-                contentDescription = stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
-                enabled = enabled,
-                colors = colors,
-                iconSize = iconSize,
-                tapTargetSize = tapTargetSize,
-                compositionResult = compositionResult,
-                iconAlign = Alignment.End,
-                onLongRepeatableClick = onLongRepeatableClick,
-                onLongRepeatableClickEnd = onLongRepeatableClickEnd,
-            )
-        }
+        AnimatedMediaButton(
+            modifier = modifier.graphicsLayer(scaleX = -1f),
+            onClick = onClick,
+            contentDescription = stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
+            enabled = enabled,
+            colors = colors,
+            iconSize = iconSize,
+            compositionResult = compositionResult,
+            onLongRepeatableClick = onLongRepeatableClick,
+            onLongRepeatableClickEnd = onLongRepeatableClickEnd,
+        )
     }
 }

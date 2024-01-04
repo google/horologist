@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.media.ui.screens.player
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -25,20 +26,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
@@ -151,52 +146,54 @@ public fun PlayerScreen(
     modifier: Modifier = Modifier,
     background: @Composable BoxScope.() -> Unit = {},
 ) {
-    val isBig = LocalConfiguration.current.screenHeightDp > 210
-    val isRound = LocalConfiguration.current.isScreenRound
-
     Box(
         modifier = modifier
             .fillMaxSize(),
     ) {
         background()
 
-        Column(
+        ConstraintLayout(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            val (topSection, middleSection, bottomSection) = createRefs()
+            val startGuideline = createGuidelineFromStart(0.0938f)
+            val endGuideline = createGuidelineFromEnd(0.0938f)
+            val topGuideline = createGuidelineFromTop(0.12f)
+            val bottomGuideline = createGuidelineFromBottom(0.063f)
+
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(0.38f),
+                    .constrainAs(topSection) {
+                        top.linkTo(topGuideline)
+                        start.linkTo(startGuideline)
+                        end.linkTo(endGuideline)
+                        bottom.linkTo(middleSection.top)
+                    },
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                if (isRound) {
-                    Spacer(modifier = Modifier.size(if (isBig) 30.dp else 23.dp))
-                } else {
-                    Spacer(modifier = Modifier.size(24.dp))
-                }
-
                 mediaDisplay()
             }
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp),
+                    .constrainAs(middleSection) {
+                        top.linkTo(topGuideline)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(bottomGuideline)
+                    },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround,
             ) {
                 controlButtons()
             }
-            val bottomPadding = when {
-                !isRound -> 4.dp
-                isBig -> 12.dp
-                else -> 9.dp
-            }
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = bottomPadding)
-                    .weight(0.33f),
+                    .constrainAs(bottomSection) {
+                        top.linkTo(middleSection.bottom)
+                        start.linkTo(startGuideline)
+                        end.linkTo(endGuideline)
+                        bottom.linkTo(parent.bottom)
+                    },
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.Bottom,
             ) {

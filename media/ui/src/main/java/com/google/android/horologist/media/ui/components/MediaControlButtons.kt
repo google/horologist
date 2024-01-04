@@ -16,8 +16,11 @@
 
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
@@ -77,10 +80,12 @@ public fun MediaControlButtons(
     trackPositionUiModel: TrackPositionUiModel,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
+    val isLargeScreen = LocalConfiguration.current.screenHeightDp > 224
     ControlButtonLayout(
         modifier = modifier,
         leftButton = {
             SeekToPreviousButton(
+                modifier = Modifier.fillMaxSize(),
                 onClick = onSeekToPreviousButtonClick,
                 enabled = seekToPreviousButtonEnabled,
                 colors = colors,
@@ -88,16 +93,19 @@ public fun MediaControlButtons(
         },
         middleButton = {
             PlayPauseProgressButton(
+                modifier = Modifier.fillMaxSize(),
                 onPlayClick = onPlayButtonClick,
                 onPauseClick = onPauseButtonClick,
                 enabled = playPauseButtonEnabled,
                 playing = playing,
                 trackPositionUiModel = trackPositionUiModel,
                 colors = colors,
+                iconSize = if (isLargeScreen) 38.dp else 32.dp,
             )
         },
         rightButton = {
             SeekToNextButton(
+                modifier = Modifier.fillMaxSize(),
                 onClick = onSeekToNextButtonClick,
                 enabled = seekToNextButtonEnabled,
                 colors = colors,

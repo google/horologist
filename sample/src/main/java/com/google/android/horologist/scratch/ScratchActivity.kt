@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalWearFoundationApi::class)
 
 package com.google.android.horologist.scratch
 
@@ -24,10 +24,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -38,14 +40,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PageIndicatorDefaults
@@ -54,6 +64,7 @@ import androidx.wear.compose.material.PageIndicatorStyle
 import androidx.wear.compose.material.PositionIndicatorDefaults
 import androidx.wear.compose.material.PositionIndicatorState
 import androidx.wear.compose.material.PositionIndicatorVisibility
+import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
@@ -67,6 +78,12 @@ import com.google.android.horologist.compose.material.ToggleChipToggleControl
 import com.google.android.horologist.compose.pager.ClippedBox
 import com.google.android.horologist.compose.pager.HorizontalPagerDefaults
 import com.google.android.horologist.compose.pager.PageScreenIndicatorState
+import com.google.android.horologist.compose.rotaryinput.RotaryHapticsType
+import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX
+import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
+import com.google.android.horologist.compose.rotaryinput.rememberDefaultRotaryHapticFeedback
+import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
+import kotlinx.coroutines.launch
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,8 +104,7 @@ fun WearApp() {
     val navController = rememberSwipeDismissableNavController()
     AppScaffold {
         SwipeDismissableNavHost(
-            navController = navController,
-            startDestination = "menu"
+            navController = navController, startDestination = "menu"
         ) {
             composable("menu") {
                 ScreenScaffold {
@@ -140,7 +156,8 @@ fun WearApp() {
                     VerticalPagerScreen(
                         state = pagerState,
                         discreteRsb = discreteRsb,
-                        usePositionIndicator = usePositionIndicator
+                        usePositionIndicator = usePositionIndicator,
+                        clip = screenSize
                     ) { page ->
                         Box(
                             modifier = Modifier
@@ -149,7 +166,7 @@ fun WearApp() {
                                 .height(screenHeight * if (screenSize) 1 else 2),
                             contentAlignment = Alignment.Center
                         ) {
-
+                            Text(text = "Page $page")
                         }
                     }
                 }
@@ -172,7 +189,9 @@ fun VerticalPageIndicator(
 ) {
     HorizontalPageIndicator(
         pageIndicatorState = pageIndicatorState,
-        modifier = modifier,
+        modifier = modifier
+            .rotate(90f)
+            .scale(scaleY = -1f, scaleX = 1f),
         indicatorStyle = indicatorStyle,
         selectedColor = selectedColor,
         unselectedColor = unselectedColor,
@@ -190,11 +209,9 @@ class PagerStatePositionIndicatorState(val state: PagerState) : PositionIndicato
             (state.currentPage + state.currentPageOffsetFraction) / (state.pageCount - 1)
         }
 
-    override fun sizeFraction(scrollableContainerSizePx: Float): Float =
-        1f / state.pageCount
+    override fun sizeFraction(scrollableContainerSizePx: Float): Float = 1f / state.pageCount
 
-    override fun visibility(scrollableContainerSizePx: Float): PositionIndicatorVisibility =
-        PositionIndicatorVisibility.AutoHide
+    override fun visibility(scrollableContainerSizePx: Float): PositionIndicatorVisibility = PositionIndicatorVisibility.Show
 }
 
 @Composable
@@ -204,8 +221,7 @@ public fun PositionIndicator(
     reverseDirection: Boolean = false,
     fadeInAnimationSpec: AnimationSpec<Float> = PositionIndicatorDefaults.visibilityAnimationSpec,
     fadeOutAnimationSpec: AnimationSpec<Float> = PositionIndicatorDefaults.visibilityAnimationSpec,
-    positionAnimationSpec: AnimationSpec<Float> =
-        PositionIndicatorDefaults.positionAnimationSpec
+    positionAnimationSpec: AnimationSpec<Float> = PositionIndicatorDefaults.positionAnimationSpec
 ) = androidx.wear.compose.material.PositionIndicator(
     state = PagerStatePositionIndicatorState(
         state = pagerState
@@ -229,18 +245,25 @@ public fun VerticalPagerScreen(
     clip: Boolean = true,
     content: @Composable ((Int) -> Unit),
 ) {
-    ScreenScaffold(
-        modifier = modifier.fillMaxSize(),
-        positionIndicator = {
-            if (usePositionIndicator) {
-                PositionIndicator(pagerState = state)
-            } else {
-                VerticalPageIndicator(pageIndicatorState = PageScreenIndicatorState(state))
-            }
+    ScreenScaffold(modifier = modifier.fillMaxSize(), positionIndicator = {
+        if (usePositionIndicator) {
+            PositionIndicator(pagerState = state)
+        } else {
+            VerticalPageIndicator(
+                pageIndicatorState = PageScreenIndicatorState(state),
+                modifier = Modifier.padding(6.dp)
+            )
         }
-    ) {
+    }) {
         VerticalPager(
-            modifier = Modifier.fillMaxSize(),
+            modifier = if (discreteRsb)
+                Modifier
+                    .fillMaxSize()
+                    .rotaryWithPager(state, rememberActiveFocusRequester())
+            else
+                Modifier
+                    .fillMaxSize()
+                    .rotaryWithScroll(state),
             state = state,
             flingBehavior = HorizontalPagerDefaults.flingParams(state),
         ) { page ->
@@ -254,3 +277,28 @@ public fun VerticalPagerScreen(
         }
     }
 }
+
+private fun Modifier.rotaryWithPager(
+    state: PagerState,
+    focusRequester: FocusRequester
+): Modifier = composed {
+    val coroutineScope = rememberCoroutineScope()
+    val haptics = rememberDefaultRotaryHapticFeedback()
+
+    onRotaryInputAccumulated(minValueChangeDistancePx = DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX * 3) {
+        val pageChange = if (it > 0f) 1 else -1
+
+        if ((pageChange == 1 && state.currentPage >= state.pageCount - 1) || (pageChange == -1 && state.currentPage == 0)) {
+            haptics.performHapticFeedback(RotaryHapticsType.ScrollLimit)
+        } else {
+            haptics.performHapticFeedback(RotaryHapticsType.ScrollItemFocus)
+
+            coroutineScope.launch {
+                state.animateScrollToPage(state.currentPage + pageChange)
+            }
+        }
+    }
+        .focusRequester(focusRequester)
+        .focusable()
+}
+

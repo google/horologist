@@ -25,7 +25,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 25
+        minSdk = 26
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -114,6 +114,8 @@ dependencies {
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.espresso.core)
     testImplementation(libs.robolectric)
+    testImplementation(projects.composeTools)
+    testImplementation(projects.roboscreenshots)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

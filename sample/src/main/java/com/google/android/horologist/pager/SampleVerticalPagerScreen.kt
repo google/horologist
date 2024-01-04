@@ -19,40 +19,24 @@
 package com.google.android.horologist.pager
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.foundation.SwipeToDismissBoxState
 import androidx.wear.compose.foundation.edgeSwipeToDismiss
-import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.pager.PagerScreen
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.pager.VerticalPagerScreen
 
 @Composable
-fun SamplePagerScreen(swipeToDismissBoxState: SwipeToDismissBoxState) {
-    PagerScreen(
-        modifier = Modifier.edgeSwipeToDismiss(swipeToDismissBoxState),
-        state = rememberPagerState {
-            10
-        },
-    ) {
-        PagerItemScreen(item = "item $it")
-    }
-}
-
-@Composable
-internal fun PagerItemScreen(
-    item: String,
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.DarkGray),
-    ) {
-        Text(text = item, modifier = Modifier.align(Alignment.Center))
+fun SampleVerticalPagerScreen(swipeToDismissBoxState: SwipeToDismissBoxState) {
+    ScreenScaffold(timeText = {}) {
+        VerticalPagerScreen(
+            modifier = Modifier.edgeSwipeToDismiss(swipeToDismissBoxState),
+            state = rememberPagerState {
+                10
+            },
+        ) {
+            PagerItemScreen(item = "item $it")
+        }
     }
 }

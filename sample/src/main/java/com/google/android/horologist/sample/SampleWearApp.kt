@@ -56,6 +56,7 @@ import com.google.android.horologist.materialcomponents.SampleToggleButtonScreen
 import com.google.android.horologist.materialcomponents.SampleToggleChipScreen
 import com.google.android.horologist.networks.NetworkScreen
 import com.google.android.horologist.pager.SamplePagerScreen
+import com.google.android.horologist.pager.SampleVerticalPagerScreen
 import com.google.android.horologist.paging.PagingItemScreen
 import com.google.android.horologist.paging.PagingScreen
 import com.google.android.horologist.rotary.RotaryMenuScreen
@@ -387,6 +388,9 @@ fun SampleWearApp() {
             }
             composable(route = Screen.PagerScreen.route) {
                 SamplePagerScreen(swipeToDismissBoxState)
+            }
+            composable(route = Screen.VerticalPagerScreen.route) {
+                SampleVerticalPagerScreen(swipeToDismissBoxState)
             }
         }
     }

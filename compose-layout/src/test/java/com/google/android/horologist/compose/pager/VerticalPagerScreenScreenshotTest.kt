@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,43 +16,44 @@
 
 @file:OptIn(ExperimentalFoundationApi::class)
 
-package com.google.android.horologist.pager
+package com.google.android.horologist.compose.pager
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.foundation.SwipeToDismissBoxState
-import androidx.wear.compose.foundation.edgeSwipeToDismiss
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.pager.PagerScreen
+import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
+import org.junit.Test
 
-@Composable
-fun SamplePagerScreen(swipeToDismissBoxState: SwipeToDismissBoxState) {
-    PagerScreen(
-        modifier = Modifier.edgeSwipeToDismiss(swipeToDismissBoxState),
-        state = rememberPagerState {
-            10
-        },
-    ) {
-        PagerItemScreen(item = "item $it")
-    }
-}
-
-@Composable
-internal fun PagerItemScreen(
-    item: String,
+class VerticalPagerScreenScreenshotTest : ScreenshotBaseTest(
+    params = ScreenshotTestRule.screenshotTestRuleParams {
+        screenTimeText = {}
+        record = ScreenshotTestRule.RecordMode.Record
+    },
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.DarkGray),
-    ) {
-        Text(text = item, modifier = Modifier.align(Alignment.Center))
+
+    @Test
+    fun screens() {
+        screenshotTestRule.setContent(takeScreenshot = true, roundScreen = true) {
+            VerticalPagerScreen(
+                state = rememberPagerState {
+                    10
+                },
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.DarkGray),
+                ) {
+                    Text(text = "Item $it", modifier = Modifier.align(Alignment.Center))
+                }
+            }
+        }
     }
 }

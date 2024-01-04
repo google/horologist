@@ -69,7 +69,7 @@ public fun PagerScreen(
 }
 
 @Composable
-private fun ClippedBox(pagerState: PagerState, content: @Composable () -> Unit) {
+internal fun ClippedBox(pagerState: PagerState, content: @Composable () -> Unit) {
     val shape = rememberClipWhenScrolling(pagerState)
     Box(
         modifier = Modifier

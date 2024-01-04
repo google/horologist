@@ -240,3 +240,19 @@ fun PagerScreenChip(
         },
     )
 }
+
+@Composable
+fun VerticalPagerScreenChip(
+    navigateToRoute: () -> Unit,
+) {
+    SampleChip(
+        onClick = { navigateToRoute() },
+        label = stringResource(R.string.pager_screen_chip_label),
+        content = {
+            Icon(
+                imageVector = Icons.Default.ViewCarousel,
+                contentDescription = stringResource(R.string.pager_screen_chip_content_description),
+            )
+        },
+    )
+}

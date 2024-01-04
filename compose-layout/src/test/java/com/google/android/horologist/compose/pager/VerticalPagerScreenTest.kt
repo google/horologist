@@ -23,13 +23,12 @@
 package com.google.android.horologist.compose.pager
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
@@ -40,9 +39,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onParent
 import androidx.test.filters.MediumTest
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -62,7 +59,7 @@ import org.robolectric.annotation.Config
     qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 @Ignore("Failing with robolectric")
-class PagerScreenTest {
+class VerticalPagerScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -74,15 +71,12 @@ class PagerScreenTest {
             pagerState = rememberPagerState {
                 5
             }
-            PagerScreen(modifier = Modifier.fillMaxSize(), state = pagerState) { i ->
-                val focusRequester = rememberActiveFocusRequester()
+            VerticalPagerScreen(modifier = Modifier.fillMaxSize(), state = pagerState) { i ->
                 val scrollState = rememberScrollState()
-                Column(
+                Box(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .rotaryWithScroll(scrollState, focusRequester)
-                        .verticalScroll(scrollState),
-                    verticalArrangement = Arrangement.Center,
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text(modifier = Modifier.testTag("text$i"), text = "Text $i")
                 }

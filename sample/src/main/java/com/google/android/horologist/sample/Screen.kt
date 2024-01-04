@@ -63,4 +63,5 @@ sealed class Screen(
     object PagingItem : Screen("pagingItem?id={id}")
 
     object PagerScreen : Screen("pagerScreen")
+    object VerticalPagerScreen : Screen("verticalPagerScreen")
 }

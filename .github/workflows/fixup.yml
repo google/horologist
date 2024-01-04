@@ -34,6 +34,18 @@ jobs:
           disable_globbing: true
           commit_message: "🤖 reformat"
 
+      - name: Generate APIs
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: metalavaGenerateSignature metalavaGenerateSignatureDebug
+
+      - name: Push new apis
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: '**/current.api'
+          disable_globbing: true
+          commit_message: "🤖 metalava"
+
       - name: Repair screenshots
         uses: gradle/gradle-build-action@v2
         with:

@@ -4,67 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  fix_images:
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
-
-    steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-        with:
-          lfs: 'true'
-
-      - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
-
-      - name: Repair screenshots
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: testDebug -P screenshot.record=repair
-
-      - name: Push new screenshots if available
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          file_pattern: '**/snapshots/images/*.png'
-          disable_globbing: true
-          commit_message: "🤖 Updates screenshots"
-
-  fix_apis:
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
-
-    steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-        with:
-          lfs: 'true'
-
-      - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
-
-      - name: Generate APIs
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: metalavaGenerateSignature metalavaGenerateSignatureDebug
-
-      - name: Push new apis
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          file_pattern: '**/*.kt'
-          disable_globbing: true
-          commit_message: "🤖 metalava"
-
-  fix_format:
+  fixes:
     runs-on: ubuntu-latest
     timeout-minutes: 40
 
@@ -93,3 +33,27 @@ jobs:
           file_pattern: '**/*.kt'
           disable_globbing: true
           commit_message: "🤖 reformat"
+
+      - name: Generate APIs
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: metalavaGenerateSignature metalavaGenerateSignatureDebug
+
+      - name: Push new apis
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: '**/*.kt'
+          disable_globbing: true
+          commit_message: "🤖 metalava"
+
+      - name: Repair screenshots
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: testDebug -P screenshot.record=repair
+
+      - name: Push new screenshots if available
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: '**/snapshots/images/*.png'
+          disable_globbing: true
+          commit_message: "🤖 Updates screenshots"

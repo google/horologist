@@ -27,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
@@ -57,8 +56,7 @@ public fun AnimatedMediaButton(
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     dynamicProperties: LottieDynamicProperties? = null,
-    iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    iconSize: Dp = 32.dp,
     iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
 ) {
     val scope = rememberCoroutineScope()
@@ -69,8 +67,8 @@ public fun AnimatedMediaButton(
                 scope.launch { lottieAnimatable.animate(composition = compositionResult.value) }
                 onClick()
             },
-            modifier = modifier.size(tapTargetSize),
             rippleRadius = 35.dp,
+            modifier = modifier,
             enabled = enabled,
             colors = colors,
         ) {
@@ -91,7 +89,7 @@ public fun AnimatedMediaButton(
             },
             onLongRepeatableClick = onLongRepeatableClick,
             onLongRepeatableClickEnd = onLongRepeatableClickEnd ?: {},
-            modifier = modifier.size(tapTargetSize),
+            modifier = modifier,
             enabled = enabled,
             colors = colors,
             indication = rememberRipple(
@@ -115,7 +113,7 @@ public fun AnimatedMediaButton(
 private fun BoxScope.mediaButtonContent(
     compositionResult: LottieCompositionResult,
     contentDescription: String,
-    iconSize: Dp = 30.dp,
+    iconSize: Dp = 32.dp,
     dynamicProperties: LottieDynamicProperties? = null,
     iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
     lottieAnimatable: LottieAnimatable,

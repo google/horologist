@@ -16,7 +16,9 @@
 
 package com.google.android.horologist.mediasample.ui.player
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,8 +39,9 @@ public fun UampSettingsButtons(
     enabled: Boolean = true,
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(0.8124f),
         verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         FavoriteButton()
 

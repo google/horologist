@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -35,8 +34,7 @@ public fun PlayButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
-    iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
+    iconSize: Dp = 32.dp,
 ) {
     MediaButton(
         onClick = onClick,
@@ -46,6 +44,5 @@ public fun PlayButton(
         enabled = enabled,
         colors = colors,
         iconSize = iconSize,
-        tapTargetSize = tapTargetSize,
     )
 }

@@ -50,3 +50,5 @@ checksum.txt
 # Paparazzi failures output folder
 out/
 /.idea/shelf
+/.idea/deploymentTargetSelector.xml
+/.idea/appInsightsSettings.xml

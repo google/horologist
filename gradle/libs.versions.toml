@@ -2,8 +2,7 @@
 accompanist = "0.32.0"
 androidx-benchmark = "1.2.2"
 androidx-complications-data = "1.2.0"
-androidx-constraintlayout = "2.2.0-alpha13"
-androidx-constraintlayout-compose = "1.1.0-alpha13"
+androidx-constraintlayout-compose = "1.0.1"
 androidx-compose-material = "1.5.4"
 androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
@@ -76,7 +75,6 @@ androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro
 androidx-complications-data = { module = "androidx.wear.watchface:watchface-complications-data", version.ref = "androidx-complications-data" }
 androidx-complications-datasource-ktx = { module = "androidx.wear.watchface:watchface-complications-data-source-ktx", version.ref = "androidx-wear-watchface" }
 androidx-complications-rendering = { module = "androidx.wear.watchface:watchface-complications-rendering", version.ref = "androidx-wear-watchface" }
-androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "androidx-constraintlayout-compose" }
 androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures", version.ref = "androidx-concurrent" }
 androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }

@@ -27,6 +27,7 @@ import com.google.android.horologist.media.ui.components.controls.MediaButtonDef
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import com.google.android.horologist.media.ui.util.isLargeScreen
 
 /**
  * Standard media control buttons with no progress indicator, showing [SeekToPreviousButton],
@@ -80,7 +81,6 @@ public fun MediaControlButtons(
     trackPositionUiModel: TrackPositionUiModel,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
-    val isLargeScreen = LocalConfiguration.current.screenHeightDp > 224
     ControlButtonLayout(
         modifier = modifier,
         leftButton = {
@@ -100,7 +100,7 @@ public fun MediaControlButtons(
                 playing = playing,
                 trackPositionUiModel = trackPositionUiModel,
                 colors = colors,
-                iconSize = if (isLargeScreen) 38.dp else 32.dp,
+                iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
             )
         },
         rightButton = {

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.ButtonColors
@@ -119,6 +120,7 @@ public fun PodcastControlButtons(
         modifier = modifier,
         leftButton = {
             SeekBackButton(
+                modifier = Modifier.fillMaxSize(),
                 onClick = onSeekBackButtonClick,
                 seekButtonIncrement = seekBackButtonIncrement,
                 colors = colors,
@@ -127,6 +129,7 @@ public fun PodcastControlButtons(
         },
         middleButton = {
             PlayPauseProgressButton(
+                modifier = Modifier.fillMaxSize(),
                 onPlayClick = onPlayButtonClick,
                 onPauseClick = onPauseButtonClick,
                 enabled = playPauseButtonEnabled,
@@ -137,6 +140,7 @@ public fun PodcastControlButtons(
         },
         rightButton = {
             SeekForwardButton(
+                modifier = Modifier.fillMaxSize(),
                 onClick = onSeekForwardButtonClick,
                 seekButtonIncrement = seekForwardButtonIncrement,
                 colors = colors,

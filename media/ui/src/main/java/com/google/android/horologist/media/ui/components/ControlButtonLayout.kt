@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import com.google.android.horologist.media.ui.util.isLargeScreen
 
 @Composable
 public fun ControlButtonLayout(
@@ -36,10 +37,9 @@ public fun ControlButtonLayout(
     rightButton: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isLargeScreen = LocalConfiguration.current.screenHeightDp > 224
-    val size = if (isLargeScreen) 80.dp else 60.dp
+    val middleSize = if (LocalConfiguration.current.isLargeScreen) 80.dp else 60.dp
     Row(
-        modifier = modifier.fillMaxWidth().height(size),
+        modifier = modifier.fillMaxWidth().height(middleSize),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Absolute.Center,
     ) {
@@ -47,7 +47,7 @@ public fun ControlButtonLayout(
             leftButton()
         }
 
-        Box(modifier = Modifier.size(size)) {
+        Box(modifier = Modifier.size(middleSize)) {
             middleButton()
         }
 

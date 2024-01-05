@@ -985,3 +985,11 @@ package com.google.android.horologist.media.ui.tiles {
 
 }
 
+package com.google.android.horologist.media.ui.util {
+
+  public final class LargeScreenKt {
+    method public static boolean isLargeScreen(android.content.res.Configuration);
+  }
+
+}
+

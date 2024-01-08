@@ -29,6 +29,7 @@ gradleEnterprise {
 
 rootProject.name = "horologist"
 
+include(":ai:ui")
 include(":annotations")
 include(":auth:composables")
 include(":auth:data")

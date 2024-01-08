@@ -61,6 +61,7 @@ wearcompose = "1.3.0-beta02"
 wearToolingPreview = "1.0.0"
 appcompat = "1.6.1"
 material = "1.11.0"
+wearInput = "1.2.0-alpha02"
 
 [libraries]
 accompanist-testharness = { module = "com.google.accompanist:accompanist-testharness", version.ref = "accompanist" }
@@ -203,6 +204,7 @@ wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", 
 wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
 wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
 wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wearcompose" }
+androidx-wear-input = { group = "androidx.wear", name = "wear-input", version.ref = "wearInput" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]

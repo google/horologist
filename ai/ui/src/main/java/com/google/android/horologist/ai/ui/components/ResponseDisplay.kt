@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.CardDefaults
@@ -56,11 +55,11 @@ public fun TextResponseCard(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
         backgroundPainter = CardDefaults.cardBackgroundPainter(
-            Color(0xffbdc1c6),
-            Color(0xffbdc1c6),
+            MaterialTheme.colors.surface,
+            MaterialTheme.colors.surface,
         ),
     ) {
-        Text(text = textResponseUiModel.text, color = MaterialTheme.colors.surface)
+        Text(text = textResponseUiModel.text, color = MaterialTheme.colors.onSurface, style = MaterialTheme.typography.body2)
     }
 }
 
@@ -78,7 +77,7 @@ public fun ResponseInProgressCard(
 @Composable
 internal fun TextResponseCardPreview() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
-        PromptResponseDisplay(
+        PromptOrResponseDisplay(
             TextResponseUiModel(LoremIpsum(20).values.joinToString("\n")),
         )
     }
@@ -88,7 +87,7 @@ internal fun TextResponseCardPreview() {
 @Composable
 internal fun FailedResponseChipPreview() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        PromptResponseDisplay(
+        PromptOrResponseDisplay(
             FailedResponseUiModel("Error"),
         )
     }
@@ -98,7 +97,7 @@ internal fun FailedResponseChipPreview() {
 @Composable
 internal fun ResponseInProgressCardPreview() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        PromptResponseDisplay(
+        PromptOrResponseDisplay(
             InProgressResponseUiModel,
         )
     }

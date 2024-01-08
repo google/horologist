@@ -18,7 +18,7 @@ package com.google.android.horologist.ai.ui.model
 
 import java.time.Instant
 
-public sealed interface PromptUiModel : PromptResponseUiModel
+public sealed interface PromptUiModel : PromptOrResponseUiModel
 
 public data class TextPromptUiModel(
     val prompt: String,

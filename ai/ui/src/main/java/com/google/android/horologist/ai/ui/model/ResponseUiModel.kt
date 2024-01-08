@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.ai.ui.model
 
-public sealed interface ResponseUiModel : PromptResponseUiModel
+public sealed interface ResponseUiModel : PromptOrResponseUiModel
 
 public object InProgressResponseUiModel : ResponseUiModel
 

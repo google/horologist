@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.components.controls
+package com.google.android.horologist.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -40,6 +40,7 @@ import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A button that when clicked shows an unbounded ripple effect that can be larger than the button
@@ -48,8 +49,9 @@ import androidx.wear.compose.material.MaterialTheme
  * Code modified from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material/src/main/java/androidx/wear/compose/material/Button.kt
  *
  */
+@ExperimentalHorologistApi
 @Composable
-internal fun UnboundedRippleButton(
+public fun UnboundedRippleButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     rippleRadius: Dp = Dp.Unspecified,

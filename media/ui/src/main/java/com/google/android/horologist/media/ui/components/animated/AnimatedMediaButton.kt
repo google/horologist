@@ -37,7 +37,7 @@ import com.airbnb.lottie.compose.LottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.RepeatableClickableButton
-import com.google.android.horologist.media.ui.components.controls.UnboundedRippleButton
+import com.google.android.horologist.composables.UnboundedRippleButton
 import kotlinx.coroutines.launch
 import androidx.compose.ui.semantics.contentDescription as contentDescriptionProperty
 

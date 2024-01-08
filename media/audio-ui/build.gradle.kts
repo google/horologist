@@ -101,6 +101,7 @@ dependencies {
     api(projects.annotations)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
+    implementation(project(":composables"))
     debugImplementation(projects.logo)
 
     api(libs.wearcompose.material)
@@ -109,6 +110,7 @@ dependencies {
 
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
+    implementation(libs.compose.material.ripple)
 
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.viewmodel.compose)

@@ -39,15 +39,15 @@ public fun PromptResponseDisplay(
         }
 
         is FailedResponseUiModel -> {
-            FailedResponseChip(promptResponse, modifier)
+            FailedResponseChip(promptResponse, modifier = modifier)
         }
 
         is InProgressResponseUiModel -> {
-            ResponseInProgressCard(promptResponse, modifier)
+            ResponseInProgressCard(promptResponse, modifier = modifier)
         }
 
         is TextPromptUiModel -> {
-            TextPromptDisplay(prompt = promptResponse)
+            TextPromptDisplay(prompt = promptResponse, modifier = modifier)
         }
     }
 }

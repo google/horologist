@@ -12,6 +12,6 @@ repositories {
 }
 
 dependencies {
-    implementation "com.google.android.horologist:horologist-ai-composables:<version>"
+    implementation "com.google.android.horologist:horologist-ai-ui:<version>"
 }
 ```

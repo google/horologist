@@ -125,7 +125,7 @@ dependencies {
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     dokkaSourceSets {
         configureEach {
-            moduleName.set("ai-composables")
+            moduleName.set("ai-ui")
         }
     }
 }

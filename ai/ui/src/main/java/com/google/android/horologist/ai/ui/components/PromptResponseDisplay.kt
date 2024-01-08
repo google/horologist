@@ -24,7 +24,6 @@ import com.google.android.horologist.ai.ui.model.PromptResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 
-
 /**
  * A component to display an Answer.
  */

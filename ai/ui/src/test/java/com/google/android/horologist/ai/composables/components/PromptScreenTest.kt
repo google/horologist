@@ -42,15 +42,16 @@ class PromptScreenTest : ScreenshotBaseTest(
                     modelInfo = ModelInstanceUiModel("simple", "Simple Model"),
                     messages = listOf(
                         TextPromptUiModel("Why did the chicken cross the road?"),
-                        TextResponseUiModel("To get to the other side!")
-                    )
+                        TextResponseUiModel("To get to the other side!"),
+                    ),
                 ),
                 promptEntry = {
                     Button(
                         imageVector = Icons.Default.KeyboardVoice,
                         contentDescription = "Voice Prompt",
-                        onClick = { /*TODO*/ })
-                }
+                        onClick = { /*TODO*/ },
+                    )
+                },
             )
         }
     }

@@ -20,7 +20,7 @@ import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
 import com.google.android.horologist.ai.ui.model.PromptResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 
-data class PromptUiState(
+public data class PromptUiState(
     val modelInfo: ModelInstanceUiModel? = null,
     val messages: List<PromptResponseUiModel> = listOf(),
     val inProgress: TextPromptUiModel? = null,

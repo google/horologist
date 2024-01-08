@@ -30,9 +30,7 @@ import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.sc
 import org.junit.Test
 
 class PromptScreenTest : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        record = ScreenshotTestRule.RecordMode.Record
-    },
+    screenshotTestRuleParams {},
 ) {
     @Test
     fun empty() {

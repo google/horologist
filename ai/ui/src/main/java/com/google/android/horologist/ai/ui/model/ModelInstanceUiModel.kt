@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.ai.ui.model
 
-data class ModelInstanceUiModel(
+public data class ModelInstanceUiModel(
     val id: String,
-    val name: String
+    val name: String,
 )

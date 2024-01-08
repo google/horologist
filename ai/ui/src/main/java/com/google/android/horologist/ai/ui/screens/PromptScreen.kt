@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.ai.ui.screens
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -29,6 +30,8 @@ import com.google.android.horologist.ai.ui.components.PromptResponseDisplay
 import com.google.android.horologist.ai.ui.components.ResponseInProgressCard
 import com.google.android.horologist.ai.ui.components.TextPromptDisplay
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
+import com.google.android.horologist.ai.ui.model.PromptUiModel
+import com.google.android.horologist.ai.ui.model.ResponseUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
@@ -46,8 +49,8 @@ public fun PromptScreen(
     modifier: Modifier = Modifier,
     columnState: ScalingLazyColumnState = rememberColumnState(
         ScalingLazyColumnDefaults.responsive(
-            firstItemIsFullWidth = false
-        )
+            firstItemIsFullWidth = false,
+        ),
     ),
     onSettingsClick: (() -> Unit)? = null,
     promptEntry: @Composable () -> Unit,
@@ -60,12 +63,17 @@ public fun PromptScreen(
         }
         uiState.messages.forEach {
             item {
+                val padding = when (it) {
+                    is PromptUiModel -> PaddingValues(end = 25.dp)
+                    is ResponseUiModel -> PaddingValues(start = 25.dp)
+                    else -> PaddingValues()
+                }
                 PromptResponseDisplay(
                     promptResponse = it,
                     onClick = {},
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 25.dp)
+                        .padding(padding),
                 )
             }
         }
@@ -77,7 +85,7 @@ public fun PromptScreen(
                     onClick = {},
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 5.dp, end = 25.dp)
+                        .padding(start = 5.dp, end = 25.dp),
                 )
             }
             item {
@@ -92,7 +100,7 @@ public fun PromptScreen(
                 Button(
                     Icons.Default.Settings,
                     contentDescription = "Settings",
-                    onClick = onSettingsClick
+                    onClick = onSettingsClick,
                 )
             }
         }

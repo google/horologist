@@ -35,14 +35,14 @@ import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 
 @Composable
-fun FailedResponseChip(
+public fun FailedResponseChip(
     answer: FailedResponseUiModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text = answer.message,
         modifier = modifier,
-        color = MaterialTheme.colors.error
+        color = MaterialTheme.colors.error,
     )
 }
 
@@ -56,8 +56,9 @@ public fun TextResponseCard(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
         backgroundPainter = CardDefaults.cardBackgroundPainter(
-            Color(0xffbdc1c6), Color(0xffbdc1c6)
-        )
+            Color(0xffbdc1c6),
+            Color(0xffbdc1c6),
+        ),
     ) {
         Text(text = textResponseUiModel.text, color = MaterialTheme.colors.surface)
     }
@@ -66,7 +67,7 @@ public fun TextResponseCard(
 @Composable
 public fun ResponseInProgressCard(
     inProgress: InProgressResponseUiModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
         CircularProgressIndicator()
@@ -75,30 +76,30 @@ public fun ResponseInProgressCard(
 
 @WearPreviewLargeRound
 @Composable
-fun TextResponseCardPreview() {
+internal fun TextResponseCardPreview() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
         PromptResponseDisplay(
-            TextResponseUiModel(LoremIpsum(20).values.joinToString("\n"))
+            TextResponseUiModel(LoremIpsum(20).values.joinToString("\n")),
         )
     }
 }
 
 @WearPreviewLargeRound
 @Composable
-fun FailedResponseChipPreview() {
+internal fun FailedResponseChipPreview() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         PromptResponseDisplay(
-            FailedResponseUiModel("Error")
+            FailedResponseUiModel("Error"),
         )
     }
 }
 
 @WearPreviewLargeRound
 @Composable
-fun ResponseInProgressCardPreview() {
+internal fun ResponseInProgressCardPreview() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         PromptResponseDisplay(
-            InProgressResponseUiModel
+            InProgressResponseUiModel,
         )
     }
 }

@@ -43,20 +43,20 @@ public fun TextPromptDisplay(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
         backgroundPainter = CardDefaults.cardBackgroundPainter(
-            Color(0xff8ab4f8), Color(0xff8ab4f8)
-        )
+            Color(0xff8ab4f8),
+            Color(0xff8ab4f8),
+        ),
     ) {
         Text(text = prompt.prompt, color = MaterialTheme.colors.surface)
     }
 }
 
-
 @WearPreviewLargeRound
 @Composable
-fun TextPromptDisplayPreview() {
+internal fun TextPromptDisplayPreview() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         TextPromptDisplay(
-            TextPromptUiModel("why did the chicken cross the road?")
+            TextPromptUiModel("why did the chicken cross the road?"),
         )
     }
 }

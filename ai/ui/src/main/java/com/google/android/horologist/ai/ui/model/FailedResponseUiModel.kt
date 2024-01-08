@@ -17,7 +17,8 @@
 package com.google.android.horologist.ai.ui.model
 
 public data class FailedResponseUiModel(public val message: String) : PromptResponseUiModel {
-    companion object {
-        val NoCompanion = FailedResponseUiModel("No companion app found")
+    public companion object {
+        public val NoCompanion: FailedResponseUiModel =
+            FailedResponseUiModel("No companion app found")
     }
 }

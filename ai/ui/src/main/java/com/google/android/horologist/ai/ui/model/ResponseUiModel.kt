@@ -16,15 +16,10 @@
 
 package com.google.android.horologist.ai.ui.model
 
-sealed interface ResponseUiModel: PromptResponseUiModel {
-}
+public sealed interface ResponseUiModel : PromptResponseUiModel
 
 public object InProgressResponseUiModel : ResponseUiModel
 
 public data class TextResponseUiModel(
     val text: String,
 ) : ResponseUiModel
-
-
-
-

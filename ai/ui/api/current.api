@@ -1,68 +1,101 @@
 // Signature format: 4.0
-package com.google.android.horologist.health.composables {
+package com.google.android.horologist.ai.ui.components {
 
-  public final class ActiveDurationDefaults {
-    ctor public ActiveDurationDefaults();
-    field public static final com.google.android.horologist.health.composables.ActiveDurationDefaults.Companion Companion;
-    field public static final String HH_MM = "%1$02d:%2$02d";
-    field public static final String HH_MM_SS = "%1$02d:%2$02d:%3$02d";
-    field public static final String H_MM = "%1$01d:%2$02d";
-    field public static final String H_MM_SS = "%1$01d:%2$02d:%3$02d";
-    field public static final String MM_SS = "%2$02d:%3$02d";
-    field public static final String M_SS = "%2$01d:%3$02d";
+  public final class PromptDisplayKt {
+    method @androidx.compose.runtime.Composable public static void TextPromptDisplay(com.google.android.horologist.ai.ui.model.TextPromptUiModel prompt, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
   }
 
-  public static final class ActiveDurationDefaults.Companion {
+  public final class PromptResponseDisplayKt {
+    method @androidx.compose.runtime.Composable public static void PromptResponseDisplay(com.google.android.horologist.ai.ui.model.PromptResponseUiModel promptResponse, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
   }
 
-  public final class ActiveDurationTextKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ActiveDurationText(androidx.health.services.client.data.ExerciseUpdate.ActiveDurationCheckpoint checkpoint, androidx.health.services.client.data.ExerciseState state, optional kotlin.jvm.functions.Function1<? super java.time.Duration,kotlin.Unit> content);
-    method @androidx.compose.runtime.Composable public static void FormattedDurationText(java.time.Duration duration, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super java.time.Duration,java.lang.String> formatter, optional long color, optional androidx.compose.ui.text.style.TextAlign? textAlign, optional androidx.compose.ui.text.TextStyle style);
-    method public static kotlin.jvm.functions.Function1<java.time.Duration,java.lang.String> patternFormatter(optional String format);
+  public final class ResponseDisplayKt {
+    method @androidx.compose.runtime.Composable public static void FailedResponseChip(com.google.android.horologist.ai.ui.model.FailedResponseUiModel answer, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable public static void ResponseInProgressCard(com.google.android.horologist.ai.ui.model.InProgressResponseUiModel inProgress, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable public static void TextResponseCard(com.google.android.horologist.ai.ui.model.TextResponseUiModel textResponseUiModel, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
   }
 
 }
 
-package com.google.android.horologist.health.composables.components {
+package com.google.android.horologist.ai.ui.model {
 
-  public final class MetricDisplayKt {
-    method @androidx.compose.runtime.Composable public static void MetricDisplay(com.google.android.horologist.health.composables.model.MetricUiModel metric, optional androidx.compose.ui.Modifier modifier);
-  }
-
-}
-
-package com.google.android.horologist.health.composables.model {
-
-  public final class MetricUiModel {
-    ctor public MetricUiModel(String text, optional String? topRightText, optional String? bottomRightText, optional long color);
+  public final class FailedResponseUiModel implements com.google.android.horologist.ai.ui.model.PromptResponseUiModel {
+    ctor public FailedResponseUiModel(String message);
     method public String component1();
-    method public String? component2();
-    method public String? component3();
-    method public long component4-0d7_KjU();
-    method public com.google.android.horologist.health.composables.model.MetricUiModel copy-g2O1Hgs(String text, String? topRightText, String? bottomRightText, long color);
-    method public String? getBottomRightText();
-    method public long getColor();
+    method public com.google.android.horologist.ai.ui.model.FailedResponseUiModel copy(String message);
+    method public String getMessage();
+    property public final String message;
+    field public static final com.google.android.horologist.ai.ui.model.FailedResponseUiModel.Companion Companion;
+  }
+
+  public static final class FailedResponseUiModel.Companion {
+    method public com.google.android.horologist.ai.ui.model.FailedResponseUiModel getNoCompanion();
+    property public final com.google.android.horologist.ai.ui.model.FailedResponseUiModel NoCompanion;
+  }
+
+  public final class InProgressResponseUiModel implements com.google.android.horologist.ai.ui.model.ResponseUiModel {
+    field public static final com.google.android.horologist.ai.ui.model.InProgressResponseUiModel INSTANCE;
+  }
+
+  public final class ModelInstanceUiModel {
+    ctor public ModelInstanceUiModel(String id, String name);
+    method public String component1();
+    method public String component2();
+    method public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel copy(String id, String name);
+    method public String getId();
+    method public String getName();
+    property public final String id;
+    property public final String name;
+  }
+
+  public sealed interface PromptResponseUiModel {
+  }
+
+  public sealed interface PromptUiModel extends com.google.android.horologist.ai.ui.model.PromptResponseUiModel {
+  }
+
+  public sealed interface ResponseUiModel extends com.google.android.horologist.ai.ui.model.PromptResponseUiModel {
+  }
+
+  public final class TextPromptUiModel implements com.google.android.horologist.ai.ui.model.PromptUiModel {
+    ctor public TextPromptUiModel(String prompt, optional java.time.Instant submitted);
+    method public String component1();
+    method public java.time.Instant component2();
+    method public com.google.android.horologist.ai.ui.model.TextPromptUiModel copy(String prompt, java.time.Instant submitted);
+    method public String getPrompt();
+    method public java.time.Instant getSubmitted();
+    property public final String prompt;
+    property public final java.time.Instant submitted;
+  }
+
+  public final class TextResponseUiModel implements com.google.android.horologist.ai.ui.model.ResponseUiModel {
+    ctor public TextResponseUiModel(String text);
+    method public String component1();
+    method public com.google.android.horologist.ai.ui.model.TextResponseUiModel copy(String text);
     method public String getText();
-    method public String? getTopRightText();
-    property public final String? bottomRightText;
-    property public final long color;
     property public final String text;
-    property public final String? topRightText;
   }
 
 }
 
-package com.google.android.horologist.health.composables.screens {
+package com.google.android.horologist.ai.ui.screens {
 
-  public final class MetricsScreenKt {
-    method @androidx.compose.runtime.Composable public static void MetricsScreen(com.google.android.horologist.health.composables.model.MetricUiModel firstMetric, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.health.composables.model.MetricUiModel? secondMetric, optional com.google.android.horologist.health.composables.model.MetricUiModel? thirdMetric, optional com.google.android.horologist.health.composables.model.MetricUiModel? fourthMetric, optional kotlin.jvm.functions.Function0<kotlin.Unit>? positionIndicator);
+  public final class PromptScreenKt {
+    method @androidx.compose.runtime.Composable public static void PromptScreen(com.google.android.horologist.ai.ui.screens.PromptUiState uiState, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onSettingsClick, kotlin.jvm.functions.Function0<kotlin.Unit> promptEntry);
   }
 
-}
-
-package com.google.android.horologist.health.composables.theme {
-
-  public final class ColorsKt {
+  public final class PromptUiState {
+    ctor public PromptUiState(optional com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo, optional java.util.List<? extends com.google.android.horologist.ai.ui.model.PromptResponseUiModel> messages, optional com.google.android.horologist.ai.ui.model.TextPromptUiModel? inProgress);
+    method public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? component1();
+    method public java.util.List<com.google.android.horologist.ai.ui.model.PromptResponseUiModel> component2();
+    method public com.google.android.horologist.ai.ui.model.TextPromptUiModel? component3();
+    method public com.google.android.horologist.ai.ui.screens.PromptUiState copy(com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo, java.util.List<? extends com.google.android.horologist.ai.ui.model.PromptResponseUiModel> messages, com.google.android.horologist.ai.ui.model.TextPromptUiModel? inProgress);
+    method public com.google.android.horologist.ai.ui.model.TextPromptUiModel? getInProgress();
+    method public java.util.List<com.google.android.horologist.ai.ui.model.PromptResponseUiModel> getMessages();
+    method public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? getModelInfo();
+    property public final com.google.android.horologist.ai.ui.model.TextPromptUiModel? inProgress;
+    property public final java.util.List<com.google.android.horologist.ai.ui.model.PromptResponseUiModel> messages;
+    property public final com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo;
   }
 
 }

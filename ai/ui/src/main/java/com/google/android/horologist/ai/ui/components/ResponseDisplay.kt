@@ -66,7 +66,7 @@ public fun TextResponseCard(
 
 @Composable
 public fun ResponseInProgressCard(
-    inProgress: InProgressResponseUiModel,
+    @Suppress("UNUSED_PARAMETER") inProgress: InProgressResponseUiModel,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {

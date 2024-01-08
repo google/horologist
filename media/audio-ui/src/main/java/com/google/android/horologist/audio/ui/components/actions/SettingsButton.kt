@@ -24,10 +24,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults.buttonColors
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.composables.UnboundedRippleButton
 import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.compose.material.IconRtlMode
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
@@ -48,7 +48,7 @@ public fun SettingsButton(
     iconSize: Dp = 26.dp,
     tapTargetSize: Dp = 52.dp,
 ) {
-    Button(
+    UnboundedRippleButton(
         modifier = modifier.size(tapTargetSize),
         onClick = onClick,
         colors = buttonColors(
@@ -57,6 +57,7 @@ public fun SettingsButton(
             contentColor = MaterialTheme.colors.onSurface,
         ),
         enabled = enabled,
+        rippleRadius = tapTargetSize / 2,
     ) {
         Icon(
             paintable = imageVector.asPaintable(),

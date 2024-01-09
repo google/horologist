@@ -30,6 +30,10 @@ com.google.android.horologist.tiles.components
 com.google.android.horologist.tiles.images
 com.google.android.horologist.tiles.preview
 com.google.android.horologist.tiles.render
+module:ai-ui
+com.google.android.horologist.ai.ui.components
+com.google.android.horologist.ai.ui.model
+com.google.android.horologist.ai.ui.screens
 module:auth-composables
 com.google.android.horologist.auth.composables.chips
 com.google.android.horologist.auth.composables.dialogs
@@ -62,6 +66,10 @@ com.google.android.horologist.datalayer.grpc.client
 com.google.android.horologist.datalayer.grpc.server
 module:datalayer-phone
 com.google.android.horologist.datalayer.phone
+module:datalayer-phone-ui
+com.google.android.horologist.datalayer.phone.ui
+com.google.android.horologist.datalayer.phone.ui.play
+com.google.android.horologist.datalayer.phone.ui.prompt.installapp
 module:datalayer-watch
 com.google.android.horologist.datalayer.watch
 module:health-composables
@@ -130,6 +138,7 @@ com.google.android.horologist.media.ui.state
 com.google.android.horologist.media.ui.state.mapper
 com.google.android.horologist.media.ui.state.model
 com.google.android.horologist.media.ui.tiles
+com.google.android.horologist.media.ui.util
 module:network-awareness-core
 com.google.android.horologist.networks.battery
 com.google.android.horologist.networks.data

@@ -24,12 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.composables.UnboundedRippleButton
 import com.google.android.horologist.images.base.paintable.Paintable
 
 /**
@@ -44,13 +43,13 @@ public fun CustomActionMediaButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    iconSize: Dp = 32.dp,
     iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
 ) {
-    Button(
+    UnboundedRippleButton(
         onClick = onClick,
-        modifier = modifier.size(tapTargetSize),
+        modifier = modifier,
+        rippleRadius = 35.dp,
         enabled = enabled,
         colors = colors,
     ) {

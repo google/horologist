@@ -26,7 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.ai.ui.components.PromptResponseDisplay
+import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.components.ResponseInProgressCard
 import com.google.android.horologist.ai.ui.components.TextPromptDisplay
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
@@ -64,11 +64,11 @@ public fun PromptScreen(
         uiState.messages.forEach {
             item {
                 val padding = when (it) {
-                    is PromptUiModel -> PaddingValues(end = 25.dp)
-                    is ResponseUiModel -> PaddingValues(start = 25.dp)
+                    is PromptUiModel -> PaddingValues(end = 20.dp)
+                    is ResponseUiModel -> PaddingValues(start = 20.dp)
                     else -> PaddingValues()
                 }
-                PromptResponseDisplay(
+                PromptOrResponseDisplay(
                     promptResponse = it,
                     onClick = {},
                     modifier = Modifier

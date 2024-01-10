@@ -16,4 +16,4 @@
 
 package com.google.android.horologist.ai.ui.model
 
-public sealed interface PromptResponseUiModel
+public sealed interface PromptOrResponseUiModel

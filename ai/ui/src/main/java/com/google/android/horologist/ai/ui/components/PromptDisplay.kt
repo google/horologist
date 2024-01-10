@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.MaterialTheme
@@ -43,8 +42,8 @@ public fun TextPromptDisplay(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
         backgroundPainter = CardDefaults.cardBackgroundPainter(
-            Color(0xff8ab4f8),
-            Color(0xff8ab4f8),
+            MaterialTheme.colors.primaryVariant,
+            MaterialTheme.colors.primaryVariant,
         ),
     ) {
         Text(text = prompt.prompt, color = MaterialTheme.colors.surface)

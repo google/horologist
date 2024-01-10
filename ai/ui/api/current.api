@@ -5,8 +5,8 @@ package com.google.android.horologist.ai.ui.components {
     method @androidx.compose.runtime.Composable public static void TextPromptDisplay(com.google.android.horologist.ai.ui.model.TextPromptUiModel prompt, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
   }
 
-  public final class PromptResponseDisplayKt {
-    method @androidx.compose.runtime.Composable public static void PromptResponseDisplay(com.google.android.horologist.ai.ui.model.PromptResponseUiModel promptResponse, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
+  public final class PromptOrResponseDisplayKt {
+    method @androidx.compose.runtime.Composable public static void PromptOrResponseDisplay(com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel promptResponse, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
   }
 
   public final class ResponseDisplayKt {
@@ -19,7 +19,7 @@ package com.google.android.horologist.ai.ui.components {
 
 package com.google.android.horologist.ai.ui.model {
 
-  public final class FailedResponseUiModel implements com.google.android.horologist.ai.ui.model.PromptResponseUiModel {
+  public final class FailedResponseUiModel implements com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel {
     ctor public FailedResponseUiModel(String message);
     method public String component1();
     method public com.google.android.horologist.ai.ui.model.FailedResponseUiModel copy(String message);
@@ -48,13 +48,13 @@ package com.google.android.horologist.ai.ui.model {
     property public final String name;
   }
 
-  public sealed interface PromptResponseUiModel {
+  public sealed interface PromptOrResponseUiModel {
   }
 
-  public sealed interface PromptUiModel extends com.google.android.horologist.ai.ui.model.PromptResponseUiModel {
+  public sealed interface PromptUiModel extends com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel {
   }
 
-  public sealed interface ResponseUiModel extends com.google.android.horologist.ai.ui.model.PromptResponseUiModel {
+  public sealed interface ResponseUiModel extends com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel {
   }
 
   public final class TextPromptUiModel implements com.google.android.horologist.ai.ui.model.PromptUiModel {
@@ -85,16 +85,16 @@ package com.google.android.horologist.ai.ui.screens {
   }
 
   public final class PromptUiState {
-    ctor public PromptUiState(optional com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo, optional java.util.List<? extends com.google.android.horologist.ai.ui.model.PromptResponseUiModel> messages, optional com.google.android.horologist.ai.ui.model.TextPromptUiModel? inProgress);
+    ctor public PromptUiState(optional com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo, optional java.util.List<? extends com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> messages, optional com.google.android.horologist.ai.ui.model.TextPromptUiModel? inProgress);
     method public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? component1();
-    method public java.util.List<com.google.android.horologist.ai.ui.model.PromptResponseUiModel> component2();
+    method public java.util.List<com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> component2();
     method public com.google.android.horologist.ai.ui.model.TextPromptUiModel? component3();
-    method public com.google.android.horologist.ai.ui.screens.PromptUiState copy(com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo, java.util.List<? extends com.google.android.horologist.ai.ui.model.PromptResponseUiModel> messages, com.google.android.horologist.ai.ui.model.TextPromptUiModel? inProgress);
+    method public com.google.android.horologist.ai.ui.screens.PromptUiState copy(com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo, java.util.List<? extends com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> messages, com.google.android.horologist.ai.ui.model.TextPromptUiModel? inProgress);
     method public com.google.android.horologist.ai.ui.model.TextPromptUiModel? getInProgress();
-    method public java.util.List<com.google.android.horologist.ai.ui.model.PromptResponseUiModel> getMessages();
+    method public java.util.List<com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> getMessages();
     method public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? getModelInfo();
     property public final com.google.android.horologist.ai.ui.model.TextPromptUiModel? inProgress;
-    property public final java.util.List<com.google.android.horologist.ai.ui.model.PromptResponseUiModel> messages;
+    property public final java.util.List<com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> messages;
     property public final com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo;
   }
 

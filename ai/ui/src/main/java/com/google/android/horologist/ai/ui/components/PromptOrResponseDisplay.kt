@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.ai.ui.model.FailedResponseUiModel
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
-import com.google.android.horologist.ai.ui.model.PromptResponseUiModel
+import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 
@@ -28,8 +28,8 @@ import com.google.android.horologist.ai.ui.model.TextResponseUiModel
  * A component to display an Answer.
  */
 @Composable
-public fun PromptResponseDisplay(
-    promptResponse: PromptResponseUiModel,
+public fun PromptOrResponseDisplay(
+    promptResponse: PromptOrResponseUiModel,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
 ) {

@@ -21,6 +21,7 @@ sealed class Screen(
 ) {
     data object MenuScreen : Screen("menuScreen")
     data object AppHelperNodesScreen : Screen("appHelperNodesScreen")
-    data object InAppPromptsScreen : Screen("inAppPromptsScreen")
+    data object InstallAppPromptDemoScreen : Screen("installAppPromptDemoScreen")
+    data object InstallAppPromptDemo2Screen : Screen("installAppPromptDemo2Screen")
     data object CounterScreen : Screen("counterScreen")
 }

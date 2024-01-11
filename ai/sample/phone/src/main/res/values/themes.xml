@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2024 The Android Open Source Project
+  ~ Copyright 2023 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,11 +15,7 @@
   ~ limitations under the License.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.android.horologist.ai.ui">
+<resources>
 
-    <uses-feature android:name="android.hardware.type.watch" />
-
-    <uses-sdk android:minSdkVersion="30" tools:ignore="GradleOverrides" />
-</manifest>
+    <style name="Theme.Horologist" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>

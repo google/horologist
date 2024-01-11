@@ -30,6 +30,11 @@ gradleEnterprise {
 rootProject.name = "horologist"
 
 include(":ai:ui")
+include(":ai:sample:core")
+include(":ai:sample:wear-core")
+include(":ai:sample:wear-prompt-app")
+include(":ai:sample:wear-gemini-rest")
+include(":ai:sample:phone")
 include(":annotations")
 include(":auth:composables")
 include(":auth:data")

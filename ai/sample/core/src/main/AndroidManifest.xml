@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright 2024 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2022 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,11 +14,16 @@
   ~ limitations under the License.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.android.horologist.ai.ui">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-feature android:name="android.hardware.type.watch" />
-
-    <uses-sdk android:minSdkVersion="30" tools:ignore="GradleOverrides" />
+    <!--
+        Required to be able to identify the companion with NodeClient, via calls to
+        getCompanionPackageForNode().
+    -->
+    <queries>
+        <intent>
+            <action android:name="com.google.android.gms.wearable.CAPABILITY_CHANGED" />
+            <data android:scheme="wear" />
+        </intent>
+    </queries>
 </manifest>

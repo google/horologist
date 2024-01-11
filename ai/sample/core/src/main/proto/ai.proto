@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package com.google.android.horologist.data;
+
+option java_package = "com.google.android.horologist.ai.core";
+option java_multiple_files = true;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+message PromptRequest {
+  ModelId model = 1;
+  Prompt prompt = 2;
+}
+
+message Prompt {
+  oneof prompt_data {
+    TextPrompt text = 1;
+  }
+}
+
+message TextPrompt {
+  string text = 1;
+}
+
+message Response {
+  oneof response_data {
+    TextResponse text = 1;
+    Failure failure = 2;
+  }
+}
+
+message TextResponse {
+  string response = 1;
+}
+
+message Failure {
+  string message = 1;
+}
+
+enum DeviceType {
+  DEVICE_TYPE_UNSPECIFIED = 0;
+  DEVICE_TYPE_WEAR = 1;
+  DEVICE_TYPE_PHONE = 2;
+  DEVICE_TYPE_WEB = 3;
+}
+
+message ServiceInfo {
+  string name = 1;
+  repeated ModelInfo models = 2;
+  string packageName = 3;
+  DeviceType device_type = 4;
+  string node_id = 5;
+}
+
+message ModelId {
+  string id = 1;
+}
+
+message ModelInfo {
+  ModelId id = 1;
+  string name = 2;
+}
+
+service InferenceService {
+  rpc serviceInfo(.google.protobuf.Empty) returns (ServiceInfo);
+  rpc answerPrompt(PromptRequest) returns (Response);
+}

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2024 The Android Open Source Project
+  ~ Copyright 2023 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,11 +14,9 @@
   ~ limitations under the License.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.android.horologist.ai.ui">
-
-    <uses-feature android:name="android.hardware.type.watch" />
-
-    <uses-sdk android:minSdkVersion="30" tools:ignore="GradleOverrides" />
-</manifest>
+<resources>
+    <string name="app_name">Horologist Auth Sample</string>
+    <string name="token_share_button_update_token_default">Update token - default key</string>
+    <string name="token_share_button_update_token_custom">Update token - custom key</string>
+    <string name="token_share_message_api_unavailable">This device does not have capability to communicate to Wearable Data Layer API</string>
+</resources>

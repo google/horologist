@@ -67,7 +67,7 @@ class ChipThemeTest : ScreenshotBaseTest() {
         )
 
         private val CustomShapes = Shapes(
-            small = CutCornerShape(
+            large = CutCornerShape(
                 topStart = 10.dp,
                 topEnd = 20.dp,
                 bottomStart = 10.dp,

@@ -35,7 +35,7 @@ private const val NO_RESULT_REQUESTED_REQUEST_CODE = -1
 public class PhoneUiDataLayerHelper {
 
     /**
-     * Alternative to [showInstallAppPrompt] for activities that are not [ComponentActivity].
+     * Display an install app prompt to the user.
      *
      * Use [requestCode] as an option to check in [Activity.onActivityResult] if the prompt was
      * dismissed ([Activity.RESULT_CANCELED]).
@@ -84,13 +84,13 @@ public class PhoneUiDataLayerHelper {
      * It can also be used directly in an [ComponentActivity] with
      * [ComponentActivity.registerForActivityResult]:
      * ```
-     * val launcher = registerForActivityResult(
-     *     ActivityResultContracts.StartActivityForResult(),
-     *     ActivityResultCallback { result ->
-     *         if (result.resultCode == RESULT_OK) {
-     *             // user pushed install!
-     *         }
-     * )
+     *  val launcher = registerForActivityResult(
+     *      ActivityResultContracts.StartActivityForResult()
+     *  ) { result ->
+     *      if (result.resultCode == RESULT_OK) {
+     *          // user pushed install!
+     *      }
+     *  }
      *
      * launcher.launch(getInstallPromptIntent(/*params*/))
      * ```

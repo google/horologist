@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.google.android.horologist.datalayer.sample.R
 
 @Composable
-fun InAppPromptsScreen(
+fun InstallAppPromptDemoScreen(
     onShowInstallAppPrompt: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -51,8 +51,8 @@ fun InAppPromptsScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun InAppPromptsScreenPreview() {
-    InAppPromptsScreen(
+fun InstallAppPromptDemoScreenPreview() {
+    InstallAppPromptDemoScreen(
         onShowInstallAppPrompt = { },
     )
 }

@@ -27,7 +27,7 @@ android {
     defaultConfig {
         applicationId = "com.google.android.horologist.ai.sample"
         // Min because of Tiles
-        minSdk = 26
+        minSdk = 30
         targetSdk = 30
 
         versionCode = 1

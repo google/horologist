@@ -53,7 +53,7 @@ android {
     defaultConfig {
         applicationId = "com.google.android.horologist.ai.sample.wear.gemini"
         // Min because of Tiles
-        minSdk = 26
+        minSdk = 30
         targetSdk = 33
 
         versionCode = 1

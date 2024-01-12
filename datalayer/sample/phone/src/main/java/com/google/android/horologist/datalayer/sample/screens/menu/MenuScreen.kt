@@ -49,8 +49,12 @@ fun MenuScreen(
             modifier = Modifier.padding(top = 10.dp),
         )
 
-        Button(onClick = { navController.navigate(Screen.InAppPromptsScreen.route) }) {
-            Text(text = stringResource(id = R.string.menu_screen_install_app_item))
+        Button(onClick = { navController.navigate(Screen.InstallAppPromptDemoScreen.route) }) {
+            Text(text = stringResource(id = R.string.menu_screen_install_app_demo1_item))
+        }
+
+        Button(onClick = { navController.navigate(Screen.InstallAppPromptDemo2Screen.route) }) {
+            Text(text = stringResource(id = R.string.menu_screen_install_app_demo2_item))
         }
 
         Text(

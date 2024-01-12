@@ -27,7 +27,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -53,11 +52,11 @@ fun InstallAppPromptDemo2Screen(
         getInstallPromptIntent = { watchName ->
             viewModel.phoneUiDataLayerHelper.getInstallPromptIntent(
                 context = context,
-                appName = context.getString(R.string.install_app_prompt_sample_app_name),
-                appPackageName = context.getString(R.string.install_app_prompt_sample_app_package_name),
+                appName = context.getString(R.string.app_name),
+                appPackageName = context.packageName,
                 watchName = watchName,
-                message = context.getString(R.string.install_app_prompt_sample_message),
-                image = R.drawable.sample_app_wearos_screenshot,
+                message = context.getString(R.string.install_app_prompt_demo2_prompt_message),
+                image = R.drawable.watch_app_screenshot,
             )
         },
         onInstallPromptLaunched = viewModel::onInstallPromptLaunched,

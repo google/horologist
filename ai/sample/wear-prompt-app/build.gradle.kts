@@ -120,6 +120,8 @@ dependencies {
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)
 
+    implementation(libs.mikepenz.markdown)
+
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.androidx.wear.tooling.preview)
     debugImplementation(projects.composeTools)

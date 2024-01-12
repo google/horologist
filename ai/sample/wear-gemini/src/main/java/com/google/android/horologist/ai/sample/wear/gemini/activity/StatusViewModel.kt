@@ -28,11 +28,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StatusViewModel
-@Inject
-constructor(
-    service: InferenceServiceGrpcKt.InferenceServiceCoroutineStub,
-) : ViewModel() {
-    val uiState = flow {
-        emit(StatusUiState(serviceName = service.serviceInfo(empty { }).name))
-    }.stateIn(viewModelScope, SharingStarted.Lazily, StatusUiState())
-}
+    @Inject
+    constructor(
+        service: InferenceServiceGrpcKt.InferenceServiceCoroutineStub,
+    ) : ViewModel() {
+        val uiState = flow {
+            emit(StatusUiState(serviceName = service.serviceInfo(empty { }).name))
+        }.stateIn(viewModelScope, SharingStarted.Lazily, StatusUiState())
+    }

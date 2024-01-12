@@ -16,8 +16,10 @@
 
 package com.google.android.horologist.datalayer.sample.screens.counter
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -73,9 +75,18 @@ fun CounterScreen(
             }
 
             is CounterScreenUiState.Loaded -> {
-                Text(text = "Counter: " + state.counter)
-                Button(onClick = onPlusClick) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Plus 1")
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                ) {
+                    Text(text = stringResource(R.string.app_helper_counter_increase_explanation))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(text = "Counter: " + state.counter)
+                        Button(onClick = onPlusClick) {
+                            Icon(imageVector = Icons.Default.Add, contentDescription = "Plus 1")
+                        }
+                    }
                 }
             }
 

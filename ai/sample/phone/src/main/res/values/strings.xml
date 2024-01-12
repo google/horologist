@@ -16,6 +16,6 @@
 
 <resources>
     <string name="app_name">Horologist AI Sample</string>
-    <string name="connecting_label">Connecting… {0}</string>
-    <string name="hosting_label">Hosting %1</string>
+    <string name="connecting_label">Connecting…</string>
+    <string name="hosting_label">Hosting %1$s</string>
 </resources>

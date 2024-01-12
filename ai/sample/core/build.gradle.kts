@@ -130,8 +130,8 @@ dependencies {
     api(libs.androidx.wear.remote.interactions)
     api(libs.androidx.lifecycle.service)
     api(projects.datalayer.grpc)
-    api("io.grpc:grpc-android:1.60.0")
-    api("io.grpc:grpc-binder:1.60.0")
+    api(libs.io.grpc.grpc.android)
+    api(libs.io.grpc.grpc.binder)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

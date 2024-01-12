@@ -139,7 +139,7 @@ dependencies {
     implementation(projects.datalayer.grpc)
     implementation(projects.datalayer.watch)
     implementation(libs.kotlinx.coroutines.playservices)
-    implementation("com.google.ai.client.generativeai:generativeai:0.1.2")
+    implementation(libs.google.generativeai)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.complications.data)
@@ -156,10 +156,6 @@ dependencies {
     implementation(libs.wearcompose.navigation)
 
     implementation(libs.com.squareup.okhttp3.okhttp)
-    implementation("io.ktor:ktor-client-json:2.3.7")
-    implementation("io.ktor:ktor-client-okhttp:2.3.7")
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.androidx.wear.tooling.preview)

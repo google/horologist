@@ -40,9 +40,9 @@ class SettingsViewModel
             ) { current, models ->
                 val uiModels = models?.flatMap { (serviceInfo, _) ->
                     serviceInfo.modelsList.map { modelInfo ->
-                        ModelInstanceUiModel(modelInfo.id.id, modelInfo.name).also {
+                        ModelInstanceUiModel(modelInfo.modelId.id, modelInfo.name).also {
                             if (it.id.isBlank()) {
-                                throw Exception("Blank id " + modelInfo.name + " ")
+                                throw Exception("Blank id ${modelInfo.name} ")
                             }
                         }
                     }

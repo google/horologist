@@ -28,7 +28,7 @@
     </queries>
 
     <application
-        android:name=".wear.prompt.SampleApplication"
+        android:name="com.google.android.horologist.ai.sample.wear.prompt.SampleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -44,7 +44,7 @@
             android:value="true" />
 
         <activity
-            android:name=".wear.prompt.MainActivity"
+            android:name="com.google.android.horologist.ai.sample.wear.prompt.MainActivity"
             android:exported="true"
             android:taskAffinity=".main">
 

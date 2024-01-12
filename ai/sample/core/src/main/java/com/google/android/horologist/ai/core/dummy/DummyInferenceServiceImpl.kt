@@ -30,17 +30,17 @@ import com.google.protobuf.Empty
 
 class DummyInferenceServiceImpl(val thisId: String) : InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
     override suspend fun answerPrompt(request: PromptRequest): Response {
-        if (request.model.id != thisId) {
+        if (request.modelId.id != thisId) {
             return response {
                 failure = failure {
-                    message = "Unknown model ${request.model.id}"
+                    message = "Unknown model ${request.modelId.id}"
                 }
             }
-        } else if (request.prompt.hasText()) {
-            val query = request.prompt.text.text
+        } else if (request.prompt.hasTextPrompt()) {
+            val query = request.prompt.textPrompt.text
             return response {
-                text = textResponse {
-                    this.response =
+                textResponse = textResponse {
+                    text =
                         "I didn't understand '$query'.\nPlease try again with a different question. $thisId"
                 }
             }
@@ -57,7 +57,7 @@ class DummyInferenceServiceImpl(val thisId: String) : InferenceServiceGrpcKt.Inf
         return serviceInfo {
             name = "Dummy $thisId"
             models += modelInfo {
-                id = modelId { id = thisId }
+                modelId = modelId { id = thisId }
                 name = "Dummy $thisId"
             }
         }

@@ -9,13 +9,13 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
 message PromptRequest {
-  ModelId model = 1;
+  ModelId model_id = 1;
   Prompt prompt = 2;
 }
 
 message Prompt {
   oneof prompt_data {
-    TextPrompt text = 1;
+    TextPrompt text_prompt = 1;
   }
 }
 
@@ -25,13 +25,13 @@ message TextPrompt {
 
 message Response {
   oneof response_data {
-    TextResponse text = 1;
+    TextResponse text_response = 1;
     Failure failure = 2;
   }
 }
 
 message TextResponse {
-  string response = 1;
+  string text = 1;
 }
 
 message Failure {
@@ -58,7 +58,7 @@ message ModelId {
 }
 
 message ModelInfo {
-  ModelId id = 1;
+  ModelId model_id = 1;
   string name = 2;
 }
 

@@ -20,21 +20,4 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class SampleApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-
-        setStrictMode()
-    }
-
-    private fun setStrictMode() {
-//        StrictMode.setThreadPolicy(
-//            StrictMode.ThreadPolicy.Builder()
-//                .detectDiskReads()
-//                .detectDiskWrites()
-//                .detectNetwork()
-//                .penaltyDeath()
-//                .build(),
-//        )
-    }
-}
+class SampleApplication : Application()

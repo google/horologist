@@ -16,17 +16,13 @@
 
 package com.google.android.horologist.ai.ui.components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 
 /**
@@ -47,15 +43,5 @@ public fun TextPromptDisplay(
         ),
     ) {
         Text(text = prompt.prompt, color = MaterialTheme.colors.surface)
-    }
-}
-
-@WearPreviewLargeRound
-@Composable
-internal fun TextPromptDisplayPreview() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        TextPromptDisplay(
-            TextPromptUiModel("why did the chicken cross the road?"),
-        )
     }
 }

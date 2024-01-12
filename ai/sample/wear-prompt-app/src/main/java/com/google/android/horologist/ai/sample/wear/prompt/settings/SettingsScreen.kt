@@ -45,7 +45,7 @@ fun SettingsScreen(
         uiState = uiState,
         modifier = modifier,
         columnState = columnState,
-        selectModel = { viewModel.selectModel(it) },
+        selectModel = viewModel::selectModel,
     )
 }
 

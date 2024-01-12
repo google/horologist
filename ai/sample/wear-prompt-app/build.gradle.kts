@@ -25,7 +25,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.google.android.horologist.ai.sample"
+        applicationId = "com.google.android.horologist.ai.sample.prompt"
         // Min because of Tiles
         minSdk = 26
         targetSdk = 30
@@ -82,7 +82,7 @@ android {
         animationsDisabled = true
     }
 
-    namespace = "com.google.android.horologist.ai.sample"
+    namespace = "com.google.android.horologist.ai.sample.prompt"
 }
 
 dependencies {

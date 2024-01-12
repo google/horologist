@@ -27,7 +27,6 @@ import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 import com.google.android.horologist.ai.ui.screens.PromptUiState
-import com.google.android.horologist.data.WearDataLayerRegistry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -42,13 +41,12 @@ import javax.inject.Inject
 class SamplePromptViewModel
     @Inject
     constructor(
-        private val wearDataLayerRegistry: WearDataLayerRegistry,
         private val inferenceService: InferenceService,
     ) : ViewModel() {
 
-        val previousQuestions: MutableStateFlow<List<PromptOrResponseUiModel>> =
+        private val previousQuestions: MutableStateFlow<List<PromptOrResponseUiModel>> =
             MutableStateFlow(listOf())
-        val pendingQuestion: MutableStateFlow<TextPromptUiModel?> =
+        private val pendingQuestion: MutableStateFlow<TextPromptUiModel?> =
             MutableStateFlow(null)
 
         fun askQuestion(enteredPrompt: String) {
@@ -72,12 +70,12 @@ class SamplePromptViewModel
             return try {
                 val response = inferenceService.submit(
                     prompt {
-                        text = textPrompt { text = enteredPrompt }
+                        textPrompt = textPrompt { text = enteredPrompt }
                     },
                 )
 
                 when {
-                    response.hasText() -> TextResponseUiModel(response.text.response)
+                    response.hasTextResponse() -> TextResponseUiModel(response.textResponse.text)
                     response.hasFailure() -> FailedResponseUiModel(response.failure.message)
                     else -> FailedResponseUiModel("Unhandled response type ${response.responseDataCase}")
                 }
@@ -92,7 +90,7 @@ class SamplePromptViewModel
                 pendingQuestion,
                 inferenceService.currentModelInfo,
             ) { prev, curr, info ->
-                val modelInfo = info?.first?.let { ModelInstanceUiModel(it.id.id, it.name) }
+                val modelInfo = info?.first?.let { ModelInstanceUiModel(it.modelId.id, it.name) }
                 PromptUiState(modelInfo, prev, curr)
             }.stateIn(
                 viewModelScope,

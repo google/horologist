@@ -33,7 +33,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
-import com.google.android.horologist.ai.sample.R
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import com.google.android.horologist.ai.sample.prompt.R
 import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
@@ -116,6 +117,7 @@ private fun SamplePromptScreen(
 }
 
 @WearPreviewLargeRound
+@WearPreviewSmallRound
 @Composable
 fun SamplePromptScreenPreviewEmpty() {
     SamplePromptScreen(
@@ -131,6 +133,7 @@ fun SamplePromptScreenPreviewEmpty() {
 }
 
 @WearPreviewLargeRound
+@WearPreviewSmallRound
 @Composable
 fun SamplePromptScreenPreviewMany() {
     SamplePromptScreen(
@@ -162,6 +165,7 @@ fun SamplePromptScreenPreviewMany() {
 }
 
 @WearPreviewLargeRound
+@WearPreviewSmallRound
 @Composable
 fun SamplePromptScreenPreviewQuestion() {
     SamplePromptScreen(

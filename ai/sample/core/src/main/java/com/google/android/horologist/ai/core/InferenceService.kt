@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.ai.core
 
+import android.util.Log
 import com.google.android.horologist.ai.core.registry.CombinedInferenceServiceRegistry
 import com.google.protobuf.empty
 import kotlinx.coroutines.CoroutineScope
@@ -48,15 +49,14 @@ class InferenceService
             val models = registry.models().first()
             emit(
                 coroutineScope {
-                    // TODO subscribe
+                    // TODO subscribe and update models dynamically
                     models.map { remote ->
                         async {
                             try {
                                 val serviceInfo = remote.serviceInfo(empty { })
                                 Pair(serviceInfo, remote)
                             } catch (e: Exception) {
-                                println("Failing for $remote")
-                                e.printStackTrace()
+                                Log.w("InferenceService", "Failing for $remote", e)
                                 null
                             }
                         }
@@ -69,7 +69,7 @@ class InferenceService
             combine(connectedModel, models) { currentId, currentModels ->
                 currentModels?.firstNotNullOfOrNull { (serviceInfo, _) ->
                     serviceInfo.modelsList.find {
-                        it.id == currentId
+                        it.modelId == currentId
                     }?.let {
                         Pair(it, serviceInfo)
                     }
@@ -79,18 +79,22 @@ class InferenceService
         suspend fun submit(prompt: Prompt): Response {
             val currentModel = connectedModel.value ?: throw Exception("No model selected")
 
-            val (_, service) = models.value?.first { it.first.modelsList.find { it.id == currentModel } != null }
+            val (_, service) = models.value?.first { it.first.modelsList.find { it.modelId == currentModel } != null }
                 ?: throw Exception("Service missing")
 
             return service.answerPrompt(
                 promptRequest {
                     this.prompt = prompt
-                    this.model = currentModel
+                    this.modelId = currentModel
                 },
             )
         }
 
-        fun selectModel(modelId: ModelId?) {
+        fun selectModel(modelId: ModelId) {
             connectedModel.value = modelId
+        }
+
+        fun clearModel() {
+            connectedModel.value = null
         }
     }

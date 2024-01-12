@@ -33,14 +33,14 @@ import kotlinx.coroutines.flow.first
 class GeminiSDKInferenceServiceImpl(val model: GenerativeModel) :
     InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
         override suspend fun answerPrompt(request: PromptRequest): Response {
-            if (request.model.id != "gemini") {
+            if (request.modelId.id != "gemini") {
                 return response {
                     failure = failure {
-                        message = "Unknown model ${request.model.id}"
+                        message = "Unknown model ${request.modelId.id}"
                     }
                 }
-            } else if (request.prompt.hasText()) {
-                val query = request.prompt.text.text
+            } else if (request.prompt.hasTextPrompt()) {
+                val query = request.prompt.textPrompt.text
                 return geminiQuery(query!!)
             } else {
                 return response {
@@ -52,8 +52,6 @@ class GeminiSDKInferenceServiceImpl(val model: GenerativeModel) :
         }
 
         private suspend fun geminiQuery(query: String): Response {
-            println("geminiQuery $query")
-
             val textAnswer = try {
                 model.generateContentStream(query).first().text
             } catch (e: Exception) {
@@ -74,8 +72,8 @@ class GeminiSDKInferenceServiceImpl(val model: GenerativeModel) :
             }
 
             return response {
-                text = textResponse {
-                    this.response = textAnswer
+                textResponse = textResponse {
+                    text = textAnswer
                 }
             }
         }
@@ -84,7 +82,7 @@ class GeminiSDKInferenceServiceImpl(val model: GenerativeModel) :
             return serviceInfo {
                 name = "Gemini"
                 models += modelInfo {
-                    id = modelId { id = "gemini" }
+                    modelId = modelId { id = "gemini" }
                     name = "Gemini"
                 }
             }

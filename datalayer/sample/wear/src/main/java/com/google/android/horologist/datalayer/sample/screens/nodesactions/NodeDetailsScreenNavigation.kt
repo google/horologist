@@ -21,7 +21,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.google.android.horologist.compose.navscaffold.scrollable
+import androidx.wear.compose.navigation.composable
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.datalayer.sample.Screen
 import java.net.URLDecoder
 import java.net.URLEncoder
@@ -44,14 +46,18 @@ fun NavController.navigateToNodeDetailsScreen(message: String) {
 }
 
 fun NavGraphBuilder.nodeDetailsScreen() {
-    scrollable(
+    composable(
         route = Screen.AppHelperNodeDetailsScreen.route,
         arguments = listOf(
             navArgument(nodeIdArg) { type = NavType.StringType },
         ),
     ) {
-        NodeDetailsScreen(
-            columnState = it.columnState,
-        )
+        val columnState = rememberColumnState()
+
+        ScreenScaffold(scrollState = columnState) {
+            NodeDetailsScreen(
+                columnState = columnState,
+            )
+        }
     }
 }

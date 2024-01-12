@@ -32,7 +32,7 @@ import javax.inject.Qualifier
 @InstallIn(ServiceComponent::class)
 object ServiceModule {
     // From https://github.com/google/generative-ai-android/blob/main/generativeai-android-sample/app/src/main/kotlin/com/google/ai/sample/GenerativeAiViewModelFactory.kt
-    
+
     @ServiceScoped
     @Provides
     fun modelConfig(): GenerationConfig = generationConfig {

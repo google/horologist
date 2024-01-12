@@ -64,7 +64,7 @@
     <string name="install_app_prompt_api_call_demo2_message">This demo calls the API to display the install app prompt. The API will only display the prompt if there is a watch connected and the watch does not have the app installed already.</string>
     <string name="install_app_prompt_run_demo2_button_label">Run demo</string>
     <string name="install_app_prompt_demo2_result_label">Result: %1$s</string>
-    <string name="install_app_prompt_demo2_no_watches_found_label">No watches were found.</string>
+    <string name="install_app_prompt_demo2_no_watches_found_label">No watches without the app installed were found.</string>
     <string name="install_app_prompt_demo2_prompt_install_result_label">User tapped install on the prompt.</string>
     <string name="install_app_prompt_demo2_prompt_cancel_result_label">User dismissed the prompt.</string>
 

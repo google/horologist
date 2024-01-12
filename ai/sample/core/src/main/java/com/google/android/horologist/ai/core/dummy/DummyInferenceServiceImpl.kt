@@ -30,43 +30,43 @@ import com.google.protobuf.Empty
 
 class DummyInferenceServiceImpl(val thisId: String) :
     InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
-    override suspend fun answerPrompt(request: PromptRequest): Response {
-        if (request.modelId.id != thisId) {
-            return response {
-                failure = failure {
-                    message = "Unknown model ${request.modelId.id}"
+        override suspend fun answerPrompt(request: PromptRequest): Response {
+            if (request.modelId.id != thisId) {
+                return response {
+                    failure = failure {
+                        message = "Unknown model ${request.modelId.id}"
+                    }
                 }
-            }
-        } else if (request.prompt.hasTextPrompt()) {
-            val query = request.prompt.textPrompt.text
-            return response {
-                textResponse = textResponse {
-                    text = """ 
+            } else if (request.prompt.hasTextPrompt()) {
+                val query = request.prompt.textPrompt.text
+                return response {
+                    textResponse = textResponse {
+                        text = """ 
                         I didn't understand.
                         
-                        > ${query}.
+                        > $query.
                         
                         Please try again with a different question.
                         From *$thisId*   
                         """.trimIndent()
+                    }
                 }
-            }
-        } else {
-            return response {
-                failure = failure {
-                    message = "Unhandled request type $request"
+            } else {
+                return response {
+                    failure = failure {
+                        message = "Unhandled request type $request"
+                    }
                 }
             }
         }
-    }
 
-    override suspend fun serviceInfo(request: Empty): ServiceInfo {
-        return serviceInfo {
-            name = "Dummy $thisId"
-            models += modelInfo {
-                modelId = modelId { id = thisId }
+        override suspend fun serviceInfo(request: Empty): ServiceInfo {
+            return serviceInfo {
                 name = "Dummy $thisId"
+                models += modelInfo {
+                    modelId = modelId { id = thisId }
+                    name = "Dummy $thisId"
+                }
             }
         }
     }
-}

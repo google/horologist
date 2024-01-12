@@ -134,7 +134,7 @@ private fun SamplePromptScreen(
                 onSettingsClick = onSettingsClick,
                 promptDisplay = {
                     ModelDisplay(it)
-                }
+                },
             )
         }
     }
@@ -154,7 +154,7 @@ private fun SampleTypography() = markdownTypography(
     paragraph = MaterialTheme.typography.body1,
     ordered = MaterialTheme.typography.body1,
     bullet = MaterialTheme.typography.body1,
-    list = MaterialTheme.typography.body1
+    list = MaterialTheme.typography.body1,
 )
 
 @Composable
@@ -195,7 +195,7 @@ public fun SampleTextResponseCard(
         Markdown(
             textResponseUiModel.text,
             colors = SampleColors(),
-            typography = SampleTypography()
+            typography = SampleTypography(),
         )
     }
 }

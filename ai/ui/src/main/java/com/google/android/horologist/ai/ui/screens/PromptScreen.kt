@@ -76,9 +76,11 @@ public fun PromptScreen(
                     is ResponseUiModel -> PaddingValues(start = 20.dp)
                     else -> PaddingValues()
                 }
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(padding)) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(padding),
+                ) {
                     promptDisplay(it)
                 }
             }

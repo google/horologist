@@ -44,7 +44,6 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.ai.sample.prompt.R
-import com.google.android.horologist.ai.sample.R
 import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
 import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel

@@ -28,7 +28,8 @@ import com.google.android.horologist.ai.core.serviceInfo
 import com.google.android.horologist.ai.core.textResponse
 import com.google.protobuf.Empty
 
-class DummyInferenceServiceImpl(val thisId: String) : InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
+class DummyInferenceServiceImpl(val thisId: String) :
+    InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
     override suspend fun answerPrompt(request: PromptRequest): Response {
         if (request.modelId.id != thisId) {
             return response {
@@ -40,8 +41,14 @@ class DummyInferenceServiceImpl(val thisId: String) : InferenceServiceGrpcKt.Inf
             val query = request.prompt.textPrompt.text
             return response {
                 textResponse = textResponse {
-                    text =
-                        "I didn't understand.\n> ${query}.\n\nPlease try again with a different question.\nFrom *$thisId*"
+                    text = """ 
+                        I didn't understand.
+                        
+                        > ${query}.
+                        
+                        Please try again with a different question.
+                        From *$thisId*   
+                        """.trimIndent()
                 }
             }
         } else {

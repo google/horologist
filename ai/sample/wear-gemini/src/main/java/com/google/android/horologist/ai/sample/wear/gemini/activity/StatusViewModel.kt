@@ -21,21 +21,18 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.ai.core.InferenceServiceGrpcKt
 import com.google.protobuf.empty
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class StatusViewModel
-    @Inject
-    constructor(
-        service: InferenceServiceGrpcKt.InferenceServiceCoroutineStub,
-    ) : ViewModel() {
-        val uiState = MutableStateFlow(StatusUiState())
-
-        init {
-            viewModelScope.launch {
-                uiState.value = StatusUiState(serviceName = service.serviceInfo(empty { }).name)
-            }
-        }
-    }
+@Inject
+constructor(
+    service: InferenceServiceGrpcKt.InferenceServiceCoroutineStub,
+) : ViewModel() {
+    val uiState = flow {
+        emit(StatusUiState(serviceName = service.serviceInfo(empty { }).name))
+    }.stateIn(viewModelScope, SharingStarted.Lazily, StatusUiState())
+}

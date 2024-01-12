@@ -56,7 +56,8 @@
 
         <service
             android:name=".phone.service.InferenceBinderGrpcServiceImpl"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="grpc.io.action.BIND" />
             </intent-filter>

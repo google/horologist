@@ -67,7 +67,6 @@ android {
     lint {
         checkReleaseBuilds = false
         textReport = true
-        baseline = file("quality/lint/lint-baseline.xml")
     }
 
     namespace = "com.google.android.horologist.ai.sample.core"

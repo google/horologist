@@ -57,6 +57,7 @@ class InferenceService
                                 Pair(serviceInfo, remote)
                             } catch (e: Exception) {
                                 Log.w("InferenceService", "Failing for $remote", e)
+                                // skip and rely on filterNotNull
                                 null
                             }
                         }

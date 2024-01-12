@@ -20,14 +20,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".phone.SampleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Horologist"
-        android:name=".phone.SampleApplication"
-        >
+        android:theme="@style/Theme.Horologist">
 
         <activity
             android:name=".phone.activity.MainActivity"
@@ -42,15 +41,16 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".phone.service.InferenceGrpcServiceImpl" android:exported="true"
+        <service
+            android:name=".phone.service.InferenceGrpcServiceImpl"
+            android:exported="true"
             tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.REQUEST_RECEIVED" />
                 <data
                     android:host="*"
                     android:pathPrefix="/grpc/"
-                    android:scheme="wear"
-                    />
+                    android:scheme="wear" />
             </intent-filter>
         </service>
 
@@ -62,7 +62,7 @@
                 <action android:name="grpc.io.action.BIND" />
             </intent-filter>
             <intent-filter>
-                <action android:name="InferenceService"/>
+                <action android:name="InferenceService" />
             </intent-filter>
         </service>
 

@@ -15,7 +15,6 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
     <!--
         Required to be able to identify the companion with NodeClient, via calls to
         getCompanionPackageForNode().

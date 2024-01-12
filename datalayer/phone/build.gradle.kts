@@ -87,8 +87,8 @@ metalava {
 
 dependencies {
     api(projects.annotations)
+    api(projects.datalayer.core)
 
-    implementation(projects.datalayer.core)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
 

@@ -41,7 +41,10 @@ plugins {
 }
 
 val localProperties = Properties().apply {
-    load(project.rootProject.file("local.properties").inputStream())
+    val localPropertiesFile = project.rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        load(localPropertiesFile.inputStream())
+    }
 }
 
 android {
@@ -50,7 +53,7 @@ android {
     defaultConfig {
         applicationId = "com.google.android.horologist.ai.sample.wear.gemini"
         // Min because of Tiles
-        minSdk = 26
+        minSdk = 30
         targetSdk = 33
 
         versionCode = 1

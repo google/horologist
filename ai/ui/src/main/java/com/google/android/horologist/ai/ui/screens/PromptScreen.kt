@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.ai.ui.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,6 +31,7 @@ import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.components.ResponseInProgressCard
 import com.google.android.horologist.ai.ui.components.TextPromptDisplay
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
+import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
 import com.google.android.horologist.ai.ui.model.PromptUiModel
 import com.google.android.horologist.ai.ui.model.ResponseUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
@@ -53,6 +55,12 @@ public fun PromptScreen(
         ),
     ),
     onSettingsClick: (() -> Unit)? = null,
+    promptDisplay: @Composable (PromptOrResponseUiModel) -> Unit = {
+        PromptOrResponseDisplay(
+            promptResponse = it,
+            onClick = {},
+        )
+    },
     promptEntry: @Composable () -> Unit,
 ) {
     ScalingLazyColumn(columnState = columnState, modifier = modifier) {
@@ -68,13 +76,11 @@ public fun PromptScreen(
                     is ResponseUiModel -> PaddingValues(start = 20.dp)
                     else -> PaddingValues()
                 }
-                PromptOrResponseDisplay(
-                    promptResponse = it,
-                    onClick = {},
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(padding),
-                )
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(padding)) {
+                    promptDisplay(it)
+                }
             }
         }
         val inProgress = uiState.inProgress

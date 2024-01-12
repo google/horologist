@@ -27,15 +27,27 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.QuestionAnswer
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.wear.compose.material.Card
+import androidx.wear.compose.material.CardDefaults
+import androidx.wear.compose.material.LocalContentColor
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.ai.sample.prompt.R
+import com.google.android.horologist.ai.sample.R
+import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
+import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 import com.google.android.horologist.ai.ui.screens.PromptScreen
@@ -44,6 +56,11 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.material.Button
+import com.mikepenz.markdown.compose.LocalMarkdownColors
+import com.mikepenz.markdown.compose.LocalMarkdownTypography
+import com.mikepenz.markdown.compose.Markdown
+import com.mikepenz.markdown.model.markdownColor
+import com.mikepenz.markdown.model.markdownTypography
 
 @Composable
 fun SamplePromptScreen(
@@ -106,12 +123,80 @@ private fun SamplePromptScreen(
     promptEntry: @Composable () -> Unit,
 ) {
     ScreenScaffold(scrollState = columnState) {
-        PromptScreen(
-            uiState = uiState,
-            columnState = columnState,
-            modifier = modifier,
-            promptEntry = promptEntry,
-            onSettingsClick = onSettingsClick,
+        CompositionLocalProvider(
+            LocalMarkdownColors provides SampleColors(),
+            LocalMarkdownTypography provides SampleTypography(),
+        ) {
+            PromptScreen(
+                uiState = uiState,
+                columnState = columnState,
+                modifier = modifier,
+                promptEntry = promptEntry,
+                onSettingsClick = onSettingsClick,
+                promptDisplay = {
+                    ModelDisplay(it)
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun SampleTypography() = markdownTypography(
+    h1 = MaterialTheme.typography.title1,
+    h2 = MaterialTheme.typography.title2,
+    h3 = MaterialTheme.typography.title3,
+    h4 = MaterialTheme.typography.caption1,
+    h5 = MaterialTheme.typography.caption2,
+    h6 = MaterialTheme.typography.caption3,
+    text = MaterialTheme.typography.body1,
+    code = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace),
+    quote = MaterialTheme.typography.body2.plus(SpanStyle(fontStyle = FontStyle.Italic)),
+    paragraph = MaterialTheme.typography.body1,
+    ordered = MaterialTheme.typography.body1,
+    bullet = MaterialTheme.typography.body1,
+    list = MaterialTheme.typography.body1
+)
+
+@Composable
+private fun SampleColors() = markdownColor(
+    text = Color.White,
+    codeText = LocalContentColor.current,
+    linkText = Color.Blue,
+    codeBackground = MaterialTheme.colors.background,
+    inlineCodeBackground = MaterialTheme.colors.background,
+)
+
+@Composable
+private fun ModelDisplay(it: PromptOrResponseUiModel) {
+    if (it is TextResponseUiModel) {
+        SampleTextResponseCard(it)
+    } else {
+        PromptOrResponseDisplay(
+            promptResponse = it,
+            onClick = {},
+        )
+    }
+}
+
+@Composable
+public fun SampleTextResponseCard(
+    textResponseUiModel: TextResponseUiModel,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        onClick = onClick,
+        backgroundPainter = CardDefaults.cardBackgroundPainter(
+            MaterialTheme.colors.surface,
+            MaterialTheme.colors.surface,
+        ),
+    ) {
+        Markdown(
+            textResponseUiModel.text,
+            colors = SampleColors(),
+            typography = SampleTypography()
         )
     }
 }
@@ -176,6 +261,27 @@ fun SamplePromptScreenPreviewQuestion() {
                 TextResponseUiModel("To get to the other side."),
             ),
             TextPromptUiModel("why did the chicken cross the road?"),
+        ),
+        promptEntry = {
+            Button(
+                imageVector = Icons.Default.QuestionAnswer,
+                contentDescription = "Ask Again",
+                onClick = { },
+            )
+        },
+    )
+}
+
+@WearPreviewLargeRound
+@Composable
+fun SamplePromptScreenPreviewMarkdown() {
+    SamplePromptScreen(
+        uiState = PromptUiState(
+            ModelInstanceUiModel("id", "Demo Model"),
+            listOf(
+                TextPromptUiModel("why did the chicken cross the road?"),
+                TextResponseUiModel("To **get** to _the_ other side."),
+            ),
         ),
         promptEntry = {
             Button(

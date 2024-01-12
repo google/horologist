@@ -120,6 +120,8 @@ dependencies {
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)
 
+    implementation("com.mikepenz:multiplatform-markdown-renderer:0.10.0")
+
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.androidx.wear.tooling.preview)
     debugImplementation(projects.composeTools)

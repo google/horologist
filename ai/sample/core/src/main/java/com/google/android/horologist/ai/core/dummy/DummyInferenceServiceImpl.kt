@@ -41,7 +41,7 @@ class DummyInferenceServiceImpl(val thisId: String) : InferenceServiceGrpcKt.Inf
             return response {
                 textResponse = textResponse {
                     text =
-                        "I didn't understand '$query'.\nPlease try again with a different question. $thisId"
+                        "I didn't understand.\n> ${query}.\n\nPlease try again with a different question.\nFrom *$thisId*"
                 }
             }
         } else {

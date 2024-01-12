@@ -170,6 +170,9 @@ hilt-ext-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hi
 hilt-navigationcompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
 io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.60.1"
 io-grpc-grpc-kotlin = "io.grpc:grpc-kotlin-stub:1.4.1"
+io-grpc-grpc-android = "io.grpc:grpc-android:1.60.0"
+io-grpc-grpc-binder = "io.grpc:grpc-binder:1.60.0"
+google-generativeai = "com.google.ai.client.generativeai:generativeai:0.1.2"
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }

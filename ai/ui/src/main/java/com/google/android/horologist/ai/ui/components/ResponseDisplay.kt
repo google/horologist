@@ -17,18 +17,14 @@
 package com.google.android.horologist.ai.ui.components
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.ai.ui.model.FailedResponseUiModel
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
@@ -70,35 +66,5 @@ public fun ResponseInProgressCard(
 ) {
     Box(modifier = modifier) {
         CircularProgressIndicator()
-    }
-}
-
-@WearPreviewLargeRound
-@Composable
-internal fun TextResponseCardPreview() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
-        PromptOrResponseDisplay(
-            TextResponseUiModel(LoremIpsum(20).values.joinToString("\n")),
-        )
-    }
-}
-
-@WearPreviewLargeRound
-@Composable
-internal fun FailedResponseChipPreview() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        PromptOrResponseDisplay(
-            FailedResponseUiModel("Error"),
-        )
-    }
-}
-
-@WearPreviewLargeRound
-@Composable
-internal fun ResponseInProgressCardPreview() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        PromptOrResponseDisplay(
-            InProgressResponseUiModel,
-        )
     }
 }

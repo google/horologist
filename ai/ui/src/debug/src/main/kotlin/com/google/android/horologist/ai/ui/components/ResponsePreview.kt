@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-
+package com.google.android.horologist.ai.ui.components
 
 @WearPreviewLargeRound
 @Composable

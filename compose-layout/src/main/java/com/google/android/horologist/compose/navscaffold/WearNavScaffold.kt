@@ -15,6 +15,7 @@
  */
 
 @file:OptIn(ExperimentalWearFoundationApi::class)
+@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.compose.navscaffold
 

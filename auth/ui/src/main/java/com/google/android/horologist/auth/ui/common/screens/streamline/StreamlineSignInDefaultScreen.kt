@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.auth.ui.common.screens.streamline
 
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -39,7 +38,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
  *
  * @sample com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
  */
-@RequiresApi(26)
 @Composable
 public fun StreamlineSignInDefaultScreen(
     onSignedInConfirmationDialogDismissOrTimeout: (account: AccountUiModel) -> Unit,

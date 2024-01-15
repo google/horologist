@@ -21,7 +21,6 @@ package com.google.android.horologist.composables
 import android.content.Context
 import android.view.accessibility.AccessibilityManager
 import androidx.annotation.PluralsRes
-import androidx.annotation.RequiresApi
 import androidx.annotation.VisibleForTesting
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -103,7 +102,6 @@ import java.time.temporal.ChronoField
  * seconds picker will be shown and the seconds will be set to 0 in the time returned in
  * onTimeConfirm.
  */
-@RequiresApi(26)
 @Composable
 public fun TimePicker(
     onTimeConfirm: (LocalTime) -> Unit,
@@ -329,7 +327,6 @@ public fun TimePicker(
  * @param modifier the modifiers for the `Column` containing the UI elements.
  * @param time the initial value to seed the picker with.
  */
-@RequiresApi(26)
 @Composable
 public fun TimePickerWith12HourClock(
     onTimeConfirm: (LocalTime) -> Unit,

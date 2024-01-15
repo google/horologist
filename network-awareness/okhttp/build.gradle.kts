@@ -34,6 +34,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -96,6 +97,8 @@ dependencies {
     api(libs.kotlinx.coroutines.core)
 
     implementation(libs.androidx.tracing.ktx)
+
+    coreLibraryDesugaring(libs.android.desugar)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

@@ -17,11 +17,12 @@
 package com.google.android.horologist.media.sync.workers
 
 import android.app.Notification
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import androidx.annotation.DrawableRes
+import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.work.Constraints
 import androidx.work.ForegroundInfo
 import androidx.work.NetworkType
@@ -64,18 +65,18 @@ private fun Context.syncWorkNotification(
     channelName: String,
     channelDescription: String,
 ): Notification {
-    val channel = NotificationChannel(
+    val channel = NotificationChannelCompat.Builder(
         SyncNotificationChannelID,
-        channelName,
         NotificationManager.IMPORTANCE_DEFAULT,
     ).apply {
-        description = channelDescription
-    }
+        setName(channelName)
+        setDescription(channelDescription)
+    }.build()
     // Register the channel with the system
-    val notificationManager: NotificationManager? =
-        getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
+    val notificationManager: NotificationManagerCompat =
+        NotificationManagerCompat.from(this)
 
-    notificationManager?.createNotificationChannel(channel)
+    notificationManager.createNotificationChannel(channel)
 
     return NotificationCompat.Builder(
         this,

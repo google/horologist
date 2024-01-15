@@ -37,7 +37,7 @@ android {
     defaultConfig {
         applicationId = "com.google.android.horologist.mediasample"
         // Min because of Tiles
-        minSdk = 26
+        minSdk = 25
         targetSdk = 33
 
         versionCode = 1
@@ -95,6 +95,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -243,6 +244,8 @@ dependencies {
     implementation(projects.auth.ui)
     implementation(libs.playservices.auth)
     implementation(libs.kotlinx.coroutines.playservices)
+
+    coreLibraryDesugaring(libs.android.desugar)
 
     add("benchmarkImplementation", libs.androidx.runtime.tracing)
 

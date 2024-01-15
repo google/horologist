@@ -19,8 +19,15 @@
     package="com.google.android.horologist.datalayer.watch">
 
     <uses-sdk
-        android:minSdkVersion="26"
-        tools:ignore="GradleOverrides" />
+        android:minSdkVersion="25"
+        tools:ignore="GradleOverrides"
+        tools:overrideLibrary="
+            androidx.wear.watchface.data,
+            androidx.wear.watchface.complications.datasource,
+            androidx.wear.watchface.complications.datasource.ktx,
+            androidx.wear.protolayout.expression,
+            androidx.wear.protolayout.expression.pipeline"
+        />
 
     <application>
         <service

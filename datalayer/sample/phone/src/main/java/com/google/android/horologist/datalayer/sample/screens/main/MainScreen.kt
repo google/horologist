@@ -30,8 +30,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.android.horologist.datalayer.sample.screens.Screen
 import com.google.android.horologist.datalayer.sample.screens.counter.CounterScreen
-import com.google.android.horologist.datalayer.sample.screens.inappprompts.InstallAppPromptDemo2Screen
-import com.google.android.horologist.datalayer.sample.screens.inappprompts.InstallAppPromptDemoScreen
+import com.google.android.horologist.datalayer.sample.screens.inappprompts.InstallPlaystoreAppPromptDemoScreen
+import com.google.android.horologist.datalayer.sample.screens.inappprompts.InstallSampleAppPromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.menu.MenuScreen
 import com.google.android.horologist.datalayer.sample.screens.nodes.NodesScreen
 
@@ -63,10 +63,10 @@ fun MainScreen(
                     NodesScreen()
                 }
                 composable(route = Screen.InstallAppPromptDemoScreen.route) {
-                    InstallAppPromptDemoScreen(onShowInstallAppPrompt = onShowInstallAppPrompt)
+                    InstallPlaystoreAppPromptDemoScreen(onShowInstallAppPrompt = onShowInstallAppPrompt)
                 }
                 composable(route = Screen.InstallAppPromptDemo2Screen.route) {
-                    InstallAppPromptDemo2Screen()
+                    InstallSampleAppPromptDemoScreen()
                 }
                 composable(route = Screen.CounterScreen.route) {
                     CounterScreen()

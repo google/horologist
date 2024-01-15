@@ -39,15 +39,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.datalayer.sample.R
 
 @Composable
-fun InstallAppPromptDemo2Screen(
+fun InstallSampleAppPromptDemoScreen(
     modifier: Modifier = Modifier,
-    viewModel: InstallAppPromptDemo2ViewModel = hiltViewModel(),
+    viewModel: InstallSampleAppPromptDemoViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
 
-    InstallAppPromptDemo2Screen(
+    InstallSampleAppPromptDemoScreen(
         state = state,
         onRunDemoClick = viewModel::onRunDemoClick,
         getInstallPromptIntent = { watchName ->
@@ -56,7 +56,7 @@ fun InstallAppPromptDemo2Screen(
                 appName = context.getString(R.string.app_name),
                 appPackageName = context.packageName,
                 watchName = watchName,
-                message = context.getString(R.string.install_app_prompt_demo2_prompt_message),
+                message = context.getString(R.string.install_sample_app_prompt_demo_prompt_message),
                 image = R.drawable.watch_app_screenshot,
             )
         },
@@ -68,8 +68,8 @@ fun InstallAppPromptDemo2Screen(
 }
 
 @Composable
-fun InstallAppPromptDemo2Screen(
-    state: InstallAppPromptDemo2ScreenState,
+fun InstallSampleAppPromptDemoScreen(
+    state: InstallSampleAppPromptDemoScreenState,
     onRunDemoClick: () -> Unit,
     getInstallPromptIntent: (watchName: String) -> Intent,
     onInstallPromptLaunched: () -> Unit,
@@ -90,7 +90,7 @@ fun InstallAppPromptDemo2Screen(
     Column(
         modifier = modifier.padding(all = 10.dp),
     ) {
-        Text(text = stringResource(id = R.string.install_app_prompt_api_call_demo2_message))
+        Text(text = stringResource(id = R.string.install_sample_app_prompt_api_call_demo_message))
 
         Button(
             onClick = onRunDemoClick,
@@ -98,48 +98,51 @@ fun InstallAppPromptDemo2Screen(
                 .padding(top = 10.dp)
                 .align(Alignment.CenterHorizontally),
         ) {
-            Text(text = stringResource(id = R.string.install_app_prompt_run_demo2_button_label))
+            Text(text = stringResource(id = R.string.install_sample_app_prompt_run_demo_button_label))
         }
 
         when (state) {
-            InstallAppPromptDemo2ScreenState.Idle -> {
+            InstallSampleAppPromptDemoScreenState.Idle -> {
                 /* do nothing */
             }
 
-            InstallAppPromptDemo2ScreenState.Loading -> {
+            InstallSampleAppPromptDemoScreenState.Loading -> {
                 CircularProgressIndicator()
             }
 
-            is InstallAppPromptDemo2ScreenState.WatchFound -> {
+            is InstallSampleAppPromptDemoScreenState.WatchFound -> {
                 SideEffect { launcher.launch(getInstallPromptIntent(state.watchName)) }
 
                 onInstallPromptLaunched()
             }
 
-            InstallAppPromptDemo2ScreenState.WatchNotFound -> {
+            InstallSampleAppPromptDemoScreenState.WatchNotFound -> {
                 Text(
                     stringResource(
-                        id = R.string.install_app_prompt_demo2_result_label,
-                        stringResource(id = R.string.install_app_prompt_demo2_no_watches_found_label),
+                        id = R.string.install_sample_app_prompt_demo_result_label,
+                        stringResource(id = R.string.install_sample_app_prompt_demo_no_watches_found_label),
                     ),
+                    modifier = Modifier.padding(16.dp),
                 )
             }
 
-            InstallAppPromptDemo2ScreenState.InstallPromptInstallClicked -> {
+            InstallSampleAppPromptDemoScreenState.InstallPromptInstallClicked -> {
                 Text(
                     stringResource(
-                        id = R.string.install_app_prompt_demo2_result_label,
-                        stringResource(id = R.string.install_app_prompt_demo2_prompt_install_result_label),
+                        id = R.string.install_sample_app_prompt_demo_result_label,
+                        stringResource(id = R.string.install_sample_app_prompt_demo_prompt_install_result_label),
                     ),
+                    modifier = Modifier.padding(16.dp),
                 )
             }
 
-            InstallAppPromptDemo2ScreenState.InstallPromptInstallCancelled -> {
+            InstallSampleAppPromptDemoScreenState.InstallPromptInstallCancelled -> {
                 Text(
                     stringResource(
-                        id = R.string.install_app_prompt_demo2_result_label,
-                        stringResource(id = R.string.install_app_prompt_demo2_prompt_cancel_result_label),
+                        id = R.string.install_sample_app_prompt_demo_result_label,
+                        stringResource(id = R.string.install_sample_app_prompt_demo_prompt_cancel_result_label),
                     ),
+                    modifier = Modifier.padding(16.dp),
                 )
             }
         }
@@ -149,8 +152,8 @@ fun InstallAppPromptDemo2Screen(
 @Preview(showBackground = true)
 @Composable
 fun InstallAppPromptDemo2ScreenPreview() {
-    InstallAppPromptDemo2Screen(
-        state = InstallAppPromptDemo2ScreenState.Idle,
+    InstallSampleAppPromptDemoScreen(
+        state = InstallSampleAppPromptDemoScreenState.Idle,
         onRunDemoClick = { },
         getInstallPromptIntent = { Intent() },
         onInstallPromptLaunched = { },

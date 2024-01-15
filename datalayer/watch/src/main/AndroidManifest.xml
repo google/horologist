@@ -20,8 +20,14 @@
 
     <uses-sdk
         android:minSdkVersion="25"
-        tools:overrideLibrary="androidx.wear.watchface.complications.data"
-        tools:ignore="GradleOverrides" />
+        tools:ignore="GradleOverrides"
+        tools:overrideLibrary="
+            androidx.wear.watchface.data,
+            androidx.wear.watchface.complications.datasource,
+            androidx.wear.watchface.complications.datasource.ktx,
+            androidx.wear.protolayout.expression,
+            androidx.wear.protolayout.expression.pipeline"
+        />
 
     <application>
         <service

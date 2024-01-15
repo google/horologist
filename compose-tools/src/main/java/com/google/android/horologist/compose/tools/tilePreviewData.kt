@@ -16,12 +16,25 @@
 
 package com.google.android.horologist.compose.tools
 
-import androidx.wear.protolayout.ActionBuilders
-import androidx.wear.protolayout.ResourceBuilders.Resources
-import androidx.wear.tiles.RequestBuilders.ResourcesRequest
+import androidx.compose.runtime.Composable
+import androidx.wear.tiles.tooling.preview.TilePreviewData
+import com.google.android.horologist.tiles.render.TileLayoutRenderer
 
-public fun resources(fn: Resources.Builder.(ResourcesRequest) -> Unit): (ResourcesRequest) -> Resources = {
-    Resources.Builder().setVersion(it.version).apply { fn(it) }.build()
+@Composable
+public fun <T, R> tileRendererPreviewData(
+    renderer: TileLayoutRenderer<T, R>,
+    tileState: T,
+    resourceState: R,
+) = TilePreviewData(
+    onTileResourceRequest = { resourcesRequest ->
+        with(renderer) {
+            produceRequestedResources(resourceState, resourcesRequest)
+
+        }
+    },
+) { tileRequest ->
+    renderer.renderTimeline(
+        tileState,
+        tileRequest
+    )
 }
-
-public val DummyAction = ActionBuilders.LaunchAction.Builder().build()

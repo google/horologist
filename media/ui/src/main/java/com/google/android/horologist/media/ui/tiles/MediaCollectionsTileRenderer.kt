@@ -115,7 +115,7 @@ public class MediaCollectionsTileRenderer(
     override fun Resources.Builder.produceRequestedResources(
         resourceState: ResourceState,
         deviceParameters: DeviceParameters,
-        resourceIds: MutableList<String>,
+        resourceIds: List<String>,
     ) {
         for ((image, imageResource) in resourceState.images) {
             if (imageResource != null) {

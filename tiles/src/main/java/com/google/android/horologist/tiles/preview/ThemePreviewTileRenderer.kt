@@ -101,7 +101,7 @@ public class ThemePreviewTileRenderer(context: Context, private val thisTheme: C
         override fun ResourceBuilders.Resources.Builder.produceRequestedResources(
             resourceState: Unit,
             deviceParameters: DeviceParameters,
-            resourceIds: MutableList<String>,
+            resourceIds: List<String>,
         ) {
             addIdToImageMapping(Icon, drawableResToImageResource(R.drawable.ic_nordic))
         }

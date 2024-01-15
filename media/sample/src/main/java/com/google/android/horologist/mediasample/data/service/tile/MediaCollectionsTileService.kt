@@ -27,11 +27,10 @@ import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.tooling.preview.Preview
 import androidx.wear.tiles.tooling.preview.TilePreviewData
-import androidx.wear.tiles.tooling.preview.TilePreviewHelper.singleTimelineEntryTileBuilder
 import androidx.wear.tooling.preview.devices.WearDevices
 import coil.ImageLoader
 import com.google.android.horologist.compose.tools.DummyAction
-import com.google.android.horologist.compose.tools.resources
+import com.google.android.horologist.compose.tools.tileRendererPreviewData
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
@@ -152,39 +151,30 @@ class MediaCollectionsTileService : SuspendingTileService() {
 @Preview(device = WearDevices.SMALL_ROUND, fontScale = 1.24f)
 @Preview(device = WearDevices.LARGE_ROUND, fontScale = 0.94f)
 @Composable
-fun SampleTilePreview(context: Context) = TilePreviewData(
-    onTileResourceRequest = resources {
-        val kyoto = BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)
-
-        MediaCollectionsTileRenderer.ResourceState(
-            appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
-            images = mapOf(
-                "s1" to kyoto?.toImageResource(),
-                "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
-            ),
-        )
-    },
-) {
-    val tileState = MediaCollectionsTileRenderer.MediaCollectionsState(
-        chipName = R.string.sample_playlists,
-        chipAction = DummyAction,
-        collection1 = MediaCollectionsTileRenderer.MediaCollection(
-            name = "Kyoto Songs",
-            artworkId = "s1",
-            action = DummyAction,
-        ),
-        collection2 = MediaCollectionsTileRenderer.MediaCollection(
-            name = "Podcasts",
-            artworkId = "c2",
-            action = DummyAction,
-        ),
-    )
-
-    val renderer = MediaCollectionsTileRenderer(
+fun SampleTilePreview(context: Context): TilePreviewData = tileRendererPreviewData(
+    renderer = MediaCollectionsTileRenderer(
         context = context,
         materialTheme = UampColors.toTileColors(),
         debugResourceMode = BuildConfig.DEBUG,
-    )
-
-    singleTimelineEntryTileBuilder(renderer.renderTile(tileState, it.deviceConfiguration)).build()
-}
+    ), tileState = MediaCollectionsTileRenderer.MediaCollectionsState(
+    chipName = R.string.sample_playlists,
+    chipAction = DummyAction,
+    collection1 = MediaCollectionsTileRenderer.MediaCollection(
+        name = "Kyoto Songs",
+        artworkId = "s1",
+        action = DummyAction,
+    ),
+    collection2 = MediaCollectionsTileRenderer.MediaCollection(
+        name = "Podcasts",
+        artworkId = "c2",
+        action = DummyAction,
+    ),
+), resourceState = MediaCollectionsTileRenderer.ResourceState(
+    appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
+    images = mapOf(
+        "s1" to BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)
+            ?.toImageResource(),
+        "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
+    ),
+)
+)

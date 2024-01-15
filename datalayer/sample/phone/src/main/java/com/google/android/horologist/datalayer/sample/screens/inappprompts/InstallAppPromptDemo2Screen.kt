@@ -23,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -103,6 +104,10 @@ fun InstallAppPromptDemo2Screen(
         when (state) {
             InstallAppPromptDemo2ScreenState.Idle -> {
                 /* do nothing */
+            }
+
+            InstallAppPromptDemo2ScreenState.Loading -> {
+                CircularProgressIndicator()
             }
 
             is InstallAppPromptDemo2ScreenState.WatchFound -> {

@@ -40,6 +40,8 @@ class InstallAppPromptDemo2ViewModel
         public val uiState: StateFlow<InstallAppPromptDemo2ScreenState> = _uiState
 
         fun onRunDemoClick() {
+            _uiState.value = InstallAppPromptDemo2ScreenState.Loading
+
             viewModelScope.launch {
                 val node = phoneDataLayerAppHelper.connectedNodes().firstOrNull { !it.appInstalled }
 
@@ -66,6 +68,7 @@ class InstallAppPromptDemo2ViewModel
 
 sealed class InstallAppPromptDemo2ScreenState {
     data object Idle : InstallAppPromptDemo2ScreenState()
+    data object Loading : InstallAppPromptDemo2ScreenState()
     data class WatchFound(val watchName: String) : InstallAppPromptDemo2ScreenState()
     data object WatchNotFound : InstallAppPromptDemo2ScreenState()
     data object InstallPromptInstallClicked : InstallAppPromptDemo2ScreenState()

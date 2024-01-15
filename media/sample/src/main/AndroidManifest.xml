@@ -28,6 +28,10 @@
         android:name="android.hardware.bluetooth"
         android:required="false" />
 
+    <uses-sdk
+        android:minSdkVersion="25"
+        tools:ignore="GradleOverrides" />
+
     <application
         android:name=".ui.app.MediaApplication"
         android:allowBackup="false"
@@ -131,9 +135,5 @@
             </intent-filter>
         </service>
     </application>
-
-    <uses-sdk
-        android:minSdkVersion="25"
-        tools:ignore="GradleOverrides" />
 
 </manifest>

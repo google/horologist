@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class InstallAppPromptDemo2ViewModel
+class InstallSampleAppPromptDemoViewModel
     @Inject
     constructor(
         private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
@@ -36,41 +36,41 @@ class InstallAppPromptDemo2ViewModel
     ) : ViewModel() {
 
         private val _uiState =
-            MutableStateFlow<InstallAppPromptDemo2ScreenState>(InstallAppPromptDemo2ScreenState.Idle)
-        public val uiState: StateFlow<InstallAppPromptDemo2ScreenState> = _uiState
+            MutableStateFlow<InstallSampleAppPromptDemoScreenState>(InstallSampleAppPromptDemoScreenState.Idle)
+        public val uiState: StateFlow<InstallSampleAppPromptDemoScreenState> = _uiState
 
         fun onRunDemoClick() {
-            _uiState.value = InstallAppPromptDemo2ScreenState.Loading
+            _uiState.value = InstallSampleAppPromptDemoScreenState.Loading
 
             viewModelScope.launch {
                 val node = phoneDataLayerAppHelper.connectedNodes().firstOrNull { !it.appInstalled }
 
                 _uiState.value = if (node != null) {
-                    InstallAppPromptDemo2ScreenState.WatchFound(watchName = node.displayName)
+                    InstallSampleAppPromptDemoScreenState.WatchFound(watchName = node.displayName)
                 } else {
-                    InstallAppPromptDemo2ScreenState.WatchNotFound
+                    InstallSampleAppPromptDemoScreenState.WatchNotFound
                 }
             }
         }
 
         fun onInstallPromptLaunched() {
-            _uiState.value = InstallAppPromptDemo2ScreenState.Idle
+            _uiState.value = InstallSampleAppPromptDemoScreenState.Idle
         }
 
         fun onInstallPromptInstallClick() {
-            _uiState.value = InstallAppPromptDemo2ScreenState.InstallPromptInstallClicked
+            _uiState.value = InstallSampleAppPromptDemoScreenState.InstallPromptInstallClicked
         }
 
         fun onInstallPromptCancel() {
-            _uiState.value = InstallAppPromptDemo2ScreenState.InstallPromptInstallCancelled
+            _uiState.value = InstallSampleAppPromptDemoScreenState.InstallPromptInstallCancelled
         }
     }
 
-sealed class InstallAppPromptDemo2ScreenState {
-    data object Idle : InstallAppPromptDemo2ScreenState()
-    data object Loading : InstallAppPromptDemo2ScreenState()
-    data class WatchFound(val watchName: String) : InstallAppPromptDemo2ScreenState()
-    data object WatchNotFound : InstallAppPromptDemo2ScreenState()
-    data object InstallPromptInstallClicked : InstallAppPromptDemo2ScreenState()
-    data object InstallPromptInstallCancelled : InstallAppPromptDemo2ScreenState()
+sealed class InstallSampleAppPromptDemoScreenState {
+    data object Idle : InstallSampleAppPromptDemoScreenState()
+    data object Loading : InstallSampleAppPromptDemoScreenState()
+    data class WatchFound(val watchName: String) : InstallSampleAppPromptDemoScreenState()
+    data object WatchNotFound : InstallSampleAppPromptDemoScreenState()
+    data object InstallPromptInstallClicked : InstallSampleAppPromptDemoScreenState()
+    data object InstallPromptInstallCancelled : InstallSampleAppPromptDemoScreenState()
 }

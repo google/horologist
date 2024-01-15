@@ -36,5 +36,5 @@
 
     </application>
 
-    <uses-sdk android:minSdkVersion="26" tools:ignore="GradleOverrides" />
+    <uses-sdk android:minSdkVersion="25" tools:ignore="GradleOverrides" />
 </manifest>

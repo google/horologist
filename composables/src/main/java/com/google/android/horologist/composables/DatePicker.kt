@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.composables
 
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.focusable
@@ -79,6 +80,7 @@ import java.time.temporal.TemporalAdjusters
  * @param fromDate the minimum date to be selected in picker
  * @param toDate the maximum date to be selected in picker
  */
+@RequiresApi(26)
 @Composable
 public fun DatePicker(
     onDateConfirm: (LocalDate) -> Unit,

@@ -34,6 +34,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -102,6 +103,8 @@ dependencies {
     implementation(libs.compose.material.iconsext)
 
     implementation(libs.androidx.tracing.ktx)
+
+    coreLibraryDesugaring(libs.android.desugar)
 
     implementation(libs.compose.ui.toolingpreview)
 

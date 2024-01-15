@@ -52,6 +52,7 @@ import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.Vi
  * A ViewModel is used to allow the same current instance to be shared between the WearNavScaffold
  * and the composable screen via [NavHostController.currentBackStackEntry].
  */
+@Deprecated("WearNavScaffold is deprecated")
 public open class NavScaffoldViewModel(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -179,6 +180,7 @@ public open class NavScaffoldViewModel(
      * The configuration of [TimeText], defaults to [ScrollAway] which will move the time text above the
      * screen to avoid overlapping with the content moving up.
      */
+    @Deprecated("WearNavScaffold is deprecated")
     public enum class TimeTextMode {
         On, Off, ScrollAway
     }
@@ -187,6 +189,7 @@ public open class NavScaffoldViewModel(
      * The configuration of [PositionIndicator].  The default is to show a scroll bar while the
      * scroll is in progress.
      */
+    @Deprecated("WearNavScaffold is deprecated")
     public enum class PositionIndicatorMode {
         On, Off
     }
@@ -195,6 +198,7 @@ public open class NavScaffoldViewModel(
      * The configuration of [Vignette], [WhenScrollable], [Off], [On] and if so whether top and
      * bottom. Defaults to on for scrollable screens.
      */
+    @Deprecated("WearNavScaffold is deprecated")
     public sealed interface VignetteMode {
         public object WhenScrollable : VignetteMode
         public object Off : VignetteMode
@@ -248,6 +252,7 @@ internal class ScalingLazyColumnScrollableState(
  *
  * The [viewModel] can be used to customise the scaffold behaviour.
  */
+@Deprecated("WearNavScaffold is deprecated")
 public data class ScaffoldContext<T : ScrollableState>(
     val backStackEntry: NavBackStackEntry,
     val scrollableState: T,
@@ -261,6 +266,7 @@ public data class ScaffoldContext<T : ScrollableState>(
         get() = backStackEntry.arguments
 }
 
+@Deprecated("WearNavScaffold is deprecated")
 public data class NonScrollableScaffoldContext(
     val backStackEntry: NavBackStackEntry,
     val viewModel: NavScaffoldViewModel,
@@ -278,6 +284,7 @@ public data class NonScrollableScaffoldContext(
  *
  * The [viewModel] can be used to customise the scaffold behaviour.
  */
+@Deprecated("WearNavScaffold is deprecated")
 public data class ScrollableScaffoldContext(
     val backStackEntry: NavBackStackEntry,
     val columnState: ScalingLazyColumnState,

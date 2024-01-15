@@ -16,27 +16,28 @@
 
 package com.google.android.horologist.tile
 
+import android.content.Context
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
-import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.protolayout.material.Colors
-import com.google.android.horologist.compose.tools.TileLayoutPreview
+import androidx.wear.tiles.tooling.preview.Preview
+import androidx.wear.tiles.tooling.preview.TilePreviewData
+import androidx.wear.tiles.tooling.preview.TilePreviewHelper
+import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.android.horologist.tiles.preview.ThemePreviewTileRenderer
 
 val SampleTheme =
     Colors(0xFF981F68.toInt(), 0xFFFFFFFF.toInt(), 0xFF1C1B1F.toInt(), 0xFFFFFFFF.toInt())
 
-@WearPreviewLargeRound
+@Preview(device = WearDevices.SMALL_ROUND, fontScale = 1.24f)
+@Preview(device = WearDevices.LARGE_ROUND, fontScale = 0.94f)
 @Composable
-public fun SampleThemePreview() {
-    ThemePreviewTile(SampleTheme)
-}
+public fun SampleThemePreview(context: Context) = TilePreviewData {
+    val renderer = ThemePreviewTileRenderer(context, SampleTheme)
 
-@Composable
-public fun ThemePreviewTile(theme: Colors) {
-    val context = LocalContext.current
-    val renderer = remember(theme) { ThemePreviewTileRenderer(context, theme) }
-
-    TileLayoutPreview(state = Unit, resourceState = Unit, renderer = renderer)
+    TilePreviewHelper.singleTimelineEntryTileBuilder(
+        renderer.renderTile(
+            Unit,
+            it.deviceConfiguration
+        )
+    ).build()
 }

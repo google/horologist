@@ -22,8 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import androidx.wear.protolayout.ColorBuilders.argb
 import androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters
 import androidx.wear.protolayout.LayoutElementBuilders
@@ -38,8 +36,11 @@ import androidx.wear.protolayout.material.Text
 import androidx.wear.protolayout.material.Typography
 import androidx.wear.protolayout.material.layouts.MultiButtonLayout
 import androidx.wear.protolayout.material.layouts.PrimaryLayout
+import androidx.wear.tiles.tooling.preview.TilePreviewData
+import androidx.wear.tiles.tooling.preview.TilePreviewHelper.singleTimelineEntryTileBuilder
+import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.android.horologist.compose.tools.LayoutElementPreview
-import com.google.android.horologist.compose.tools.TileLayoutPreview
+import com.google.android.horologist.compose.tools.resources
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.Icon1
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.Image1
@@ -118,28 +119,23 @@ class SampleTileRenderer(context: Context) :
         }
     }
 
-@WearPreviewDevices
-@WearPreviewFontScales
+@androidx.wear.tiles.tooling.preview.Preview(device = WearDevices.SMALL_ROUND, fontScale = 1.24f)
+@androidx.wear.tiles.tooling.preview.Preview(device = WearDevices.LARGE_ROUND, fontScale = 0.94f)
 @Composable
-fun SampleTilePreview() {
-    val context = LocalContext.current
+fun SampleTilePreview(context: Context) = TilePreviewData(onTileResourceRequest = resources {
+    val image = BitmapFactory.decodeResource(context.resources, TileImage)
+    SampleTileRenderer.ResourceState(image?.toImageResource())
+}) {
+    val tileState = SampleTileRenderer.TileState(0)
 
-    val tileState = remember { SampleTileRenderer.TileState(0) }
+    val renderer = SampleTileRenderer(context)
 
-    val resourceState = remember {
-        val image = BitmapFactory.decodeResource(context.resources, TileImage)
-        SampleTileRenderer.ResourceState(image?.toImageResource())
-    }
-
-    val renderer = remember {
-        SampleTileRenderer(context)
-    }
-
-    TileLayoutPreview(
-        tileState,
-        resourceState,
-        renderer,
-    )
+    singleTimelineEntryTileBuilder(
+        renderer.renderTile(
+            tileState,
+            it.deviceConfiguration
+        )
+    ).build()
 }
 
 @IconSizePreview

@@ -17,11 +17,11 @@
 package com.google.android.horologist.compose.tools
 
 import androidx.wear.protolayout.ActionBuilders
-import androidx.wear.protolayout.ResourceBuilders
-import androidx.wear.tiles.RequestBuilders
+import androidx.wear.protolayout.ResourceBuilders.Resources
+import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 
-public fun resources(fn: ResourceBuilders.Resources.Builder.() -> Unit): (RequestBuilders.ResourcesRequest) -> ResourceBuilders.Resources = {
-    ResourceBuilders.Resources.Builder().setVersion(it.version).apply(fn).build()
+public fun resources(fn: Resources.Builder.() -> Unit): (ResourcesRequest) -> Resources = {
+    Resources.Builder().setVersion(it.version).apply(fn).build()
 }
 
 public val DummyAction = ActionBuilders.LaunchAction.Builder().build()

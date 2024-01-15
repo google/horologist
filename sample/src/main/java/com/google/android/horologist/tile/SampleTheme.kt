@@ -37,7 +37,7 @@ public fun SampleThemePreview(context: Context) = TilePreviewData {
     TilePreviewHelper.singleTimelineEntryTileBuilder(
         renderer.renderTile(
             Unit,
-            it.deviceConfiguration
-        )
+            it.deviceConfiguration,
+        ),
     ).build()
 }

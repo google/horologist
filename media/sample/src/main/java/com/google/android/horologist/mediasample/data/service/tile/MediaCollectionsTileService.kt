@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.wear.protolayout.ActionBuilders
 import androidx.wear.protolayout.ActionBuilders.AndroidActivity
 import androidx.wear.protolayout.ResourceBuilders.Resources
-import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.TileBuilders.Tile
@@ -153,18 +152,19 @@ class MediaCollectionsTileService : SuspendingTileService() {
 @Preview(device = WearDevices.SMALL_ROUND, fontScale = 1.24f)
 @Preview(device = WearDevices.LARGE_ROUND, fontScale = 0.94f)
 @Composable
-fun SampleTilePreview(context: Context) = TilePreviewData(onTileResourceRequest = resources {
-    val kyoto = BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)
+fun SampleTilePreview(context: Context) = TilePreviewData(
+    onTileResourceRequest = resources {
+        val kyoto = BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)
 
-    MediaCollectionsTileRenderer.ResourceState(
-        appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
-        images = mapOf(
-            "s1" to kyoto?.toImageResource(),
-            "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
-        ),
-    )
-}) {
-
+        MediaCollectionsTileRenderer.ResourceState(
+            appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
+            images = mapOf(
+                "s1" to kyoto?.toImageResource(),
+                "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
+            ),
+        )
+    },
+) {
     val tileState = MediaCollectionsTileRenderer.MediaCollectionsState(
         chipName = R.string.sample_playlists,
         chipAction = DummyAction,

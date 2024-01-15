@@ -122,10 +122,12 @@ class SampleTileRenderer(context: Context) :
 @androidx.wear.tiles.tooling.preview.Preview(device = WearDevices.SMALL_ROUND, fontScale = 1.24f)
 @androidx.wear.tiles.tooling.preview.Preview(device = WearDevices.LARGE_ROUND, fontScale = 0.94f)
 @Composable
-fun SampleTilePreview(context: Context) = TilePreviewData(onTileResourceRequest = resources {
-    val image = BitmapFactory.decodeResource(context.resources, TileImage)
-    SampleTileRenderer.ResourceState(image?.toImageResource())
-}) {
+fun SampleTilePreview(context: Context) = TilePreviewData(
+    onTileResourceRequest = resources {
+        val image = BitmapFactory.decodeResource(context.resources, TileImage)
+        SampleTileRenderer.ResourceState(image?.toImageResource())
+    },
+) {
     val tileState = SampleTileRenderer.TileState(0)
 
     val renderer = SampleTileRenderer(context)
@@ -133,8 +135,8 @@ fun SampleTilePreview(context: Context) = TilePreviewData(onTileResourceRequest 
     singleTimelineEntryTileBuilder(
         renderer.renderTile(
             tileState,
-            it.deviceConfiguration
-        )
+            it.deviceConfiguration,
+        ),
     ).build()
 }
 

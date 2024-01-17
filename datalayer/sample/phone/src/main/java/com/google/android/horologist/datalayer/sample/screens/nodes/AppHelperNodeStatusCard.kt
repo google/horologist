@@ -54,9 +54,10 @@ fun AppHelperNodeStatusCard(
     onStartCompanionClick: (String) -> Unit,
     onStartRemoteOwnAppClick: (String) -> Unit,
     onStartRemoteActivityClick: (nodeId: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .padding(16.dp)
             .fillMaxWidth(),
         contentAlignment = Alignment.Center,
@@ -121,8 +122,8 @@ fun AppHelperNodeStatusCard(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Button(
-                        modifier = Modifier.wrapContentHeight(),
                         onClick = { onStartCompanionClick(nodeStatus.id) },
+                        modifier = Modifier.wrapContentHeight(),
                     ) {
                         Text(
                             stringResource(id = R.string.node_status_start_companion_button_label),
@@ -130,8 +131,8 @@ fun AppHelperNodeStatusCard(
                         )
                     }
                     Button(
-                        modifier = Modifier.wrapContentHeight().padding(start = 10.dp),
                         onClick = { onInstallOnNodeClick(nodeStatus.id) },
+                        modifier = Modifier.wrapContentHeight().padding(start = 10.dp),
                     ) {
                         Text(
                             stringResource(id = R.string.node_status_install_on_node_button_label),
@@ -146,8 +147,9 @@ fun AppHelperNodeStatusCard(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Button(
-                        modifier = Modifier.wrapContentHeight(),
                         onClick = { onStartRemoteOwnAppClick(nodeStatus.id) },
+                        modifier = Modifier.wrapContentHeight(),
+                        enabled = nodeStatus.appInstalled,
                     ) {
                         Text(
                             stringResource(id = R.string.node_status_start_own_app_button_label),
@@ -155,10 +157,11 @@ fun AppHelperNodeStatusCard(
                         )
                     }
                     Button(
+                        onClick = { onStartRemoteActivityClick(nodeStatus.id) },
                         modifier = Modifier
                             .wrapContentHeight()
                             .padding(start = 10.dp),
-                        onClick = { onStartRemoteActivityClick(nodeStatus.id) },
+                        enabled = nodeStatus.appInstalled,
                     ) {
                         Text(
                             stringResource(id = R.string.node_status_start_remote_activity_button_label),

@@ -44,7 +44,7 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @Composable
 fun NodesActionsScreen(
-    onNodeClick: (nodeId: String) -> Unit,
+    onNodeClick: (nodeId: String, appInstalled: Boolean) -> Unit,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: NodesActionViewModel = hiltViewModel(),
@@ -67,7 +67,7 @@ fun NodesActionsScreen(
 @Composable
 fun NodesActionsScreen(
     state: NodesActionScreenState,
-    onNodeClick: (nodeId: String) -> Unit,
+    onNodeClick: (nodeId: String, appInstalled: Boolean) -> Unit,
     onRefreshClick: () -> Unit,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
@@ -105,7 +105,7 @@ fun NodesActionsScreen(
 
                         Chip(
                             label = node.name,
-                            onClick = { onNodeClick(node.id) },
+                            onClick = { onNodeClick(node.id, node.appInstalled) },
                             secondaryLabel = if (node.appInstalled) {
                                 stringResource(id = R.string.nodes_actions_app_installed_label)
                             } else {
@@ -164,7 +164,7 @@ fun NodesActionsScreenPreviewLoaded() {
                 ),
             ),
         ),
-        onNodeClick = { },
+        onNodeClick = { _, _ -> },
         onRefreshClick = { },
         columnState = belowTimeTextPreview(),
     )
@@ -175,7 +175,7 @@ fun NodesActionsScreenPreviewLoaded() {
 fun NodesActionsScreenPreviewEmptyNodes() {
     NodesActionsScreen(
         state = NodesActionScreenState.Loaded(emptyList()),
-        onNodeClick = { },
+        onNodeClick = { _, _ -> },
         onRefreshClick = { },
         columnState = belowTimeTextPreview(),
     )
@@ -186,7 +186,7 @@ fun NodesActionsScreenPreviewEmptyNodes() {
 fun NodesActionsScreenPreviewApiNotAvailable() {
     NodesActionsScreen(
         state = NodesActionScreenState.ApiNotAvailable,
-        onNodeClick = { },
+        onNodeClick = { _, _ -> },
         onRefreshClick = { },
         columnState = belowTimeTextPreview(),
     )

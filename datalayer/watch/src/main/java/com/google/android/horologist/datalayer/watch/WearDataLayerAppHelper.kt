@@ -72,7 +72,7 @@ public class WearDataLayerAppHelper(
          */
         public val surfacesInfo: Flow<SurfacesInfo> = surfacesInfoDataStore.data
 
-        override suspend fun installOnNode(node: String) {
+        override suspend fun installOnNode(nodeId: String) {
             checkIsForegroundOrThrow()
             if (appStoreUri != null &&
                 PhoneTypeHelper.getPhoneDeviceType(context) == PhoneTypeHelper.DEVICE_TYPE_IOS
@@ -80,17 +80,17 @@ public class WearDataLayerAppHelper(
                 val intent = Intent(Intent.ACTION_VIEW)
                     .addCategory(Intent.CATEGORY_BROWSABLE)
                     .setData(Uri.parse(appStoreUri))
-                remoteActivityHelper.startRemoteActivity(intent, node).await()
+                remoteActivityHelper.startRemoteActivity(intent, nodeId).await()
             } else if (PhoneTypeHelper.getPhoneDeviceType(context) == PhoneTypeHelper.DEVICE_TYPE_ANDROID) {
                 val intent = Intent(Intent.ACTION_VIEW)
                     .addCategory(Intent.CATEGORY_BROWSABLE)
                     .setData(Uri.parse(playStoreUri))
-                remoteActivityHelper.startRemoteActivity(intent, node).await()
+                remoteActivityHelper.startRemoteActivity(intent, nodeId).await()
             }
         }
 
         @CheckResult
-        override suspend fun startCompanion(node: String): AppHelperResultCode {
+        override suspend fun startCompanion(nodeId: String): AppHelperResultCode {
             checkIsForegroundOrThrow()
             val localNode = registry.nodeClient.localNode.await()
             val request = launchRequest {
@@ -98,7 +98,7 @@ public class WearDataLayerAppHelper(
                     sourceNode = localNode.id
                 }
             }
-            return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
+            return sendRequestWithTimeout(nodeId, LAUNCH_APP, request.toByteArray())
         }
 
         /**

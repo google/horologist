@@ -38,18 +38,18 @@ public class PhoneDataLayerAppHelper(
 ) : DataLayerAppHelper(context, registry) {
     private val SAMSUNG_COMPANION_PKG = "com.samsung.android.app.watchmanager"
 
-    override suspend fun installOnNode(node: String) {
+    override suspend fun installOnNode(nodeId: String) {
         checkIsForegroundOrThrow()
         val intent = Intent(Intent.ACTION_VIEW)
             .addCategory(Intent.CATEGORY_BROWSABLE)
             .setData(Uri.parse(playStoreUri))
-        remoteActivityHelper.startRemoteActivity(intent, node).await()
+        remoteActivityHelper.startRemoteActivity(intent, nodeId).await()
     }
 
     @CheckResult
-    override suspend fun startCompanion(node: String): AppHelperResultCode {
+    override suspend fun startCompanion(nodeId: String): AppHelperResultCode {
         checkIsForegroundOrThrow()
-        val companionPackage = registry.nodeClient.getCompanionPackageForNode(node).await()
+        val companionPackage = registry.nodeClient.getCompanionPackageForNode(nodeId).await()
 
         /**
          * Some devices report the wrong companion for actually launching the Companion app: For

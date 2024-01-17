@@ -189,7 +189,6 @@ abstract class DataLayerAppHelper(
         data: ByteArray,
         timeoutMs: Long = MESSAGE_REQUEST_TIMEOUT_MS,
     ): AppHelperResultCode {
-        checkIsForegroundOrThrow()
         val response = try {
             withTimeout(timeoutMs) {
                 // Cancellation will not lead to the GMS Task itself being cancelled.

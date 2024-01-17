@@ -59,6 +59,7 @@ fun NodeDetailsScreen(
 
     NodeDetailsScreen(
         nodeId = viewModel.nodeId,
+        appInstalled = viewModel.appInstalled,
         state = state,
         onStartCompanionClick = viewModel::onStartCompanionClick,
         onInstallOnNodeClick = viewModel::onInstallOnNodeClick,
@@ -73,6 +74,7 @@ fun NodeDetailsScreen(
 @Composable
 fun NodeDetailsScreen(
     nodeId: String,
+    appInstalled: Boolean,
     state: NodeDetailsScreenState,
     onStartCompanionClick: () -> Unit,
     onInstallOnNodeClick: () -> Unit,
@@ -108,6 +110,7 @@ fun NodeDetailsScreen(
                     Chip(
                         label = stringResource(id = R.string.node_details_start_companion_chip_label),
                         onClick = onStartCompanionClick,
+                        enabled = appInstalled,
                     )
                 }
                 item {
@@ -120,12 +123,14 @@ fun NodeDetailsScreen(
                     Chip(
                         label = stringResource(id = R.string.node_details_start_remote_own_app_chip_label),
                         onClick = onStartRemoteOwnAppClick,
+                        enabled = appInstalled,
                     )
                 }
                 item {
                     Chip(
                         label = stringResource(id = R.string.node_details_start_remote_activity_chip_label),
                         onClick = onStartRemoteActivityClick,
+                        enabled = appInstalled,
                     )
                 }
             }
@@ -213,6 +218,7 @@ fun NodeDetailsScreen(
 fun NodeDetailsScreenPreview() {
     NodeDetailsScreen(
         nodeId = "12345",
+        appInstalled = true,
         state = NodeDetailsScreenState.Idle,
         onStartCompanionClick = { },
         onInstallOnNodeClick = { },

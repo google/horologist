@@ -136,45 +136,57 @@ abstract class DataLayerAppHelper(
     /**
      * Launches to the appropriate store on the specified node to allow installation of the app.
      *
-     * @param node The node to launch on.
+     * @param nodeId The node to launch on.
      */
 
-    abstract suspend fun installOnNode(node: String)
+    abstract suspend fun installOnNode(nodeId: String)
 
     /**
      * Starts the companion that relates to the specified node. This will start on the phone,
      * irrespective of whether the specified node is a phone or a watch.
      *
-     * @param node The node to launch on.
+     * When called from a watch node, it is required that the same app is installed on the specified
+     * node, otherwise a [timeout](AppHelperResultCode.APP_HELPER_RESULT_TIMEOUT) is expected.
+     * See [AppHelperNodeStatus.appInstallationStatus] in order to check the installation status.
+     *
+     * @param nodeId The node to launch on.
      * @return Whether launch was successful or not.
      */
     @CheckResult
-    abstract suspend fun startCompanion(node: String): AppHelperResultCode
+    abstract suspend fun startCompanion(nodeId: String): AppHelperResultCode
 
     /**
      * Launch an activity, which belongs to the same app (same package name), on the specified node.
      *
      * [Class name][ActivityConfig.getClassFullName] should be a fully qualified class name, such
      * as, "com.example.project.SampleActivity".
+     *
+     * This call requires that the same app is installed on the specified node, otherwise a
+     * [timeout](AppHelperResultCode.APP_HELPER_RESULT_TIMEOUT) is expected.
+     * See [AppHelperNodeStatus.appInstallationStatus] in order to check the installation status.
      */
     @CheckResult
     public suspend fun startRemoteActivity(
-        node: String,
+        nodeId: String,
         config: ActivityConfig,
     ): AppHelperResultCode {
         checkIsForegroundOrThrow()
         val request = launchRequest { activity = config }
-        return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
+        return sendRequestWithTimeout(nodeId, LAUNCH_APP, request.toByteArray())
     }
 
     /**
      * Launch own app on the specified node.
+     *
+     * This call requires that the same app is installed on the specified node, otherwise a
+     * [timeout](AppHelperResultCode.APP_HELPER_RESULT_TIMEOUT) is expected.
+     * See [AppHelperNodeStatus.appInstallationStatus] in order to check the installation status.
      */
     @CheckResult
-    public suspend fun startRemoteOwnApp(node: String): AppHelperResultCode {
+    public suspend fun startRemoteOwnApp(nodeId: String): AppHelperResultCode {
         checkIsForegroundOrThrow()
         val request = launchRequest { ownApp = ownAppConfig { } }
-        return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
+        return sendRequestWithTimeout(nodeId, LAUNCH_APP, request.toByteArray())
     }
 
     /**
@@ -184,7 +196,7 @@ abstract class DataLayerAppHelper(
      */
     @CheckResult
     protected suspend fun sendRequestWithTimeout(
-        node: String,
+        nodeId: String,
         path: String,
         data: ByteArray,
         timeoutMs: Long = MESSAGE_REQUEST_TIMEOUT_MS,
@@ -192,7 +204,7 @@ abstract class DataLayerAppHelper(
         val response = try {
             withTimeout(timeoutMs) {
                 // Cancellation will not lead to the GMS Task itself being cancelled.
-                registry.messageClient.sendRequest(node, path, data).await()
+                registry.messageClient.sendRequest(nodeId, path, data).await()
             }
         } catch (timeoutException: TimeoutCancellationException) {
             return AppHelperResultCode.APP_HELPER_RESULT_TIMEOUT

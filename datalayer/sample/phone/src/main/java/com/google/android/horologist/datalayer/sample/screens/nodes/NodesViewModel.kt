@@ -70,7 +70,7 @@ class NodesActionViewModel
 
         fun onStartCompanionClick(nodeId: String) {
             runActionAndHandleAppHelperResult {
-                phoneDataLayerAppHelper.startCompanion(node = nodeId)
+                phoneDataLayerAppHelper.startCompanion(nodeId = nodeId)
             }
         }
 
@@ -78,7 +78,7 @@ class NodesActionViewModel
             _uiState.value = NodesScreenState.ActionRunning
             viewModelScope.launch {
                 try {
-                    phoneDataLayerAppHelper.installOnNode(node = nodeId)
+                    phoneDataLayerAppHelper.installOnNode(nodeId = nodeId)
 
                     _uiState.value = NodesScreenState.ActionSucceeded
                 } catch (e: Exception) {
@@ -92,7 +92,7 @@ class NodesActionViewModel
 
         fun onStartRemoteOwnAppClick(nodeId: String) {
             runActionAndHandleAppHelperResult {
-                phoneDataLayerAppHelper.startRemoteOwnApp(node = nodeId)
+                phoneDataLayerAppHelper.startRemoteOwnApp(nodeId = nodeId)
             }
         }
 

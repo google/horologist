@@ -35,7 +35,7 @@ import kotlinx.coroutines.runBlocking
 public abstract class DataLayerAppHelperService : WearableListenerService() {
     public abstract val appHelper: DataLayerAppHelper
 
-    override fun onRequest(node: String, path: String, byteArray: ByteArray): Task<ByteArray> {
+    override fun onRequest(nodeId: String, path: String, byteArray: ByteArray): Task<ByteArray> {
         if (path != DataLayerAppHelper.LAUNCH_APP) {
             return Tasks.forResult(byteArrayForResultCode(AppHelperResultCode.APP_HELPER_RESULT_UNKNOWN_REQUEST))
         }

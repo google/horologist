@@ -115,6 +115,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.service)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.compose.material.iconscore)
+    implementation(libs.compose.material.iconsext)
 
     coreLibraryDesugaring(libs.android.desugar)
 

@@ -300,4 +300,3 @@ if (device != null) {
 
 tasks.maybeCreate("prepareKotlinIdeaImport")
     .dependsOn("generateDebugProto")
-

@@ -23,7 +23,6 @@ import android.net.Uri
 import android.os.Process
 import androidx.annotation.CheckResult
 import androidx.wear.remote.interactions.RemoteActivityHelper
-import androidx.wear.remote.interactions.RemoteActivityHelper.RemoteIntentException
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.wearable.CapabilityClient
@@ -31,6 +30,7 @@ import com.google.android.gms.wearable.Node
 import com.google.android.horologist.data.ActivityConfig
 import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode
+import com.google.android.horologist.data.AppHelperResultCode.APP_HELPER_RESULT_TEMPORARILY_UNAVAILABLE
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearableApiAvailability
@@ -137,12 +137,15 @@ abstract class DataLayerAppHelper(
     /**
      * Launches to the appropriate store on the specified node to allow installation of the app.
      *
-     * @throws [Exception] if any errors happens, including when trying to determine the phone type.
-     * @throws [RemoteIntentException] If there's a problem with starting remote activity.
-     *
      * @param nodeId The node to launch on.
+     *
+     * @return [AppHelperResultCode] with code for either success or error. In case of error
+     * [APP_HELPER_RESULT_TEMPORARILY_UNAVAILABLE], users should be educated to bring the device to
+     * proximity, as per docs of [RemoteActivityHelper.availabilityStatus].
+     * @throws [IllegalArgumentException] when uri for the app store is not provided and this
+     * function is called for a node that is iOS.
      */
-    abstract suspend fun installOnNode(nodeId: String)
+    abstract suspend fun installOnNode(nodeId: String): AppHelperResultCode
 
     /**
      * Starts the companion that relates to the specified node. This will start on the phone,

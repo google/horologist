@@ -22,6 +22,7 @@ import android.net.Uri
 import androidx.annotation.CheckResult
 import androidx.concurrent.futures.await
 import androidx.wear.phone.interactions.PhoneTypeHelper
+import androidx.wear.remote.interactions.RemoteActivityHelper
 import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceService
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -43,6 +44,7 @@ import com.google.android.horologist.data.usageInfo
 import com.google.protobuf.Timestamp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 
 private const val TAG = "DataLayerAppHelper"
@@ -75,7 +77,7 @@ public class WearDataLayerAppHelper(
          */
         public val surfacesInfo: Flow<SurfacesInfo> = surfacesInfoDataStore.data
 
-        override suspend fun installOnNode(nodeId: String) {
+        override suspend fun installOnNode(nodeId: String): AppHelperResultCode {
             checkIsForegroundOrThrow()
 
             val intent = when (PhoneTypeHelper.getPhoneDeviceType(context)) {
@@ -96,13 +98,29 @@ public class WearDataLayerAppHelper(
                         .setData(Uri.parse(appStoreUri))
                 }
 
-                else -> throw Exception(
-                    "Phone type could not be determined or there was an error while trying to " +
-                        "determining it.",
-                )
+                else -> {
+                    return AppHelperResultCode.APP_HELPER_RESULT_CANNOT_DETERMINE_DEVICE_TYPE
+                }
             }
 
-            remoteActivityHelper.startRemoteActivity(intent, nodeId).await()
+            val availabilityStatus = remoteActivityHelper.availabilityStatus.first()
+
+            when (availabilityStatus) {
+                RemoteActivityHelper.STATUS_UNAVAILABLE -> {
+                    return AppHelperResultCode.APP_HELPER_RESULT_UNAVAILABLE
+                }
+
+                RemoteActivityHelper.STATUS_TEMPORARILY_UNAVAILABLE -> {
+                    return AppHelperResultCode.APP_HELPER_RESULT_TEMPORARILY_UNAVAILABLE
+                }
+            }
+
+            try {
+                remoteActivityHelper.startRemoteActivity(intent, nodeId).await()
+            } catch (e: RemoteActivityHelper.RemoteIntentException) {
+                return AppHelperResultCode.APP_HELPER_RESULT_ERROR_STARTING_ACTIVITY
+            }
+            return AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
         }
 
         @CheckResult

@@ -26,7 +26,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 25
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,7 +34,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -117,8 +116,6 @@ dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
-
-    coreLibraryDesugaring(libs.android.desugar)
 
     debugApi(libs.wearcompose.tooling)
     debugImplementation(libs.compose.ui.toolingpreview)

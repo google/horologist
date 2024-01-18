@@ -25,14 +25,13 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 25
+        minSdk = 26
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -107,8 +106,6 @@ dependencies {
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.service)
     implementation(libs.androidx.tracing.ktx)
-
-    coreLibraryDesugaring(libs.android.desugar)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

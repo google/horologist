@@ -92,7 +92,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -160,8 +159,6 @@ dependencies {
     implementation(libs.wearcompose.navigation)
 
     implementation(libs.com.squareup.okhttp3.okhttp)
-
-    coreLibraryDesugaring(libs.android.desugar)
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.androidx.wear.tooling.preview)

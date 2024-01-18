@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright 2022 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,15 +23,5 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-sdk
-        android:minSdkVersion="25"
-        tools:ignore="GradleOverrides"
-        tools:overrideLibrary="
-            androidx.wear.watchface.data,
-            androidx.wear.watchface.complications.datasource,
-            androidx.wear.watchface.complications.datasource.ktx,
-            androidx.wear.watchface.complications.rendering,
-            androidx.wear.protolayout.expression,
-            androidx.wear.protolayout.expression.pipeline"
-        />
+    <uses-sdk android:minSdkVersion="26" tools:ignore="GradleOverrides" />
 </manifest>

@@ -23,6 +23,7 @@ import android.net.Uri
 import android.os.Process
 import androidx.annotation.CheckResult
 import androidx.wear.remote.interactions.RemoteActivityHelper
+import androidx.wear.remote.interactions.RemoteActivityHelper.RemoteIntentException
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.wearable.CapabilityClient
@@ -136,9 +137,11 @@ abstract class DataLayerAppHelper(
     /**
      * Launches to the appropriate store on the specified node to allow installation of the app.
      *
+     * @throws [Exception] if any errors happens, including when trying to determine the phone type.
+     * @throws [RemoteIntentException] If there's a problem with starting remote activity.
+     *
      * @param nodeId The node to launch on.
      */
-
     abstract suspend fun installOnNode(nodeId: String)
 
     /**

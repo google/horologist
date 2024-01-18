@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.data.store.impl
 
-import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.datastore.core.Serializer
 import com.google.android.gms.wearable.DataClient
@@ -30,8 +29,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayInputStream
 
-// Workaround https://issuetracker.google.com/issues/239451111
-@SuppressLint("VisibleForTests")
 public fun <T> DataClient.dataItemFlow(
     nodeId: String,
     path: String,

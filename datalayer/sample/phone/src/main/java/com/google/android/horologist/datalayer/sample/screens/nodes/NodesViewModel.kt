@@ -82,8 +82,6 @@ class NodesActionViewModel
 
                     _uiState.value = NodesScreenState.ActionSucceeded
                 } catch (e: Exception) {
-                    // This should be handled with AppHelperResultCode if API gets improved:
-                    // https://github.com/google/horologist/issues/1902
                     _uiState.value = NodesScreenState.ActionFailed(errorCode = e::class.java.simpleName)
                     e.printStackTrace()
                 }

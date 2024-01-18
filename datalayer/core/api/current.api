@@ -145,7 +145,7 @@ package com.google.android.horologist.data.apphelper {
     method protected final String getPlayStoreUri();
     method protected final com.google.android.horologist.data.WearDataLayerRegistry getRegistry();
     method protected final androidx.wear.remote.interactions.RemoteActivityHelper getRemoteActivityHelper();
-    method public abstract suspend Object? installOnNode(String nodeId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public abstract suspend Object? installOnNode(String nodeId, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
     method public final suspend Object? isAvailable(kotlin.coroutines.Continuation<? super java.lang.Boolean>);
     method @CheckResult protected final suspend Object? sendRequestWithTimeout(String nodeId, String path, byte[] data, optional long timeoutMs, optional kotlin.coroutines.Continuation<? super error.NonExistentClass>);
     method @CheckResult public abstract suspend Object? startCompanion(String nodeId, kotlin.coroutines.Continuation<? super error.NonExistentClass>);

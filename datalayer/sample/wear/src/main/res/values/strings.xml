@@ -30,7 +30,7 @@
     <string name="main_menu_apphelpers_nodes_actions_item">Nodes actions</string>
 
     <!-- Counter screen -->
-    <string name="server_counter_message">Value of the counter from Phone</string>
+    <string name="server_counter_message">Open the datalayer sample on your phone to observe how the counter number is incremented.</string>
 
     <!-- Data Layer screen -->
     <string name="data_layer_title">Data Layer</string>

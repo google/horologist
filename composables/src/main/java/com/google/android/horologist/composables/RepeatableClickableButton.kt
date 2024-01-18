@@ -24,7 +24,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -39,6 +38,7 @@ import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.ripple
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
@@ -60,7 +60,7 @@ public fun RepeatableClickableButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = CircleShape,
     border: ButtonBorder = ButtonDefaults.buttonBorder(),
-    indication: Indication = rememberRipple(),
+    indication: Indication = ripple(),
     content: @Composable BoxScope.() -> Unit,
 ) {
     val borderStroke = border.borderStroke(enabled = enabled).value

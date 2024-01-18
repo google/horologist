@@ -27,7 +27,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 
 /**
@@ -46,20 +45,6 @@ public class PhoneDataLayerAppHelper(
         val intent = Intent(Intent.ACTION_VIEW)
             .addCategory(Intent.CATEGORY_BROWSABLE)
             .setData(Uri.parse(playStoreUri))
-
-        val availabilityStatus = remoteActivityHelper.availabilityStatus.first()
-
-        // As per documentation, calls should be made when status is either STATUS_AVAILABLE
-        // or STATUS_UNKNOWN.
-        when (availabilityStatus) {
-            RemoteActivityHelper.STATUS_UNAVAILABLE -> {
-                return AppHelperResultCode.APP_HELPER_RESULT_UNAVAILABLE
-            }
-
-            RemoteActivityHelper.STATUS_TEMPORARILY_UNAVAILABLE -> {
-                return AppHelperResultCode.APP_HELPER_RESULT_TEMPORARILY_UNAVAILABLE
-            }
-        }
 
         try {
             remoteActivityHelper.startRemoteActivity(intent, nodeId).await()

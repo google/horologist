@@ -105,6 +105,8 @@ public class WearDataLayerAppHelper(
 
             val availabilityStatus = remoteActivityHelper.availabilityStatus.first()
 
+            // As per documentation, calls should be made when status is either STATUS_AVAILABLE
+            // or STATUS_UNKNOWN.
             when (availabilityStatus) {
                 RemoteActivityHelper.STATUS_UNAVAILABLE -> {
                     return AppHelperResultCode.APP_HELPER_RESULT_UNAVAILABLE

@@ -30,13 +30,13 @@
     <string name="main_menu_apphelpers_nodes_actions_item">Nodes actions</string>
 
     <!-- Counter screen -->
-    <string name="server_counter_message">Open the datalayer sample on your phone to observe how the counter number is incremented</string>
+    <string name="server_counter_message">Value of the counter from Phone</string>
 
     <!-- Data Layer screen -->
     <string name="data_layer_title">Data Layer</string>
     <string name="data_layer_missing_message">Missing</string>
     <string name="data_layer_error_message">Error: %1$s</string>
-    <string name="data_layer_value_message">Counter: %1$s</string>
+    <string name="data_layer_value_message">Value: %1$s</string>
 
     <!-- App Helper Tracking screen -->
     <string name="apphelper_tracking_title">AppHelper Tracking</string>

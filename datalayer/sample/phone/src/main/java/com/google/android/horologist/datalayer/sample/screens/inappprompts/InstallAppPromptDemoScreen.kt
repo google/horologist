@@ -29,14 +29,14 @@ import androidx.compose.ui.unit.dp
 import com.google.android.horologist.datalayer.sample.R
 
 @Composable
-fun InstallPlaystoreAppPromptDemoScreen(
+fun InstallAppPromptDemoScreen(
     onShowInstallAppPrompt: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.padding(all = 10.dp),
     ) {
-        Text(text = stringResource(id = R.string.install_playstore_app_prompt_api_call_demo_message))
+        Text(text = stringResource(id = R.string.install_app_prompt_api_call_demo_message))
 
         Button(
             onClick = onShowInstallAppPrompt,
@@ -44,7 +44,7 @@ fun InstallPlaystoreAppPromptDemoScreen(
                 .padding(top = 10.dp)
                 .align(Alignment.CenterHorizontally),
         ) {
-            Text(text = stringResource(id = R.string.install_playstore_app_prompt_run_demo_button_label))
+            Text(text = stringResource(id = R.string.install_app_prompt_run_demo_button_label))
         }
     }
 }
@@ -52,7 +52,7 @@ fun InstallPlaystoreAppPromptDemoScreen(
 @Preview(showBackground = true)
 @Composable
 fun InstallAppPromptDemoScreenPreview() {
-    InstallPlaystoreAppPromptDemoScreen(
+    InstallAppPromptDemoScreen(
         onShowInstallAppPrompt = { },
     )
 }

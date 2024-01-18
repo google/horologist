@@ -49,6 +49,9 @@ private const val TAG = "DataLayerAppHelper"
 
 /**
  * Subclass of [DataLayerAppHelper] for use on Wear devices.
+ *
+ * Parameter [appStoreUri] should be provided when using functions like [installOnNode] with an iOS
+ * device.
  */
 @ExperimentalHorologistApi
 public class WearDataLayerAppHelper(
@@ -74,19 +77,32 @@ public class WearDataLayerAppHelper(
 
         override suspend fun installOnNode(nodeId: String) {
             checkIsForegroundOrThrow()
-            if (appStoreUri != null &&
-                PhoneTypeHelper.getPhoneDeviceType(context) == PhoneTypeHelper.DEVICE_TYPE_IOS
-            ) {
-                val intent = Intent(Intent.ACTION_VIEW)
-                    .addCategory(Intent.CATEGORY_BROWSABLE)
-                    .setData(Uri.parse(appStoreUri))
-                remoteActivityHelper.startRemoteActivity(intent, nodeId).await()
-            } else if (PhoneTypeHelper.getPhoneDeviceType(context) == PhoneTypeHelper.DEVICE_TYPE_ANDROID) {
-                val intent = Intent(Intent.ACTION_VIEW)
-                    .addCategory(Intent.CATEGORY_BROWSABLE)
-                    .setData(Uri.parse(playStoreUri))
-                remoteActivityHelper.startRemoteActivity(intent, nodeId).await()
+
+            val intent = when (PhoneTypeHelper.getPhoneDeviceType(context)) {
+                PhoneTypeHelper.DEVICE_TYPE_ANDROID -> {
+                    Intent(Intent.ACTION_VIEW)
+                        .addCategory(Intent.CATEGORY_BROWSABLE)
+                        .setData(Uri.parse(playStoreUri))
+                }
+
+                PhoneTypeHelper.DEVICE_TYPE_IOS -> {
+                    requireNotNull(appStoreUri) {
+                        "The uri for the app store should be provided when using this function with " +
+                            "an iOS device."
+                    }
+
+                    Intent(Intent.ACTION_VIEW)
+                        .addCategory(Intent.CATEGORY_BROWSABLE)
+                        .setData(Uri.parse(appStoreUri))
+                }
+
+                else -> throw Exception(
+                    "Phone type could not be determined or there was an error while trying to " +
+                        "determining it.",
+                )
             }
+
+            remoteActivityHelper.startRemoteActivity(intent, nodeId).await()
         }
 
         @CheckResult

@@ -26,7 +26,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
@@ -57,21 +56,21 @@ public fun ResponsiveDialogContent(
     okButtonContentDescription: String = stringResource(R.string.ok),
     cancelButtonContentDescription: String = stringResource(R.string.cancel),
     content: (ScalingLazyListScope.() -> Unit)? = null,
-    ) {
+) {
     val state = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = icon == null)
+        ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = icon == null),
     )
     ScreenScaffold(modifier = modifier.fillMaxSize(), scrollState = state) {
         // This will be applied only to the content.
         CompositionLocalProvider(
-            LocalTextStyle provides MaterialTheme.typography.body2
+            LocalTextStyle provides MaterialTheme.typography.body2,
         ) {
             ScalingLazyColumn(columnState = state) {
                 icon?.let {
                     item {
                         Row(
                             Modifier.fillMaxWidth().padding(bottom = 4.dp), // 8.dp bellow icon
-                            horizontalArrangement = Arrangement.Center
+                            horizontalArrangement = Arrangement.Center,
                         ) {
                             it()
                         }
@@ -80,9 +79,10 @@ public fun ResponsiveDialogContent(
                 title?.let {
                     item {
                         CompositionLocalProvider(
-                            LocalTextStyle provides MaterialTheme.typography.title3
+                            LocalTextStyle provides MaterialTheme.typography.title3,
                         ) {
-                            SidePaddingExtraPct(8.84f,
+                            SidePaddingExtraPct(
+                                8.84f,
                                 Modifier.padding(bottom = 8.dp), // 12.dp bellow icon
                             ) { it() }
                         }
@@ -103,7 +103,7 @@ public fun ResponsiveDialogContent(
                             Modifier.fillMaxWidth()
                                 .padding(top = if (content != null) 12.dp else 0.dp),
                             horizontalArrangement = spacedBy(4.dp, Alignment.CenterHorizontally),
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
                         ) {
                             onCancelButtonClick?.let {
                                 Button(
@@ -128,7 +128,6 @@ public fun ResponsiveDialogContent(
     }
 }
 
-
 /**
  * Surrounds a composable with padding at the start and end, expressed as a percentage of the
  * available width.
@@ -140,13 +139,15 @@ public fun ResponsiveDialogContent(
  */
 @ExperimentalHorologistApi
 @Composable
-internal fun SidePaddingExtraPct(paddingPct: Float,
-                        modifier: Modifier = Modifier,
-                        basePaddingPct: Float = 5.2f,
-                        content: @Composable () -> Unit) {
+internal fun SidePaddingExtraPct(
+    paddingPct: Float,
+    modifier: Modifier = Modifier,
+    basePaddingPct: Float = 5.2f,
+    content: @Composable () -> Unit,
+) {
     val extraPadding = paddingPct / (100f - 2 * basePaddingPct)
     Row(
-        modifier.fillMaxWidth()
+        modifier.fillMaxWidth(),
     ) {
         Spacer(Modifier.weight(extraPadding))
         Box(Modifier.weight(1f - 2 * extraPadding)) {

@@ -17,15 +17,14 @@
 package com.google.android.horologist.screensizes
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.compose.material.Alert
+import com.google.android.horologist.compose.material.AlertContent
 import com.google.android.horologist.compose.tools.Device
-import com.google.android.horologist.screenshots.ScreenshotTestRule
 
-class DialogTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false, recordMode = ScreenshotTestRule.RecordMode.Record) {
+class DialogTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
 
     @Composable
     override fun Content() {
-        Alert(
+        AlertContent(
             title = "Phone app is required",
             onCancelButtonClick = {},
             onOKButtonClick = {},

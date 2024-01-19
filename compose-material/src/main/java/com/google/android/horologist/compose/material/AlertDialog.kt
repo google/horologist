@@ -22,7 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
@@ -30,7 +29,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberColumnState
 
 /**
- * This component is an alternative to [Alert], providing the following:
+ * This component is an alternative to [AlertContent], providing the following:
  * - a convenient way of passing a title and a message;
  * - default positive and negative buttons;
  * - wrapped in a [Dialog];
@@ -56,7 +55,7 @@ public fun AlertDialog(
         modifier = modifier,
         scrollState = columnState.state
     ) {
-        Alert(
+        AlertContent(
             title = title,
             body = message,
             onCancelButtonClick = onCancelButtonClick,
@@ -71,7 +70,7 @@ public fun AlertDialog(
 
 @ExperimentalHorologistApi
 @Composable
-fun Alert(
+fun AlertContent(
     body: String,
     onCancelButtonClick: (() -> Unit)?,
     onOKButtonClick: (() -> Unit)?,

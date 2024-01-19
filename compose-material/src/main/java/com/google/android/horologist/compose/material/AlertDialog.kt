@@ -70,7 +70,7 @@ public fun AlertDialog(
 
 @ExperimentalHorologistApi
 @Composable
-fun AlertContent(
+public fun AlertContent(
     body: String,
     onCancelButtonClick: (() -> Unit)?,
     onOKButtonClick: (() -> Unit)?,

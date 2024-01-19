@@ -17,39 +17,19 @@
 package com.google.android.horologist.screensizes
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.style.TextAlign
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.dialog.Alert
+import com.google.android.horologist.compose.material.Alert
 import com.google.android.horologist.compose.tools.Device
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 
-class DialogTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+class DialogTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false, recordMode = ScreenshotTestRule.RecordMode.Record) {
 
     @Composable
     override fun Content() {
         Alert(
-            title = { Text("Phone app is required", textAlign = TextAlign.Center) },
-            negativeButton = {
-                Button(
-                    colors = ButtonDefaults.secondaryButtonColors(),
-                    onClick = {
-                        /* Do something e.g. navController.popBackStack()*/
-                    },
-                ) {
-                    Text("No")
-                }
-            },
-            positiveButton = {
-                Button(onClick = {
-                    /* Do something e.g. navController.popBackStack()*/
-                }) { Text("Yes") }
-            },
-        ) {
-            Text(
-                text = "Tap the button below to install it on your phone.",
-                textAlign = TextAlign.Center,
-            )
-        }
+            title = "Phone app is required",
+            onCancelButtonClick = {},
+            onOKButtonClick = {},
+            body = "Tap the button below to install it on your phone.",
+        )
     }
 }

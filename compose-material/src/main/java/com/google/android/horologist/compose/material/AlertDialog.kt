@@ -16,20 +16,18 @@
 
 package com.google.android.horologist.compose.material
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberColumnState
 
 /**
  * This component is an alternative to [Alert], providing the following:
@@ -44,17 +42,19 @@ public fun AlertDialog(
     onCancelButtonClick: () -> Unit,
     onOKButtonClick: () -> Unit,
     showDialog: Boolean,
-    scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     title: String = "",
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
+    columnState: ScalingLazyColumnState = rememberColumnState(
+        ScalingLazyColumnDefaults.responsive()
+    ),
 ) {
     Dialog(
         showDialog = showDialog,
         onDismissRequest = onCancelButtonClick,
-        scrollState = scalingLazyListState,
         modifier = modifier,
+        scrollState = columnState.state
     ) {
         Alert(
             title = title,
@@ -63,21 +63,27 @@ public fun AlertDialog(
             onOKButtonClick = onOKButtonClick,
             okButtonContentDescription = okButtonContentDescription,
             cancelButtonContentDescription = cancelButtonContentDescription,
+            columnState = columnState,
+            showPositionIndicator = false
         )
     }
 }
 
 @ExperimentalHorologistApi
 @Composable
-internal fun Alert(
-    title: String,
+fun Alert(
     body: String,
-    onCancelButtonClick: () -> Unit,
-    onOKButtonClick: () -> Unit,
-    okButtonContentDescription: String,
-    cancelButtonContentDescription: String,
+    onCancelButtonClick: (() -> Unit)?,
+    onOKButtonClick: (() -> Unit)?,
+    title: String = "",
+    okButtonContentDescription: String = stringResource(android.R.string.ok),
+    cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
+    columnState: ScalingLazyColumnState = rememberColumnState(
+        ScalingLazyColumnDefaults.responsive()
+    ),
+    showPositionIndicator: Boolean = true,
 ) {
-    Alert(
+    ResponsiveDialogContent(
         title = {
             Text(
                 text = title,
@@ -87,28 +93,20 @@ internal fun Alert(
                 style = MaterialTheme.typography.title3,
             )
         },
-        content = {
+        onOkButtonClick = onOKButtonClick,
+        onCancelButtonClick = onCancelButtonClick,
+        okButtonContentDescription = okButtonContentDescription,
+        cancelButtonContentDescription = cancelButtonContentDescription,
+        state = columnState,
+        showPositionIndicator = showPositionIndicator
+    ) {
+        item {
             Text(
                 text = body,
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.body2,
             )
-        },
-        negativeButton = {
-            Button(
-                imageVector = Icons.Default.Close,
-                contentDescription = cancelButtonContentDescription,
-                onClick = onCancelButtonClick,
-                colors = ButtonDefaults.secondaryButtonColors(),
-            )
-        },
-        positiveButton = {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = okButtonContentDescription,
-                onClick = onOKButtonClick,
-            )
-        },
-    )
+        }
+    }
 }

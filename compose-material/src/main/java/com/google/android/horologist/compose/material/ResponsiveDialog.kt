@@ -41,7 +41,8 @@ import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.responsive
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
 
@@ -55,12 +56,14 @@ public fun ResponsiveDialogContent(
     onCancelButtonClick: (() -> Unit)? = null,
     okButtonContentDescription: String = stringResource(R.string.ok),
     cancelButtonContentDescription: String = stringResource(R.string.cancel),
+    state: ScalingLazyColumnState = rememberColumnState(responsive(firstItemIsFullWidth = icon == null)),
+    showPositionIndicator: Boolean = true,
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
-    val state = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = icon == null),
-    )
-    ScreenScaffold(modifier = modifier.fillMaxSize(), scrollState = state) {
+    ScreenScaffold(
+        modifier = modifier.fillMaxSize(),
+        scrollState = if (showPositionIndicator) state else null,
+        timeText = {}) {
         // This will be applied only to the content.
         CompositionLocalProvider(
             LocalTextStyle provides MaterialTheme.typography.body2,
@@ -69,7 +72,9 @@ public fun ResponsiveDialogContent(
                 icon?.let {
                     item {
                         Row(
-                            Modifier.fillMaxWidth().padding(bottom = 4.dp), // 8.dp bellow icon
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 4.dp), // 8.dp bellow icon
                             horizontalArrangement = Arrangement.Center,
                         ) {
                             it()
@@ -100,9 +105,13 @@ public fun ResponsiveDialogContent(
                 if (onOkButtonClick != null || onCancelButtonClick != null) {
                     item {
                         Row(
-                            Modifier.fillMaxWidth()
+                            Modifier
+                                .fillMaxWidth()
                                 .padding(top = if (content != null) 12.dp else 0.dp),
-                            horizontalArrangement = spacedBy(4.dp, Alignment.CenterHorizontally),
+                            horizontalArrangement = spacedBy(
+                                4.dp,
+                                Alignment.CenterHorizontally
+                            ),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             onCancelButtonClick?.let {

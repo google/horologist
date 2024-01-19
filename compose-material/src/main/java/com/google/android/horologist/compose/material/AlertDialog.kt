@@ -46,14 +46,14 @@ public fun AlertDialog(
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
     columnState: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive()
+        ScalingLazyColumnDefaults.responsive(),
     ),
 ) {
     Dialog(
         showDialog = showDialog,
         onDismissRequest = onCancelButtonClick,
         modifier = modifier,
-        scrollState = columnState.state
+        scrollState = columnState.state,
     ) {
         AlertContent(
             title = title,
@@ -63,7 +63,7 @@ public fun AlertDialog(
             okButtonContentDescription = okButtonContentDescription,
             cancelButtonContentDescription = cancelButtonContentDescription,
             columnState = columnState,
-            showPositionIndicator = false
+            showPositionIndicator = false,
         )
     }
 }
@@ -78,7 +78,7 @@ fun AlertContent(
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
     columnState: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive()
+        ScalingLazyColumnDefaults.responsive(),
     ),
     showPositionIndicator: Boolean = true,
 ) {
@@ -97,7 +97,7 @@ fun AlertContent(
         okButtonContentDescription = okButtonContentDescription,
         cancelButtonContentDescription = cancelButtonContentDescription,
         state = columnState,
-        showPositionIndicator = showPositionIndicator
+        showPositionIndicator = showPositionIndicator,
     ) {
         item {
             Text(

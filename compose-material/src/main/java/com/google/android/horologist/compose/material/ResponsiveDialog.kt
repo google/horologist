@@ -63,7 +63,8 @@ public fun ResponsiveDialogContent(
     ScreenScaffold(
         modifier = modifier.fillMaxSize(),
         scrollState = if (showPositionIndicator) state else null,
-        timeText = {}) {
+        timeText = {},
+    ) {
         // This will be applied only to the content.
         CompositionLocalProvider(
             LocalTextStyle provides MaterialTheme.typography.body2,
@@ -110,7 +111,7 @@ public fun ResponsiveDialogContent(
                                 .padding(top = if (content != null) 12.dp else 0.dp),
                             horizontalArrangement = spacedBy(
                                 4.dp,
-                                Alignment.CenterHorizontally
+                                Alignment.CenterHorizontally,
                             ),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {

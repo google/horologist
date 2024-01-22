@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.datalayer.sample.screens.tracking
 
+import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.wear.watchface.complications.data.ComplicationType
@@ -43,6 +44,7 @@ class TrackingScreenViewModel
         private val _uiState = MutableStateFlow<TrackingScreenUiState>(TrackingScreenUiState.Idle)
         public val uiState: StateFlow<TrackingScreenUiState> = _uiState
 
+        @MainThread
         fun initialize() {
             if (initializeCalled) return
             initializeCalled = true

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.datalayer.sample.screens.nodeslistener
 
+import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.wearable.Node
@@ -39,6 +40,7 @@ class NodesListenerViewModel
             MutableStateFlow<NodesListenerScreenState>(NodesListenerScreenState.Idle)
         public val uiState: StateFlow<NodesListenerScreenState> = _uiState
 
+        @MainThread
         fun initialize() {
             if (initializeCalled) return
             initializeCalled = true

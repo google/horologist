@@ -34,6 +34,7 @@ import com.google.android.horologist.datalayer.sample.screens.inappprompts.Insta
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.InstallAppPromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.menu.MenuScreen
 import com.google.android.horologist.datalayer.sample.screens.nodes.NodesScreen
+import com.google.android.horologist.datalayer.sample.screens.nodeslistener.NodesListenerScreen
 
 @Composable
 fun MainScreen(
@@ -61,6 +62,9 @@ fun MainScreen(
                 }
                 composable(route = Screen.AppHelperNodesScreen.route) {
                     NodesScreen()
+                }
+                composable(route = Screen.AppHelperNodesListenerScreen.route) {
+                    NodesListenerScreen()
                 }
                 composable(route = Screen.InstallAppPromptDemoScreen.route) {
                     InstallAppPromptDemoScreen(onShowInstallAppPrompt = onShowInstallAppPrompt)

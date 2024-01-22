@@ -44,6 +44,10 @@ fun MenuScreen(
             Text(text = stringResource(id = R.string.menu_screen_nodes_item))
         }
 
+        Button(onClick = { navController.navigate(Screen.AppHelperNodesListenerScreen.route) }) {
+            Text(text = stringResource(id = R.string.menu_screen_nodes_listener_item))
+        }
+
         Text(
             text = stringResource(id = R.string.menu_screen_inapp_prompts_header),
             modifier = Modifier.padding(top = 10.dp),

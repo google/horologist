@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Watch
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -52,7 +53,9 @@ fun NodesActionsScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (state == NodesActionScreenState.Idle) {
-        viewModel.initialize()
+        SideEffect {
+            viewModel.initialize()
+        }
     }
 
     NodesActionsScreen(

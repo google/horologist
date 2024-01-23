@@ -85,10 +85,11 @@ fun NodesListenerScreen(
             }
 
             is NodesListenerScreenState.Loaded -> {
+                item {
+                    Text(stringResource(id = R.string.nodes_listener_screen_message))
+                }
+
                 if (state.nodeList.isNotEmpty()) {
-                    item {
-                        Text(stringResource(id = R.string.nodes_listener_screen_message))
-                    }
                     items(state.nodeList.toList()) { node ->
                         Chip(
                             label = node.displayName,

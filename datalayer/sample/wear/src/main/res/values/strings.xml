@@ -73,7 +73,7 @@
 
     <!-- App Helper Nodes Listener screen -->
     <string name="nodes_listener_screen_header">Nodes Listener</string>
-    <string name="nodes_listener_screen_message">This screen shows all the connected nodes that have the app installed. The list updates automatically.</string>
+    <string name="nodes_listener_screen_message">This screen shows all the connected nodes that have the app installed.\nOn the watch, there should be only a single connected node: the paired phone.\nThe list updates automatically.</string>
     <string name="nodes_listener_screen_no_nodes">No nodes were found.</string>
 
     <!--  Start Remote Sample Activity screen -->

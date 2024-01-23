@@ -28,6 +28,7 @@
     <string name="main_menu_apphelpers_header">App Helpers</string>
     <string name="main_menu_apphelpers_tracking_item">Tracking</string>
     <string name="main_menu_apphelpers_nodes_actions_item">Nodes actions</string>
+    <string name="main_menu_apphelpers_nodes_listener_item">Nodes listener</string>
 
     <!-- Counter screen -->
     <string name="server_counter_message">Open the datalayer sample on your phone to observe how the counter number is incremented.</string>
@@ -69,6 +70,11 @@
     <string name="node_details_start_remote_activity_chip_label">Start remote activity</string>
     <string name="node_details_success_dialog_message">Success!</string>
     <string name="node_details_failure_dialog_message">Failed: \n%1$s</string>
+
+    <!-- App Helper Nodes Listener screen -->
+    <string name="nodes_listener_screen_header">Nodes Listener</string>
+    <string name="nodes_listener_screen_message">This screen shows all the connected nodes that have the app installed. The list updates automatically.</string>
+    <string name="nodes_listener_screen_no_nodes">No nodes were found.</string>
 
     <!--  Start Remote Sample Activity screen -->
     <string name="app_helper_start_remote_activity_message">This is a sample activity to demonstrate it being launched remotely from the phone.</string>

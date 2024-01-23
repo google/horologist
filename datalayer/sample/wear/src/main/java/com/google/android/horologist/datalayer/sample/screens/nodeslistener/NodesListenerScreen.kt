@@ -16,32 +16,30 @@
 
 package com.google.android.horologist.datalayer.sample.screens.nodeslistener
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.wear.compose.foundation.lazy.items
+import androidx.wear.compose.material.CircularProgressIndicator
+import androidx.wear.compose.material.Text
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.gms.wearable.Node
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun NodesListenerScreen(
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: NodesListenerViewModel = hiltViewModel(),
 ) {
@@ -55,6 +53,7 @@ fun NodesListenerScreen(
 
     NodesListenerScreen(
         state = state,
+        columnState = columnState,
         modifier = modifier,
     )
 }
@@ -62,30 +61,19 @@ fun NodesListenerScreen(
 @Composable
 fun NodesListenerScreen(
     state: NodesListenerScreenState,
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(
+    ScalingLazyColumn(
+        columnState = columnState,
         modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         item {
             Text(
                 text = stringResource(id = R.string.nodes_listener_screen_header),
-                modifier = Modifier.padding(10.dp),
-                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(bottom = 10.dp),
             )
         }
-
-        if (state != NodesListenerScreenState.ApiNotAvailable) {
-            item {
-                Text(
-                    text = stringResource(id = R.string.nodes_listener_screen_message),
-                    modifier = Modifier.padding(10.dp),
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-            }
-        }
-
         when (state) {
             NodesListenerScreenState.Idle,
             NodesListenerScreenState.Loading,
@@ -97,36 +85,15 @@ fun NodesListenerScreen(
 
             is NodesListenerScreenState.Loaded -> {
                 if (state.nodeList.isNotEmpty()) {
-                    items(items = state.nodeList.toList()) { node ->
-                        Box(
-                            modifier = modifier
-                                .padding(16.dp)
-                                .fillMaxWidth(),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            Card {
-                                Column(
-                                    modifier = Modifier
-                                        .padding(16.dp)
-                                        .fillMaxWidth(),
-
-                                ) {
-                                    Text(
-                                        stringResource(
-                                            R.string.nodes_listener_screen_node_name_label,
-                                            node.displayName,
-                                        ),
-                                    )
-                                    Text(
-                                        style = MaterialTheme.typography.labelMedium,
-                                        text = stringResource(
-                                            R.string.nodes_listener_screen_node_id_label,
-                                            node.id,
-                                        ),
-                                    )
-                                }
-                            }
-                        }
+                    item {
+                        Text(stringResource(id = R.string.nodes_listener_screen_message))
+                    }
+                    items(state.nodeList.toList()) { node ->
+                        Chip(
+                            label = node.displayName,
+                            onClick = { /* do nothing */ },
+                            secondaryLabel = node.id,
+                        )
                     }
                 } else {
                     item {
@@ -144,9 +111,9 @@ fun NodesListenerScreen(
     }
 }
 
-@Preview(showBackground = true)
+@WearPreviewDevices
 @Composable
-fun NodesListenerScreenPreview() {
+fun NodesListenerScreenPreviewLoaded() {
     NodesListenerScreen(
         state = NodesListenerScreenState.Loaded(
             nodeList = setOf(
@@ -162,23 +129,26 @@ fun NodesListenerScreenPreview() {
                 ),
             ),
         ),
+        columnState = belowTimeTextPreview(),
     )
 }
 
-@Preview(showBackground = true)
+@WearPreviewDevices
 @Composable
 fun NodesListenerScreenPreviewEmptyNodes() {
     NodesListenerScreen(
-        state = NodesListenerScreenState.Loaded(
-            nodeList = emptySet(),
-        ),
+        state = NodesListenerScreenState.Loaded(emptySet()),
+        columnState = belowTimeTextPreview(),
     )
 }
 
-@Preview(showBackground = true)
+@WearPreviewDevices
 @Composable
 fun NodesListenerScreenPreviewApiNotAvailable() {
-    NodesListenerScreen(state = NodesListenerScreenState.ApiNotAvailable)
+    NodesListenerScreen(
+        state = NodesListenerScreenState.ApiNotAvailable,
+        columnState = belowTimeTextPreview(),
+    )
 }
 
 private class NodePreviewImpl(

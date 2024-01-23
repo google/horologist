@@ -19,7 +19,6 @@ package com.google.android.horologist.data.apphelper
 import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
 import android.content.Context
-import android.net.Uri
 import android.os.Process
 import androidx.annotation.CheckResult
 import androidx.wear.remote.interactions.RemoteActivityHelper
@@ -132,13 +131,7 @@ abstract class DataLayerAppHelper(
                     val unused = trySend(capability.nodes.filter { it.isNearby }.toSet())
                 }
 
-            val installedDeviceCapabilityUri = "wear://*/$capability"
-
-            registry.capabilityClient.addListener(
-                listener,
-                Uri.parse(installedDeviceCapabilityUri),
-                CapabilityClient.FILTER_LITERAL,
-            )
+            registry.capabilityClient.addListener(listener, capability)
             awaitClose {
                 registry.capabilityClient.removeListener(listener)
             }

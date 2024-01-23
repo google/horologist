@@ -29,6 +29,7 @@ sealed class Screen(
 
     data object AppHelperTrackingScreen : Screen("appHelperTrackingScreen")
     data object AppHelperNodesActionsScreen : Screen("appHelperNodesActionsScreen")
+    data object AppHelperNodesListenerScreen : Screen("appHelperNodesListenerScreen")
 
     data object AppHelperNodeDetailsScreen : Screen(nodeDetailsScreenRoute)
 

@@ -45,6 +45,7 @@ import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.compose.material.Icon
+import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.datalayer.sample.R
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
@@ -93,8 +94,8 @@ fun NodeDetailsScreen(
         modifier = modifier.fillMaxSize(),
     ) {
         item {
-            Text(
-                text = stringResource(id = R.string.node_details_header),
+            Title(
+                textId = R.string.node_details_header,
                 modifier = Modifier.padding(bottom = 10.dp),
             )
         }

@@ -52,6 +52,7 @@ private fun SectionedListScope.appHelpersSection(navigateToRoute: (String) -> Un
         listOf(
             Pair(R.string.main_menu_apphelpers_tracking_item, Screen.AppHelperTrackingScreen.route),
             Pair(R.string.main_menu_apphelpers_nodes_actions_item, Screen.AppHelperNodesActionsScreen.route),
+            Pair(R.string.main_menu_apphelpers_nodes_listener_item, Screen.AppHelperNodesListenerScreen.route),
         ),
     ) {
         header {

@@ -230,7 +230,7 @@ fun NodesScreenPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun NodesActionsScreenPreviewEmptyNodes() {
+fun NodesScreenPreviewEmptyNodes() {
     NodesScreen(
         state = NodesScreenState.Loaded(emptyList()),
         onRefreshClick = { },

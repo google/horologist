@@ -58,10 +58,10 @@
     <string name="node_status_start_remote_activity_button_label">Start remote activity</string>
 
     <!-- App Helper Nodes Listener screen -->
-    <string name="nodes_listener_screen_header">Nodes</string>
+    <string name="nodes_listener_screen_header">Nodes Listener</string>
     <string name="nodes_listener_screen_message">This screen shows all the connected nodes that have the app installed. The list updates automatically.</string>
     <string name="nodes_listener_screen_no_nodes">No nodes were found.</string>
-    <string name="nodes_listener_screen_node_name_label">Node: %1$s</string>
+    <string name="nodes_listener_screen_node_name_label">Name: %1$s</string>
     <string name="nodes_listener_screen_node_id_label">ID: %1$s</string>
 
     <!-- In-app prompt - Install App Demo 1 screen -->

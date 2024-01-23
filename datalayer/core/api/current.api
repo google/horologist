@@ -139,8 +139,9 @@ package com.google.android.horologist.data.apphelper {
   public abstract class DataLayerAppHelper {
     ctor public DataLayerAppHelper(android.content.Context context, com.google.android.horologist.data.WearDataLayerRegistry registry);
     method protected final void checkIsForegroundOrThrow();
+    method protected final kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> connectedAndInstalledNodes(String capability);
     method public final suspend Object? connectedNodes(kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.data.apphelper.AppHelperNodeStatus>>);
-    method public final kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> getConnectedAndInstalledNodes();
+    method public abstract kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> getConnectedAndInstalledNodes();
     method protected final android.content.Context getContext();
     method protected final String getPlayStoreUri();
     method protected final com.google.android.horologist.data.WearDataLayerRegistry getRegistry();
@@ -151,7 +152,7 @@ package com.google.android.horologist.data.apphelper {
     method @CheckResult public abstract suspend Object? startCompanion(String nodeId, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
     method @CheckResult public final suspend Object? startRemoteActivity(String nodeId, error.NonExistentClass config, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
     method @CheckResult public final suspend Object? startRemoteOwnApp(String nodeId, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
-    property public final kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> connectedAndInstalledNodes;
+    property public abstract kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> connectedAndInstalledNodes;
     property protected final android.content.Context context;
     property protected final String playStoreUri;
     property protected final com.google.android.horologist.data.WearDataLayerRegistry registry;

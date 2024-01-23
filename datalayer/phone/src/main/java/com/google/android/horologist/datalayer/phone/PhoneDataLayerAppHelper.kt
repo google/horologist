@@ -23,11 +23,15 @@ import android.net.Uri
 import androidx.annotation.CheckResult
 import androidx.concurrent.futures.await
 import androidx.wear.remote.interactions.RemoteActivityHelper
+import com.google.android.gms.wearable.Node
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.tasks.await
+
+private const val SAMSUNG_COMPANION_PKG = "com.samsung.android.app.watchmanager"
 
 /**
  * Subclass of [DataLayerAppHelper] for use on phones.
@@ -37,7 +41,9 @@ public class PhoneDataLayerAppHelper(
     context: Context,
     registry: WearDataLayerRegistry,
 ) : DataLayerAppHelper(context, registry) {
-    private val SAMSUNG_COMPANION_PKG = "com.samsung.android.app.watchmanager"
+
+    override val connectedAndInstalledNodes: Flow<Set<Node>>
+        get() = connectedAndInstalledNodes(WATCH_CAPABILITY)
 
     override suspend fun installOnNode(nodeId: String): AppHelperResultCode {
         checkIsForegroundOrThrow()

@@ -35,6 +35,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.datalayer.sample.R
 
 @Composable
@@ -69,8 +70,8 @@ fun NodesListenerScreen(
         modifier = modifier.fillMaxSize(),
     ) {
         item {
-            Text(
-                text = stringResource(id = R.string.nodes_listener_screen_header),
+            Title(
+                textId = R.string.nodes_listener_screen_header,
                 modifier = Modifier.padding(bottom = 10.dp),
             )
         }

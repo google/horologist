@@ -107,7 +107,7 @@ public fun ResponsiveDialogContent(
                 }
                 message?.let {
                     item {
-                        // Compute the actual padding needed to get and extra 4.16% extra,
+                        // Compute the actual padding needed to get an extra 4.16%,
                         // inside of the global 5.2% padding
                         val extraPadding = 4.16f / (100f - 2f * 5.2f)
                         Box(

@@ -16,19 +16,57 @@
 
 package com.google.android.horologist.screensizes
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.dialog.Alert
 import com.google.android.horologist.compose.material.AlertContent
+import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.tools.Device
+import com.google.android.horologist.screenshots.ScreenshotTestRule
+import org.junit.Test
 
-class DialogTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+class DialogTest(device: Device) : ScreenSizeTest(
+    device = device,
+    showTimeText = false,
+    recordMode = ScreenshotTestRule.RecordMode.Record
+) {
 
     @Composable
     override fun Content() {
+        // horologist AlertContent using ResponsiveDialogContent
         AlertContent(
             title = "Phone app is required",
             onCancelButtonClick = {},
             onOKButtonClick = {},
             body = "Tap the button below to install it on your phone.",
         )
+    }
+
+    @Test
+    fun wearMaterial() {
+        // androidx.wear.compose.material.dialog.Alert with no formatting
+        runTest {
+            Alert(title = { Text("Phone app is required") },
+                negativeButton = {
+                    Button(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = "",
+                        onClick = {},
+                    )
+                }, positiveButton = {
+                Button(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "",
+                    onClick = { },
+                )
+            }) {
+                Text(
+                    text = "Tap the button below to install it on your phone.",
+                )
+            }
+        }
     }
 }

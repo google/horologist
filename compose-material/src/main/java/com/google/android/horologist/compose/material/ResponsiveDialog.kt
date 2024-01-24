@@ -94,7 +94,7 @@ public fun ResponsiveDialogContent(
                             Box(
                                 Modifier
                                     .fillMaxWidth(1f - 2f * extraPadding)
-                                    .padding(bottom = 8.dp), // 12.dp bellow icon
+                                    .padding(bottom = 8.dp), // 12.dp below icon
                             ) { it() }
                         }
                     }

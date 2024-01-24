@@ -16,15 +16,25 @@
 
 package com.google.android.horologist.screensizes
 
+import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.material.AlertContent
 import com.google.android.horologist.compose.material.Button
+import com.google.android.horologist.compose.material.ResponsiveDialogContent
+import com.google.android.horologist.compose.material.ToggleChip
+import com.google.android.horologist.compose.material.ToggleChipToggleControl
 import com.google.android.horologist.compose.tools.Device
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 class DialogTest(device: Device) : ScreenSizeTest(
@@ -67,6 +77,56 @@ class DialogTest(device: Device) : ScreenSizeTest(
                 Text(
                     text = "Tap the button below to install it on your phone.",
                 )
+            }
+        }
+    }
+
+    @Test
+    fun longDialogScreen1() {
+        lateinit var columnState: ScalingLazyColumnState
+
+        runTest(testFn = {
+            screenshotTestRule.interact {
+                runBlocking {
+                    columnState.state.scrollToItem(999, 0)
+                }
+            }
+
+            screenshotTestRule.takeScreenshot()
+        }) {
+            columnState = rememberColumnState()
+
+            ResponsiveDialogContent(
+                title = {
+                    Text(
+                        text = "Turn on Bedtime mode?",
+                        color = MaterialTheme.colors.onBackground,
+                        textAlign = TextAlign.Center,
+                        maxLines = 3,
+                    )
+                },
+                onOkButtonClick = {},
+                onCancelButtonClick = {},
+                okButtonContentDescription = stringResource(R.string.ok),
+                cancelButtonContentDescription = stringResource(R.string.cancel),
+                state = columnState,
+            ) {
+                item {
+                    Text(
+                        text = "Watch screen, tilt-to-wake, and touch are turned off. " +
+                            "Only calls from starred contacts, repeat callers, " +
+                            "and alarms will notify you.",
+                        textAlign = TextAlign.Left,
+                    )
+                }
+                item {
+                    ToggleChip(
+                        checked = false,
+                        onCheckedChanged = {},
+                        label = "Don't show again",
+                        toggleControl = ToggleChipToggleControl.Checkbox,
+                    )
+                }
             }
         }
     }

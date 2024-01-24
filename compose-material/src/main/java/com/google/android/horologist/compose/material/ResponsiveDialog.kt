@@ -88,7 +88,7 @@ public fun ResponsiveDialogContent(
                         CompositionLocalProvider(
                             LocalTextStyle provides MaterialTheme.typography.title3,
                         ) {
-                            // Compute the actual padding needed to get and extra 8.84% extra,
+                            // Compute the actual padding needed to get an extra 8.84%,
                             // inside of the global 5.2% padding
                             val extraPadding = 8.84f / (100f - 2f * 5.2f)
                             Box(

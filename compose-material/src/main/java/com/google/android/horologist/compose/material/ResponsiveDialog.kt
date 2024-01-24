@@ -52,6 +52,7 @@ public fun ResponsiveDialogContent(
     modifier: Modifier = Modifier,
     icon: @Composable (() -> Unit)? = null,
     title: @Composable (() -> Unit)? = null,
+    message: @Composable (() -> Unit)? = null,
     onOkButtonClick: (() -> Unit)? = null,
     onCancelButtonClick: (() -> Unit)? = null,
     okButtonContentDescription: String = stringResource(R.string.ok),
@@ -87,20 +88,34 @@ public fun ResponsiveDialogContent(
                         CompositionLocalProvider(
                             LocalTextStyle provides MaterialTheme.typography.title3,
                         ) {
-                            SidePaddingExtraPct(
-                                8.84f,
-                                Modifier.padding(bottom = 8.dp), // 12.dp bellow icon
+                            // Compute the actual padding needed to get an extra 8.84%,
+                            // inside of the global 5.2% padding
+                            val extraPadding = 8.84f / (100f - 2f * 5.2f)
+                            Box(
+                                Modifier
+                                    .fillMaxWidth(1f - 2f * extraPadding)
+                                    .padding(bottom = 8.dp), // 12.dp below icon
                             ) { it() }
                         }
                     }
                 }
-                content?.let {
-                    if (icon == null && title == null) {
-                        // Ensure the content is visible when there is nothing above it.
-                        item {
-                            Spacer(Modifier.height(20.dp))
-                        }
+                if (icon == null && title == null) {
+                    // Ensure the content is visible when there is nothing above it.
+                    item {
+                        Spacer(Modifier.height(20.dp))
                     }
+                }
+                message?.let {
+                    item {
+                        // Compute the actual padding needed to get an extra 4.16%,
+                        // inside of the global 5.2% padding
+                        val extraPadding = 4.16f / (100f - 2f * 5.2f)
+                        Box(
+                            Modifier.fillMaxWidth(1f - 2f * extraPadding),
+                        ) { it() }
+                    }
+                }
+                content?.let {
                     it()
                 }
                 if (onOkButtonClick != null || onCancelButtonClick != null) {
@@ -108,7 +123,9 @@ public fun ResponsiveDialogContent(
                         Row(
                             Modifier
                                 .fillMaxWidth()
-                                .padding(top = if (content != null) 12.dp else 0.dp),
+                                .padding(
+                                    top = if (content != null || message != null) 12.dp else 0.dp,
+                                ),
                             horizontalArrangement = spacedBy(
                                 4.dp,
                                 Alignment.CenterHorizontally,
@@ -135,34 +152,5 @@ public fun ResponsiveDialogContent(
                 }
             }
         }
-    }
-}
-
-/**
- * Surrounds a composable with padding at the start and end, expressed as a percentage of the
- * available width.
- *
- * @param paddingPct how much padding to add to each side, expressed as a percentage.
- * @param basePaddingPct how much padding has already being applied (expressed as a percentage).
- * This is used to simplify calculations when multiple nested padding need to be applied.
- * @param content the content to show inside the padding.
- */
-@ExperimentalHorologistApi
-@Composable
-internal fun SidePaddingExtraPct(
-    paddingPct: Float,
-    modifier: Modifier = Modifier,
-    basePaddingPct: Float = 5.2f,
-    content: @Composable () -> Unit,
-) {
-    val extraPadding = paddingPct / (100f - 2 * basePaddingPct)
-    Row(
-        modifier.fillMaxWidth(),
-    ) {
-        Spacer(Modifier.weight(extraPadding))
-        Box(Modifier.weight(1f - 2 * extraPadding)) {
-            content()
-        }
-        Spacer(Modifier.weight(extraPadding))
     }
 }

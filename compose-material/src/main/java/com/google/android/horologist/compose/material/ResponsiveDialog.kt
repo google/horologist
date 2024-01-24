@@ -111,7 +111,7 @@ public fun ResponsiveDialogContent(
                         // inside of the global 5.2% padding
                         val extraPadding = 4.16f / (100f - 2f * 5.2f)
                         Box(
-                            Modifier.fillMaxWidth(1f - 2f * extraPadding)
+                            Modifier.fillMaxWidth(1f - 2f * extraPadding),
                         ) { it() }
                     }
                 }
@@ -124,7 +124,7 @@ public fun ResponsiveDialogContent(
                             Modifier
                                 .fillMaxWidth()
                                 .padding(
-                                    top = if (content != null || message != null) 12.dp else 0.dp
+                                    top = if (content != null || message != null) 12.dp else 0.dp,
                                 ),
                             horizontalArrangement = spacedBy(
                                 4.dp,

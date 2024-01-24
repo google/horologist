@@ -39,7 +39,7 @@ import org.junit.Test
 
 class DialogTest(device: Device) : ScreenSizeTest(
     device = device,
-    showTimeText = false
+    showTimeText = false,
 ) {
 
     @Composable

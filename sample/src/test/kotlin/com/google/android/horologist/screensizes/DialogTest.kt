@@ -31,7 +31,6 @@ import org.junit.Test
 class DialogTest(device: Device) : ScreenSizeTest(
     device = device,
     showTimeText = false,
-    recordMode = ScreenshotTestRule.RecordMode.Record
 ) {
 
     @Composable

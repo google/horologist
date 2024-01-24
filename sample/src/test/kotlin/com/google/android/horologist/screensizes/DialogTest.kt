@@ -103,7 +103,6 @@ class DialogTest(device: Device) : ScreenSizeTest(
                         color = MaterialTheme.colors.onBackground,
                         textAlign = TextAlign.Center,
                         maxLines = 3,
-                        style = MaterialTheme.typography.title3,
                     )
                 },
                 onOkButtonClick = {},

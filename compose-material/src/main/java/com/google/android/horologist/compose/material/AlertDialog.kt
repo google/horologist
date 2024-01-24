@@ -89,6 +89,7 @@ public fun AlertContent(
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 maxLines = 3,
+                style = MaterialTheme.typography.title3,
             )
         },
         onOkButtonClick = onOKButtonClick,
@@ -103,6 +104,7 @@ public fun AlertContent(
                 text = body,
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.body2,
             )
         }
     }

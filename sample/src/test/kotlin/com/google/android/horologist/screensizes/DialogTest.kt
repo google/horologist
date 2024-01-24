@@ -39,7 +39,7 @@ import org.junit.Test
 
 class DialogTest(device: Device) : ScreenSizeTest(
     device = device,
-    showTimeText = false,
+    showTimeText = false
 ) {
 
     @Composable
@@ -49,7 +49,7 @@ class DialogTest(device: Device) : ScreenSizeTest(
             title = "Phone app is required",
             onCancelButtonClick = {},
             onOKButtonClick = {},
-            body = "Tap the button below to install it on your phone.",
+            message = "Tap the button below to install it on your phone.",
         )
     }
 

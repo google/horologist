@@ -42,7 +42,7 @@ public fun AlertDialog(
     onOKButtonClick: () -> Unit,
     showDialog: Boolean,
     modifier: Modifier = Modifier,
-    title: String = "",
+    title: String? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
     columnState: ScalingLazyColumnState = rememberColumnState(
@@ -57,7 +57,7 @@ public fun AlertDialog(
     ) {
         AlertContent(
             title = title,
-            body = message,
+            message = message,
             onCancelButtonClick = onCancelButtonClick,
             onOKButtonClick = onOKButtonClick,
             okButtonContentDescription = okButtonContentDescription,
@@ -71,10 +71,10 @@ public fun AlertDialog(
 @ExperimentalHorologistApi
 @Composable
 public fun AlertContent(
-    body: String,
+    message: String,
     onCancelButtonClick: (() -> Unit)?,
     onOKButtonClick: (() -> Unit)?,
-    title: String = "",
+    title: String? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
     columnState: ScalingLazyColumnState = rememberColumnState(
@@ -83,13 +83,22 @@ public fun AlertContent(
     showPositionIndicator: Boolean = true,
 ) {
     ResponsiveDialogContent(
-        title = {
+        title = title?.let {
+            {
+                Text(
+                    text = it,
+                    color = MaterialTheme.colors.onBackground,
+                    textAlign = TextAlign.Center,
+                    maxLines = 3
+                )
+            }
+        },
+        message = {
             Text(
-                text = title,
+                text = message,
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
-                maxLines = 3,
-                style = MaterialTheme.typography.title3,
+                maxLines = 3
             )
         },
         onOkButtonClick = onOKButtonClick,
@@ -98,14 +107,5 @@ public fun AlertContent(
         cancelButtonContentDescription = cancelButtonContentDescription,
         state = columnState,
         showPositionIndicator = showPositionIndicator,
-    ) {
-        item {
-            Text(
-                text = body,
-                color = MaterialTheme.colors.onBackground,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2,
-            )
-        }
-    }
+    )
 }

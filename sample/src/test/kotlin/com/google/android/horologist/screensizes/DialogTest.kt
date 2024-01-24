@@ -25,7 +25,6 @@ import androidx.wear.compose.material.dialog.Alert
 import com.google.android.horologist.compose.material.AlertContent
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.tools.Device
-import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
 class DialogTest(device: Device) : ScreenSizeTest(
@@ -48,20 +47,23 @@ class DialogTest(device: Device) : ScreenSizeTest(
     fun wearMaterial() {
         // androidx.wear.compose.material.dialog.Alert with no formatting
         runTest {
-            Alert(title = { Text("Phone app is required") },
+            Alert(
+                title = { Text("Phone app is required") },
                 negativeButton = {
                     Button(
                         imageVector = Icons.Default.Close,
                         contentDescription = "",
                         onClick = {},
                     )
-                }, positiveButton = {
-                Button(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "",
-                    onClick = { },
-                )
-            }) {
+                },
+                positiveButton = {
+                    Button(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = "",
+                        onClick = { },
+                    )
+                },
+            ) {
                 Text(
                     text = "Tap the button below to install it on your phone.",
                 )

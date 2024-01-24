@@ -41,7 +41,7 @@ import org.junit.Test
 class DialogTest(device: Device) : ScreenSizeTest(
     device = device,
     showTimeText = false,
-    recordMode = ScreenshotTestRule.RecordMode.Record
+    recordMode = ScreenshotTestRule.RecordMode.Record,
 ) {
 
     @Composable
@@ -127,7 +127,7 @@ class DialogTest(device: Device) : ScreenSizeTest(
                         checked = false,
                         onCheckedChanged = {},
                         label = "Don't show again",
-                        toggleControl = ToggleChipToggleControl.Checkbox
+                        toggleControl = ToggleChipToggleControl.Checkbox,
                     )
                 }
             }

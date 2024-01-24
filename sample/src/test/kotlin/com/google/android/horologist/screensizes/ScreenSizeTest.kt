@@ -63,7 +63,7 @@ abstract class ScreenSizeTest(
         runTest { Content() }
     }
 
-    fun runTest(content: @Composable () -> Unit) {
+    fun runTest(testFn: () -> Unit = {}, content: @Composable () -> Unit) {
         val shadowDisplay = Shadows.shadowOf(ShadowDisplay.getDefaultDisplay())
         shadowDisplay.setDensity(device.density)
         shadowDisplay.setHeight(device.screenSizePx)
@@ -82,6 +82,8 @@ abstract class ScreenSizeTest(
                 content = content,
             )
         }
+
+        testFn()
     }
 
     companion object {

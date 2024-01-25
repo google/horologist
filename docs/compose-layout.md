@@ -17,6 +17,8 @@ with `responsive()` will handle all the following:
 - Size side margins based on a percentage, adapting to different screen sizes.
 
 ```kotlin
+import com.google.android.horologist.compose.material.Chip
+
 val columnState =
     rememberColumnState(ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = false))
 
@@ -41,10 +43,7 @@ Scaffold(
             }
         }
         items(10) {
-            Chip(
-                label = { Text("Item $it") },
-                onClick = {}
-            )
+            Chip("Item $it", onClick = {})
         }
     }
 }

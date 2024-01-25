@@ -41,7 +41,10 @@ Scaffold(
             }
         }
         items(10) {
-            Chip("Item $it", onClick = {})
+            Chip(
+                label = { Text("Item $it") },
+                onClick = {}
+            )
         }
     }
 }

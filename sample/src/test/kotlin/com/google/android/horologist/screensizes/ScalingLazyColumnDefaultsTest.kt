@@ -32,10 +32,11 @@ import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
 class ScalingLazyColumnDefaultsTest(device: Device) :
-    ScreenSizeTest(device = device, showTimeText = false) {
+    ScreenSizeTest(device = device, showTimeText = false, recordMode = ScreenshotTestRule.RecordMode.Record) {
 
         @Composable
         override fun Content() {

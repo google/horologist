@@ -262,13 +262,6 @@ public class ScreenshotTestRule(
                     Scaffold(
                         modifier = Modifier
                             .fillMaxSize()
-                            .run {
-                                if (round) {
-                                    clip(CircleShape)
-                                } else {
-                                    this
-                                }
-                            }
                             .background(Color.Black),
                         timeText = {
                             timeText()

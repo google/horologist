@@ -53,6 +53,7 @@ abstract class ScreenSizeTest(
         }
         testLabel = device.name.lowercase().replace("\\W+".toRegex(), "")
         record = recordMode
+        clipMode = ScreenshotTestRule.ClipMode.None
     },
 ) {
     @Composable

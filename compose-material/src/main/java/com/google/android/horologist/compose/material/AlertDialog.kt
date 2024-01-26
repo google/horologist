@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Dialog
@@ -37,12 +38,13 @@ import com.google.android.horologist.compose.layout.rememberColumnState
 @ExperimentalHorologistApi
 @Composable
 public fun AlertDialog(
-    message: String,
     onCancelButtonClick: () -> Unit,
     onOKButtonClick: () -> Unit,
     showDialog: Boolean,
     modifier: Modifier = Modifier,
+    icon: @Composable (() -> Unit)? = null,
     title: String? = null,
+    message: String? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
     columnState: ScalingLazyColumnState = rememberColumnState(
@@ -56,6 +58,7 @@ public fun AlertDialog(
         scrollState = columnState.state,
     ) {
         AlertContent(
+            icon = icon,
             title = title,
             message = message,
             onCancelButtonClick = onCancelButtonClick,
@@ -71,10 +74,11 @@ public fun AlertDialog(
 @ExperimentalHorologistApi
 @Composable
 public fun AlertContent(
-    message: String,
     onCancelButtonClick: (() -> Unit)?,
     onOKButtonClick: (() -> Unit)?,
+    icon: @Composable (() -> Unit)? = null,
     title: String? = null,
+    message: String? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
     columnState: ScalingLazyColumnState = rememberColumnState(
@@ -83,7 +87,19 @@ public fun AlertContent(
     showPositionIndicator: Boolean = true,
 ) {
     ResponsiveDialogContent(
+        icon = icon,
         title = title?.let {
+            {
+                Text(
+                    text = it,
+                    color = MaterialTheme.colors.onBackground,
+                    textAlign = TextAlign.Center,
+                    maxLines = if (icon == null) 3 else 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        },
+        message = message?.let {
             {
                 Text(
                     text = it,
@@ -92,14 +108,6 @@ public fun AlertContent(
                     maxLines = 3,
                 )
             }
-        },
-        message = {
-            Text(
-                text = message,
-                color = MaterialTheme.colors.onBackground,
-                textAlign = TextAlign.Center,
-                maxLines = 3,
-            )
         },
         onOkButtonClick = onOKButtonClick,
         onCancelButtonClick = onCancelButtonClick,

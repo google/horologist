@@ -45,6 +45,7 @@ import com.google.android.horologist.materialcomponents.SampleButtonScreen
 import com.google.android.horologist.materialcomponents.SampleChipIconWithProgressScreen
 import com.google.android.horologist.materialcomponents.SampleChipScreen
 import com.google.android.horologist.materialcomponents.SampleCompactChipScreen
+import com.google.android.horologist.materialcomponents.SampleConfirmationLauncher
 import com.google.android.horologist.materialcomponents.SampleConfirmationScreen
 import com.google.android.horologist.materialcomponents.SampleIconScreen
 import com.google.android.horologist.materialcomponents.SampleOutlinedChipScreen
@@ -220,6 +221,13 @@ fun SampleWearApp() {
             ) {
                 ScreenScaffold(timeText = {}) {
                     SampleConfirmationScreen()
+                }
+            }
+            composable(
+                route = Screen.MaterialConfirmationLauncher.route,
+            ) {
+                ScreenScaffold(timeText = {}) {
+                    SampleConfirmationLauncher()
                 }
             }
             composable(

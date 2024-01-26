@@ -135,9 +135,16 @@ fun MenuScreen(
         }
         item {
             Chip(
-                label = stringResource(id = R.string.sample_material_confirmation_dialog),
+                label = stringResource(id = R.string.sample_material_confirmation_screen),
                 modifier = modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(Screen.MaterialConfirmationScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_confirmation_launcher),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialConfirmationLauncher.route) },
             )
         }
         item {

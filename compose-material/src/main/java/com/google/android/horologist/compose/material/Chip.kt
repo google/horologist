@@ -14,22 +14,32 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.google.android.horologist.compose.material
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -37,11 +47,13 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.LocalContentAlpha
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
+
 /**
  * This component is an alternative to [Chip], providing the following:
  * - a convenient way of providing a label and a secondary label;
@@ -54,6 +66,8 @@ public fun Chip(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
     secondaryLabel: String? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     icon: Paintable? = null,
@@ -97,6 +111,8 @@ public fun Chip(
     Chip(
         label = label,
         onClick = onClick,
+        onLongClick = onLongClick,
+        onDoubleClick = onDoubleClick,
         modifier = modifier,
         secondaryLabel = secondaryLabel,
         icon = iconParam,
@@ -118,6 +134,8 @@ public fun Chip(
     @StringRes labelId: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
     @StringRes secondaryLabel: Int? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     icon: Paintable? = null,
@@ -128,6 +146,8 @@ public fun Chip(
     Chip(
         label = stringResource(id = labelId),
         onClick = onClick,
+        onLongClick = onLongClick,
+        onDoubleClick = onDoubleClick,
         modifier = modifier,
         secondaryLabel = secondaryLabel?.let { stringResource(id = it) },
         icon = icon,
@@ -148,6 +168,8 @@ public fun Chip(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
     secondaryLabel: String? = null,
     icon: (@Composable BoxScope.() -> Unit)? = null,
     largeIcon: Boolean = false,
@@ -191,15 +213,33 @@ public fun Chip(
         ChipDefaults.ContentPadding
     }
 
-    Chip(
-        label = labelParam,
-        onClick = onClick,
-        modifier = modifier
-            .fillMaxWidth(),
-        secondaryLabel = secondaryLabelParam,
-        icon = icon,
-        colors = colors,
-        enabled = enabled,
-        contentPadding = contentPadding,
-    )
+    val interactionSource = remember { MutableInteractionSource() }
+
+    Box(modifier = modifier.fillMaxWidth().clip(MaterialTheme.shapes.large)) {
+        Chip(
+            label = labelParam,
+            onClick = onClick,
+            modifier = Modifier.fillMaxWidth(),
+            secondaryLabel = secondaryLabelParam,
+            icon = icon,
+            colors = colors,
+            enabled = enabled,
+            contentPadding = contentPadding,
+            interactionSource = interactionSource
+        )
+        Box(
+            modifier = Modifier
+                .defaultMinSize(minHeight = 52.dp)
+                .fillMaxSize()
+                .combinedClickable(
+                    interactionSource = interactionSource,
+                    indication = null, // From material Chip
+                    enabled = enabled,
+                    onClick = onClick,
+                    onLongClick = onLongClick,
+                    onDoubleClick = onDoubleClick,
+                    role = Role.Button,
+                )
+        )
+    }
 }

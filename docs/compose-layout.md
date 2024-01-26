@@ -1,5 +1,10 @@
 # Compose Layout library
 
+> [!IMPORTANT]
+> All the examples on this page make use of imports from Horologist's `compose-layout` and `compose-material`.
+> Add these dependencies and imports to ensure you are using the Horologist version of components with the same
+> name in Wear Compose, for example `Chip`.
+
 ## ScalingLazyColumn responsive() layout.
 
 The `responsive()` layout factory will ensure that your ScalingLazyColumn is positioned correctly
@@ -17,8 +22,6 @@ with `responsive()` will handle all the following:
 - Size side margins based on a percentage, adapting to different screen sizes.
 
 ```kotlin
-import com.google.android.horologist.compose.material.Chip
-
 val columnState =
     rememberColumnState(ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = false))
 

@@ -58,7 +58,9 @@ public fun Confirmation(
     title: String? = null,
     durationMillis: Long = DialogDefaults.ShortDurationMillis,
     columnState: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(),
+        ScalingLazyColumnDefaults.responsive(
+            verticalArrangement = DialogDefaults.ConfirmationVerticalArrangement,
+        ),
     ),
 ) {
     // Always refer to the latest inputs with which Confirmation was recomposed.
@@ -72,7 +74,7 @@ public fun Confirmation(
     ) ?: durationMillis
 
     LaunchedEffect(showDialog, a11yDurationMillis) {
-        if (showDialog == true) {
+        if (showDialog) {
             delay(a11yDurationMillis)
             currentOnDismissed()
         }
@@ -99,7 +101,9 @@ public fun ConfirmationContent(
     icon: @Composable (() -> Unit)? = null,
     title: String? = null,
     columnState: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(),
+        ScalingLazyColumnDefaults.responsive(
+            verticalArrangement = DialogDefaults.ConfirmationVerticalArrangement,
+        ),
     ),
     showPositionIndicator: Boolean = true,
 ) {

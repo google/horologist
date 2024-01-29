@@ -46,6 +46,7 @@
     <!-- App Helper Node Status card -->
     <string name="node_status_node_name_label">Node: %1$s</string>
     <string name="node_status_node_id_label">ID: %1$s</string>
+    <string name="node_status_node_is_nearby_label">Is nearby: %1$s</string>
     <string name="node_status_is_app_installed_label">App installed: %1$s</string>
     <string name="node_status_node_type_label">Type: %1$s</string>
     <string name="node_status_node_type_unknown_label">UNKNOWN (app not installed)</string>
@@ -63,6 +64,7 @@
     <string name="nodes_listener_screen_no_nodes">No nodes were found.</string>
     <string name="nodes_listener_screen_node_name_label">Name: %1$s</string>
     <string name="nodes_listener_screen_node_id_label">ID: %1$s</string>
+    <string name="nodes_listener_screen_node_is_nearby_label">Is nearby: %1$s</string>
 
     <!-- In-app prompt - Install App Demo 1 screen -->
     <string name="install_app_prompt_api_call_demo_message">This demo calls the Horologist API to show the install app prompt and the invocation of the deeplink to the Google Play by using the Gmail app as an example. The developer has to gather all the information to display on the prompt, such as app name and watch name to use the prompt in their app.</string>

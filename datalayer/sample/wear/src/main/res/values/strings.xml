@@ -75,6 +75,7 @@
     <string name="nodes_listener_screen_header">Nodes Listener</string>
     <string name="nodes_listener_screen_message">This screen shows all the connected nodes that have the app installed.\nOn the watch, there should be only a single connected node: the paired phone.\nThe list updates automatically.</string>
     <string name="nodes_listener_screen_no_nodes">No nodes were found.</string>
+    <string name="nodes_listener_screen_node_near_label">%1$s (NEAR)</string>
 
     <!--  Start Remote Sample Activity screen -->
     <string name="app_helper_start_remote_activity_message">This is a sample activity to demonstrate it being launched remotely from the phone.</string>

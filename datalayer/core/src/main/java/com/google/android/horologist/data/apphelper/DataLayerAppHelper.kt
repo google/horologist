@@ -88,6 +88,7 @@ abstract class DataLayerAppHelper(
             AppHelperNodeStatus(
                 id = it.id,
                 displayName = it.displayName,
+                isNearby = it.isNearby,
                 appInstallationStatus = appInstallationStatus,
                 surfacesInfo = getSurfaceStatus(it.id),
             )
@@ -123,9 +124,9 @@ abstract class DataLayerAppHelper(
 
         suspend fun listenAndSendChanges() {
             val listener: CapabilityClient.OnCapabilityChangedListener =
-                CapabilityClient.OnCapabilityChangedListener { capability ->
+                CapabilityClient.OnCapabilityChangedListener { capabilityInfo ->
                     @Suppress("UNUSED_VARIABLE")
-                    val unused = trySend(capability.nodes.toSet())
+                    val unused = trySend(capabilityInfo.nodes.toSet())
                 }
 
             registry.capabilityClient.addListener(listener, capability)

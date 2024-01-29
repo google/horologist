@@ -76,6 +76,10 @@ fun AppHelperNodeStatusCard(
                 )
                 Text(
                     style = MaterialTheme.typography.labelMedium,
+                    text = stringResource(R.string.node_status_node_is_nearby_label, nodeStatus.isNearby),
+                )
+                Text(
+                    style = MaterialTheme.typography.labelMedium,
                     text = stringResource(
                         R.string.node_status_is_app_installed_label,
                         nodeStatus.appInstalled,
@@ -180,6 +184,7 @@ fun NodeCardPreview() {
     val nodeStatus = AppHelperNodeStatus(
         displayName = "Pixel Watch",
         id = "a1b2c3",
+        isNearby = true,
         appInstallationStatus = AppInstallationStatus.Installed(
             nodeType = AppInstallationStatusNodeType.WATCH,
         ),

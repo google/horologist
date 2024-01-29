@@ -66,7 +66,6 @@ abstract class DataLayerAppHelper(
      */
     public suspend fun connectedNodes(): List<AppHelperNodeStatus> {
         val connectedNodes = registry.nodeClient.connectedNodes.await()
-        val nearbyNodes = connectedNodes.filter { it.isNearby }
         val capabilities =
             registry.capabilityClient.getAllCapabilities(CapabilityClient.FILTER_REACHABLE).await()
 
@@ -74,7 +73,7 @@ abstract class DataLayerAppHelper(
         val installedWatchNodes = capabilities[WATCH_CAPABILITY]?.nodes?.map { it.id } ?: setOf()
         val allInstalledNodes = installedPhoneNodes + installedWatchNodes
 
-        return nearbyNodes.map {
+        return connectedNodes.map {
             val appInstallationStatus = if (allInstalledNodes.contains(it.id)) {
                 val nodeType = when (it.id) {
                     in installedPhoneNodes -> AppInstallationStatusNodeType.PHONE
@@ -89,6 +88,7 @@ abstract class DataLayerAppHelper(
             AppHelperNodeStatus(
                 id = it.id,
                 displayName = it.displayName,
+                isNearby = it.isNearby,
                 appInstallationStatus = appInstallationStatus,
                 surfacesInfo = getSurfaceStatus(it.id),
             )
@@ -118,17 +118,15 @@ abstract class DataLayerAppHelper(
                 CapabilityClient.FILTER_REACHABLE,
             ).await()
 
-            val nearbyNodes = capabilityInfo.nodes.filter { it.isNearby }.toSet()
-
             @Suppress("UNUSED_VARIABLE")
-            val unused = trySend(nearbyNodes)
+            val unused = trySend(capabilityInfo.nodes.toSet())
         }
 
         suspend fun listenAndSendChanges() {
             val listener: CapabilityClient.OnCapabilityChangedListener =
-                CapabilityClient.OnCapabilityChangedListener { capability ->
+                CapabilityClient.OnCapabilityChangedListener { capabilityInfo ->
                     @Suppress("UNUSED_VARIABLE")
-                    val unused = trySend(capability.nodes.filter { it.isNearby }.toSet())
+                    val unused = trySend(capabilityInfo.nodes.toSet())
                 }
 
             registry.capabilityClient.addListener(listener, capability)

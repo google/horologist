@@ -19,7 +19,6 @@ package com.google.android.horologist.datalayer.sample.screens.nodeslistener
 import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.wearable.Node
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -59,8 +58,10 @@ class NodesListenerViewModel
         private suspend fun loadNodes() {
             _uiState.value = NodesListenerScreenState.Loading
 
-            phoneDataLayerAppHelper.connectedAndInstalledNodes.collect {
-                _uiState.value = NodesListenerScreenState.Loaded(nodeList = it)
+            phoneDataLayerAppHelper.connectedAndInstalledNodes.collect { nodes ->
+                _uiState.value = NodesListenerScreenState.Loaded(
+                    nodeList = nodes.mapTo(mutableSetOf()) { it.toNodesUIMapper() },
+                )
             }
         }
     }
@@ -70,7 +71,7 @@ sealed class NodesListenerScreenState {
 
     data object Loading : NodesListenerScreenState()
 
-    data class Loaded(val nodeList: Set<Node>) : NodesListenerScreenState()
+    data class Loaded(val nodeList: Set<NodeUiModel>) : NodesListenerScreenState()
 
     data object ApiNotAvailable : NodesListenerScreenState()
 }

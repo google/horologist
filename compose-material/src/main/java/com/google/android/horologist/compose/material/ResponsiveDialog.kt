@@ -53,8 +53,8 @@ public fun ResponsiveDialogContent(
     icon: @Composable (() -> Unit)? = null,
     title: @Composable (() -> Unit)? = null,
     message: @Composable (() -> Unit)? = null,
-    onOkButtonClick: (() -> Unit)? = null,
-    onCancelButtonClick: (() -> Unit)? = null,
+    onOk: (() -> Unit)? = null,
+    onCancel: (() -> Unit)? = null,
     okButtonContentDescription: String = stringResource(R.string.ok),
     cancelButtonContentDescription: String = stringResource(R.string.cancel),
     state: ScalingLazyColumnState =
@@ -119,7 +119,7 @@ public fun ResponsiveDialogContent(
                 content?.let {
                     it()
                 }
-                if (onOkButtonClick != null || onCancelButtonClick != null) {
+                if (onOk != null || onCancel != null) {
                     item {
                         Row(
                             Modifier
@@ -133,7 +133,7 @@ public fun ResponsiveDialogContent(
                             ),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            onCancelButtonClick?.let {
+                            onCancel?.let {
                                 Button(
                                     imageVector = Icons.Default.Close,
                                     contentDescription = cancelButtonContentDescription,
@@ -141,11 +141,11 @@ public fun ResponsiveDialogContent(
                                     colors = ButtonDefaults.secondaryButtonColors(),
                                 )
                             }
-                            onOkButtonClick?.let {
+                            onOk?.let {
                                 Button(
                                     imageVector = Icons.Default.Check,
                                     contentDescription = okButtonContentDescription,
-                                    onClick = onOkButtonClick,
+                                    onClick = onOk,
                                 )
                             }
                         }

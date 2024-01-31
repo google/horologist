@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Dialog
@@ -32,41 +33,81 @@ import com.google.android.horologist.compose.layout.rememberColumnState
 /**
  * This component is an alternative to [AlertContent], providing the following:
  * - a convenient way of passing a title and a message;
+ * - additional content can be specified between the message and the buttons
  * - default positive and negative buttons;
  * - wrapped in a [Dialog];
  */
 @ExperimentalHorologistApi
 @Composable
 public fun AlertDialog(
-    onCancelButtonClick: () -> Unit,
-    onOKButtonClick: () -> Unit,
     showDialog: Boolean,
+    onCancel: () -> Unit,
+    onOk: () -> Unit,
     modifier: Modifier = Modifier,
     icon: @Composable (() -> Unit)? = null,
     title: String? = null,
     message: String? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    columnState: ScalingLazyColumnState = rememberColumnState(
+    state: ScalingLazyColumnState = rememberColumnState(
         ScalingLazyColumnDefaults.responsive(),
     ),
+    content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
     Dialog(
         showDialog = showDialog,
-        onDismissRequest = onCancelButtonClick,
+        onDismissRequest = onCancel,
         modifier = modifier,
-        scrollState = columnState.state,
+        scrollState = state.state,
     ) {
         AlertContent(
             icon = icon,
             title = title,
             message = message,
-            onCancelButtonClick = onCancelButtonClick,
-            onOKButtonClick = onOKButtonClick,
+            content = content,
+            onCancel = onCancel,
+            onOk = onOk,
             okButtonContentDescription = okButtonContentDescription,
             cancelButtonContentDescription = cancelButtonContentDescription,
-            columnState = columnState,
+            state = state,
             showPositionIndicator = false,
+        )
+    }
+}
+
+/**
+ * This component is an alternative to [AlertContent], providing the following:
+ * - a convenient way of passing a title and a message;
+ * - slot for scrollable content (including stack of Chips for options);
+ * - wrapped in a [Dialog];
+ */
+@ExperimentalHorologistApi
+@Composable
+public fun AlertDialog(
+    showDialog: Boolean,
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier,
+    icon: @Composable (() -> Unit)? = null,
+    title: String? = null,
+    message: String? = null,
+    state: ScalingLazyColumnState = rememberColumnState(
+        ScalingLazyColumnDefaults.responsive(),
+    ),
+    content: (ScalingLazyListScope.() -> Unit)? = null,
+) {
+    Dialog(
+        showDialog = showDialog,
+        onDismissRequest = onDismiss,
+        modifier = modifier,
+        scrollState = state.state,
+    ) {
+        AlertContent(
+            icon = icon,
+            title = title,
+            message = message,
+            content = content,
+            state = state,
+            showPositionIndicator = true,
         )
     }
 }
@@ -74,17 +115,18 @@ public fun AlertDialog(
 @ExperimentalHorologistApi
 @Composable
 public fun AlertContent(
-    onCancelButtonClick: (() -> Unit)?,
-    onOKButtonClick: (() -> Unit)?,
+    onCancel: (() -> Unit)? = null,
+    onOk: (() -> Unit)? = null,
     icon: @Composable (() -> Unit)? = null,
     title: String? = null,
     message: String? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    columnState: ScalingLazyColumnState = rememberColumnState(
+    state: ScalingLazyColumnState = rememberColumnState(
         ScalingLazyColumnDefaults.responsive(),
     ),
     showPositionIndicator: Boolean = true,
+    content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
     ResponsiveDialogContent(
         icon = icon,
@@ -104,16 +146,16 @@ public fun AlertContent(
                 Text(
                     text = it,
                     color = MaterialTheme.colors.onBackground,
-                    textAlign = TextAlign.Center,
-                    maxLines = 3,
+                    textAlign = TextAlign.Start,
                 )
             }
         },
-        onOkButtonClick = onOKButtonClick,
-        onCancelButtonClick = onCancelButtonClick,
+        content = content,
+        onOk = onOk,
+        onCancel = onCancel,
         okButtonContentDescription = okButtonContentDescription,
         cancelButtonContentDescription = cancelButtonContentDescription,
-        state = columnState,
+        state = state,
         showPositionIndicator = showPositionIndicator,
     )
 }

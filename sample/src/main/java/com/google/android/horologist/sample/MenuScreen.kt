@@ -107,6 +107,13 @@ fun MenuScreen(
         }
         item {
             Chip(
+                label = stringResource(id = R.string.sample_material_alert_dialog),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialAlertDialog.route) },
+            )
+        }
+        item {
+            Chip(
                 label = stringResource(id = R.string.sample_material_buttons),
                 modifier = modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(Screen.MaterialButtonsScreen.route) },

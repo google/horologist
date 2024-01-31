@@ -39,7 +39,6 @@ import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.material.AlertContent
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.ConfirmationContent
-import com.google.android.horologist.compose.material.ResponsiveDialogContent
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
 import com.google.android.horologist.compose.tools.Device
@@ -56,8 +55,8 @@ class DialogTest(device: Device) : ScreenSizeTest(
         // horologist AlertContent using ResponsiveDialogContent
         AlertContent(
             title = "Phone app is required",
-            onCancelButtonClick = {},
-            onOKButtonClick = {},
+            onCancel = {},
+            onOk = {},
             message = "Tap the button below to install it on your phone.",
         )
     }
@@ -105,29 +104,17 @@ class DialogTest(device: Device) : ScreenSizeTest(
         }) {
             columnState = rememberColumnState()
 
-            ResponsiveDialogContent(
-                title = {
-                    Text(
-                        text = "Turn on Bedtime mode?",
-                        color = MaterialTheme.colors.onBackground,
-                        textAlign = TextAlign.Center,
-                        maxLines = 3,
-                    )
-                },
-                onOkButtonClick = {},
-                onCancelButtonClick = {},
+            AlertContent(
+                title = "Turn on Bedtime mode?",
+                message = "Watch screen, tilt-to-wake, and touch are turned off. " +
+                    "Only calls from starred contacts, repeat callers, " +
+                    "and alarms will notify you.",
+                onOk = {},
+                onCancel = {},
                 okButtonContentDescription = stringResource(R.string.ok),
                 cancelButtonContentDescription = stringResource(R.string.cancel),
                 state = columnState,
             ) {
-                item {
-                    Text(
-                        text = "Watch screen, tilt-to-wake, and touch are turned off. " +
-                            "Only calls from starred contacts, repeat callers, " +
-                            "and alarms will notify you.",
-                        textAlign = TextAlign.Left,
-                    )
-                }
                 item {
                     ToggleChip(
                         checked = false,
@@ -155,30 +142,17 @@ class DialogTest(device: Device) : ScreenSizeTest(
         }) {
             columnState = rememberColumnState()
 
-            ResponsiveDialogContent(
+            AlertContent(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Info,
                         contentDescription = "Info",
                     )
                 },
-                title = {
-                    Text(
-                        text = "Enable Battery Saver Mode?",
-                        color = MaterialTheme.colors.onBackground,
-                        textAlign = TextAlign.Center,
-                        maxLines = 3,
-                    )
-                },
-                message = {
-                    Text(
-                        text = "Your battery is low." +
-                            "turn on battery saver.",
-                        textAlign = TextAlign.Center,
-                    )
-                },
-                onOkButtonClick = {},
-                onCancelButtonClick = {},
+                title = "Enable Battery Saver Mode?",
+                message = "Your battery is low. Turn on battery saver.",
+                onOk = {},
+                onCancel = {},
                 okButtonContentDescription = stringResource(R.string.ok),
                 cancelButtonContentDescription = stringResource(R.string.cancel),
                 state = columnState,
@@ -215,8 +189,8 @@ class DialogTest(device: Device) : ScreenSizeTest(
         runTest {
             AlertContent(
                 title = "Text only dialogs can use up to 3 lines of text in this layout",
-                onCancelButtonClick = {},
-                onOKButtonClick = {},
+                onCancel = {},
+                onOk = {},
             )
         }
     }
@@ -232,8 +206,8 @@ class DialogTest(device: Device) : ScreenSizeTest(
                     )
                 },
                 title = "Icon dialogs can use up to 2 lines of text",
-                onCancelButtonClick = {},
-                onOKButtonClick = {},
+                onCancel = {},
+                onOk = {},
             )
         }
     }

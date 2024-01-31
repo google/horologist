@@ -141,10 +141,10 @@ fun UampEntityScreen(
 
     AlertDialog(
         message = stringResource(R.string.entity_dialog_cancel_downloads),
-        onCancelButtonClick = {
+        onCancel = {
             showCancelDownloadsDialog = false
         },
-        onOKButtonClick = {
+        onOk = {
             showCancelDownloadsDialog = false
             uampEntityScreenViewModel.remove()
         },
@@ -155,10 +155,10 @@ fun UampEntityScreen(
 
     AlertDialog(
         message = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
-        onCancelButtonClick = {
+        onCancel = {
             showRemoveDownloadsDialog = false
         },
-        onOKButtonClick = {
+        onOk = {
             showRemoveDownloadsDialog = false
             uampEntityScreenViewModel.remove()
         },
@@ -169,10 +169,10 @@ fun UampEntityScreen(
 
     AlertDialog(
         message = stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete),
-        onCancelButtonClick = {
+        onCancel = {
             showRemoveSingleMediaDownloadDialog = false
         },
-        onOKButtonClick = {
+        onOk = {
             showRemoveSingleMediaDownloadDialog = false
             mediaIdToDelete?.let { uampEntityScreenViewModel.removeMediaItem(it) }
         },

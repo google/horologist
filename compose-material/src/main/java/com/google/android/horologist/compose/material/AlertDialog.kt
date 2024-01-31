@@ -146,7 +146,7 @@ public fun AlertContent(
                 Text(
                     text = it,
                     color = MaterialTheme.colors.onBackground,
-                    textAlign = TextAlign.Start,
+                    textAlign = TextAlign.Center,
                 )
             }
         },

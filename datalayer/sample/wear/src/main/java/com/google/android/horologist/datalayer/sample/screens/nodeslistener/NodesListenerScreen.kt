@@ -30,7 +30,6 @@ import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.gms.wearable.Node
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
@@ -91,10 +90,16 @@ fun NodesListenerScreen(
 
                 if (state.nodeList.isNotEmpty()) {
                     items(state.nodeList.toList()) { node ->
+                        val secondaryLabel = if (node.isNearby) {
+                            stringResource(id = R.string.nodes_listener_screen_node_near_label, node.id)
+                        } else {
+                            node.id
+                        }
+
                         Chip(
                             label = node.displayName,
                             onClick = { /* do nothing */ },
-                            secondaryLabel = node.id,
+                            secondaryLabel = secondaryLabel,
                         )
                     }
                 } else {
@@ -119,14 +124,14 @@ fun NodesListenerScreenPreviewLoaded() {
     NodesListenerScreen(
         state = NodesListenerScreenState.Loaded(
             nodeList = setOf(
-                NodePreviewImpl(
-                    displayName = "Google Pixel Watch",
+                NodeUiModel(
                     id = "903b8371",
+                    displayName = "Google Pixel Watch",
                     isNearby = true,
                 ),
-                NodePreviewImpl(
-                    displayName = "Galaxy Watch4 Classic",
+                NodeUiModel(
                     id = "813d1812",
+                    displayName = "Galaxy Watch4 Classic",
                     isNearby = false,
                 ),
             ),
@@ -151,16 +156,4 @@ fun NodesListenerScreenPreviewApiNotAvailable() {
         state = NodesListenerScreenState.ApiNotAvailable,
         columnState = belowTimeTextPreview(),
     )
-}
-
-private class NodePreviewImpl(
-    private val displayName: String,
-    private val id: String,
-    private val isNearby: Boolean,
-) : Node {
-    override fun getDisplayName(): String = displayName
-
-    override fun getId(): String = id
-
-    override fun isNearby(): Boolean = isNearby
 }

@@ -25,6 +25,7 @@ import com.google.android.horologist.data.SurfacesInfo
 public data class AppHelperNodeStatus(
     val id: String,
     val displayName: String,
+    val isNearby: Boolean,
     val appInstallationStatus: AppInstallationStatus,
     val surfacesInfo: SurfacesInfo = SurfacesInfo.getDefaultInstance(),
 )

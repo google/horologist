@@ -37,7 +37,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.gms.wearable.Node
 import com.google.android.horologist.datalayer.sample.R
 
 @Composable
@@ -124,6 +123,13 @@ fun NodesListenerScreen(
                                             node.id,
                                         ),
                                     )
+                                    Text(
+                                        style = MaterialTheme.typography.labelMedium,
+                                        text = stringResource(
+                                            R.string.nodes_listener_screen_node_is_nearby_label,
+                                            node.isNearby,
+                                        ),
+                                    )
                                 }
                             }
                         }
@@ -150,14 +156,14 @@ fun NodesListenerScreenPreview() {
     NodesListenerScreen(
         state = NodesListenerScreenState.Loaded(
             nodeList = setOf(
-                NodePreviewImpl(
-                    displayName = "Google Pixel Watch",
+                NodeUiModel(
                     id = "903b8371",
+                    displayName = "Google Pixel Watch",
                     isNearby = true,
                 ),
-                NodePreviewImpl(
-                    displayName = "Galaxy Watch4 Classic",
+                NodeUiModel(
                     id = "813d1812",
+                    displayName = "Galaxy Watch4 Classic",
                     isNearby = false,
                 ),
             ),
@@ -179,16 +185,4 @@ fun NodesListenerScreenPreviewEmptyNodes() {
 @Composable
 fun NodesListenerScreenPreviewApiNotAvailable() {
     NodesListenerScreen(state = NodesListenerScreenState.ApiNotAvailable)
-}
-
-private class NodePreviewImpl(
-    private val displayName: String,
-    private val id: String,
-    private val isNearby: Boolean,
-) : Node {
-    override fun getDisplayName(): String = displayName
-
-    override fun getId(): String = id
-
-    override fun isNearby(): Boolean = isNearby
 }

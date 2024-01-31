@@ -93,19 +93,22 @@ package com.google.android.horologist.data {
 package com.google.android.horologist.data.apphelper {
 
   public final class AppHelperNodeStatus {
-    ctor public AppHelperNodeStatus(String id, String displayName, com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, optional error.NonExistentClass surfacesInfo);
+    ctor public AppHelperNodeStatus(String id, String displayName, boolean isNearby, com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, optional error.NonExistentClass surfacesInfo);
     method public String component1();
     method public String component2();
-    method public com.google.android.horologist.data.apphelper.AppInstallationStatus component3();
-    method public error.NonExistentClass! component4();
-    method public com.google.android.horologist.data.apphelper.AppHelperNodeStatus copy(String id, String displayName, com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, error.NonExistentClass! surfacesInfo);
+    method public boolean component3();
+    method public com.google.android.horologist.data.apphelper.AppInstallationStatus component4();
+    method public error.NonExistentClass! component5();
+    method public com.google.android.horologist.data.apphelper.AppHelperNodeStatus copy(String id, String displayName, boolean isNearby, com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, error.NonExistentClass! surfacesInfo);
     method public com.google.android.horologist.data.apphelper.AppInstallationStatus getAppInstallationStatus();
     method public String getDisplayName();
     method public String getId();
     method public error.NonExistentClass! getSurfacesInfo();
+    method public boolean isNearby();
     property public final com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus;
     property public final String displayName;
     property public final String id;
+    property public final boolean isNearby;
     property public final error.NonExistentClass! surfacesInfo;
   }
 

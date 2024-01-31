@@ -16,13 +16,7 @@
 
 package com.google.android.horologist.materialcomponents
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Help
 import androidx.compose.runtime.Composable
@@ -30,47 +24,77 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.AlertDialog
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
 
 @Composable
-internal fun SampleAlertDialog() {
+internal fun SampleAlertDialog(
+    modifier: Modifier = Modifier,
+    columnState: ScalingLazyColumnState,
+) {
+    var showSimpleDialog by remember { mutableStateOf(false) }
     var showBedtimeModeDialog by remember { mutableStateOf(false) }
     var showAllowDebuggingDialog by remember { mutableStateOf(false) }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 10.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+    ScalingLazyColumn(
+        columnState = columnState,
+        modifier = modifier,
     ) {
-        ListHeader {
-            Text("AlertDialog samples")
+        item {
+            ListHeader {
+                Text("AlertDialog samples")
+            }
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Chip(
-            onClick = { showBedtimeModeDialog = true },
-            label = { Text("Bedtime Mode") },
-            colors = ChipDefaults.secondaryChipColors(),
-            modifier = Modifier.fillMaxWidth(),
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Chip(
-            onClick = { showAllowDebuggingDialog = true },
-            label = { Text("Allow debugging") },
-            colors = ChipDefaults.secondaryChipColors(),
-            modifier = Modifier.fillMaxWidth(),
-        )
+        item {
+            Chip(
+                onClick = { showSimpleDialog = true },
+                label = { Text("Simple alert") },
+                colors = ChipDefaults.secondaryChipColors(),
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+        item {
+            Chip(
+                onClick = { showBedtimeModeDialog = true },
+                label = { Text("Bedtime Mode") },
+                colors = ChipDefaults.secondaryChipColors(),
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+        item {
+            Chip(
+                onClick = { showAllowDebuggingDialog = true },
+                label = { Text("Allow debugging") },
+                colors = ChipDefaults.secondaryChipColors(),
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
     }
+
+    // Simple AlertDialog sample with icon, title and Ok/Cancel buttons.
+    AlertDialog(
+        showDialog = showSimpleDialog,
+        onCancel = { showSimpleDialog = false },
+        onOk = { showSimpleDialog = false },
+        icon = {
+            Icon(
+                imageVector = Icons.AutoMirrored.Outlined.Help,
+                contentDescription = "Question",
+            )
+        },
+        title = "A Simple Dialog",
+        message = "Icon and Text dialog use up to 2 lines.",
+    )
+
+    // "Bedtime mode" AlertDialog sample, with Ok/Cancel buttons and extra content.
     var bedtimeMode by remember { mutableStateOf(false) }
     AlertDialog(
         onCancel = { showBedtimeModeDialog = false },
@@ -91,6 +115,8 @@ internal fun SampleAlertDialog() {
             }
         },
     )
+
+    // "Allow debugging?" AlertDialog sample, with a vertical stack of Chip choices.
     AlertDialog(
         showDialog = showAllowDebuggingDialog,
         onDismiss = { showAllowDebuggingDialog = false },

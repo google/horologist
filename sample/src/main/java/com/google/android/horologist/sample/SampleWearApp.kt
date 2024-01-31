@@ -184,8 +184,10 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialAlertDialog.route,
             ) {
-                ScreenScaffold(timeText = {}) {
-                    SampleAlertDialog()
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(timeText = {}, scrollState = columnState) {
+                    SampleAlertDialog(columnState = columnState)
                 }
             }
             composable(

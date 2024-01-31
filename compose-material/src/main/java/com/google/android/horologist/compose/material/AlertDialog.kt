@@ -16,12 +16,20 @@
 
 package com.google.android.horologist.compose.material
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
+import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Dialog
@@ -128,11 +136,17 @@ public fun AlertContent(
     showPositionIndicator: Boolean = true,
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
+    val density = LocalDensity.current
+    val maxScreenWidthPx = with(density) {
+        LocalConfiguration.current.screenWidthDp.dp.toPx()
+    }
+
     ResponsiveDialogContent(
         icon = icon,
         title = title?.let {
             {
                 Text(
+                    modifier = Modifier.fillMaxWidth(),
                     text = it,
                     color = MaterialTheme.colors.onBackground,
                     textAlign = TextAlign.Center,
@@ -143,10 +157,25 @@ public fun AlertContent(
         },
         message = message?.let {
             {
+                // Should message be start or center aligned?
+                val textMeasurer = rememberTextMeasurer()
+                val textStyle = LocalTextStyle.current
+                val lineCount = remember(it, textStyle, textMeasurer) {
+                    textMeasurer.measure(
+                        text = it,
+                        style = textStyle,
+                        constraints = Constraints(
+                            // Available width is reduced by responsive dialog horizontal padding.
+                            maxWidth = (maxScreenWidthPx * messageMaxWidthFraction).toInt(),
+                        ),
+                    ).lineCount
+                }
+                val textAlign = if (lineCount <= 3) TextAlign.Center else TextAlign.Start
                 Text(
+                    modifier = Modifier.fillMaxWidth(),
                     text = it,
                     color = MaterialTheme.colors.onBackground,
-                    textAlign = TextAlign.Center,
+                    textAlign = textAlign,
                 )
             }
         },

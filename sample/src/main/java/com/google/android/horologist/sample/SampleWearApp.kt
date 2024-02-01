@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
@@ -146,6 +143,28 @@ fun SampleWearApp() {
             composable(Screen.DatePicker.route) {
                 DatePicker(
                     date = time.toLocalDate(),
+                    onDateConfirm = {
+                        time = time.toLocalTime().atDate(it)
+                        navController.popBackStack()
+                    },
+                )
+            }
+            composable(Screen.FromDatePicker.route) {
+                val date = time.toLocalDate()
+                DatePicker(
+                    date = date,
+                    fromDate = date,
+                    onDateConfirm = {
+                        time = time.toLocalTime().atDate(it)
+                        navController.popBackStack()
+                    },
+                )
+            }
+            composable(Screen.ToDatePicker.route) {
+                val date = time.toLocalDate()
+                DatePicker(
+                    date = date,
+                    toDate = date,
                     onDateConfirm = {
                         time = time.toLocalTime().atDate(it)
                         navController.popBackStack()

@@ -19,15 +19,36 @@ package com.google.android.horologist.screensizes
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.compose.tools.Device
+import org.junit.Test
 import java.time.LocalDate
 
 class DatePickerTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+
+    private val date: LocalDate = LocalDate.of(2022, 4, 25)
 
     @Composable
     override fun Content() {
         DatePicker(
             onDateConfirm = {},
-            date = LocalDate.of(2022, 4, 25),
+            date = date,
+        )
+    }
+
+    @Test
+    fun fromDatePicker() = runTest {
+        DatePicker(
+            onDateConfirm = {},
+            date = date,
+            fromDate = date,
+        )
+    }
+
+    @Test
+    fun toDatePicker() = runTest {
+        DatePicker(
+            onDateConfirm = {},
+            date = date,
+            toDate = date,
         )
     }
 }

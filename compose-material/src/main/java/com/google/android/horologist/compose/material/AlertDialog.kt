@@ -160,13 +160,16 @@ public fun AlertContent(
                 // Should message be start or center aligned?
                 val textMeasurer = rememberTextMeasurer()
                 val textStyle = LocalTextStyle.current
+                val totalPaddingPercentage = globalHorizontalPadding + messageExtraHorizontalPadding
                 val lineCount = remember(it, density, textStyle, textMeasurer) {
                     textMeasurer.measure(
                         text = it,
                         style = textStyle,
                         constraints = Constraints(
                             // Available width is reduced by responsive dialog horizontal padding.
-                            maxWidth = (maxScreenWidthPx * messageMaxWidthFraction).toInt(),
+                            maxWidth = (
+                                maxScreenWidthPx * (1f - totalPaddingPercentage * 2f / 100f)
+                            ).toInt(),
                         ),
                     ).lineCount
                 }

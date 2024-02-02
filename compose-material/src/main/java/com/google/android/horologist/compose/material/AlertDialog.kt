@@ -160,7 +160,7 @@ public fun AlertContent(
                 // Should message be start or center aligned?
                 val textMeasurer = rememberTextMeasurer()
                 val textStyle = LocalTextStyle.current
-                val lineCount = remember(it, textStyle, textMeasurer) {
+                val lineCount = remember(it, density, textStyle, textMeasurer) {
                     textMeasurer.measure(
                         text = it,
                         style = textStyle,

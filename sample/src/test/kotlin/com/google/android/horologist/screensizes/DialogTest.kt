@@ -42,14 +42,12 @@ import com.google.android.horologist.compose.material.ConfirmationContent
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
 import com.google.android.horologist.compose.tools.Device
-import com.google.android.horologist.screenshots.ScreenshotTestRule
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 class DialogTest(device: Device) : ScreenSizeTest(
     device = device,
     showTimeText = false,
-    recordMode = ScreenshotTestRule.RecordMode.Record,
 ) {
 
     @Composable

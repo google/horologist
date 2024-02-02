@@ -24,9 +24,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.ai.ui.R
 import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.components.ResponseInProgressCard
 import com.google.android.horologist.ai.ui.components.TextPromptDisplay
@@ -66,7 +68,7 @@ public fun PromptScreen(
     ScalingLazyColumn(columnState = columnState, modifier = modifier) {
         item {
             ListHeader(modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text(text = uiState.modelInfo?.name ?: "...")
+                Text(text = uiState.modelInfo?.name ?: stringResource(R.string.horologist_unknown_model))
             }
         }
         uiState.messages.forEach {
@@ -107,7 +109,7 @@ public fun PromptScreen(
             item {
                 Button(
                     Icons.Default.Settings,
-                    contentDescription = "Settings",
+                    contentDescription = stringResource(R.string.horologist_settings_content_description),
                     onClick = onSettingsClick,
                 )
             }

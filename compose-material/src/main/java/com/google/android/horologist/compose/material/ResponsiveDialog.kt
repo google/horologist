@@ -53,8 +53,8 @@ public fun ResponsiveDialogContent(
     icon: @Composable (() -> Unit)? = null,
     title: @Composable (() -> Unit)? = null,
     message: @Composable (() -> Unit)? = null,
-    onOkButtonClick: (() -> Unit)? = null,
-    onCancelButtonClick: (() -> Unit)? = null,
+    onOk: (() -> Unit)? = null,
+    onCancel: (() -> Unit)? = null,
     okButtonContentDescription: String = stringResource(R.string.ok),
     cancelButtonContentDescription: String = stringResource(R.string.cancel),
     state: ScalingLazyColumnState =
@@ -89,12 +89,9 @@ public fun ResponsiveDialogContent(
                         CompositionLocalProvider(
                             LocalTextStyle provides MaterialTheme.typography.title3,
                         ) {
-                            // Compute the actual padding needed to get an extra 8.84%,
-                            // inside of the global 5.2% padding
-                            val extraPadding = 8.84f / (100f - 2f * 5.2f)
                             Box(
                                 Modifier
-                                    .fillMaxWidth(1f - 2f * extraPadding)
+                                    .fillMaxWidth(titleMaxWidthFraction)
                                     .padding(bottom = 8.dp), // 12.dp below icon
                             ) { it() }
                         }
@@ -108,18 +105,15 @@ public fun ResponsiveDialogContent(
                 }
                 message?.let {
                     item {
-                        // Compute the actual padding needed to get an extra 4.16%,
-                        // inside of the global 5.2% padding
-                        val extraPadding = 4.16f / (100f - 2f * 5.2f)
                         Box(
-                            Modifier.fillMaxWidth(1f - 2f * extraPadding),
+                            Modifier.fillMaxWidth(messageMaxWidthFraction),
                         ) { it() }
                     }
                 }
                 content?.let {
                     it()
                 }
-                if (onOkButtonClick != null || onCancelButtonClick != null) {
+                if (onOk != null || onCancel != null) {
                     item {
                         Row(
                             Modifier
@@ -133,7 +127,7 @@ public fun ResponsiveDialogContent(
                             ),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            onCancelButtonClick?.let {
+                            onCancel?.let {
                                 Button(
                                     imageVector = Icons.Default.Close,
                                     contentDescription = cancelButtonContentDescription,
@@ -141,11 +135,11 @@ public fun ResponsiveDialogContent(
                                     colors = ButtonDefaults.secondaryButtonColors(),
                                 )
                             }
-                            onOkButtonClick?.let {
+                            onOk?.let {
                                 Button(
                                     imageVector = Icons.Default.Check,
                                     contentDescription = okButtonContentDescription,
-                                    onClick = onOkButtonClick,
+                                    onClick = onOk,
                                 )
                             }
                         }
@@ -155,3 +149,21 @@ public fun ResponsiveDialogContent(
         }
     }
 }
+
+internal const val globalHorizontalPadding = 5.2f
+internal const val messageExtraHorizontalPadding = 4.16f
+internal const val titleExtraHorizontalPadding = 8.84f
+
+// Fraction of the max available width that message should take (after global and message padding)
+internal val messageMaxWidthFraction = 1f - 2f * calculatePaddingFraction(
+    messageExtraHorizontalPadding,
+)
+
+// Fraction of the max available width that title should take (after global and message padding)
+internal val titleMaxWidthFraction = 1f - 2f * calculatePaddingFraction(
+    titleExtraHorizontalPadding,
+)
+
+// Calculate total padding given global padding and additional padding required inside that.
+internal fun calculatePaddingFraction(extraPadding: Float) =
+    extraPadding / (100f - 2f * globalHorizontalPadding)

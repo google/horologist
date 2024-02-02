@@ -24,6 +24,7 @@
     <string name="tile_sample_label">Sample Tile</string>
     <string name="sample_tile_description">Sample tile description</string>
 
+    <string name="sample_material_alert_dialog">Material AlertDialog</string>
     <string name="sample_material_buttons">Material Buttons Sample</string>
     <string name="sample_material_chips">Material Chips Sample</string>
     <string name="sample_material_chip_icon_with_progress">Material Chip Icon With Progress</string>

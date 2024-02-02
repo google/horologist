@@ -169,7 +169,7 @@ public fun AlertContent(
                             // Available width is reduced by responsive dialog horizontal padding.
                             maxWidth = (
                                 maxScreenWidthPx * (1f - totalPaddingPercentage * 2f / 100f)
-                            ).toInt(),
+                                ).toInt(),
                         ),
                     ).lineCount
                 }

@@ -18,6 +18,7 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.installapp
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -77,7 +78,7 @@ internal class InstallAppBottomSheetActivity : ComponentActivity() {
                             try {
                                 installAppBottomSheetState.hide()
                             } finally {
-                                finish()
+                                finishWithoutAnimation()
                             }
                         }
                     },
@@ -85,11 +86,21 @@ internal class InstallAppBottomSheetActivity : ComponentActivity() {
                         this.launchPlay(appPackageName)
 
                         setResult(RESULT_OK)
-                        finish()
+                        finishWithoutAnimation()
                     },
                     sheetState = installAppBottomSheetState,
                 )
             }
+        }
+    }
+
+    private fun finishWithoutAnimation() {
+        finish()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, 0, 0)
+        } else {
+            @Suppress("DEPRECATION")
+            overridePendingTransition(0, 0)
         }
     }
 

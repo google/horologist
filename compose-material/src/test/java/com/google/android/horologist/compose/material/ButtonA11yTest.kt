@@ -53,8 +53,8 @@ class ButtonA11yTest : ScreenshotBaseTest(
                 .split("\n")
                 .map { it.trim() }
 
-            Assert.assertEquals(1, logEntries.filter { it.startsWith("Role")}.size)
-            Assert.assertEquals(1, logEntries.filter { it.startsWith("ContentDescription")}.size)
+            Assert.assertEquals(1, logEntries.filter { it.startsWith("Role") }.size)
+            Assert.assertEquals(1, logEntries.filter { it.startsWith("ContentDescription") }.size)
         }
     }
 
@@ -76,8 +76,8 @@ class ButtonA11yTest : ScreenshotBaseTest(
                 .split("\n")
                 .map { it.trim() }
 
-            Assert.assertEquals(1, logEntries.filter { it.startsWith("Role")}.size)
-            Assert.assertEquals(1, logEntries.filter { it.startsWith("ContentDescription")}.size)
+            Assert.assertEquals(1, logEntries.filter { it.startsWith("Role") }.size)
+            Assert.assertEquals(1, logEntries.filter { it.startsWith("ContentDescription") }.size)
         }
     }
 }

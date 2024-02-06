@@ -23,11 +23,13 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -42,11 +44,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.focused
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
@@ -61,6 +65,7 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
+import kotlin.math.max
 
 /**
  * Full screen date picker with day, month, year.
@@ -107,8 +112,16 @@ public fun DatePicker(
         rememberPickerGroupState(FocusableElementDatePicker.DAY.index)
     }
 
+    val breakpoint = LocalConfiguration.current.screenWidthDp > 225
     val textStyle =
-        with(LocalDensity.current) { fontScaleIndependent(MaterialTheme.typography.display3) }
+        with(LocalDensity.current) {
+            fontScaleIndependent(
+            if (breakpoint)
+                MaterialTheme.typography.display2
+            else
+                MaterialTheme.typography.display3
+            )
+        }
 
     val optionColor = MaterialTheme.colors.secondary
     val focusRequesterConfirmButton = remember { FocusRequester() }
@@ -167,6 +180,37 @@ public fun DatePicker(
         }
     }
 
+    val measurer = rememberTextMeasurer()
+    val density = LocalDensity.current
+    val (digitWidth, monthWidth) = remember (density.density,
+        LocalConfiguration.current.screenWidthDp // temporary hack.
+    ) {
+        println("START")
+        val t0 = System.currentTimeMillis()
+        val mm = measurer.measure("0123456789\n" + shortMonthNames.joinToString("\n"),
+            style = textStyle,
+            density = density)
+
+        /*
+        println("LC: ${mm.lineCount}")
+
+        repeat(10) {
+            println("Digit: ${mm.getBoundingBox(it)}")
+        }
+
+        repeat(mm.lineCount) {
+            println("Line $it] ${mm.getLineLeft(it)} -> ${mm.getLineRight(it)} | ${mm.getLineTop(it)} -> ${mm.getLineBottom(it)}")
+        }
+         */
+
+        (
+        (0 .. 9).maxOf { mm.getBoundingBox(it).width } to
+            (1..12).maxOf { mm.getLineRight(it) - mm.getLineLeft(it) }).also {
+            val t1 = System.currentTimeMillis()
+            println("TOTAL TIME = ${(t1 - t0).toFloat() / 1000f }s")
+        }
+    }
+    println("WIDTH => digit: $digitWidth / month: $monthWidth")
     ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
@@ -182,7 +226,7 @@ public fun DatePicker(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(14.dp))
                 Text(
                     text = when (FocusableElementDatePicker[pickerGroupState.selectedIndex]) {
                         FocusableElementDatePicker.DAY -> dayString
@@ -194,17 +238,13 @@ public fun DatePicker(
                     style = MaterialTheme.typography.button,
                     maxLines = 1,
                 )
-                val weightsToCenterVertically = 0.5f
-                Spacer(
-                    Modifier
-                        .fillMaxWidth()
-                        .weight(weightsToCenterVertically),
-                )
-                val spacerWidth = 8.dp
+                Spacer(Modifier.height(4.dp))
+                val spacerWidth = if (breakpoint) 6.dp else 2.dp
+                val textPadding = 0.dp
                 // Add spaces on to allow room to grow
-                val dayWidth = 54.dp + spacerWidth
-                val monthWidth = 80.dp + spacerWidth
-                val yearWidth = 100.dp + spacerWidth
+                val dayWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() } + spacerWidth + textPadding
+                val monthWidth = with(LocalDensity.current) { monthWidth.toDp() } + spacerWidth + textPadding
+                val yearWidth = with(LocalDensity.current) { (digitWidth * 4).toDp() } + spacerWidth + textPadding
                 val onPickerSelected =
                     { current: FocusableElementDatePicker, next: FocusableElementDatePicker ->
                         if (pickerGroupState.selectedIndex != current.index) {
@@ -219,6 +259,7 @@ public fun DatePicker(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .weight(1f) // Take remaining vertical space.
                         .offset(
                             getPickerGroupRowOffset(
                                 boxConstraints.maxWidth,
@@ -235,7 +276,9 @@ public fun DatePicker(
                     PickerGroup(
                         pickerGroupItemWithRSB(
                             pickerState = datePickerState.dayState,
-                            modifier = Modifier.size(dayWidth, 100.dp),
+                            modifier = Modifier
+                                .width(dayWidth)
+                                .fillMaxHeight(),
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementDatePicker.DAY,
@@ -255,7 +298,9 @@ public fun DatePicker(
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = datePickerState.monthState,
-                            modifier = Modifier.size(monthWidth, 100.dp),
+                            modifier = Modifier
+                                .width(monthWidth)
+                                .fillMaxHeight(),
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementDatePicker.MONTH,
@@ -275,7 +320,9 @@ public fun DatePicker(
                         ),
                         pickerGroupItemWithRSB(
                             pickerState = datePickerState.yearState,
-                            modifier = Modifier.size(yearWidth, 100.dp),
+                            modifier = Modifier
+                                .width(yearWidth)
+                                .fillMaxHeight(),
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementDatePicker.YEAR,
@@ -299,11 +346,7 @@ public fun DatePicker(
                         touchExplorationStateProvider = touchExplorationStateProvider,
                     )
                 }
-                Spacer(
-                    Modifier
-                        .fillMaxWidth()
-                        .weight(weightsToCenterVertically),
-                )
+                Spacer(Modifier.height(4.dp))
                 Button(
                     onClick = {
                         if (pickerGroupState.selectedIndex >= 2) {
@@ -361,7 +404,7 @@ public fun DatePicker(
                             .wrapContentSize(align = Alignment.Center),
                     )
                 }
-                Spacer(Modifier.height(12.dp))
+                Spacer(Modifier.height(8.dp))
             }
         }
     }

@@ -20,12 +20,16 @@ import android.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
@@ -33,10 +37,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -45,6 +51,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.re
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @ExperimentalHorologistApi
 @Composable
@@ -115,6 +122,13 @@ public fun ResponsiveDialogContent(
                 }
                 if (onOk != null || onCancel != null) {
                     item {
+                        val width = LocalConfiguration.current.screenWidthDp
+                        val buttonWidth = if (width < 225 || onOk == null || onCancel == null) {
+                            ButtonDefaults.DefaultButtonSize
+                        } else {
+                            // 14.52% margin on the sides, 4.dp between.
+                            ((width * (1f - 2 * 0.1452f) - 4) / 2).dp
+                        }
                         Row(
                             Modifier
                                 .fillMaxWidth()
@@ -128,18 +142,42 @@ public fun ResponsiveDialogContent(
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             onCancel?.let {
-                                Button(
-                                    imageVector = Icons.Default.Close,
-                                    contentDescription = cancelButtonContentDescription,
+                                androidx.wear.compose.material.Chip(
+                                    label = {
+                                        Box(Modifier.fillMaxWidth()) {
+                                            Icon(
+                                                paintable = ImageVectorPaintable(Icons.Default.Close),
+                                                contentDescription = cancelButtonContentDescription,
+                                                modifier = Modifier
+                                                    .size(ButtonDefaults.DefaultIconSize)
+                                                    .align(Alignment.Center)
+                                            )
+                                        }
+                                    },
+                                    shape = CircleShape,
+                                    contentPadding = PaddingValues(0.dp),
                                     onClick = it,
-                                    colors = ButtonDefaults.secondaryButtonColors(),
+                                    colors = ChipDefaults.secondaryChipColors(),
+                                    modifier = Modifier.width(buttonWidth)
                                 )
                             }
                             onOk?.let {
-                                Button(
-                                    imageVector = Icons.Default.Check,
-                                    contentDescription = okButtonContentDescription,
-                                    onClick = onOk,
+                                androidx.wear.compose.material.Chip(
+                                    label = {
+                                        Box(Modifier.fillMaxWidth()) {
+                                            Icon(
+                                                paintable = ImageVectorPaintable(Icons.Default.Check),
+                                                contentDescription = okButtonContentDescription,
+                                                modifier = Modifier
+                                                    .size(ButtonDefaults.DefaultIconSize)
+                                                    .align(Alignment.Center)
+                                            )
+                                        }
+                                    },
+                                    contentPadding = PaddingValues(0.dp),
+                                    shape = CircleShape,
+                                    onClick = it,
+                                    modifier = Modifier.width(buttonWidth)
                                 )
                             }
                         }

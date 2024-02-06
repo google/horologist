@@ -65,7 +65,7 @@ class InstallAppPromptDemo2ViewModel
                 val node = phoneDataLayerAppHelper.connectedNodes().firstOrNull { !it.appInstalled }
 
                 _uiState.value = if (node != null) {
-                    InstallAppPromptDemo2ScreenState.WatchFound(watchName = node.displayName)
+                    InstallAppPromptDemo2ScreenState.WatchFound
                 } else {
                     InstallAppPromptDemo2ScreenState.WatchNotFound
                 }
@@ -89,7 +89,7 @@ sealed class InstallAppPromptDemo2ScreenState {
     data object Idle : InstallAppPromptDemo2ScreenState()
     data object Loading : InstallAppPromptDemo2ScreenState()
     data object Loaded : InstallAppPromptDemo2ScreenState()
-    data class WatchFound(val watchName: String) : InstallAppPromptDemo2ScreenState()
+    data object WatchFound : InstallAppPromptDemo2ScreenState()
     data object WatchNotFound : InstallAppPromptDemo2ScreenState()
     data object InstallPromptInstallClicked : InstallAppPromptDemo2ScreenState()
     data object InstallPromptInstallCancelled : InstallAppPromptDemo2ScreenState()

@@ -33,11 +33,10 @@ import androidx.compose.ui.res.painterResource
 import com.google.android.horologist.datalayer.phone.ui.play.launchPlay
 import kotlinx.coroutines.launch
 
-internal const val INSTALL_APP_KEY_APP_NAME = "HOROLOGIST_INSTALL_APP_KEY_APP_NAME"
 internal const val INSTALL_APP_KEY_APP_PACKAGE_NAME = "HOROLOGIST_INSTALL_APP_KEY_APP_PACKAGE_NAME"
-internal const val INSTALL_APP_KEY_WATCH_NAME = "HOROLOGIST_INSTALL_APP_KEY_WATCH_NAME"
-internal const val INSTALL_APP_KEY_MESSAGE = "HOROLOGIST_INSTALL_APP_KEY_MESSAGE"
 internal const val INSTALL_APP_KEY_IMAGE_RES_ID = "HOROLOGIST_INSTALL_APP_KEY_IMAGE_RES_ID"
+internal const val INSTALL_APP_KEY_TOP_MESSAGE = "HOROLOGIST_INSTALL_APP_KEY_TOP_MESSAGE"
+internal const val INSTALL_APP_KEY_BOTTOM_MESSAGE = "HOROLOGIST_INSTALL_APP_KEY_BOTTOM_MESSAGE"
 
 private const val NO_IMAGE = 0
 
@@ -47,18 +46,17 @@ internal class InstallAppBottomSheetActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val appName = intent.extras?.getString(INSTALL_APP_KEY_APP_NAME) ?: ""
         val appPackageName = intent.extras?.getString(INSTALL_APP_KEY_APP_PACKAGE_NAME) ?: ""
-        val watchName = intent.extras?.getString(INSTALL_APP_KEY_WATCH_NAME) ?: ""
-        val message = intent.extras?.getString(INSTALL_APP_KEY_MESSAGE) ?: ""
         val imageResId = intent.extras?.getInt(INSTALL_APP_KEY_IMAGE_RES_ID) ?: NO_IMAGE
+        val topMessage = intent.extras?.getString(INSTALL_APP_KEY_TOP_MESSAGE) ?: ""
+        val bottomMessage = intent.extras?.getString(INSTALL_APP_KEY_BOTTOM_MESSAGE) ?: ""
 
         setContent {
             Surface {
                 val installAppBottomSheetState = rememberModalBottomSheetState()
                 val coroutineScope = rememberCoroutineScope()
 
-                val icon: (@Composable () -> Unit)? = imageResId.takeIf { it != NO_IMAGE }?.let {
+                val image: (@Composable () -> Unit)? = imageResId.takeIf { it != NO_IMAGE }?.let {
                     {
                         Image(
                             painter = painterResource(id = imageResId),
@@ -68,10 +66,9 @@ internal class InstallAppBottomSheetActivity : ComponentActivity() {
                 }
 
                 InstallAppBottomSheet(
-                    message = message,
-                    appName = appName,
-                    watchName = watchName,
-                    icon = icon,
+                    image = image,
+                    topMessage = topMessage,
+                    bottomMessage = bottomMessage,
                     onDismissRequest = {
                         setResult(RESULT_CANCELED)
                         coroutineScope.launch {
@@ -107,16 +104,14 @@ internal class InstallAppBottomSheetActivity : ComponentActivity() {
     internal companion object {
         fun getIntent(
             context: Context,
-            appName: String,
             appPackageName: String,
-            watchName: String,
-            message: String,
             @DrawableRes image: Int,
+            topMessage: String,
+            bottomMessage: String,
         ) = Intent(context, InstallAppBottomSheetActivity::class.java).apply {
-            putExtra(INSTALL_APP_KEY_APP_NAME, appName)
             putExtra(INSTALL_APP_KEY_APP_PACKAGE_NAME, appPackageName)
-            putExtra(INSTALL_APP_KEY_WATCH_NAME, watchName)
-            putExtra(INSTALL_APP_KEY_MESSAGE, message)
+            putExtra(INSTALL_APP_KEY_TOP_MESSAGE, topMessage)
+            putExtra(INSTALL_APP_KEY_BOTTOM_MESSAGE, bottomMessage)
             putExtra(INSTALL_APP_KEY_IMAGE_RES_ID, image)
         }
     }

@@ -17,7 +17,6 @@
 package com.google.android.horologist.compose.material
 
 import android.R
-import android.graphics.drawable.VectorDrawable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
@@ -150,7 +149,7 @@ public fun ResponsiveDialogContent(
                                     cancelButtonContentDescription,
                                     onClick = it,
                                     buttonWidth,
-                                    ChipDefaults.secondaryChipColors()
+                                    ChipDefaults.secondaryChipColors(),
                                 )
                             }
                             onOk?.let {
@@ -158,7 +157,7 @@ public fun ResponsiveDialogContent(
                                     icon = Icons.Default.Check,
                                     okButtonContentDescription,
                                     onClick = it,
-                                    buttonWidth
+                                    buttonWidth,
                                 )
                             }
                         }
@@ -185,7 +184,7 @@ private fun ResponsiveButton(
                     contentDescription = contentDescription,
                     modifier = Modifier
                         .size(ButtonDefaults.DefaultIconSize)
-                        .align(Alignment.Center)
+                        .align(Alignment.Center),
                 )
             }
         },
@@ -193,9 +192,8 @@ private fun ResponsiveButton(
         shape = CircleShape,
         onClick = onClick,
         modifier = Modifier.width(buttonWidth),
-        colors = colors
+        colors = colors,
     )
-
 }
 
 internal const val globalHorizontalPadding = 5.2f

@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.unit.Dp
 import androidx.wear.compose.material.Button
@@ -139,6 +140,9 @@ internal fun Button(
             .clearAndSetSemantics {
                 role = Role.Button
                 this.contentDescription = contentDescription
+                if (!enabled) {
+                    disabled()
+                }
             },
         enabled = enabled,
         colors = colors,

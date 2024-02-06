@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
 import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -56,7 +57,7 @@ public fun Card(
     val interactionSource = remember { MutableInteractionSource() }
     androidx.wear.compose.material.Card(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier.semantics(mergeDescendants = true) {},
         backgroundPainter = backgroundPainter,
         contentColor = contentColor,
         enabled = enabled,
@@ -75,7 +76,7 @@ public fun Card(
                     onClick = onClick,
                     onLongClick = onLongClick,
                     onDoubleClick = onDoubleClick,
-                    role = Role.Button,
+                    role = role,
                 ),
         ) {
             content()

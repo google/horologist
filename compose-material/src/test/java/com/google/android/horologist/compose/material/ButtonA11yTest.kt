@@ -22,8 +22,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.printToString
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import org.junit.Assert
 import org.junit.Test
 
 class ButtonA11yTest : ScreenshotBaseTest(
@@ -44,6 +47,15 @@ class ButtonA11yTest : ScreenshotBaseTest(
                 )
             }
         }
+
+        screenshotTestRule.interact {
+            val logEntries = onRoot().printToString()
+                .split("\n")
+                .map { it.trim() }
+
+            Assert.assertEquals(1, logEntries.filter { it.startsWith("Role")}.size)
+            Assert.assertEquals(1, logEntries.filter { it.startsWith("ContentDescription")}.size)
+        }
     }
 
     @Test
@@ -57,6 +69,15 @@ class ButtonA11yTest : ScreenshotBaseTest(
                     enabled = false,
                 )
             }
+        }
+
+        screenshotTestRule.interact {
+            val logEntries = onRoot().printToString()
+                .split("\n")
+                .map { it.trim() }
+
+            Assert.assertEquals(1, logEntries.filter { it.startsWith("Role")}.size)
+            Assert.assertEquals(1, logEntries.filter { it.startsWith("ContentDescription")}.size)
         }
     }
 }

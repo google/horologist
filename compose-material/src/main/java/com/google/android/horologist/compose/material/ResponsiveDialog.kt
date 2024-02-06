@@ -17,6 +17,7 @@
 package com.google.android.horologist.compose.material
 
 import android.R
+import android.graphics.drawable.VectorDrawable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
@@ -37,11 +38,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
@@ -123,6 +127,8 @@ public fun ResponsiveDialogContent(
                 if (onOk != null || onCancel != null) {
                     item {
                         val width = LocalConfiguration.current.screenWidthDp
+                        // Single buttons, or buttons on smaller screens are not meant to be
+                        // responsive.
                         val buttonWidth = if (width < 225 || onOk == null || onCancel == null) {
                             ButtonDefaults.DefaultButtonSize
                         } else {
@@ -135,49 +141,24 @@ public fun ResponsiveDialogContent(
                                 .padding(
                                     top = if (content != null || message != null) 12.dp else 0.dp,
                                 ),
-                            horizontalArrangement = spacedBy(
-                                4.dp,
-                                Alignment.CenterHorizontally,
-                            ),
+                            horizontalArrangement = spacedBy(4.dp, Alignment.CenterHorizontally),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             onCancel?.let {
-                                androidx.wear.compose.material.Chip(
-                                    label = {
-                                        Box(Modifier.fillMaxWidth()) {
-                                            Icon(
-                                                paintable = ImageVectorPaintable(Icons.Default.Close),
-                                                contentDescription = cancelButtonContentDescription,
-                                                modifier = Modifier
-                                                    .size(ButtonDefaults.DefaultIconSize)
-                                                    .align(Alignment.Center),
-                                            )
-                                        }
-                                    },
-                                    shape = CircleShape,
-                                    contentPadding = PaddingValues(0.dp),
+                                ResponsiveButton(
+                                    icon = Icons.Default.Close,
+                                    cancelButtonContentDescription,
                                     onClick = it,
-                                    colors = ChipDefaults.secondaryChipColors(),
-                                    modifier = Modifier.width(buttonWidth),
+                                    buttonWidth,
+                                    ChipDefaults.secondaryChipColors()
                                 )
                             }
                             onOk?.let {
-                                androidx.wear.compose.material.Chip(
-                                    label = {
-                                        Box(Modifier.fillMaxWidth()) {
-                                            Icon(
-                                                paintable = ImageVectorPaintable(Icons.Default.Check),
-                                                contentDescription = okButtonContentDescription,
-                                                modifier = Modifier
-                                                    .size(ButtonDefaults.DefaultIconSize)
-                                                    .align(Alignment.Center),
-                                            )
-                                        }
-                                    },
-                                    contentPadding = PaddingValues(0.dp),
-                                    shape = CircleShape,
+                                ResponsiveButton(
+                                    icon = Icons.Default.Check,
+                                    okButtonContentDescription,
                                     onClick = it,
-                                    modifier = Modifier.width(buttonWidth),
+                                    buttonWidth
                                 )
                             }
                         }
@@ -186,6 +167,35 @@ public fun ResponsiveDialogContent(
             }
         }
     }
+}
+
+@Composable
+private fun ResponsiveButton(
+    icon: ImageVector,
+    contentDescription: String,
+    onClick: () -> Unit,
+    buttonWidth: Dp,
+    colors: ChipColors = ChipDefaults.primaryChipColors(),
+) {
+    androidx.wear.compose.material.Chip(
+        label = {
+            Box(Modifier.fillMaxWidth()) {
+                Icon(
+                    paintable = ImageVectorPaintable(icon),
+                    contentDescription = contentDescription,
+                    modifier = Modifier
+                        .size(ButtonDefaults.DefaultIconSize)
+                        .align(Alignment.Center)
+                )
+            }
+        },
+        contentPadding = PaddingValues(0.dp),
+        shape = CircleShape,
+        onClick = onClick,
+        modifier = Modifier.width(buttonWidth),
+        colors = colors
+    )
+
 }
 
 internal const val globalHorizontalPadding = 5.2f

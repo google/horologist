@@ -150,7 +150,7 @@ public fun ResponsiveDialogContent(
                                                 contentDescription = cancelButtonContentDescription,
                                                 modifier = Modifier
                                                     .size(ButtonDefaults.DefaultIconSize)
-                                                    .align(Alignment.Center)
+                                                    .align(Alignment.Center),
                                             )
                                         }
                                     },
@@ -158,7 +158,7 @@ public fun ResponsiveDialogContent(
                                     contentPadding = PaddingValues(0.dp),
                                     onClick = it,
                                     colors = ChipDefaults.secondaryChipColors(),
-                                    modifier = Modifier.width(buttonWidth)
+                                    modifier = Modifier.width(buttonWidth),
                                 )
                             }
                             onOk?.let {
@@ -170,14 +170,14 @@ public fun ResponsiveDialogContent(
                                                 contentDescription = okButtonContentDescription,
                                                 modifier = Modifier
                                                     .size(ButtonDefaults.DefaultIconSize)
-                                                    .align(Alignment.Center)
+                                                    .align(Alignment.Center),
                                             )
                                         }
                                     },
                                     contentPadding = PaddingValues(0.dp),
                                     shape = CircleShape,
                                     onClick = it,
-                                    modifier = Modifier.width(buttonWidth)
+                                    modifier = Modifier.width(buttonWidth),
                                 )
                             }
                         }

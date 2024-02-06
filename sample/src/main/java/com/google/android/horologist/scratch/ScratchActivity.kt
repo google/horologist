@@ -220,4 +220,3 @@ fun FixedHeightChip(text: String, itemHeight: Int, onClick: () -> Unit) {
         )
     }
 }
-

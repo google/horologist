@@ -64,7 +64,6 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleButton
 import com.google.android.horologist.compose.material.ResponsiveDialogContent
 
-
 class DialogActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,14 +88,22 @@ fun WearDialogApp() {
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         SizedContainer(screenSize = sizes[size.intValue], roundScreen = true) {
             ResponsiveDialogContent(
-                icon = if (hasIcon.value) { {
-                    Icon(Icons.Default.ErrorOutline, null)
-                } } else null,
-                title = if (hasTitle.value) { {
-                    Text("Title enim minim veniam, quis ut", textAlign = TextAlign.Center)
-                } } else null,
-                onOk = if (hasOkButton.value) {{}} else null,
-                onCancel = if (hasCancelButton.value) {{}} else null,
+                icon = if (hasIcon.value) {
+                    {
+                        Icon(Icons.Default.ErrorOutline, null)
+                    }
+                } else {
+                    null
+                },
+                title = if (hasTitle.value) {
+                    {
+                        Text("Title enim minim veniam, quis ut", textAlign = TextAlign.Center)
+                    }
+                } else {
+                    null
+                },
+                onOk = if (hasOkButton.value) { {} } else null,
+                onCancel = if (hasCancelButton.value) { {} } else null,
             ) {
                 when (contentIx.value) {
                     1 -> items(10) {
@@ -110,7 +117,7 @@ fun WearDialogApp() {
                                 "This is a text that may be long enough to span " +
                                     "multiple rows, so it's left aligned.",
                                 textAlign = TextAlign.Start,
-                                modifier = Modifier.fillMaxWidth(1f - 2f * extraPadding)
+                                modifier = Modifier.fillMaxWidth(1f - 2f * extraPadding),
                             )
                         }
                         // Adding the spaces to previous and next items, this ends up as 12.dp
@@ -119,25 +126,31 @@ fun WearDialogApp() {
                             Text(
                                 "We have another not so long text here.",
                                 textAlign = TextAlign.Start,
-                                modifier = Modifier.fillMaxWidth(1f - 2f * extraPadding)
+                                modifier = Modifier.fillMaxWidth(1f - 2f * extraPadding),
                             )
                         }
                     }
                 }
             }
         }
-        ToggleRow(title = "Size",
+        ToggleRow(
+            title = "Size",
             options = sizes.map { it.toString() }.toTypedArray(),
-            selected = size, optionWidth = 50.dp)
+            selected = size,
+            optionWidth = 50.dp,
+        )
         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             SimpleToggle("Icon", hasIcon)
             SimpleToggle("Title", hasTitle)
             SimpleToggle("OK", hasOkButton)
             SimpleToggle("Cancel", hasCancelButton)
         }
-        ToggleRow(title = "Content",
+        ToggleRow(
+            title = "Content",
             options = contentTypes,
-            selected = contentIx, optionWidth = 100.dp)
+            selected = contentIx,
+            optionWidth = 100.dp,
+        )
     }
 }
 
@@ -154,7 +167,7 @@ fun ToggleRow(
     options: Array<String>,
     selected: MutableIntState,
     optionWidth: Dp,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val heightDp = 40.dp
     val heightPx = with(LocalDensity.current) { heightDp.toPx() }
@@ -162,30 +175,40 @@ fun ToggleRow(
         Text(title, color = Color.White)
         Spacer(Modifier.width(20.dp))
         options.forEachIndexed { ix, text ->
-            val shape = if (ix == 0) RoundedCornerShape(
-                heightPx / 2, 0f, 0f, heightPx / 2)
-            else if (ix == options.lastIndex) RoundedCornerShape(
-                0f,
-                heightPx / 2,
-                heightPx / 2,
-                0f
-            )
-            else RectangleShape
+            val shape = if (ix == 0) {
+                RoundedCornerShape(
+                    heightPx / 2,
+                    0f,
+                    0f,
+                    heightPx / 2,
+                )
+            } else if (ix == options.lastIndex) {
+                RoundedCornerShape(
+                    0f,
+                    heightPx / 2,
+                    heightPx / 2,
+                    0f,
+                )
+            } else {
+                RectangleShape
+            }
 
             Box(
                 Modifier
                     .width(optionWidth)
                     .height(heightDp)
                     .border(
-                        1.dp, Color(0xFF75717A), shape = shape
+                        1.dp,
+                        Color(0xFF75717A),
+                        shape = shape,
                     )
                     .clip(shape)
                     .clickable { selected.value = ix }
                     .background(
                         if (ix == selected.value) Color(0xFF4A4458) else Color(0xFF1B1B20),
-                        shape = shape
+                        shape = shape,
                     ),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) { Text(text, color = Color(0xFFEEEEFF)) }
         }
     }
@@ -196,7 +219,7 @@ fun SizedContainer(
     screenSize: Int,
     roundScreen: Boolean,
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val currentConfig = LocalConfiguration.current
     val config by remember(screenSize, roundScreen) {
@@ -209,8 +232,13 @@ fun SizedContainer(
                 // Set the screen to round.
                 screenLayout =
                     (screenLayout and Configuration.SCREENLAYOUT_ROUND_MASK.inv()) or
-                        (if (roundScreen) Configuration.SCREENLAYOUT_ROUND_YES else
-                            Configuration.SCREENLAYOUT_ROUND_NO)
+                    (
+                        if (roundScreen) {
+                            Configuration.SCREENLAYOUT_ROUND_YES
+                        } else {
+                            Configuration.SCREENLAYOUT_ROUND_NO
+                        }
+                        )
             }
         }
     }
@@ -221,7 +249,7 @@ fun SizedContainer(
 
     CompositionLocalProvider(
         LocalConfiguration provides config,
-        LocalDensity provides density
+        LocalDensity provides density,
     ) {
         val shape = if (roundScreen) CircleShape else RoundedCornerShape(0)
         Box(
@@ -231,7 +259,7 @@ fun SizedContainer(
                 .size(screenSize.dp)
                 .background(Color.Black),
             contentAlignment = Alignment.Center,
-            content = { content() }
+            content = { content() },
         )
     }
 }

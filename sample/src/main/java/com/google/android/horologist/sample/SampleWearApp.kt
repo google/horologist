@@ -16,16 +16,35 @@
 
 package com.google.android.horologist.sample
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.wear.compose.foundation.rememberSwipeToDismissBoxState
+import androidx.wear.compose.material.LocalTextStyle
+import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
@@ -37,6 +56,7 @@ import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.ToggleRow
 import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.materialcomponents.SampleAlertDialog
 import com.google.android.horologist.materialcomponents.SampleButtonScreen
@@ -76,6 +96,7 @@ fun SampleWearApp() {
     val navController = rememberSwipeDismissableNavController()
 
     var time by remember { mutableStateOf(LocalDateTime.now()) }
+    val d0 = LocalDensity.current
 
     AppScaffold {
         SwipeDismissableNavHost(
@@ -83,6 +104,37 @@ fun SampleWearApp() {
             navController = navController,
             state = navHostState,
         ) {
+            composable(route = Screen.Dummy.route) {
+                val s = "Some random string."
+                val style = LocalTextStyle.current.copy(fontSize = 20.sp)
+                val measurer = rememberTextMeasurer()
+                val ix = remember { mutableIntStateOf(0) }
+                val f = remember { mutableIntStateOf(0) }
+                val d = LocalDensity.current
+                val box by remember(d) { derivedStateOf {
+                    val b = measurer.measure(s, style, density = d).getBoundingBox(ix.value)
+                    /* d.density / d0.density */
+                    val k =  1f + f.value * 0.1f
+                    Rect(b.left * k, b.top * k, b.right * k, b.bottom * k)
+                } }
+                Column(Modifier.fillMaxSize()) {
+                    Spacer(Modifier.height(50.dp))
+                    Box(
+                        Modifier
+                            .height(100.dp)
+                            .fillMaxWidth()
+                            .drawWithContent {
+                                drawContent()
+                                drawRect(Color.Red, box.topLeft, box.size, style = Stroke(3f))
+                            }) {
+                        Text(s, style = style)
+                    }
+                    ToggleRow("Char" , options = s.indices.map { it.toString() }.toTypedArray(),
+                        selected = ix, optionWidth = 20.dp)
+                    ToggleRow("F" , options = (0..9).map { it.toString() }.toTypedArray(),
+                        selected = f, optionWidth = 20.dp)
+                }
+            }
             composable(
                 route = Screen.Menu.route,
             ) {

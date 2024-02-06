@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
@@ -50,6 +51,15 @@ fun MenuScreen(
             ListHeader {
                 Text(text = "Samples")
             }
+        }
+        item {
+            SampleChip(
+                onClick = { navigateToRoute(Screen.Dummy.route) },
+                label = "Dummy",
+                content = {
+                    Text(text = "Dummy", fontSize = 6f.sp)
+                },
+            )
         }
         item {
             NetworkChip { navigateToRoute(Screen.Network.route) }

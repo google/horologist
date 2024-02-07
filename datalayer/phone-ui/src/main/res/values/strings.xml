@@ -16,7 +16,6 @@
   -->
 
 <resources>
-    <string description="Text displayed on a prompt that asks the user if they would like to install an app on a watch device. [CHAR_LIMIT=NONE]" name="horologist_install_app_prompt_title">Install %1$s on %2$s</string>
     <string description="Label displayed on button to confirm that the user would like to install the app. [CHAR_LIMIT=40]" name="horologist_install_app_prompt_ok_btn_label">Install</string>
     <string description="Label displayed on button to dismiss the prompt to install the app. [CHAR_LIMIT=40]" name="horologist_install_app_prompt_cancel_btn_label">Not now</string>
 </resources>

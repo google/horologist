@@ -42,20 +42,18 @@ public class PhoneUiDataLayerHelper {
      */
     public fun showInstallAppPrompt(
         activity: Activity,
-        appName: String,
         appPackageName: String,
-        watchName: String,
-        message: String,
         @DrawableRes image: Int,
+        topMessage: String,
+        bottomMessage: String,
         requestCode: Int = NO_RESULT_REQUESTED_REQUEST_CODE,
     ) {
         val intent = getInstallPromptIntent(
             context = activity,
-            appName = appName,
             appPackageName = appPackageName,
-            watchName = watchName,
-            message = message,
             image = image,
+            topMessage = topMessage,
+            bottomMessage = bottomMessage,
         )
         activity.startActivityForResult(
             intent,
@@ -97,17 +95,15 @@ public class PhoneUiDataLayerHelper {
      */
     public fun getInstallPromptIntent(
         context: Context,
-        appName: String,
         appPackageName: String,
-        watchName: String,
-        message: String,
         @DrawableRes image: Int,
+        topMessage: String,
+        bottomMessage: String,
     ): Intent = InstallAppBottomSheetActivity.getIntent(
         context = context,
-        appName = appName,
         appPackageName = appPackageName,
-        watchName = watchName,
-        message = message,
         image = image,
+        topMessage = topMessage,
+        bottomMessage = bottomMessage,
     )
 }

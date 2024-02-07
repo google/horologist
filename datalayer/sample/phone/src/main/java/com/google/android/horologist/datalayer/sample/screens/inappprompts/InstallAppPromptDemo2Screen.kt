@@ -56,14 +56,13 @@ fun InstallAppPromptDemo2Screen(
     InstallAppPromptDemo2Screen(
         state = state,
         onRunDemoClick = viewModel::onRunDemoClick,
-        getInstallPromptIntent = { watchName ->
+        getInstallPromptIntent = {
             viewModel.phoneUiDataLayerHelper.getInstallPromptIntent(
                 context = context,
-                appName = context.getString(R.string.app_name),
                 appPackageName = context.packageName,
-                watchName = watchName,
-                message = context.getString(R.string.install_app_prompt_demo2_prompt_message),
                 image = R.drawable.watch_app_screenshot,
+                topMessage = context.getString(R.string.install_app_prompt_demo2_prompt_top_message),
+                bottomMessage = context.getString(R.string.install_app_prompt_demo2_prompt_bottom_message),
             )
         },
         onInstallPromptLaunched = viewModel::onInstallPromptLaunched,
@@ -77,7 +76,7 @@ fun InstallAppPromptDemo2Screen(
 fun InstallAppPromptDemo2Screen(
     state: InstallAppPromptDemo2ScreenState,
     onRunDemoClick: () -> Unit,
-    getInstallPromptIntent: (watchName: String) -> Intent,
+    getInstallPromptIntent: () -> Intent,
     onInstallPromptLaunched: () -> Unit,
     onInstallPromptInstallClick: () -> Unit,
     onInstallPromptCancel: () -> Unit,
@@ -120,7 +119,7 @@ fun InstallAppPromptDemo2Screen(
             }
 
             is InstallAppPromptDemo2ScreenState.WatchFound -> {
-                SideEffect { launcher.launch(getInstallPromptIntent(state.watchName)) }
+                SideEffect { launcher.launch(getInstallPromptIntent()) }
 
                 onInstallPromptLaunched()
             }

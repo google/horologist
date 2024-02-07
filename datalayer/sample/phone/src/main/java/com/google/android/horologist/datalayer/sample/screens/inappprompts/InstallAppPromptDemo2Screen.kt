@@ -45,6 +45,12 @@ fun InstallAppPromptDemo2Screen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
+    if (state == InstallAppPromptDemo2ScreenState.Idle) {
+        SideEffect {
+            viewModel.initialize()
+        }
+    }
+
     val context = LocalContext.current
 
     InstallAppPromptDemo2Screen(
@@ -97,12 +103,15 @@ fun InstallAppPromptDemo2Screen(
             modifier = Modifier
                 .padding(top = 10.dp)
                 .align(Alignment.CenterHorizontally),
+            enabled = state != InstallAppPromptDemo2ScreenState.ApiNotAvailable,
         ) {
             Text(text = stringResource(id = R.string.install_app_prompt_run_demo2_button_label))
         }
 
         when (state) {
-            InstallAppPromptDemo2ScreenState.Idle -> {
+            InstallAppPromptDemo2ScreenState.Idle,
+            InstallAppPromptDemo2ScreenState.Loaded,
+            -> {
                 /* do nothing */
             }
 
@@ -141,6 +150,10 @@ fun InstallAppPromptDemo2Screen(
                         stringResource(id = R.string.install_app_prompt_demo2_prompt_cancel_result_label),
                     ),
                 )
+            }
+
+            InstallAppPromptDemo2ScreenState.ApiNotAvailable -> {
+                Text(stringResource(id = R.string.wearable_message_api_unavailable))
             }
         }
     }

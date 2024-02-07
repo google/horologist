@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.datalayer.sample.screens.inappprompts
 
+import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.data.apphelper.appInstalled
@@ -35,9 +36,27 @@ class InstallAppPromptDemo2ViewModel
         val phoneUiDataLayerHelper: PhoneUiDataLayerHelper,
     ) : ViewModel() {
 
+        private var initializeCalled = false
+
         private val _uiState =
             MutableStateFlow<InstallAppPromptDemo2ScreenState>(InstallAppPromptDemo2ScreenState.Idle)
         public val uiState: StateFlow<InstallAppPromptDemo2ScreenState> = _uiState
+
+        @MainThread
+        fun initialize() {
+            if (initializeCalled) return
+            initializeCalled = true
+
+            _uiState.value = InstallAppPromptDemo2ScreenState.Loading
+
+            viewModelScope.launch {
+                if (!phoneDataLayerAppHelper.isAvailable()) {
+                    _uiState.value = InstallAppPromptDemo2ScreenState.ApiNotAvailable
+                } else {
+                    _uiState.value = InstallAppPromptDemo2ScreenState.Loaded
+                }
+            }
+        }
 
         fun onRunDemoClick() {
             _uiState.value = InstallAppPromptDemo2ScreenState.Loading
@@ -69,8 +88,10 @@ class InstallAppPromptDemo2ViewModel
 sealed class InstallAppPromptDemo2ScreenState {
     data object Idle : InstallAppPromptDemo2ScreenState()
     data object Loading : InstallAppPromptDemo2ScreenState()
+    data object Loaded : InstallAppPromptDemo2ScreenState()
     data class WatchFound(val watchName: String) : InstallAppPromptDemo2ScreenState()
     data object WatchNotFound : InstallAppPromptDemo2ScreenState()
     data object InstallPromptInstallClicked : InstallAppPromptDemo2ScreenState()
     data object InstallPromptInstallCancelled : InstallAppPromptDemo2ScreenState()
+    data object ApiNotAvailable : InstallAppPromptDemo2ScreenState()
 }

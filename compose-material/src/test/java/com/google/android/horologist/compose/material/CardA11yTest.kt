@@ -44,10 +44,10 @@ class CardA11yTest : ScreenshotBaseTest(
                 Card(
                     onClick = { },
                     onDoubleClick = { },
-                    onLongClick = { }
+                    onLongClick = { },
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text("Hello, Card")
 
@@ -78,10 +78,10 @@ class CardA11yTest : ScreenshotBaseTest(
                     onClick = {},
                     onLongClick = {},
                     onDoubleClick = {},
-                    enabled = false
+                    enabled = false,
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text("Hello, Card")
 

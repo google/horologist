@@ -14,14 +14,29 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.google.android.horologist.compose.material
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.unit.Dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
@@ -49,6 +64,8 @@ public fun Button(
     contentDescription: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
@@ -58,6 +75,8 @@ public fun Button(
         icon = ImageVectorPaintable(imageVector),
         contentDescription = contentDescription,
         onClick = onClick,
+        onLongClick = onLongClick,
+        onDoubleClick = onDoubleClick,
         modifier = modifier,
         colors = colors,
         buttonSize = buttonSize,
@@ -78,6 +97,8 @@ public fun Button(
     contentDescription: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
@@ -87,6 +108,8 @@ public fun Button(
         icon = DrawableResPaintable(id),
         contentDescription = contentDescription,
         onClick = onClick,
+        onLongClick = onLongClick,
+        onDoubleClick = onDoubleClick,
         modifier = modifier,
         colors = colors,
         buttonSize = buttonSize,
@@ -102,27 +125,54 @@ internal fun Button(
     contentDescription: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
     Button(
         onClick = onClick,
-        modifier = modifier.size(buttonSize.tapTargetSize),
+        modifier = modifier
+            .size(buttonSize.tapTargetSize)
+            .clearAndSetSemantics {
+                role = Role.Button
+                this.contentDescription = contentDescription
+                if (!enabled) {
+                    disabled()
+                }
+            },
         enabled = enabled,
         colors = colors,
+        interactionSource = interactionSource,
     ) {
-        val iconModifier = Modifier
-            .size(buttonSize.iconSize)
-            .align(Alignment.Center)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(CircleShape)
+                .combinedClickable(
+                    interactionSource = interactionSource,
+                    indication = null, // From material Button
+                    enabled = enabled,
+                    onClick = onClick,
+                    onLongClick = onLongClick,
+                    onDoubleClick = onDoubleClick,
+                    role = Role.Button,
+                ),
+        ) {
+            val iconModifier = Modifier
+                .size(buttonSize.iconSize)
+                .align(Alignment.Center)
 
-        Icon(
-            paintable = icon,
-            contentDescription = contentDescription,
-            modifier = iconModifier,
-            rtlMode = iconRtlMode,
-        )
+            Icon(
+                paintable = icon,
+                contentDescription = contentDescription,
+                modifier = iconModifier,
+                rtlMode = iconRtlMode,
+            )
+        }
     }
 }
 

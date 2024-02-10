@@ -8,8 +8,8 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class ButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Button(androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors, optional com.google.android.horologist.compose.material.ButtonSize buttonSize, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean enabled);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Button(@DrawableRes int id, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors, optional com.google.android.horologist.compose.material.ButtonSize buttonSize, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean enabled);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Button(androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onLongClick, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onDoubleClick, optional androidx.wear.compose.material.ButtonColors colors, optional com.google.android.horologist.compose.material.ButtonSize buttonSize, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean enabled);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Button(@DrawableRes int id, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onLongClick, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onDoubleClick, optional androidx.wear.compose.material.ButtonColors colors, optional com.google.android.horologist.compose.material.ButtonSize buttonSize, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean enabled);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract sealed class ButtonSize {
@@ -40,6 +40,10 @@ package com.google.android.horologist.compose.material {
 
   public static final class ButtonSize.Small extends com.google.android.horologist.compose.material.ButtonSize {
     field public static final com.google.android.horologist.compose.material.ButtonSize.Small INSTANCE;
+  }
+
+  public final class CardKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Card(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, kotlin.jvm.functions.Function0<kotlin.Unit> onDoubleClick, kotlin.jvm.functions.Function0<kotlin.Unit> onLongClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter backgroundPainter, optional long contentColor, optional boolean enabled, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional androidx.compose.ui.graphics.Shape shape, optional androidx.compose.ui.semantics.Role? role, kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
 
   public final class ChipIconWithProgressKt {

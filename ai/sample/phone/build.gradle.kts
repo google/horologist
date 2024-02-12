@@ -59,6 +59,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -119,9 +120,13 @@ dependencies {
     implementation(libs.playservices.wearable)
     implementation(libs.androidx.lifecycle.service)
 
+    coreLibraryDesugaring(libs.android.desugar)
+
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
+
+    androidTestImplementation(libs.androidx.test.runner)
 }

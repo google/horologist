@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.datalayer.sample.screens.counter
 
+import androidx.annotation.MainThread
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -61,6 +62,7 @@ class CounterScreenViewModel
         private val _uiState = MutableStateFlow<CounterScreenUiState>(CounterScreenUiState.Idle)
         public val uiState: StateFlow<CounterScreenUiState> = _uiState
 
+        @MainThread
         fun initialize() {
             if (initializeCalled) return
             initializeCalled = true

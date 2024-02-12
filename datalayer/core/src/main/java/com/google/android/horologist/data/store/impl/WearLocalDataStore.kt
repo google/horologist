@@ -18,7 +18,6 @@
 
 package com.google.android.horologist.data.store.impl
 
-import android.annotation.SuppressLint
 import android.net.Uri
 import android.util.Log
 import androidx.datastore.core.DataStore
@@ -44,8 +43,6 @@ import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 
-// Workaround https://issuetracker.google.com/issues/239451111
-@SuppressLint("VisibleForTests")
 @ExperimentalHorologistApi
 public class WearLocalDataStore<T>(
     private val wearDataLayerRegistry: WearDataLayerRegistry,

@@ -45,19 +45,24 @@ fun InstallAppPromptDemo2Screen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
+    if (state == InstallAppPromptDemo2ScreenState.Idle) {
+        SideEffect {
+            viewModel.initialize()
+        }
+    }
+
     val context = LocalContext.current
 
     InstallAppPromptDemo2Screen(
         state = state,
         onRunDemoClick = viewModel::onRunDemoClick,
-        getInstallPromptIntent = { watchName ->
+        getInstallPromptIntent = {
             viewModel.phoneUiDataLayerHelper.getInstallPromptIntent(
                 context = context,
-                appName = context.getString(R.string.app_name),
                 appPackageName = context.packageName,
-                watchName = watchName,
-                message = context.getString(R.string.install_app_prompt_demo2_prompt_message),
                 image = R.drawable.watch_app_screenshot,
+                topMessage = context.getString(R.string.install_app_prompt_demo2_prompt_top_message),
+                bottomMessage = context.getString(R.string.install_app_prompt_demo2_prompt_bottom_message),
             )
         },
         onInstallPromptLaunched = viewModel::onInstallPromptLaunched,
@@ -71,7 +76,7 @@ fun InstallAppPromptDemo2Screen(
 fun InstallAppPromptDemo2Screen(
     state: InstallAppPromptDemo2ScreenState,
     onRunDemoClick: () -> Unit,
-    getInstallPromptIntent: (watchName: String) -> Intent,
+    getInstallPromptIntent: () -> Intent,
     onInstallPromptLaunched: () -> Unit,
     onInstallPromptInstallClick: () -> Unit,
     onInstallPromptCancel: () -> Unit,
@@ -97,12 +102,15 @@ fun InstallAppPromptDemo2Screen(
             modifier = Modifier
                 .padding(top = 10.dp)
                 .align(Alignment.CenterHorizontally),
+            enabled = state != InstallAppPromptDemo2ScreenState.ApiNotAvailable,
         ) {
             Text(text = stringResource(id = R.string.install_app_prompt_run_demo2_button_label))
         }
 
         when (state) {
-            InstallAppPromptDemo2ScreenState.Idle -> {
+            InstallAppPromptDemo2ScreenState.Idle,
+            InstallAppPromptDemo2ScreenState.Loaded,
+            -> {
                 /* do nothing */
             }
 
@@ -111,7 +119,7 @@ fun InstallAppPromptDemo2Screen(
             }
 
             is InstallAppPromptDemo2ScreenState.WatchFound -> {
-                SideEffect { launcher.launch(getInstallPromptIntent(state.watchName)) }
+                SideEffect { launcher.launch(getInstallPromptIntent()) }
 
                 onInstallPromptLaunched()
             }
@@ -141,6 +149,10 @@ fun InstallAppPromptDemo2Screen(
                         stringResource(id = R.string.install_app_prompt_demo2_prompt_cancel_result_label),
                     ),
                 )
+            }
+
+            InstallAppPromptDemo2ScreenState.ApiNotAvailable -> {
+                Text(stringResource(id = R.string.wearable_message_api_unavailable))
             }
         }
     }

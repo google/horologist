@@ -1,5 +1,10 @@
 # Compose Layout library
 
+> [!IMPORTANT]
+> All the examples on this page make use of imports from Horologist's `compose-layout` and `compose-material`.
+> Add these dependencies and imports to ensure you are using the Horologist version of components with the same
+> name in Wear Compose, for example `Chip`.
+
 ## ScalingLazyColumn responsive() layout.
 
 The `responsive()` layout factory will ensure that your ScalingLazyColumn is positioned correctly

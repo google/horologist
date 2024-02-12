@@ -29,8 +29,7 @@ package com.google.android.horologist.ai.ui.model {
   }
 
   public static final class FailedResponseUiModel.Companion {
-    method public com.google.android.horologist.ai.ui.model.FailedResponseUiModel getNoCompanion();
-    property public final com.google.android.horologist.ai.ui.model.FailedResponseUiModel NoCompanion;
+    method public com.google.android.horologist.ai.ui.model.FailedResponseUiModel NoCompanion(android.content.Context context);
   }
 
   public final class InProgressResponseUiModel implements com.google.android.horologist.ai.ui.model.ResponseUiModel {

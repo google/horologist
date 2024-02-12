@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
+@file:RequiresApi(26)
+
 package com.google.android.horologist.composables
 
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview

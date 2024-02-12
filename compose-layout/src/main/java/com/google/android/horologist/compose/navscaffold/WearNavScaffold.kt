@@ -15,6 +15,7 @@
  */
 
 @file:OptIn(ExperimentalWearFoundationApi::class)
+@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.compose.navscaffold
 
@@ -66,6 +67,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
  * These should be used to build the [ScrollableState] or [FocusRequester] as well as
  * configure the behaviour of [TimeText], [PositionIndicator] or [Vignette].
  */
+@Deprecated("Use AppScaffold and SwipeDismissableNavHost instead")
 @Composable
 public fun WearNavScaffold(
     startDestination: String,
@@ -180,6 +182,7 @@ private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
  *
  * The [ScalingLazyColumnState] must be taken from the [ScrollableScaffoldContext].
  */
+@Deprecated("Use composable and ScreenScaffold instead")
 @ExperimentalHorologistApi
 public fun NavGraphBuilder.scrollable(
     route: String,
@@ -204,6 +207,7 @@ public fun NavGraphBuilder.scrollable(
  *
  * The scrollState must be taken from the [ScaffoldContext].
  */
+@Deprecated("Use composable and ScreenScaffold instead")
 public fun NavGraphBuilder.scrollStateComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -225,6 +229,7 @@ public fun NavGraphBuilder.scrollStateComposable(
  *
  * The scrollState must be taken from the [ScaffoldContext].
  */
+@Deprecated("Use composable and ScreenScaffold instead")
 public fun NavGraphBuilder.lazyListComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -246,6 +251,7 @@ public fun NavGraphBuilder.lazyListComposable(
  * [NavScaffoldViewModel] are passed into the [content] block so that
  * the Scaffold may be customised, such as disabling TimeText.
  */
+@Deprecated("Use composable and ScreenScaffold instead")
 @ExperimentalHorologistApi
 public fun NavGraphBuilder.composable(
     route: String,

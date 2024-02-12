@@ -19,7 +19,6 @@ package com.google.android.horologist.data.apphelper
 import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
 import android.content.Context
-import android.net.Uri
 import android.os.Process
 import androidx.annotation.CheckResult
 import androidx.wear.remote.interactions.RemoteActivityHelper
@@ -30,6 +29,7 @@ import com.google.android.gms.wearable.Node
 import com.google.android.horologist.data.ActivityConfig
 import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode
+import com.google.android.horologist.data.AppHelperResultCode.APP_HELPER_RESULT_TEMPORARILY_UNAVAILABLE
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearableApiAvailability
@@ -38,6 +38,7 @@ import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.ownAppConfig
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
@@ -55,8 +56,6 @@ abstract class DataLayerAppHelper(
     protected val context: Context,
     protected val registry: WearDataLayerRegistry,
 ) {
-    private val installedDeviceCapabilityUri: String = "wear://*/$CAPABILITY_DEVICE_PREFIX"
-
     private val activityManager: ActivityManager by lazy { context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager }
 
     protected val playStoreUri: String = "market://details?id=${context.packageName}"
@@ -67,7 +66,6 @@ abstract class DataLayerAppHelper(
      */
     public suspend fun connectedNodes(): List<AppHelperNodeStatus> {
         val connectedNodes = registry.nodeClient.connectedNodes.await()
-        val nearbyNodes = connectedNodes.filter { it.isNearby }
         val capabilities =
             registry.capabilityClient.getAllCapabilities(CapabilityClient.FILTER_REACHABLE).await()
 
@@ -75,7 +73,7 @@ abstract class DataLayerAppHelper(
         val installedWatchNodes = capabilities[WATCH_CAPABILITY]?.nodes?.map { it.id } ?: setOf()
         val allInstalledNodes = installedPhoneNodes + installedWatchNodes
 
-        return nearbyNodes.map {
+        return connectedNodes.map {
             val appInstallationStatus = if (allInstalledNodes.contains(it.id)) {
                 val nodeType = when (it.id) {
                     in installedPhoneNodes -> AppInstallationStatusNodeType.PHONE
@@ -90,6 +88,7 @@ abstract class DataLayerAppHelper(
             AppHelperNodeStatus(
                 id = it.id,
                 displayName = it.displayName,
+                isNearby = it.isNearby,
                 appInstallationStatus = appInstallationStatus,
                 surfacesInfo = getSurfaceStatus(it.id),
             )
@@ -105,76 +104,101 @@ abstract class DataLayerAppHelper(
     /**
      * Creates a flow to keep the client updated with the set of connected devices with the app
      * installed.
+     *
+     * When called from a phone device, multiple watches can be connected to it.
+     *
+     * When called from a watch device, usually only a single phone device will be connected to it.
      */
-    public val connectedAndInstalledNodes = callbackFlow<Set<Node>> {
-        val listener: CapabilityClient.OnCapabilityChangedListener =
-            CapabilityClient.OnCapabilityChangedListener { capability ->
-                @Suppress("UNUSED_VARIABLE")
-                val unused =
-                    trySend(capability.nodes.filter { it.isNearby }.toSet())
-            }
+    public abstract val connectedAndInstalledNodes: Flow<Set<Node>>
 
-        val allCaps = registry.capabilityClient.getAllCapabilities(
-            CapabilityClient.FILTER_REACHABLE,
-        ).await()
-        val installedCaps =
-            allCaps.filter { it.key.startsWith(CAPABILITY_DEVICE_PREFIX) }.values.flatMap { it.nodes }
-                .filter { it.isNearby }.toSet()
+    protected fun connectedAndInstalledNodes(capability: String) = callbackFlow<Set<Node>> {
+        suspend fun sendNearbyNodes() {
+            val capabilityInfo = registry.capabilityClient.getCapability(
+                capability,
+                CapabilityClient.FILTER_REACHABLE,
+            ).await()
 
-        @Suppress("UNUSED_VARIABLE")
-        val unused = trySend(installedCaps)
-        registry.capabilityClient.addListener(
-            listener,
-            Uri.parse(installedDeviceCapabilityUri),
-            CapabilityClient.FILTER_PREFIX,
-        )
-        awaitClose {
-            registry.capabilityClient.removeListener(listener)
+            @Suppress("UNUSED_VARIABLE")
+            val unused = trySend(capabilityInfo.nodes.toSet())
         }
+
+        suspend fun listenAndSendChanges() {
+            val listener: CapabilityClient.OnCapabilityChangedListener =
+                CapabilityClient.OnCapabilityChangedListener { capabilityInfo ->
+                    @Suppress("UNUSED_VARIABLE")
+                    val unused = trySend(capabilityInfo.nodes.toSet())
+                }
+
+            registry.capabilityClient.addListener(listener, capability)
+            awaitClose {
+                registry.capabilityClient.removeListener(listener)
+            }
+        }
+
+        sendNearbyNodes()
+
+        listenAndSendChanges()
     }
 
     /**
      * Launches to the appropriate store on the specified node to allow installation of the app.
      *
-     * @param node The node to launch on.
+     * @param nodeId The node to launch on.
+     *
+     * @return [AppHelperResultCode] with code for either success or error. In case of error
+     * [APP_HELPER_RESULT_TEMPORARILY_UNAVAILABLE], users should be educated to bring the device to
+     * proximity, as per docs of [RemoteActivityHelper.availabilityStatus].
+     * @throws [IllegalArgumentException] when uri for the app store is not provided and this
+     * function is called for a node that is iOS.
      */
-
-    abstract suspend fun installOnNode(node: String)
+    abstract suspend fun installOnNode(nodeId: String): AppHelperResultCode
 
     /**
      * Starts the companion that relates to the specified node. This will start on the phone,
      * irrespective of whether the specified node is a phone or a watch.
      *
-     * @param node The node to launch on.
+     * When called from a watch node, it is required that the same app is installed on the specified
+     * node, otherwise a [timeout](AppHelperResultCode.APP_HELPER_RESULT_TIMEOUT) is expected.
+     * See [AppHelperNodeStatus.appInstallationStatus] in order to check the installation status.
+     *
+     * @param nodeId The node to launch on.
      * @return Whether launch was successful or not.
      */
     @CheckResult
-    abstract suspend fun startCompanion(node: String): AppHelperResultCode
+    abstract suspend fun startCompanion(nodeId: String): AppHelperResultCode
 
     /**
      * Launch an activity, which belongs to the same app (same package name), on the specified node.
      *
      * [Class name][ActivityConfig.getClassFullName] should be a fully qualified class name, such
      * as, "com.example.project.SampleActivity".
+     *
+     * This call requires that the same app is installed on the specified node, otherwise a
+     * [timeout](AppHelperResultCode.APP_HELPER_RESULT_TIMEOUT) is expected.
+     * See [AppHelperNodeStatus.appInstallationStatus] in order to check the installation status.
      */
     @CheckResult
     public suspend fun startRemoteActivity(
-        node: String,
+        nodeId: String,
         config: ActivityConfig,
     ): AppHelperResultCode {
         checkIsForegroundOrThrow()
         val request = launchRequest { activity = config }
-        return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
+        return sendRequestWithTimeout(nodeId, LAUNCH_APP, request.toByteArray())
     }
 
     /**
      * Launch own app on the specified node.
+     *
+     * This call requires that the same app is installed on the specified node, otherwise a
+     * [timeout](AppHelperResultCode.APP_HELPER_RESULT_TIMEOUT) is expected.
+     * See [AppHelperNodeStatus.appInstallationStatus] in order to check the installation status.
      */
     @CheckResult
-    public suspend fun startRemoteOwnApp(node: String): AppHelperResultCode {
+    public suspend fun startRemoteOwnApp(nodeId: String): AppHelperResultCode {
         checkIsForegroundOrThrow()
         val request = launchRequest { ownApp = ownAppConfig { } }
-        return sendRequestWithTimeout(node, LAUNCH_APP, request.toByteArray())
+        return sendRequestWithTimeout(nodeId, LAUNCH_APP, request.toByteArray())
     }
 
     /**
@@ -184,16 +208,15 @@ abstract class DataLayerAppHelper(
      */
     @CheckResult
     protected suspend fun sendRequestWithTimeout(
-        node: String,
+        nodeId: String,
         path: String,
         data: ByteArray,
         timeoutMs: Long = MESSAGE_REQUEST_TIMEOUT_MS,
     ): AppHelperResultCode {
-        checkIsForegroundOrThrow()
         val response = try {
             withTimeout(timeoutMs) {
                 // Cancellation will not lead to the GMS Task itself being cancelled.
-                registry.messageClient.sendRequest(node, path, data).await()
+                registry.messageClient.sendRequest(nodeId, path, data).await()
             }
         } catch (timeoutException: TimeoutCancellationException) {
             return AppHelperResultCode.APP_HELPER_RESULT_TIMEOUT

@@ -30,6 +30,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -53,12 +54,14 @@ import com.google.android.horologist.datalayer.sample.util.toProtoTimestamp
 @Composable
 fun NodesScreen(
     modifier: Modifier = Modifier,
-    viewModel: NodesActionViewModel = hiltViewModel(),
+    viewModel: NodesViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (state == NodesScreenState.Idle) {
-        viewModel.initialize()
+        SideEffect {
+            viewModel.initialize()
+        }
     }
 
     NodesScreen(
@@ -194,6 +197,7 @@ fun NodesScreenPreview() {
                 AppHelperNodeStatus(
                     id = "a1b2c3d4",
                     displayName = "Pixel Watch",
+                    isNearby = true,
                     appInstallationStatus = AppInstallationStatus.Installed(
                         nodeType = AppInstallationStatusNodeType.WATCH,
                     ),
@@ -227,7 +231,7 @@ fun NodesScreenPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun NodesActionsScreenPreviewEmptyNodes() {
+fun NodesScreenPreviewEmptyNodes() {
     NodesScreen(
         state = NodesScreenState.Loaded(emptyList()),
         onRefreshClick = { },

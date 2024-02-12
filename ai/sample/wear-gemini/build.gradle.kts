@@ -92,6 +92,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -160,6 +161,8 @@ dependencies {
 
     implementation(libs.com.squareup.okhttp3.okhttp)
 
+    coreLibraryDesugaring(libs.android.desugar)
+
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.androidx.wear.tooling.preview)
     debugImplementation(projects.composeTools)
@@ -172,4 +175,6 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.robolectric)
+
+    androidTestImplementation(libs.androidx.test.runner)
 }

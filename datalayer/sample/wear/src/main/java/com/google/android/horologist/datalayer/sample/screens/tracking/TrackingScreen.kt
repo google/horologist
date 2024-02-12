@@ -19,6 +19,7 @@ package com.google.android.horologist.datalayer.sample.screens.tracking
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -46,7 +47,9 @@ fun TrackingScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (state == TrackingScreenUiState.Idle) {
-        viewModel.initialize()
+        SideEffect {
+            viewModel.initialize()
+        }
     }
 
     TrackingScreen(

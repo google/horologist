@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.data
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import androidx.datastore.core.DataStore
@@ -42,8 +41,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import kotlin.reflect.KClass
 
-// Workaround https://issuetracker.google.com/issues/239451111
-@SuppressLint("VisibleForTests")
 @ExperimentalHorologistApi
 /**
  * Implementation of Androidx Datastore for Proto and Preferences on top of the

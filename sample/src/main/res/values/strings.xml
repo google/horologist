@@ -24,11 +24,13 @@
     <string name="tile_sample_label">Sample Tile</string>
     <string name="sample_tile_description">Sample tile description</string>
 
+    <string name="sample_material_alert_dialog">Material AlertDialog</string>
     <string name="sample_material_buttons">Material Buttons Sample</string>
     <string name="sample_material_chips">Material Chips Sample</string>
     <string name="sample_material_chip_icon_with_progress">Material Chip Icon With Progress</string>
     <string name="sample_material_compact_chip">Material Compact Chips</string>
-    <string name="sample_material_confirmation_dialog">Material Confirmation Dialog</string>
+    <string name="sample_material_confirmation_screen">Material Confirmation Screen</string>
+    <string name="sample_material_confirmation_launcher">Material Confirmation Launcher</string>
     <string name="sample_material_icon">Material Icon</string>
     <string name="sample_material_outlined_chips">Material Outlined Chips</string>
     <string name="sample_material_outlined_compact_chips">Material Outlined Compact Chips</string>

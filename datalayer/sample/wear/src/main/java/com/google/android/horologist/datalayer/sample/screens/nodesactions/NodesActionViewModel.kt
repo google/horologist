@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.datalayer.sample.screens.nodesactions
 
+import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.data.apphelper.AppInstallationStatus
@@ -40,6 +41,7 @@ class NodesActionViewModel
             MutableStateFlow<NodesActionScreenState>(NodesActionScreenState.Idle)
         public val uiState: StateFlow<NodesActionScreenState> = _uiState
 
+        @MainThread
         fun initialize() {
             if (initializeCalled) return
             initializeCalled = true

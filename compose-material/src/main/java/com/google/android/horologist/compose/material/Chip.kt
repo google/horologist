@@ -48,6 +48,11 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -230,7 +235,20 @@ public fun Chip(
         onLongClick = onLongClick,
         onDoubleClick = onDoubleClick,
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clearAndSetSemantics {
+                text = buildAnnotatedString {
+                    append(label)
+                    if (secondaryLabel != null) {
+                        append(", ")
+                        append(secondaryLabel)
+                    }
+                }
+                role = Role.Button
+                if (!enabled) {
+                    disabled()
+                }
+            },
         secondaryLabel = secondaryLabelParam,
         icon = icon,
         colors = colors,
@@ -348,7 +366,7 @@ internal fun Chip(
         onClick = onClick,
         colors = colors,
         border = border,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         enabled = enabled,
         contentPadding = PaddingValues(0.dp),
         shape = shape,

@@ -240,8 +240,12 @@ public fun Chip(
     )
 }
 
+/**
+ * Temporary copy of Wear Compose Material Chip with support for
+ * onLongClick, onDoubleClick.
+ */
 @Composable
-public fun Chip(
+internal fun Chip(
     label: @Composable RowScope.() -> Unit,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -322,8 +326,12 @@ public fun Chip(
     }
 }
 
+/**
+ * Temporary copy of Wear Compose Material Chip with support for
+ * onLongClick, onDoubleClick.
+ */
 @Composable
-public fun Chip(
+internal fun Chip(
     onClick: () -> Unit,
     colors: ChipColors,
     border: ChipBorder,

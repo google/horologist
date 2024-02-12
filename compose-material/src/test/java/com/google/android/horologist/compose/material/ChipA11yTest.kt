@@ -31,6 +31,7 @@ class ChipA11yTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
+        record = ScreenshotTestRule.RecordMode.Record
     },
 ) {
 

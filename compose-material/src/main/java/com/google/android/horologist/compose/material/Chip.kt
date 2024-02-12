@@ -358,7 +358,6 @@ internal fun Chip(
     ) {
         Box(
             modifier = Modifier
-                .semantics(mergeDescendants = true) { }
                 .fillMaxSize()
                 .combinedClickable(
                     interactionSource = interactionSource,

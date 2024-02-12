@@ -349,7 +349,7 @@ internal fun Chip(
         onClick = onClick,
         colors = colors,
         border = border,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         enabled = enabled,
         contentPadding = PaddingValues(0.dp),
         shape = shape,

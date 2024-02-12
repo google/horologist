@@ -254,7 +254,7 @@ public fun Chip(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     contentPadding: PaddingValues = ChipDefaults.ContentPadding,
     shape: Shape = MaterialTheme.shapes.large,
-    border: ChipBorder = ChipDefaults.chipBorder()
+    border: ChipBorder = ChipDefaults.chipBorder(),
 ) {
     Chip(
         onClick = onClick,
@@ -267,13 +267,13 @@ public fun Chip(
         contentPadding = contentPadding,
         shape = shape,
         interactionSource = interactionSource,
-        role = Role.Button
+        role = Role.Button,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             // Fill the container height but not its width as chips have fixed size height but we
             // want them to be able to fit their content
-            modifier = Modifier.fillMaxHeight()
+            modifier = Modifier.fillMaxHeight(),
         ) {
             if (icon != null) {
                 Box(
@@ -286,7 +286,7 @@ public fun Chip(
                         ) {
                             icon()
                         }
-                    }
+                    },
                 )
                 Spacer(modifier = Modifier.size(IconSpacing))
             }
@@ -301,7 +301,7 @@ public fun Chip(
                         ) {
                             label()
                         }
-                    }
+                    },
                 )
                 secondaryLabel?.let {
                     Row(
@@ -314,7 +314,7 @@ public fun Chip(
                             ) {
                                 secondaryLabel()
                             }
-                        }
+                        },
                     )
                 }
             }
@@ -346,7 +346,7 @@ public fun Chip(
         contentPadding = PaddingValues(0.dp),
         shape = shape,
         interactionSource = interactionSource,
-        role = role
+        role = role,
     ) {
         Box(
             modifier = Modifier

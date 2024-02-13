@@ -218,14 +218,8 @@ private fun MediaContent(
                     }
                 }
 
-            val customContentDescription = stringResource(
-                id = R.string.horologist_playlist_download_media_chip_download_content_description,
-                mediaTitle,
-            )
             val customModifier = onDownloadItemInProgressClickActionLabel?.let {
                 Modifier.semantics {
-                    contentDescription = customContentDescription
-
                     onClick(
                         label = onDownloadItemInProgressClickActionLabel,
                         action = null,

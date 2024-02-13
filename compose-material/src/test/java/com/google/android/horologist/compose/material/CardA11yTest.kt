@@ -17,43 +17,52 @@
 package com.google.android.horologist.compose.material
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Image
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.test.SemanticsMatcher.Companion.keyIsDefined
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.printToString
-import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 
-class ChipA11yTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
+class CardA11yTest : ScreenshotBaseTest(
+    screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
     },
 ) {
 
     @Test
-    fun withSecondaryLabelAndIcon() {
+    fun default() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Chip(
-                    label = "Primary label",
+                Card(
                     onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image.asPaintable(),
-                )
+                    onDoubleClick = { },
+                    onLongClick = { },
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text("Hello, Card")
+
+                        androidx.wear.compose.material.Button(onClick = { }) {
+                            Text("Click me!")
+                        }
+                    }
+                }
             }
         }
 
         screenshotTestRule.interact {
-            onAllNodes(keyIsDefined(SemanticsProperties.Role)).assertCountEquals(1)
+            onAllNodes(SemanticsMatcher.keyIsDefined(SemanticsProperties.Role)).assertCountEquals(1)
         }
     }
 
@@ -61,13 +70,22 @@ class ChipA11yTest : ScreenshotBaseTest(
     fun disabled() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Chip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image.asPaintable(),
+                Card(
+                    onClick = {},
+                    onLongClick = {},
+                    onDoubleClick = {},
                     enabled = false,
-                )
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text("Hello, Card")
+
+                        androidx.wear.compose.material.Button(onClick = { }) {
+                            Text("Click me!")
+                        }
+                    }
+                }
             }
         }
     }

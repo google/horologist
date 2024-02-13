@@ -62,8 +62,6 @@ class CardA11yTest : ScreenshotBaseTest(
         }
 
         screenshotTestRule.interact {
-            println(onRoot().printToString())
-
             onAllNodes(SemanticsMatcher.keyIsDefined(SemanticsProperties.Role)).assertCountEquals(1)
         }
     }

@@ -18,7 +18,7 @@ package com.google.android.horologist.compose.pager
 
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.gestures.snapping.SnapFlingBehavior
+import androidx.compose.foundation.gestures.TargetedFlingBehavior
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerSnapDistance
@@ -41,7 +41,7 @@ public object HorizontalPagerDefaults {
     @OptIn(ExperimentalFoundationApi::class)
     public fun flingParams(
         pagerState: PagerState,
-    ): SnapFlingBehavior {
+    ): TargetedFlingBehavior {
         return PagerDefaults.flingBehavior(
             state = pagerState,
             pagerSnapDistance = PagerSnapDistance.atMost(0),

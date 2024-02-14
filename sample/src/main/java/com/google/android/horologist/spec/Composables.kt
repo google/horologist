@@ -133,8 +133,6 @@ fun SampleOtherText() {
             top(0.2188f)
         }
     ) {
-        item {
-            WarningText()
-        }
+        warningTextItems()
     }
 }

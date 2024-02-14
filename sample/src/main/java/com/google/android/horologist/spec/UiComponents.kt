@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.Cloud
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.AppCard
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
@@ -43,15 +44,25 @@ fun Title(lines: Int) {
     }
 }
 
+val text = "We posted a payment for your credit card ending in 5555. " +
+    "If there is anything that does not match your payment details " +
+    "please log into your account or contact us with any questions. " +
+    "Please contact us if you did not perform this purchase. " +
+    "Our customer service team is available 24 hours a day, 7 days a week to help you."
+
 @Composable
 fun WarningText() {
     Text(
-        "We posted a payment for your credit card ending in 5555. " +
-            "If there is anything that does not match your payment details " +
-            "please log into your account or contact us with any questions.\n " +
-            "Please contact us if you did not perform this purchase. " +
-            "Our customer service team is available 24 hours a day, 7 days a week to help you."
+        text
     )
+}
+
+fun ScalingLazyListScope.warningTextItems() {
+    text.split(". ").forEach {
+        item {
+            Text("$it.")
+        }
+    }
 }
 
 @Composable

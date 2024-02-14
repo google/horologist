@@ -80,8 +80,6 @@ fun SideText() {
             side(0.052f, 0.052f, Color.Yellow)
         }
     ) {
-        item {
-            WarningText()
-        }
+        warningTextItems()
     }
 }

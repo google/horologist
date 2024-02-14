@@ -99,8 +99,6 @@ fun BottomOtherText() {
             bottom(0.3646f)
         }
     ) {
-        item {
-            WarningText()
-        }
+        warningTextItems()
     }
 }

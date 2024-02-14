@@ -140,28 +140,28 @@ class ScalingLazyColumnExamplesTest(device: Device) : ScreenSizeTest(
     @Test
     fun sideMixed() {
         runTest {
-            BottomOtherText()
+            SideMixed()
         }
     }
 
     @Test
     fun sideChips() {
         runTest {
-            BottomOtherText()
+            SideChips()
         }
     }
 
     @Test
     fun sideCards() {
         runTest {
-            BottomOtherText()
+            SideCards()
         }
     }
 
     @Test
     fun sideText() {
         runTest {
-            BottomOtherText()
+            SideText()
         }
     }
 }

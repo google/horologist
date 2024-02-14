@@ -57,14 +57,6 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach 
 }
 
 allprojects {
-    configurations.all {
-        resolutionStrategy.eachDependency {
-            if (requested.name == "annotation-experimental") {
-                useVersion("1.4.0-SNAPSHOT")
-            }
-        }
-    }
-
     repositories {
         google()
         mavenCentral()

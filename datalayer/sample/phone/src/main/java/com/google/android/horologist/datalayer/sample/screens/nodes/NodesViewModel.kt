@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.datalayer.sample.screens.nodes
 
+import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.data.AppHelperResultCode
@@ -32,7 +33,7 @@ private const val REMOTE_ACTIVITY_SAMPLE_CLASS_FULL_NAME =
     "com.google.android.horologist.datalayer.sample.screens.startremote.StartRemoteSampleActivity"
 
 @HiltViewModel
-class NodesActionViewModel
+class NodesViewModel
     @Inject
     constructor(
         private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
@@ -45,6 +46,7 @@ class NodesActionViewModel
             MutableStateFlow<NodesScreenState>(NodesScreenState.Idle)
         public val uiState: StateFlow<NodesScreenState> = _uiState
 
+        @MainThread
         fun initialize() {
             if (initializeCalled) return
             initializeCalled = true
@@ -61,8 +63,6 @@ class NodesActionViewModel
         }
 
         fun onRefreshClick() {
-            _uiState.value = NodesScreenState.Loading
-
             viewModelScope.launch {
                 loadNodes()
             }
@@ -108,6 +108,8 @@ class NodesActionViewModel
         }
 
         private suspend fun loadNodes() {
+            _uiState.value = NodesScreenState.Loading
+
             cachedNodeList = phoneDataLayerAppHelper.connectedNodes()
             _uiState.value = NodesScreenState.Loaded(nodeList = cachedNodeList)
         }

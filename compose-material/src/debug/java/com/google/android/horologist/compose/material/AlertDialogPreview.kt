@@ -22,11 +22,11 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @WearPreviewDevices
 @Composable
 fun AlertDialogPreview() {
-    Alert(
+    AlertContent(
         title = "Title",
-        body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        onCancelButtonClick = { },
-        onOKButtonClick = { },
+        message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        onCancel = { },
+        onOk = { },
         okButtonContentDescription = "Ok",
         cancelButtonContentDescription = "Cancel",
     )
@@ -35,16 +35,16 @@ fun AlertDialogPreview() {
 @WearPreviewDevices
 @Composable
 fun AlertDialogWithLongBodyPreview() {
-    Alert(
+    AlertContent(
         title = "Title",
-        body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
+        message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
             "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud " +
             "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute " +
             "irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
             "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia " +
             "deserunt mollit anim id est laborum.",
-        onCancelButtonClick = { },
-        onOKButtonClick = { },
+        onCancel = { },
+        onOk = { },
         okButtonContentDescription = "Ok",
         cancelButtonContentDescription = "Cancel",
     )

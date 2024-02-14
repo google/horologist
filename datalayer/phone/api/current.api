@@ -3,8 +3,10 @@ package com.google.android.horologist.datalayer.phone {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PhoneDataLayerAppHelper extends com.google.android.horologist.data.apphelper.DataLayerAppHelper {
     ctor public PhoneDataLayerAppHelper(android.content.Context context, com.google.android.horologist.data.WearDataLayerRegistry registry);
-    method public suspend Object? installOnNode(String nodeId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> getConnectedAndInstalledNodes();
+    method public suspend Object? installOnNode(String nodeId, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
     method @CheckResult public suspend Object? startCompanion(String nodeId, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
+    property public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> connectedAndInstalledNodes;
   }
 
   public final class PhoneDataLayerListenerService extends com.google.android.horologist.data.apphelper.DataLayerAppHelperService {

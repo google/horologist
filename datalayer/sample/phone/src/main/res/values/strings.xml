@@ -22,6 +22,7 @@
     <!-- Main Menu screen -->
     <string name="menu_screen_apphelper_header">App Helper</string>
     <string name="menu_screen_nodes_item">Nodes</string>
+    <string name="menu_screen_nodes_listener_item">Nodes Listener</string>
     <string name="menu_screen_inapp_prompts_header">In-App prompts</string>
     <string name="menu_screen_install_app_demo1_item">Install app - demo 1</string>
     <string name="menu_screen_install_app_demo2_item">Install app - demo 2</string>
@@ -32,7 +33,8 @@
     <string name="install_app_prompt_sample_app_name" translatable="false">Gmail</string>
     <string name="install_app_prompt_sample_app_package_name" translatable="false">com.google.android.gm</string>
     <string name="install_app_prompt_sample_watch_name" translatable="false">Pixel Watch</string>
-    <string name="install_app_prompt_sample_message">Stay productive and manage emails right from your wrist</string>
+    <string name="install_app_prompt_sample_top_message">Stay productive and manage emails right from your wrist.</string>
+    <string name="install_app_prompt_sample_bottom_message">Add the Gmail app to your Wear OS watch for easy access wherever you are.</string>
 
     <!-- App Helper Nodes screen -->
     <string name="nodes_screen_header">Nodes</string>
@@ -45,6 +47,7 @@
     <!-- App Helper Node Status card -->
     <string name="node_status_node_name_label">Node: %1$s</string>
     <string name="node_status_node_id_label">ID: %1$s</string>
+    <string name="node_status_node_is_nearby_label">Is nearby: %1$s</string>
     <string name="node_status_is_app_installed_label">App installed: %1$s</string>
     <string name="node_status_node_type_label">Type: %1$s</string>
     <string name="node_status_node_type_unknown_label">UNKNOWN (app not installed)</string>
@@ -56,6 +59,14 @@
     <string name="node_status_start_own_app_button_label">Start remote own app</string>
     <string name="node_status_start_remote_activity_button_label">Start remote activity</string>
 
+    <!-- App Helper Nodes Listener screen -->
+    <string name="nodes_listener_screen_header">Nodes Listener</string>
+    <string name="nodes_listener_screen_message">This screen shows all the connected nodes that have the app installed. The list updates automatically.</string>
+    <string name="nodes_listener_screen_no_nodes">No nodes were found.</string>
+    <string name="nodes_listener_screen_node_name_label">Name: %1$s</string>
+    <string name="nodes_listener_screen_node_id_label">ID: %1$s</string>
+    <string name="nodes_listener_screen_node_is_nearby_label">Is nearby: %1$s</string>
+
     <!-- In-app prompt - Install App Demo 1 screen -->
     <string name="install_app_prompt_api_call_demo_message">This demo calls the Horologist API to show the install app prompt and the invocation of the deeplink to the Google Play by using the Gmail app as an example. The developer has to gather all the information to display on the prompt, such as app name and watch name to use the prompt in their app.</string>
     <string name="install_app_prompt_run_demo_button_label">Run demo</string>
@@ -63,7 +74,8 @@
     <!-- In-app prompt - Install App Demo 2 screen -->
     <string name="install_app_prompt_api_call_demo2_message">This demo calls the Horologist API to show the install app prompt for the watch demo app. The API will only display the prompt if there is a watch connected and the watch does not have the app installed already.\n\nGoogle Play won\'t find this app as it is not published.</string>
     <string name="install_app_prompt_run_demo2_button_label">Run demo</string>
-    <string name="install_app_prompt_demo2_prompt_message">Test the interactions between the phone and the watch with the demo app.</string>
+    <string name="install_app_prompt_demo2_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
+    <string name="install_app_prompt_demo2_prompt_bottom_message">Install the demo app on your Wear OS watch.</string>
     <string name="install_app_prompt_demo2_result_label">Result: %1$s</string>
     <string name="install_app_prompt_demo2_no_watches_found_label">No watches without the app installed were found.</string>
     <string name="install_app_prompt_demo2_prompt_install_result_label">User tapped install on the prompt.</string>
@@ -72,7 +84,8 @@
     <!-- Counter screen -->
     <string name="app_helper_counter_label">Counter: %1$s</string>
     <string name="app_helper_counter_increase_btn_content_description">Increase counter</string>
-    <string name="app_helper_counter_increase_explanation">Open the datalayer sample on your watch to observe how the counter number is incremented</string>
+    <string name="app_helper_counter_message">Value: %1$s </string>
+    <string name="app_helper_counter_increase_explanation">Open the datalayer sample on your watch to observe how the counter number is incremented.</string>
 
     <!-- Start Remote Sample Activity screen -->
     <string name="app_helper_start_remote_activity_message">This is a sample activity to demonstrate it being launched remotely from the watch.</string>

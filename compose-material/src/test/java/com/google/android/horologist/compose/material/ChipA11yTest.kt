@@ -22,6 +22,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher.Companion.keyIsDefined
+import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.printToString
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
@@ -45,6 +50,10 @@ class ChipA11yTest : ScreenshotBaseTest(
                     icon = Icons.Default.Image.asPaintable(),
                 )
             }
+        }
+
+        screenshotTestRule.interact {
+            onAllNodes(keyIsDefined(SemanticsProperties.Role)).assertCountEquals(1)
         }
     }
 

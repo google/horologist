@@ -86,6 +86,12 @@ fun MenuScreen(
             DatePickerChip(time) { navigateToRoute(Screen.DatePicker.route) }
         }
         item {
+            FromDatePickerChip(time) { navigateToRoute(Screen.FromDatePicker.route) }
+        }
+        item {
+            ToDatePickerChip(time) { navigateToRoute(Screen.ToDatePicker.route) }
+        }
+        item {
             TimeWithSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithSecondsPicker.route) }
         }
         item {
@@ -104,6 +110,13 @@ fun MenuScreen(
             ListHeader {
                 Text(text = "Material Components")
             }
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_alert_dialog),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialAlertDialog.route) },
+            )
         }
         item {
             Chip(
@@ -135,9 +148,16 @@ fun MenuScreen(
         }
         item {
             Chip(
-                label = stringResource(id = R.string.sample_material_confirmation_dialog),
+                label = stringResource(id = R.string.sample_material_confirmation_screen),
                 modifier = modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(Screen.MaterialConfirmationScreen.route) },
+            )
+        }
+        item {
+            Chip(
+                label = stringResource(id = R.string.sample_material_confirmation_launcher),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialConfirmationLauncher.route) },
             )
         }
         item {

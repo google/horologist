@@ -16,39 +16,214 @@
 
 package com.google.android.horologist.screensizes
 
+import android.R
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.outlined.Battery1Bar
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.LocalTextStyle
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.material.AlertContent
+import com.google.android.horologist.compose.material.Button
+import com.google.android.horologist.compose.material.ConfirmationContent
+import com.google.android.horologist.compose.material.ToggleChip
+import com.google.android.horologist.compose.material.ToggleChipToggleControl
 import com.google.android.horologist.compose.tools.Device
+import kotlinx.coroutines.runBlocking
+import org.junit.Test
 
-class DialogTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+class DialogTest(device: Device) : ScreenSizeTest(
+    device = device,
+    showTimeText = false,
+) {
 
     @Composable
     override fun Content() {
-        Alert(
-            title = { Text("Phone app is required", textAlign = TextAlign.Center) },
-            negativeButton = {
-                Button(
-                    colors = ButtonDefaults.secondaryButtonColors(),
-                    onClick = {
-                        /* Do something e.g. navController.popBackStack()*/
-                    },
-                ) {
-                    Text("No")
+        // horologist AlertContent using ResponsiveDialogContent
+        AlertContent(
+            title = "Phone app is required",
+            onCancel = {},
+            onOk = {},
+            message = "Tap the button below to install it on your phone.",
+        )
+    }
+
+    @Test
+    fun wearMaterial() {
+        // androidx.wear.compose.material.dialog.Alert with no formatting
+        runTest {
+            Alert(
+                title = { Text("Phone app is required") },
+                negativeButton = {
+                    Button(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = "",
+                        onClick = {},
+                    )
+                },
+                positiveButton = {
+                    Button(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = "",
+                        onClick = { },
+                    )
+                },
+            ) {
+                Text(
+                    text = "Tap the button below to install it on your phone.",
+                )
+            }
+        }
+    }
+
+    @Test
+    fun longDialogScreen1() {
+        lateinit var columnState: ScalingLazyColumnState
+
+        runTest(testFn = {
+            screenshotTestRule.interact {
+                runBlocking {
+                    columnState.state.scrollToItem(999, 0)
                 }
-            },
-            positiveButton = {
-                Button(onClick = {
-                    /* Do something e.g. navController.popBackStack()*/
-                }) { Text("Yes") }
-            },
-        ) {
-            Text(
-                text = "Tap the button below to install it on your phone.",
-                textAlign = TextAlign.Center,
+            }
+
+            screenshotTestRule.takeScreenshot()
+        }) {
+            columnState = rememberColumnState()
+
+            AlertContent(
+                title = "Turn on Bedtime mode?",
+                message = "Watch screen, tilt-to-wake, and touch are turned off. " +
+                    "Only calls from starred contacts, repeat callers, " +
+                    "and alarms will notify you.",
+                onOk = {},
+                onCancel = {},
+                okButtonContentDescription = stringResource(R.string.ok),
+                cancelButtonContentDescription = stringResource(R.string.cancel),
+                state = columnState,
+            ) {
+                item {
+                    ToggleChip(
+                        checked = false,
+                        onCheckedChanged = {},
+                        label = "Don't show again",
+                        toggleControl = ToggleChipToggleControl.Checkbox,
+                    )
+                }
+            }
+        }
+    }
+
+    @Test
+    fun batterySaverScreen() {
+        lateinit var columnState: ScalingLazyColumnState
+
+        runTest(testFn = {
+            screenshotTestRule.interact {
+                runBlocking {
+                    columnState.state.scrollToItem(999, 0)
+                }
+            }
+
+            screenshotTestRule.takeScreenshot()
+        }) {
+            columnState = rememberColumnState()
+
+            AlertContent(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Info,
+                        contentDescription = "Info",
+                    )
+                },
+                title = "Enable Battery Saver Mode?",
+                message = "Your battery is low. Turn on battery saver.",
+                onOk = {},
+                onCancel = {},
+                okButtonContentDescription = stringResource(R.string.ok),
+                cancelButtonContentDescription = stringResource(R.string.cancel),
+                state = columnState,
+            ) {
+                item {
+                    Chip(
+                        label = { Text(text = "Primary Label") },
+                        onClick = {},
+                        icon = {
+                            Icon(
+                                Icons.Outlined.Battery1Bar,
+                                contentDescription = "Battery low",
+                            )
+                        },
+                        colors = ChipDefaults.secondaryChipColors(),
+                    )
+                }
+                item {
+                    CompositionLocalProvider(
+                        LocalTextStyle provides MaterialTheme.typography.caption3,
+                    ) {
+                        Text(
+                            text = "Body enim ad minim veniam, quis nostrud",
+                            textAlign = TextAlign.Start,
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun textAlertScreen() {
+        runTest {
+            AlertContent(
+                title = "Text only dialogs can use up to 3 lines of text in this layout",
+                onCancel = {},
+                onOk = {},
+            )
+        }
+    }
+
+    @Test
+    fun iconAndTextAlertScreen() {
+        runTest {
+            AlertContent(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Info,
+                        contentDescription = "Info",
+                    )
+                },
+                title = "Icon dialogs can use up to 2 lines of text",
+                onCancel = {},
+                onOk = {},
+            )
+        }
+    }
+
+    @Test
+    fun alarmConfirmationScreen() {
+        runTest {
+            ConfirmationContent(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.Check,
+                        contentDescription = "Completed",
+                        tint = Color.Green,
+                    )
+                },
+                title = "Alarm in 23 hr 59 min",
             )
         }
     }

@@ -47,8 +47,9 @@ fun DataLayerNodesScreen(
         }
         items(state.nodes) {
             Chip(
-                label = "${it.displayName}(${it.id}) ${if (it.isNearby) "NEAR" else ""}",
+                label = it.displayName,
                 onClick = { },
+                secondaryLabel = "${it.id} ${if (it.isNearby) "(NEAR)" else ""}",
             )
         }
         item {

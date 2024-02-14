@@ -17,14 +17,12 @@
 package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
-import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.ControlButtonLayout
@@ -33,6 +31,7 @@ import com.google.android.horologist.media.ui.components.controls.MediaButtonDef
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import com.google.android.horologist.media.ui.util.isLargeScreen
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -61,7 +60,6 @@ public fun AnimatedMediaControlButtons(
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     rotateProgressIndicator: Flow<Unit> = flowOf(),
 ) {
-    val isLargeScreen = LocalConfiguration.current.screenHeightDp > 224
     ControlButtonLayout(
         modifier = modifier,
         leftButton = {
@@ -86,7 +84,7 @@ public fun AnimatedMediaControlButtons(
                     colors = colors,
                     progressColor = progressColor,
                     rotateProgressIndicator = rotateProgressIndicator,
-                    iconSize = if (isLargeScreen) 38.dp else 32.dp,
+                    iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
                 )
             } else {
                 AnimatedPlayPauseButton(
@@ -96,7 +94,7 @@ public fun AnimatedMediaControlButtons(
                     playing = playing,
                     modifier = Modifier.fillMaxSize(),
                     colors = colors,
-                    iconSize = if (isLargeScreen) 38.dp else 32.dp,
+                    iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
                 )
             }
         },
@@ -142,10 +140,11 @@ public fun AnimatedMediaControlButtons(
                     enabled = playPauseButtonEnabled,
                     playing = playing,
                     trackPositionUiModel = trackPositionUiModel,
-                    modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
+                    modifier = Modifier.fillMaxSize(),
                     colors = colors,
                     progressColor = progressColor,
                     rotateProgressIndicator = rotateProgressIndicator,
+                    iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
                 )
             } else {
                 AnimatedPlayPauseButton(
@@ -153,8 +152,9 @@ public fun AnimatedMediaControlButtons(
                     onPauseClick = onPauseButtonClick,
                     enabled = playPauseButtonEnabled,
                     playing = playing,
-                    modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
+                    modifier = Modifier.fillMaxSize(),
                     colors = colors,
+                    iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
                 )
             }
         },

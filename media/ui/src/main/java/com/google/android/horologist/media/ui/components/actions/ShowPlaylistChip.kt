@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.components.MediaArtwork
 
@@ -41,7 +42,7 @@ public fun ShowPlaylistChip(
         {
             MediaArtwork(
                 modifier = Modifier.size(ChipDefaults.LargeIconSize),
-                contentDescription = name,
+                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                 artworkPaintable = it,
             )
         }

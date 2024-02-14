@@ -32,7 +32,7 @@
         android:theme="@android:style/ThemeOverlay.Material.Dark">
         <uses-library
             android:name="com.google.android.wearable"
-            android:required="true" />
+            android:required="false" />
 
         <meta-data
             android:name="com.google.android.wearable.standalone"
@@ -66,6 +66,17 @@
             android:exported="true"
             android:label="@string/nav_activity"
             android:taskAffinity=".scratch">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.google.android.horologist.scratch.DialogActivity"
+            android:exported="true"
+            android:label="Dialog Sample"
+            android:taskAffinity=".dialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

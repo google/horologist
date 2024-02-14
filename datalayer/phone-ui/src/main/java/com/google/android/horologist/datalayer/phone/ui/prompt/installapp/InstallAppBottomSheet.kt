@@ -16,11 +16,17 @@
 
 package com.google.android.horologist.datalayer.phone.ui.prompt.installapp
 
+import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Button
@@ -28,104 +34,210 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.datalayer.phone.ui.R
 
+// Constants from the redlines.
+private val PADDING_GREEN = 12.dp
+private val PADDING_PINK = 16.dp
+private val PADDING_PURPLE = 24.dp
+private val PADDING_BLUE = 32.dp
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun InstallAppBottomSheet(
-    message: String,
-    appName: String,
-    watchName: String,
-    icon: @Composable (() -> Unit)?,
+    image: @Composable (() -> Unit)?,
+    topMessage: String,
+    bottomMessage: String,
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit,
+    modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(),
 ) {
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
+        modifier = modifier,
         sheetState = sheetState,
+        dragHandle = null,
     ) {
-        InstallAppBottomSheetContent(
-            message = message,
-            appName = appName,
-            watchName = watchName,
-            icon = icon,
-            onDismissRequest = onDismissRequest,
-            onConfirmation = onConfirmation,
-        )
+        val configuration = LocalConfiguration.current
+        when (configuration.orientation) {
+            Configuration.ORIENTATION_PORTRAIT -> {
+                InstallAppBottomSheetPortraitContent(
+                    image = image,
+                    topMessage = topMessage,
+                    bottomMessage = bottomMessage,
+                    onDismissRequest = onDismissRequest,
+                    onConfirmation = onConfirmation,
+                )
+            }
+
+            else -> {
+                InstallAppBottomSheetLandscapeContent(
+                    image = image,
+                    topMessage = topMessage,
+                    bottomMessage = bottomMessage,
+                    onDismissRequest = onDismissRequest,
+                    onConfirmation = onConfirmation,
+                )
+            }
+        }
     }
 }
 
 @Composable
-internal fun InstallAppBottomSheetContent(
-    message: String,
-    appName: String,
-    watchName: String,
-    icon: @Composable (() -> Unit)?,
+internal fun InstallAppBottomSheetPortraitContent(
+    image: @Composable (() -> Unit)?,
+    topMessage: String,
+    bottomMessage: String,
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    Column(modifier = Modifier.padding(horizontal = 20.dp)) {
-        icon?.let {
+    Column(
+        modifier = modifier
+            .padding(PADDING_PINK)
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()),
+    ) {
+        image?.let {
             Box(
                 modifier = Modifier
-                    .heightIn(min = 0.dp, max = 180.dp)
-                    .padding(vertical = 20.dp)
+                    .padding(top = PADDING_PURPLE)
                     .align(Alignment.CenterHorizontally),
             ) {
-                icon()
+                image()
             }
         }
 
-        Text(
-            text = message,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 10.dp),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleMedium,
-        )
+        if (topMessage.isNotBlank()) {
+            Text(
+                text = topMessage,
+                modifier = Modifier
+                    .padding(top = PADDING_PURPLE)
+                    .fillMaxWidth(),
+                color = MaterialTheme.colorScheme.onSurface,
+                textAlign = TextAlign.Center,
+                maxLines = 3,
+                style = MaterialTheme.typography.titleLarge,
+            )
+        }
 
-        Text(
-            text = stringResource(
-                id = R.string.horologist_install_app_prompt_title,
-                appName,
-                watchName,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-        )
+        if (bottomMessage.isNotBlank()) {
+            Text(
+                text = bottomMessage,
+                modifier = Modifier
+                    .padding(top = PADDING_PINK)
+                    .fillMaxWidth(),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                maxLines = 3,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
 
-        Box(
+        Spacer(modifier = Modifier.height(PADDING_PURPLE))
+
+        Row(
             modifier = Modifier
-                .padding(top = 20.dp, bottom = 20.dp)
+                .padding(horizontal = PADDING_PINK)
                 .fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
         ) {
-            OutlinedButton(
+            TextButton(
                 onClick = onDismissRequest,
                 modifier = Modifier
-                    .padding(start = 8.dp)
-                    .align(Alignment.CenterStart),
+                    .padding(end = PADDING_GREEN),
             ) {
                 Text(stringResource(id = R.string.horologist_install_app_prompt_cancel_btn_label))
             }
 
             Button(
                 onClick = onConfirmation,
+            ) {
+                Text(stringResource(id = R.string.horologist_install_app_prompt_ok_btn_label))
+            }
+        }
+    }
+}
+
+@Composable
+internal fun InstallAppBottomSheetLandscapeContent(
+    image: @Composable (() -> Unit)?,
+    topMessage: String,
+    bottomMessage: String,
+    onDismissRequest: () -> Unit,
+    onConfirmation: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+            .padding(horizontal = PADDING_PURPLE)
+            .padding(top = PADDING_BLUE)
+            .verticalScroll(rememberScrollState()),
+    ) {
+        Row {
+            image?.let {
+                Box(modifier = Modifier.padding(end = PADDING_PURPLE)) {
+                    image()
+                }
+            }
+
+            Column {
+                if (topMessage.isNotBlank()) {
+                    Text(
+                        text = topMessage,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        textAlign = TextAlign.Start,
+                        maxLines = 3,
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                }
+
+                if (bottomMessage.isNotBlank()) {
+                    Text(
+                        text = bottomMessage,
+                        modifier = Modifier
+                            .padding(top = PADDING_PINK)
+                            .fillMaxWidth(),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Start,
+                        maxLines = 3,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                }
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .padding(top = PADDING_BLUE, bottom = PADDING_PINK)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
+        ) {
+            TextButton(
+                onClick = onDismissRequest,
                 modifier = Modifier
-                    .padding(end = 8.dp)
-                    .align(Alignment.CenterEnd),
+                    .padding(end = PADDING_GREEN),
+            ) {
+                Text(stringResource(id = R.string.horologist_install_app_prompt_cancel_btn_label))
+            }
+
+            Button(
+                onClick = onConfirmation,
             ) {
                 Text(stringResource(id = R.string.horologist_install_app_prompt_ok_btn_label))
             }
@@ -136,11 +248,10 @@ internal fun InstallAppBottomSheetContent(
 @Preview(showBackground = true)
 @Composable
 private fun InstallAppBottomSheetContentPreview() {
-    InstallAppBottomSheetContent(
-        message = "Stay productive and manage emails right from your wrist.",
-        appName = "Gmail",
-        watchName = "Pixel Watch",
-        icon = { Icon(Icons.Default.Email, contentDescription = null) },
+    InstallAppBottomSheetPortraitContent(
+        image = { Icon(Icons.Default.Email, contentDescription = null) },
+        topMessage = "Stay productive and manage emails right from your wrist.",
+        bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
         onDismissRequest = { },
         onConfirmation = { },
     )
@@ -149,11 +260,10 @@ private fun InstallAppBottomSheetContentPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun InstallAppBottomSheetContentPreviewNoIcon() {
-    InstallAppBottomSheetContent(
-        message = "Stay productive and manage emails right from your wrist.",
-        appName = "Gmail",
-        watchName = "Pixel Watch",
-        icon = null,
+    InstallAppBottomSheetPortraitContent(
+        image = null,
+        topMessage = "Stay productive and manage emails right from your wrist.",
+        bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
         onDismissRequest = { },
         onConfirmation = { },
     )

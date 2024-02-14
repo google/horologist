@@ -53,6 +53,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
@@ -146,7 +147,7 @@ public fun TimePicker(
     }
 
     val optionColor = MaterialTheme.colors.secondary
-    val pickerOption = pickerTextOption(textStyle) { "%02d".format(it) }
+    val pickerOption = pickerTextOption(textStyle, { "%02d".format(it) })
     val focusRequesterConfirmButton = remember { FocusRequester() }
 
     val hourString = stringResource(R.string.horologist_time_picker_hour)
@@ -465,7 +466,7 @@ public fun TimePickerWith12HourClock(
                             )
                         },
                         contentDescription = hoursContentDescription,
-                        option = pickerTextOption(textStyle) { "%02d".format(it + 1) },
+                        option = pickerTextOption(textStyle, { "%02d".format(it + 1) }),
                     ),
                     pickerGroupItemWithRSB(
                         pickerState = minuteState,
@@ -479,7 +480,7 @@ public fun TimePickerWith12HourClock(
                             )
                         },
                         contentDescription = minutesContentDescription,
-                        option = pickerTextOption(textStyle) { "%02d".format(it) },
+                        option = pickerTextOption(textStyle, { "%02d".format(it) }),
                     ),
                     pickerGroupItemWithRSB(
                         pickerState = periodState,
@@ -493,9 +494,9 @@ public fun TimePickerWith12HourClock(
                                 FocusableElement12Hour.CONFIRM_BUTTON,
                             )
                         },
-                        option = pickerTextOption(textStyle) {
+                        option = pickerTextOption(textStyle, {
                             if (it == 0) amString else pmString
-                        },
+                        }),
                     ),
                     autoCenter = false,
                     pickerGroupState = pickerGroupState,
@@ -588,19 +589,23 @@ internal fun pickerGroupItemWithRSB(
     )
 }
 
-internal fun pickerTextOption(textStyle: TextStyle, indexToText: (Int) -> String):
-    (@Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit) = { value: Int, pickerSelected: Boolean ->
+internal fun pickerTextOption(
+    textStyle: TextStyle,
+    indexToText: (Int) -> String,
+    isValid: (Int) -> Boolean = { true },
+): (@Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit) = { value: Int, pickerSelected: Boolean ->
     Box(modifier = Modifier.fillMaxSize()) {
         Text(
             text = indexToText(value),
             maxLines = 1,
             style = textStyle,
-            color =
-                if (pickerSelected) {
-                    MaterialTheme.colors.secondary
-                } else {
-                    MaterialTheme.colors.onBackground
-                },
+            color = if (!isValid(value)) {
+                Color(0xFF757575)
+            } else if (pickerSelected) {
+                MaterialTheme.colors.secondary
+            } else {
+                MaterialTheme.colors.onBackground
+            },
             modifier = Modifier
                 .align(Alignment.Center)
                 .wrapContentSize(),
@@ -719,7 +724,7 @@ private enum class FocusableElementsTimePicker(val index: Int) {
     ;
 
     companion object {
-        private val map = FocusableElementsTimePicker.values().associateBy { it.index }
+        private val map = entries.associateBy { it.index }
         operator fun get(value: Int) = map[value]
     }
 }
@@ -733,7 +738,7 @@ private enum class FocusableElement12Hour(val index: Int) {
     ;
 
     companion object {
-        private val map = FocusableElement12Hour.values().associateBy { it.index }
+        private val map = entries.associateBy { it.index }
         operator fun get(value: Int) = map[value]
     }
 }

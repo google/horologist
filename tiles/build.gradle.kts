@@ -28,7 +28,7 @@ android {
         //        Tiles is API 26, but if we don't stop this here, then we can't run the sample app
         //        on older devices (25).  We also don't want this to bleed into other modules via
         //        compose-tools which is used just for testing.
-        minSdk = 25
+        minSdk = 26
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

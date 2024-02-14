@@ -21,8 +21,6 @@
 
     <uses-feature android:name="android.hardware.type.watch" />
 
-    <uses-sdk android:minSdkVersion="25" tools:ignore="GradleOverrides" />
-
     <application tools:ignore="WearStandaloneAppFlag">
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -37,4 +35,6 @@
         </provider>
 
     </application>
+
+    <uses-sdk android:minSdkVersion="26" tools:ignore="GradleOverrides" />
 </manifest>

@@ -61,7 +61,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -165,8 +164,6 @@ dependencies {
     implementation(libs.dagger.hiltandroid)
     ksp(libs.dagger.hiltandroidcompiler)
     implementation(libs.hilt.navigationcompose)
-
-    coreLibraryDesugaring(libs.android.desugar)
 
     testImplementation(libs.androidx.navigation.testing)
     testImplementation(libs.androidx.test.espressocore)

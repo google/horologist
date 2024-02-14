@@ -278,7 +278,7 @@ package com.google.android.horologist.compose.navscaffold {
 package com.google.android.horologist.compose.pager {
 
   public final class HorizontalPagerDefaults {
-    method @androidx.compose.runtime.Composable public androidx.compose.foundation.gestures.snapping.SnapFlingBehavior flingParams(androidx.compose.foundation.pager.PagerState pagerState);
+    method @androidx.compose.runtime.Composable public androidx.compose.foundation.gestures.TargetedFlingBehavior flingParams(androidx.compose.foundation.pager.PagerState pagerState);
     field public static final com.google.android.horologist.compose.pager.HorizontalPagerDefaults INSTANCE;
   }
 

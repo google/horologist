@@ -19,7 +19,6 @@ package com.google.android.horologist.media.ui.components.animated
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -31,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.LocalContentAlpha
+import androidx.wear.compose.material.ripple
 import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieDynamicProperties
@@ -92,7 +92,7 @@ public fun AnimatedMediaButton(
             modifier = modifier,
             enabled = enabled,
             colors = colors,
-            indication = rememberRipple(
+            indication = ripple(
                 bounded = false,
                 radius = 35.dp,
             ),

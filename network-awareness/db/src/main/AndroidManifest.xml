@@ -19,5 +19,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.google.android.horologist.network.awareness.db">
 
-    <uses-sdk android:minSdkVersion="25" tools:ignore="GradleOverrides" />
+    <uses-sdk android:minSdkVersion="26" tools:ignore="GradleOverrides" />
 </manifest>

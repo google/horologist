@@ -25,7 +25,7 @@
     compose-tools which is used just for testing.
      -->
     <uses-sdk
-        android:minSdkVersion="25"
+        android:minSdkVersion="26"
         tools:ignore="GradleOverrides"
         tools:overrideLibrary="androidx.wear.protolayout.material,
             androidx.wear.tiles.renderer,

@@ -34,5 +34,6 @@
             androidx.wear.watchface.complications.datasource.ktx,
             androidx.wear.protolayout.expression,
             androidx.wear.protolayout.expression.pipeline,
-            androidx.wear.protolayout.renderer" />
+            androidx.wear.protolayout.renderer,
+            androidx.wear.protolayout.materialcore" />
 </manifest>

@@ -53,7 +53,7 @@ internal class InstallAppBottomSheetActivity : ComponentActivity() {
 
         setContent {
             Surface {
-                val installAppBottomSheetState = rememberModalBottomSheetState()
+                val bottomSheetState = rememberModalBottomSheetState()
                 val coroutineScope = rememberCoroutineScope()
 
                 val image: (@Composable () -> Unit)? = imageResId.takeIf { it != NO_IMAGE }?.let {
@@ -73,7 +73,7 @@ internal class InstallAppBottomSheetActivity : ComponentActivity() {
                         setResult(RESULT_CANCELED)
                         coroutineScope.launch {
                             try {
-                                installAppBottomSheetState.hide()
+                                bottomSheetState.hide()
                             } finally {
                                 finishWithoutAnimation()
                             }
@@ -85,7 +85,7 @@ internal class InstallAppBottomSheetActivity : ComponentActivity() {
                         setResult(RESULT_OK)
                         finishWithoutAnimation()
                     },
-                    sheetState = installAppBottomSheetState,
+                    sheetState = bottomSheetState,
                 )
             }
         }

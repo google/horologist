@@ -128,8 +128,8 @@ private fun SampleTheme(content: @Composable () -> Unit) {
 
 fun DrawScope.top(fl: Float) {
     drawRect(
-        color = Color.Magenta,
-        alpha = 0.2f,
+        color = MagentaIsh,
+        alpha = 0.4f,
         topLeft = Offset.Zero,
         size = Size(this.size.width, this.size.height * fl)
     )
@@ -138,25 +138,27 @@ fun DrawScope.top(fl: Float) {
 fun DrawScope.bottom(fl: Float) {
     val height = this.size.height * fl
     drawRect(
-        color = Color.Magenta,
-        alpha = 0.2f,
+        color = MagentaIsh,
+        alpha = 0.4f,
         topLeft = Offset(x = 0f, y = this.size.height - height),
         size = Size(this.size.width, height)
     )
 }
 
-fun DrawScope.side(fl: Float, offset: Float = 0f, color: Color = Color.Magenta) {
+fun DrawScope.side(fl: Float, offset: Float = 0f, color: Color = MagentaIsh) {
     val width = this.size.width * fl
     drawRect(
         color = color,
-        alpha = 0.2f,
+        alpha = 0.4f,
         topLeft = Offset(x = 0f + offset * this.size.width, y = 0f),
         size = Size(width, this.size.height)
     )
     drawRect(
         color = color,
-        alpha = 0.2f,
+        alpha = 0.4f,
         topLeft = Offset(x = this.size.width - width - offset * this.size.width, y = 0f),
         size = Size(width, this.size.height)
     )
 }
+
+val MagentaIsh = Color.Magenta

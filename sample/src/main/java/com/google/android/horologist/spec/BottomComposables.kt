@@ -26,7 +26,7 @@ fun Bottom1Button() {
     SampleMenu(atBottom = true, borders = {
         bottom(0.2083f)
     },
-        before = {
+        after = {
             AddCircleButton()
         }
     )
@@ -36,7 +36,7 @@ fun Bottom1Button() {
 @Composable
 fun Bottom2Buttons() {
     SampleMenu(
-        before = {
+        after = {
             Row {
                 AddCircleButton()
                 LocationOnButton()
@@ -53,7 +53,7 @@ fun Bottom2Buttons() {
 @Composable
 fun Bottom3Buttons() {
     SampleMenu(
-        before = {
+        after = {
             Row {
                 AddCircleButton()
                 LocationOnButton()

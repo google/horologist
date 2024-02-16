@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><resources>
 <!--
- Copyright 2023 The Android Open Source Project
+ Copyright 2024 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -29,10 +29,10 @@
   <string name="horologist_browse_downloads_title">Preuzimanja</string>
   <string name="horologist_browse_downloads_empty">Preuzmite glazbu i počnite sa slušanjem</string>
   <string name="horologist_browse_library_title">Zbirka</string>
-  <string name="horologist_browse_library_playlists">Popisi</string>
-  <string name="horologist_browse_library_playlists_button">Popisi</string>
+  <string name="horologist_browse_library_playlists">Playliste</string>
+  <string name="horologist_browse_library_playlists_button">Playliste</string>
   <string name="horologist_browse_library_settings_button">Postavke</string>
-  <string name="horologist_browse_playlist_title">Popisi</string>
+  <string name="horologist_browse_playlist_title">Playliste</string>
   <string name="horologist_playlist_download_button_download">Preuzmi na sat</string>
   <string name="horologist_playlist_download_button_cancel">Odustani</string>
   <string name="horologist_playlist_download_button_download_content_description">Preuzimanje dostupno</string>

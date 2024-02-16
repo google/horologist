@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><resources>
 <!--
- Copyright 2023 The Android Open Source Project
+ Copyright 2024 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@
   <string name="horologist_seek_back_button_seconds_content_description">倒轉 %s 秒</string>
   <string name="horologist_shuffle_button_off_content_description">隨機播放模式已關閉</string>
   <string name="horologist_shuffle_button_on_content_description">隨機播放模式已開啟</string>
-  <string name="horologist_nothing_playing">沒有播放中的媒體內容</string>
+  <string name="horologist_nothing_playing">未播放任何內容</string>
   <string name="horologist_browse_downloads_title">下載內容</string>
   <string name="horologist_browse_downloads_empty">下載音樂即可開始聆聽</string>
   <string name="horologist_browse_library_title">媒體庫</string>

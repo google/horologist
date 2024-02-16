@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><resources>
 <!--
- Copyright 2023 The Android Open Source Project
+ Copyright 2024 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -43,6 +43,6 @@
   <string name="horologist_playlist_download_button_shuffle_content_description">隨機播放</string>
   <string name="horologist_playlist_download_button_play_content_description">播放</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s，正在下載</string>
-  <string name="horologist_playlist_download_download_progress_known_size">%2$s，已下載 %1$.0f%%</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% (共 %2$s)</string>
   <string name="horologist_playlist_download_download_progress_waiting">等候中…</string>
 </resources>

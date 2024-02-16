@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
 <!--
- Copyright 2023 The Android Open Source Project
+ Copyright 2024 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@
   </plurals>
   <string name="horologist_time_picker_min">Minute</string>
   <string name="horologist_time_picker_period">Zeitraum</string>
-  <string name="horologist_time_picker_am">Vormittags</string>
+  <string name="horologist_time_picker_am">AM</string>
   <string name="horologist_time_picker_pm">Nachmittags</string>
   <string name="horologist_picker_day">Tag</string>
   <string name="horologist_picker_month">Monat</string>

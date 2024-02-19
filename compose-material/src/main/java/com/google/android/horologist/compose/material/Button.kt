@@ -36,9 +36,10 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.onLongClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.unit.Dp
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.ButtonDefaults.DefaultButtonSize
@@ -51,6 +52,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
+import androidx.wear.compose.material.Button as MaterialButton
 
 /**
  * This component is an alternative to [Button], providing the following:
@@ -133,7 +135,7 @@ internal fun Button(
     enabled: Boolean = true,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    Button(
+    MaterialButton(
         onClick = onClick,
         modifier = modifier
             .size(buttonSize.tapTargetSize)
@@ -142,6 +144,16 @@ internal fun Button(
                 this.contentDescription = contentDescription
                 if (!enabled) {
                     disabled()
+                }
+                this.onClick(action = {
+                    onClick()
+                    true
+                })
+                if (onLongClick != null) {
+                    this.onLongClick(action = {
+                        onLongClick()
+                        true
+                    })
                 }
             },
         enabled = enabled,

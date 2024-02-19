@@ -22,9 +22,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher.Companion.keyIsDefined
-import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertTextEquals
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
@@ -44,6 +47,8 @@ class ChipA11yTest : ScreenshotBaseTest(
                 Chip(
                     label = "Primary label",
                     onClick = { },
+                    onLongClick = {},
+                    onDoubleClick = {},
                     secondaryLabel = "Secondary label",
                     icon = Icons.Default.Image.asPaintable(),
                 )
@@ -51,7 +56,11 @@ class ChipA11yTest : ScreenshotBaseTest(
         }
 
         screenshotTestRule.interact {
-            onAllNodes(keyIsDefined(SemanticsProperties.Role)).assertCountEquals(1)
+            onNode(keyIsDefined(SemanticsProperties.Role))
+                .assertHasClickAction()
+                .assert(keyIsDefined(SemanticsActions.OnLongClick))
+                // not possible to define action for OnDoubleClick
+                .assertTextEquals("Primary label, Secondary label")
         }
     }
 

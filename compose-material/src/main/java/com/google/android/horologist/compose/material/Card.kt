@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import androidx.wear.compose.material.Card as MaterialCard
 
 /**
  * This component is an alternative to [Card], adding support for long and double-clicks.
@@ -56,7 +57,7 @@ public fun Card(
     content: @Composable () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    androidx.wear.compose.material.Card(
+    MaterialCard(
         onClick = onClick,
         modifier = modifier,
         backgroundPainter = backgroundPainter,

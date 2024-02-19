@@ -22,11 +22,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.test.onRoot
-import androidx.compose.ui.test.printToString
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher.Companion.keyIsDefined
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.assertContentDescriptionEquals
+import androidx.compose.ui.test.assertHasClickAction
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
-import org.junit.Assert
 import org.junit.Test
 
 class ButtonA11yTest : ScreenshotBaseTest(
@@ -44,17 +47,16 @@ class ButtonA11yTest : ScreenshotBaseTest(
                     imageVector = Icons.Default.Check,
                     contentDescription = "contentDescription",
                     onClick = { },
+                    onLongClick = {},
                 )
             }
         }
 
         screenshotTestRule.interact {
-            val logEntries = onRoot().printToString()
-                .split("\n")
-                .map { it.trim() }
-
-            Assert.assertEquals(1, logEntries.filter { it.startsWith("Role") }.size)
-            Assert.assertEquals(1, logEntries.filter { it.startsWith("ContentDescription") }.size)
+            onNode(keyIsDefined(SemanticsProperties.Role))
+                .assertHasClickAction()
+                .assert(keyIsDefined(SemanticsActions.OnLongClick))
+                .assertContentDescriptionEquals("contentDescription")
         }
     }
 
@@ -72,12 +74,9 @@ class ButtonA11yTest : ScreenshotBaseTest(
         }
 
         screenshotTestRule.interact {
-            val logEntries = onRoot().printToString()
-                .split("\n")
-                .map { it.trim() }
-
-            Assert.assertEquals(1, logEntries.filter { it.startsWith("Role") }.size)
-            Assert.assertEquals(1, logEntries.filter { it.startsWith("ContentDescription") }.size)
+            onNode(keyIsDefined(SemanticsProperties.Role))
+                .assertHasClickAction()
+                .assertContentDescriptionEquals("contentDescription")
         }
     }
 }

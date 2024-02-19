@@ -138,6 +138,7 @@ dependencies {
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
 
     implementation(libs.compose.ui.toolingpreview)
+    implementation(libs.androidx.wear.tooling.preview)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

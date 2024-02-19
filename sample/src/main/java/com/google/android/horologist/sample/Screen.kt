@@ -35,6 +35,7 @@ sealed class Screen(
 
     object MaterialAlertDialog : Screen("materialAlertDialog")
     object MaterialButtonsScreen : Screen("materialButtonsScreen")
+    object MaterialCardsScreen : Screen("materialCardsScreen")
     object MaterialChipsScreen : Screen("materialChipsScreen")
     object MaterialChipIconWithProgressScreen : Screen("materialChipIconWithProgressScreen")
     object MaterialCompactChipsScreen : Screen("materialCompactChips")

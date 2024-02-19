@@ -22,16 +22,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.material.Card
 
-@Preview
+@WearPreviewDevices
 @Composable
 fun SampleCardScreenPreview() {
     val state = rememberColumnState()
@@ -52,9 +52,19 @@ internal fun SampleCardScreen(
                 onClick = { println("Click") },
                 onLongClick = { println("LongClick") },
                 onDoubleClick = { println("DoubleClick") },
+                enabled = false,
+            ) {
+                Text("Hello\nCard")
+            }
+        }
+        item {
+            Card(
+                onClick = { println("Click") },
+                onLongClick = { println("LongClick") },
+                onDoubleClick = { println("DoubleClick") },
                 modifier = Modifier.background(Color.Cyan),
             ) {
-                Text("Hello, Card")
+                Text("Hello\nCard")
             }
         }
         item {
@@ -65,7 +75,7 @@ internal fun SampleCardScreen(
                 modifier = Modifier.background(Color.Cyan),
                 shape = MaterialTheme.shapes.medium,
             ) {
-                Text("Hello, Card")
+                Text("Hello\nCard")
             }
         }
         item {
@@ -75,7 +85,7 @@ internal fun SampleCardScreen(
                 onDoubleClick = { println("DoubleClick") },
                 backgroundPainter = painterResource(id = android.R.drawable.ic_dialog_alert),
             ) {
-                Text("Hello, Card")
+                Text("Hello\nCard")
             }
         }
         item {
@@ -85,7 +95,7 @@ internal fun SampleCardScreen(
                 onDoubleClick = { println("DoubleClick") },
                 contentPadding = PaddingValues(24.dp),
             ) {
-                Text("Hello, Card")
+                Text("Hello\nCard")
             }
         }
         item {
@@ -95,7 +105,7 @@ internal fun SampleCardScreen(
                 onDoubleClick = { println("DoubleClick") },
                 contentColor = MaterialTheme.colors.primaryVariant,
             ) {
-                Text("Hello, Card")
+                Text("Hello\nCard")
             }
         }
         item {
@@ -105,7 +115,7 @@ internal fun SampleCardScreen(
                 onDoubleClick = { println("DoubleClick") },
                 enabled = false,
             ) {
-                Text("Hello, Card")
+                Text("Hello\nCard")
             }
         }
     }

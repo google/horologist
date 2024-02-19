@@ -59,6 +59,7 @@ class ChipA11yTest : ScreenshotBaseTest(
             onNode(keyIsDefined(SemanticsProperties.Role))
                 .assertHasClickAction()
                 .assert(keyIsDefined(SemanticsActions.OnLongClick))
+                // not possible to define action for OnDoubleClick
                 .assertTextEquals("Primary label, Secondary label")
         }
     }

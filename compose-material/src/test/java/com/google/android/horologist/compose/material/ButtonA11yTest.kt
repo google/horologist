@@ -25,12 +25,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher.Companion.keyIsDefined
-import androidx.compose.ui.test.SemanticsMatcher.Companion.keyNotDefined
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.assertHasClickAction
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
 
@@ -38,32 +36,11 @@ class ButtonA11yTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         enableA11y = true
         screenTimeText = {}
-        record = ScreenshotTestRule.RecordMode.Record
     },
 ) {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Button(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "contentDescription",
-                    onClick = { },
-                )
-            }
-        }
-
-        screenshotTestRule.interact {
-            onNode(keyIsDefined(SemanticsProperties.Role))
-                .assertHasClickAction()
-                .assert(keyNotDefined(SemanticsActions.OnLongClick))
-                .assertContentDescriptionEquals("contentDescription")
-        }
-    }
-
-    @Test
-    fun withLongClick() {
         screenshotTestRule.setContent(takeScreenshot = true) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 Button(

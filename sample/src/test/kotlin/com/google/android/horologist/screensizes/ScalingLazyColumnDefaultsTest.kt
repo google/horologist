@@ -40,193 +40,193 @@ import org.junit.Test
 class ScalingLazyColumnDefaultsTest(device: Device) :
     ScreenSizeTest(
         device = device,
-        showTimeText = false
+        showTimeText = false,
     ) {
 
-    @Composable
-    override fun Content() {
-        Standard()
-    }
+        @Composable
+        override fun Content() {
+            Standard()
+        }
 
-    @Test
-    fun responsive() {
-        runTest { Responsive() }
-    }
+        @Test
+        fun responsive() {
+            runTest { Responsive() }
+        }
 
-    @Test
-    fun belowTimeText() {
-        runTest { BelowTimeText() }
-    }
+        @Test
+        fun belowTimeText() {
+            runTest { BelowTimeText() }
+        }
 
-    @Test
-    fun standard_end() {
-        runTest {
-            val listState = ScalingLazyListState()
+        @Test
+        fun standard_end() {
+            runTest {
+                val listState = ScalingLazyListState()
 
-            androidx.wear.compose.foundation.lazy.ScalingLazyColumn(
-                state = listState,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(20) {
-                    SampleAppCard()
+                androidx.wear.compose.foundation.lazy.ScalingLazyColumn(
+                    state = listState,
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    items(20) {
+                        SampleAppCard()
+                    }
+                }
+
+                LaunchedEffect(Unit) {
+                    listState.scrollToItem(100, 0)
                 }
             }
+        }
 
-            LaunchedEffect(Unit) {
-                listState.scrollToItem(100, 0)
+        @Test
+        fun responsive_end() {
+            runTest {
+                val columnState = ScalingLazyColumnDefaults.responsive().create()
+
+                SampleMenu(columnState = columnState)
+
+                LaunchedEffect(Unit) {
+                    columnState.state.scrollToItem(100, 0)
+                }
             }
         }
-    }
 
-    @Test
-    fun responsive_end() {
-        runTest {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+        @Test
+        fun belowTimeText_end() {
+            runTest {
+                val columnState = ScalingLazyColumnDefaults.belowTimeText().create()
 
-            SampleMenu(columnState = columnState)
+                SampleMenu(columnState = columnState)
 
-            LaunchedEffect(Unit) {
-                columnState.state.scrollToItem(100, 0)
+                LaunchedEffect(Unit) {
+                    columnState.state.scrollToItem(100, 0)
+                }
             }
         }
-    }
 
-    @Test
-    fun belowTimeText_end() {
-        runTest {
-            val columnState = ScalingLazyColumnDefaults.belowTimeText().create()
+        @Test
+        fun standard_chips() {
+            runTest {
+                val listState = ScalingLazyListState()
 
-            SampleMenu(columnState = columnState)
-
-            LaunchedEffect(Unit) {
-                columnState.state.scrollToItem(100, 0)
+                androidx.wear.compose.foundation.lazy.ScalingLazyColumn(
+                    state = listState,
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    items(20) {
+                        SampleChip(it)
+                    }
+                }
             }
         }
-    }
 
-    @Test
-    fun standard_chips() {
-        runTest {
-            val listState = ScalingLazyListState()
+        @Test
+        fun responsive_chips() {
+            runTest {
+                val columnState = ScalingLazyColumnDefaults.responsive().create()
 
-            androidx.wear.compose.foundation.lazy.ScalingLazyColumn(
-                state = listState,
-                modifier = Modifier.fillMaxSize()
+                SampleChipMenu(columnState = columnState)
+            }
+        }
+
+        @Test
+        fun standard_chips_end() {
+            runTest {
+                val listState = ScalingLazyListState()
+
+                androidx.wear.compose.foundation.lazy.ScalingLazyColumn(
+                    state = listState,
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    items(20) {
+                        SampleChip(it)
+                    }
+                }
+
+                LaunchedEffect(Unit) {
+                    listState.scrollToItem(100, 0)
+                }
+            }
+        }
+
+        @Test
+        fun responsive_chips_end() {
+            runTest {
+                val columnState = ScalingLazyColumnDefaults.responsive().create()
+
+                SampleChipMenu(columnState = columnState)
+
+                LaunchedEffect(Unit) {
+                    columnState.state.scrollToItem(100, 0)
+                }
+            }
+        }
+
+        @Composable
+        fun SampleMenu(columnState: ScalingLazyColumnState, modifier: Modifier = Modifier) {
+            SectionedList(
+                columnState = columnState,
+                modifier = modifier.fillMaxSize(),
             ) {
+                section(
+                    listOf(
+                        Pair(
+                            R.string.sectionedlist_stateless_sections_menu,
+                            Screen.SectionedListStatelessScreen.route,
+                        ),
+                        Pair(
+                            R.string.sectionedlist_stateful_sections_menu,
+                            Screen.SectionedListStatefulScreen.route,
+                        ),
+                        Pair(
+                            R.string.sectionedlist_expandable_sections_menu,
+                            Screen.SectionedListExpandableScreen.route,
+                        ),
+                    ),
+                ) {
+                    header {
+                        Title(
+                            stringResource(R.string.sectionedlist_samples_title),
+                            Modifier.padding(vertical = 8.dp),
+                        )
+                    }
+
+                    loaded {
+                        SampleAppCard()
+                    }
+                }
+            }
+        }
+
+        @Composable
+        private fun SampleAppCard() {
+            AppCard(
+                onClick = { },
+                appName = {
+                    Text("App Name")
+                },
+                time = {
+                    Text("12:05")
+                },
+                title = {
+                    Text("Title")
+                },
+            ) {
+                Text("Content\nContent\nContent")
+            }
+        }
+
+        @Composable
+        fun SampleChipMenu(columnState: ScalingLazyColumnState, modifier: Modifier = Modifier) {
+            ScalingLazyColumn(columnState = columnState, modifier = modifier) {
                 items(20) {
                     SampleChip(it)
                 }
             }
         }
-    }
 
-    @Test
-    fun responsive_chips() {
-        runTest {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            SampleChipMenu(columnState = columnState)
+        @Composable
+        private fun SampleChip(it: Int) {
+            Chip(label = "Chip $it", onClick = { /*TODO*/ })
         }
     }
-
-    @Test
-    fun standard_chips_end() {
-        runTest {
-            val listState = ScalingLazyListState()
-
-            androidx.wear.compose.foundation.lazy.ScalingLazyColumn(
-                state = listState,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(20) {
-                    SampleChip(it)
-                }
-            }
-
-            LaunchedEffect(Unit) {
-                listState.scrollToItem(100, 0)
-            }
-        }
-    }
-
-    @Test
-    fun responsive_chips_end() {
-        runTest {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            SampleChipMenu(columnState = columnState)
-
-            LaunchedEffect(Unit) {
-                columnState.state.scrollToItem(100, 0)
-            }
-        }
-    }
-
-    @Composable
-    fun SampleMenu(columnState: ScalingLazyColumnState, modifier: Modifier = Modifier) {
-        SectionedList(
-            columnState = columnState,
-            modifier = modifier.fillMaxSize(),
-        ) {
-            section(
-                listOf(
-                    Pair(
-                        R.string.sectionedlist_stateless_sections_menu,
-                        Screen.SectionedListStatelessScreen.route,
-                    ),
-                    Pair(
-                        R.string.sectionedlist_stateful_sections_menu,
-                        Screen.SectionedListStatefulScreen.route,
-                    ),
-                    Pair(
-                        R.string.sectionedlist_expandable_sections_menu,
-                        Screen.SectionedListExpandableScreen.route,
-                    ),
-                ),
-            ) {
-                header {
-                    Title(
-                        stringResource(R.string.sectionedlist_samples_title),
-                        Modifier.padding(vertical = 8.dp),
-                    )
-                }
-
-                loaded {
-                    SampleAppCard()
-                }
-            }
-        }
-    }
-
-    @Composable
-    private fun SampleAppCard() {
-        AppCard(
-            onClick = { },
-            appName = {
-                Text("App Name")
-            },
-            time = {
-                Text("12:05")
-            },
-            title = {
-                Text("Title")
-            },
-        ) {
-            Text("Content\nContent\nContent")
-        }
-    }
-
-    @Composable
-    fun SampleChipMenu(columnState: ScalingLazyColumnState, modifier: Modifier = Modifier) {
-        ScalingLazyColumn(columnState = columnState, modifier = modifier) {
-            items(20) {
-                SampleChip(it)
-            }
-        }
-    }
-
-    @Composable
-    private fun SampleChip(it: Int) {
-        Chip(label = "Chip $it", onClick = { /*TODO*/ })
-    }
-}

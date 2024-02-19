@@ -121,9 +121,13 @@ package com.google.android.horologist.compose.tools {
     property public static final java.util.List<com.google.android.horologist.compose.tools.ThemeValues> themeValues;
   }
 
+  public final class TilePreviewDataKt {
+    method @androidx.compose.runtime.Composable public static <T, R> androidx.wear.tiles.tooling.preview.TilePreviewData tileRendererPreviewData(com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> renderer, T tileState, R resourceState);
+  }
+
   public final class TilePreviewHelpersKt {
     method public static androidx.wear.protolayout.ActionBuilders.LaunchAction getDummyAction();
-    method public static kotlin.jvm.functions.Function1<androidx.wear.tiles.RequestBuilders.ResourcesRequest,androidx.wear.protolayout.ResourceBuilders.Resources> resources(kotlin.jvm.functions.Function1<? super androidx.wear.protolayout.ResourceBuilders.Resources.Builder,kotlin.Unit> fn);
+    method public static kotlin.jvm.functions.Function1<androidx.wear.tiles.RequestBuilders.ResourcesRequest,androidx.wear.protolayout.ResourceBuilders.Resources> resources(kotlin.jvm.functions.Function2<? super androidx.wear.protolayout.ResourceBuilders.Resources.Builder,? super androidx.wear.tiles.RequestBuilders.ResourcesRequest,kotlin.Unit> fn);
     property public static final androidx.wear.protolayout.ActionBuilders.LaunchAction DummyAction;
   }
 

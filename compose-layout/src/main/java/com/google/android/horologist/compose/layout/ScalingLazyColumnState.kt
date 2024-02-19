@@ -158,7 +158,7 @@ public fun ScalingLazyColumn(
             rotaryHaptics = rotaryHaptics,
         )
 
-        RotaryMode.Scroll, RotaryMode.Fling -> modifier.rotaryWithScroll(
+        RotaryMode.Scroll -> modifier.rotaryWithScroll(
             focusRequester = focusRequester,
             scrollableState = columnState.state,
             reverseDirection = columnState.reverseLayout,

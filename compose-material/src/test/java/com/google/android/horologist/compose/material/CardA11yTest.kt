@@ -23,8 +23,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.SemanticsMatcher.Companion.keyIsDefined
+import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertTextEquals
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
@@ -60,7 +61,10 @@ class CardA11yTest : ScreenshotBaseTest(
         }
 
         screenshotTestRule.interact {
-            onAllNodes(SemanticsMatcher.keyIsDefined(SemanticsProperties.Role)).assertCountEquals(1)
+            onNode(keyIsDefined(SemanticsProperties.Role))
+                .assertTextEquals("Click me!")
+                .assertHasClickAction()
+//                .assert(keyIsDefined(SemanticsActions.OnLongClick))
         }
     }
 

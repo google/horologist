@@ -29,7 +29,6 @@ import androidx.wear.tiles.tooling.preview.Preview
 import androidx.wear.tiles.tooling.preview.TilePreviewData
 import androidx.wear.tooling.preview.devices.WearDevices
 import coil.ImageLoader
-import com.google.android.horologist.compose.tools.DummyAction
 import com.google.android.horologist.compose.tools.tileRendererPreviewData
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
@@ -159,16 +158,16 @@ fun SampleTilePreview(context: Context): TilePreviewData = tileRendererPreviewDa
     ),
     tileState = MediaCollectionsTileRenderer.MediaCollectionsState(
         chipName = R.string.sample_playlists,
-        chipAction = DummyAction,
+        chipAction = ActionBuilders.LaunchAction.Builder().build(),
         collection1 = MediaCollectionsTileRenderer.MediaCollection(
             name = "Kyoto Songs",
             artworkId = "s1",
-            action = DummyAction,
+            action = ActionBuilders.LaunchAction.Builder().build(),
         ),
         collection2 = MediaCollectionsTileRenderer.MediaCollection(
             name = "Podcasts",
             artworkId = "c2",
-            action = DummyAction,
+            action = ActionBuilders.LaunchAction.Builder().build(),
         ),
     ),
     resourceState = MediaCollectionsTileRenderer.ResourceState(

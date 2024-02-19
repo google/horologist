@@ -25,7 +25,7 @@ public fun <T, R> tileRendererPreviewData(
     renderer: TileLayoutRenderer<T, R>,
     tileState: T,
     resourceState: R,
-) = TilePreviewData(
+): TilePreviewData = TilePreviewData(
     onTileResourceRequest = { resourcesRequest ->
         with(renderer) {
             produceRequestedResources(resourceState, resourcesRequest)

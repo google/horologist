@@ -139,6 +139,8 @@ public object ScalingLazyColumnDefaults {
      *
      * @param firstItemIsFullWidth set to false if the first item is small enough to fit at the top,
      * however it may be scaled.
+     * @param additionalPaddingAtBottom additional padding at end of content to avoid problem items
+     * clipping
      * @param verticalArrangement the ScalingLazyColumn verticalArrangement.
      * @param horizontalPaddingPercent the amount of horizontal padding as a percent.
      * @param rotaryMode the rotary handling, such as Fling or Snap.
@@ -149,6 +151,7 @@ public object ScalingLazyColumnDefaults {
     @ExperimentalHorologistApi
     public fun responsive(
         firstItemIsFullWidth: Boolean = true,
+        additionalPaddingAtBottom: Dp = 10.dp,
         verticalArrangement: Arrangement.Vertical =
             Arrangement.spacedBy(
                 space = 4.dp,
@@ -186,13 +189,17 @@ public object ScalingLazyColumnDefaults {
 
                 return remember {
                     val padding = screenWidthDp * horizontalPaddingPercent
-                    val topPaddingDp: Dp = if (firstItemIsFullWidth && configuration.isScreenRound) {
-                        calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
-                    } else {
-                        32.dp
-                    }
+                    val topPaddingDp: Dp =
+                        if (firstItemIsFullWidth && configuration.isScreenRound) {
+                            calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
+                        } else {
+                            32.dp
+                        }
                     val bottomPaddingDp: Dp = if (configuration.isScreenRound) {
-                        calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
+                        calculateVerticalOffsetForChip(
+                            screenWidthDp,
+                            horizontalPaddingPercent,
+                        ) + additionalPaddingAtBottom
                     } else {
                         0.dp
                     }
@@ -203,11 +210,13 @@ public object ScalingLazyColumnDefaults {
                         bottom = bottomPaddingDp,
                     )
 
-                    val sizeRatio = ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
+                    val sizeRatio =
+                        ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
                     val presetRatio = 0f
 
                     val minElementHeight = lerp(0.2f, 0.157f, sizeRatio)
-                    val maxElementHeight = lerp(0.6f, 0.472f, sizeRatio).coerceAtLeast(minElementHeight)
+                    val maxElementHeight =
+                        lerp(0.6f, 0.472f, sizeRatio).coerceAtLeast(minElementHeight)
                     val minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio)
                     val maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio)
 

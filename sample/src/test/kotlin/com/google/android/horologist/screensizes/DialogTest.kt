@@ -27,6 +27,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
@@ -34,6 +35,7 @@ import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.material.AlertContent
@@ -102,7 +104,11 @@ class DialogTest(device: Device) : ScreenSizeTest(
 
             screenshotTestRule.takeScreenshot()
         }) {
-            columnState = rememberColumnState()
+            columnState = rememberColumnState(
+                ScalingLazyColumnDefaults.responsive(
+                    additionalPaddingAtBottom = 0.dp,
+                ),
+            )
 
             AlertContent(
                 title = "Turn on Bedtime mode?",
@@ -140,7 +146,11 @@ class DialogTest(device: Device) : ScreenSizeTest(
 
             screenshotTestRule.takeScreenshot()
         }) {
-            columnState = rememberColumnState()
+            columnState = rememberColumnState(
+                ScalingLazyColumnDefaults.responsive(
+                    additionalPaddingAtBottom = 0.dp,
+                ),
+            )
 
             AlertContent(
                 icon = {

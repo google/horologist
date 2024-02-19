@@ -14,34 +14,62 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
+
 package com.google.android.horologist.compose.material
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ChipBorder
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.LocalContentAlpha
+import androidx.wear.compose.material.LocalContentColor
+import androidx.wear.compose.material.LocalTextStyle
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
+import androidx.wear.compose.material.Chip as MaterialChip
+
 /**
  * This component is an alternative to [Chip], providing the following:
  * - a convenient way of providing a label and a secondary label;
@@ -54,6 +82,8 @@ public fun Chip(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
     secondaryLabel: String? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     icon: Paintable? = null,
@@ -97,6 +127,8 @@ public fun Chip(
     Chip(
         label = label,
         onClick = onClick,
+        onLongClick = onLongClick,
+        onDoubleClick = onDoubleClick,
         modifier = modifier,
         secondaryLabel = secondaryLabel,
         icon = iconParam,
@@ -118,6 +150,8 @@ public fun Chip(
     @StringRes labelId: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
     @StringRes secondaryLabel: Int? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     icon: Paintable? = null,
@@ -128,6 +162,8 @@ public fun Chip(
     Chip(
         label = stringResource(id = labelId),
         onClick = onClick,
+        onLongClick = onLongClick,
+        onDoubleClick = onDoubleClick,
         modifier = modifier,
         secondaryLabel = secondaryLabel?.let { stringResource(id = it) },
         icon = icon,
@@ -148,6 +184,8 @@ public fun Chip(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
     secondaryLabel: String? = null,
     icon: (@Composable BoxScope.() -> Unit)? = null,
     largeIcon: Boolean = false,
@@ -194,8 +232,23 @@ public fun Chip(
     Chip(
         label = labelParam,
         onClick = onClick,
+        onLongClick = onLongClick,
+        onDoubleClick = onDoubleClick,
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clearAndSetSemantics {
+                text = buildAnnotatedString {
+                    append(label)
+                    if (secondaryLabel != null) {
+                        append(", ")
+                        append(secondaryLabel)
+                    }
+                }
+                role = Role.Button
+                if (!enabled) {
+                    disabled()
+                }
+            },
         secondaryLabel = secondaryLabelParam,
         icon = icon,
         colors = colors,
@@ -203,3 +256,144 @@ public fun Chip(
         contentPadding = contentPadding,
     )
 }
+
+/**
+ * Temporary copy of Wear Compose Material Chip with support for
+ * onLongClick, onDoubleClick.
+ */
+@Composable
+internal fun Chip(
+    label: @Composable RowScope.() -> Unit,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
+    secondaryLabel: (@Composable RowScope.() -> Unit)? = null,
+    icon: (@Composable BoxScope.() -> Unit)? = null,
+    colors: ChipColors = ChipDefaults.primaryChipColors(),
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    contentPadding: PaddingValues = ChipDefaults.ContentPadding,
+    shape: Shape = MaterialTheme.shapes.large,
+    border: ChipBorder = ChipDefaults.chipBorder(),
+) {
+    Chip(
+        onClick = onClick,
+        colors = colors,
+        border = border,
+        modifier = modifier,
+        onLongClick = onLongClick,
+        onDoubleClick = onDoubleClick,
+        enabled = enabled,
+        contentPadding = contentPadding,
+        shape = shape,
+        interactionSource = interactionSource,
+        role = Role.Button,
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            // Fill the container height but not its width as chips have fixed size height but we
+            // want them to be able to fit their content
+            modifier = Modifier.fillMaxHeight(),
+        ) {
+            if (icon != null) {
+                Box(
+                    modifier = Modifier.wrapContentSize(align = Alignment.Center),
+                    content = {
+                        val color = colors.iconColor(enabled).value
+                        CompositionLocalProvider(
+                            LocalContentColor provides color,
+                            LocalContentAlpha provides color.alpha,
+                        ) {
+                            icon()
+                        }
+                    },
+                )
+                Spacer(modifier = Modifier.size(IconSpacing))
+            }
+            Column {
+                Row(
+                    content = {
+                        val color = colors.contentColor(enabled).value
+                        CompositionLocalProvider(
+                            LocalContentColor provides color,
+                            LocalContentAlpha provides color.alpha,
+                            LocalTextStyle provides MaterialTheme.typography.button,
+                        ) {
+                            label()
+                        }
+                    },
+                )
+                secondaryLabel?.let {
+                    Row(
+                        content = {
+                            val color = colors.secondaryContentColor(enabled).value
+                            CompositionLocalProvider(
+                                LocalContentColor provides color,
+                                LocalContentAlpha provides color.alpha,
+                                LocalTextStyle provides MaterialTheme.typography.caption2,
+                            ) {
+                                secondaryLabel()
+                            }
+                        },
+                    )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Temporary copy of Wear Compose Material Chip with support for
+ * onLongClick, onDoubleClick.
+ */
+@Composable
+internal fun Chip(
+    onClick: () -> Unit,
+    colors: ChipColors,
+    border: ChipBorder,
+    modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
+    enabled: Boolean = true,
+    contentPadding: PaddingValues = ChipDefaults.ContentPadding,
+    shape: Shape = MaterialTheme.shapes.large,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    role: Role = Role.Button,
+    content: @Composable BoxScope.() -> Unit,
+) {
+    MaterialChip(
+        onClick = onClick,
+        colors = colors,
+        border = border,
+        modifier = modifier,
+        enabled = enabled,
+        contentPadding = PaddingValues(0.dp),
+        shape = shape,
+        interactionSource = interactionSource,
+        role = role,
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .combinedClickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    enabled = enabled,
+                    onClick = onClick,
+                    onLongClick = onLongClick,
+                    onDoubleClick = onDoubleClick,
+                    role = role,
+                )
+                .padding(contentPadding),
+        ) {
+            content()
+        }
+    }
+}
+
+/**
+ * The default size of the spacing between an icon and a text when they are used inside a
+ * [Chip].
+ */
+internal val IconSpacing = 6.dp

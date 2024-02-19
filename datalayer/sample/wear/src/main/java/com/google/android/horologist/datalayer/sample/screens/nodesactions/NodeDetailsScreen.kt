@@ -45,6 +45,7 @@ import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.compose.material.Icon
+import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.datalayer.sample.R
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
@@ -59,6 +60,7 @@ fun NodeDetailsScreen(
 
     NodeDetailsScreen(
         nodeId = viewModel.nodeId,
+        appInstalled = viewModel.appInstalled,
         state = state,
         onStartCompanionClick = viewModel::onStartCompanionClick,
         onInstallOnNodeClick = viewModel::onInstallOnNodeClick,
@@ -73,6 +75,7 @@ fun NodeDetailsScreen(
 @Composable
 fun NodeDetailsScreen(
     nodeId: String,
+    appInstalled: Boolean,
     state: NodeDetailsScreenState,
     onStartCompanionClick: () -> Unit,
     onInstallOnNodeClick: () -> Unit,
@@ -91,8 +94,8 @@ fun NodeDetailsScreen(
         modifier = modifier.fillMaxSize(),
     ) {
         item {
-            Text(
-                text = stringResource(id = R.string.node_details_header),
+            Title(
+                textId = R.string.node_details_header,
                 modifier = Modifier.padding(bottom = 10.dp),
             )
         }
@@ -108,6 +111,7 @@ fun NodeDetailsScreen(
                     Chip(
                         label = stringResource(id = R.string.node_details_start_companion_chip_label),
                         onClick = onStartCompanionClick,
+                        enabled = appInstalled,
                     )
                 }
                 item {
@@ -120,12 +124,14 @@ fun NodeDetailsScreen(
                     Chip(
                         label = stringResource(id = R.string.node_details_start_remote_own_app_chip_label),
                         onClick = onStartRemoteOwnAppClick,
+                        enabled = appInstalled,
                     )
                 }
                 item {
                     Chip(
                         label = stringResource(id = R.string.node_details_start_remote_activity_chip_label),
                         onClick = onStartRemoteActivityClick,
+                        enabled = appInstalled,
                     )
                 }
             }
@@ -213,6 +219,7 @@ fun NodeDetailsScreen(
 fun NodeDetailsScreenPreview() {
     NodeDetailsScreen(
         nodeId = "12345",
+        appInstalled = true,
         state = NodeDetailsScreenState.Idle,
         onStartCompanionClick = { },
         onInstallOnNodeClick = { },

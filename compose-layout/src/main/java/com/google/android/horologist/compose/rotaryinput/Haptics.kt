@@ -265,10 +265,8 @@ public fun rememberDefaultRotaryHapticFeedback(): RotaryHapticFeedback =
     LocalView.current.let { view -> remember { findDeviceSpecificHapticFeedback(view) } }
 
 internal fun findDeviceSpecificHapticFeedback(view: View): RotaryHapticFeedback =
-    if (isGalaxyWatchClassic()) {
-        GalaxyWatchClassicHapticFeedback(view)
-    } else if (isGalaxyWatch()) {
-        DefaultRotaryHapticFeedback(view)
+    if (isGalaxyWatchClassic() || isGalaxyWatch()) {
+        GalaxyWatchHapticFeedback(view)
     } else if (isWear3point5(view.context)) {
         Wear3point5RotaryHapticFeedback(view)
     } else if (isWear4AtLeast()) {
@@ -372,10 +370,10 @@ private class Wear4AtLeastRotaryHapticFeedback(private val view: View) : RotaryH
 }
 
 /**
- * Implementation of [RotaryHapticFeedback] for Galaxy Watch 4 and 6 Classic
+ * Implementation of [RotaryHapticFeedback] for Galaxy Watches
  */
 @ExperimentalHorologistApi
-private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryHapticFeedback {
+private class GalaxyWatchHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
     @ExperimentalHorologistApi
     override fun performHapticFeedback(
@@ -383,15 +381,15 @@ private class GalaxyWatchClassicHapticFeedback(private val view: View) : RotaryH
     ) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
-                // No haptic for scroll snap ( we have physical bezel)
+                view.performHapticFeedback(102)
             }
 
             RotaryHapticsType.ScrollTick -> {
-                // No haptic for scroll tick ( we have physical bezel)
+                view.performHapticFeedback(102)
             }
 
             RotaryHapticsType.ScrollLimit -> {
-                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                view.performHapticFeedback(50107)
             }
         }
     }

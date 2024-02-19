@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><resources>
 <!--
- Copyright 2023 The Android Open Source Project
+ Copyright 2024 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@
   <string name="horologist_volume_screen_volume_down_content_description">کم کردن صدا</string>
   <string name="horologist_volume_screen_connected_state">متصل، میزان صدا %1$d</string>
   <string name="horologist_volume_screen_not_connected_state">متصل نیست</string>
-  <string name="horologist_volume_screen_change_audio_output">تغییر خروجی صدا</string>
+  <string name="horologist_volume_screen_change_audio_output">تغییر خروجی صوتی</string>
   <string name="horologist_speaker_name">بلندگوی ساعت</string>
   <string name="choose_device">انتخاب دستگاه</string>
   <string name="horologist_output_none">هیچ‌کدام</string>
   <string name="horologist_set_volume_content_description">تنظیم میزان صدا</string>
-  <string name="horologist_audio_output_content_description">خروجی صدا</string>
+  <string name="horologist_audio_output_content_description">خروجی صوتی</string>
   <string name="horologist_volume_screen_volume_label">میزان صدا</string>
 </resources>

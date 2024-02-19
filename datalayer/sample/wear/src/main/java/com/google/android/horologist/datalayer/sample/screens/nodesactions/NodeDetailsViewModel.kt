@@ -43,12 +43,15 @@ class NodeDetailsViewModel
         val nodeId: String
             get() = nodeDetailsScreenArgs.nodeId
 
+        val appInstalled: Boolean
+            get() = nodeDetailsScreenArgs.appInstalled
+
         private val _uiState = MutableStateFlow<NodeDetailsScreenState>(NodeDetailsScreenState.Idle)
         public val uiState: StateFlow<NodeDetailsScreenState> = _uiState
 
         fun onStartCompanionClick() {
             runActionAndHandleAppHelperResult {
-                wearDataLayerAppHelper.startCompanion(node = nodeId)
+                wearDataLayerAppHelper.startCompanion(nodeId = nodeId)
             }
         }
 
@@ -56,12 +59,10 @@ class NodeDetailsViewModel
             _uiState.value = NodeDetailsScreenState.ActionRunning
             viewModelScope.launch {
                 try {
-                    wearDataLayerAppHelper.installOnNode(node = nodeId)
+                    wearDataLayerAppHelper.installOnNode(nodeId = nodeId)
 
                     _uiState.value = NodeDetailsScreenState.ActionSucceeded
                 } catch (e: Exception) {
-                    // This should be handled with AppHelperResultCode if API gets improved:
-                    // https://github.com/google/horologist/issues/1902
                     _uiState.value = NodeDetailsScreenState.ActionFailed(errorCode = e::class.java.simpleName)
                     e.printStackTrace()
                 }
@@ -70,7 +71,7 @@ class NodeDetailsViewModel
 
         fun onStartRemoteOwnAppClick() {
             runActionAndHandleAppHelperResult {
-                wearDataLayerAppHelper.startRemoteOwnApp(node = nodeId)
+                wearDataLayerAppHelper.startRemoteOwnApp(nodeId = nodeId)
             }
         }
 

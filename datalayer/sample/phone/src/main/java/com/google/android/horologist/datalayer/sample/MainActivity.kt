@@ -55,11 +55,10 @@ class MainActivity : ComponentActivity() {
     private fun showInstallAppPrompt() {
         phoneUiDataLayerHelper.showInstallAppPrompt(
             activity = this@MainActivity,
-            appName = getString(R.string.install_app_prompt_sample_app_name),
             appPackageName = getString(R.string.install_app_prompt_sample_app_package_name),
-            watchName = getString(R.string.install_app_prompt_sample_watch_name),
-            message = getString(R.string.install_app_prompt_sample_message),
             image = R.drawable.sample_app_wearos_screenshot,
+            topMessage = getString(R.string.install_app_prompt_sample_top_message),
+            bottomMessage = getString(R.string.install_app_prompt_sample_bottom_message),
         )
     }
 }

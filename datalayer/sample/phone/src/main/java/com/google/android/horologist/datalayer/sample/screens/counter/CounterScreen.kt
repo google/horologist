@@ -16,18 +16,20 @@
 
 package com.google.android.horologist.datalayer.sample.screens.counter
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.PlusOne
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,7 +49,9 @@ fun CounterScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (state == CounterScreenUiState.Idle) {
-        viewModel.initialize()
+        SideEffect {
+            viewModel.initialize()
+        }
     }
 
     CounterScreen(
@@ -81,10 +85,19 @@ fun CounterScreen(
                         .padding(16.dp),
                 ) {
                     Text(text = stringResource(R.string.app_helper_counter_increase_explanation))
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(text = "Counter: " + state.counter)
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center,
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .padding(16.dp),
+                            text = stringResource(R.string.app_helper_counter_message, state.counter),
+                        )
                         Button(onClick = onPlusClick) {
-                            Icon(imageVector = Icons.Default.Add, contentDescription = "Plus 1")
+                            Icon(imageVector = Icons.Default.PlusOne, contentDescription = "Plus 1")
                         }
                     }
                 }

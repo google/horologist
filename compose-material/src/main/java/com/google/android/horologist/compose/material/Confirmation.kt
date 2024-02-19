@@ -20,16 +20,110 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalAccessibilityManager
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.contentColorFor
 import androidx.wear.compose.material.dialog.Confirmation
+import androidx.wear.compose.material.dialog.Dialog
 import androidx.wear.compose.material.dialog.DialogDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberColumnState
+import kotlinx.coroutines.delay
+
+/**
+ * This component is an alternative to [ConfirmationContent], providing the following:
+ * - a convenient way of passing a title and an icon;
+ * - duration;
+ * - wrapped in a [Dialog];
+ */
+@ExperimentalHorologistApi
+@Composable
+public fun Confirmation(
+    showDialog: Boolean,
+    onTimeout: () -> Unit,
+    modifier: Modifier = Modifier,
+    icon: @Composable (() -> Unit)? = null,
+    title: String? = null,
+    durationMillis: Long = DialogDefaults.ShortDurationMillis,
+    columnState: ScalingLazyColumnState = rememberColumnState(
+        ScalingLazyColumnDefaults.responsive(
+            verticalArrangement = DialogDefaults.ConfirmationVerticalArrangement,
+        ),
+    ),
+) {
+    // Always refer to the latest inputs with which Confirmation was recomposed.
+    val currentOnDismissed by rememberUpdatedState(onTimeout)
+
+    val a11yDurationMillis = LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
+        originalTimeoutMillis = durationMillis,
+        containsIcons = icon != null,
+        containsText = title != null,
+        containsControls = false,
+    ) ?: durationMillis
+
+    LaunchedEffect(showDialog, a11yDurationMillis) {
+        if (showDialog) {
+            delay(a11yDurationMillis)
+            currentOnDismissed()
+        }
+    }
+
+    Dialog(
+        showDialog = showDialog,
+        onDismissRequest = currentOnDismissed,
+        modifier = modifier,
+        scrollState = columnState.state,
+    ) {
+        ConfirmationContent(
+            icon = icon,
+            title = title,
+            columnState = columnState,
+            showPositionIndicator = false,
+        )
+    }
+}
+
+@ExperimentalHorologistApi
+@Composable
+public fun ConfirmationContent(
+    icon: @Composable (() -> Unit)? = null,
+    title: String? = null,
+    columnState: ScalingLazyColumnState = rememberColumnState(
+        ScalingLazyColumnDefaults.responsive(
+            verticalArrangement = DialogDefaults.ConfirmationVerticalArrangement,
+        ),
+    ),
+    showPositionIndicator: Boolean = true,
+) {
+    ResponsiveDialogContent(
+        icon = icon,
+        title = title?.let {
+            {
+                Text(
+                    text = it,
+                    color = MaterialTheme.colors.onBackground,
+                    textAlign = TextAlign.Center,
+                    maxLines = if (icon == null) 3 else 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        },
+        state = columnState,
+        showPositionIndicator = showPositionIndicator,
+    )
+}
 
 /**
  * A wrapper for [Confirmation] component, that calculates the value passed to [durationMillis] for

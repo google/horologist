@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><resources>
 <!--
- Copyright 2023 The Android Open Source Project
+ Copyright 2024 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -29,10 +29,10 @@
   <string name="horologist_browse_downloads_title">Descargas</string>
   <string name="horologist_browse_downloads_empty">Descarga música y comienza a escucharla</string>
   <string name="horologist_browse_library_title">Biblioteca</string>
-  <string name="horologist_browse_library_playlists">Listas de reproducción</string>
-  <string name="horologist_browse_library_playlists_button">Listas de reproduc.</string>
+  <string name="horologist_browse_library_playlists">Playlists</string>
+  <string name="horologist_browse_library_playlists_button">Playlists</string>
   <string name="horologist_browse_library_settings_button">Configuración</string>
-  <string name="horologist_browse_playlist_title">Listas de reproducción</string>
+  <string name="horologist_browse_playlist_title">Playlists</string>
   <string name="horologist_playlist_download_button_download">Descargar al reloj</string>
   <string name="horologist_playlist_download_button_cancel">Cancelar</string>
   <string name="horologist_playlist_download_button_download_content_description">Descarga disponible</string>

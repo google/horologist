@@ -44,7 +44,7 @@ public abstract class BaseGrpcDataService<T : BindableService> : WearDataService
         )
     }
 
-    override fun onRequest(node: String, path: String, data: ByteArray): Task<ByteArray>? {
+    override fun onRequest(nodeId: String, path: String, data: ByteArray): Task<ByteArray>? {
         return rpcServer.handleIncomingMessage(data).asTask()
     }
 

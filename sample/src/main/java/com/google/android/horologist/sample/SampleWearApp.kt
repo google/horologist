@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
@@ -41,10 +38,12 @@ import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.materialcomponents.SampleAlertDialog
 import com.google.android.horologist.materialcomponents.SampleButtonScreen
 import com.google.android.horologist.materialcomponents.SampleChipIconWithProgressScreen
 import com.google.android.horologist.materialcomponents.SampleChipScreen
 import com.google.android.horologist.materialcomponents.SampleCompactChipScreen
+import com.google.android.horologist.materialcomponents.SampleConfirmationLauncher
 import com.google.android.horologist.materialcomponents.SampleConfirmationScreen
 import com.google.android.horologist.materialcomponents.SampleIconScreen
 import com.google.android.horologist.materialcomponents.SampleOutlinedChipScreen
@@ -151,6 +150,28 @@ fun SampleWearApp() {
                     },
                 )
             }
+            composable(Screen.FromDatePicker.route) {
+                val date = time.toLocalDate()
+                DatePicker(
+                    date = date,
+                    fromDate = date,
+                    onDateConfirm = {
+                        time = time.toLocalTime().atDate(it)
+                        navController.popBackStack()
+                    },
+                )
+            }
+            composable(Screen.ToDatePicker.route) {
+                val date = time.toLocalDate()
+                DatePicker(
+                    date = date,
+                    toDate = date,
+                    onDateConfirm = {
+                        time = time.toLocalTime().atDate(it)
+                        navController.popBackStack()
+                    },
+                )
+            }
             composable(Screen.TimePicker.route) {
                 TimePickerWith12HourClock(
                     time = time.toLocalTime(),
@@ -178,6 +199,15 @@ fun SampleWearApp() {
                     },
                     showSeconds = false,
                 )
+            }
+            composable(
+                route = Screen.MaterialAlertDialog.route,
+            ) {
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(timeText = {}, scrollState = columnState) {
+                    SampleAlertDialog(columnState = columnState)
+                }
             }
             composable(
                 route = Screen.MaterialButtonsScreen.route,
@@ -220,6 +250,13 @@ fun SampleWearApp() {
             ) {
                 ScreenScaffold(timeText = {}) {
                     SampleConfirmationScreen()
+                }
+            }
+            composable(
+                route = Screen.MaterialConfirmationLauncher.route,
+            ) {
+                ScreenScaffold(timeText = {}) {
+                    SampleConfirmationLauncher()
                 }
             }
             composable(

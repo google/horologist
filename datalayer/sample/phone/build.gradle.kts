@@ -114,6 +114,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.service)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.compose.material.iconscore)
+    implementation(libs.compose.material.iconsext)
 
     implementation(libs.dagger.hiltandroid)
     ksp(libs.dagger.hiltandroidcompiler)

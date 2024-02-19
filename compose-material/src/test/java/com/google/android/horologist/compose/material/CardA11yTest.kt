@@ -64,7 +64,7 @@ class CardA11yTest : ScreenshotBaseTest(
             onNode(keyIsDefined(SemanticsProperties.Role))
                 .assertTextEquals("Click me!")
                 .assertHasClickAction()
-                // Not set by combinedClickable
+            // Not set by combinedClickable
 //                .assert(keyIsDefined(SemanticsActions.OnLongClick))
         }
     }

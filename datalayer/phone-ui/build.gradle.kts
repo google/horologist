@@ -114,6 +114,7 @@ dependencies {
 
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espressocore)
+    debugImplementation(libs.compose.ui.tooling)
 }
 
 dependencyAnalysis {

@@ -23,14 +23,6 @@ package com.google.android.horologist.audio.ui {
     method @androidx.compose.runtime.Composable public static void VolumeWithLabelScreen(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volume, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional long volumeColor);
   }
 
-  @Deprecated public final class VolumeScrollableState implements androidx.compose.foundation.gestures.ScrollableState {
-    ctor @Deprecated public VolumeScrollableState(com.google.android.horologist.audio.VolumeRepository volumeRepository, android.os.Vibrator vibrator);
-    method @Deprecated public float dispatchRawDelta(float delta);
-    method @Deprecated public boolean isScrollInProgress();
-    method @Deprecated public suspend Object? scroll(androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> block, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    property @Deprecated public boolean isScrollInProgress;
-  }
-
   public final class VolumeUiState {
     ctor public VolumeUiState(optional int current, optional int max, optional int min);
     method public int component1();

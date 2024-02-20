@@ -101,12 +101,6 @@ fun AmbientAware(
     }
 }
 
-@Composable
-private fun AmbientAwareDisabled(block: @Composable (AmbientStateUpdate) -> Unit) {
-    val staticAmbientState by remember { mutableStateOf(AmbientStateUpdate(AmbientState.Interactive)) }
-    block(staticAmbientState)
-}
-
 private fun Context.findActivityOrNull(): Activity? {
     var context = this
     while (context is ContextWrapper) {

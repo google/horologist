@@ -121,7 +121,7 @@ package com.google.android.horologist.compose.tools {
     property public static final java.util.List<com.google.android.horologist.compose.tools.ThemeValues> themeValues;
   }
 
-  public final class TilePreviewDataKt {
+  public final class TileRendererPreviewDataKt {
     method @androidx.compose.runtime.Composable public static <T, R> androidx.wear.tiles.tooling.preview.TilePreviewData tileRendererPreviewData(com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> renderer, T tileState, R resourceState);
   }
 

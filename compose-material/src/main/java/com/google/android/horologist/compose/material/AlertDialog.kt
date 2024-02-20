@@ -131,7 +131,9 @@ public fun AlertContent(
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
     state: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(),
+        ScalingLazyColumnDefaults.responsive(
+            additionalPaddingAtBottom = 0.dp,
+        ),
     ),
     showPositionIndicator: Boolean = true,
     content: (ScalingLazyListScope.() -> Unit)? = null,

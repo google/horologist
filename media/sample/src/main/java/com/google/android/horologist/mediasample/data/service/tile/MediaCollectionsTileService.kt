@@ -18,7 +18,6 @@ package com.google.android.horologist.mediasample.data.service.tile
 
 import android.content.Context
 import android.graphics.BitmapFactory
-import androidx.compose.runtime.Composable
 import androidx.wear.protolayout.ActionBuilders
 import androidx.wear.protolayout.ActionBuilders.AndroidActivity
 import androidx.wear.protolayout.ResourceBuilders.Resources
@@ -149,7 +148,6 @@ class MediaCollectionsTileService : SuspendingTileService() {
 
 @Preview(device = WearDevices.LARGE_ROUND)
 @Preview(device = WearDevices.SMALL_ROUND)
-@Composable
 fun SampleTilePreview(context: Context): TilePreviewData = tileRendererPreviewData(
     renderer = MediaCollectionsTileRenderer(
         context = context,

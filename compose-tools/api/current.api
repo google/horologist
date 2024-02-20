@@ -130,7 +130,7 @@ package com.google.android.horologist.compose.tools {
   }
 
   public final class TileRendererPreviewDataKt {
-    method @androidx.compose.runtime.Composable public static <T, R> androidx.wear.tiles.tooling.preview.TilePreviewData tileRendererPreviewData(com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> renderer, T tileState, R resourceState);
+    method public static <T, R> androidx.wear.tiles.tooling.preview.TilePreviewData tileRendererPreviewData(com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> renderer, T tileState, R resourceState);
   }
 
   public final class TypographyKt {

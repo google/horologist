@@ -16,11 +16,9 @@
 
 package com.google.android.horologist.compose.tools
 
-import androidx.compose.runtime.Composable
 import androidx.wear.tiles.tooling.preview.TilePreviewData
 import com.google.android.horologist.tiles.render.TileLayoutRenderer
 
-@Composable
 public fun <T, R> tileRendererPreviewData(
     renderer: TileLayoutRenderer<T, R>,
     tileState: T,

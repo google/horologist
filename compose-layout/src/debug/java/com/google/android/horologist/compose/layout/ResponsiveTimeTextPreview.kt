@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.material
+package com.google.android.horologist.compose.layout
 
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import org.junit.Test
+import androidx.compose.runtime.Composable
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 
-class ResponsiveTimeTextTest : ScreenshotBaseTest() {
-    @Test
-    fun defaultTimeText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            ResponsiveTimeText()
-        }
-    }
+@WearPreviewDevices
+@Composable
+fun ResponsiveTimeTextPreview() {
+    ResponsiveTimeText()
 }

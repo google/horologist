@@ -51,56 +51,48 @@ fun AmbientAware(
     isAlwaysOnScreen: Boolean = true,
     block: @Composable (AmbientStateUpdate) -> Unit,
 ) {
+    var ambientUpdate by remember(isAlwaysOnScreen) {
+        mutableStateOf(if (isAlwaysOnScreen) null else AmbientStateUpdate(AmbientState.Interactive))
+    }
+
     val activity = LocalContext.current.findActivityOrNull()
     // Using AmbientAware correctly relies on there being an Activity context. If there isn't, then
     // gracefully allow the composition of [block], but no ambient-mode functionality is enabled.
     if (activity != null && isAlwaysOnScreen) {
-        AmbientAwareEnabled(activity, block)
-    } else {
-        AmbientAwareDisabled(block)
-    }
-}
+        val lifecycle = LocalLifecycleOwner.current.lifecycle
+        val observer = remember {
+            val callback = object : AmbientLifecycleObserver.AmbientLifecycleCallback {
+                override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
+                    ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(ambientDetails))
+                }
 
-@Composable
-private fun AmbientAwareEnabled(
-    activity: Activity,
-    block: @Composable (AmbientStateUpdate) -> Unit,
-) {
-    val lifecycle = LocalLifecycleOwner.current.lifecycle
-    var ambientUpdate by remember { mutableStateOf<AmbientStateUpdate?>(null) }
+                override fun onExitAmbient() {
+                    ambientUpdate = AmbientStateUpdate(AmbientState.Interactive)
+                }
 
-    val observer = remember {
-        val callback = object : AmbientLifecycleObserver.AmbientLifecycleCallback {
-            override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
-                ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(ambientDetails))
+                override fun onUpdateAmbient() {
+                    val lastAmbientDetails =
+                        (ambientUpdate?.ambientState as? AmbientState.Ambient)?.ambientDetails
+                    ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(lastAmbientDetails))
+                }
             }
-
-            override fun onExitAmbient() {
-                ambientUpdate = AmbientStateUpdate(AmbientState.Interactive)
-            }
-
-            override fun onUpdateAmbient() {
-                val lastAmbientDetails =
-                    (ambientUpdate?.ambientState as? AmbientState.Ambient)?.ambientDetails
-                ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(lastAmbientDetails))
+            AmbientLifecycleObserver(activity, callback).also {
+                // Necessary to populate the initial value
+                val initialAmbientState = if (it.isAmbient) {
+                    AmbientState.Ambient(null)
+                } else {
+                    AmbientState.Interactive
+                }
+                ambientUpdate = AmbientStateUpdate(initialAmbientState)
             }
         }
-        AmbientLifecycleObserver(activity, callback).also {
-            // Necessary to populate the initial value
-            val initialAmbientState = if (it.isAmbient) {
-                AmbientState.Ambient(null)
-            } else {
-                AmbientState.Interactive
+
+        DisposableEffect(Unit) {
+            lifecycle.addObserver(observer)
+
+            onDispose {
+                lifecycle.removeObserver(observer)
             }
-            ambientUpdate = AmbientStateUpdate(initialAmbientState)
-        }
-    }
-
-    DisposableEffect(Unit) {
-        lifecycle.addObserver(observer)
-
-        onDispose {
-            lifecycle.removeObserver(observer)
         }
     }
 

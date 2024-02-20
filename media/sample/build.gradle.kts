@@ -247,6 +247,8 @@ dependencies {
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
     add("benchmarkCompileOnly", projects.composeTools)
+    debugImplementation(libs.androidx.wear.tiles.tooling.preview)
+    debugImplementation(libs.androidx.wear.tiles.tooling)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

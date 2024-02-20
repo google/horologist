@@ -16,20 +16,20 @@
 
 package com.google.android.horologist.mediasample.data.service.tile
 
+import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
-import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import androidx.wear.protolayout.ActionBuilders
 import androidx.wear.protolayout.ActionBuilders.AndroidActivity
 import androidx.wear.protolayout.ResourceBuilders.Resources
 import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.TileBuilders.Tile
+import androidx.wear.tiles.tooling.preview.Preview
+import androidx.wear.tiles.tooling.preview.TilePreviewData
+import androidx.wear.tooling.preview.devices.WearDevices
 import coil.ImageLoader
-import com.google.android.horologist.compose.tools.TileLayoutPreview
+import com.google.android.horologist.compose.tools.tileRendererPreviewData
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
@@ -69,8 +69,7 @@ class MediaCollectionsTileService : SuspendingTileService() {
      * Render a Playlist primary button and two chips with direct links to collections.
      */
     override suspend fun tileRequest(requestParams: TileRequest): Tile {
-        val playlists = playlistRepository.getAll()
-            .first()
+        val playlists = playlistRepository.getAll().first()
 
         val firstPlaylist = playlists.first()
         val firstSong = firstPlaylist.mediaList.first()
@@ -104,9 +103,7 @@ class MediaCollectionsTileService : SuspendingTileService() {
     private fun AndroidActivity.Builder.addStringExtra(key: String, value: String) {
         addKeyToExtraMapping(
             key,
-            ActionBuilders.AndroidStringExtra.Builder()
-                .setValue(value)
-                .build(),
+            ActionBuilders.AndroidStringExtra.Builder().setValue(value).build(),
         )
     }
 
@@ -116,24 +113,18 @@ class MediaCollectionsTileService : SuspendingTileService() {
      */
     private fun appLauncher(
         extrasBuilder: AndroidActivity.Builder.() -> Unit = {},
-    ) = ActionBuilders.LaunchAction.Builder()
-        .setAndroidActivity(
-            AndroidActivity.Builder()
-                .setClassName(MediaActivity::class.java.name)
-                .setPackageName(this.packageName)
-                .apply {
-                    extrasBuilder()
-                }
-                .build(),
-        )
-        .build()
+    ) = ActionBuilders.LaunchAction.Builder().setAndroidActivity(
+        AndroidActivity.Builder().setClassName(MediaActivity::class.java.name)
+            .setPackageName(this.packageName).apply {
+                extrasBuilder()
+            }.build(),
+    ).build()
 
     /**
      * Show UAMP as AppIcon, and favourites and podcasts icons.
      */
     override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
-        val playlists = playlistRepository.getAll()
-            .first()
+        val playlists = playlistRepository.getAll().first()
 
         val firstPlaylist = playlists.first()
         val firstSong = firstPlaylist.mediaList.first()
@@ -156,55 +147,35 @@ class MediaCollectionsTileService : SuspendingTileService() {
     }
 }
 
-@WearPreviewDevices
-@WearPreviewFontScales
+@Preview(device = WearDevices.LARGE_ROUND)
+@Preview(device = WearDevices.SMALL_ROUND)
 @Composable
-fun SampleTilePreview() {
-    val context = LocalContext.current
-
-    val action = ActionBuilders.LaunchAction.Builder()
-        .build()
-
-    val tileState = remember {
-        MediaCollectionsTileRenderer.MediaCollectionsState(
-            chipName = R.string.sample_playlists,
-            chipAction = action,
-            collection1 = MediaCollectionsTileRenderer.MediaCollection(
-                name = "Kyoto Songs",
-                artworkId = "s1",
-                action = action,
-            ),
-            collection2 = MediaCollectionsTileRenderer.MediaCollection(
-                name = "Podcasts",
-                artworkId = "c2",
-                action = action,
-            ),
-        )
-    }
-
-    val resourceState = remember {
-        val kyoto = BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)
-
-        MediaCollectionsTileRenderer.ResourceState(
-            appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
-            images = mapOf(
-                "s1" to kyoto?.toImageResource(),
-                "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
-            ),
-        )
-    }
-
-    val renderer = remember {
-        MediaCollectionsTileRenderer(
-            context = context,
-            materialTheme = UampColors.toTileColors(),
-            debugResourceMode = BuildConfig.DEBUG,
-        )
-    }
-
-    TileLayoutPreview(
-        tileState,
-        resourceState,
-        renderer,
-    )
-}
+fun SampleTilePreview(context: Context): TilePreviewData = tileRendererPreviewData(
+    renderer = MediaCollectionsTileRenderer(
+        context = context,
+        materialTheme = UampColors.toTileColors(),
+        debugResourceMode = BuildConfig.DEBUG,
+    ),
+    tileState = MediaCollectionsTileRenderer.MediaCollectionsState(
+        chipName = R.string.sample_playlists,
+        chipAction = ActionBuilders.LaunchAction.Builder().build(),
+        collection1 = MediaCollectionsTileRenderer.MediaCollection(
+            name = "Kyoto Songs",
+            artworkId = "s1",
+            action = ActionBuilders.LaunchAction.Builder().build(),
+        ),
+        collection2 = MediaCollectionsTileRenderer.MediaCollection(
+            name = "Podcasts",
+            artworkId = "c2",
+            action = ActionBuilders.LaunchAction.Builder().build(),
+        ),
+    ),
+    resourceState = MediaCollectionsTileRenderer.ResourceState(
+        appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
+        images = mapOf(
+            "s1" to BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)
+                ?.toImageResource(),
+            "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
+        ),
+    ),
+)

@@ -105,9 +105,11 @@ dependencies {
     implementation(libs.androidx.wear.tooling.preview)
     implementation(libs.kotlinx.coroutines.guava)
     api(libs.wearcompose.tooling)
+    implementation(libs.androidx.wear.tiles.tooling.preview)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
+    debugImplementation(libs.androidx.wear.tiles.tooling)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

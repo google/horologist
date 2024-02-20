@@ -114,7 +114,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
     public open fun Resources.Builder.produceRequestedResources(
         resourceState: R,
         deviceParameters: DeviceParametersBuilders.DeviceParameters,
-        resourceIds: MutableList<String>,
+        resourceIds: List<String>,
     ) {
     }
 

@@ -29,12 +29,11 @@ public fun <T, R> tileRendererPreviewData(
     onTileResourceRequest = { resourcesRequest ->
         with(renderer) {
             produceRequestedResources(resourceState, resourcesRequest)
-
         }
     },
 ) { tileRequest ->
     renderer.renderTimeline(
         tileState,
-        tileRequest
+        tileRequest,
     )
 }

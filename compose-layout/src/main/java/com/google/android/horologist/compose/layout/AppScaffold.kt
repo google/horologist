@@ -41,7 +41,7 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 @Composable
 fun AppScaffold(
     modifier: Modifier = Modifier,
-    timeText: @Composable () -> Unit = { TimeText() },
+    timeText: @Composable () -> Unit = { ResponsiveTimeText() },
     content: @Composable BoxScope.() -> Unit,
 ) {
     val scaffoldState = LocalScaffoldState.current.apply {

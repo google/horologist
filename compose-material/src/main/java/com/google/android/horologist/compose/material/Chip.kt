@@ -50,6 +50,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.onLongClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.buildAnnotatedString
@@ -247,6 +249,16 @@ public fun Chip(
                 role = Role.Button
                 if (!enabled) {
                     disabled()
+                }
+                this.onClick(action = {
+                    onClick()
+                    true
+                })
+                if (onLongClick != null) {
+                    this.onLongClick(action = {
+                        onLongClick()
+                        true
+                    })
                 }
             },
         secondaryLabel = secondaryLabelParam,

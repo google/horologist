@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.material
+package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable

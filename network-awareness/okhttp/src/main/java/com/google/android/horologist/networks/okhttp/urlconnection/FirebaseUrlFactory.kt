@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
+
 package com.google.android.horologist.networks.okhttp.urlconnection
 
 /*
@@ -47,8 +49,6 @@ import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
-import okhttp3.internal.notifyAll
-import okhttp3.internal.wait
 import okio.Buffer
 import okio.BufferedSink
 import okio.Pipe
@@ -381,9 +381,13 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
             return getResponse(true).code
         }
 
-        override fun setRequestProperty(field: String, newValue: String) {
+        override fun setRequestProperty(field: String, newValue: String?) {
             check(!connected) { "Cannot set request property after connection is made" }
-            requestHeaders[field] = newValue
+            if (newValue != null) {
+                requestHeaders[field] = newValue
+            } else {
+                requestHeaders.removeAll(field)
+            }
         }
 
         override fun setIfModifiedSince(newValue: Long) {
@@ -764,7 +768,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
                 delegate.setIfModifiedSince(newValue)
             }
 
-            override fun setRequestProperty(field: String, newValue: String) {
+            override fun setRequestProperty(field: String, newValue: String?) {
                 delegate.setRequestProperty(field, newValue)
             }
 
@@ -933,3 +937,8 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
         }
     }
 }
+
+
+fun Any.wait() = (this as Object).wait()
+
+fun Any.notifyAll() = (this as Object).notifyAll()

@@ -16,19 +16,13 @@
 
 package com.google.android.horologist.mediasample.data.service.tile
 
-import android.content.Context
-import android.graphics.BitmapFactory
 import androidx.wear.protolayout.ActionBuilders
 import androidx.wear.protolayout.ActionBuilders.AndroidActivity
 import androidx.wear.protolayout.ResourceBuilders.Resources
 import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.TileBuilders.Tile
-import androidx.wear.tiles.tooling.preview.Preview
-import androidx.wear.tiles.tooling.preview.TilePreviewData
-import androidx.wear.tooling.preview.devices.WearDevices
 import coil.ImageLoader
-import com.google.android.horologist.compose.tools.tileRendererPreviewData
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
@@ -37,9 +31,7 @@ import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.app.MediaActivity
 import com.google.android.horologist.mediasample.ui.app.UampColors
 import com.google.android.horologist.tiles.SuspendingTileService
-import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.loadImageResource
-import com.google.android.horologist.tiles.images.toImageResource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -145,35 +137,3 @@ class MediaCollectionsTileService : SuspendingTileService() {
         )
     }
 }
-
-@Preview(device = WearDevices.LARGE_ROUND)
-@Preview(device = WearDevices.SMALL_ROUND)
-fun SampleTilePreview(context: Context): TilePreviewData = tileRendererPreviewData(
-    renderer = MediaCollectionsTileRenderer(
-        context = context,
-        materialTheme = UampColors.toTileColors(),
-        debugResourceMode = BuildConfig.DEBUG,
-    ),
-    tileState = MediaCollectionsTileRenderer.MediaCollectionsState(
-        chipName = R.string.sample_playlists,
-        chipAction = ActionBuilders.LaunchAction.Builder().build(),
-        collection1 = MediaCollectionsTileRenderer.MediaCollection(
-            name = "Kyoto Songs",
-            artworkId = "s1",
-            action = ActionBuilders.LaunchAction.Builder().build(),
-        ),
-        collection2 = MediaCollectionsTileRenderer.MediaCollection(
-            name = "Podcasts",
-            artworkId = "c2",
-            action = ActionBuilders.LaunchAction.Builder().build(),
-        ),
-    ),
-    resourceState = MediaCollectionsTileRenderer.ResourceState(
-        appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
-        images = mapOf(
-            "s1" to BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)
-                ?.toImageResource(),
-            "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
-        ),
-    ),
-)

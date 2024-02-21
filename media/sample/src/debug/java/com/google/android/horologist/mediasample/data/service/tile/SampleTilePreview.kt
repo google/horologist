@@ -18,8 +18,8 @@ package com.google.android.horologist.mediasample.data.service.tile
 
 import android.content.Context
 import android.graphics.BitmapFactory
-import androidx.wear.tiles.tooling.preview.Preview
 import androidx.wear.protolayout.ActionBuilders
+import androidx.wear.tiles.tooling.preview.Preview
 import androidx.wear.tiles.tooling.preview.TilePreviewData
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.android.horologist.compose.tools.tileRendererPreviewData

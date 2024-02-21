@@ -93,6 +93,7 @@ metalava {
 dependencies {
     api(projects.annotations)
     api(projects.networkAwareness.core)
+    api(projects.composeLayout)
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.wear)

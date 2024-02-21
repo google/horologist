@@ -23,6 +23,7 @@ import androidx.wear.compose.foundation.CurvedTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
@@ -40,7 +41,7 @@ public fun DataUsageTimeText(
     val context = LocalContext.current
 
     if (showData) {
-        TimeText(
+        ResponsiveTimeText(
             modifier = modifier,
             startCurvedContent = {
                 curveDataUsage(

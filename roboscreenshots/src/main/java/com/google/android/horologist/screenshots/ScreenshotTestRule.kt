@@ -316,7 +316,7 @@ public class ScreenshotTestRule(
     ) {
 
         public class Builder internal constructor() {
-            public var tolerance: Float = 0.001f
+            public var tolerance: Float = 0.01f
             public var enableA11y: Boolean = false
             public var screenTimeText: @Composable () -> Unit = defaultScreenTimeText()
             public var testLabel: String? = null

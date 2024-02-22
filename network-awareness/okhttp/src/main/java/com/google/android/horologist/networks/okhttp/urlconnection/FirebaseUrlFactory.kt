@@ -938,7 +938,6 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
     }
 }
 
-
 private fun Any.wait() = (this as Object).wait()
 
 private fun Any.notifyAll() = (this as Object).notifyAll()

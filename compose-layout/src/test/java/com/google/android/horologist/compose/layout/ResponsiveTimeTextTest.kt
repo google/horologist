@@ -25,10 +25,12 @@ class ResponsiveTimeTextTest : ScreenshotBaseTest() {
     @Test
     fun defaultTimeText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            ResponsiveTimeText(timeSource = object : TimeSource {
-                override val currentTime: String
-                    @Composable get() = "10:10"
-            })
+            ResponsiveTimeText(
+                timeSource = object : TimeSource {
+                    override val currentTime: String
+                        @Composable get() = "10:10"
+                },
+            )
         }
     }
 }

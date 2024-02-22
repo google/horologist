@@ -42,9 +42,9 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
 import androidx.wear.compose.material.scrollAway
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.rememberColumnState
@@ -88,7 +88,7 @@ fun WearApp() {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             timeText = {
-                TimeText(
+                ResponsiveTimeText(
                     modifier = Modifier
                         .scrollAway(
                             columnState.state,

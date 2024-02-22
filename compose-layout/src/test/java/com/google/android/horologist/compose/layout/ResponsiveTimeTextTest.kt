@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.compose.layout
 
+import androidx.compose.runtime.Composable
+import androidx.wear.compose.material.TimeSource
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import org.junit.Test
 
@@ -23,7 +25,12 @@ class ResponsiveTimeTextTest : ScreenshotBaseTest() {
     @Test
     fun defaultTimeText() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            ResponsiveTimeText()
+            ResponsiveTimeText(
+                timeSource = object : TimeSource {
+                    override val currentTime: String
+                        @Composable get() = "10:10"
+                },
+            )
         }
     }
 }

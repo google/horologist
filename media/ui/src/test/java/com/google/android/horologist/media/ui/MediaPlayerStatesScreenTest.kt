@@ -22,7 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.TimeSource
-import androidx.wear.compose.material.TimeText
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -40,7 +40,7 @@ class MediaPlayerStatesScreenTest(
 ) : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {
-            TimeText(
+            ResponsiveTimeText(
                 timeSource = object : TimeSource {
                     override val currentTime: String
                         @Composable get() = "10:10"

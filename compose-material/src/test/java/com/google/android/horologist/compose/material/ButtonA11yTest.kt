@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher.Companion.keyIsDefined
+import androidx.compose.ui.test.SemanticsMatcher.Companion.keyNotDefined
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.assertHasClickAction
@@ -56,6 +57,26 @@ class ButtonA11yTest : ScreenshotBaseTest(
             onNode(keyIsDefined(SemanticsProperties.Role))
                 .assertHasClickAction()
                 .assert(keyIsDefined(SemanticsActions.OnLongClick))
+                .assertContentDescriptionEquals("contentDescription")
+        }
+    }
+
+    @Test
+    fun material() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                Button(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "contentDescription",
+                    onClick = { },
+                )
+            }
+        }
+
+        screenshotTestRule.interact {
+            onNode(keyIsDefined(SemanticsProperties.Role))
+                .assertHasClickAction()
+                .assert(keyNotDefined(SemanticsActions.OnLongClick))
                 .assertContentDescriptionEquals("contentDescription")
         }
     }

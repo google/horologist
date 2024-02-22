@@ -51,7 +51,6 @@ internal fun SampleCardScreen(
             Card(
                 onClick = { println("Click") },
                 onLongClick = { println("LongClick") },
-                onDoubleClick = { println("DoubleClick") },
                 enabled = false,
             ) {
                 Text("Hello\nCard")
@@ -61,7 +60,6 @@ internal fun SampleCardScreen(
             Card(
                 onClick = { println("Click") },
                 onLongClick = { println("LongClick") },
-                onDoubleClick = { println("DoubleClick") },
                 modifier = Modifier.background(Color.Cyan),
             ) {
                 Text("Hello\nCard")
@@ -71,7 +69,6 @@ internal fun SampleCardScreen(
             Card(
                 onClick = { println("Click") },
                 onLongClick = { println("LongClick") },
-                onDoubleClick = { println("DoubleClick") },
                 modifier = Modifier.background(Color.Cyan),
                 shape = MaterialTheme.shapes.medium,
             ) {
@@ -82,7 +79,6 @@ internal fun SampleCardScreen(
             Card(
                 onClick = { println("Click") },
                 onLongClick = { println("LongClick") },
-                onDoubleClick = { println("DoubleClick") },
                 backgroundPainter = painterResource(id = android.R.drawable.ic_dialog_alert),
             ) {
                 Text("Hello\nCard")
@@ -92,7 +88,6 @@ internal fun SampleCardScreen(
             Card(
                 onClick = { println("Click") },
                 onLongClick = { println("LongClick") },
-                onDoubleClick = { println("DoubleClick") },
                 contentPadding = PaddingValues(24.dp),
             ) {
                 Text("Hello\nCard")
@@ -102,7 +97,6 @@ internal fun SampleCardScreen(
             Card(
                 onClick = { println("Click") },
                 onLongClick = { println("LongClick") },
-                onDoubleClick = { println("DoubleClick") },
                 contentColor = MaterialTheme.colors.primaryVariant,
             ) {
                 Text("Hello\nCard")
@@ -112,7 +106,6 @@ internal fun SampleCardScreen(
             Card(
                 onClick = { println("Click") },
                 onLongClick = { println("LongClick") },
-                onDoubleClick = { println("DoubleClick") },
                 enabled = false,
             ) {
                 Text("Hello\nCard")

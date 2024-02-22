@@ -45,7 +45,6 @@ internal fun SampleChipScreen(
                 label = "Primary label",
                 onClick = { println("Click") },
                 onLongClick = { println("LongClick") },
-                onDoubleClick = { println("DoubleClick") },
             )
         }
         item {

@@ -136,6 +136,7 @@ class FirebaseUrlFactoryTest {
         val conn = urlFactory.open(server.url("/").toUrl())
 
         conn.setRequestProperty("a", "b")
+        conn.setRequestProperty("c", "d")
         conn.setRequestProperty("a", null)
 
         val text = conn.inputStream.bufferedReader().use {
@@ -148,7 +149,8 @@ class FirebaseUrlFactoryTest {
         val recordedRequest = server.takeRequest()
         val headers = recordedRequest.headers
 
-        assertThat(headers["Accept-Encoding"]).isEqualTo("gzip")
+        assertThat(headers["a"]).isNull()
+        assertThat(headers["c"]).isEqualTo("d")
         assertThat(headers["Connection"]).isEqualTo("Keep-Alive")
     }
 }

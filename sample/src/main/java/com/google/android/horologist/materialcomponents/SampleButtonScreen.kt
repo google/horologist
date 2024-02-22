@@ -41,7 +41,6 @@ internal fun SampleButtonScreen(
                 contentDescription = "contentDescription",
                 onClick = { println("Click") },
                 onLongClick = { println("LongClick") },
-                onDoubleClick = { println("DoubleClick") },
                 colors = ButtonDefaults.iconButtonColors(),
             )
         }

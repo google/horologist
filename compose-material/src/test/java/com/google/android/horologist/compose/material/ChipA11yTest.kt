@@ -25,9 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher.Companion.keyIsDefined
+import androidx.compose.ui.test.SemanticsMatcher.Companion.keyNotDefined
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.printToString
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
@@ -48,7 +51,6 @@ class ChipA11yTest : ScreenshotBaseTest(
                     label = "Primary label",
                     onClick = { },
                     onLongClick = {},
-                    onDoubleClick = {},
                     secondaryLabel = "Secondary label",
                     icon = Icons.Default.Image.asPaintable(),
                 )
@@ -59,8 +61,29 @@ class ChipA11yTest : ScreenshotBaseTest(
             onNode(keyIsDefined(SemanticsProperties.Role))
                 .assertHasClickAction()
                 .assert(keyIsDefined(SemanticsActions.OnLongClick))
-                // not possible to define action for OnDoubleClick
                 .assertTextEquals("Primary label, Secondary label")
+        }
+    }
+
+    @Test
+    fun withSecondaryLabelAndIconMaterial() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image.asPaintable(),
+                )
+            }
+        }
+
+        screenshotTestRule.interact {
+            println(onRoot().printToString())
+
+            onNode(keyIsDefined(SemanticsProperties.Role))
+                .assertHasClickAction()
+                .assert(keyNotDefined(SemanticsActions.OnLongClick))
         }
     }
 

@@ -67,7 +67,6 @@ public fun Button(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
-    onDoubleClick: (() -> Unit)? = null,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
@@ -78,7 +77,6 @@ public fun Button(
         contentDescription = contentDescription,
         onClick = onClick,
         onLongClick = onLongClick,
-        onDoubleClick = onDoubleClick,
         modifier = modifier,
         colors = colors,
         buttonSize = buttonSize,
@@ -100,7 +98,6 @@ public fun Button(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
-    onDoubleClick: (() -> Unit)? = null,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
@@ -111,7 +108,6 @@ public fun Button(
         contentDescription = contentDescription,
         onClick = onClick,
         onLongClick = onLongClick,
-        onDoubleClick = onDoubleClick,
         modifier = modifier,
         colors = colors,
         buttonSize = buttonSize,
@@ -128,51 +124,67 @@ internal fun Button(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
-    onDoubleClick: (() -> Unit)? = null,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true,
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-    MaterialButton(
-        onClick = onClick,
-        modifier = modifier
-            .size(buttonSize.tapTargetSize)
-            .clearAndSetSemantics {
-                role = Role.Button
-                this.contentDescription = contentDescription
-                if (!enabled) {
-                    disabled()
-                }
-                this.onClick(action = {
-                    onClick()
-                    true
-                })
-                if (onLongClick != null) {
+    if (onLongClick != null) {
+        val interactionSource = remember { MutableInteractionSource() }
+        MaterialButton(
+            onClick = onClick,
+            modifier = modifier
+                .size(buttonSize.tapTargetSize)
+                .clearAndSetSemantics {
+                    role = Role.Button
+                    this.contentDescription = contentDescription
+                    if (!enabled) {
+                        disabled()
+                    }
+                    this.onClick(action = {
+                        onClick()
+                        true
+                    })
                     this.onLongClick(action = {
                         onLongClick()
                         true
                     })
-                }
-            },
-        enabled = enabled,
-        colors = colors,
-        interactionSource = interactionSource,
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(CircleShape)
-                .combinedClickable(
-                    interactionSource = interactionSource,
-                    indication = null, // From material Button
-                    enabled = enabled,
-                    onClick = onClick,
-                    onLongClick = onLongClick,
-                    onDoubleClick = onDoubleClick,
-                    role = Role.Button,
-                ),
+                },
+            enabled = enabled,
+            colors = colors,
+            interactionSource = interactionSource,
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(CircleShape)
+                    .combinedClickable(
+                        interactionSource = interactionSource,
+                        indication = null, // From material Button
+                        enabled = enabled,
+                        onClick = onClick,
+                        onLongClick = onLongClick,
+                        role = Role.Button,
+                    ),
+            ) {
+                val iconModifier = Modifier
+                    .size(buttonSize.iconSize)
+                    .align(Alignment.Center)
+
+                Icon(
+                    paintable = icon,
+                    contentDescription = contentDescription,
+                    modifier = iconModifier,
+                    rtlMode = iconRtlMode,
+                )
+            }
+        }
+    } else {
+        MaterialButton(
+            onClick = onClick,
+            modifier = modifier.size(buttonSize.tapTargetSize),
+            enabled = enabled,
+            colors = colors,
         ) {
             val iconModifier = Modifier
                 .size(buttonSize.iconSize)

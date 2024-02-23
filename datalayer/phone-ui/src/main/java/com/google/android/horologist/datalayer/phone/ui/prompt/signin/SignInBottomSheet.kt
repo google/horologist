@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer.phone.ui.prompt.reengage
+package com.google.android.horologist.datalayer.phone.ui.prompt.signin
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -56,7 +56,7 @@ private val PADDING_BLUE = 32.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-public fun ReEngageBottomSheet(
+public fun SignInBottomSheet(
     image: @Composable (() -> Unit)?,
     topMessage: String,
     bottomMessage: String,
@@ -76,28 +76,28 @@ public fun ReEngageBottomSheet(
         val configuration = LocalConfiguration.current
         when (configuration.orientation) {
             Configuration.ORIENTATION_PORTRAIT -> {
-                ReEngageBottomSheetPortraitContent(
+                SignInBottomSheetPortraitContent(
                     image = image,
                     topMessage = topMessage,
                     bottomMessage = bottomMessage,
                     positiveButtonLabel = positiveButtonLabel
-                        ?: stringResource(id = R.string.horologist_reengage_prompt_ok_btn_label),
+                        ?: stringResource(id = R.string.horologist_signin_prompt_ok_btn_label),
                     negativeButtonLabel = negativeButtonLabel
-                        ?: stringResource(id = R.string.horologist_reengage_prompt_cancel_btn_label),
+                        ?: stringResource(id = R.string.horologist_signin_prompt_cancel_btn_label),
                     onDismissRequest = onDismissRequest,
                     onConfirmation = onConfirmation,
                 )
             }
 
             else -> {
-                ReEngageBottomSheetLandscapeContent(
+                SignInBottomSheetLandscapeContent(
                     image = image,
                     topMessage = topMessage,
                     bottomMessage = bottomMessage,
                     positiveButtonLabel = positiveButtonLabel
-                        ?: stringResource(id = R.string.horologist_reengage_prompt_ok_btn_label),
+                        ?: stringResource(id = R.string.horologist_signin_prompt_ok_btn_label),
                     negativeButtonLabel = negativeButtonLabel
-                        ?: stringResource(id = R.string.horologist_reengage_prompt_cancel_btn_label),
+                        ?: stringResource(id = R.string.horologist_signin_prompt_cancel_btn_label),
                     onDismissRequest = onDismissRequest,
                     onConfirmation = onConfirmation,
                 )
@@ -107,7 +107,7 @@ public fun ReEngageBottomSheet(
 }
 
 @Composable
-internal fun ReEngageBottomSheetPortraitContent(
+internal fun SignInBottomSheetPortraitContent(
     image: @Composable (() -> Unit)?,
     topMessage: String,
     bottomMessage: String,
@@ -185,7 +185,7 @@ internal fun ReEngageBottomSheetPortraitContent(
 }
 
 @Composable
-internal fun ReEngageBottomSheetLandscapeContent(
+internal fun SignInBottomSheetLandscapeContent(
     image: @Composable (() -> Unit)?,
     topMessage: String,
     bottomMessage: String,
@@ -261,8 +261,8 @@ internal fun ReEngageBottomSheetLandscapeContent(
 
 @Preview(showBackground = true)
 @Composable
-private fun ReEngageBottomSheetContentPreview() {
-    ReEngageBottomSheetPortraitContent(
+private fun SignInBottomSheetContentPreview() {
+    SignInBottomSheetPortraitContent(
         image = { Icon(Icons.Default.Email, contentDescription = null) },
         topMessage = "Stay productive and manage emails right from your wrist.",
         bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
@@ -275,8 +275,8 @@ private fun ReEngageBottomSheetContentPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun ReEngageBottomSheetContentPreviewNoIcon() {
-    ReEngageBottomSheetPortraitContent(
+private fun SignInBottomSheetContentPreviewNoIcon() {
+    SignInBottomSheetPortraitContent(
         image = null,
         topMessage = "Stay productive and manage emails right from your wrist.",
         bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",

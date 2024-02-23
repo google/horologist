@@ -146,7 +146,7 @@ public class PhoneUiDataLayerHelper {
      *     ActivityResultContracts.StartActivityForResult()
      * ) { result ->
      *     if (result.resultCode == RESULT_OK) {
-     *         // user pushed try!
+     *         // user pushed the positive button!
      *     }
      * }
      *
@@ -160,7 +160,7 @@ public class PhoneUiDataLayerHelper {
      *      ActivityResultContracts.StartActivityForResult()
      *  ) { result ->
      *      if (result.resultCode == RESULT_OK) {
-     *          // user pushed try!
+     *          // user pushed the positive button!
      *      }
      *  }
      *

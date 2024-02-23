@@ -65,6 +65,10 @@ fun MenuScreen(
             Text(text = stringResource(id = R.string.menu_screen_reengage_demo_item))
         }
 
+        Button(onClick = { navController.navigate(Screen.SignInPromptDemoScreen.route) }) {
+            Text(text = stringResource(id = R.string.menu_screen_signin_demo_item))
+        }
+
         Text(
             text = stringResource(id = R.string.menu_screen_datalayer_header),
             modifier = Modifier.padding(top = 10.dp),

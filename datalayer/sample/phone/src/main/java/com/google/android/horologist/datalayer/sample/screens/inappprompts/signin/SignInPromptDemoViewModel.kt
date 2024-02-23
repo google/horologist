@@ -63,7 +63,15 @@ class SignInPromptDemoViewModel
 
             viewModelScope.launch {
                 val node = phoneDataLayerAppHelper.connectedNodes().firstOrNull {
-                    it.surfacesInfo.usageInfo.usageStatus == UsageStatus.USAGE_STATUS_SETUP_COMPLETE
+                    when (it.surfacesInfo.usageInfo.usageStatus) {
+                        UsageStatus.UNRECOGNIZED,
+                        UsageStatus.USAGE_STATUS_UNSPECIFIED,
+                        UsageStatus.USAGE_STATUS_LAUNCHED_ONCE,
+                        null,
+                        -> true
+
+                        UsageStatus.USAGE_STATUS_SETUP_COMPLETE -> false
+                    }
                 }
 
                 _uiState.value = if (node != null) {
@@ -79,7 +87,7 @@ class SignInPromptDemoViewModel
         }
 
         fun onPromptSignInClick() {
-            _uiState.value = SignInPromptDemoScreenState.PromptPositiveButtonClicked
+            _uiState.value = SignInPromptDemoScreenState.PromptSignInClicked
         }
 
         fun onPromptDismiss() {
@@ -93,7 +101,7 @@ sealed class SignInPromptDemoScreenState {
     data object Loaded : SignInPromptDemoScreenState()
     data class WatchFound(val nodeId: String) : SignInPromptDemoScreenState()
     data object WatchNotFound : SignInPromptDemoScreenState()
-    data object PromptPositiveButtonClicked : SignInPromptDemoScreenState()
+    data object PromptSignInClicked : SignInPromptDemoScreenState()
     data object PromptDismissed : SignInPromptDemoScreenState()
     data object ApiNotAvailable : SignInPromptDemoScreenState()
 }

@@ -57,7 +57,7 @@ fun ReEngagePromptDemoScreen(
         state = state,
         onRunDemoClick = viewModel::onRunDemoClick,
         getReEngagePromptIntent = { nodeId ->
-            viewModel.phoneUiDataLayerHelper.getReEngagePromptIntent(
+            viewModel.reEngagePrompt.getIntent(
                 context = context,
                 nodeId = nodeId,
                 image = R.drawable.watch_app_screenshot,

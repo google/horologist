@@ -79,7 +79,7 @@
     <string name="install_app_prompt_demo2_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
     <string name="install_app_prompt_demo2_prompt_bottom_message">Install the demo app on your Wear OS watch.</string>
     <string name="install_app_prompt_demo2_result_label">Result: %1$s</string>
-    <string name="install_app_prompt_demo2_no_watches_found_label">No watches without the app installed were found.</string>
+    <string name="install_app_prompt_demo2_no_watches_found_label">No watches meeting the required conditions were found.</string>
     <string name="install_app_prompt_demo2_prompt_install_result_label">User tapped install on the prompt.</string>
     <string name="install_app_prompt_demo2_prompt_cancel_result_label">User dismissed the prompt.</string>
 
@@ -89,7 +89,7 @@
     <string name="reengage_prompt_demo_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
     <string name="reengage_prompt_demo_prompt_bottom_message">Open the demo app on your Wear OS watch.</string>
     <string name="reengage_prompt_demo_result_label">Result: %1$s</string>
-    <string name="reengage_prompt_demo_no_watches_found_label">No watches with the app installed were found.</string>
+    <string name="reengage_prompt_demo_no_watches_found_label">No watches meeting the required conditions were found.</string>
     <string name="reengage_prompt_demo_prompt_positive_result_label">User tapped on the positive button on the prompt.</string>
     <string name="reengage_prompt_demo_prompt_dismiss_result_label">User dismissed the prompt.</string>
 
@@ -100,7 +100,7 @@
     <string name="signin_prompt_demo_prompt_bottom_message">Sign in to the demo app on your Wear OS watch.</string>
     <string name="signin_prompt_demo_result_label">Result: %1$s</string>
     <string name="signin_prompt_demo_no_watches_found_label">No watches meeting the required conditions were found.</string>
-    <string name="signin_prompt_demo_prompt_positive_result_label">User tapped on the positive button on the prompt.</string>
+    <string name="signin_prompt_demo_prompt_positive_result_label">User tapped sign-in on the prompt.</string>
     <string name="signin_prompt_demo_prompt_dismiss_result_label">User dismissed the prompt.</string>
 
     <!-- Counter screen -->

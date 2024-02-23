@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.data.apphelper.appInstalled
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
-import com.google.android.horologist.datalayer.phone.ui.PhoneUiDataLayerHelper
+import com.google.android.horologist.datalayer.phone.ui.prompt.reengage.ReEngagePrompt
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -33,7 +33,7 @@ class ReEngagePromptDemoViewModel
     @Inject
     constructor(
         private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-        val phoneUiDataLayerHelper: PhoneUiDataLayerHelper,
+        val reEngagePrompt: ReEngagePrompt,
     ) : ViewModel() {
 
         private var initializeCalled = false

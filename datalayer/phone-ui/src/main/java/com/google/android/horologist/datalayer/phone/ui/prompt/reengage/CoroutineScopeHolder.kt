@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer.phone.ui.di
+package com.google.android.horologist.datalayer.phone.ui.prompt.reengage
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 
-internal class CoroutineAppScope private constructor() {
-    companion object {
-
-        @Volatile
-        private var instance: CoroutineScope? = null
-
-        fun getInstance() =
-            instance ?: synchronized(this) {
-                instance ?: CoroutineScope(SupervisorJob() + Dispatchers.Default).also {
-                    instance = it
-                }
-            }
-    }
+internal object CoroutineScopeHolder {
+    lateinit var coroutineScope: CoroutineScope
 }

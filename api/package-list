@@ -27,7 +27,6 @@ com.google.android.horologist.tiles.canvas
 com.google.android.horologist.tiles.complication
 com.google.android.horologist.tiles.components
 com.google.android.horologist.tiles.images
-com.google.android.horologist.tiles.preview
 com.google.android.horologist.tiles.render
 module:ai-ui
 com.google.android.horologist.ai.ui.components

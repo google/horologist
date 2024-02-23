@@ -25,6 +25,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.DrawableRes
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.datalayer.phone.ui.prompt.installapp.InstallAppBottomSheetActivity
+import com.google.android.horologist.datalayer.phone.ui.prompt.reengage.ReEngageBottomSheetActivity
 
 private const val NO_RESULT_REQUESTED_REQUEST_CODE = -1
 
@@ -48,7 +49,7 @@ public class PhoneUiDataLayerHelper {
         bottomMessage: String,
         requestCode: Int = NO_RESULT_REQUESTED_REQUEST_CODE,
     ) {
-        val intent = getInstallPromptIntent(
+        val intent = getInstallAppPromptIntent(
             context = activity,
             appPackageName = appPackageName,
             image = image,
@@ -62,7 +63,7 @@ public class PhoneUiDataLayerHelper {
     }
 
     /**
-     * Returns the [Intent] to display an install prompt to the user.
+     * Returns the [Intent] to display an install app prompt to the user.
      *
      * This can be used in Compose with [rememberLauncherForActivityResult] and
      * [ActivityResultLauncher.launch]:
@@ -76,7 +77,7 @@ public class PhoneUiDataLayerHelper {
      *     }
      * }
      *
-     * launcher.launch(getInstallPromptIntent(/*params*/))
+     * launcher.launch(getInstallAppPromptIntent(/*params*/))
      * ```
      *
      * It can also be used directly in an [ComponentActivity] with
@@ -90,10 +91,10 @@ public class PhoneUiDataLayerHelper {
      *      }
      *  }
      *
-     * launcher.launch(getInstallPromptIntent(/*params*/))
+     * launcher.launch(getInstallAppPromptIntent(/*params*/))
      * ```
      */
-    public fun getInstallPromptIntent(
+    public fun getInstallAppPromptIntent(
         context: Context,
         appPackageName: String,
         @DrawableRes image: Int,
@@ -105,5 +106,82 @@ public class PhoneUiDataLayerHelper {
         image = image,
         topMessage = topMessage,
         bottomMessage = bottomMessage,
+    )
+
+    /**
+     * Display a re-engage prompt to the user.
+     *
+     * Use [requestCode] as an option to check in [Activity.onActivityResult] if the prompt was
+     * dismissed ([Activity.RESULT_CANCELED]).
+     */
+    public fun showReEngagePrompt(
+        activity: Activity,
+        nodeId: String,
+        @DrawableRes image: Int,
+        topMessage: String,
+        bottomMessage: String,
+        requestCode: Int = NO_RESULT_REQUESTED_REQUEST_CODE,
+    ) {
+        val intent = getReEngagePromptIntent(
+            context = activity,
+            nodeId = nodeId,
+            image = image,
+            topMessage = topMessage,
+            bottomMessage = bottomMessage,
+        )
+        activity.startActivityForResult(
+            intent,
+            requestCode,
+        )
+    }
+
+    /**
+     * Returns the [Intent] to display a re-engage prompt to the user.
+     *
+     * This can be used in Compose with [rememberLauncherForActivityResult] and
+     * [ActivityResultLauncher.launch]:
+     *
+     * ```
+     * val launcher = rememberLauncherForActivityResult(
+     *     ActivityResultContracts.StartActivityForResult()
+     * ) { result ->
+     *     if (result.resultCode == RESULT_OK) {
+     *         // user pushed try!
+     *     }
+     * }
+     *
+     * launcher.launch(getReEngagePromptIntent(/*params*/))
+     * ```
+     *
+     * It can also be used directly in an [ComponentActivity] with
+     * [ComponentActivity.registerForActivityResult]:
+     * ```
+     *  val launcher = registerForActivityResult(
+     *      ActivityResultContracts.StartActivityForResult()
+     *  ) { result ->
+     *      if (result.resultCode == RESULT_OK) {
+     *          // user pushed try!
+     *      }
+     *  }
+     *
+     * launcher.launch(getReEngagePromptIntent(/*params*/))
+     * ```
+     */
+    public fun getReEngagePromptIntent(
+        context: Context,
+        nodeId: String,
+        @DrawableRes image: Int,
+        topMessage: String,
+        bottomMessage: String,
+        positiveButtonLabel: String? = null,
+        negativeButtonLabel: String? = null,
+    ): Intent = ReEngageBottomSheetActivity.getIntent(
+        context = context,
+        nodeId = nodeId,
+        image = image,
+        topMessage = topMessage,
+        bottomMessage = bottomMessage,
+        positiveButtonLabel = positiveButtonLabel,
+        negativeButtonLabel = negativeButtonLabel,
     )
 }

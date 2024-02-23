@@ -13,5 +13,11 @@
             android:excludeFromRecents="true"
             android:exported="false"
             android:theme="@style/HorologistTheme.Transparent" />
+
+        <activity
+            android:name=".prompt.reengage.ReEngageBottomSheetActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:theme="@style/HorologistTheme.Transparent" />
     </application>
 </manifest>

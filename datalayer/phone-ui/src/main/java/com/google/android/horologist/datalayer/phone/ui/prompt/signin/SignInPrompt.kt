@@ -50,7 +50,7 @@ public class SignInPrompt(coroutineScope: CoroutineScope) {
      *     }
      * }
      *
-     * launcher.launch(getSignInPromptIntent(/*params*/))
+     * launcher.launch(getIntent(/*params*/))
      * ```
      *
      * It can also be used directly in an [ComponentActivity] with
@@ -64,7 +64,7 @@ public class SignInPrompt(coroutineScope: CoroutineScope) {
      *      }
      *  }
      *
-     * launcher.launch(getSignInPromptIntent(/*params*/))
+     * launcher.launch(getIntent(/*params*/))
      * ```
      */
     public fun getIntent(

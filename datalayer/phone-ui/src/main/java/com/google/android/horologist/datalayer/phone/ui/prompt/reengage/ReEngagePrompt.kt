@@ -45,7 +45,7 @@ public class ReEngagePrompt(coroutineScope: CoroutineScope) {
      *     }
      * }
      *
-     * launcher.launch(getReEngagePromptIntent(/*params*/))
+     * launcher.launch(getIntent(/*params*/))
      * ```
      *
      * It can also be used directly in an [ComponentActivity] with
@@ -59,7 +59,7 @@ public class ReEngagePrompt(coroutineScope: CoroutineScope) {
      *      }
      *  }
      *
-     * launcher.launch(getReEngagePromptIntent(/*params*/))
+     * launcher.launch(getIntent(/*params*/))
      * ```
      */
     public fun getIntent(

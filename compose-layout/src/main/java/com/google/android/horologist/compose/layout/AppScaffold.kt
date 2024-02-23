@@ -24,7 +24,6 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
-import androidx.wear.compose.navigation.SwipeDismissableNavHost
 
 /**
  *  An app scaffold, to be used to wrap a [SwipeDismissableNavHost].

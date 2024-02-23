@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer.phone.ui.prompt.signin
+package com.google.android.horologist.datalayer.phone.ui.prompt.reengage
 
 import android.content.Context
 import android.content.Intent
@@ -24,19 +24,14 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.DrawableRes
 import kotlinx.coroutines.CoroutineScope
 
-/**
- * Functions to display a sign-in prompt.
- *
- * @param coroutineScope [CoroutineScope] used to make the call to launch the app on the watch.
- */
-public class SignInPrompt(coroutineScope: CoroutineScope) {
+public class ReEngagePrompt(coroutineScope: CoroutineScope) {
 
     init {
         CoroutineScopeHolder.coroutineScope = coroutineScope
     }
 
     /**
-     * Returns the [Intent] to display a sign-in prompt to the user.
+     * Returns the [Intent] to display a re-engage prompt to the user.
      *
      * This can be used in Compose with [rememberLauncherForActivityResult] and
      * [ActivityResultLauncher.launch]:
@@ -46,7 +41,7 @@ public class SignInPrompt(coroutineScope: CoroutineScope) {
      *     ActivityResultContracts.StartActivityForResult()
      * ) { result ->
      *     if (result.resultCode == RESULT_OK) {
-     *         // user pushed sign-in!
+     *         // user pushed the positive button!
      *     }
      * }
      *
@@ -60,7 +55,7 @@ public class SignInPrompt(coroutineScope: CoroutineScope) {
      *      ActivityResultContracts.StartActivityForResult()
      *  ) { result ->
      *      if (result.resultCode == RESULT_OK) {
-     *          // user pushed sign-in!
+     *          // user pushed the positive button!
      *      }
      *  }
      *
@@ -75,7 +70,7 @@ public class SignInPrompt(coroutineScope: CoroutineScope) {
         bottomMessage: String,
         positiveButtonLabel: String? = null,
         negativeButtonLabel: String? = null,
-    ): Intent = SignInBottomSheetActivity.getIntent(
+    ): Intent = ReEngageBottomSheetActivity.getIntent(
         context = context,
         nodeId = nodeId,
         image = image,

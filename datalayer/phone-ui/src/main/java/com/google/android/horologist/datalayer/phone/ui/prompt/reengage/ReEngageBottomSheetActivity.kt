@@ -32,7 +32,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.painterResource
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
-import com.google.android.horologist.datalayer.phone.ui.di.CoroutineAppScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -57,7 +56,7 @@ internal class ReEngageBottomSheetActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        coroutineAppScope = CoroutineAppScope.getInstance()
+        coroutineAppScope = CoroutineScopeHolder.coroutineScope
 
         phoneDataLayerAppHelper = PhoneDataLayerAppHelper(
             this,

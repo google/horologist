@@ -133,7 +133,7 @@ fun SignInPromptDemoScreen(
                 )
             }
 
-            SignInPromptDemoScreenState.PromptPositiveButtonClicked -> {
+            SignInPromptDemoScreenState.PromptSignInClicked -> {
                 Text(
                     stringResource(
                         id = R.string.signin_prompt_demo_result_label,

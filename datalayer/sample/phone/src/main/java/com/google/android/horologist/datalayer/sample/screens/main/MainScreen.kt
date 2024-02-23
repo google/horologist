@@ -74,7 +74,7 @@ fun MainScreen(
                     InstallAppPromptDemo2Screen()
                 }
                 composable(route = Screen.ReEngagePromptDemoScreen.route) {
-                    SignInPromptDemoScreen()
+                    ReEngagePromptDemoScreen()
                 }
                 composable(route = Screen.SignInPromptDemoScreen.route) {
                     SignInPromptDemoScreen()

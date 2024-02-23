@@ -93,7 +93,6 @@ dependencies {
     api(libs.androidx.lifecycle.runtime.compose)
     api(libs.androidx.paging)
 
-    implementation(libs.kotlin.stdlib)
     implementation(libs.compose.ui.util)
     implementation(libs.androidx.wear)
 

@@ -26,7 +26,7 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
 
 /**
- *  An app scaffold, to be used to wrap a [SwipeDismissableNavHost].
+ *  An app scaffold, to be used to wrap a SwipeDismissableNavHost.
  * The [TimeText] will be shown here, but can be customised in either [ScreenScaffold] or
  * [PagerScaffold].
  *

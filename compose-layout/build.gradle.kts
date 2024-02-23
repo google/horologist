@@ -89,20 +89,16 @@ dependencies {
 
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
-    api(libs.wearcompose.navigation)
 
     api(libs.androidx.lifecycle.runtime.compose)
     api(libs.androidx.paging)
 
     implementation(libs.kotlin.stdlib)
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
     implementation(libs.androidx.wear)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.compose.ui.toolingpreview)
 
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.compose.ui.tooling)
+    implementation(libs.compose.ui.toolingpreview)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

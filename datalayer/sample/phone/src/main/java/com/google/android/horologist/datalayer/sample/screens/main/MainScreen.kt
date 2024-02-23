@@ -32,7 +32,7 @@ import com.google.android.horologist.datalayer.sample.screens.Screen
 import com.google.android.horologist.datalayer.sample.screens.counter.CounterScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.installapp.InstallAppPromptDemo2Screen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.installapp.InstallAppPromptDemoScreen
-import com.google.android.horologist.datalayer.sample.screens.inappprompts.reengage.ReEngagePromptDemoScreen
+import com.google.android.horologist.datalayer.sample.screens.inappprompts.signin.SignInPromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.menu.MenuScreen
 import com.google.android.horologist.datalayer.sample.screens.nodes.NodesScreen
 import com.google.android.horologist.datalayer.sample.screens.nodeslistener.NodesListenerScreen
@@ -74,7 +74,10 @@ fun MainScreen(
                     InstallAppPromptDemo2Screen()
                 }
                 composable(route = Screen.ReEngagePromptDemoScreen.route) {
-                    ReEngagePromptDemoScreen()
+                    SignInPromptDemoScreen()
+                }
+                composable(route = Screen.SignInPromptDemoScreen.route) {
+                    SignInPromptDemoScreen()
                 }
                 composable(route = Screen.CounterScreen.route) {
                     CounterScreen()

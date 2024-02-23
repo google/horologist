@@ -19,5 +19,11 @@
             android:excludeFromRecents="true"
             android:exported="false"
             android:theme="@style/HorologistTheme.Transparent" />
+
+        <activity
+            android:name=".prompt.signin.SignInBottomSheetActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:theme="@style/HorologistTheme.Transparent" />
     </application>
 </manifest>

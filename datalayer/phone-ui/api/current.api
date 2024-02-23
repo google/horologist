@@ -35,3 +35,16 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.reengage {
 
 }
 
+package com.google.android.horologist.datalayer.phone.ui.prompt.signin {
+
+  public final class SignInBottomSheetKt {
+    method @androidx.compose.runtime.Composable public static void SignInBottomSheet(kotlin.jvm.functions.Function0<kotlin.Unit>? image, String topMessage, String bottomMessage, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, kotlin.jvm.functions.Function0<kotlin.Unit> onConfirmation, optional androidx.compose.ui.Modifier modifier, optional String? positiveButtonLabel, optional String? negativeButtonLabel, optional androidx.compose.material3.SheetState sheetState);
+  }
+
+  public final class SignInPrompt {
+    ctor public SignInPrompt(kotlinx.coroutines.CoroutineScope coroutineScope);
+    method public android.content.Intent getIntent(android.content.Context context, String nodeId, @DrawableRes int image, String topMessage, String bottomMessage, optional String? positiveButtonLabel, optional String? negativeButtonLabel);
+  }
+
+}
+

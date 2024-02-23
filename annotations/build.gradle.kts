@@ -33,7 +33,6 @@ metalava {
 }
 
 dependencies {
-    implementation(libs.kotlin.stdlib)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

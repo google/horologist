@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer.sample.screens.inappprompts
+package com.google.android.horologist.datalayer.sample.screens.inappprompts.installapp
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel

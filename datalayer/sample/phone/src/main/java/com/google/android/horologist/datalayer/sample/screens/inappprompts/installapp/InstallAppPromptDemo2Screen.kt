@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer.sample.screens.inappprompts
+package com.google.android.horologist.datalayer.sample.screens.inappprompts.installapp
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -57,7 +57,7 @@ fun InstallAppPromptDemo2Screen(
         state = state,
         onRunDemoClick = viewModel::onRunDemoClick,
         getInstallPromptIntent = {
-            viewModel.phoneUiDataLayerHelper.getInstallPromptIntent(
+            viewModel.phoneUiDataLayerHelper.getInstallAppPromptIntent(
                 context = context,
                 appPackageName = context.packageName,
                 image = R.drawable.watch_app_screenshot,

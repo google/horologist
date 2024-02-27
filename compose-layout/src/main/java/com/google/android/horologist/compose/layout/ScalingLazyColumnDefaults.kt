@@ -259,7 +259,8 @@ public object ScalingLazyColumnDefaults {
     }
 
     val Padding12Pct = 0.1248f
-    val Padding16Pct = 0.1644f
+    val Padding16Pct = 0.1664f
+    val Padding20Pct = 0.2083f
     val Padding21Pct = 0.2188f
     val Padding31Pct = 0.3646f
 
@@ -267,11 +268,11 @@ public object ScalingLazyColumnDefaults {
     enum class ItemType(val topPaddingDp: Float, val bottomPaddingDp: Float) {
         Card(Padding21Pct, Padding31Pct),
         Chip(Padding21Pct, Padding31Pct),
-        CompactChip(Padding12Pct, Padding21Pct),
+        CompactChip(Padding12Pct, Padding20Pct),
         Icon(Padding12Pct, Padding21Pct),
-        MultiButton(Padding21Pct, Padding31Pct),
-        SingleButton(Padding12Pct, Padding21Pct),
-        Text(Padding16Pct, Padding31Pct),
+        MultiButton(Padding21Pct, Padding20Pct),
+        SingleButton(Padding12Pct, Padding20Pct),
+        Text(Padding21Pct, Padding31Pct),
         Unspecified(Padding21Pct, Padding31Pct);
     }
 

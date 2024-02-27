@@ -69,6 +69,8 @@ fun SampleMenu(
             // Allow items before we scroll
             delay(100)
             columnState.state.scrollToItem(100, 0)
+            delay(100)
+            columnState.state.scrollToItem(100, 0)
         }
     }
 }

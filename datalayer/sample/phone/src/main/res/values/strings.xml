@@ -63,6 +63,7 @@
 
     <!-- In-app prompt - Install App Demo screen -->
     <string name="install_app_prompt_api_call_demo_message">This demo calls the Horologist API to show the install app prompt for the watch demo app. The API will only display the prompt if there is a watch connected and the watch does not have the app installed.\n\nGoogle Play won\'t find this app as it is not published.</string>
+    <string name="install_app_prompt_checkbox_label">Filter by nearby watches</string>
     <string name="install_app_prompt_run_demo_button_label">Run demo</string>
     <string name="install_app_prompt_demo_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
     <string name="install_app_prompt_demo_prompt_bottom_message">Install the demo app on your Wear OS watch.</string>

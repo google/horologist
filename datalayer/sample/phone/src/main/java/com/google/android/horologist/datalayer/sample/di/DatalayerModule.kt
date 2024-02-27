@@ -23,32 +23,24 @@ import com.google.android.horologist.datalayer.sample.shared.CounterValueSeriali
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.ActivityRetainedLifecycle
-import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@InstallIn(SingletonComponent::class)
 object DatalayerModule {
 
-    @ActivityRetainedScoped
+    @Singleton
     @Provides
-    fun providesCoroutineScope(
-        activityRetainedLifecycle: ActivityRetainedLifecycle,
-    ): CoroutineScope {
-        return CoroutineScope(SupervisorJob() + Dispatchers.Default).also {
-            activityRetainedLifecycle.addOnClearedListener {
-                it.cancel()
-            }
-        }
+    fun providesCoroutineScope(): CoroutineScope {
+        return CoroutineScope(SupervisorJob() + Dispatchers.Default)
     }
 
-    @ActivityRetainedScoped
+    @Singleton
     @Provides
     fun phoneDataLayerAppHelper(
         @ApplicationContext applicationContext: Context,
@@ -58,7 +50,7 @@ object DatalayerModule {
         registry = wearDataLayerRegistry,
     )
 
-    @ActivityRetainedScoped
+    @Singleton
     @Provides
     fun wearDataLayerRegistry(
         @ApplicationContext applicationContext: Context,

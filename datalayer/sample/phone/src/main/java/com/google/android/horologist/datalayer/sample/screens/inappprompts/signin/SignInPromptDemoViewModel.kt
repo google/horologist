@@ -19,7 +19,6 @@ package com.google.android.horologist.datalayer.sample.screens.inappprompts.sign
 import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.phone.ui.prompt.signin.SignInPrompt
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -62,17 +61,7 @@ class SignInPromptDemoViewModel
             _uiState.value = SignInPromptDemoScreenState.Loading
 
             viewModelScope.launch {
-                val node = phoneDataLayerAppHelper.connectedNodes().firstOrNull {
-                    when (it.surfacesInfo.usageInfo.usageStatus) {
-                        UsageStatus.UNRECOGNIZED,
-                        UsageStatus.USAGE_STATUS_UNSPECIFIED,
-                        UsageStatus.USAGE_STATUS_LAUNCHED_ONCE,
-                        null,
-                        -> true
-
-                        UsageStatus.USAGE_STATUS_SETUP_COMPLETE -> false
-                    }
-                }
+                val node = signInPrompt.shouldDisplayPrompt()
 
                 _uiState.value = if (node != null) {
                     SignInPromptDemoScreenState.WatchFound(node.id)

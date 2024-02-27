@@ -23,14 +23,27 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.DrawableRes
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
+import com.google.android.horologist.data.apphelper.appInstalled
+import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import kotlinx.coroutines.CoroutineScope
 
 @ExperimentalHorologistApi
-public class ReEngagePrompt(coroutineScope: CoroutineScope) {
+public class ReEngagePrompt(
+    coroutineScope: CoroutineScope,
+    private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+) {
 
     init {
         CoroutineScopeHolder.coroutineScope = coroutineScope
     }
+
+    /**
+     * Returns a [AppHelperNodeStatus] that meets the criteria to show this prompt, otherwise
+     * returns null.
+     */
+    public suspend fun shouldDisplayPrompt(): AppHelperNodeStatus? =
+        phoneDataLayerAppHelper.connectedNodes().firstOrNull { it.appInstalled }
 
     /**
      * Returns the [Intent] to display a re-engage prompt to the user.
@@ -47,7 +60,7 @@ public class ReEngagePrompt(coroutineScope: CoroutineScope) {
      *     }
      * }
      *
-     * launcher.launch(getIntent(/*params*/))
+     * launcher.launch(reEngagePrompt.getIntent(/*params*/))
      * ```
      *
      * It can also be used directly in an [ComponentActivity] with
@@ -61,7 +74,7 @@ public class ReEngagePrompt(coroutineScope: CoroutineScope) {
      *      }
      *  }
      *
-     * launcher.launch(getIntent(/*params*/))
+     * launcher.launch(reEngagePrompt.getIntent(/*params*/))
      * ```
      */
     public fun getIntent(

@@ -23,9 +23,20 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.DrawableRes
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
+import com.google.android.horologist.data.apphelper.appInstalled
+import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 
 @ExperimentalHorologistApi
-public class InstallAppPrompt {
+public class InstallAppPrompt(private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper) {
+
+    /**
+     * Returns a [AppHelperNodeStatus] that meets the criteria to show this prompt, otherwise
+     * returns null.
+     */
+    public suspend fun shouldDisplayPrompt(): AppHelperNodeStatus? =
+        phoneDataLayerAppHelper.connectedNodes().firstOrNull { !it.appInstalled }
+
     /**
      * Returns the [Intent] to display an install app prompt to the user.
      *
@@ -41,7 +52,7 @@ public class InstallAppPrompt {
      *     }
      * }
      *
-     * launcher.launch(getIntent(/*params*/))
+     * launcher.launch(installAppPrompt.getIntent(/*params*/))
      * ```
      *
      * It can also be used directly in an [ComponentActivity] with
@@ -55,7 +66,7 @@ public class InstallAppPrompt {
      *      }
      *  }
      *
-     * launcher.launch(getIntent(/*params*/))
+     * launcher.launch(installAppPrompt.getIntent(/*params*/))
      * ```
      */
     public fun getIntent(

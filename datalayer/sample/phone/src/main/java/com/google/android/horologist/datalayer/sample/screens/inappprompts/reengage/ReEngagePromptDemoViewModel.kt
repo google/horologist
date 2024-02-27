@@ -19,7 +19,6 @@ package com.google.android.horologist.datalayer.sample.screens.inappprompts.reen
 import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.data.apphelper.appInstalled
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.phone.ui.prompt.reengage.ReEngagePrompt
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -62,7 +61,7 @@ class ReEngagePromptDemoViewModel
             _uiState.value = ReEngagePromptDemoScreenState.Loading
 
             viewModelScope.launch {
-                val node = phoneDataLayerAppHelper.connectedNodes().firstOrNull { it.appInstalled }
+                val node = reEngagePrompt.shouldDisplayPrompt()
 
                 _uiState.value = if (node != null) {
                     ReEngagePromptDemoScreenState.WatchFound(node.id)

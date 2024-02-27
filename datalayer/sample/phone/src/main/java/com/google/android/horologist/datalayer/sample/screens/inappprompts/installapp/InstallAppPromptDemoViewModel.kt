@@ -19,7 +19,6 @@ package com.google.android.horologist.datalayer.sample.screens.inappprompts.inst
 import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.data.apphelper.appInstalled
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.phone.ui.prompt.installapp.InstallAppPrompt
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -62,7 +61,7 @@ class InstallAppPromptDemoViewModel
             _uiState.value = InstallAppPromptDemoScreenState.Loading
 
             viewModelScope.launch {
-                val node = phoneDataLayerAppHelper.connectedNodes().firstOrNull { !it.appInstalled }
+                val node = installAppPrompt.shouldDisplayPrompt()
 
                 _uiState.value = if (node != null) {
                     InstallAppPromptDemoScreenState.WatchFound

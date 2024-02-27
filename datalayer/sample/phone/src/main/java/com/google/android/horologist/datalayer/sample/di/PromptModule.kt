@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.datalayer.sample.di
 
+import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.phone.ui.prompt.installapp.InstallAppPrompt
 import com.google.android.horologist.datalayer.phone.ui.prompt.reengage.ReEngagePrompt
 import com.google.android.horologist.datalayer.phone.ui.prompt.signin.SignInPrompt
@@ -24,8 +25,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
 
 @Module
@@ -33,17 +32,27 @@ import javax.inject.Singleton
 object PromptModule {
     @Singleton
     @Provides
-    fun installAppPrompt(): InstallAppPrompt = InstallAppPrompt()
-
-    @Singleton
-    @Provides
-    fun reEngagePrompt(): ReEngagePrompt = ReEngagePrompt(
-        coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default),
+    fun installAppPrompt(phoneDataLayerAppHelper: PhoneDataLayerAppHelper): InstallAppPrompt = InstallAppPrompt(
+        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
     )
 
     @Singleton
     @Provides
-    fun signInPrompt(): SignInPrompt = SignInPrompt(
-        coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default),
+    fun reEngagePrompt(
+        coroutineScope: CoroutineScope,
+        phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+    ): ReEngagePrompt = ReEngagePrompt(
+        coroutineScope = coroutineScope,
+        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
+    )
+
+    @Singleton
+    @Provides
+    fun signInPrompt(
+        coroutineScope: CoroutineScope,
+        phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+    ): SignInPrompt = SignInPrompt(
+        coroutineScope = coroutineScope,
+        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
     )
 }

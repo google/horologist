@@ -23,6 +23,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.DrawableRes
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.data.UsageStatus
+import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
+import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -31,11 +34,31 @@ import kotlinx.coroutines.CoroutineScope
  * @param coroutineScope [CoroutineScope] used to make the call to launch the app on the watch.
  */
 @ExperimentalHorologistApi
-public class SignInPrompt(coroutineScope: CoroutineScope) {
+public class SignInPrompt(
+    coroutineScope: CoroutineScope,
+    private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+) {
 
     init {
         CoroutineScopeHolder.coroutineScope = coroutineScope
     }
+
+    /**
+     * Returns a [AppHelperNodeStatus] that meets the criteria to show this prompt, otherwise
+     * returns null.
+     */
+    public suspend fun shouldDisplayPrompt(): AppHelperNodeStatus? =
+        phoneDataLayerAppHelper.connectedNodes().firstOrNull {
+            when (it.surfacesInfo.usageInfo.usageStatus) {
+                UsageStatus.UNRECOGNIZED,
+                UsageStatus.USAGE_STATUS_UNSPECIFIED,
+                UsageStatus.USAGE_STATUS_LAUNCHED_ONCE,
+                null,
+                -> true
+
+                UsageStatus.USAGE_STATUS_SETUP_COMPLETE -> false
+            }
+        }
 
     /**
      * Returns the [Intent] to display a sign-in prompt to the user.
@@ -52,7 +75,7 @@ public class SignInPrompt(coroutineScope: CoroutineScope) {
      *     }
      * }
      *
-     * launcher.launch(getIntent(/*params*/))
+     * launcher.launch(signInPrompt.getIntent(/*params*/))
      * ```
      *
      * It can also be used directly in an [ComponentActivity] with
@@ -66,7 +89,7 @@ public class SignInPrompt(coroutineScope: CoroutineScope) {
      *      }
      *  }
      *
-     * launcher.launch(getIntent(/*params*/))
+     * launcher.launch(signInPrompt.getIntent(/*params*/))
      * ```
      */
     public fun getIntent(

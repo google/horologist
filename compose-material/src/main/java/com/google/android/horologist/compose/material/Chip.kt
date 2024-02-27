@@ -50,6 +50,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.onLongClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.buildAnnotatedString
@@ -83,7 +85,6 @@ public fun Chip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
-    onDoubleClick: (() -> Unit)? = null,
     secondaryLabel: String? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     icon: Paintable? = null,
@@ -128,7 +129,6 @@ public fun Chip(
         label = label,
         onClick = onClick,
         onLongClick = onLongClick,
-        onDoubleClick = onDoubleClick,
         modifier = modifier,
         secondaryLabel = secondaryLabel,
         icon = iconParam,
@@ -151,7 +151,6 @@ public fun Chip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
-    onDoubleClick: (() -> Unit)? = null,
     @StringRes secondaryLabel: Int? = null,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     icon: Paintable? = null,
@@ -163,7 +162,6 @@ public fun Chip(
         label = stringResource(id = labelId),
         onClick = onClick,
         onLongClick = onLongClick,
-        onDoubleClick = onDoubleClick,
         modifier = modifier,
         secondaryLabel = secondaryLabel?.let { stringResource(id = it) },
         icon = icon,
@@ -185,7 +183,6 @@ public fun Chip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
-    onDoubleClick: (() -> Unit)? = null,
     secondaryLabel: String? = null,
     icon: (@Composable BoxScope.() -> Unit)? = null,
     largeIcon: Boolean = false,
@@ -229,37 +226,58 @@ public fun Chip(
         ChipDefaults.ContentPadding
     }
 
-    Chip(
-        label = labelParam,
-        onClick = onClick,
-        onLongClick = onLongClick,
-        onDoubleClick = onDoubleClick,
-        modifier = modifier
-            .fillMaxWidth()
-            .clearAndSetSemantics {
-                text = buildAnnotatedString {
-                    append(label)
-                    if (secondaryLabel != null) {
-                        append(", ")
-                        append(secondaryLabel)
+    if (onLongClick != null) {
+        Chip(
+            label = labelParam,
+            onClick = onClick,
+            onLongClick = onLongClick,
+            modifier = modifier
+                .fillMaxWidth()
+                .clearAndSetSemantics {
+                    text = buildAnnotatedString {
+                        append(label)
+                        if (secondaryLabel != null) {
+                            append(", ")
+                            append(secondaryLabel)
+                        }
                     }
-                }
-                role = Role.Button
-                if (!enabled) {
-                    disabled()
-                }
-            },
-        secondaryLabel = secondaryLabelParam,
-        icon = icon,
-        colors = colors,
-        enabled = enabled,
-        contentPadding = contentPadding,
-    )
+                    role = Role.Button
+                    if (!enabled) {
+                        disabled()
+                    }
+                    this.onClick(action = {
+                        onClick()
+                        true
+                    })
+                    this.onLongClick(action = {
+                        onLongClick()
+                        true
+                    })
+                },
+            secondaryLabel = secondaryLabelParam,
+            icon = icon,
+            colors = colors,
+            enabled = enabled,
+            contentPadding = contentPadding,
+        )
+    } else {
+        MaterialChip(
+            label = labelParam,
+            onClick = onClick,
+            modifier = modifier
+                .fillMaxWidth(),
+            secondaryLabel = secondaryLabelParam,
+            icon = icon,
+            colors = colors,
+            enabled = enabled,
+            contentPadding = contentPadding,
+        )
+    }
 }
 
 /**
  * Temporary copy of Wear Compose Material Chip with support for
- * onLongClick, onDoubleClick.
+ * onLongClick.
  */
 @Composable
 internal fun Chip(
@@ -267,7 +285,6 @@ internal fun Chip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
-    onDoubleClick: (() -> Unit)? = null,
     secondaryLabel: (@Composable RowScope.() -> Unit)? = null,
     icon: (@Composable BoxScope.() -> Unit)? = null,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
@@ -283,7 +300,6 @@ internal fun Chip(
         border = border,
         modifier = modifier,
         onLongClick = onLongClick,
-        onDoubleClick = onDoubleClick,
         enabled = enabled,
         contentPadding = contentPadding,
         shape = shape,
@@ -345,7 +361,7 @@ internal fun Chip(
 
 /**
  * Temporary copy of Wear Compose Material Chip with support for
- * onLongClick, onDoubleClick.
+ * onLongClick.
  */
 @Composable
 internal fun Chip(
@@ -354,7 +370,6 @@ internal fun Chip(
     border: ChipBorder,
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
-    onDoubleClick: (() -> Unit)? = null,
     enabled: Boolean = true,
     contentPadding: PaddingValues = ChipDefaults.ContentPadding,
     shape: Shape = MaterialTheme.shapes.large,
@@ -382,7 +397,6 @@ internal fun Chip(
                     enabled = enabled,
                     onClick = onClick,
                     onLongClick = onLongClick,
-                    onDoubleClick = onDoubleClick,
                     role = role,
                 )
                 .padding(contentPadding),

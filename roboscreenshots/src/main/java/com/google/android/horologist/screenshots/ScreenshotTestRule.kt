@@ -46,8 +46,8 @@ import androidx.compose.ui.test.onRoot
 import androidx.core.graphics.applyCanvas
 import androidx.test.core.app.ApplicationProvider
 import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.RobolectricTempHelpers.capture
 import com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode.Companion.defaultRecordMode
@@ -364,7 +364,7 @@ public class ScreenshotTestRule(
 
     public companion object {
         private fun defaultScreenTimeText(): @Composable () -> Unit = {
-            TimeText(
+            ResponsiveTimeText(
                 timeSource = FixedTimeSource,
             )
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><resources>
 <!--
- Copyright 2023 The Android Open Source Project
+ Copyright 2024 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@
   <string name="horologist_volume_screen_volume_down_content_description">Skru ned for lyden</string>
   <string name="horologist_volume_screen_connected_state">Forbundet, lydstyrke %1$d</string>
   <string name="horologist_volume_screen_not_connected_state">Ikke forbundet</string>
-  <string name="horologist_volume_screen_change_audio_output">Skift lydoutput</string>
+  <string name="horologist_volume_screen_change_audio_output">Skift lydudgang</string>
   <string name="horologist_speaker_name">Urets højttaler</string>
   <string name="choose_device">Vælg enhed</string>
   <string name="horologist_output_none">Ingen</string>
   <string name="horologist_set_volume_content_description">Juster lydstyrke</string>
-  <string name="horologist_audio_output_content_description">Lydoutput</string>
+  <string name="horologist_audio_output_content_description">Lydudgang</string>
   <string name="horologist_volume_screen_volume_label">Lydstyrke</string>
 </resources>

@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import androidx.wear.compose.material.Card as MaterialCard
 
 /**
  * This component is an alternative to [Card], adding support for long and double-clicks.
@@ -44,9 +45,8 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @Composable
 public fun Card(
     onClick: () -> Unit,
-    onDoubleClick: () -> Unit,
-    onLongClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: (() -> Unit)? = null,
     backgroundPainter: Painter = CardDefaults.cardBackgroundPainter(),
     contentColor: Color = MaterialTheme.colors.onSurfaceVariant,
     enabled: Boolean = true,
@@ -55,31 +55,45 @@ public fun Card(
     role: Role? = null,
     content: @Composable () -> Unit,
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-    androidx.wear.compose.material.Card(
-        onClick = onClick,
-        modifier = modifier,
-        backgroundPainter = backgroundPainter,
-        contentColor = contentColor,
-        enabled = enabled,
-        contentPadding = PaddingValues(0.dp),
-        shape = shape,
-        interactionSource = interactionSource,
-        role = role,
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .combinedClickable(
-                    interactionSource = interactionSource,
-                    indication = null,
-                    enabled = enabled,
-                    onClick = onClick,
-                    onLongClick = onLongClick,
-                    onDoubleClick = onDoubleClick,
-                    role = role,
-                )
-                .padding(contentPadding),
+    if (onLongClick != null) {
+        val interactionSource = remember { MutableInteractionSource() }
+        MaterialCard(
+            onClick = onClick,
+            modifier = modifier,
+            backgroundPainter = backgroundPainter,
+            contentColor = contentColor,
+            enabled = enabled,
+            contentPadding = PaddingValues(0.dp),
+            shape = shape,
+            interactionSource = interactionSource,
+            role = role,
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .combinedClickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        enabled = enabled,
+                        onClick = onClick,
+                        onLongClick = onLongClick,
+                        role = role,
+                    )
+                    .padding(contentPadding),
+            ) {
+                content()
+            }
+        }
+    } else {
+        MaterialCard(
+            onClick = onClick,
+            modifier = modifier,
+            backgroundPainter = backgroundPainter,
+            contentColor = contentColor,
+            enabled = enabled,
+            contentPadding = PaddingValues(0.dp),
+            shape = shape,
+            role = role,
         ) {
             content()
         }

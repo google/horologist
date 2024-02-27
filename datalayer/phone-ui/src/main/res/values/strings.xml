@@ -18,4 +18,8 @@
 <resources>
     <string description="Label displayed on button to confirm that the user would like to install the app. [CHAR_LIMIT=40]" name="horologist_install_app_prompt_ok_btn_label">Install</string>
     <string description="Label displayed on button to dismiss the prompt to install the app. [CHAR_LIMIT=40]" name="horologist_install_app_prompt_cancel_btn_label">Not now</string>
+    <string description="Label displayed on button to confirm that the user would like to open the app. [CHAR_LIMIT=40]" name="horologist_reengage_prompt_ok_btn_label">Try on watch</string>
+    <string description="Label displayed on button to dismiss the prompt to open the app. [CHAR_LIMIT=40]" name="horologist_reengage_prompt_cancel_btn_label">Not now</string>
+    <string description="Label displayed on button to confirm that the user would like to open the app to sign in. [CHAR_LIMIT=40]" name="horologist_signin_prompt_ok_btn_label">Sign-in on watch</string>
+    <string description="Label displayed on button to dismiss the prompt to open the app to sign in. [CHAR_LIMIT=40]" name="horologist_signin_prompt_cancel_btn_label">Not now</string>
 </resources>

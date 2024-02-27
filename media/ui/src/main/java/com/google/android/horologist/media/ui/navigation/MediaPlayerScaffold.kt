@@ -29,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.composable
@@ -37,6 +36,7 @@ import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.media.ui.screens.playerlibrarypager.PlayerLibraryPagerScreen
@@ -77,7 +77,7 @@ public fun MediaPlayerScaffold(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     volumeScreen: @Composable () -> Unit = { VolumeScreen(volumeViewModel = volumeViewModel) },
-    timeText: @Composable () -> Unit = { TimeText() },
+    timeText: @Composable () -> Unit = { ResponsiveTimeText() },
     navHostState: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
     additionalNavRoutes: NavGraphBuilder.() -> Unit = {},
 ) {

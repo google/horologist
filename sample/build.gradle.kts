@@ -142,6 +142,8 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
+    debugImplementation(libs.androidx.wear.tiles.tooling.preview)
+    debugImplementation(libs.androidx.wear.tiles.tooling)
     releaseCompileOnly(projects.composeTools)
 
     testImplementation(libs.junit)

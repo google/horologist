@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><resources>
 <!--
- Copyright 2023 The Android Open Source Project
+ Copyright 2024 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@
   <string name="horologist_signedin_confirmation_greeting_no_name">您好！</string>
   <string name="horologist_signin_prompt_title">登录</string>
   <string name="horologist_sign_in_chip_label">登录</string>
-  <string name="horologist_guest_mode_chip_label">在不登录帐号的情况下使用</string>
+  <string name="horologist_guest_mode_chip_label">在不登录账号的情况下使用</string>
   <string name="horologist_other_options_chip_label">其他选项</string>
-  <string name="horologist_create_account_chip_label">创建帐号</string>
-  <string name="horologist_select_account_title">选择帐号</string>
+  <string name="horologist_create_account_chip_label">创建账号</string>
+  <string name="horologist_select_account_title">选择账号</string>
   <string name="horologist_signin_placeholder_message">正在登录…</string>
 </resources>

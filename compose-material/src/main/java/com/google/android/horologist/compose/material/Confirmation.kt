@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.MaterialTheme
@@ -60,6 +61,7 @@ public fun Confirmation(
     columnState: ScalingLazyColumnState = rememberColumnState(
         ScalingLazyColumnDefaults.responsive(
             verticalArrangement = DialogDefaults.ConfirmationVerticalArrangement,
+            additionalPaddingAtBottom = 0.dp,
         ),
     ),
 ) {
@@ -103,6 +105,7 @@ public fun ConfirmationContent(
     columnState: ScalingLazyColumnState = rememberColumnState(
         ScalingLazyColumnDefaults.responsive(
             verticalArrangement = DialogDefaults.ConfirmationVerticalArrangement,
+            additionalPaddingAtBottom = 0.dp,
         ),
     ),
     showPositionIndicator: Boolean = true,

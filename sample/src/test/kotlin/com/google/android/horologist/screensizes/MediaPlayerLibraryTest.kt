@@ -30,7 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.material.TimeText
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.pager.PagerScreen
@@ -76,7 +76,7 @@ class MediaPlayerLibraryTest(device: Device) : ScreenSizeTest(device = device, s
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     timeText = {
-                        TimeText(
+                        ResponsiveTimeText(
                             modifier = Modifier.scrollAway(columnState),
                             timeSource = FixedTimeSource,
                         )

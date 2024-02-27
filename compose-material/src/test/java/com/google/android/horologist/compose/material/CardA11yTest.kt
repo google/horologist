@@ -23,8 +23,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.SemanticsMatcher.Companion.keyIsDefined
+import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertTextEquals
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
@@ -43,7 +44,6 @@ class CardA11yTest : ScreenshotBaseTest(
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 Card(
                     onClick = { },
-                    onDoubleClick = { },
                     onLongClick = { },
                 ) {
                     Column(
@@ -60,7 +60,38 @@ class CardA11yTest : ScreenshotBaseTest(
         }
 
         screenshotTestRule.interact {
-            onAllNodes(SemanticsMatcher.keyIsDefined(SemanticsProperties.Role)).assertCountEquals(1)
+            onNode(keyIsDefined(SemanticsProperties.Role))
+                .assertTextEquals("Click me!")
+                .assertHasClickAction()
+            // Not set by combinedClickable
+//                .assert(keyIsDefined(SemanticsActions.OnLongClick))
+        }
+    }
+
+    @Test
+    fun material() {
+        screenshotTestRule.setContent(takeScreenshot = true) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                Card(
+                    onClick = { },
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text("Hello, Card")
+
+                        androidx.wear.compose.material.Button(onClick = { }) {
+                            Text("Click me!")
+                        }
+                    }
+                }
+            }
+        }
+
+        screenshotTestRule.interact {
+            onNode(keyIsDefined(SemanticsProperties.Role))
+                .assertTextEquals("Click me!")
+                .assertHasClickAction()
         }
     }
 
@@ -71,7 +102,6 @@ class CardA11yTest : ScreenshotBaseTest(
                 Card(
                     onClick = {},
                     onLongClick = {},
-                    onDoubleClick = {},
                     enabled = false,
                 ) {
                     Column(

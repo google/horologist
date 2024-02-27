@@ -128,4 +128,29 @@ class FirebaseUrlFactoryTest {
         assertThat(headers["Content-Type"]).isEqualTo("application/x-www-form-urlencoded")
         assertThat(headers["Transfer-Encoding"]).isEqualTo("chunked")
     }
+
+    @Test
+    fun clearProperty() {
+        server.enqueue(MockResponse().setBody("hello, world!"))
+
+        val conn = urlFactory.open(server.url("/").toUrl())
+
+        conn.setRequestProperty("a", "b")
+        conn.setRequestProperty("c", "d")
+        conn.setRequestProperty("a", null)
+
+        val text = conn.inputStream.bufferedReader().use {
+            it.readText()
+        }
+
+        assertThat(text).isEqualTo("hello, world!")
+        assertThat(conn.responseCode).isEqualTo(200)
+
+        val recordedRequest = server.takeRequest()
+        val headers = recordedRequest.headers
+
+        assertThat(headers["a"]).isNull()
+        assertThat(headers["c"]).isEqualTo("d")
+        assertThat(headers["Connection"]).isEqualTo("Keep-Alive")
+    }
 }

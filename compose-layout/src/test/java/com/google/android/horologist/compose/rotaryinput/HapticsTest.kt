@@ -116,7 +116,7 @@ class HapticsTest {
 
         val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("GalaxyWatchClassicHapticFeedback")
+        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("GalaxyWatchHapticFeedback")
     }
 
     @Test
@@ -128,7 +128,7 @@ class HapticsTest {
 
         val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("DefaultRotaryHapticFeedback")
+        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("GalaxyWatchHapticFeedback")
     }
 
     private fun getHapticFeedback(): RotaryHapticFeedback {

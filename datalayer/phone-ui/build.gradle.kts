@@ -26,7 +26,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 21
+        minSdk = 23
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -102,6 +102,7 @@ dependencies {
     api(libs.compose.ui)
     api(projects.annotations)
 
+    implementation(projects.datalayer.phone)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.corektx)
@@ -114,6 +115,7 @@ dependencies {
 
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espressocore)
+    debugImplementation(libs.compose.ui.tooling)
 }
 
 dependencyAnalysis {

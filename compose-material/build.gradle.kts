@@ -107,11 +107,13 @@ dependencies {
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
 
+    implementation(libs.kotlinx.coroutines.core)
+
     implementation(libs.androidx.annotation)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.ui.text)
     implementation(libs.compose.ui.unit)
-    implementation(libs.kotlin.stdlib)
+    implementation(libs.compose.ui.util)
 
     debugApi(projects.composeTools)
     debugApi(libs.wearcompose.tooling)
@@ -121,7 +123,6 @@ dependencies {
     debugRuntimeOnly(libs.compose.ui.tooling)
     debugRuntimeOnly(libs.compose.ui.test.manifest)
 
-    testImplementation(projects.composeTools)
     testImplementation(projects.roboscreenshots)
     testImplementation(libs.accompanist.testharness)
     testImplementation(libs.androidx.core)
@@ -132,6 +133,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
     testRuntimeOnly(libs.compose.ui.test.manifest)
+    testImplementation(projects.images.coil)
 }
 
 dependencyAnalysis {

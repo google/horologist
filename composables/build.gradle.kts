@@ -96,11 +96,11 @@ metalava {
 
 dependencies {
     api(projects.annotations)
+    api(projects.images.base)
 
     implementation(projects.composeLayout)
-    implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.wear)
-    implementation(libs.wearcompose.material)
+    api(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
@@ -117,11 +117,11 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
-    testImplementation(projects.composeTools)
     testImplementation(projects.composeMaterial)
     testImplementation(projects.roboscreenshots)
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.runner)
+    testImplementation(projects.images.coil)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

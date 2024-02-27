@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer.phone.ui
+package com.google.android.horologist.datalayer.phone.ui.prompt.signin
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.ComponentActivity
@@ -24,45 +23,45 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.DrawableRes
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.datalayer.phone.ui.prompt.installapp.InstallAppBottomSheetActivity
-
-private const val NO_RESULT_REQUESTED_REQUEST_CODE = -1
+import com.google.android.horologist.data.UsageStatus
+import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
+import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
+import kotlinx.coroutines.CoroutineScope
 
 /**
- * Data layer related UI helper features, for use on phones.
+ * Functions to display a sign-in prompt.
+ *
+ * @param coroutineScope [CoroutineScope] used to make the call to launch the app on the watch.
  */
 @ExperimentalHorologistApi
-public class PhoneUiDataLayerHelper {
+public class SignInPrompt(
+    coroutineScope: CoroutineScope,
+    private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+) {
 
-    /**
-     * Display an install app prompt to the user.
-     *
-     * Use [requestCode] as an option to check in [Activity.onActivityResult] if the prompt was
-     * dismissed ([Activity.RESULT_CANCELED]).
-     */
-    public fun showInstallAppPrompt(
-        activity: Activity,
-        appPackageName: String,
-        @DrawableRes image: Int,
-        topMessage: String,
-        bottomMessage: String,
-        requestCode: Int = NO_RESULT_REQUESTED_REQUEST_CODE,
-    ) {
-        val intent = getInstallPromptIntent(
-            context = activity,
-            appPackageName = appPackageName,
-            image = image,
-            topMessage = topMessage,
-            bottomMessage = bottomMessage,
-        )
-        activity.startActivityForResult(
-            intent,
-            requestCode,
-        )
+    init {
+        CoroutineScopeHolder.coroutineScope = coroutineScope
     }
 
     /**
-     * Returns the [Intent] to display an install prompt to the user.
+     * Returns a [AppHelperNodeStatus] that meets the criteria to show this prompt, otherwise
+     * returns null.
+     */
+    public suspend fun shouldDisplayPrompt(): AppHelperNodeStatus? =
+        phoneDataLayerAppHelper.connectedNodes().firstOrNull {
+            when (it.surfacesInfo.usageInfo.usageStatus) {
+                UsageStatus.UNRECOGNIZED,
+                UsageStatus.USAGE_STATUS_UNSPECIFIED,
+                UsageStatus.USAGE_STATUS_LAUNCHED_ONCE,
+                null,
+                -> true
+
+                UsageStatus.USAGE_STATUS_SETUP_COMPLETE -> false
+            }
+        }
+
+    /**
+     * Returns the [Intent] to display a sign-in prompt to the user.
      *
      * This can be used in Compose with [rememberLauncherForActivityResult] and
      * [ActivityResultLauncher.launch]:
@@ -72,11 +71,11 @@ public class PhoneUiDataLayerHelper {
      *     ActivityResultContracts.StartActivityForResult()
      * ) { result ->
      *     if (result.resultCode == RESULT_OK) {
-     *         // user pushed install!
+     *         // user pushed sign-in!
      *     }
      * }
      *
-     * launcher.launch(getInstallPromptIntent(/*params*/))
+     * launcher.launch(signInPrompt.getIntent(/*params*/))
      * ```
      *
      * It can also be used directly in an [ComponentActivity] with
@@ -86,24 +85,28 @@ public class PhoneUiDataLayerHelper {
      *      ActivityResultContracts.StartActivityForResult()
      *  ) { result ->
      *      if (result.resultCode == RESULT_OK) {
-     *          // user pushed install!
+     *          // user pushed sign-in!
      *      }
      *  }
      *
-     * launcher.launch(getInstallPromptIntent(/*params*/))
+     * launcher.launch(signInPrompt.getIntent(/*params*/))
      * ```
      */
-    public fun getInstallPromptIntent(
+    public fun getIntent(
         context: Context,
-        appPackageName: String,
+        nodeId: String,
         @DrawableRes image: Int,
         topMessage: String,
         bottomMessage: String,
-    ): Intent = InstallAppBottomSheetActivity.getIntent(
+        positiveButtonLabel: String? = null,
+        negativeButtonLabel: String? = null,
+    ): Intent = SignInBottomSheetActivity.getIntent(
         context = context,
-        appPackageName = appPackageName,
+        nodeId = nodeId,
         image = image,
         topMessage = topMessage,
         bottomMessage = bottomMessage,
+        positiveButtonLabel = positiveButtonLabel,
+        negativeButtonLabel = negativeButtonLabel,
     )
 }

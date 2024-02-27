@@ -12,24 +12,24 @@ dependencies {
 }
 ```
 
-## Problem Statement
+## Network access on Wear OS
 
-On Wear choice of network is critical to efficient applications. See
-https://developer.android.com/training/wearables/data/network-access for more information.
+On Wear OS, the choice of network is critical to build efficient applications. See
+[network documentation](https://developer.android.com/training/wearables/data/network-access) for more information.
 
-The default behaviour is roughly
+The default behaviour is:
 
-- Use Paired Bluetooth connection when it is available.
-- Use Wifi when available and Charging.
+- Use paired Bluetooth connection when it is available.
+- Use Wi-Fi when available and watch is charging.
 - Use LTE if no other network is available.
-- Wifi and Cell may be requested specifically by the application.
+- Wi-Fi and LTE can be requested by the application.
 
-This leads to some suboptimal decisions
+Without intentional network strategy, following situations may happen:
 
-- Downloading large downloads over the slow and shared bluetooth connection.  This may overload the
-  connection and starve other applications. Instead, Wifi or Cellular would be better used to 
-  quickly download and then close the connection.
-- Using LTE for trivial requests when not really required.
+- Downloading large downloads over the slow and shared bluetooth connection. This may overload the
+  connection and starve other applications. Instead, Wi-Fi should be used to 
+  quickly download and then close the connection. 
+- Using LTE for requests that could be postponed until watch is connected to Wi-Fi.
 - Using a single current network for all traffic regardless of length or important of the request.
 
 ## Functionality
@@ -64,13 +64,15 @@ public interface NetworkingRules {
 }
 ```
 
-It allow allows logging network usage and visibility into network status.
+The library also allows logging network usage and provides information about network status, 
+for example for media apps could be used to signal that the watch is offline so only downloaded 
+content is available to play.
 
-See media-sample for an example. Key classes to observe usage of
+See [media-sample](media-sample.md) for an example how Network Awareness is used. Key classes to observe the usage are:
 
-- UampNetworkingRules - defining the app specific rules for the network.
-- MediaInfoTimeText - An example of displaying network status and usage to the user.
-- NetworkAwareCallFactory - Used to wrap an OkHttp Call.Factory when passed to a library such as Coil.
-- NetworkSelectingCallFactory - Used to apply the networking rules to OkHttp.
-- NetworkRepository - The Repository for the current network state.
-- HighBandwidthNetworkMediator - a mediator for requesting high bandwidth networks.
+- [UampNetworkingRules](https://github.com/google/horologist/blob/main/media/sample/src/main/java/com/google/android/horologist/mediasample/di/config/UampNetworkingRules.kt) - defining the app specific rules for the network.
+- [MediaInfoTimeText](https://github.com/google/horologist/blob/main/media/sample/src/main/java/com/google/android/horologist/mediasample/ui/debug/MediaInfoTimeText.kt) - An example of displaying network status and usage to the user.
+- [NetworkAwareCallFactory](https://github.com/google/horologist/blob/main/network-awareness/okhttp/src/main/java/com/google/android/horologist/networks/okhttp/NetworkAwareCallFactory.kt) - Used to wrap an OkHttp Call. Factory when passed to a library such as Coil.
+- [NetworkSelectingCallFactory](https://github.com/google/horologist/blob/main/network-awareness/okhttp/src/main/java/com/google/android/horologist/networks/okhttp/NetworkSelectingCallFactory.kt) - Used to apply the networking rules to OkHttp.
+- [NetworkRepository](https://github.com/google/horologist/blob/main/network-awareness/core/src/main/java/com/google/android/horologist/networks/status/NetworkRepository.kt) - The Repository for the current network state.
+- [HighBandwidthNetworkMediator](https://github.com/google/horologist/blob/main/network-awareness/core/src/main/java/com/google/android/horologist/networks/highbandwidth/HighBandwidthNetworkMediator.kt) - a mediator for requesting high bandwidth networks.

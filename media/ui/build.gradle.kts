@@ -117,6 +117,7 @@ dependencies {
     implementation(projects.composeMaterial)
     implementation(projects.images.coil)
     implementation(projects.tiles)
+    api(libs.wearcompose.navigation)
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.wear)

@@ -1,14 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.datalayer.phone.ui {
-
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PhoneUiDataLayerHelper {
-    ctor public PhoneUiDataLayerHelper();
-    method public android.content.Intent getInstallPromptIntent(android.content.Context context, String appPackageName, @DrawableRes int image, String topMessage, String bottomMessage);
-    method public void showInstallAppPrompt(android.app.Activity activity, String appPackageName, @DrawableRes int image, String topMessage, String bottomMessage, optional int requestCode);
-  }
-
-}
-
 package com.google.android.horologist.datalayer.phone.ui.play {
 
   public final class PlayLauncherKt {
@@ -21,6 +11,40 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.installapp {
 
   public final class InstallAppBottomSheetKt {
     method @androidx.compose.runtime.Composable public static void InstallAppBottomSheet(kotlin.jvm.functions.Function0<kotlin.Unit>? image, String topMessage, String bottomMessage, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, kotlin.jvm.functions.Function0<kotlin.Unit> onConfirmation, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.material3.SheetState sheetState);
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class InstallAppPrompt {
+    ctor public InstallAppPrompt(com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper phoneDataLayerAppHelper);
+    method public android.content.Intent getIntent(android.content.Context context, String appPackageName, @DrawableRes int image, String topMessage, String bottomMessage);
+    method public suspend Object? shouldDisplayPrompt(kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus>);
+  }
+
+}
+
+package com.google.android.horologist.datalayer.phone.ui.prompt.reengage {
+
+  public final class ReEngageBottomSheetKt {
+    method @androidx.compose.runtime.Composable public static void ReEngageBottomSheet(kotlin.jvm.functions.Function0<kotlin.Unit>? image, String topMessage, String bottomMessage, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, kotlin.jvm.functions.Function0<kotlin.Unit> onConfirmation, optional androidx.compose.ui.Modifier modifier, optional String? positiveButtonLabel, optional String? negativeButtonLabel, optional androidx.compose.material3.SheetState sheetState);
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class ReEngagePrompt {
+    ctor public ReEngagePrompt(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper phoneDataLayerAppHelper);
+    method public android.content.Intent getIntent(android.content.Context context, String nodeId, @DrawableRes int image, String topMessage, String bottomMessage, optional String? positiveButtonLabel, optional String? negativeButtonLabel);
+    method public suspend Object? shouldDisplayPrompt(kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus>);
+  }
+
+}
+
+package com.google.android.horologist.datalayer.phone.ui.prompt.signin {
+
+  public final class SignInBottomSheetKt {
+    method @androidx.compose.runtime.Composable public static void SignInBottomSheet(kotlin.jvm.functions.Function0<kotlin.Unit>? image, String topMessage, String bottomMessage, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, kotlin.jvm.functions.Function0<kotlin.Unit> onConfirmation, optional androidx.compose.ui.Modifier modifier, optional String? positiveButtonLabel, optional String? negativeButtonLabel, optional androidx.compose.material3.SheetState sheetState);
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class SignInPrompt {
+    ctor public SignInPrompt(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper phoneDataLayerAppHelper);
+    method public android.content.Intent getIntent(android.content.Context context, String nodeId, @DrawableRes int image, String topMessage, String bottomMessage, optional String? positiveButtonLabel, optional String? negativeButtonLabel);
+    method public suspend Object? shouldDisplayPrompt(kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus>);
   }
 
 }

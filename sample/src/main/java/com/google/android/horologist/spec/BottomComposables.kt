@@ -18,17 +18,17 @@ package com.google.android.horologist.spec
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
 
-@WearCustomPreviews
+//@WearCustomPreviews
 @Composable
 fun Bottom1Button() {
     SampleMenu(columnState = rememberResponsiveColumnState(
         contentPadding = padding(
-            last = ScalingLazyColumnDefaults.ItemType.SingleButton
+            last = ItemType.SingleButton
         )
     ),
         atBottom = true,
@@ -41,13 +41,14 @@ fun Bottom1Button() {
     )
 }
 
-@WearCustomPreviews
+//@WearCustomPreviews
 @Composable
 fun Bottom2Buttons() {
     SampleMenu(
         columnState = rememberResponsiveColumnState(
             contentPadding = padding(
-                last = ScalingLazyColumnDefaults.ItemType.MultiButton
+                // TODO should this be renamed?
+                last = ItemType.SingleButton
             )
         ),
         after = {
@@ -63,13 +64,13 @@ fun Bottom2Buttons() {
     )
 }
 
-@WearCustomPreviews
+//@WearCustomPreviews
 @Composable
 fun Bottom3Buttons() {
     SampleMenu(
         columnState = rememberResponsiveColumnState(
             contentPadding = padding(
-                last = ScalingLazyColumnDefaults.ItemType.MultiButton
+                last = ItemType.MultiButton
             )
         ),
         after = {
@@ -85,13 +86,13 @@ fun Bottom3Buttons() {
     )
 }
 
-@WearCustomPreviews
+//@WearCustomPreviews
 @Composable
 fun BottomOtherChips() {
     SampleMenu(
         columnState = rememberResponsiveColumnState(
             contentPadding = padding(
-                last = ScalingLazyColumnDefaults.ItemType.Chip
+                last = ItemType.Chip
             )
         ), borders = {
         bottom(0.3646f)
@@ -99,12 +100,12 @@ fun BottomOtherChips() {
     )
 }
 
-@WearCustomPreviews
+//@WearCustomPreviews
 @Composable
 fun BottomOtherCards() {
     SampleMenu(columnState = rememberResponsiveColumnState(
         contentPadding = padding(
-            last = ScalingLazyColumnDefaults.ItemType.Card
+            last = ItemType.Card
         )
     ), atBottom = true,
         borders = {
@@ -120,12 +121,12 @@ fun BottomOtherCards() {
     }
 }
 
-@WearCustomPreviews
+//@WearCustomPreviews
 @Composable
 fun BottomOtherText() {
     SampleMenu(columnState = rememberResponsiveColumnState(
         contentPadding = padding(
-            last = ScalingLazyColumnDefaults.ItemType.Text
+            last = ItemType.Text
         )
     ), atBottom = true,
         borders = {

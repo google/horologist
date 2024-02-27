@@ -33,7 +33,7 @@ import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -66,6 +66,8 @@ fun SampleMenu(
 
     if (atBottom) {
         LaunchedEffect(Unit) {
+            // Allow items before we scroll
+            delay(100)
             columnState.state.scrollToItem(100, 0)
         }
     }

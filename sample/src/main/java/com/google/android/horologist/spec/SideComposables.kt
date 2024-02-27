@@ -24,7 +24,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
 
-@WearCustomPreviews
+//@WearCustomPreviews
 @Composable
 fun SideMixed() {
     SampleMenu(
@@ -50,7 +50,7 @@ fun SideMixed() {
     }
 }
 
-@WearCustomPreviews
+//@WearCustomPreviews
 @Composable
 fun SideChips() {
     SampleMenu(rememberResponsiveColumnState(
@@ -63,7 +63,7 @@ fun SideChips() {
     )
 }
 
-@WearCustomPreviews
+//@WearCustomPreviews
 @Composable
 fun SideCards() {
     SampleMenu(rememberResponsiveColumnState(
@@ -83,7 +83,7 @@ fun SideCards() {
     }
 }
 
-@WearCustomPreviews
+//@WearCustomPreviews
 @Composable
 fun SideText() {
     SampleMenu(rememberResponsiveColumnState(

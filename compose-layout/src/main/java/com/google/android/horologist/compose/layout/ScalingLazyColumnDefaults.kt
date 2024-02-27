@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
 import androidx.compose.ui.util.lerp
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
@@ -45,6 +46,7 @@ public object ScalingLazyColumnDefaults {
      * This is positioned from the top of the screen instead of the
      * center.
      */
+//    @Deprecated("Replaced by rememberResponsiveColumnState")
     @ExperimentalHorologistApi
     public fun belowTimeText(
         rotaryMode: RotaryMode = RotaryMode.Scroll,
@@ -90,6 +92,7 @@ public object ScalingLazyColumnDefaults {
      * Layout the item [initialCenterIndex] at [initialCenterOffset] from the
      * center of the screen.
      */
+//    @Deprecated("Replaced by rememberResponsiveColumnState")
     @ExperimentalHorologistApi
     public fun scalingLazyColumnDefaults(
         rotaryMode: RotaryMode = RotaryMode.Scroll,
@@ -148,6 +151,7 @@ public object ScalingLazyColumnDefaults {
      * @param reverseLayout whether to start at the bottom.
      * @param userScrollEnabled whether to allow user to scroll.
      */
+//    @Deprecated("Replaced by rememberResponsiveColumnState")
     @ExperimentalHorologistApi
     public fun responsive(
         firstItemIsFullWidth: Boolean = true,
@@ -252,5 +256,33 @@ public object ScalingLazyColumnDefaults {
                 }
             }
         }
+    }
+
+    // TODO exact values
+    enum class ItemType(val topPaddingDp: Float, val bottomPaddingDp: Float) {
+        Card(0.21f, 0.31f),
+        Chip(0.21f, 0.31f),
+        CompactChip(0.12f, 0.21f),
+        Icon(0.12f, 0.21f),
+        MultiButton(0.21f, 0.31f),
+        SingleButton(0.12f, 0.21f),
+        Text(0.16f, 0.31f),
+        Unspecified(0.21f, 0.31f)
+    }
+
+    @Composable
+    public fun padding(
+        first: ItemType = ItemType.Unspecified,
+        last: ItemType = ItemType.Unspecified,
+        horizontalPercent: Float = 0.052f,
+    ): PaddingValues {
+        val height = LocalConfiguration.current.screenWidthDp.dp
+        val horizontalPadding = LocalConfiguration.current.screenWidthDp.dp * horizontalPercent
+        return PaddingValues(
+            top = first.topPaddingDp * height,
+            bottom = last.bottomPaddingDp * height,
+            start = horizontalPadding,
+            end = horizontalPadding,
+        )
     }
 }

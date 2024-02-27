@@ -31,7 +31,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.lerp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
@@ -121,11 +124,83 @@ public class ScalingLazyColumnState(
     }
 }
 
+//@Deprecated("Replaced by rememberResponsiveColumnState")
 @Composable
 public fun rememberColumnState(
     factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.responsive(),
 ): ScalingLazyColumnState {
     val columnState = factory.create()
+
+    columnState.state = rememberSaveable(saver = ScalingLazyListState.Saver) {
+        columnState.state
+    }
+
+    return columnState
+}
+
+@Composable
+public fun rememberResponsiveColumnState(
+    contentPadding: @Composable () -> PaddingValues = { ScalingLazyColumnDefaults.padding(
+        first = ScalingLazyColumnDefaults.ItemType.Unspecified,
+        last = ScalingLazyColumnDefaults.ItemType.Unspecified,
+    ) },
+    verticalArrangement: Arrangement.Vertical =
+        Arrangement.spacedBy(
+            space = 4.dp,
+            alignment = Alignment.Top,
+        ),
+    rotaryMode: RotaryMode? = RotaryMode.Scroll,
+    hapticsEnabled: Boolean = true,
+    reverseLayout: Boolean = false,
+    userScrollEnabled: Boolean = true,
+): ScalingLazyColumnState {
+    val density = LocalDensity.current
+    val configuration = LocalConfiguration.current
+    val screenWidthDp = configuration.screenWidthDp.toFloat()
+    val screenHeightDp = configuration.screenHeightDp.toFloat()
+
+    val sizeRatio =
+        ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
+    val presetRatio = 0f
+
+    val minElementHeight = lerp(0.2f, 0.157f, sizeRatio)
+    val maxElementHeight =
+        lerp(0.6f, 0.472f, sizeRatio).coerceAtLeast(minElementHeight)
+    val minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio)
+    val maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio)
+
+    val scalingParams = androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams(
+        minElementHeight = minElementHeight,
+        maxElementHeight = maxElementHeight,
+        minTransitionArea = minTransitionArea,
+        maxTransitionArea = maxTransitionArea,
+    )
+
+    val contentPaddingCalculated = contentPadding()
+
+    val screenHeightPx =
+        with(density) { screenHeightDp.dp.roundToPx() }
+    val topPaddingPx = with(density) { contentPaddingCalculated.calculateTopPadding().roundToPx() }
+    val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
+
+    val initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
+        index = 0,
+        offsetPx = topScreenOffsetPx,
+    )
+
+    val columnState = ScalingLazyColumnState(
+        initialScrollPosition = initialScrollPosition,
+        autoCentering = null,
+        anchorType = ScalingLazyListAnchorType.ItemStart,
+        rotaryMode = rotaryMode,
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        contentPadding = contentPaddingCalculated,
+        scalingParams = scalingParams,
+        hapticsEnabled = hapticsEnabled,
+        reverseLayout = reverseLayout,
+        userScrollEnabled = userScrollEnabled,
+    )
 
     columnState.state = rememberSaveable(saver = ScalingLazyListState.Saver) {
         columnState.state

@@ -20,12 +20,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
 
 @WearCustomPreviews
 @Composable
 fun SideMixed() {
     SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+            )
+        ),
         borders = {
             side(0.052f)
         }
@@ -47,7 +53,10 @@ fun SideMixed() {
 @WearCustomPreviews
 @Composable
 fun SideChips() {
-    SampleMenu(
+    SampleMenu(rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+        )
+    ),
         borders = {
             side(0.052f)
         }
@@ -57,7 +66,10 @@ fun SideChips() {
 @WearCustomPreviews
 @Composable
 fun SideCards() {
-    SampleMenu(
+    SampleMenu(rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+        )
+    ),
         borders = {
             side(0.052f)
         }
@@ -74,7 +86,10 @@ fun SideCards() {
 @WearCustomPreviews
 @Composable
 fun SideText() {
-    SampleMenu(
+    SampleMenu(rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+        )
+    ),
         borders = {
             side(0.052f)
             side(0.052f, 0.052f, Color.Yellow)

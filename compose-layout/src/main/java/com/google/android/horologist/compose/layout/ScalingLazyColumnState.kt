@@ -140,10 +140,10 @@ public fun rememberColumnState(
 
 @Composable
 public fun rememberResponsiveColumnState(
-    contentPadding: @Composable () -> PaddingValues = { ScalingLazyColumnDefaults.padding(
+    contentPadding: @Composable () -> PaddingValues = ScalingLazyColumnDefaults.padding(
         first = ScalingLazyColumnDefaults.ItemType.Unspecified,
         last = ScalingLazyColumnDefaults.ItemType.Unspecified,
-    ) },
+    ),
     verticalArrangement: Arrangement.Vertical =
         Arrangement.spacedBy(
             space = 4.dp,

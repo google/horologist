@@ -18,14 +18,23 @@ package com.google.android.horologist.spec
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
 
 @WearCustomPreviews
 @Composable
 fun Bottom1Button() {
-    SampleMenu(atBottom = true, borders = {
-        bottom(0.2083f)
-    },
+    SampleMenu(columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            last = ScalingLazyColumnDefaults.ItemType.SingleButton
+        )
+    ),
+        atBottom = true,
+        borders = {
+            bottom(0.2083f)
+        },
         after = {
             AddCircleButton()
         }
@@ -36,6 +45,11 @@ fun Bottom1Button() {
 @Composable
 fun Bottom2Buttons() {
     SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = padding(
+                last = ScalingLazyColumnDefaults.ItemType.MultiButton
+            )
+        ),
         after = {
             Row {
                 AddCircleButton()
@@ -53,6 +67,11 @@ fun Bottom2Buttons() {
 @Composable
 fun Bottom3Buttons() {
     SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = padding(
+                last = ScalingLazyColumnDefaults.ItemType.MultiButton
+            )
+        ),
         after = {
             Row {
                 AddCircleButton()
@@ -69,15 +88,25 @@ fun Bottom3Buttons() {
 @WearCustomPreviews
 @Composable
 fun BottomOtherChips() {
-    SampleMenu(borders = {
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = padding(
+                last = ScalingLazyColumnDefaults.ItemType.Chip
+            )
+        ), borders = {
         bottom(0.3646f)
-    }, atBottom = true)
+    }, atBottom = true
+    )
 }
 
 @WearCustomPreviews
 @Composable
 fun BottomOtherCards() {
-    SampleMenu(atBottom = true,
+    SampleMenu(columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            last = ScalingLazyColumnDefaults.ItemType.Card
+        )
+    ), atBottom = true,
         borders = {
             bottom(0.3646f)
         }
@@ -94,7 +123,11 @@ fun BottomOtherCards() {
 @WearCustomPreviews
 @Composable
 fun BottomOtherText() {
-    SampleMenu(atBottom = true,
+    SampleMenu(columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            last = ScalingLazyColumnDefaults.ItemType.Text
+        )
+    ), atBottom = true,
         borders = {
             bottom(0.3646f)
         }

@@ -38,7 +38,7 @@ import com.google.android.horologist.compose.layout.rememberColumnState
 
 @Composable
 fun SampleMenu(
-    columnState: ScalingLazyColumnState = rememberColumnState(),
+    columnState: ScalingLazyColumnState,
     borders: (DrawScope.() -> Unit)? = null,
     atBottom: Boolean = false,
     items: ScalingLazyListScope.() -> Unit,
@@ -73,7 +73,7 @@ fun SampleMenu(
 
 @Composable
 fun SampleMenu(
-    columnState: ScalingLazyColumnState = rememberColumnState(),
+    columnState: ScalingLazyColumnState,
     before: @Composable() (() -> Unit)? = null,
     after: @Composable() (() -> Unit)? = null,
     borders: (DrawScope.() -> Unit)? = null,

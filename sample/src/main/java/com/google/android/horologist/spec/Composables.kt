@@ -18,11 +18,17 @@ package com.google.android.horologist.spec
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
 @WearCustomPreviews
 @Composable
 fun Sample1Line() {
-    SampleMenu(
+    SampleMenu(columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = ScalingLazyColumnDefaults.ItemType.Text
+        )
+    ),
         before = {
             Title(lines = 1)
         },
@@ -35,7 +41,11 @@ fun Sample1Line() {
 @WearCustomPreviews
 @Composable
 fun Sample2Lines() {
-    SampleMenu(
+    SampleMenu(columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = ScalingLazyColumnDefaults.ItemType.Text
+        )
+    ),
         before = {
             Title(lines = 2)
         },
@@ -49,6 +59,11 @@ fun Sample2Lines() {
 @Composable
 fun Sample3Lines() {
     SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ScalingLazyColumnDefaults.ItemType.Text
+            )
+        ),
         before = {
             Title(lines = 3)
         },
@@ -61,7 +76,11 @@ fun Sample3Lines() {
 @WearCustomPreviews
 @Composable
 fun Sample1Button() {
-    SampleMenu(
+    SampleMenu(columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = ScalingLazyColumnDefaults.ItemType.SingleButton
+        )
+    ),
         before = {
             AddCircleButton()
         },
@@ -74,7 +93,11 @@ fun Sample1Button() {
 @WearCustomPreviews
 @Composable
 fun Sample2Buttons() {
-    SampleMenu(
+    SampleMenu(columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = ScalingLazyColumnDefaults.ItemType.MultiButton
+        )
+    ),
         before = {
             Row {
                 AddCircleButton()
@@ -90,7 +113,11 @@ fun Sample2Buttons() {
 @WearCustomPreviews
 @Composable
 fun SampleCompactChip() {
-    SampleMenu(
+    SampleMenu(columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = ScalingLazyColumnDefaults.ItemType.CompactChip
+        )
+    ),
         before = {
             DoneCompactChip()
         },
@@ -103,7 +130,11 @@ fun SampleCompactChip() {
 @WearCustomPreviews
 @Composable
 fun SampleOtherChips() {
-    SampleMenu(borders = {
+    SampleMenu(columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = ScalingLazyColumnDefaults.ItemType.Chip
+        )
+    ),borders = {
         top(0.2188f)
     })
 }
@@ -111,7 +142,11 @@ fun SampleOtherChips() {
 @WearCustomPreviews
 @Composable
 fun SampleOtherCards() {
-    SampleMenu(
+    SampleMenu(columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = ScalingLazyColumnDefaults.ItemType.Card
+        )
+    ),
         borders = {
             top(0.2188f)
         }
@@ -128,7 +163,11 @@ fun SampleOtherCards() {
 @WearCustomPreviews
 @Composable
 fun SampleOtherText() {
-    SampleMenu(
+    SampleMenu(columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = ScalingLazyColumnDefaults.ItemType.Text
+        )
+    ),
         borders = {
             top(0.2188f)
         }

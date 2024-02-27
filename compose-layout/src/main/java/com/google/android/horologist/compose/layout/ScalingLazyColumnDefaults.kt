@@ -258,16 +258,21 @@ public object ScalingLazyColumnDefaults {
         }
     }
 
+    val Padding12Pct = 0.1248f
+    val Padding16Pct = 0.1644f
+    val Padding21Pct = 0.2188f
+    val Padding31Pct = 0.3646f
+
     // TODO exact values
     enum class ItemType(val topPaddingDp: Float, val bottomPaddingDp: Float) {
-        Card(0.21f, 0.31f),
-        Chip(0.21f, 0.31f),
-        CompactChip(0.12f, 0.21f),
-        Icon(0.12f, 0.21f),
-        MultiButton(0.21f, 0.31f),
-        SingleButton(0.12f, 0.21f),
-        Text(0.16f, 0.31f),
-        Unspecified(0.21f, 0.31f)
+        Card(Padding21Pct, Padding31Pct),
+        Chip(Padding21Pct, Padding31Pct),
+        CompactChip(Padding12Pct, Padding21Pct),
+        Icon(Padding12Pct, Padding21Pct),
+        MultiButton(Padding21Pct, Padding31Pct),
+        SingleButton(Padding12Pct, Padding21Pct),
+        Text(Padding16Pct, Padding31Pct),
+        Unspecified(Padding21Pct, Padding31Pct);
     }
 
     @Composable
@@ -275,14 +280,16 @@ public object ScalingLazyColumnDefaults {
         first: ItemType = ItemType.Unspecified,
         last: ItemType = ItemType.Unspecified,
         horizontalPercent: Float = 0.052f,
-    ): PaddingValues {
-        val height = LocalConfiguration.current.screenWidthDp.dp
-        val horizontalPadding = LocalConfiguration.current.screenWidthDp.dp * horizontalPercent
-        return PaddingValues(
-            top = first.topPaddingDp * height,
-            bottom = last.bottomPaddingDp * height,
-            start = horizontalPadding,
-            end = horizontalPadding,
-        )
+    ): @Composable () -> PaddingValues {
+        return {
+            val height = LocalConfiguration.current.screenWidthDp.dp
+            val horizontalPadding = LocalConfiguration.current.screenWidthDp.dp * horizontalPercent
+            PaddingValues(
+                top = first.topPaddingDp * height,
+                bottom = last.bottomPaddingDp * height,
+                start = horizontalPadding,
+                end = horizontalPadding,
+            )
+        }
     }
 }

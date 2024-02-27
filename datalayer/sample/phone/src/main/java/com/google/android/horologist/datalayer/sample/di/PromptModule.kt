@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.datalayer.sample.di
 
+import com.google.android.horologist.datalayer.phone.ui.prompt.installapp.InstallAppPrompt
 import com.google.android.horologist.datalayer.phone.ui.prompt.reengage.ReEngagePrompt
 import com.google.android.horologist.datalayer.phone.ui.prompt.signin.SignInPrompt
 import dagger.Module
@@ -30,6 +31,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object PromptModule {
+    @Singleton
+    @Provides
+    fun installAppPrompt(): InstallAppPrompt = InstallAppPrompt()
 
     @Singleton
     @Provides

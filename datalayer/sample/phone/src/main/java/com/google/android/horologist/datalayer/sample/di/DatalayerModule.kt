@@ -19,7 +19,6 @@ package com.google.android.horologist.datalayer.sample.di
 import android.content.Context
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
-import com.google.android.horologist.datalayer.phone.ui.PhoneUiDataLayerHelper
 import com.google.android.horologist.datalayer.sample.shared.CounterValueSerializer
 import dagger.Module
 import dagger.Provides
@@ -70,8 +69,4 @@ object DatalayerModule {
     ).apply {
         registerSerializer(CounterValueSerializer)
     }
-
-    @ActivityRetainedScoped
-    @Provides
-    fun phoneUiDataLayerHelper() = PhoneUiDataLayerHelper()
 }

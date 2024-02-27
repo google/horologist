@@ -22,8 +22,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.DrawableRes
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.CoroutineScope
 
+@ExperimentalHorologistApi
 public class ReEngagePrompt(coroutineScope: CoroutineScope) {
 
     init {

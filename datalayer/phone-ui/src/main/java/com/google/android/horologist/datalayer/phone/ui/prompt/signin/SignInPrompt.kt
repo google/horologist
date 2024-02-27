@@ -22,6 +22,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.DrawableRes
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -29,6 +30,7 @@ import kotlinx.coroutines.CoroutineScope
  *
  * @param coroutineScope [CoroutineScope] used to make the call to launch the app on the watch.
  */
+@ExperimentalHorologistApi
 public class SignInPrompt(coroutineScope: CoroutineScope) {
 
     init {

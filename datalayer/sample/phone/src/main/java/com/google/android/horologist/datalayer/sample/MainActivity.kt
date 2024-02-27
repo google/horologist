@@ -23,17 +23,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.google.android.horologist.datalayer.phone.ui.PhoneUiDataLayerHelper
 import com.google.android.horologist.datalayer.sample.screens.main.MainScreen
 import com.google.android.horologist.datalayer.sample.ui.theme.HorologistTheme
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    @Inject
-    lateinit var phoneUiDataLayerHelper: PhoneUiDataLayerHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,21 +39,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MainScreen(
-                        onShowInstallAppPrompt = ::showInstallAppPrompt,
-                    )
+                    MainScreen()
                 }
             }
         }
-    }
-
-    private fun showInstallAppPrompt() {
-        phoneUiDataLayerHelper.showInstallAppPrompt(
-            activity = this@MainActivity,
-            appPackageName = getString(R.string.install_app_prompt_sample_app_package_name),
-            image = R.drawable.sample_app_wearos_screenshot,
-            topMessage = getString(R.string.install_app_prompt_sample_top_message),
-            bottomMessage = getString(R.string.install_app_prompt_sample_bottom_message),
-        )
     }
 }

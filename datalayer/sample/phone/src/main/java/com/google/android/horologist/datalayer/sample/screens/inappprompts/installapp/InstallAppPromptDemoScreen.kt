@@ -21,13 +21,18 @@ import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -75,7 +80,7 @@ fun InstallAppPromptDemoScreen(
 @Composable
 fun InstallAppPromptDemoScreen(
     state: InstallAppPromptDemoScreenState,
-    onRunDemoClick: () -> Unit,
+    onRunDemoClick: (shouldFilterByNearby: Boolean) -> Unit,
     getInstallPromptIntent: () -> Intent,
     onInstallPromptLaunched: () -> Unit,
     onInstallPromptInstallClick: () -> Unit,
@@ -92,13 +97,23 @@ fun InstallAppPromptDemoScreen(
         }
     }
 
+    var shouldFilterByNearby by remember { mutableStateOf(false) }
+
     Column(
         modifier = modifier.padding(all = 10.dp),
     ) {
         Text(text = stringResource(id = R.string.install_app_prompt_api_call_demo_message))
 
+        Row(
+            modifier = Modifier.padding(top = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Checkbox(checked = shouldFilterByNearby, onCheckedChange = { shouldFilterByNearby = it })
+            Text(text = stringResource(id = R.string.install_app_prompt_checkbox_label))
+        }
+
         Button(
-            onClick = onRunDemoClick,
+            onClick = { onRunDemoClick(shouldFilterByNearby) },
             modifier = Modifier
                 .padding(top = 10.dp)
                 .align(Alignment.CenterHorizontally),

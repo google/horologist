@@ -29,13 +29,25 @@ import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 
 @ExperimentalHorologistApi
 public class InstallAppPrompt(private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper) {
-
     /**
      * Returns a [AppHelperNodeStatus] that meets the criteria to show this prompt, otherwise
      * returns null.
+     *
+     * @param predicate augments the criteria applying a [filter][List.filter] with this predicate.
      */
-    public suspend fun shouldDisplayPrompt(): AppHelperNodeStatus? =
-        phoneDataLayerAppHelper.connectedNodes().firstOrNull { !it.appInstalled }
+    public suspend fun shouldDisplayPrompt(
+        predicate: ((AppHelperNodeStatus) -> Boolean)? = null,
+    ): AppHelperNodeStatus? =
+        phoneDataLayerAppHelper.connectedNodes()
+            .filter { !it.appInstalled }
+            .let {
+                if (predicate != null) {
+                    it.filter(predicate)
+                } else {
+                    it
+                }
+            }
+            .firstOrNull()
 
     /**
      * Returns the [Intent] to display an install app prompt to the user.

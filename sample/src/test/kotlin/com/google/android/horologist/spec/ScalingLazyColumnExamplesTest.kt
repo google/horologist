@@ -18,14 +18,12 @@ package com.google.android.horologist.spec
 
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.compose.tools.Device
-import com.google.android.horologist.compose.tools.MobvoiTicWatchPro5
-import com.google.android.horologist.screenshots.ScreenshotTestRule
 import com.google.android.horologist.screensizes.ScreenSizeTest
 import org.junit.Assume
 import org.junit.Test
 
 class ScalingLazyColumnExamplesTest(device: Device) : ScreenSizeTest(
-    device = device, showTimeText = false, recordMode = ScreenshotTestRule.RecordMode.Record
+    device = device, showTimeText = false
 ) {
 
     @Composable

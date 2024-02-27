@@ -106,7 +106,7 @@ fun Sample2Buttons() {
             }
         },
         borders = {
-            top(ItemType.SingleButton.topPaddingDp)
+            top(ItemType.MultiButton.topPaddingDp)
         },
     )
 }

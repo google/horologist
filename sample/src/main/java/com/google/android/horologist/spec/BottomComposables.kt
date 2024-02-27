@@ -48,7 +48,7 @@ fun Bottom2Buttons() {
         columnState = rememberResponsiveColumnState(
             contentPadding = padding(
                 // TODO should this be renamed?
-                last = ItemType.SingleButton
+                last = ItemType.MultiButton
             )
         ),
         after = {
@@ -58,7 +58,7 @@ fun Bottom2Buttons() {
             }
         },
         borders = {
-            bottom(ItemType.SingleButton.bottomPaddingDp)
+            bottom(ItemType.MultiButton.bottomPaddingDp)
         },
         atBottom = true
     )

@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.data.apphelper.appInstalled
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
-import com.google.android.horologist.datalayer.phone.ui.PhoneUiDataLayerHelper
+import com.google.android.horologist.datalayer.phone.ui.prompt.installapp.InstallAppPrompt
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,69 +29,69 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class InstallAppPromptDemo2ViewModel
+class InstallAppPromptDemoViewModel
     @Inject
     constructor(
         private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-        val phoneUiDataLayerHelper: PhoneUiDataLayerHelper,
+        val installAppPrompt: InstallAppPrompt,
     ) : ViewModel() {
 
         private var initializeCalled = false
 
         private val _uiState =
-            MutableStateFlow<InstallAppPromptDemo2ScreenState>(InstallAppPromptDemo2ScreenState.Idle)
-        public val uiState: StateFlow<InstallAppPromptDemo2ScreenState> = _uiState
+            MutableStateFlow<InstallAppPromptDemoScreenState>(InstallAppPromptDemoScreenState.Idle)
+        public val uiState: StateFlow<InstallAppPromptDemoScreenState> = _uiState
 
         @MainThread
         fun initialize() {
             if (initializeCalled) return
             initializeCalled = true
 
-            _uiState.value = InstallAppPromptDemo2ScreenState.Loading
+            _uiState.value = InstallAppPromptDemoScreenState.Loading
 
             viewModelScope.launch {
                 if (!phoneDataLayerAppHelper.isAvailable()) {
-                    _uiState.value = InstallAppPromptDemo2ScreenState.ApiNotAvailable
+                    _uiState.value = InstallAppPromptDemoScreenState.ApiNotAvailable
                 } else {
-                    _uiState.value = InstallAppPromptDemo2ScreenState.Loaded
+                    _uiState.value = InstallAppPromptDemoScreenState.Loaded
                 }
             }
         }
 
         fun onRunDemoClick() {
-            _uiState.value = InstallAppPromptDemo2ScreenState.Loading
+            _uiState.value = InstallAppPromptDemoScreenState.Loading
 
             viewModelScope.launch {
                 val node = phoneDataLayerAppHelper.connectedNodes().firstOrNull { !it.appInstalled }
 
                 _uiState.value = if (node != null) {
-                    InstallAppPromptDemo2ScreenState.WatchFound
+                    InstallAppPromptDemoScreenState.WatchFound
                 } else {
-                    InstallAppPromptDemo2ScreenState.WatchNotFound
+                    InstallAppPromptDemoScreenState.WatchNotFound
                 }
             }
         }
 
         fun onInstallPromptLaunched() {
-            _uiState.value = InstallAppPromptDemo2ScreenState.Idle
+            _uiState.value = InstallAppPromptDemoScreenState.Idle
         }
 
         fun onInstallPromptInstallClick() {
-            _uiState.value = InstallAppPromptDemo2ScreenState.InstallPromptInstallClicked
+            _uiState.value = InstallAppPromptDemoScreenState.InstallPromptInstallClicked
         }
 
         fun onInstallPromptCancel() {
-            _uiState.value = InstallAppPromptDemo2ScreenState.InstallPromptInstallCancelled
+            _uiState.value = InstallAppPromptDemoScreenState.InstallPromptInstallCancelled
         }
     }
 
-sealed class InstallAppPromptDemo2ScreenState {
-    data object Idle : InstallAppPromptDemo2ScreenState()
-    data object Loading : InstallAppPromptDemo2ScreenState()
-    data object Loaded : InstallAppPromptDemo2ScreenState()
-    data object WatchFound : InstallAppPromptDemo2ScreenState()
-    data object WatchNotFound : InstallAppPromptDemo2ScreenState()
-    data object InstallPromptInstallClicked : InstallAppPromptDemo2ScreenState()
-    data object InstallPromptInstallCancelled : InstallAppPromptDemo2ScreenState()
-    data object ApiNotAvailable : InstallAppPromptDemo2ScreenState()
+sealed class InstallAppPromptDemoScreenState {
+    data object Idle : InstallAppPromptDemoScreenState()
+    data object Loading : InstallAppPromptDemoScreenState()
+    data object Loaded : InstallAppPromptDemoScreenState()
+    data object WatchFound : InstallAppPromptDemoScreenState()
+    data object WatchNotFound : InstallAppPromptDemoScreenState()
+    data object InstallPromptInstallClicked : InstallAppPromptDemoScreenState()
+    data object InstallPromptInstallCancelled : InstallAppPromptDemoScreenState()
+    data object ApiNotAvailable : InstallAppPromptDemoScreenState()
 }

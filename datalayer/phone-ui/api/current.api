@@ -1,14 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.datalayer.phone.ui {
-
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PhoneUiDataLayerHelper {
-    ctor public PhoneUiDataLayerHelper();
-    method public android.content.Intent getInstallAppPromptIntent(android.content.Context context, String appPackageName, @DrawableRes int image, String topMessage, String bottomMessage);
-    method public void showInstallAppPrompt(android.app.Activity activity, String appPackageName, @DrawableRes int image, String topMessage, String bottomMessage, optional int requestCode);
-  }
-
-}
-
 package com.google.android.horologist.datalayer.phone.ui.play {
 
   public final class PlayLauncherKt {
@@ -23,6 +13,11 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.installapp {
     method @androidx.compose.runtime.Composable public static void InstallAppBottomSheet(kotlin.jvm.functions.Function0<kotlin.Unit>? image, String topMessage, String bottomMessage, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, kotlin.jvm.functions.Function0<kotlin.Unit> onConfirmation, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.material3.SheetState sheetState);
   }
 
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class InstallAppPrompt {
+    ctor public InstallAppPrompt();
+    method public android.content.Intent getIntent(android.content.Context context, String appPackageName, @DrawableRes int image, String topMessage, String bottomMessage);
+  }
+
 }
 
 package com.google.android.horologist.datalayer.phone.ui.prompt.reengage {
@@ -31,7 +26,7 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.reengage {
     method @androidx.compose.runtime.Composable public static void ReEngageBottomSheet(kotlin.jvm.functions.Function0<kotlin.Unit>? image, String topMessage, String bottomMessage, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, kotlin.jvm.functions.Function0<kotlin.Unit> onConfirmation, optional androidx.compose.ui.Modifier modifier, optional String? positiveButtonLabel, optional String? negativeButtonLabel, optional androidx.compose.material3.SheetState sheetState);
   }
 
-  public final class ReEngagePrompt {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class ReEngagePrompt {
     ctor public ReEngagePrompt(kotlinx.coroutines.CoroutineScope coroutineScope);
     method public android.content.Intent getIntent(android.content.Context context, String nodeId, @DrawableRes int image, String topMessage, String bottomMessage, optional String? positiveButtonLabel, optional String? negativeButtonLabel);
   }
@@ -44,7 +39,7 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.signin {
     method @androidx.compose.runtime.Composable public static void SignInBottomSheet(kotlin.jvm.functions.Function0<kotlin.Unit>? image, String topMessage, String bottomMessage, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, kotlin.jvm.functions.Function0<kotlin.Unit> onConfirmation, optional androidx.compose.ui.Modifier modifier, optional String? positiveButtonLabel, optional String? negativeButtonLabel, optional androidx.compose.material3.SheetState sheetState);
   }
 
-  public final class SignInPrompt {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class SignInPrompt {
     ctor public SignInPrompt(kotlinx.coroutines.CoroutineScope coroutineScope);
     method public android.content.Intent getIntent(android.content.Context context, String nodeId, @DrawableRes int image, String topMessage, String bottomMessage, optional String? positiveButtonLabel, optional String? negativeButtonLabel);
   }

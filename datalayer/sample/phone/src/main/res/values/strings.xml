@@ -24,19 +24,11 @@
     <string name="menu_screen_nodes_item">Nodes</string>
     <string name="menu_screen_nodes_listener_item">Nodes Listener</string>
     <string name="menu_screen_inapp_prompts_header">In-App prompts</string>
-    <string name="menu_screen_install_app_demo1_item">Install app - demo 1</string>
-    <string name="menu_screen_install_app_demo2_item">Install app - demo 2</string>
+    <string name="menu_screen_install_app_demo_item">Install app</string>
     <string name="menu_screen_reengage_demo_item">Re-Engage</string>
     <string name="menu_screen_signin_demo_item">Sign-in</string>
     <string name="menu_screen_datalayer_header">Data Layer</string>
     <string name="menu_screen_counter_item">Counter sample</string>
-
-    <!-- In-app prompt sample app -->
-    <string name="install_app_prompt_sample_app_name" translatable="false">Gmail</string>
-    <string name="install_app_prompt_sample_app_package_name" translatable="false">com.google.android.gm</string>
-    <string name="install_app_prompt_sample_watch_name" translatable="false">Pixel Watch</string>
-    <string name="install_app_prompt_sample_top_message">Stay productive and manage emails right from your wrist.</string>
-    <string name="install_app_prompt_sample_bottom_message">Add the Gmail app to your Wear OS watch for easy access wherever you are.</string>
 
     <!-- App Helper Nodes screen -->
     <string name="nodes_screen_header">Nodes</string>
@@ -69,19 +61,15 @@
     <string name="nodes_listener_screen_node_id_label">ID: %1$s</string>
     <string name="nodes_listener_screen_node_is_nearby_label">Is nearby: %1$s</string>
 
-    <!-- In-app prompt - Install App Demo 1 screen -->
-    <string name="install_app_prompt_api_call_demo_message">This demo calls the Horologist API to show the install app prompt and the launch of Google Play, using the Gmail app as an example.</string>
+    <!-- In-app prompt - Install App Demo screen -->
+    <string name="install_app_prompt_api_call_demo_message">This demo calls the Horologist API to show the install app prompt for the watch demo app. The API will only display the prompt if there is a watch connected and the watch does not have the app installed.\n\nGoogle Play won\'t find this app as it is not published.</string>
     <string name="install_app_prompt_run_demo_button_label">Run demo</string>
-
-    <!-- In-app prompt - Install App Demo 2 screen -->
-    <string name="install_app_prompt_api_call_demo2_message">This demo calls the Horologist API to show the install app prompt for the watch demo app. The API will only display the prompt if there is a watch connected and the watch does not have the app installed.\n\nGoogle Play won\'t find this app as it is not published.</string>
-    <string name="install_app_prompt_run_demo2_button_label">Run demo</string>
-    <string name="install_app_prompt_demo2_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
-    <string name="install_app_prompt_demo2_prompt_bottom_message">Install the demo app on your Wear OS watch.</string>
-    <string name="install_app_prompt_demo2_result_label">Result: %1$s</string>
-    <string name="install_app_prompt_demo2_no_watches_found_label">No watches meeting the required conditions were found.</string>
-    <string name="install_app_prompt_demo2_prompt_install_result_label">User tapped install on the prompt.</string>
-    <string name="install_app_prompt_demo2_prompt_cancel_result_label">User dismissed the prompt.</string>
+    <string name="install_app_prompt_demo_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
+    <string name="install_app_prompt_demo_prompt_bottom_message">Install the demo app on your Wear OS watch.</string>
+    <string name="install_app_prompt_demo_result_label">Result: %1$s</string>
+    <string name="install_app_prompt_demo_no_watches_found_label">No watches meeting the required conditions were found.</string>
+    <string name="install_app_prompt_demo_prompt_install_result_label">User tapped install on the prompt.</string>
+    <string name="install_app_prompt_demo_prompt_cancel_result_label">User dismissed the prompt.</string>
 
     <!-- In-app prompt - Re-Engage Demo screen -->
     <string name="reengage_prompt_api_call_demo_message">This demo calls the Horologist API to show the re-engage prompt for the watch demo app. The API will only display the prompt if there is a watch connected and the watch has the app already installed.</string>

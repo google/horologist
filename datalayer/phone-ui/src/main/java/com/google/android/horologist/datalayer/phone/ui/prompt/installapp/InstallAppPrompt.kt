@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.datalayer.phone.ui
+package com.google.android.horologist.datalayer.phone.ui.prompt.installapp
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.ComponentActivity
@@ -24,43 +23,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.DrawableRes
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.datalayer.phone.ui.prompt.installapp.InstallAppBottomSheetActivity
 
-private const val NO_RESULT_REQUESTED_REQUEST_CODE = -1
-
-/**
- * Data layer related UI helper features, for use on phones.
- */
 @ExperimentalHorologistApi
-public class PhoneUiDataLayerHelper {
-
-    /**
-     * Display an install app prompt to the user.
-     *
-     * Use [requestCode] as an option to check in [Activity.onActivityResult] if the prompt was
-     * dismissed ([Activity.RESULT_CANCELED]).
-     */
-    public fun showInstallAppPrompt(
-        activity: Activity,
-        appPackageName: String,
-        @DrawableRes image: Int,
-        topMessage: String,
-        bottomMessage: String,
-        requestCode: Int = NO_RESULT_REQUESTED_REQUEST_CODE,
-    ) {
-        val intent = getInstallAppPromptIntent(
-            context = activity,
-            appPackageName = appPackageName,
-            image = image,
-            topMessage = topMessage,
-            bottomMessage = bottomMessage,
-        )
-        activity.startActivityForResult(
-            intent,
-            requestCode,
-        )
-    }
-
+public class InstallAppPrompt {
     /**
      * Returns the [Intent] to display an install app prompt to the user.
      *
@@ -76,7 +41,7 @@ public class PhoneUiDataLayerHelper {
      *     }
      * }
      *
-     * launcher.launch(getInstallAppPromptIntent(/*params*/))
+     * launcher.launch(getIntent(/*params*/))
      * ```
      *
      * It can also be used directly in an [ComponentActivity] with
@@ -90,10 +55,10 @@ public class PhoneUiDataLayerHelper {
      *      }
      *  }
      *
-     * launcher.launch(getInstallAppPromptIntent(/*params*/))
+     * launcher.launch(getIntent(/*params*/))
      * ```
      */
-    public fun getInstallAppPromptIntent(
+    public fun getIntent(
         context: Context,
         appPackageName: String,
         @DrawableRes image: Int,

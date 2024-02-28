@@ -31,6 +31,7 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.CompactChip
+import com.google.android.horologist.compose.material.ListHeaderDefaults
 import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
@@ -38,7 +39,9 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 
 @Composable
 fun Title(lines: Int) {
-    ResponsiveListHeader {
+    ResponsiveListHeader(
+        contentPadding = ListHeaderDefaults.firstItemPadding()
+    ) {
         Text(text = (1..lines).map { "MMMMMMMM" }.joinToString("\n"), maxLines = lines)
     }
 }

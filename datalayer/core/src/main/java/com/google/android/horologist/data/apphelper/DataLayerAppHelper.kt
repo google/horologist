@@ -77,8 +77,7 @@ abstract class DataLayerAppHelper(
             val appInstallationStatus = if (allInstalledNodes.contains(it.id)) {
                 val nodeType = when (it.id) {
                     in installedPhoneNodes -> AppInstallationStatusNodeType.PHONE
-                    in installedWatchNodes -> AppInstallationStatusNodeType.WATCH
-                    else -> AppInstallationStatusNodeType.UNKNOWN
+                    else -> AppInstallationStatusNodeType.WATCH
                 }
                 AppInstallationStatus.Installed(nodeType = nodeType)
             } else {

@@ -41,12 +41,6 @@ public sealed class AppInstallationStatus {
 public enum class AppInstallationStatusNodeType {
     WATCH,
     PHONE,
-
-    /**
-     * This case should not happen, but it's here in order to keep the node listed even in a
-     * scenario where there were issues retrieving the capability of the node.
-     */
-    UNKNOWN,
 }
 
 public val AppHelperNodeStatus.appInstalled: Boolean

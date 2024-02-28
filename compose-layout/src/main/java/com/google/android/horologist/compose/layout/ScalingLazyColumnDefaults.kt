@@ -20,9 +20,11 @@ package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
@@ -264,10 +266,18 @@ public object ScalingLazyColumnDefaults {
     internal val Padding21Pct = 0.2188f
     internal val Padding31Pct = 0.3646f
 
-    enum class ItemType(val topPaddingDp: Float, val bottomPaddingDp: Float, val paddingCorrection: Dp = 0.dp) {
+    enum class ItemType(
+        val topPaddingDp: Float,
+        val bottomPaddingDp: Float,
+        val paddingCorrection: Dp = 0.dp
+    ) {
         Card(Padding21Pct, Padding31Pct),
         Chip(Padding21Pct, Padding31Pct),
-        CompactChip(topPaddingDp = Padding12Pct, bottomPaddingDp = Padding20Pct, paddingCorrection = (-8).dp),
+        CompactChip(
+            topPaddingDp = Padding12Pct,
+            bottomPaddingDp = Padding20Pct,
+            paddingCorrection = (-8).dp
+        ),
         Icon(Padding12Pct, Padding21Pct),
         MultiButton(Padding21Pct, Padding20Pct),
         SingleButton(Padding12Pct, Padding20Pct),
@@ -292,4 +302,7 @@ public object ScalingLazyColumnDefaults {
             )
         }
     }
+
+    @Composable
+    fun Modifier.listTextPadding() = this.padding(horizontal = 0.052f * LocalConfiguration.current.screenWidthDp.dp)
 }

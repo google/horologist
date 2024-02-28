@@ -25,9 +25,11 @@ import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.Cloud
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.AppCard
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.CompactChip
@@ -56,13 +58,17 @@ val text = "We posted a payment for your credit card ending in 5555. " +
 fun WarningText() {
     Text(
         text,
+        modifier = Modifier.listTextPadding(),
     )
 }
 
 fun ScalingLazyListScope.warningTextItems() {
-    text.split(". ").forEach {
-        item {
-            Text("$it.")
+    text.split(".").forEach {
+        val textLine = it.trim()
+        if (textLine.isNotBlank()) {
+            item {
+                Text(textLine, modifier = Modifier.listTextPadding())
+            }
         }
     }
 }

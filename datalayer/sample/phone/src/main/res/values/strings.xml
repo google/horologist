@@ -28,6 +28,7 @@
     <string name="menu_screen_reengage_demo_item">Re-Engage</string>
     <string name="menu_screen_signin_demo_item">Sign-in</string>
     <string name="menu_screen_install_app_custom_demo_item">Install app (custom)</string>
+    <string name="menu_screen_signin_custom_demo_item">Sign-in (custom)</string>
     <string name="menu_screen_datalayer_header">Data Layer</string>
     <string name="menu_screen_counter_item">Counter sample</string>
 
@@ -73,7 +74,7 @@
     <string name="install_app_prompt_demo_prompt_install_result_label">User tapped install on the prompt.</string>
     <string name="install_app_prompt_demo_prompt_cancel_result_label">User dismissed the prompt.</string>
 
-    <!-- In-app prompt - Install App Demo screen -->
+    <!-- In-app prompt - Install App Custom Demo screen -->
     <string name="install_app_custom_prompt_api_call_demo_message">This demo calls the Horologist API to check if there is a watch connected and the watch does not have the app installed.\nIt then displays a custom prompt asking the user to install the app.\nOnce the user taps install, it uses Horologist API to launch Google Play.\n\nGoogle Play won\'t find this app as it is not published.</string>
     <string name="install_app_custom_prompt_run_demo_button_label">Run demo</string>
     <string name="install_app_custom_prompt_demo_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
@@ -100,10 +101,22 @@
     <string name="signin_prompt_run_demo_button_label">Run demo</string>
     <string name="signin_prompt_demo_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
     <string name="signin_prompt_demo_prompt_bottom_message">Sign in to the demo app on your Wear OS watch.</string>
+    <string name="signin_custom_prompt_demo_prompt_confirm_button_label">Sign in on watch</string>
+    <string name="signin_custom_prompt_demo_prompt_dismiss_button_label">Not now</string>
     <string name="signin_prompt_demo_result_label">Result: %1$s</string>
     <string name="signin_prompt_demo_no_watches_found_label">No watches meeting the required conditions were found.</string>
     <string name="signin_prompt_demo_prompt_positive_result_label">User tapped sign-in on the prompt.</string>
     <string name="signin_prompt_demo_prompt_dismiss_result_label">User dismissed the prompt.</string>
+
+    <!-- In-app prompt - Sign-in Custom Demo screen -->
+    <string name="signin_custom_prompt_api_call_demo_message">This demo calls the Horologist API to check if there is a watch connected, the watch has the app already installed, and the app is not signed in.\nIt then displays a custom prompt asking the user to sign in on the watch app.\nOnce the user taps on sign in, it uses Horologist API to launch the watch app.</string>
+    <string name="signin_custom_prompt_run_demo_button_label">Run demo</string>
+    <string name="signin_custom_prompt_demo_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
+    <string name="signin_custom_prompt_demo_prompt_bottom_message">Sign in to the demo app on your Wear OS watch.</string>
+    <string name="signin_custom_prompt_demo_result_label">Result: %1$s</string>
+    <string name="signin_custom_prompt_demo_no_watches_found_label">No watches meeting the required conditions were found.</string>
+    <string name="signin_custom_prompt_demo_prompt_positive_result_label">User tapped sign-in on the prompt.</string>
+    <string name="signin_custom_prompt_demo_prompt_dismiss_result_label">User dismissed the prompt.</string>
 
     <!-- Counter screen -->
     <string name="app_helper_counter_label">Counter: %1$s</string>

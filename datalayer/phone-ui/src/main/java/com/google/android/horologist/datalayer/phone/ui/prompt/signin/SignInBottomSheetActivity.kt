@@ -116,7 +116,10 @@ internal class SignInBottomSheetActivity : ComponentActivity() {
         // Can't use the Activity's lifecycleScope as it is going to finish the activity immediately
         // after this call
         coroutineAppScope.launch {
-            phoneDataLayerAppHelper.startRemoteOwnApp(nodeId = nodeId)
+            SignInPromptAction.run(
+                phoneDataLayerAppHelper = phoneDataLayerAppHelper,
+                nodeId = nodeId,
+            )
         }
 
         // It returns OK to indicate that the user tapped on the positive button.

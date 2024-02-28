@@ -86,6 +86,13 @@ class ScalingLazyColumnExamplesTest(device: Device) : ScreenSizeTest(
     }
 
     @Test
+    fun titleUnspecified() {
+        runTest {
+            SampleUnspecified()
+        }
+    }
+
+    @Test
     fun titleOtherCards() {
         runTest {
             SampleOtherCards()
@@ -141,6 +148,15 @@ class ScalingLazyColumnExamplesTest(device: Device) : ScreenSizeTest(
             scrollToBottom(1)
         }) {
             BottomOtherCards()
+        }
+    }
+
+    @Test
+    fun bottomUnspecified() {
+        runTest(preScreenshotInteractions = {
+            scrollToBottom(1)
+        }) {
+            BottomUnspecified()
         }
     }
 

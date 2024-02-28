@@ -147,6 +147,16 @@ fun SampleOtherChips() {
         },
     )
 }
+@Composable
+fun SampleUnspecified() {
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.Unspecified,
+            ),
+        ),
+    )
+}
 
 // @WearCustomPreviews
 @Composable

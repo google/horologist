@@ -121,6 +121,25 @@ fun BottomOtherCards() {
     }
 }
 
+@Composable
+fun BottomUnspecified() {
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = padding(
+                last = ItemType.Unspecified,
+            ),
+        ),
+        borders = null,
+    ) {
+        item {
+            MessagesCard()
+        }
+        item {
+            BofACard()
+        }
+    }
+}
+
 // @WearCustomPreviews
 @Composable
 fun BottomOtherText() {

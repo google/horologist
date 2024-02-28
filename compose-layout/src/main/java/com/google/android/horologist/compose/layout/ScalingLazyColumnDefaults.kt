@@ -168,7 +168,6 @@ public object ScalingLazyColumnDefaults {
         reverseLayout: Boolean = false,
         userScrollEnabled: Boolean = true,
     ): ScalingLazyColumnState.Factory {
-
         return object : ScalingLazyColumnState.Factory {
             @Composable
             override fun create(): ScalingLazyColumnState {
@@ -274,14 +273,14 @@ public object ScalingLazyColumnDefaults {
     enum class ItemType(
         val topPaddingDp: Float,
         val bottomPaddingDp: Float,
-        val paddingCorrection: Dp = 0.dp
+        val paddingCorrection: Dp = 0.dp,
     ) {
         Card(Padding21Pct, Padding31Pct),
         Chip(Padding21Pct, Padding31Pct),
         CompactChip(
             topPaddingDp = Padding12Pct,
             bottomPaddingDp = Padding20Pct,
-            paddingCorrection = (-8).dp
+            paddingCorrection = (-8).dp,
         ),
         Icon(Padding12Pct, Padding21Pct),
         MultiButton(Padding21Pct, Padding20Pct),

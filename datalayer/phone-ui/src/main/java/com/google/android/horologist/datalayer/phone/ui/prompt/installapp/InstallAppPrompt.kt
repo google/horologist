@@ -94,4 +94,10 @@ public class InstallAppPrompt(private val phoneDataLayerAppHelper: PhoneDataLaye
         topMessage = topMessage,
         bottomMessage = bottomMessage,
     )
+
+    /**
+     * Performs the same action taken by the prompt when the user taps on "install".
+     */
+    public fun performAction(context: Context, appPackageName: String): Unit =
+        InstallAppPromptAction.run(context = context, appPackageName = appPackageName)
 }

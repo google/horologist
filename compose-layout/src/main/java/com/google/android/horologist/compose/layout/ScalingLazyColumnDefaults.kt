@@ -272,7 +272,7 @@ public object ScalingLazyColumnDefaults {
         MultiButton(Padding21Pct, Padding20Pct),
         SingleButton(Padding12Pct, Padding20Pct),
         Text(Padding21Pct, Padding31Pct),
-        Unspecified(Padding21Pct, Padding31Pct),
+        Unspecified(0f, 0f),
     }
 
     @Composable

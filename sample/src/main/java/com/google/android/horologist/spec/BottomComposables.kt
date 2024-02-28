@@ -31,7 +31,6 @@ fun Bottom1Button() {
                 last = ItemType.SingleButton,
             ),
         ),
-        atBottom = true,
         borders = {
             bottom(ItemType.SingleButton.bottomPaddingDp)
         },
@@ -60,7 +59,6 @@ fun Bottom2Buttons() {
         borders = {
             bottom(ItemType.MultiButton.bottomPaddingDp)
         },
-        atBottom = true,
     )
 }
 
@@ -83,7 +81,6 @@ fun Bottom3Buttons() {
         borders = {
             bottom(ItemType.MultiButton.bottomPaddingDp)
         },
-        atBottom = true,
     )
 }
 
@@ -99,7 +96,6 @@ fun BottomOtherChips() {
         borders = {
             bottom(ItemType.Chip.bottomPaddingDp)
         },
-        atBottom = true,
     )
 }
 
@@ -112,7 +108,6 @@ fun BottomOtherCards() {
                 last = ItemType.Card,
             ),
         ),
-        atBottom = true,
         borders = {
             bottom(ItemType.Card.bottomPaddingDp)
         },
@@ -135,7 +130,6 @@ fun BottomOtherText() {
                 last = ItemType.Text,
             ),
         ),
-        atBottom = true,
         borders = {
             bottom(ItemType.Text.bottomPaddingDp)
         },

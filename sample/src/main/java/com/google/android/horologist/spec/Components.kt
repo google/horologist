@@ -19,7 +19,6 @@ package com.google.android.horologist.spec
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -33,13 +32,11 @@ import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import kotlinx.coroutines.delay
 
 @Composable
 fun SampleMenu(
     columnState: ScalingLazyColumnState,
     borders: (DrawScope.() -> Unit)? = null,
-    atBottom: Boolean = false,
     items: ScalingLazyListScope.() -> Unit,
 ) {
     SampleTheme {
@@ -64,16 +61,6 @@ fun SampleMenu(
             }
         }
     }
-
-    if (atBottom) {
-        LaunchedEffect(Unit) {
-            // Allow items before we scroll
-            delay(100)
-            columnState.state.scrollToItem(100, 0)
-            delay(100)
-            columnState.state.scrollToItem(100, 0)
-        }
-    }
 }
 
 @Composable
@@ -86,9 +73,8 @@ fun SampleMenu(
         @Composable()
         (() -> Unit)? = null,
     borders: (DrawScope.() -> Unit)? = null,
-    atBottom: Boolean = false,
 ) {
-    SampleMenu(borders = borders, columnState = columnState, atBottom = atBottom) {
+    SampleMenu(borders = borders, columnState = columnState) {
         chipMenu(before, after)
     }
 }

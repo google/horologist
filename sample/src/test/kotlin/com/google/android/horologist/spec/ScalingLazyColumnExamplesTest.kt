@@ -17,6 +17,10 @@
 package com.google.android.horologist.spec
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.performScrollToIndex
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeUp
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.screensizes.ScreenSizeTest
 import org.junit.Assume.assumeFalse
@@ -97,43 +101,63 @@ class ScalingLazyColumnExamplesTest(device: Device) : ScreenSizeTest(
 
     @Test
     fun bottom1Button() {
-        runTest {
+        runTest(preScreenshotInteractions = {
+            scrollToBottom(5)
+        }) {
             Bottom1Button()
         }
     }
 
     @Test
     fun bottom2Buttons() {
-        runTest {
+        runTest(preScreenshotInteractions = {
+            scrollToBottom(5)
+        }) {
             Bottom2Buttons()
         }
     }
 
     @Test
     fun bottom3Buttons() {
-        runTest {
+        runTest(preScreenshotInteractions = {
+            scrollToBottom(5)
+        }) {
             Bottom3Buttons()
         }
     }
 
     @Test
     fun bottomOtherChips() {
-        runTest {
+        runTest(preScreenshotInteractions = {
+            scrollToBottom(4)
+        }) {
             BottomOtherChips()
         }
     }
 
     @Test
     fun bottomOtherCards() {
-        runTest {
+        runTest(preScreenshotInteractions = {
+            scrollToBottom(1)
+        }) {
             BottomOtherCards()
         }
     }
 
     @Test
     fun bottomOtherText() {
-        runTest {
+        runTest(preScreenshotInteractions = {
+            scrollToBottom(3)
+        }) {
             BottomOtherText()
+        }
+    }
+
+    private fun scrollToBottom(index: Int) {
+        screenshotTestRule.interact {
+            onNode(hasScrollToNodeAction())
+                .performScrollToIndex(index)
+                .performTouchInput { swipeUp() }
         }
     }
 

@@ -19,16 +19,17 @@ package com.google.android.horologist.spec
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.screensizes.ScreenSizeTest
-import org.junit.Assume
+import org.junit.Assume.assumeFalse
 import org.junit.Test
 
 class ScalingLazyColumnExamplesTest(device: Device) : ScreenSizeTest(
-    device = device, showTimeText = false
+    device = device,
+    showTimeText = false,
 ) {
 
     @Composable
     override fun Content() {
-        Assume.assumeFalse(true)
+        assumeFalse(true)
     }
 
     @Test

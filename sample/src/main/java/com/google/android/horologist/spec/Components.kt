@@ -35,7 +35,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import kotlinx.coroutines.delay
 
-
 @Composable
 fun SampleMenu(
     columnState: ScalingLazyColumnState,
@@ -45,10 +44,12 @@ fun SampleMenu(
 ) {
     SampleTheme {
         AppScaffold(timeText = {
-            TimeText(timeSource = object : TimeSource {
-                override val currentTime: String
-                    @Composable get() = "9:30"
-            })
+            TimeText(
+                timeSource = object : TimeSource {
+                    override val currentTime: String
+                        @Composable get() = "9:30"
+                },
+            )
         }) {
             ScreenScaffold(scrollState = columnState) {
                 ScalingLazyColumn(columnState = columnState) {
@@ -78,10 +79,14 @@ fun SampleMenu(
 @Composable
 fun SampleMenu(
     columnState: ScalingLazyColumnState,
-    before: @Composable() (() -> Unit)? = null,
-    after: @Composable() (() -> Unit)? = null,
+    before:
+        @Composable()
+        (() -> Unit)? = null,
+    after:
+        @Composable()
+        (() -> Unit)? = null,
     borders: (DrawScope.() -> Unit)? = null,
-    atBottom: Boolean = false
+    atBottom: Boolean = false,
 ) {
     SampleMenu(borders = borders, columnState = columnState, atBottom = atBottom) {
         chipMenu(before, after)
@@ -90,7 +95,7 @@ fun SampleMenu(
 
 fun ScalingLazyListScope.chipMenu(
     before: @Composable (() -> Unit)? = null,
-    after: @Composable (() -> Unit)? = null
+    after: @Composable (() -> Unit)? = null,
 ) {
     if (before != null) {
         item {
@@ -123,8 +128,9 @@ fun ScalingLazyListScope.chipMenu(
 private fun SampleTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colors = MaterialTheme.colors.copy(
-            primary = Color.DarkGray, onPrimary = Color.White
-        )
+            primary = Color.DarkGray,
+            onPrimary = Color.White,
+        ),
     ) {
         content()
     }
@@ -135,7 +141,7 @@ fun DrawScope.top(fl: Float) {
         color = MagentaIsh,
         alpha = 0.4f,
         topLeft = Offset.Zero,
-        size = Size(this.size.width, this.size.height * fl)
+        size = Size(this.size.width, this.size.height * fl),
     )
 }
 
@@ -145,7 +151,7 @@ fun DrawScope.bottom(fl: Float) {
         color = MagentaIsh,
         alpha = 0.4f,
         topLeft = Offset(x = 0f, y = this.size.height - height),
-        size = Size(this.size.width, height)
+        size = Size(this.size.width, height),
     )
 }
 
@@ -155,13 +161,13 @@ fun DrawScope.side(fl: Float, offset: Float = 0f, color: Color = MagentaIsh) {
         color = color,
         alpha = 0.4f,
         topLeft = Offset(x = 0f + offset * this.size.width, y = 0f),
-        size = Size(width, this.size.height)
+        size = Size(width, this.size.height),
     )
     drawRect(
         color = color,
         alpha = 0.4f,
         topLeft = Offset(x = this.size.width - width - offset * this.size.width, y = 0f),
-        size = Size(width, this.size.height)
+        size = Size(width, this.size.height),
     )
 }
 

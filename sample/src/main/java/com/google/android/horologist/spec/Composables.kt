@@ -22,14 +22,15 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun Sample1Line() {
-    SampleMenu(columnState = rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-            first = ItemType.Text
-        )
-    ),
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.Text,
+            ),
+        ),
         before = {
             Title(lines = 1)
         },
@@ -39,14 +40,15 @@ fun Sample1Line() {
     )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun Sample2Lines() {
-    SampleMenu(columnState = rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-            first = ItemType.Text
-        )
-    ),
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.Text,
+            ),
+        ),
         before = {
             Title(lines = 2)
         },
@@ -56,14 +58,14 @@ fun Sample2Lines() {
     )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun Sample3Lines() {
     SampleMenu(
         columnState = rememberResponsiveColumnState(
             contentPadding = ScalingLazyColumnDefaults.padding(
-                first = ItemType.Text
-            )
+                first = ItemType.Text,
+            ),
         ),
         before = {
             Title(lines = 3)
@@ -74,14 +76,15 @@ fun Sample3Lines() {
     )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun Sample1Button() {
-    SampleMenu(columnState = rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-            first = ItemType.SingleButton
-        )
-    ),
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.SingleButton,
+            ),
+        ),
         before = {
             AddCircleButton()
         },
@@ -91,14 +94,15 @@ fun Sample1Button() {
     )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun Sample2Buttons() {
-    SampleMenu(columnState = rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-            first = ItemType.MultiButton
-        )
-    ),
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.MultiButton,
+            ),
+        ),
         before = {
             Row {
                 AddCircleButton()
@@ -111,14 +115,15 @@ fun Sample2Buttons() {
     )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun SampleCompactChip() {
-    SampleMenu(columnState = rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-            first = ItemType.CompactChip
-        )
-    ),
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.CompactChip,
+            ),
+        ),
         before = {
             DoneCompactChip()
         },
@@ -128,29 +133,33 @@ fun SampleCompactChip() {
     )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun SampleOtherChips() {
-    SampleMenu(columnState = rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-            first = ItemType.Chip
-        )
-    ),borders = {
-        top(ItemType.Chip.topPaddingDp)
-    })
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.Chip,
+            ),
+        ),
+        borders = {
+            top(ItemType.Chip.topPaddingDp)
+        },
+    )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun SampleOtherCards() {
-    SampleMenu(columnState = rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-            first = ItemType.Card
-        )
-    ),
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.Card,
+            ),
+        ),
         borders = {
             top(ItemType.Card.topPaddingDp)
-        }
+        },
     ) {
         item {
             MessagesCard()
@@ -161,17 +170,18 @@ fun SampleOtherCards() {
     }
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun SampleOtherText() {
-    SampleMenu(columnState = rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-            first = ItemType.Text
-        )
-    ),
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.Text,
+            ),
+        ),
         borders = {
             top(ItemType.Text.topPaddingDp)
-        }
+        },
     ) {
         warningTextItems()
     }

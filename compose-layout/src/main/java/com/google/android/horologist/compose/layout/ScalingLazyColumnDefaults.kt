@@ -258,11 +258,11 @@ public object ScalingLazyColumnDefaults {
         }
     }
 
-    val Padding12Pct = 0.1248f
-    val Padding16Pct = 0.1664f
-    val Padding20Pct = 0.2083f
-    val Padding21Pct = 0.2188f
-    val Padding31Pct = 0.3646f
+    internal val Padding12Pct = 0.1248f
+    internal val Padding16Pct = 0.1664f
+    internal val Padding20Pct = 0.2083f
+    internal val Padding21Pct = 0.2188f
+    internal val Padding31Pct = 0.3646f
 
     // TODO exact values
     enum class ItemType(val topPaddingDp: Float, val bottomPaddingDp: Float) {
@@ -273,7 +273,7 @@ public object ScalingLazyColumnDefaults {
         MultiButton(Padding21Pct, Padding20Pct),
         SingleButton(Padding12Pct, Padding20Pct),
         Text(Padding21Pct, Padding31Pct),
-        Unspecified(Padding21Pct, Padding31Pct);
+        Unspecified(Padding21Pct, Padding31Pct),
     }
 
     @Composable

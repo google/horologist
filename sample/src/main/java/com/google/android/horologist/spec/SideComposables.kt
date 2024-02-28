@@ -23,18 +23,16 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
-
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun SideMixed() {
     SampleMenu(
         columnState = rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(
-            )
+            contentPadding = ScalingLazyColumnDefaults.padding(),
         ),
         borders = {
             side(0.052f)
-        }
+        },
     ) {
         item {
             SoundToggleChip()
@@ -50,29 +48,29 @@ fun SideMixed() {
     }
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun SideChips() {
-    SampleMenu(rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-        )
-    ),
+    SampleMenu(
+        rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(),
+        ),
         borders = {
             side(0.052f)
-        }
+        },
     )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun SideCards() {
-    SampleMenu(rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-        )
-    ),
+    SampleMenu(
+        rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(),
+        ),
         borders = {
             side(0.052f)
-        }
+        },
     ) {
         item {
             MessagesCard()
@@ -83,17 +81,17 @@ fun SideCards() {
     }
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun SideText() {
-    SampleMenu(rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-        )
-    ),
+    SampleMenu(
+        rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(),
+        ),
         borders = {
             side(0.052f)
             side(0.052f, 0.052f, Color.Yellow)
-        }
+        },
     ) {
         warningTextItems()
     }

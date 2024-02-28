@@ -27,19 +27,18 @@ import androidx.compose.material.icons.outlined.Cloud
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.AppCard
-import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.CompactChip
+import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
-
 @Composable
 fun Title(lines: Int) {
-    ListHeader {
+    ResponsiveListHeader {
         Text(text = (1..lines).map { "MMMMMMMM" }.joinToString("\n"), maxLines = lines)
     }
 }
@@ -53,7 +52,7 @@ val text = "We posted a payment for your credit card ending in 5555. " +
 @Composable
 fun WarningText() {
     Text(
-        text
+        text,
     )
 }
 
@@ -73,9 +72,10 @@ fun MessagesCard() {
         time = { Text(text = "12m") },
         title = {
             Text(
-                text = "Robert Simpson"
+                text = "Robert Simpson",
             )
-        }) {
+        },
+    ) {
         Text(text = "Let me know when you leave home")
     }
 }
@@ -88,9 +88,10 @@ fun BofACard() {
         time = { Text(text = "15m") },
         title = {
             Text(
-                text = "Bank of America"
+                text = "Bank of America",
             )
-        }) {
+        },
+    ) {
         Text(text = "Reminder: Your payment is now due")
     }
 }
@@ -100,7 +101,8 @@ fun LocationOnButton() {
     Button(
         imageVector = Icons.Filled.LocationOn,
         contentDescription = "",
-        onClick = { })
+        onClick = { },
+    )
 }
 
 @Composable
@@ -108,7 +110,8 @@ fun AddCircleButton() {
     Button(
         imageVector = Icons.Filled.AddCircle,
         contentDescription = "",
-        onClick = { })
+        onClick = { },
+    )
 }
 
 @Composable
@@ -116,7 +119,8 @@ fun DoneCompactChip() {
     CompactChip(
         icon = Icons.Default.Done.asPaintable(),
         contentDescription = "",
-        onClick = { /*TODO*/ })
+        onClick = { /*TODO*/ },
+    )
 }
 
 @Composable
@@ -124,7 +128,7 @@ fun SystemChip() {
     Chip(
         label = "System",
         onClick = { },
-        icon = Icons.Default.Schedule.asPaintable()
+        icon = Icons.Default.Schedule.asPaintable(),
     )
 }
 
@@ -133,7 +137,7 @@ fun AccountsChip() {
     Chip(
         label = "Accounts & Security",
         onClick = { },
-        icon = Icons.Outlined.Badge.asPaintable()
+        icon = Icons.Outlined.Badge.asPaintable(),
     )
 }
 
@@ -142,7 +146,7 @@ fun SoundChip() {
     Chip(
         label = "Sound & vibration",
         onClick = { },
-        icon = Icons.Default.Apps.asPaintable()
+        icon = Icons.Default.Apps.asPaintable(),
     )
 }
 
@@ -151,7 +155,7 @@ fun AppsChip() {
     Chip(
         label = "Apps & notifications",
         onClick = { },
-        icon = Icons.Default.Apps.asPaintable()
+        icon = Icons.Default.Apps.asPaintable(),
     )
 }
 
@@ -160,7 +164,7 @@ fun ConnectivityChip() {
     Chip(
         label = "Connectivity",
         onClick = { },
-        icon = Icons.Outlined.Cloud.asPaintable()
+        icon = Icons.Outlined.Cloud.asPaintable(),
     )
 }
 
@@ -175,6 +179,6 @@ fun SoundToggleChip() {
         label = "Sound",
         checked = true,
         onCheckedChanged = {},
-        toggleControl = ToggleChipToggleControl.Switch
+        toggleControl = ToggleChipToggleControl.Switch,
     )
 }

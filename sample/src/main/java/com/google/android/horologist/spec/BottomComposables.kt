@@ -22,34 +22,34 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.It
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
-
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun Bottom1Button() {
-    SampleMenu(columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            last = ItemType.SingleButton
-        )
-    ),
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = padding(
+                last = ItemType.SingleButton,
+            ),
+        ),
         atBottom = true,
         borders = {
             bottom(ItemType.SingleButton.bottomPaddingDp)
         },
         after = {
             AddCircleButton()
-        }
+        },
     )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun Bottom2Buttons() {
     SampleMenu(
         columnState = rememberResponsiveColumnState(
             contentPadding = padding(
                 // TODO should this be renamed?
-                last = ItemType.MultiButton
-            )
+                last = ItemType.MultiButton,
+            ),
         ),
         after = {
             Row {
@@ -60,18 +60,18 @@ fun Bottom2Buttons() {
         borders = {
             bottom(ItemType.MultiButton.bottomPaddingDp)
         },
-        atBottom = true
+        atBottom = true,
     )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun Bottom3Buttons() {
     SampleMenu(
         columnState = rememberResponsiveColumnState(
             contentPadding = padding(
-                last = ItemType.MultiButton
-            )
+                last = ItemType.MultiButton,
+            ),
         ),
         after = {
             Row {
@@ -83,35 +83,39 @@ fun Bottom3Buttons() {
         borders = {
             bottom(ItemType.MultiButton.bottomPaddingDp)
         },
-        atBottom = true
+        atBottom = true,
     )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun BottomOtherChips() {
     SampleMenu(
         columnState = rememberResponsiveColumnState(
             contentPadding = padding(
-                last = ItemType.Chip
-            )
-        ), borders = {
-        bottom(ItemType.Chip.bottomPaddingDp)
-    }, atBottom = true
+                last = ItemType.Chip,
+            ),
+        ),
+        borders = {
+            bottom(ItemType.Chip.bottomPaddingDp)
+        },
+        atBottom = true,
     )
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun BottomOtherCards() {
-    SampleMenu(columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            last = ItemType.Card
-        )
-    ), atBottom = true,
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = padding(
+                last = ItemType.Card,
+            ),
+        ),
+        atBottom = true,
         borders = {
             bottom(ItemType.Card.bottomPaddingDp)
-        }
+        },
     ) {
         item {
             MessagesCard()
@@ -122,17 +126,19 @@ fun BottomOtherCards() {
     }
 }
 
-//@WearCustomPreviews
+// @WearCustomPreviews
 @Composable
 fun BottomOtherText() {
-    SampleMenu(columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            last = ItemType.Text
-        )
-    ), atBottom = true,
+    SampleMenu(
+        columnState = rememberResponsiveColumnState(
+            contentPadding = padding(
+                last = ItemType.Text,
+            ),
+        ),
+        atBottom = true,
         borders = {
             bottom(ItemType.Text.bottomPaddingDp)
-        }
+        },
     ) {
         warningTextItems()
     }

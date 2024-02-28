@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
 // @WearCustomPreviews
@@ -28,7 +29,10 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnStat
 fun SideMixed() {
     SampleMenu(
         columnState = rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(),
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.Chip,
+                last = ItemType.Text,
+            ),
         ),
         borders = {
             side(0.052f)
@@ -53,7 +57,10 @@ fun SideMixed() {
 fun SideChips() {
     SampleMenu(
         rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(),
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.Chip,
+                last = ItemType.Chip,
+            ),
         ),
         borders = {
             side(0.052f)
@@ -66,7 +73,10 @@ fun SideChips() {
 fun SideCards() {
     SampleMenu(
         rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(),
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.Card,
+                last = ItemType.Card,
+            ),
         ),
         borders = {
             side(0.052f)
@@ -86,7 +96,10 @@ fun SideCards() {
 fun SideText() {
     SampleMenu(
         rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(),
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ItemType.Text,
+                last = ItemType.Text,
+            ),
         ),
         borders = {
             side(0.052f)

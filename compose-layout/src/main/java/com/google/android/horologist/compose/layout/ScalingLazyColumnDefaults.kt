@@ -264,11 +264,10 @@ public object ScalingLazyColumnDefaults {
     internal val Padding21Pct = 0.2188f
     internal val Padding31Pct = 0.3646f
 
-    // TODO exact values
-    enum class ItemType(val topPaddingDp: Float, val bottomPaddingDp: Float) {
+    enum class ItemType(val topPaddingDp: Float, val bottomPaddingDp: Float, val paddingCorrection: Dp = 0.dp) {
         Card(Padding21Pct, Padding31Pct),
         Chip(Padding21Pct, Padding31Pct),
-        CompactChip(Padding12Pct, Padding20Pct),
+        CompactChip(topPaddingDp = Padding12Pct, bottomPaddingDp = Padding20Pct, paddingCorrection = (-8).dp),
         Icon(Padding12Pct, Padding21Pct),
         MultiButton(Padding21Pct, Padding20Pct),
         SingleButton(Padding12Pct, Padding20Pct),
@@ -286,8 +285,8 @@ public object ScalingLazyColumnDefaults {
             val height = LocalConfiguration.current.screenWidthDp.dp
             val horizontalPadding = LocalConfiguration.current.screenWidthDp.dp * horizontalPercent
             PaddingValues(
-                top = first.topPaddingDp * height,
-                bottom = last.bottomPaddingDp * height,
+                top = first.topPaddingDp * height + first.paddingCorrection,
+                bottom = last.bottomPaddingDp * height + first.paddingCorrection,
                 start = horizontalPadding,
                 end = horizontalPadding,
             )

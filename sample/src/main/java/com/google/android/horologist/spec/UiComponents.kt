@@ -40,7 +40,7 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 @Composable
 fun Title(lines: Int) {
     ResponsiveListHeader(
-        contentPadding = ListHeaderDefaults.firstItemPadding()
+        contentPadding = ListHeaderDefaults.firstItemPadding(),
     ) {
         Text(text = (1..lines).map { "MMMMMMMM" }.joinToString("\n"), maxLines = lines)
     }

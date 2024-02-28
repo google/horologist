@@ -34,7 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.lerp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
@@ -44,6 +43,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.ScalingParams
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.responsiveScalingParams
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
@@ -159,22 +159,7 @@ public fun rememberResponsiveColumnState(
     val screenWidthDp = configuration.screenWidthDp.toFloat()
     val screenHeightDp = configuration.screenHeightDp.toFloat()
 
-    val sizeRatio =
-        ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
-    val presetRatio = 0f
-
-    val minElementHeight = lerp(0.2f, 0.157f, sizeRatio)
-    val maxElementHeight =
-        lerp(0.6f, 0.472f, sizeRatio).coerceAtLeast(minElementHeight)
-    val minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio)
-    val maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio)
-
-    val scalingParams = androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams(
-        minElementHeight = minElementHeight,
-        maxElementHeight = maxElementHeight,
-        minTransitionArea = minTransitionArea,
-        maxTransitionArea = maxTransitionArea,
-    )
+    val scalingParams = responsiveScalingParams(screenWidthDp)
 
     val contentPaddingCalculated = contentPadding()
 

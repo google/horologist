@@ -58,7 +58,7 @@ val text = "We posted a payment for your credit card ending in 5555. " +
 fun WarningText() {
     Text(
         text,
-        modifier = Modifier.listTextPadding()
+        modifier = Modifier.listTextPadding(),
     )
 }
 

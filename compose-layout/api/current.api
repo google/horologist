@@ -70,10 +70,12 @@ package com.google.android.horologist.compose.layout {
 
   public enum ScalingLazyColumnDefaults.ItemType {
     method public final float getBottomPaddingDp();
+    method public final float getPaddingCorrection();
     method public final float getTopPaddingDp();
     method public static com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType[] values();
     property public final float bottomPaddingDp;
+    property public final float paddingCorrection;
     property public final float topPaddingDp;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Card;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Chip;

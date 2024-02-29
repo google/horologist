@@ -875,6 +875,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-users-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check user's action
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-app" class="md-nav__link">
     <span class="md-ellipsis">
       Install app
@@ -896,6 +923,15 @@
   <a href="#signin-prompt" class="md-nav__link">
     <span class="md-ellipsis">
       SignIn prompt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom prompts
     </span>
   </a>
   
@@ -1404,6 +1440,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-users-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check user's action
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-app" class="md-nav__link">
     <span class="md-ellipsis">
       Install app
@@ -1430,6 +1493,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#custom-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom prompts
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1451,33 +1523,106 @@
 <h1 id="datalayer-phone-ui">DataLayer phone UI<a class="headerlink" href="#datalayer-phone-ui" title="Permanent link">&para;</a></h1>
 <p>The DataLayer phone UI library provides an implementation for phone prompts UI that can be used to
 bring more users to the Wear app.</p>
+<h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>Please follow the "Getting started" from the <a href="../datalayer-helpers-guide/">Datalayer App Helper</a>
+guide in order to set up the apps and create an instance
+of <a href="https://google.github.io/horologist/api/datalayer/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-app-helper/index.html">PhoneDataLayerAppHelper</a>.</p>
+<p>Also refer to "Check API availability" from the <a href="../datalayer-helpers-guide/">Datalayer App Helper</a>
+guide to check if the required APIs are available.</p>
+<h2 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">installPrompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InstallAppPrompt</span><span class="p">(</span><span class="n">phoneDataLayerAppHelper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">phoneDataLayerAppHelper</span><span class="p">)</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">installPrompt</span><span class="p">.</span><span class="na">shouldDisplayPrompt</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">intent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">installAppPrompt</span><span class="p">.</span><span class="na">getIntent</span><span class="p">(</span>
+<span class="w">        </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">,</span>
+<span class="w">        </span><span class="n">appPackageName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="na">packageName</span><span class="p">,</span>
+<span class="w">        </span><span class="n">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">image_drawable</span><span class="p">,</span>
+<span class="w">        </span><span class="n">topMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;top message&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">bottomMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bottom message&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="n">startActivity</span><span class="p">(</span><span class="n">intent</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The code above uses the install prompt as example, but the usage of other prompts are similar.</p>
+<h2 id="check-users-action">Check user's action<a class="headerlink" href="#check-users-action" title="Permanent link">&para;</a></h2>
+<p>In order to check what was the action taken by the user, refer
+to <a href="https://developer.android.com/training/basics/intents/result">Get a result from an activity</a>.</p>
+<p>For example, if using Compose:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">launcher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rememberLauncherForActivityResult</span><span class="p">(</span>
+<span class="w">        </span><span class="n">ActivityResultContracts</span><span class="p">.</span><span class="na">StartActivityForResult</span><span class="p">(),</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">resultCode</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">RESULT_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// user pushed install!</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// user dismissed the prompt.</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">installPrompt</span><span class="p">.</span><span class="na">shouldDisplayPrompt</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nv">intent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">installAppPrompt</span><span class="p">.</span><span class="na">getIntent</span><span class="p">(</span>
+<span class="w">      </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">,</span>
+<span class="w">      </span><span class="n">appPackageName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="na">packageName</span><span class="p">,</span>
+<span class="w">      </span><span class="n">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">image_drawable</span><span class="p">,</span>
+<span class="w">      </span><span class="n">topMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;top message&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="n">bottomMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bottom message&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span>
+
+<span class="w">  </span><span class="n">launcher</span><span class="p">.</span><span class="na">launch</span><span class="p">(</span><span class="n">intent</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The code above uses the install prompt as example, but the usage of other prompts are similar.</p>
 <h2 id="install-app">Install app<a class="headerlink" href="#install-app" title="Permanent link">&para;</a></h2>
-<p>Use the <code>InstallAppPrompt</code> to build the UI of a prompt to ask the user to install the app on their watch.</p>
-<p>The <code>shouldDisplayPrompt</code> method allows to check if the prompt should be displayed, based on the following conditions:</p>
+<p>Use
+the <a href="https://google.github.io/horologist/api/datalayer/phone-ui/com.google.android.horologist.datalayer.phone.ui.prompt.installapp/-install-app-prompt/index.html">InstallAppPrompt</a>
+to build the UI of a prompt to ask the user to install the app on their watch.</p>
+<p>The <code>shouldDisplayPrompt</code> method allows to check if the prompt should be displayed, based on the
+following conditions:</p>
 <ul>
-<li>
-<p>there is a watch connected</p>
-</li>
-<li>
-<p>the app is not installed</p>
-</li>
+<li>there is a watch connected</li>
+<li>the app is not installed</li>
 </ul>
-<p>The <code>shouldDisplayPrompt</code> method is relying on the capability defined in the wear.xml of the Wear app, if the Wear app is installed 
-but hasn't been updated with the capability definition, this method may still return a <code>AppHelperNodeStatus</code>
+<p>The <code>shouldDisplayPrompt</code> method is relying on the capability defined in the wear.xml of the Wear
+app, if the Wear app is installed
+but hasn't been updated with the capability definition, this method may still return
+a <code>AppHelperNodeStatus</code>
 indicating that the Wear app is not installed.</p>
 <h2 id="reengage-prompt">ReEngage prompt<a class="headerlink" href="#reengage-prompt" title="Permanent link">&para;</a></h2>
-<p>Use the <code>ReEngagePrompt</code> to build the UI of a prompt to ask the user to install the app on their watch.
-The <code>shouldDisplayPrompt</code> method allows to check if the prompt should be displayed, based on
-the criteria that the app is already installed.</p>
-<h2 id="signin-prompt">SignIn prompt<a class="headerlink" href="#signin-prompt" title="Permanent link">&para;</a></h2>
-<p>Use the <code>SignInPrompt</code> to build the UI of a prompt to ask the user to finish the sign in on the watch.
-The <code>shouldDisplayPrompt</code> method allows to check if the prompt should be displayed, if any of the 
-following conditions for the <code>UsageStatus</code> is true: </p>
+<p>Use
+the <a href="https://google.github.io/horologist/api/datalayer/phone-ui/com.google.android.horologist.datalayer.phone.ui.prompt.reengage/-re-engage-prompt/index.html">ReEngagePrompt</a>
+to build the UI of a prompt to ask the user to install the app on their
+watch.</p>
+<p>The <code>shouldDisplayPrompt</code> method allows to check if the prompt should be displayed, based on the
+following conditions:</p>
 <ul>
-<li><code>UsageStatus.UNRECOGNIZED</code></li>
-<li><code>UsageStatus.USAGE_STATUS_UNSPECIFIED</code></li>
-<li><code>UsageStatus.USAGE_STATUS_LAUNCHED_ONCE</code></li>
+<li>there is a watch connected</li>
+<li>the app is installed</li>
 </ul>
+<h2 id="signin-prompt">SignIn prompt<a class="headerlink" href="#signin-prompt" title="Permanent link">&para;</a></h2>
+<p>Use
+the <a href="https://google.github.io/horologist/api/datalayer/phone-ui/com.google.android.horologist.datalayer.phone.ui.prompt.signin/-sign-in-prompt/index.html">SignInPrompt</a>
+to build the UI of a prompt to ask the user to finish the sign in on the
+watch.</p>
+<p>The <code>shouldDisplayPrompt</code> method allows to check if the prompt should be displayed, based on the
+following conditions:</p>
+<ul>
+<li>there is a watch connected</li>
+<li>the app is installed</li>
+<li>the app was not marked as "setup complete" (see "Tracking the app has been set up"
+  in <a href="../datalayer-helpers-guide/">Datalayer App Helper</a> guide)</li>
+</ul>
+<h2 id="custom-prompts">Custom prompts<a class="headerlink" href="#custom-prompts" title="Permanent link">&para;</a></h2>
+<p>If desired to display your own custom prompt, this API can still be helpful. </p>
+<p>Use <code>shouldDisplayPrompt</code> to check if there conditions to display the prompt are met: </p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">installPrompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InstallAppPrompt</span><span class="p">(</span><span class="n">phoneDataLayerAppHelper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">phoneDataLayerAppHelper</span><span class="p">)</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">installPrompt</span><span class="p">.</span><span class="na">shouldDisplayPrompt</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// display your own prompt</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>When the user tap on the positive button of your prompt, call <code>performAction</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">installPrompt</span><span class="p">.</span><span class="na">performAction</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="na">packageName</span><span class="p">)</span>
+</code></pre></div>
+<p>The code above uses the install prompt as example, but the usage of other prompts are similar.</p>
 
 
 

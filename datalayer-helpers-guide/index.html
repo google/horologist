@@ -863,6 +863,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#check-api-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check API availability
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#connection-and-installation-status" class="md-nav__link">
     <span class="md-ellipsis">
       Connection and installation status
@@ -1485,6 +1494,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#check-api-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check API availability
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#connection-and-installation-status" class="md-nav__link">
     <span class="md-ellipsis">
       Connection and installation status
@@ -1599,8 +1617,8 @@ start flows from the such as installing the app</p>
 phone.</p>
 <h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p>Include the necessary dependency:</p>
+<li>Include the necessary dependency:</li>
+</ol>
 <div class="highlight"><pre><span></span><code>dependencies {
     implementation &quot;com.google.android.horologist:horologist-datalayer-watch:&lt;version&gt;&quot;
 }
@@ -1611,11 +1629,12 @@ phone.</p>
 }
 </code></pre></div>
 <p>For your watch and phone projects respectively.</p>
-</li>
-<li>
-<p>Add the capabilities</p>
+<ol>
+<li>Add the capabilities</li>
+</ol>
 <p>Add a <code>wear.xml</code> file in the <code>res/values</code> folder with the following content:</p>
-<div class="highlight"><pre><span></span><code>&lt;resources xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+<div class="codehilite"><pre><span></span><code>```
+&lt;resources xmlns:tools=&quot;http://schemas.android.com/tools&quot;
     tools:keep=&quot;@array/android_wear_capabilities&quot;&gt;
     &lt;string-array name=&quot;android_wear_capabilities&quot;&gt;
         &lt;!-- Used to indicate that the app is installed on this device --&gt;
@@ -1624,22 +1643,27 @@ phone.</p>
         &lt;item&gt;horologist_watch&lt;/item&gt;
     &lt;/string-array&gt;
 &lt;/resources&gt;
+```
 </code></pre></div>
+
 <p>and</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;resources</span><span class="w"> </span><span class="na">xmlns:tools=</span><span class="s">&quot;http://schemas.android.com/tools&quot;</span>
-<span class="w">    </span><span class="na">tools:keep=</span><span class="s">&quot;@array/android_wear_capabilities&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;string-array</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;android_wear_capabilities&quot;</span><span class="w"> </span><span class="na">translatable=</span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="na">tools:ignore=</span><span class="s">&quot;UnusedResources&quot;</span><span class="nt">&gt;</span>
-<span class="w">        </span><span class="cm">&lt;!-- Used to indicate that the app is installed on this device --&gt;</span>
-<span class="w">        </span><span class="nt">&lt;item&gt;</span>data_layer_app_helper_device_phone<span class="nt">&lt;/item&gt;</span>
-<span class="w">        </span><span class="cm">&lt;!-- Used to indicate the device is a phone --&gt;</span>
-<span class="w">        </span><span class="nt">&lt;item&gt;</span>horologist_phone<span class="nt">&lt;/item&gt;</span>
-<span class="nt">&lt;/string-array&gt;</span>
-<span class="nt">&lt;/resources&gt;</span>
+<div class="codehilite"><pre><span></span><code>```xml
+&lt;resources xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    tools:keep=&quot;@array/android_wear_capabilities&quot;&gt;
+    &lt;string-array name=&quot;android_wear_capabilities&quot; translatable=&quot;false&quot; tools:ignore=&quot;UnusedResources&quot;&gt;
+        &lt;!-- Used to indicate that the app is installed on this device --&gt;
+        &lt;item&gt;data_layer_app_helper_device_phone&lt;/item&gt;
+        &lt;!-- Used to indicate the device is a phone --&gt;
+        &lt;item&gt;horologist_phone&lt;/item&gt;
+&lt;/string-array&gt;
+&lt;/resources&gt;
+```
 </code></pre></div>
+
 <p>on your wear and phone projects respectively.</p>
 <p>For more details, see
-<a href="https://developer.android.com/training/wearables/apps/standalone-apps#capability-names">Specify capability names for detecting your apps</a>.</p>
-</li>
+   <a href="https://developer.android.com/training/wearables/apps/standalone-apps#capability-names">Specify capability names for detecting your apps</a>.</p>
+<ol>
 <li>
 <p>Initialize the client including passing a <code>WearDataLayerRegistry</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// on your watch project</span>
@@ -1650,49 +1674,59 @@ phone.</p>
 </code></pre></div>
 </li>
 </ol>
+<h2 id="check-api-availability">Check API availability<a class="headerlink" href="#check-api-availability" title="Permanent link">&para;</a></h2>
+<p>This API relies on Google Play services to be available and up-to-date on the device. You can check
+the availability with:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">phoneDataLayerAppHelper</span><span class="p">.</span><span class="na">isAvailable</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// display error </span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Please refer
+to <a href="https://developers.google.com/android/reference/com/google/android/gms/common/GoogleApiAvailability#makeGooglePlayServicesAvailable(android.app.Activity)">GoogleApiAvailability</a>
+if you would like to display an UI to request the user to install or update Google Play.</p>
 <h2 id="connection-and-installation-status">Connection and installation status<a class="headerlink" href="#connection-and-installation-status" title="Permanent link">&para;</a></h2>
 <p>The <code>DataLayerAppHelper.connectedNodes()</code> returns information about connected devices. You could
 invoke this method at startup or while the app is running.</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">connectedNodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">appHelper</span><span class="p">.</span><span class="na">connectedNodes</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">connectedNodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">appHelper</span><span class="p">.</span><span class="na">connectedNodes</span><span class="p">()</span>
 </code></pre></div>
 <p>The resulting list might will contain entries such as:</p>
-<div class="highlight"><pre><span></span><code>    AppHelperNodeStatus(
-        id=7cd1c38a,
-        displayName=Google Pixel Watch,
-        appInstallationStatus=Installed(nodeType=WATCH),
-        surfacesInfo=# SurfacesInfo@125fcbff
-            complications {
-                instance_id: 1234
-                name: &quot;MyComplication&quot;
-                timestamp {
-                    nanos: 738000000
-                    seconds: 1680015523
-                }
-                type: &quot;SHORT_TEXT&quot;
-            }
-            tiles {
-                name: &quot;MyTile&quot;
-                timestamp {
-                    nanos: 364000000
-                    seconds: 1680016845
-                }
-            }
-            usage_info {
-                timestamp {
-                    nanos: 669000000
-                    seconds: 1701708501
-                }
-                usage_status: USAGE_STATUS_LAUNCHED_ONCE
-                usage_status_value: 1
-            }
-    )
+<div class="highlight"><pre><span></span><code> AppHelperNodeStatus(
+     id=7cd1c38a,
+     displayName=Google Pixel Watch,
+     appInstallationStatus=Installed(nodeType=WATCH),
+     surfacesInfo=# SurfacesInfo@125fcbff
+         complications {
+             instance_id: 1234
+             name: &quot;MyComplication&quot;
+             timestamp {
+                 nanos: 738000000
+                 seconds: 1680015523
+             }
+             type: &quot;SHORT_TEXT&quot;
+         }
+         tiles {
+             name: &quot;MyTile&quot;
+             timestamp {
+                 nanos: 364000000
+                 seconds: 1680016845
+             }
+         }
+         usage_info {
+             timestamp {
+                 nanos: 669000000
+                 seconds: 1701708501
+             }
+             usage_status: USAGE_STATUS_LAUNCHED_ONCE
+             usage_status_value: 1
+         }
+ )
 </code></pre></div>
 <h2 id="responding-to-availability-change">Responding to availability change<a class="headerlink" href="#responding-to-availability-change" title="Permanent link">&para;</a></h2>
 <p>Once you've established the app on both devices, you may wish to respond to when the partner
 device connects or disconnects. For example, you may only want to show a "launch workout" button
 on the phone when the watch is connected.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">nodes</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">appHelper</span><span class="p">.</span><span class="na">connectedAndInstalledNodes</span>
-<span class="w">   </span><span class="p">.</span><span class="na">collectAsStateWithLifecycle</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collectAsStateWithLifecycle</span><span class="p">()</span>
 </code></pre></div>
 <h2 id="installing-the-app-on-the-other-device">Installing the app on the other device<a class="headerlink" href="#installing-the-app-on-the-other-device" title="Permanent link">&para;</a></h2>
 <p>Where the app isn't installed on the other device - be that phone or watch - then the library offers
@@ -1706,7 +1740,7 @@ a one step option to launch installation:</p>
 <h2 id="launching-a-specific-activity-on-the-other-device">Launching a specific activity on the other device<a class="headerlink" href="#launching-a-specific-activity-on-the-other-device" title="Permanent link">&para;</a></h2>
 <p>In addition to launching your own app, you may wish to launch a different
 activity as part of the user journey:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activityConfig</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activityConfig</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">classFullName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;com.example.myapp.MyActivity&quot;</span>
 <span class="p">}</span>
 <span class="n">appHelper</span><span class="p">.</span><span class="na">startRemoteActivity</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">id</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">)</span>
@@ -1716,9 +1750,9 @@ activity as part of the user journey:</p>
 <p>For example, if the connected device does not have your Tile installed, you may wish to offer the
 user the option to navigate to the companion app to install it:</p>
 <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">surfacesInfo</span><span class="p">.</span><span class="na">tilesList</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">askUserAttempts</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MAX_ATTEMPTS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">   </span><span class="c1">// Show guidance to the user and then launch companion</span>
-<span class="w">   </span><span class="c1">// to allow the to install the Tile.</span>
-<span class="w">   </span><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">appHelper</span><span class="p">.</span><span class="na">startCompanion</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">id</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// Show guidance to the user and then launch companion</span>
+<span class="w">    </span><span class="c1">// to allow the to install the Tile.</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">appHelper</span><span class="p">.</span><span class="na">startCompanion</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">id</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="tracking-tile-installation-wear-only">Tracking Tile installation (Wear-only)<a class="headerlink" href="#tracking-tile-installation-wear-only" title="Permanent link">&para;</a></h2>
@@ -1730,7 +1764,8 @@ user the option to navigate to the companion app to install it:</p>
 <div class="highlight"><pre><span></span><code><span class="n">wearAppHelper</span><span class="p">.</span><span class="na">markTileAsRemoved</span><span class="p">(</span><span class="s">&quot;SummaryTile&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="tracking-complication-installation-wear-only">Tracking Complication installation (Wear-only)<a class="headerlink" href="#tracking-complication-installation-wear-only" title="Permanent link">&para;</a></h2>
-<p>To determine whether your Complication(s) are in-use, add the following to your <code>ComplicationDataSourceService</code>:</p>
+<p>To determine whether your Complication(s) are in-use, add the following to
+your <code>ComplicationDataSourceService</code>:</p>
 <p>In <code>onComplicationActivated</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">wearAppHelper</span><span class="p">.</span><span class="na">markComplicationAsActivated</span><span class="p">(</span><span class="s">&quot;GoalsComplication&quot;</span><span class="p">)</span>
 </code></pre></div>
@@ -1738,7 +1773,7 @@ user the option to navigate to the companion app to install it:</p>
 <div class="highlight"><pre><span></span><code><span class="n">wearAppHelper</span><span class="p">.</span><span class="na">markComplicationAsDeactivated</span><span class="p">(</span><span class="s">&quot;GoalsComplication&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="tracking-the-main-activity-has-been-launched-at-least-once-wear-only">Tracking the main activity has been launched at least once (Wear-only)<a class="headerlink" href="#tracking-the-main-activity-has-been-launched-at-least-once-wear-only" title="Permanent link">&para;</a></h2>
-<p>To mark that your main activity on the watch app has been launched once, use: </p>
+<p>To mark that your main activity on the watch app has been launched once, use:</p>
 <div class="highlight"><pre><span></span><code><span class="n">wearAppHelper</span><span class="p">.</span><span class="na">markActivityLaunchedOnce</span><span class="p">()</span>
 </code></pre></div>
 <p>To check it on the phone side, use:</p>
@@ -1747,7 +1782,7 @@ user the option to navigate to the companion app to install it:</p>
 <span class="n">node</span><span class="p">.</span><span class="na">surfacesInfo</span><span class="p">.</span><span class="na">usageInfo</span><span class="p">.</span><span class="na">usageStatus</span>
 </code></pre></div>
 <h2 id="tracking-the-app-has-been-set-up-wear-only">Tracking the app has been set up (Wear-only)<a class="headerlink" href="#tracking-the-app-has-been-set-up-wear-only" title="Permanent link">&para;</a></h2>
-<p>To mark that the user has completed in the app the necessary setup steps such that it is ready 
+<p>To mark that the user has completed in the app the necessary setup steps such that it is ready
 for use, use the following:</p>
 <div class="highlight"><pre><span></span><code><span class="n">wearAppHelper</span><span class="p">.</span><span class="na">markSetupComplete</span><span class="p">()</span>
 </code></pre></div>

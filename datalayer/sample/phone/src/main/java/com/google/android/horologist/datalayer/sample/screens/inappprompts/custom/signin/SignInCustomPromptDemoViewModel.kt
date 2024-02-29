@@ -32,7 +32,7 @@ class SignInCustomPromptDemoViewModel
     @Inject
     constructor(
         private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-        val signInCustomPrompt: SignInPrompt,
+        private val signInCustomPrompt: SignInPrompt,
     ) : ViewModel() {
 
         private var initializeCalled = false

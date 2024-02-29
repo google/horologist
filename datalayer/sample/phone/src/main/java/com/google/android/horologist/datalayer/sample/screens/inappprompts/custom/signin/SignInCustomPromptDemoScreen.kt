@@ -169,6 +169,17 @@ fun SignInCustomPromptDemoScreen(
 @Composable
 fun SignInCustomPromptDemoScreenPreview() {
     SignInCustomPromptDemoScreen(
+        state = SignInCustomPromptDemoScreenState.Idle,
+        onRunDemoClick = { },
+        onPromptSignInClick = { },
+        onPromptDismiss = { },
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SignInCustomPromptDemoScreenPreviewWithPrompt() {
+    SignInCustomPromptDemoScreen(
         state = SignInCustomPromptDemoScreenState.WatchFound("nodeId"),
         onRunDemoClick = { },
         onPromptSignInClick = { },

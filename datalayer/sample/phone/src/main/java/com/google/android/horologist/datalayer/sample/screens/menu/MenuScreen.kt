@@ -69,6 +69,10 @@ fun MenuScreen(
             Text(text = stringResource(id = R.string.menu_screen_install_app_custom_demo_item))
         }
 
+        Button(onClick = { navController.navigate(Screen.ReEngageCustomPromptDemoScreen.route) }) {
+            Text(text = stringResource(id = R.string.menu_screen_reengage_custom_demo_item))
+        }
+
         Button(onClick = { navController.navigate(Screen.SignInCustomPromptDemoScreen.route) }) {
             Text(text = stringResource(id = R.string.menu_screen_signin_custom_demo_item))
         }

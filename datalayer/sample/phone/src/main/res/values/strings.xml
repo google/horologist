@@ -27,8 +27,8 @@
     <string name="menu_screen_install_app_demo_item">Install app</string>
     <string name="menu_screen_reengage_demo_item">Re-Engage</string>
     <string name="menu_screen_signin_demo_item">Sign-in</string>
-    <string name="menu_screen_install_app_custom_demo_item">Install app (custom)</string>
-    <string name="menu_screen_signin_custom_demo_item">Sign-in (custom)</string>
+    <string name="menu_screen_install_app_custom_demo_item">Install app (custom prompt)</string>
+    <string name="menu_screen_signin_custom_demo_item">Sign-in (custom prompt)</string>
     <string name="menu_screen_datalayer_header">Data Layer</string>
     <string name="menu_screen_counter_item">Counter sample</string>
 

@@ -189,7 +189,8 @@ public class WearDataLayerAppHelper(
 
     /**
      * Marks that the necessary setup steps have been completed in the app such that it is ready for
-     * use. Typically this should be called when any pairing/login has been completed.
+     * use. Typically this should be called when any pairing/login has been completed. If used for
+     * prompting login, it should also be called during startup if login happened before
      */
     public suspend fun markSetupComplete() {
         surfacesInfoDataStore.updateData { info ->

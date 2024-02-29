@@ -1,13 +1,10 @@
-# DataLayer library
+# Horologist DataLayer library.
 
-DataStore documentation https://developer.android.com/topic/libraries/architecture/datastore
-
-Direct DataLayer sample code https://github.com/android/wear-os-samples
-
-## DataLayer approach.
-
-The Horologist DataLayer libraries, provide common abstractions on top of the Wearable DataLayer.
-These are built upon a common assumption of Google Protobuf and gRPC, which allows sharing data
+The Horologist DataLayer library, provide common abstractions on top of the 
+[Wearable DataLayer](https://developer.android.com/training/wearables/data/data-layer).
+- [Google Protobuf](https://protobuf.dev/) is used to structure the data.  
+- [gRPC](https://grpc.io/docs/what-is-grpc/introduction/) is used to define how messages are [sent and received](https://developer.android.com/training/wearables/data/messages).
+- [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) is used to [sync data across devices](https://developer.android.com/training/wearables/data/data-items).
 definitions throughout your Wear and Mobile apps.
 
 See this 
@@ -34,7 +31,8 @@ service CounterService {
 
 ## Registering Serializers.
 
-The WearDataLayerRegistry is an application singleton to register the Serializers.
+The [WearDataLayerRegistry](https://google.github.io/horologist/api/datalayer/core/com.google.android.horologist.data/-wear-data-layer-registry/index.html) 
+is an application singleton to register the Serializers.
 
 ```kotlin
 object CounterValueSerializer : Serializer<CounterValue> {
@@ -64,7 +62,8 @@ val registry = WearDataLayerRegistry.fromContext(
 ## Use Androidx DataStore
 
 This library provides a new implementation of Androidx DataStore, in addition to the local
-Proto and Preferences implementations.  The implementation uses the Wearable DataClient
+Proto and Preferences implementations.  The implementation uses the 
+[WearableDataClient](https://developers.google.com/android/reference/com/google/android/gms/wearable/DataClient)
 with a single owner and multiple readers.
 
 See [DataStore](https://developer.android.com/topic/libraries/architecture/datastore).

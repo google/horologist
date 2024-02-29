@@ -135,7 +135,6 @@ package com.google.android.horologist.data.apphelper {
     method public static com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType[] values();
     enum_constant public static final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType PHONE;
-    enum_constant public static final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType UNKNOWN;
     enum_constant public static final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType WATCH;
   }
 

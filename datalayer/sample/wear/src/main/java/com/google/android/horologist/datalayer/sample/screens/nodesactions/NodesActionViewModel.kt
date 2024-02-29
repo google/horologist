@@ -74,7 +74,6 @@ class NodesActionViewModel
                             when (status.nodeType) {
                                 AppInstallationStatusNodeType.WATCH -> NodeTypeUiModel.WATCH
                                 AppInstallationStatusNodeType.PHONE -> NodeTypeUiModel.PHONE
-                                AppInstallationStatusNodeType.UNKNOWN -> NodeTypeUiModel.UNKNOWN
                             }
                         }
                         AppInstallationStatus.NotInstalled -> NodeTypeUiModel.UNKNOWN

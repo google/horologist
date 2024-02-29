@@ -94,4 +94,14 @@ public class ReEngagePrompt(
         positiveButtonLabel = positiveButtonLabel,
         negativeButtonLabel = negativeButtonLabel,
     )
+
+    /**
+     * Performs the same action taken by the prompt when the user taps on the positive button.
+     */
+    public suspend fun performAction(nodeId: String) {
+        ReEngagePromptAction.run(
+            phoneDataLayerAppHelper = phoneDataLayerAppHelper,
+            nodeId = nodeId,
+        )
+    }
 }

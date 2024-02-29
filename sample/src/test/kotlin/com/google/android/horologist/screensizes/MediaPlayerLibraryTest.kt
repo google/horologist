@@ -31,7 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.Device
@@ -66,7 +66,7 @@ class MediaPlayerLibraryTest(device: Device) : ScreenSizeTest(device = device, s
             ),
         )
 
-        val columnState = ScalingLazyColumnDefaults.responsive().create()
+        val columnState = rememberResponsiveColumnState()
         PagerScreen(
             state = rememberPagerState(1) {
                 2

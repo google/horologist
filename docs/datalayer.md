@@ -1,11 +1,11 @@
 # Horologist DataLayer library.
 
 The Horologist DataLayer library, provide common abstractions on top of the 
-[Wearable DataLayer](https://developer.android.com/training/wearables/data/data-layer).
+[Wearable DataLayer](https://developer.android.com/training/wearables/data/data-layer):
+
 - [Google Protobuf](https://protobuf.dev/) is used to structure the data.  
 - [gRPC](https://grpc.io/docs/what-is-grpc/introduction/) is used to define how messages are [sent and received](https://developer.android.com/training/wearables/data/messages).
 - [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) is used to [sync data across devices](https://developer.android.com/training/wearables/data/data-items).
-definitions throughout your Wear and Mobile apps.
 
 See this 
 [gradle build file](https://github.com/google/horologist/blob/main/auth/sample/shared/build.gradle.kts)

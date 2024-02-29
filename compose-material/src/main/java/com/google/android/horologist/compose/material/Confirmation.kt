@@ -28,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.MaterialTheme
@@ -40,7 +39,7 @@ import androidx.wear.compose.material.dialog.DialogDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import kotlinx.coroutines.delay
 
 /**
@@ -58,11 +57,12 @@ public fun Confirmation(
     icon: @Composable (() -> Unit)? = null,
     title: String? = null,
     durationMillis: Long = DialogDefaults.ShortDurationMillis,
-    columnState: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(
-            verticalArrangement = DialogDefaults.ConfirmationVerticalArrangement,
-            additionalPaddingAtBottom = 0.dp,
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = if (icon != null) ScalingLazyColumnDefaults.ItemType.Icon else ScalingLazyColumnDefaults.ItemType.Text,
+            last = ScalingLazyColumnDefaults.ItemType.Text,
         ),
+        verticalArrangement = DialogDefaults.ConfirmationVerticalArrangement,
     ),
 ) {
     // Always refer to the latest inputs with which Confirmation was recomposed.
@@ -102,11 +102,12 @@ public fun Confirmation(
 public fun ConfirmationContent(
     icon: @Composable (() -> Unit)? = null,
     title: String? = null,
-    columnState: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(
-            verticalArrangement = DialogDefaults.ConfirmationVerticalArrangement,
-            additionalPaddingAtBottom = 0.dp,
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+//            first = if (icon != null) ScalingLazyColumnDefaults.ItemType.Icon else ScalingLazyColumnDefaults.ItemType.Text,
+//            last = ScalingLazyColumnDefaults.ItemType.Text,
         ),
+        verticalArrangement = DialogDefaults.ConfirmationVerticalArrangement,
     ),
     showPositionIndicator: Boolean = true,
 ) {

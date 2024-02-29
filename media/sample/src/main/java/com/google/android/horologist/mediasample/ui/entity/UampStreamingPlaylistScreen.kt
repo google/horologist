@@ -19,14 +19,15 @@ package com.google.android.horologist.mediasample.ui.entity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.media.ui.screens.entity.PlaylistStreamingScreen
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @Composable
 fun UampStreamingPlaylistScreen(
-    columnState: ScalingLazyColumnState,
     playlistName: String,
     viewModel: UampStreamingPlaylistScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
@@ -35,21 +36,27 @@ fun UampStreamingPlaylistScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    PlaylistStreamingScreen(
-        playlistName = playlistName,
-        playlistDownloadScreenState = uiState,
-        onShuffleButtonClick = {
-            viewModel.shufflePlay()
-            onShuffleClick(null)
-        },
-        onPlayButtonClick = {
-            viewModel.play()
-            onPlayClick(null)
-        },
-        onPlayItemClick = {
-            viewModel.play(it.id)
-            onDownloadItemClick(it)
-        },
-        columnState = columnState,
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
     )
+
+    ScreenScaffold(scrollState = columnState) {
+        PlaylistStreamingScreen(
+            playlistName = playlistName,
+            playlistDownloadScreenState = uiState,
+            onShuffleButtonClick = {
+                viewModel.shufflePlay()
+                onShuffleClick(null)
+            },
+            onPlayButtonClick = {
+                viewModel.play()
+                onPlayClick(null)
+            },
+            onPlayItemClick = {
+                viewModel.play(it.id)
+                onDownloadItemClick(it)
+            },
+            columnState = columnState,
+        )
+    }
 }

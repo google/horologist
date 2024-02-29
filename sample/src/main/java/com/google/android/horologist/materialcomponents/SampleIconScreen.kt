@@ -21,24 +21,31 @@ import androidx.compose.material.icons.automirrored.outlined.VolumeDown
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 @Composable
 internal fun SampleIconScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Icon(
-                paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
-                contentDescription = "contentDescription",
-            )
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                Icon(
+                    paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
+                    contentDescription = "contentDescription",
+                )
+            }
         }
     }
 }

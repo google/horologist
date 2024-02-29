@@ -24,8 +24,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.datalayer.sample.R
@@ -35,15 +36,20 @@ import com.google.android.horologist.datalayer.sample.Screen
 fun MainScreen(
     navigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        appHelpersSection(navigateToRoute)
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
 
-        generalSection(navigateToRoute)
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(
+            columnState = columnState,
+            modifier = modifier.fillMaxSize(),
+        ) {
+            appHelpersSection(navigateToRoute)
+
+            generalSection(navigateToRoute)
+        }
     }
 }
 
@@ -95,6 +101,5 @@ private fun SectionedListScope.generalSection(navigateToRoute: (String) -> Unit)
 fun MainScreenPreview() {
     MainScreen(
         navigateToRoute = {},
-        columnState = belowTimeTextPreview(),
     )
 }

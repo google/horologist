@@ -21,96 +21,103 @@ import androidx.compose.material.icons.filled.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
 
 @Composable
 internal fun SampleToggleChipScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch,
-            )
-        }
-        item {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Radio,
-            )
-        }
-        item {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Checkbox,
-            )
-        }
-        item {
-            ToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch,
-            )
-        }
-        item {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
-            )
-        }
-        item {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image,
-            )
-        }
-        item {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
-            )
-        }
-        item {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false,
-            )
-        }
-        item {
-            ToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false,
-            )
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                ToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Switch,
+                )
+            }
+            item {
+                ToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Radio,
+                )
+            }
+            item {
+                ToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Checkbox,
+                )
+            }
+            item {
+                ToggleChip(
+                    checked = false,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Switch,
+                )
+            }
+            item {
+                ToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    secondaryLabel = "Secondary label",
+                )
+            }
+            item {
+                ToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    icon = Icons.Default.Image,
+                )
+            }
+            item {
+                ToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image,
+                )
+            }
+            item {
+                ToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    enabled = false,
+                )
+            }
+            item {
+                ToggleChip(
+                    checked = false,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    enabled = false,
+                )
+            }
         }
     }
 }

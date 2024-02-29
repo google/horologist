@@ -31,8 +31,6 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
-import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
@@ -94,63 +92,51 @@ fun UampWearApp(
                 )
             },
             libraryScreen = {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    if (appState.streamingMode == true) {
-                        UampStreamingBrowseScreen(
-                            onPlaylistsClick = { navController.navigateToCollections() },
-                            onSettingsClick = { navController.navigateToSettings() },
-                            columnState = columnState,
-                        )
-                    } else {
-                        UampBrowseScreen(
-                            uampBrowseScreenViewModel = hiltViewModel(),
-                            onDownloadItemClick = {
-                                navController.navigateToCollection(
-                                    it.playlistUiModel.id,
-                                    it.playlistUiModel.title,
-                                )
-                            },
-                            onPlaylistsClick = { navController.navigateToCollections() },
-                            onSettingsClick = { navController.navigateToSettings() },
-                            columnState = columnState,
-                        )
-                    }
+                if (appState.streamingMode == true) {
+                    UampStreamingBrowseScreen(
+                        onPlaylistsClick = { navController.navigateToCollections() },
+                        onSettingsClick = { navController.navigateToSettings() },
+                    )
+                } else {
+                    UampBrowseScreen(
+                        uampBrowseScreenViewModel = hiltViewModel(),
+                        onDownloadItemClick = {
+                            navController.navigateToCollection(
+                                it.playlistUiModel.id,
+                                it.playlistUiModel.title,
+                            )
+                        },
+                        onPlaylistsClick = { navController.navigateToCollections() },
+                        onSettingsClick = { navController.navigateToSettings() },
+                    )
                 }
             },
             categoryEntityScreen = { _, name ->
-                val columnState = rememberColumnState()
+                if (appState.streamingMode == true) {
+                    val viewModel: UampStreamingPlaylistScreenViewModel = hiltViewModel()
 
-                ScreenScaffold(scrollState = columnState) {
-                    if (appState.streamingMode == true) {
-                        val viewModel: UampStreamingPlaylistScreenViewModel = hiltViewModel()
+                    UampStreamingPlaylistScreen(
+                        playlistName = name,
+                        viewModel = viewModel,
+                        onDownloadItemClick = {
+                            navController.navigateToPlayer()
+                        },
+                        onShuffleClick = { navController.navigateToPlayer() },
+                        onPlayClick = { navController.navigateToPlayer() },
+                    )
+                } else {
+                    val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
 
-                        UampStreamingPlaylistScreen(
-                            playlistName = name,
-                            viewModel = viewModel,
-                            onDownloadItemClick = {
-                                navController.navigateToPlayer()
-                            },
-                            onShuffleClick = { navController.navigateToPlayer() },
-                            onPlayClick = { navController.navigateToPlayer() },
-                            columnState = columnState,
-                        )
-                    } else {
-                        val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
-
-                        UampEntityScreen(
-                            playlistName = name,
-                            uampEntityScreenViewModel = uampEntityScreenViewModel,
-                            onDownloadItemClick = {
-                                navController.navigateToPlayer()
-                            },
-                            onShuffleClick = { navController.navigateToPlayer() },
-                            onPlayClick = { navController.navigateToPlayer() },
-                            onErrorDialogCancelClick = { navController.popBackStack() },
-                            columnState = columnState,
-                        )
-                    }
+                    UampEntityScreen(
+                        playlistName = name,
+                        uampEntityScreenViewModel = uampEntityScreenViewModel,
+                        onDownloadItemClick = {
+                            navController.navigateToPlayer()
+                        },
+                        onShuffleClick = { navController.navigateToPlayer() },
+                        onPlayClick = { navController.navigateToPlayer() },
+                        onErrorDialogCancelClick = { navController.popBackStack() },
+                    )
                 }
             },
             mediaEntityScreen = {
@@ -161,33 +147,22 @@ fun UampWearApp(
             playlistsScreen = {
                 val uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel =
                     hiltViewModel()
-
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    UampPlaylistsScreen(
-                        uampPlaylistsScreenViewModel = uampPlaylistsScreenViewModel,
-                        onPlaylistItemClick = { playlistUiModel ->
-                            navController.navigateToCollection(
-                                playlistUiModel.id,
-                                playlistUiModel.title,
-                            )
-                        },
-                        onErrorDialogCancelClick = { navController.popBackStack() },
-                        columnState = columnState,
-                    )
-                }
+                UampPlaylistsScreen(
+                    uampPlaylistsScreenViewModel = uampPlaylistsScreenViewModel,
+                    onPlaylistItemClick = { playlistUiModel ->
+                        navController.navigateToCollection(
+                            playlistUiModel.id,
+                            playlistUiModel.title,
+                        )
+                    },
+                    onErrorDialogCancelClick = { navController.popBackStack() },
+                )
             },
             settingsScreen = {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    UampSettingsScreen(
-                        columnState = columnState,
-                        viewModel = hiltViewModel(),
-                        navController = navController,
-                    )
-                }
+                UampSettingsScreen(
+                    viewModel = hiltViewModel(),
+                    navController = navController,
+                )
             },
             navHostState = navHostState,
             snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
@@ -206,14 +181,9 @@ fun UampWearApp(
                     arguments = AudioDebug.arguments,
                     deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix),
                 ) {
-                    val columnState = rememberColumnState()
-
-                    ScreenScaffold(scrollState = columnState) {
-                        AudioDebugScreen(
-                            columnState = columnState,
-                            audioDebugScreenViewModel = hiltViewModel(),
-                        )
-                    }
+                    AudioDebugScreen(
+                        audioDebugScreenViewModel = hiltViewModel(),
+                    )
                 }
 
                 composable(
@@ -222,15 +192,10 @@ fun UampWearApp(
                     arguments = Samples.arguments,
                     deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix),
                 ) {
-                    val columnState = rememberColumnState()
-
-                    ScreenScaffold(scrollState = columnState) {
-                        SamplesScreen(
-                            columnState = columnState,
-                            samplesScreenViewModel = hiltViewModel(),
-                            navController = navController,
-                        )
-                    }
+                    SamplesScreen(
+                        samplesScreenViewModel = hiltViewModel(),
+                        navController = navController,
+                    )
                 }
 
                 composable(
@@ -239,29 +204,19 @@ fun UampWearApp(
                     arguments = DeveloperOptions.arguments,
                     deepLinks = DeveloperOptions.deepLinks(appViewModel.deepLinkPrefix),
                 ) {
-                    val columnState = rememberColumnState()
-
-                    ScreenScaffold(scrollState = columnState) {
-                        DeveloperOptionsScreen(
-                            columnState = columnState,
-                            developerOptionsScreenViewModel = hiltViewModel(),
-                            navController = navController,
-                        )
-                    }
+                    DeveloperOptionsScreen(
+                        developerOptionsScreenViewModel = hiltViewModel(),
+                        navController = navController,
+                    )
                 }
 
                 composable(
                     route = GoogleSignInPromptScreen.navRoute,
                 ) {
-                    val columnState = rememberColumnState()
-
-                    ScreenScaffold(scrollState = columnState) {
-                        GoogleSignInPromptScreen(
-                            navController = navController,
-                            columnState = columnState,
-                            viewModel = hiltViewModel(),
-                        )
-                    }
+                    GoogleSignInPromptScreen(
+                        navController = navController,
+                        viewModel = hiltViewModel(),
+                    )
                 }
 
                 composable(route = GoogleSignInScreen.navRoute) {

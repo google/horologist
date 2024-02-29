@@ -21,35 +21,42 @@ import androidx.compose.material.icons.automirrored.filled.PlaylistPlay
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenPlaylistsSectionButton
 
 @Composable
 fun UampStreamingBrowseScreen(
-    columnState: ScalingLazyColumnState,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    BrowseScreen(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        this.playlistsSection(
-            buttons = listOf(
-                BrowseScreenPlaylistsSectionButton(
-                    textId = R.string.horologist_browse_library_playlists_button,
-                    icon = Icons.AutoMirrored.Default.PlaylistPlay,
-                    onClick = onPlaylistsClick,
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        BrowseScreen(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            this.playlistsSection(
+                buttons = listOf(
+                    BrowseScreenPlaylistsSectionButton(
+                        textId = R.string.horologist_browse_library_playlists_button,
+                        icon = Icons.AutoMirrored.Default.PlaylistPlay,
+                        onClick = onPlaylistsClick,
+                    ),
+                    BrowseScreenPlaylistsSectionButton(
+                        textId = R.string.horologist_browse_library_settings_button,
+                        icon = Icons.Default.Settings,
+                        onClick = onSettingsClick,
+                    ),
                 ),
-                BrowseScreenPlaylistsSectionButton(
-                    textId = R.string.horologist_browse_library_settings_button,
-                    icon = Icons.Default.Settings,
-                    onClick = onSettingsClick,
-                ),
-            ),
-        )
+            )
+        }
     }
 }

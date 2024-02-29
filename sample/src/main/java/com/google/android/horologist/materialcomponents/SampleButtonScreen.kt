@@ -22,81 +22,88 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.ButtonSize
 
 @Composable
 internal fun SampleButtonScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                colors = ButtonDefaults.iconButtonColors(),
-            )
-        }
-        item {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                colors = ButtonDefaults.secondaryButtonColors(),
-            )
-        }
-        item {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                enabled = false,
-            )
-        }
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
 
-        item {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                buttonSize = ButtonSize.Custom(
-                    customIconSize = ButtonDefaults.SmallIconSize,
-                    customTapTargetSize = ButtonDefaults.LargeButtonSize,
-                ),
-            )
-        }
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                Button(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "contentDescription",
+                    onClick = { println("Click") },
+                    onLongClick = { println("LongClick") },
+                    colors = ButtonDefaults.iconButtonColors(),
+                )
+            }
+            item {
+                Button(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "contentDescription",
+                    onClick = { },
+                    colors = ButtonDefaults.secondaryButtonColors(),
+                )
+            }
+            item {
+                Button(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "contentDescription",
+                    onClick = { },
+                    enabled = false,
+                )
+            }
 
-        item {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                buttonSize = ButtonSize.Small,
-            )
-        }
+            item {
+                Button(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "contentDescription",
+                    onClick = { },
+                    buttonSize = ButtonSize.Custom(
+                        customIconSize = ButtonDefaults.SmallIconSize,
+                        customTapTargetSize = ButtonDefaults.LargeButtonSize,
+                    ),
+                )
+            }
 
-        item {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                buttonSize = ButtonSize.Large,
-            )
-        }
+            item {
+                Button(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "contentDescription",
+                    onClick = { },
+                    buttonSize = ButtonSize.Small,
+                )
+            }
 
-        item {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-            )
+            item {
+                Button(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "contentDescription",
+                    onClick = { },
+                    buttonSize = ButtonSize.Large,
+                )
+            }
+
+            item {
+                Button(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "contentDescription",
+                    onClick = { },
+                )
+            }
         }
     }
 }

@@ -33,8 +33,9 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
@@ -43,19 +44,24 @@ import com.google.android.horologist.sample.R
 @Composable
 fun SectionedListStatelessScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        topMenuSection()
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
 
-        recommendationsSection()
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            topMenuSection()
 
-        trendingSection()
+            recommendationsSection()
 
-        bottomMenuSection()
+            trendingSection()
+
+            bottomMenuSection()
+        }
     }
 }
 
@@ -166,5 +172,5 @@ private fun SectionedListScope.bottomMenuSection() {
 @WearPreviewDevices
 @Composable
 fun SectionedListStatelessScreenPreview() {
-    SectionedListStatelessScreen(columnState = belowTimeTextPreview())
+    SectionedListStatelessScreen()
 }

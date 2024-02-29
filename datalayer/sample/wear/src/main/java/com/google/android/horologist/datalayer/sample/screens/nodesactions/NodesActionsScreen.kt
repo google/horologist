@@ -36,8 +36,9 @@ import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.CompactChip
 import com.google.android.horologist.datalayer.sample.R
@@ -46,7 +47,6 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 @Composable
 fun NodesActionsScreen(
     onNodeClick: (nodeId: String, appInstalled: Boolean) -> Unit,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: NodesActionViewModel = hiltViewModel(),
 ) {
@@ -62,7 +62,6 @@ fun NodesActionsScreen(
         state = state,
         onNodeClick = onNodeClick,
         onRefreshClick = viewModel::onRefreshClick,
-        columnState = columnState,
         modifier = modifier,
     )
 }
@@ -72,69 +71,74 @@ fun NodesActionsScreen(
     state: NodesActionScreenState,
     onNodeClick: (nodeId: String, appInstalled: Boolean) -> Unit,
     onRefreshClick: () -> Unit,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        item {
-            Text(
-                text = stringResource(id = R.string.nodes_actions_header),
-                modifier = Modifier.padding(bottom = 10.dp),
-            )
-        }
-        when (state) {
-            NodesActionScreenState.Idle,
-            NodesActionScreenState.Loading,
-            -> {
-                item {
-                    CircularProgressIndicator()
-                }
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier.fillMaxSize(),
+        ) {
+            item {
+                Text(
+                    text = stringResource(id = R.string.nodes_actions_header),
+                    modifier = Modifier.padding(bottom = 10.dp),
+                )
             }
-
-            is NodesActionScreenState.Loaded -> {
-                if (state.nodeList.isNotEmpty()) {
+            when (state) {
+                NodesActionScreenState.Idle,
+                NodesActionScreenState.Loading,
+                -> {
                     item {
-                        Text(stringResource(id = R.string.nodes_actions_message))
+                        CircularProgressIndicator()
                     }
-                    items(state.nodeList) { node ->
-                        val icon = when (node.type) {
-                            NodeTypeUiModel.WATCH -> Icons.Default.Watch
-                            NodeTypeUiModel.PHONE -> Icons.Default.PhoneAndroid
-                            NodeTypeUiModel.UNKNOWN -> Icons.Default.DeviceUnknown
-                        }
+                }
 
-                        Chip(
-                            label = node.name,
-                            onClick = { onNodeClick(node.id, node.appInstalled) },
-                            secondaryLabel = if (node.appInstalled) {
-                                stringResource(id = R.string.nodes_actions_app_installed_label)
-                            } else {
-                                stringResource(id = R.string.nodes_actions_app_not_installed_label)
-                            },
-                            icon = ImageVectorPaintable(imageVector = icon),
+                is NodesActionScreenState.Loaded -> {
+                    if (state.nodeList.isNotEmpty()) {
+                        item {
+                            Text(stringResource(id = R.string.nodes_actions_message))
+                        }
+                        items(state.nodeList) { node ->
+                            val icon = when (node.type) {
+                                NodeTypeUiModel.WATCH -> Icons.Default.Watch
+                                NodeTypeUiModel.PHONE -> Icons.Default.PhoneAndroid
+                                NodeTypeUiModel.UNKNOWN -> Icons.Default.DeviceUnknown
+                            }
+
+                            Chip(
+                                label = node.name,
+                                onClick = { onNodeClick(node.id, node.appInstalled) },
+                                secondaryLabel = if (node.appInstalled) {
+                                    stringResource(id = R.string.nodes_actions_app_installed_label)
+                                } else {
+                                    stringResource(id = R.string.nodes_actions_app_not_installed_label)
+                                },
+                                icon = ImageVectorPaintable(imageVector = icon),
+                            )
+                        }
+                    } else {
+                        item {
+                            Text(stringResource(id = R.string.nodes_actions_no_nodes))
+                        }
+                    }
+
+                    item {
+                        CompactChip(
+                            label = stringResource(id = R.string.nodes_actions_refresh_chip_label),
+                            onClick = onRefreshClick,
+                            icon = ImageVectorPaintable(imageVector = Icons.Default.Refresh),
                         )
                     }
-                } else {
+                }
+
+                NodesActionScreenState.ApiNotAvailable -> {
                     item {
-                        Text(stringResource(id = R.string.nodes_actions_no_nodes))
+                        Text(stringResource(id = R.string.wearable_message_api_unavailable))
                     }
-                }
-
-                item {
-                    CompactChip(
-                        label = stringResource(id = R.string.nodes_actions_refresh_chip_label),
-                        onClick = onRefreshClick,
-                        icon = ImageVectorPaintable(imageVector = Icons.Default.Refresh),
-                    )
-                }
-            }
-
-            NodesActionScreenState.ApiNotAvailable -> {
-                item {
-                    Text(stringResource(id = R.string.wearable_message_api_unavailable))
                 }
             }
         }
@@ -169,7 +173,6 @@ fun NodesActionsScreenPreviewLoaded() {
         ),
         onNodeClick = { _, _ -> },
         onRefreshClick = { },
-        columnState = belowTimeTextPreview(),
     )
 }
 
@@ -180,7 +183,6 @@ fun NodesActionsScreenPreviewEmptyNodes() {
         state = NodesActionScreenState.Loaded(emptyList()),
         onNodeClick = { _, _ -> },
         onRefreshClick = { },
-        columnState = belowTimeTextPreview(),
     )
 }
 
@@ -191,6 +193,5 @@ fun NodesActionsScreenPreviewApiNotAvailable() {
         state = NodesActionScreenState.ApiNotAvailable,
         onNodeClick = { _, _ -> },
         onRefreshClick = { },
-        columnState = belowTimeTextPreview(),
     )
 }

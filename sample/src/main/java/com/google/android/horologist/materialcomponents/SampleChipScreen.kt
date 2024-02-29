@@ -27,95 +27,102 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 @Composable
 internal fun SampleChipScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Chip(
-                label = "Primary label",
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-            )
-        }
-        item {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
-        item {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icon32dp.asPaintable(),
-                largeIcon = true,
-            )
-        }
-        item {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
-        item {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icon32dp.asPaintable(),
-                largeIcon = true,
-            )
-        }
-        item {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-                enabled = false,
-            )
-        }
-        item {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-        item {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-                colors = ChipDefaults.gradientBackgroundChipColors(),
-            )
-        }
-        item {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-                colors = ChipDefaults.imageBackgroundChipColors(
-                    backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
-                ),
-            )
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                Chip(
+                    label = "Primary label",
+                    onClick = { println("Click") },
+                    onLongClick = { println("LongClick") },
+                )
+            }
+            item {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    icon = Icons.Default.Image.asPaintable(),
+                )
+            }
+            item {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    icon = Icon32dp.asPaintable(),
+                    largeIcon = true,
+                )
+            }
+            item {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image.asPaintable(),
+                )
+            }
+            item {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icon32dp.asPaintable(),
+                    largeIcon = true,
+                )
+            }
+            item {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image.asPaintable(),
+                    enabled = false,
+                )
+            }
+            item {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image.asPaintable(),
+                    colors = ChipDefaults.secondaryChipColors(),
+                )
+            }
+            item {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image.asPaintable(),
+                    colors = ChipDefaults.gradientBackgroundChipColors(),
+                )
+            }
+            item {
+                Chip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image.asPaintable(),
+                    colors = ChipDefaults.imageBackgroundChipColors(
+                        backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
+                    ),
+                )
+            }
         }
     }
 }

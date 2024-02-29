@@ -30,8 +30,9 @@ import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import java.time.LocalDateTime
 
@@ -40,212 +41,217 @@ fun MenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
     time: LocalDateTime,
-    columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            ListHeader {
-                Text(text = "Samples")
-            }
-        }
-        item {
-            NetworkChip { navigateToRoute(Screen.Network.route) }
-        }
-        item {
-            FillMaxRectangleChip(navigateToRoute)
-        }
-        item {
-            VolumeScreenChip(navigateToRoute)
-        }
-        item {
-            ListHeader {
-                Text(text = "Scroll Away")
-            }
-        }
-        item {
-            ScrollAwayChip("Scroll Away") { navigateToRoute(Screen.ScrollAway.route) }
-        }
-        item {
-            ScrollAwayChip("Scroll Away SLC") { navigateToRoute(Screen.ScrollAwaySLC.route) }
-        }
-        item {
-            ScrollAwayChip("Scroll Away Column") { navigateToRoute(Screen.ScrollAwayColumn.route) }
-        }
-        item {
-            ListHeader {
-                Text(text = "Composables")
-            }
-        }
-        item {
-            TimePickerChip(time) { navigateToRoute(Screen.TimePicker.route) }
-        }
-        item {
-            DatePickerChip(time) { navigateToRoute(Screen.DatePicker.route) }
-        }
-        item {
-            FromDatePickerChip(time) { navigateToRoute(Screen.FromDatePicker.route) }
-        }
-        item {
-            ToDatePickerChip(time) { navigateToRoute(Screen.ToDatePicker.route) }
-        }
-        item {
-            TimeWithSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithSecondsPicker.route) }
-        }
-        item {
-            TimeWithoutSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithoutSecondsPicker.route) }
-        }
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
 
-        item {
-            Chip(
-                label = stringResource(id = R.string.sectionedlist_samples_menu),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) },
-            )
-        }
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                ListHeader {
+                    Text(text = "Samples")
+                }
+            }
+            item {
+                NetworkChip { navigateToRoute(Screen.Network.route) }
+            }
+            item {
+                FillMaxRectangleChip(navigateToRoute)
+            }
+            item {
+                VolumeScreenChip(navigateToRoute)
+            }
+            item {
+                ListHeader {
+                    Text(text = "Scroll Away")
+                }
+            }
+            item {
+                ScrollAwayChip("Scroll Away") { navigateToRoute(Screen.ScrollAway.route) }
+            }
+            item {
+                ScrollAwayChip("Scroll Away SLC") { navigateToRoute(Screen.ScrollAwaySLC.route) }
+            }
+            item {
+                ScrollAwayChip("Scroll Away Column") { navigateToRoute(Screen.ScrollAwayColumn.route) }
+            }
+            item {
+                ListHeader {
+                    Text(text = "Composables")
+                }
+            }
+            item {
+                TimePickerChip(time) { navigateToRoute(Screen.TimePicker.route) }
+            }
+            item {
+                DatePickerChip(time) { navigateToRoute(Screen.DatePicker.route) }
+            }
+            item {
+                FromDatePickerChip(time) { navigateToRoute(Screen.FromDatePicker.route) }
+            }
+            item {
+                ToDatePickerChip(time) { navigateToRoute(Screen.ToDatePicker.route) }
+            }
+            item {
+                TimeWithSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithSecondsPicker.route) }
+            }
+            item {
+                TimeWithoutSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithoutSecondsPicker.route) }
+            }
 
-        item {
-            ListHeader {
-                Text(text = "Material Components")
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sectionedlist_samples_menu),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) },
+                )
             }
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_alert_dialog),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialAlertDialog.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_buttons),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialButtonsScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_cards),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialCardsScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_chips),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialChipsScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_chip_icon_with_progress),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialChipIconWithProgressScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_compact_chip),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialCompactChipsScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_confirmation_screen),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialConfirmationScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_confirmation_launcher),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialConfirmationLauncher.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_icon),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialIconScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_outlined_chips),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialOutlinedChipScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_outlined_compact_chips),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialOutlinedCompactChipScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_split_toggle_chips),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialSplitToggleChipScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_stepper),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialStepperScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_title),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialTitleScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_toggle_button),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialToggleButtonScreen.route) },
-            )
-        }
-        item {
-            Chip(
-                label = stringResource(id = R.string.sample_material_toggle_chip),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.MaterialToggleChipScreen.route) },
-            )
-        }
-        item {
-            ListHeader {
-                Text(text = "Rotary Scrolling")
+
+            item {
+                ListHeader {
+                    Text(text = "Material Components")
+                }
             }
-        }
-        item {
-            androidx.wear.compose.material.Chip(
-                label = {
-                    Text(text = "Rotary scroll")
-                },
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.RotaryMenuScreen.route) },
-                colors = ChipDefaults.primaryChipColors(),
-            )
-        }
-        item {
-            PagingChip { navigateToRoute(Screen.Paging.route) }
-        }
-        item {
-            PagerScreenChip { navigateToRoute(Screen.PagerScreen.route) }
-        }
-        item {
-            VerticalPagerScreenChip { navigateToRoute(Screen.VerticalPagerScreen.route) }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_alert_dialog),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialAlertDialog.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_buttons),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialButtonsScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_cards),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialCardsScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_chips),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialChipsScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_chip_icon_with_progress),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialChipIconWithProgressScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_compact_chip),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialCompactChipsScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_confirmation_screen),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialConfirmationScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_confirmation_launcher),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialConfirmationLauncher.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_icon),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialIconScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_outlined_chips),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialOutlinedChipScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_outlined_compact_chips),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialOutlinedCompactChipScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_split_toggle_chips),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialSplitToggleChipScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_stepper),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialStepperScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_title),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialTitleScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_toggle_button),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialToggleButtonScreen.route) },
+                )
+            }
+            item {
+                Chip(
+                    label = stringResource(id = R.string.sample_material_toggle_chip),
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.MaterialToggleChipScreen.route) },
+                )
+            }
+            item {
+                ListHeader {
+                    Text(text = "Rotary Scrolling")
+                }
+            }
+            item {
+                androidx.wear.compose.material.Chip(
+                    label = {
+                        Text(text = "Rotary scroll")
+                    },
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(Screen.RotaryMenuScreen.route) },
+                    colors = ChipDefaults.primaryChipColors(),
+                )
+            }
+            item {
+                PagingChip { navigateToRoute(Screen.Paging.route) }
+            }
+            item {
+                PagerScreenChip { navigateToRoute(Screen.PagerScreen.route) }
+            }
+            item {
+                VerticalPagerScreenChip { navigateToRoute(Screen.VerticalPagerScreen.route) }
+            }
         }
     }
 }
@@ -280,6 +286,5 @@ fun MenuScreenPreview() {
         modifier = Modifier.fillMaxSize(),
         navigateToRoute = {},
         time = LocalDateTime.now(),
-        columnState = belowTimeTextPreview(),
     )
 }

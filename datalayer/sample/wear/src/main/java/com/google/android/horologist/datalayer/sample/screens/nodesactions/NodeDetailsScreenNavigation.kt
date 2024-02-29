@@ -22,8 +22,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.wear.compose.navigation.composable
-import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.datalayer.sample.Screen
 import java.net.URLDecoder
 import java.net.URLEncoder
@@ -59,12 +57,6 @@ fun NavGraphBuilder.nodeDetailsScreen() {
             navArgument(appInstalledArg) { type = NavType.BoolType },
         ),
     ) {
-        val columnState = rememberColumnState()
-
-        ScreenScaffold(scrollState = columnState) {
-            NodeDetailsScreen(
-                columnState = columnState,
-            )
-        }
+        NodeDetailsScreen()
     }
 }

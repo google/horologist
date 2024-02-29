@@ -28,35 +28,42 @@ import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.settings.ActionSetting
 
 @Composable
 fun SamplesScreen(
-    columnState: ScalingLazyColumnState,
     samplesScreenViewModel: SamplesScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
     val uiState by samplesScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Text(
-                text = stringResource(id = R.string.sample_samples),
-                modifier = Modifier.padding(bottom = 12.dp),
-                style = MaterialTheme.typography.title3,
-            )
-        }
-        items(uiState.samples) {
-            ActionSetting(text = it.name) {
-                samplesScreenViewModel.playSamples(it.id)
-                navController.navigateToPlayer()
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                Text(
+                    text = stringResource(id = R.string.sample_samples),
+                    modifier = Modifier.padding(bottom = 12.dp),
+                    style = MaterialTheme.typography.title3,
+                )
+            }
+            items(uiState.samples) {
+                ActionSetting(text = it.name) {
+                    samplesScreenViewModel.playSamples(it.id)
+                    navController.navigateToPlayer()
+                }
             }
         }
     }

@@ -124,7 +124,8 @@ public class ScalingLazyColumnState(
     }
 }
 
-// @Deprecated("Replaced by rememberResponsiveColumnState")
+@Suppress("DEPRECATION")
+@Deprecated("Replaced by rememberResponsiveColumnState")
 @Composable
 public fun rememberColumnState(
     factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.responsive(),

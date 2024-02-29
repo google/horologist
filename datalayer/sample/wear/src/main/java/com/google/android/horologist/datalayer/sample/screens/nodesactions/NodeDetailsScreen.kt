@@ -40,8 +40,9 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Dialog
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.compose.material.Icon
@@ -52,7 +53,6 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @Composable
 fun NodeDetailsScreen(
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: NodeDetailsViewModel = hiltViewModel(),
 ) {
@@ -67,7 +67,6 @@ fun NodeDetailsScreen(
         onStartRemoteOwnAppClick = viewModel::onStartRemoteOwnAppClick,
         onStartRemoteActivityClick = viewModel::onStartRemoteActivityClick,
         onDialogDismiss = viewModel::onDialogDismiss,
-        columnState = columnState,
         modifier = modifier,
     )
 }
@@ -82,81 +81,86 @@ fun NodeDetailsScreen(
     onStartRemoteOwnAppClick: () -> Unit,
     onStartRemoteActivityClick: () -> Unit,
     onDialogDismiss: () -> Unit,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
 ) {
     var showSuccessDialog by rememberSaveable { mutableStateOf(false) }
     var showFailureDialog by rememberSaveable { mutableStateOf(false) }
     var errorCode by rememberSaveable { mutableStateOf("") }
 
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        item {
-            Title(
-                textId = R.string.node_details_header,
-                modifier = Modifier.padding(bottom = 10.dp),
-            )
-        }
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
 
-        item {
-            Text(
-                text = stringResource(id = R.string.node_details_id, nodeId),
-            )
-        }
-        when (state) {
-            NodeDetailsScreenState.Idle -> {
-                item {
-                    Chip(
-                        label = stringResource(id = R.string.node_details_start_companion_chip_label),
-                        onClick = onStartCompanionClick,
-                        enabled = appInstalled,
-                    )
-                }
-                item {
-                    Chip(
-                        label = stringResource(id = R.string.node_details_install_on_node_chip_label),
-                        onClick = onInstallOnNodeClick,
-                    )
-                }
-                item {
-                    Chip(
-                        label = stringResource(id = R.string.node_details_start_remote_own_app_chip_label),
-                        onClick = onStartRemoteOwnAppClick,
-                        enabled = appInstalled,
-                    )
-                }
-                item {
-                    Chip(
-                        label = stringResource(id = R.string.node_details_start_remote_activity_chip_label),
-                        onClick = onStartRemoteActivityClick,
-                        enabled = appInstalled,
-                    )
-                }
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier.fillMaxSize(),
+        ) {
+            item {
+                Title(
+                    textId = R.string.node_details_header,
+                    modifier = Modifier.padding(bottom = 10.dp),
+                )
             }
 
-            NodeDetailsScreenState.ActionRunning -> {
-                item {
-                    CircularProgressIndicator(modifier = Modifier.padding(top = 10.dp))
-                }
+            item {
+                Text(
+                    text = stringResource(id = R.string.node_details_id, nodeId),
+                )
             }
-
-            NodeDetailsScreenState.ActionSucceeded -> {
-                item {
-                    CircularProgressIndicator(modifier = Modifier.padding(top = 10.dp))
+            when (state) {
+                NodeDetailsScreenState.Idle -> {
+                    item {
+                        Chip(
+                            label = stringResource(id = R.string.node_details_start_companion_chip_label),
+                            onClick = onStartCompanionClick,
+                            enabled = appInstalled,
+                        )
+                    }
+                    item {
+                        Chip(
+                            label = stringResource(id = R.string.node_details_install_on_node_chip_label),
+                            onClick = onInstallOnNodeClick,
+                        )
+                    }
+                    item {
+                        Chip(
+                            label = stringResource(id = R.string.node_details_start_remote_own_app_chip_label),
+                            onClick = onStartRemoteOwnAppClick,
+                            enabled = appInstalled,
+                        )
+                    }
+                    item {
+                        Chip(
+                            label = stringResource(id = R.string.node_details_start_remote_activity_chip_label),
+                            onClick = onStartRemoteActivityClick,
+                            enabled = appInstalled,
+                        )
+                    }
                 }
 
-                showSuccessDialog = true
-            }
-
-            is NodeDetailsScreenState.ActionFailed -> {
-                item {
-                    CircularProgressIndicator(modifier = Modifier.padding(top = 10.dp))
+                NodeDetailsScreenState.ActionRunning -> {
+                    item {
+                        CircularProgressIndicator(modifier = Modifier.padding(top = 10.dp))
+                    }
                 }
 
-                showFailureDialog = true
-                errorCode = state.errorCode
+                NodeDetailsScreenState.ActionSucceeded -> {
+                    item {
+                        CircularProgressIndicator(modifier = Modifier.padding(top = 10.dp))
+                    }
+
+                    showSuccessDialog = true
+                }
+
+                is NodeDetailsScreenState.ActionFailed -> {
+                    item {
+                        CircularProgressIndicator(modifier = Modifier.padding(top = 10.dp))
+                    }
+
+                    showFailureDialog = true
+                    errorCode = state.errorCode
+                }
             }
         }
     }
@@ -226,6 +230,5 @@ fun NodeDetailsScreenPreview() {
         onStartRemoteOwnAppClick = { },
         onStartRemoteActivityClick = { },
         onDialogDismiss = { },
-        columnState = belowTimeTextPreview(),
     )
 }

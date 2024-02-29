@@ -27,121 +27,128 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToAudioDebug
 import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
 
 @Composable
 fun DeveloperOptionsScreen(
-    columnState: ScalingLazyColumnState,
     developerOptionsScreenViewModel: DeveloperOptionsScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
     val uiState by developerOptionsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Text(
-                text = stringResource(id = R.string.sample_developer_options),
-                modifier = Modifier.padding(bottom = 12.dp),
-                style = MaterialTheme.typography.title3,
-            )
-        }
-        item {
-            CheckedSetting(
-                uiState.networkRequest != null,
-                stringResource(id = R.string.request_network),
-                enabled = uiState.writable,
-            ) {
-                developerOptionsScreenViewModel.toggleNetworkRequest()
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                Text(
+                    text = stringResource(id = R.string.sample_developer_options),
+                    modifier = Modifier.padding(bottom = 12.dp),
+                    style = MaterialTheme.typography.title3,
+                )
             }
-        }
-        item {
-            ActionSetting(
-                stringResource(id = R.string.sample_audio_debug),
-            ) {
-                navController.navigateToAudioDebug()
+            item {
+                CheckedSetting(
+                    uiState.networkRequest != null,
+                    stringResource(id = R.string.request_network),
+                    enabled = uiState.writable,
+                ) {
+                    developerOptionsScreenViewModel.toggleNetworkRequest()
+                }
             }
-        }
-        item {
-            ActionSetting(
-                stringResource(id = R.string.sample_samples),
-            ) {
-                navController.navigateToSamples()
+            item {
+                ActionSetting(
+                    stringResource(id = R.string.sample_audio_debug),
+                ) {
+                    navController.navigateToAudioDebug()
+                }
             }
-        }
-        item {
-            CheckedSetting(
-                uiState.showTimeTextInfo,
-                stringResource(id = R.string.show_time_text_info),
-                enabled = uiState.writable,
-            ) {
-                developerOptionsScreenViewModel.setShowTimeTextInfo(it)
+            item {
+                ActionSetting(
+                    stringResource(id = R.string.sample_samples),
+                ) {
+                    navController.navigateToSamples()
+                }
             }
-        }
-        item {
-            CheckedSetting(
-                uiState.debugOffload,
-                stringResource(id = R.string.debug_offload),
-                enabled = uiState.writable,
-            ) {
-                developerOptionsScreenViewModel.setDebugOffload(it)
+            item {
+                CheckedSetting(
+                    uiState.showTimeTextInfo,
+                    stringResource(id = R.string.show_time_text_info),
+                    enabled = uiState.writable,
+                ) {
+                    developerOptionsScreenViewModel.setShowTimeTextInfo(it)
+                }
             }
-        }
-        item {
-            CheckedSetting(
-                uiState.podcastControls,
-                stringResource(id = R.string.podcast_controls),
-                enabled = uiState.writable,
-            ) {
-                developerOptionsScreenViewModel.setPodcastControls(it)
+            item {
+                CheckedSetting(
+                    uiState.debugOffload,
+                    stringResource(id = R.string.debug_offload),
+                    enabled = uiState.writable,
+                ) {
+                    developerOptionsScreenViewModel.setDebugOffload(it)
+                }
             }
-        }
-        item {
-            CheckedSetting(
-                uiState.loadItemsAtStartup,
-                stringResource(id = R.string.load_items),
-                enabled = uiState.writable,
-            ) {
-                developerOptionsScreenViewModel.setLoadItemsAtStartup(it)
+            item {
+                CheckedSetting(
+                    uiState.podcastControls,
+                    stringResource(id = R.string.podcast_controls),
+                    enabled = uiState.writable,
+                ) {
+                    developerOptionsScreenViewModel.setPodcastControls(it)
+                }
             }
-        }
-        item {
-            CheckedSetting(
-                uiState.streamingMode,
-                stringResource(id = R.string.streaming_mode),
-                enabled = uiState.writable,
-            ) {
-                developerOptionsScreenViewModel.setStreamingMode(it)
+            item {
+                CheckedSetting(
+                    uiState.loadItemsAtStartup,
+                    stringResource(id = R.string.load_items),
+                    enabled = uiState.writable,
+                ) {
+                    developerOptionsScreenViewModel.setLoadItemsAtStartup(it)
+                }
             }
-        }
-        item {
-            CheckedSetting(
-                uiState.animated,
-                stringResource(id = R.string.animated),
-                enabled = uiState.writable,
-            ) {
-                developerOptionsScreenViewModel.setAnimated(it)
+            item {
+                CheckedSetting(
+                    uiState.streamingMode,
+                    stringResource(id = R.string.streaming_mode),
+                    enabled = uiState.writable,
+                ) {
+                    developerOptionsScreenViewModel.setStreamingMode(it)
+                }
             }
-        }
-        item {
-            ActionSetting(
-                text = stringResource(id = R.string.force_stop),
-            ) {
-                developerOptionsScreenViewModel.forceStop()
+            item {
+                CheckedSetting(
+                    uiState.animated,
+                    stringResource(id = R.string.animated),
+                    enabled = uiState.writable,
+                ) {
+                    developerOptionsScreenViewModel.setAnimated(it)
+                }
             }
-        }
-        item {
-            val message = stringResource(id = R.string.sample_error)
-            ActionSetting(
-                stringResource(id = R.string.show_test_dialog),
-            ) {
-                developerOptionsScreenViewModel.showDialog(message)
+            item {
+                ActionSetting(
+                    text = stringResource(id = R.string.force_stop),
+                ) {
+                    developerOptionsScreenViewModel.forceStop()
+                }
+            }
+            item {
+                val message = stringResource(id = R.string.sample_error)
+                ActionSetting(
+                    stringResource(id = R.string.show_test_dialog),
+                ) {
+                    developerOptionsScreenViewModel.showDialog(message)
+                }
             }
         }
     }

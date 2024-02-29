@@ -22,35 +22,42 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.SecondaryTitle
 import com.google.android.horologist.compose.material.Title
 
 @Composable
 internal fun SampleTitleScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Title(
-                text = "Title",
-            )
-        }
-        item {
-            SecondaryTitle(
-                text = "Title",
-            )
-        }
-        item {
-            SecondaryTitle(
-                text = "Title",
-                icon = Icons.Filled.Add,
-                iconTint = Color(0xFF946EB1),
-            )
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                Title(
+                    text = "Title",
+                )
+            }
+            item {
+                SecondaryTitle(
+                    text = "Title",
+                )
+            }
+            item {
+                SecondaryTitle(
+                    text = "Title",
+                    icon = Icons.Filled.Add,
+                    iconTint = Color(0xFF946EB1),
+                )
+            }
         }
     }
 }

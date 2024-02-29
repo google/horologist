@@ -49,8 +49,9 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
@@ -65,21 +66,26 @@ import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefu
 fun SectionedListStatefulScreen(
     modifier: Modifier = Modifier,
     viewModel: SectionedListStatefulScreenViewModel = viewModel(),
-    columnState: ScalingLazyColumnState,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        topMenuSection()
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
 
-        recommendationsSection(state = state, viewModel = viewModel)
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            topMenuSection()
 
-        trendingSection(state = state, viewModel = viewModel)
+            recommendationsSection(state = state, viewModel = viewModel)
 
-        bottomMenuSection()
+            trendingSection(state = state, viewModel = viewModel)
+
+            bottomMenuSection()
+        }
     }
 }
 
@@ -249,5 +255,5 @@ private fun FailedView(onClick: () -> Unit) {
 @WearPreviewDevices
 @Composable
 fun SectionedListStatefulScreenPreview() {
-    SectionedListStatefulScreen(columnState = belowTimeTextPreview())
+    SectionedListStatefulScreen()
 }

@@ -38,8 +38,9 @@ import com.google.android.horologist.ai.ui.model.PromptUiModel
 import com.google.android.horologist.ai.ui.model.ResponseUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 
 /**
@@ -51,9 +52,10 @@ import com.google.android.horologist.compose.material.Button
 public fun PromptScreen(
     uiState: PromptUiState,
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(
-            firstItemIsFullWidth = false,
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = ItemType.Text,
+            last = ItemType.SingleButton,
         ),
     ),
     onSettingsClick: (() -> Unit)? = null,

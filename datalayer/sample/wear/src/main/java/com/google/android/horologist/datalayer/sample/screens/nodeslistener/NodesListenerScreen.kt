@@ -31,15 +31,15 @@ import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun NodesListenerScreen(
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: NodesListenerViewModel = hiltViewModel(),
 ) {
@@ -53,7 +53,6 @@ fun NodesListenerScreen(
 
     NodesListenerScreen(
         state = state,
-        columnState = columnState,
         modifier = modifier,
     )
 }
@@ -61,57 +60,65 @@ fun NodesListenerScreen(
 @Composable
 fun NodesListenerScreen(
     state: NodesListenerScreenState,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        item {
-            Title(
-                textId = R.string.nodes_listener_screen_header,
-                modifier = Modifier.padding(bottom = 10.dp),
-            )
-        }
-        when (state) {
-            NodesListenerScreenState.Idle,
-            NodesListenerScreenState.Loading,
-            -> {
-                item {
-                    CircularProgressIndicator()
-                }
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier.fillMaxSize(),
+        ) {
+            item {
+                Title(
+                    textId = R.string.nodes_listener_screen_header,
+                    modifier = Modifier.padding(bottom = 10.dp),
+                )
             }
-
-            is NodesListenerScreenState.Loaded -> {
-                item {
-                    Text(stringResource(id = R.string.nodes_listener_screen_message))
-                }
-
-                if (state.nodeList.isNotEmpty()) {
-                    items(state.nodeList.toList()) { node ->
-                        val secondaryLabel = if (node.isNearby) {
-                            stringResource(id = R.string.nodes_listener_screen_node_near_label, node.id)
-                        } else {
-                            node.id
-                        }
-
-                        Chip(
-                            label = node.displayName,
-                            onClick = { /* do nothing */ },
-                            secondaryLabel = secondaryLabel,
-                        )
-                    }
-                } else {
+            when (state) {
+                NodesListenerScreenState.Idle,
+                NodesListenerScreenState.Loading,
+                -> {
                     item {
-                        Text(stringResource(id = R.string.nodes_listener_screen_no_nodes))
+                        CircularProgressIndicator()
                     }
                 }
-            }
 
-            NodesListenerScreenState.ApiNotAvailable -> {
-                item {
-                    Text(stringResource(id = R.string.wearable_message_api_unavailable))
+                is NodesListenerScreenState.Loaded -> {
+                    item {
+                        Text(stringResource(id = R.string.nodes_listener_screen_message))
+                    }
+
+                    if (state.nodeList.isNotEmpty()) {
+                        items(state.nodeList.toList()) { node ->
+                            val secondaryLabel = if (node.isNearby) {
+                                stringResource(
+                                    id = R.string.nodes_listener_screen_node_near_label,
+                                    node.id,
+                                )
+                            } else {
+                                node.id
+                            }
+
+                            Chip(
+                                label = node.displayName,
+                                onClick = { /* do nothing */ },
+                                secondaryLabel = secondaryLabel,
+                            )
+                        }
+                    } else {
+                        item {
+                            Text(stringResource(id = R.string.nodes_listener_screen_no_nodes))
+                        }
+                    }
+                }
+
+                NodesListenerScreenState.ApiNotAvailable -> {
+                    item {
+                        Text(stringResource(id = R.string.wearable_message_api_unavailable))
+                    }
                 }
             }
         }
@@ -136,7 +143,6 @@ fun NodesListenerScreenPreviewLoaded() {
                 ),
             ),
         ),
-        columnState = belowTimeTextPreview(),
     )
 }
 
@@ -145,7 +151,6 @@ fun NodesListenerScreenPreviewLoaded() {
 fun NodesListenerScreenPreviewEmptyNodes() {
     NodesListenerScreen(
         state = NodesListenerScreenState.Loaded(emptySet()),
-        columnState = belowTimeTextPreview(),
     )
 }
 
@@ -154,6 +159,5 @@ fun NodesListenerScreenPreviewEmptyNodes() {
 fun NodesListenerScreenPreviewApiNotAvailable() {
     NodesListenerScreen(
         state = NodesListenerScreenState.ApiNotAvailable,
-        columnState = belowTimeTextPreview(),
     )
 }

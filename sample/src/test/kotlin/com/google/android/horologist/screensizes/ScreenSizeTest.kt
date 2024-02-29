@@ -33,7 +33,6 @@ import com.google.android.horologist.compose.tools.copy
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
-import com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode.Companion.defaultRecordMode
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -45,7 +44,7 @@ import org.robolectric.shadows.ShadowDisplay
 abstract class ScreenSizeTest(
     val device: Device,
     val showTimeText: Boolean,
-    recordMode: ScreenshotTestRule.RecordMode = defaultRecordMode(),
+    recordMode: ScreenshotTestRule.RecordMode = ScreenshotTestRule.RecordMode.Repair,
 ) : ScreenshotBaseTest(
     screenshotTestRuleParams {
         if (!showTimeText) {

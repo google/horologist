@@ -38,34 +38,41 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreen
 import com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultViewModel
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 @Composable
 fun StreamlineSignInSampleScreen(
     navController: NavHostController,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: StreamlineSignInDefaultViewModel = viewModel(factory = StreamlineSignInSampleViewModelFactory),
 ) {
     var showNoAccountsAvailableDialog by rememberSaveable { mutableStateOf(false) }
 
-    StreamlineSignInDefaultScreen(
-        onSignedInConfirmationDialogDismissOrTimeout = { navController.popBackStack() },
-        onNoAccountsAvailable = { showNoAccountsAvailableDialog = true },
-        columnState = columnState,
-        viewModel = viewModel,
-    ) {
-        Box(
-            modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center,
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        StreamlineSignInDefaultScreen(
+            onSignedInConfirmationDialogDismissOrTimeout = { navController.popBackStack() },
+            onNoAccountsAvailable = { showNoAccountsAvailableDialog = true },
+            columnState = columnState,
+            viewModel = viewModel,
         ) {
-            Icon(
-                modifier = Modifier.size(48.dp),
-                imageVector = Icons.Default.Android,
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-            )
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    modifier = Modifier.size(48.dp),
+                    imageVector = Icons.Default.Android,
+                    contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                )
+            }
         }
     }
 

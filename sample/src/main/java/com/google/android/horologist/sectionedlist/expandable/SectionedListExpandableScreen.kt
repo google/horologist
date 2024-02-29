@@ -46,8 +46,9 @@ import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
@@ -73,7 +74,6 @@ private val laterTasks = listOf(
 @Composable
 fun SectionedListExpandableScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
     var todaySectionExpanded by rememberSaveable { mutableStateOf(true) }
     var tomorrowSectionExpanded by rememberSaveable { mutableStateOf(true) }
@@ -83,45 +83,51 @@ fun SectionedListExpandableScreen(
     val tomorrowSectionState = getState(tomorrowSectionExpanded, tomorrowTasks)
     val laterSectionState = getState(laterSectionExpanded, laterTasks)
 
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        section {
-            loaded {
-                Title(
-                    stringResource(R.string.sectionedlist_my_tasks),
-                    Modifier.padding(vertical = 8.dp),
-                )
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            section {
+                loaded {
+                    Title(
+                        stringResource(R.string.sectionedlist_my_tasks),
+                        Modifier.padding(vertical = 8.dp),
+                    )
+                }
             }
+
+            taskSection(
+                titleId = R.string.sectionedlist_today,
+                state = todaySectionState,
+                expanded = todaySectionExpanded,
+                onHeaderClick = { todaySectionExpanded = !todaySectionExpanded },
+            )
+
+            taskSection(
+                titleId = R.string.sectionedlist_tomorrow,
+                state = tomorrowSectionState,
+                expanded = tomorrowSectionExpanded,
+                onHeaderClick = { tomorrowSectionExpanded = !tomorrowSectionExpanded },
+            )
+
+            taskSection(
+                titleId = R.string.sectionedlist_later_week,
+                state = laterSectionState,
+                expanded = laterSectionExpanded,
+                onHeaderClick = { laterSectionExpanded = !laterSectionExpanded },
+                footerContent = {
+                    Chip(
+                        label = stringResource(R.string.sectionedlist_more_tasks),
+                        onClick = { },
+                    )
+                },
+            )
         }
-
-        taskSection(
-            titleId = R.string.sectionedlist_today,
-            state = todaySectionState,
-            expanded = todaySectionExpanded,
-            onHeaderClick = { todaySectionExpanded = !todaySectionExpanded },
-        )
-
-        taskSection(
-            titleId = R.string.sectionedlist_tomorrow,
-            state = tomorrowSectionState,
-            expanded = tomorrowSectionExpanded,
-            onHeaderClick = { tomorrowSectionExpanded = !tomorrowSectionExpanded },
-        )
-
-        taskSection(
-            titleId = R.string.sectionedlist_later_week,
-            state = laterSectionState,
-            expanded = laterSectionExpanded,
-            onHeaderClick = { laterSectionExpanded = !laterSectionExpanded },
-            footerContent = {
-                Chip(
-                    label = stringResource(R.string.sectionedlist_more_tasks),
-                    onClick = { },
-                )
-            },
-        )
     }
 }
 
@@ -201,5 +207,5 @@ private fun SectionHeader(
 @WearPreviewDevices
 @Composable
 fun SectionedListExpandableScreenPreview() {
-    SectionedListExpandableScreen(columnState = belowTimeTextPreview())
+    SectionedListExpandableScreen()
 }

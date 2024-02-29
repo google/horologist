@@ -24,7 +24,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.CurvedScope
 import androidx.wear.compose.foundation.CurvedTextStyle
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
@@ -50,7 +49,7 @@ public fun MediaInfoTimeText(
             pinnedNetworks = uiState.pinnedNetworks,
         )
     } else {
-        TimeText(modifier = modifier)
+        ResponsiveTimeText(modifier = modifier)
     }
 }
 

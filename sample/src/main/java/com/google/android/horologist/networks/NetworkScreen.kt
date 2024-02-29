@@ -27,61 +27,68 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
 @Composable
 fun NetworkScreen(
     viewModel: NetworkScreenViewModel = viewModel(factory = NetworkScreenViewModel.Factory),
-    columnState: ScalingLazyColumnState,
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 
-    ScalingLazyColumn(
-        columnState = columnState,
-    ) {
-        item {
-            Chip(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { viewModel.makeRequests() },
-                label = {
-                    Text("Requests")
-                },
-            )
-        }
-        items(uiState.responses.entries.toList()) { (name, response) ->
-            Text(text = "$name: $response")
-        }
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
 
-        item {
-            ListHeader {
-                Text("Networks")
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+        ) {
+            item {
+                Chip(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = { viewModel.makeRequests() },
+                    label = {
+                        Text("Requests")
+                    },
+                )
             }
-        }
-        items(uiState.networks.networks) {
-            val downloads = uiState.dataUsage.dataByType[it.networkInfo.type] ?: 0
-            Chip(
-
-                modifier = Modifier.fillMaxWidth(),
-                label = {
-                    Text(text = "${it.id} ${it.networkInfo.type} ${it.status}")
-                },
-                onClick = { },
-                secondaryLabel = {
-                    Text(text = "bytes: $downloads")
-                },
-            )
-        }
-
-        item {
-            ListHeader {
-                Text("Events")
+            items(uiState.responses.entries.toList()) { (name, response) ->
+                Text(text = "$name: $response")
             }
-        }
-        items(uiState.requests.takeLast(5).reversed()) {
-            if (it is InMemoryStatusLogger.Event.NetworkResponse) {
-                Text(text = "Network: ${it.networkInfo.type} ${it.bytesTransferred}")
-            } else {
-                Text(text = it.message)
+
+            item {
+                ListHeader {
+                    Text("Networks")
+                }
+            }
+            items(uiState.networks.networks) {
+                val downloads = uiState.dataUsage.dataByType[it.networkInfo.type] ?: 0
+                Chip(
+
+                    modifier = Modifier.fillMaxWidth(),
+                    label = {
+                        Text(text = "${it.id} ${it.networkInfo.type} ${it.status}")
+                    },
+                    onClick = { },
+                    secondaryLabel = {
+                        Text(text = "bytes: $downloads")
+                    },
+                )
+            }
+
+            item {
+                ListHeader {
+                    Text("Events")
+                }
+            }
+            items(uiState.requests.takeLast(5).reversed()) {
+                if (it is InMemoryStatusLogger.Event.NetworkResponse) {
+                    Text(text = "Network: ${it.networkInfo.type} ${it.bytesTransferred}")
+                } else {
+                    Text(text = it.message)
+                }
             }
         }
     }

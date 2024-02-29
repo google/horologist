@@ -45,7 +45,9 @@ import androidx.wear.compose.material.placeholderShimmer
 import androidx.wear.compose.material.rememberPlaceholderState
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSquare
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.paging.items
 import com.google.android.horologist.sample.R
 import kotlinx.coroutines.delay
@@ -57,7 +59,6 @@ import kotlin.time.Duration.Companion.seconds
 @Composable
 fun PagingScreen(
     navController: NavController,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
 ) {
     val myBackend = remember { MyBackend() }
@@ -74,19 +75,25 @@ fun PagingScreen(
 
     val lazyPagingItems = pager.flow.collectAsLazyPagingItems()
 
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
-            items(10) {
-                PagingItemCard(item = null)
-            }
-        } else {
-            items(lazyPagingItems) { item ->
-                PagingItemCard(item) {
-                    if (item != null) {
-                        navController.navigate("pagingItem?id=${item.item}")
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
+                items(10) {
+                    PagingItemCard(item = null)
+                }
+            } else {
+                items(lazyPagingItems) { item ->
+                    PagingItemCard(item) {
+                        if (item != null) {
+                            navController.navigate("pagingItem?id=${item.item}")
+                        }
                     }
                 }
             }

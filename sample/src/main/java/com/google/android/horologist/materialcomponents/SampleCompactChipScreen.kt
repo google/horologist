@@ -21,38 +21,45 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.CompactChip
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 @Composable
 internal fun SampleCompactChipScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            CompactChip(
-                label = "Primary label",
-                onClick = { },
-            )
-        }
-        item {
-            CompactChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icons.Filled.Add.asPaintable(),
-            )
-        }
-        item {
-            CompactChip(
-                onClick = { },
-                icon = Icons.Filled.Add.asPaintable(),
-                contentDescription = "contentDescription",
-            )
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                CompactChip(
+                    label = "Primary label",
+                    onClick = { },
+                )
+            }
+            item {
+                CompactChip(
+                    label = "Primary label",
+                    onClick = { },
+                    icon = Icons.Filled.Add.asPaintable(),
+                )
+            }
+            item {
+                CompactChip(
+                    onClick = { },
+                    icon = Icons.Filled.Add.asPaintable(),
+                    contentDescription = "contentDescription",
+                )
+            }
         }
     }
 }

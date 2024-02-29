@@ -19,84 +19,91 @@ package com.google.android.horologist.materialcomponents
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.SplitToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
 
 @Composable
 internal fun SampleSplitToggleChipScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-            )
-        }
-        item {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Radio,
-            )
-        }
-        item {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Checkbox,
-            )
-        }
-        item {
-            SplitToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = "Primary label",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-            )
-        }
-        item {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
-            )
-        }
-        item {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false,
-            )
-        }
-        item {
-            SplitToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = "Primary label",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false,
-            )
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                SplitToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Switch,
+                )
+            }
+            item {
+                SplitToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Radio,
+                )
+            }
+            item {
+                SplitToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Checkbox,
+                )
+            }
+            item {
+                SplitToggleChip(
+                    checked = false,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Switch,
+                )
+            }
+            item {
+                SplitToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    secondaryLabel = "Secondary label",
+                )
+            }
+            item {
+                SplitToggleChip(
+                    checked = true,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    enabled = false,
+                )
+            }
+            item {
+                SplitToggleChip(
+                    checked = false,
+                    onCheckedChanged = { },
+                    label = "Primary label",
+                    onClick = { },
+                    toggleControl = ToggleChipToggleControl.Switch,
+                    enabled = false,
+                )
+            }
         }
     }
 }

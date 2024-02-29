@@ -25,53 +25,60 @@ import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 
 @Composable
 fun DataLayerNodesScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
     viewModel: DataLayerNodesViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            ListHeader {
-                Text("Nodes")
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                ListHeader {
+                    Text("Nodes")
+                }
             }
-        }
-        items(state.nodes) {
-            Chip(
-                label = it.displayName,
-                onClick = { },
-                secondaryLabel = "${it.id} ${if (it.isNearby) "(NEAR)" else ""}",
-            )
-        }
-        item {
-            ListHeader {
-                Text("Data")
-            }
-        }
-        item {
-            val thisData = state.thisData
-            if (thisData != null) {
+            items(state.nodes) {
                 Chip(
-                    label = "This Value: ${thisData.value} (${thisData.name})",
-                    onClick = {
-                        viewModel.increment()
-                    },
+                    label = it.displayName,
+                    onClick = { },
+                    secondaryLabel = "${it.id} ${if (it.isNearby) "(NEAR)" else ""}",
                 )
-            } else {
-                Text("This Value: None")
             }
-        }
-        items(state.protoMap.entries.toList()) { (id, data) ->
-            Text("$id Value: ${data.value} (${data.name})")
+            item {
+                ListHeader {
+                    Text("Data")
+                }
+            }
+            item {
+                val thisData = state.thisData
+                if (thisData != null) {
+                    Chip(
+                        label = "This Value: ${thisData.value} (${thisData.name})",
+                        onClick = {
+                            viewModel.increment()
+                        },
+                    )
+                } else {
+                    Text("This Value: None")
+                }
+            }
+            items(state.protoMap.entries.toList()) { (id, data) ->
+                Text("$id Value: ${data.value} (${data.name})")
+            }
         }
     }
 }

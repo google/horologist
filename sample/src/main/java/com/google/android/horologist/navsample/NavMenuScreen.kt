@@ -22,54 +22,61 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.sample.SampleChip
 
 @Composable
 fun NavMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        modifier = modifier,
-        columnState = columnState,
-    ) {
-        item {
-            SampleChip(
-                onClick = { navigateToRoute(NavScreen.ScalingLazyColumn.route) },
-                label = "ScalingLazyColumn",
-            )
-        }
-        item {
-            SampleChip(
-                onClick = { navigateToRoute(NavScreen.Column.route) },
-                label = "Column",
-            )
-        }
-        item {
-            SampleChip(
-                onClick = { navigateToRoute(NavScreen.Dialog.route) },
-                label = "Dialog",
-            )
-        }
-        item {
-            SampleChip(
-                onClick = { navigateToRoute(NavScreen.Pager.route) },
-                label = "Pager",
-            )
-        }
-        item {
-            SampleChip(
-                onClick = { navigateToRoute(NavScreen.Volume.route) },
-                label = "Volume (custom scrolling)",
-            )
-        }
-        item {
-            SampleChip(
-                onClick = { navigateToRoute(NavScreen.Snackbar.route) },
-                label = "Snackbar",
-            )
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            modifier = modifier,
+            columnState = columnState,
+        ) {
+            item {
+                SampleChip(
+                    onClick = { navigateToRoute(NavScreen.ScalingLazyColumn.route) },
+                    label = "ScalingLazyColumn",
+                )
+            }
+            item {
+                SampleChip(
+                    onClick = { navigateToRoute(NavScreen.Column.route) },
+                    label = "Column",
+                )
+            }
+            item {
+                SampleChip(
+                    onClick = { navigateToRoute(NavScreen.Dialog.route) },
+                    label = "Dialog",
+                )
+            }
+            item {
+                SampleChip(
+                    onClick = { navigateToRoute(NavScreen.Pager.route) },
+                    label = "Pager",
+                )
+            }
+            item {
+                SampleChip(
+                    onClick = { navigateToRoute(NavScreen.Volume.route) },
+                    label = "Volume (custom scrolling)",
+                )
+            }
+            item {
+                SampleChip(
+                    onClick = { navigateToRoute(NavScreen.Snackbar.route) },
+                    label = "Snackbar",
+                )
+            }
         }
     }
 }

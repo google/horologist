@@ -28,7 +28,8 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
@@ -39,42 +40,47 @@ import com.google.android.horologist.sample.Screen
 fun SectionedListMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    columnState: ScalingLazyColumnState,
 ) {
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        section(
-            listOf(
-                Pair(
-                    R.string.sectionedlist_stateless_sections_menu,
-                    Screen.SectionedListStatelessScreen.route,
-                ),
-                Pair(
-                    R.string.sectionedlist_stateful_sections_menu,
-                    Screen.SectionedListStatefulScreen.route,
-                ),
-                Pair(
-                    R.string.sectionedlist_expandable_sections_menu,
-                    Screen.SectionedListExpandableScreen.route,
-                ),
-            ),
-        ) {
-            header {
-                Title(
-                    stringResource(R.string.sectionedlist_samples_title),
-                    Modifier.padding(vertical = 8.dp),
-                )
-            }
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
 
-            loaded { item ->
-                Chip(
-                    label = stringResource(id = item.first),
-                    icon = Icons.AutoMirrored.Default.FormatListBulleted.asPaintable(),
-                    onClick = { navigateToRoute(item.second) },
-                    colors = ChipDefaults.primaryChipColors(),
-                )
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(
+            columnState = columnState,
+            modifier = modifier.fillMaxSize(),
+        ) {
+            section(
+                listOf(
+                    Pair(
+                        R.string.sectionedlist_stateless_sections_menu,
+                        Screen.SectionedListStatelessScreen.route,
+                    ),
+                    Pair(
+                        R.string.sectionedlist_stateful_sections_menu,
+                        Screen.SectionedListStatefulScreen.route,
+                    ),
+                    Pair(
+                        R.string.sectionedlist_expandable_sections_menu,
+                        Screen.SectionedListExpandableScreen.route,
+                    ),
+                ),
+            ) {
+                header {
+                    Title(
+                        stringResource(R.string.sectionedlist_samples_title),
+                        Modifier.padding(vertical = 8.dp),
+                    )
+                }
+
+                loaded { item ->
+                    Chip(
+                        label = stringResource(id = item.first),
+                        icon = Icons.AutoMirrored.Default.FormatListBulleted.asPaintable(),
+                        onClick = { navigateToRoute(item.second) },
+                        colors = ChipDefaults.primaryChipColors(),
+                    )
+                }
             }
         }
     }
@@ -85,6 +91,5 @@ fun SectionedListMenuScreen(
 fun Preview() {
     SectionedListMenuScreen(
         navigateToRoute = {},
-        columnState = ScalingLazyColumnDefaults.responsive().create(),
     )
 }

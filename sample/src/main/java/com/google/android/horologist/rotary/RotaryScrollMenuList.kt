@@ -53,7 +53,8 @@ import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.sample.R
@@ -64,71 +65,76 @@ import kotlin.random.Random
 fun RotaryMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    columnState: ScalingLazyColumnState,
 ) {
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        section(
-            listOf(
-                Pair(
-                    R.string.rotarymenu_scroll_list,
-                    Screen.RotaryScrollScreen.route,
-                ),
-                Pair(
-                    R.string.rotarymenu_scroll_list_reversed,
-                    Screen.RotaryScrollReversedScreen.route,
-                ),
-                Pair(
-                    R.string.rotarymenu_scroll_with_fling,
-                    Screen.RotaryScrollWithFlingScreen.route,
-                ),
-            ),
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(
+            columnState = columnState,
+            modifier = modifier.fillMaxSize(),
         ) {
-            header {
-                Title(
-                    stringResource(R.string.rotarymenu_scroll),
-                    Modifier.padding(vertical = 8.dp),
-                )
-            }
-
-            loaded { item ->
-                Chip(
-                    label = {
-                        Text(text = stringResource(item.first))
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { navigateToRoute(item.second) },
-                    colors = ChipDefaults.primaryChipColors(),
-                )
-            }
-        }
-
-        section(
-            listOf(
-                Pair(
-                    R.string.rotarymenu_snap_list,
-                    Screen.RotarySnapListScreen.route,
+            section(
+                listOf(
+                    Pair(
+                        R.string.rotarymenu_scroll_list,
+                        Screen.RotaryScrollScreen.route,
+                    ),
+                    Pair(
+                        R.string.rotarymenu_scroll_list_reversed,
+                        Screen.RotaryScrollReversedScreen.route,
+                    ),
+                    Pair(
+                        R.string.rotarymenu_scroll_with_fling,
+                        Screen.RotaryScrollWithFlingScreen.route,
+                    ),
                 ),
-            ),
-        ) {
-            header {
-                Title(
-                    text = stringResource(R.string.rotarymenu_snap),
-                    modifier = Modifier.padding(vertical = 8.dp),
-                )
+            ) {
+                header {
+                    Title(
+                        stringResource(R.string.rotarymenu_scroll),
+                        Modifier.padding(vertical = 8.dp),
+                    )
+                }
+
+                loaded { item ->
+                    Chip(
+                        label = {
+                            Text(text = stringResource(item.first))
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = { navigateToRoute(item.second) },
+                        colors = ChipDefaults.primaryChipColors(),
+                    )
+                }
             }
 
-            loaded { item ->
-                Chip(
-                    label = {
-                        Text(text = stringResource(item.first))
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { navigateToRoute(item.second) },
-                    colors = ChipDefaults.primaryChipColors(),
-                )
+            section(
+                listOf(
+                    Pair(
+                        R.string.rotarymenu_snap_list,
+                        Screen.RotarySnapListScreen.route,
+                    ),
+                ),
+            ) {
+                header {
+                    Title(
+                        text = stringResource(R.string.rotarymenu_snap),
+                        modifier = Modifier.padding(vertical = 8.dp),
+                    )
+                }
+
+                loaded { item ->
+                    Chip(
+                        label = {
+                            Text(text = stringResource(item.first))
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = { navigateToRoute(item.second) },
+                        colors = ChipDefaults.primaryChipColors(),
+                    )
+                }
             }
         }
     }
@@ -139,7 +145,7 @@ fun RotaryScrollScreen(
     reverseDirection: Boolean = false,
 ) {
     val columnState =
-        rememberColumnState(ScalingLazyColumnDefaults.responsive(reverseLayout = reverseDirection))
+        rememberResponsiveColumnState(reverseLayout = reverseDirection)
     Scaffold(timeText = {
         if (!reverseDirection) {
             ResponsiveTimeText(modifier = Modifier.scrollAway(columnState))
@@ -165,11 +171,9 @@ fun RotaryScrollWithFlingOrSnapScreen(
     val randomHeights: List<Int> = remember { (0..300).map { Random.nextInt(1, 10) } }
     val tenSmallOneBig: List<Int> = remember { (0..4).map { 1 }.plus(20).plus((0..4).map { 1 }) }
     if (showList) {
-        val columnState = rememberColumnState(
-            ScalingLazyColumnDefaults.responsive(
-                rotaryMode = rotaryMode,
-                hapticsEnabled = hapticsEnabled,
-            ),
+        val columnState = rememberResponsiveColumnState(
+            rotaryMode = rotaryMode,
+            hapticsEnabled = hapticsEnabled,
         )
 
         Scaffold(timeText = { ResponsiveTimeText(modifier = Modifier.scrollAway(columnState)) }) {
@@ -190,11 +194,9 @@ fun RotaryScrollWithFlingOrSnapScreen(
             }
         }
     } else {
-        val columnState = rememberColumnState(
-            ScalingLazyColumnDefaults.responsive(
-                rotaryMode = rotaryMode,
-                hapticsEnabled = hapticsEnabled,
-            ),
+        val columnState = rememberResponsiveColumnState(
+            rotaryMode = rotaryMode,
+            hapticsEnabled = hapticsEnabled,
         )
         Scaffold(timeText = { ResponsiveTimeText(modifier = Modifier.scrollAway(columnState)) }) {
             ScrollPreferences(

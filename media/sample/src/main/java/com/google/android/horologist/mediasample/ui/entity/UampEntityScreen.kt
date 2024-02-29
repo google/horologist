@@ -40,7 +40,9 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.AlertDialog
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
@@ -50,7 +52,6 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampEntityScreen(
-    columnState: ScalingLazyColumnState,
     playlistName: String,
     uampEntityScreenViewModel: UampEntityScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
@@ -67,38 +68,44 @@ fun UampEntityScreen(
     var mediaIdToDelete: String? by rememberSaveable { mutableStateOf(null) }
     var mediaTitleToDelete: String by rememberSaveable { mutableStateOf("media title") }
 
-    PlaylistDownloadScreen(
-        playlistName = playlistName,
-        playlistDownloadScreenState = uiState,
-        onDownloadButtonClick = {
-            uampEntityScreenViewModel.download()
-        },
-        onCancelDownloadButtonClick = {
-            showCancelDownloadsDialog = true
-        },
-        onDownloadItemClick = {
-            uampEntityScreenViewModel.play(it.id)
-            onDownloadItemClick(it)
-        },
-        onDownloadItemInProgressClick = {
-            mediaIdToDelete = it.id
-            it.title?.let { title -> mediaTitleToDelete = title }
-            showRemoveSingleMediaDownloadDialog = true
-        },
-        onShuffleButtonClick = {
-            uampEntityScreenViewModel.shufflePlay()
-            onShuffleClick(it)
-        },
-        onPlayButtonClick = {
-            uampEntityScreenViewModel.play()
-            onPlayClick(it)
-        },
-        columnState = columnState,
-        onDownloadCompletedButtonClick = {
-            showRemoveDownloadsDialog = true
-        },
-        onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.entity_download_cancel_action_label),
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
     )
+
+    ScreenScaffold(scrollState = columnState) {
+        PlaylistDownloadScreen(
+            playlistName = playlistName,
+            playlistDownloadScreenState = uiState,
+            onDownloadButtonClick = {
+                uampEntityScreenViewModel.download()
+            },
+            onCancelDownloadButtonClick = {
+                showCancelDownloadsDialog = true
+            },
+            onDownloadItemClick = {
+                uampEntityScreenViewModel.play(it.id)
+                onDownloadItemClick(it)
+            },
+            onDownloadItemInProgressClick = {
+                mediaIdToDelete = it.id
+                it.title?.let { title -> mediaTitleToDelete = title }
+                showRemoveSingleMediaDownloadDialog = true
+            },
+            onShuffleButtonClick = {
+                uampEntityScreenViewModel.shufflePlay()
+                onShuffleClick(it)
+            },
+            onPlayButtonClick = {
+                uampEntityScreenViewModel.play()
+                onPlayClick(it)
+            },
+            columnState = columnState,
+            onDownloadCompletedButtonClick = {
+                showRemoveDownloadsDialog = true
+            },
+            onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.entity_download_cancel_action_label),
+        )
+    }
 
     // b/243381431 - it should stop listening to uiState emissions while dialog is presented
     if (uiState == PlaylistDownloadScreenState.Failed) {

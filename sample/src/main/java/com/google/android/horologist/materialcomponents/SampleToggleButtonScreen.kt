@@ -22,7 +22,9 @@ import androidx.compose.material.icons.filled.AirplanemodeInactive
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.ToggleButton
 import com.google.android.horologist.compose.material.ToggleButtonDefaults
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
@@ -30,64 +32,69 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 @Composable
 internal fun SampleToggleButtonScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            ToggleButton(
-                text = "Monday",
-                onCheckedChanged = {},
-            )
-        }
-        item {
-            ToggleButton(
-                text = "Monday",
-                onCheckedChanged = {},
-                checked = false,
-            )
-        }
-        item {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                smallSize = true,
-            )
-        }
-        item {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                checked = false,
-                smallSize = true,
-            )
-        }
-        item {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true,
-            )
-        }
-        item {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                checked = false,
-                colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true,
-            )
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                ToggleButton(
+                    text = "Monday",
+                    onCheckedChanged = {},
+                )
+            }
+            item {
+                ToggleButton(
+                    text = "Monday",
+                    onCheckedChanged = {},
+                    checked = false,
+                )
+            }
+            item {
+                ToggleButton(
+                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+                    contentDescription = "contentDescription",
+                    onCheckedChanged = {},
+                    smallSize = true,
+                )
+            }
+            item {
+                ToggleButton(
+                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+                    contentDescription = "contentDescription",
+                    onCheckedChanged = {},
+                    checked = false,
+                    smallSize = true,
+                )
+            }
+            item {
+                ToggleButton(
+                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+                    contentDescription = "contentDescription",
+                    onCheckedChanged = {},
+                    colors = ToggleButtonDefaults.iconOnlyColors(),
+                    smallSize = true,
+                )
+            }
+            item {
+                ToggleButton(
+                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+                    contentDescription = "contentDescription",
+                    onCheckedChanged = {},
+                    checked = false,
+                    colors = ToggleButtonDefaults.iconOnlyColors(),
+                    smallSize = true,
+                )
+            }
         }
     }
 }

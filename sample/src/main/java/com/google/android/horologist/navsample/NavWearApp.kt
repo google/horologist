@@ -42,7 +42,6 @@ import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.navsample.snackbar.SnackbarViewModel
@@ -79,26 +78,15 @@ fun NavWearApp(
             composable(
                 NavScreen.Menu.route,
             ) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    NavMenuScreen(
-                        navigateToRoute = { route -> navController.navigate(route) },
-                        columnState = columnState,
-                    )
-                }
+                NavMenuScreen(
+                    navigateToRoute = { route -> navController.navigate(route) },
+                )
             }
 
             composable(
                 NavScreen.ScalingLazyColumn.route,
             ) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    BigScalingLazyColumn(
-                        columnState = columnState,
-                    )
-                }
+                BigScalingLazyColumn()
             }
 
             composable(

@@ -49,7 +49,7 @@ public object ScalingLazyColumnDefaults {
      * This is positioned from the top of the screen instead of the
      * center.
      */
-//    @Deprecated("Replaced by rememberResponsiveColumnState")
+    @Deprecated("Replaced by rememberResponsiveColumnState")
     @ExperimentalHorologistApi
     public fun belowTimeText(
         rotaryMode: RotaryMode = RotaryMode.Scroll,
@@ -95,7 +95,7 @@ public object ScalingLazyColumnDefaults {
      * Layout the item [initialCenterIndex] at [initialCenterOffset] from the
      * center of the screen.
      */
-//    @Deprecated("Replaced by rememberResponsiveColumnState")
+    @Deprecated("Replaced by rememberResponsiveColumnState")
     @ExperimentalHorologistApi
     public fun scalingLazyColumnDefaults(
         rotaryMode: RotaryMode = RotaryMode.Scroll,
@@ -154,7 +154,7 @@ public object ScalingLazyColumnDefaults {
      * @param reverseLayout whether to start at the bottom.
      * @param userScrollEnabled whether to allow user to scroll.
      */
-//    @Deprecated("Replaced by rememberResponsiveColumnState")
+    @Deprecated("Replaced by rememberResponsiveColumnState")
     @ExperimentalHorologistApi
     public fun responsive(
         firstItemIsFullWidth: Boolean = true,

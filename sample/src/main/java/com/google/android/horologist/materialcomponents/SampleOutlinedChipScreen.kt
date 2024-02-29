@@ -24,59 +24,66 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.OutlinedChip
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 @Composable
 internal fun SampleOutlinedChipScreen(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
-        item {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icon32dp.asPaintable(),
-                largeIcon = true,
-            )
-        }
-        item {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
-        item {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icon32dp.asPaintable(),
-                largeIcon = true,
-            )
-        }
-        item {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-                enabled = false,
-            )
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                OutlinedChip(
+                    label = "Primary label",
+                    onClick = { },
+                    icon = Icons.Default.Image.asPaintable(),
+                )
+            }
+            item {
+                OutlinedChip(
+                    label = "Primary label",
+                    onClick = { },
+                    icon = Icon32dp.asPaintable(),
+                    largeIcon = true,
+                )
+            }
+            item {
+                OutlinedChip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image.asPaintable(),
+                )
+            }
+            item {
+                OutlinedChip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icon32dp.asPaintable(),
+                    largeIcon = true,
+                )
+            }
+            item {
+                OutlinedChip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = Icons.Default.Image.asPaintable(),
+                    enabled = false,
+                )
+            }
         }
     }
 }

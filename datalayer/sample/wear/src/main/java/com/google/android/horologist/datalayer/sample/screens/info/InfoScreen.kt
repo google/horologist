@@ -27,22 +27,21 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun InfoScreen(
     onDismissClick: () -> Unit,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     infoScreenViewModel: InfoScreenViewModel = hiltViewModel(),
 ) {
     InfoScreen(
         message = infoScreenViewModel.message,
         onDismissClick = onDismissClick,
-        columnState = columnState,
         modifier = modifier,
     )
 }
@@ -51,23 +50,28 @@ fun InfoScreen(
 fun InfoScreen(
     message: String,
     onDismissClick: () -> Unit,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Text(text = message, modifier = Modifier.padding(top = 20.dp))
-        }
-        item {
-            Button(
-                imageVector = Icons.Default.Done,
-                contentDescription = stringResource(id = R.string.close_button_content_description),
-                onClick = onDismissClick,
-                modifier = Modifier.padding(top = 10.dp),
-            )
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                Text(text = message, modifier = Modifier.padding(top = 20.dp))
+            }
+            item {
+                Button(
+                    imageVector = Icons.Default.Done,
+                    contentDescription = stringResource(id = R.string.close_button_content_description),
+                    onClick = onDismissClick,
+                    modifier = Modifier.padding(top = 10.dp),
+                )
+            }
         }
     }
 }
@@ -80,6 +84,5 @@ fun InfoScreenPreview() {
             "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud " +
             "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
         onDismissClick = { },
-        columnState = belowTimeTextPreview(),
     )
 }

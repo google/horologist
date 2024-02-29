@@ -27,9 +27,9 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
 
@@ -37,14 +37,12 @@ import com.google.android.horologist.compose.material.ToggleChipToggleControl
 fun SettingsScreen(
     modifier: Modifier = Modifier,
     viewModel: SettingsViewModel = hiltViewModel(),
-    columnState: ScalingLazyColumnState = rememberColumnState(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     SettingsScreen(
         uiState = uiState,
         modifier = modifier,
-        columnState = columnState,
         selectModel = viewModel::selectModel,
     )
 }
@@ -53,10 +51,13 @@ fun SettingsScreen(
 private fun SettingsScreen(
     uiState: SettingsUiState,
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState = rememberColumnState(),
     selectModel: (ModelInstanceUiModel) -> Unit,
 ) {
-    ScreenScaffold(scrollState = columnState, modifier = modifier) {
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
+    ScreenScaffold(modifier = modifier, scrollState = columnState) {
         ScalingLazyColumn(columnState = columnState) {
             if (uiState.models == null) {
                 items(3) {

@@ -51,9 +51,9 @@ import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 import com.google.android.horologist.ai.ui.screens.PromptScreen
 import com.google.android.horologist.ai.ui.screens.PromptUiState
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 import com.mikepenz.markdown.compose.LocalMarkdownColors
 import com.mikepenz.markdown.compose.LocalMarkdownTypography
@@ -65,7 +65,6 @@ import com.mikepenz.markdown.model.markdownTypography
 fun SamplePromptScreen(
     modifier: Modifier = Modifier,
     viewModel: SamplePromptViewModel = hiltViewModel(),
-    columnState: ScalingLazyColumnState = rememberColumnState(),
     onSettingsClick: (() -> Unit)? = null,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -98,7 +97,6 @@ fun SamplePromptScreen(
     SamplePromptScreen(
         uiState = uiState,
         modifier = modifier,
-        columnState = columnState,
         onSettingsClick = onSettingsClick,
     ) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
@@ -117,10 +115,13 @@ fun SamplePromptScreen(
 private fun SamplePromptScreen(
     uiState: PromptUiState,
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState = rememberColumnState(),
     onSettingsClick: (() -> Unit)? = null,
     promptEntry: @Composable () -> Unit,
 ) {
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(),
+    )
+
     ScreenScaffold(scrollState = columnState) {
         CompositionLocalProvider(
             LocalMarkdownColors provides SampleColors(),

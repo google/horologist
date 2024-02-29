@@ -176,3 +176,14 @@ fun InstallAppCustomPromptDemoScreenPreview() {
         onInstallPromptCancel = { },
     )
 }
+
+@Preview(showBackground = true)
+@Composable
+fun InstallAppCustomPromptDemoScreenPreviewWithPrompt() {
+    InstallAppCustomPromptDemoScreen(
+        state = InstallAppCustomPromptDemoScreenState.WatchFound,
+        onRunDemoClick = { },
+        onInstallPromptInstallClick = { },
+        onInstallPromptCancel = { },
+    )
+}

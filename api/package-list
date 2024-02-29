@@ -65,9 +65,10 @@ com.google.android.horologist.datalayer.grpc.server
 module:datalayer-phone
 com.google.android.horologist.datalayer.phone
 module:datalayer-phone-ui
-com.google.android.horologist.datalayer.phone.ui
 com.google.android.horologist.datalayer.phone.ui.play
 com.google.android.horologist.datalayer.phone.ui.prompt.installapp
+com.google.android.horologist.datalayer.phone.ui.prompt.reengage
+com.google.android.horologist.datalayer.phone.ui.prompt.signin
 module:datalayer-watch
 com.google.android.horologist.datalayer.watch
 module:health-composables

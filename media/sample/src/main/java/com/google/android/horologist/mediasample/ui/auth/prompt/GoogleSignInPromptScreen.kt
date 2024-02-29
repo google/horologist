@@ -56,7 +56,6 @@ fun GoogleSignInPromptScreen(
             onAlreadySignedIn = {
                 showAlreadySignedInDialog = true
             },
-            columnState = columnState,
             modifier = modifier,
             viewModel = viewModel,
         ) {

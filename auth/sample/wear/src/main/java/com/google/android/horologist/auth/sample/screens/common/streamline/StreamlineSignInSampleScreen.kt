@@ -60,7 +60,6 @@ fun StreamlineSignInSampleScreen(
         StreamlineSignInDefaultScreen(
             onSignedInConfirmationDialogDismissOrTimeout = { navController.popBackStack() },
             onNoAccountsAvailable = { showNoAccountsAvailableDialog = true },
-            columnState = columnState,
             viewModel = viewModel,
         ) {
             Box(

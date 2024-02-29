@@ -26,7 +26,6 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
@@ -46,7 +45,6 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
             ) {
                 testContent()
             }
@@ -62,7 +60,6 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
             ) {
                 testContent()
             }
@@ -78,7 +75,6 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
                 loadingContent = {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text("Loading...")
@@ -99,7 +95,6 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
             ) {
                 testContent()
             }
@@ -115,7 +110,6 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
             ) {
                 testContent()
             }
@@ -136,7 +130,6 @@ class SignInPromptScreenTest : ScreenshotBaseTest(
                     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
             ) {
                 testContent()
             }

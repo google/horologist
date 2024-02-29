@@ -26,7 +26,7 @@ import com.google.android.horologist.composables.SectionedListTest.Companion.Dow
 import com.google.android.horologist.composables.SectionedListTest.Companion.DownloadsLoading
 import com.google.android.horologist.composables.SectionedListTest.Companion.SectionedListPreview
 import com.google.android.horologist.composables.SectionedListTest.Companion.downloads
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
 import org.junit.Test
@@ -47,7 +47,7 @@ class SectionedListHeaderFooterTest(
     @Test
     fun test() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {

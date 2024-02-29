@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.screensizes
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +32,7 @@ import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.tools.Device
@@ -81,7 +84,7 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
         @Test
         fun responsive_end() {
             runTest {
-                val columnState = ScalingLazyColumnDefaults.responsive().create()
+                val columnState = rememberResponsiveColumnState()
 
                 SampleMenu(columnState = columnState)
 
@@ -123,7 +126,7 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
         @Test
         fun responsive_chips() {
             runTest {
-                val columnState = ScalingLazyColumnDefaults.responsive().create()
+                val columnState = rememberResponsiveColumnState()
 
                 SampleChipMenu(columnState = columnState)
             }
@@ -152,7 +155,7 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
         @Test
         fun responsive_chips_end() {
             runTest {
-                val columnState = ScalingLazyColumnDefaults.responsive().create()
+                val columnState = rememberResponsiveColumnState()
 
                 SampleChipMenu(columnState = columnState)
 

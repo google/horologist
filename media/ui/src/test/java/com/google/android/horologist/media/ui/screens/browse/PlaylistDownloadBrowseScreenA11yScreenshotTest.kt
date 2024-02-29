@@ -17,7 +17,7 @@
 package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.compose.runtime.LaunchedEffect
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -36,7 +36,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest(
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState()
 
             PlayerLibraryPreview(columnState = columnState) {
                 PlaylistDownloadBrowseScreen(
@@ -57,7 +57,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest(
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState()
 
             LaunchedEffect(Unit) {
                 columnState.state.scrollToItem(4, 0)

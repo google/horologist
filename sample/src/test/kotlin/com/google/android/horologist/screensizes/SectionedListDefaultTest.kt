@@ -17,7 +17,6 @@
 package com.google.android.horologist.screensizes
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.sectionedlist.SectionedListMenuScreen
 
@@ -27,7 +26,6 @@ class SectionedListDefaultTest(device: Device) : ScreenSizeTest(device = device,
     override fun Content() {
         SectionedListMenuScreen(
             navigateToRoute = {},
-            columnState = ScalingLazyColumnDefaults.scalingLazyColumnDefaults().create(),
         )
     }
 }

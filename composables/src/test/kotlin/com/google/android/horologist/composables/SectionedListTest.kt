@@ -42,8 +42,8 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.screenshots.FixedTimeSource
@@ -60,7 +60,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun loadingSection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -75,7 +75,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun loadedSection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -90,7 +90,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun loadedSection_secondPage() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState()
 
             LaunchedEffect(Unit) {
                 columnState.state.scrollToItem(4, 0)
@@ -109,7 +109,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun failedSection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -124,7 +124,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun failedSection_secondPage() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState()
 
             LaunchedEffect(Unit) {
                 columnState.state.scrollToItem(4, 0)
@@ -143,7 +143,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun emptySection() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -158,7 +158,7 @@ class SectionedListTest : ScreenshotBaseTest(
     @Test
     fun emptyContentForStates() {
         screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState()
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {

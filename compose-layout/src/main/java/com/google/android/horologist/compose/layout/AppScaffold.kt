@@ -122,18 +122,22 @@ fun AppScaffold(
                     densityDpi = 320
                     // Set the screen to round.
                     screenLayout = (screenLayout and Configuration.SCREENLAYOUT_ROUND_MASK.inv()) or
-                        (if (roundScreen) Configuration.SCREENLAYOUT_ROUND_YES else
-                            Configuration.SCREENLAYOUT_ROUND_NO)
-
+                        (
+                            if (roundScreen) {
+                                Configuration.SCREENLAYOUT_ROUND_YES
+                            } else {
+                                Configuration.SCREENLAYOUT_ROUND_NO
+                            }
+                            )
                 }
             }
         }
         val currentDensity = LocalDensity.current
-        val density = object: Density {
+        val density = object : Density {
             override val density: Float get() = currentDensity.density * zooms[zoomIx.value]
             override val fontScale: Float get() = currentDensity.fontScale
 
-            override fun equals(other: Any?) : Boolean {
+            override fun equals(other: Any?): Boolean {
                 if (other !is Density) return false
                 return density == other.density && fontScale == other.fontScale
             }
@@ -145,11 +149,11 @@ fun AppScaffold(
             Modifier
                 .background(Color.DarkGray)
                 .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
             CompositionLocalProvider(
                 LocalConfiguration provides config,
-                LocalDensity provides density
+                LocalDensity provides density,
             ) {
                 ToggleRow("Zoom", zooms.map { it.toString() }.toTypedArray(), zoomIx, 60.dp)
                 val shape = if (roundScreen) CircleShape else RoundedCornerShape(0)
@@ -159,18 +163,21 @@ fun AppScaffold(
                         .clip(shape)
                         .size(screenSize.dp)
                         .background(Color.Black),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     BaseAppScaffold(modifier, timeText, content)
                 }
             }
-            ToggleRow("Screen",
+            ToggleRow(
+                "Screen",
                 screenSizes.map { it.toString() }.toTypedArray(),
-                screenSizeIx, 60.dp)
-            Row (horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                screenSizeIx,
+                60.dp,
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 ToggleButton(
                     checked = roundScreen,
-                    onCheckedChange = { roundScreen = !roundScreen }
+                    onCheckedChange = { roundScreen = !roundScreen },
                 ) {
                     Text("Round")
                 }
@@ -185,7 +192,7 @@ fun ToggleRow(
     options: Array<String>,
     selected: MutableIntState,
     optionWidth: Dp,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val heightDp = 40.dp
     val heightPx = with(LocalDensity.current) { heightDp.toPx() }
@@ -193,30 +200,40 @@ fun ToggleRow(
         Text(title, color = Color(0xFF757179))
         Spacer(Modifier.width(20.dp))
         options.forEachIndexed { ix, text ->
-            val shape = if (ix == 0) RoundedCornerShape(
-                heightPx / 2, 0f, 0f, heightPx / 2)
-            else if (ix == options.lastIndex) RoundedCornerShape(
-                0f,
-                heightPx / 2,
-                heightPx / 2,
-                0f
-            )
-            else RectangleShape
+            val shape = if (ix == 0) {
+                RoundedCornerShape(
+                    heightPx / 2,
+                    0f,
+                    0f,
+                    heightPx / 2,
+                )
+            } else if (ix == options.lastIndex) {
+                RoundedCornerShape(
+                    0f,
+                    heightPx / 2,
+                    heightPx / 2,
+                    0f,
+                )
+            } else {
+                RectangleShape
+            }
 
             Box(
                 Modifier
                     .width(optionWidth)
                     .height(heightDp)
                     .border(
-                        1.dp, Color(0xFF75717A), shape = shape
+                        1.dp,
+                        Color(0xFF75717A),
+                        shape = shape,
                     )
                     .clip(shape)
                     .clickable { selected.value = ix }
                     .background(
                         if (ix == selected.value) Color(0xFF4A4458) else Color(0xFF1B1B20),
-                        shape = shape
+                        shape = shape,
                     ),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) { Text(text, color = Color(0xFFEEEEFF)) }
         }
     }

@@ -65,7 +65,6 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
-import kotlin.math.max
 
 /**
  * Full screen date picker with day, month, year.
@@ -116,10 +115,11 @@ public fun DatePicker(
     val textStyle =
         with(LocalDensity.current) {
             fontScaleIndependent(
-            if (breakpoint)
-                MaterialTheme.typography.display2
-            else
-                MaterialTheme.typography.display3
+                if (breakpoint) {
+                    MaterialTheme.typography.display2
+                } else {
+                    MaterialTheme.typography.display3
+                },
             )
         }
 
@@ -182,14 +182,17 @@ public fun DatePicker(
 
     val measurer = rememberTextMeasurer()
     val density = LocalDensity.current
-    val (digitWidth, monthWidth) = remember (density.density,
-        LocalConfiguration.current.screenWidthDp
+    val (digitWidth, monthWidth) = remember(
+        density.density,
+        LocalConfiguration.current.screenWidthDp,
     ) {
-        val mm = measurer.measure("0123456789\n" + shortMonthNames.joinToString("\n"),
+        val mm = measurer.measure(
+            "0123456789\n" + shortMonthNames.joinToString("\n"),
             style = textStyle,
-            density = density)
+            density = density,
+        )
 
-        val digitWidth = (0 .. 9).maxOf { mm.getBoundingBox(it).width }
+        val digitWidth = (0..9).maxOf { mm.getBoundingBox(it).width }
         val monthWidth = (1..12).maxOf { mm.getLineRight(it) - mm.getLineLeft(it) }
         digitWidth to monthWidth
     }

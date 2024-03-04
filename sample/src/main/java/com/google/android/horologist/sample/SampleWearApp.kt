@@ -16,35 +16,17 @@
 
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.wear.compose.foundation.rememberSwipeToDismissBoxState
-import androidx.wear.compose.material.LocalTextStyle
-import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
@@ -56,7 +38,6 @@ import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.ToggleRow
 import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.materialcomponents.SampleAlertDialog
 import com.google.android.horologist.materialcomponents.SampleButtonScreen

@@ -68,7 +68,12 @@ public fun ResponsiveDialogContent(
     okButtonContentDescription: String = stringResource(R.string.ok),
     cancelButtonContentDescription: String = stringResource(R.string.cancel),
     state: ScalingLazyColumnState =
-        rememberColumnState(responsive(firstItemIsFullWidth = icon == null)),
+        rememberColumnState(
+            responsive(
+                firstItemIsFullWidth = icon == null,
+                additionalPaddingAtBottom = 0.dp,
+            ),
+        ),
     showPositionIndicator: Boolean = true,
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {

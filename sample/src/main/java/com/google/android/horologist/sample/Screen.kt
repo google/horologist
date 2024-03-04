@@ -19,7 +19,6 @@ package com.google.android.horologist.sample
 sealed class Screen(
     val route: String,
 ) {
-    object Dummy : Screen("Dummy")
     object Menu : Screen("menu")
     object FillMaxRectangle : Screen("fmr")
     object ScrollAway : Screen("scrollAway")

@@ -53,15 +53,6 @@ fun MenuScreen(
             }
         }
         item {
-            SampleChip(
-                onClick = { navigateToRoute(Screen.Dummy.route) },
-                label = "Dummy",
-                content = {
-                    Text(text = "Dummy", fontSize = 6f.sp)
-                },
-            )
-        }
-        item {
             NetworkChip { navigateToRoute(Screen.Network.route) }
         }
         item {

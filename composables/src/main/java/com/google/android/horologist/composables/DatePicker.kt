@@ -183,34 +183,16 @@ public fun DatePicker(
     val measurer = rememberTextMeasurer()
     val density = LocalDensity.current
     val (digitWidth, monthWidth) = remember (density.density,
-        LocalConfiguration.current.screenWidthDp // temporary hack.
+        LocalConfiguration.current.screenWidthDp
     ) {
-        println("START")
-        val t0 = System.currentTimeMillis()
         val mm = measurer.measure("0123456789\n" + shortMonthNames.joinToString("\n"),
             style = textStyle,
             density = density)
 
-        /*
-        println("LC: ${mm.lineCount}")
-
-        repeat(10) {
-            println("Digit: ${mm.getBoundingBox(it)}")
-        }
-
-        repeat(mm.lineCount) {
-            println("Line $it] ${mm.getLineLeft(it)} -> ${mm.getLineRight(it)} | ${mm.getLineTop(it)} -> ${mm.getLineBottom(it)}")
-        }
-         */
-
-        (
-        (0 .. 9).maxOf { mm.getBoundingBox(it).width } to
-            (1..12).maxOf { mm.getLineRight(it) - mm.getLineLeft(it) }).also {
-            val t1 = System.currentTimeMillis()
-            println("TOTAL TIME = ${(t1 - t0).toFloat() / 1000f }s")
-        }
+        val digitWidth = (0 .. 9).maxOf { mm.getBoundingBox(it).width }
+        val monthWidth = (1..12).maxOf { mm.getLineRight(it) - mm.getLineLeft(it) }
+        digitWidth to monthWidth
     }
-    println("WIDTH => digit: $digitWidth / month: $monthWidth")
     ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
@@ -240,7 +222,8 @@ public fun DatePicker(
                 )
                 Spacer(Modifier.height(4.dp))
                 val spacerWidth = if (breakpoint) 6.dp else 2.dp
-                val textPadding = 0.dp
+                val textPadding = 6.dp // Update if UX decides a different value should be used.
+
                 // Add spaces on to allow room to grow
                 val dayWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() } + spacerWidth + textPadding
                 val monthWidth = with(LocalDensity.current) { monthWidth.toDp() } + spacerWidth + textPadding

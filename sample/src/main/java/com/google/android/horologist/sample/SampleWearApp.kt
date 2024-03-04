@@ -104,37 +104,6 @@ fun SampleWearApp() {
             navController = navController,
             state = navHostState,
         ) {
-            composable(route = Screen.Dummy.route) {
-                val s = "Some random string."
-                val style = LocalTextStyle.current.copy(fontSize = 20.sp)
-                val measurer = rememberTextMeasurer()
-                val ix = remember { mutableIntStateOf(0) }
-                val f = remember { mutableIntStateOf(0) }
-                val d = LocalDensity.current
-                val box by remember(d) { derivedStateOf {
-                    val b = measurer.measure(s, style, density = d).getBoundingBox(ix.value)
-                    /* d.density / d0.density */
-                    val k =  1f + f.value * 0.1f
-                    Rect(b.left * k, b.top * k, b.right * k, b.bottom * k)
-                } }
-                Column(Modifier.fillMaxSize()) {
-                    Spacer(Modifier.height(50.dp))
-                    Box(
-                        Modifier
-                            .height(100.dp)
-                            .fillMaxWidth()
-                            .drawWithContent {
-                                drawContent()
-                                drawRect(Color.Red, box.topLeft, box.size, style = Stroke(3f))
-                            }) {
-                        Text(s, style = style)
-                    }
-                    ToggleRow("Char" , options = s.indices.map { it.toString() }.toTypedArray(),
-                        selected = ix, optionWidth = 20.dp)
-                    ToggleRow("F" , options = (0..9).map { it.toString() }.toTypedArray(),
-                        selected = f, optionWidth = 20.dp)
-                }
-            }
             composable(
                 route = Screen.Menu.route,
             ) {

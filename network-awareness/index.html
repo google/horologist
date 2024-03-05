@@ -820,48 +820,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../datalayer-phone-ui/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Phone UI
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../datalayer-sample/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Sample
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1178,9 +1136,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#network-access-on-wear-os" class="md-nav__link">
+  <a href="#problem-statement" class="md-nav__link">
     <span class="md-ellipsis">
-      Network access on Wear OS
+      Problem Statement
     </span>
   </a>
   
@@ -1413,9 +1371,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#network-access-on-wear-os" class="md-nav__link">
+  <a href="#problem-statement" class="md-nav__link">
     <span class="md-ellipsis">
-      Network access on Wear OS
+      Problem Statement
     </span>
   </a>
   
@@ -1458,22 +1416,22 @@
 <span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;com.google.android.horologist:horologist-network-awareness:&lt;version&gt;&quot;</span>
 <span class="o">}</span>
 </code></pre></div>
-<h2 id="network-access-on-wear-os">Network access on Wear OS<a class="headerlink" href="#network-access-on-wear-os" title="Permanent link">&para;</a></h2>
-<p>On Wear OS, the choice of network is critical to build efficient applications. See
-<a href="https://developer.android.com/training/wearables/data/network-access">network documentation</a> for more information.</p>
-<p>The default behaviour is:</p>
+<h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
+<p>On Wear choice of network is critical to efficient applications. See
+https://developer.android.com/training/wearables/data/network-access for more information.</p>
+<p>The default behaviour is roughly</p>
 <ul>
-<li>Use paired Bluetooth connection when it is available.</li>
-<li>Use Wi-Fi when available and watch is charging.</li>
+<li>Use Paired Bluetooth connection when it is available.</li>
+<li>Use Wifi when available and Charging.</li>
 <li>Use LTE if no other network is available.</li>
-<li>Wi-Fi and LTE can be requested by the application.</li>
+<li>Wifi and Cell may be requested specifically by the application.</li>
 </ul>
-<p>Without intentional network strategy, following situations may happen:</p>
+<p>This leads to some suboptimal decisions</p>
 <ul>
-<li>Downloading large downloads over the slow and shared bluetooth connection. This may overload the
-  connection and starve other applications. Instead, Wi-Fi should be used to 
-  quickly download and then close the connection. </li>
-<li>Using LTE for requests that could be postponed until watch is connected to Wi-Fi.</li>
+<li>Downloading large downloads over the slow and shared bluetooth connection.  This may overload the
+  connection and starve other applications. Instead, Wifi or Cellular would be better used to 
+  quickly download and then close the connection.</li>
+<li>Using LTE for trivial requests when not really required.</li>
 <li>Using a single current network for all traffic regardless of length or important of the request.</li>
 </ul>
 <h2 id="functionality">Functionality<a class="headerlink" href="#functionality" title="Permanent link">&para;</a></h2>
@@ -1504,17 +1462,15 @@ into OkHttp.</p>
 <span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="n">NetworkStatus?</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>The library also allows logging network usage and provides information about network status, 
-for example for media apps could be used to signal that the watch is offline so only downloaded 
-content is available to play.</p>
-<p>See <a href="../media-sample/">media-sample</a> for an example how Network Awareness is used. Key classes to observe the usage are:</p>
+<p>It allow allows logging network usage and visibility into network status.</p>
+<p>See media-sample for an example. Key classes to observe usage of</p>
 <ul>
-<li><a href="https://github.com/google/horologist/blob/main/media/sample/src/main/java/com/google/android/horologist/mediasample/di/config/UampNetworkingRules.kt">UampNetworkingRules</a> - defining the app specific rules for the network.</li>
-<li><a href="https://github.com/google/horologist/blob/main/media/sample/src/main/java/com/google/android/horologist/mediasample/ui/debug/MediaInfoTimeText.kt">MediaInfoTimeText</a> - An example of displaying network status and usage to the user.</li>
-<li><a href="https://github.com/google/horologist/blob/main/network-awareness/okhttp/src/main/java/com/google/android/horologist/networks/okhttp/NetworkAwareCallFactory.kt">NetworkAwareCallFactory</a> - Used to wrap an OkHttp Call. Factory when passed to a library such as Coil.</li>
-<li><a href="https://github.com/google/horologist/blob/main/network-awareness/okhttp/src/main/java/com/google/android/horologist/networks/okhttp/NetworkSelectingCallFactory.kt">NetworkSelectingCallFactory</a> - Used to apply the networking rules to OkHttp.</li>
-<li><a href="https://github.com/google/horologist/blob/main/network-awareness/core/src/main/java/com/google/android/horologist/networks/status/NetworkRepository.kt">NetworkRepository</a> - The Repository for the current network state.</li>
-<li><a href="https://github.com/google/horologist/blob/main/network-awareness/core/src/main/java/com/google/android/horologist/networks/highbandwidth/HighBandwidthNetworkMediator.kt">HighBandwidthNetworkMediator</a> - a mediator for requesting high bandwidth networks.</li>
+<li>UampNetworkingRules - defining the app specific rules for the network.</li>
+<li>MediaInfoTimeText - An example of displaying network status and usage to the user.</li>
+<li>NetworkAwareCallFactory - Used to wrap an OkHttp Call.Factory when passed to a library such as Coil.</li>
+<li>NetworkSelectingCallFactory - Used to apply the networking rules to OkHttp.</li>
+<li>NetworkRepository - The Repository for the current network state.</li>
+<li>HighBandwidthNetworkMediator - a mediator for requesting high bandwidth networks.</li>
 </ul>
 
 

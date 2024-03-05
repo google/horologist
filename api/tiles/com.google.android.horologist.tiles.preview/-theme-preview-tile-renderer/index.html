@@ -1,0 +1,273 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ThemePreviewTileRenderer</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            horologist
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":tiles:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="tiles::com.google.android.horologist.tiles.preview/ThemePreviewTileRenderer///PointingToDeclaration//871535616">
+  <div class="breadcrumbs"><a href="../../index.html">tiles</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.tiles.preview</a><span class="delimiter">/</span><span class="current">ThemePreviewTileRenderer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Theme</span><wbr><span>Preview</span><wbr><span>Tile</span><wbr><span><span>Renderer</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">ThemePreviewTileRenderer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">thisTheme<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/material/Colors.html">Colors</a></span></span><span class="token punctuation">)</span> : <a href="../../com.google.android.horologist.tiles.render/-single-tile-layout-renderer/index.html">SingleTileLayoutRenderer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt; </span></div><p class="paragraph">Tile that renders components with typical layouts and a theme color.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-97207106%2FConstructors%2F871535616" anchor-label="ThemePreviewTileRenderer" id="-97207106%2FConstructors%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-theme-preview-tile-renderer.html"><span>Theme</span><wbr><span>Preview</span><wbr><span>Tile</span><wbr><span><span>Renderer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-97207106%2FConstructors%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">thisTheme<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/material/Colors.html">Colors</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1809174681%2FProperties%2F871535616" anchor-label="context" id="-1809174681%2FProperties%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.google.android.horologist.tiles.render/-single-tile-layout-renderer/context.html"><span><span>context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1809174681%2FProperties%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../com.google.android.horologist.tiles.render/-single-tile-layout-renderer/context.html">context</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></div><div class="brief "><p class="paragraph">The context to avoid passing in through each render method.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-724774222%2FProperties%2F871535616" anchor-label="debugResourceMode" id="-724774222%2FProperties%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.google.android.horologist.tiles.render/-single-tile-layout-renderer/debug-resource-mode.html"><span>debug</span><wbr><span>Resource</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-724774222%2FProperties%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../com.google.android.horologist.tiles.render/-single-tile-layout-renderer/debug-resource-mode.html">debugResourceMode</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1882539290%2FProperties%2F871535616" anchor-label="freshnessIntervalMillis" id="-1882539290%2FProperties%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.google.android.horologist.tiles.render/-single-tile-layout-renderer/freshness-interval-millis.html"><span>freshness</span><wbr><span>Interval</span><wbr><span><span>Millis</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1882539290%2FProperties%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../../com.google.android.horologist.tiles.render/-single-tile-layout-renderer/freshness-interval-millis.html">freshnessIntervalMillis</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-164910387%2FProperties%2F871535616" anchor-label="theme" id="-164910387%2FProperties%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.google.android.horologist.tiles.render/-single-tile-layout-renderer/theme.html"><span><span>theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-164910387%2FProperties%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../com.google.android.horologist.tiles.render/-single-tile-layout-renderer/theme.html">theme</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/material/Colors.html">Colors</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-2065880479%2FFunctions%2F871535616" anchor-label="createState" id="-2065880479%2FFunctions%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.google.android.horologist.tiles.render/-single-tile-layout-renderer/create-state.html"><span>create</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2065880479%2FFunctions%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../com.google.android.horologist.tiles.render/-single-tile-layout-renderer/create-state.html"><span class="token function">createState</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/StateBuilders.State.html">StateBuilders.State</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-712945790%2FFunctions%2F871535616" anchor-label="createTheme" id="-712945790%2FFunctions%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-theme.html"><span>create</span><wbr><span><span>Theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-712945790%2FFunctions%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="create-theme.html"><span class="token function">createTheme</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/material/Colors.html">Colors</a></div><div class="brief "><p class="paragraph">Create a material theme that should be applied to all components.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-375807618%2FFunctions%2F871535616" anchor-label="getResourcesVersionForTileState" id="-375807618%2FFunctions%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-375807618%2FFunctions%2F871535616"><span>get</span><wbr><span>Resources</span><wbr><span>Version</span><wbr><span>For</span><wbr><span>Tile</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-375807618%2FFunctions%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#-375807618%2FFunctions%2F871535616"><span class="token function">getResourcesVersionForTileState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1838269129%2FFunctions%2F871535616" anchor-label="produceRequestedResources" id="1838269129%2FFunctions%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1838269129%2FFunctions%2F871535616"><span>produce</span><wbr><span>Requested</span><wbr><span><span>Resources</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1838269129%2FFunctions%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#1838269129%2FFunctions%2F871535616"><span class="token function">produceRequestedResources</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">resourceState<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">requestParams<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/RequestBuilders.ResourcesRequest.html">RequestBuilders.ResourcesRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/ResourceBuilders.Resources.html">ResourceBuilders.Resources</a></div><div class="brief "><p class="paragraph">Produce resources for the given request. The implementation should read <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/RequestBuilders.ResourcesRequest.html#getresourceids">androidx.wear.tiles.RequestBuilders.ResourcesRequest.getResourceIds</a> and if not empty only return the requested resources.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="66149475%2FFunctions%2F871535616" anchor-label="produceRequestedResources" id="66149475%2FFunctions%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="produce-requested-resources.html"><span>produce</span><wbr><span>Requested</span><wbr><span><span>Resources</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="66149475%2FFunctions%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/ResourceBuilders.Resources.Builder.html">ResourceBuilders.Resources.Builder</a><span class="token punctuation">.</span><a href="produce-requested-resources.html"><span class="token function">produceRequestedResources</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">resourceState<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">deviceParameters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/DeviceParametersBuilders.DeviceParameters.html">DeviceParametersBuilders.DeviceParameters</a><span class="token punctuation">, </span></span><span class="parameter ">resourceIds<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Add resources directly to the builder.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-195457411%2FFunctions%2F871535616" anchor-label="renderTile" id="-195457411%2FFunctions%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="render-tile.html"><span>render</span><wbr><span><span>Tile</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-195457411%2FFunctions%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="render-tile.html"><span class="token function">renderTile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">deviceParameters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/DeviceParametersBuilders.DeviceParameters.html">DeviceParametersBuilders.DeviceParameters</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/LayoutElementBuilders.LayoutElement.html">LayoutElementBuilders.LayoutElement</a></div><div class="brief "><p class="paragraph">Render a single tile as a LayoutElement, that will be the only item in the timeline.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="641885632%2FFunctions%2F871535616" anchor-label="renderTimeline" id="641885632%2FFunctions%2F871535616" data-filterable-set=":tiles:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":tiles:dokkaHtmlPartial/release" data-filterable-set=":tiles:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#641885632%2FFunctions%2F871535616"><span>render</span><wbr><span><span>Timeline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="641885632%2FFunctions%2F871535616"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#641885632%2FFunctions%2F871535616"><span class="token function">renderTimeline</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">requestParams<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/RequestBuilders.TileRequest.html">RequestBuilders.TileRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/TileBuilders.Tile.html">TileBuilders.Tile</a></div><div class="brief "><p class="paragraph">Produce a Timeline for the given tile request and the given state.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

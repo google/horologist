@@ -192,9 +192,8 @@ public fun DatePicker(
             density = density,
         )
 
-        val digitWidth = (0..9).maxOf { mm.getBoundingBox(it).width }
-        val monthWidth = (1..12).maxOf { mm.getLineRight(it) - mm.getLineLeft(it) }
-        digitWidth to monthWidth
+        ((0..9).maxOf { mm.getBoundingBox(it).width }) to
+            ((1..12).maxOf { mm.getLineRight(it) - mm.getLineLeft(it) })
     }
     ScreenScaffold(
         modifier = modifier

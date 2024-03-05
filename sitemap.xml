@@ -86,6 +86,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://google.github.io/horologist/datalayer-phone-ui/</loc>
+         <lastmod>2024-03-05</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://google.github.io/horologist/datalayer-sample/</loc>
+         <lastmod>2024-03-05</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://google.github.io/horologist/datalayer/</loc>
          <lastmod>2024-03-05</lastmod>
          <changefreq>daily</changefreq>

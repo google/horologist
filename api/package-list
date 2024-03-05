@@ -27,7 +27,6 @@ com.google.android.horologist.tiles.canvas
 com.google.android.horologist.tiles.complication
 com.google.android.horologist.tiles.components
 com.google.android.horologist.tiles.images
-com.google.android.horologist.tiles.preview
 com.google.android.horologist.tiles.render
 module:ai-ui
 com.google.android.horologist.ai.ui.components
@@ -66,9 +65,10 @@ com.google.android.horologist.datalayer.grpc.server
 module:datalayer-phone
 com.google.android.horologist.datalayer.phone
 module:datalayer-phone-ui
-com.google.android.horologist.datalayer.phone.ui
 com.google.android.horologist.datalayer.phone.ui.play
 com.google.android.horologist.datalayer.phone.ui.prompt.installapp
+com.google.android.horologist.datalayer.phone.ui.prompt.reengage
+com.google.android.horologist.datalayer.phone.ui.prompt.signin
 module:datalayer-watch
 com.google.android.horologist.datalayer.watch
 module:health-composables

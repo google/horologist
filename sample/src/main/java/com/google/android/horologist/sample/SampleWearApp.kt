@@ -77,7 +77,6 @@ fun SampleWearApp() {
     val navController = rememberSwipeDismissableNavController()
 
     var time by remember { mutableStateOf(LocalDateTime.now()) }
-    val d0 = LocalDensity.current
 
     AppScaffold {
         SwipeDismissableNavHost(

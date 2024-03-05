@@ -111,11 +111,11 @@ public fun DatePicker(
         rememberPickerGroupState(FocusableElementDatePicker.DAY.index)
     }
 
-    val breakpoint = LocalConfiguration.current.screenWidthDp > 225
+    val isLargeScreen = LocalConfiguration.current.screenWidthDp > 225
     val textStyle =
         with(LocalDensity.current) {
             fontScaleIndependent(
-                if (breakpoint) {
+                if (isLargeScreen) {
                     MaterialTheme.typography.display2
                 } else {
                     MaterialTheme.typography.display3
@@ -224,7 +224,7 @@ public fun DatePicker(
                     maxLines = 1,
                 )
                 Spacer(Modifier.height(4.dp))
-                val spacerWidth = if (breakpoint) 6.dp else 2.dp
+                val spacerWidth = if (isLargeScreen) 6.dp else 2.dp
                 val textPadding = 6.dp // Update if UX decides a different value should be used.
 
                 // Add spaces on to allow room to grow

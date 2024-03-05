@@ -134,7 +134,7 @@ public object ScalingLazyColumnDefaults {
                         anchorType = anchorType,
                         hapticsEnabled = hapticsEnabled,
                         reverseLayout = reverseLayout,
-                        userScrollEnabled = userScrollEnabled
+                        userScrollEnabled = userScrollEnabled,
                     )
                 }
             }

@@ -54,6 +54,7 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
@@ -75,7 +76,7 @@ public fun WearNavScaffold(
     modifier: Modifier = Modifier,
     snackbar: @Composable () -> Unit = {},
     timeText: @Composable (Modifier) -> Unit = {
-        TimeText(
+        ResponsiveTimeText(
             modifier = it,
         )
     },

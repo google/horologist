@@ -50,7 +50,7 @@ internal class ScaffoldState {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .scrollAway {
+                    .scrollAway(true) {
                         scrollState ?: ScrollState(0)
                     },
             ) {

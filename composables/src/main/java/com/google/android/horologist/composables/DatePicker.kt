@@ -182,7 +182,7 @@ public fun DatePicker(
 
     val measurer = rememberTextMeasurer()
     val density = LocalDensity.current
-    val (digitWidth, monthWidth) = remember(
+    val (digitWidth, maxMonthWidth) = remember(
         density.density,
         LocalConfiguration.current.screenWidthDp,
     ) {
@@ -228,7 +228,7 @@ public fun DatePicker(
 
                 // Add spaces on to allow room to grow
                 val dayWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() } + spacerWidth + textPadding
-                val monthWidth = with(LocalDensity.current) { monthWidth.toDp() } + spacerWidth + textPadding
+                val monthWidth = with(LocalDensity.current) { maxMonthWidth.toDp() } + spacerWidth + textPadding
                 val yearWidth = with(LocalDensity.current) { (digitWidth * 4).toDp() } + spacerWidth + textPadding
                 val onPickerSelected =
                     { current: FocusableElementDatePicker, next: FocusableElementDatePicker ->

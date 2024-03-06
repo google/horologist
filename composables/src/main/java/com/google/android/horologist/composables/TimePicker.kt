@@ -385,12 +385,15 @@ public fun TimePickerWith12HourClock(
 
     val isLargeScreen = LocalConfiguration.current.screenWidthDp > 225
     val textStyle =
-        with(LocalDensity.current) { fontScaleIndependent(
-            if (isLargeScreen)
-                MaterialTheme.typography.display2
-            else
-                MaterialTheme.typography.display3
-        ) }
+        with(LocalDensity.current) {
+            fontScaleIndependent(
+                if (isLargeScreen) {
+                    MaterialTheme.typography.display2
+                } else {
+                    MaterialTheme.typography.display3
+                },
+            )
+        }
 
     val focusRequesterConfirmButton = remember { FocusRequester() }
 
@@ -442,7 +445,7 @@ public fun TimePickerWith12HourClock(
         )
 
         (0..9).maxOf { mm.getBoundingBox(it).width } to
-            (1 .. 2).maxOf { mm.getLineRight(it) - mm.getLineLeft(it) }
+            (1..2).maxOf { mm.getLineRight(it) - mm.getLineLeft(it) }
     }
     val pickerWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() + 6.dp }
     val pickerWidth2 = with(LocalDensity.current) { amPmWidth.toDp() + 6.dp }

@@ -35,7 +35,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -169,7 +168,6 @@ public fun TimePicker(
         (0..9).maxOf { mm.getBoundingBox(it).width }
     }
     val pickerWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() + 6.dp }
-    val usableWidthRatio = 1 - 2 * 0.0728f
 
     val optionColor = MaterialTheme.colors.secondary
     val pickerOption = pickerTextOption(textStyle, { "%02d".format(it) })
@@ -238,7 +236,7 @@ public fun TimePicker(
             Spacer(Modifier.height(4.dp))
             Row(
                 // Horizontal padding is 2.08% + 5.2%
-                modifier = Modifier.fillMaxWidth(usableWidthRatio).weight(1f),
+                modifier = Modifier.fillMaxWidth(1 - 2 * 0.0728f).weight(1f),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
             ) {
@@ -385,8 +383,17 @@ public fun TimePickerWith12HourClock(
             rememberPickerGroupState(FocusableElement12Hour.HOURS.index)
         }
 
+    val isLargeScreen = LocalConfiguration.current.screenWidthDp > 225
     val textStyle =
-        with(LocalDensity.current) { fontScaleIndependent(MaterialTheme.typography.display3) }
+        with(LocalDensity.current) {
+            fontScaleIndependent(
+                if (isLargeScreen) {
+                    MaterialTheme.typography.display2
+                } else {
+                    MaterialTheme.typography.display3
+                },
+            )
+        }
 
     val focusRequesterConfirmButton = remember { FocusRequester() }
 
@@ -425,6 +432,24 @@ public fun TimePickerWith12HourClock(
         }
     }
 
+    val measurer = rememberTextMeasurer()
+    val density = LocalDensity.current
+    val (digitWidth, amPmWidth) = remember(
+        density.density,
+        LocalConfiguration.current.screenWidthDp,
+    ) {
+        val mm = measurer.measure(
+            "0123456789\n$amString\n$pmString",
+            style = textStyle,
+            density = density,
+        )
+
+        (0..9).maxOf { mm.getBoundingBox(it).width } to
+            (1..2).maxOf { mm.getLineRight(it) - mm.getLineLeft(it) }
+    }
+    val pickerWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() + 6.dp }
+    val pickerWidth2 = with(LocalDensity.current) { amPmWidth.toDp() + 6.dp }
+
     ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
@@ -436,7 +461,7 @@ public fun TimePickerWith12HourClock(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(14.dp))
             Text(
                 text = when (FocusableElement12Hour[pickerGroupState.selectedIndex]) {
                     FocusableElement12Hour.HOURS -> hourString
@@ -447,14 +472,9 @@ public fun TimePickerWith12HourClock(
                 style = MaterialTheme.typography.button,
                 maxLines = 1,
             )
-            val weightsToCenterVertically = 0.5f
-            Spacer(
-                Modifier
-                    .fillMaxWidth()
-                    .weight(weightsToCenterVertically),
-            )
+            Spacer(Modifier.height(4.dp))
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(1 - 2 * 0.0728f).weight(1f),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
             ) {
@@ -470,15 +490,10 @@ public fun TimePickerWith12HourClock(
                         }
                     }
 
-                // TODO remove the offsets below, once checked with UX
-                // these are to refactor the code, remove spacers without changing
-                // visible layout at the same time.
                 PickerGroup(
                     pickerGroupItemWithRSB(
                         pickerState = hourState,
-                        modifier = Modifier
-                            .size(57.dp, 100.dp)
-                            .offset(x = (2.5).dp),
+                        modifier = Modifier.width(pickerWidth).fillMaxHeight(),
                         onSelected = {
                             doubleTapToNext(
                                 FocusableElement12Hour.HOURS,
@@ -490,9 +505,7 @@ public fun TimePickerWith12HourClock(
                     ),
                     pickerGroupItemWithRSB(
                         pickerState = minuteState,
-                        modifier = Modifier
-                            .size(53.dp, 100.dp)
-                            .offset(x = (-0.5).dp),
+                        modifier = Modifier.width(pickerWidth).fillMaxHeight(),
                         onSelected = {
                             doubleTapToNext(
                                 FocusableElement12Hour.MINUTES,
@@ -504,9 +517,7 @@ public fun TimePickerWith12HourClock(
                     ),
                     pickerGroupItemWithRSB(
                         pickerState = periodState,
-                        modifier = Modifier
-                            .size(68.dp, 100.dp)
-                            .offset(x = (3).dp),
+                        modifier = Modifier.width(pickerWidth2).fillMaxHeight(),
                         contentDescription = periodContentDescription,
                         onSelected = {
                             doubleTapToNext(
@@ -518,21 +529,17 @@ public fun TimePickerWith12HourClock(
                             if (it == 0) amString else pmString
                         }),
                     ),
+                    modifier = Modifier.fillMaxSize(),
                     autoCenter = false,
+                    expandToFillWidth = true,
                     pickerGroupState = pickerGroupState,
                     separator = {
-                        if (it == 0) {
-                            Separator(textStyle)
-                        }
+                        if (it == 0) Separator(textStyle)
                     },
                     touchExplorationStateProvider = touchExplorationStateProvider,
                 )
             }
-            Spacer(
-                Modifier
-                    .fillMaxWidth()
-                    .weight(weightsToCenterVertically),
-            )
+            Spacer(Modifier.height(4.dp))
             Button(
                 onClick = {
                     val confirmedTime = LocalTime.of(

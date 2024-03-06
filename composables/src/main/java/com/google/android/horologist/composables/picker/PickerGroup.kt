@@ -119,7 +119,7 @@ internal fun PickerGroup(
                 },
             ).alignToAutoCenterTarget(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = if (expandToFillWidth) Arrangement.SpaceBetween else Arrangement.Center
+        horizontalArrangement = if (expandToFillWidth) Arrangement.SpaceBetween else Arrangement.Center,
     ) {
         // When no Picker is selected, provide an empty composable as a placeholder
         // and tell the HierarchicalFocusCoordinator to clear the focus.
@@ -287,18 +287,18 @@ internal fun Modifier.autoCenteringTarget() = this.layout { measurable, constrai
 // centering.
 // Vertically, it centers each item.
 internal fun Modifier.alignToAutoCenterTarget() = layout { measurable, constraints ->
-        val placeable = measurable.measure(constraints)
-        val centeringTarget = placeable[AutoCenteringLine] . let { if (it == AlignmentLine.Unspecified) placeable.width / 2 else it }
-        val rowWidth =
-            if (constraints.hasBoundedWidth) {
-                constraints.maxWidth
-            } else {
-                constraints.minWidth
-            }
-        val rowHeight = placeable.height.coerceIn(constraints.minHeight, constraints.maxHeight)
-        layout(rowWidth, rowHeight) {
-            placeable.place(rowWidth / 2 - centeringTarget, (rowHeight - placeable.height) / 2)
+    val placeable = measurable.measure(constraints)
+    val centeringTarget = placeable[AutoCenteringLine].let { if (it == AlignmentLine.Unspecified) placeable.width / 2 else it }
+    val rowWidth =
+        if (constraints.hasBoundedWidth) {
+            constraints.maxWidth
+        } else {
+            constraints.minWidth
         }
+    val rowHeight = placeable.height.coerceIn(constraints.minHeight, constraints.maxHeight)
+    layout(rowWidth, rowHeight) {
+        placeable.place(rowWidth / 2 - centeringTarget, (rowHeight - placeable.height) / 2)
     }
+}
 
-val AutoCenteringLine = VerticalAlignmentLine(::min)
+private val AutoCenteringLine: AlignmentLine = VerticalAlignmentLine(::min)

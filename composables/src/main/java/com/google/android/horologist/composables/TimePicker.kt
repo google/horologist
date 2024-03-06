@@ -150,7 +150,7 @@ public fun TimePicker(
                 !showSeconds -> MaterialTheme.typography.display1
                 isLargeScreen -> MaterialTheme.typography.display2
                 else -> MaterialTheme.typography.display3
-            }
+            },
         ).copy(textAlign = TextAlign.Center)
     }
 

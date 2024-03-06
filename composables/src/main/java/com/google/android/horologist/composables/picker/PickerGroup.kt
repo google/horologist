@@ -21,8 +21,10 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -35,18 +37,16 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.layout.ParentDataModifier
-import androidx.compose.ui.layout.Placeable
-import androidx.compose.ui.unit.Constraints
-import androidx.compose.ui.unit.Density
+import androidx.compose.ui.layout.AlignmentLine
+import androidx.compose.ui.layout.VerticalAlignmentLine
+import androidx.compose.ui.layout.layout
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.TouchExplorationStateProvider
 import com.google.android.horologist.composables.DefaultTouchExplorationStateProvider
 import kotlinx.coroutines.coroutineScope
-import kotlin.math.roundToInt
+import kotlin.math.min
 
 /**
  * This is a private copy of androidx.wear.compose.material.PickerGroup
@@ -96,14 +96,14 @@ internal fun PickerGroup(
     pickerGroupState: PickerGroupState = rememberPickerGroupState(),
     onSelected: (selectedIndex: Int) -> Unit = {},
     autoCenter: Boolean = true,
-    propagateMinConstraints: Boolean = false,
+    expandToFillWidth: Boolean = false,
     touchExplorationStateProvider: TouchExplorationStateProvider =
         DefaultTouchExplorationStateProvider(),
     separator: (@Composable (Int) -> Unit)? = null,
 ) {
     val touchExplorationServicesEnabled by touchExplorationStateProvider.touchExplorationState()
 
-    AutoCenteringRow(
+    Row(
         modifier = modifier
             .then(
                 // When touch exploration services are enabled, send the scroll events on the parent
@@ -117,8 +117,9 @@ internal fun PickerGroup(
                 } else {
                     Modifier
                 },
-            ),
-        propagateMinConstraints = propagateMinConstraints,
+            ).alignToAutoCenterTarget(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = if (expandToFillWidth) Arrangement.SpaceBetween else Arrangement.Center,
     ) {
         // When no Picker is selected, provide an empty composable as a placeholder
         // and tell the HierarchicalFocusCoordinator to clear the focus.
@@ -258,52 +259,13 @@ internal class PickerGroupItem(
     val option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit,
 )
 
-/*
- * A row that horizontally aligns the center of the first child that has
- * Modifier.autoCenteringTarget() with the center of this row.
- * If no child has that modifier, the whole row is horizontally centered.
- * Vertically, each child is centered.
- */
-@Composable
-private fun AutoCenteringRow(
-    modifier: Modifier = Modifier,
-    propagateMinConstraints: Boolean,
-    content: @Composable () -> Unit,
-) {
-    Layout(modifier = modifier, content = content) { measurables, parentConstraints ->
-        // Reset the min width and height of the constraints used to measure child composables
-        // if min constraints are not supposed to propagated.
-        val constraints = if (propagateMinConstraints) {
-            parentConstraints
-        } else {
-            parentConstraints.copy(minWidth = 0, minHeight = 0)
-        }
-        val placeables = measurables.map { it.measure(constraints) }
-        val centeringOffset = computeCenteringOffset(placeables)
-        val rowWidth =
-            if (constraints.hasBoundedWidth) {
-                constraints.maxWidth
-            } else {
-                constraints.minWidth
-            }
-        val rowHeight = calculateHeight(constraints, placeables)
-        layout(width = rowWidth, height = rowHeight) {
-            var x = rowWidth / 2f - centeringOffset
-            placeables.forEach {
-                it.placeRelative(x.roundToInt(), ((rowHeight - it.height) / 2f).roundToInt())
-                x += it.width
-            }
-        }
-    }
-}
-
 /**
  * A scrollable modifier which can be applied on a composable to propagate the scrollable events to
  * the specified [Picker] defined by the [PickerState].
  */
 private fun Modifier.scrollablePicker(
     pickerState: PickerState,
-) = Modifier.composed {
+) = composed {
     this.scrollable(
         state = pickerState,
         orientation = Orientation.Vertical,
@@ -312,41 +274,31 @@ private fun Modifier.scrollablePicker(
     )
 }
 
-/**
- * Calculates the center for the list of [Placeable]. Returns the offset which can be applied on
- * parent composable to center the contents. If [autoCenteringTarget] is applied to any [Placeable],
- * the offset returned will allow to center that particular composable.
- */
-private fun computeCenteringOffset(placeables: List<Placeable>): Int {
-    var sumWidth = 0
-    placeables.forEach { p ->
-        if (p.isAutoCenteringTarget()) {
-            // The target centering offset is at the middle of this child.
-            return sumWidth + p.width / 2
-        }
-        sumWidth += p.width
+// Define a Vertical Alignment line at the center of this component to be used for autocenter.
+internal fun Modifier.autoCenteringTarget() = this.layout { measurable, constraints ->
+    val placeable = measurable.measure(constraints)
+    layout(placeable.width, placeable.height, alignmentLines = mapOf(AutoCenteringLine to placeable.width / 2)) {
+        placeable.place(0, 0)
     }
-
-    // No target, center the whole row.
-    return sumWidth / 2
 }
 
-/**
- * Calculates the height of the [AutoCenteringRow] from the given [Placeable]s and [Constraints]. It
- * is calculated based on the max height of all the [Placeable]s and the height passed from the
- * [Constraints].
- */
-private fun calculateHeight(constraints: Constraints, placeables: List<Placeable>): Int {
-    val maxChildrenHeight = placeables.maxOf { it.height }
-    return maxChildrenHeight.coerceIn(constraints.minHeight, constraints.maxHeight)
+// Horizontally aligns the content of this component so that it's autocentering alignment line is
+// at the center if this component. If no alignment line is defined, this is equivalent to
+// centering.
+// Vertically, it centers each item.
+internal fun Modifier.alignToAutoCenterTarget() = layout { measurable, constraints ->
+    val placeable = measurable.measure(constraints)
+    val centeringTarget = placeable[AutoCenteringLine].let { if (it == AlignmentLine.Unspecified) placeable.width / 2 else it }
+    val rowWidth =
+        if (constraints.hasBoundedWidth) {
+            constraints.maxWidth
+        } else {
+            constraints.minWidth
+        }
+    val rowHeight = placeable.height.coerceIn(constraints.minHeight, constraints.maxHeight)
+    layout(rowWidth, rowHeight) {
+        placeable.place(rowWidth / 2 - centeringTarget, (rowHeight - placeable.height) / 2)
+    }
 }
 
-internal fun Modifier.autoCenteringTarget() = this.then(
-    object : ParentDataModifier {
-        override fun Density.modifyParentData(parentData: Any?) = AutoCenteringRowParentData()
-    },
-)
-
-internal class AutoCenteringRowParentData
-
-internal fun Placeable.isAutoCenteringTarget() = (parentData as? AutoCenteringRowParentData) != null
+private val AutoCenteringLine: AlignmentLine = VerticalAlignmentLine(::min)

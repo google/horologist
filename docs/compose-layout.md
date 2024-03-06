@@ -5,16 +5,15 @@
 > Add these dependencies and imports to ensure you are using the Horologist version of components with the same
 > name in Wear Compose, for example `Chip`.
 
-## ScalingLazyColumn responsive() layout.
+## ScalingLazyColumn Responsive layout.
 
-The `responsive()` layout factory will ensure that your ScalingLazyColumn is positioned correctly
-on all screen sizes.
+The `rememberResponsiveColumnState()` method will ensure that your ScalingLazyColumn is positioned 
+correctly on all screen sizes.
 
-Pass in a boolean for the `firstItemIsFullWidth` param to indicate whether the first item can
-fit just below TimeText, or must be shifted down further to avoid cutting off the edges.
+Pass in a padding configuration based on your item types.
 
 The overloaded `ScalingLazyColumn` composable with `ScalingLazyColumnState` param, when combined
-with `responsive()` will handle all the following:
+with `rememberResponsiveColumnState()` will handle all the following:
 
 - Position the first item near the top on all screen sizes.
 - Ensure the last item can be scrolled into view.
@@ -22,37 +21,29 @@ with `responsive()` will handle all the following:
 - Size side margins based on a percentage, adapting to different screen sizes.
 
 ```kotlin
-val columnState =
-    rememberColumnState(ScalingLazyColumnDefaults.responsive(firstItemIsFullWidth = false))
+val columnState = rememberResponsiveColumnState(
+    contentPadding = ScalingLazyColumnDefaults.padding(
+        first = ItemType.Text,
+        last = ItemType.Chip
+    )
+)
 
-Scaffold(
-    modifier = Modifier
-        .fillMaxSize(),
-    timeText = {
-        TimeText(modifier = Modifier.scrollAway(columnState))
-    }
+ScalingLazyColumn(
+    modifier = Modifier.fillMaxSize(),
+    columnState = columnState,
 ) {
-    ScalingLazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        columnState = columnState,
-    ) {
-        item {
-            ListHeader {
-                Text(
-                    text = "Main",
-                    modifier = Modifier.fillMaxWidth(0.6f),
-                    textAlign = TextAlign.Center
-                )
-            }
+    item {
+        ResponsiveListHeader(contentPadding = firstItemPadding()) {
+            Text(text = "Main")
         }
-        items(10) {
-            Chip("Item $it", onClick = {})
-        }
+    }
+    items(10) {
+        Chip("Item $it", onClick = {})
     }
 }
 ```
 
-## Navigation Scaffold.
+## App/Screen Scaffold.
 
 Syncs the TimeText, PositionIndicator and Scaffold to the current navigation destination
 state. The TimeText will scroll out of the way of content automatically.
@@ -66,7 +57,7 @@ AppScaffold {
         composable(
             "home",
         ) {
-            val columnState = rememberColumnState()
+            val columnState = rememberResponsiveColumnState()
             ScreenScaffold(scrollState = columnState) {
                 ScalingLazyColumn(
                     modifier = Modifier

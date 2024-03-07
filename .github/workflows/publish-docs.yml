@@ -1,9 +1,6 @@
 name: Publish docs
 
 on:
-  push:
-    tags:
-      - v*
   workflow_dispatch:
 
 jobs:

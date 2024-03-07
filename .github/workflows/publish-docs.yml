@@ -3,7 +3,7 @@ name: Publish docs
 on:
   push:
     tags:
-      - v*
+      - v0.6.*
   workflow_dispatch:
 
 jobs:

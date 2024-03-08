@@ -148,7 +148,7 @@ public fun ResponsiveDialogContent(
                                 ),
                             horizontalArrangement = spacedBy(
                                 buttonSpacedBy.dp,
-                                Alignment.CenterHorizontally
+                                Alignment.CenterHorizontally,
                             ),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {

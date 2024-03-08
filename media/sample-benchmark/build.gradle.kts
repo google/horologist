@@ -66,7 +66,6 @@ dependencies {
     implementation(libs.espresso.core)
     implementation(libs.androidx.test.uiautomator)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.localbroadcastmanager)
     implementation(project.findProject(":media-lib-session") ?: libs.androidx.media3.session)
 }
 

@@ -46,6 +46,7 @@ kotlin = "1.9.22"
 kotlinxCoroutine = "1.8.0"
 ksp = "1.9.22-1.0.18"
 ktlint = "0.50.0"
+localbroadcastmanagerVersion = "1.1.0"
 metalava = "0.3.5"
 moshi = "1.15.1"
 okio = "3.8.0"
@@ -185,6 +186,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
+localbroadcastmanager = { module = "androidx.localbroadcastmanager:localbroadcastmanager", version.ref = "localbroadcastmanagerVersion" }
 lottie-compose = "com.airbnb.android:lottie-compose:6.3.0"
 metalavaGradle = { module = "me.tylerbwong.gradle.metalava:plugin", version.ref = "metalava" }
 mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.12.0"

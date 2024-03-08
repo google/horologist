@@ -131,13 +131,14 @@ public fun ResponsiveDialogContent(
                 if (onOk != null || onCancel != null) {
                     item {
                         val width = LocalConfiguration.current.screenWidthDp
+                        val buttonSpacedBy = 12
                         // Single buttons, or buttons on smaller screens are not meant to be
                         // responsive.
                         val buttonWidth = if (width < 225 || onOk == null || onCancel == null) {
                             ButtonDefaults.DefaultButtonSize
                         } else {
-                            // 14.52% margin on the sides, 4.dp between.
-                            ((width * (1f - 2 * 0.1452f) - 4) / 2).dp
+                            // 14.52% margin on the sides, 12.dp between.
+                            ((width * (1f - 2 * 0.1452f) - buttonSpacedBy) / 2).dp
                         }
                         Row(
                             Modifier
@@ -145,7 +146,10 @@ public fun ResponsiveDialogContent(
                                 .padding(
                                     top = if (content != null || message != null) 12.dp else 0.dp,
                                 ),
-                            horizontalArrangement = spacedBy(4.dp, Alignment.CenterHorizontally),
+                            horizontalArrangement = spacedBy(
+                                buttonSpacedBy.dp,
+                                Alignment.CenterHorizontally
+                            ),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             onCancel?.let {

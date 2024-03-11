@@ -16,18 +16,18 @@
 
 package com.google.android.horologist.media.ui.components.display
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -35,6 +35,8 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.images.base.paintable.Paintable
+import com.google.android.horologist.media.ui.components.controls.MediaTitleIcon
+import com.google.android.horologist.media.ui.util.isLargeScreen
 
 /**
  * A simple text only display showing artist and title in two separated rows.
@@ -48,34 +50,44 @@ public fun TextMediaDisplay(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-        Row(
+        val textStyle = MaterialTheme.typography.button
+        val text = buildAnnotatedString {
+            if (titleIcon != null) {
+                appendInlineContent(id = "iconSlot")
+                append(" ")
+            }
+            append(title)
+        }
+        val inlineContent = if (titleIcon != null) {
+            mapOf(
+                "iconSlot" to InlineTextContent(
+                    Placeholder(textStyle.fontSize, textStyle.fontSize, PlaceholderVerticalAlign.TextCenter),
+                ) {
+                    MediaTitleIcon(titleIcon)
+                },
+            )
+        } else {
+            emptyMap()
+        }
+        Text(
+            text = text,
+            inlineContent = inlineContent,
             modifier = Modifier
                 .fillMaxWidth(0.7f)
-                .padding(top = 2.dp, bottom = .8.dp)
-                .semantics(mergeDescendants = true) {},
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
-            if (titleIcon != null) {
-                Image(
-                    painter = titleIcon.rememberPainter(),
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onBackground),
-                    contentScale = ContentScale.FillHeight,
-                )
-            }
-            Text(
-                text = title,
-                color = MaterialTheme.colors.onBackground,
-                textAlign = TextAlign.Center,
-                maxLines = 1,
-                style = MaterialTheme.typography.button,
-            )
-        }
+                .padding(
+                    top = if (LocalConfiguration.current.isLargeScreen) 1.dp else 2.dp,
+                    bottom = if (LocalConfiguration.current.isLargeScreen) 3.dp else 1.dp,
+                ),
+            color = MaterialTheme.colors.onBackground,
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            style = textStyle,
+        )
         Text(
             text = subtitle,
             modifier = Modifier
                 .fillMaxWidth(0.8f)
-                .padding(top = 2.dp, bottom = .6.dp),
+                .padding(top = 1.dp, bottom = .6.dp),
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,

@@ -186,7 +186,6 @@ kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-
 kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
 lottie-compose = "com.airbnb.android:lottie-compose:6.3.0"
-metalavaGradle = { module = "me.tylerbwong.gradle.metalava:plugin", version.ref = "metalava" }
 mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.12.0"
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
@@ -221,3 +220,4 @@ kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = "com.google.protobuf:0.9.4"
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+metalavaGradle = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava" }

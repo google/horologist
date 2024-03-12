@@ -62,97 +62,7 @@
   <div class="breadcrumbs"><a href="../../index.html">auth-data</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.auth.data.tokenshare.impl</a><span class="delimiter">/</span><span class="current">TokenBundleRepositoryImpl</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Token</span><wbr><span>Bundle</span><wbr><span>Repository</span><wbr><span><span>Impl</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">TokenBundleRepositoryImpl</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">registry<span class="token operator">: </span><a href="../../../../datalayer/core/com.google.android.horologist.data/-wear-data-layer-registry/index.html">WearDataLayerRegistry</a><span class="token punctuation">, </span></span><span class="parameter ">serializer<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/datastore/core/Serializer.html">Serializer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="../../com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html">TokenBundleRepository</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt; </span></div><p class="paragraph">Default implementation of <a href="../../com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html">TokenBundleRepository</a>.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.auth.data.tokenshare.TokenBundleRepository
-import com.google.android.horologist.auth.data.tokenshare.impl.TokenBundleRepositoryImpl
-import com.google.android.horologist.auth.sample.SampleApplication
-import com.google.android.horologist.auth.sample.shared.TOKEN_BUNDLE_CUSTOM_KEY
-import com.google.android.horologist.auth.sample.shared.TokenBundleSerializer
-import com.google.android.horologist.auth.sample.shared.model.TokenBundleProto.TokenBundle
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.runningReduce
-import kotlinx.coroutines.flow.stateIn
-fun main() { 
-   //sampleStart 
-   class TokenShareCustomKeyViewModel(
-    tokenBundleRepository: TokenBundleRepository&lt;TokenBundle?&gt;,
-) : ViewModel() {
-
-    public val uiState: StateFlow&lt;List&lt;TokenBundle?&gt;&gt; =
-        tokenBundleRepository.flow
-            .map { listOf(it) }
-            .runningReduce { accumulator, value -&gt; accumulator + value }
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
-
-    companion object {
-        public val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = this[APPLICATION_KEY]!!
-
-                TokenShareCustomKeyViewModel(
-                    TokenBundleRepositoryImpl.create(
-                        registry = (application as SampleApplication).registry,
-                        serializer = TokenBundleSerializer,
-                        key = TOKEN_BUNDLE_CUSTOM_KEY,
-                    ),
-                )
-            }
-        }
-    }
-} 
-   //sampleEnd
-}</code></pre></div><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.auth.data.tokenshare.TokenBundleRepository
-import com.google.android.horologist.auth.data.tokenshare.impl.TokenBundleRepositoryImpl
-import com.google.android.horologist.auth.sample.SampleApplication
-import com.google.android.horologist.auth.sample.shared.TokenBundleSerializer
-import com.google.android.horologist.auth.sample.shared.model.TokenBundleProto.TokenBundle
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.runningReduce
-import kotlinx.coroutines.flow.stateIn
-fun main() { 
-   //sampleStart 
-   class TokenShareDefaultKeyViewModel(
-    tokenBundleRepository: TokenBundleRepository&lt;TokenBundle?&gt;,
-) : ViewModel() {
-
-    public val uiState: StateFlow&lt;List&lt;TokenBundle?&gt;&gt; =
-        tokenBundleRepository.flow
-            .map { listOf(it) }
-            .runningReduce { accumulator, value -&gt; accumulator + value }
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
-
-    companion object {
-        public val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = this[APPLICATION_KEY]!!
-
-                TokenShareDefaultKeyViewModel(
-                    TokenBundleRepositoryImpl.create(
-                        registry = (application as SampleApplication).registry,
-                        serializer = TokenBundleSerializer,
-                    ),
-                )
-            }
-        }
-    }
-} 
-   //sampleEnd
-}</code></pre></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">TokenBundleRepositoryImpl</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">registry<span class="token operator">: </span><a href="../../../../datalayer/core/com.google.android.horologist.data/-wear-data-layer-registry/index.html">WearDataLayerRegistry</a><span class="token punctuation">, </span></span><span class="parameter ">serializer<span class="token operator">: </span><a href="https://developer.android.com/reference/androidx/datastore/core/Serializer.html">Serializer</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="../../com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html">TokenBundleRepository</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt; </span></div><p class="paragraph">Default implementation of <a href="../../com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html">TokenBundleRepository</a>.</p><h4 class="">Samples</h4>com.google.android.horologist.auth.sample.screens.tokenshare.customkey.TokenShareCustomKeyViewModelcom.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.TokenShareDefaultKeyViewModel</div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -169,7 +79,7 @@ fun main() {
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">registry<span class="token operator">: </span><a href="../../../../datalayer/core/com.google.android.horologist.data/-wear-data-layer-registry/index.html">WearDataLayerRegistry</a><span class="token punctuation">, </span></span><span class="parameter ">serializer<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/datastore/core/Serializer.html">Serializer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">registry<span class="token operator">: </span><a href="../../../../datalayer/core/com.google.android.horologist.data/-wear-data-layer-registry/index.html">WearDataLayerRegistry</a><span class="token punctuation">, </span></span><span class="parameter ">serializer<span class="token operator">: </span><a href="https://developer.android.com/reference/androidx/datastore/core/Serializer.html">Serializer</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -207,7 +117,7 @@ fun main() {
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="flow.html">flow</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="flow.html">flow</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>

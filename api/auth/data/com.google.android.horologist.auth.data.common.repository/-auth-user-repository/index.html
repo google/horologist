@@ -62,56 +62,7 @@
   <div class="breadcrumbs"><a href="../../index.html">auth-data</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.auth.data.common.repository</a><span class="delimiter">/</span><span class="current">AuthUserRepository</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Auth</span><wbr><span>User</span><wbr><span><span>Repository</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">AuthUserRepository</a></div><p class="paragraph">A repository of <a href="../../com.google.android.horologist.auth.data.common.model/-auth-user/index.html">AuthUser</a>.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
-import kotlinx.coroutines.delay
-import kotlin.random.Random
-fun main() { 
-   //sampleStart 
-   object AuthUserRepositoryStreamlineImpl : AuthUserRepository {
-
-    var mode: Mode = Mode.NO_ACCOUNTS_AVAILABLE
-
-    override suspend fun getAuthenticated(): AuthUser? = null
-
-    override suspend fun getAvailable(): List&lt;AuthUser&gt; {
-        // simulate latency in fetching the accounts
-        delay(Random.nextLong(500, 1000))
-
-        return when (mode) {
-            Mode.NO_ACCOUNTS_AVAILABLE -&gt; emptyList()
-            Mode.SINGLE_ACCOUNT_AVAILABLE -&gt; {
-                listOf(
-                    AuthUser(
-                        displayName = "Maggie",
-                        email = "maggie@example.com",
-                    ),
-                )
-            }
-
-            Mode.MULTIPLE_ACCOUNTS_AVAILABLE -&gt; {
-                listOf(
-                    AuthUser(
-                        displayName = "Maggie",
-                        email = "maggie@example.com",
-                    ),
-                    AuthUser(
-                        displayName = "John",
-                        email = "john@example.com",
-                    ),
-                )
-            }
-        }
-    }
-
-    enum class Mode {
-        NO_ACCOUNTS_AVAILABLE,
-        SINGLE_ACCOUNT_AVAILABLE,
-        MULTIPLE_ACCOUNTS_AVAILABLE,
-    }
-} 
-   //sampleEnd
-}</code></pre></div><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":auth:data:dokkaHtmlPartial/release" data-filterable-set=":auth:data:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.google.android.horologist.auth.data.googlesignin/-google-sign-in-auth-user-repository/index.html">GoogleSignInAuthUserRepository</a></div></span></div><div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">AuthUserRepository</a></div><p class="paragraph">A repository of <a href="../../com.google.android.horologist.auth.data.common.model/-auth-user/index.html">AuthUser</a>.</p><h4 class="">Samples</h4>com.google.android.horologist.auth.sample.screens.common.streamline.AuthUserRepositoryStreamlineImpl<h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":auth:data:dokkaHtmlPartial/release" data-filterable-set=":auth:data:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.google.android.horologist.auth.data.googlesignin/-google-sign-in-auth-user-repository/index.html">GoogleSignInAuthUserRepository</a></div></span></div><div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -143,7 +94,7 @@ fun main() {
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-available.html"><span class="token function">getAvailable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.google.android.horologist.auth.data.common.model/-auth-user/index.html">AuthUser</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns the available users or an empty list if there are none available.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth:data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-available.html"><span class="token function">getAvailable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../com.google.android.horologist.auth.data.common.model/-auth-user/index.html">AuthUser</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns the available users or an empty list if there are none available.</p></div></div></div>
                 </div>
               </div>
             </div>

@@ -49,6 +49,8 @@ public fun TextMediaDisplay(
     titleIcon: Paintable? = null,
     modifier: Modifier = Modifier,
 ) {
+    val isLargeScreen = LocalConfiguration.current.isLargeScreen
+
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         val textStyle = MaterialTheme.typography.button
         val text = buildAnnotatedString {
@@ -75,8 +77,8 @@ public fun TextMediaDisplay(
             modifier = Modifier
                 .fillMaxWidth(0.7f)
                 .padding(
-                    top = if (LocalConfiguration.current.isLargeScreen) 1.dp else 2.dp,
-                    bottom = if (LocalConfiguration.current.isLargeScreen) 3.dp else 1.dp,
+                    top = if (isLargeScreen) 0.dp else 2.dp,
+                    bottom = if (isLargeScreen) 3.dp else 1.dp,
                 ),
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,

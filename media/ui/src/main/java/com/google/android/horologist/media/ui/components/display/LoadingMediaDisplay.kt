@@ -51,9 +51,10 @@ public fun LoadingMediaDisplay(
 ) {
     // Always shimmer on the placeholder pills.
     val placeholderState = rememberPlaceholderState(isContentReady = { false })
+    val isLargeScreen = LocalConfiguration.current.isLargeScreen
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-        if (!LocalConfiguration.current.isLargeScreen) {
+        if (!isLargeScreen) {
             Spacer(modifier = Modifier.height(1.dp))
         }
         Box(
@@ -67,7 +68,7 @@ public fun LoadingMediaDisplay(
         )
         Spacer(
             modifier = Modifier.height(
-                if (LocalConfiguration.current.isLargeScreen) 9.dp else 8.dp,
+                if (isLargeScreen) 9.dp else 8.dp,
             ),
         )
         Box(

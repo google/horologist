@@ -63,6 +63,8 @@ public fun MarqueeTextMediaDisplay(
     subtextTransitionDelay: Int = 30,
     @FloatRange(from = 0.0, to = 1.0) transitionLength: Float = 0.125f,
 ) {
+    val isLargeScreen = LocalConfiguration.current.isLargeScreen
+
     fun getTransitionAnimation(delay: Int = 0): ContentTransform {
         return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
             (it * transitionLength).roundToInt()
@@ -104,8 +106,8 @@ public fun MarqueeTextMediaDisplay(
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
                     .padding(
-                        top = if (LocalConfiguration.current.isLargeScreen) 0.dp else 2.dp,
-                        bottom = if (LocalConfiguration.current.isLargeScreen) 3.dp else 1.dp,
+                        top = if (isLargeScreen) 0.dp else 2.dp,
+                        bottom = if (isLargeScreen) 3.dp else 1.dp,
                     ),
                 color = MaterialTheme.colors.onBackground,
                 style = textStyle,

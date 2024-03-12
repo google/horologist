@@ -25,9 +25,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
@@ -35,7 +33,7 @@ import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
@@ -46,9 +44,9 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.MarqueeText
-import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.images.base.paintable.Paintable
-import com.google.android.horologist.images.base.paintable.PaintableIcon
+import com.google.android.horologist.media.ui.components.controls.MediaTitleIcon
+import com.google.android.horologist.media.ui.util.isLargeScreen
 import kotlin.math.roundToInt
 
 /**
@@ -65,6 +63,8 @@ public fun MarqueeTextMediaDisplay(
     subtextTransitionDelay: Int = 30,
     @FloatRange(from = 0.0, to = 1.0) transitionLength: Float = 0.125f,
 ) {
+    val isLargeScreen = LocalConfiguration.current.isLargeScreen
+
     fun getTransitionAnimation(delay: Int = 0): ContentTransform {
         return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
             (it * transitionLength).roundToInt()
@@ -105,7 +105,10 @@ public fun MarqueeTextMediaDisplay(
                 inlineContent = inlineContent,
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
-                    .padding(top = 2.dp, bottom = .8.dp),
+                    .padding(
+                        top = if (isLargeScreen) 0.dp else 2.dp,
+                        bottom = if (isLargeScreen) 3.dp else 1.dp,
+                    ),
                 color = MaterialTheme.colors.onBackground,
                 style = textStyle,
                 textAlign = TextAlign.Center,
@@ -121,7 +124,7 @@ public fun MarqueeTextMediaDisplay(
                 text = currentArtist.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth(0.8f)
-                    .padding(top = 2.dp, bottom = .6.dp),
+                    .padding(top = 1.dp, bottom = .6.dp),
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
@@ -129,24 +132,5 @@ public fun MarqueeTextMediaDisplay(
                 style = MaterialTheme.typography.body2,
             )
         }
-    }
-}
-
-@Composable
-private fun MediaTitleIcon(icon: Paintable) {
-    if (icon is PaintableIcon) {
-        Icon(
-            modifier = Modifier.fillMaxSize(),
-            paintable = icon,
-            contentDescription = null,
-            tint = MaterialTheme.colors.onBackground,
-        )
-    } else {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            painter = icon.rememberPainter(),
-            contentDescription = null,
-            contentScale = ContentScale.FillHeight,
-        )
     }
 }

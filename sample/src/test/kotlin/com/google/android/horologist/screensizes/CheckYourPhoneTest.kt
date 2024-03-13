@@ -24,7 +24,7 @@ import com.google.android.horologist.screenshots.ScreenshotTestRule
 class CheckYourPhoneTest(device: Device) : ScreenSizeTest(
     device = device,
     showTimeText = false,
-    recordMode = ScreenshotTestRule.RecordMode.Record
+    recordMode = ScreenshotTestRule.RecordMode.Record,
 ) {
 
     @Composable

@@ -21,7 +21,6 @@ import androidx.wear.protolayout.ActionBuilders.AndroidActivity
 import androidx.wear.protolayout.ActionBuilders.LaunchAction
 import androidx.wear.protolayout.ColorBuilders.argb
 import androidx.wear.protolayout.DeviceParametersBuilders
-import androidx.wear.protolayout.DimensionBuilders
 import androidx.wear.protolayout.LayoutElementBuilders
 import androidx.wear.protolayout.LayoutElementBuilders.Box
 import androidx.wear.protolayout.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
@@ -37,10 +36,6 @@ import androidx.wear.protolayout.material.layouts.PrimaryLayout
 import androidx.wear.tiles.EventBuilders
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders
-import androidx.wear.tiles.tooling.preview.Preview
-import androidx.wear.tiles.tooling.preview.TilePreviewData
-import androidx.wear.tooling.preview.devices.WearDevices
-import com.google.android.horologist.compose.tools.tileRendererPreviewData
 import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,7 +75,7 @@ class SampleTileService : SuspendingTileService() {
 class SampleTileRenderer(context: Context) : SingleTileLayoutRenderer<Unit, Unit>(context) {
     override fun renderTile(
         state: Unit,
-        deviceParameters: DeviceParametersBuilders.DeviceParameters
+        deviceParameters: DeviceParametersBuilders.DeviceParameters,
     ): LayoutElementBuilders.LayoutElement {
         val openClickable = Clickable.Builder()
             .setOnClick(
@@ -89,9 +84,9 @@ class SampleTileRenderer(context: Context) : SingleTileLayoutRenderer<Unit, Unit
                         AndroidActivity.Builder()
                             .setClassName("com.google.android.horologist.datalayer.sample.MainActivity")
                             .setPackageName("com.google.android.horologist.datalayer.sample")
-                            .build()
+                            .build(),
                     )
-                    .build()
+                    .build(),
             )
             .build()
 
@@ -105,14 +100,14 @@ class SampleTileRenderer(context: Context) : SingleTileLayoutRenderer<Unit, Unit
                             .setTypography(Typography.TYPOGRAPHY_TITLE1)
                             .setColor(argb(theme.primary))
                             .setMaxLines(2)
-                            .build()
+                            .build(),
                     )
-                    .build()
+                    .build(),
             )
             .setPrimaryChipContent(
                 CompactChip.Builder(context, "Sample", openClickable, deviceParameters)
                     .setIconContent("appIcon")
-                    .build()
+                    .build(),
             )
             .build()
     }
@@ -120,24 +115,17 @@ class SampleTileRenderer(context: Context) : SingleTileLayoutRenderer<Unit, Unit
     override fun ResourceBuilders.Resources.Builder.produceRequestedResources(
         resourceState: Unit,
         deviceParameters: DeviceParametersBuilders.DeviceParameters,
-        resourceIds: List<String>
+        resourceIds: List<String>,
     ) {
         this.addIdToImageMapping(
-            "appIcon", ImageResource.Builder()
-            .setAndroidResourceByResId(
-                AndroidImageResourceByResId.Builder()
-                    .setResourceId(com.google.android.horologist.tiles.R.drawable.ic_nordic)
-                    .build()
-            )
-            .build()
+            "appIcon",
+            ImageResource.Builder()
+                .setAndroidResourceByResId(
+                    AndroidImageResourceByResId.Builder()
+                        .setResourceId(com.google.android.horologist.tiles.R.drawable.ic_nordic)
+                        .build(),
+                )
+                .build(),
         )
     }
 }
-
-@Preview(device = WearDevices.LARGE_ROUND)
-@Preview(device = WearDevices.SMALL_ROUND)
-fun SampleTilePreview(context: Context): TilePreviewData = tileRendererPreviewData(
-    renderer = SampleTileRenderer(context),
-    tileState = Unit,
-    resourceState = Unit,
-)

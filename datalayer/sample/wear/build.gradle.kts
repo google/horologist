@@ -138,6 +138,8 @@ dependencies {
     implementation(projects.datalayer.grpc)
     implementation(projects.datalayer.sample.shared)
     implementation(projects.datalayer.watch)
+    implementation(projects.tiles)
+    implementation(libs.androidx.wear.protolayout.material)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.complications.data)
@@ -160,6 +162,8 @@ dependencies {
     implementation(libs.androidx.wear.tooling.preview)
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
+    debugImplementation(libs.androidx.wear.tiles.tooling.preview)
+    implementation(libs.androidx.wear.tiles.tooling)
 
     implementation(libs.dagger.hiltandroid)
     ksp(libs.dagger.hiltandroidcompiler)

@@ -164,7 +164,7 @@ private fun SampleColors() = DefaultMarkdownColors(
     linkText = Color.Blue,
     codeBackground = MaterialTheme.colors.background,
     inlineCodeBackground = MaterialTheme.colors.background,
-    dividerColor = MaterialTheme.colors.onSurface.copy(alpha = 0.12f)
+    dividerColor = MaterialTheme.colors.onSurface.copy(alpha = 0.12f),
 )
 
 @Composable

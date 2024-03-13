@@ -110,6 +110,7 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.material)
     implementation(platform(libs.compose.bom))
+    implementation(libs.playservices.wearable)
 
     testImplementation(libs.junit)
 

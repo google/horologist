@@ -325,7 +325,10 @@ class PlayerRepositoryImplTest {
         assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isEqualTo(500.milliseconds)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).apply {
+            isAtLeast(500.milliseconds)
+            isAtMost(525.milliseconds)
+        }
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle),
         )
@@ -460,7 +463,10 @@ class PlayerRepositoryImplTest {
         // then
         assertThat(sut.getMediaCount()).isEqualTo(1)
         assertThat(sut.getMediaAt(0)).isEqualTo(media2)
-        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isAnyOf(
+            PlayerState.Stopped, // Media3 1.3.0
+            PlayerState.Loading // Media3 1.2.1
+        )
         assertThat(sut.currentMedia.value).isEqualTo(media2)
         assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()

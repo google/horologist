@@ -464,7 +464,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.getMediaAt(0)).isEqualTo(media2)
         assertThat(sut.latestPlaybackState.value.playbackState.playerState).isAnyOf(
             PlayerState.Stopped, // Media3 1.3.0
-            PlayerState.Loading // Media3 1.2.1
+            PlayerState.Loading, // Media3 1.2.1
         )
         assertThat(sut.currentMedia.value).isEqualTo(media2)
         assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)

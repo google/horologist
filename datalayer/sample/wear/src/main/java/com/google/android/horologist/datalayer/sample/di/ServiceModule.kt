@@ -93,6 +93,7 @@ object ServiceModule {
     @ServiceScoped
     @Provides
     fun tileSync(
+        wearDataLayerRegistry: WearDataLayerRegistry,
         wearDataLayerAppHelper: WearDataLayerAppHelper,
-    ): TileSync = TileSync(wearDataLayerAppHelper)
+    ): TileSync = TileSync(wearDataLayerRegistry, wearDataLayerAppHelper)
 }

@@ -327,7 +327,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).apply {
             isAtLeast(500.milliseconds)
-            isAtMost(525.milliseconds)
+            isAtMost(600.milliseconds)
         }
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle),

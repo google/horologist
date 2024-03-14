@@ -36,6 +36,7 @@ import org.robolectric.shadows.ShadowPixelCopy
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @ExperimentalHorologistApi
+@Deprecated("Use RNG and roborazzi directly")
 public abstract class ScreenshotBaseTest(
     params: ScreenshotTestRule.ScreenshotTestRuleParams = screenshotTestRuleParams { },
 ) {

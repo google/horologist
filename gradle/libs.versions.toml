@@ -52,6 +52,7 @@ okio = "3.8.0"
 org-robolectric = "4.11.1"
 playServicesAuth = "21.0.0"
 protobuf = "3.25.3"
+roborazzi = "1.10.1"
 room = "2.6.1"
 runtimeTracing = "1.0.0-beta01"
 snapshot-android = "1.0.4"
@@ -200,6 +201,9 @@ retrofit2-convertermoshi = { module = "com.squareup.retrofit2:converter-moshi", 
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "com-squareup-retrofit2" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "org-robolectric" }
 robolectric-shadows = { module = "org.robolectric:shadows-framework", version.ref = "org-robolectric" }
+roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
+roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
+roborazzi-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-junit-rule", version.ref = "roborazzi" }
 room-common = { module = "androidx.room:room-common", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }

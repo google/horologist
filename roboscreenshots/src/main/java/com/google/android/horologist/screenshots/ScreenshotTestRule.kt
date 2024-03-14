@@ -72,6 +72,7 @@ import kotlin.math.min
  * [ScreenshotBaseTest] for a basic configuration.
  */
 @ExperimentalHorologistApi
+@Deprecated("Use RNG and roborazzi directly")
 public class ScreenshotTestRule(
     private val params: ScreenshotTestRuleParams = screenshotTestRuleParams { },
 ) : TestRule {

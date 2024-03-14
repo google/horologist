@@ -16,10 +16,8 @@
 
 package com.google.android.horologist.auth.composables.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -29,17 +27,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
+import com.google.android.horologist.compose.material.AlertContent
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
-private const val TOP_PADDING_SCREEN_PERCENTAGE = 0.2
 private val indicatorPadding = 8.dp
 private val iconSize = 48.dp
 private val progressBarStrokeWidth = 4.dp
@@ -50,41 +46,43 @@ private val progressBarStrokeWidth = 4.dp
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/check_your_phone_screen.png"  height="120" width="120"/>
  */
 @Composable
-public fun CheckYourPhoneScreen(
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier.fillMaxSize(),
+public fun CheckYourPhoneScreen() {
+    AlertContent(
+        title = stringResource(id = R.string.horologist_check_your_phone_title),
+        state = rememberResponsiveColumnState(
+            verticalArrangement = Arrangement.spacedBy(
+                space = 4.dp,
+                alignment = Alignment.Bottom,
+            )
+        ),
     ) {
-        Text(
-            text = stringResource(id = R.string.horologist_check_your_phone_title),
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Center),
-            textAlign = TextAlign.Center,
-        )
-
-        Box(
-            modifier = modifier
-                .padding(bottom = 20.dp)
-                .align(Alignment.BottomCenter)
-                .size(iconSize)
-                .clip(CircleShape),
-        ) {
-            CircularProgressIndicator(
-                modifier = modifier
-                    .size(iconSize - progressBarStrokeWidth + indicatorPadding),
-                strokeWidth = progressBarStrokeWidth,
-            )
-            Icon(
-                imageVector = Icons.Default.SecurityUpdateGood,
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(iconSize - indicatorPadding - 8.dp)
-                    .clip(CircleShape),
-            )
+        item {
+            PhoneProgress()
         }
+    }
+}
+
+@Composable
+private fun PhoneProgress() {
+    Box(
+        modifier = Modifier
+            .padding(bottom = 20.dp)
+            .size(iconSize)
+            .clip(CircleShape),
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(iconSize - progressBarStrokeWidth + indicatorPadding),
+            strokeWidth = progressBarStrokeWidth,
+        )
+        Icon(
+            imageVector = Icons.Default.SecurityUpdateGood,
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(iconSize - indicatorPadding - 8.dp)
+                .clip(CircleShape),
+        )
     }
 }
 
@@ -96,54 +94,19 @@ public fun CheckYourPhoneScreen(
  */
 @Composable
 public fun CheckYourPhoneScreen(
-    modifier: Modifier = Modifier,
     message: String,
 ) {
-    val configuration = LocalConfiguration.current
-    val topPadding = (configuration.screenHeightDp * TOP_PADDING_SCREEN_PERCENTAGE).dp
-
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(top = topPadding),
+    AlertContent(
+        title = message,
+        state = rememberResponsiveColumnState(
+            verticalArrangement = Arrangement.spacedBy(
+                space = 4.dp,
+                alignment = Alignment.Bottom,
+            )
+        ),
     ) {
-        Text(
-            text = stringResource(id = R.string.horologist_check_your_phone_title),
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-        )
-
-        Text(
-            text = message,
-            modifier = Modifier
-                .padding(top = 20.dp)
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-        )
-
-        Box(
-            modifier = modifier
-                .padding(vertical = 20.dp)
-                .fillMaxWidth()
-                .size(iconSize)
-                .clip(CircleShape),
-            contentAlignment = Alignment.Center,
-        ) {
-            CircularProgressIndicator(
-                modifier = modifier
-                    .size(iconSize - progressBarStrokeWidth + indicatorPadding),
-                strokeWidth = progressBarStrokeWidth,
-            )
-            Icon(
-                imageVector = Icons.Default.SecurityUpdateGood,
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                modifier = Modifier
-                    .size(iconSize - indicatorPadding - 8.dp)
-                    .clip(CircleShape),
-            )
+        item {
+            PhoneProgress()
         }
     }
 }

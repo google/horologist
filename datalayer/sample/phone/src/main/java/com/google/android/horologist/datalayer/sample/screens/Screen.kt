@@ -25,6 +25,7 @@ sealed class Screen(
     data object InstallAppPromptDemoScreen : Screen("installAppPromptDemoScreen")
     data object ReEngagePromptDemoScreen : Screen("reEngagePromptDemoScreen")
     data object SignInPromptDemoScreen : Screen("signInPromptDemoScreen")
+    data object InstallTilePromptDemoScreen : Screen("installTilePromptDemoScreen")
     data object InstallAppCustomPromptDemoScreen : Screen("installAppCustomPromptDemoScreen")
     data object ReEngageCustomPromptDemoScreen : Screen("reEngageCustomPromptDemoScreen")
     data object SignInCustomPromptDemoScreen : Screen("signInCustomPromptDemoScreen")

@@ -225,3 +225,4 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = "com.google.protobuf:0.9.4"
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 metalavaGradle = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava" }
+roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }

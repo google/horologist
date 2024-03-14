@@ -123,6 +123,19 @@ package com.google.android.horologist.screenshots.rng {
     enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice SamsungGalaxyWatch6SmallFont;
   }
 
+  @org.junit.runner.RunWith(ParameterizedRobolectricTestRunner::class) public final class WearDeviceScreenshotTest extends com.google.android.horologist.screenshots.rng.WearScreenshotTest {
+    ctor public WearDeviceScreenshotTest(com.google.android.horologist.screenshots.rng.WearDevice device);
+    method @org.robolectric.ParameterizedRobolectricTestRunner.Parameters public static kotlin.enums.EnumEntries<com.google.android.horologist.screenshots.rng.WearDevice> devices();
+    method public com.google.android.horologist.screenshots.rng.WearDevice getDevice();
+    property public com.google.android.horologist.screenshots.rng.WearDevice device;
+    property public float tolerance;
+    field public static final com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest.Companion Companion;
+  }
+
+  public static final class WearDeviceScreenshotTest.Companion {
+    method @org.robolectric.ParameterizedRobolectricTestRunner.Parameters public kotlin.enums.EnumEntries<com.google.android.horologist.screenshots.rng.WearDevice> devices();
+  }
+
   @org.robolectric.annotation.Config(sdk={33}, qualifiers="w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav") @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class WearScreenshotTest {
     ctor public WearScreenshotTest();
     method public final void captureScreenshot(String suffix);

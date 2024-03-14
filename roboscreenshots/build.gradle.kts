@@ -105,7 +105,8 @@ dependencies {
     implementation(libs.roborazzi.compose)
     implementation(libs.roborazzi.rule)
 
-    compileOnly(libs.snapshot.android)
+    // TODO remove
+    implementation(libs.snapshot.android)
 
     testImplementation(libs.robolectric)
 }

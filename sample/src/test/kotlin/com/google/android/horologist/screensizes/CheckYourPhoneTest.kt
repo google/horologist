@@ -19,12 +19,10 @@ package com.google.android.horologist.screensizes
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.auth.composables.screens.CheckYourPhoneScreen
 import com.google.android.horologist.compose.tools.Device
-import com.google.android.horologist.screenshots.ScreenshotTestRule
 
 class CheckYourPhoneTest(device: Device) : ScreenSizeTest(
     device = device,
     showTimeText = false,
-    recordMode = ScreenshotTestRule.RecordMode.Record,
 ) {
 
     @Composable

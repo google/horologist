@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,67 +13,69 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.google.android.horologist.screenshots.rng
 
 import kotlin.math.roundToInt
 
-enum class WearDevice(
-    val id: String,
-    val modelName: String,
-    val screenSizePx: Int,
-    val density: Float,
-    val fontScale: Float = 1f
+public enum class WearDevice(
+    public val id: String,
+    public val modelName: String,
+    public val screenSizePx: Int,
+    public val density: Float,
+    public val fontScale: Float = 1f,
 ) {
     MobvoiTicWatchPro5(
         id = "ticwatch_pro_5",
         modelName = "Mobvoi TicWatch Pro 5",
         screenSizePx = 466,
-        density = 2.0f
+        density = 2.0f,
     ),
     SamsungGalaxyWatch5(
         id = "galaxy_watch_5",
         modelName = "Samsung Galaxy Watch 5",
         screenSizePx = 396,
-        density = 2.0f
+        density = 2.0f,
     ),
     SamsungGalaxyWatch6(
         id = "galaxy_watch_6",
         modelName = "Samsung Galaxy Watch 6 Large",
         screenSizePx = 480,
-        density = 2.125f
+        density = 2.125f,
     ),
     GooglePixelWatch(
         id = "pixel_watch",
         modelName = "Google Pixel Watch",
         screenSizePx = 384,
-        density = 2.0f
+        density = 2.0f,
     ),
     GenericSmallRound(
         id = "small_round",
         modelName = "Generic Small Round",
         screenSizePx = 384,
-        density = 2.0f
+        density = 2.0f,
     ),
     GenericLargeRound(
         id = "large_round",
         modelName = "Generic Large Round",
         screenSizePx = 454,
-        density = 2.0f
+        density = 2.0f,
     ),
     SamsungGalaxyWatch6SmallFont(
         id = "galaxy_watch_6_small_font",
         modelName = "Samsung Galaxy Watch 6 Large",
         screenSizePx = 480,
         density = 2.125f,
-        fontScale = 0.94f
+        fontScale = 0.94f,
     ),
     GooglePixelWatchLargeFont(
         id = "pixel_watch_large_font",
         modelName = "Google Pixel Watch",
         screenSizePx = 384,
         density = 2.0f,
-        fontScale = 1.24f
-    );
+        fontScale = 1.24f,
+    ),
+    ;
 
-    val dp: Int = (screenSizePx / density).roundToInt()
+    public val dp: Int = (screenSizePx / density).roundToInt()
 }

@@ -18,10 +18,6 @@
 
 package com.google.android.horologist.mediasample.benchmark
 
-import android.content.BroadcastReceiver
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
@@ -33,7 +29,6 @@ import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.media3.session.MediaBrowser
 import androidx.test.filters.LargeTest
-import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.media.benchmark.MediaApp
 import com.google.android.horologist.media.benchmark.MediaControllerHelper
 import com.google.common.util.concurrent.ListenableFuture
@@ -80,7 +75,10 @@ class DownloadBenchmark {
         val item = TestMedia.Intro
 
         runBlocking {
-            sendTestBroadcast("download", "${item.mediaId}:${item.requestMetadata.mediaUri}")
+            sendTestBroadcast(
+                command = "download",
+                argument = "${item.mediaId}:${item.requestMetadata.mediaUri}",
+            )
 
             delay(5000)
 
@@ -97,23 +95,19 @@ class DownloadBenchmark {
 
     private fun MacrobenchmarkScope.sendTestBroadcast(
         command: String,
-        argument: String
+        argument: String,
     ) {
         println("sending")
-        val result = if (false) {
-            val intent = Intent("com.google.android.horologist.mediasample.testing.TEST").apply {
-                this.component = ComponentName("com.google.android.horologist.mediasample", "com.google.android.horologist.mediasample.testing.BenchmarkBroadcastReceiver")
-                this.putExtra(command, argument)
-            }
-            InstrumentationRegistry.getInstrumentation().context.sendOrderedBroadcast(intent, null, object : BroadcastReceiver() {
-                override fun onReceive(context: Context?, intent: Intent?) {
-                    println("Received $intent")
-                }
-            }, null, 0, null, null)
-            TODO()
-        } else {
-            device.executeShellCommand("am broadcast -a com.google.android.horologist.mediasample.testing.TEST --es $command \"$argument\" -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.testing.BenchmarkBroadcastReceiver")
-        }
+        val result = device.executeShellCommand(
+            "am broadcast " +
+                "-a " +
+                "com.google.android.horologist.mediasample.testing.TEST " +
+                "--es " +
+                "$command \"$argument\" " +
+                "-n " +
+                "com.google.android.horologist.mediasample/" +
+                "com.google.android.horologist.mediasample.testing.BenchmarkBroadcastReceiver",
+        )
         println("sent $result")
     }
 

@@ -38,8 +38,9 @@ abstract class SuspendingBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         println("Received $intent")
 
-        if (intent.action != action)
+        if (intent.action != action) {
             return
+        }
 
         val intentExtras = intent.extras
 
@@ -66,5 +67,5 @@ abstract class SuspendingBroadcastReceiver : BroadcastReceiver() {
 data class BroadcastResult(
     val data: String,
     val code: Int = Activity.RESULT_OK,
-    val extras: Bundle = Bundle.EMPTY
+    val extras: Bundle = Bundle.EMPTY,
 )

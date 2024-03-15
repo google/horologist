@@ -283,16 +283,16 @@ fun UampWearApp(
     }
 
     if (BuildConfig.BENCHMARK) {
-        println("Checking for DOU intent")
-        if (intent.hasExtra("dou")) {
-            val douOp = intent.getBooleanExtra("dou", false)
-            intent.removeExtra("dou")
+        println("Checking for launchAndPlay intent")
+        if (intent.hasExtra("launchAndPlay")) {
+            val douOp = intent.getBooleanExtra("launchAndPlay", false)
+            intent.removeExtra("launchAndPlay")
             LaunchedEffect(Unit) {
                 if (douOp) {
-                    println("Start DOU")
+                    println("Start launchAndPlay")
                     appViewModel.startDou()
                 } else {
-                    println("Stop DOU")
+                    println("Stop launchAndPlay")
                     appViewModel.stopDou()
                 }
             }

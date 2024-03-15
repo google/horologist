@@ -121,7 +121,9 @@ public fun ResponsiveDialogContent(
                 message?.let {
                     item {
                         Box(
-                            Modifier.fillMaxWidth(messageMaxWidthFraction),
+                            Modifier
+                                .fillMaxWidth(messageMaxWidthFraction)
+                                .padding(bottom = 12.dp),
                         ) { it() }
                     }
                 }

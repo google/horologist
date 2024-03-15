@@ -112,6 +112,26 @@ class MediaPlayerAppViewModel
             }
         }
 
+        private suspend fun loadDownloadedItems() {
+            playlistRepository.getAllDownloaded()
+                .flatMapConcat { it.asFlow() }
+                .map { it.mediaList }
+                .reduce { accumulator, value -> accumulator + value }
+                .also { list ->
+                    playerRepository.setMediaList(list)
+                }
+        }
+
+        suspend fun startDou() {
+            waitForConnection()
+            loadDownloadedItems()
+            playerRepository.play()
+        }
+
+        suspend fun stopDou() {
+            playerRepository.pause()
+        }
+
         suspend fun playItems(mediaId: String?, collectionId: String, position: Long) {
             try {
                 playlistRepository.get(collectionId)?.let { playlist ->

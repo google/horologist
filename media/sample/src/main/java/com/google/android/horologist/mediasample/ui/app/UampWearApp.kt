@@ -282,7 +282,22 @@ fun UampWearApp(
         )
     }
 
-    if (!BuildConfig.BENCHMARK) {
+    if (BuildConfig.BENCHMARK) {
+        println("Checking for DOU intent")
+        if (intent.hasExtra("dou")) {
+            val douOp = intent.getBooleanExtra("dou", false)
+            intent.removeExtra("dou")
+            LaunchedEffect(Unit) {
+                if (douOp) {
+                    println("Start DOU")
+                    appViewModel.startDou()
+                } else {
+                    println("Stop DOU")
+                    appViewModel.stopDou()
+                }
+            }
+        }
+    } else {
         LaunchedEffect(Unit) {
             startupNavigation(intent, appViewModel, navController)
         }

@@ -283,16 +283,14 @@ fun UampWearApp(
     }
 
     if (BuildConfig.BENCHMARK) {
-        println("Checking for launchAndPlay intent")
         if (intent.hasExtra("launchAndPlay")) {
-            val douOp = intent.getBooleanExtra("launchAndPlay", false)
+            val launchAndPlay = intent.getBooleanExtra("launchAndPlay", false)
+            println("Found launchAndPlay = $launchAndPlay")
             intent.removeExtra("launchAndPlay")
             LaunchedEffect(Unit) {
-                if (douOp) {
-                    println("Start launchAndPlay")
+                if (launchAndPlay) {
                     appViewModel.startDou()
                 } else {
-                    println("Stop launchAndPlay")
                     appViewModel.stopDou()
                 }
             }

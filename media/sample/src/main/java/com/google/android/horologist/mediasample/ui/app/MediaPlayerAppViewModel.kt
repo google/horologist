@@ -114,7 +114,6 @@ class MediaPlayerAppViewModel
         }
 
         private suspend fun loadDownloadedItems(): List<Media> {
-            println("loadDownloadedItems")
             return playlistRepository.getAllDownloaded()
                 .flatMapConcat { it.asFlow() }
                 .map { it.mediaList }
@@ -122,18 +121,12 @@ class MediaPlayerAppViewModel
         }
 
         suspend fun startDou() {
-            println("Waiting for connection")
             waitForConnection()
 
             val items = loadDownloadedItems()
-            println("Loaded $items")
-
-            println("playing")
 
             playerRepository.setMediaList(items)
             playerRepository.play()
-
-            println("done")
         }
 
         suspend fun stopDou() {

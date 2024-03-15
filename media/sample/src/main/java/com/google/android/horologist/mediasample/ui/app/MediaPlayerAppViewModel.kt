@@ -120,7 +120,7 @@ class MediaPlayerAppViewModel
                 .first()
         }
 
-        suspend fun startDou() {
+        suspend fun startBenchmarkPlayback() {
             waitForConnection()
 
             val items = loadDownloadedItems()
@@ -129,7 +129,7 @@ class MediaPlayerAppViewModel
             playerRepository.play()
         }
 
-        suspend fun stopDou() {
+        suspend fun stopBenchmarkPlayback() {
             playerRepository.pause()
         }
 

@@ -289,9 +289,9 @@ fun UampWearApp(
             intent.removeExtra("launchAndPlay")
             LaunchedEffect(Unit) {
                 if (launchAndPlay) {
-                    appViewModel.startDou()
+                    appViewModel.startBenchmarkPlayback()
                 } else {
-                    appViewModel.stopDou()
+                    appViewModel.stopBenchmarkPlayback()
                 }
             }
         }

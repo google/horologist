@@ -19,6 +19,7 @@ package com.google.android.horologist.mediasample.ui.app
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
@@ -112,20 +113,27 @@ class MediaPlayerAppViewModel
             }
         }
 
-        private suspend fun loadDownloadedItems() {
-            playlistRepository.getAllDownloaded()
+        private suspend fun loadDownloadedItems(): List<Media> {
+            println("loadDownloadedItems")
+            return playlistRepository.getAllDownloaded()
                 .flatMapConcat { it.asFlow() }
                 .map { it.mediaList }
-                .reduce { accumulator, value -> accumulator + value }
-                .also { list ->
-                    playerRepository.setMediaList(list)
-                }
+                .first()
         }
 
         suspend fun startDou() {
+            println("Waiting for connection")
             waitForConnection()
-            loadDownloadedItems()
+
+            val items = loadDownloadedItems()
+            println("Loaded $items")
+
+            println("playing")
+
+            playerRepository.setMediaList(items)
             playerRepository.play()
+
+            println("done")
         }
 
         suspend fun stopDou() {

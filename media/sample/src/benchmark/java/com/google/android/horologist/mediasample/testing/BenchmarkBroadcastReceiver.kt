@@ -26,8 +26,6 @@ import androidx.media3.exoplayer.offline.DownloadRequest
 import androidx.media3.exoplayer.offline.DownloadService
 import com.google.android.horologist.mediasample.data.service.download.MediaDownloadServiceImpl
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlin.time.Duration.Companion.milliseconds
 
 @androidx.annotation.OptIn(UnstableApi::class)
 class BenchmarkBroadcastReceiver : SuspendingBroadcastReceiver() {

@@ -130,14 +130,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-
-        <receiver android:name=".testing.BenchmarkBroadcastReceiver"
-            android:exported="true"
-            tools:ignore="ExportedReceiver">
-            <intent-filter>
-                <action android:name="com.google.android.horologist.mediasample.testing.TEST"/>
-            </intent-filter>
-        </receiver>
     </application>
 
     <uses-sdk

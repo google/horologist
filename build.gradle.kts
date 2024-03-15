@@ -34,8 +34,6 @@ buildscript {
 
         classpath(libs.dokka)
 
-        classpath(libs.metalavaGradle)
-
         classpath(libs.dagger.hiltandroidplugin)
     }
 }
@@ -46,6 +44,7 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.gradleMavenPublishPlugin)
+    alias(libs.plugins.metalavaGradle) apply false
     alias(libs.plugins.dependencyAnalysis)
 }
 

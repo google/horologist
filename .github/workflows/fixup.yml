@@ -23,7 +23,7 @@ jobs:
           java-version: 17
 
       - name: Reformat
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: spotlessApply
 
@@ -35,7 +35,7 @@ jobs:
           commit_message: "🤖 reformat"
 
       - name: Generate APIs
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: metalavaGenerateSignature metalavaGenerateSignatureDebug
 
@@ -47,7 +47,7 @@ jobs:
           commit_message: "🤖 metalava"
 
       - name: Repair screenshots
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: testDebug -P screenshot.record=repair
 

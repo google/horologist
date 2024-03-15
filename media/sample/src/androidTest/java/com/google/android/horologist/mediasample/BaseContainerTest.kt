@@ -42,19 +42,19 @@ abstract class BaseContainerTest {
     var hiltRule = HiltAndroidRule(this)
 
     @Inject
-    protected lateinit var audioOffloadManager: AudioOffloadManager
+    lateinit var audioOffloadManager: AudioOffloadManager
 
     @Inject
-    protected lateinit var audioOutputRepository: SystemAudioRepository
+    lateinit var audioOutputRepository: SystemAudioRepository
 
     @Inject
-    protected lateinit var notificationManager: NotificationManager
+    lateinit var notificationManager: NotificationManager
 
     @Inject
-    protected lateinit var downloadCache: Cache
+    lateinit var downloadCache: Cache
 
     @Inject
-    protected lateinit var appConfig: AppConfig
+    lateinit var appConfig: AppConfig
 
     protected lateinit var device: UiDevice
 

@@ -34,6 +34,7 @@ import com.google.android.horologist.datalayer.sample.screens.inappprompts.custo
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.custom.reengage.ReEngageCustomPromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.custom.signin.SignInCustomPromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.installapp.InstallAppPromptDemoScreen
+import com.google.android.horologist.datalayer.sample.screens.inappprompts.installtile.InstallTilePromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.reengage.ReEngagePromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.signin.SignInPromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.menu.MenuScreen
@@ -77,6 +78,9 @@ fun MainScreen(
                 }
                 composable(route = Screen.SignInPromptDemoScreen.route) {
                     SignInPromptDemoScreen()
+                }
+                composable(route = Screen.InstallTilePromptDemoScreen.route) {
+                    InstallTilePromptDemoScreen()
                 }
                 composable(route = Screen.InstallAppCustomPromptDemoScreen.route) {
                     InstallAppCustomPromptDemoScreen()

@@ -58,8 +58,8 @@ import com.google.android.horologist.compose.material.Button
 import com.mikepenz.markdown.compose.LocalMarkdownColors
 import com.mikepenz.markdown.compose.LocalMarkdownTypography
 import com.mikepenz.markdown.compose.Markdown
-import com.mikepenz.markdown.model.markdownColor
-import com.mikepenz.markdown.model.markdownTypography
+import com.mikepenz.markdown.model.DefaultMarkdownColors
+import com.mikepenz.markdown.model.DefaultMarkdownTypography
 
 @Composable
 fun SamplePromptScreen(
@@ -141,7 +141,7 @@ private fun SamplePromptScreen(
 }
 
 @Composable
-private fun SampleTypography() = markdownTypography(
+private fun SampleTypography() = DefaultMarkdownTypography(
     h1 = MaterialTheme.typography.title1,
     h2 = MaterialTheme.typography.title2,
     h3 = MaterialTheme.typography.title3,
@@ -158,12 +158,13 @@ private fun SampleTypography() = markdownTypography(
 )
 
 @Composable
-private fun SampleColors() = markdownColor(
+private fun SampleColors() = DefaultMarkdownColors(
     text = Color.White,
     codeText = LocalContentColor.current,
     linkText = Color.Blue,
     codeBackground = MaterialTheme.colors.background,
     inlineCodeBackground = MaterialTheme.colors.background,
+    dividerColor = MaterialTheme.colors.onSurface.copy(alpha = 0.12f),
 )
 
 @Composable

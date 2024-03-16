@@ -108,6 +108,16 @@ the [Sign-In guidelines for Wear OS](https://developer.android.com/training/wear
 - [sample wear](https://google.github.io/horologist/auth-sample-apps/#wear-sample): sample wear app to authenticate using different methods.
 - [sample phone](https://google.github.io/horologist/auth-sample-apps/#phone-sample): sample phone app to authenticate using different methods.
 
+## DataLayer
+
+The Horologist DataLayer library, provide common abstractions on top of the
+[Wearable DataLayer](https://developer.android.com/training/wearables/data/data-layer).
+It includes libraries to build
+[prompts on the phone](https://google.github.io/horologist/datalayer-phone-ui/) to improve
+engagament with the correspondent Wear app and a
+[sample](https://google.github.io/horologist/datalayer-sample/) to see the prompts in actions.
+Find guidance in the project [documentation](https://google.github.io/horologist/datalayer/).
+
 ## ☰ Tiles
 
 Kotlin coroutines flavoured TileService.

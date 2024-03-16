@@ -33,8 +33,7 @@ public class InstallTilePrompt(private val phoneDataLayerAppHelper: PhoneDataLay
      * Returns a [AppHelperNodeStatus] that meets the criteria to show this prompt, otherwise
      * returns null.
      */
-    private val tileName = "com.example.MediaPlayerTile"
-    public suspend fun shouldDisplayPrompt(): AppHelperNodeStatus? {
+    public suspend fun shouldDisplayPrompt(tileName: String): AppHelperNodeStatus? {
         if (phoneDataLayerAppHelper.checkCompanionVersionSupportTileEditing()
                 ?.equals(AppHelperResultCode.APP_HELPER_RESULT_SUCCESS) == true
         ) {

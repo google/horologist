@@ -102,6 +102,10 @@ dependencies {
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
 
+    implementation(libs.roborazzi)
+    implementation(libs.roborazzi.compose)
+    implementation(libs.roborazzi.rule)
+
     testImplementation(libs.robolectric)
 }
 

@@ -32,7 +32,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.datalayer.sample.R
@@ -136,7 +136,7 @@ fun NodesListenerScreenPreviewLoaded() {
                 ),
             ),
         ),
-        columnState = belowTimeTextPreview(),
+        columnState = rememberResponsiveColumnState(),
     )
 }
 
@@ -145,7 +145,7 @@ fun NodesListenerScreenPreviewLoaded() {
 fun NodesListenerScreenPreviewEmptyNodes() {
     NodesListenerScreen(
         state = NodesListenerScreenState.Loaded(emptySet()),
-        columnState = belowTimeTextPreview(),
+        columnState = rememberResponsiveColumnState(),
     )
 }
 
@@ -154,6 +154,6 @@ fun NodesListenerScreenPreviewEmptyNodes() {
 fun NodesListenerScreenPreviewApiNotAvailable() {
     NodesListenerScreen(
         state = NodesListenerScreenState.ApiNotAvailable,
-        columnState = belowTimeTextPreview(),
+        columnState = rememberResponsiveColumnState(),
     )
 }

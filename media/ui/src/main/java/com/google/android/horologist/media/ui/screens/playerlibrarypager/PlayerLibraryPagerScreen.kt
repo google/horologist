@@ -29,7 +29,7 @@ import androidx.navigation.NavBackStackEntry
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import kotlinx.coroutines.flow.Flow
@@ -79,7 +79,7 @@ public fun PlayerLibraryPagerScreen(
             }
 
             1 -> {
-                val config = belowTimeTextPreview()
+                val config = rememberResponsiveColumnState()
                 ScreenScaffold(
                     scrollState = config,
                 ) {

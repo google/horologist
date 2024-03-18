@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.auth.composables.chips
 
 import androidx.wear.compose.material.ChipDefaults

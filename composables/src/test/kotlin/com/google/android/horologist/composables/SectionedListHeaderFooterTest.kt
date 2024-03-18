@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.composables
 
 import com.google.android.horologist.composables.Section.Companion.ALL_STATES

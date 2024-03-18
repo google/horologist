@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.media.ui.components.actions
 
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable

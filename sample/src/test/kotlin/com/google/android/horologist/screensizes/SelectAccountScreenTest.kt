@@ -18,7 +18,7 @@ package com.google.android.horologist.screensizes
 
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SelectAccountScreen
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
 import org.junit.Test
@@ -32,7 +32,7 @@ class SelectAccountScreenTest(device: WearDevice) : WearDeviceScreenshotTest(dev
                 AccountUiModel(email = "thisisaverylongemail@example.com"),
             ),
             onAccountClicked = { _, _ -> },
-            columnState = belowTimeTextPreview(),
+            columnState = rememberResponsiveColumnState(),
         )
     }
 }

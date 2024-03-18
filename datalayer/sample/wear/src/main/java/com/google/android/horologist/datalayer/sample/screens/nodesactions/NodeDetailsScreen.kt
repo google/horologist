@@ -41,7 +41,7 @@ import androidx.wear.compose.material.dialog.Dialog
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.compose.material.Icon
@@ -226,6 +226,6 @@ fun NodeDetailsScreenPreview() {
         onStartRemoteOwnAppClick = { },
         onStartRemoteActivityClick = { },
         onDialogDismiss = { },
-        columnState = belowTimeTextPreview(),
+        columnState = rememberResponsiveColumnState(),
     )
 }

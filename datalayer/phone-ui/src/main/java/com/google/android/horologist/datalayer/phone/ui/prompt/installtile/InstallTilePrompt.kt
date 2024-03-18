@@ -48,7 +48,7 @@ public class InstallTilePrompt(private val phoneDataLayerAppHelper: PhoneDataLay
     }
 
     /**
-     * Returns the [Intent] to display an install app prompt to the user.
+     * Returns the [Intent] to display an install tile prompt to the user.
      *
      * This can be used in Compose with [rememberLauncherForActivityResult] and
      * [ActivityResultLauncher.launch]:
@@ -58,11 +58,11 @@ public class InstallTilePrompt(private val phoneDataLayerAppHelper: PhoneDataLay
      *     ActivityResultContracts.StartActivityForResult()
      * ) { result ->
      *     if (result.resultCode == RESULT_OK) {
-     *         // user pushed install!
+     *         // user pushed add Tile!
      *     }
      * }
      *
-     * launcher.launch(installAppPrompt.getIntent(/*params*/))
+     * launcher.launch(installTilePrompt.getIntent(/*params*/))
      * ```
      *
      * It can also be used directly in an [ComponentActivity] with
@@ -72,11 +72,11 @@ public class InstallTilePrompt(private val phoneDataLayerAppHelper: PhoneDataLay
      *      ActivityResultContracts.StartActivityForResult()
      *  ) { result ->
      *      if (result.resultCode == RESULT_OK) {
-     *          // user pushed install!
+     *          // user pushed add tile!
      *      }
      *  }
      *
-     * launcher.launch(installAppPrompt.getIntent(/*params*/))
+     * launcher.launch(installTilePrompt.getIntent(/*params*/))
      * ```
      */
     public fun getIntent(

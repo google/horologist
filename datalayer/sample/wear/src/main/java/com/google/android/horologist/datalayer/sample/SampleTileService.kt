@@ -47,7 +47,7 @@ class SampleTileService : SuspendingTileService() {
     @Inject
     lateinit var tileSync: TileSync
 
-    val renderer = SampleTileRenderer(this)
+    private val renderer = SampleTileRenderer(this)
 
     override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): TileBuilders.Tile {
         return renderer.renderTimeline(Unit, requestParams)

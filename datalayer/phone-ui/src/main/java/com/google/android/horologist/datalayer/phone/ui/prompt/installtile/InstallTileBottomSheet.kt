@@ -250,8 +250,8 @@ internal fun InstallTileBottomSheetLandscapeContent(
 private fun InstallTileBottomSheetContentPreview() {
     InstallTileBottomSheetPortraitContent(
         image = { Icon(Icons.Default.Email, contentDescription = null) },
-        topMessage = "Stay productive and manage emails right from your wrist.",
-        bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
+        topMessage = "Find useful content from your app with a glance.",
+        bottomMessage = "Add the Tile to your Wear OS app for accessing data with a glance.",
         onDismissRequest = { },
         onConfirmation = { },
     )

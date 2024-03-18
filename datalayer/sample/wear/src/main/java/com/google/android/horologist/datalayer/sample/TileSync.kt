@@ -27,10 +27,10 @@ import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.tasks.await
 
 class TileSync(
-    val registry: WearDataLayerRegistry,
-    val wearAppHelper: WearDataLayerAppHelper,
+    private val registry: WearDataLayerRegistry,
+    private val wearAppHelper: WearDataLayerAppHelper,
 ) {
-    val executor = Dispatchers.Default.asExecutor()
+    private val executor = Dispatchers.Default.asExecutor()
 
     suspend fun trackInstalledTiles(context: Context) {
         registry.dataClient

@@ -121,7 +121,9 @@ public fun ResponsiveDialogContent(
                 message?.let {
                     item {
                         Box(
-                            Modifier.fillMaxWidth(messageMaxWidthFraction),
+                            Modifier
+                                .fillMaxWidth(messageMaxWidthFraction)
+                                .padding(bottom = 12.dp),
                         ) { it() }
                     }
                 }
@@ -144,7 +146,7 @@ public fun ResponsiveDialogContent(
                             Modifier
                                 .fillMaxWidth()
                                 .padding(
-                                    top = if (content != null || message != null) 12.dp else 0.dp,
+                                    top = if (content != null) 12.dp else 0.dp,
                                 ),
                             horizontalArrangement = spacedBy(
                                 buttonSpacedBy.dp,

@@ -24,6 +24,7 @@ import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.proto.SampleProto
 import com.google.android.horologist.data.store.ProtoDataListener
 import com.google.android.horologist.datalayer.grpc.GrpcExtensions.grpcClient
+import com.google.android.horologist.datalayer.sample.TileSync
 import com.google.android.horologist.datalayer.sample.screens.nodes.SampleDataSerializer
 import com.google.android.horologist.datalayer.sample.shared.CounterValueSerializer
 import com.google.android.horologist.datalayer.sample.shared.grpc.CounterServiceGrpcKt
@@ -111,4 +112,11 @@ object DatalayerModule {
         ) {
             CounterServiceGrpcKt.CounterServiceCoroutineStub(it)
         }
+
+    @ActivityRetainedScoped
+    @Provides
+    fun tileSync(
+        wearDataLayerRegistry: WearDataLayerRegistry,
+        wearDataLayerAppHelper: WearDataLayerAppHelper,
+    ): TileSync = TileSync(wearDataLayerRegistry, wearDataLayerAppHelper)
 }

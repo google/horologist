@@ -133,7 +133,7 @@
     <string name="signin_custom_prompt_demo_prompt_dismiss_result_label">User dismissed the prompt.</string>
 
     <!-- In-app prompt - Install tile Demo screen -->
-    <string name="install_tile_prompt_api_call_demo_message">This demo calls the Horologist API to show the install Tile prompt for the watch demo app. The API will only display the prompt if there is a watch connected and the watch has the app already installed.</string>
+    <string name="install_tile_prompt_api_call_demo_message">This demo calls the Horologist API to show the install Tile prompt for the watch demo app. The API will only display the prompt if there is a watch connected and the watch does not have the Tile installed.</string>
     <string name="install_tile_prompt_run_demo_button_label">Run demo</string>
     <string name="install_tile_prompt_demo_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
     <string name="install_tile_prompt_demo_prompt_bottom_message">Install tile on your Wear OS watch.</string>

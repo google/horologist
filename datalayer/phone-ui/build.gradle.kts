@@ -110,7 +110,6 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.material)
     implementation(platform(libs.compose.bom))
-    implementation(libs.playservices.wearable)
 
     testImplementation(libs.junit)
 
@@ -135,5 +134,4 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     }
 }
 
-// TODO: not to be released for now
-// apply(plugin = "com.vanniktech.maven.publish")
+apply(plugin = "com.vanniktech.maven.publish")

@@ -7,91 +7,145 @@ package com.google.android.horologist.screenshots {
     field public static final com.google.android.horologist.screenshots.FixedTimeSource INSTANCE;
   }
 
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi @org.junit.runner.RunWith(RobolectricTestRunner::class) @org.robolectric.annotation.Config(sdk={33}, qualifiers="w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav", shadows={ShadowPixelCopy::class}) @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class ScreenshotBaseTest {
-    ctor public ScreenshotBaseTest(optional com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams params);
-    method @org.junit.Rule public final com.google.android.horologist.screenshots.ScreenshotTestRule getScreenshotTestRule();
-    property @org.junit.Rule public final com.google.android.horologist.screenshots.ScreenshotTestRule screenshotTestRule;
+  @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi @org.junit.runner.RunWith(RobolectricTestRunner::class) @org.robolectric.annotation.Config(sdk={33}, qualifiers="w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav", shadows={ShadowPixelCopy::class}) @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class ScreenshotBaseTest {
+    ctor @Deprecated public ScreenshotBaseTest(optional com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams params);
+    method @Deprecated @org.junit.Rule public final com.google.android.horologist.screenshots.ScreenshotTestRule getScreenshotTestRule();
+    property @Deprecated @org.junit.Rule public final com.google.android.horologist.screenshots.ScreenshotTestRule screenshotTestRule;
   }
 
-  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class ScreenshotTestRule implements org.junit.rules.TestRule {
-    ctor public ScreenshotTestRule(optional com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams params);
-    method public org.junit.runners.model.Statement apply(org.junit.runners.model.Statement base, org.junit.runner.Description description);
-    method public void interact(optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.test.junit4.ComposeTestRule,kotlin.Unit> block);
-    method public void setContent(optional boolean isComponent, optional kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit>? componentDefaultContent, optional boolean takeScreenshot, optional Boolean? roundScreen, optional kotlin.jvm.functions.Function0<kotlin.Unit> timeText, optional kotlin.jvm.functions.Function0<kotlin.Unit> positionIndicator, optional com.google.android.horologist.images.coil.FakeImageLoader fakeImageLoader, kotlin.jvm.functions.Function0<kotlin.Unit> composable);
-    method public void takeScreenshot();
-    field public static final com.google.android.horologist.screenshots.ScreenshotTestRule.Companion Companion;
+  @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class ScreenshotTestRule implements org.junit.rules.TestRule {
+    ctor @Deprecated public ScreenshotTestRule(optional com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams params);
+    method @Deprecated public org.junit.runners.model.Statement apply(org.junit.runners.model.Statement base, org.junit.runner.Description description);
+    method @Deprecated public void interact(optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.test.junit4.ComposeTestRule,kotlin.Unit> block);
+    method @Deprecated public void setContent(optional boolean isComponent, optional kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit>? componentDefaultContent, optional boolean takeScreenshot, optional Boolean? roundScreen, optional kotlin.jvm.functions.Function0<kotlin.Unit> timeText, optional kotlin.jvm.functions.Function0<kotlin.Unit> positionIndicator, optional com.google.android.horologist.images.coil.FakeImageLoader fakeImageLoader, kotlin.jvm.functions.Function0<kotlin.Unit> composable);
+    method @Deprecated public void takeScreenshot();
+    field @Deprecated public static final com.google.android.horologist.screenshots.ScreenshotTestRule.Companion Companion;
   }
 
-  public enum ScreenshotTestRule.ClipMode {
-    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode[] values();
-    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode Auto;
-    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode None;
-    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode Round;
+  @Deprecated public enum ScreenshotTestRule.ClipMode {
+    method @Deprecated public static com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method @Deprecated public static com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode[] values();
+    enum_constant @Deprecated public static final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode Auto;
+    enum_constant @Deprecated public static final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode None;
+    enum_constant @Deprecated public static final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode Round;
   }
 
-  public static final class ScreenshotTestRule.Companion {
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams.Builder builder();
-    method public inline com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams screenshotTestRuleParams(kotlin.jvm.functions.Function1<? super com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams.Builder,kotlin.Unit> block);
+  @Deprecated public static final class ScreenshotTestRule.Companion {
+    method @Deprecated public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams.Builder builder();
+    method @Deprecated public inline com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams screenshotTestRuleParams(kotlin.jvm.functions.Function1<? super com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams.Builder,kotlin.Unit> block);
   }
 
-  public enum ScreenshotTestRule.RecordMode {
-    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode[] values();
-    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode Record;
-    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode Repair;
-    enum_constant public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode Test;
-    field public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode.Companion Companion;
+  @Deprecated public enum ScreenshotTestRule.RecordMode {
+    method @Deprecated public static com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method @Deprecated public static com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode[] values();
+    enum_constant @Deprecated public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode Record;
+    enum_constant @Deprecated public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode Repair;
+    enum_constant @Deprecated public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode Test;
+    field @Deprecated public static final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode.Companion Companion;
   }
 
-  public static final class ScreenshotTestRule.RecordMode.Companion {
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode defaultRecordMode();
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode fromProperty(String? property);
+  @Deprecated public static final class ScreenshotTestRule.RecordMode.Companion {
+    method @Deprecated public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode defaultRecordMode();
+    method @Deprecated public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode fromProperty(String? property);
   }
 
-  public static final class ScreenshotTestRule.ScreenshotTestRuleParams {
-    ctor public ScreenshotTestRule.ScreenshotTestRuleParams(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record, com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode);
-    method public float component1();
-    method public boolean component2();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit> component3();
-    method public String? component4();
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode component5();
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode component6();
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams copy(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record, com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode);
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode getClipMode();
-    method public boolean getEnableA11y();
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode getRecord();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit> getScreenTimeText();
-    method public String? getTestLabel();
+  @Deprecated public static final class ScreenshotTestRule.ScreenshotTestRuleParams {
+    ctor @Deprecated public ScreenshotTestRule.ScreenshotTestRuleParams(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record, com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode);
+    method @Deprecated public float component1();
+    method @Deprecated public boolean component2();
+    method @Deprecated public kotlin.jvm.functions.Function0<kotlin.Unit> component3();
+    method @Deprecated public String? component4();
+    method @Deprecated public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode component5();
+    method @Deprecated public com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode component6();
+    method @Deprecated public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams copy(float tolerance, boolean enableA11y, kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText, String? testLabel, com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record, com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode);
+    method @Deprecated public com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode getClipMode();
+    method @Deprecated public boolean getEnableA11y();
+    method @Deprecated public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode getRecord();
+    method @Deprecated public kotlin.jvm.functions.Function0<kotlin.Unit> getScreenTimeText();
+    method @Deprecated public String? getTestLabel();
+    method @Deprecated public float getTolerance();
+    property @Deprecated public final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode;
+    property @Deprecated public final boolean enableA11y;
+    property @Deprecated public final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record;
+    property @Deprecated public final kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText;
+    property @Deprecated public final String? testLabel;
+    property @Deprecated public final float tolerance;
+  }
+
+  @Deprecated public static final class ScreenshotTestRule.ScreenshotTestRuleParams.Builder {
+    method @Deprecated public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams build();
+    method @Deprecated public com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode getClipMode();
+    method @Deprecated public boolean getEnableA11y();
+    method @Deprecated public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode getRecord();
+    method @Deprecated public kotlin.jvm.functions.Function0<kotlin.Unit> getScreenTimeText();
+    method @Deprecated public String? getTestLabel();
+    method @Deprecated public float getTolerance();
+    method @Deprecated public void setClipMode(com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode);
+    method @Deprecated public void setEnableA11y(boolean);
+    method @Deprecated public void setRecord(com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode);
+    method @Deprecated public void setScreenTimeText(kotlin.jvm.functions.Function0<kotlin.Unit>);
+    method @Deprecated public void setTestLabel(String?);
+    method @Deprecated public void setTolerance(float);
+    property @Deprecated public final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode;
+    property @Deprecated public final boolean enableA11y;
+    property @Deprecated public final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record;
+    property @Deprecated public final kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText;
+    property @Deprecated public final String? testLabel;
+    property @Deprecated public final float tolerance;
+  }
+
+}
+
+package com.google.android.horologist.screenshots.rng {
+
+  public enum WearDevice {
+    method public final float getDensity();
+    method public final int getDp();
+    method public final float getFontScale();
+    method public final String! getId();
+    method public final String! getModelName();
+    method public final int getScreenSizePx();
+    method public static com.google.android.horologist.screenshots.rng.WearDevice valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.google.android.horologist.screenshots.rng.WearDevice[] values();
+    property public final float density;
+    property public final int dp;
+    property public final float fontScale;
+    property public final String! id;
+    property public final String! modelName;
+    property public final int screenSizePx;
+    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice GenericLargeRound;
+    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice GenericSmallRound;
+    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice GooglePixelWatch;
+    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice GooglePixelWatchLargeFont;
+    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice MobvoiTicWatchPro5;
+    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice SamsungGalaxyWatch5;
+    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice SamsungGalaxyWatch6;
+    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice SamsungGalaxyWatch6SmallFont;
+  }
+
+  @org.junit.runner.RunWith(ParameterizedRobolectricTestRunner::class) public abstract class WearDeviceScreenshotTest extends com.google.android.horologist.screenshots.rng.WearScreenshotTest {
+    ctor public WearDeviceScreenshotTest(com.google.android.horologist.screenshots.rng.WearDevice device);
+    method @org.robolectric.ParameterizedRobolectricTestRunner.Parameters public static final java.util.List<com.google.android.horologist.screenshots.rng.WearDevice> devices();
+    method public com.google.android.horologist.screenshots.rng.WearDevice getDevice();
+    property public com.google.android.horologist.screenshots.rng.WearDevice device;
+    property public float tolerance;
+    field public static final com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest.Companion Companion;
+  }
+
+  public static final class WearDeviceScreenshotTest.Companion {
+    method @org.robolectric.ParameterizedRobolectricTestRunner.Parameters public java.util.List<com.google.android.horologist.screenshots.rng.WearDevice> devices();
+  }
+
+  @org.robolectric.annotation.Config(sdk={33}, qualifiers="w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav") @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class WearScreenshotTest {
+    ctor public WearScreenshotTest();
+    method public final void captureScreenshot(String suffix);
+    method @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule getComposeRule();
+    method public abstract com.google.android.horologist.screenshots.rng.WearDevice getDevice();
     method public float getTolerance();
-    property public final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode;
-    property public final boolean enableA11y;
-    property public final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record;
-    property public final kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText;
-    property public final String? testLabel;
-    property public final float tolerance;
-  }
-
-  public static final class ScreenshotTestRule.ScreenshotTestRuleParams.Builder {
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ScreenshotTestRuleParams build();
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode getClipMode();
-    method public boolean getEnableA11y();
-    method public com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode getRecord();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit> getScreenTimeText();
-    method public String? getTestLabel();
-    method public float getTolerance();
-    method public void setClipMode(com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode);
-    method public void setEnableA11y(boolean);
-    method public void setRecord(com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode);
-    method public void setScreenTimeText(kotlin.jvm.functions.Function0<kotlin.Unit>);
-    method public void setTestLabel(String?);
-    method public void setTolerance(float);
-    property public final com.google.android.horologist.screenshots.ScreenshotTestRule.ClipMode clipMode;
-    property public final boolean enableA11y;
-    property public final com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode record;
-    property public final kotlin.jvm.functions.Function0<kotlin.Unit> screenTimeText;
-    property public final String? testLabel;
-    property public final float tolerance;
+    method public void runTest(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    property @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule composeRule;
+    property public abstract com.google.android.horologist.screenshots.rng.WearDevice device;
+    property public float tolerance;
   }
 
 }

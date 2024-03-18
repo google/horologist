@@ -16,19 +16,14 @@
 
 package com.google.android.horologist.screensizes
 
-import androidx.compose.runtime.Composable
 import com.google.android.horologist.auth.composables.screens.CheckYourPhoneScreen
-import com.google.android.horologist.compose.tools.Device
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearDevice
+import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
+import org.junit.Test
 
-class CheckYourPhoneTest(device: Device) : ScreenSizeTest(
-    device = device,
-    showTimeText = false,
-    recordMode = ScreenshotTestRule.RecordMode.Record,
-) {
-
-    @Composable
-    override fun Content() {
+class CheckYourPhoneTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
+    @Test
+    fun initial() = runTest {
         CheckYourPhoneScreen()
     }
 }

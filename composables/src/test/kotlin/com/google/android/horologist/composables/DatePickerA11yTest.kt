@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
 @file:OptIn(ExperimentalWearFoundationApi::class)
 
 package com.google.android.horologist.composables

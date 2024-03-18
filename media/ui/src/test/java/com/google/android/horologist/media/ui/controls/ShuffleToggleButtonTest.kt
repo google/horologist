@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.media.ui.controls
 
 import com.google.android.horologist.media.ui.components.controls.ShuffleToggleButton

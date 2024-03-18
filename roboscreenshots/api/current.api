@@ -142,7 +142,7 @@ package com.google.android.horologist.screenshots.rng {
     method @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule getComposeRule();
     method public abstract com.google.android.horologist.screenshots.rng.WearDevice getDevice();
     method public float getTolerance();
-    method public void runTest(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public void runTest(optional String? suffix, kotlin.jvm.functions.Function0<kotlin.Unit> content);
     property @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule composeRule;
     property public abstract com.google.android.horologist.screenshots.rng.WearDevice device;
     property public float tolerance;

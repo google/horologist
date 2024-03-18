@@ -122,8 +122,14 @@ public class PhoneDataLayerAppHelper(
             } else {
                 return AppHelperResultCode.APP_HELPER_RESULT_INVALID_COMPANION
             }
-        } catch (e: PackageManager.NameNotFoundException) {
-            return AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
+        } catch (ex: Exception) {
+            when (ex) {
+                is PackageManager.NameNotFoundException, is IllegalArgumentException -> {
+                    return AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
+                }
+
+                else -> throw ex
+            }
         }
     }
 

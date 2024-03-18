@@ -61,7 +61,7 @@ class InstallTilePromptDemoViewModel
             _uiState.value = InstallTilePromptDemoScreenState.Loading
 
             viewModelScope.launch {
-                val node = installTilePrompt.shouldDisplayPrompt()
+                val node = installTilePrompt.shouldDisplayPrompt(TILE_NAME)
 
                 _uiState.value = if (node != null) {
                     InstallTilePromptDemoScreenState.WatchFound(node.id)
@@ -81,6 +81,10 @@ class InstallTilePromptDemoViewModel
 
         fun onPromptDismiss() {
             _uiState.value = InstallTilePromptDemoScreenState.PromptDismissed
+        }
+
+        companion object {
+            private const val TILE_NAME = "com.example.MediaPlayerTile"
         }
     }
 

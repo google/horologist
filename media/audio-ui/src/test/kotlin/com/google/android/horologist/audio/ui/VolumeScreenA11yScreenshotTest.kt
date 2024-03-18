@@ -28,7 +28,6 @@ import org.junit.Test
 class VolumeScreenA11yScreenshotTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         enableA11y = true
-        tolerance = 1.0f
         screenTimeText = { }
     },
 ) {

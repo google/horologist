@@ -19,6 +19,7 @@ package com.google.android.horologist.compose.material
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -115,10 +116,11 @@ public fun ConfirmationContent(
         title = title?.let {
             {
                 Text(
+                    modifier = Modifier.fillMaxWidth(),
                     text = it,
                     color = MaterialTheme.colors.onBackground,
                     textAlign = TextAlign.Center,
-                    maxLines = if (icon == null) 3 else 2,
+                    maxLines = 3,
                     overflow = TextOverflow.Ellipsis,
                 )
             }

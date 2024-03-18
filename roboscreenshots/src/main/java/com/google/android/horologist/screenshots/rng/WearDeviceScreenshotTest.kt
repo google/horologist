@@ -24,8 +24,8 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 public abstract class WearDeviceScreenshotTest(override val device: WearDevice) : WearScreenshotTest() {
     public override val tolerance: Float = 0.02f
 
-    override fun runTest(content: @Composable () -> Unit) {
-        super.runTest(content)
+    override fun runTest(suffix: String?, content: @Composable () -> Unit) {
+        super.runTest(suffix, content)
     }
 
     public companion object {

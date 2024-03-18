@@ -19,7 +19,6 @@
     "DEPRECATION",
 )
 
-
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.background

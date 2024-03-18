@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.auth.ui.common.screens.prompt
 
 import androidx.compose.foundation.layout.Box

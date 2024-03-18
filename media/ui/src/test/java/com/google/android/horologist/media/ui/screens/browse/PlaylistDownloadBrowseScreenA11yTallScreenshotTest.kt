@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("ObjectLiteralToLambda")
+@file:Suppress("ObjectLiteralToLambda", "DEPRECATION")
 
 package com.google.android.horologist.media.ui.screens.browse
 

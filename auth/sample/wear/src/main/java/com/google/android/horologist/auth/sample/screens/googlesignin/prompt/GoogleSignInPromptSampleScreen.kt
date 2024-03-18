@@ -39,7 +39,7 @@ import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptS
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
 import com.google.android.horologist.auth.ui.googlesignin.prompt.GoogleSignInPromptViewModelFactory
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
@@ -98,6 +98,6 @@ fun GoogleSignInPromptSampleScreen(
 fun GoogleSignInPromptSampleScreenPreview() {
     GoogleSignInPromptSampleScreen(
         navController = rememberSwipeDismissableNavController(),
-        columnState = belowTimeTextPreview(),
+        columnState = rememberResponsiveColumnState(),
     )
 }

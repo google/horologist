@@ -19,7 +19,7 @@ package com.google.android.horologist.auth.composables.screens
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
 @WearPreviewDevices
 @Composable
@@ -30,7 +30,7 @@ fun SelectAccountScreenPreview() {
             AccountUiModel(email = "thisisaverylongemail@example.com"),
         ),
         onAccountClicked = { _, _ -> },
-        columnState = belowTimeTextPreview(),
+        columnState = rememberResponsiveColumnState(),
     )
 }
 
@@ -43,7 +43,7 @@ fun SelectAccountScreenPreviewNoAvatar() {
             AccountUiModel(email = "thisisaverylongemailaccountsample@example.com"),
         ),
         onAccountClicked = { _, _ -> },
-        columnState = belowTimeTextPreview(),
+        columnState = rememberResponsiveColumnState(),
         defaultAvatar = null,
     )
 }

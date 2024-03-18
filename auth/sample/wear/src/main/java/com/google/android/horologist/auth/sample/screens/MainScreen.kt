@@ -27,7 +27,7 @@ import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 
@@ -126,6 +126,6 @@ private fun SectionedListScope.commonScreensSection(navigateToRoute: (String) ->
 fun AuthMenuScreenPreview() {
     MainScreen(
         navigateToRoute = {},
-        columnState = belowTimeTextPreview(),
+        columnState = rememberResponsiveColumnState(),
     )
 }

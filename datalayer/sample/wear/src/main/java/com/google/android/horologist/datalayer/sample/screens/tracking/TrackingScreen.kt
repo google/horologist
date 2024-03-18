@@ -31,7 +31,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.SplitToggleChip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
@@ -199,6 +199,6 @@ fun TrackingScreenPreview() {
         onTileCheckedChanged = { _, _ -> },
         onComplicationCheckedChanged = { _, _ -> },
         onDisplayInfoClicked = { },
-        columnState = belowTimeTextPreview(),
+        columnState = rememberResponsiveColumnState(),
     )
 }

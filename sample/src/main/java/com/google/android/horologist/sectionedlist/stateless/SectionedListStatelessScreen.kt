@@ -34,7 +34,7 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
@@ -166,5 +166,5 @@ private fun SectionedListScope.bottomMenuSection() {
 @WearPreviewDevices
 @Composable
 fun SectionedListStatelessScreenPreview() {
-    SectionedListStatelessScreen(columnState = belowTimeTextPreview())
+    SectionedListStatelessScreen(columnState = rememberResponsiveColumnState())
 }

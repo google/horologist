@@ -218,4 +218,20 @@ class DialogTest(device: Device) : ScreenSizeTest(
             )
         }
     }
+
+    @Test
+    fun multiLineConfirmationScreen() {
+        runTest {
+            ConfirmationContent(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.Check,
+                        contentDescription = "Completed",
+                        tint = Color.Green,
+                    )
+                },
+                title = "This example uses three lines of text to show max limit",
+            )
+        }
+    }
 }

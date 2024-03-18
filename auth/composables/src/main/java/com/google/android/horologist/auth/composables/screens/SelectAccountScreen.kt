@@ -31,6 +31,7 @@ import com.google.android.horologist.auth.composables.chips.AccountChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
@@ -44,8 +45,8 @@ import com.google.android.horologist.images.base.paintable.Paintable
 public fun SelectAccountScreen(
     accounts: List<AccountUiModel>,
     onAccountClicked: (index: Int, account: AccountUiModel) -> Unit,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     title: String = stringResource(id = R.string.horologist_select_account_title),
     defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
 ) {

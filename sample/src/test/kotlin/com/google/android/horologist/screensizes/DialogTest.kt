@@ -26,8 +26,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
@@ -35,9 +37,6 @@ import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.material.AlertContent
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.ConfirmationContent
@@ -93,23 +92,14 @@ class DialogTest(device: Device) : ScreenSizeTest(
 
     @Test
     fun longDialogScreen1() {
-        lateinit var columnState: ScalingLazyColumnState
-
         runTest(testFn = {
             screenshotTestRule.interact {
-                runBlocking {
-                    columnState.state.scrollToItem(999, 0)
-                }
+                onNode(hasScrollToNodeAction())
+                    .performTouchInput { repeat(10) { swipeUp() } }
             }
 
             screenshotTestRule.takeScreenshot()
         }) {
-            columnState = rememberColumnState(
-                ScalingLazyColumnDefaults.responsive(
-                    additionalPaddingAtBottom = 0.dp,
-                ),
-            )
-
             AlertContent(
                 title = "Turn on Bedtime mode?",
                 message = "Watch screen, tilt-to-wake, and touch are turned off. " +
@@ -119,7 +109,6 @@ class DialogTest(device: Device) : ScreenSizeTest(
                 onCancel = {},
                 okButtonContentDescription = stringResource(R.string.ok),
                 cancelButtonContentDescription = stringResource(R.string.cancel),
-                state = columnState,
             ) {
                 item {
                     ToggleChip(
@@ -135,23 +124,16 @@ class DialogTest(device: Device) : ScreenSizeTest(
 
     @Test
     fun batterySaverScreen() {
-        lateinit var columnState: ScalingLazyColumnState
-
         runTest(testFn = {
             screenshotTestRule.interact {
                 runBlocking {
-                    columnState.state.scrollToItem(999, 0)
+                    onNode(hasScrollToNodeAction())
+                        .performTouchInput { repeat(10) { swipeUp() } }
                 }
             }
 
             screenshotTestRule.takeScreenshot()
         }) {
-            columnState = rememberColumnState(
-                ScalingLazyColumnDefaults.responsive(
-                    additionalPaddingAtBottom = 0.dp,
-                ),
-            )
-
             AlertContent(
                 icon = {
                     Icon(
@@ -165,7 +147,6 @@ class DialogTest(device: Device) : ScreenSizeTest(
                 onCancel = {},
                 okButtonContentDescription = stringResource(R.string.ok),
                 cancelButtonContentDescription = stringResource(R.string.cancel),
-                state = columnState,
             ) {
                 item {
                     Chip(

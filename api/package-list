@@ -21,6 +21,7 @@ com.google.android.horologist.compose.tools
 com.google.android.horologist.compose.tools.a11y
 module:roboscreenshots
 com.google.android.horologist.screenshots
+com.google.android.horologist.screenshots.rng
 module:tiles
 com.google.android.horologist.tiles
 com.google.android.horologist.tiles.canvas
@@ -67,6 +68,7 @@ com.google.android.horologist.datalayer.phone
 module:datalayer-phone-ui
 com.google.android.horologist.datalayer.phone.ui.play
 com.google.android.horologist.datalayer.phone.ui.prompt.installapp
+com.google.android.horologist.datalayer.phone.ui.prompt.installtile
 com.google.android.horologist.datalayer.phone.ui.prompt.reengage
 com.google.android.horologist.datalayer.phone.ui.prompt.signin
 module:datalayer-watch

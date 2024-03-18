@@ -35,7 +35,6 @@ import org.junit.Test
 class VerticalPagerScreenScreenshotTest : ScreenshotBaseTest(
     params = ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {}
-        record = ScreenshotTestRule.RecordMode.Record
     },
 ) {
 

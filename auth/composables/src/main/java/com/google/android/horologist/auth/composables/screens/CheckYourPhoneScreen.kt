@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
@@ -115,6 +116,7 @@ public fun CheckYourPhoneScreen(
                     .fillMaxWidth()
                     .align(Alignment.CenterHorizontally),
                 textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.title3,
             )
 
             if (message != null) {

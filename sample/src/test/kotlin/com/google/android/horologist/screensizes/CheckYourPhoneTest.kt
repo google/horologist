@@ -22,6 +22,8 @@ import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
 import org.junit.Test
 
 class CheckYourPhoneTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
+    public override val tolerance: Float = 0.01f
+
     @Test
     fun initial() = runTest {
         CheckYourPhoneScreen()

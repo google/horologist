@@ -16,20 +16,14 @@
 
 package com.google.android.horologist.screensizes
 
-import androidx.compose.runtime.Composable
-import androidx.wear.compose.material.ChipDefaults
-import com.google.android.horologist.auth.composables.chips.GuestModeChip
-import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.tools.Device
+import com.google.android.horologist.screenshots.rng.WearDevice
+import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
+import org.junit.Test
 
-class SignInPlaceholderScreenTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
-
-    @Composable
-    override fun Content() {
+class SignInPlaceholderScreenTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
+    @Test
+    fun initial() = runTest {
         SignInPlaceholderScreen()
     }
 }

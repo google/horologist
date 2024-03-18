@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
+@file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+
 package com.google.android.horologist.screensizes
 
 import android.R
-import androidx.compose.runtime.Composable
-import com.google.android.horologist.compose.tools.Device
+import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialogContent
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.screenshots.rng.WearDevice
+import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
+import org.junit.Test
 
-@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-class SignedInConfirmationTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
-
-    @Composable
-    override fun Content() {
-        com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialogContent(
+class SignedInConfirmationTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
+    @Test
+    fun initial() = runTest {
+        SignedInConfirmationDialogContent(
             name = "Maggie",
             email = "maggie@example.com",
             avatar = DrawableResPaintable(R.mipmap.sym_def_app_icon),

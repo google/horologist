@@ -16,14 +16,14 @@
 
 package com.google.android.horologist.screensizes
 
-import androidx.compose.runtime.Composable
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
-import com.google.android.horologist.compose.tools.Device
+import com.google.android.horologist.screenshots.rng.WearDevice
+import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
+import org.junit.Test
 
-class AuthErrorScreenTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
-
-    @Composable
-    override fun Content() {
+class AuthErrorScreenTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
+    @Test
+    fun initial() = runTest {
         AuthErrorScreen()
     }
 }

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.media.ui.screens.entity
 
 import androidx.compose.material.icons.Icons

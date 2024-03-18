@@ -16,6 +16,7 @@
 
 @file:Suppress(
     "TestFunctionName", // incorrectly flagging composable functions
+    "DEPRECATION",
 )
 
 package com.google.android.horologist.composables

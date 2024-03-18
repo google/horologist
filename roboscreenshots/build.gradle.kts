@@ -95,12 +95,18 @@ dependencies {
 
     api(libs.kotlin.stdlib)
     api(libs.okio)
-    api(libs.snapshot.android)
     api(libs.compose.ui.test.junit4)
     api(libs.robolectric)
     api(libs.coil)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
+
+    implementation(libs.roborazzi)
+    implementation(libs.roborazzi.compose)
+    implementation(libs.roborazzi.rule)
+
+    // TODO remove
+    implementation(libs.snapshot.android)
 
     testImplementation(libs.robolectric)
 }

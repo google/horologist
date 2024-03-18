@@ -15,6 +15,7 @@
  */
 
 @file:OptIn(ExperimentalFoundationApi::class)
+@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.compose.pager
 

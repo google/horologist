@@ -15,6 +15,7 @@
  */
 
 @file:OptIn(ExperimentalCoroutinesApi::class)
+@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.screenshots
 
@@ -72,6 +73,7 @@ import kotlin.math.min
  * [ScreenshotBaseTest] for a basic configuration.
  */
 @ExperimentalHorologistApi
+@Deprecated("Use RNG and roborazzi directly")
 public class ScreenshotTestRule(
     private val params: ScreenshotTestRuleParams = screenshotTestRuleParams { },
 ) : TestRule {

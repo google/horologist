@@ -18,10 +18,15 @@
 
 package com.google.android.horologist.screenshots.rng
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
+import androidx.wear.compose.material.MaterialTheme
 import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
 import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.ThresholdValidator
@@ -50,7 +55,9 @@ public abstract class WearScreenshotTest {
         RuntimeEnvironment.setFontScale(device.fontScale)
 
         composeRule.setContent {
-            content()
+            Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background)) {
+                content()
+            }
         }
 
         val suffix = ""

@@ -25,7 +25,7 @@ import org.junit.Test
 class CheckYourPhoneScreenTest : ScreenshotBaseTest(
     params = ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {}
-    }
+    },
 ) {
 
     @Test

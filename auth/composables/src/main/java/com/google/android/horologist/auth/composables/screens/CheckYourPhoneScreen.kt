@@ -96,7 +96,10 @@ public fun CheckYourPhoneScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(
-                top = topPadding, bottom = bottomPadding, start = sidePadding, end = sidePadding
+                top = topPadding,
+                bottom = bottomPadding,
+                start = sidePadding,
+                end = sidePadding,
             ),
     ) {
         Column(
@@ -104,7 +107,7 @@ public fun CheckYourPhoneScreen(
                 .fillMaxWidth()
                 .weight(1f)
                 .padding(horizontal = textPadding),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = stringResource(id = R.string.horologist_check_your_phone_title),
@@ -128,10 +131,10 @@ public fun CheckYourPhoneScreen(
 
         ProgressCircle(
             Modifier
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.CenterHorizontally),
         )
     }
 }
 
 /** Whether the device is considered large screen for layout adjustment purposes. */
-public val Configuration.isLargeScreen: Boolean get() = screenHeightDp > 224
+internal val Configuration.isLargeScreen: Boolean get() = screenHeightDp > 224

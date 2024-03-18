@@ -58,8 +58,7 @@ package com.google.android.horologist.auth.composables.screens {
   }
 
   public final class CheckYourPhoneScreenKt {
-    method @androidx.compose.runtime.Composable public static void CheckYourPhoneScreen(optional androidx.compose.ui.Modifier modifier);
-    method @androidx.compose.runtime.Composable public static void CheckYourPhoneScreen(optional androidx.compose.ui.Modifier modifier, String message);
+    method @androidx.compose.runtime.Composable public static void CheckYourPhoneScreen(optional androidx.compose.ui.Modifier modifier, optional String? message);
   }
 
   public final class SelectAccountScreenKt {

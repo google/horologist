@@ -104,7 +104,7 @@ public fun SignedInConfirmationDialog(
 }
 
 @Composable
-private fun SignedInConfirmationDialogContent(
+internal fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,

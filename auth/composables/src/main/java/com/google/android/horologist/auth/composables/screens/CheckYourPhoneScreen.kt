@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.auth.composables.screens
 
+import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,52 +41,33 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
-private const val TOP_PADDING_SCREEN_PERCENTAGE = 0.2
+private const val TOP_PADDING_SCREEN_PERCENTAGE = 0.1248f
+private const val BOTTOM_PADDING_SCREEN_PERCENTAGE = 0.0624f
+private const val SIDE_PADDING_SCREEN_PERCENTAGE = 0.052f
+private const val TEXT_PADDING_SCREEN_PERCENTAGE = 0.0416f
 private val indicatorPadding = 8.dp
 private val iconSize = 48.dp
 private val progressBarStrokeWidth = 4.dp
 
-/**
- * A screen to request the user to check their paired phone to proceed.
- *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/check_your_phone_screen.png"  height="120" width="120"/>
- */
 @Composable
-public fun CheckYourPhoneScreen(
-    modifier: Modifier = Modifier,
-) {
+private fun ProgressCircle(modifier: Modifier) {
     Box(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .size(iconSize)
+            .clip(CircleShape),
     ) {
-        Text(
-            text = stringResource(id = R.string.horologist_check_your_phone_title),
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Center),
-            textAlign = TextAlign.Center,
+        CircularProgressIndicator(
+            modifier = Modifier.size(iconSize - progressBarStrokeWidth + indicatorPadding),
+            strokeWidth = progressBarStrokeWidth,
         )
-
-        Box(
-            modifier = modifier
-                .padding(bottom = 20.dp)
-                .align(Alignment.BottomCenter)
-                .size(iconSize)
+        Icon(
+            imageVector = Icons.Default.SecurityUpdateGood,
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(iconSize - indicatorPadding - 8.dp)
                 .clip(CircleShape),
-        ) {
-            CircularProgressIndicator(
-                modifier = modifier
-                    .size(iconSize - progressBarStrokeWidth + indicatorPadding),
-                strokeWidth = progressBarStrokeWidth,
-            )
-            Icon(
-                imageVector = Icons.Default.SecurityUpdateGood,
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(iconSize - indicatorPadding - 8.dp)
-                    .clip(CircleShape),
-            )
-        }
+        )
     }
 }
 
@@ -97,53 +80,61 @@ public fun CheckYourPhoneScreen(
 @Composable
 public fun CheckYourPhoneScreen(
     modifier: Modifier = Modifier,
-    message: String,
+    message: String? = null,
 ) {
     val configuration = LocalConfiguration.current
+
+    val isLarge = configuration.isLargeScreen
+
     val topPadding = (configuration.screenHeightDp * TOP_PADDING_SCREEN_PERCENTAGE).dp
+    val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
+    val sidePadding = (configuration.screenHeightDp * SIDE_PADDING_SCREEN_PERCENTAGE).dp
+    val textPadding =
+        if (isLarge) (configuration.screenHeightDp * TEXT_PADDING_SCREEN_PERCENTAGE).dp else 0.dp
 
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(top = topPadding),
+            .padding(
+                top = topPadding,
+                bottom = bottomPadding,
+                start = sidePadding,
+                end = sidePadding,
+            ),
     ) {
-        Text(
-            text = stringResource(id = R.string.horologist_check_your_phone_title),
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-        )
-
-        Text(
-            text = message,
-            modifier = Modifier
-                .padding(top = 20.dp)
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-        )
-
-        Box(
-            modifier = modifier
-                .padding(vertical = 20.dp)
-                .fillMaxWidth()
-                .size(iconSize)
-                .clip(CircleShape),
-            contentAlignment = Alignment.Center,
+                .weight(1f)
+                .padding(horizontal = textPadding),
+            verticalArrangement = Arrangement.Center,
         ) {
-            CircularProgressIndicator(
-                modifier = modifier
-                    .size(iconSize - progressBarStrokeWidth + indicatorPadding),
-                strokeWidth = progressBarStrokeWidth,
-            )
-            Icon(
-                imageVector = Icons.Default.SecurityUpdateGood,
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+            Text(
+                text = stringResource(id = R.string.horologist_check_your_phone_title),
                 modifier = Modifier
-                    .size(iconSize - indicatorPadding - 8.dp)
-                    .clip(CircleShape),
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally),
+                textAlign = TextAlign.Center,
             )
+
+            if (message != null) {
+                Text(
+                    text = message,
+                    modifier = Modifier
+                        .padding(top = 20.dp)
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally),
+                    textAlign = TextAlign.Center,
+                )
+            }
         }
+
+        ProgressCircle(
+            Modifier
+                .align(Alignment.CenterHorizontally),
+        )
     }
 }
+
+/** Whether the device is considered large screen for layout adjustment purposes. */
+internal val Configuration.isLargeScreen: Boolean get() = screenHeightDp > 224

@@ -127,6 +127,7 @@ package com.google.android.horologist.screenshots.rng {
     ctor public WearDeviceScreenshotTest(com.google.android.horologist.screenshots.rng.WearDevice device);
     method @org.robolectric.ParameterizedRobolectricTestRunner.Parameters public static final java.util.List<com.google.android.horologist.screenshots.rng.WearDevice> devices();
     method public com.google.android.horologist.screenshots.rng.WearDevice getDevice();
+    method public final void runTest(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     property public com.google.android.horologist.screenshots.rng.WearDevice device;
     property public float tolerance;
     field public static final com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest.Companion Companion;
@@ -142,7 +143,7 @@ package com.google.android.horologist.screenshots.rng {
     method @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule getComposeRule();
     method public abstract com.google.android.horologist.screenshots.rng.WearDevice getDevice();
     method public float getTolerance();
-    method public void runTest(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public final void runTest(optional String? suffix, kotlin.jvm.functions.Function0<kotlin.Unit> content);
     property @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule composeRule;
     property public abstract com.google.android.horologist.screenshots.rng.WearDevice device;
     property public float tolerance;

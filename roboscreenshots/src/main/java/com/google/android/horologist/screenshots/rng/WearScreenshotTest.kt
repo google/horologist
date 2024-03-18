@@ -50,7 +50,7 @@ public abstract class WearScreenshotTest {
     // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
     public open val tolerance: Float = 0.0f
 
-    public open fun runTest(suffix: String? = null, content: @Composable () -> Unit) {
+    public fun runTest(suffix: String? = null, content: @Composable () -> Unit) {
         RuntimeEnvironment.setQualifiers("+w${device.dp}dp-h${device.dp}dp")
         RuntimeEnvironment.setFontScale(device.fontScale)
 

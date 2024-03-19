@@ -201,6 +201,13 @@ In `onTileRemoveEvent`:
 wearAppHelper.markTileAsRemoved("SummaryTile")
 ```
 
+## Deeplink into Tiles settings editor to install a Tile (phone only)
+
+If you want to open the Tile Settings editor on your phone, you can use
+`phoneDataLayerAppHelper.checkCompanionVersionSupportTileEditing` to check that the Companion version
+supports deeplink into Tiles Settings editor and `phoneDataLayerAppHelper.findWatchToInstallTile`
+to check if there is a connected watch where the Tile can be installed.
+
 ## Tracking Complication installation (Wear-only)
 
 To determine whether your Complication(s) are in-use, add the following to

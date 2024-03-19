@@ -91,4 +91,10 @@ public class InstallTilePrompt(private val phoneDataLayerAppHelper: PhoneDataLay
         topMessage = topMessage,
         bottomMessage = bottomMessage,
     )
+
+    /**
+     * Performs the same action taken by the prompt when the user taps on "install tile".
+     */
+    public fun performAction(context: Context): Unit =
+        InstallTilePromptAction.run(context = context)
 }

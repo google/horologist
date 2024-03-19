@@ -279,8 +279,9 @@ public fun Chip(
  * Temporary copy of Wear Compose Material Chip with support for
  * onLongClick.
  */
+@ExperimentalHorologistApi
 @Composable
-internal fun Chip(
+public fun Chip(
     label: @Composable RowScope.() -> Unit,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -363,8 +364,9 @@ internal fun Chip(
  * Temporary copy of Wear Compose Material Chip with support for
  * onLongClick.
  */
+@ExperimentalHorologistApi
 @Composable
-internal fun Chip(
+public fun Chip(
     onClick: () -> Unit,
     colors: ChipColors,
     border: ChipBorder,

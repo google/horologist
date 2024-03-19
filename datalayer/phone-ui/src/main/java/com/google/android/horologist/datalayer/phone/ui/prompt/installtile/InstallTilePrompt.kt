@@ -93,8 +93,11 @@ public class InstallTilePrompt(private val phoneDataLayerAppHelper: PhoneDataLay
     )
 
     /**
-     * Performs the same action taken by the prompt when the user taps on "install tile".
+     * Performs the same action taken by the prompt when the user taps on the positive button.
      */
-    public fun performAction(context: Context): Unit =
-        InstallTilePromptAction.run(context = context)
+    public fun performAction(context: Context) {
+        InstallTilePromptAction.run(
+            context = context,
+        )
+    }
 }

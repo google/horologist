@@ -935,6 +935,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#deeplink-into-tiles-settings-editor-to-install-a-tile-phone-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deeplink into Tiles settings editor to install a Tile (phone only)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tracking-complication-installation-wear-only" class="md-nav__link">
     <span class="md-ellipsis">
       Tracking Complication installation (Wear-only)
@@ -1566,6 +1575,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#deeplink-into-tiles-settings-editor-to-install-a-tile-phone-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deeplink into Tiles settings editor to install a Tile (phone only)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tracking-complication-installation-wear-only" class="md-nav__link">
     <span class="md-ellipsis">
       Tracking Complication installation (Wear-only)
@@ -1763,6 +1781,11 @@ user the option to navigate to the companion app to install it:</p>
 <p>In <code>onTileRemoveEvent</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">wearAppHelper</span><span class="p">.</span><span class="na">markTileAsRemoved</span><span class="p">(</span><span class="s">&quot;SummaryTile&quot;</span><span class="p">)</span>
 </code></pre></div>
+<h2 id="deeplink-into-tiles-settings-editor-to-install-a-tile-phone-only">Deeplink into Tiles settings editor to install a Tile (phone only)<a class="headerlink" href="#deeplink-into-tiles-settings-editor-to-install-a-tile-phone-only" title="Permanent link">&para;</a></h2>
+<p>If you want to open the Tile Settings editor on your phone, you can use
+<code>phoneDataLayerAppHelper.checkCompanionVersionSupportTileEditing</code> to check that the Companion version
+supports deeplink into Tiles Settings editor and <code>phoneDataLayerAppHelper.findWatchToInstallTile</code>
+to check if there is a connected watch where the Tile can be installed.</p>
 <h2 id="tracking-complication-installation-wear-only">Tracking Complication installation (Wear-only)<a class="headerlink" href="#tracking-complication-installation-wear-only" title="Permanent link">&para;</a></h2>
 <p>To determine whether your Complication(s) are in-use, add the following to
 your <code>ComplicationDataSourceService</code>:</p>

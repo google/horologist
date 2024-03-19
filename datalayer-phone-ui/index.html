@@ -929,6 +929,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#install-tile-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install Tile prompt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#custom-prompts" class="md-nav__link">
     <span class="md-ellipsis">
       Custom prompts
@@ -1494,6 +1503,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#install-tile-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install Tile prompt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#custom-prompts" class="md-nav__link">
     <span class="md-ellipsis">
       Custom prompts
@@ -1610,6 +1628,27 @@ following conditions:</p>
 <li>the app was not marked as "setup complete" (see "Tracking the app has been set up"
   in <a href="../datalayer-helpers-guide/">Datalayer App Helper</a> guide)</li>
 </ul>
+<h2 id="install-tile-prompt">Install Tile prompt<a class="headerlink" href="#install-tile-prompt" title="Permanent link">&para;</a></h2>
+<p>Use the
+<a href="https://google.github.io/horologist/api/datalayer/phone-ui/com.google.android.horologist.datalayer.phone.ui.prompt.installtile/-install-tile-prompt/index.html">InstallTilePrompt</a>
+to build the UI of a prompt to ask the user to install a Tile of your choice on the
+watch. If the user decides to install the Tile, they will be redirected to the Tile settings editor 
+screen where they can select and add the Tile to the watchface.
+Please note that this feature is only supported on Pixel watches.</p>
+<p>The <code>shouldDisplayPrompt</code> method allows to check if the prompt should be displayed, based on the
+following conditions:
+- the Wear app is installed and it's tracking the status of installed Tiles. See
+<a href="https://github.com/google/horologist/blob/main/datalayer/sample/wear/src/main/java/com/google/android/horologist/datalayer/sample/TileSync.kt#L35">trackInstalledTiles</a>
+in the sample app. The <code>trackInstalledTiles</code> has to be called when the app is launched, on 
+<code>TileService.onTileAddEvent</code> and <code>TileService.onTileRemoveEvent</code>. After the Wear app has been updated
+to support <code>trackInstalledTiles</code>, it has to be launched at least once before being able to track the 
+Tile installation status.
+- Wear OS companion app has version of 2.1.0.576785526 or above. This version was rolled out in
+November 2023.
+- We are using <code>getActiveTilesAsync</code> method which could omit some Tiles, 
+see more in the <a href="https://developer.android.com/reference/androidx/wear/tiles/TileService#getActiveTilesAsync(android.content.Context,java.util.concurrent.Executor)">doc</a>.</p>
+<p>Also note that, if the user has more than one Pixel watches paired with the phone, the prompt
+will always redirect to the Tile settings editor of the first paired watch.</p>
 <h2 id="custom-prompts">Custom prompts<a class="headerlink" href="#custom-prompts" title="Permanent link">&para;</a></h2>
 <p>If desired to display your own custom prompt, this API can still be helpful. </p>
 <p>Use <code>shouldDisplayPrompt</code> to check if there conditions to display the prompt are met: </p>

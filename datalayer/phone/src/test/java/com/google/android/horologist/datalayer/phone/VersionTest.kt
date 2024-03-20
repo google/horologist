@@ -40,11 +40,17 @@ class VersionTest {
     @Test
     fun testComparison() {
         val known = Version.parse("2.1.0.576785526")
-        val knownPlusOne = Version.parse("2.1.1")
+        val knownPlusPatch = Version.parse("2.1.1")
+        val knownPlusMinor = Version.parse("2.2.0.576785526")
+        val knownMinorOnly = Version.parse("2.1")
+        val knownPlusPatchZero = Version.parse("2.1.1.0")
         val old = Version.parse("1.1.0")
 
         assertThat(known).isGreaterThan(old)
-        assertThat(known).isLessThan(knownPlusOne)
+        assertThat(known).isLessThan(knownPlusPatch)
+        assertThat(known).isLessThan(knownPlusMinor)
+        assertThat(known).isGreaterThan(knownMinorOnly)
+        assertThat(knownPlusPatch).isLessThan(knownPlusPatchZero)
         assertThat(known).isEquivalentAccordingToCompareTo(known)
     }
 }

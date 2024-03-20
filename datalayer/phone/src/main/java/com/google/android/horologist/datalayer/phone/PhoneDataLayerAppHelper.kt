@@ -118,7 +118,7 @@ public class PhoneDataLayerAppHelper(
             val version = packageInfo.versionName
 
             val companionVersion = Version.parse(version)
-            if (companionVersion != null && companionVersion >= WorkingFromVersion) {
+            if (companionVersion != null && companionVersion >= RequiredCompanionVersion) {
                 AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
             } else {
                 AppHelperResultCode.APP_HELPER_RESULT_INVALID_COMPANION
@@ -142,7 +142,7 @@ public class PhoneDataLayerAppHelper(
         }
     }
 
-    companion object {
-        val WorkingFromVersion = Version.parse("2.1.0.576785526")!!
+    public companion object {
+        public val RequiredCompanionVersion: Version = Version.parse("2.1.0.576785526")!!
     }
 }

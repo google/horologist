@@ -33,8 +33,8 @@ public data class Version internal constructor(val inputVersion: List<Int>) :
                 0
             }
 
-        companion object {
-            fun parse(version: String): Version? {
+        public companion object {
+            public fun parse(version: String): Version? {
                 if (!version.matches("[0-9]+(\\.[0-9]+)*".toRegex())) {
                     return null
                 }

@@ -13,8 +13,8 @@ package com.google.android.horologist.datalayer.phone {
   }
 
   public static final class PhoneDataLayerAppHelper.Companion {
-    method public com.google.android.horologist.datalayer.phone.Version getWorkingFromVersion();
-    property public final com.google.android.horologist.datalayer.phone.Version WorkingFromVersion;
+    method public com.google.android.horologist.datalayer.phone.Version getRequiredCompanionVersion();
+    property public final com.google.android.horologist.datalayer.phone.Version RequiredCompanionVersion;
   }
 
   public final class PhoneDataLayerListenerService extends com.google.android.horologist.data.apphelper.DataLayerAppHelperService {

@@ -58,7 +58,6 @@ import java.time.ZonedDateTime
  * @param updatePeriodMillis The update period, whilst in interactive mode
  * @param block The developer-supplied composable for rendering the date and time.
  */
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AmbientAwareTime(
     stateUpdate: AmbientStateUpdate,

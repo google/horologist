@@ -18,12 +18,10 @@ package com.google.android.horologist.datalayer.phone
 
 import kotlin.math.max
 
-public class Version(inputVersion: String) : Comparable<Version> {
-
-    public var version: String
+public class Version(private val inputVersion: List<String>) : Comparable<Version> {
 
     public override fun compareTo(other: Version): Int =
-        (split() to other.split()).let { (thisParts, thatParts) ->
+        (inputVersion to other.inputVersion).let { (thisParts, thatParts) ->
             val length = max(thisParts.size, thatParts.size)
             for (i in 0 until length) {
                 val thisPart = if (i < thisParts.size) thisParts[i].toInt() else 0
@@ -34,10 +32,13 @@ public class Version(inputVersion: String) : Comparable<Version> {
             0
         }
 
-    init {
-        require(inputVersion.matches("[0-9]+(\\.[0-9]+)*".toRegex())) { "Invalid version format" }
-        version = inputVersion
+    companion object {
+        fun parse(version: String): Version? {
+            if (version.matches("[0-9]+(\\.[0-9]+)*".toRegex())) {
+                return null
+            }
+
+            return Version(version.split(".").toList())
+        }
     }
 }
-
-private fun Version.split() = version.split(".").toTypedArray()

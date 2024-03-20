@@ -19,15 +19,15 @@ package com.google.android.horologist.datalayer.phone
 public data class Version internal constructor(val inputVersion: List<Int>) :
     Comparable<Version> {
 
-    public override fun compareTo(other: Version): Int {
-        inputVersion.zip(other.inputVersion).forEach { (t, o) ->
-            val comparison = t.compareTo(o)
-            if (comparison != 0) {
-                return comparison
+        public override fun compareTo(other: Version): Int {
+            inputVersion.zip(other.inputVersion).forEach { (t, o) ->
+                val comparison = t.compareTo(o)
+                if (comparison != 0) {
+                    return comparison
+                }
             }
+            return inputVersion.size.compareTo(other.inputVersion.size)
         }
-        return inputVersion.size.compareTo(other.inputVersion.size)
-    }
 
         public companion object {
             public fun parse(version: String): Version? {

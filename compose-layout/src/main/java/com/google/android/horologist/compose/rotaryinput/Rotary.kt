@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearFoundationApi::class, ExperimentalCoroutinesApi::class)
+
 package com.google.android.horologist.compose.rotaryinput
 
 import android.view.ViewConfiguration
@@ -80,8 +82,6 @@ import kotlin.math.sign
  * @param reverseDirection Reverse the direction of scrolling. Should be aligned with
  * Scrollable `reverseDirection` parameter
  */
-@OptIn(ExperimentalWearFoundationApi::class)
-@ExperimentalHorologistApi
 @Suppress("ComposableModifierFactory")
 @Composable
 public fun Modifier.rotaryWithScroll(
@@ -118,7 +118,6 @@ public fun Modifier.rotaryWithScroll(
  * @param reverseDirection Reverse the direction of scrolling. Should be aligned with
  * Scrollable `reverseDirection` parameter
  */
-@OptIn(ExperimentalWearFoundationApi::class)
 @ExperimentalHorologistApi
 @Suppress("ComposableModifierFactory")
 @Composable
@@ -490,7 +489,11 @@ internal class RotaryFlingBehavior(
 /**
  * A rotary event object which contains a [timestamp] of the rotary event and a scrolled [delta].
  */
-internal data class TimestampedDelta(val timestamp: Long, val delta: Float)
+internal data class
+
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+
+TimestampedDelta(val timestamp: Long, val delta: Float)
 
 /**This class does a smooth animation when the scroll by N pixels is done.
  * This animation works well on Rsb(high-res) and Bezel(low-res) devices.
@@ -719,7 +722,6 @@ internal fun Modifier.rotaryHandler(
  * Batching requests for scrolling events. This function combines all events together
  * (except first) within specified timeframe. Should help with performance on high-res devices.
  */
-@OptIn(ExperimentalCoroutinesApi::class)
 internal fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long): Flow<TimestampedDelta> {
     var delta = 0f
     var lastTimestamp = -timeframe

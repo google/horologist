@@ -16,28 +16,26 @@
 
 package com.google.android.horologist.datalayer.phone
 
-import kotlin.math.max
+public data class Version internal constructor(val inputVersion: List<Int>) :
+    Comparable<Version> {
 
-public class Version(inputVersion: String) : Comparable<Version> {
-
-    public var version: String
-
-    public override fun compareTo(other: Version): Int =
-        (split() to other.split()).let { (thisParts, thatParts) ->
-            val length = max(thisParts.size, thatParts.size)
-            for (i in 0 until length) {
-                val thisPart = if (i < thisParts.size) thisParts[i].toInt() else 0
-                val thatPart = if (i < thatParts.size) thatParts[i].toInt() else 0
-                if (thisPart < thatPart) return -1
-                if (thisPart > thatPart) return 1
+        public override fun compareTo(other: Version): Int {
+            inputVersion.zip(other.inputVersion).forEach { (t, o) ->
+                val comparison = t.compareTo(o)
+                if (comparison != 0) {
+                    return comparison
+                }
             }
-            0
+            return inputVersion.size.compareTo(other.inputVersion.size)
         }
 
-    init {
-        require(inputVersion.matches("[0-9]+(\\.[0-9]+)*".toRegex())) { "Invalid version format" }
-        version = inputVersion
-    }
-}
+        public companion object {
+            public fun parse(version: String): Version? {
+                if (!version.matches("[0-9]+(\\.[0-9]+)*".toRegex())) {
+                    return null
+                }
 
-private fun Version.split() = version.split(".").toTypedArray()
+                return Version(version.split(".").toList().map { it.toInt() })
+            }
+        }
+    }

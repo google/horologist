@@ -112,24 +112,19 @@ public class PhoneDataLayerAppHelper(
      * Checks that the companion app supports deep linking to Tile editor setting.
      */
     public fun checkCompanionVersionSupportTileEditing(): AppHelperResultCode? {
-        try {
+        return try {
             val packageInfo: PackageInfo =
                 context.packageManager.getPackageInfo("com.google.android.apps.wear.companion", 0)
             val version = packageInfo.versionName
 
-            if (Version(version).compareTo(Version("2.1.0.576785526")) >= 0) {
-                return AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
+            val companionVersion = Version.parse(version)
+            if (companionVersion != null && companionVersion >= RequiredCompanionVersion) {
+                AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
             } else {
-                return AppHelperResultCode.APP_HELPER_RESULT_INVALID_COMPANION
+                AppHelperResultCode.APP_HELPER_RESULT_INVALID_COMPANION
             }
-        } catch (ex: Exception) {
-            when (ex) {
-                is PackageManager.NameNotFoundException, is IllegalArgumentException -> {
-                    return AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
-                }
-
-                else -> throw ex
-            }
+        } catch (nnfe: PackageManager.NameNotFoundException) {
+            AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
         }
     }
 
@@ -145,5 +140,9 @@ public class PhoneDataLayerAppHelper(
         } else {
             companionPackage
         }
+    }
+
+    public companion object {
+        public val RequiredCompanionVersion: Version = Version.parse("2.1.0.576785526")!!
     }
 }

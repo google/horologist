@@ -489,11 +489,7 @@ internal class RotaryFlingBehavior(
 /**
  * A rotary event object which contains a [timestamp] of the rotary event and a scrolled [delta].
  */
-internal data class
-
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-
-TimestampedDelta(val timestamp: Long, val delta: Float)
+internal data class TimestampedDelta(val timestamp: Long, val delta: Float)
 
 /**This class does a smooth animation when the scroll by N pixels is done.
  * This animation works well on Rsb(high-res) and Bezel(low-res) devices.

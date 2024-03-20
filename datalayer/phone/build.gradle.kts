@@ -97,6 +97,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {

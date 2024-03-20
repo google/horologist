@@ -18,14 +18,15 @@ package com.google.android.horologist.datalayer.phone
 
 import kotlin.math.max
 
-public class Version(private val inputVersion: List<String>) : Comparable<Version> {
+public data class Version internal constructor(val inputVersion: List<Int>) :
+    Comparable<Version> {
 
     public override fun compareTo(other: Version): Int =
         (inputVersion to other.inputVersion).let { (thisParts, thatParts) ->
             val length = max(thisParts.size, thatParts.size)
             for (i in 0 until length) {
-                val thisPart = if (i < thisParts.size) thisParts[i].toInt() else 0
-                val thatPart = if (i < thatParts.size) thatParts[i].toInt() else 0
+                val thisPart = if (i < thisParts.size) thisParts[i] else 0
+                val thatPart = if (i < thatParts.size) thatParts[i] else 0
                 if (thisPart < thatPart) return -1
                 if (thisPart > thatPart) return 1
             }
@@ -38,7 +39,7 @@ public class Version(private val inputVersion: List<String>) : Comparable<Versio
                 return null
             }
 
-            return Version(version.split(".").toList())
+            return Version(version.split(".").toList().map { it.toInt() })
         }
     }
 }

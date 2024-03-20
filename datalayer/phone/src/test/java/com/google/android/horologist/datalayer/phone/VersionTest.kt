@@ -27,7 +27,7 @@ class VersionTest {
             2,
             1,
             0,
-            576785526
+            576785526,
         ).inOrder()
     }
 

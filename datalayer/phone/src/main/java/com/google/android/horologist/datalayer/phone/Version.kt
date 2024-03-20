@@ -21,25 +21,25 @@ import kotlin.math.max
 public data class Version internal constructor(val inputVersion: List<Int>) :
     Comparable<Version> {
 
-    public override fun compareTo(other: Version): Int =
-        (inputVersion to other.inputVersion).let { (thisParts, thatParts) ->
-            val length = max(thisParts.size, thatParts.size)
-            for (i in 0 until length) {
-                val thisPart = if (i < thisParts.size) thisParts[i] else 0
-                val thatPart = if (i < thatParts.size) thatParts[i] else 0
-                if (thisPart < thatPart) return -1
-                if (thisPart > thatPart) return 1
-            }
-            0
-        }
-
-    companion object {
-        fun parse(version: String): Version? {
-            if (!version.matches("[0-9]+(\\.[0-9]+)*".toRegex())) {
-                return null
+        public override fun compareTo(other: Version): Int =
+            (inputVersion to other.inputVersion).let { (thisParts, thatParts) ->
+                val length = max(thisParts.size, thatParts.size)
+                for (i in 0 until length) {
+                    val thisPart = if (i < thisParts.size) thisParts[i] else 0
+                    val thatPart = if (i < thatParts.size) thatParts[i] else 0
+                    if (thisPart < thatPart) return -1
+                    if (thisPart > thatPart) return 1
+                }
+                0
             }
 
-            return Version(version.split(".").toList().map { it.toInt() })
+        companion object {
+            fun parse(version: String): Version? {
+                if (!version.matches("[0-9]+(\\.[0-9]+)*".toRegex())) {
+                    return null
+                }
+
+                return Version(version.split(".").toList().map { it.toInt() })
+            }
         }
     }
-}

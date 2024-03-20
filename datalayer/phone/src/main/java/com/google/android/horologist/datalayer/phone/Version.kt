@@ -34,7 +34,7 @@ public class Version(private val inputVersion: List<String>) : Comparable<Versio
 
     companion object {
         fun parse(version: String): Version? {
-            if (version.matches("[0-9]+(\\.[0-9]+)*".toRegex())) {
+            if (!version.matches("[0-9]+(\\.[0-9]+)*".toRegex())) {
                 return null
             }
 

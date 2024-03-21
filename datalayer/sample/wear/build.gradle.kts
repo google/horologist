@@ -169,7 +169,7 @@ dependencies {
     coreLibraryDesugaring(libs.android.desugar)
 
     testImplementation(libs.androidx.navigation.testing)
-    testImplementation(libs.androidx.test.espressocore)
+    testImplementation(libs.espresso.core)
     testImplementation(libs.compose.ui.test)
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.junit)

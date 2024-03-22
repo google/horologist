@@ -38,9 +38,7 @@ import com.google.android.horologist.ai.ui.model.PromptUiModel
 import com.google.android.horologist.ai.ui.model.ResponseUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 
@@ -65,8 +63,8 @@ public fun PromptScreen(
     val columnState = rememberResponsiveColumnState(
         contentPadding = ScalingLazyColumnDefaults.padding(
             first = ScalingLazyColumnDefaults.ItemType.Text,
-            last = ScalingLazyColumnDefaults.ItemType.Chip
-        )
+            last = ScalingLazyColumnDefaults.ItemType.Chip,
+        ),
     )
 
     ScreenScaffold(scrollState = columnState) {
@@ -75,7 +73,7 @@ public fun PromptScreen(
                 ListHeader(modifier = Modifier.fillMaxWidth(0.8f)) {
                     Text(
                         text = uiState.modelInfo?.name
-                            ?: stringResource(R.string.horologist_unknown_model)
+                            ?: stringResource(R.string.horologist_unknown_model),
                     )
                 }
             }

@@ -60,8 +60,8 @@ private fun SettingsScreen(
     val columnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ItemType.Text,
-            last = ItemType.Chip
-        )
+            last = ItemType.Chip,
+        ),
     )
 
     ScreenScaffold(scrollState = columnState, modifier = modifier) {

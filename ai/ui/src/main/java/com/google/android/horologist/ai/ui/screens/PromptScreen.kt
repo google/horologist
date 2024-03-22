@@ -39,7 +39,9 @@ import com.google.android.horologist.ai.ui.model.ResponseUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 
 /**
@@ -51,11 +53,6 @@ import com.google.android.horologist.compose.material.Button
 public fun PromptScreen(
     uiState: PromptUiState,
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(
-            firstItemIsFullWidth = false,
-        ),
-    ),
     onSettingsClick: (() -> Unit)? = null,
     promptDisplay: @Composable (PromptOrResponseUiModel) -> Unit = {
         PromptOrResponseDisplay(
@@ -65,53 +62,65 @@ public fun PromptScreen(
     },
     promptEntry: @Composable () -> Unit,
 ) {
-    ScalingLazyColumn(columnState = columnState, modifier = modifier) {
-        item {
-            ListHeader(modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text(text = uiState.modelInfo?.name ?: stringResource(R.string.horologist_unknown_model))
-            }
-        }
-        uiState.messages.forEach {
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = ScalingLazyColumnDefaults.ItemType.Text,
+            last = ScalingLazyColumnDefaults.ItemType.Chip
+        )
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(columnState = columnState, modifier = modifier) {
             item {
-                val padding = when (it) {
-                    is PromptUiModel -> PaddingValues(end = 20.dp)
-                    is ResponseUiModel -> PaddingValues(start = 20.dp)
-                    else -> PaddingValues()
-                }
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(padding),
-                ) {
-                    promptDisplay(it)
+                ListHeader(modifier = Modifier.fillMaxWidth(0.8f)) {
+                    Text(
+                        text = uiState.modelInfo?.name
+                            ?: stringResource(R.string.horologist_unknown_model)
+                    )
                 }
             }
-        }
-        val inProgress = uiState.inProgress
-        if (inProgress != null) {
-            item {
-                TextPromptDisplay(
-                    prompt = inProgress,
-                    onClick = {},
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 5.dp, end = 25.dp),
-                )
+            uiState.messages.forEach {
+                item {
+                    val padding = when (it) {
+                        is PromptUiModel -> PaddingValues(end = 20.dp)
+                        is ResponseUiModel -> PaddingValues(start = 20.dp)
+                        else -> PaddingValues()
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(padding),
+                    ) {
+                        promptDisplay(it)
+                    }
+                }
+            }
+            val inProgress = uiState.inProgress
+            if (inProgress != null) {
+                item {
+                    TextPromptDisplay(
+                        prompt = inProgress,
+                        onClick = {},
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 5.dp, end = 25.dp),
+                    )
+                }
+                item {
+                    ResponseInProgressCard(InProgressResponseUiModel)
+                }
             }
             item {
-                ResponseInProgressCard(InProgressResponseUiModel)
+                promptEntry()
             }
-        }
-        item {
-            promptEntry()
-        }
-        if (onSettingsClick != null) {
-            item {
-                Button(
-                    Icons.Default.Settings,
-                    contentDescription = stringResource(R.string.horologist_settings_content_description),
-                    onClick = onSettingsClick,
-                )
+            if (onSettingsClick != null) {
+                item {
+                    Button(
+                        Icons.Default.Settings,
+                        contentDescription = stringResource(R.string.horologist_settings_content_description),
+                        onClick = onSettingsClick,
+                    )
+                }
             }
         }
     }

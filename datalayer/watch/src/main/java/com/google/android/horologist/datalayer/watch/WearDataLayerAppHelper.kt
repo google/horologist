@@ -278,25 +278,14 @@ public class WearDataLayerAppHelper(
      * Marks a complication as deactivated. Call this in
      * [ComplicationDataSourceService.onComplicationDeactivated].
      *
-     * @param complicationName The name of the complication, to disambiguate from others.
      * @param complicationInstanceId Passed from [ComplicationDataSourceService.onComplicationDeactivated]
-     * @param complicationType Passed from [ComplicationDataSourceService.onComplicationDeactivated]
      */
     public suspend fun markComplicationAsDeactivated(
-        complicationName: String,
         complicationInstanceId: Int,
-        complicationType: ComplicationType,
     ) {
         surfacesInfoDataStore.updateData { info ->
-            val complication = complicationInfo {
-                timestamp = System.currentTimeMillis().toProtoTimestamp()
-
-                name = complicationName
-                instanceId = complicationInstanceId
-                type = complicationType.name
-            }
             info.copy {
-                val filtered = complications.filter { !complication.equalWithoutTimestamp(it) }
+                val filtered = complications.filterNot { it.instanceId == complicationInstanceId }
                 if (filtered.size != complications.size) {
                     complications.clear()
                     complications.addAll(filtered)

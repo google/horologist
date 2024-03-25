@@ -31,9 +31,11 @@ import androidx.navigation.compose.rememberNavController
 import com.google.android.horologist.datalayer.sample.screens.Screen
 import com.google.android.horologist.datalayer.sample.screens.counter.CounterScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.custom.installapp.InstallAppCustomPromptDemoScreen
+import com.google.android.horologist.datalayer.sample.screens.inappprompts.custom.installtile.InstallTileCustomPromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.custom.reengage.ReEngageCustomPromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.custom.signin.SignInCustomPromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.installapp.InstallAppPromptDemoScreen
+import com.google.android.horologist.datalayer.sample.screens.inappprompts.installtile.InstallTilePromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.reengage.ReEngagePromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.signin.SignInPromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.menu.MenuScreen
@@ -78,6 +80,9 @@ fun MainScreen(
                 composable(route = Screen.SignInPromptDemoScreen.route) {
                     SignInPromptDemoScreen()
                 }
+                composable(route = Screen.InstallTilePromptDemoScreen.route) {
+                    InstallTilePromptDemoScreen()
+                }
                 composable(route = Screen.InstallAppCustomPromptDemoScreen.route) {
                     InstallAppCustomPromptDemoScreen()
                 }
@@ -86,6 +91,9 @@ fun MainScreen(
                 }
                 composable(route = Screen.SignInCustomPromptDemoScreen.route) {
                     SignInCustomPromptDemoScreen()
+                }
+                composable(route = Screen.InstallTileCustomPromptDemoScreen.route) {
+                    InstallTileCustomPromptDemoScreen()
                 }
                 composable(route = Screen.CounterScreen.route) {
                     CounterScreen()

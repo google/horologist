@@ -28,7 +28,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.datalayer.sample.R
 
@@ -80,6 +80,6 @@ fun InfoScreenPreview() {
             "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud " +
             "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
         onDismissClick = { },
-        columnState = belowTimeTextPreview(),
+        columnState = rememberResponsiveColumnState(),
     )
 }

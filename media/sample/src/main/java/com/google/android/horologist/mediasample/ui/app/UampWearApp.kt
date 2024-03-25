@@ -282,7 +282,20 @@ fun UampWearApp(
         )
     }
 
-    if (!BuildConfig.BENCHMARK) {
+    if (BuildConfig.BENCHMARK) {
+        if (intent.hasExtra("launchAndPlay")) {
+            val launchAndPlay = intent.getBooleanExtra("launchAndPlay", false)
+            println("Found launchAndPlay = $launchAndPlay")
+            intent.removeExtra("launchAndPlay")
+            LaunchedEffect(Unit) {
+                if (launchAndPlay) {
+                    appViewModel.startBenchmarkPlayback()
+                } else {
+                    appViewModel.stopBenchmarkPlayback()
+                }
+            }
+        }
+    } else {
         LaunchedEffect(Unit) {
             startupNavigation(intent, appViewModel, navController)
         }

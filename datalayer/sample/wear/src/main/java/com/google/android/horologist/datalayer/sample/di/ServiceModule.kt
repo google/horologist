@@ -22,8 +22,10 @@ import com.google.android.horologist.data.ProtoDataStoreHelper.registerProtoData
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.proto.SampleProto
 import com.google.android.horologist.data.store.ProtoDataListener
+import com.google.android.horologist.datalayer.sample.TileSync
 import com.google.android.horologist.datalayer.sample.screens.nodes.SampleDataSerializer
 import com.google.android.horologist.datalayer.sample.shared.CounterValueSerializer
+import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -75,4 +77,23 @@ object ServiceModule {
             }
         })
     }
+
+    @ServiceScoped
+    @Provides
+    fun wearDataLayerAppHelper(
+        @ApplicationContext applicationContext: Context,
+        wearDataLayerRegistry: WearDataLayerRegistry,
+        coroutineScope: CoroutineScope,
+    ) = WearDataLayerAppHelper(
+        context = applicationContext,
+        registry = wearDataLayerRegistry,
+        scope = coroutineScope,
+    )
+
+    @ServiceScoped
+    @Provides
+    fun tileSync(
+        wearDataLayerRegistry: WearDataLayerRegistry,
+        wearDataLayerAppHelper: WearDataLayerAppHelper,
+    ): TileSync = TileSync(wearDataLayerRegistry, wearDataLayerAppHelper)
 }

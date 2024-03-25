@@ -15,6 +15,7 @@
  */
 
 @file:OptIn(ExperimentalFoundationApi::class)
+@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.compose.pager
 
@@ -34,7 +35,6 @@ import org.junit.Test
 class VerticalPagerScreenScreenshotTest : ScreenshotBaseTest(
     params = ScreenshotTestRule.screenshotTestRuleParams {
         screenTimeText = {}
-        record = ScreenshotTestRule.RecordMode.Record
     },
 ) {
 

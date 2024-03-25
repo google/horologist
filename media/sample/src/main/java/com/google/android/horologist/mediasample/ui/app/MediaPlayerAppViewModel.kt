@@ -19,6 +19,7 @@ package com.google.android.horologist.mediasample.ui.app
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
@@ -110,6 +111,26 @@ class MediaPlayerAppViewModel
                     navigateToLibrary()
                 }
             }
+        }
+
+        private suspend fun loadDownloadedItems(): List<Media> {
+            return playlistRepository.getAllDownloaded()
+                .flatMapConcat { it.asFlow() }
+                .map { it.mediaList }
+                .first()
+        }
+
+        suspend fun startBenchmarkPlayback() {
+            waitForConnection()
+
+            val items = loadDownloadedItems()
+
+            playerRepository.setMediaList(items)
+            playerRepository.play()
+        }
+
+        suspend fun stopBenchmarkPlayback() {
+            playerRepository.pause()
         }
 
         suspend fun playItems(mediaId: String?, collectionId: String, position: Long) {

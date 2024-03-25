@@ -51,21 +51,17 @@ import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 import com.google.android.horologist.ai.ui.screens.PromptScreen
 import com.google.android.horologist.ai.ui.screens.PromptUiState
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.material.Button
 import com.mikepenz.markdown.compose.LocalMarkdownColors
 import com.mikepenz.markdown.compose.LocalMarkdownTypography
 import com.mikepenz.markdown.compose.Markdown
-import com.mikepenz.markdown.model.markdownColor
-import com.mikepenz.markdown.model.markdownTypography
+import com.mikepenz.markdown.model.DefaultMarkdownColors
+import com.mikepenz.markdown.model.DefaultMarkdownTypography
 
 @Composable
 fun SamplePromptScreen(
     modifier: Modifier = Modifier,
     viewModel: SamplePromptViewModel = hiltViewModel(),
-    columnState: ScalingLazyColumnState = rememberColumnState(),
     onSettingsClick: (() -> Unit)? = null,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -98,7 +94,6 @@ fun SamplePromptScreen(
     SamplePromptScreen(
         uiState = uiState,
         modifier = modifier,
-        columnState = columnState,
         onSettingsClick = onSettingsClick,
     ) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
@@ -117,31 +112,27 @@ fun SamplePromptScreen(
 private fun SamplePromptScreen(
     uiState: PromptUiState,
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState = rememberColumnState(),
     onSettingsClick: (() -> Unit)? = null,
     promptEntry: @Composable () -> Unit,
 ) {
-    ScreenScaffold(scrollState = columnState) {
-        CompositionLocalProvider(
-            LocalMarkdownColors provides SampleColors(),
-            LocalMarkdownTypography provides SampleTypography(),
-        ) {
-            PromptScreen(
-                uiState = uiState,
-                columnState = columnState,
-                modifier = modifier,
-                promptEntry = promptEntry,
-                onSettingsClick = onSettingsClick,
-                promptDisplay = {
-                    ModelDisplay(it)
-                },
-            )
-        }
+    CompositionLocalProvider(
+        LocalMarkdownColors provides SampleColors(),
+        LocalMarkdownTypography provides SampleTypography(),
+    ) {
+        PromptScreen(
+            uiState = uiState,
+            modifier = modifier,
+            promptEntry = promptEntry,
+            onSettingsClick = onSettingsClick,
+            promptDisplay = {
+                ModelDisplay(it)
+            },
+        )
     }
 }
 
 @Composable
-private fun SampleTypography() = markdownTypography(
+private fun SampleTypography() = DefaultMarkdownTypography(
     h1 = MaterialTheme.typography.title1,
     h2 = MaterialTheme.typography.title2,
     h3 = MaterialTheme.typography.title3,
@@ -158,12 +149,13 @@ private fun SampleTypography() = markdownTypography(
 )
 
 @Composable
-private fun SampleColors() = markdownColor(
+private fun SampleColors() = DefaultMarkdownColors(
     text = Color.White,
     codeText = LocalContentColor.current,
     linkText = Color.Blue,
     codeBackground = MaterialTheme.colors.background,
     inlineCodeBackground = MaterialTheme.colors.background,
+    dividerColor = MaterialTheme.colors.onSurface.copy(alpha = 0.12f),
 )
 
 @Composable

@@ -25,5 +25,11 @@
             android:excludeFromRecents="true"
             android:exported="false"
             android:theme="@style/HorologistTheme.Transparent" />
+
+        <activity
+            android:name=".prompt.installtile.InstallTileBottomSheetActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:theme="@style/HorologistTheme.Transparent" />
     </application>
 </manifest>

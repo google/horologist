@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.media.ui.components
 
 import androidx.compose.ui.Modifier
@@ -24,6 +26,7 @@ import com.google.android.horologist.media.ui.components.display.TextMediaDispla
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
 import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
+import org.robolectric.annotation.Config
 
 class LoadingMediaDisplayTest : ScreenshotBaseTest(
     ScreenshotTestRule.screenshotTestRuleParams {
@@ -38,7 +41,7 @@ class LoadingMediaDisplayTest : ScreenshotBaseTest(
     }
 
     @Test
-    fun loadingMediaDisplay_textMediaDisplay_overlay() {
+    fun loadingMediaDisplay_textMediaDisplay_overlay_largeScreen() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
             TextMediaDisplay(title = "Sorrow", subtitle = "David Bowie")
@@ -46,7 +49,29 @@ class LoadingMediaDisplayTest : ScreenshotBaseTest(
     }
 
     @Test
-    fun loadingMediaDisplay_marqueeTextMediaDisplay_overlay() {
+    fun loadingMediaDisplay_marqueeTextMediaDisplay_overlay_largeScreen() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
+            MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")
+        }
+    }
+
+    @Config(
+        qualifiers = "+w192dp-h192dp",
+    )
+    @Test
+    fun loadingMediaDisplay_textMediaDisplay_overlay_smallScreen() {
+        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+            LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
+            TextMediaDisplay(title = "Sorrow", subtitle = "David Bowie")
+        }
+    }
+
+    @Config(
+        qualifiers = "+w192dp-h192dp",
+    )
+    @Test
+    fun loadingMediaDisplay_marqueeTextMediaDisplay_overlay_smallScreen() {
         screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
             LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
             MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")

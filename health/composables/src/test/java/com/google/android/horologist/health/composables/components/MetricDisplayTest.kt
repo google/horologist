@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.health.composables.components
 
 import com.google.android.horologist.health.composables.model.MetricUiModel

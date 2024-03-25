@@ -3,16 +3,37 @@ package com.google.android.horologist.datalayer.phone {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PhoneDataLayerAppHelper extends com.google.android.horologist.data.apphelper.DataLayerAppHelper {
     ctor public PhoneDataLayerAppHelper(android.content.Context context, com.google.android.horologist.data.WearDataLayerRegistry registry);
+    method public com.google.android.horologist.data.AppHelperResultCode? checkCompanionVersionSupportTileEditing();
+    method public suspend Object? findWatchToInstallTile(kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus>);
     method public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> getConnectedAndInstalledNodes();
     method public suspend Object? installOnNode(String nodeId, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
     method @CheckResult public suspend Object? startCompanion(String nodeId, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
     property public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> connectedAndInstalledNodes;
+    field public static final com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper.Companion Companion;
+  }
+
+  public static final class PhoneDataLayerAppHelper.Companion {
+    method public com.google.android.horologist.datalayer.phone.Version getRequiredCompanionVersion();
+    property public final com.google.android.horologist.datalayer.phone.Version RequiredCompanionVersion;
   }
 
   public final class PhoneDataLayerListenerService extends com.google.android.horologist.data.apphelper.DataLayerAppHelperService {
     ctor public PhoneDataLayerListenerService();
     method public com.google.android.horologist.data.apphelper.DataLayerAppHelper getAppHelper();
     property public com.google.android.horologist.data.apphelper.DataLayerAppHelper appHelper;
+  }
+
+  public final class Version implements java.lang.Comparable<com.google.android.horologist.datalayer.phone.Version> {
+    method public int compareTo(com.google.android.horologist.datalayer.phone.Version other);
+    method public java.util.List<java.lang.Integer> component1();
+    method public com.google.android.horologist.datalayer.phone.Version copy(java.util.List<java.lang.Integer> inputVersion);
+    method public java.util.List<java.lang.Integer> getInputVersion();
+    property public final java.util.List<java.lang.Integer> inputVersion;
+    field public static final com.google.android.horologist.datalayer.phone.Version.Companion Companion;
+  }
+
+  public static final class Version.Companion {
+    method public com.google.android.horologist.datalayer.phone.Version? parse(String version);
   }
 
 }

@@ -31,8 +31,9 @@ class SampleApplication : Application() {
     private fun setStrictMode() {
         StrictMode.setThreadPolicy(
             StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads()
-                .detectDiskWrites()
+                // https://issuetracker.google.com/issues/329399019
+//                .detectDiskReads()
+//                .detectDiskWrites()
                 .detectNetwork()
                 .penaltyDeath()
                 .build(),

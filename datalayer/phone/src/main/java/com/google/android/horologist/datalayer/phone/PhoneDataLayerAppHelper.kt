@@ -19,15 +19,20 @@ package com.google.android.horologist.datalayer.phone
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.annotation.CheckResult
 import androidx.concurrent.futures.await
 import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.gms.wearable.Node
+import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
+import com.google.android.horologist.data.apphelper.appInstalled
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.tasks.await
 
@@ -83,6 +88,47 @@ public class PhoneDataLayerAppHelper(
     }
 
     /**
+     * Filters for watch nodes where the app is installed but Tile is not installed.
+     */
+    public suspend fun findWatchToInstallTile(): AppHelperNodeStatus? {
+        val node = this.connectedNodes()
+            .filter {
+                it.appInstalled &&
+                    registry.nodeClient.getCompanionPackageForNode(it.id).await() == "com.google.android.apps.wear.companion"
+            }
+            .firstOrNull {
+                val uri = Uri.Builder()
+                    .scheme(PutDataRequest.WEAR_URI_SCHEME)
+                    .path("/tile_tracking_enabled")
+                    .authority(it.id)
+                    .build()
+
+                registry.dataClient.getDataItem(uri).await() != null
+            }
+        return node
+    }
+
+    /**
+     * Checks that the companion app supports deep linking to Tile editor setting.
+     */
+    public fun checkCompanionVersionSupportTileEditing(): AppHelperResultCode? {
+        return try {
+            val packageInfo: PackageInfo =
+                context.packageManager.getPackageInfo("com.google.android.apps.wear.companion", 0)
+            val version = packageInfo.versionName
+
+            val companionVersion = Version.parse(version)
+            if (companionVersion != null && companionVersion >= RequiredCompanionVersion) {
+                AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
+            } else {
+                AppHelperResultCode.APP_HELPER_RESULT_INVALID_COMPANION
+            }
+        } catch (nnfe: PackageManager.NameNotFoundException) {
+            AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
+        }
+    }
+
+    /**
      * Some devices report back a different packageName from getCompanionPackageForNode() than is
      * the actual package of the Companion app. Where this is the case, this lookup ensures the
      * correct companion app can be launched..
@@ -94,5 +140,9 @@ public class PhoneDataLayerAppHelper(
         } else {
             companionPackage
         }
+    }
+
+    public companion object {
+        public val RequiredCompanionVersion: Version = Version.parse("2.1.0.576785526")!!
     }
 }

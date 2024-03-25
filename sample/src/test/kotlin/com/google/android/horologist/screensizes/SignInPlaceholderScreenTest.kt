@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.layout
+package com.google.android.horologist.screensizes
 
-import androidx.compose.runtime.Composable
+import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
+import com.google.android.horologist.screenshots.rng.WearDevice
+import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
+import org.junit.Test
 
-@Composable
-public fun belowTimeTextPreview(): ScalingLazyColumnState {
-    return ScalingLazyColumnDefaults.responsive().create()
+class SignInPlaceholderScreenTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
+    @Test
+    fun initial() = runTest {
+        SignInPlaceholderScreen()
+    }
 }

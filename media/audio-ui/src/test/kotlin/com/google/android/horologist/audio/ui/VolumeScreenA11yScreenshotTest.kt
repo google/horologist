@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.audio.ui
 
 import androidx.wear.compose.material.MaterialTheme
@@ -26,7 +28,6 @@ import org.junit.Test
 class VolumeScreenA11yScreenshotTest : ScreenshotBaseTest(
     screenshotTestRuleParams {
         enableA11y = true
-        tolerance = 1.0f
         screenTimeText = { }
     },
 ) {

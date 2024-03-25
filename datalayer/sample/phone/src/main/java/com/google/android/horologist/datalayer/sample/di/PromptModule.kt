@@ -18,6 +18,7 @@ package com.google.android.horologist.datalayer.sample.di
 
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.phone.ui.prompt.installapp.InstallAppPrompt
+import com.google.android.horologist.datalayer.phone.ui.prompt.installtile.InstallTilePrompt
 import com.google.android.horologist.datalayer.phone.ui.prompt.reengage.ReEngagePrompt
 import com.google.android.horologist.datalayer.phone.ui.prompt.signin.SignInPrompt
 import dagger.Module
@@ -53,6 +54,14 @@ object PromptModule {
         phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
     ): SignInPrompt = SignInPrompt(
         coroutineScope = coroutineScope,
+        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
+    )
+
+    @Singleton
+    @Provides
+    fun installTilePrompt(
+        phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+    ): InstallTilePrompt = InstallTilePrompt(
         phoneDataLayerAppHelper = phoneDataLayerAppHelper,
     )
 }

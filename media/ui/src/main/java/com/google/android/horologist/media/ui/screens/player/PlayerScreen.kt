@@ -18,7 +18,6 @@
 
 package com.google.android.horologist.media.ui.screens.player
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -192,10 +191,10 @@ public fun PlayerScreen(
                         top.linkTo(middleSection.bottom)
                         start.linkTo(startGuideline)
                         end.linkTo(endGuideline)
-                        bottom.linkTo(parent.bottom)
+                        bottom.linkTo(bottomGuideline)
                     },
                 horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Bottom,
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 buttons()
             }

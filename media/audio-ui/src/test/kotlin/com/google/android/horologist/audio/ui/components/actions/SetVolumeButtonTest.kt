@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.foundation.background

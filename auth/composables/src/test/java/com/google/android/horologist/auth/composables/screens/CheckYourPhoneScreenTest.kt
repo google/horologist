@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.auth.composables.screens
 
 import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.ScreenshotTestRule
 import org.junit.Test
 
-class CheckYourPhoneScreenTest : ScreenshotBaseTest() {
+class CheckYourPhoneScreenTest : ScreenshotBaseTest(
+    params = ScreenshotTestRule.screenshotTestRuleParams {
+        screenTimeText = {}
+    },
+) {
 
     @Test
     fun checkYourPhoneScreen() {

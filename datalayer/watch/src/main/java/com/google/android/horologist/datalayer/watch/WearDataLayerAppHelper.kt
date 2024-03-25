@@ -21,6 +21,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.annotation.CheckResult
 import androidx.concurrent.futures.await
+import androidx.datastore.core.DataStore
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.remote.interactions.RemoteActivityHelper
 import androidx.wear.watchface.complications.data.ComplicationType
@@ -57,25 +58,31 @@ private const val TAG = "DataLayerAppHelper"
  * device.
  */
 @ExperimentalHorologistApi
-public class WearDataLayerAppHelper(
+public class WearDataLayerAppHelper internal constructor(
     context: Context,
     registry: WearDataLayerRegistry,
-    scope: CoroutineScope,
-    private val appStoreUri: String? = null,
+    private val appStoreUri: String?,
+    surfacesInfoDataStoreFn: () -> DataStore<SurfacesInfo>,
 ) : DataLayerAppHelper(context, registry) {
-
-    private val surfacesInfoDataStore by lazy {
+    public constructor(
+        context: Context,
+        registry: WearDataLayerRegistry,
+        scope: CoroutineScope,
+        appStoreUri: String? = null,
+    ) : this(context, registry, appStoreUri, {
         registry.protoDataStore(
             path = SURFACE_INFO_PATH,
             coroutineScope = scope,
             serializer = SurfacesInfoSerializer,
         )
-    }
+    })
+
+    private val surfacesInfoDataStore by lazy { surfacesInfoDataStoreFn() }
 
     /**
      * Return the [SurfacesInfo] of this node.
      */
-    public val surfacesInfo: Flow<SurfacesInfo> = surfacesInfoDataStore.data
+    public val surfacesInfo: Flow<SurfacesInfo> by lazy { surfacesInfoDataStore.data }
 
     override val connectedAndInstalledNodes: Flow<Set<Node>>
         get() = connectedAndInstalledNodes(PHONE_CAPABILITY)

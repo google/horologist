@@ -75,7 +75,9 @@ public class WearDataLayerAppHelper(
     /**
      * Return the [SurfacesInfo] of this node.
      */
-    public val surfacesInfo: Flow<SurfacesInfo> = surfacesInfoDataStore.data
+    public val surfacesInfo: Flow<SurfacesInfo> by lazy {
+        surfacesInfoDataStore.data
+    }
 
     override val connectedAndInstalledNodes: Flow<Set<Node>>
         get() = connectedAndInstalledNodes(PHONE_CAPABILITY)

@@ -16,27 +16,53 @@
 
 package com.google.android.horologist.datalayer.phone
 
-import androidx.test.platform.app.InstrumentationRegistry
+import android.app.Application
+import android.os.Looper.getMainLooper
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.google.android.gms.wearable.Wearable
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.WearableApiAvailability
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.Shadows.shadowOf
 
+
+@RunWith(AndroidJUnit4::class)
 class PhoneDataLayerAppHelperTest {
 
     @Test
-    fun testCreate() = runTest {
-        val scope = CoroutineScope(coroutineContext + Job())
+    fun testAvailable() = runTest {
+        val context = ApplicationProvider.getApplicationContext<Application>()
+        val capabilityClient = Wearable.getCapabilityClient(context)
 
-        val context = InstrumentationRegistry.getInstrumentation().context
-        val registry = WearDataLayerRegistry.fromContext(context, scope)
+        val checkApiAvailability = async { WearableApiAvailability.isAvailable(capabilityClient) }
+
+        while (!checkApiAvailability.isCompleted) {
+            delay(1000)
+            shadowOf(getMainLooper()).idle()
+        }
+
+        assertThat(checkApiAvailability.await()).isFalse()
+    }
+
+    @Test
+    fun testCreate() = runTest {
+        val context = ApplicationProvider.getApplicationContext<Application>()
+        val registry = WearDataLayerRegistry.fromContext(context, this)
         val helper = PhoneDataLayerAppHelper(context, registry)
 
-        assertThat(helper.isAvailable()).isFalse()
+        val checkApiAvailability = async { helper.isAvailable() }
 
-        scope.cancel()
+        while (!checkApiAvailability.isCompleted) {
+            delay(1000)
+            shadowOf(getMainLooper()).idle()
+        }
+
+        assertThat(checkApiAvailability.await()).isFalse()
     }
 }

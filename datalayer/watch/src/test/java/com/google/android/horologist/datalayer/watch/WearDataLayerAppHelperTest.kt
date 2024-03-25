@@ -81,14 +81,15 @@ class WearDataLayerAppHelperTest {
             DataStoreFactory.create(
                 scope = this,
                 produceFile = { context.dataStoreFile("testTiles") },
-                serializer = SurfacesInfoSerializer
+                serializer = SurfacesInfoSerializer,
             )
 
         val helper = WearDataLayerAppHelper(
             context = context,
             registry = registry,
             appStoreUri = null,
-            surfacesInfoDataStoreFn = { testDataStore })
+            surfacesInfoDataStoreFn = { testDataStore },
+        )
 
         val infoInitial = testDataStore.data.first()
         assertThat(infoInitial.tilesList).isEmpty()
@@ -114,14 +115,15 @@ class WearDataLayerAppHelperTest {
             DataStoreFactory.create(
                 scope = this,
                 produceFile = { context.dataStoreFile("testComplications") },
-                serializer = SurfacesInfoSerializer
+                serializer = SurfacesInfoSerializer,
             )
 
         val helper = WearDataLayerAppHelper(
             context = context,
             registry = registry,
             appStoreUri = null,
-            surfacesInfoDataStoreFn = { testDataStore })
+            surfacesInfoDataStoreFn = { testDataStore },
+        )
 
         val infoInitial = testDataStore.data.first()
         assertThat(infoInitial.complicationsList).isEmpty()

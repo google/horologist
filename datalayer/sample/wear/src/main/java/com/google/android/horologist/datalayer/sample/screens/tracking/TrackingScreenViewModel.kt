@@ -119,9 +119,7 @@ class TrackingScreenViewModel
                     )
                 } else {
                     wearDataLayerAppHelper.markComplicationAsDeactivated(
-                        complicationName = complication,
                         complicationInstanceId = 1234,
-                        complicationType = ComplicationType.SHORT_TEXT,
                     )
                 }
             }

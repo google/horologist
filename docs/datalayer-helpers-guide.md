@@ -216,13 +216,16 @@ your `ComplicationDataSourceService`:
 In `onComplicationActivated`:
 
 ```kotlin
-wearAppHelper.markComplicationAsActivated("GoalsComplication")
+wearAppHelper.markComplicationAsActivated(complicationName = "GoalsComplication",
+        complicationInstanceId = 1234,
+        complicationType = ComplicationType.SHORT_TEXT,
+)
 ```
 
 In `onComplicationDeactivated`:
 
 ```kotlin
-wearAppHelper.markComplicationAsDeactivated("GoalsComplication")
+wearAppHelper.markComplicationAsDeactivated(complicationInstanceId = 1234)
 ```
 
 ## Tracking the main activity has been launched at least once (Wear-only)

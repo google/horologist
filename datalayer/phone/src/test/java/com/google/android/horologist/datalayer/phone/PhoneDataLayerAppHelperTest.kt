@@ -31,7 +31,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Shadows.shadowOf
 
-
 @RunWith(AndroidJUnit4::class)
 class PhoneDataLayerAppHelperTest {
 

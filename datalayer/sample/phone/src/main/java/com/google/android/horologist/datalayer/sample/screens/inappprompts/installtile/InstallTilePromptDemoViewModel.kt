@@ -84,7 +84,7 @@ class InstallTilePromptDemoViewModel
         }
 
         companion object {
-            private const val TILE_NAME = "com.example.MediaPlayerTile"
+            private const val TILE_NAME = "com.google.android.horologist.datalayer.sample.SampleTileService"
         }
     }
 

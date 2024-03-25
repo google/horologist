@@ -39,7 +39,7 @@ class InstallTilePromptDemoViewModel
 
         private val _uiState =
             MutableStateFlow<InstallTileCustomPromptDemoScreenState>(InstallTileCustomPromptDemoScreenState.Idle)
-        private val tileName = "com.example.MediaPlayerTile"
+        private val tileName = "com.google.android.horologist.datalayer.sample.SampleTileService"
         public val uiState: StateFlow<InstallTileCustomPromptDemoScreenState> = _uiState
 
         @MainThread

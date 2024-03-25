@@ -20,8 +20,6 @@ package com.google.android.horologist.media.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -47,10 +45,10 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun MediaPlayerTestCase(
     playerUiState: PlayerUiState,
-    mediaDisplay: @Composable ColumnScope.() -> Unit = {
+    mediaDisplay: @Composable () -> Unit = {
         AnimatedMediaInfoDisplay(playerUiState.media, loading = false)
     },
-    controlButtons: @Composable RowScope.() -> Unit = {
+    controlButtons: @Composable () -> Unit = {
         AnimatedMediaControlButtons(
             onPlayButtonClick = { },
             onPauseButtonClick = { },
@@ -63,7 +61,7 @@ fun MediaPlayerTestCase(
             trackPositionUiModel = playerUiState.trackPositionUiModel,
         )
     },
-    buttons: @Composable RowScope.() -> Unit = {
+    buttons: @Composable () -> Unit = {
         SettingsButtons(
             volumeUiState = VolumeUiState(5, 10),
             onVolumeClick = { /*TODO*/ },
@@ -99,9 +97,9 @@ fun MediaPlayerTestCase(
                     if (it == 0) {
                         PlayerScreen(
                             modifier = Modifier.fillMaxSize(),
-                            mediaDisplay = { mediaDisplay() },
-                            controlButtons = { controlButtons() },
-                            buttons = { buttons() },
+                            mediaDisplay = mediaDisplay,
+                            controlButtons = controlButtons,
+                            buttons = buttons,
                             background = { RadialBackground(color = colors.primary) },
                         )
                     }

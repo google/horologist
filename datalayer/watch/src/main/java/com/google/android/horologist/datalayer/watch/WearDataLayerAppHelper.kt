@@ -64,7 +64,7 @@ public class WearDataLayerAppHelper internal constructor(
     private val appStoreUri: String?,
     surfacesInfoDataStoreFn: () -> DataStore<SurfacesInfo>,
 ) : DataLayerAppHelper(context, registry) {
-    constructor(
+    public constructor(
         context: Context,
         registry: WearDataLayerRegistry,
         scope: CoroutineScope,

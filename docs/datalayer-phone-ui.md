@@ -120,6 +120,7 @@ Please note that this feature is only supported on Pixel watches.
 
 The `shouldDisplayPrompt` method allows to check if the prompt should be displayed, based on the
 following conditions:
+
 - the Wear app is installed and it's tracking the status of installed Tiles. See
 [trackInstalledTiles](https://github.com/google/horologist/blob/main/datalayer/sample/wear/src/main/java/com/google/android/horologist/datalayer/sample/TileSync.kt#L35)
 in the sample app. The `trackInstalledTiles` has to be called when the app is launched, on 

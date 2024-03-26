@@ -75,7 +75,9 @@ public fun TextMediaDisplay(
             text = text,
             inlineContent = inlineContent,
             modifier = Modifier
-                .fillMaxWidth(0.7f)
+                // 89.76% of parent equals 4.16% of screen width applied on each side when
+                // applied on top of the 9.38% in the ConstraintLayout.
+                .fillMaxWidth(0.8976f)
                 .padding(
                     top = if (isLargeScreen) 0.dp else 2.dp,
                     bottom = if (isLargeScreen) 3.dp else 1.dp,
@@ -88,7 +90,7 @@ public fun TextMediaDisplay(
         Text(
             text = subtitle,
             modifier = Modifier
-                .fillMaxWidth(0.8f)
+                .fillMaxWidth()
                 .padding(top = 1.dp, bottom = .6.dp),
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,

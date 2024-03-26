@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
+<!--
+ Copyright 2024 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_time_picker_hour">Ihora</string>
+  <string name="horologist_time_picker_minute">Umzuzu</string>
+  <string name="horologist_time_picker_second">Isekhondi</string>
+  <plurals name="horologist_time_picker_hours_content_description">
+    <item quantity="one">Amahora angu-%d</item>
+    <item quantity="other">Amahora angu-%d</item>
+  </plurals>
+  <plurals name="horologist_time_picker_minutes_content_description">
+    <item quantity="one">Imizuzu engu-%d</item>
+    <item quantity="other">Imizuzu engu-%d</item>
+  </plurals>
+  <plurals name="horologist_time_picker_seconds_content_description">
+    <item quantity="one">Imizuzwana engu-%d</item>
+    <item quantity="other">Imizuzwana engu-%d</item>
+  </plurals>
+  <string name="horologist_time_picker_min">Umzuzo</string>
+  <string name="horologist_time_picker_period">Isikhathi</string>
+  <string name="horologist_time_picker_am">AM</string>
+  <string name="horologist_time_picker_pm">PM</string>
+  <string name="horologist_picker_day">Usuku</string>
+  <string name="horologist_picker_month">Inyanga</string>
+  <string name="horologist_picker_year">Unyaka</string>
+  <string name="horologist_picker_confirm_button_content_description">Qinisekisa</string>
+  <string name="horologist_picker_next_button_content_description">Okulandelayo</string>
+  <string name="horologist_placeholderchip_content_description">Iyalayisha</string>
+</resources>

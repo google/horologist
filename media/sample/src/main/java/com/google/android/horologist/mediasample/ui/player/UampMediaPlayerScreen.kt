@@ -68,11 +68,11 @@ fun UampMediaPlayerScreen(
                 DefaultMediaInfoDisplay(playerUiState)
             }
         },
-        buttons = {
+        buttons = { state ->
             UampSettingsButtons(
                 volumeUiState = volumeUiState,
                 onVolumeClick = onVolumeClick,
-                enabled = it.connected && it.media != null,
+                enabled = state.connected && state.media != null,
             )
         },
         controlButtons = { playerUiController, playerUiState ->
@@ -109,8 +109,10 @@ fun UampMediaPlayerScreen(
 public fun PlayerScreenPodcastControlButtons(
     playerUiController: PlayerUiController,
     playerUiState: PlayerUiState,
+    modifier: Modifier = Modifier,
 ) {
     PodcastControlButtons(
+        modifier = modifier,
         playerController = playerUiController,
         playerUiState = playerUiState,
     )

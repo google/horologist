@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -39,7 +38,7 @@ public fun ControlButtonLayout(
 ) {
     val middleSize = if (LocalConfiguration.current.isLargeScreen) 80.dp else 60.dp
     Row(
-        modifier = modifier.fillMaxWidth().height(middleSize),
+        modifier = modifier.height(middleSize),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Absolute.Center,
     ) {

@@ -24,10 +24,12 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
+import com.google.android.horologist.media.ui.components.background.ColorBackground
 import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
 import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenControlButtons
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
@@ -49,12 +51,19 @@ fun UampMediaPlayerScreen(
     PlayerScreen(
         modifier = modifier,
         background = {
-            val artworkUri = it.media?.artworkUri
-            ArtworkColorBackground(
-                artworkUri = artworkUri,
-                defaultColor = MaterialTheme.colors.primary,
-                modifier = Modifier.fillMaxSize(),
-            )
+            val artworkColor = it.media?.artworkColor
+            if (artworkColor != null) {
+                ColorBackground(
+                    color = artworkColor,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            } else {
+                ArtworkColorBackground(
+                    paintable = it.media?.artwork as? CoilPaintable,
+                    defaultColor = MaterialTheme.colors.primary,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
         },
         playerViewModel = mediaPlayerScreenViewModel,
         volumeViewModel = volumeViewModel,

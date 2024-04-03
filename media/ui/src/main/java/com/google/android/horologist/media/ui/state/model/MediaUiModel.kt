@@ -25,7 +25,7 @@ public data class MediaUiModel(
     val id: String,
     val title: String,
     val subtitle: String = "",
-    val artworkUri: String? = null,
+    val artwork: Paintable? = null,
     val artworkColor: Color? = null,
     val titleIcon: Paintable? = null,
 ) {

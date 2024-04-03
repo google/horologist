@@ -32,7 +32,7 @@ fun MediaChipPreview() {
         media = MediaUiModel(
             id = "id",
             title = "Red Hot Chilli Peppers",
-            artworkUri = "artworkUri",
+            artwork = null,
         ),
         onClick = {},
         placeholder = rememberVectorPainter(
@@ -67,7 +67,7 @@ fun MediaChipPreviewNoArtwork() {
 @Composable
 fun MediaChipPreviewNoTitle() {
     MediaChip(
-        media = MediaUiModel(id = "id", title = "title", artworkUri = "artworkUri"),
+        media = MediaUiModel(id = "id", title = "title", artwork = null),
         onClick = {},
         defaultTitle = "No title",
         placeholder = rememberVectorPainter(
@@ -88,7 +88,7 @@ fun MediaChipPreviewVeryLongTitle() {
         media = MediaUiModel(
             id = "id",
             title = "Very very very very very very very very very very very very very very very very very very very long title",
-            artworkUri = "artworkUri",
+            artwork = null,
         ),
         onClick = {},
         placeholder = rememberVectorPainter(

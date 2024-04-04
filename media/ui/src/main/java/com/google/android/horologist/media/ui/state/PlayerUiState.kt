@@ -45,6 +45,7 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  * @param media current [MediaUiModel]
  * @param seekBackButtonIncrement increment when seeking back.
  * @param seekForwardButtonIncrement increment when seeking forward.
+ * @param titlePlaceholder denotes whether the title should be using the placeholder.
  * @param connected is the player screen connected.
  */
 @ExperimentalHorologistApi
@@ -65,6 +66,7 @@ public data class PlayerUiState(
     val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val connected: Boolean,
+    val titlePlaceholder: Boolean = false,
 ) {
     // TODO: Consider exposing PlayerState.Idle to be consumed in NothingPlaying screen.
     public companion object {

@@ -60,7 +60,7 @@ class MediaArtworkA11yTest : WearLegacyA11yTest() {
         runComponentTest {
             MediaArtwork(
                 modifier = Modifier.size(ChipDefaults.LargeIconSize),
-                media = MediaUiModel(
+                media = MediaUiModel.Ready(
                     id = "id",
                     title = "title",
                     artwork = CoilPaintable(FakeImageLoader.TestIconResourceUri),

@@ -29,18 +29,11 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
  */
 @ExperimentalHorologistApi
 @Composable
-public fun MediaInfoDisplay(
-    media: MediaUiModel?,
-    loading: Boolean,
-    modifier: Modifier = Modifier,
-) {
+public fun MediaInfoDisplay(media: MediaUiModel?, loading: Boolean, modifier: Modifier = Modifier) {
     if (loading) {
         LoadingMediaDisplay(modifier)
-    } else if (media != null) {
-        TrackMediaDisplay(
-            media = media,
-            modifier = modifier,
-        )
+    } else if (media is MediaUiModel.Ready) {
+        TrackMediaDisplay(media = media, modifier = modifier)
     } else {
         NothingPlayingDisplay(modifier)
     }

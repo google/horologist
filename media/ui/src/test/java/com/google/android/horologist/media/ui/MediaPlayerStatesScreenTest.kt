@@ -56,7 +56,7 @@ class MediaPlayerStatesScreenTest(
             playPauseEnabled = state.connected,
             playing = state.connected,
             media = if (state.media) {
-                MediaUiModel(
+                MediaUiModel.Ready(
                     id = "",
                     title = "Weather with You",
                     subtitle = "Crowded House",

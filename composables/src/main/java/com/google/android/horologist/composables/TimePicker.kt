@@ -450,7 +450,7 @@ public fun TimePickerWith12HourClock(
 
         (0..9).maxOf { mm.getBoundingBox(it).width } to (1..2).maxOf {
             mm.getLineRight(it) - mm.getLineLeft(
-                it
+                it,
             )
         }
     }
@@ -699,7 +699,8 @@ internal class DefaultTouchExplorationStateProvider : TouchExplorationStateProvi
         }
     }
 
-    private class Listener : AccessibilityManager.AccessibilityStateChangeListener,
+    private class Listener :
+        AccessibilityManager.AccessibilityStateChangeListener,
         AccessibilityManager.TouchExplorationStateChangeListener {
 
         private var accessibilityEnabled by mutableStateOf(false)

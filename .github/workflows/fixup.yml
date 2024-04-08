@@ -53,7 +53,8 @@ jobs:
 
       - name: Push new screenshots if available
         uses: stefanzweifel/git-auto-commit-action@v5
+        if: ${{ always() }}
         with:
-          file_pattern: '**/snapshots/images/*.png'
+          file_pattern: '**/snapshots/images/*.png **/screenshots/*.png'
           disable_globbing: true
           commit_message: "🤖 Updates screenshots"

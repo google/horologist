@@ -14,32 +14,24 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.composables
 
 import androidx.wear.compose.material.ChipDefaults
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class PlaceholderChipTest : ScreenshotBaseTest() {
+class PlaceholderChipTest : WearLegacyComponentTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(
-            isComponent = true,
-            takeScreenshot = true,
-        ) {
+        runComponentTest {
             PlaceholderChip()
         }
     }
 
     @Test
     fun secondaryColors() {
-        screenshotTestRule.setContent(
-            isComponent = true,
-            takeScreenshot = true,
-        ) {
+        runComponentTest {
             PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
         }
     }

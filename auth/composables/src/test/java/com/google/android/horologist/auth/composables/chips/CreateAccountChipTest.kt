@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.auth.composables.chips
 
 import androidx.wear.compose.material.ChipDefaults
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class CreateAccountChipTest : ScreenshotBaseTest() {
+class CreateAccountChipTest : WearLegacyComponentTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CreateAccountChip(onClick = {})
         }
     }
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CreateAccountChip(
                 onClick = {},
                 enabled = false,
@@ -43,7 +41,7 @@ class CreateAccountChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLargeIconSpace() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CreateAccountChip(
                 onClick = {},
                 largeIconSpace = true,
@@ -53,7 +51,7 @@ class CreateAccountChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryChipType() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CreateAccountChip(
                 onClick = {},
                 colors = ChipDefaults.secondaryChipColors(),

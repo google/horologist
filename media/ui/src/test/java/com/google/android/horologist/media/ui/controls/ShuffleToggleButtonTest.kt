@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui.controls
 
 import com.google.android.horologist.media.ui.components.controls.ShuffleToggleButton
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class ShuffleToggleButtonTest : ScreenshotBaseTest() {
+class ShuffleToggleButtonTest : WearLegacyComponentTest() {
 
     @Test
     fun givenShuffleIsOn_thenIconIsShuffleOn() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ShuffleToggleButton(
                 onToggle = {},
                 shuffleOn = true,
@@ -36,7 +34,7 @@ class ShuffleToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun givenShuffleIsOff_thenIconIsShuffle() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ShuffleToggleButton(
                 onToggle = {},
                 shuffleOn = false,

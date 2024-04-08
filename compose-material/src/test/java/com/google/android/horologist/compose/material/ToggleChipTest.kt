@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
@@ -26,14 +24,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.testharness.TestHarness
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class ToggleChipTest : ScreenshotBaseTest() {
+class ToggleChipTest : WearLegacyComponentTest() {
 
     @Test
     fun switch() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -45,7 +43,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun radio() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -57,7 +55,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun checkbox() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -69,7 +67,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun unchecked() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = false,
                 onCheckedChanged = { },
@@ -81,7 +79,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabel() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -94,7 +92,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -107,7 +105,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -121,7 +119,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -134,7 +132,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun uncheckedAndDisabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = false,
                 onCheckedChanged = { },
@@ -147,7 +145,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -159,7 +157,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = largestFontScale) {
                 ToggleChip(
                     checked = true,
@@ -173,7 +171,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIconAndLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -186,7 +184,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIconAndLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = largestFontScale) {
                 ToggleChip(
                     checked = true,
@@ -201,7 +199,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -214,7 +212,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = largestFontScale) {
                 ToggleChip(
                     checked = true,
@@ -229,7 +227,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIconAndSecondaryLabelAndLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -243,7 +241,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIconAndSecondaryLabelAndLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = largestFontScale) {
                 ToggleChip(
                     checked = true,
@@ -259,7 +257,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun usingSmallIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -272,7 +270,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun usingLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -287,7 +285,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
     // with "defaultRtl" test, as it uses a different icon that is easier to see mirrored.
     @Test
     fun default() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -301,7 +299,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun defaultRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 ToggleChip(
                     checked = true,
@@ -317,7 +315,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun mirrored() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -332,7 +330,7 @@ class ToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun mirroredRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 ToggleChip(
                     checked = true,

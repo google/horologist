@@ -101,9 +101,9 @@ dependencies {
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
 
-    implementation(libs.roborazzi)
-    implementation(libs.roborazzi.compose)
-    implementation(libs.roborazzi.rule)
+    api(libs.roborazzi)
+    api(libs.roborazzi.compose)
+    api(libs.roborazzi.rule)
 
     // TODO remove
     implementation(libs.snapshot.android)

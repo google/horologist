@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class SplitToggleChipTest : ScreenshotBaseTest() {
+class SplitToggleChipTest : WearLegacyComponentTest() {
 
     @Test
     fun switch() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -40,7 +38,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun radio() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -53,7 +51,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun checkbox() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -66,7 +64,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun unchecked() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SplitToggleChip(
                 checked = false,
                 onCheckedChanged = { },
@@ -79,7 +77,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabel() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -93,7 +91,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -107,7 +105,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun uncheckedAndDisabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SplitToggleChip(
                 checked = false,
                 onCheckedChanged = { },
@@ -121,7 +119,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -134,7 +132,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = largestFontScale) {
                 SplitToggleChip(
                     checked = true,
@@ -149,7 +147,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
@@ -163,7 +161,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = largestFontScale) {
                 SplitToggleChip(
                     checked = true,
@@ -179,7 +177,7 @@ class SplitToggleChipTest : ScreenshotBaseTest() {
 
     @Test
     fun rtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 SplitToggleChip(
                     checked = true,

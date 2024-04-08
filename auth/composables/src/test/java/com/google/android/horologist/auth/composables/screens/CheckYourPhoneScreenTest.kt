@@ -14,30 +14,23 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.auth.composables.screens
 
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
-class CheckYourPhoneScreenTest : ScreenshotBaseTest(
-    params = ScreenshotTestRule.screenshotTestRuleParams {
-        screenTimeText = {}
-    },
-) {
+class CheckYourPhoneScreenTest : WearLegacyScreenTest() {
 
     @Test
     fun checkYourPhoneScreen() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             CheckYourPhoneScreen()
         }
     }
 
     @Test
     fun checkYourPhoneScreenWithMessage() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             CheckYourPhoneScreen(message = "XXXX-YYYY")
         }
     }

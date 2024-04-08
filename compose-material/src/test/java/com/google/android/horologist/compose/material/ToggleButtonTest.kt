@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
@@ -26,14 +24,14 @@ import androidx.compose.material.icons.filled.AirplanemodeInactive
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class ToggleButtonTest : ScreenshotBaseTest() {
+class ToggleButtonTest : WearLegacyComponentTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -45,7 +43,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun notChecked() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -58,7 +56,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -71,7 +69,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun notCheckedDisabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -85,7 +83,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun text() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 text = "Monday",
                 onCheckedChanged = {},
@@ -95,7 +93,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun textNotChecked() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 text = "Monday",
                 onCheckedChanged = {},
@@ -106,7 +104,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun textDisabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 text = "Monday",
                 onCheckedChanged = {},
@@ -117,7 +115,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun textNotCheckedDisabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 text = "Monday",
                 onCheckedChanged = {},
@@ -129,7 +127,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun small() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -142,7 +140,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun smallNotChecked() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -156,7 +154,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun smallDisabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -169,7 +167,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     }
 
     fun smallNotCheckedDisabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -183,7 +181,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     }
 
     fun iconOnly() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -196,7 +194,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     }
 
     fun iconOnlyNotChecked() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -210,7 +208,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     }
 
     fun iconOnlyDisabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -224,7 +222,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
     }
 
     fun iconOnlyNotCheckedDisabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
                 notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
@@ -240,7 +238,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun rtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 ToggleButton(
                     checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
@@ -254,7 +252,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun mirrored() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ToggleButton(
                 checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
                 notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
@@ -267,7 +265,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun mirroredRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 ToggleButton(
                     checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
@@ -282,7 +280,7 @@ class ToggleButtonTest : ScreenshotBaseTest() {
 
     @Test
     fun textWithLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = largestFontScale) {
                 ToggleButton(
                     text = "Monday",

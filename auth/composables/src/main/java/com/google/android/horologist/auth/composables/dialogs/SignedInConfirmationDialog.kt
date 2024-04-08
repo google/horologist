@@ -43,6 +43,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.DialogDefaults
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.Paintable
@@ -113,71 +114,73 @@ internal fun SignedInConfirmationDialogContent(
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = horizontalPadding),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        val hasName = !name.isNullOrEmpty()
-
-        Box(
-            modifier = Modifier
-                .size(60.dp)
-                .background(color = Color(AVATAR_BACKGROUND_COLOR), shape = CircleShape),
-            contentAlignment = Alignment.Center,
+    ScreenScaffold(timeText = {}) {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = horizontalPadding),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            if (avatar != null) {
-                Image(
-                    modifier = Modifier.clip(CircleShape),
-                    painter = avatar.rememberPainter(),
-                    contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                    contentScale = ContentScale.Fit,
-                )
-            } else if (hasName) {
-                Text(
-                    text = name!!.first().uppercase(),
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .fillMaxWidth(),
-                    color = Color(AVATAR_TEXT_COLOR),
-                    fontSize = 24.sp,
-                    textAlign = TextAlign.Center,
-                )
-            }
-        }
+            val hasName = !name.isNullOrEmpty()
 
-        Text(
-            text = if (hasName) {
-                stringResource(
-                    id = R.string.horologist_signedin_confirmation_greeting,
-                    name!!,
-                )
-            } else {
-                stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)
-            },
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1,
-            style = MaterialTheme.typography.title3,
-        )
-
-        email?.let {
-            Text(
-                text = email,
+            Box(
                 modifier = Modifier
-                    .padding(top = 4.dp)
+                    .size(60.dp)
+                    .background(color = Color(AVATAR_BACKGROUND_COLOR), shape = CircleShape),
+                contentAlignment = Alignment.Center,
+            ) {
+                if (avatar != null) {
+                    Image(
+                        modifier = Modifier.clip(CircleShape),
+                        painter = avatar.rememberPainter(),
+                        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                        contentScale = ContentScale.Fit,
+                    )
+                } else if (hasName) {
+                    Text(
+                        text = name!!.first().uppercase(),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .fillMaxWidth(),
+                        color = Color(AVATAR_TEXT_COLOR),
+                        fontSize = 24.sp,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
+
+            Text(
+                text = if (hasName) {
+                    stringResource(
+                        id = R.string.horologist_signedin_confirmation_greeting,
+                        name!!,
+                    )
+                } else {
+                    stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)
+                },
+                modifier = Modifier
+                    .padding(top = 8.dp)
                     .fillMaxWidth(),
-                color = MaterialTheme.colors.onSurfaceVariant,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
-                style = MaterialTheme.typography.body2,
+                style = MaterialTheme.typography.title3,
             )
+
+            email?.let {
+                Text(
+                    text = email,
+                    modifier = Modifier
+                        .padding(top = 4.dp)
+                        .fillMaxWidth(),
+                    color = MaterialTheme.colors.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.body2,
+                )
+            }
         }
     }
 }

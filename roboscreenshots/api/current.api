@@ -126,7 +126,6 @@ package com.google.android.horologist.screenshots.rng {
   @org.junit.runner.RunWith(ParameterizedRobolectricTestRunner::class) public abstract class WearDeviceScreenshotTest extends com.google.android.horologist.screenshots.rng.WearScreenshotTest {
     ctor public WearDeviceScreenshotTest(com.google.android.horologist.screenshots.rng.WearDevice device);
     method @org.robolectric.ParameterizedRobolectricTestRunner.Parameters public static final java.util.List<com.google.android.horologist.screenshots.rng.WearDevice> devices();
-    method public com.google.android.horologist.screenshots.rng.WearDevice getDevice();
     method public final void runTest(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     property public com.google.android.horologist.screenshots.rng.WearDevice device;
     property public float tolerance;
@@ -137,16 +136,44 @@ package com.google.android.horologist.screenshots.rng {
     method @org.robolectric.ParameterizedRobolectricTestRunner.Parameters public java.util.List<com.google.android.horologist.screenshots.rng.WearDevice> devices();
   }
 
-  @org.robolectric.annotation.Config(sdk={33}, qualifiers="w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav") @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class WearScreenshotTest {
+  @org.junit.runner.RunWith(AndroidJUnit4::class) @org.robolectric.annotation.Config(sdk={33}, qualifiers=com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSLargeRound) @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class WearLegacyComponentTest {
+    ctor public WearLegacyComponentTest();
+    method @androidx.compose.runtime.Composable public void ComponentScaffold(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public com.google.android.horologist.screenshots.rng.WearDevice? getDevice();
+    method public com.google.android.horologist.images.coil.FakeImageLoader? getFakeImageLoader();
+    method @org.junit.Rule public final org.junit.rules.TestName getTestInfo();
+    method public float getTolerance();
+    method public final void runComponentTest(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public String testName(String suffix);
+    property public com.google.android.horologist.screenshots.rng.WearDevice? device;
+    property public com.google.android.horologist.images.coil.FakeImageLoader? fakeImageLoader;
+    property @org.junit.Rule public final org.junit.rules.TestName testInfo;
+    property public float tolerance;
+  }
+
+  public abstract class WearLegacyScreenTest extends com.google.android.horologist.screenshots.rng.WearScreenshotTest {
+    ctor public WearLegacyScreenTest();
+  }
+
+  @org.junit.runner.RunWith(AndroidJUnit4::class) @org.robolectric.annotation.Config(sdk={33}, qualifiers=com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSLargeRound) @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class WearScreenshotTest {
     ctor public WearScreenshotTest();
+    method @androidx.compose.runtime.Composable public void TestScaffold(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public final void captureScreenshot(String suffix);
     method @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule getComposeRule();
-    method public abstract com.google.android.horologist.screenshots.rng.WearDevice getDevice();
+    method public com.google.android.horologist.screenshots.rng.WearDevice? getDevice();
+    method @org.junit.Rule public final org.junit.rules.TestName getTestInfo();
     method public float getTolerance();
-    method public final void runTest(optional String? suffix, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public final void runTest(optional String? suffix, optional com.google.android.horologist.screenshots.rng.WearDevice? device, optional boolean applyDeviceConfig, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public String testName(String suffix);
     property @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule composeRule;
-    property public abstract com.google.android.horologist.screenshots.rng.WearDevice device;
+    property public com.google.android.horologist.screenshots.rng.WearDevice? device;
+    property @org.junit.Rule public final org.junit.rules.TestName testInfo;
     property public float tolerance;
+    field public static final com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion Companion;
+  }
+
+  public static final class WearScreenshotTest.Companion {
+    method public void useHardwareRenderer();
   }
 
 }

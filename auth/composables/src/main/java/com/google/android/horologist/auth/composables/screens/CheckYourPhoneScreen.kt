@@ -40,6 +40,7 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 private const val TOP_PADDING_SCREEN_PERCENTAGE = 0.1248f
@@ -93,48 +94,50 @@ public fun CheckYourPhoneScreen(
     val textPadding =
         if (isLarge) (configuration.screenHeightDp * TEXT_PADDING_SCREEN_PERCENTAGE).dp else 0.dp
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(
-                top = topPadding,
-                bottom = bottomPadding,
-                start = sidePadding,
-                end = sidePadding,
-            ),
-    ) {
+    ScreenScaffold(timeText = {}) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .padding(horizontal = textPadding),
-            verticalArrangement = Arrangement.Center,
+            modifier = modifier
+                .fillMaxSize()
+                .padding(
+                    top = topPadding,
+                    bottom = bottomPadding,
+                    start = sidePadding,
+                    end = sidePadding,
+                ),
         ) {
-            Text(
-                text = stringResource(id = R.string.horologist_check_your_phone_title),
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.title3,
-            )
-
-            if (message != null) {
+                    .weight(1f)
+                    .padding(horizontal = textPadding),
+                verticalArrangement = Arrangement.Center,
+            ) {
                 Text(
-                    text = message,
+                    text = stringResource(id = R.string.horologist_check_your_phone_title),
                     modifier = Modifier
-                        .padding(top = 20.dp)
                         .fillMaxWidth()
                         .align(Alignment.CenterHorizontally),
                     textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.title3,
                 )
-            }
-        }
 
-        ProgressCircle(
-            Modifier
-                .align(Alignment.CenterHorizontally),
-        )
+                if (message != null) {
+                    Text(
+                        text = message,
+                        modifier = Modifier
+                            .padding(top = 20.dp)
+                            .fillMaxWidth()
+                            .align(Alignment.CenterHorizontally),
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
+
+            ProgressCircle(
+                Modifier
+                    .align(Alignment.CenterHorizontally),
+            )
+        }
     }
 }
 

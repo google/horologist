@@ -33,14 +33,14 @@ import androidx.wear.compose.material.ChipDefaults
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class OutlinedChipTest : ScreenshotBaseTest() {
+class OutlinedChipTest : WearLegacyComponentTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -50,7 +50,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabel() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -61,7 +61,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -72,7 +72,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -84,7 +84,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -96,7 +96,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -109,7 +109,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -122,7 +122,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 onClick = { },
@@ -132,7 +132,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = LARGEST_FONT_SCALE) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
@@ -144,7 +144,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongTextAndMediumFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = MEDIUM_FONT_SCALE) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
@@ -156,7 +156,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndIconAndLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
@@ -168,7 +168,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndIconAndLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = LARGEST_FONT_SCALE) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very long text",
@@ -182,7 +182,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndLargeIconAndLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label very very very very very very very very long text",
                 onClick = { },
@@ -195,7 +195,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndLargeIconAndLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = LARGEST_FONT_SCALE) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very long text",
@@ -210,7 +210,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun usingSmallIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -221,18 +221,18 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun usingDrawableResAsIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
-                icon = DrawableResPaintable(android.R.drawable.ic_delete),
+                icon = DrawableResPaintable(R.drawable.ic_delete),
             )
         }
     }
 
     @Test
     fun withLargeIconUsingSmallIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -244,7 +244,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun usingExtraLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -255,7 +255,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLargeIconUsingExtraLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -267,7 +267,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryLabelAndIconRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 OutlinedChip(
                     label = "Primary label",
@@ -281,7 +281,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryChipColors() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -294,7 +294,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withGradientBackgroundChipColors() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -307,7 +307,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withImageBackgroundChipColors() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedChip(
                 label = "Primary label",
                 onClick = { },
@@ -322,7 +322,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIconMirrored() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                 @Suppress("Deprecation")
                 OutlinedChip(

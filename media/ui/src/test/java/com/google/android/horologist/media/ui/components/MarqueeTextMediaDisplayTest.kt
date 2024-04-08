@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui.components
 
 import androidx.compose.runtime.Composable
@@ -24,25 +22,20 @@ import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.components.animated.MarqueeTextMediaDisplay
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class MarqueeTextMediaDisplayTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        screenTimeText = {}
-    },
-) {
+class MarqueeTextMediaDisplayTest : WearLegacyComponentTest() {
     @Test
     fun givenTitleAndArtist_thenTitleAndArtistAreDisplayed() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")
         }
     }
 
     @Test
     fun givenPaintableIcon_thenTintedIconIsDisplayed() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             MarqueeTextMediaDisplay(
                 title = "Sorrow",
                 artist = "David Bowie",
@@ -53,7 +46,7 @@ class MarqueeTextMediaDisplayTest : ScreenshotBaseTest(
 
     @Test
     fun givenPaintable_thenImageIsDisplayed() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             MarqueeTextMediaDisplay(
                 title = "Sorrow",
                 artist = "David Bowie",

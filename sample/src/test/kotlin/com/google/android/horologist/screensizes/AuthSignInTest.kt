@@ -25,7 +25,7 @@ import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptS
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.tools.Device
 
-class AuthSignInTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+class AuthSignInTest(device: Device) : WearLegacyScreenSizeTest(device = device, showTimeText = false) {
 
     @Composable
     override fun Content() {

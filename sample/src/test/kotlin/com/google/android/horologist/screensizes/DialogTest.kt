@@ -43,10 +43,9 @@ import com.google.android.horologist.compose.material.ConfirmationContent
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
 import com.google.android.horologist.compose.tools.Device
-import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-class DialogTest(device: Device) : ScreenSizeTest(
+class DialogTest(device: Device) : WearLegacyScreenSizeTest(
     device = device,
     showTimeText = false,
 ) {
@@ -92,14 +91,7 @@ class DialogTest(device: Device) : ScreenSizeTest(
 
     @Test
     fun longDialogScreen1() {
-        runTest(testFn = {
-            screenshotTestRule.interact {
-                onNode(hasScrollToNodeAction())
-                    .performTouchInput { repeat(10) { swipeUp() } }
-            }
-
-            screenshotTestRule.takeScreenshot()
-        }) {
+        runTest {
             AlertContent(
                 title = "Turn on Bedtime mode?",
                 message = "Watch screen, tilt-to-wake, and touch are turned off. " +
@@ -120,20 +112,16 @@ class DialogTest(device: Device) : ScreenSizeTest(
                 }
             }
         }
+
+        composeRule.onNode(hasScrollToNodeAction())
+            .performTouchInput { repeat(10) { swipeUp() } }
+
+        captureScreenshot("_2")
     }
 
     @Test
     fun batterySaverScreen() {
-        runTest(testFn = {
-            screenshotTestRule.interact {
-                runBlocking {
-                    onNode(hasScrollToNodeAction())
-                        .performTouchInput { repeat(10) { swipeUp() } }
-                }
-            }
-
-            screenshotTestRule.takeScreenshot()
-        }) {
+        runTest {
             AlertContent(
                 icon = {
                     Icon(
@@ -173,6 +161,11 @@ class DialogTest(device: Device) : ScreenSizeTest(
                 }
             }
         }
+
+        composeRule.onNode(hasScrollToNodeAction())
+            .performTouchInput { repeat(10) { swipeUp() } }
+
+        captureScreenshot("_2")
     }
 
     @Test

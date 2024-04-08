@@ -21,7 +21,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.sectionedlist.SectionedListMenuScreen
 
-class SectionedListDefaultTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+class SectionedListDefaultTest(device: Device) : WearLegacyScreenSizeTest(device = device, showTimeText = false) {
 
     @Composable
     override fun Content() {

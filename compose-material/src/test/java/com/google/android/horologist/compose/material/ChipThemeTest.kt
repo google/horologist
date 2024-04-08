@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
 import androidx.compose.foundation.shape.CutCornerShape
@@ -29,14 +27,14 @@ import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Shapes
 import androidx.wear.compose.material.Typography
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class ChipThemeTest : ScreenshotBaseTest() {
+class ChipThemeTest : WearLegacyComponentTest() {
 
     @Test
     fun withCustomTheme() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             MaterialTheme(
                 colors = CustomColors,
                 typography = CustomTypography,

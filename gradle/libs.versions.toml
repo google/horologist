@@ -3,10 +3,10 @@ accompanist = "0.34.0"
 androidx-benchmark = "1.2.3"
 androidx-complications-data = "1.2.1"
 androidx-constraintlayout-compose = "1.0.1"
-androidx-compose-material = "1.7.0-alpha05"
+androidx-compose-material = "1.7.0-alpha06"
 androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
-androidx-health-services = "1.0.0-rc01"
+androidx-health-services = "1.0.0-rc02"
 androidx-hilt = "1.2.0"
 androidx-media3 = "1.3.0"
 androidx-test-espresso = "3.6.0-alpha03"
@@ -31,13 +31,13 @@ annotation = "1.0.1"
 app-cash-turbine = "1.1.0"
 com-squareup-okhttp3 = "4.12.0"
 com-squareup-retrofit2 = "2.11.0"
-compose = "1.7.0-alpha05"
+compose = "1.7.0-alpha06"
 compose-compiler = "1.5.11"
-compose-material3 = "1.3.0-alpha03"
+compose-material3 = "1.3.0-alpha04"
 composesnapshot = "-"
-dependencyAnalysis = "1.30.0"
+dependencyAnalysis = "1.31.0"
 dokka = "1.9.20"
-googledagger = "2.51"
+googledagger = "2.51.1"
 gradlePlugin = "8.2.2"
 gradlePublishPlugin = "0.28.0"
 io-coil-kt = "2.6.0"
@@ -59,7 +59,7 @@ snapshot-android = "1.0.4"
 spotless = "6.25.0"
 tiles-tooling-preview = "1.3.0"
 truth = "1.4.2"
-wearcompose = "1.4.0-alpha05"
+wearcompose = "1.4.0-alpha06"
 wearToolingPreview = "1.0.0"
 appcompat = "1.6.1"
 material = "1.11.0"
@@ -144,7 +144,7 @@ coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "io-coil-kt" }
 com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "com-squareup-okhttp3" }
-compose-bom = "androidx.compose:compose-bom:2024.03.00"
+compose-bom = "androidx.compose:compose-bom:2024.04.00"
 compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose-material" }
 compose-foundation-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "androidx-compose-material" }
 compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "androidx-compose-material" }
@@ -172,10 +172,10 @@ gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugi
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 hilt-ext-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
 hilt-navigationcompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
-io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.62.2"
+io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.63.0"
 io-grpc-grpc-kotlin = "io.grpc:grpc-kotlin-stub:1.4.1"
-io-grpc-grpc-android = "io.grpc:grpc-android:1.62.2"
-io-grpc-grpc-binder = "io.grpc:grpc-binder:1.62.2"
+io-grpc-grpc-android = "io.grpc:grpc-android:1.63.0"
+io-grpc-grpc-binder = "io.grpc:grpc-binder:1.63.0"
 google-generativeai = "com.google.ai.client.generativeai:generativeai:0.2.2"
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -187,7 +187,7 @@ kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-
 kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
 lottie-compose = "com.airbnb.android:lottie-compose:6.4.0"
-mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.13.0"
+mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.14.0"
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }

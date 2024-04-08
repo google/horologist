@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui.tiles
 
 import androidx.compose.runtime.Composable
@@ -25,17 +23,12 @@ import androidx.wear.protolayout.ActionBuilders
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.uamp.UampColors
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import org.junit.Test
 import org.robolectric.annotation.Config
 
-class MediaCollectionsTileTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        screenTimeText = {}
-    },
-) {
+class MediaCollectionsTileTest : WearLegacyScreenTest() {
     @Test
     fun largeRound() {
         tileScreenshot()
@@ -60,7 +53,7 @@ class MediaCollectionsTileTest : ScreenshotBaseTest(
     }
 
     fun tileScreenshot() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             SampleTilePreview()
         }
     }
@@ -107,6 +100,7 @@ class MediaCollectionsTileTest : ScreenshotBaseTest(
             )
         }
 
+        @Suppress("DEPRECATION")
         TileLayoutPreview(
             tileState,
             resourceState,

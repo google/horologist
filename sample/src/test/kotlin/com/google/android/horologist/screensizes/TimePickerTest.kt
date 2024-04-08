@@ -21,7 +21,7 @@ import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.compose.tools.Device
 import java.time.LocalTime
 
-class TimePickerTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+class TimePickerTest(device: Device) : WearLegacyScreenSizeTest(device = device, showTimeText = false) {
 
     @Composable
     override fun Content() {

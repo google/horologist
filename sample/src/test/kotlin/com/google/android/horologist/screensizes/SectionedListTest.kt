@@ -31,7 +31,7 @@ import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.sectionedlist.SectionedListMenuScreen
 
-class SectionedListTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+class SectionedListTest(device: Device) : WearLegacyScreenSizeTest(device = device, showTimeText = false) {
 
     @Composable
     override fun Content() {

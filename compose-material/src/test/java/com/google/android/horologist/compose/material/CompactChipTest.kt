@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
 import android.R
@@ -26,14 +24,14 @@ import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class CompactChipTest : ScreenshotBaseTest() {
+class CompactChipTest : WearLegacyComponentTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CompactChip(
                 label = "Primary label",
                 onClick = { },
@@ -43,7 +41,7 @@ class CompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CompactChip(
                 label = "Primary label",
                 onClick = { },
@@ -54,7 +52,7 @@ class CompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun iconOnly() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CompactChip(
                 onClick = { },
                 icon = Icons.Filled.Add.asPaintable(),
@@ -65,7 +63,7 @@ class CompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CompactChip(
                 label = "Primary label",
                 onClick = { },
@@ -77,7 +75,7 @@ class CompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CompactChip(
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 onClick = { },
@@ -87,7 +85,7 @@ class CompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = LARGEST_FONT_SCALE) {
                 CompactChip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
@@ -99,7 +97,7 @@ class CompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun usingDrawableResAsIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CompactChip(
                 label = "Primary label",
                 onClick = { },
@@ -110,7 +108,7 @@ class CompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIconRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 CompactChip(
                     label = "Primary label",
@@ -123,7 +121,7 @@ class CompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun mirrored() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CompactChip(
                 label = "Primary label",
                 onClick = { },
@@ -135,7 +133,7 @@ class CompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun mirroredRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 CompactChip(
                     label = "Primary label",
@@ -149,7 +147,7 @@ class CompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun usingDrawableResAsIconMirroredRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 CompactChip(
                     label = "Primary label",

@@ -37,9 +37,6 @@ class MediaArtworkA11yTest : ScreenshotBaseTest(
         screenTimeText = {}
     },
 ) {
-    init {
-    }
-
     @Test
     fun a11y() {
         screenshotTestRule.setContent(

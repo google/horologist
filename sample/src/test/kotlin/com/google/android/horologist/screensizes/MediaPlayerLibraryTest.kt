@@ -42,7 +42,7 @@ import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.screenshots.FixedTimeSource
 
-class MediaPlayerLibraryTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+class MediaPlayerLibraryTest(device: Device) : WearLegacyScreenSizeTest(device = device, showTimeText = false) {
 
     @Composable
     override fun Content() {

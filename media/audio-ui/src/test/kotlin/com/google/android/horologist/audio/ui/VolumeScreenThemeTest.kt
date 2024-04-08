@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.audio.ui
 
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -31,12 +28,13 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class VolumeScreenThemeTest(
     private val themeValue: ThemeValues,
-) : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        screenTimeText = {}
-        testLabel = themeValue.safeName.lowercase()
-    },
-) {
+) : WearLegacyScreenTest() {
+
+    override fun testName(suffix: String): String {
+        return "src/test/snapshots/images/" +
+            "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
+            "${themeValue.safeName.lowercase()}.png"
+    }
 
     @Test
     fun volumeScreenThemes() {
@@ -46,7 +44,7 @@ class VolumeScreenThemeTest(
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             VolumeScreenTestCase(
                 colors = themeValue.colors,
                 volumeState = volumeState,

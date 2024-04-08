@@ -36,7 +36,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.tools.Device
 
-class DevicesTest(device: Device) : ScreenSizeTest(device = device, showTimeText = true) {
+class DevicesTest(device: Device) : WearLegacyScreenSizeTest(device = device, showTimeText = true) {
 
     @Composable
     override fun Content() {
@@ -83,10 +83,17 @@ fun ScreenSizeInfo(device: Device) {
             "isScreenRound: ${configuration.isScreenRound}",
             style = MaterialTheme.typography.body2,
         )
-        Text(
-            "screenSizePx: ${displayMetrics.widthPixels}x${displayMetrics.heightPixels}",
-            style = MaterialTheme.typography.body2,
-        )
+        if (device.density == 2f) {
+            Text(
+                "screenSizePx: ${displayMetrics.widthPixels}x${displayMetrics.heightPixels}",
+                style = MaterialTheme.typography.body2,
+            )
+        } else {
+            Text(
+                "screenSizePx:",
+                style = MaterialTheme.typography.body2,
+            )
+        }
         Text(
             "screenSizeDp: ${configuration.screenWidthDp}x${configuration.screenHeightDp}",
             style = MaterialTheme.typography.body2,

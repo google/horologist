@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.compose.layout.ScreenScaffold
 
 /**
  * A catch all error screen to be displayed to users when an error occurred during authentication
@@ -37,17 +38,19 @@ import com.google.android.horologist.auth.composables.R
 public fun AuthErrorScreen(
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+    ScreenScaffold(timeText = {}) {
+        Column(
+            modifier = modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
 
-    ) {
-        Text(
-            text = stringResource(id = R.string.horologist_auth_error_message),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 30.dp),
-            textAlign = TextAlign.Center,
-        )
+        ) {
+            Text(
+                text = stringResource(id = R.string.horologist_auth_error_message),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 30.dp),
+                textAlign = TextAlign.Center,
+            )
+        }
     }
 }

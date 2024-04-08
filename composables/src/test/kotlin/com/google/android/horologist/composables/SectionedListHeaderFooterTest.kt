@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.composables
 
 import com.google.android.horologist.composables.Section.Companion.ALL_STATES
@@ -29,8 +27,7 @@ import com.google.android.horologist.composables.SectionedListTest.Companion.Dow
 import com.google.android.horologist.composables.SectionedListTest.Companion.SectionedListPreview
 import com.google.android.horologist.composables.SectionedListTest.Companion.downloads
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -40,15 +37,11 @@ class SectionedListHeaderFooterTest(
     private val headerVisibleStatesParam: Section.VisibleStates,
     private val footerVisibleStatesParam: Section.VisibleStates,
     private val sectionStateParam: Section.State<String>,
-) : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        screenTimeText = {}
-    },
-) {
+) : WearLegacyScreenTest() {
 
     @Test
     fun test() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             val columnState = ScalingLazyColumnDefaults.responsive().create()
 
             SectionedListPreview(columnState) {

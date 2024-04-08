@@ -38,7 +38,7 @@ import com.google.android.horologist.sample.Screen
 import org.junit.Test
 
 class ScalingLazyColumnDefaultsTest(device: Device) :
-    ScreenSizeTest(
+    WearLegacyScreenSizeTest(
         device = device,
         showTimeText = false,
     ) {

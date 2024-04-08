@@ -34,6 +34,7 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.material.Title
 
 /**
@@ -91,46 +92,48 @@ public fun SignInPromptScreen(
     loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
     content: ScalingLazyListScope.() -> Unit,
 ) {
-    when (state) {
-        SignInPromptScreenState.Idle -> {
-            SideEffect {
-                onIdleStateObserved()
+    ScreenScaffold(timeText = {}) {
+        when (state) {
+            SignInPromptScreenState.Idle -> {
+                SideEffect {
+                    onIdleStateObserved()
+                }
+
+                loadingContent()
             }
 
-            loadingContent()
-        }
+            SignInPromptScreenState.Loading -> {
+                loadingContent()
+            }
 
-        SignInPromptScreenState.Loading -> {
-            loadingContent()
-        }
+            is SignInPromptScreenState.SignedIn -> {
+                SignInPlaceholderScreen(modifier = modifier)
 
-        is SignInPromptScreenState.SignedIn -> {
-            SignInPlaceholderScreen(modifier = modifier)
+                onAlreadySignedIn(state.account)
+            }
 
-            onAlreadySignedIn(state.account)
-        }
-
-        SignInPromptScreenState.SignedOut -> {
-            ScalingLazyColumn(
-                columnState = columnState,
-                modifier = modifier,
-            ) {
-                item { Title(title) }
-                item {
-                    Text(
-                        text = message,
-                        modifier = Modifier.padding(
-                            top = 8.dp,
-                            bottom = 12.dp,
-                            start = 10.dp,
-                            end = 10.dp,
-                        ),
-                        color = MaterialTheme.colors.onBackground,
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.body2,
-                    )
+            SignInPromptScreenState.SignedOut -> {
+                ScalingLazyColumn(
+                    columnState = columnState,
+                    modifier = modifier,
+                ) {
+                    item { Title(title) }
+                    item {
+                        Text(
+                            text = message,
+                            modifier = Modifier.padding(
+                                top = 8.dp,
+                                bottom = 12.dp,
+                                start = 10.dp,
+                                end = 10.dp,
+                            ),
+                            color = MaterialTheme.colors.onBackground,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.body2,
+                        )
+                    }
+                    apply(content)
                 }
-                apply(content)
             }
         }
     }

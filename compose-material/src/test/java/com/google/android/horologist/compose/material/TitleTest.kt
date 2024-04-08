@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
@@ -23,14 +21,14 @@ import androidx.compose.material.icons.outlined.MusicNote
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class TitleTest : ScreenshotBaseTest() {
+class TitleTest : WearLegacyComponentTest() {
 
     @Test
     fun defaultPrimary() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             Title(
                 text = "Title",
             )
@@ -39,7 +37,7 @@ class TitleTest : ScreenshotBaseTest() {
 
     @Test
     fun primaryWithVeryLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             Title(
                 text = "Title with a very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very " +
@@ -50,7 +48,7 @@ class TitleTest : ScreenshotBaseTest() {
 
     @Test
     fun defaultSecondary() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SecondaryTitle(
                 text = "Title",
             )
@@ -59,7 +57,7 @@ class TitleTest : ScreenshotBaseTest() {
 
     @Test
     fun secondaryWithVeryLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SecondaryTitle(
                 text = "Title with a very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very " +
@@ -70,7 +68,7 @@ class TitleTest : ScreenshotBaseTest() {
 
     @Test
     fun defaultSecondaryWithIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SecondaryTitle(
                 text = "Title",
                 icon = Icons.Outlined.MusicNote,
@@ -81,7 +79,7 @@ class TitleTest : ScreenshotBaseTest() {
 
     @Test
     fun secondaryWithIconAndVeryLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SecondaryTitle(
                 text = "Title with a very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very " +
@@ -94,7 +92,7 @@ class TitleTest : ScreenshotBaseTest() {
 
     @Test
     fun defaultPrimaryRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 Title(
                     text = "Title",
@@ -105,7 +103,7 @@ class TitleTest : ScreenshotBaseTest() {
 
     @Test
     fun defaultSecondaryRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 SecondaryTitle(
                     text = "Title",
@@ -116,7 +114,7 @@ class TitleTest : ScreenshotBaseTest() {
 
     @Test
     fun mirroredSecondary() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             SecondaryTitle(
                 text = "Title",
                 icon = Icons.Outlined.MusicNote,
@@ -128,7 +126,7 @@ class TitleTest : ScreenshotBaseTest() {
 
     @Test
     fun mirroredRtlSecondary() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 SecondaryTitle(
                     text = "Title",

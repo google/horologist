@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.auth.composables.chips
 
 import androidx.wear.compose.material.ChipDefaults
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class AccountChipTest : ScreenshotBaseTest() {
+class AccountChipTest : WearLegacyComponentTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             AccountChip(
                 email = "maggie@example.com",
                 onClick = {},
@@ -36,7 +34,7 @@ class AccountChipTest : ScreenshotBaseTest() {
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             AccountChip(
                 email = "maggie@example.com",
                 onClick = {},
@@ -47,7 +45,7 @@ class AccountChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSmallAvatar() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             AccountChip(
                 email = "maggie@example.com",
                 onClick = {},
@@ -58,7 +56,7 @@ class AccountChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryChipType() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             AccountChip(
                 email = "maggie@example.com",
                 onClick = {},
@@ -69,7 +67,7 @@ class AccountChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongEmailAddress() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             AccountChip(
                 email = "thisisaverylongemailaddresssample@example.com",
                 onClick = {},
@@ -79,7 +77,7 @@ class AccountChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withEmailAddressStartingWithSingleLetterAndDot() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             AccountChip(
                 email = "p.thisisaverylongemailaddress@example.com",
                 onClick = {},

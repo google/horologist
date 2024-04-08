@@ -14,28 +14,19 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.composables
 
-import androidx.compose.ui.text.font.FontWeight
-import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.compose.tools.copy
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearDevice
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 import java.time.LocalTime
 
-class TimePicker12hTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        screenTimeText = {}
-    },
-) {
+class TimePicker12hTest : WearLegacyScreenTest() {
 
     @Test
     fun initial() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             TimePickerWith12HourClock(
                 time = LocalTime.of(10, 10, 0),
                 onTimeConfirm = {},
@@ -48,7 +39,7 @@ class TimePicker12hTest : ScreenshotBaseTest(
         fontScale = 1.24f,
     )
     fun largestFontScaling() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest(applyDeviceConfig = false) {
             TimePickerWith12HourClock(
                 time = LocalTime.of(10, 10, 0),
                 onTimeConfirm = {},
@@ -57,18 +48,12 @@ class TimePicker12hTest : ScreenshotBaseTest(
     }
 
     @Test
-    @Config(
-        qualifiers = "+w192dp-h192dp",
-        fontScale = 1.24f,
-    )
     fun smallDeviceLargeFontBold() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
-                TimePickerWith12HourClock(
-                    time = LocalTime.of(10, 10, 0),
-                    onTimeConfirm = {},
-                )
-            }
+        runTest(device = WearDevice.GooglePixelWatchLargeFont) {
+            TimePickerWith12HourClock(
+                time = LocalTime.of(10, 10, 0),
+                onTimeConfirm = {},
+            )
         }
     }
 }

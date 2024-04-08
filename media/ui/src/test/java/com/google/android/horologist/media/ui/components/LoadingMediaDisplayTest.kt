@@ -14,45 +14,48 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.media.ui.components.animated.MarqueeTextMediaDisplay
 import com.google.android.horologist.media.ui.components.display.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.display.TextMediaDisplay
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 
-class LoadingMediaDisplayTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        screenTimeText = {}
-    },
-) {
+class LoadingMediaDisplayTest : WearLegacyComponentTest() {
     @Test
     fun default() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             LoadingMediaDisplay()
         }
     }
 
     @Test
     fun loadingMediaDisplay_textMediaDisplay_overlay_largeScreen() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
-            TextMediaDisplay(title = "Sorrow", subtitle = "David Bowie")
+        runComponentTest {
+            DisplayArea {
+                LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
+                TextMediaDisplay(title = "Sorrow", subtitle = "David Bowie")
+            }
         }
     }
 
     @Test
     fun loadingMediaDisplay_marqueeTextMediaDisplay_overlay_largeScreen() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
-            MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")
+        runComponentTest {
+            DisplayArea {
+                LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
+                MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")
+            }
         }
     }
 
@@ -61,9 +64,11 @@ class LoadingMediaDisplayTest : ScreenshotBaseTest(
     )
     @Test
     fun loadingMediaDisplay_textMediaDisplay_overlay_smallScreen() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
-            TextMediaDisplay(title = "Sorrow", subtitle = "David Bowie")
+        runComponentTest {
+            DisplayArea {
+                LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
+                TextMediaDisplay(title = "Sorrow", subtitle = "David Bowie")
+            }
         }
     }
 
@@ -72,9 +77,23 @@ class LoadingMediaDisplayTest : ScreenshotBaseTest(
     )
     @Test
     fun loadingMediaDisplay_marqueeTextMediaDisplay_overlay_smallScreen() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
-            LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
-            MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")
+        runComponentTest {
+            DisplayArea {
+                LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
+                MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")
+            }
+        }
+    }
+
+    @Composable
+    fun DisplayArea(content: @Composable () -> Unit) {
+        Box(
+            modifier = Modifier
+                .wrapContentSize()
+                .background(Color.Black.copy(alpha = 0.5f)),
+            contentAlignment = Alignment.Center,
+        ) {
+            content()
         }
     }
 }

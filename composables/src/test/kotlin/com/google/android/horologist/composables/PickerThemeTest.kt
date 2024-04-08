@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.composables
 
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -32,16 +29,17 @@ import java.time.LocalTime
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class PickerThemeTest(
     private val themeValue: ThemeValues,
-) : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        screenTimeText = {}
-        testLabel = themeValue.safeName
-    },
-) {
+) : WearLegacyScreenTest() {
+
+    override fun testName(suffix: String): String {
+        return "src/test/snapshots/images/" +
+            "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
+            "${themeValue.safeName}.png"
+    }
 
     @Test
     fun datePicker() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             MaterialTheme(colors = themeValue.colors) {
                 DatePicker(
                     onDateConfirm = {},
@@ -53,7 +51,7 @@ class PickerThemeTest(
 
     @Test
     fun timePicker() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             MaterialTheme(colors = themeValue.colors) {
                 TimePicker(
                     time = LocalTime.of(10, 10, 0),
@@ -65,7 +63,7 @@ class PickerThemeTest(
 
     @Test
     fun timePicker12h() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             MaterialTheme(colors = themeValue.colors) {
                 TimePickerWith12HourClock(
                     time = LocalTime.of(10, 10, 0),

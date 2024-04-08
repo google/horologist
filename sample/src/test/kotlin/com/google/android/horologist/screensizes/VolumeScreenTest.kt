@@ -26,7 +26,7 @@ import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.tools.Device
 
-class VolumeScreenTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+class VolumeScreenTest(device: Device) : WearLegacyScreenSizeTest(device = device, showTimeText = false) {
 
     @Composable
     override fun Content() {

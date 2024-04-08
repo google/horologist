@@ -657,7 +657,7 @@ package com.google.android.horologist.media.ui.state.mapper {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaUiModelMapper {
-    method public com.google.android.horologist.media.ui.state.model.MediaUiModel map(com.google.android.horologist.media.model.Media media, optional String defaultTitle, optional String defaultArtist);
+    method public com.google.android.horologist.media.ui.state.model.MediaUiModel.Ready map(com.google.android.horologist.media.model.Media media, optional String defaultTitle, optional String defaultArtist);
     field public static final com.google.android.horologist.media.ui.state.mapper.MediaUiModelMapper INSTANCE;
   }
 

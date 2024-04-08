@@ -52,6 +52,7 @@ fun UampMediaPlayerScreen(
     PlayerScreen(
         modifier = modifier,
         background = {
+<<<<<<< HEAD
             val artworkColor = (it.media as? MediaUiModel.Ready)?.artworkColor
             if (artworkColor != null) {
                 ColorBackground(
@@ -65,6 +66,19 @@ fun UampMediaPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
                 )
             }
+=======
+            val metadata = it.media
+            val artworkUri = if (metadata is MediaUiModel.Ready) {
+                metadata.artworkUri
+            } else {
+                null
+            }
+            ArtworkColorBackground(
+                artworkUri = artworkUri,
+                defaultColor = MaterialTheme.colors.primary,
+                modifier = Modifier.fillMaxSize(),
+            )
+>>>>>>> 971a8341c (Rename the MediaUiModel sub classes and update tests)
         },
         playerViewModel = mediaPlayerScreenViewModel,
         volumeViewModel = volumeViewModel,

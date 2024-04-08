@@ -30,6 +30,5 @@ public sealed class MediaUiModel {
         val artworkColor: Color? = null,
         val titleIcon: Paintable? = null,
     ) : MediaUiModel()
-
-    public data object Loading : MediaUiModel()
+    public object Loading : MediaUiModel()
 }

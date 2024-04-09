@@ -43,7 +43,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -56,6 +55,7 @@ import androidx.wear.compose.material.ProgressIndicatorDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.ButtonSize
 import com.google.android.horologist.compose.material.Chip
@@ -75,7 +75,6 @@ import com.google.android.horologist.media.ui.util.ifNan
 @ExperimentalHorologistApi
 @Composable
 public fun PlaylistDownloadScreen(
-    columnState: ScalingLazyColumnState,
     playlistName: String,
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
     onDownloadButtonClick: (PlaylistUiModel) -> Unit,
@@ -85,6 +84,7 @@ public fun PlaylistDownloadScreen(
     onShuffleButtonClick: (PlaylistUiModel) -> Unit,
     onPlayButtonClick: (PlaylistUiModel) -> Unit,
     modifier: Modifier = Modifier,
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     onDownloadCompletedButtonClick: ((PlaylistUiModel) -> Unit)? = null,
     defaultMediaTitle: String = "",
     downloadItemArtworkPlaceholder: Painter? = null,
@@ -181,7 +181,10 @@ private fun MediaContent(
                 label = mediaTitle,
                 onClick = { onDownloadItemClick(downloadMediaUiModel) },
                 secondaryLabel = secondaryLabel,
-                icon = CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder),
+                icon = CoilPaintable(
+                    downloadMediaUiModel.artworkUri,
+                    downloadItemArtworkPlaceholder,
+                ),
                 largeIcon = true,
                 colors = ChipDefaults.secondaryChipColors(),
                 enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded,
@@ -201,7 +204,10 @@ private fun MediaContent(
                             ChipIconWithProgress(
                                 progress = progress,
                                 modifier = Modifier.clearAndSetSemantics { },
-                                icon = CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder),
+                                icon = CoilPaintable(
+                                    downloadMediaUiModel.artworkUri,
+                                    downloadItemArtworkPlaceholder,
+                                ),
                                 largeIcon = true,
                             )
                         }
@@ -211,7 +217,10 @@ private fun MediaContent(
                         {
                             ChipIconWithProgress(
                                 modifier = Modifier.clearAndSetSemantics { },
-                                icon = CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder),
+                                icon = CoilPaintable(
+                                    downloadMediaUiModel.artworkUri,
+                                    downloadItemArtworkPlaceholder,
+                                ),
                                 largeIcon = true,
                             )
                         }

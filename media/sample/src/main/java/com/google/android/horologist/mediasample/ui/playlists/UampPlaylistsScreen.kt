@@ -38,6 +38,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreen
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -45,7 +46,7 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampPlaylistsScreen(
-    columnState: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
     onErrorDialogCancelClick: () -> Unit,

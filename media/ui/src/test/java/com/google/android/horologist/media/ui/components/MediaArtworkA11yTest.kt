@@ -14,45 +14,58 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
+@file:OptIn(ExperimentalCoilApi::class)
 
 package com.google.android.horologist.media.ui.components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Album
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.core.content.ContextCompat
+import androidx.wear.compose.material.ChipDefaults
+import coil.annotation.ExperimentalCoilApi
+import coil.decode.DataSource
+import coil.request.SuccessResult
+import coil.test.FakeImageLoaderEngine
 import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
-class MediaArtworkA11yTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        enableA11y = true
-        screenTimeText = {}
-    },
-) {
+class MediaArtworkA11yTest : WearLegacyA11yTest() {
+
+    override val imageLoader = FakeImageLoaderEngine.Builder()
+        .intercept(
+            predicate = {
+                it == FakeImageLoader.TestIconResourceUri
+            },
+            interceptor = {
+                SuccessResult(
+                    drawable = ContextCompat.getDrawable(
+                        it.request.context,
+                        FakeImageLoader.TestIconResource,
+                    )!!,
+                    request = it.request,
+                    dataSource = DataSource.DISK,
+                )
+            },
+        )
+        .build()
+
     @Test
     fun a11y() {
-        screenshotTestRule.setContent(
-            takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources,
-        ) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                MediaArtwork(
-                    media = MediaUiModel(
-                        id = "id",
-                        title = "title",
-                        artworkUri = FakeImageLoader.TestIconResourceUri,
-                    ),
-                    placeholder = rememberVectorPainter(image = Icons.Default.Album),
-                )
-            }
+        runComponentTest {
+            MediaArtwork(
+                modifier = Modifier.size(ChipDefaults.LargeIconSize),
+                media = MediaUiModel(
+                    id = "id",
+                    title = "title",
+                    artworkUri = FakeImageLoader.TestIconResourceUri,
+                ),
+                placeholder = rememberVectorPainter(image = Icons.Default.Album),
+            )
         }
     }
 }

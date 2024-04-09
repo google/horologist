@@ -28,6 +28,7 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.coil.CoilPaintable
@@ -58,32 +59,34 @@ public fun <T> PlaylistsScreen(
     playlistContent: @Composable (playlist: T) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    SectionedList(
-        modifier = modifier,
-        columnState = columnState,
-    ) {
-        val sectionState = when (playlistsScreenState) {
-            is PlaylistsScreenState.Loaded<T> -> {
-                Section.State.Loaded(playlistsScreenState.playlistList)
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(
+            modifier = modifier,
+            columnState = columnState,
+        ) {
+            val sectionState = when (playlistsScreenState) {
+                is PlaylistsScreenState.Loaded<T> -> {
+                    Section.State.Loaded(playlistsScreenState.playlistList)
+                }
+
+                PlaylistsScreenState.Failed -> Section.State.Failed
+                PlaylistsScreenState.Loading -> Section.State.Loading
             }
 
-            PlaylistsScreenState.Failed -> Section.State.Failed
-            PlaylistsScreenState.Loading -> Section.State.Loading
-        }
+            section(state = sectionState) {
+                header {
+                    Title(
+                        R.string.horologist_browse_playlist_title,
+                        Modifier.padding(bottom = 12.dp),
+                    )
+                }
 
-        section(state = sectionState) {
-            header {
-                Title(
-                    R.string.horologist_browse_playlist_title,
-                    Modifier.padding(bottom = 12.dp),
-                )
-            }
+                loaded { playlistContent(it) }
 
-            loaded { playlistContent(it) }
-
-            loading(count = 4) {
-                Column {
-                    PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+                loading(count = 4) {
+                    Column {
+                        PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+                    }
                 }
             }
         }

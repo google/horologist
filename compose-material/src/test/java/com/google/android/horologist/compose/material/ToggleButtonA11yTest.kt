@@ -18,111 +18,89 @@
 
 package com.google.android.horologist.compose.material
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
 class ToggleButtonA11yTest :
-    ScreenshotBaseTest(
-        ScreenshotTestRule.screenshotTestRuleParams {
-            enableA11y = true
-            screenTimeText = {}
-        },
-    ) {
+    WearLegacyA11yTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                ToggleButton(
-                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                    contentDescription = "contentDescription",
-                    onCheckedChanged = {},
-                )
-            }
+        runComponentTest {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+            )
         }
     }
 
     @Test
     fun notChecked() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                ToggleButton(
-                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                    contentDescription = "contentDescription",
-                    onCheckedChanged = {},
-                    checked = false,
-                )
-            }
+        runComponentTest {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                checked = false,
+            )
         }
     }
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                ToggleButton(
-                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                    contentDescription = "contentDescription",
-                    onCheckedChanged = {},
-                    enabled = false,
-                )
-            }
+        runComponentTest {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                enabled = false,
+            )
         }
     }
 
     @Test
     fun notCheckedDisabled() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                ToggleButton(
-                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                    contentDescription = "contentDescription",
-                    onCheckedChanged = {},
-                    checked = false,
-                    enabled = false,
-                )
-            }
+        runComponentTest {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                checked = false,
+                enabled = false,
+            )
         }
     }
 
     @Test
     fun text() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                ToggleButton(
-                    text = "Monday",
-                    onCheckedChanged = {},
-                )
-            }
+        runComponentTest {
+            ToggleButton(
+                text = "Monday",
+                onCheckedChanged = {},
+            )
         }
     }
 
     @Test
     fun iconOnly() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                ToggleButton(
-                    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                    contentDescription = "contentDescription",
-                    onCheckedChanged = {},
-                    colors = ToggleButtonDefaults.iconOnlyColors(),
-                    smallSize = true,
-                )
-            }
+        runComponentTest {
+            ToggleButton(
+                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                colors = ToggleButtonDefaults.iconOnlyColors(),
+                smallSize = true,
+            )
         }
     }
 }

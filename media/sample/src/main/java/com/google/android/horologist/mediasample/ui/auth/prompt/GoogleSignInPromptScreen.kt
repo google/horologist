@@ -32,6 +32,7 @@ import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignIn
@@ -39,7 +40,7 @@ import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleS
 @Composable
 fun GoogleSignInPromptScreen(
     navController: NavHostController,
-    columnState: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     modifier: Modifier = Modifier,
     viewModel: UampSignInPromptViewModel,
 ) {

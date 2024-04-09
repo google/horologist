@@ -14,54 +14,38 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
-class OutlinedChipA11yTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        enableA11y = true
-        screenTimeText = {}
-    },
-) {
+class OutlinedChipA11yTest : WearLegacyA11yTest() {
 
     @Test
     fun withSecondaryLabelAndIcon() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                OutlinedChip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image.asPaintable(),
-                )
-            }
+        runComponentTest {
+            OutlinedChip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image.asPaintable(),
+            )
         }
     }
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                OutlinedChip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image.asPaintable(),
-                    enabled = false,
-                )
-            }
+        runComponentTest {
+            OutlinedChip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image.asPaintable(),
+                enabled = false,
+            )
         }
     }
 }

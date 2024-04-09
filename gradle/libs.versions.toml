@@ -49,7 +49,7 @@ ktlint = "0.50.0"
 metalava = "0.3.5"
 moshi = "1.15.1"
 okio = "3.9.0"
-org-robolectric = "4.11.1"
+org-robolectric = "4.12.1"
 playServicesAuth = "21.0.0"
 protobuf = "4.26.1"
 roborazzi = "1.11.0"
@@ -141,6 +141,7 @@ annotation = { module = "androidx.test:annotation", version.ref = "annotation" }
 coil = { module = "io.coil-kt:coil-compose", version.ref = "io-coil-kt" }
 coil-base = { module = "io.coil-kt:coil-compose-base", version.ref = "io-coil-kt" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "io-coil-kt" }
+coil-test = { module = "io.coil-kt:coil-test", version.ref = "io-coil-kt" }
 com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "com-squareup-okhttp3" }
@@ -203,11 +204,11 @@ robolectric = { module = "org.robolectric:robolectric", version.ref = "org-robol
 robolectric-shadows = { module = "org.robolectric:shadows-framework", version.ref = "org-robolectric" }
 roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
 roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
+roborazzi-painter = { group = "io.github.takahirom.roborazzi", name = "roborazzi-painter", version.ref = "roborazzi" }
 roborazzi-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-junit-rule", version.ref = "roborazzi" }
 room-common = { module = "androidx.room:room-common", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
-snapshot-android = { module = "com.github.QuickBirdEng.kotlin-snapshot-testing:snapshot-android", version.ref = "snapshot-android" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "app-cash-turbine" }
 wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }

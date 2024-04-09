@@ -41,7 +41,8 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
+        freeCompilerArgs =
+            freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
     }
 
     composeOptions {
@@ -101,12 +102,11 @@ dependencies {
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
 
+    api(libs.coil.test)
     api(libs.roborazzi)
     api(libs.roborazzi.compose)
+    api(libs.roborazzi.painter)
     api(libs.roborazzi.rule)
-
-    // TODO remove
-    implementation(libs.snapshot.android)
 
     testImplementation(libs.robolectric)
 }

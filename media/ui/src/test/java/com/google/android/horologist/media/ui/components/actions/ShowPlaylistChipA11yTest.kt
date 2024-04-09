@@ -14,41 +14,23 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui.components.actions
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
-import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.logo.R
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
-class ShowPlaylistChipA11yTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        enableA11y = true
-        screenTimeText = {}
-    },
-) {
+class ShowPlaylistChipA11yTest : WearLegacyA11yTest() {
 
     @Test
     fun a11y() {
-        screenshotTestRule.setContent(
-            takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Resources,
-        ) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                ShowPlaylistChip(
-                    artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
-                    name = "Playlists",
-                    onClick = {},
-                )
-            }
+        runComponentTest {
+            ShowPlaylistChip(
+                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+                name = "Playlists",
+                onClick = {},
+            )
         }
     }
 }

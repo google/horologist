@@ -14,28 +14,20 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.health.composables.screens
 
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.health.composables.model.MetricUiModel
 import com.google.android.horologist.health.composables.theme.HR_MAXIMUM
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
-class MetricsScreenA11yTest : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        enableA11y = true
-        screenTimeText = {}
-    },
-) {
+class MetricsScreenA11yTest : WearLegacyA11yTest() {
 
     @Test
     fun metricsScreenTwoMetrics() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runScreenTest {
             MetricsScreen(
                 firstMetric = MetricUiModel(
                     text = "198",
@@ -52,7 +44,7 @@ class MetricsScreenA11yTest : ScreenshotBaseTest(
 
     @Test
     fun metricsScreenTwoMetrics_rtl() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runScreenTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 MetricsScreen(
                     firstMetric = MetricUiModel(

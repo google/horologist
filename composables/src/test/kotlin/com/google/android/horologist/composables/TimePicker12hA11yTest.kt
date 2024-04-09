@@ -14,38 +14,28 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.composables
 
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.onNodeWithContentDescription
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 import java.time.LocalTime
 
-class TimePicker12hA11yTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        screenTimeText = {}
-        enableA11y = true
-    },
-) {
+class TimePicker12hA11yTest : WearLegacyA11yTest() {
 
     @Test
     fun initial() {
-        DatePickerA11yTest.enableTouchExploration()
+        enableTouchExploration()
 
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runScreenTest {
             TimePickerWith12HourClock(
                 time = LocalTime.of(10, 10, 0),
                 onTimeConfirm = {},
             )
         }
 
-        screenshotTestRule.interact {
-            onNodeWithContentDescription("Confirm")
-                .assertHasClickAction()
-        }
+        composeRule.onNodeWithContentDescription("Confirm")
+            .assertHasClickAction()
     }
 }

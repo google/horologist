@@ -119,7 +119,7 @@ public abstract class WearLegacyA11yTest {
 
     public open fun testName(suffix: String): String = "src/test/snapshots/images/" +
         "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
-        "${testInfo.methodName}${suffix}.png"
+        "${testInfo.methodName}$suffix.png"
 
     public fun captureScreenA11yRoboImage(
         filePath: String,
@@ -139,12 +139,13 @@ public abstract class WearLegacyA11yTest {
         val rootsOracle = RootsOracle_Factory { Looper.getMainLooper() }.get()
         val listActiveRoots = rootsOracle.javaClass.getMethod("listActiveRoots")
         listActiveRoots.isAccessible = true
-        @Suppress("UNCHECKED_CAST") val roots: List<Root> =
+        @Suppress("UNCHECKED_CAST")
+        val roots: List<Root> =
             listActiveRoots.invoke(rootsOracle) as List<Root>
 
         val rootComponent = RoboComponent.Screen(
             rootsOrderByDepth = roots.sortedBy { it.windowLayoutParams.get()?.type },
-            roborazziOptions = roborazziOptions
+            roborazziOptions = roborazziOptions,
         )
 
         val image = rootComponent.image!!
@@ -169,12 +170,11 @@ public abstract class WearLegacyA11yTest {
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black)
+                .background(Color.Black),
         ) {
             content()
         }
     }
-
 
     public companion object {
         public fun enableTouchExploration() {

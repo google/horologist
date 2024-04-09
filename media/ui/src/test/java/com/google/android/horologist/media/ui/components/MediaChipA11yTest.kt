@@ -39,7 +39,7 @@ class MediaChipA11yTest : WearLegacyA11yTest() {
                 SuccessResult(
                     drawable = ContextCompat.getDrawable(
                         it.request.context,
-                        FakeImageLoader.TestIconResource
+                        FakeImageLoader.TestIconResource,
                     )!!,
                     request = it.request,
                     dataSource = DataSource.DISK,

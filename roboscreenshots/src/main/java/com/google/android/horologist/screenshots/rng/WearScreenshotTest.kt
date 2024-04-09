@@ -140,9 +140,11 @@ public abstract class WearScreenshotTest {
                     .components { add(imageLoaderEngine) }
                     .build()
                 @Suppress("DEPRECATION")
-                (CompositionLocalProvider(LocalImageLoader provides imageLoader) {
-                    content()
-                })
+                (
+                    CompositionLocalProvider(LocalImageLoader provides imageLoader) {
+                        content()
+                    }
+                    )
             }
         }
     }

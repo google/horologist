@@ -31,6 +31,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.coil.CoilPaintable
@@ -43,13 +44,13 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
 @ExperimentalHorologistApi
 @Composable
 public fun PlaylistDownloadBrowseScreen(
-    columnState: ScalingLazyColumnState,
     browseScreenState: BrowseScreenState,
     onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
     onDownloadItemInProgressClick: (PlaylistDownloadUiModel) -> Unit,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     downloadItemArtworkPlaceholder: Painter? = null,
     onDownloadItemInProgressClickActionLabel: String? = null,
 ) {
@@ -83,7 +84,10 @@ public fun PlaylistDownloadBrowseScreen(
                         Chip(
                             label = download.playlistUiModel.title,
                             onClick = { onDownloadItemClick(download) },
-                            icon = CoilPaintable(download.playlistUiModel.artworkUri, downloadItemArtworkPlaceholder),
+                            icon = CoilPaintable(
+                                download.playlistUiModel.artworkUri,
+                                downloadItemArtworkPlaceholder,
+                            ),
                             largeIcon = true,
                             colors = ChipDefaults.secondaryChipColors(),
                         )

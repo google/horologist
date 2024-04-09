@@ -14,243 +14,223 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui.screens.entity
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import androidx.wear.compose.material.MaterialTheme
+import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
+import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.images.base.util.rememberVectorPainter
-import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.FixedTimeSource
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
 class PlaylistDownloadScreenA11yScreenshotTest :
-    ScreenshotBaseTest(
-        ScreenshotTestRule.screenshotTestRuleParams {
-            enableA11y = true
-            screenTimeText = {}
-        },
-    ) {
+    WearLegacyA11yTest() {
     @Test
     fun playlistDownloadScreenPreviewLoading() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            PlayerLibraryPreview(columnState = columnState) {
-                PlaylistDownloadScreen(
-                    playlistName = "Playlist name",
-                    playlistDownloadScreenState = PlaylistDownloadScreenState.Loading,
-                    onDownloadButtonClick = { },
-                    onCancelDownloadButtonClick = { },
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onShuffleButtonClick = { },
-                    onPlayButtonClick = { },
-                    columnState = columnState,
-                    onDownloadItemInProgressClickActionLabel = "cancel",
-                )
-            }
+        runScreenTest {
+            PlaylistDownloadScreen(
+                playlistName = "Playlist name",
+                playlistDownloadScreenState = PlaylistDownloadScreenState.Loading,
+                onDownloadButtonClick = { },
+                onCancelDownloadButtonClick = { },
+                onDownloadItemClick = { },
+                onDownloadItemInProgressClick = { },
+                onShuffleButtonClick = { },
+                onPlayButtonClick = { },
+                onDownloadItemInProgressClickActionLabel = "cancel",
+            )
         }
     }
 
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloaded() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            PlayerLibraryPreview(columnState = columnState) {
-                PlaylistDownloadScreen(
-                    playlistName = "Playlist name",
-                    playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-                        playlistModel = playlistUiModel,
-                        downloadMediaList = notDownloaded,
-                    ),
-                    onDownloadButtonClick = { },
-                    onCancelDownloadButtonClick = { },
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onShuffleButtonClick = { },
-                    onPlayButtonClick = { },
-                    columnState = columnState,
-                    downloadItemArtworkPlaceholder = rememberVectorPainter(
-                        image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
-                    ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
-                )
-            }
+        runScreenTest {
+            PlaylistDownloadScreen(
+                playlistName = "Playlist name",
+                playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
+                    playlistModel = playlistUiModel,
+                    downloadMediaList = notDownloaded,
+                ),
+                onDownloadButtonClick = { },
+                onCancelDownloadButtonClick = { },
+                onDownloadItemClick = { },
+                onDownloadItemInProgressClick = { },
+                onShuffleButtonClick = { },
+                onPlayButtonClick = { },
+                downloadItemArtworkPlaceholder = rememberVectorPainter(
+                    image = Icons.Default.MusicNote,
+                    tintColor = Color.Blue,
+                ),
+                onDownloadItemInProgressClickActionLabel = "cancel",
+            )
         }
     }
 
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            PlayerLibraryPreview(columnState = columnState) {
-                PlaylistDownloadScreen(
-                    playlistName = "Playlist name",
-                    playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-                        playlistModel = playlistUiModel,
-                        downloadMediaList = notDownloadedAndDownloading,
-                    ),
-                    onDownloadButtonClick = { },
-                    onCancelDownloadButtonClick = { },
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onShuffleButtonClick = { },
-                    onPlayButtonClick = { },
-                    columnState = columnState,
-                    downloadItemArtworkPlaceholder = rememberVectorPainter(
-                        image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
-                    ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
-                )
-            }
+        runScreenTest {
+            PlaylistDownloadScreen(
+                playlistName = "Playlist name",
+                playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
+                    playlistModel = playlistUiModel,
+                    downloadMediaList = notDownloadedAndDownloading,
+                ),
+                onDownloadButtonClick = { },
+                onCancelDownloadButtonClick = { },
+                onDownloadItemClick = { },
+                onDownloadItemInProgressClick = { },
+                onShuffleButtonClick = { },
+                onPlayButtonClick = { },
+                downloadItemArtworkPlaceholder = rememberVectorPainter(
+                    image = Icons.Default.MusicNote,
+                    tintColor = Color.Blue,
+                ),
+                onDownloadItemInProgressClickActionLabel = "cancel",
+            )
         }
     }
 
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloaded() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            PlayerLibraryPreview(columnState = columnState) {
-                PlaylistDownloadScreen(
-                    playlistName = "Playlist name",
-                    playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-                        playlistModel = playlistUiModel,
-                        downloadMediaList = downloadedNotDownloaded,
-                    ),
-                    onDownloadButtonClick = { },
-                    onCancelDownloadButtonClick = { },
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onShuffleButtonClick = { },
-                    onPlayButtonClick = { },
-                    columnState = columnState,
-                    downloadItemArtworkPlaceholder = rememberVectorPainter(
-                        image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
-                    ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
-                )
-            }
+        runScreenTest {
+            PlaylistDownloadScreen(
+                playlistName = "Playlist name",
+                playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
+                    playlistModel = playlistUiModel,
+                    downloadMediaList = downloadedNotDownloaded,
+                ),
+                onDownloadButtonClick = { },
+                onCancelDownloadButtonClick = { },
+                onDownloadItemClick = { },
+                onDownloadItemInProgressClick = { },
+                onShuffleButtonClick = { },
+                onPlayButtonClick = { },
+                downloadItemArtworkPlaceholder = rememberVectorPainter(
+                    image = Icons.Default.MusicNote,
+                    tintColor = Color.Blue,
+                ),
+                onDownloadItemInProgressClickActionLabel = "cancel",
+            )
         }
     }
 
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            PlayerLibraryPreview(columnState = columnState) {
-                PlaylistDownloadScreen(
-                    playlistName = "Playlist name",
-                    playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-                        playlistModel = playlistUiModel,
-                        downloadMediaList = downloadedAndDownloadingUnknown,
-                    ),
-                    onDownloadButtonClick = { },
-                    onCancelDownloadButtonClick = { },
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onShuffleButtonClick = { },
-                    onPlayButtonClick = { },
-                    columnState = columnState,
-                    downloadItemArtworkPlaceholder = rememberVectorPainter(
-                        image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
-                    ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
-                )
-            }
+        runScreenTest {
+            PlaylistDownloadScreen(
+                playlistName = "Playlist name",
+                playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
+                    playlistModel = playlistUiModel,
+                    downloadMediaList = downloadedAndDownloadingUnknown,
+                ),
+                onDownloadButtonClick = { },
+                onCancelDownloadButtonClick = { },
+                onDownloadItemClick = { },
+                onDownloadItemInProgressClick = { },
+                onShuffleButtonClick = { },
+                onPlayButtonClick = { },
+                downloadItemArtworkPlaceholder = rememberVectorPainter(
+                    image = Icons.Default.MusicNote,
+                    tintColor = Color.Blue,
+                ),
+                onDownloadItemInProgressClickActionLabel = "cancel",
+            )
         }
     }
 
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            PlayerLibraryPreview(columnState = columnState) {
-                PlaylistDownloadScreen(
-                    playlistName = "Playlist name",
-                    playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-                        playlistModel = playlistUiModel,
-                        downloadMediaList = downloadedAndDownloadingWaiting,
-                    ),
-                    onDownloadButtonClick = { },
-                    onCancelDownloadButtonClick = { },
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onShuffleButtonClick = { },
-                    onPlayButtonClick = { },
-                    columnState = columnState,
-                    downloadItemArtworkPlaceholder = rememberVectorPainter(
-                        image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
-                    ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
-                )
-            }
+        runScreenTest {
+            PlaylistDownloadScreen(
+                playlistName = "Playlist name",
+                playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
+                    playlistModel = playlistUiModel,
+                    downloadMediaList = downloadedAndDownloadingWaiting,
+                ),
+                onDownloadButtonClick = { },
+                onCancelDownloadButtonClick = { },
+                onDownloadItemClick = { },
+                onDownloadItemInProgressClick = { },
+                onShuffleButtonClick = { },
+                onPlayButtonClick = { },
+                downloadItemArtworkPlaceholder = rememberVectorPainter(
+                    image = Icons.Default.MusicNote,
+                    tintColor = Color.Blue,
+                ),
+                onDownloadItemInProgressClickActionLabel = "cancel",
+            )
         }
     }
 
     @Test
     fun playlistDownloadScreenPreviewLoadedFullyDownloaded() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            PlayerLibraryPreview(columnState = columnState) {
-                PlaylistDownloadScreen(
-                    playlistName = "Playlist name",
-                    playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-                        playlistModel = playlistUiModel,
-                        downloadMediaList = downloaded,
-                    ),
-                    onDownloadButtonClick = { },
-                    onCancelDownloadButtonClick = { },
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onShuffleButtonClick = { },
-                    onPlayButtonClick = { },
-                    columnState = columnState,
-                    downloadItemArtworkPlaceholder = rememberVectorPainter(
-                        image = Icons.Default.MusicNote,
-                        tintColor = Color.Blue,
-                    ),
-                    onDownloadItemInProgressClickActionLabel = "cancel",
-                )
-            }
+        runScreenTest {
+            PlaylistDownloadScreen(
+                playlistName = "Playlist name",
+                playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
+                    playlistModel = playlistUiModel,
+                    downloadMediaList = downloaded,
+                ),
+                onDownloadButtonClick = { },
+                onCancelDownloadButtonClick = { },
+                onDownloadItemClick = { },
+                onDownloadItemInProgressClick = { },
+                onShuffleButtonClick = { },
+                onPlayButtonClick = { },
+                downloadItemArtworkPlaceholder = rememberVectorPainter(
+                    image = Icons.Default.MusicNote,
+                    tintColor = Color.Blue,
+                ),
+                onDownloadItemInProgressClickActionLabel = "cancel",
+            )
         }
     }
 
     @Test
     fun playlistDownloadScreenPreviewFailed() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+        runScreenTest {
+            PlaylistDownloadScreen(
+                playlistName = "Playlist name",
+                playlistDownloadScreenState = PlaylistDownloadScreenState.Failed,
+                onDownloadButtonClick = { },
+                onCancelDownloadButtonClick = { },
+                onDownloadItemClick = { },
+                onDownloadItemInProgressClick = { },
+                onShuffleButtonClick = { },
+                onPlayButtonClick = { },
+                onDownloadItemInProgressClickActionLabel = "cancel",
+            )
+        }
+    }
 
-            PlayerLibraryPreview(columnState = columnState) {
-                PlaylistDownloadScreen(
-                    playlistName = "Playlist name",
-                    playlistDownloadScreenState = PlaylistDownloadScreenState.Failed,
-                    onDownloadButtonClick = { },
-                    onCancelDownloadButtonClick = { },
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onShuffleButtonClick = { },
-                    onPlayButtonClick = { },
-                    columnState = columnState,
-                    onDownloadItemInProgressClickActionLabel = "cancel",
-                )
+    @Composable
+    override fun TestScaffold(content: @Composable () -> Unit) {
+        AppScaffold(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background),
+            timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
+        ) {
+            PagerScreen(
+                state = rememberPagerState {
+                    2
+                },
+            ) {
+                if (it == 0) {
+                    content()
+                }
             }
         }
     }

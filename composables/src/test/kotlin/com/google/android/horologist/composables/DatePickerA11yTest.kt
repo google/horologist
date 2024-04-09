@@ -14,93 +14,55 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-@file:OptIn(ExperimentalWearFoundationApi::class)
-
 package com.google.android.horologist.composables
 
-import android.app.Application
-import android.view.accessibility.AccessibilityManager
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.filters.FlakyTest
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
-import org.junit.Ignore
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
-import org.robolectric.Shadows
 import java.time.LocalDate
 
-@FlakyTest(detail = "https://github.com/google/horologist/issues/1806")
-class DatePickerA11yTest : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        screenTimeText = {}
-        enableA11y = true
-    },
-) {
+class DatePickerA11yTest : WearLegacyA11yTest() {
     @Test
     fun screenshot() {
         enableTouchExploration()
 
-        screenshotTestRule.setContent {
+        runScreenTest {
             DatePicker(
                 onDateConfirm = {},
                 date = LocalDate.of(2022, 4, 25),
             )
         }
-
-        screenshotTestRule.takeScreenshot()
     }
 
     @Test
-    @Ignore("https://github.com/google/horologist/issues/1806")
     fun interactionTest() {
         enableTouchExploration()
 
-        screenshotTestRule.setContent {
+        runScreenTest {
             DatePicker(
                 onDateConfirm = {},
                 date = LocalDate.of(2022, 4, 25),
             )
         }
 
-        screenshotTestRule.interact {
-            onNodeWithContentDescription("Next")
-                .assertHasClickAction()
+        composeRule.onNodeWithContentDescription("Next")
+            .assertHasClickAction()
+            .performClick()
 
-            waitForIdle()
-//            onNodeWithContentDescription("Day, 25")
-//                .assertIsFocused()
-        }
+        captureScreenshot("_2")
 
-        screenshotTestRule.takeScreenshot()
+        composeRule.onNodeWithContentDescription("Next")
+            .assertHasClickAction()
+            .performClick()
 
-        screenshotTestRule.interact {
-            onNodeWithContentDescription("Next")
-                .performClick()
+        captureScreenshot("_3")
 
-            waitForIdle()
-//            waitUntil {
-//                onNodeWithContentDescription("April")
-//                    .fetchSemanticsNode()
-//                    .config[SemanticsProperties.Focused]
-//            }
-        }
+        composeRule.onNodeWithContentDescription("Next")
+            .assertHasClickAction()
+            .performClick()
 
-        screenshotTestRule.takeScreenshot()
-    }
-
-    companion object {
-        fun enableTouchExploration() {
-            val applicationContext = ApplicationProvider.getApplicationContext<Application>()
-            val a11yManager = applicationContext.getSystemService(AccessibilityManager::class.java)
-            val shadow = Shadows.shadowOf(a11yManager)
-
-            shadow.setEnabled(true)
-            shadow.setTouchExplorationEnabled(true)
-        }
+        captureScreenshot("_3")
     }
 }

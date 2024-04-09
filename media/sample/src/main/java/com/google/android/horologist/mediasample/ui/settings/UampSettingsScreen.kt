@@ -38,6 +38,8 @@ import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToDeveloperOptions
@@ -46,55 +48,57 @@ import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleS
 
 @Composable
 fun UampSettingsScreen(
-    columnState: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     viewModel: SettingsScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
 
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            ListHeader {
-                Text(text = stringResource(id = R.string.sample_settings))
-            }
-        }
-        item {
-            if (screenState.authUser == null) {
-                Chip(
-                    label = stringResource(id = R.string.login),
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { navController.navigateToGoogleSignIn() },
-                    enabled = !screenState.guestMode,
-                )
-            } else {
-                Chip(
-                    label = stringResource(id = R.string.logout),
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { navController.navigateToGoogleSignOutScreen() },
-                )
-            }
-        }
-        item {
-            CheckedSetting(
-                screenState.guestMode,
-                stringResource(id = R.string.sample_guest_mode),
-                enabled = screenState.writable,
-            ) {
-                viewModel.setGuestMode(it)
-            }
-        }
-        if (screenState.showDeveloperOptions) {
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
             item {
-                ActionSetting(
-                    text = stringResource(id = R.string.sample_developer_options),
-                    icon = Icons.Default.DataObject,
-                    colors = ChipDefaults.secondaryChipColors(),
-                    onClick = { navController.navigateToDeveloperOptions() },
-                )
+                ListHeader {
+                    Text(text = stringResource(id = R.string.sample_settings))
+                }
+            }
+            item {
+                if (screenState.authUser == null) {
+                    Chip(
+                        label = stringResource(id = R.string.login),
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = { navController.navigateToGoogleSignIn() },
+                        enabled = !screenState.guestMode,
+                    )
+                } else {
+                    Chip(
+                        label = stringResource(id = R.string.logout),
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = { navController.navigateToGoogleSignOutScreen() },
+                    )
+                }
+            }
+            item {
+                CheckedSetting(
+                    screenState.guestMode,
+                    stringResource(id = R.string.sample_guest_mode),
+                    enabled = screenState.writable,
+                ) {
+                    viewModel.setGuestMode(it)
+                }
+            }
+            if (screenState.showDeveloperOptions) {
+                item {
+                    ActionSetting(
+                        text = stringResource(id = R.string.sample_developer_options),
+                        icon = Icons.Default.DataObject,
+                        colors = ChipDefaults.secondaryChipColors(),
+                        onClick = { navController.navigateToDeveloperOptions() },
+                    )
+                }
             }
         }
     }

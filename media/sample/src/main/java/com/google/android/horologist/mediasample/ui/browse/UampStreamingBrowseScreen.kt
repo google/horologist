@@ -22,13 +22,14 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenPlaylistsSectionButton
 
 @Composable
 fun UampStreamingBrowseScreen(
-    columnState: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,

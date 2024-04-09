@@ -14,23 +14,15 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.audio.ui
 
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
-class VolumeScreenA11yScreenshotTest : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        enableA11y = true
-        screenTimeText = { }
-    },
-) {
+class VolumeScreenA11yScreenshotTest : WearLegacyA11yTest() {
 
     @Test
     fun volumeScreenAtMinimums() {
@@ -40,7 +32,7 @@ class VolumeScreenA11yScreenshotTest : ScreenshotBaseTest(
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runScreenTest {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,
@@ -58,7 +50,7 @@ class VolumeScreenA11yScreenshotTest : ScreenshotBaseTest(
         // Media Router returns "Phone"
         val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
 
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runScreenTest {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
                 volumeState = volumeState,

@@ -24,6 +24,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.material.Title
 
 /**
@@ -38,22 +39,24 @@ public fun EntityScreen(
     buttonsContent: (@Composable () -> Unit)? = null,
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            headerContent()
-        }
-
-        buttonsContent?.let {
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
             item {
-                buttonsContent()
+                headerContent()
             }
-        }
 
-        content?.let {
-            content()
+            buttonsContent?.let {
+                item {
+                    buttonsContent()
+                }
+            }
+
+            content?.let {
+                content()
+            }
         }
     }
 }

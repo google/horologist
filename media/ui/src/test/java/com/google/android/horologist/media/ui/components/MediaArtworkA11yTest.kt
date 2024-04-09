@@ -29,6 +29,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.decode.DataSource
 import coil.request.SuccessResult
 import coil.test.FakeImageLoaderEngine
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
@@ -62,7 +63,7 @@ class MediaArtworkA11yTest : WearLegacyA11yTest() {
                 media = MediaUiModel(
                     id = "id",
                     title = "title",
-                    artworkUri = FakeImageLoader.TestIconResourceUri,
+                    artwork = CoilPaintable(FakeImageLoader.TestIconResourceUri),
                 ),
                 placeholder = rememberVectorPainter(image = Icons.Default.Album),
             )

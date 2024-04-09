@@ -2,7 +2,7 @@
 package com.google.android.horologist.images.coil {
 
   public final class ArtworkColorKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.runtime.State<androidx.compose.ui.graphics.Color> rememberArtworkColor(String? artworkUri, optional long defaultColor);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.runtime.State<androidx.compose.ui.graphics.Color> rememberArtworkColor(Object? model, optional long defaultColor);
   }
 
   @androidx.compose.runtime.Stable public final class CoilPaintable implements com.google.android.horologist.images.base.paintable.Paintable {

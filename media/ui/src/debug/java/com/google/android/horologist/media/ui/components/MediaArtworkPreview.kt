@@ -33,7 +33,7 @@ fun MediaArtworkPreview() {
         media = MediaUiModel(
             id = "id",
             title = "title",
-            artworkUri = "artworkUri",
+            artwork = null,
         ),
         placeholder = rememberVectorPainter(image = Icons.Default.Album),
     )

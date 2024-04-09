@@ -18,6 +18,7 @@ package com.google.android.horologist.media.ui.state.mapper
 
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
@@ -38,7 +39,7 @@ public object MediaUiModelMapper {
             id = media.id,
             title = title,
             subtitle = artist,
-            artworkUri = media.artworkUri,
+            artwork = media.artworkUri?.let { CoilPaintable(it) },
             artworkColor = media.artworkColor?.let { Color(it) },
         )
     }

@@ -14,14 +14,39 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalCoilApi::class)
+
 package com.google.android.horologist.media.ui.components
 
+import androidx.core.content.ContextCompat
+import coil.annotation.ExperimentalCoilApi
+import coil.decode.DataSource
+import coil.request.SuccessResult
+import coil.test.FakeImageLoaderEngine
 import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
 class MediaChipA11yTest : WearLegacyA11yTest() {
+
+    override val imageLoader = FakeImageLoaderEngine.Builder()
+        .intercept(
+            predicate = {
+                it == FakeImageLoader.TestIconResourceUri
+            },
+            interceptor = {
+                SuccessResult(
+                    drawable = ContextCompat.getDrawable(
+                        it.request.context,
+                        FakeImageLoader.TestIconResource
+                    )!!,
+                    request = it.request,
+                    dataSource = DataSource.DISK,
+                )
+            },
+        )
+        .build()
 
     @Test
     fun a11y() {

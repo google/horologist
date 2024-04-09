@@ -39,7 +39,7 @@ class MediaArtworkA11yTest : WearLegacyA11yTest() {
     override val imageLoader = FakeImageLoaderEngine.Builder()
         .intercept(
             predicate = {
-                it is String && it == FakeImageLoader.TestIconResourceUri
+                it == FakeImageLoader.TestIconResourceUri
             },
             interceptor = {
                 SuccessResult(

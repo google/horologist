@@ -14,18 +14,24 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalRoborazziApi::class)
+@file:OptIn(ExperimentalRoborazziApi::class, ExperimentalCoilApi::class)
 
 package com.google.android.horologist.screenshots.rng
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.wear.compose.material.MaterialTheme
+import coil.ImageLoader
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.LocalImageLoader
+import coil.test.FakeImageLoaderEngine
 import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RoborazziOptions
@@ -59,6 +65,8 @@ public abstract class WearScreenshotTest {
     // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
     public open val tolerance: Float = 0.0f
 
+    public open val imageLoader: FakeImageLoaderEngine? = null
+
     public fun runTest(
         suffix: String? = null,
         device: WearDevice? = this.device,
@@ -71,8 +79,10 @@ public abstract class WearScreenshotTest {
         }
 
         composeRule.setContent {
-            TestScaffold {
-                content()
+            withImageLoader(imageLoader) {
+                TestScaffold {
+                    content()
+                }
             }
         }
         captureScreenshot(suffix.orEmpty())
@@ -116,6 +126,24 @@ public abstract class WearScreenshotTest {
 
         public fun useHardwareRenderer() {
             System.setProperty(USE_HARDWARE_RENDERER_NATIVE_ENV, "true")
+        }
+
+        @Composable
+        internal fun withImageLoader(
+            imageLoaderEngine: FakeImageLoaderEngine?,
+            content: @Composable () -> Unit,
+        ) {
+            if (imageLoaderEngine == null) {
+                content()
+            } else {
+                val imageLoader = ImageLoader.Builder(LocalContext.current)
+                    .components { add(imageLoaderEngine) }
+                    .build()
+                @Suppress("DEPRECATION")
+                (CompositionLocalProvider(LocalImageLoader provides imageLoader) {
+                    content()
+                })
+            }
         }
     }
 }

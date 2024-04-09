@@ -14,21 +14,51 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalCoilApi::class)
+
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Album
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.core.content.ContextCompat
+import androidx.wear.compose.material.ChipDefaults
+import coil.annotation.ExperimentalCoilApi
+import coil.decode.DataSource
+import coil.request.SuccessResult
+import coil.test.FakeImageLoaderEngine
 import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
 class MediaArtworkA11yTest : WearLegacyA11yTest() {
+
+    override val imageLoader = FakeImageLoaderEngine.Builder()
+        .intercept(
+            predicate = {
+                it is String && it == FakeImageLoader.TestIconResourceUri
+            },
+            interceptor = {
+                SuccessResult(
+                    drawable = ContextCompat.getDrawable(
+                        it.request.context,
+                        FakeImageLoader.TestIconResource
+                    )!!,
+                    request = it.request,
+                    dataSource = DataSource.DISK,
+                )
+            },
+        )
+        .build()
+
     @Test
     fun a11y() {
         runComponentTest {
             MediaArtwork(
+                modifier = Modifier.size(ChipDefaults.LargeIconSize),
                 media = MediaUiModel(
                     id = "id",
                     title = "title",

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalRoborazziApi::class)
+@file:OptIn(ExperimentalRoborazziApi::class, ExperimentalCoilApi::class, ExperimentalCoilApi::class)
 
 package com.google.android.horologist.screenshots.rng
 
@@ -38,6 +38,8 @@ import androidx.test.espresso.Root
 import androidx.test.espresso.base.RootsOracle_Factory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.wear.compose.material.MaterialTheme
+import coil.annotation.ExperimentalCoilApi
+import coil.test.FakeImageLoaderEngine
 import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
 import com.github.takahirom.roborazzi.RoboComponent
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
@@ -49,6 +51,7 @@ import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
+import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withImageLoader
 import org.junit.Rule
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
@@ -72,6 +75,8 @@ public abstract class WearLegacyA11yTest {
     // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
     public open val tolerance: Float = 0.0f
 
+    public open val imageLoader: FakeImageLoaderEngine? = null
+
     public fun runScreenTest(
         content: @Composable () -> Unit,
     ) {
@@ -88,8 +93,10 @@ public abstract class WearLegacyA11yTest {
         content: @Composable () -> Unit,
     ) {
         composeRule.setContent {
-            ComponentScaffold {
-                content()
+            withImageLoader(imageLoader) {
+                ComponentScaffold {
+                    content()
+                }
             }
         }
 

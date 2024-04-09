@@ -102,6 +102,7 @@ dependencies {
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
 
+    api(libs.coil.test)
     api(libs.roborazzi)
     api(libs.roborazzi.compose)
     api(libs.roborazzi.painter)

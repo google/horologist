@@ -56,12 +56,14 @@ package com.google.android.horologist.screenshots.rng {
     method public final void captureScreenA11yRoboImage(String filePath, com.github.takahirom.roborazzi.RoborazziOptions roborazziOptions);
     method public final void captureScreenshot(optional String suffix);
     method @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule getComposeRule();
+    method public coil.test.FakeImageLoaderEngine? getImageLoader();
     method @org.junit.Rule public final org.junit.rules.TestName getTestInfo();
     method public float getTolerance();
     method public final void runComponentTest(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public final void runScreenTest(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public String testName(String suffix);
     property @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule composeRule;
+    property public coil.test.FakeImageLoaderEngine? imageLoader;
     property @org.junit.Rule public final org.junit.rules.TestName testInfo;
     property public float tolerance;
     field public static final com.google.android.horologist.screenshots.rng.WearLegacyA11yTest.Companion Companion;
@@ -76,12 +78,14 @@ package com.google.android.horologist.screenshots.rng {
     method @androidx.compose.runtime.Composable public void ComponentScaffold(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public com.google.android.horologist.screenshots.rng.WearDevice? getDevice();
     method public com.google.android.horologist.images.coil.FakeImageLoader? getFakeImageLoader();
+    method public coil.test.FakeImageLoaderEngine? getImageLoader();
     method @org.junit.Rule public final org.junit.rules.TestName getTestInfo();
     method public float getTolerance();
     method public final void runComponentTest(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public String testName(String suffix);
     property public com.google.android.horologist.screenshots.rng.WearDevice? device;
     property public com.google.android.horologist.images.coil.FakeImageLoader? fakeImageLoader;
+    property public coil.test.FakeImageLoaderEngine? imageLoader;
     property @org.junit.Rule public final org.junit.rules.TestName testInfo;
     property public float tolerance;
   }
@@ -96,12 +100,14 @@ package com.google.android.horologist.screenshots.rng {
     method public final void captureScreenshot(String suffix);
     method @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule getComposeRule();
     method public com.google.android.horologist.screenshots.rng.WearDevice? getDevice();
+    method public coil.test.FakeImageLoaderEngine? getImageLoader();
     method @org.junit.Rule public final org.junit.rules.TestName getTestInfo();
     method public float getTolerance();
     method public final void runTest(optional String? suffix, optional com.google.android.horologist.screenshots.rng.WearDevice? device, optional boolean applyDeviceConfig, kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public String testName(String suffix);
     property @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule composeRule;
     property public com.google.android.horologist.screenshots.rng.WearDevice? device;
+    property public coil.test.FakeImageLoaderEngine? imageLoader;
     property @org.junit.Rule public final org.junit.rules.TestName testInfo;
     property public float tolerance;
     field public static final com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion Companion;

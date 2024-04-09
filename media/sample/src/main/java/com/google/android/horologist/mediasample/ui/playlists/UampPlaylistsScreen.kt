@@ -17,27 +17,22 @@
 package com.google.android.horologist.mediasample.ui.playlists
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreen
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -99,17 +94,9 @@ fun UampPlaylistsScreen(
                         Button(
                             onClick = onErrorDialogCancelClick,
                             colors = ButtonDefaults.secondaryButtonColors(),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Close,
-                                contentDescription = stringResource(
-                                    id = R.string.playlists_failed_dialog_cancel_button_content_description,
-                                ),
-                                modifier = Modifier
-                                    .size(24.dp)
-                                    .wrapContentSize(align = Alignment.Center),
-                            )
-                        }
+                            imageVector = Icons.Default.Close,
+                            contentDescription = stringResource(id = R.string.playlists_failed_dialog_cancel_button_content_description),
+                        )
                     }
                 }
             }

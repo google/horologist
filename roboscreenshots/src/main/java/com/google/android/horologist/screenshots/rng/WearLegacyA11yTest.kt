@@ -110,7 +110,9 @@ public abstract class WearLegacyA11yTest {
         )
     }
 
-    public open fun testName(suffix: String): String = "src/test/snapshots/images/${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_${testInfo.methodName}${suffix}.png"
+    public open fun testName(suffix: String): String = "src/test/snapshots/images/" +
+        "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
+        "${testInfo.methodName}${suffix}.png"
 
     public fun captureScreenA11yRoboImage(
         filePath: String,

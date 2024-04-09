@@ -83,7 +83,7 @@ class SystemAudioRepositoryTest {
         }
 
         assertThat(mediaRouter.selectedRoute.deviceType)
-            .isEqualTo(MediaRouter.RouteInfo.DEVICE_TYPE_BLUETOOTH)
+            .isEqualTo(MediaRouter.RouteInfo.DEVICE_TYPE_BLUETOOTH_A2DP)
 
         SystemAudioRepository.fromContext(context).use { repository ->
             val startingVolume = repository.volumeState.value.current

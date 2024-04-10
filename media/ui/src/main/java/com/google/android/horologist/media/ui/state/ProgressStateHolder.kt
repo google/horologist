@@ -24,8 +24,8 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.withFrameMillis
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.TimestampProvider
@@ -80,11 +80,13 @@ internal class ProgressStateHolder(
             val lifecycleOwner = LocalLifecycleOwner.current
             val timestampProvider = LocalTimestampProvider.current
             val stateHolder = remember {
-                val initial = trackPositionUiModel.getCurrentPercent(timestampProvider.getTimestamp())
+                val initial =
+                    trackPositionUiModel.getCurrentPercent(timestampProvider.getTimestamp())
                 ProgressStateHolder(initial, timestampProvider)
             }
             LaunchedEffect(trackPositionUiModel, lifecycleOwner) {
-                val percent = trackPositionUiModel.getCurrentPercent(timestampProvider.getTimestamp())
+                val percent =
+                    trackPositionUiModel.getCurrentPercent(timestampProvider.getTimestamp())
                 stateHolder.setProgress(percent, trackPositionUiModel.shouldAnimate)
                 if (trackPositionUiModel is TrackPositionUiModel.Predictive) {
                     // Prediction only happens when the UI is visible.

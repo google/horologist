@@ -20,6 +20,7 @@ plugins {
     id("me.tylerbwong.gradle.metalava")
     alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
+    alias(libs.plugins.roborazzi)
 }
 
 android {

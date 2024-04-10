@@ -34,6 +34,7 @@ import com.google.android.horologist.composables.Section.Companion.LOADED_STATE_
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
@@ -58,11 +59,13 @@ public fun BrowseScreen(
     modifier: Modifier = Modifier,
     content: BrowseScreenScope.() -> Unit,
 ) {
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier,
-        sections = BrowseScreenScope().apply(content).sections,
-    )
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(
+            columnState = columnState,
+            modifier = modifier,
+            sections = BrowseScreenScope().apply(content).sections,
+        )
+    }
 }
 
 /**

@@ -22,25 +22,21 @@ import androidx.wear.compose.foundation.lazy.ScalingParams
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 
 @Config(
-    sdk = [30],
+    sdk = [33],
     qualifiers = "w227dp-h400dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
 )
-class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-    },
-) {
+class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() {
 
     @Test
     fun browseScreen() {
         val screenState = BrowseScreenState.Loaded(downloadList)
 
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runScreenTest {
             val scalingParams =
                 androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams(
                     edgeScale = 1f,

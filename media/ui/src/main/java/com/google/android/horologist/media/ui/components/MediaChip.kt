@@ -37,23 +37,23 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
  * A rounded chip to show a single [MediaUiModel].
  *
  * @param media The [MediaUiModel] that the [title][MediaUiModel.title] and
- * [artwork][MediaUiModel.artworkUri] will be used to display on the chip.
+ * [artwork][MediaUiModel.artwork] will be used to display on the chip.
  * @param onClick Will be called when the user clicks the chip.
  * @param modifier The Modifier to be applied to the chip.
  * @param defaultTitle A text to be used when [MediaUiModel.title] is null.
  * @param placeholder A placeholder image to be displayed while
- * [artwork][MediaUiModel.artworkUri] is being loaded.
+ * [artwork][MediaUiModel.artwork] is being loaded.
  */
 @ExperimentalHorologistApi
 @Composable
 public fun MediaChip(
-    media: MediaUiModel,
+    media: MediaUiModel.Ready,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     defaultTitle: String = "",
     placeholder: Painter? = null,
 ) {
-    val artworkUri = media.artworkUri
+    val artworkUri = media.artwork
     val title = media.title
 
     MediaChip(
@@ -80,7 +80,7 @@ public fun MediaChip(
             MediaArtwork(
                 modifier = Modifier.size(ChipDefaults.LargeIconSize),
                 contentDescription = title,
-                artworkPaintable = artworkPaintable,
+                artworkPaintable = it,
             )
         }
     }

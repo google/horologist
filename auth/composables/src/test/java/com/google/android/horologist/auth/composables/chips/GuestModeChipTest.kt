@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.auth.composables.chips
 
 import androidx.wear.compose.material.ChipDefaults
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class GuestModeChipTest : ScreenshotBaseTest() {
+class GuestModeChipTest : WearLegacyComponentTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             GuestModeChip(onClick = {})
         }
     }
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             GuestModeChip(
                 onClick = {},
                 enabled = false,
@@ -43,7 +41,7 @@ class GuestModeChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryChipType() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             GuestModeChip(
                 onClick = {},
                 colors = ChipDefaults.secondaryChipColors(),
@@ -53,7 +51,7 @@ class GuestModeChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withSecondaryChipTypeDisabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             GuestModeChip(
                 onClick = {},
                 colors = ChipDefaults.secondaryChipColors(),

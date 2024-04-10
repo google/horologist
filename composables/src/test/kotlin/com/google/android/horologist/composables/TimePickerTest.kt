@@ -14,28 +14,21 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.composables
 
 import androidx.compose.ui.text.font.FontWeight
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.compose.tools.copy
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 import java.time.LocalTime
 
-class TimePickerTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        screenTimeText = {}
-    },
-) {
+class TimePickerTest : WearLegacyScreenTest() {
 
     @Test
     fun initial() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             TimePicker(
                 time = LocalTime.of(10, 10, 0),
                 onTimeConfirm = {},
@@ -48,17 +41,19 @@ class TimePickerTest : ScreenshotBaseTest(
         fontScale = 1.24f,
     )
     fun largestFontScaling() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            TimePicker(
-                time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {},
-            )
+        runTest(applyDeviceConfig = false) {
+            TestScaffold {
+                TimePicker(
+                    time = LocalTime.of(10, 10, 0),
+                    onTimeConfirm = {},
+                )
+            }
         }
     }
 
     @Test
     fun noSeconds() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             TimePicker(
                 time = LocalTime.of(10, 10, 0),
                 onTimeConfirm = {},
@@ -73,7 +68,7 @@ class TimePickerTest : ScreenshotBaseTest(
         fontScale = 1.24f,
     )
     fun smallDeviceLargeFontBold() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest(applyDeviceConfig = false) {
             MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
                 TimePicker(
                     time = LocalTime.of(10, 10, 0),

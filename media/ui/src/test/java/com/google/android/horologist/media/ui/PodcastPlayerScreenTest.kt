@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui
 
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
@@ -23,8 +21,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -34,12 +31,13 @@ import kotlin.time.Duration.Companion.seconds
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class PodcastPlayerScreenTest(
     private val options: PodcastOptions,
-) : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        screenTimeText = {}
-        testLabel = options.toString().lowercase()
-    },
-) {
+) : WearLegacyScreenTest() {
+
+    override fun testName(suffix: String): String {
+        return "src/test/snapshots/images/" +
+            "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
+            "${options.toString().lowercase()}.png"
+    }
 
     @Test
     fun mediaPlayerScreen() {
@@ -55,7 +53,7 @@ class PodcastPlayerScreenTest(
             shuffleOn = false,
             playPauseEnabled = true,
             playing = true,
-            media = MediaUiModel(
+            media = MediaUiModel.Ready(
                 id = "",
                 title = "The power of types",
                 subtitle = "Kotlinconf",
@@ -68,7 +66,7 @@ class PodcastPlayerScreenTest(
             connected = true,
         )
 
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             MediaPlayerTestCase(playerUiState = playerUiState, controlButtons = {
                 PodcastControlButtons(
                     onPlayButtonClick = { },

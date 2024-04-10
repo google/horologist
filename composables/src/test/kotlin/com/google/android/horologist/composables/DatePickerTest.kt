@@ -14,28 +14,21 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.composables
 
 import androidx.compose.ui.text.font.FontWeight
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.compose.tools.copy
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 import java.time.LocalDate
 
-class DatePickerTest : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        screenTimeText = {}
-    },
-) {
+class DatePickerTest : WearLegacyScreenTest() {
 
     @Test
     fun initial() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             DatePicker(
                 onDateConfirm = {},
                 date = LocalDate.of(2022, 4, 25),
@@ -48,7 +41,7 @@ class DatePickerTest : ScreenshotBaseTest(
         fontScale = 1.24f,
     )
     fun largestFontScaling() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest(applyDeviceConfig = false) {
             DatePicker(
                 onDateConfirm = {},
                 date = LocalDate.of(2022, 4, 25),
@@ -62,7 +55,7 @@ class DatePickerTest : ScreenshotBaseTest(
         fontScale = 1.24f,
     )
     fun smallDeviceLargeFontBold() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest(applyDeviceConfig = false) {
             MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
                 DatePicker(
                     onDateConfirm = {},

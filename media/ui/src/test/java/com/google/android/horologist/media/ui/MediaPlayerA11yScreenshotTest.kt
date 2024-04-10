@@ -22,17 +22,12 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 import kotlin.time.Duration.Companion.seconds
 
-class MediaPlayerA11yScreenshotTest : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        enableA11y = true
-    },
-) {
+class MediaPlayerA11yScreenshotTest : WearLegacyA11yTest() {
 
     @Test
     fun mediaPlayerLargeRound() {
@@ -70,7 +65,7 @@ class MediaPlayerA11yScreenshotTest : ScreenshotBaseTest(
             shuffleOn = false,
             playPauseEnabled = true,
             playing = true,
-            media = MediaUiModel(
+            media = MediaUiModel.Ready(
                 id = "",
                 title = "Weather with You",
                 subtitle = "Crowded House",
@@ -83,7 +78,7 @@ class MediaPlayerA11yScreenshotTest : ScreenshotBaseTest(
             connected = true,
         )
 
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runScreenTest {
             MediaPlayerTestCase(
                 colors = UampColors,
                 playerUiState = playerUiState,

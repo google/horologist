@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.RadialGradientShader
 import androidx.compose.ui.graphics.compositeOver
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.images.coil.rememberArtworkColor
 
 /**
@@ -45,13 +46,13 @@ import com.google.android.horologist.images.coil.rememberArtworkColor
 @Composable
 @ExperimentalHorologistApi
 public fun ArtworkColorBackground(
-    artworkUri: String?,
+    paintable: CoilPaintable?,
     modifier: Modifier = Modifier,
     defaultColor: Color? = null,
     background: Color = MaterialTheme.colors.background,
 ) {
     val artworkColor = rememberArtworkColor(
-        artworkUri = artworkUri,
+        model = paintable?.model,
         defaultColor = defaultColor ?: Color.Black,
     )
 

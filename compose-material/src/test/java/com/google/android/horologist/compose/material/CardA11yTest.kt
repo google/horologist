@@ -14,106 +14,83 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher.Companion.keyIsDefined
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertTextEquals
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
-class CardA11yTest : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        enableA11y = true
-        screenTimeText = {}
-    },
-) {
+class CardA11yTest : WearLegacyA11yTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Card(
-                    onClick = { },
-                    onLongClick = { },
+        runComponentTest {
+            Card(
+                onClick = { },
+                onLongClick = { },
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text("Hello, Card")
+                    Text("Hello, Card")
 
-                        androidx.wear.compose.material.Button(onClick = { }) {
-                            Text("Click me!")
-                        }
+                    androidx.wear.compose.material.Button(onClick = { }) {
+                        Text("Click me!")
                     }
                 }
             }
         }
 
-        screenshotTestRule.interact {
-            onNode(keyIsDefined(SemanticsProperties.Role))
-                .assertTextEquals("Click me!")
-                .assertHasClickAction()
-            // Not set by combinedClickable
-//                .assert(keyIsDefined(SemanticsActions.OnLongClick))
-        }
+        composeRule.onNode(keyIsDefined(SemanticsProperties.Role))
+            .assertTextEquals("Click me!")
+            .assertHasClickAction()
     }
 
     @Test
     fun material() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Card(
-                    onClick = { },
+        runComponentTest {
+            Card(
+                onClick = { },
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text("Hello, Card")
+                    Text("Hello, Card")
 
-                        androidx.wear.compose.material.Button(onClick = { }) {
-                            Text("Click me!")
-                        }
+                    androidx.wear.compose.material.Button(onClick = { }) {
+                        Text("Click me!")
                     }
                 }
             }
         }
 
-        screenshotTestRule.interact {
-            onNode(keyIsDefined(SemanticsProperties.Role))
-                .assertTextEquals("Click me!")
-                .assertHasClickAction()
-        }
+        composeRule.onNode(keyIsDefined(SemanticsProperties.Role))
+            .assertTextEquals("Click me!")
+            .assertHasClickAction()
     }
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Card(
-                    onClick = {},
-                    onLongClick = {},
-                    enabled = false,
+        runComponentTest {
+            Card(
+                onClick = {},
+                onLongClick = {},
+                enabled = false,
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text("Hello, Card")
+                    Text("Hello, Card")
 
-                        androidx.wear.compose.material.Button(onClick = { }) {
-                            Text("Click me!")
-                        }
+                    androidx.wear.compose.material.Button(onClick = { }) {
+                        Text("Click me!")
                     }
                 }
             }

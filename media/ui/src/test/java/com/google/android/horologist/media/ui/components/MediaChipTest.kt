@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui.components
 
 import androidx.compose.foundation.layout.height
@@ -24,14 +22,14 @@ import androidx.compose.ui.unit.dp
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class MediaChipTest : ScreenshotBaseTest() {
+class MediaChipTest : WearLegacyComponentTest() {
 
     @Test
     fun givenMediaWithArtwork_thenDisplaysArtwork() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             MediaChip(
                 title = "Red Hot Chilli Peppers",
                 artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
@@ -42,7 +40,7 @@ class MediaChipTest : ScreenshotBaseTest() {
 
     @Test
     fun givenMediaWithNOArtwork_thenDoesNOTDisplayArtwork() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             MediaChip(
                 title = "Red Hot Chilli Peppers",
                 artworkPaintable = null,
@@ -53,7 +51,7 @@ class MediaChipTest : ScreenshotBaseTest() {
 
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             MediaChip(
                 title = "Very very very very very very very very very very very long title",
                 artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
@@ -64,9 +62,9 @@ class MediaChipTest : ScreenshotBaseTest() {
 
     @Test
     fun givenNOTitle_thenDisplaysDefaultTitle() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             MediaChip(
-                media = MediaUiModel(
+                media = MediaUiModel.Ready(
                     id = "id",
                     title = "",
                 ),
@@ -78,9 +76,9 @@ class MediaChipTest : ScreenshotBaseTest() {
 
     @Test
     fun givenModifier_thenAppliesModifierCorrectly() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             MediaChip(
-                media = MediaUiModel(
+                media = MediaUiModel.Ready(
                     id = "id",
                     title = "Red Hot Chilli Peppers",
                 ),

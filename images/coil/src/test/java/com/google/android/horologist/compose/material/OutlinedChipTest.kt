@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
@@ -25,14 +23,13 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.images.base.util.rememberVectorPainter
 import com.google.android.horologist.images.coil.CoilPaintable
-import com.google.android.horologist.images.coil.FakeImageLoader
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class OutlinedChipTest : ScreenshotBaseTest() {
+class OutlinedChipTest : WearLegacyComponentTest() {
     @Test
     fun withPlaceholderIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
                 OutlinedChip(
                     label = "Primary label",
@@ -52,11 +49,7 @@ class OutlinedChipTest : ScreenshotBaseTest() {
 
     @Test
     fun disabledWithIconPlaceholder() {
-        screenshotTestRule.setContent(
-            isComponent = true,
-            takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.Never,
-        ) {
+        runComponentTest {
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
                 OutlinedChip(

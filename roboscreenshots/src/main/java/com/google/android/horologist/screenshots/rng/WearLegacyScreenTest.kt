@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.screenshots
+package com.google.android.horologist.screenshots.rng
 
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
+public abstract class WearLegacyScreenTest : WearScreenshotTest() {
 
-internal class TestClassInfoRule : TestWatcher() {
-
-    @Volatile
-    public var methodName: String? = null
-        private set
-
-    @Volatile
-    public var testClass: Class<*>? = null
-        private set
-
-    override fun starting(d: Description) {
-        methodName = d.methodName
-        testClass = d.testClass
-    }
+    override fun testName(suffix: String): String =
+        "src/test/snapshots/images/${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_${testInfo.methodName}.png"
 }

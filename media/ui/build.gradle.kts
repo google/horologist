@@ -19,6 +19,7 @@ plugins {
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
+    alias(libs.plugins.roborazzi)
 }
 
 android {

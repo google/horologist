@@ -14,43 +14,31 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui.screens.browse
 
-import androidx.compose.runtime.LaunchedEffect
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.media.ui.PlayerLibraryPreview
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeUp
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
-class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        enableA11y = true
-    },
-) {
+class PlaylistDownloadBrowseScreenA11yScreenshotTest : WearLegacyA11yTest() {
 
     @Test
     fun browseScreen() {
         val screenState = BrowseScreenState.Loaded(downloadList)
 
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            PlayerLibraryPreview(columnState = columnState) {
-                PlaylistDownloadBrowseScreen(
-                    browseScreenState = screenState,
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onPlaylistsClick = { },
-                    onSettingsClick = { },
-                    columnState = columnState,
-                    onDownloadItemInProgressClickActionLabel = "cancel",
-                )
-            }
+        runScreenTest {
+            PlaylistDownloadBrowseScreen(
+                browseScreenState = screenState,
+                onDownloadItemClick = { },
+                onDownloadItemInProgressClick = { },
+                onPlaylistsClick = { },
+                onSettingsClick = { },
+                onDownloadItemInProgressClickActionLabel = "cancel",
+            )
         }
     }
 
@@ -58,25 +46,23 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : ScreenshotBaseTest(
     fun secondPage() {
         val screenState = BrowseScreenState.Loaded(downloadList)
 
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            LaunchedEffect(Unit) {
-                columnState.state.scrollToItem(4, 0)
-            }
-
-            PlayerLibraryPreview(columnState = columnState) {
+        composeRule.setContent {
+            TestScaffold {
                 PlaylistDownloadBrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },
                     onDownloadItemInProgressClick = { },
                     onPlaylistsClick = { },
                     onSettingsClick = { },
-                    columnState = columnState,
                     onDownloadItemInProgressClickActionLabel = "cancel",
                 )
             }
         }
+
+        composeRule.onNode(hasScrollToNodeAction())
+            .performTouchInput { repeat(10) { swipeUp() } }
+
+        captureScreenshot()
     }
 }
 

@@ -22,7 +22,7 @@ import com.google.android.horologist.compose.tools.Device
 import org.junit.Test
 import java.time.LocalDate
 
-class DatePickerTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+class DatePickerTest(device: Device) : WearLegacyScreenSizeTest(device = device, showTimeText = false) {
 
     private val date: LocalDate = LocalDate.of(2022, 4, 25)
 

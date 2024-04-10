@@ -15,15 +15,28 @@
  */
 
 @file:Suppress("DEPRECATION")
+@file:OptIn(ExperimentalRoborazziApi::class)
 
 package com.google.android.horologist.screensizes
 
 import android.content.Context
 import android.content.res.Configuration
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.test.junit4.ComposeContentTestRule
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.text.font.FontWeight
 import androidx.test.core.app.ApplicationProvider
 import androidx.wear.compose.material.MaterialTheme
+import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import com.github.takahirom.roborazzi.RoborazziOptions
+import com.github.takahirom.roborazzi.ThresholdValidator
+import com.github.takahirom.roborazzi.captureScreenRoboImage
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.compose.tools.GenericLargeRound
 import com.google.android.horologist.compose.tools.GenericSmallRound
@@ -32,40 +45,54 @@ import com.google.android.horologist.compose.tools.MobvoiTicWatchPro5
 import com.google.android.horologist.compose.tools.SamsungGalaxyWatch5
 import com.google.android.horologist.compose.tools.SamsungGalaxyWatch6Large
 import com.google.android.horologist.compose.tools.copy
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
-import com.google.android.horologist.screenshots.ScreenshotTestRule.RecordMode.Companion.defaultRecordMode
+import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.GraphicsMode
 import org.robolectric.shadows.ShadowDisplay
 
+@Config(
+    sdk = [33],
+    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
+)
 @RunWith(ParameterizedRobolectricTestRunner::class)
-abstract class ScreenSizeTest(
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
+abstract class WearLegacyScreenSizeTest(
     val device: Device,
     val showTimeText: Boolean,
-    recordMode: ScreenshotTestRule.RecordMode = defaultRecordMode(),
-) : ScreenshotBaseTest(
-    screenshotTestRuleParams {
-        if (!showTimeText) {
-            screenTimeText = { }
-        }
-        testLabel = device.name.lowercase().replace("\\W+".toRegex(), "")
-        record = recordMode
-    },
 ) {
+    @get:Rule
+    public val composeRule: ComposeContentTestRule = createComposeRule()
+
     @Composable
     abstract fun Content()
+
+    @get:Rule
+    public val testInfo: TestName = TestName()
+
+    // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
+    public open val tolerance: Float = 0.0f
 
     @Test
     fun screenshot() {
         runTest { Content() }
     }
 
-    fun runTest(testFn: () -> Unit = {}, preScreenshotInteractions: (() -> Unit)? = null, content: @Composable () -> Unit) {
+    fun testName(suffix: String): String =
+        "src/test/snapshots/images/${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_${testInfo.methodName}_${
+            device.name.lowercase().replace("\\W+".toRegex(), "")
+        }$suffix.png"
+
+    fun runTest(
+        capture: Boolean = true,
+        content: @Composable () -> Unit,
+    ) {
         val shadowDisplay = Shadows.shadowOf(ShadowDisplay.getDefaultDisplay())
         shadowDisplay.setDensity(device.density)
         shadowDisplay.setHeight(device.screenSizePx)
@@ -76,21 +103,38 @@ abstract class ScreenSizeTest(
 
         ApplicationProvider.getApplicationContext<Context>().setDisplayScale(device.density)
 
-        screenshotTestRule.setContent(takeScreenshot = preScreenshotInteractions == null) {
-            MaterialTheme(
-                typography = MaterialTheme.typography.copy {
-                    this.copy(fontWeight = if (device.boldText) FontWeight.Bold else FontWeight.Medium)
-                },
-                content = content,
-            )
+        composeRule.setContent {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black),
+            ) {
+                MaterialTheme(
+                    typography = MaterialTheme.typography.copy {
+                        this.copy(fontWeight = if (device.boldText) FontWeight.Bold else FontWeight.Medium)
+                    },
+                    content = content,
+                )
+            }
         }
 
-        if (preScreenshotInteractions != null) {
-            preScreenshotInteractions()
-            screenshotTestRule.takeScreenshot()
+        if (capture) {
+            captureScreenshot("")
         }
+    }
 
-        testFn()
+    public fun captureScreenshot(suffix: String = "") {
+        captureScreenRoboImage(
+            filePath = testName(suffix),
+            roborazziOptions = RoborazziOptions(
+                recordOptions = RoborazziOptions.RecordOptions(
+                    applyDeviceCrop = true,
+                ),
+                compareOptions = RoborazziOptions.CompareOptions(
+                    resultValidator = ThresholdValidator(tolerance),
+                ),
+            ),
+        )
     }
 
     companion object {
@@ -117,6 +161,10 @@ abstract class ScreenSizeTest(
                 config,
                 resources.displayMetrics,
             )
+        }
+
+        init {
+            useHardwareRenderer()
         }
     }
 }

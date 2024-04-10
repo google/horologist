@@ -18,13 +18,8 @@
 
 package com.google.android.horologist.media.ui.screens.player
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalView
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
@@ -45,12 +41,13 @@ import com.google.android.horologist.media.ui.components.MediaInfoDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
-public typealias MediaDisplay = @Composable ColumnScope.(playerUiState: PlayerUiState) -> Unit
+public typealias MediaDisplay = @Composable (playerUiState: PlayerUiState) -> Unit
 
-public typealias ControlButtons = @Composable RowScope.(playerUiController: PlayerUiController, playerUiState: PlayerUiState) -> Unit
+public typealias ControlButtons = @Composable (playerUiController: PlayerUiController, playerUiState: PlayerUiState) -> Unit
 
-public typealias SettingsButtons = @Composable RowScope.(playerUiState: PlayerUiState) -> Unit
+public typealias SettingsButtons = @Composable (playerUiState: PlayerUiState) -> Unit
 
 public typealias PlayerBackground = @Composable BoxScope.(playerUiState: PlayerUiState) -> Unit
 
@@ -71,7 +68,7 @@ public fun PlayerScreen(
     controlButtons: ControlButtons = { playerUiController, playerUiState ->
         DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
     },
-    buttons: SettingsButtons = {},
+    buttons: SettingsButtons = { },
     background: PlayerBackground = {},
     focusRequester: FocusRequester = rememberActiveFocusRequester(),
 ) {
@@ -81,9 +78,7 @@ public fun PlayerScreen(
     PlayerScreen(
         mediaDisplay = { mediaDisplay(playerUiState) },
         controlButtons = { controlButtons(playerViewModel.playerUiController, playerUiState) },
-        buttons = {
-            buttons(playerUiState)
-        },
+        buttons = { buttons(playerUiState) },
         modifier = modifier.rotaryVolumeControlsWithFocus(
             focusRequester = focusRequester,
             volumeUiStateProvider = { volumeUiState },
@@ -100,13 +95,10 @@ public fun PlayerScreen(
  */
 @ExperimentalHorologistApi
 @Composable
-public fun DefaultMediaInfoDisplay(
-    playerUiState: PlayerUiState,
-    modifier: Modifier = Modifier,
-) {
+public fun DefaultMediaInfoDisplay(playerUiState: PlayerUiState, modifier: Modifier = Modifier) {
     MediaInfoDisplay(
         media = playerUiState.media,
-        loading = !playerUiState.connected || playerUiState.media?.loading == true,
+        loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
         modifier = modifier,
     )
 }
@@ -119,8 +111,10 @@ public fun DefaultMediaInfoDisplay(
 public fun DefaultPlayerScreenControlButtons(
     playerController: PlayerUiController,
     playerUiState: PlayerUiState,
+    modifier: Modifier = Modifier,
 ) {
     MediaControlButtons(
+        modifier = modifier,
         onPlayButtonClick = playerController::play,
         onPauseButtonClick = playerController::pause,
         playPauseButtonEnabled = playerUiState.playPauseEnabled,
@@ -139,9 +133,9 @@ public fun DefaultPlayerScreenControlButtons(
 @ExperimentalHorologistApi
 @Composable
 public fun PlayerScreen(
-    mediaDisplay: @Composable ColumnScope.() -> Unit,
-    controlButtons: @Composable RowScope.() -> Unit,
-    buttons: @Composable RowScope.() -> Unit,
+    mediaDisplay: @Composable () -> Unit,
+    controlButtons: @Composable () -> Unit,
+    buttons: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     background: @Composable BoxScope.() -> Unit = {},
 ) {
@@ -160,41 +154,46 @@ public fun PlayerScreen(
             val topGuideline = createGuidelineFromTop(0.12f)
             val bottomGuideline = createGuidelineFromBottom(0.063f)
 
-            Column(
-                modifier = Modifier
-                    .constrainAs(topSection) {
-                        top.linkTo(topGuideline)
-                        start.linkTo(startGuideline)
-                        end.linkTo(endGuideline)
-                        bottom.linkTo(middleSection.top)
-                    },
-                horizontalAlignment = Alignment.CenterHorizontally,
+            Box(
+                modifier = Modifier.constrainAs(topSection) {
+                    top.linkTo(topGuideline)
+                    start.linkTo(startGuideline)
+                    end.linkTo(endGuideline)
+                    bottom.linkTo(middleSection.top)
+                    width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
+                },
+                contentAlignment = Alignment.Center,
             ) {
                 mediaDisplay()
             }
-            Row(
+
+            Box(
                 modifier = Modifier
                     .constrainAs(middleSection) {
                         top.linkTo(topGuideline)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                         bottom.linkTo(bottomGuideline)
+                        width = Dimension.fillToConstraints
+                        height = Dimension.wrapContent
                     },
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceAround,
+                contentAlignment = Alignment.Center,
             ) {
                 controlButtons()
             }
-            Row(
+
+            Box(
                 modifier = Modifier
                     .constrainAs(bottomSection) {
                         top.linkTo(middleSection.bottom)
                         start.linkTo(startGuideline)
                         end.linkTo(endGuideline)
                         bottom.linkTo(bottomGuideline)
+                        width = Dimension.fillToConstraints
+                        height = Dimension.fillToConstraints
                     },
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
+                contentAlignment = Alignment.Center,
             ) {
                 buttons()
             }

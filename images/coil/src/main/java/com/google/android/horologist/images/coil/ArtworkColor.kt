@@ -33,7 +33,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @Composable
 @ExperimentalHorologistApi
 public fun rememberArtworkColor(
-    artworkUri: String?,
+    model: Any?,
     defaultColor: Color = MaterialTheme.colors.primary,
 ): State<Color> {
     val context = LocalContext.current
@@ -41,11 +41,11 @@ public fun rememberArtworkColor(
 
     val artworkColor = remember { mutableStateOf(defaultColor) }
 
-    LaunchedEffect(artworkUri) {
-        artworkColor.value = if (artworkUri != null) {
+    LaunchedEffect(model) {
+        artworkColor.value = if (model != null) {
             val request =
                 ImageRequest.Builder(context)
-                    .data(artworkUri)
+                    .data(model)
                     .allowHardware(false)
                     .build()
             val result = imageLoader.execute(request)

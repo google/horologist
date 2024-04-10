@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.ai.composables.components
 
 import androidx.compose.material.icons.Icons
@@ -26,16 +24,13 @@ import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 import com.google.android.horologist.ai.ui.screens.PromptScreen
 import com.google.android.horologist.ai.ui.screens.PromptUiState
 import com.google.android.horologist.compose.material.Button
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule.Companion.screenshotTestRuleParams
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
-class PromptScreenTest : ScreenshotBaseTest(
-    screenshotTestRuleParams {},
-) {
+class PromptScreenTest : WearLegacyScreenTest() {
     @Test
     fun empty() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             PromptScreen(
                 uiState = PromptUiState(
                     modelInfo = ModelInstanceUiModel("simple", "Simple Model"),

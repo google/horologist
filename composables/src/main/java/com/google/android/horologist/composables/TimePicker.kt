@@ -59,7 +59,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -72,6 +71,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Icon
@@ -131,8 +131,7 @@ public fun TimePicker(
     )
 
     val touchExplorationStateProvider = remember { DefaultTouchExplorationStateProvider() }
-    val touchExplorationServicesEnabled by touchExplorationStateProvider
-        .touchExplorationState()
+    val touchExplorationServicesEnabled by touchExplorationStateProvider.touchExplorationState()
 
     // When the time picker loads, none of the individual pickers are selected in talkback mode,
     // otherwise hours picker should be focused.
@@ -236,14 +235,18 @@ public fun TimePicker(
             Spacer(Modifier.height(4.dp))
             Row(
                 // Horizontal padding is 2.08% + 5.2%
-                modifier = Modifier.fillMaxWidth(1 - 2 * 0.0728f).weight(1f),
+                modifier = Modifier
+                    .fillMaxWidth(1 - 2 * 0.0728f)
+                    .weight(1f),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
             ) {
                 val pickerGroupItems = mutableListOf(
                     pickerGroupItemWithRSB(
                         pickerState = hourState,
-                        modifier = Modifier.width(pickerWidth).fillMaxHeight(),
+                        modifier = Modifier
+                            .width(pickerWidth)
+                            .fillMaxHeight(),
                         onSelected = {
                             onPickerSelected(
                                 FocusableElementsTimePicker.HOURS,
@@ -255,7 +258,9 @@ public fun TimePicker(
                     ),
                     pickerGroupItemWithRSB(
                         pickerState = minuteState,
-                        modifier = Modifier.width(pickerWidth).fillMaxHeight(),
+                        modifier = Modifier
+                            .width(pickerWidth)
+                            .fillMaxHeight(),
                         onSelected = {
                             onPickerSelected(
                                 FocusableElementsTimePicker.MINUTES,
@@ -274,7 +279,9 @@ public fun TimePicker(
                     pickerGroupItems.add(
                         pickerGroupItemWithRSB(
                             pickerState = secondState,
-                            modifier = Modifier.width(pickerWidth).fillMaxHeight(),
+                            modifier = Modifier
+                                .width(pickerWidth)
+                                .fillMaxHeight(),
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementsTimePicker.SECONDS,
@@ -309,8 +316,8 @@ public fun TimePicker(
                 },
                 modifier = Modifier
                     .semantics {
-                        focused = pickerGroupState.selectedIndex ==
-                            FocusableElementsTimePicker.CONFIRM_BUTTON.index
+                        focused =
+                            pickerGroupState.selectedIndex == FocusableElementsTimePicker.CONFIRM_BUTTON.index
                     }
                     .focusRequester(focusRequesterConfirmButton)
                     .focusable(),
@@ -371,29 +378,26 @@ public fun TimePickerWith12HourClock(
 
     val touchExplorationStateProvider = remember { DefaultTouchExplorationStateProvider() }
 
-    val touchExplorationServicesEnabled by touchExplorationStateProvider
-        .touchExplorationState()
+    val touchExplorationServicesEnabled by touchExplorationStateProvider.touchExplorationState()
 
     // When the time picker loads, none of the individual pickers are selected in talkback mode,
     // otherwise hours picker should be focused.
-    val pickerGroupState =
-        if (touchExplorationServicesEnabled) {
-            rememberPickerGroupState(FocusableElement12Hour.NONE.index)
-        } else {
-            rememberPickerGroupState(FocusableElement12Hour.HOURS.index)
-        }
+    val pickerGroupState = if (touchExplorationServicesEnabled) {
+        rememberPickerGroupState(FocusableElement12Hour.NONE.index)
+    } else {
+        rememberPickerGroupState(FocusableElement12Hour.HOURS.index)
+    }
 
     val isLargeScreen = LocalConfiguration.current.screenWidthDp > 225
-    val textStyle =
-        with(LocalDensity.current) {
-            fontScaleIndependent(
-                if (isLargeScreen) {
-                    MaterialTheme.typography.display2
-                } else {
-                    MaterialTheme.typography.display3
-                },
-            )
-        }
+    val textStyle = with(LocalDensity.current) {
+        fontScaleIndependent(
+            if (isLargeScreen) {
+                MaterialTheme.typography.display2
+            } else {
+                MaterialTheme.typography.display3
+            },
+        )
+    }
 
     val focusRequesterConfirmButton = remember { FocusRequester() }
 
@@ -444,8 +448,11 @@ public fun TimePickerWith12HourClock(
             density = density,
         )
 
-        (0..9).maxOf { mm.getBoundingBox(it).width } to
-            (1..2).maxOf { mm.getLineRight(it) - mm.getLineLeft(it) }
+        (0..9).maxOf { mm.getBoundingBox(it).width } to (1..2).maxOf {
+            mm.getLineRight(it) - mm.getLineLeft(
+                it,
+            )
+        }
     }
     val pickerWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() + 6.dp }
     val pickerWidth2 = with(LocalDensity.current) { amPmWidth.toDp() + 6.dp }
@@ -474,7 +481,9 @@ public fun TimePickerWith12HourClock(
             )
             Spacer(Modifier.height(4.dp))
             Row(
-                modifier = Modifier.fillMaxWidth(1 - 2 * 0.0728f).weight(1f),
+                modifier = Modifier
+                    .fillMaxWidth(1 - 2 * 0.0728f)
+                    .weight(1f),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
             ) {
@@ -493,7 +502,9 @@ public fun TimePickerWith12HourClock(
                 PickerGroup(
                     pickerGroupItemWithRSB(
                         pickerState = hourState,
-                        modifier = Modifier.width(pickerWidth).fillMaxHeight(),
+                        modifier = Modifier
+                            .width(pickerWidth)
+                            .fillMaxHeight(),
                         onSelected = {
                             doubleTapToNext(
                                 FocusableElement12Hour.HOURS,
@@ -505,7 +516,9 @@ public fun TimePickerWith12HourClock(
                     ),
                     pickerGroupItemWithRSB(
                         pickerState = minuteState,
-                        modifier = Modifier.width(pickerWidth).fillMaxHeight(),
+                        modifier = Modifier
+                            .width(pickerWidth)
+                            .fillMaxHeight(),
                         onSelected = {
                             doubleTapToNext(
                                 FocusableElement12Hour.MINUTES,
@@ -517,7 +530,9 @@ public fun TimePickerWith12HourClock(
                     ),
                     pickerGroupItemWithRSB(
                         pickerState = periodState,
-                        modifier = Modifier.width(pickerWidth2).fillMaxHeight(),
+                        modifier = Modifier
+                            .width(pickerWidth2)
+                            .fillMaxHeight(),
                         contentDescription = periodContentDescription,
                         onSelected = {
                             doubleTapToNext(
@@ -551,8 +566,8 @@ public fun TimePickerWith12HourClock(
                 },
                 modifier = Modifier
                     .semantics {
-                        focused = pickerGroupState.selectedIndex ==
-                            FocusableElement12Hour.CONFIRM_BUTTON.index
+                        focused =
+                            pickerGroupState.selectedIndex == FocusableElement12Hour.CONFIRM_BUTTON.index
                     }
                     .focusRequester(focusRequesterConfirmButton)
                     .focusable(),
@@ -743,12 +758,7 @@ private fun createDescription12Hour(
 }
 
 private enum class FocusableElementsTimePicker(val index: Int) {
-    HOURS(0),
-    MINUTES(1),
-    SECONDS(2),
-    CONFIRM_BUTTON(3),
-    NONE(-1),
-    ;
+    HOURS(0), MINUTES(1), SECONDS(2), CONFIRM_BUTTON(3), NONE(-1), ;
 
     companion object {
         private val map = entries.associateBy { it.index }
@@ -757,12 +767,7 @@ private enum class FocusableElementsTimePicker(val index: Int) {
 }
 
 private enum class FocusableElement12Hour(val index: Int) {
-    HOURS(0),
-    MINUTES(1),
-    PERIOD(2),
-    CONFIRM_BUTTON(3),
-    NONE(-1),
-    ;
+    HOURS(0), MINUTES(1), PERIOD(2), CONFIRM_BUTTON(3), NONE(-1), ;
 
     companion object {
         private val map = entries.associateBy { it.index }

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
 import androidx.compose.runtime.getValue
@@ -24,19 +22,14 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
-class StepperTest : ScreenshotBaseTest(
-    params = ScreenshotTestRule.screenshotTestRuleParams {
-        screenTimeText = {}
-    },
-) {
+class StepperTest : WearLegacyScreenTest() {
 
     @Test
     fun float() {
-        screenshotTestRule.setContent(takeScreenshot = true, roundScreen = true) {
+        runTest {
             var value by remember {
                 mutableFloatStateOf(0f)
             }
@@ -53,7 +46,7 @@ class StepperTest : ScreenshotBaseTest(
 
     @Test
     fun int() {
-        screenshotTestRule.setContent(takeScreenshot = true, roundScreen = true) {
+        runTest {
             var value by remember {
                 mutableIntStateOf(0)
             }

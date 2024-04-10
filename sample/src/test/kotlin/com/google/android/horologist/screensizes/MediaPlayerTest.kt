@@ -46,7 +46,7 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.flow.flowOf
 import kotlin.time.Duration.Companion.seconds
 
-class MediaPlayerTest(device: Device) : ScreenSizeTest(
+class MediaPlayerTest(device: Device) : WearLegacyScreenSizeTest(
     device = device,
     showTimeText = true,
 ) {
@@ -71,7 +71,7 @@ fun MediaPlayerTestCase() {
         shuffleOn = false,
         playPauseEnabled = true,
         playing = true,
-        media = MediaUiModel(
+        media = MediaUiModel.Ready(
             id = "",
             title = "Four Seasons In One Day",
             subtitle = "Crowded House",

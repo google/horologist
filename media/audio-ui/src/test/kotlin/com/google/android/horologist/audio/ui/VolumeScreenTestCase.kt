@@ -19,11 +19,11 @@ package com.google.android.horologist.audio.ui
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.tools.RoundPreview
 
 @Composable
@@ -35,12 +35,13 @@ fun VolumeScreenTestCase(
     val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
     RoundPreview {
         MaterialTheme(colors = colors) {
-            Scaffold(
+            ScreenScaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
                         volumeUiState = { volumeUiState },
                     )
                 },
+                timeText = {},
             ) {
                 VolumeScreen(
                     volume = { volumeUiState },

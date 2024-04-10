@@ -41,6 +41,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.AlertDialog
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
@@ -50,7 +51,7 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampEntityScreen(
-    columnState: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     playlistName: String,
     uampEntityScreenViewModel: UampEntityScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,

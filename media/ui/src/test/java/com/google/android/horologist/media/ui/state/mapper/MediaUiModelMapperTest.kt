@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.model.Media
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -44,6 +45,6 @@ class MediaUiModelMapperTest {
         assertThat(result.id).isEqualTo(id)
         assertThat(result.title).isEqualTo(title)
         assertThat(result.subtitle).isEqualTo(artist)
-        assertThat(result.artworkUri).isEqualTo(artworkUri)
+        assertThat(result.artwork).isEqualTo(CoilPaintable(artworkUri))
     }
 }

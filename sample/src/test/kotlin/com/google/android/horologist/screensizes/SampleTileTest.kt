@@ -30,7 +30,7 @@ import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.media.ui.uamp.UampColors
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 
-class SampleTileTest(device: Device) : ScreenSizeTest(device = device, showTimeText = false) {
+class SampleTileTest(device: Device) : WearLegacyScreenSizeTest(device = device, showTimeText = false) {
 
     @Composable
     override fun Content() {

@@ -14,48 +14,41 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.images.coil.FakeImageLoader
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class ChipIconWithProgressTest : ScreenshotBaseTest() {
+class ChipIconWithProgressTest : WearLegacyComponentTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(
-            isComponent = true,
-            takeScreenshot = true,
-            fakeImageLoader = FakeImageLoader.NotFound,
-        ) {
+        runComponentTest {
             ChipIconWithProgress(progress = 75f)
         }
     }
 
     @Test
     fun withProgressSmallIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ChipIconWithProgress(progress = 75f, icon = Icon12dp.asPaintable())
         }
     }
 
     @Test
     fun withProgressMediumIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ChipIconWithProgress(progress = 75f, icon = Icon32dp.asPaintable())
         }
     }
 
     @Test
     fun withProgressLargeIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             ChipIconWithProgress(
                 progress = 75f,
                 icon = Icon48dp.asPaintable(),

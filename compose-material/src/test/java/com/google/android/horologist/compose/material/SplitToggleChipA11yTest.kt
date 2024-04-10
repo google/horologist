@@ -14,88 +14,68 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
-class SplitToggleChipA11yTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        enableA11y = true
-        screenTimeText = {}
-    },
-) {
+class SplitToggleChipA11yTest : WearLegacyA11yTest() {
 
     @Test
     fun withSecondaryLabel() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                SplitToggleChip(
-                    checked = true,
-                    onCheckedChanged = { },
-                    label = "Primary label",
-                    onClick = { },
-                    toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label",
-                )
-            }
+        runComponentTest {
+            SplitToggleChip(
+                checked = true,
+                onCheckedChanged = { },
+                label = "Primary label",
+                onClick = { },
+                toggleControl = ToggleChipToggleControl.Switch,
+                secondaryLabel = "Secondary label",
+            )
         }
     }
 
     @Test
     fun unchecked() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                SplitToggleChip(
-                    checked = false,
-                    onCheckedChanged = { },
-                    label = "Primary label",
-                    onClick = { },
-                    toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label",
-                )
-            }
+        runComponentTest {
+            SplitToggleChip(
+                checked = false,
+                onCheckedChanged = { },
+                label = "Primary label",
+                onClick = { },
+                toggleControl = ToggleChipToggleControl.Switch,
+                secondaryLabel = "Secondary label",
+            )
         }
     }
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                SplitToggleChip(
-                    checked = true,
-                    onCheckedChanged = { },
-                    label = "Primary label",
-                    onClick = { },
-                    toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label",
-                    enabled = false,
-                )
-            }
+        runComponentTest {
+            SplitToggleChip(
+                checked = true,
+                onCheckedChanged = { },
+                label = "Primary label",
+                onClick = { },
+                toggleControl = ToggleChipToggleControl.Switch,
+                secondaryLabel = "Secondary label",
+                enabled = false,
+            )
         }
     }
 
     @Test
     fun uncheckedAndDisabled() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                SplitToggleChip(
-                    checked = false,
-                    onCheckedChanged = { },
-                    label = "Primary label",
-                    onClick = { },
-                    toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label",
-                    enabled = false,
-                )
-            }
+        runComponentTest {
+            SplitToggleChip(
+                checked = false,
+                onCheckedChanged = { },
+                label = "Primary label",
+                onClick = { },
+                toggleControl = ToggleChipToggleControl.Switch,
+                secondaryLabel = "Secondary label",
+                enabled = false,
+            )
         }
     }
 }

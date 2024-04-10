@@ -21,16 +21,17 @@ import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-public abstract class WearDeviceScreenshotTest(override val device: WearDevice) : WearScreenshotTest() {
-    public override val tolerance: Float = 0.02f
+public abstract class WearDeviceScreenshotTest(override val device: WearDevice) :
+    WearScreenshotTest() {
+        public override val tolerance: Float = 0.02f
 
-    public fun runTest(content: @Composable () -> Unit) {
-        runTest(suffix = null, content)
-    }
+        public fun runTest(content: @Composable () -> Unit) {
+            runTest(suffix = null, content = content)
+        }
 
-    public companion object {
-        @JvmStatic
-        @ParameterizedRobolectricTestRunner.Parameters
-        public fun devices(): List<WearDevice> = WearDevice.entries
+        public companion object {
+            @JvmStatic
+            @ParameterizedRobolectricTestRunner.Parameters
+            public fun devices(): List<WearDevice> = WearDevice.entries
+        }
     }
-}

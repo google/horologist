@@ -18,6 +18,7 @@ package com.google.android.horologist.media.ui.state.mapper
 
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
@@ -27,18 +28,18 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @ExperimentalHorologistApi
 public object MediaUiModelMapper {
 
-    public fun map(media: Media, defaultTitle: String = "", defaultArtist: String = ""): MediaUiModel {
+    public fun map(media: Media, defaultTitle: String = "", defaultArtist: String = ""): MediaUiModel.Ready {
         var title = media.title
         var artist = media.artist
         if (title.isEmpty() && artist.isEmpty()) {
             title = defaultTitle
             artist = defaultArtist
         }
-        return MediaUiModel(
+        return MediaUiModel.Ready(
             id = media.id,
             title = title,
             subtitle = artist,
-            artworkUri = media.artworkUri,
+            artwork = media.artworkUri?.let { CoilPaintable(it) },
             artworkColor = media.artworkColor?.let { Color(it) },
         )
     }

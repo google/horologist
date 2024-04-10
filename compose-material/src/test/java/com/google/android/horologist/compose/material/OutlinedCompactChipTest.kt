@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
 import android.R
@@ -26,14 +24,14 @@ import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class OutlinedCompactChipTest : ScreenshotBaseTest() {
+class OutlinedCompactChipTest : WearLegacyComponentTest() {
 
     @Test
     fun default() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
@@ -43,7 +41,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
@@ -54,7 +52,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun iconOnly() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
                 icon = Icons.Filled.Add.asPaintable(),
@@ -64,7 +62,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
@@ -76,7 +74,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
@@ -86,7 +84,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withLongTextAndLargestFontScale() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(fontScale = LARGEST_FONT_SCALE) {
                 OutlinedCompactChip(
                     onClick = { },
@@ -98,7 +96,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun usingDrawableResAsIcon() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
@@ -109,7 +107,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun withIconRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 OutlinedCompactChip(
                     onClick = { },
@@ -122,7 +120,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun mirrored() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
                 label = "Primary label",
@@ -134,7 +132,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun mirroredRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 OutlinedCompactChip(
                     onClick = { },
@@ -148,7 +146,7 @@ class OutlinedCompactChipTest : ScreenshotBaseTest() {
 
     @Test
     fun usingDrawableResAsIconMirroredRtl() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runComponentTest {
             TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 OutlinedCompactChip(
                     onClick = { },

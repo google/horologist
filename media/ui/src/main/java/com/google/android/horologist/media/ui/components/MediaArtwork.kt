@@ -23,21 +23,23 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.images.base.paintable.Paintable
-import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @ExperimentalHorologistApi
 @Composable
 public fun MediaArtwork(
-    media: MediaUiModel,
+    media: MediaUiModel.Ready,
     modifier: Modifier = Modifier,
     placeholder: Painter? = null,
 ) {
-    MediaArtwork(
-        artworkPaintable = CoilPaintable(media.artworkUri, placeholder),
-        contentDescription = media.title,
-        modifier = modifier,
-    )
+    val painter = media.artwork?.rememberPainter() ?: placeholder
+    if (painter != null) {
+        MediaArtwork(
+            painter = painter,
+            contentDescription = media.title,
+            modifier = modifier,
+        )
+    }
 }
 
 @ExperimentalHorologistApi
@@ -50,6 +52,21 @@ public fun MediaArtwork(
     Image(
         modifier = modifier,
         painter = artworkPaintable.rememberPainter(),
+        contentDescription = contentDescription,
+        contentScale = ContentScale.Fit,
+    )
+}
+
+@ExperimentalHorologistApi
+@Composable
+public fun MediaArtwork(
+    painter: Painter,
+    contentDescription: String?,
+    modifier: Modifier = Modifier,
+) {
+    Image(
+        modifier = modifier,
+        painter = painter,
         contentDescription = contentDescription,
         contentScale = ContentScale.Fit,
     )

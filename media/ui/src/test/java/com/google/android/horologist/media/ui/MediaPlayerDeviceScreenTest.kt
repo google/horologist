@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui
 
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 import kotlin.time.Duration.Companion.seconds
 
-class MediaPlayerDeviceScreenTest : ScreenshotBaseTest() {
+class MediaPlayerDeviceScreenTest : WearLegacyScreenTest() {
 
     @Test
     fun mediaPlayerLargeRound() {
@@ -66,7 +64,7 @@ class MediaPlayerDeviceScreenTest : ScreenshotBaseTest() {
             shuffleOn = false,
             playPauseEnabled = true,
             playing = true,
-            media = MediaUiModel(
+            media = MediaUiModel.Ready(
                 id = "",
                 title = "Weather with You",
                 subtitle = "Crowded House",
@@ -79,7 +77,7 @@ class MediaPlayerDeviceScreenTest : ScreenshotBaseTest() {
             connected = true,
         )
 
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             MediaPlayerTestCase(
                 colors = UampColors,
                 playerUiState = playerUiState,

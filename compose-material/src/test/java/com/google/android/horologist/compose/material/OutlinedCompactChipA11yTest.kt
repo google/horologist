@@ -14,73 +14,46 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.material
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
-class OutlinedCompactChipA11yTest : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        enableA11y = true
-        screenTimeText = {}
-    },
-) {
+class OutlinedCompactChipA11yTest : WearLegacyA11yTest() {
     @Test
     fun withIcon() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                OutlinedCompactChip(
-                    onClick = { },
-                    label = "Primary label",
-                    icon = Icons.Filled.Add.asPaintable(),
-                )
-            }
+        runComponentTest {
+            OutlinedCompactChip(
+                onClick = { },
+                label = "Primary label",
+                icon = Icons.Filled.Add.asPaintable(),
+            )
         }
     }
 
     @Test
     fun disabled() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                OutlinedCompactChip(
-                    onClick = { },
-                    label = "Primary label",
-                    icon = Icons.Filled.Add.asPaintable(),
-                    enabled = false,
-                )
-            }
+        runComponentTest {
+            OutlinedCompactChip(
+                onClick = { },
+                label = "Primary label",
+                icon = Icons.Filled.Add.asPaintable(),
+                enabled = false,
+            )
         }
     }
 
     @Test
     fun iconOnly() {
-        screenshotTestRule.setContent(takeScreenshot = true) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                OutlinedCompactChip(
-                    onClick = { },
-                    icon = Icons.Filled.Add.asPaintable(),
-                    contentDescription = "contentDescription",
-                )
-            }
+        runComponentTest {
+            OutlinedCompactChip(
+                onClick = { },
+                icon = Icons.Filled.Add.asPaintable(),
+                contentDescription = "contentDescription",
+            )
         }
     }
 }

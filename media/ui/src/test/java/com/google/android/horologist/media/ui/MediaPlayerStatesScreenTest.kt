@@ -14,22 +14,16 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.media.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.TimeSource
-import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
-import com.google.android.horologist.screenshots.ScreenshotTestRule
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -39,19 +33,13 @@ import kotlin.time.Duration.Companion.seconds
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class MediaPlayerStatesScreenTest(
     private val state: State,
-) : ScreenshotBaseTest(
-    ScreenshotTestRule.screenshotTestRuleParams {
-        screenTimeText = {
-            ResponsiveTimeText(
-                timeSource = object : TimeSource {
-                    override val currentTime: String
-                        @Composable get() = "10:10"
-                },
-            )
-        }
-        testLabel = state.name.lowercase()
-    },
-) {
+) : WearLegacyScreenTest() {
+
+    override fun testName(suffix: String): String {
+        return "src/test/snapshots/images/" +
+            "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
+            "${state.name.lowercase()}.png"
+    }
 
     @Test
     fun mediaPlayerScreen() {
@@ -68,7 +56,7 @@ class MediaPlayerStatesScreenTest(
             playPauseEnabled = state.connected,
             playing = state.connected,
             media = if (state.media) {
-                MediaUiModel(
+                MediaUiModel.Ready(
                     id = "",
                     title = "Weather with You",
                     subtitle = "Crowded House",
@@ -88,7 +76,7 @@ class MediaPlayerStatesScreenTest(
             connected = state.connected,
         )
 
-        screenshotTestRule.setContent(takeScreenshot = true) {
+        runTest {
             Box(modifier = Modifier.background(Color.Black)) {
                 MediaPlayerTestCase(playerUiState = playerUiState)
             }

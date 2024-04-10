@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.TimeSource
-import com.google.android.horologist.screenshots.ScreenshotBaseTest
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
-class ResponsiveTimeTextTest : ScreenshotBaseTest() {
+class ResponsiveTimeTextTest : WearLegacyScreenTest() {
     @Test
     fun defaultTimeText() {
-        screenshotTestRule.setContent(isComponent = true, takeScreenshot = true) {
+        runTest {
             ResponsiveTimeText(
                 timeSource = object : TimeSource {
                     override val currentTime: String

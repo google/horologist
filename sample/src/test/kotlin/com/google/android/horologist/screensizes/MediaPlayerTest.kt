@@ -71,7 +71,7 @@ fun MediaPlayerTestCase() {
         shuffleOn = false,
         playPauseEnabled = true,
         playing = true,
-        media = MediaUiModel(
+        media = MediaUiModel.Ready(
             id = "",
             title = "Four Seasons In One Day",
             subtitle = "Crowded House",

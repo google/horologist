@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">Naikkan Volume</string>
   <string name="horologist_volume_screen_volume_down_content_description">Turunkan Volume</string>
-  <string name="horologist_volume_screen_connected_state">Terhubung, Volume %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">Volume set to %1$d%%</string>
+  <string name="horologist_volume_screen_volume_zero">Volume muted</string>
+  <string name="horologist_volume_screen_connected_state">Connected</string>
   <string name="horologist_volume_screen_not_connected_state">Tidak Terhubung</string>
   <string name="horologist_volume_screen_change_audio_output">Mengubah Output Audio</string>
   <string name="horologist_speaker_name">Speaker Smartwatch</string>

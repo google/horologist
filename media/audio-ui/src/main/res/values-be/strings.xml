@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">Павялічыць гучнасць</string>
   <string name="horologist_volume_screen_volume_down_content_description">Паменшыць гучнасць</string>
-  <string name="horologist_volume_screen_connected_state">Падключана, гучнасць %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">Volume set to %1$d%%</string>
+  <string name="horologist_volume_screen_volume_zero">Volume muted</string>
+  <string name="horologist_volume_screen_connected_state">Connected</string>
   <string name="horologist_volume_screen_not_connected_state">Няма падключэння</string>
   <string name="horologist_volume_screen_change_audio_output">Змяніць аўдыявыхад</string>
   <string name="horologist_speaker_name">Дынамік гадзінніка</string>

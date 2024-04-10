@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">زیاد کردن صدا</string>
   <string name="horologist_volume_screen_volume_down_content_description">کم کردن صدا</string>
-  <string name="horologist_volume_screen_connected_state">متصل، میزان صدا %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">Volume set to %1$d%%</string>
+  <string name="horologist_volume_screen_volume_zero">Volume muted</string>
+  <string name="horologist_volume_screen_connected_state">Connected</string>
   <string name="horologist_volume_screen_not_connected_state">متصل نیست</string>
   <string name="horologist_volume_screen_change_audio_output">تغییر خروجی صوتی</string>
   <string name="horologist_speaker_name">بلندگوی ساعت</string>

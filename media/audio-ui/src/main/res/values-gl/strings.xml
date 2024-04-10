@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">Subir volume</string>
   <string name="horologist_volume_screen_volume_down_content_description">Baixar volume</string>
-  <string name="horologist_volume_screen_connected_state">Conectado (volume: %1$d)</string>
+  <string name="horologist_volume_screen_volume_percent">Volume set to %1$d%%</string>
+  <string name="horologist_volume_screen_volume_zero">Volume muted</string>
+  <string name="horologist_volume_screen_connected_state">Connected</string>
   <string name="horologist_volume_screen_not_connected_state">Non conectado</string>
   <string name="horologist_volume_screen_change_audio_output">Cambia a saída de audio</string>
   <string name="horologist_speaker_name">Altofalante (reloxo)</string>

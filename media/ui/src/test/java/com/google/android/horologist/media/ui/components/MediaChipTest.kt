@@ -64,7 +64,7 @@ class MediaChipTest : WearLegacyComponentTest() {
     fun givenNOTitle_thenDisplaysDefaultTitle() {
         runComponentTest {
             MediaChip(
-                media = MediaUiModel(
+                media = MediaUiModel.Ready(
                     id = "id",
                     title = "",
                 ),
@@ -78,7 +78,7 @@ class MediaChipTest : WearLegacyComponentTest() {
     fun givenModifier_thenAppliesModifierCorrectly() {
         runComponentTest {
             MediaChip(
-                media = MediaUiModel(
+                media = MediaUiModel.Ready(
                     id = "id",
                     title = "Red Hot Chilli Peppers",
                 ),

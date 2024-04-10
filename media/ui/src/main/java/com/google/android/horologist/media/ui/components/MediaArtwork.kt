@@ -28,7 +28,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @ExperimentalHorologistApi
 @Composable
 public fun MediaArtwork(
-    media: MediaUiModel,
+    media: MediaUiModel.Ready,
     modifier: Modifier = Modifier,
     placeholder: Painter? = null,
 ) {

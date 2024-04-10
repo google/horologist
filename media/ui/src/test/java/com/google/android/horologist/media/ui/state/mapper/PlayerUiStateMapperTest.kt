@@ -23,6 +23,7 @@ import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertNotNull
@@ -366,7 +367,7 @@ class PlayerUiStateMapperTest {
 
         // then
         assertNotNull(result.media)
-        val expectedMediaItem = result.media!!
+        val expectedMediaItem = result.media!! as MediaUiModel.Ready
         assertThat(expectedMediaItem.id).isEqualTo(id)
         assertThat(expectedMediaItem.title).isEqualTo(title)
         assertThat(expectedMediaItem.subtitle).isEqualTo(artist)

@@ -53,7 +53,7 @@ class PodcastPlayerScreenTest(
             shuffleOn = false,
             playPauseEnabled = true,
             playing = true,
-            media = MediaUiModel(
+            media = MediaUiModel.Ready(
                 id = "",
                 title = "The power of types",
                 subtitle = "Kotlinconf",

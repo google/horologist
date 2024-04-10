@@ -27,7 +27,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @ExperimentalHorologistApi
 @Composable
 public fun TrackMediaDisplay(
-    media: MediaUiModel,
+    media: MediaUiModel.Ready,
     modifier: Modifier = Modifier,
 ) {
     TextMediaDisplay(

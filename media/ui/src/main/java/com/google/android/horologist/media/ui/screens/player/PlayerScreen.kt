@@ -41,6 +41,7 @@ import com.google.android.horologist.media.ui.components.MediaInfoDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 public typealias MediaDisplay = @Composable (playerUiState: PlayerUiState) -> Unit
 
@@ -94,13 +95,10 @@ public fun PlayerScreen(
  */
 @ExperimentalHorologistApi
 @Composable
-public fun DefaultMediaInfoDisplay(
-    playerUiState: PlayerUiState,
-    modifier: Modifier = Modifier,
-) {
+public fun DefaultMediaInfoDisplay(playerUiState: PlayerUiState, modifier: Modifier = Modifier) {
     MediaInfoDisplay(
         media = playerUiState.media,
-        loading = !playerUiState.connected || playerUiState.media?.loading == true,
+        loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
         modifier = modifier,
     )
 }

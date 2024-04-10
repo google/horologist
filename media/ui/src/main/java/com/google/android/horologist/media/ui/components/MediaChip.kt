@@ -47,7 +47,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @ExperimentalHorologistApi
 @Composable
 public fun MediaChip(
-    media: MediaUiModel,
+    media: MediaUiModel.Ready,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     defaultTitle: String = "",

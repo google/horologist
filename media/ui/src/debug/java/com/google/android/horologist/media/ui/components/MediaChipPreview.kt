@@ -29,7 +29,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @Composable
 fun MediaChipPreview() {
     MediaChip(
-        media = MediaUiModel(
+        media = MediaUiModel.Ready(
             id = "id",
             title = "Red Hot Chilli Peppers",
             artwork = null,
@@ -50,7 +50,7 @@ fun MediaChipPreview() {
 @Composable
 fun MediaChipPreviewNoArtwork() {
     MediaChip(
-        media = MediaUiModel(id = "id", title = "Red Hot Chilli Peppers"),
+        media = MediaUiModel.Ready(id = "id", title = "Red Hot Chilli Peppers"),
         onClick = {},
         placeholder = rememberVectorPainter(
             image = Icons.Default.Album,
@@ -67,7 +67,7 @@ fun MediaChipPreviewNoArtwork() {
 @Composable
 fun MediaChipPreviewNoTitle() {
     MediaChip(
-        media = MediaUiModel(id = "id", title = "title", artwork = null),
+        media = MediaUiModel.Ready(id = "id", title = "title", artwork = null),
         onClick = {},
         defaultTitle = "No title",
         placeholder = rememberVectorPainter(
@@ -85,7 +85,7 @@ fun MediaChipPreviewNoTitle() {
 @Composable
 fun MediaChipPreviewVeryLongTitle() {
     MediaChip(
-        media = MediaUiModel(
+        media = MediaUiModel.Ready(
             id = "id",
             title = "Very very very very very very very very very very very very very very very very very very very long title",
             artwork = null,

@@ -30,7 +30,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @Composable
 fun MediaArtworkPreview() {
     MediaArtwork(
-        media = MediaUiModel(
+        media = MediaUiModel.Ready(
             id = "id",
             title = "title",
             artwork = null,

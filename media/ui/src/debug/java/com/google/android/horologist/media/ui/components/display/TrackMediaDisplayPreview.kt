@@ -25,7 +25,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @Composable
 fun TrackMediaDisplayPreview() {
     TrackMediaDisplay(
-        media = MediaUiModel(
+        media = MediaUiModel.Ready(
             id = "id",
             title = "Song title",
             subtitle = "Artist name",
@@ -41,7 +41,7 @@ fun TrackMediaDisplayPreview() {
 @Composable
 fun TrackMediaDisplayPreviewLongText() {
     TrackMediaDisplay(
-        media = MediaUiModel(
+        media = MediaUiModel.Ready(
             id = "id",
             title = "I Predict That You Look Good In A Riot",
             subtitle = "Arctic Monkeys feat Kaiser Chiefs",

@@ -28,14 +28,14 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @ExperimentalHorologistApi
 public object MediaUiModelMapper {
 
-    public fun map(media: Media, defaultTitle: String = "", defaultArtist: String = ""): MediaUiModel {
+    public fun map(media: Media, defaultTitle: String = "", defaultArtist: String = ""): MediaUiModel.Ready {
         var title = media.title
         var artist = media.artist
         if (title.isEmpty() && artist.isEmpty()) {
             title = defaultTitle
             artist = defaultArtist
         }
-        return MediaUiModel(
+        return MediaUiModel.Ready(
             id = media.id,
             title = title,
             subtitle = artist,

@@ -75,7 +75,7 @@ class PlayerUiStateProducerTest {
                 shuffleOn = false,
                 playPauseEnabled = true,
                 playing = true,
-                media = MediaUiModel(id = "id", title = "title", subtitle = "artist"),
+                media = MediaUiModel.Ready(id = "id", title = "title", subtitle = "artist"),
                 trackPositionUiModel = TrackPositionUiModel.Predictive(
                     MediaPositionPredictor(
                         currentPositionMs = 2000,

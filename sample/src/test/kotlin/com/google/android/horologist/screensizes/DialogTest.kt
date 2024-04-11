@@ -38,7 +38,9 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import com.google.android.horologist.compose.material.AlertContent
+import com.google.android.horologist.compose.material.AlertDialog
 import com.google.android.horologist.compose.material.Button
+import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.compose.material.ConfirmationContent
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
@@ -53,7 +55,8 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
     @Composable
     override fun Content() {
         // horologist AlertContent using ResponsiveDialogContent
-        AlertContent(
+        AlertDialog(
+            showDialog = true,
             title = "Phone app is required",
             onCancel = {},
             onOk = {},
@@ -92,7 +95,8 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
     @Test
     fun longDialogScreen1() {
         runTest {
-            AlertContent(
+            AlertDialog(
+                showDialog = true,
                 title = "Turn on Bedtime mode?",
                 message = "Watch screen, tilt-to-wake, and touch are turned off. " +
                     "Only calls from starred contacts, repeat callers, " +
@@ -122,7 +126,8 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
     @Test
     fun batterySaverScreen() {
         runTest {
-            AlertContent(
+            AlertDialog(
+                showDialog = true,
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Info,
@@ -171,7 +176,8 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
     @Test
     fun textAlertScreen() {
         runTest {
-            AlertContent(
+            AlertDialog(
+                showDialog = true,
                 title = "Text only dialogs can use up to 3 lines of text in this layout",
                 onCancel = {},
                 onOk = {},
@@ -182,7 +188,8 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
     @Test
     fun iconAndTextAlertScreen() {
         runTest {
-            AlertContent(
+            AlertDialog(
+                showDialog = true,
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Info,
@@ -199,7 +206,8 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
     @Test
     fun alarmConfirmationScreen() {
         runTest {
-            ConfirmationContent(
+            Confirmation(
+                showDialog = true,
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Check,
@@ -208,6 +216,7 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
                     )
                 },
                 title = "Alarm in 23 hr 59 min",
+                onTimeout = {},
             )
         }
     }
@@ -215,7 +224,8 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
     @Test
     fun multiLineConfirmationScreen() {
         runTest {
-            ConfirmationContent(
+            Confirmation(
+                showDialog = true,
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Check,
@@ -224,6 +234,7 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
                     )
                 },
                 title = "This example uses three lines of text to show max limit",
+                onTimeout = {},
             )
         }
     }

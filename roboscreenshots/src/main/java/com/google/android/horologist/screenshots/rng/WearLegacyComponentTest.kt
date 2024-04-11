@@ -18,7 +18,11 @@
 
 package com.google.android.horologist.screenshots.rng
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import coil.annotation.ExperimentalCoilApi
 import coil.test.FakeImageLoaderEngine
@@ -29,6 +33,7 @@ import com.github.takahirom.roborazzi.ThresholdValidator
 import com.github.takahirom.roborazzi.captureRoboImage
 import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
+import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withDrawingEnabled
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withImageLoader
 import org.junit.Rule
 import org.junit.rules.TestName
@@ -50,8 +55,7 @@ public abstract class WearLegacyComponentTest {
 
     public open val fakeImageLoader: FakeImageLoader? = null
 
-    public open fun testName(suffix: String): String =
-        "src/test/snapshots/images/${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_${testInfo.methodName}.png"
+    public open fun testName(suffix: String): String = "src/test/snapshots/images/${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_${testInfo.methodName}.png"
 
     public open val device: WearDevice? = null
 
@@ -61,26 +65,38 @@ public abstract class WearLegacyComponentTest {
     public open val imageLoader: FakeImageLoaderEngine? = null
 
     public fun runComponentTest(
+        background: Color? = null,
         content: @Composable () -> Unit,
     ) {
-        device?.let {
-            RuntimeEnvironment.setQualifiers("+w${it.dp}dp-h${it.dp}dp")
-            RuntimeEnvironment.setFontScale(it.fontScale)
-        }
-        captureRoboImage(
-            filePath = testName(""),
-            roborazziOptions = RoborazziOptions(
-                recordOptions = RoborazziOptions.RecordOptions(
-                    applyDeviceCrop = false,
+        withDrawingEnabled {
+            device?.let {
+                RuntimeEnvironment.setQualifiers("+w${it.dp}dp-h${it.dp}dp")
+                RuntimeEnvironment.setFontScale(it.fontScale)
+            }
+            captureRoboImage(
+                filePath = testName(""),
+                roborazziOptions = RoborazziOptions(
+                    recordOptions = RoborazziOptions.RecordOptions(
+                        applyDeviceCrop = false,
+                    ),
+                    compareOptions = RoborazziOptions.CompareOptions(
+                        resultValidator = ThresholdValidator(tolerance),
+                    ),
                 ),
-                compareOptions = RoborazziOptions.CompareOptions(
-                    resultValidator = ThresholdValidator(tolerance),
-                ),
-            ),
-        ) {
-            withImageLoader(imageLoader) {
-                ComponentScaffold {
-                    content()
+            ) {
+                withImageLoader(imageLoader) {
+                    Box(modifier = Modifier.run {
+                        if (background != null) {
+                            background(background)
+                        } else {
+                            this
+                        }
+                    }
+                    ) {
+                        ComponentScaffold {
+                            content()
+                        }
+                    }
                 }
             }
         }

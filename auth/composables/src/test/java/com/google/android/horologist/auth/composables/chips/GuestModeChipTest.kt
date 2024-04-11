@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth.composables.chips
 
+import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
@@ -31,7 +32,7 @@ class GuestModeChipTest : WearLegacyComponentTest() {
 
     @Test
     fun disabled() {
-        runComponentTest {
+        runComponentTest(background = Color.Black) {
             GuestModeChip(
                 onClick = {},
                 enabled = false,
@@ -51,7 +52,7 @@ class GuestModeChipTest : WearLegacyComponentTest() {
 
     @Test
     fun withSecondaryChipTypeDisabled() {
-        runComponentTest {
+        runComponentTest(background = Color.Black) {
             GuestModeChip(
                 onClick = {},
                 colors = ChipDefaults.secondaryChipColors(),

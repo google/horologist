@@ -50,7 +50,7 @@ class CompactChipTest : WearLegacyComponentTest() {
 
     @Test
     fun disabledWithIconPlaceholder() {
-        runComponentTest {
+        runComponentTest(background = Color.Black) {
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
                 CompactChip(

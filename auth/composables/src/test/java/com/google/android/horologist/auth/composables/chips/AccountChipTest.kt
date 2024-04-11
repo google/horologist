@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth.composables.chips
 
+import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
@@ -34,7 +35,7 @@ class AccountChipTest : WearLegacyComponentTest() {
 
     @Test
     fun disabled() {
-        runComponentTest {
+        runComponentTest(background = Color.Black) {
             AccountChip(
                 email = "maggie@example.com",
                 onClick = {},

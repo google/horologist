@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.graphics.HardwareRendererCompat
 import androidx.wear.compose.material.MaterialTheme
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
@@ -73,19 +74,21 @@ public abstract class WearScreenshotTest {
         applyDeviceConfig: Boolean = true,
         content: @Composable () -> Unit,
     ) {
-        if (applyDeviceConfig && device != null) {
-            RuntimeEnvironment.setQualifiers("+w${device.dp}dp-h${device.dp}dp")
-            RuntimeEnvironment.setFontScale(device.fontScale)
-        }
+        withDrawingEnabled {
+            if (applyDeviceConfig && device != null) {
+                RuntimeEnvironment.setQualifiers("+w${device.dp}dp-h${device.dp}dp")
+                RuntimeEnvironment.setFontScale(device.fontScale)
+            }
 
-        composeRule.setContent {
-            withImageLoader(imageLoader) {
-                TestScaffold {
-                    content()
+            composeRule.setContent {
+                withImageLoader(imageLoader) {
+                    TestScaffold {
+                        content()
+                    }
                 }
             }
+            captureScreenshot(suffix.orEmpty())
         }
-        captureScreenshot(suffix.orEmpty())
     }
 
     public fun captureScreenshot(suffix: String) {
@@ -145,6 +148,20 @@ public abstract class WearScreenshotTest {
                         content()
                     }
                     )
+            }
+        }
+
+        public fun <R> withDrawingEnabled(block: () -> R): R {
+            val wasDrawingEnabled = HardwareRendererCompat.isDrawingEnabled()
+            try {
+                if (!wasDrawingEnabled) {
+                    HardwareRendererCompat.setDrawingEnabled(true)
+                }
+                return block.invoke()
+            } finally {
+                if (!wasDrawingEnabled) {
+                    HardwareRendererCompat.setDrawingEnabled(false)
+                }
             }
         }
     }

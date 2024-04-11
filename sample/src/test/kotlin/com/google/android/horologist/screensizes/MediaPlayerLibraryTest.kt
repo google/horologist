@@ -19,8 +19,6 @@
 package com.google.android.horologist.screensizes
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
@@ -42,50 +40,50 @@ import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.screenshots.FixedTimeSource
 
-class MediaPlayerLibraryTest(device: Device) : WearLegacyScreenSizeTest(device = device, showTimeText = false) {
+class MediaPlayerLibraryTest(device: Device) :
+    WearLegacyScreenSizeTest(device = device, showTimeText = false) {
 
-    @Composable
-    override fun Content() {
-        val playlistUiModel = PlaylistUiModel(
-            id = "id",
-            title = "Playlist name",
-        )
-
-        val notDownloaded = listOf(
-            DownloadMediaUiModel.NotDownloaded(
+        @Composable
+        override fun Content() {
+            val playlistUiModel = PlaylistUiModel(
                 id = "id",
-                title = "Song name",
-                artist = "Artist name",
-                artworkUri = "artworkUri",
-            ),
-            DownloadMediaUiModel.NotDownloaded(
-                id = "id 2",
-                title = "Song name 2",
-                artist = "Artist name 2",
-                artworkUri = "artworkUri",
-            ),
-        )
+                title = "Playlist name",
+            )
 
-        val columnState = ScalingLazyColumnDefaults.responsive().create()
-        PagerScreen(
-            state = rememberPagerState(1) {
-                2
-            },
-        ) {
-            if (it == 1) {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    timeText = {
-                        ResponsiveTimeText(
-                            modifier = Modifier.scrollAway(columnState),
-                            timeSource = FixedTimeSource,
-                        )
-                    },
-                    positionIndicator = {
-                        PositionIndicator(columnState.state)
-                    },
-                ) {
-                    Box(modifier = Modifier.background(Color.Black)) {
+            val notDownloaded = listOf(
+                DownloadMediaUiModel.NotDownloaded(
+                    id = "id",
+                    title = "Song name",
+                    artist = "Artist name",
+                    artworkUri = "artworkUri",
+                ),
+                DownloadMediaUiModel.NotDownloaded(
+                    id = "id 2",
+                    title = "Song name 2",
+                    artist = "Artist name 2",
+                    artworkUri = "artworkUri",
+                ),
+            )
+
+            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            PagerScreen(
+                state = rememberPagerState(1) {
+                    2
+                },
+            ) {
+                if (it == 1) {
+                    Scaffold(
+                        modifier = Modifier.fillMaxSize(),
+                        timeText = {
+                            ResponsiveTimeText(
+                                modifier = Modifier.scrollAway(columnState),
+                                timeSource = FixedTimeSource,
+                            )
+                        },
+                        positionIndicator = {
+                            PositionIndicator(columnState.state)
+                        },
+                    ) {
                         PlaylistDownloadScreen(
                             playlistName = "Playlist name",
                             playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
@@ -110,4 +108,3 @@ class MediaPlayerLibraryTest(device: Device) : WearLegacyScreenSizeTest(device =
             }
         }
     }
-}

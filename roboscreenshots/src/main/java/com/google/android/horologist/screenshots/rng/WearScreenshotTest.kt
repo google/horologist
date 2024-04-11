@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.graphics.HardwareRendererCompat
 import androidx.wear.compose.material.MaterialTheme
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
@@ -41,6 +42,7 @@ import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.screenshots.FixedTimeSource
 import org.junit.Rule
+import org.junit.experimental.categories.Category
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import org.robolectric.RuntimeEnvironment
@@ -53,7 +55,9 @@ import org.robolectric.annotation.GraphicsMode
 )
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
+@Category(ScreenshotTest::class)
 public abstract class WearScreenshotTest {
+
     @get:Rule
     public val composeRule: ComposeContentTestRule = createComposeRule()
 
@@ -67,28 +71,32 @@ public abstract class WearScreenshotTest {
 
     public open val imageLoader: FakeImageLoaderEngine? = null
 
+    open val forceHardware: Boolean = false
+
     public fun runTest(
         suffix: String? = null,
         device: WearDevice? = this.device,
         applyDeviceConfig: Boolean = true,
         content: @Composable () -> Unit,
     ) {
-        if (applyDeviceConfig && device != null) {
-            RuntimeEnvironment.setQualifiers("+w${device.dp}dp-h${device.dp}dp")
-            RuntimeEnvironment.setFontScale(device.fontScale)
-        }
+        withDrawingEnabled(forceHardware) {
+            if (applyDeviceConfig && device != null) {
+                RuntimeEnvironment.setQualifiers("+w${device.dp}dp-h${device.dp}dp")
+                RuntimeEnvironment.setFontScale(device.fontScale)
+            }
 
-        composeRule.setContent {
-            withImageLoader(imageLoader) {
-                TestScaffold {
-                    content()
+            composeRule.setContent {
+                withImageLoader(imageLoader) {
+                    TestScaffold {
+                        content()
+                    }
                 }
             }
+            captureScreenshot(suffix.orEmpty())
         }
-        captureScreenshot(suffix.orEmpty())
     }
 
-    public fun captureScreenshot(suffix: String) {
+    public fun captureScreenshot(suffix: String = "") {
         captureScreenRoboImage(
             filePath = testName(suffix),
             roborazziOptions = RoborazziOptions(
@@ -145,6 +153,24 @@ public abstract class WearScreenshotTest {
                         content()
                     }
                     )
+            }
+        }
+
+        public fun <R> withDrawingEnabled(forceHardware: Boolean, block: () -> R): R {
+            return if (forceHardware) {
+                val wasDrawingEnabled = HardwareRendererCompat.isDrawingEnabled()
+                try {
+                    if (!wasDrawingEnabled) {
+                        HardwareRendererCompat.setDrawingEnabled(true)
+                    }
+                    block()
+                } finally {
+                    if (!wasDrawingEnabled) {
+                        HardwareRendererCompat.setDrawingEnabled(false)
+                    }
+                }
+            } else {
+                block()
             }
         }
     }

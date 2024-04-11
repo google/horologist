@@ -16,10 +16,6 @@
 
 package com.google.android.horologist.media.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -77,9 +73,7 @@ class MediaPlayerStatesScreenTest(
         )
 
         runTest {
-            Box(modifier = Modifier.background(Color.Black)) {
-                MediaPlayerTestCase(playerUiState = playerUiState)
-            }
+            MediaPlayerTestCase(playerUiState = playerUiState)
         }
     }
 

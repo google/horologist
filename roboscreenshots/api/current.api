@@ -81,7 +81,7 @@ package com.google.android.horologist.screenshots.rng {
     method public coil.test.FakeImageLoaderEngine? getImageLoader();
     method @org.junit.Rule public final org.junit.rules.TestName getTestInfo();
     method public float getTolerance();
-    method public final void runComponentTest(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public final void runComponentTest(optional androidx.compose.ui.graphics.Color? background, kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public String testName(String suffix);
     property public com.google.android.horologist.screenshots.rng.WearDevice? device;
     property public com.google.android.horologist.images.coil.FakeImageLoader? fakeImageLoader;
@@ -115,6 +115,7 @@ package com.google.android.horologist.screenshots.rng {
 
   public static final class WearScreenshotTest.Companion {
     method public void useHardwareRenderer();
+    method public <R> R withDrawingEnabled(kotlin.jvm.functions.Function0<? extends R> block);
   }
 
 }

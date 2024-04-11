@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">Ongeza Sauti</string>
   <string name="horologist_volume_screen_volume_down_content_description">Punguza Sauti</string>
-  <string name="horologist_volume_screen_connected_state">Kimeunganishwa, Kiwango cha Sauti ni %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">Volume set to %1$d%%</string>
+  <string name="horologist_volume_screen_volume_zero">Volume muted</string>
+  <string name="horologist_volume_screen_connected_state">Connected</string>
   <string name="horologist_volume_screen_not_connected_state">Hakijaunganishwa</string>
   <string name="horologist_volume_screen_change_audio_output">Badilisha Vifaa vya Kutoa Sauti</string>
   <string name="horologist_speaker_name">Spika ya Saa</string>

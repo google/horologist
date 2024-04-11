@@ -37,11 +37,9 @@ import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
-import com.google.android.horologist.compose.material.AlertContent
 import com.google.android.horologist.compose.material.AlertDialog
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Confirmation
-import com.google.android.horologist.compose.material.ConfirmationContent
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
 import com.google.android.horologist.compose.tools.Device

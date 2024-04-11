@@ -86,13 +86,14 @@ public abstract class WearLegacyComponentTest {
                 ),
             ) {
                 withImageLoader(imageLoader) {
-                    Box(modifier = Modifier.run {
-                        if (background != null) {
-                            background(background)
-                        } else {
-                            this
-                        }
-                    }
+                    Box(
+                        modifier = Modifier.run {
+                            if (background != null) {
+                                background(background)
+                            } else {
+                                this
+                            }
+                        },
                     ) {
                         ComponentScaffold {
                             content()

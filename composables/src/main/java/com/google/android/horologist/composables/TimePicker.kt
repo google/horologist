@@ -76,18 +76,16 @@ import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.PickerGroup
+import androidx.wear.compose.material.PickerGroupItem
+import androidx.wear.compose.material.PickerGroupState
+import androidx.wear.compose.material.PickerScope
+import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TouchExplorationStateProvider
-import com.google.android.horologist.composables.picker.PickerGroup
-import com.google.android.horologist.composables.picker.PickerGroupItem
-import com.google.android.horologist.composables.picker.PickerGroupState
-import com.google.android.horologist.composables.picker.PickerScope
-import com.google.android.horologist.composables.picker.PickerState
-import com.google.android.horologist.composables.picker.rememberPickerGroupState
-import com.google.android.horologist.composables.picker.rememberPickerState
-import com.google.android.horologist.composables.picker.toRotaryScrollAdapter
+import androidx.wear.compose.material.rememberPickerGroupState
+import androidx.wear.compose.material.rememberPickerState
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import java.time.LocalTime
 import java.time.temporal.ChronoField
 
@@ -297,7 +295,7 @@ public fun TimePicker(
                     *pickerGroupItems.toTypedArray(),
                     modifier = Modifier.fillMaxWidth(),
                     pickerGroupState = pickerGroupState,
-                    expandToFillWidth = showSeconds,
+//                    expandToFillWidth = showSeconds,
                     separator = { Separator(textStyle) },
                     autoCenter = false,
                     touchExplorationStateProvider = touchExplorationStateProvider,
@@ -546,7 +544,7 @@ public fun TimePickerWith12HourClock(
                     ),
                     modifier = Modifier.fillMaxSize(),
                     autoCenter = false,
-                    expandToFillWidth = true,
+//                    expandToFillWidth = true,
                     pickerGroupState = pickerGroupState,
                     separator = {
                         if (it == 0) Separator(textStyle)
@@ -621,9 +619,7 @@ internal fun pickerGroupItemWithRSB(
 ): PickerGroupItem {
     return PickerGroupItem(
         pickerState = pickerState,
-        modifier = modifier.rotaryWithSnap(
-            pickerState.toRotaryScrollAdapter(),
-        ),
+        modifier = modifier,
         contentDescription = contentDescription,
         onSelected = onSelected,
         readOnlyLabel = readOnlyLabel,

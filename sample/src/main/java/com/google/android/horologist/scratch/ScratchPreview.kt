@@ -26,11 +26,13 @@ import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.expandableItem
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.foundation.rememberExpandableState
+import androidx.wear.compose.foundation.rotary.RotaryDefaults.scrollBehavior
+import androidx.wear.compose.foundation.rotary.rotary
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
-import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 
 @WearPreviewLargeRound
 @Composable
@@ -44,7 +46,10 @@ fun ScratchPreview() {
         ScalingLazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .rotaryWithScroll(state),
+                .rotary(
+                    rotaryBehavior = scrollBehavior(scrollableState = state),
+                    focusRequester = rememberActiveFocusRequester(),
+                ),
             state = state,
         ) {
             item {

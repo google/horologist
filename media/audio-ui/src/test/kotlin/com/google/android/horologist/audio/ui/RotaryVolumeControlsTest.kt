@@ -14,22 +14,27 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearFoundationApi::class)
+
 package com.google.android.horologist.audio.ui
 
+import android.content.Context
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performRotaryScrollInput
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.rotary.rotary
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
@@ -37,11 +42,12 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.Shadows
+import org.robolectric.Shadows.shadowOf
 
 @RunWith(AndroidJUnit4::class)
 class RotaryVolumeControlsTest {
-    @get:Rule val composeTestRule = createComposeRule()
+    @get:Rule
+    val composeTestRule = createComposeRule()
 
     lateinit var view: View
     private var volumeState: VolumeState = VolumeState(5, 25)
@@ -57,7 +63,7 @@ class RotaryVolumeControlsTest {
             rotateToScrollVertically(50.0f)
         }
 
-        assertThat(Shadows.shadowOf(view).lastHapticFeedbackPerformed())
+        assertThat(shadowOf(view).lastHapticFeedbackPerformed())
             .isEqualTo(HapticFeedbackConstants.KEYBOARD_TAP)
         assertThat(volumeRepository.volumeState.value.current).isEqualTo(3)
     }
@@ -71,7 +77,7 @@ class RotaryVolumeControlsTest {
             rotateToScrollVertically(-50.0f)
         }
 
-        assertThat(Shadows.shadowOf(view).lastHapticFeedbackPerformed()).isEqualTo(-1)
+        assertThat(shadowOf(view).lastHapticFeedbackPerformed()).isEqualTo(-1)
         assertThat(volumeRepository.volumeState.value.current).isEqualTo(0)
     }
 
@@ -84,7 +90,7 @@ class RotaryVolumeControlsTest {
             rotateToScrollVertically(50.0f)
         }
 
-        assertThat(Shadows.shadowOf(view).lastHapticFeedbackPerformed()).isEqualTo(-1)
+        assertThat(shadowOf(view).lastHapticFeedbackPerformed()).isEqualTo(-1)
         assertThat(volumeRepository.volumeState.value.current).isEqualTo(MAX_VOLUME)
     }
 
@@ -97,7 +103,7 @@ class RotaryVolumeControlsTest {
             rotateToScrollVertically(50.0f)
         }
 
-        assertThat(Shadows.shadowOf(view).lastHapticFeedbackPerformed())
+        assertThat(shadowOf(view).lastHapticFeedbackPerformed())
             .isEqualTo(HapticFeedbackConstants.LONG_PRESS)
         assertThat(volumeRepository.volumeState.value.current).isEqualTo(MAX_VOLUME)
     }
@@ -111,7 +117,7 @@ class RotaryVolumeControlsTest {
             rotateToScrollVertically(-50.0f)
         }
 
-        assertThat(Shadows.shadowOf(view).lastHapticFeedbackPerformed())
+        assertThat(shadowOf(view).lastHapticFeedbackPerformed())
             .isEqualTo(HapticFeedbackConstants.LONG_PRESS)
         assertThat(volumeRepository.volumeState.value.current).isEqualTo(0)
     }
@@ -125,7 +131,7 @@ class RotaryVolumeControlsTest {
             rotateToScrollVertically(2f)
         }
 
-        assertThat(Shadows.shadowOf(view).lastHapticFeedbackPerformed())
+        assertThat(shadowOf(view).lastHapticFeedbackPerformed())
             .isEqualTo(HapticFeedbackConstants.LONG_PRESS)
         assertThat(volumeRepository.volumeState.value.current).isEqualTo(MAX_VOLUME)
     }
@@ -196,24 +202,35 @@ class RotaryVolumeControlsTest {
 
         assertThat(actual).isEqualTo(0)
     }
+
     private fun setUpViewWithRotaryVolumeModifier(
         volumeState: VolumeState,
         isLowRes: Boolean,
     ) {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val packageManager = context.packageManager
+
+        shadowOf(packageManager).setSystemFeature("android.hardware.rotaryencoder.lowres", isLowRes)
+
         this.volumeState = volumeState
         composeTestRule.setContent {
-            val focusRequester = remember { FocusRequester() }
+            val focusRequester = rememberActiveFocusRequester()
             view = LocalView.current
 
             Scaffold(
                 modifier =
-                    Modifier.rotaryVolumeControlsWithFocus(
-                        focusRequester,
-                        volumeUiStateProvider = { VolumeUiStateMapper.map(volumeState) },
-                        onRotaryVolumeInput = { volume -> volumeRepository.setVolume(volume) },
-                        localView = LocalView.current,
-                        isLowRes = isLowRes,
-                    )
+                    Modifier
+                        .rotary(
+                            volumeRotaryBehavior(
+                                volumeUiStateProvider = { VolumeUiStateMapper.map(volumeState) },
+                                onRotaryVolumeInput = { newVolume ->
+                                    volumeRepository.setVolume(
+                                        newVolume,
+                                    )
+                                },
+                            ),
+                            focusRequester = focusRequester,
+                        )
                         .testTag(ROTARY_TEST_TAG),
             ) {
                 Box(modifier = Modifier.fillMaxSize()) {}

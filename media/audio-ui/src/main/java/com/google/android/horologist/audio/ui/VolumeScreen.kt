@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearFoundationApi::class)
+
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
@@ -25,10 +27,8 @@ import androidx.compose.material.icons.automirrored.outlined.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
@@ -37,6 +37,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.rotary.rotary
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Stepper
@@ -49,7 +52,6 @@ import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.compose.material.IconRtlMode
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-import com.google.android.horologist.compose.rotaryinput.RotaryDefaults.isLowResInput
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import kotlin.math.roundToInt
 
@@ -79,11 +81,12 @@ public fun VolumeScreen(
 
     VolumeScreen(
         modifier = modifier
-            .rotaryVolumeControlsWithFocus(
-                volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
-                onRotaryVolumeInput = { newVolume -> volumeViewModel.setVolume(newVolume) },
-                localView = LocalView.current,
-                isLowRes = isLowResInput(),
+            .rotary(
+                volumeRotaryBehavior(
+                    volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
+                    onRotaryVolumeInput = { newVolume -> volumeViewModel.setVolume(newVolume) },
+                ),
+                focusRequester = rememberActiveFocusRequester(),
             ),
         volume = { volumeUiState },
         audioOutputUi = audioOutput.toAudioOutputUi(),

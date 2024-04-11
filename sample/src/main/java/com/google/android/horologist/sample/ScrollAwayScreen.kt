@@ -35,6 +35,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.rotary.RotaryDefaults.scrollBehavior
+import androidx.wear.compose.foundation.rotary.rotary
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
@@ -45,14 +47,16 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 
 @Composable
 fun ScrollScreenLazyColumn(scrollState: LazyListState) {
     val focusRequester = rememberActiveFocusRequester()
 
     LazyColumn(
-        modifier = Modifier.rotaryWithScroll(scrollState, focusRequester),
+        modifier = Modifier.rotary(
+            rotaryBehavior = scrollBehavior(scrollableState = scrollState),
+            focusRequester = focusRequester,
+        ),
         state = scrollState,
     ) {
         items(3) { i ->
@@ -90,7 +94,10 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
     ) {
         Column(
             modifier = Modifier
-                .rotaryWithScroll(scrollState, focusRequester)
+                .rotary(
+                    rotaryBehavior = scrollBehavior(scrollableState = scrollState),
+                    focusRequester = focusRequester,
+                )
                 .verticalScroll(scrollState),
         ) {
             val modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp / 2)

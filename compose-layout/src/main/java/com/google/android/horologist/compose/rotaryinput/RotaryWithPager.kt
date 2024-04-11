@@ -19,13 +19,14 @@
 package com.google.android.horologist.compose.rotaryinput
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
+import androidx.wear.compose.foundation.rotary.RotaryBehavior
+import androidx.wear.compose.foundation.rotary.rotary
 import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX
 import kotlinx.coroutines.launch
 
@@ -33,12 +34,19 @@ public fun Modifier.rotaryWithPager(
     state: PagerState,
     focusRequester: FocusRequester,
 ): Modifier = composed {
+    rotary(pagerRotaryBehaviour(state), focusRequester)
+}
+
+@Suppress("DEPRECATION")
+@Composable
+public fun pagerRotaryBehaviour(
+    state: PagerState,
+): RotaryBehavior {
     val coroutineScope = rememberCoroutineScope()
     val haptics = rememberDefaultRotaryHapticFeedback()
 
-    onRotaryInputAccumulated(minValueChangeDistancePx = DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX * 3) {
+    return accumulatedBehavior(minValueChangeDistancePx = DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX * 3) {
         val pageChange = if (it > 0f) 1 else -1
-
         if ((pageChange == 1 && state.currentPage >= state.pageCount - 1) || (pageChange == -1 && state.currentPage == 0)) {
             haptics.performHapticFeedback(RotaryHapticsType.ScrollLimit)
         } else {
@@ -49,6 +57,4 @@ public fun Modifier.rotaryWithPager(
             }
         }
     }
-        .focusRequester(focusRequester)
-        .focusable()
 }

@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.auth.composables.chips
 
-import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
@@ -32,7 +31,7 @@ class SignInChipTest : WearLegacyComponentTest() {
 
     @Test
     fun disabled() {
-        runComponentTest(background = Color.Black) {
+        runComponentTest {
             SignInChip(
                 onClick = {},
                 enabled = false,
@@ -52,7 +51,7 @@ class SignInChipTest : WearLegacyComponentTest() {
 
     @Test
     fun withSecondaryChipTypeDisabled() {
-        runComponentTest(background = Color.Black) {
+        runComponentTest {
             SignInChip(
                 onClick = {},
                 colors = ChipDefaults.secondaryChipColors(),

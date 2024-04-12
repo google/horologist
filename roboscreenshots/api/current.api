@@ -77,14 +77,12 @@ package com.google.android.horologist.screenshots.rng {
     ctor public WearLegacyComponentTest();
     method @androidx.compose.runtime.Composable public void ComponentScaffold(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public com.google.android.horologist.screenshots.rng.WearDevice? getDevice();
-    method public com.google.android.horologist.images.coil.FakeImageLoader? getFakeImageLoader();
     method public coil.test.FakeImageLoaderEngine? getImageLoader();
     method @org.junit.Rule public final org.junit.rules.TestName getTestInfo();
     method public float getTolerance();
     method public final void runComponentTest(optional androidx.compose.ui.graphics.Color? background, kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public String testName(String suffix);
     property public com.google.android.horologist.screenshots.rng.WearDevice? device;
-    property public com.google.android.horologist.images.coil.FakeImageLoader? fakeImageLoader;
     property public coil.test.FakeImageLoaderEngine? imageLoader;
     property @org.junit.Rule public final org.junit.rules.TestName testInfo;
     property public float tolerance;

@@ -31,7 +31,6 @@ import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.ThresholdValidator
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withDrawingEnabled
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withImageLoader
@@ -53,8 +52,6 @@ public abstract class WearLegacyComponentTest {
     @get:Rule
     public val testInfo: TestName = TestName()
 
-    public open val fakeImageLoader: FakeImageLoader? = null
-
     public open fun testName(suffix: String): String =
         "src/test/snapshots/images/${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_${testInfo.methodName}.png"
 
@@ -66,7 +63,7 @@ public abstract class WearLegacyComponentTest {
     public open val imageLoader: FakeImageLoaderEngine? = null
 
     public fun runComponentTest(
-        background: Color? = null,
+        background: Color? = Color.Black.copy(alpha = 0.3f),
         content: @Composable () -> Unit,
     ) {
         withDrawingEnabled {

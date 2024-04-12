@@ -44,6 +44,7 @@ import com.google.android.horologist.screenshots.FixedTimeSource
 import org.junit.Rule
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
+import org.junit.experimental.categories.Category
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
@@ -54,6 +55,7 @@ import org.robolectric.annotation.GraphicsMode
 )
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
+@Category(ScreenshotTest::class)
 public abstract class WearScreenshotTest {
     @get:Rule
     public val composeRule: ComposeContentTestRule = createComposeRule()

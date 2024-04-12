@@ -19,7 +19,6 @@ package com.google.android.horologist.compose.material
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.images.base.util.rememberVectorPainter
@@ -50,7 +49,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
 
     @Test
     fun disabledWithIconPlaceholder() {
-        runComponentTest(background = Color.Black) {
+        runComponentTest {
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
                 OutlinedChip(

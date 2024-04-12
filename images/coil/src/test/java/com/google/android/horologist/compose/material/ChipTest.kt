@@ -49,7 +49,7 @@ class ChipTest : WearLegacyComponentTest() {
 
     @Test
     fun disabledWithIconPlaceholder() {
-        runComponentTest(background = Color.Black) {
+        runComponentTest {
             // In inspection mode will jump to placeholder
             CompositionLocalProvider(LocalInspectionMode.provides(true)) {
                 Chip(

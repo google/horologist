@@ -19,5 +19,7 @@ package com.google.android.horologist.screenshots.rng
 public abstract class WearLegacyScreenTest : WearScreenshotTest() {
 
     override fun testName(suffix: String): String =
-        "src/test/snapshots/images/${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_${testInfo.methodName}.png"
+        "src/test/snapshots/images/" +
+            "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
+            "${testInfo.methodName}$suffix.png"
 }

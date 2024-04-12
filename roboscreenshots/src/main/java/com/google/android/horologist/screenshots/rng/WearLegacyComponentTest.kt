@@ -53,7 +53,9 @@ public abstract class WearLegacyComponentTest {
     public val testInfo: TestName = TestName()
 
     public open fun testName(suffix: String): String =
-        "src/test/snapshots/images/${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_${testInfo.methodName}.png"
+        "src/test/snapshots/images/" +
+            "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
+            "${testInfo.methodName}$suffix.png"
 
     public open val device: WearDevice? = null
 

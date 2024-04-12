@@ -91,7 +91,7 @@ public abstract class WearScreenshotTest {
         }
     }
 
-    public fun captureScreenshot(suffix: String) {
+    public fun captureScreenshot(suffix: String = "") {
         captureScreenRoboImage(
             filePath = testName(suffix),
             roborazziOptions = RoborazziOptions(

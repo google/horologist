@@ -11,6 +11,9 @@ package com.google.android.horologist.screenshots {
 
 package com.google.android.horologist.screenshots.rng {
 
+  public interface ScreenshotTest {
+  }
+
   public enum WearDevice {
     method public final float getDensity();
     method public final int getDp();
@@ -92,7 +95,7 @@ package com.google.android.horologist.screenshots.rng {
     ctor public WearLegacyScreenTest();
   }
 
-  @org.junit.runner.RunWith(AndroidJUnit4::class) @org.robolectric.annotation.Config(sdk={33}, qualifiers=com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSLargeRound) @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class WearScreenshotTest {
+  @org.junit.experimental.categories.Category(ScreenshotTest::class) @org.junit.runner.RunWith(AndroidJUnit4::class) @org.robolectric.annotation.Config(sdk={33}, qualifiers=com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSLargeRound) @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class WearScreenshotTest {
     ctor public WearScreenshotTest();
     method @androidx.compose.runtime.Composable public void TestScaffold(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public final void captureScreenshot(optional String suffix);

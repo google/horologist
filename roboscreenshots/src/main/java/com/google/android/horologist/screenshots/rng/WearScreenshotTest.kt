@@ -42,9 +42,9 @@ import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.screenshots.FixedTimeSource
 import org.junit.Rule
+import org.junit.experimental.categories.Category
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
-import org.junit.experimental.categories.Category
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode

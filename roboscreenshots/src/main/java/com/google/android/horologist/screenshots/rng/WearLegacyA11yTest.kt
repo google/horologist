@@ -93,7 +93,7 @@ public abstract class WearLegacyA11yTest {
     }
 
     public fun runComponentTest(
-        background: Color? = Color.Black.copy(alpha = 0.3f),
+        background: Color? = if (forceHardware) Color.Black.copy(alpha = 0.3f) else null,
         content: @Composable () -> Unit,
     ) {
         withDrawingEnabled(forceHardware) {

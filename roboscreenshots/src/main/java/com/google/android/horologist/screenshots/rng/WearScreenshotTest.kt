@@ -71,7 +71,7 @@ public abstract class WearScreenshotTest {
 
     public open val imageLoader: FakeImageLoaderEngine? = null
 
-    open val forceHardware: Boolean = false
+    public open val forceHardware: Boolean = false
 
     public fun runTest(
         suffix: String? = null,

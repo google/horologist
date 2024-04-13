@@ -64,7 +64,7 @@ public abstract class WearLegacyComponentTest {
 
     public open val imageLoader: FakeImageLoaderEngine? = null
 
-    open val forceHardware: Boolean = false
+    public open val forceHardware: Boolean = false
 
     public fun runComponentTest(
         background: Color? = if (forceHardware) Color.Black.copy(alpha = 0.3f) else null,

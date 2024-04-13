@@ -78,7 +78,7 @@ public abstract class WearLegacyA11yTest {
 
     public open val imageLoader: FakeImageLoaderEngine? = null
 
-    open val forceHardware: Boolean = false
+    public open val forceHardware: Boolean = false
 
     public fun runScreenTest(
         content: @Composable () -> Unit,

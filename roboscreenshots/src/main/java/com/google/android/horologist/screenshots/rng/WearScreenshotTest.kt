@@ -128,14 +128,14 @@ public abstract class WearScreenshotTest {
     public companion object {
         internal const val USE_HARDWARE_RENDERER_NATIVE_ENV = "robolectric.screenshot.hwrdr.native"
 
-        const val hardwareEnabgled = false
+        internal const val hardwareEnabled = false
 
         init {
             useHardwareRenderer()
         }
 
         public fun useHardwareRenderer() {
-            if (hardwareEnabgled) {
+            if (hardwareEnabled) {
                 System.setProperty(USE_HARDWARE_RENDERER_NATIVE_ENV, "true")
             }
         }
@@ -161,7 +161,7 @@ public abstract class WearScreenshotTest {
         }
 
         public fun <R> withDrawingEnabled(forceHardware: Boolean, block: () -> R): R {
-            return if (hardwareEnabgled && forceHardware) {
+            return if (hardwareEnabled && forceHardware) {
                 val wasDrawingEnabled = HardwareRendererCompat.isDrawingEnabled()
                 try {
                     if (!wasDrawingEnabled) {

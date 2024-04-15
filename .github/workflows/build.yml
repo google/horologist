@@ -37,7 +37,7 @@ jobs:
         with:
           arguments: testDebug -Dtest.excludeCategories=com.google.android.horologist.screenshots.rng.ScreenshotTest
 
-      - name: Upload test results and reports
+      - name: test-results
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -74,7 +74,7 @@ jobs:
         with:
           arguments: verifyRoborazziDebug
 
-      - name: Upload test results and reports
+      - name: screenshot-test-results
         if: always()
         uses: actions/upload-artifact@v4
         with:

@@ -124,8 +124,10 @@ fun WearApp() {
 }
 ```
 
-If you need some screens to use always-on, and others not to, then you can use the additional
-argument supplied to `AmbientAware`.
+If you need some screens to use always-on, and others not to, then you can use
+the additional argument supplied to `AmbientAware` to indicate whether a
+recomposition should be triggered when the system goes into ambient mode (i.e.
+whether the composable wants to handle ambient mode or not).
 
 For example, in a workout app, it is desirable that the main  workout screen uses always-on, but the
 workout summary at the end does not. See the [`ExerciseClient`][exercise-client]

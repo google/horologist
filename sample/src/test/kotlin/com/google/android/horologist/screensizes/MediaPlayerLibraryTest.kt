@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class)
 
 package com.google.android.horologist.screensizes
 
@@ -26,24 +26,43 @@ import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.core.content.ContextCompat
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
+import coil.annotation.ExperimentalCoilApi
+import coil.decode.DataSource
+import coil.request.SuccessResult
+import coil.test.FakeImageLoaderEngine
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.images.base.util.rememberVectorPainter
+import com.google.android.horologist.images.coil.FakeImageLoader
+import com.google.android.horologist.images.coil.FakeImageLoader.Companion.TestIconResourceUri
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.createPlaylistDownloadScreenStateLoaded
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.screenshots.FixedTimeSource
+import kotlinx.coroutines.awaitCancellation
 
 class MediaPlayerLibraryTest(device: Device) :
     WearLegacyScreenSizeTest(device = device, showTimeText = false) {
 
-        @Composable
+    override val imageLoader = FakeImageLoaderEngine.Builder()
+        .intercept(
+            predicate = {
+                it == TestIconResourceUri
+            },
+            interceptor = {
+                awaitCancellation()
+            },
+        )
+        .build()
+
+    @Composable
         override fun Content() {
             val playlistUiModel = PlaylistUiModel(
                 id = "id",
@@ -55,13 +74,13 @@ class MediaPlayerLibraryTest(device: Device) :
                     id = "id",
                     title = "Song name",
                     artist = "Artist name",
-                    artworkUri = "artworkUri",
+                    artworkUri = TestIconResourceUri,
                 ),
                 DownloadMediaUiModel.NotDownloaded(
                     id = "id 2",
                     title = "Song name 2",
                     artist = "Artist name 2",
-                    artworkUri = "artworkUri",
+                    artworkUri = TestIconResourceUri,
                 ),
             )
 

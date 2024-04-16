@@ -77,6 +77,7 @@ public abstract class WearScreenshotTest {
         suffix: String? = null,
         device: WearDevice? = this.device,
         applyDeviceConfig: Boolean = true,
+        captureScreenshot: Boolean = true,
         content: @Composable () -> Unit,
     ) {
         withDrawingEnabled(forceHardware) {
@@ -92,7 +93,9 @@ public abstract class WearScreenshotTest {
                     }
                 }
             }
-            captureScreenshot(suffix.orEmpty())
+            if (captureScreenshot) {
+                captureScreenshot(suffix.orEmpty())
+            }
         }
     }
 
@@ -141,7 +144,7 @@ public abstract class WearScreenshotTest {
         }
 
         @Composable
-        internal fun withImageLoader(
+        public fun withImageLoader(
             imageLoaderEngine: FakeImageLoaderEngine?,
             content: @Composable () -> Unit,
         ) {
@@ -152,11 +155,9 @@ public abstract class WearScreenshotTest {
                     .components { add(imageLoaderEngine) }
                     .build()
                 @Suppress("DEPRECATION")
-                (
-                    CompositionLocalProvider(LocalImageLoader provides imageLoader) {
-                        content()
-                    }
-                    )
+                CompositionLocalProvider(LocalImageLoader provides imageLoader) {
+                    content()
+                }
             }
         }
 

@@ -21,33 +21,29 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.PositionIndicator
-import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.scrollAway
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
@@ -85,12 +81,8 @@ class SectionedListTest : WearLegacyScreenTest() {
 
     @Test
     fun loadedSection_secondPage() {
-        runTest {
+        runTest(captureScreenshot = false) {
             val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            LaunchedEffect(Unit) {
-                columnState.state.scrollToItem(4, 0)
-            }
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -100,6 +92,11 @@ class SectionedListTest : WearLegacyScreenTest() {
                 }
             }
         }
+
+        composeRule.onNode(hasScrollToNodeAction())
+            .performTouchInput { repeat(10) { swipeUp() } }
+
+        captureScreenshot()
     }
 
     @Test
@@ -119,12 +116,8 @@ class SectionedListTest : WearLegacyScreenTest() {
 
     @Test
     fun failedSection_secondPage() {
-        runTest {
+        runTest(captureScreenshot = false) {
             val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-            LaunchedEffect(Unit) {
-                columnState.state.scrollToItem(4, 0)
-            }
 
             SectionedListPreview(columnState) {
                 SectionedList(columnState = columnState) {
@@ -134,6 +127,11 @@ class SectionedListTest : WearLegacyScreenTest() {
                 }
             }
         }
+
+        composeRule.onNode(hasScrollToNodeAction())
+            .performTouchInput { repeat(10) { swipeUp() } }
+
+        captureScreenshot()
     }
 
     @Test
@@ -189,20 +187,7 @@ class SectionedListTest : WearLegacyScreenTest() {
             columnState: ScalingLazyColumnState,
             content: @Composable () -> Unit,
         ) {
-            Scaffold(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black),
-                positionIndicator = {
-                    PositionIndicator(columnState.state)
-                },
-                timeText = {
-                    ResponsiveTimeText(
-                        modifier = Modifier.scrollAway(columnState),
-                        timeSource = FixedTimeSource,
-                    )
-                },
-            ) {
+            ScreenScaffold(scrollState = columnState) {
                 content()
             }
         }

@@ -14,39 +14,90 @@
  * limitations under the License.
  */
 
+@file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@file:OptIn(ExperimentalRoborazziApi::class, ExperimentalCoilApi::class)
+
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
+import coil.annotation.ExperimentalCoilApi
+import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
+import com.github.takahirom.roborazzi.RoborazziOptions
+import com.github.takahirom.roborazzi.ThresholdValidator
+import com.github.takahirom.roborazzi.captureRoboImage
+import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
-class MarqueeTest : WearLegacyComponentTest() {
+class MarqueeTest : WearLegacyScreenTest() {
+
     @Test
     fun noMarquee() {
-        runMarqueeTest("Sia")
+        runComponentTest {
+            MarqueeSample("Sia")
+        }
     }
 
     @Test
     fun marquee() {
-        runMarqueeTest("Tikki Tikki Tembo-no Sa Rembo-chari Bari Ruchi-pip Peri Pembo")
+        withDrawingEnabled(forceHardware = true) {
+            composeRule.mainClock.autoAdvance = false
+            composeRule.setContent {
+                withImageLoader(imageLoader) {
+                    Box(
+                        modifier = Modifier
+                            .wrapContentSize()
+                            .background(Color.Black),
+                    ) {
+                        MarqueeSample("Tikki Tikki Tembo-no Sa Rembo-chari Bari Ruchi-pip Peri Pembo")
+                    }
+                }
+            }
+            captureComponentImage()
+            composeRule.mainClock.advanceTimeBy(4_500)
+            captureComponentImage("_4500")
+        }
     }
 
-    private fun runMarqueeTest(text: String) {
-        runComponentTest {
-            Box(modifier = Modifier.background(Color.Black)) {
-                MarqueeSample(text)
+    public fun runComponentTest(
+        content: @Composable () -> Unit,
+    ) {
+        withDrawingEnabled(forceHardware = true) {
+            composeRule.setContent {
+                withImageLoader(imageLoader) {
+                    Box(
+                        modifier = Modifier
+                            .wrapContentSize()
+                            .background(Color.Black),
+                    ) {
+                        content()
+                    }
+                }
             }
+            captureComponentImage()
         }
+    }
 
-        // TODO verify via a11y
-//        composeRule.onNodeWithText(text).assertExists()
+    private fun captureComponentImage(suffix: String = "") {
+        composeRule.onRoot().captureRoboImage(
+            filePath = testName(suffix),
+            roborazziOptions = RoborazziOptions(
+                recordOptions = RoborazziOptions.RecordOptions(
+                    applyDeviceCrop = false,
+                ),
+                compareOptions = RoborazziOptions.CompareOptions(
+                    resultValidator = ThresholdValidator(tolerance),
+                ),
+            ),
+        )
     }
 
     @Composable

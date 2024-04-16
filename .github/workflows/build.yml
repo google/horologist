@@ -34,33 +34,47 @@ jobs:
 
       - name: Unit Tests
         uses: gradle/gradle-build-action@v3
+        with:
+          arguments: testDebug -Dtest.excludeCategories=com.google.android.horologist.screenshots.rng.ScreenshotTest
+
+      - name: test-results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-results
+          path: |
+            **/build/test-results/*
+            **/build/reports/*
+            **/out/*
+
+  screenshot:
+    # Skip build if head commit contains 'skip ci'
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        with:
+          lfs: 'true'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: Unit Tests
+        uses: gradle/gradle-build-action@v3
         id: screenshotsverify
-        continue-on-error: true
         with:
-          arguments: testDebug --rerun
+          arguments: verifyRoborazziDebug
 
-      - name: Prevent pushing new screenshots if this is a fork
-        id: checkfork
-        continue-on-error: false
-        if: steps.screenshotsverify.outcome == 'failure' && github.event.pull_request.head.repo.full_name != github.repository
-        run: |
-          echo "::error::Screenshot tests failed, please create a PR in your fork first." && exit 1
-
-      - name: Generate new screenshots if verification failed and it's a PR
-        id: screenshotsrecord
-        if: steps.screenshotsverify.outcome == 'failure' && github.event_name == 'pull_request'
-        run: |
-          ./gradlew testDebug -P screenshot.record=repair
-
-      - name: Push new screenshots if available
-        uses: stefanzweifel/git-auto-commit-action@v5
-        if: steps.screenshotsrecord.outcome == 'success'
-        with:
-          file_pattern: '**/snapshots/images/*.png'
-          disable_globbing: true
-          commit_message: "🤖 Updates screenshots"
-
-      - name: Upload test results and reports
+      - name: screenshot-test-results
         if: always()
         uses: actions/upload-artifact@v4
         with:

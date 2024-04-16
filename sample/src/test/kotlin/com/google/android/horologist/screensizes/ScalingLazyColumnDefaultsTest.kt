@@ -22,6 +22,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.material.AppCard
@@ -60,7 +63,7 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
 
         @Test
         fun standard_end() {
-            runTest {
+            runTest(capture = false) {
                 val listState = ScalingLazyListState()
 
                 androidx.wear.compose.foundation.lazy.ScalingLazyColumn(
@@ -71,37 +74,40 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
                         SampleAppCard()
                     }
                 }
-
-                LaunchedEffect(Unit) {
-                    listState.scrollToItem(100, 0)
-                }
             }
+
+            composeRule.onNode(hasScrollToNodeAction())
+                .performTouchInput { repeat(10) { swipeUp() } }
+
+            captureScreenshot()
         }
 
         @Test
         fun responsive_end() {
-            runTest {
+            runTest(capture = false) {
                 val columnState = ScalingLazyColumnDefaults.responsive().create()
 
                 SampleMenu(columnState = columnState)
-
-                LaunchedEffect(Unit) {
-                    columnState.state.scrollToItem(100, 0)
-                }
             }
+
+            composeRule.onNode(hasScrollToNodeAction())
+                .performTouchInput { repeat(10) { swipeUp() } }
+
+            captureScreenshot()
         }
 
         @Test
         fun belowTimeText_end() {
-            runTest {
+            runTest(capture = false) {
                 val columnState = ScalingLazyColumnDefaults.belowTimeText().create()
 
                 SampleMenu(columnState = columnState)
-
-                LaunchedEffect(Unit) {
-                    columnState.state.scrollToItem(100, 0)
-                }
             }
+
+            composeRule.onNode(hasScrollToNodeAction())
+                .performTouchInput { repeat(10) { swipeUp() } }
+
+            captureScreenshot()
         }
 
         @Test
@@ -131,7 +137,7 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
 
         @Test
         fun standard_chips_end() {
-            runTest {
+            runTest(capture = false) {
                 val listState = ScalingLazyListState()
 
                 androidx.wear.compose.foundation.lazy.ScalingLazyColumn(
@@ -147,19 +153,25 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
                     listState.scrollToItem(100, 0)
                 }
             }
+
+            composeRule.onNode(hasScrollToNodeAction())
+                .performTouchInput { repeat(10) { swipeUp() } }
+
+            captureScreenshot()
         }
 
         @Test
         fun responsive_chips_end() {
-            runTest {
+            runTest(capture = false) {
                 val columnState = ScalingLazyColumnDefaults.responsive().create()
 
                 SampleChipMenu(columnState = columnState)
-
-                LaunchedEffect(Unit) {
-                    columnState.state.scrollToItem(100, 0)
-                }
             }
+
+            composeRule.onNode(hasScrollToNodeAction())
+                .performTouchInput { repeat(10) { swipeUp() } }
+
+            captureScreenshot()
         }
 
         @Composable

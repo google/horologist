@@ -18,7 +18,6 @@ package com.google.android.horologist.spec
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.hasScrollToNodeAction
-import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import com.google.android.horologist.compose.tools.Device

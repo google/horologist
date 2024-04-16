@@ -26,12 +26,9 @@ import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.core.content.ContextCompat
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import coil.annotation.ExperimentalCoilApi
-import coil.decode.DataSource
-import coil.request.SuccessResult
 import coil.test.FakeImageLoaderEngine
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
@@ -39,7 +36,6 @@ import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.images.base.util.rememberVectorPainter
-import com.google.android.horologist.images.coil.FakeImageLoader
 import com.google.android.horologist.images.coil.FakeImageLoader.Companion.TestIconResourceUri
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.createPlaylistDownloadScreenStateLoaded
@@ -51,18 +47,18 @@ import kotlinx.coroutines.awaitCancellation
 class MediaPlayerLibraryTest(device: Device) :
     WearLegacyScreenSizeTest(device = device, showTimeText = false) {
 
-    override val imageLoader = FakeImageLoaderEngine.Builder()
-        .intercept(
-            predicate = {
-                it == TestIconResourceUri
-            },
-            interceptor = {
-                awaitCancellation()
-            },
-        )
-        .build()
+        override val imageLoader = FakeImageLoaderEngine.Builder()
+            .intercept(
+                predicate = {
+                    it == TestIconResourceUri
+                },
+                interceptor = {
+                    awaitCancellation()
+                },
+            )
+            .build()
 
-    @Composable
+        @Composable
         override fun Content() {
             val playlistUiModel = PlaylistUiModel(
                 id = "id",

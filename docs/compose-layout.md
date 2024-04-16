@@ -119,7 +119,17 @@ You should place this composable high up in your design, as it alters the behavi
 @Composable
 fun WearApp() {
     AmbientAware { ambientStateUpdate ->
-        // App Content here
+        when (val state = ambientStateUpdate.ambientState) {
+            is AmbientState.Ambient -> {
+                val ambientDetails = state.ambientDetails
+                val burnInProtectionRequired = ambientDetails?.burnInProtectionRequired
+                val deviceHasLowBitAmbient = ambientDetails?.deviceHasLowBitAmbient
+                // Device is in ambient (low power) mode
+            }
+            is AmbientState.Interactive -> {
+                // Device is in interactive (high power) mode
+            }
+        }
     }
 }
 ```

@@ -18,6 +18,10 @@ package com.google.android.horologist.composables
 
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onParent
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.printToString
+import androidx.compose.ui.test.requestFocus
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 import java.time.LocalTime
@@ -37,5 +41,36 @@ class TimePickerA11yTest : WearLegacyA11yTest() {
 
         composeRule.onNodeWithContentDescription("Confirm")
             .assertHasClickAction()
+    }
+
+    @Test
+    fun interactionTest() {
+        enableTouchExploration()
+
+        runScreenTest {
+            TimePicker(
+                time = LocalTime.of(10, 10, 0),
+                onTimeConfirm = {},
+            )
+        }
+
+        println(composeRule.onRoot().printToString())
+        composeRule.onNodeWithContentDescription("Hour")
+            .onParent()
+            .requestFocus()
+
+        captureScreenshot("_1")
+
+        composeRule.onNodeWithContentDescription("Minute")
+            .onParent()
+            .requestFocus()
+
+        captureScreenshot("_2")
+
+        composeRule.onNodeWithContentDescription("Second")
+            .onParent()
+            .requestFocus()
+
+        captureScreenshot("_3")
     }
 }

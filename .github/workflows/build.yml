@@ -72,7 +72,13 @@ jobs:
         uses: gradle/gradle-build-action@v3
         id: screenshotsverify
         with:
-          arguments: verifyRoborazziDebug
+          arguments: --no-daemon verifyRoborazziDebug -x composables:verifyRoborazziDebug -x sample:verifyRoborazziDebug
+
+      - name: Unit Tests 2
+        uses: gradle/gradle-build-action@v3
+        id: screenshotsverify2
+        with:
+          arguments: --no-daemon composables:verifyRoborazziDebug sample:verifyRoborazziDebug
 
       - name: screenshot-test-results
         if: always()

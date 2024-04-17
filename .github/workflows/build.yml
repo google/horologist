@@ -47,7 +47,7 @@ jobs:
             **/build/reports/*
             **/out/*
 
-  screenshot:
+  screenshot1:
     # Skip build if head commit contains 'skip ci'
     if: "!contains(github.event.head_commit.message, 'skip ci')"
 
@@ -74,13 +74,44 @@ jobs:
         with:
           arguments: --no-daemon verifyRoborazziDebug -x composables:verifyRoborazziDebug -x sample:verifyRoborazziDebug
 
+      - name: screenshot-test-results-1
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-results
+          path: |
+            **/build/test-results/*
+            **/build/reports/*
+            **/out/*
+
+  screenshot2:
+    # Skip build if head commit contains 'skip ci'
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        with:
+          lfs: 'true'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
       - name: Unit Tests 2
         uses: gradle/gradle-build-action@v3
         id: screenshotsverify2
         with:
           arguments: --no-daemon composables:verifyRoborazziDebug sample:verifyRoborazziDebug
 
-      - name: screenshot-test-results
+      - name: screenshot-test-results-2
         if: always()
         uses: actions/upload-artifact@v4
         with:

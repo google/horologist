@@ -139,7 +139,7 @@ dependencies {
     testImplementation(libs.robolectric)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
-    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.androidx.test.espressocore)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.truth)
 }

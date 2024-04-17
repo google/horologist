@@ -158,7 +158,7 @@ dependencies {
     testImplementation(projects.roboscreenshots)
     testImplementation(projects.logo)
     testImplementation(libs.compose.ui.test.junit4)
-    testImplementation(libs.espresso.core)
+    testImplementation(libs.androidx.test.espressocore)
     testImplementation(libs.androidx.test.ext)
 }
 

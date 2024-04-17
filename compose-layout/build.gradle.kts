@@ -93,9 +93,9 @@ dependencies {
 
     api(libs.androidx.lifecycle.runtime.compose)
     api(libs.androidx.paging)
+    api(libs.androidx.wear)
 
     implementation(libs.compose.ui.util)
-    implementation(libs.androidx.wear)
 
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.toolingpreview)

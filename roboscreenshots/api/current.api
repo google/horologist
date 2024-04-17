@@ -123,6 +123,7 @@ package com.google.android.horologist.screenshots.rng {
   public static final class WearScreenshotTest.Companion {
     method public void useHardwareRenderer();
     method public <R> R withDrawingEnabled(boolean forceHardware, kotlin.jvm.functions.Function0<? extends R> block);
+    method @androidx.compose.runtime.Composable public void withImageLoader(coil.test.FakeImageLoaderEngine? imageLoaderEngine, kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
 
 }

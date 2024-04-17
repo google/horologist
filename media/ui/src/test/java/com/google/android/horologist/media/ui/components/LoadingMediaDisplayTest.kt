@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearFoundationApi::class)
+
 package com.google.android.horologist.media.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.LocalReduceMotion
+import androidx.wear.compose.foundation.ReduceMotion
 import com.google.android.horologist.media.ui.components.animated.MarqueeTextMediaDisplay
 import com.google.android.horologist.media.ui.components.display.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.display.TextMediaDisplay
@@ -94,6 +100,15 @@ class LoadingMediaDisplayTest : WearLegacyComponentTest() {
             contentAlignment = Alignment.Center,
         ) {
             content()
+        }
+    }
+
+    @Composable
+    override fun ComponentScaffold(content: @Composable () -> Unit) {
+        CompositionLocalProvider(LocalReduceMotion provides ReduceMotion {
+            true
+        }) {
+            super.ComponentScaffold(content)
         }
     }
 }

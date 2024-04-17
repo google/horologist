@@ -45,9 +45,11 @@ class PlaceholderChipTest : WearLegacyComponentTest() {
 
     @Composable
     override fun ComponentScaffold(content: @Composable () -> Unit) {
-        CompositionLocalProvider(LocalReduceMotion provides ReduceMotion {
-            true
-        }) {
+        CompositionLocalProvider(
+            LocalReduceMotion provides ReduceMotion {
+                true
+            },
+        ) {
             super.ComponentScaffold(content)
         }
     }

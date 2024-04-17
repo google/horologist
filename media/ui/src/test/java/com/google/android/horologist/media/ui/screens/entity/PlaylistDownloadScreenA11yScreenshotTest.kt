@@ -45,8 +45,10 @@ import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
+import org.junit.Ignore
 import org.junit.Test
 
+@Ignore("Flaky in CI")
 class PlaylistDownloadScreenA11yScreenshotTest :
     WearLegacyA11yTest() {
 

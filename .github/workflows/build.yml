@@ -82,6 +82,7 @@ jobs:
           path: |
             **/build/test-results/*
             **/build/reports/*
+            **/build/outputs/roborazzi/*
             **/out/*
 
   screenshot2:
@@ -119,6 +120,7 @@ jobs:
           path: |
             **/build/test-results/*
             **/build/reports/*
+            **/build/outputs/roborazzi/*
             **/out/*
 
   compiletests:

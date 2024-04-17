@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearFoundationApi::class)
+
 package com.google.android.horologist.media.ui.screens.entity
 
 import androidx.compose.foundation.background
@@ -22,8 +24,12 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.LocalReduceMotion
+import androidx.wear.compose.foundation.ReduceMotion
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
@@ -217,6 +223,12 @@ class PlaylistDownloadScreenA11yScreenshotTest :
 
     @Composable
     override fun TestScaffold(content: @Composable () -> Unit) {
+        CompositionLocalProvider(
+            LocalReduceMotion provides ReduceMotion {
+                true
+            },
+        ) {
+        }
         AppScaffold(
             modifier = Modifier
                 .fillMaxSize()

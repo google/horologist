@@ -295,7 +295,6 @@ public fun TimePicker(
                     *pickerGroupItems.toTypedArray(),
                     modifier = Modifier.fillMaxWidth(),
                     pickerGroupState = pickerGroupState,
-//                    expandToFillWidth = showSeconds,
                     separator = { Separator(textStyle) },
                     autoCenter = false,
                     touchExplorationStateProvider = touchExplorationStateProvider,
@@ -544,7 +543,6 @@ public fun TimePickerWith12HourClock(
                     ),
                     modifier = Modifier.fillMaxSize(),
                     autoCenter = false,
-//                    expandToFillWidth = true,
                     pickerGroupState = pickerGroupState,
                     separator = {
                         if (it == 0) Separator(textStyle)

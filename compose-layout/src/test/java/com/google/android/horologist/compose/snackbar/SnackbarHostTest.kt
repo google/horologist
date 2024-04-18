@@ -181,7 +181,7 @@ class SnackbarHostTest {
             val result = hostState.showSnackbar("1", actionLabel = "press")
             Truth.assertThat(result).isEqualTo(SnackbarResult.Dismissed)
         }
-        rule.onNodeWithText("1").onParent().onParent()
+        rule.onNodeWithText("1").onParent().onParent().onParent()
             .assert(
                 SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite),
             )

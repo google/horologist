@@ -110,7 +110,7 @@ dependencies {
     api(libs.wearcompose.material)
 
     testImplementation(libs.androidx.wear.tiles.testing)
-    testImplementation(libs.espresso.core)
+    testImplementation(libs.androidx.test.espressocore)
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.robolectric)

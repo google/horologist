@@ -100,7 +100,7 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
-    testImplementation(libs.espresso.core)
+    testImplementation(libs.androidx.test.espressocore)
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
 }

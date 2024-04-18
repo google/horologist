@@ -15,7 +15,7 @@
  */
 
 @file:Suppress("DEPRECATION")
-@file:OptIn(ExperimentalRoborazziApi::class)
+@file:OptIn(ExperimentalRoborazziApi::class, ExperimentalCoilApi::class)
 
 package com.google.android.horologist.screensizes
 
@@ -32,6 +32,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.text.font.FontWeight
 import androidx.test.core.app.ApplicationProvider
 import androidx.wear.compose.material.MaterialTheme
+import coil.annotation.ExperimentalCoilApi
+import coil.test.FakeImageLoaderEngine
 import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RoborazziOptions
@@ -45,7 +47,9 @@ import com.google.android.horologist.compose.tools.MobvoiTicWatchPro5
 import com.google.android.horologist.compose.tools.SamsungGalaxyWatch5
 import com.google.android.horologist.compose.tools.SamsungGalaxyWatch6Large
 import com.google.android.horologist.compose.tools.copy
+import com.google.android.horologist.screenshots.rng.WearScreenshotTest
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
+import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withDrawingEnabled
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestName
@@ -79,6 +83,8 @@ abstract class WearLegacyScreenSizeTest(
     // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
     public open val tolerance: Float = 0.0f
 
+    public open val imageLoader: FakeImageLoaderEngine? = null
+
     @Test
     fun screenshot() {
         runTest { Content() }
@@ -89,37 +95,43 @@ abstract class WearLegacyScreenSizeTest(
             device.name.lowercase().replace("\\W+".toRegex(), "")
         }$suffix.png"
 
+    open val forceHardware: Boolean = false
+
     fun runTest(
         capture: Boolean = true,
         content: @Composable () -> Unit,
     ) {
-        val shadowDisplay = Shadows.shadowOf(ShadowDisplay.getDefaultDisplay())
-        shadowDisplay.setDensity(device.density)
-        shadowDisplay.setHeight(device.screenSizePx)
-        shadowDisplay.setWidth(device.screenSizePx)
+        withDrawingEnabled(forceHardware) {
+            val shadowDisplay = Shadows.shadowOf(ShadowDisplay.getDefaultDisplay())
+            shadowDisplay.setDensity(device.density)
+            shadowDisplay.setHeight(device.screenSizePx)
+            shadowDisplay.setWidth(device.screenSizePx)
 
-        RuntimeEnvironment.setFontScale(device.fontScale)
-        RuntimeEnvironment.setQualifiers("+w${device.screenSizeDp}dp-h${device.screenSizeDp}dp")
+            RuntimeEnvironment.setFontScale(device.fontScale)
+            RuntimeEnvironment.setQualifiers("+w${device.screenSizeDp}dp-h${device.screenSizeDp}dp")
 
-        ApplicationProvider.getApplicationContext<Context>().setDisplayScale(device.density)
+            ApplicationProvider.getApplicationContext<Context>().setDisplayScale(device.density)
 
-        composeRule.setContent {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black),
-            ) {
-                MaterialTheme(
-                    typography = MaterialTheme.typography.copy {
-                        this.copy(fontWeight = if (device.boldText) FontWeight.Bold else FontWeight.Medium)
-                    },
-                    content = content,
-                )
+            composeRule.setContent {
+                WearScreenshotTest.withImageLoader(imageLoaderEngine = imageLoader) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.Black),
+                    ) {
+                        MaterialTheme(
+                            typography = MaterialTheme.typography.copy {
+                                this.copy(fontWeight = if (device.boldText) FontWeight.Bold else FontWeight.Medium)
+                            },
+                            content = content,
+                        )
+                    }
+                }
             }
-        }
 
-        if (capture) {
-            captureScreenshot("")
+            if (capture) {
+                captureScreenshot("")
+            }
         }
     }
 

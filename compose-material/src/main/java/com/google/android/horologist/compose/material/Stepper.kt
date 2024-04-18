@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearFoundationApi::class)
+
 package com.google.android.horologist.compose.material
 
 import androidx.compose.foundation.layout.BoxScope
@@ -23,13 +25,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.util.lerp
+import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.rotary.rotary
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.StepperDefaults
 import androidx.wear.compose.material.contentColorFor
-import com.google.android.horologist.compose.rotaryinput.RotaryDefaults
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
+import com.google.android.horologist.compose.rotaryinput.accumulatedBehavior
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import kotlin.math.roundToInt
+
 /**
  * Wrapper for androidx.wear.compose.material.Stepper with default RSB scroll support.
  *
@@ -60,8 +65,6 @@ public fun Stepper(
     enableRangeSemantics: Boolean = true,
     content: @Composable BoxScope.() -> Unit,
 ) {
-    val isLowRes = RotaryDefaults.isLowResInput()
-
     val currentStep = remember(value, valueRange, steps) {
         snapValueToStep(
             value,
@@ -81,13 +84,16 @@ public fun Stepper(
         steps,
         decreaseIcon,
         increaseIcon,
-        modifier.onRotaryInputAccumulatedWithFocus(isLowRes = isLowRes, onValueChange = {
-            if (it < 0f) {
-                updateValue(1)
-            } else if (it > 0f) {
-                updateValue(-1)
-            }
-        }),
+        modifier.rotary(
+            accumulatedBehavior {
+                if (it < 0f) {
+                    updateValue(1)
+                } else if (it > 0f) {
+                    updateValue(-1)
+                }
+            },
+            focusRequester = rememberActiveFocusRequester(),
+        ),
         valueRange,
         backgroundColor,
         contentColor,
@@ -126,26 +132,28 @@ public fun Stepper(
     enableRangeSemantics: Boolean = true,
     content: @Composable BoxScope.() -> Unit,
 ) {
-    val isLowRes = RotaryDefaults.isLowResInput()
     androidx.wear.compose.material.Stepper(
         value,
         onValueChange,
         valueProgression,
         decreaseIcon,
         increaseIcon,
-        modifier.onRotaryInputAccumulatedWithFocus(isLowRes = isLowRes, onValueChange = {
-            if (it < 0f) {
-                val newValue = (value + valueProgression.step)
-                if (newValue <= valueProgression.last) {
-                    onValueChange(newValue)
+        modifier.rotary(
+            accumulatedBehavior {
+                if (it < 0f) {
+                    val newValue = (value + valueProgression.step)
+                    if (newValue <= valueProgression.last) {
+                        onValueChange(newValue)
+                    }
+                } else if (it > 0f) {
+                    val newValue = (value - valueProgression.step)
+                    if (newValue >= valueProgression.first) {
+                        onValueChange(newValue)
+                    }
                 }
-            } else if (it > 0f) {
-                val newValue = (value - valueProgression.step)
-                if (newValue >= valueProgression.first) {
-                    onValueChange(newValue)
-                }
-            }
-        }),
+            },
+            focusRequester = rememberActiveFocusRequester(),
+        ),
         backgroundColor,
         contentColor,
         iconColor,

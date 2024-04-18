@@ -31,10 +31,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.rotary.RotaryDefaults.scrollBehavior
+import androidx.wear.compose.foundation.rotary.rotary
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 
 @Composable
 fun FillerScreen(label: String, modifier: Modifier = Modifier) {
@@ -69,7 +70,10 @@ fun BigColumn(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .rotaryWithScroll(scrollState, focusRequester),
+            .rotary(
+                rotaryBehavior = scrollBehavior(scrollableState = scrollState),
+                focusRequester = focusRequester,
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.size(30.dp))

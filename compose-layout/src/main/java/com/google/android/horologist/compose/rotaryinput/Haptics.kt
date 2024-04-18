@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.compose.rotaryinput
 
 import android.content.Context
@@ -39,17 +41,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.withContext
 import kotlin.math.abs
 
-private const val DEBUG = false
-
-/**
- * Debug logging that can be enabled.
- */
-private inline fun debugLog(generateMsg: () -> String) {
-    if (DEBUG) {
-        println("RotaryHaptics: ${generateMsg()}")
-    }
-}
-
 /**
  * Throttling events within specified timeframe. Only first and last events will be received.
  * For a flow emitting elements 1 to 30, with a 100ms delay between them:
@@ -74,6 +65,7 @@ internal fun <T> Flow<T>.throttleLatest(timeframe: Long): Flow<T> =
 /**
  * Handles haptics for rotary usage
  */
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 public interface RotaryHapticHandler {
 
@@ -100,6 +92,7 @@ public interface RotaryHapticHandler {
  * @param hapticsChannel Channel to which haptic events will be sent
  * @param hapticsThresholdPx A scroll threshold after which haptic is produced.
  */
+@Deprecated("Replaced by wear compose")
 public class DefaultRotaryHapticHandler(
     private val scrollableState: ScrollableState,
     private val hapticsChannel: Channel<RotaryHapticsType>,
@@ -154,6 +147,7 @@ public class DefaultRotaryHapticHandler(
 /**
  * Interface for Rotary haptic feedback
  */
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 public interface RotaryHapticFeedback {
     @ExperimentalHorologistApi
@@ -163,6 +157,7 @@ public interface RotaryHapticFeedback {
 /**
  * Rotary haptic types
  */
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 @JvmInline
 public value class RotaryHapticsType(private val type: Int) {
@@ -193,6 +188,7 @@ public value class RotaryHapticsType(private val type: Int) {
 /**
  * Remember disabled haptics handler
  */
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 @Composable
 public fun rememberDisabledHaptic(): RotaryHapticHandler = remember {
@@ -218,6 +214,7 @@ public fun rememberDisabledHaptic(): RotaryHapticHandler = remember {
  * @param hapticsChannel Channel to which haptic events will be sent
  * @param rotaryHaptics Interface for Rotary haptic feedback which performs haptics
  */
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 @Composable
 public fun rememberRotaryHapticHandler(
@@ -236,13 +233,7 @@ public fun rememberRotaryHapticHandler(
                 .collect { hapticType ->
                     // 'withContext' launches performHapticFeedback in a separate thread,
                     // as otherwise it produces a visible lag (b/219776664)
-                    val currentTime = System.currentTimeMillis()
-                    debugLog { "Haptics started" }
                     withContext(Dispatchers.Default) {
-                        debugLog {
-                            "Performing haptics, delay: " +
-                                "${System.currentTimeMillis() - currentTime}"
-                        }
                         rotaryHaptics.performHapticFeedback(hapticType)
                     }
                 }
@@ -250,6 +241,7 @@ public fun rememberRotaryHapticHandler(
     }
 }
 
+@Deprecated("Replaced by wear compose")
 @Composable
 private fun rememberHapticChannel() =
     remember {
@@ -259,6 +251,7 @@ private fun rememberHapticChannel() =
         )
     }
 
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 @Composable
 public fun rememberDefaultRotaryHapticFeedback(): RotaryHapticFeedback =
@@ -278,6 +271,7 @@ internal fun findDeviceSpecificHapticFeedback(view: View): RotaryHapticFeedback 
 /**
  * Default Rotary implementation for [RotaryHapticFeedback]
  */
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 private class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
@@ -304,6 +298,7 @@ private class DefaultRotaryHapticFeedback(private val view: View) : RotaryHaptic
 /**
  * Implementation of [RotaryHapticFeedback] for Pixel Watch
  */
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 private class Wear3point5RotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
@@ -338,6 +333,7 @@ private class Wear3point5RotaryHapticFeedback(private val view: View) : RotaryHa
 /**
  * Implementation of [RotaryHapticFeedback] for Pixel Watch
  */
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 private class Wear4AtLeastRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
@@ -372,6 +368,7 @@ private class Wear4AtLeastRotaryHapticFeedback(private val view: View) : RotaryH
 /**
  * Implementation of [RotaryHapticFeedback] for Galaxy Watches
  */
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 private class GalaxyWatchHapticFeedback(private val view: View) : RotaryHapticFeedback {
 

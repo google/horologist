@@ -63,7 +63,7 @@ public class NetworkScreenViewModel(
         async {
             try {
                 callFactory1.newCall(request).executeAsync().use {
-                    it.body!!.bytes()
+                    it.body.bytes()
                     it.code.toString()
                 }
             } catch (e: IOException) {

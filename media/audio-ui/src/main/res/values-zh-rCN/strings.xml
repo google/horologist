@@ -17,9 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">调高音量</string>
   <string name="horologist_volume_screen_volume_down_content_description">调低音量</string>
-  <string name="horologist_volume_screen_volume_percent">Volume set to %1$d%%</string>
-  <string name="horologist_volume_screen_volume_zero">Volume muted</string>
-  <string name="horologist_volume_screen_connected_state">Connected</string>
+  <string name="horologist_volume_screen_volume_percent">音量已设为 %1$d%%</string>
+  <string name="horologist_volume_screen_volume_zero">已设为静音</string>
+  <string name="horologist_volume_screen_connected_state">已连接</string>
   <string name="horologist_volume_screen_not_connected_state">未连接</string>
   <string name="horologist_volume_screen_change_audio_output">更改音频输出</string>
   <string name="horologist_speaker_name">手表扬声器</string>

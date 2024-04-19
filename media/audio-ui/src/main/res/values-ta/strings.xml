@@ -17,9 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">ஒலியளவை அதிகரிக்கும்</string>
   <string name="horologist_volume_screen_volume_down_content_description">ஒலியளவைக் குறைக்கும்</string>
-  <string name="horologist_volume_screen_volume_percent">Volume set to %1$d%%</string>
-  <string name="horologist_volume_screen_volume_zero">Volume muted</string>
-  <string name="horologist_volume_screen_connected_state">Connected</string>
+  <string name="horologist_volume_screen_volume_percent">ஒலியளவு %1$d%% ஆக அமைக்கப்பட்டது</string>
+  <string name="horologist_volume_screen_volume_zero">ஒலியடக்கப்பட்டது</string>
+  <string name="horologist_volume_screen_connected_state">இணைக்கப்பட்டது</string>
   <string name="horologist_volume_screen_not_connected_state">இணைக்கப்படவில்லை</string>
   <string name="horologist_volume_screen_change_audio_output">ஆடியோ அவுட்புட்டை மாற்றும்</string>
   <string name="horologist_speaker_name">வாட்ச் ஸ்பீக்கர்</string>

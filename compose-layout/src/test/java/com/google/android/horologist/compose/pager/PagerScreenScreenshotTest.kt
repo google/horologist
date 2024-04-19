@@ -25,12 +25,12 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
-class VerticalPagerScreenScreenshotTest : WearLegacyScreenTest() {
+class PagerScreenScreenshotTest : WearLegacyScreenTest() {
 
     @Test
     fun screens() {
         runTest {
-            VerticalPagerScreen(
+            PagerScreen(
                 state = rememberPagerState {
                     10
                 },

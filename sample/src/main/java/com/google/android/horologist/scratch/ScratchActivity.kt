@@ -22,7 +22,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
@@ -78,11 +80,16 @@ fun HomeScreen() {
             }
             item {
                 val textMeasurer = rememberTextMeasurer()
-                val size = textMeasurer.measure("Size of", style = MaterialTheme.typography.body1)
+                val style = MaterialTheme.typography.body1
+                val size = textMeasurer.measure("Size of", style = style)
+                val sp = style.fontSize
+                val dp = with(LocalDensity.current) {
+                    style.fontSize.toDp()
+                }
                 Text(
-                    text = "Size of: ${size.size}",
+                    text = "Size of: ${size.size}\n${sp} ${dp}",
                     modifier = Modifier.listTextPadding(),
-                    style = MaterialTheme.typography.body1
+                    style = style
                 )
             }
             item {

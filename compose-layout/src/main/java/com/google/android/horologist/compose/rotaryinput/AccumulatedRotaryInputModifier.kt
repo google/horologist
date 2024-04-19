@@ -15,11 +15,12 @@
  */
 
 @file:OptIn(ExperimentalWearFoundationApi::class)
+@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.compose.rotaryinput
 
 import androidx.compose.foundation.focusable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
@@ -30,7 +31,9 @@ import androidx.compose.ui.input.rotary.RotaryScrollEvent
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.rotary.RotaryBehavior
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.rotaryinput.RotaryDefaults.isLowResInput
 
 /**
  * A focusable modifier that accumulates the scroll distances from [RotaryScrollEvent] and notifies
@@ -39,6 +42,19 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  * @param focusRequester requests for focus for the rotary
  * @param onValueChange callback invoked once accumulated value is over the thresholds.
  */
+@Deprecated(
+    "Replaced by wear compose",
+    replaceWith = ReplaceWith(
+        "this.rotary(" +
+            "accumulatedBehavior(onValueChange = onValueChange), " +
+            "focusRequester = focusRequester" +
+            ")",
+        imports = [
+            "androidx.wear.compose.foundation.rotary.rotary",
+            "com.google.android.horologist.compose.rotaryinput.accumulatedBehavior",
+        ],
+    ),
+)
 @ExperimentalHorologistApi
 public fun Modifier.onRotaryInputAccumulatedWithFocus(
     focusRequester: FocusRequester? = null,
@@ -61,6 +77,19 @@ public fun Modifier.onRotaryInputAccumulatedWithFocus(
  * @param isLowRes resolution of the device's rotary control. High resolution and low resolutions have different accumulation mechanism. See [RotaryInputAccumulator.changeByResolution] for more.
  * @param onValueChange callback invoked once accumulated value is over the thresholds.
  */
+@Deprecated(
+    "Replaced by wear compose",
+    replaceWith = ReplaceWith(
+        "this.rotary(" +
+            "accumulatedBehavior(onValueChange = onValueChange)" +
+            ", focusRequester = focusRequester" +
+            ")",
+        imports = [
+            "androidx.wear.compose.foundation.rotary.rotary",
+            "com.google.android.horologist.compose.rotaryinput.accumulatedBehavior",
+        ],
+    ),
+)
 @ExperimentalHorologistApi
 public fun Modifier.onRotaryInputAccumulated(
     eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
@@ -69,17 +98,38 @@ public fun Modifier.onRotaryInputAccumulated(
     isLowRes: Boolean = false,
     onValueChange: (change: Float) -> Unit,
 ): Modifier = composed {
-    val updatedOnValueChange by rememberUpdatedState(onValueChange)
+    val updatedOnValueChange = rememberUpdatedState(onValueChange)
     val rotaryInputAccumulator = remember {
         RotaryInputAccumulator(
             eventAccumulationThresholdMs = eventAccumulationThresholdMs,
             minValueChangeDistancePx = minValueChangeDistancePx,
             rateLimitCoolDownMs = rateLimitCoolDownMs,
             isLowRes = isLowRes,
-            onValueChange = { updatedOnValueChange(it) },
+            onValueChange = updatedOnValueChange,
         )
     }
     return@composed onRotaryScrollEvent(rotaryInputAccumulator::onRotaryScrollEvent)
+}
+
+@Composable
+fun accumulatedBehavior(
+    eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
+    minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
+    rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
+    onValueChange: (change: Float) -> Unit,
+): RotaryBehavior {
+    val isLowRes = isLowResInput()
+    val onValueChangeState = rememberUpdatedState(newValue = onValueChange)
+
+    return remember {
+        RotaryInputAccumulator(
+            eventAccumulationThresholdMs,
+            minValueChangeDistancePx,
+            rateLimitCoolDownMs,
+            isLowRes,
+            onValueChangeState,
+        )
+    }
 }
 
 /**

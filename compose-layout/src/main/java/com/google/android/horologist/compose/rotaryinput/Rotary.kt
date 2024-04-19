@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.compose.rotaryinput
 
 import android.view.ViewConfiguration
@@ -81,7 +83,19 @@ import kotlin.math.sign
  * Scrollable `reverseDirection` parameter
  */
 @OptIn(ExperimentalWearFoundationApi::class)
-@ExperimentalHorologistApi
+@Deprecated(
+    "Replaced by wear compose",
+    replaceWith = ReplaceWith(
+        "this.rotary(" +
+            "scrollBehavior(scrollableState = scrollableState), " +
+            "focusRequester = focusRequester" +
+            ")",
+        imports = [
+            "androidx.wear.compose.foundation.rotary.rotary",
+            "com.google.android.horologist.compose.rotaryinput.scrollBehavior",
+        ],
+    ),
+)
 @Suppress("ComposableModifierFactory")
 @Composable
 public fun Modifier.rotaryWithScroll(
@@ -119,7 +133,19 @@ public fun Modifier.rotaryWithScroll(
  * Scrollable `reverseDirection` parameter
  */
 @OptIn(ExperimentalWearFoundationApi::class)
-@ExperimentalHorologistApi
+@Deprecated(
+    "Replaced by wear compose",
+    replaceWith = ReplaceWith(
+        "this.rotary(" +
+            "snapBehavior(rotaryScrollableAdapter = rotaryScrollAdapter), " +
+            "focusRequester = focusRequester" +
+            ")",
+        imports = [
+            "androidx.wear.compose.foundation.rotary.rotary",
+            "com.google.android.horologist.compose.rotaryinput.snapBehavior",
+        ],
+    ),
+)
 @Suppress("ComposableModifierFactory")
 @Composable
 public fun Modifier.rotaryWithSnap(
@@ -148,6 +174,7 @@ public fun Modifier.rotaryWithSnap(
  * An extension function for creating [RotaryScrollAdapter] from [ScalingLazyListState]
  */
 @Composable
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 public fun ScalingLazyListState.toRotaryScrollAdapter(): RotaryScrollAdapter =
     remember(this) { ScalingLazyColumnRotaryScrollAdapter(this) }
@@ -155,6 +182,7 @@ public fun ScalingLazyListState.toRotaryScrollAdapter(): RotaryScrollAdapter =
 /**
  * An implementation of rotary scroll adapter for [ScalingLazyColumn]
  */
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 public class ScalingLazyColumnRotaryScrollAdapter(
     override val scrollableState: ScalingLazyListState,
@@ -187,6 +215,7 @@ public class ScalingLazyColumnRotaryScrollAdapter(
 /**
  * An adapter which connects scrollableState to Rotary
  */
+@Deprecated("Replaced by wear compose")
 @ExperimentalHorologistApi
 public interface RotaryScrollAdapter {
 
@@ -230,6 +259,7 @@ public object RotaryDefaults {
     /**
      * Returns default [SnapParameters]
      */
+    @Deprecated("Replaced by wear compose")
     @ExperimentalHorologistApi
     public val snapParametersDefault: SnapParameters =
         SnapParameters(
@@ -252,6 +282,7 @@ public object RotaryDefaults {
      * @param flingBehavior Logic describing Fling behavior. If null - fling will not happen
      * @param isLowRes Whether the input is Low-res (a bezel) or high-res(a crown/rsb)
      */
+    @Deprecated("Replaced by wear compose")
     @Composable
     internal fun rememberFlingHandler(
         scrollableState: ScrollableState,
@@ -297,6 +328,7 @@ public object RotaryDefaults {
      * @param rotaryScrollAdapter A connection between scrollable objects and rotary events
      * @param snapParameters Snap parameters
      */
+    @Deprecated("Replaced by wear compose")
     @Composable
     internal fun rememberSnapHandler(
         rotaryScrollAdapter: RotaryScrollAdapter,
@@ -346,6 +378,7 @@ public object RotaryDefaults {
  * @param snapOffset an optional offset to be applied when snapping the item. After the snap the
  * snapped items offset will be [snapOffset].
  */
+@Deprecated("Replaced by wear compose")
 public class SnapParameters(
     public val snapOffset: Int,
     public val thresholdDivider: Float,
@@ -385,6 +418,7 @@ public class SnapParameters(
 /**
  * An interface for handling scroll events
  */
+@Deprecated("Replaced by wear compose")
 internal interface RotaryScrollHandler {
     /**
      * Handles scrolling events
@@ -403,6 +437,7 @@ internal interface RotaryScrollHandler {
  * Class responsible for Fling behaviour with rotary.
  * It tracks and produces the fling when necessary
  */
+@Deprecated("Replaced by wear compose")
 internal class RotaryFlingBehavior(
     private val scrollableState: ScrollableState,
     private val flingBehavior: FlingBehavior,
@@ -490,11 +525,13 @@ internal class RotaryFlingBehavior(
 /**
  * A rotary event object which contains a [timestamp] of the rotary event and a scrolled [delta].
  */
+@Deprecated("Replaced by wear compose")
 internal data class TimestampedDelta(val timestamp: Long, val delta: Float)
 
 /**This class does a smooth animation when the scroll by N pixels is done.
  * This animation works well on Rsb(high-res) and Bezel(low-res) devices.
  */
+@Deprecated("Replaced by wear compose")
 internal class RotaryScrollBehavior(
     private val scrollableState: ScrollableState,
 ) {
@@ -528,6 +565,7 @@ internal class RotaryScrollBehavior(
  * A helper class for snapping with rotary. Uses animateScrollToItem
  * method for snapping to the Nth item.
  */
+@Deprecated("Replaced by wear compose")
 internal class RotarySnapBehavior(
     private val rotaryScrollAdapter: RotaryScrollAdapter,
     private val snapParameters: SnapParameters,
@@ -702,6 +740,7 @@ internal class RotarySnapBehavior(
  * It accepts ScrollHandler as the input - a class where main logic about how
  * scroll should be handled is lying
  */
+@Deprecated("Replaced by wear compose")
 internal fun Modifier.rotaryHandler(
     rotaryScrollHandler: RotaryScrollHandler,
     reverseDirection: Boolean,
@@ -719,6 +758,7 @@ internal fun Modifier.rotaryHandler(
  * Batching requests for scrolling events. This function combines all events together
  * (except first) within specified timeframe. Should help with performance on high-res devices.
  */
+@Deprecated("Replaced by wear compose")
 @OptIn(ExperimentalCoroutinesApi::class)
 internal fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long): Flow<TimestampedDelta> {
     var delta = 0f
@@ -755,6 +795,7 @@ internal fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long
  *
  * This scroll handler supports fling. It can be set with [RotaryFlingBehavior].
  */
+@Deprecated("Replaced by wear compose")
 internal class HighResRotaryScrollHandler(
     private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
     private val scrollBehaviorFactory: () -> RotaryScrollBehavior,
@@ -839,6 +880,7 @@ internal class HighResRotaryScrollHandler(
  * A scroll handler for Bezel(low-res) without snapping.
  * This scroll handler supports fling. It can be set with RotaryFlingBehavior.
  */
+@Deprecated("Replaced by wear compose")
 internal class LowResRotaryScrollHandler(
     private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
     private val scrollBehaviorFactory: () -> RotaryScrollBehavior,
@@ -910,6 +952,7 @@ internal class LowResRotaryScrollHandler(
  *
  * This scroll handler doesn't support fling.
  */
+@Deprecated("Replaced by wear compose")
 internal class HighResSnapHandler(
     private val resistanceFactor: Float,
     private val thresholdBehaviorFactory: () -> ThresholdBehavior,
@@ -1051,6 +1094,7 @@ internal class HighResSnapHandler(
  *
  * This scroll handler doesn't support fling.
  */
+@Deprecated("Replaced by wear compose")
 internal class LowResSnapHandler(
     private val snapBehaviourFactory: () -> RotarySnapBehavior,
 ) : RotaryScrollHandler {
@@ -1123,6 +1167,7 @@ internal class LowResSnapHandler(
     }
 }
 
+@Deprecated("Replaced by wear compose")
 internal class ThresholdBehavior(
     private val rotaryScrollAdapter: RotaryScrollAdapter,
     private val thresholdDivider: Float,
@@ -1181,6 +1226,7 @@ internal class ThresholdBehavior(
         smoothingConstant * currentVelocity + (1 - smoothingConstant) * prevVelocity
 }
 
+@Deprecated("Replaced by wear compose")
 private data class RotaryHandlerElement(
     private val rotaryScrollHandler: RotaryScrollHandler,
     private val reverseDirection: Boolean,
@@ -1227,6 +1273,7 @@ private data class RotaryHandlerElement(
     }
 }
 
+@Deprecated("Replaced by wear compose")
 private class RotaryInputNode(
     var rotaryScrollHandler: RotaryScrollHandler,
     var reverseDirection: Boolean,

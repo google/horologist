@@ -42,14 +42,12 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.ScalingParams
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.rotary.RotaryDefaults.scrollBehavior
+import androidx.wear.compose.foundation.rotary.RotaryDefaults.snapBehavior
+import androidx.wear.compose.foundation.rotary.rotary
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.responsiveScalingParams
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
-import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
-import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticHandler
-import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
-import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
-import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults as WearScalingLazyColumnDefaults
 
 /**
@@ -99,6 +97,7 @@ public class ScalingLazyColumnState(
         get() = state.canScrollForward
     override val isScrollInProgress: Boolean
         get() = state.isScrollInProgress
+
     override fun dispatchRawDelta(delta: Float): Float = state.dispatchRawDelta(delta)
 
     override suspend fun scroll(
@@ -203,27 +202,26 @@ public fun ScalingLazyColumn(
 ) {
     val focusRequester = rememberActiveFocusRequester()
 
-    val rotaryHaptics = if (columnState.hapticsEnabled) {
-        rememberRotaryHapticHandler(columnState.state)
-    } else {
-        rememberDisabledHaptic()
-    }
-
     @Suppress("DEPRECATION")
     val modifierWithRotary = when (columnState.rotaryMode) {
-        RotaryMode.Snap -> modifier.rotaryWithSnap(
+        RotaryMode.Snap -> modifier.rotary(
+            rotaryBehavior = scrollBehavior(
+                scrollableState = columnState.state,
+                hapticFeedbackEnabled = columnState.hapticsEnabled,
+            ),
             focusRequester = focusRequester,
-            rotaryScrollAdapter = columnState.state.toRotaryScrollAdapter(),
             reverseDirection = columnState.reverseLayout,
-            rotaryHaptics = rotaryHaptics,
         )
 
-        RotaryMode.Scroll -> modifier.rotaryWithScroll(
-            focusRequester = focusRequester,
-            scrollableState = columnState.state,
-            reverseDirection = columnState.reverseLayout,
-            rotaryHaptics = rotaryHaptics,
-        )
+        RotaryMode.Scroll ->
+            modifier.rotary(
+                rotaryBehavior = snapBehavior(
+                    state = columnState.state,
+                    hapticFeedbackEnabled = columnState.hapticsEnabled,
+                ),
+                focusRequester = focusRequester,
+                reverseDirection = columnState.reverseLayout,
+            )
 
         else -> modifier
     }

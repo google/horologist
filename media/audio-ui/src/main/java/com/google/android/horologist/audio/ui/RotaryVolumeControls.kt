@@ -15,6 +15,7 @@
  */
 
 @file:OptIn(ExperimentalWearFoundationApi::class)
+@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.audio.ui
 
@@ -23,15 +24,20 @@ import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.focusable
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalView
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.RequestFocusWhenActive
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.rotary.RotaryBehavior
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.rotaryinput.RotaryDefaults.isLowResInput
 import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.RATE_LIMITING_DISABLED
+import com.google.android.horologist.compose.rotaryinput.accumulatedBehavior
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -47,6 +53,9 @@ private const val TAG = "HorologistAudioUi"
  * the input by [onRotaryInputAccumulated] modifier, and converts the accumulated input into a
  * target volume to pass into [onRotaryVolumeInput] for a corresponding volume change.
  */
+@Deprecated(
+    "Replaced by wear compose",
+)
 @ExperimentalHorologistApi
 public fun Modifier.rotaryVolumeControlsWithFocus(
     focusRequester: FocusRequester? = null,
@@ -80,6 +89,9 @@ public fun Modifier.rotaryVolumeControlsWithFocus(
  * change to pass into [onRotaryVolumeInput] for a corresponding volume change. E.g. 2f change
  * would increase volume by 2 and -3f change would decrease volume by 3.
  */
+@Deprecated(
+    "Replaced by wear compose",
+)
 @ExperimentalHorologistApi
 public fun Modifier.lowResRotaryVolumeControls(
     volumeUiStateProvider: () -> VolumeUiState,
@@ -93,7 +105,10 @@ public fun Modifier.lowResRotaryVolumeControls(
 
     if (change != 0f) {
         val targetVolume =
-            (volumeUiStateProvider().current + change.toInt()).coerceIn(0, volumeUiStateProvider().max)
+            (volumeUiStateProvider().current + change.toInt()).coerceIn(
+                0,
+                volumeUiStateProvider().max,
+            )
 
         Log.d(
             TAG,
@@ -117,6 +132,22 @@ public fun Modifier.lowResRotaryVolumeControls(
  * accumulated scrolled pixels to volume to pass into [onRotaryVolumeInput] for a corresponding
  * volume change
  */
+@Deprecated(
+    "Replaced by wear compose",
+    replaceWith = ReplaceWith(
+        "this.rotary(" +
+            "volumeRotaryBehavior(" +
+            "volumeUiStateProvider = volumeUiStateProvider, " +
+            "onRotaryVolumeInput = onRotaryVolumeInput" +
+            "), " +
+            "focusRequester = focusRequester" +
+            ")",
+        imports = [
+            "androidx.wear.compose.foundation.rotary.rotary",
+            "com.google.android.horologist.audio.ui.volumeRotaryBehavior",
+        ],
+    ),
+)
 @ExperimentalHorologistApi
 public fun Modifier.highResRotaryVolumeControls(
     volumeUiStateProvider: () -> VolumeUiState,
@@ -148,6 +179,90 @@ public fun Modifier.highResRotaryVolumeControls(
     }
 }
 
+@Composable
+public fun volumeRotaryBehavior(
+    volumeUiStateProvider: () -> VolumeUiState,
+    onRotaryVolumeInput: (Int) -> Unit,
+): RotaryBehavior {
+    return if (isLowResInput()) {
+        lowResVolumeRotaryBehavior(
+            volumeUiStateProvider = volumeUiStateProvider,
+            onRotaryVolumeInput = onRotaryVolumeInput,
+        )
+    } else {
+        highResVolumeRotaryBehavior(
+            volumeUiStateProvider = volumeUiStateProvider,
+            onRotaryVolumeInput = onRotaryVolumeInput,
+        )
+    }
+}
+
+@Composable
+public fun lowResVolumeRotaryBehavior(
+    volumeUiStateProvider: () -> VolumeUiState,
+    onRotaryVolumeInput: (Int) -> Unit,
+): RotaryBehavior {
+    val localView = LocalView.current
+
+    return accumulatedBehavior(rateLimitCoolDownMs = RATE_LIMITING_DISABLED) { change ->
+        Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
+
+        if (change != 0f) {
+            val targetVolume =
+                (volumeUiStateProvider().current + change.toInt()).coerceIn(
+                    0,
+                    volumeUiStateProvider().max,
+                )
+
+            Log.d(
+                TAG,
+                "change=$change, " +
+                    "currentVolume=${volumeUiStateProvider().current}, " +
+                    "targetVolume=$targetVolume ",
+            )
+
+            performHapticFeedback(
+                targetVolume = targetVolume,
+                volumeUiStateProvider = volumeUiStateProvider,
+                localView = localView,
+            )
+
+            onRotaryVolumeInput(targetVolume)
+        }
+    }
+}
+
+@Composable
+public fun highResVolumeRotaryBehavior(
+    volumeUiStateProvider: () -> VolumeUiState,
+    onRotaryVolumeInput: (Int) -> Unit,
+): RotaryBehavior {
+    val localView = LocalView.current
+
+    return accumulatedBehavior(rateLimitCoolDownMs = RATE_LIMITING_DISABLED) { change ->
+        Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
+
+        if (change != 0f) {
+            val targetVolume = convertPixelToVolume(change, volumeUiStateProvider)
+
+            Log.d(
+                TAG,
+                "change=$change, " +
+                    "currentVolume=${volumeUiStateProvider().current}, " +
+                    "targetVolume=$targetVolume ",
+            )
+
+            performHapticFeedback(
+                targetVolume = targetVolume,
+                volumeUiStateProvider = volumeUiStateProvider,
+                localView = localView,
+            )
+
+            onRotaryVolumeInput(targetVolume)
+        }
+    }
+}
+
 /**
  * Converting of pixels to volume. Note this conversion is applicable to devices with high
  * resolution rotary only.
@@ -160,7 +275,10 @@ public fun Modifier.highResRotaryVolumeControls(
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 internal fun convertPixelToVolume(change: Float, volumeUiStateProvider: () -> VolumeUiState): Int {
     val scale =
-        max(volumeUiStateProvider().max * VOLUME_FRACTION_PER_PIXEL, 1 / VOLUME_PERCENT_CHANGE_PIXEL)
+        max(
+            volumeUiStateProvider().max * VOLUME_FRACTION_PER_PIXEL,
+            1 / VOLUME_PERCENT_CHANGE_PIXEL,
+        )
 
     return (volumeUiStateProvider().current + (change * scale).roundToInt())
         .coerceIn(0, volumeUiStateProvider().max)

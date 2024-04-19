@@ -16,6 +16,11 @@
 
 package com.google.android.horologist.compose.rotaryinput
 
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.wear.compose.foundation.rotary.RotaryBehavior
+import kotlinx.coroutines.CoroutineScope
 import kotlin.math.abs
 
 /** Accumulator to trigger callbacks based on rotary input event. */
@@ -24,11 +29,34 @@ internal class RotaryInputAccumulator(
     private val minValueChangeDistancePx: Float,
     private val rateLimitCoolDownMs: Long,
     private val isLowRes: Boolean = false,
-    private val onValueChange: ((change: Float) -> Unit),
-) {
+    private val onValueChange: State<(change: Float) -> Unit>,
+) : RotaryBehavior {
+    constructor(
+        eventAccumulationThresholdMs: Long,
+        minValueChangeDistancePx: Float,
+        rateLimitCoolDownMs: Long,
+        isLowRes: Boolean,
+        onValueChange: (change: Float) -> Unit,
+    ) : this(
+        eventAccumulationThresholdMs,
+        minValueChangeDistancePx,
+        rateLimitCoolDownMs,
+        isLowRes,
+        mutableStateOf(onValueChange),
+    )
+
     private var accumulatedDistance = 0f
     private var lastAccumulatedEventTimeMs: Long = 0
     private var lastUpdateTimeMs: Long = 0
+
+    override suspend fun CoroutineScope.handleScrollEvent(
+        timestamp: Long,
+        deltaInPixels: Float,
+        deviceId: Int,
+        orientation: Orientation,
+    ) {
+        onRotaryScroll(deltaInPixels, timestamp)
+    }
 
     /**
      * Process a rotary input event.
@@ -54,7 +82,7 @@ internal class RotaryInputAccumulator(
     private fun onEventAccumulated(eventTimeMs: Long) {
         if (shouldIgnoreAccumulatedInput(eventTimeMs)) return
 
-        onValueChange(accumulatedDistance)
+        onValueChange.value(accumulatedDistance)
         lastUpdateTimeMs = eventTimeMs
         accumulatedDistance = 0f
     }

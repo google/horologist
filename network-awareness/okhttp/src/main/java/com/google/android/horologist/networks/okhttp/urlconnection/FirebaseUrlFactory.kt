@@ -162,7 +162,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
             return try {
                 val response = getResponse(true)
                 if (hasBody(response) && response.code >= HTTP_BAD_REQUEST) {
-                    response.body?.byteStream()
+                    response.body.byteStream()
                 } else {
                     null
                 }
@@ -229,7 +229,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
             }
             val response = getResponse(false)
             if (response.code >= HTTP_BAD_REQUEST) throw FileNotFoundException(url.toString())
-            return response.body?.byteStream()
+            return response.body.byteStream()
         }
 
         override fun getOutputStream(): OutputStream {

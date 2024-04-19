@@ -119,13 +119,25 @@ You should place this composable high up in your design, as it alters the behavi
 @Composable
 fun WearApp() {
     AmbientAware { ambientStateUpdate ->
-        // App Content here
+        when (val state = ambientStateUpdate.ambientState) {
+            is AmbientState.Ambient -> {
+                val ambientDetails = state.ambientDetails
+                val burnInProtectionRequired = ambientDetails?.burnInProtectionRequired
+                val deviceHasLowBitAmbient = ambientDetails?.deviceHasLowBitAmbient
+                // Device is in ambient (low power) mode
+            }
+            is AmbientState.Interactive -> {
+                // Device is in interactive (high power) mode
+            }
+        }
     }
 }
 ```
 
-If you need some screens to use always-on, and others not to, then you can use the additional
-argument supplied to `AmbientAware`.
+If you need some screens to use always-on, and others not to, then you can use
+the additional argument supplied to `AmbientAware` to indicate whether a
+recomposition should be triggered when the system goes into ambient mode (i.e.
+whether the composable wants to handle ambient mode or not).
 
 For example, in a workout app, it is desirable that the main  workout screen uses always-on, but the
 workout summary at the end does not. See the [`ExerciseClient`][exercise-client]

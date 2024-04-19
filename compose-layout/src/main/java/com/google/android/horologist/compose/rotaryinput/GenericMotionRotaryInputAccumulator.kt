@@ -19,6 +19,7 @@ package com.google.android.horologist.compose.rotaryinput
 import android.content.Context
 import android.view.MotionEvent
 import android.view.ViewConfiguration
+import androidx.compose.runtime.State
 import androidx.core.view.InputDeviceCompat
 import androidx.core.view.MotionEventCompat
 import androidx.core.view.ViewConfigurationCompat
@@ -30,7 +31,7 @@ import androidx.core.view.ViewConfigurationCompat
  */
 public class GenericMotionRotaryInputAccumulator(
     context: Context,
-    onValueChange: (change: Float) -> Unit,
+    onValueChange: State<(change: Float) -> Unit>,
     eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,

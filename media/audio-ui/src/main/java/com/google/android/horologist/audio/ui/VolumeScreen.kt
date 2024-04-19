@@ -166,7 +166,7 @@ public fun VolumeWithLabelScreen(
                 stringResource(id = R.string.horologist_volume_screen_volume_label),
                 style = MaterialTheme.typography.button.copy(
                     color = MaterialTheme.colors.onBackground,
-                    fontWeight = FontWeight.Medium,
+                    fontWeight = FontWeight.Normal,
                 ),
                 maxLines = 1,
                 overflow = TextOverflow.Clip,

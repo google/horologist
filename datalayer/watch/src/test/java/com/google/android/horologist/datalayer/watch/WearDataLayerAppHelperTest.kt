@@ -31,7 +31,6 @@ import com.google.android.horologist.data.WearableApiAvailability
 import com.google.android.horologist.data.apphelper.SurfacesInfoSerializer
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.async
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first

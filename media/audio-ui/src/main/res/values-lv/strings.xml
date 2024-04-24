@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">Palielināt skaļumu</string>
   <string name="horologist_volume_screen_volume_down_content_description">Samazināt skaļumu</string>
-  <string name="horologist_volume_screen_connected_state">Izveidots savienojums; skaļums: %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">Iestatītais skaļums procentos ir %1$d</string>
+  <string name="horologist_volume_screen_volume_zero">Skaņa ir izslēgta</string>
+  <string name="horologist_volume_screen_connected_state">Savienojums izveidots</string>
   <string name="horologist_volume_screen_not_connected_state">Nav izveidots savienojums</string>
   <string name="horologist_volume_screen_change_audio_output">Mainīt audio izeju</string>
   <string name="horologist_speaker_name">Pulksteņa skaļrunis</string>

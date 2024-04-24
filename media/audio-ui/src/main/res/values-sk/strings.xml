@@ -17,11 +17,13 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">Zvýšiť hlasitosť</string>
   <string name="horologist_volume_screen_volume_down_content_description">Znížiť hlasitosť</string>
-  <string name="horologist_volume_screen_connected_state">Pripojené, hlasitosť %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">Hlasitosť je nastavená na %1$d %%</string>
+  <string name="horologist_volume_screen_volume_zero">Zvuk je vypnutý</string>
+  <string name="horologist_volume_screen_connected_state">Pripojené</string>
   <string name="horologist_volume_screen_not_connected_state">Nepripojené</string>
   <string name="horologist_volume_screen_change_audio_output">Zmeniť zvukový výstup</string>
   <string name="horologist_speaker_name">Reproduktor hodiniek</string>
-  <string name="choose_device">Vyberte zariadenie</string>
+  <string name="choose_device">Vybrať zariadenie</string>
   <string name="horologist_output_none">Žiadne</string>
   <string name="horologist_set_volume_content_description">Nastaviť hlasitosť</string>
   <string name="horologist_audio_output_content_description">Zvukový výstup</string>

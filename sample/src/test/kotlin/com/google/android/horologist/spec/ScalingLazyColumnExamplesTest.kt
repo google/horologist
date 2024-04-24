@@ -18,7 +18,6 @@ package com.google.android.horologist.spec
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.hasScrollToNodeAction
-import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import com.google.android.horologist.compose.tools.Device
@@ -108,71 +107,70 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
 
     @Test
     fun bottom1Button() {
-        runTest {
+        runTest(capture = false) {
             Bottom1Button()
         }
-        scrollToBottom(5)
+        scrollToBottom()
         captureScreenshot()
     }
 
     @Test
     fun bottom2Buttons() {
-        runTest {
+        runTest(capture = false) {
             Bottom2Buttons()
         }
-        scrollToBottom(5)
+        scrollToBottom()
         captureScreenshot()
     }
 
     @Test
     fun bottom3Buttons() {
-        runTest {
+        runTest(capture = false) {
             Bottom3Buttons()
         }
-        scrollToBottom(5)
+        scrollToBottom()
         captureScreenshot()
     }
 
     @Test
     fun bottomOtherChips() {
-        runTest {
+        runTest(capture = false) {
             BottomOtherChips()
         }
-        scrollToBottom(4)
+        scrollToBottom()
         captureScreenshot()
     }
 
     @Test
     fun bottomOtherCards() {
-        runTest {
+        runTest(capture = false) {
             BottomOtherCards()
         }
-        scrollToBottom(1)
+        scrollToBottom()
         captureScreenshot()
     }
 
     @Test
     fun bottomUnspecified() {
-        runTest {
+        runTest(capture = false) {
             BottomUnspecified()
         }
-        scrollToBottom(1)
+        scrollToBottom()
         captureScreenshot()
     }
 
     @Test
     fun bottomOtherText() {
-        runTest {
+        runTest(capture = false) {
             BottomOtherText()
         }
-        scrollToBottom(3)
+        scrollToBottom()
         captureScreenshot()
     }
 
-    private fun scrollToBottom(index: Int) {
+    private fun scrollToBottom() {
         composeRule.onNode(hasScrollToNodeAction())
-            .performScrollToIndex(index)
-            .performTouchInput { swipeUp() }
+            .performTouchInput { repeat(10) { swipeUp() } }
     }
 
     @Test

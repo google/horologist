@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">Појачајте</string>
   <string name="horologist_volume_screen_volume_down_content_description">Утишајте</string>
-  <string name="horologist_volume_screen_connected_state">Повезано, јачина звука %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">Јачина звука је подешена на %1$d%%</string>
+  <string name="horologist_volume_screen_volume_zero">Звук је искључен</string>
+  <string name="horologist_volume_screen_connected_state">Повезано</string>
   <string name="horologist_volume_screen_not_connected_state">Веза није успостављена</string>
   <string name="horologist_volume_screen_change_audio_output">Промените аудио излаз</string>
   <string name="horologist_speaker_name">Звучник сата</string>

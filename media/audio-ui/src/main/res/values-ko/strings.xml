@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">볼륨 높이기</string>
   <string name="horologist_volume_screen_volume_down_content_description">볼륨 낮추기</string>
-  <string name="horologist_volume_screen_connected_state">연결되어 있음, 볼륨 %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">볼륨이 %1$d%%로 설정됨</string>
+  <string name="horologist_volume_screen_volume_zero">볼륨이 음소거됨</string>
+  <string name="horologist_volume_screen_connected_state">연결됨</string>
   <string name="horologist_volume_screen_not_connected_state">연결되어 있지 않음</string>
   <string name="horologist_volume_screen_change_audio_output">오디오 출력 변경</string>
   <string name="horologist_speaker_name">워치 스피커</string>

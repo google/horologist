@@ -17,6 +17,7 @@
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -117,5 +118,10 @@ class SegmentedProgressIndicatorTest :
                 trackColor = Color.Gray,
             )
         }
+    }
+
+    @Composable
+    override fun TestScaffold(content: @Composable () -> Unit) {
+        content()
     }
 }

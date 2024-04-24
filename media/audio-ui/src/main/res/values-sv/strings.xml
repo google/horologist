@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">Höj volymen</string>
   <string name="horologist_volume_screen_volume_down_content_description">Sänk volymen</string>
-  <string name="horologist_volume_screen_connected_state">Ansluten. Volym: %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">Volymen är inställd på %1$d %%</string>
+  <string name="horologist_volume_screen_volume_zero">Volymen har stängts av</string>
+  <string name="horologist_volume_screen_connected_state">Ansluten</string>
   <string name="horologist_volume_screen_not_connected_state">Inte ansluten</string>
   <string name="horologist_volume_screen_change_audio_output">Ändra ljudutgång</string>
   <string name="horologist_speaker_name">Klockans högtalare</string>

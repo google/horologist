@@ -18,6 +18,7 @@ package com.google.android.horologist.composables
 
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
@@ -51,18 +52,24 @@ class DatePickerA11yTest : WearLegacyA11yTest() {
             .assertHasClickAction()
             .performClick()
 
+        composeRule.onNodeWithText("Day")
+            .assertExists()
+        captureScreenshot("_1")
+
+        composeRule.onNodeWithContentDescription("Next")
+            .assertHasClickAction()
+            .performClick()
+
+        composeRule.onNodeWithText("Month")
+            .assertExists()
         captureScreenshot("_2")
 
         composeRule.onNodeWithContentDescription("Next")
             .assertHasClickAction()
             .performClick()
 
-        captureScreenshot("_3")
-
-        composeRule.onNodeWithContentDescription("Next")
-            .assertHasClickAction()
-            .performClick()
-
+        composeRule.onNodeWithText("Year")
+            .assertExists()
         captureScreenshot("_3")
     }
 }

@@ -126,7 +126,7 @@ dependencies {
     testImplementation(libs.robolectric)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
-    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.androidx.test.espressocore)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.truth)
 }
@@ -141,5 +141,5 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
 
 apply(plugin = "com.vanniktech.maven.publish")
 
-tasks.maybeCreate("prepareKotlinIdeaImport")
-    .dependsOn("generateDebugProto")
+// tasks.maybeCreate("prepareKotlinIdeaImport")
+//    .dependsOn("generateDebugProto")

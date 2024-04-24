@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">Igo bolumena</string>
   <string name="horologist_volume_screen_volume_down_content_description">Jaitsi bolumena</string>
-  <string name="horologist_volume_screen_connected_state">Konektatuta. Bolumena: %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">Bolumena: %% %1$d</string>
+  <string name="horologist_volume_screen_volume_zero">Audioa desaktibatuta dago</string>
+  <string name="horologist_volume_screen_connected_state">Konektatuta</string>
   <string name="horologist_volume_screen_not_connected_state">Konektatu gabe</string>
   <string name="horologist_volume_screen_change_audio_output">Aldatu audio-irteera</string>
   <string name="horologist_speaker_name">Erlojuaren bozgor.</string>

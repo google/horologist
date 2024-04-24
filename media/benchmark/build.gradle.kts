@@ -89,7 +89,7 @@ dependencies {
         api(libs.androidx.media3.session)
     }
 
-    api(libs.espresso.core)
+    api(libs.androidx.test.espressocore)
     implementation(libs.androidx.test.ext.ktx)
     api(libs.androidx.test.uiautomator)
     implementation(libs.kotlinx.coroutines.android)

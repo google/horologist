@@ -16,13 +16,11 @@
 
 package com.google.android.horologist.compose.pager
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
@@ -39,8 +37,7 @@ class VerticalPagerScreenScreenshotTest : WearLegacyScreenTest() {
             ) {
                 Box(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.DarkGray),
+                        .fillMaxSize(),
                 ) {
                     Text(text = "Item $it", modifier = Modifier.align(Alignment.Center))
                 }

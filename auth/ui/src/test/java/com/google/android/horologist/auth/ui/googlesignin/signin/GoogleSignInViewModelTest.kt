@@ -15,6 +15,7 @@
  */
 
 @file:OptIn(ExperimentalCoroutinesApi::class)
+@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.auth.ui.googlesignin.signin
 

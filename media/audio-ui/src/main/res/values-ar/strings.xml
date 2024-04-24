@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">رفع مستوى الصوت</string>
   <string name="horologist_volume_screen_volume_down_content_description">خفض مستوى الصوت</string>
-  <string name="horologist_volume_screen_connected_state">متصل، ومستوى الصوت %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">تم ضبط مستوى الصوت على %%%1$d</string>
+  <string name="horologist_volume_screen_volume_zero">تم كتم صوت</string>
+  <string name="horologist_volume_screen_connected_state">مرتبط</string>
   <string name="horologist_volume_screen_not_connected_state">غير متصل</string>
   <string name="horologist_volume_screen_change_audio_output">تغيير إخراج الصوت</string>
   <string name="horologist_speaker_name">سمّاعة الساعة</string>

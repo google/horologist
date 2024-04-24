@@ -31,6 +31,7 @@ import com.google.android.horologist.data.WearableApiAvailability
 import com.google.android.horologist.data.apphelper.SurfacesInfoSerializer
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.async
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -54,6 +55,8 @@ class WearDataLayerAppHelperTest {
         }
 
         assertThat(checkApiAvailability.await()).isFalse()
+
+        coroutineContext.cancelChildren()
     }
 
     @Test
@@ -70,6 +73,8 @@ class WearDataLayerAppHelperTest {
         }
 
         assertThat(checkApiAvailability.await()).isFalse()
+
+        coroutineContext.cancelChildren()
     }
 
     @Test
@@ -104,6 +109,8 @@ class WearDataLayerAppHelperTest {
 
         val infoReverted = testDataStore.data.first()
         assertThat(infoReverted.tilesList).isEmpty()
+
+        coroutineContext.cancelChildren()
     }
 
     @Test
@@ -138,5 +145,7 @@ class WearDataLayerAppHelperTest {
 
         val infoReverted = testDataStore.data.first()
         assertThat(infoReverted.complicationsList).isEmpty()
+
+        coroutineContext.cancelChildren()
     }
 }

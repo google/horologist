@@ -17,7 +17,9 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">Augmenter le volume</string>
   <string name="horologist_volume_screen_volume_down_content_description">Réduire le volume</string>
-  <string name="horologist_volume_screen_connected_state">Connecté, volume à %1$d</string>
+  <string name="horologist_volume_screen_volume_percent">Volume réglé à %1$d%%</string>
+  <string name="horologist_volume_screen_volume_zero">Volume désactivé</string>
+  <string name="horologist_volume_screen_connected_state">Connecté</string>
   <string name="horologist_volume_screen_not_connected_state">Non connecté</string>
   <string name="horologist_volume_screen_change_audio_output">Changer de sortie audio</string>
   <string name="horologist_speaker_name">Haut-parleur montre</string>

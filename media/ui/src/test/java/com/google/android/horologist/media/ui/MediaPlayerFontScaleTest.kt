@@ -105,6 +105,5 @@ class MediaPlayerFontScaleTest(device: WearDevice) : WearDeviceScreenshotTest(de
                 fontScale = 1.24f,
             ),
         )
-
     }
 }

@@ -18,7 +18,6 @@ package com.google.android.horologist.screenshots.rng
 
 import kotlin.math.roundToInt
 
-
 public data class WearDevice(
     public val id: String,
     public val modelName: String,
@@ -85,7 +84,7 @@ public data class WearDevice(
             GenericSmallRound,
             GenericLargeRound,
             SamsungGalaxyWatch6SmallFont,
-            GooglePixelWatchLargeFont
+            GooglePixelWatchLargeFont,
         )
     }
 

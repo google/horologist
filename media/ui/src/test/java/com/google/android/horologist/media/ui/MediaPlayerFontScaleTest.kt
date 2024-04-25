@@ -104,6 +104,14 @@ class MediaPlayerFontScaleTest(device: WearDevice) : WearDeviceScreenshotTest(de
                 density = 2.0f,
                 fontScale = 1.24f,
             ),
+            WearDevice(
+                id = "square_large",
+                modelName = "Generic Large Round",
+                screenSizePx = 360,
+                density = 2.0f,
+                fontScale = 1.24f,
+                isRound = false
+            ),
         )
     }
 }

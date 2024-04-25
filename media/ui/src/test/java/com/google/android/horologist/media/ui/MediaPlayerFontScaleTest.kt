@@ -17,11 +17,11 @@
 package com.google.android.horologist.media.ui
 
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.screenshots.rng.WearDevice
-import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
+import com.google.android.horologist.screenshots.rng.WearDevice
+import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -52,8 +52,8 @@ class MediaPlayerFontScaleTest(device: WearDevice) : WearDeviceScreenshotTest(de
             playing = true,
             media = MediaUiModel.Ready(
                 id = "",
-                title = "Weather with You",
-                subtitle = "Crowded House",
+                title = "Outro - Totally Here and Now (feat. Alan Watts)",
+                subtitle = "The Kyoto Connection",
             ),
             trackPositionUiModel = TrackPositionUiModel.Actual(
                 position = 30.seconds,
@@ -76,18 +76,34 @@ class MediaPlayerFontScaleTest(device: WearDevice) : WearDeviceScreenshotTest(de
         @Parameters
         fun devices() = listOf(
 
-    WearDevice(
-        id = "small_round",
-        modelName = "Generic Small Round",
-        screenSizePx = 384,
-        density = 2.0f,
-    ),
-    WearDevice(
-        id = "large_round",
-        modelName = "Generic Large Round",
-        screenSizePx = 454,
-        density = 2.0f,
-    ),
+            WearDevice(
+                id = "small_round_small",
+                modelName = "Generic Small Round",
+                screenSizePx = 384,
+                density = 2.0f,
+                fontScale = 0.94f,
+            ),
+            WearDevice(
+                id = "large_round_small",
+                modelName = "Generic Large Round",
+                screenSizePx = 454,
+                density = 2.0f,
+                fontScale = 0.94f,
+            ),
+            WearDevice(
+                id = "small_round_large",
+                modelName = "Generic Small Round",
+                screenSizePx = 384,
+                density = 2.0f,
+                fontScale = 1.24f,
+            ),
+            WearDevice(
+                id = "large_round_large",
+                modelName = "Generic Large Round",
+                screenSizePx = 454,
+                density = 2.0f,
+                fontScale = 1.24f,
+            ),
         )
 
     }

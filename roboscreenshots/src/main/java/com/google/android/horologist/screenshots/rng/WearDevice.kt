@@ -16,66 +16,78 @@
 
 package com.google.android.horologist.screenshots.rng
 
-import kotlin.math.roundToInt
+import com.google.android.horologist.screenshots.rng.WearDevice.Companion.GenericLargeRoundimport
+import kotlin.math.roundToInt com.google.android.horologist.screenshots.rng.WearDevice.Companion.GenericSmallRoundimport com.google.android.horologist.screenshots.rng.WearDevice.Companion.GooglePixelWatch
+import com.google.android.horologist.screenshots.rng.WearDevice.Companion.GooglePixelWatchLargeFontimport com.google.android.horologist.screenshots.rng.WearDevice.Companion.MobvoiTicWatchPro5
+import com.google.android.horologist.screenshots.rng.WearDevice.Companion.SamsungGalaxyWatch5
+import com.google.android.horologist.screenshots.rng.WearDevice.Companion.SamsungGalaxyWatch6
+import com.google.android.horologist.screenshots.rng.WearDevice.Companion.SamsungGalaxyWatch6SmallFontimport kotlin.math.roundToInt
 
-public enum class WearDevice(
+
+public data class WearDevice(
     public val id: String,
     public val modelName: String,
     public val screenSizePx: Int,
     public val density: Float,
     public val fontScale: Float = 1f,
 ) {
-    MobvoiTicWatchPro5(
+    companion object {
+    val MobvoiTicWatchPro5 = WearDevice(
         id = "ticwatch_pro_5",
         modelName = "Mobvoi TicWatch Pro 5",
         screenSizePx = 466,
         density = 2.0f,
-    ),
-    SamsungGalaxyWatch5(
+    )
+    val SamsungGalaxyWatch5 = WearDevice(
         id = "galaxy_watch_5",
         modelName = "Samsung Galaxy Watch 5",
         screenSizePx = 396,
         density = 2.0f,
-    ),
-    SamsungGalaxyWatch6(
+    )
+    val SamsungGalaxyWatch6 = WearDevice(
         id = "galaxy_watch_6",
         modelName = "Samsung Galaxy Watch 6 Large",
         screenSizePx = 480,
         density = 2.125f,
-    ),
-    GooglePixelWatch(
+    )
+    val GooglePixelWatch = WearDevice(
         id = "pixel_watch",
         modelName = "Google Pixel Watch",
         screenSizePx = 384,
         density = 2.0f,
-    ),
-    GenericSmallRound(
+    )
+    val GenericSmallRound = WearDevice(
         id = "small_round",
         modelName = "Generic Small Round",
         screenSizePx = 384,
         density = 2.0f,
-    ),
-    GenericLargeRound(
+    )
+    val GenericLargeRound = WearDevice(
         id = "large_round",
         modelName = "Generic Large Round",
         screenSizePx = 454,
         density = 2.0f,
-    ),
-    SamsungGalaxyWatch6SmallFont(
+    )
+    val SamsungGalaxyWatch6SmallFont = WearDevice(
         id = "galaxy_watch_6_small_font",
         modelName = "Samsung Galaxy Watch 6 Large",
         screenSizePx = 480,
         density = 2.125f,
         fontScale = 0.94f,
-    ),
-    GooglePixelWatchLargeFont(
+    )
+    val GooglePixelWatchLargeFont = WearDevice(
         id = "pixel_watch_large_font",
         modelName = "Google Pixel Watch",
         screenSizePx = 384,
         density = 2.0f,
         fontScale = 1.24f,
-    ),
+    )
+        val entries =  listOf(MobvoiTicWatchPro5, SamsungGalaxyWatch5, SamsungGalaxyWatch6, GooglePixelWatch, GenericSmallRound, GenericLargeRound, SamsungGalaxyWatch6SmallFont, GooglePixelWatchLargeFont)
+    }
     ;
 
     public val dp: Int = (screenSizePx / density).roundToInt()
+
+    companion object {
+    }
 }

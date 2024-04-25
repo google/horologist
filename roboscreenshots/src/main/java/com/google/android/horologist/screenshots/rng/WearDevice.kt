@@ -26,58 +26,54 @@ public data class WearDevice(
     public val fontScale: Float = 1f,
     public val isRound: Boolean = true
 ) {
-    companion object {
-        val MobvoiTicWatchPro5 = WearDevice(
+    public companion object {
+        public val MobvoiTicWatchPro5: WearDevice = WearDevice(
             id = "ticwatch_pro_5",
             modelName = "Mobvoi TicWatch Pro 5",
             screenSizePx = 466,
             density = 2.0f,
         )
-        val SamsungGalaxyWatch5 = WearDevice(
+        public val SamsungGalaxyWatch5: WearDevice = WearDevice(
             id = "galaxy_watch_5",
             modelName = "Samsung Galaxy Watch 5",
             screenSizePx = 396,
             density = 2.0f,
         )
-        val SamsungGalaxyWatch6 = WearDevice(
+        public val SamsungGalaxyWatch6: WearDevice = WearDevice(
             id = "galaxy_watch_6",
             modelName = "Samsung Galaxy Watch 6 Large",
             screenSizePx = 480,
             density = 2.125f,
         )
-        val GooglePixelWatch = WearDevice(
+        public val GooglePixelWatch: WearDevice = WearDevice(
             id = "pixel_watch",
             modelName = "Google Pixel Watch",
             screenSizePx = 384,
             density = 2.0f,
         )
-        val GenericSmallRound = WearDevice(
+        public val GenericSmallRound: WearDevice = WearDevice(
             id = "small_round",
             modelName = "Generic Small Round",
             screenSizePx = 384,
             density = 2.0f,
         )
-        val GenericLargeRound = WearDevice(
+        public val GenericLargeRound: WearDevice = WearDevice(
             id = "large_round",
             modelName = "Generic Large Round",
             screenSizePx = 454,
             density = 2.0f,
         )
-        val SamsungGalaxyWatch6SmallFont = WearDevice(
+        public val SamsungGalaxyWatch6SmallFont: WearDevice = SamsungGalaxyWatch6.copy(
             id = "galaxy_watch_6_small_font",
             modelName = "Samsung Galaxy Watch 6 Large",
-            screenSizePx = 480,
-            density = 2.125f,
             fontScale = 0.94f,
         )
-        val GooglePixelWatchLargeFont = WearDevice(
+        public val GooglePixelWatchLargeFont: WearDevice = GooglePixelWatch.copy(
             id = "pixel_watch_large_font",
             modelName = "Google Pixel Watch",
-            screenSizePx = 384,
-            density = 2.0f,
             fontScale = 1.24f,
         )
-        val entries = listOf(
+        public val entries: List<WearDevice> = listOf(
             MobvoiTicWatchPro5,
             SamsungGalaxyWatch5,
             SamsungGalaxyWatch6,

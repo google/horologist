@@ -102,7 +102,6 @@ dependencies {
     implementation(libs.compose.ui.toolingpreview)
 
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.navigation.ui.ktx)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

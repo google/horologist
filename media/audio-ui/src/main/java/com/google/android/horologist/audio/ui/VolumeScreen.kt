@@ -34,6 +34,7 @@ import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -163,7 +164,10 @@ public fun VolumeWithLabelScreen(
         contentSlot = {
             Text(
                 stringResource(id = R.string.horologist_volume_screen_volume_label),
-                style = MaterialTheme.typography.button,
+                style = MaterialTheme.typography.button.copy(
+                    color = MaterialTheme.colors.onBackground,
+                    fontWeight = FontWeight.Normal,
+                ),
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
             )

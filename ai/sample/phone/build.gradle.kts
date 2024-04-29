@@ -85,6 +85,11 @@ android {
         }
     }
 
+    lint {
+        // https://buganizer.corp.google.com/issues/328279054
+        disable.add("UnsafeOptInUsageError")
+    }
+
     namespace = "com.google.android.horologist.ai.sample"
 }
 

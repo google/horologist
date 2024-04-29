@@ -19,26 +19,19 @@ package com.google.android.horologist.scratch
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.MaterialTheme
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.navigation.SwipeDismissableNavHost
-import androidx.wear.compose.navigation.composable
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
-import com.google.android.horologist.compose.layout.AppScaffold
-import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
-import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
-import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
-import com.google.android.horologist.compose.material.ResponsiveListHeader
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,48 +45,42 @@ class ScratchActivity : ComponentActivity() {
 
 @Composable
 fun WearApp() {
-    AppScaffold {
-        val navController = rememberSwipeDismissableNavController()
-        SwipeDismissableNavHost(navController = navController, startDestination = "home") {
-            composable("home") {
-                HomeScreen()
-            }
-        }
-    }
+    HomeScreen()
 }
 
-@WearPreviewFontScales
+@Preview
 @Composable
 fun HomeScreen() {
-    val columnState = rememberResponsiveColumnState()
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(columnState = columnState) {
-            item {
-                ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                    Text(text = "Main", modifier = Modifier.listTextPadding())
-                }
-            }
-            item {
-                // 0.94, 1, 1.06, 1.12, 1.18, 1.24
-                val fontScale = LocalConfiguration.current.fontScale
-                Text(text = "Font scale: $fontScale", modifier = Modifier.listTextPadding())
-            }
-            item {
-                val textMeasurer = rememberTextMeasurer()
-                val style = MaterialTheme.typography.body1
-                val size = textMeasurer.measure("Size of", style = style)
-                val sp = style.fontSize
-                val dp = with(LocalDensity.current) {
-                    style.fontSize.toDp()
-                }
-                Text(
-                    text = "Size of: ${size.size}\n${sp} ${dp}",
-                    modifier = Modifier.listTextPadding(),
-                    style = style
+    val defaultDensity = LocalDensity.current
+    val scrollState = rememberScrollState()
+    val fontSize = 32.sp
+    val textStyle = TextStyle.Default.copy(fontSize = fontSize)
+    var height1: Int = 0
+    Column(
+        modifier = Modifier.verticalScroll(scrollState)
+    ) {
+        CompositionLocalProvider(LocalDensity provides Density(defaultDensity.density, 1.0f)) {
+            val textMeasurer = rememberTextMeasurer()
+
+            height1 =
+                textMeasurer.measure(text = "Font Scale: 1.0 112.dp", style = textStyle).size.height
+        }
+        println("Scale,Sp,Px,Ratio")
+        (94..200).map { it / 100f }.forEach { fontScale ->
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    defaultDensity.density,
+                    fontScale
                 )
-            }
-            item {
-                Chip(label = "Chip", onClick = { /*TODO*/ })
+            ) {
+                val textMeasurer = rememberTextMeasurer()
+
+                val size =
+                    textMeasurer.measure(text = "Font Scale: $fontScale 112.dp", style = textStyle)
+                val height = size.size.height
+                val ratio = height.toFloat() / height1
+                println("$fontScale,${fontSize.value},$height,$ratio")
+                Text("Font Scale: $fontScale $height", style = textStyle)
             }
         }
     }

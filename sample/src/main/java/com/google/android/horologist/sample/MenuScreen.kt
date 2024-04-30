@@ -120,6 +120,13 @@ fun MenuScreen(
         }
         item {
             Chip(
+                label = stringResource(id = R.string.sample_material_animated_components),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.MaterialAnimatedComponents.route) },
+            )
+        }
+        item {
+            Chip(
                 label = stringResource(id = R.string.sample_material_buttons),
                 modifier = modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(Screen.MaterialButtonsScreen.route) },

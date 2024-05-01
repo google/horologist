@@ -3,11 +3,11 @@ package com.google.android.horologist.datalayer.phone {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PhoneDataLayerAppHelper extends com.google.android.horologist.data.apphelper.DataLayerAppHelper {
     ctor public PhoneDataLayerAppHelper(android.content.Context context, com.google.android.horologist.data.WearDataLayerRegistry registry);
-    method public com.google.android.horologist.data.AppHelperResultCode? checkCompanionVersionSupportTileEditing();
+    method public error.NonExistentClass! checkCompanionVersionSupportTileEditing();
     method public suspend Object? findWatchToInstallTile(kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus>);
     method public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> getConnectedAndInstalledNodes();
-    method public suspend Object? installOnNode(String nodeId, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
-    method @CheckResult public suspend Object? startCompanion(String nodeId, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
+    method public suspend Object? installOnNode(String nodeId, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
+    method @CheckResult public suspend Object? startCompanion(String nodeId, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
     property public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> connectedAndInstalledNodes;
     field public static final com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper.Companion Companion;
   }

@@ -16,15 +16,6 @@
 
 package com.google.android.horologist.materialcomponents
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
@@ -39,6 +30,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TitleCard
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.material.AnimatedLabel
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
@@ -118,35 +110,6 @@ private fun AnimatedDefaultText(
             text = targetLabel,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
-        )
-    }
-}
-
-@Composable
-private fun AnimatedLabel(
-    label: String?,
-    content: @Composable AnimatedContentScope.(targetState: String) -> Unit,
-) {
-    var previousLabel by remember {
-        mutableStateOf(label ?: "")
-    }
-    label?.also { previousLabel = it }
-
-    AnimatedVisibility(
-        visible = label != null,
-        enter = fadeIn(tween(250, delayMillis = 50)) +
-            expandVertically(tween(200)),
-        exit = fadeOut(tween(250)) +
-            shrinkVertically(tween(200, delayMillis = 50)),
-    ) {
-        AnimatedContent(
-            targetState = previousLabel,
-            transitionSpec = {
-                fadeIn(tween(durationMillis = 300, delayMillis = 150))
-                    .togetherWith(fadeOut(tween(durationMillis = 150), targetAlpha = 0.1f))
-            },
-            label = "AnimatedLabel",
-            content = content,
         )
     }
 }

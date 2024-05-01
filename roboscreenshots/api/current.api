@@ -15,23 +15,26 @@ package com.google.android.horologist.screenshots.rng {
   }
 
   public final class WearDevice {
-    ctor public WearDevice(String id, String modelName, int screenSizePx, float density, optional float fontScale);
+    ctor public WearDevice(String id, String modelName, int screenSizePx, float density, optional float fontScale, optional boolean isRound);
     method public String component1();
     method public String component2();
     method public int component3();
     method public float component4();
     method public float component5();
-    method public com.google.android.horologist.screenshots.rng.WearDevice copy(String id, String modelName, int screenSizePx, float density, float fontScale);
+    method public boolean component6();
+    method public com.google.android.horologist.screenshots.rng.WearDevice copy(String id, String modelName, int screenSizePx, float density, float fontScale, boolean isRound);
     method public float getDensity();
     method public int getDp();
     method public float getFontScale();
     method public String getId();
     method public String getModelName();
     method public int getScreenSizePx();
+    method public boolean isRound();
     property public final float density;
     property public final int dp;
     property public final float fontScale;
     property public final String id;
+    property public final boolean isRound;
     property public final String modelName;
     property public final int screenSizePx;
     field public static final com.google.android.horologist.screenshots.rng.WearDevice.Companion Companion;

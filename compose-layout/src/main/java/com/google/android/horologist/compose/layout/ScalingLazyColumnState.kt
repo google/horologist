@@ -15,12 +15,10 @@
  */
 
 @file:Suppress("ObjectLiteralToLambda")
-@file:OptIn(ExperimentalWearFoundationApi::class)
 
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.MutatePriority
-import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.gestures.ScrollableState
@@ -34,17 +32,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.snapFlingBehavior
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.ScalingParams
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.foundation.rotary.RotaryDefaults.scrollBehavior
 import androidx.wear.compose.foundation.rotary.RotaryDefaults.snapBehavior
-import androidx.wear.compose.foundation.rotary.rotary
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.responsiveScalingParams
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
@@ -71,7 +67,6 @@ public class ScalingLazyColumnState(
             alignment = if (!reverseLayout) Alignment.Top else Alignment.Bottom,
         ),
     public val horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-    public val flingBehavior: FlingBehavior? = null,
     public val userScrollEnabled: Boolean = true,
     public val scalingParams: ScalingParams = WearScalingLazyColumnDefaults.scalingParams(),
     public val hapticsEnabled: Boolean = true,
@@ -200,44 +195,35 @@ public fun ScalingLazyColumn(
     modifier: Modifier = Modifier,
     content: ScalingLazyListScope.() -> Unit,
 ) {
-    val focusRequester = rememberActiveFocusRequester()
-
-    @Suppress("DEPRECATION")
-    val modifierWithRotary = when (columnState.rotaryMode) {
-        RotaryMode.Snap -> modifier.rotary(
-            rotaryBehavior = scrollBehavior(
-                scrollableState = columnState.state,
+    val (behavior, fling) = when (columnState.rotaryMode) {
+        RotaryMode.Snap -> Pair(
+            snapBehavior(
+                state = columnState.state,
                 hapticFeedbackEnabled = columnState.hapticsEnabled,
-            ),
-            focusRequester = focusRequester,
-            reverseDirection = columnState.reverseLayout,
+            ), snapFlingBehavior(state = columnState.state)
         )
 
-        RotaryMode.Scroll ->
-            modifier.rotary(
-                rotaryBehavior = snapBehavior(
-                    state = columnState.state,
-                    hapticFeedbackEnabled = columnState.hapticsEnabled,
-                ),
-                focusRequester = focusRequester,
-                reverseDirection = columnState.reverseLayout,
-            )
-
-        else -> modifier
+        else -> Pair(
+            scrollBehavior(
+                scrollableState = columnState.state,
+                hapticFeedbackEnabled = columnState.hapticsEnabled,
+            ), ScrollableDefaults.flingBehavior()
+        )
     }
 
     ScalingLazyColumn(
-        modifier = modifierWithRotary.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         state = columnState.state,
         contentPadding = columnState.contentPadding,
         reverseLayout = columnState.reverseLayout,
         verticalArrangement = columnState.verticalArrangement,
         horizontalAlignment = columnState.horizontalAlignment,
-        flingBehavior = columnState.flingBehavior ?: ScrollableDefaults.flingBehavior(),
+        flingBehavior = fling,
         userScrollEnabled = columnState.userScrollEnabled,
         scalingParams = columnState.scalingParams,
         anchorType = columnState.anchorType,
         autoCentering = columnState.autoCentering,
+        rotaryBehavior = behavior,
         content = content,
     )
 }

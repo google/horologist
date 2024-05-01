@@ -14,29 +14,51 @@ package com.google.android.horologist.screenshots.rng {
   public interface ScreenshotTest {
   }
 
-  public enum WearDevice {
-    method public final float getDensity();
-    method public final int getDp();
-    method public final float getFontScale();
-    method public final String! getId();
-    method public final String! getModelName();
-    method public final int getScreenSizePx();
-    method public static com.google.android.horologist.screenshots.rng.WearDevice valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.screenshots.rng.WearDevice[] values();
+  public final class WearDevice {
+    ctor public WearDevice(String id, String modelName, int screenSizePx, float density, optional float fontScale, optional boolean isRound);
+    method public String component1();
+    method public String component2();
+    method public int component3();
+    method public float component4();
+    method public float component5();
+    method public boolean component6();
+    method public com.google.android.horologist.screenshots.rng.WearDevice copy(String id, String modelName, int screenSizePx, float density, float fontScale, boolean isRound);
+    method public float getDensity();
+    method public int getDp();
+    method public float getFontScale();
+    method public String getId();
+    method public String getModelName();
+    method public int getScreenSizePx();
+    method public boolean isRound();
     property public final float density;
     property public final int dp;
     property public final float fontScale;
-    property public final String! id;
-    property public final String! modelName;
+    property public final String id;
+    property public final boolean isRound;
+    property public final String modelName;
     property public final int screenSizePx;
-    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice GenericLargeRound;
-    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice GenericSmallRound;
-    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice GooglePixelWatch;
-    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice GooglePixelWatchLargeFont;
-    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice MobvoiTicWatchPro5;
-    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice SamsungGalaxyWatch5;
-    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice SamsungGalaxyWatch6;
-    enum_constant public static final com.google.android.horologist.screenshots.rng.WearDevice SamsungGalaxyWatch6SmallFont;
+    field public static final com.google.android.horologist.screenshots.rng.WearDevice.Companion Companion;
+  }
+
+  public static final class WearDevice.Companion {
+    method public java.util.List<com.google.android.horologist.screenshots.rng.WearDevice> getEntries();
+    method public com.google.android.horologist.screenshots.rng.WearDevice getGenericLargeRound();
+    method public com.google.android.horologist.screenshots.rng.WearDevice getGenericSmallRound();
+    method public com.google.android.horologist.screenshots.rng.WearDevice getGooglePixelWatch();
+    method public com.google.android.horologist.screenshots.rng.WearDevice getGooglePixelWatchLargeFont();
+    method public com.google.android.horologist.screenshots.rng.WearDevice getMobvoiTicWatchPro5();
+    method public com.google.android.horologist.screenshots.rng.WearDevice getSamsungGalaxyWatch5();
+    method public com.google.android.horologist.screenshots.rng.WearDevice getSamsungGalaxyWatch6();
+    method public com.google.android.horologist.screenshots.rng.WearDevice getSamsungGalaxyWatch6SmallFont();
+    property public final com.google.android.horologist.screenshots.rng.WearDevice GenericLargeRound;
+    property public final com.google.android.horologist.screenshots.rng.WearDevice GenericSmallRound;
+    property public final com.google.android.horologist.screenshots.rng.WearDevice GooglePixelWatch;
+    property public final com.google.android.horologist.screenshots.rng.WearDevice GooglePixelWatchLargeFont;
+    property public final com.google.android.horologist.screenshots.rng.WearDevice MobvoiTicWatchPro5;
+    property public final com.google.android.horologist.screenshots.rng.WearDevice SamsungGalaxyWatch5;
+    property public final com.google.android.horologist.screenshots.rng.WearDevice SamsungGalaxyWatch6;
+    property public final com.google.android.horologist.screenshots.rng.WearDevice SamsungGalaxyWatch6SmallFont;
+    property public final java.util.List<com.google.android.horologist.screenshots.rng.WearDevice> entries;
   }
 
   @org.junit.runner.RunWith(ParameterizedRobolectricTestRunner::class) public abstract class WearDeviceScreenshotTest extends com.google.android.horologist.screenshots.rng.WearScreenshotTest {

@@ -82,7 +82,7 @@ public abstract class WearScreenshotTest {
     ) {
         withDrawingEnabled(forceHardware) {
             if (applyDeviceConfig && device != null) {
-                RuntimeEnvironment.setQualifiers("+w${device.dp}dp-h${device.dp}dp")
+                RuntimeEnvironment.setQualifiers("+w${device.dp}dp-h${device.dp}dp" + (if (device.isRound) "" else "-notround"))
                 RuntimeEnvironment.setFontScale(device.fontScale)
             }
 

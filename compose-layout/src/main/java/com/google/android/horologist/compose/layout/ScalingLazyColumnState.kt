@@ -200,14 +200,16 @@ public fun ScalingLazyColumn(
             snapBehavior(
                 state = columnState.state,
                 hapticFeedbackEnabled = columnState.hapticsEnabled,
-            ), snapFlingBehavior(state = columnState.state)
+            ),
+            snapFlingBehavior(state = columnState.state),
         )
 
         else -> Pair(
             scrollBehavior(
                 scrollableState = columnState.state,
                 hapticFeedbackEnabled = columnState.hapticsEnabled,
-            ), ScrollableDefaults.flingBehavior()
+            ),
+            ScrollableDefaults.flingBehavior(),
         )
     }
 

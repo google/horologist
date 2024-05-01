@@ -89,6 +89,11 @@ android {
         animationsDisabled = true
     }
 
+    lint {
+        // https://buganizer.corp.google.com/issues/328279054
+        disable.add("UnsafeOptInUsageError")
+    }
+
     namespace = "com.google.android.horologist.datalayer.sample"
 }
 

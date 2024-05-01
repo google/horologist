@@ -84,6 +84,9 @@ android {
         checkReleaseBuilds = false
         textReport = true
         disable += listOf("MissingTranslation", "ExtraTranslation")
+
+        // https://buganizer.corp.google.com/issues/328279054
+        disable.add("UnsafeOptInUsageError")
     }
     namespace = "com.google.android.horologist.media.ui"
 }

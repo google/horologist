@@ -66,6 +66,8 @@ android {
     lint {
         checkReleaseBuilds = false
         textReport = true
+        // https://buganizer.corp.google.com/issues/328279054
+        disable.add("UnsafeOptInUsageError")
     }
 
     namespace = "com.google.android.horologist.network.awareness.okhttp"

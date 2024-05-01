@@ -67,7 +67,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -85,6 +84,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TouchExplorationStateProvider
 import androidx.wear.compose.material.rememberPickerGroupState
 import androidx.wear.compose.material.rememberPickerState
+import com.google.android.horologist.compose.layout.FontScaleIndependent
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import java.time.LocalTime
 import java.time.temporal.ChronoField
@@ -140,15 +140,11 @@ public fun TimePicker(
     }
 
     val isLargeScreen = LocalConfiguration.current.screenWidthDp > 225
-    val textStyle = with(LocalDensity.current) {
-        fontScaleIndependent(
-            when {
-                !showSeconds -> MaterialTheme.typography.display1
-                isLargeScreen -> MaterialTheme.typography.display2
-                else -> MaterialTheme.typography.display3
-            },
-        ).copy(textAlign = TextAlign.Center)
-    }
+    val textStyle = when {
+        !showSeconds -> MaterialTheme.typography.display1
+        isLargeScreen -> MaterialTheme.typography.display2
+        else -> MaterialTheme.typography.display3
+    }.copy(textAlign = TextAlign.Center)
 
     val measurer = rememberTextMeasurer()
     val density = LocalDensity.current
@@ -386,14 +382,10 @@ public fun TimePickerWith12HourClock(
     }
 
     val isLargeScreen = LocalConfiguration.current.screenWidthDp > 225
-    val textStyle = with(LocalDensity.current) {
-        fontScaleIndependent(
-            if (isLargeScreen) {
-                MaterialTheme.typography.display2
-            } else {
-                MaterialTheme.typography.display3
-            },
-        )
+    val textStyle = if (isLargeScreen) {
+        MaterialTheme.typography.display2
+    } else {
+        MaterialTheme.typography.display3
     }
 
     val focusRequesterConfirmButton = remember { FocusRequester() }
@@ -433,27 +425,6 @@ public fun TimePickerWith12HourClock(
         }
     }
 
-    val measurer = rememberTextMeasurer()
-    val density = LocalDensity.current
-    val (digitWidth, amPmWidth) = remember(
-        density.density,
-        LocalConfiguration.current.screenWidthDp,
-    ) {
-        val mm = measurer.measure(
-            "0123456789\n$amString\n$pmString",
-            style = textStyle,
-            density = density,
-        )
-
-        (0..9).maxOf { mm.getBoundingBox(it).width } to (1..2).maxOf {
-            mm.getLineRight(it) - mm.getLineLeft(
-                it,
-            )
-        }
-    }
-    val pickerWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() + 6.dp }
-    val pickerWidth2 = with(LocalDensity.current) { amPmWidth.toDp() + 6.dp }
-
     ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
@@ -477,78 +448,101 @@ public fun TimePickerWith12HourClock(
                 maxLines = 1,
             )
             Spacer(Modifier.height(4.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(1 - 2 * 0.0728f)
-                    .weight(1f),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-            ) {
-                val doubleTapToNext =
-                    { current: FocusableElement12Hour, next: FocusableElement12Hour ->
-                        if (pickerGroupState.selectedIndex != current.index) {
-                            pickerGroupState.selectedIndex = current.index
-                        } else {
-                            pickerGroupState.selectedIndex = next.index
-                            if (next == FocusableElement12Hour.CONFIRM_BUTTON) {
-                                focusRequesterConfirmButton.requestFocus()
+            FontScaleIndependent {
+                val measurer = rememberTextMeasurer()
+                val density = LocalDensity.current
+                val (digitWidth, amPmWidth) = remember(
+                    density.density,
+                    LocalConfiguration.current.screenWidthDp,
+                ) {
+                    val mm = measurer.measure(
+                        "0123456789\n$amString\n$pmString",
+                        style = textStyle,
+                        density = density,
+                    )
+
+                    (0..9).maxOf { mm.getBoundingBox(it).width } to (1..2).maxOf {
+                        mm.getLineRight(it) - mm.getLineLeft(
+                            it,
+                        )
+                    }
+                }
+                val pickerWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() + 6.dp }
+                val pickerWidth2 = with(LocalDensity.current) { amPmWidth.toDp() + 6.dp }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(1 - 2 * 0.0728f)
+                        .weight(1f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                ) {
+                    val doubleTapToNext =
+                        { current: FocusableElement12Hour, next: FocusableElement12Hour ->
+                            if (pickerGroupState.selectedIndex != current.index) {
+                                pickerGroupState.selectedIndex = current.index
+                            } else {
+                                pickerGroupState.selectedIndex = next.index
+                                if (next == FocusableElement12Hour.CONFIRM_BUTTON) {
+                                    focusRequesterConfirmButton.requestFocus()
+                                }
                             }
                         }
-                    }
 
-                PickerGroup(
-                    pickerGroupItemWithRSB(
-                        pickerState = hourState,
-                        modifier = Modifier
-                            .width(pickerWidth)
-                            .fillMaxHeight(),
-                        onSelected = {
-                            doubleTapToNext(
-                                FocusableElement12Hour.HOURS,
-                                FocusableElement12Hour.MINUTES,
-                            )
+                    PickerGroup(
+                        pickerGroupItemWithRSB(
+                            pickerState = hourState,
+                            modifier = Modifier
+                                .width(pickerWidth)
+                                .fillMaxHeight(),
+                            onSelected = {
+                                doubleTapToNext(
+                                    FocusableElement12Hour.HOURS,
+                                    FocusableElement12Hour.MINUTES,
+                                )
+                            },
+                            contentDescription = hoursContentDescription,
+                            option = pickerTextOption(textStyle, { "%02d".format(it + 1) }),
+                        ),
+                        pickerGroupItemWithRSB(
+                            pickerState = minuteState,
+                            modifier = Modifier
+                                .width(pickerWidth)
+                                .fillMaxHeight(),
+                            onSelected = {
+                                doubleTapToNext(
+                                    FocusableElement12Hour.MINUTES,
+                                    FocusableElement12Hour.PERIOD,
+                                )
+                            },
+                            contentDescription = minutesContentDescription,
+                            option = pickerTextOption(textStyle, { "%02d".format(it) }),
+                        ),
+                        pickerGroupItemWithRSB(
+                            pickerState = periodState,
+                            modifier = Modifier
+                                .width(pickerWidth2)
+                                .fillMaxHeight(),
+                            contentDescription = periodContentDescription,
+                            onSelected = {
+                                doubleTapToNext(
+                                    FocusableElement12Hour.PERIOD,
+                                    FocusableElement12Hour.CONFIRM_BUTTON,
+                                )
+                            },
+                            option = pickerTextOption(textStyle, {
+                                if (it == 0) amString else pmString
+                            }),
+                        ),
+                        modifier = Modifier.fillMaxSize(),
+                        autoCenter = false,
+                        pickerGroupState = pickerGroupState,
+                        separator = {
+                            if (it == 0) Separator(textStyle)
                         },
-                        contentDescription = hoursContentDescription,
-                        option = pickerTextOption(textStyle, { "%02d".format(it + 1) }),
-                    ),
-                    pickerGroupItemWithRSB(
-                        pickerState = minuteState,
-                        modifier = Modifier
-                            .width(pickerWidth)
-                            .fillMaxHeight(),
-                        onSelected = {
-                            doubleTapToNext(
-                                FocusableElement12Hour.MINUTES,
-                                FocusableElement12Hour.PERIOD,
-                            )
-                        },
-                        contentDescription = minutesContentDescription,
-                        option = pickerTextOption(textStyle, { "%02d".format(it) }),
-                    ),
-                    pickerGroupItemWithRSB(
-                        pickerState = periodState,
-                        modifier = Modifier
-                            .width(pickerWidth2)
-                            .fillMaxHeight(),
-                        contentDescription = periodContentDescription,
-                        onSelected = {
-                            doubleTapToNext(
-                                FocusableElement12Hour.PERIOD,
-                                FocusableElement12Hour.CONFIRM_BUTTON,
-                            )
-                        },
-                        option = pickerTextOption(textStyle, {
-                            if (it == 0) amString else pmString
-                        }),
-                    ),
-                    modifier = Modifier.fillMaxSize(),
-                    autoCenter = false,
-                    pickerGroupState = pickerGroupState,
-                    separator = {
-                        if (it == 0) Separator(textStyle)
-                    },
-                    touchExplorationStateProvider = touchExplorationStateProvider,
-                )
+                        touchExplorationStateProvider = touchExplorationStateProvider,
+                    )
+                }
             }
             Spacer(Modifier.height(4.dp))
             Button(
@@ -594,13 +588,6 @@ private fun Separator(textStyle: TextStyle, modifier: Modifier = Modifier) {
         style = textStyle,
         color = MaterialTheme.colors.onBackground,
         modifier = modifier.clearAndSetSemantics {},
-    )
-}
-
-// Omit scaling according to Settings > Display > Font size for this screen,
-internal fun Density.fontScaleIndependent(style: TextStyle): TextStyle {
-    return style.copy(
-        fontSize = style.fontSize.value.dp.toSp(),
     )
 }
 

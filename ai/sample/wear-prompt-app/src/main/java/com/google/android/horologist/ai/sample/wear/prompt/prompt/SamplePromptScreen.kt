@@ -156,6 +156,7 @@ private fun SampleColors() = DefaultMarkdownColors(
     codeBackground = MaterialTheme.colors.background,
     inlineCodeBackground = MaterialTheme.colors.background,
     dividerColor = MaterialTheme.colors.onSurface.copy(alpha = 0.12f),
+    inlineCodeText = LocalContentColor.current,
 )
 
 @Composable

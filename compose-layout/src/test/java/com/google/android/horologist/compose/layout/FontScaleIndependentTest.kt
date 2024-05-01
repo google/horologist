@@ -31,12 +31,9 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.google.android.horologist.screenshots.rng.WearDevice
-import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -55,6 +52,7 @@ class FontScaleIndependentTest(val fontSize: Size) : WearScreenshotTest() {
             "${this.javaClass.simpleName}_${fontSize.size}.png".also {
                 println(it)
             }
+
     @Test
     fun testSizes() {
         val sizes = listOf(0.94f, 1f, 1.06f, 1.12f, 1.18f, 1.24f)
@@ -65,30 +63,30 @@ class FontScaleIndependentTest(val fontSize: Size) : WearScreenshotTest() {
                     CompositionLocalProvider(
                         LocalDensity provides Density(
                             density.density,
-                            fontScale
-                        )
+                            fontScale,
+                        ),
                     ) {
                         Row {
                             Box(
                                 modifier = Modifier.wrapContentSize(),
-                                contentAlignment = Alignment.BottomStart
+                                contentAlignment = Alignment.BottomStart,
                             ) {
                                 FontScaleIndependent {
                                     Text(
                                         text = "Independent 1.0 |",
-                                        fontSize = fontSize.size
+                                        fontSize = fontSize.size,
                                     )
                                 }
                             }
                             Box(
                                 modifier = Modifier.wrapContentSize(),
-                                contentAlignment = Alignment.BottomStart
+                                contentAlignment = Alignment.BottomStart,
                             ) {
                                 val tm = rememberTextMeasurer()
                                 val height = tm.measure("|", style = TextStyle.Default.copy(fontSize = fontSize.size)).size.height
                                 Text(
                                     text = "| $fontScale Scale (${height}px)",
-                                    fontSize = fontSize.size
+                                    fontSize = fontSize.size,
                                 )
                             }
                         }

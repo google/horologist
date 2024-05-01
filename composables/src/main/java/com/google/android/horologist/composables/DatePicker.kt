@@ -375,17 +375,17 @@ public fun DatePicker(
                 ) {
                     Icon(
                         imageVector =
-                        if (pickerGroupState.selectedIndex < 2) {
-                            Icons.Filled.ChevronRight
-                        } else {
-                            Icons.Filled.Check
-                        },
+                            if (pickerGroupState.selectedIndex < 2) {
+                                Icons.Filled.ChevronRight
+                            } else {
+                                Icons.Filled.Check
+                            },
                         contentDescription =
-                        if (pickerGroupState.selectedIndex >= 2) {
-                            stringResource(R.string.horologist_picker_confirm_button_content_description)
-                        } else {
-                            stringResource(R.string.horologist_picker_next_button_content_description)
-                        },
+                            if (pickerGroupState.selectedIndex >= 2) {
+                                stringResource(R.string.horologist_picker_confirm_button_content_description)
+                            } else {
+                                stringResource(R.string.horologist_picker_next_button_content_description)
+                            },
                         modifier = Modifier
                             .size(24.dp)
                             .wrapContentSize(align = Alignment.Center),
@@ -508,12 +508,12 @@ internal class DatePickerState constructor(
                     true
                 }
                 ) && (
-            if (toDate != null && selectedYearEqualsToYear) {
-                month <= toDate.monthValue
-            } else {
-                true
-            }
-            )
+                if (toDate != null && selectedYearEqualsToYear) {
+                    month <= toDate.monthValue
+                } else {
+                    true
+                }
+                )
     }
 
     private val firstDayOfMonth: LocalDate
@@ -540,12 +540,12 @@ internal class DatePickerState constructor(
                     true
                 }
                 ) && (
-            if (toDate != null && selectedMonthEqualsToMonth) {
-                day <= toDate.dayOfMonth
-            } else {
-                true
-            }
-            )
+                if (toDate != null && selectedMonthEqualsToMonth) {
+                    day <= toDate.dayOfMonth
+                } else {
+                    true
+                }
+                )
     }
 
     fun currentYear(year: Int = yearState.selectedOption): Int {

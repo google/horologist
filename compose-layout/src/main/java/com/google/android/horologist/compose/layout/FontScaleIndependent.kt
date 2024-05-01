@@ -26,8 +26,8 @@ fun FontScaleIndependent(content: @Composable () -> Unit) {
     CompositionLocalProvider(
         LocalDensity provides Density(
             density = LocalDensity.current.density,
-            fontScale = 1f
-        )
+            fontScale = 1f,
+        ),
     ) {
         content()
     }

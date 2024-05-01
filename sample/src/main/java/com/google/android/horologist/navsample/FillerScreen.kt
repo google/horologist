@@ -31,8 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
-import androidx.wear.compose.foundation.rotary.RotaryDefaults.scrollBehavior
-import androidx.wear.compose.foundation.rotary.rotary
+import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
+import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
@@ -70,8 +70,8 @@ fun BigColumn(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .rotary(
-                rotaryBehavior = scrollBehavior(scrollableState = scrollState),
+            .rotaryScrollable(
+                behavior = behavior(scrollableState = scrollState),
                 focusRequester = focusRequester,
             ),
         horizontalAlignment = Alignment.CenterHorizontally,

@@ -19,7 +19,7 @@ package com.google.android.horologist.compose.rotaryinput
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.wear.compose.foundation.rotary.RotaryBehavior
+import androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior
 import kotlinx.coroutines.CoroutineScope
 import kotlin.math.abs
 
@@ -30,7 +30,7 @@ internal class RotaryInputAccumulator(
     private val rateLimitCoolDownMs: Long,
     private val isLowRes: Boolean = false,
     private val onValueChange: State<(change: Float) -> Unit>,
-) : RotaryBehavior {
+) : RotaryScrollableBehavior {
     constructor(
         eventAccumulationThresholdMs: Long,
         minValueChangeDistancePx: Float,
@@ -49,13 +49,13 @@ internal class RotaryInputAccumulator(
     private var lastAccumulatedEventTimeMs: Long = 0
     private var lastUpdateTimeMs: Long = 0
 
-    override suspend fun CoroutineScope.handleScrollEvent(
-        timestamp: Long,
-        deltaInPixels: Float,
-        deviceId: Int,
-        orientation: Orientation,
+    override suspend fun CoroutineScope.performScroll(
+        timestampMillis: Long,
+        delta: Float,
+        inputDeviceId: Int,
+        orientation: Orientation
     ) {
-        onRotaryScroll(deltaInPixels, timestamp)
+        onRotaryScroll(delta, timestampMillis)
     }
 
     /**

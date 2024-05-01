@@ -116,6 +116,14 @@ subprojects {
                     "android"
                 )?.let { this@eachDependency.useVersion(it) }
             }
+
+            if (this@eachDependency.requested.group == "androidx.core") {
+                useVersion("1.13.0")
+            }
+
+            if (this@eachDependency.requested.module.name == "graphics-path") {
+                useVersion("1.0.0")
+            }
         }
     }
 

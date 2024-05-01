@@ -195,7 +195,7 @@ public fun ScalingLazyColumn(
     modifier: Modifier = Modifier,
     content: ScalingLazyListScope.() -> Unit,
 ) {
-    val (behavior, fling) = when (columnState.rotaryMode) {
+    val (rotaryBehavior, flingBehavior) = when (columnState.rotaryMode) {
         RotaryMode.Snap -> Pair(
             snapBehavior(
                 state = columnState.state,
@@ -220,12 +220,12 @@ public fun ScalingLazyColumn(
         reverseLayout = columnState.reverseLayout,
         verticalArrangement = columnState.verticalArrangement,
         horizontalAlignment = columnState.horizontalAlignment,
-        flingBehavior = fling,
+        flingBehavior = flingBehavior,
         userScrollEnabled = columnState.userScrollEnabled,
         scalingParams = columnState.scalingParams,
         anchorType = columnState.anchorType,
         autoCentering = columnState.autoCentering,
-        rotaryBehavior = behavior,
+        rotaryBehavior = rotaryBehavior,
         content = content,
     )
 }

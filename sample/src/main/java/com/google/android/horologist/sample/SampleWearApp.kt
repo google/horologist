@@ -39,6 +39,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState.Rotar
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.materialcomponents.SampleAlertDialog
+import com.google.android.horologist.materialcomponents.SampleAnimatedComponents
 import com.google.android.horologist.materialcomponents.SampleButtonScreen
 import com.google.android.horologist.materialcomponents.SampleCardScreen
 import com.google.android.horologist.materialcomponents.SampleChipIconWithProgressScreen
@@ -208,6 +209,15 @@ fun SampleWearApp() {
 
                 ScreenScaffold(timeText = {}, scrollState = columnState) {
                     SampleAlertDialog(columnState = columnState)
+                }
+            }
+            composable(
+                route = Screen.MaterialAnimatedComponents.route,
+            ) {
+                val columnState = rememberColumnState()
+
+                ScreenScaffold(timeText = {}, scrollState = columnState) {
+                    SampleAnimatedComponents(columnState = columnState)
                 }
             }
             composable(

@@ -42,7 +42,7 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() 
                 scalingParams = scalingParams(
                     edgeScale = 1f,
                     edgeAlpha = 1f,
-                )
+                ),
             )
 
             PlayerLibraryPreview(columnState = columnState, round = false) {

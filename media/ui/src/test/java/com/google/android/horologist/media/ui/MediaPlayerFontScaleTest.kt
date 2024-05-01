@@ -110,7 +110,7 @@ class MediaPlayerFontScaleTest(device: WearDevice) : WearDeviceScreenshotTest(de
                 screenSizePx = 360,
                 density = 2.0f,
                 fontScale = 1.24f,
-                isRound = false
+                isRound = false,
             ),
         )
     }

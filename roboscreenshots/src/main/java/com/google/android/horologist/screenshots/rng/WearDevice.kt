@@ -24,7 +24,7 @@ public data class WearDevice(
     public val screenSizePx: Int,
     public val density: Float,
     public val fontScale: Float = 1f,
-    public val isRound: Boolean = true
+    public val isRound: Boolean = true,
 ) {
     public companion object {
         public val MobvoiTicWatchPro5: WearDevice = WearDevice(

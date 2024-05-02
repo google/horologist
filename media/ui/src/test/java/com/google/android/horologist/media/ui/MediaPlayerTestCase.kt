@@ -34,7 +34,7 @@ import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.pager.PagerScreen
-import com.google.android.horologist.media.ui.components.MediaControlButtons
+import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.RadialBackground
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
@@ -49,7 +49,7 @@ fun MediaPlayerTestCase(
         AnimatedMediaInfoDisplay(playerUiState.media, loading = false)
     },
     controlButtons: @Composable () -> Unit = {
-        MediaControlButtons(
+        AnimatedMediaControlButtons(
             onPlayButtonClick = { },
             onPauseButtonClick = { },
             playPauseButtonEnabled = playerUiState.playPauseEnabled,

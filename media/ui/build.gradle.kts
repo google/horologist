@@ -140,6 +140,7 @@ dependencies {
     implementation(libs.compose.ui.util)
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.androidx.constraintlayout.compose)
+    implementation("androidx.compose.material:material:1.7.0-alpha07")
 
     debugImplementation(projects.logo)
 

@@ -94,9 +94,11 @@ fun MediaPlayerTestCase() {
         },
     ) {
         val colors = MaterialTheme.colors
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.background)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background),
+        ) {
             PagerScreen(
                 state = rememberPagerState {
                     2

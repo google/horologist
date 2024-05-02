@@ -53,7 +53,7 @@ internal class RotaryInputAccumulator(
         timestampMillis: Long,
         delta: Float,
         inputDeviceId: Int,
-        orientation: Orientation
+        orientation: Orientation,
     ) {
         onRotaryScroll(delta, timestampMillis)
     }

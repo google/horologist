@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.compose.rotaryinput
 
 import androidx.compose.foundation.pager.PagerState

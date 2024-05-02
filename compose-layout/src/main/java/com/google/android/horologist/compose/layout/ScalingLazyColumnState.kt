@@ -19,7 +19,6 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.MutatePriority
-import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.gestures.ScrollableState
@@ -33,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.snapFlingBehavior
@@ -197,16 +195,22 @@ public fun ScalingLazyColumn(
     modifier: Modifier = Modifier,
     content: ScalingLazyListScope.() -> Unit,
 ) {
-    val (behavior, fling) = when (columnState.rotaryMode) {
-        RotaryMode.Snap -> Pair(snapBehavior(
-            scrollableState = columnState.state,
-            hapticFeedbackEnabled = columnState.hapticsEnabled,
-        ), snapFlingBehavior(state = columnState.state))
+    val (rotaryBehavior, flingBehavior) = when (columnState.rotaryMode) {
+        RotaryMode.Snap -> Pair(
+            snapBehavior(
+                state = columnState.state,
+                hapticFeedbackEnabled = columnState.hapticsEnabled,
+            ),
+            snapFlingBehavior(state = columnState.state),
+        )
 
-        else -> Pair(behavior(
-            scrollableState = columnState.state,
-            hapticFeedbackEnabled = columnState.hapticsEnabled,
-        ), ScrollableDefaults.flingBehavior())
+        else -> Pair(
+            behavior(
+                scrollableState = columnState.state,
+                hapticFeedbackEnabled = columnState.hapticsEnabled,
+            ),
+            ScrollableDefaults.flingBehavior(),
+        )
     }
 
     ScalingLazyColumn(
@@ -216,12 +220,12 @@ public fun ScalingLazyColumn(
         reverseLayout = columnState.reverseLayout,
         verticalArrangement = columnState.verticalArrangement,
         horizontalAlignment = columnState.horizontalAlignment,
-        flingBehavior = fling,
+        flingBehavior = flingBehavior,
         userScrollEnabled = columnState.userScrollEnabled,
         scalingParams = columnState.scalingParams,
         anchorType = columnState.anchorType,
         autoCentering = columnState.autoCentering,
-        rotaryScrollableBehavior = behavior,
+        rotaryScrollableBehavior = rotaryBehavior,
         content = content,
     )
 }

@@ -40,7 +40,7 @@ import org.robolectric.annotation.GraphicsMode
 
 @Config(
     sdk = [33],
-    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound
+    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
@@ -57,7 +57,7 @@ class SeekToScreenshotTests {
                 Box(
                     modifier = Modifier
                         .weight(1.0f)
-                        .border(1.dp, Color.Red)
+                        .border(1.dp, Color.Red),
                 ) {
                     Button(
                         onClick = {},
@@ -77,7 +77,7 @@ class SeekToScreenshotTests {
                 Box(
                     modifier = Modifier
                         .weight(1.0f)
-                        .border(1.dp, Color.Red)
+                        .border(1.dp, Color.Red),
                 ) {
                     Button(
                         onClick = {},
@@ -95,4 +95,3 @@ class SeekToScreenshotTests {
         }
     }
 }
-

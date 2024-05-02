@@ -36,7 +36,7 @@ import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.logo.R
-import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
+import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.RadialBackground
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
@@ -94,7 +94,9 @@ fun MediaPlayerTestCase() {
         },
     ) {
         val colors = MaterialTheme.colors
-        Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background)) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background)) {
             PagerScreen(
                 state = rememberPagerState {
                     2
@@ -110,7 +112,7 @@ fun MediaPlayerTestCase() {
                             )
                         },
                         controlButtons = {
-                            AnimatedMediaControlButtons(
+                            MediaControlButtons(
                                 onPlayButtonClick = { },
                                 onPauseButtonClick = { },
                                 playPauseButtonEnabled = playerUiState.playPauseEnabled,

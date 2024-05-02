@@ -198,7 +198,7 @@ public fun ScalingLazyColumn(
     val (rotaryBehavior, flingBehavior) = when (columnState.rotaryMode) {
         RotaryMode.Snap -> Pair(
             snapBehavior(
-                state = columnState.state,
+                scrollableState = columnState.state,
                 hapticFeedbackEnabled = columnState.hapticsEnabled,
             ),
             snapFlingBehavior(state = columnState.state),

@@ -41,7 +41,7 @@ public fun SwipeDismissableNavHost(
     userSwipeEnabled: Boolean = true,
     state: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
     route: KClass<*>? = null,
-    builder: NavGraphBuilder.() -> Unit
+    builder: NavGraphBuilder.() -> Unit,
 ) = androidx.wear.compose.navigation.SwipeDismissableNavHost(
     navController,
     remember(route, startDestination, builder) {
@@ -55,19 +55,19 @@ public fun SwipeDismissableNavHost(
 public inline fun <reified T : Any> NavGraphBuilder.composable(
     typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = emptyMap(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    noinline content: @Composable (NavBackStackEntry) -> Unit
+    noinline content: @Composable (NavBackStackEntry) -> Unit,
 ) {
     destination(
         WearComposeNavigatorDestinationBuilder(
             wearNavigator = provider[WearNavigator::class],
             route = T::class,
             typeMap = typeMap,
-            content = content
+            content = content,
         ).apply {
             deepLinks.forEach { deepLink ->
                 deepLink(deepLink)
             }
-        }
+        },
     )
 }
 
@@ -75,8 +75,8 @@ class WearComposeNavigatorDestinationBuilder(
     val wearNavigator: WearNavigator,
     route: KClass<*>,
     typeMap: Map<KType, @JvmSuppressWildcards NavType<*>>,
-    private val content: @Composable (NavBackStackEntry) -> Unit
-): NavDestinationBuilder<WearNavigator.Destination>(wearNavigator, route, typeMap) {
+    private val content: @Composable (NavBackStackEntry) -> Unit,
+) : NavDestinationBuilder<WearNavigator.Destination>(wearNavigator, route, typeMap) {
 
     override fun instantiateDestination(): WearNavigator.Destination {
         return WearNavigator.Destination(wearNavigator, content)

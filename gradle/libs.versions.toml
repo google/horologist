@@ -61,12 +61,11 @@ truth = "1.4.2"
 wearcompose = "1.4.0-alpha08"
 wearToolingPreview = "1.0.0"
 appcompat = "1.6.1"
-material = "1.11.0"
+material = "1.12.0"
 wearInput = "1.2.0-alpha02"
 
 [libraries]
 accompanist-testharness = { module = "com.google.accompanist:accompanist-testharness", version.ref = "accompanist" }
-android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidxActivity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
@@ -145,11 +144,11 @@ com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logg
 com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "com-squareup-okhttp3" }
 compose-bom = "androidx.compose:compose-bom:2024.05.00"
-compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose-material" }
-compose-foundation-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "androidx-compose-material" }
-compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "androidx-compose-material" }
-compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidx-compose-material" }
-compose-material-ripple = { module = "androidx.compose.material:material-ripple", version.ref = "androidx-compose-material" }
+compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-foundation-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
+compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }
+compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
+compose-material-ripple = { module = "androidx.compose.material:material-ripple", version.ref = "compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" } # version 2023.10.01 from BOM is crashing
 compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
@@ -161,7 +160,7 @@ compose-ui-text = { module = "androidx.compose.ui:ui-text", version.ref = "compo
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-ui-unit = { module = "androidx.compose.ui:ui-unit", version.ref = "compose" }
-compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "androidx-compose-material" }
+compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
 dagger-hiltandroid = { module = "com.google.dagger:hilt-android", version.ref = "googledagger" }
 dagger-hiltandroidcompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "googledagger" }
 dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "googledagger" }

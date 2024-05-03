@@ -46,6 +46,7 @@ plugins {
     alias(libs.plugins.metalavaGradle) apply false
     alias(libs.plugins.dependencyAnalysis)
     alias(libs.plugins.roborazzi) apply false
+    alias(libs.plugins.kotlinx.serialization) apply false
 }
 
 apply(plugin = "org.jetbrains.dokka")

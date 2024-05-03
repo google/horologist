@@ -19,6 +19,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
     kotlin("android")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -116,6 +117,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.core)
 
     implementation(libs.dagger.hiltandroid)
     ksp(libs.dagger.hiltandroidcompiler)

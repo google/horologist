@@ -19,6 +19,7 @@ plugins {
     kotlin("android")
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -119,6 +120,9 @@ dependencies {
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)
+    implementation(libs.androidx.navigation.runtime)
+
+    implementation(libs.kotlinx.serialization.core)
 
     implementation(libs.mikepenz.markdown)
 

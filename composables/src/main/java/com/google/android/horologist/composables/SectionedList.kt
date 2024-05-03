@@ -127,7 +127,7 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
  * A section in [SectionedList].
  */
 @ExperimentalHorologistApi
-public data class Section<T> constructor(
+public data class Section<T>(
     val state: State<T>,
     val headerContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val headerVisibleStates: VisibleStates = ALL_STATES,

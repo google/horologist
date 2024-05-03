@@ -110,7 +110,6 @@ androidx-mediarouter = "androidx.mediarouter:mediarouter:1.7.0"
 androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0-beta01"
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidxNavigation" }
-androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigation" }
 androidx-paging = "androidx.paging:paging-compose:3.2.1"
 androidx-palette-ktx = "androidx.palette:palette-ktx:1.0.0"
 androidx-runtime-tracing = { module = "androidx.compose.runtime:runtime-tracing", version.ref = "runtimeTracing" }
@@ -122,8 +121,6 @@ androidx-test-ext-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = 
 androidx-test-rules = "androidx.test:rules:1.5.0"
 androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.3.0"
 androidx-tracing-ktx = { module = "androidx.tracing:tracing-ktx", version.ref = "androidxTracing" }
-androidx-tracing-perfetto = { module = "androidx.tracing:tracing-perfetto", version.ref = "androidx-tracingPerfetto" }
-androidx-tracing-perfetto-binary = { module = "androidx.tracing:tracing-perfetto-binary", version.ref = "androidx-tracingPerfettoBinary" }
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
 androidx-wear-phone-interactions = { module = "androidx.wear:wear-phone-interactions", version.ref = "androidxPhoneInteractions" }
 androidx-wear-protolayout-material = { module = "androidx.wear.protolayout:protolayout-material", version.ref = "androidxprotolayout" }
@@ -187,7 +184,6 @@ kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coro
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
 lottie-compose = "com.airbnb.android:lottie-compose:6.4.0"
 mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.16.0"
-moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }

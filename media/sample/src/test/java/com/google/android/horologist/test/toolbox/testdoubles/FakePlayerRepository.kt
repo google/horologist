@@ -26,7 +26,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class FakePlayerRepository() : PlayerRepository {
+class FakePlayerRepository : PlayerRepository {
 
     private val _connected = MutableStateFlow(true)
     override val connected: StateFlow<Boolean> = _connected

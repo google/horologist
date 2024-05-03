@@ -26,7 +26,7 @@ class PlaybackService : LifecycleMediaLibraryService() {
     @Inject
     public override lateinit var mediaLibrarySession: MediaLibrarySession
 
-    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {
+    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession {
         return mediaLibrarySession
     }
 }

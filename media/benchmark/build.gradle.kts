@@ -83,11 +83,7 @@ metalava {
 dependencies {
     api(projects.annotations)
 
-    if (project.findProject(":media-lib-session") != null) {
-        api(project(":media-lib-session"))
-    } else {
-        api(libs.androidx.media3.session)
-    }
+    api(libs.androidx.media3.session)
 
     api(libs.androidx.test.espressocore)
     implementation(libs.androidx.test.ext.ktx)

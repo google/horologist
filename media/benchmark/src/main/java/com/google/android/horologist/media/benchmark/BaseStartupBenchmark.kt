@@ -29,7 +29,7 @@ import org.junit.runners.Parameterized
 
 @LargeTest
 @RunWith(Parameterized::class)
-public abstract class BaseStartupBenchmark() {
+public abstract class BaseStartupBenchmark {
     @get:Rule
     public val benchmarkRule: MacrobenchmarkRule = MacrobenchmarkRule()
 

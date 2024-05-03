@@ -107,13 +107,17 @@ subprojects {
         resolutionStrategy.eachDependency {
             // Make sure that we're using the Android version of Guava
             if (this@configureEach.name.contains("android", ignoreCase = true)
-                && this@eachDependency.requested.group == "com.google.guava"
-                && this@eachDependency.requested.module.name == "guava"
-                && this@eachDependency.requested.version?.contains("jre") == true) {
-                this@eachDependency.requested.version?.replace(
+                && requested.group == "com.google.guava"
+                && requested.module.name == "guava"
+                && requested.version?.contains("jre") == true) {
+                requested.version?.replace(
                     "jre",
                     "android"
-                )?.let { this@eachDependency.useVersion(it) }
+                )?.let { useVersion(it) }
+            }
+
+            if (requested.group == "androidx.compose.ui" && requested.version == "1.7.0-alpha08") {
+                useVersion("1.7.0-alpha07")
             }
         }
     }

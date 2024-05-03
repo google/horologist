@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalFoundationApi::class)
+@file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.compose.rotaryinput
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
-import androidx.wear.compose.foundation.rotary.RotaryBehavior
-import androidx.wear.compose.foundation.rotary.rotary
+import androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior
+import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX
 import kotlinx.coroutines.launch
 
@@ -34,14 +33,13 @@ public fun Modifier.rotaryWithPager(
     state: PagerState,
     focusRequester: FocusRequester,
 ): Modifier = composed {
-    rotary(pagerRotaryBehaviour(state), focusRequester)
+    rotaryScrollable(pagerRotaryBehaviour(state), focusRequester)
 }
 
-@Suppress("DEPRECATION")
 @Composable
 public fun pagerRotaryBehaviour(
     state: PagerState,
-): RotaryBehavior {
+): RotaryScrollableBehavior {
     val coroutineScope = rememberCoroutineScope()
     val haptics = rememberDefaultRotaryHapticFeedback()
 

@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
@@ -27,9 +26,7 @@ import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
 
 @Composable
 public fun AnimatedSeekToPreviousButton(
@@ -41,27 +38,18 @@ public fun AnimatedSeekToPreviousButton(
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 32.dp,
 ) {
-    if (LocalStaticPreview.current) {
-        SeekToPreviousButton(
-            onClick = onClick,
-            modifier = modifier,
-            enabled = enabled,
-            colors = colors,
-        )
-    } else {
-        val compositionResult = rememberLottieComposition(
-            spec = LottieCompositionSpec.Asset("lottie/Next.json"),
-        )
-        AnimatedMediaButton(
-            modifier = modifier.graphicsLayer(scaleX = -1f),
-            onClick = onClick,
-            contentDescription = stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
-            enabled = enabled,
-            colors = colors,
-            iconSize = iconSize,
-            compositionResult = compositionResult,
-            onLongRepeatableClick = onLongRepeatableClick,
-            onLongRepeatableClickEnd = onLongRepeatableClickEnd,
-        )
-    }
+    val compositionResult = rememberLottieComposition(
+        spec = LottieCompositionSpec.Asset("lottie/Next.json"),
+    )
+    AnimatedMediaButton(
+        modifier = modifier.graphicsLayer(scaleX = -1f),
+        onClick = onClick,
+        contentDescription = stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
+        enabled = enabled,
+        colors = colors,
+        iconSize = iconSize,
+        compositionResult = compositionResult,
+        onLongRepeatableClick = onLongRepeatableClick,
+        onLongRepeatableClickEnd = onLongRepeatableClickEnd,
+    )
 }

@@ -69,10 +69,8 @@ import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.animation.PlaybackProgressAnimation.PLAYBACK_PROGRESS_ANIMATION_SPEC
-import com.google.android.horologist.media.ui.components.PlayPauseButton
 import com.google.android.horologist.media.ui.state.ProgressStateHolder
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.flow.Flow
@@ -94,64 +92,50 @@ public fun AnimatedPlayPauseButton(
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
     progress: @Composable () -> Unit = {},
 ) {
-    if (LocalStaticPreview.current) {
-        PlayPauseButton(
-            onPlayClick = onPlayClick,
-            onPauseClick = onPauseClick,
-            playing = playing,
-            modifier = modifier,
+    val compositionResult = rememberLottieComposition(
+        spec = LottieCompositionSpec.Asset(
+            "lottie/PlayPause.json",
+        ),
+    )
+    val lottieProgress =
+        animateLottieProgressAsState(playing = playing, composition = compositionResult.value)
+    Box(
+        modifier = modifier
+            .clip(CircleShape)
+            .background(backgroundColor),
+        contentAlignment = Alignment.Center,
+    ) {
+        progress()
+        val pauseContentDescription =
+            stringResource(id = R.string.horologist_pause_button_content_description)
+        val playContentDescription =
+            stringResource(id = R.string.horologist_play_button_content_description)
+
+        Button(
+            onClick = { if (playing) onPauseClick() else onPlayClick() },
+            modifier = modifier
+                .semantics {
+                    contentDescription = if (playing) {
+                        pauseContentDescription
+                    } else {
+                        playContentDescription
+                    }
+                },
             enabled = enabled,
             colors = colors,
-            iconSize = iconSize,
-            progress = progress,
-            backgroundColor = backgroundColor,
-        )
-    } else {
-        val compositionResult = rememberLottieComposition(
-            spec = LottieCompositionSpec.Asset(
-                "lottie/PlayPause.json",
-            ),
-        )
-        val lottieProgress =
-            animateLottieProgressAsState(playing = playing, composition = compositionResult.value)
-        Box(
-            modifier = modifier
-                .clip(CircleShape)
-                .background(backgroundColor),
-            contentAlignment = Alignment.Center,
         ) {
-            progress()
-            val pauseContentDescription =
-                stringResource(id = R.string.horologist_pause_button_content_description)
-            val playContentDescription =
-                stringResource(id = R.string.horologist_play_button_content_description)
+            val contentModifier = Modifier
+                .size(iconSize)
+                .align(Alignment.Center)
+                .graphicsLayer(alpha = LocalContentAlpha.current)
 
-            Button(
-                onClick = { if (playing) onPauseClick() else onPlayClick() },
-                modifier = modifier
-                    .semantics {
-                        contentDescription = if (playing) {
-                            pauseContentDescription
-                        } else {
-                            playContentDescription
-                        }
-                    },
-                enabled = enabled,
-                colors = colors,
-            ) {
-                val contentModifier = Modifier
-                    .size(iconSize)
-                    .align(Alignment.Center)
-                    .graphicsLayer(alpha = LocalContentAlpha.current)
-
-                LottieAnimationWithPlaceholder(
-                    lottieCompositionResult = compositionResult,
-                    progress = { lottieProgress.value },
-                    placeholder = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
-                    contentDescription = if (playing) pauseContentDescription else playContentDescription,
-                    modifier = contentModifier,
-                )
-            }
+            LottieAnimationWithPlaceholder(
+                lottieCompositionResult = compositionResult,
+                progress = { lottieProgress.value },
+                placeholder = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
+                contentDescription = if (playing) pauseContentDescription else playContentDescription,
+                modifier = contentModifier,
+            )
         }
     }
 }

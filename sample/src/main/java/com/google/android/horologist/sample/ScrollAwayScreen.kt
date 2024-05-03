@@ -35,8 +35,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
-import androidx.wear.compose.foundation.rotary.RotaryDefaults.scrollBehavior
-import androidx.wear.compose.foundation.rotary.rotary
+import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
+import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
@@ -53,8 +53,8 @@ fun ScrollScreenLazyColumn(scrollState: LazyListState) {
     val focusRequester = rememberActiveFocusRequester()
 
     LazyColumn(
-        modifier = Modifier.rotary(
-            rotaryBehavior = scrollBehavior(scrollableState = scrollState),
+        modifier = Modifier.rotaryScrollable(
+            behavior = behavior(scrollableState = scrollState),
             focusRequester = focusRequester,
         ),
         state = scrollState,
@@ -94,8 +94,8 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
     ) {
         Column(
             modifier = Modifier
-                .rotary(
-                    rotaryBehavior = scrollBehavior(scrollableState = scrollState),
+                .rotaryScrollable(
+                    behavior = behavior(scrollableState = scrollState),
                     focusRequester = focusRequester,
                 )
                 .verticalScroll(scrollState),

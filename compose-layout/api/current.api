@@ -209,7 +209,7 @@ package com.google.android.horologist.compose.paging {
 package com.google.android.horologist.compose.rotaryinput {
 
   public final class AccumulatedRotaryInputModifierKt {
-    method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryBehavior accumulatedBehavior(optional long eventAccumulationThresholdMs, optional float minValueChangeDistancePx, optional long rateLimitCoolDownMs, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onValueChange);
+    method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior accumulatedBehavior(optional long eventAccumulationThresholdMs, optional float minValueChangeDistancePx, optional long rateLimitCoolDownMs, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onValueChange);
     method @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier onRotaryInputAccumulated(androidx.compose.ui.Modifier, optional long eventAccumulationThresholdMs, optional float minValueChangeDistancePx, optional long rateLimitCoolDownMs, optional boolean isLowRes, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onValueChange);
     method @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier onRotaryInputAccumulatedWithFocus(androidx.compose.ui.Modifier, optional androidx.compose.ui.focus.FocusRequester? focusRequester, optional boolean isLowRes, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onValueChange);
   }
@@ -294,7 +294,7 @@ package com.google.android.horologist.compose.rotaryinput {
   }
 
   public final class RotaryWithPagerKt {
-    method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryBehavior pagerRotaryBehaviour(androidx.compose.foundation.pager.PagerState state);
+    method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior pagerRotaryBehaviour(androidx.compose.foundation.pager.PagerState state);
     method public static androidx.compose.ui.Modifier rotaryWithPager(androidx.compose.ui.Modifier, androidx.compose.foundation.pager.PagerState state, androidx.compose.ui.focus.FocusRequester focusRequester);
   }
 

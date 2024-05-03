@@ -39,8 +39,8 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.ScalingParams
-import androidx.wear.compose.foundation.rotary.RotaryDefaults.scrollBehavior
-import androidx.wear.compose.foundation.rotary.RotaryDefaults.snapBehavior
+import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
+import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.snapBehavior
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.responsiveScalingParams
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
@@ -198,14 +198,14 @@ public fun ScalingLazyColumn(
     val (rotaryBehavior, flingBehavior) = when (columnState.rotaryMode) {
         RotaryMode.Snap -> Pair(
             snapBehavior(
-                state = columnState.state,
+                scrollableState = columnState.state,
                 hapticFeedbackEnabled = columnState.hapticsEnabled,
             ),
             snapFlingBehavior(state = columnState.state),
         )
 
         else -> Pair(
-            scrollBehavior(
+            behavior(
                 scrollableState = columnState.state,
                 hapticFeedbackEnabled = columnState.hapticsEnabled,
             ),
@@ -225,7 +225,7 @@ public fun ScalingLazyColumn(
         scalingParams = columnState.scalingParams,
         anchorType = columnState.anchorType,
         autoCentering = columnState.autoCentering,
-        rotaryBehavior = rotaryBehavior,
+        rotaryScrollableBehavior = rotaryBehavior,
         content = content,
     )
 }

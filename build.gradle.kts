@@ -204,7 +204,7 @@ subprojects {
             }
         }
         if (plugins.hasPlugin("com.android.library")) {
-            configure<com.android.build.gradle.LibraryExtension> {
+            configure<LibraryExtension> {
                 lint {
                     // Remove once fixed: https://issuetracker.google.com/196420849
                     disable.add("ExpiringTargetSdkVersion")
@@ -212,30 +212,27 @@ subprojects {
             }
         }
 
+        val buildDir = project.layout.buildDirectory
+        val outputDirectory =
+            buildDir.dir("generated/sources/generateVersionFile")
         val generateVersionFile = tasks.register("generateVersionFile") {
-            val outputDirectory =
-                project.file("${project.buildDir}/generated/sources/generateVersionFile")
 
             doLast {
-                val versionName = project.properties.get("VERSION_NAME") as String
+                val versionName = project.properties["VERSION_NAME"] as String
 
-                val manifestDir = File(outputDirectory, "META-INF")
-                manifestDir.mkdirs()
+                val manifestDir = outputDirectory.get().dir("META-INF")
+                manifestDir.asFile.mkdirs()
                 val name = if (project.parent?.name == "horologist")
                     project.name
                 else
                     project.parent?.name + project.name
-                File(
-                    manifestDir,
+                manifestDir.file(
                     "com.google.android.horologist_$name.version"
-                ).writeText("${versionName}\n")
+                ).asFile.writeText("${versionName}\n")
             }
         }
 
         afterEvaluate {
-            val outputDirectory =
-                project.file("${project.buildDir}/generated/sources/generateVersionFile")
-
             val processResources = tasks.findByName("processResources")
             if (processResources != null) {
                 processResources.dependsOn(generateVersionFile)

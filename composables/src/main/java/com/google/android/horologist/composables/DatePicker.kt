@@ -443,7 +443,7 @@ private fun getPickerGroupRowOffset(
     }
 }
 
-internal class DatePickerState constructor(
+internal class DatePickerState(
     private val date: LocalDate,
     private val fromDate: LocalDate?,
     private val toDate: LocalDate?,

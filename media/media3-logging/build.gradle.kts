@@ -91,9 +91,9 @@ dependencies {
     implementation(projects.media.audio)
     implementation(projects.media.core)
     implementation(libs.kotlinx.coroutines.core)
-    api(project.findProject(":media-lib-common") ?: libs.androidx.media3.common)
+    api(libs.androidx.media3.common)
     api(libs.androidx.annotation)
-    api(project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer)
+    api(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.kotlinx.coroutines.guava)
     implementation(libs.androidx.corektx)
@@ -105,11 +105,8 @@ dependencies {
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
-    testImplementation(project.findProject(":media-test-utils") ?: libs.androidx.media3.testutils)
-    testImplementation(
-        project.findProject(":media-test-utils-robolectric")
-            ?: libs.androidx.media3.testutils.robolectric,
-    )
+    testImplementation(libs.androidx.media3.testutils)
+    testImplementation(libs.androidx.media3.testutils.robolectric)
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {

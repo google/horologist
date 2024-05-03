@@ -28,7 +28,18 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.android.horologist.datalayer.sample.screens.Screen
+import com.google.android.horologist.datalayer.sample.screens.AppHelperNodes
+import com.google.android.horologist.datalayer.sample.screens.AppHelperNodesListener
+import com.google.android.horologist.datalayer.sample.screens.Counter
+import com.google.android.horologist.datalayer.sample.screens.InstallAppCustomPromptDemo
+import com.google.android.horologist.datalayer.sample.screens.InstallAppPromptDemo
+import com.google.android.horologist.datalayer.sample.screens.InstallTileCustomPromptDemo
+import com.google.android.horologist.datalayer.sample.screens.InstallTilePromptDemo
+import com.google.android.horologist.datalayer.sample.screens.Menu
+import com.google.android.horologist.datalayer.sample.screens.ReEngageCustomPromptDemo
+import com.google.android.horologist.datalayer.sample.screens.ReEngagePromptDemo
+import com.google.android.horologist.datalayer.sample.screens.SignInCustomPromptDemo
+import com.google.android.horologist.datalayer.sample.screens.SignInPromptDemo
 import com.google.android.horologist.datalayer.sample.screens.counter.CounterScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.custom.installapp.InstallAppCustomPromptDemoScreen
 import com.google.android.horologist.datalayer.sample.screens.inappprompts.custom.installtile.InstallTileCustomPromptDemoScreen
@@ -59,43 +70,43 @@ fun MainScreen(
         ) {
             NavHost(
                 navController = navController,
-                startDestination = Screen.MenuScreen.route,
+                startDestination = Menu,
                 modifier = modifier,
             ) {
-                composable(route = Screen.MenuScreen.route) {
+                composable<Menu> {
                     MenuScreen(navController = navController)
                 }
-                composable(route = Screen.AppHelperNodesScreen.route) {
+                composable<AppHelperNodes> {
                     NodesScreen()
                 }
-                composable(route = Screen.AppHelperNodesListenerScreen.route) {
+                composable<AppHelperNodesListener> {
                     NodesListenerScreen()
                 }
-                composable(route = Screen.InstallAppPromptDemoScreen.route) {
+                composable<InstallAppPromptDemo> {
                     InstallAppPromptDemoScreen()
                 }
-                composable(route = Screen.ReEngagePromptDemoScreen.route) {
+                composable<ReEngagePromptDemo> {
                     ReEngagePromptDemoScreen()
                 }
-                composable(route = Screen.SignInPromptDemoScreen.route) {
+                composable<SignInPromptDemo> {
                     SignInPromptDemoScreen()
                 }
-                composable(route = Screen.InstallTilePromptDemoScreen.route) {
+                composable<InstallTilePromptDemo> {
                     InstallTilePromptDemoScreen()
                 }
-                composable(route = Screen.InstallAppCustomPromptDemoScreen.route) {
+                composable<InstallAppCustomPromptDemo> {
                     InstallAppCustomPromptDemoScreen()
                 }
-                composable(route = Screen.ReEngageCustomPromptDemoScreen.route) {
+                composable<ReEngageCustomPromptDemo> {
                     ReEngageCustomPromptDemoScreen()
                 }
-                composable(route = Screen.SignInCustomPromptDemoScreen.route) {
+                composable<SignInCustomPromptDemo> {
                     SignInCustomPromptDemoScreen()
                 }
-                composable(route = Screen.InstallTileCustomPromptDemoScreen.route) {
+                composable<InstallTileCustomPromptDemo> {
                     InstallTileCustomPromptDemoScreen()
                 }
-                composable(route = Screen.CounterScreen.route) {
+                composable<Counter> {
                     CounterScreen()
                 }
             }

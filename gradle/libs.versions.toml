@@ -18,7 +18,7 @@ androidx-wear-watchface = "1.2.1"
 androidxActivity = "1.9.0"
 androidxCore = "1.13.0"
 androidxLifecycle = "2.7.0"
-androidxNavigation = "2.7.7"
+androidxNavigation = "2.8.0-alpha08"
 androidxPhoneInteractions = "1.1.0-alpha04"
 androidxRemoteInteractions = "1.1.0-alpha02"
 androidxStartup = "1.1.1"
@@ -44,6 +44,7 @@ io-coil-kt = "2.6.0"
 junit = "4.13.2"
 kotlin = "1.9.23"
 kotlinxCoroutine = "1.8.0"
+kotlinxSerialization = "1.6.3"
 ksp = "1.9.23-1.0.20"
 ktlint = "0.50.0"
 metalava = "0.3.5"
@@ -108,6 +109,7 @@ androidx-media3-testutils-robolectric = { module = "androidx.media3:media3-test-
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidx-media3" }
 androidx-mediarouter = "androidx.mediarouter:mediarouter:1.7.0"
 androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0-beta01"
+androidx-navigation-runtime = { module = "androidx.navigation:navigation-runtime", version.ref = "androidxNavigation" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidxNavigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigation" }
@@ -185,6 +187,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 lottie-compose = "com.airbnb.android:lottie-compose:6.4.0"
 mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.16.0"
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
@@ -225,3 +228,4 @@ protobuf = "com.google.protobuf:0.9.4"
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 metalavaGradle = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava" }
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

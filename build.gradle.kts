@@ -116,7 +116,7 @@ subprojects {
                 )?.let { useVersion(it) }
             }
 
-            if (requested.group == "androidx.compose.ui" && requested.version == "1.7.0-alpha08") {
+            if (requested.group.startsWith("androidx.compose.") && requested.version == "1.7.0-alpha08") {
                 useVersion("1.7.0-alpha07")
             }
         }

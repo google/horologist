@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.ai.sample.wear.prompt.nav
+package com.google.android.horologist.compose.nav
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

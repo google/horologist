@@ -22,11 +22,11 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
-import com.google.android.horologist.compose.nav.SwipeDismissableNavHost
-import com.google.android.horologist.compose.nav.composable
 import com.google.android.horologist.ai.sample.wear.prompt.prompt.SamplePromptScreen
 import com.google.android.horologist.ai.sample.wear.prompt.settings.SettingsScreen
 import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.nav.SwipeDismissableNavHost
+import com.google.android.horologist.compose.nav.composable
 
 @Composable
 fun WearApp(

@@ -29,7 +29,7 @@ android {
         applicationId = "com.google.android.horologist.ai.sample.prompt"
         // Min because of Tiles
         minSdk = 30
-        targetSdk = 33
+        targetSdk = 34
 
         versionCode = 1
         versionName = "1.0"

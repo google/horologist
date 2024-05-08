@@ -51,7 +51,7 @@ import com.google.android.horologist.compose.layout.PagerScaffold
 public fun PagerScreen(
     state: PagerState,
     modifier: Modifier = Modifier,
-    beyondViewportPageCount: Int = 1,
+    beyondViewportPageCount: Int = 0,
     userScrollEnabled: Boolean = true,
     reverseLayout: Boolean = false,
     key: ((index: Int) -> Any)? = null,

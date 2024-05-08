@@ -19,9 +19,11 @@
 package com.google.android.horologist.compose.pager
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,6 +33,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
@@ -46,9 +49,17 @@ import com.google.android.horologist.compose.layout.PagerScaffold
  */
 @Composable
 public fun PagerScreen(
-    modifier: Modifier = Modifier,
     state: PagerState,
-    content: @Composable ((Int) -> Unit),
+    modifier: Modifier = Modifier,
+    beyondViewportPageCount: Int = 1,
+    userScrollEnabled: Boolean = true,
+    reverseLayout: Boolean = false,
+    key: ((index: Int) -> Any)? = null,
+    pageNestedScrollConnection: NestedScrollConnection = PagerDefaults.pageNestedScrollConnection(
+        state,
+        Orientation.Horizontal
+    ),
+    content: @Composable (Int) -> Unit,
 ) {
     PagerScaffold(
         modifier = Modifier.fillMaxSize(),
@@ -57,6 +68,11 @@ public fun PagerScreen(
         HorizontalPager(
             modifier = modifier,
             state = state,
+            beyondViewportPageCount = beyondViewportPageCount,
+            userScrollEnabled = userScrollEnabled,
+            reverseLayout = reverseLayout,
+            key = key,
+            pageNestedScrollConnection = pageNestedScrollConnection,
             flingBehavior = HorizontalPagerDefaults.flingParams(state),
         ) { page ->
             ClippedBox(state) {

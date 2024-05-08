@@ -54,7 +54,7 @@ public fun VerticalPagerScreen(
     key: ((index: Int) -> Any)? = null,
     pageNestedScrollConnection: NestedScrollConnection = PagerDefaults.pageNestedScrollConnection(
         state,
-        Orientation.Vertical
+        Orientation.Vertical,
     ),
     content: @Composable ((Int) -> Unit),
 ) {

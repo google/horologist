@@ -33,7 +33,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.RequestFocusWhenActive
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
-import androidx.wear.compose.foundation.rotary.RotaryBehavior
+import androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.rotaryinput.RotaryDefaults.isLowResInput
 import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.RATE_LIMITING_DISABLED
@@ -183,7 +183,7 @@ public fun Modifier.highResRotaryVolumeControls(
 public fun volumeRotaryBehavior(
     volumeUiStateProvider: () -> VolumeUiState,
     onRotaryVolumeInput: (Int) -> Unit,
-): RotaryBehavior {
+): RotaryScrollableBehavior {
     return if (isLowResInput()) {
         lowResVolumeRotaryBehavior(
             volumeUiStateProvider = volumeUiStateProvider,
@@ -201,7 +201,7 @@ public fun volumeRotaryBehavior(
 public fun lowResVolumeRotaryBehavior(
     volumeUiStateProvider: () -> VolumeUiState,
     onRotaryVolumeInput: (Int) -> Unit,
-): RotaryBehavior {
+): RotaryScrollableBehavior {
     val localView = LocalView.current
 
     return accumulatedBehavior(rateLimitCoolDownMs = RATE_LIMITING_DISABLED) { change ->
@@ -236,7 +236,7 @@ public fun lowResVolumeRotaryBehavior(
 public fun highResVolumeRotaryBehavior(
     volumeUiStateProvider: () -> VolumeUiState,
     onRotaryVolumeInput: (Int) -> Unit,
-): RotaryBehavior {
+): RotaryScrollableBehavior {
     val localView = LocalView.current
 
     return accumulatedBehavior(rateLimitCoolDownMs = RATE_LIMITING_DISABLED) { change ->

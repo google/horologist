@@ -22,6 +22,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.Serializable
 
 @Composable
 fun PhoneApp(
@@ -30,13 +31,14 @@ fun PhoneApp(
 ) {
     NavHost(
         modifier = modifier,
-        startDestination = "Home",
+        startDestination = Home,
         navController = navController,
     ) {
-        composable(
-            route = "Home",
-        ) {
+        composable<Home> {
             StatusScreen()
         }
     }
 }
+
+@Serializable
+object Home

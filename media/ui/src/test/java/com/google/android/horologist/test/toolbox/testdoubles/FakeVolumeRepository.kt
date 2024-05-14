@@ -20,7 +20,7 @@ import com.google.android.horologist.audio.VolumeRepository
 import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class FakeVolumeRepository constructor(initial: VolumeState) : VolumeRepository {
+class FakeVolumeRepository(initial: VolumeState) : VolumeRepository {
     override val volumeState: MutableStateFlow<VolumeState> = MutableStateFlow(initial)
 
     override fun increaseVolume() {

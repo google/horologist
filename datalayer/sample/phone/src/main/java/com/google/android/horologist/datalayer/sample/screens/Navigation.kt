@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,42 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.ai.sample.wear.prompt
+package com.google.android.horologist.datalayer.sample.screens
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-object Prompt
+object Menu
 
 @Serializable
-object Settings
+object AppHelperNodes
+
+@Serializable
+object AppHelperNodesListener
+
+@Serializable
+object InstallAppPromptDemo
+
+@Serializable
+object ReEngagePromptDemo
+
+@Serializable
+object SignInPromptDemo
+
+@Serializable
+object InstallTilePromptDemo
+
+@Serializable
+object InstallAppCustomPromptDemo
+
+@Serializable
+object ReEngageCustomPromptDemo
+
+@Serializable
+object SignInCustomPromptDemo
+
+@Serializable
+object InstallTileCustomPromptDemo
+
+@Serializable
+object Counter

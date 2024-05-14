@@ -27,7 +27,6 @@ buildscript {
 
     dependencies {
         classpath(libs.android.tools.build.gradle)
-        classpath(libs.android.gradlePlugin)
         classpath(libs.kotlin.gradlePlugin)
 
         classpath(libs.gradleMavenPublishPlugin)
@@ -47,6 +46,7 @@ plugins {
     alias(libs.plugins.metalavaGradle) apply false
     alias(libs.plugins.dependencyAnalysis)
     alias(libs.plugins.roborazzi) apply false
+    alias(libs.plugins.kotlinx.serialization) apply false
 }
 
 apply(plugin = "org.jetbrains.dokka")
@@ -108,13 +108,17 @@ subprojects {
         resolutionStrategy.eachDependency {
             // Make sure that we're using the Android version of Guava
             if (this@configureEach.name.contains("android", ignoreCase = true)
-                && this@eachDependency.requested.group == "com.google.guava"
-                && this@eachDependency.requested.module.name == "guava"
-                && this@eachDependency.requested.version?.contains("jre") == true) {
-                this@eachDependency.requested.version?.replace(
+                && requested.group == "com.google.guava"
+                && requested.module.name == "guava"
+                && requested.version?.contains("jre") == true) {
+                requested.version?.replace(
                     "jre",
                     "android"
-                )?.let { this@eachDependency.useVersion(it) }
+                )?.let { useVersion(it) }
+            }
+
+            if (requested.group.startsWith("androidx.compose.") && requested.version == "1.7.0-alpha08") {
+                useVersion("1.7.0-alpha07")
             }
         }
     }
@@ -201,7 +205,7 @@ subprojects {
             }
         }
         if (plugins.hasPlugin("com.android.library")) {
-            configure<com.android.build.gradle.LibraryExtension> {
+            configure<LibraryExtension> {
                 lint {
                     // Remove once fixed: https://issuetracker.google.com/196420849
                     disable.add("ExpiringTargetSdkVersion")
@@ -209,30 +213,27 @@ subprojects {
             }
         }
 
+        val buildDir = project.layout.buildDirectory
+        val outputDirectory =
+            buildDir.dir("generated/sources/generateVersionFile")
         val generateVersionFile = tasks.register("generateVersionFile") {
-            val outputDirectory =
-                project.file("${project.buildDir}/generated/sources/generateVersionFile")
 
             doLast {
-                val versionName = project.properties.get("VERSION_NAME") as String
+                val versionName = project.properties["VERSION_NAME"] as String
 
-                val manifestDir = File(outputDirectory, "META-INF")
-                manifestDir.mkdirs()
+                val manifestDir = outputDirectory.get().dir("META-INF")
+                manifestDir.asFile.mkdirs()
                 val name = if (project.parent?.name == "horologist")
                     project.name
                 else
                     project.parent?.name + project.name
-                File(
-                    manifestDir,
+                manifestDir.file(
                     "com.google.android.horologist_$name.version"
-                ).writeText("${versionName}\n")
+                ).asFile.writeText("${versionName}\n")
             }
         }
 
         afterEvaluate {
-            val outputDirectory =
-                project.file("${project.buildDir}/generated/sources/generateVersionFile")
-
             val processResources = tasks.findByName("processResources")
             if (processResources != null) {
                 processResources.dependsOn(generateVersionFile)

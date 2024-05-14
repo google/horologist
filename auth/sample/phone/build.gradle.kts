@@ -17,6 +17,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -110,6 +111,8 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.playservices.wearable)
     implementation(libs.androidx.lifecycle.service)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.core)
 
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)

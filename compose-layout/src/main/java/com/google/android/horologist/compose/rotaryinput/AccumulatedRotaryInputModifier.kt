@@ -31,7 +31,7 @@ import androidx.compose.ui.input.rotary.RotaryScrollEvent
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
-import androidx.wear.compose.foundation.rotary.RotaryBehavior
+import androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.rotaryinput.RotaryDefaults.isLowResInput
 
@@ -117,7 +117,7 @@ fun accumulatedBehavior(
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
     onValueChange: (change: Float) -> Unit,
-): RotaryBehavior {
+): RotaryScrollableBehavior {
     val isLowRes = isLowResInput()
     val onValueChangeState = rememberUpdatedState(newValue = onValueChange)
 

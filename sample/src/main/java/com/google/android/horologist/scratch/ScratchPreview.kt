@@ -28,8 +28,8 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.foundation.rememberExpandableState
-import androidx.wear.compose.foundation.rotary.RotaryDefaults.scrollBehavior
-import androidx.wear.compose.foundation.rotary.rotary
+import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
+import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
@@ -46,8 +46,8 @@ fun ScratchPreview() {
         ScalingLazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .rotary(
-                    rotaryBehavior = scrollBehavior(scrollableState = state),
+                .rotaryScrollable(
+                    behavior = behavior(scrollableState = state),
                     focusRequester = rememberActiveFocusRequester(),
                 ),
             state = state,

@@ -34,7 +34,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
-import androidx.wear.compose.foundation.rotary.rotary
+import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
@@ -220,8 +220,8 @@ class RotaryVolumeControlsTest {
             Scaffold(
                 modifier =
                     Modifier
-                        .rotary(
-                            volumeRotaryBehavior(
+                        .rotaryScrollable(
+                            behavior = volumeRotaryBehavior(
                                 volumeUiStateProvider = { VolumeUiStateMapper.map(volumeState) },
                                 onRotaryVolumeInput = { newVolume ->
                                     volumeRepository.setVolume(

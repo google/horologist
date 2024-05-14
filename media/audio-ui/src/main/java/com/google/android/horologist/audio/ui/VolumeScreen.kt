@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
-import androidx.wear.compose.foundation.rotary.rotary
+import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Stepper
@@ -82,7 +82,7 @@ public fun VolumeScreen(
 
     VolumeScreen(
         modifier = modifier
-            .rotary(
+            .rotaryScrollable(
                 volumeRotaryBehavior(
                     volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
                     onRotaryVolumeInput = { newVolume -> volumeViewModel.setVolume(newVolume) },

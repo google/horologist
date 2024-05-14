@@ -31,7 +31,7 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
-import androidx.wear.compose.foundation.rotary.rotary
+import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.volumeRotaryBehavior
@@ -79,7 +79,7 @@ public fun PlayerScreen(
         controlButtons = { controlButtons(playerViewModel.playerUiController, playerUiState) },
         buttons = { buttons(playerUiState) },
         modifier = modifier
-            .rotary(
+            .rotaryScrollable(
                 volumeRotaryBehavior(
                     volumeUiStateProvider = { volumeUiState },
                     onRotaryVolumeInput = { newVolume -> volumeViewModel.setVolume(newVolume) },

@@ -19,11 +19,11 @@ package com.google.android.horologist.ai.sample.wear.prompt
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.wear.compose.navigation.SwipeDismissableNavHost
-import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import com.google.android.horologist.ai.sample.wear.prompt.nav.SwipeDismissableNavHost
+import com.google.android.horologist.ai.sample.wear.prompt.nav.composable
 import com.google.android.horologist.ai.sample.wear.prompt.prompt.SamplePromptScreen
 import com.google.android.horologist.ai.sample.wear.prompt.settings.SettingsScreen
 import com.google.android.horologist.compose.layout.AppScaffold
@@ -35,19 +35,15 @@ fun WearApp(
 ) {
     AppScaffold(modifier = modifier) {
         SwipeDismissableNavHost(
-            startDestination = Screen.PromptScreen.route,
+            startDestination = Prompt,
             navController = navController,
         ) {
-            composable(
-                route = Screen.PromptScreen.route,
-            ) {
+            composable<Prompt> {
                 SamplePromptScreen(
-                    onSettingsClick = { navController.navigate(Screen.SettingsScreen.route) },
+                    onSettingsClick = { navController.navigate(Settings) },
                 )
             }
-            composable(
-                route = Screen.SettingsScreen.route,
-            ) {
+            composable<Settings> {
                 SettingsScreen()
             }
         }

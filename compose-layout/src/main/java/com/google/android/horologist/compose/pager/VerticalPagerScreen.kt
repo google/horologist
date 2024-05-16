@@ -19,12 +19,15 @@
 package com.google.android.horologist.compose.pager
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
@@ -45,6 +48,14 @@ import com.google.android.horologist.compose.rotaryinput.rotaryWithPager
 public fun VerticalPagerScreen(
     state: PagerState,
     modifier: Modifier = Modifier,
+    beyondViewportPageCount: Int = 0,
+    userScrollEnabled: Boolean = true,
+    reverseLayout: Boolean = false,
+    key: ((index: Int) -> Any)? = null,
+    pageNestedScrollConnection: NestedScrollConnection = PagerDefaults.pageNestedScrollConnection(
+        state,
+        Orientation.Vertical,
+    ),
     content: @Composable ((Int) -> Unit),
 ) {
     ScreenScaffold(
@@ -61,6 +72,11 @@ public fun VerticalPagerScreen(
                 .fillMaxSize()
                 .rotaryWithPager(state, rememberActiveFocusRequester()),
             state = state,
+            beyondViewportPageCount = beyondViewportPageCount,
+            userScrollEnabled = userScrollEnabled,
+            reverseLayout = reverseLayout,
+            key = key,
+            pageNestedScrollConnection = pageNestedScrollConnection,
             flingBehavior = HorizontalPagerDefaults.flingParams(state),
         ) { page ->
             ClippedBox(state) {

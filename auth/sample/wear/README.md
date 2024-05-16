@@ -5,6 +5,8 @@ documentation: https://google.github.io/horologist/auth-sample-apps#wear-sample
 
 ## Google Sign-in
 
+Note: Google Sign-in is now  deprecated. Do not integrate with Google Sign-in if creating a new app.
+
 In  order to successfully sign-in, follow the instructions for registering your app within the
 Google API Console:
 

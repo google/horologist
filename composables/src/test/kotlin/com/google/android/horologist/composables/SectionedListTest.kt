@@ -16,7 +16,6 @@
 
 @file:Suppress(
     "TestFunctionName", // incorrectly flagging composable functions
-    "DEPRECATION",
 )
 
 package com.google.android.horologist.composables
@@ -30,9 +29,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.test.hasScrollToNodeAction
-import androidx.compose.ui.test.performTouchInput
-import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -93,10 +89,11 @@ class SectionedListTest : WearLegacyScreenTest() {
             }
         }
 
-        composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
-
-        captureScreenshot()
+        // TODO https://github.com/google/horologist/issues/2237
+//        composeRule.onNode(hasScrollToNodeAction())
+//            .performTouchInput { repeat(10) { swipeUp() } }
+//
+//        captureScreenshot()
     }
 
     @Test

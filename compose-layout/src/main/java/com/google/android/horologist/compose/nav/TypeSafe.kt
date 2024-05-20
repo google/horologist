@@ -30,10 +30,11 @@ import androidx.navigation.get
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.WearNavigator
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
-class WearComposeNavigatorDestinationBuilder(
+public class WearComposeNavigatorDestinationBuilder(
     val wearNavigator: WearNavigator,
     route: KClass<*>,
     typeMap: Map<KType, @JvmSuppressWildcards NavType<*>>,
@@ -45,6 +46,7 @@ class WearComposeNavigatorDestinationBuilder(
     }
 }
 
+@ExperimentalHorologistApi
 public inline fun <reified T : Any> NavGraphBuilder.composable(
     typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = emptyMap(),
     deepLinks: List<NavDeepLink> = emptyList(),
@@ -64,6 +66,7 @@ public inline fun <reified T : Any> NavGraphBuilder.composable(
     )
 }
 
+@ExperimentalHorologistApi
 @Composable
 public fun SwipeDismissableNavHost(
     navController: NavHostController,

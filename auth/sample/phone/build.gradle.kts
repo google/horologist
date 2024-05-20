@@ -27,7 +27,7 @@ android {
         applicationId = "com.google.android.horologist.auth.sample"
 
         minSdk = 23
-        targetSdk = 33
+        targetSdk = 34
 
         versionCode = 1
         versionName = "1.0"

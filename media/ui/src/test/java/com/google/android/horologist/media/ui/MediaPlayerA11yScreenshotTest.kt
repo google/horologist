@@ -35,7 +35,6 @@ class MediaPlayerA11yScreenshotTest : WearLegacyA11yTest() {
     }
 
     @Config(
-        sdk = [30],
         qualifiers = "+w192dp-h192dp",
     )
     @Test
@@ -44,7 +43,6 @@ class MediaPlayerA11yScreenshotTest : WearLegacyA11yTest() {
     }
 
     @Config(
-        sdk = [30],
         qualifiers = "w180dp-h180dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
     )
     @Test

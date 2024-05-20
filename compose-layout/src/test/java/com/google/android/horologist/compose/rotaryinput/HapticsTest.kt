@@ -45,7 +45,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [30])
+    @Config(sdk = [33])
     fun testPixelWatch1Wear35() {
         ShadowBuild.setManufacturer("Google")
         ShadowBuild.setModel("Google Pixel Watch")
@@ -72,7 +72,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [30])
+    @Config(sdk = [33])
     fun testGenericWear35() {
         ShadowBuild.setManufacturer("XXX")
         ShadowBuild.setModel("YYY")
@@ -88,7 +88,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [30])
+    @Config(sdk = [33])
     fun testGenericWear3() {
         ShadowBuild.setManufacturer("XXX")
         ShadowBuild.setModel("YYY")

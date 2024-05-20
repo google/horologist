@@ -49,7 +49,6 @@ import com.google.android.horologist.compose.tools.SamsungGalaxyWatch6Large
 import com.google.android.horologist.compose.tools.copy
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
-import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withDrawingEnabled
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestName
@@ -95,43 +94,39 @@ abstract class WearLegacyScreenSizeTest(
             device.name.lowercase().replace("\\W+".toRegex(), "")
         }$suffix.png"
 
-    open val forceHardware: Boolean = false
-
     fun runTest(
         capture: Boolean = true,
         content: @Composable () -> Unit,
     ) {
-        withDrawingEnabled(forceHardware) {
-            val shadowDisplay = Shadows.shadowOf(ShadowDisplay.getDefaultDisplay())
-            shadowDisplay.setDensity(device.density)
-            shadowDisplay.setHeight(device.screenSizePx)
-            shadowDisplay.setWidth(device.screenSizePx)
+        val shadowDisplay = Shadows.shadowOf(ShadowDisplay.getDefaultDisplay())
+        shadowDisplay.setDensity(device.density)
+        shadowDisplay.setHeight(device.screenSizePx)
+        shadowDisplay.setWidth(device.screenSizePx)
 
-            RuntimeEnvironment.setFontScale(device.fontScale)
-            RuntimeEnvironment.setQualifiers("+w${device.screenSizeDp}dp-h${device.screenSizeDp}dp")
+        RuntimeEnvironment.setFontScale(device.fontScale)
+        RuntimeEnvironment.setQualifiers("+w${device.screenSizeDp}dp-h${device.screenSizeDp}dp")
 
-            ApplicationProvider.getApplicationContext<Context>().setDisplayScale(device.density)
+        ApplicationProvider.getApplicationContext<Context>().setDisplayScale(device.density)
 
-            composeRule.setContent {
-                WearScreenshotTest.withImageLoader(imageLoaderEngine = imageLoader) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(Color.Black),
-                    ) {
-                        MaterialTheme(
-                            typography = MaterialTheme.typography.copy {
-                                this.copy(fontWeight = if (device.boldText) FontWeight.Bold else FontWeight.Medium)
-                            },
-                            content = content,
-                        )
-                    }
+        composeRule.setContent {
+            WearScreenshotTest.withImageLoader(imageLoaderEngine = imageLoader) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Black),
+                ) {
+                    MaterialTheme(
+                        typography = MaterialTheme.typography.copy {
+                            this.copy(fontWeight = if (device.boldText) FontWeight.Bold else FontWeight.Medium)
+                        },
+                        content = content,
+                    )
                 }
             }
+        }
 
-            if (capture) {
-                captureScreenshot("")
-            }
+        if (capture) {
+            captureScreenshot("")
         }
     }
 

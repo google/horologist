@@ -70,8 +70,6 @@ public abstract class WearScreenshotTest {
 
     public open val imageLoader: FakeImageLoaderEngine? = null
 
-    public open val forceHardware: Boolean = false
-
     public fun runTest(
         suffix: String? = null,
         device: WearDevice? = this.device,
@@ -79,22 +77,20 @@ public abstract class WearScreenshotTest {
         captureScreenshot: Boolean = true,
         content: @Composable () -> Unit,
     ) {
-        withDrawingEnabled(forceHardware) {
-            if (applyDeviceConfig && device != null) {
-                RuntimeEnvironment.setQualifiers("+w${device.dp}dp-h${device.dp}dp" + (if (device.isRound) "" else "-notround"))
-                RuntimeEnvironment.setFontScale(device.fontScale)
-            }
+        if (applyDeviceConfig && device != null) {
+            RuntimeEnvironment.setQualifiers("+w${device.dp}dp-h${device.dp}dp" + (if (device.isRound) "" else "-notround"))
+            RuntimeEnvironment.setFontScale(device.fontScale)
+        }
 
-            composeRule.setContent {
-                withImageLoader(imageLoader) {
-                    TestScaffold {
-                        content()
-                    }
+        composeRule.setContent {
+            withImageLoader(imageLoader) {
+                TestScaffold {
+                    content()
                 }
             }
-            if (captureScreenshot) {
-                captureScreenshot(suffix.orEmpty())
-            }
+        }
+        if (captureScreenshot) {
+            captureScreenshot(suffix.orEmpty())
         }
     }
 
@@ -154,11 +150,6 @@ public abstract class WearScreenshotTest {
                     content()
                 }
             }
-        }
-
-        @Suppress("UNUSED_PARAMETER")
-        public fun <R> withDrawingEnabled(forceHardware: Boolean, block: () -> R): R {
-            return block()
         }
     }
 }

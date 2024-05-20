@@ -26,9 +26,7 @@ public abstract class WearDeviceScreenshotTest(override val device: WearDevice) 
         public override val tolerance: Float = 0.02f
 
         public fun runTest(content: @Composable () -> Unit) {
-            withDrawingEnabled(forceHardware) {
-                runTest(suffix = null, content = content)
-            }
+            runTest(suffix = null, content = content)
         }
 
         public companion object {

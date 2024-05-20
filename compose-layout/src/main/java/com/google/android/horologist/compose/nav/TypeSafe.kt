@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.ai.sample.wear.prompt.nav
+package com.google.android.horologist.compose.nav
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -30,28 +30,23 @@ import androidx.navigation.get
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.WearNavigator
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
-@Composable
-public fun SwipeDismissableNavHost(
-    navController: NavHostController,
-    startDestination: Any,
-    modifier: Modifier = Modifier,
-    userSwipeEnabled: Boolean = true,
-    state: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
-    route: KClass<*>? = null,
-    builder: NavGraphBuilder.() -> Unit,
-) = androidx.wear.compose.navigation.SwipeDismissableNavHost(
-    navController,
-    remember(route, startDestination, builder) {
-        navController.createGraph(startDestination = startDestination, route = route, builder = builder)
-    },
-    modifier,
-    userSwipeEnabled,
-    state = state,
-)
+public class WearComposeNavigatorDestinationBuilder(
+    val wearNavigator: WearNavigator,
+    route: KClass<*>,
+    typeMap: Map<KType, @JvmSuppressWildcards NavType<*>>,
+    private val content: @Composable (NavBackStackEntry) -> Unit,
+) : NavDestinationBuilder<WearNavigator.Destination>(wearNavigator, route, typeMap) {
 
+    override fun instantiateDestination(): WearNavigator.Destination {
+        return WearNavigator.Destination(wearNavigator, content)
+    }
+}
+
+@ExperimentalHorologistApi
 public inline fun <reified T : Any> NavGraphBuilder.composable(
     typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = emptyMap(),
     deepLinks: List<NavDeepLink> = emptyList(),
@@ -71,14 +66,22 @@ public inline fun <reified T : Any> NavGraphBuilder.composable(
     )
 }
 
-class WearComposeNavigatorDestinationBuilder(
-    val wearNavigator: WearNavigator,
-    route: KClass<*>,
-    typeMap: Map<KType, @JvmSuppressWildcards NavType<*>>,
-    private val content: @Composable (NavBackStackEntry) -> Unit,
-) : NavDestinationBuilder<WearNavigator.Destination>(wearNavigator, route, typeMap) {
-
-    override fun instantiateDestination(): WearNavigator.Destination {
-        return WearNavigator.Destination(wearNavigator, content)
-    }
-}
+@ExperimentalHorologistApi
+@Composable
+public fun SwipeDismissableNavHost(
+    navController: NavHostController,
+    startDestination: Any,
+    modifier: Modifier = Modifier,
+    userSwipeEnabled: Boolean = true,
+    state: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
+    route: KClass<*>? = null,
+    builder: NavGraphBuilder.() -> Unit,
+) = androidx.wear.compose.navigation.SwipeDismissableNavHost(
+    navController,
+    remember(route, startDestination, builder) {
+        navController.createGraph(startDestination = startDestination, route = route, builder = builder)
+    },
+    modifier,
+    userSwipeEnabled,
+    state = state,
+)

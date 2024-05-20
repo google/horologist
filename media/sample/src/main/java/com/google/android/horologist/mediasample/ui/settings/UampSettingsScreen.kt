@@ -32,15 +32,17 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
+import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToDeveloperOptions
 import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignIn
@@ -48,12 +50,18 @@ import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleS
 
 @Composable
 fun UampSettingsScreen(
-    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     viewModel: SettingsScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = ScalingLazyColumnDefaults.padding(
+            first = ItemType.Text,
+            last = ItemType.Chip,
+        ),
+    )
 
     ScreenScaffold(scrollState = columnState) {
         ScalingLazyColumn(
@@ -61,7 +69,7 @@ fun UampSettingsScreen(
             modifier = modifier,
         ) {
             item {
-                ListHeader {
+                ResponsiveListHeader(contentPadding = firstItemPadding()) {
                     Text(text = stringResource(id = R.string.sample_settings))
                 }
             }

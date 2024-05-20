@@ -96,6 +96,8 @@ dependencies {
     api(libs.androidx.lifecycle.runtime.compose)
     api(libs.androidx.paging)
     api(libs.androidx.wear)
+    api(libs.androidx.navigation.runtime)
+    api(libs.wearcompose.navigation)
 
     implementation(libs.compose.ui.util)
 

@@ -36,6 +36,8 @@ import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
+import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.media.ui.R
@@ -87,19 +89,15 @@ public class BrowseScreenScope {
         content: BrowseScreenSectionScope<T>.() -> Unit,
     ) {
         val scope = BrowseScreenSectionScope<T>().apply(content)
-        val firstSectionAdded = sections.isEmpty()
         sections.add(
             Section(
                 state = state,
                 headerContent = {
-                    Title(
-                        textId = titleId,
-                        modifier = if (firstSectionAdded) {
-                            Modifier.padding(bottom = 8.dp)
-                        } else {
-                            Modifier.padding(top = 8.dp, bottom = 8.dp)
-                        },
-                    )
+                    ResponsiveListHeader(
+                        contentPadding = firstItemPadding(),
+                    ) {
+                        Text(text = stringResource(id = titleId))
+                    }
                 },
                 loadingContent = scope.loadingContent,
                 loadedContent = scope.loadedContent,

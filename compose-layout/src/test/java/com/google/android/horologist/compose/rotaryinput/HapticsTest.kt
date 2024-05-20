@@ -45,7 +45,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [30])
+    @Config(sdk = [34])
     fun testPixelWatch1Wear35() {
         ShadowBuild.setManufacturer("Google")
         ShadowBuild.setModel("Google Pixel Watch")
@@ -57,7 +57,7 @@ class HapticsTest {
 
         val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear3point5RotaryHapticFeedback")
+        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
     }
 
     @Test

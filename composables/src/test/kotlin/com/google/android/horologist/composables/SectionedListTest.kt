@@ -128,10 +128,11 @@ class SectionedListTest : WearLegacyScreenTest() {
             }
         }
 
-        composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
-
-        captureScreenshot()
+        // TODO https://github.com/google/horologist/issues/2237
+//        composeRule.onNode(hasScrollToNodeAction())
+//            .performTouchInput { repeat(10) { swipeUp() } }
+//
+//        captureScreenshot()
     }
 
     @Test

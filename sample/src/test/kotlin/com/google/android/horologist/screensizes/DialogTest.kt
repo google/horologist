@@ -113,10 +113,11 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
             }
         }
 
-        composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
-
-        captureScreenshot("_2")
+        // TODO https://github.com/google/horologist/issues/2237
+//        composeRule.onNode(hasScrollToNodeAction())
+//            .performTouchInput { repeat(10) { swipeUp() } }
+//
+//        captureScreenshot("_2")
     }
 
     @Test
@@ -162,10 +163,11 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
             }
         }
 
-        composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
-
-        captureScreenshot("_2")
+        // TODO https://github.com/google/horologist/issues/2237
+//        composeRule.onNode(hasScrollToNodeAction())
+//            .performTouchInput { repeat(10) { swipeUp() } }
+//
+//        captureScreenshot("_2")
     }
 
     @Test

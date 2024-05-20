@@ -143,7 +143,7 @@ class MetricsScreenTest : WearLegacyScreenTest() {
     }
 
     @Config(
-        sdk = [33],
+        sdk = [30],
         qualifiers = largeScreen,
     )
     @Test
@@ -179,7 +179,7 @@ class MetricsScreenTest : WearLegacyScreenTest() {
     }
 
     @Config(
-        sdk = [33],
+        sdk = [30],
         qualifiers = smallScreen,
     )
     @Test

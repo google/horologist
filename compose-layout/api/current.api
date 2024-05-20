@@ -167,6 +167,22 @@ package com.google.android.horologist.compose.layout {
 
 }
 
+package com.google.android.horologist.compose.nav {
+
+  public final class TypeSafeKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SwipeDismissableNavHost(androidx.navigation.NavHostController navController, Object startDestination, optional androidx.compose.ui.Modifier modifier, optional boolean userSwipeEnabled, optional androidx.wear.compose.navigation.SwipeDismissableNavHostState state, optional kotlin.reflect.KClass<?>? route, kotlin.jvm.functions.Function1<? super androidx.navigation.NavGraphBuilder,kotlin.Unit> builder);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static inline <reified T> void composable(androidx.navigation.NavGraphBuilder, optional java.util.Map<kotlin.reflect.KType,androidx.navigation.NavType<?>> typeMap, optional java.util.List<? extends androidx.navigation.NavDeepLink> deepLinks, kotlin.jvm.functions.Function1<? super androidx.navigation.NavBackStackEntry,? extends kotlin.Unit> content);
+  }
+
+  public final class WearComposeNavigatorDestinationBuilder extends androidx.navigation.NavDestinationBuilder<androidx.wear.compose.navigation.WearNavigator.Destination> {
+    ctor public WearComposeNavigatorDestinationBuilder(androidx.wear.compose.navigation.WearNavigator wearNavigator, kotlin.reflect.KClass<?> route, java.util.Map<kotlin.reflect.KType,androidx.navigation.NavType<?>> typeMap, kotlin.jvm.functions.Function1<? super androidx.navigation.NavBackStackEntry,kotlin.Unit> content);
+    method public androidx.wear.compose.navigation.WearNavigator getWearNavigator();
+    method protected androidx.wear.compose.navigation.WearNavigator.Destination instantiateDestination();
+    property public final androidx.wear.compose.navigation.WearNavigator wearNavigator;
+  }
+
+}
+
 package com.google.android.horologist.compose.pager {
 
   public final class HorizontalPagerDefaults {

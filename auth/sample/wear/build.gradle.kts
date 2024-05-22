@@ -16,7 +16,6 @@
 
 plugins {
     id("com.android.application")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     kotlin("android")
 }
 
@@ -138,9 +137,4 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.robolectric)
-}
-
-secrets {
-    propertiesFileName = "$projectDir/secrets.properties"
-    defaultPropertiesFileName = "$projectDir/secrets.defaults.properties"
 }

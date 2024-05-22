@@ -97,7 +97,7 @@ dependencies {
 
     api(libs.androidx.wear.phone.interactions)
     api(libs.com.squareup.okhttp3.okhttp)
-    api(libs.moshi)
+    api(libs.moshi.kotlin)
     api(libs.retrofit2.retrofit)
 
     implementation(libs.androidx.wear.remote.interactions)

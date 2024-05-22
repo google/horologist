@@ -16,6 +16,7 @@
 
 plugins {
     id("com.android.application")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     kotlin("android")
 }
 
@@ -97,6 +98,7 @@ dependencies {
 
     implementation(projects.auth.composables)
     implementation(projects.auth.data)
+    implementation(projects.auth.dataWatchOauth)
     implementation(projects.auth.sample.shared)
     implementation(projects.auth.ui)
     implementation(projects.composables)
@@ -117,8 +119,10 @@ dependencies {
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)
 
+    implementation(libs.com.squareup.okhttp3.logging.interceptor)
     implementation(libs.com.squareup.okhttp3.okhttp)
     implementation(libs.kotlinx.coroutines.playservices)
+    implementation(libs.moshi.kotlin)
     implementation(libs.playservices.auth)
     implementation(libs.playservices.wearable)
 
@@ -134,4 +138,9 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.robolectric)
+}
+
+secrets {
+    propertiesFileName = "$projectDir/secrets.properties"
+    defaultPropertiesFileName = "$projectDir/secrets.defaults.properties"
 }

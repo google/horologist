@@ -20,9 +20,13 @@ import android.app.Application
 import android.os.StrictMode
 import com.google.android.horologist.auth.sample.di.SampleAppDI
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.squareup.moshi.Moshi
+import okhttp3.OkHttpClient
 
 class SampleApplication : Application() {
     lateinit var registry: WearDataLayerRegistry
+    lateinit var okHttpClient: OkHttpClient
+    lateinit var moshi: Moshi
 
     override fun onCreate() {
         super.onCreate()

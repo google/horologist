@@ -41,11 +41,64 @@ fun MainScreen(
         columnState = columnState,
         modifier = modifier.fillMaxSize(),
     ) {
+        pkceSection(navigateToRoute)
+
+        deviceGrantSection(navigateToRoute)
+
         googleSignInSection(navigateToRoute)
 
         tokenShareSection(navigateToRoute)
 
         commonScreensSection(navigateToRoute)
+    }
+}
+
+private fun SectionedListScope.pkceSection(navigateToRoute: (String) -> Unit) {
+    section(
+        listOf(
+            Pair(R.string.auth_menu_oauth_pkce_sign_in_item, Screen.PKCESignInPromptScreen.route),
+            Pair(
+                R.string.auth_menu_oauth_pkce_sign_out_item,
+                Screen.PKCESignOutScreen.route,
+            ),
+        ),
+    ) {
+        header {
+            Title(stringResource(id = R.string.auth_menu_oauth_pkce_header), Modifier)
+        }
+        loaded { (textId, route) ->
+            Chip(
+                label = stringResource(id = textId),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(route) },
+            )
+        }
+    }
+}
+
+private fun SectionedListScope.deviceGrantSection(navigateToRoute: (String) -> Unit) {
+    section(
+        listOf(
+            Pair(
+                R.string.auth_menu_oauth_device_grant_sign_in_item,
+                Screen.DeviceGrantSignInPromptScreen.route,
+            ),
+            Pair(
+                R.string.auth_menu_oauth_device_grant_sign_out_item,
+                Screen.DeviceGrantSignOutScreen.route,
+            ),
+        ),
+    ) {
+        header {
+            Title(stringResource(id = R.string.auth_menu_oauth_device_grant_header))
+        }
+        loaded { (textId, route) ->
+            Chip(
+                label = stringResource(id = textId),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(route) },
+            )
+        }
     }
 }
 

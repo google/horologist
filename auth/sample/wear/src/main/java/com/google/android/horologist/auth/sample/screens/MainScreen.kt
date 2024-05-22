@@ -27,6 +27,7 @@ import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
@@ -35,21 +36,24 @@ import com.google.android.horologist.compose.material.Title
 fun MainScreen(
     navigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        pkceSection(navigateToRoute)
+    val columnState = rememberResponsiveColumnState()
 
-        deviceGrantSection(navigateToRoute)
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(
+            columnState = columnState,
+            modifier = modifier.fillMaxSize(),
+        ) {
+            pkceSection(navigateToRoute)
 
-        googleSignInSection(navigateToRoute)
+            deviceGrantSection(navigateToRoute)
 
-        tokenShareSection(navigateToRoute)
+            googleSignInSection(navigateToRoute)
 
-        commonScreensSection(navigateToRoute)
+            tokenShareSection(navigateToRoute)
+
+            commonScreensSection(navigateToRoute)
+        }
     }
 }
 
@@ -179,6 +183,5 @@ private fun SectionedListScope.commonScreensSection(navigateToRoute: (String) ->
 fun AuthMenuScreenPreview() {
     MainScreen(
         navigateToRoute = {},
-        columnState = rememberResponsiveColumnState(),
     )
 }

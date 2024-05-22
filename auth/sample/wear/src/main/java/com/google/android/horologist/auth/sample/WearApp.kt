@@ -66,28 +66,18 @@ fun WearApp(
             composable(
                 route = Screen.MainScreen.route,
             ) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    MainScreen(
-                        navigateToRoute = navController::navigate,
-                        modifier = modifier,
-                        columnState = columnState,
-                    )
-                }
+                MainScreen(
+                    navigateToRoute = navController::navigate,
+                    modifier = modifier,
+                )
             }
             composable(
                 route = Screen.PKCESignInPromptScreen.route,
             ) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    PKCESignInPromptScreen(
-                        navController = navController,
-                        modifier = modifier,
-                        columnState = columnState,
-                    )
-                }
+                PKCESignInPromptScreen(
+                    navController = navController,
+                    modifier = modifier,
+                )
             }
             composable(route = Screen.PKCESignInScreen.route) {
                 PKCESignInScreen<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse>(
@@ -102,15 +92,10 @@ fun WearApp(
             composable(
                 route = Screen.DeviceGrantSignInPromptScreen.route,
             ) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    DeviceGrantSignInPromptScreen(
-                        navController = navController,
-                        columnState = columnState,
-                        modifier = modifier,
-                    )
-                }
+                DeviceGrantSignInPromptScreen(
+                    navController = navController,
+                    modifier = modifier,
+                )
             }
             composable(route = Screen.DeviceGrantSignInScreen.route) {
                 DeviceGrantSignInScreen<DeviceGrantDefaultConfig, DeviceCodeResponse, String>(
@@ -125,37 +110,22 @@ fun WearApp(
             composable(
                 route = Screen.GoogleSignInPromptSampleScreen.route,
             ) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    GoogleSignInPromptSampleScreen(
-                        navController = navController,
-                        columnState = columnState,
-                        modifier = modifier,
-                    )
-                }
+                GoogleSignInPromptSampleScreen(
+                    navController = navController,
+                    modifier = modifier,
+                )
             }
             composable(route = Screen.StreamlineSignInMenuScreen.route) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    StreamlineSignInMenuScreen(
-                        navController = navController,
-                        columnState = columnState,
-                        modifier = modifier,
-                    )
-                }
+                StreamlineSignInMenuScreen(
+                    navController = navController,
+                    modifier = modifier,
+                )
             }
             composable(route = Screen.StreamlineSignInSampleScreen.route) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    StreamlineSignInSampleScreen(
-                        navController = navController,
-                        columnState = columnState,
-                        modifier = modifier,
-                    )
-                }
+                StreamlineSignInSampleScreen(
+                    navController = navController,
+                    modifier = modifier,
+                )
             }
             composable(route = Screen.GoogleSignInScreen.route) {
                 GoogleSignInScreen(
@@ -169,18 +139,10 @@ fun WearApp(
                 GoogleSignOutScreen(navController = navController)
             }
             composable(route = Screen.TokenShareDefaultKeyScreen.route) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    TokenShareDefaultKeyScreen(columnState = columnState, modifier = modifier)
-                }
+                TokenShareDefaultKeyScreen(modifier = modifier)
             }
             composable(route = Screen.TokenShareCustomKeyScreen.route) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    TokenShareCustomKeyScreen(columnState = columnState, modifier = modifier)
-                }
+                TokenShareCustomKeyScreen(modifier = modifier)
             }
         }
     }

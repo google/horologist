@@ -26,53 +26,58 @@ import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 
 @Composable
 fun StreamlineSignInMenuScreen(
     navController: NavHostController,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
 ) {
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        section(
-            listOf(
-                Triple(
-                    R.string.common_screens_streamline_sign_in_single_account_item,
-                    Screen.StreamlineSignInSampleScreen.route,
-                    AuthUserRepositoryStreamlineImpl.Mode.SINGLE_ACCOUNT_AVAILABLE,
-                ),
-                Triple(
-                    R.string.common_screens_streamline_sign_in_multiple_accounts_item,
-                    Screen.StreamlineSignInSampleScreen.route,
-                    AuthUserRepositoryStreamlineImpl.Mode.MULTIPLE_ACCOUNTS_AVAILABLE,
-                ),
-                Triple(
-                    R.string.common_screens_streamline_sign_in_no_accounts_item,
-                    Screen.StreamlineSignInSampleScreen.route,
-                    AuthUserRepositoryStreamlineImpl.Mode.NO_ACCOUNTS_AVAILABLE,
-                ),
-            ),
+    val columnState = rememberResponsiveColumnState()
+
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(
+            columnState = columnState,
+            modifier = modifier.fillMaxSize(),
         ) {
-            header {
-                Title(
-                    stringResource(id = R.string.common_screens_streamline_sign_in_header),
-                    Modifier,
-                )
-            }
-            loaded { (textId, route, mode) ->
-                Chip(
-                    label = stringResource(id = textId),
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = {
-                        AuthUserRepositoryStreamlineImpl.mode = mode
-                        navController.navigate(route)
-                    },
-                )
+            section(
+                listOf(
+                    Triple(
+                        R.string.common_screens_streamline_sign_in_single_account_item,
+                        Screen.StreamlineSignInSampleScreen.route,
+                        AuthUserRepositoryStreamlineImpl.Mode.SINGLE_ACCOUNT_AVAILABLE,
+                    ),
+                    Triple(
+                        R.string.common_screens_streamline_sign_in_multiple_accounts_item,
+                        Screen.StreamlineSignInSampleScreen.route,
+                        AuthUserRepositoryStreamlineImpl.Mode.MULTIPLE_ACCOUNTS_AVAILABLE,
+                    ),
+                    Triple(
+                        R.string.common_screens_streamline_sign_in_no_accounts_item,
+                        Screen.StreamlineSignInSampleScreen.route,
+                        AuthUserRepositoryStreamlineImpl.Mode.NO_ACCOUNTS_AVAILABLE,
+                    ),
+                ),
+            ) {
+                header {
+                    Title(
+                        stringResource(id = R.string.common_screens_streamline_sign_in_header),
+                        Modifier,
+                    )
+                }
+                loaded { (textId, route, mode) ->
+                    Chip(
+                        label = stringResource(id = textId),
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = {
+                            AuthUserRepositoryStreamlineImpl.mode = mode
+                            navController.navigate(route)
+                        },
+                    )
+                }
             }
         }
     }

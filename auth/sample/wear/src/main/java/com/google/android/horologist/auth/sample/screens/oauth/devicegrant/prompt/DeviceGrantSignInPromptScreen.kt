@@ -37,58 +37,61 @@ import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
 fun DeviceGrantSignInPromptScreen(
     navController: NavHostController,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: SignInPromptViewModel = viewModel(factory = DeviceGrantSignInPromptViewModelFactory),
 ) {
     var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
 
-    SignInPromptScreen(
-        message = stringResource(id = R.string.device_grant_sign_in_prompt_message),
-        onAlreadySignedIn = {
-            showAlreadySignedInDialog = true
-        },
-        columnState = columnState,
-        modifier = modifier,
-        viewModel = viewModel,
-    ) {
-        item {
-            SignInChip(
-                onClick = {
-                    navController.navigate(Screen.DeviceGrantSignInScreen.route) {
-                        popUpTo(Screen.MainScreen.route)
-                    }
-                },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-        item {
-            GuestModeChip(
-                onClick = navController::popBackStack,
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-    }
+    val columnState = rememberResponsiveColumnState()
 
-    if (showAlreadySignedInDialog) {
-        Confirmation(
-            onTimeout = {
-                showAlreadySignedInDialog = false
-                navController.popBackStack()
+    ScreenScaffold(scrollState = columnState) {
+        SignInPromptScreen(
+            message = stringResource(id = R.string.device_grant_sign_in_prompt_message),
+            onAlreadySignedIn = {
+                showAlreadySignedInDialog = true
             },
+            columnState = columnState,
+            modifier = modifier,
+            viewModel = viewModel,
         ) {
-            Text(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.device_grant_sign_in_prompt_already_signed_in_message),
-            )
+            item {
+                SignInChip(
+                    onClick = {
+                        navController.navigate(Screen.DeviceGrantSignInScreen.route) {
+                            popUpTo(Screen.MainScreen.route)
+                        }
+                    },
+                    colors = ChipDefaults.secondaryChipColors(),
+                )
+            }
+            item {
+                GuestModeChip(
+                    onClick = navController::popBackStack,
+                    colors = ChipDefaults.secondaryChipColors(),
+                )
+            }
+        }
+
+        if (showAlreadySignedInDialog) {
+            Confirmation(
+                onTimeout = {
+                    showAlreadySignedInDialog = false
+                    navController.popBackStack()
+                },
+            ) {
+                Text(
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    textAlign = TextAlign.Center,
+                    text = stringResource(id = R.string.device_grant_sign_in_prompt_already_signed_in_message),
+                )
+            }
         }
     }
 }
@@ -98,6 +101,5 @@ fun DeviceGrantSignInPromptScreen(
 fun DeviceGrantSignInPromptScreenPreview() {
     DeviceGrantSignInPromptScreen(
         navController = rememberSwipeDismissableNavController(),
-        columnState = belowTimeTextPreview(),
     )
 }

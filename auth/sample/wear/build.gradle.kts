@@ -1,3 +1,5 @@
+import java.util.Properties
+
 /*
  * Copyright 2023 The Android Open Source Project
  *
@@ -19,6 +21,13 @@ plugins {
     kotlin("android")
 }
 
+val localProperties = Properties().apply {
+    val localPropertiesFile = project.rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        load(localPropertiesFile.inputStream())
+    }
+}
+
 android {
     compileSdk = 34
 
@@ -32,11 +41,41 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "OAUTH_DEVICE_GRANT_CLIENT_ID",
+            "\"" + localProperties["OAUTH_DEVICE_GRANT_CLIENT_ID"] + "\"",
+        )
+        buildConfigField(
+            "String",
+            "OAUTH_DEVICE_GRANT_CLIENT_SECRET",
+            "\"" + localProperties["OAUTH_DEVICE_GRANT_CLIENT_SECRET"] + "\"",
+        )
+        buildConfigField(
+            "String",
+            "OAUTH_PKCE_CLIENT_ID",
+            "\"" + localProperties["OAUTH_PKCE_CLIENT_ID"] + "\"",
+        )
+        buildConfigField(
+            "String",
+            "OAUTH_PKCE_CLIENT_SECRET",
+            "\"" + localProperties["OAUTH_PKCE_CLIENT_SECRET"] + "\"",
+        )
+    }
+
+    signingConfigs {
+        getByName("debug") {
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+            storeFile = file("../debug.keystore")
+            storePassword = "android"
+        }
     }
 
     buildTypes {
         debug {
-            applicationIdSuffix = ".debug"
+//            applicationIdSuffix = ".debug"
             manifestPlaceholders["schemeSuffix"] = "-debug"
         }
         release {

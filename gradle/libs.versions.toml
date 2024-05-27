@@ -32,7 +32,7 @@ compose = "1.7.0-beta01"
 compose-compiler = "1.5.14"
 compose-material3 = "1.3.0-beta01"
 composesnapshot = "-"
-dependencyAnalysis = "1.31.0"
+dependencyAnalysis = "1.32.0"
 dokka = "1.9.20"
 googledagger = "2.51.1"
 gradlePlugin = "8.4.0"
@@ -48,9 +48,9 @@ metalava = "0.3.5"
 moshi = "1.15.1"
 okio = "3.9.0"
 org-robolectric = "4.12.2"
-playServicesAuth = "21.1.1"
-protobuf = "4.26.1"
-roborazzi = "1.16.1"
+playServicesAuth = "21.2.0"
+protobuf = "4.27.0"
+roborazzi = "1.19.0"
 room = "2.6.1"
 runtimeTracing = "1.0.0-beta01"
 spotless = "6.25.0"
@@ -181,8 +181,8 @@ kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-
 kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
-lottie-compose = "com.airbnb.android:lottie-compose:6.4.0"
-mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.16.0"
+lottie-compose = "com.airbnb.android:lottie-compose:6.4.1"
+mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.20.0"
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }

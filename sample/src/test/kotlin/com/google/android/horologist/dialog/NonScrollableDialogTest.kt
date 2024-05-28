@@ -35,7 +35,7 @@ class NonScrollableDialogTest(device: WearDevice) : WearDeviceScreenshotTest(dev
     public override val tolerance: Float = 0.01f
 
     override fun testName(suffix: String): String =
-        "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName}_${device.id}$suffix.png"
+        "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName.substringBefore('[')}_${device.id}$suffix.png"
 
     @Test
     fun turnOnBluetoothScrollable() = runTest {

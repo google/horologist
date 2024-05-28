@@ -1,3 +1,7 @@
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter.ofPattern
+import java.util.Locale
+
 /*
  * Copyright 2022 The Android Open Source Project
  *
@@ -29,8 +33,10 @@ android {
         minSdk = 26
         targetSdk = 34
 
-        versionCode = 1
-        versionName = "1.0"
+        val date = LocalDate.now()
+
+        versionCode = date.format(ofPattern("yyyyMMdd", Locale.ROOT)).toInt()
+        versionName = date.toString()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

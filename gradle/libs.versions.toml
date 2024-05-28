@@ -182,7 +182,7 @@ kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coro
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 lottie-compose = "com.airbnb.android:lottie-compose:6.4.1"
-mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.20.0"
+mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.20.0-coil2"
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }

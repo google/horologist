@@ -139,8 +139,8 @@ public fun ResponsiveDialogContent(
                         val buttonWidth = if (width < 225 || onOk == null || onCancel == null) {
                             ButtonDefaults.DefaultButtonSize
                         } else {
-                            // 14.52% margin on the sides, 12.dp between.
-                            ((width * (1f - 2 * 0.1452f) - buttonSpacedBy) / 2).dp
+                            // 14.56% margin on the sides, 12.dp between.
+                            ((width * (1f - 2 * 0.1456f) - buttonSpacedBy) / 2).dp
                         }
                         Row(
                             Modifier

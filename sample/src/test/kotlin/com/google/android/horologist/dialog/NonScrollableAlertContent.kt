@@ -63,6 +63,6 @@ private fun centeredColumnState() = rememberColumnState(
         initialCenterIndex = 1,
         initialCenterOffset = 0,
         verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
-        autoCentering = AutoCenteringParams(itemIndex = 1, itemOffset = 0)
+        autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 0)
     ),
 )

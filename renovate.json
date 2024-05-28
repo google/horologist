@@ -19,14 +19,14 @@
         "org.jetbrains.kotlin.*"
       ],
       "groupName": "kotlin",
-      "allowedVersions": "2.0.0"
+      "allowedVersions": "<2.0.0"
     },
     {
       "matchPackagePatterns": [
         "com.google.devtools.ksp"
       ],
       "groupName": "kotlin",
-      "allowedVersions": "2.0.0"
+      "allowedVersions": "<2.0.0"
     },
     {
       "matchPackagePatterns": [

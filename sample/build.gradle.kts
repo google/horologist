@@ -1,7 +1,3 @@
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter.ofPattern
-import java.util.Locale
-
 /*
  * Copyright 2022 The Android Open Source Project
  *
@@ -17,6 +13,10 @@ import java.util.Locale
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter.ofPattern
+import java.util.Locale
 
 plugins {
     id("com.android.application")

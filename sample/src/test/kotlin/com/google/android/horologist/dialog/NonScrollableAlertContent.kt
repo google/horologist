@@ -60,8 +60,8 @@ public fun NonScrollableAlertContent(
 @Composable
 private fun centeredColumnState() = rememberColumnState(
     ScalingLazyColumnDefaults.scalingLazyColumnDefaults(
-        initialCenterIndex = 1,
-        initialCenterOffset = 0,
+        initialCenterIndex = 0,
+        initialCenterOffset = 50,
         verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
         autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 0)
     ),

@@ -35,6 +35,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.AlertDialog
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
+import com.google.android.horologist.compose.material.centeredDialogColumnState
 
 @Composable
 internal fun SampleAlertDialog(
@@ -44,6 +45,7 @@ internal fun SampleAlertDialog(
     var showSimpleDialog by remember { mutableStateOf(false) }
     var showBedtimeModeDialog by remember { mutableStateOf(false) }
     var showAllowDebuggingDialog by remember { mutableStateOf(false) }
+    var showCenteredDialog by remember { mutableStateOf(false) }
     ScalingLazyColumn(
         columnState = columnState,
         modifier = modifier,
@@ -57,6 +59,14 @@ internal fun SampleAlertDialog(
             Chip(
                 onClick = { showSimpleDialog = true },
                 label = { Text("Simple alert") },
+                colors = ChipDefaults.secondaryChipColors(),
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+        item {
+            Chip(
+                onClick = { showCenteredDialog = true },
+                label = { Text("Centered alert") },
                 colors = ChipDefaults.secondaryChipColors(),
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -79,7 +89,7 @@ internal fun SampleAlertDialog(
         }
     }
 
-    // Simple AlertDialog sample with icon, title and Ok/Cancel buttons.
+    // Simple AlertDialog sample with icon, title, message and Ok/Cancel buttons.
     AlertDialog(
         showDialog = showSimpleDialog,
         onCancel = { showSimpleDialog = false },
@@ -92,6 +102,15 @@ internal fun SampleAlertDialog(
         },
         title = "A Simple Dialog",
         message = "Icon and Text dialog use up to 2 lines.",
+    )
+
+    // Centered AlertDialog sample with title and Ok/Cancel buttons.
+    AlertDialog(
+        showDialog = showCenteredDialog,
+        onCancel = { showCenteredDialog = false },
+        onOk = { showCenteredDialog = false },
+        title = "A Centered Dialog",
+        state = centeredDialogColumnState(),
     )
 
     // "Bedtime mode" AlertDialog sample, with Ok/Cancel buttons and extra content.

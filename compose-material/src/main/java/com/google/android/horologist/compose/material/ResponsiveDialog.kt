@@ -232,6 +232,6 @@ public fun centeredDialogColumnState(): ScalingLazyColumnState = rememberColumnS
         initialCenterIndex = 0,
         initialCenterOffset = 50,
         verticalArrangement = spacedBy(4.dp, Alignment.CenterVertically),
-        autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 0),
+        autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 50),
     ),
 )

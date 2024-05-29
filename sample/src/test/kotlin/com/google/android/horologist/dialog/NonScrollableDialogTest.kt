@@ -86,4 +86,14 @@ class NonScrollableDialogTest(device: WearDevice) : WearDeviceScreenshotTest(dev
             onCancel = {},
         )
     }
+
+    @Test
+    fun tooLong() = runTest {
+        NonScrollableAlertContent(
+            title = "Phone app is required",
+            onCancel = {},
+            onOk = {},
+            message = "Tap the button below to install it on your phone.",
+        )
+    }
 }

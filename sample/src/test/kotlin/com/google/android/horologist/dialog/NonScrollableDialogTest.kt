@@ -16,15 +16,8 @@
 
 package com.google.android.horologist.dialog
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import com.google.android.horologist.audio.ui.R.string.horologist_volume_screen_change_audio_output
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.material.AlertContent
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
@@ -42,7 +35,7 @@ class NonScrollableDialogTest(device: WearDevice) : WearDeviceScreenshotTest(dev
         AlertContent(
             title = "Turn on Bluetooth?",
             onOk = {},
-            onCancel = {}
+            onCancel = {},
         )
     }
 

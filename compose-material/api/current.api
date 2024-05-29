@@ -106,6 +106,7 @@ package com.google.android.horologist.compose.material {
 
   public final class ResponsiveDialogKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ResponsiveDialogContent(optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? icon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? title, optional kotlin.jvm.functions.Function0<kotlin.Unit>? message, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onOk, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onCancel, optional String okButtonContentDescription, optional String cancelButtonContentDescription, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState state, optional boolean showPositionIndicator, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.ScalingLazyListScope,kotlin.Unit>? content);
+    method @androidx.compose.runtime.Composable public static com.google.android.horologist.compose.layout.ScalingLazyColumnState centeredDialogColumnState();
   }
 
   public final class ResponsiveListHeaderKt {

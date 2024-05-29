@@ -16,17 +16,12 @@
 
 package com.google.android.horologist.dialog
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.material.AlertContent
+import com.google.android.horologist.compose.material.centeredDialogColumnState
 
 @ExperimentalHorologistApi
 @Composable
@@ -41,7 +36,7 @@ public fun NonScrollableAlertContent(
     showPositionIndicator: Boolean = true,
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
-    val columnState = centeredColumnState()
+    val columnState = centeredDialogColumnState()
 
     AlertContent(
         onCancel,
@@ -53,16 +48,6 @@ public fun NonScrollableAlertContent(
         cancelButtonContentDescription,
         columnState,
         showPositionIndicator,
-        content
+        content,
     )
 }
-
-@Composable
-private fun centeredColumnState() = rememberColumnState(
-    ScalingLazyColumnDefaults.scalingLazyColumnDefaults(
-        initialCenterIndex = 0,
-        initialCenterOffset = 50,
-        verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
-        autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 0)
-    ),
-)

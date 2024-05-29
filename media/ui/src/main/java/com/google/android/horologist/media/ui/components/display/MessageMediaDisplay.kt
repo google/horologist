@@ -21,6 +21,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.MaterialTheme
@@ -40,7 +42,9 @@ public fun MessageMediaDisplay(
         val style = MaterialTheme.typography.body2
         Text(
             text = message.orEmpty(),
-            modifier = Modifier.fillMaxWidth(0.7f),
+            modifier = Modifier
+                .fillMaxWidth(0.7f)
+                .semantics { heading() },
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,

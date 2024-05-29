@@ -33,6 +33,12 @@
         "com.android.tools.build:gradle"
       ],
       "allowedVersions": "<8.3.0"
+    },
+    {
+      "matchPackagePatterns": [
+        "com.mikepenz:multiplatform-markdown-renderer"
+      ],
+      "allowedVersions": "/coil2/"
     }
   ]
 }

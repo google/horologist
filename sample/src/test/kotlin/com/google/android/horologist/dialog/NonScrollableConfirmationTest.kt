@@ -17,9 +17,7 @@
 package com.google.android.horologist.dialog
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Error
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.Icon
 import com.google.android.horologist.auth.composables.R.string.horologist_auth_error_message

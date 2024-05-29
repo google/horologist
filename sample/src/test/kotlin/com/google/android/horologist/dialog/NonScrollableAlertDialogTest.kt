@@ -24,11 +24,14 @@ import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 
-class NonScrollableDialogTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
+class NonScrollableAlertDialogTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
     public override val tolerance: Float = 0.01f
 
     override fun testName(suffix: String): String =
         "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName.substringBefore('[')}_${device.id}$suffix.png"
+
+    // Not actually non scrolling - but should only be used when developer is confident that
+    // content won't scroll
 
     @Test
     fun turnOnBluetoothScrollable() = runTest {

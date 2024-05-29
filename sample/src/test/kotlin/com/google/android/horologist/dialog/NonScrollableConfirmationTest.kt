@@ -34,6 +34,8 @@ class NonScrollableConfirmationTest(device: WearDevice) : WearDeviceScreenshotTe
     override fun testName(suffix: String): String =
         "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName.substringBefore('[')}_${device.id}$suffix.png"
 
+    // Not actually non scrolling - but demonstrating content that won't scroll
+
     @Test
     fun confirmationContentEn() = runTest {
         ConfirmationContent(

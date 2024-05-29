@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.compose.material
 
-import android.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
@@ -42,6 +41,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.ChipColors
@@ -50,6 +50,7 @@ import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.responsive
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
@@ -65,8 +66,8 @@ public fun ResponsiveDialogContent(
     message: @Composable (() -> Unit)? = null,
     onOk: (() -> Unit)? = null,
     onCancel: (() -> Unit)? = null,
-    okButtonContentDescription: String = stringResource(R.string.ok),
-    cancelButtonContentDescription: String = stringResource(R.string.cancel),
+    okButtonContentDescription: String = stringResource(android.R.string.ok),
+    cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
     state: ScalingLazyColumnState =
         rememberColumnState(
             responsive(
@@ -224,3 +225,13 @@ internal val titleMaxWidthFraction = 1f - 2f * calculatePaddingFraction(
 // Calculate total padding given global padding and additional padding required inside that.
 internal fun calculatePaddingFraction(extraPadding: Float) =
     extraPadding / (100f - 2f * globalHorizontalPadding)
+
+@Composable
+public fun centeredDialogColumnState(): ScalingLazyColumnState = rememberColumnState(
+    ScalingLazyColumnDefaults.scalingLazyColumnDefaults(
+        initialCenterIndex = 0,
+        initialCenterOffset = 50,
+        verticalArrangement = spacedBy(4.dp, Alignment.CenterVertically),
+        autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 50),
+    ),
+)

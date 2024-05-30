@@ -53,7 +53,7 @@ fun VerticalPageIndicator(
         modifier = modifier
             .fillMaxSize()
             .rotate(90f)
-            .scale(scaleY = -1f, scaleX = 1f)
+            .scale(scaleY = -1f, scaleX = 1f),
     ) {
         HorizontalPageIndicator(
             pageIndicatorState = pageIndicatorState,

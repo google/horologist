@@ -59,7 +59,7 @@ import org.robolectric.annotation.Config
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
 @Config(
-    sdk = [30],
+    sdk = [33],
     qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 @Ignore("Failing with robolectric")

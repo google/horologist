@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.compose.pager
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -47,16 +50,21 @@ fun VerticalPageIndicator(
     spacing: Dp = 4.dp,
     indicatorShape: Shape = CircleShape,
 ) {
-    HorizontalPageIndicator(
-        pageIndicatorState = pageIndicatorState,
+    Box(
         modifier = modifier
+            .fillMaxSize()
             .rotate(90f)
-            .scale(scaleY = -1f, scaleX = 1f),
-        indicatorStyle = indicatorStyle,
-        selectedColor = selectedColor,
-        unselectedColor = unselectedColor,
-        indicatorSize = indicatorSize,
-        spacing = spacing,
-        indicatorShape = indicatorShape,
-    )
+            .scale(scaleY = -1f, scaleX = 1f)
+            .padding(4.dp)
+    ) {
+        HorizontalPageIndicator(
+            pageIndicatorState = pageIndicatorState,
+            indicatorStyle = indicatorStyle,
+            selectedColor = selectedColor,
+            unselectedColor = unselectedColor,
+            indicatorSize = indicatorSize,
+            spacing = spacing,
+            indicatorShape = indicatorShape,
+        )
+    }
 }

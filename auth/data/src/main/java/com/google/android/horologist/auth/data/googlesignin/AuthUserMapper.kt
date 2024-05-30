@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.google.android.horologist.auth.data.googlesignin
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount

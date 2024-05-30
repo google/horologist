@@ -22,7 +22,7 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 
 @WearPreviewDevices
 @Composable
-fun FillMaxRectanglePreview() {
+fun VerticalPagerIndicatorPreview() {
     val state = PagerState(1) {
         10
     }

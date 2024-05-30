@@ -33,7 +33,7 @@ class MediaPlayerDeviceScreenTest : WearLegacyScreenTest() {
     }
 
     @Config(
-        sdk = [33],
+        sdk = [30],
         qualifiers = "+w192dp-h192dp",
     )
     @Test
@@ -42,7 +42,7 @@ class MediaPlayerDeviceScreenTest : WearLegacyScreenTest() {
     }
 
     @Config(
-        sdk = [33],
+        sdk = [30],
         qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav",
     )
     @Test

@@ -42,7 +42,7 @@ class FillMaxRectangleTest {
 
     @Test
     @Config(
-        sdk = [33],
+        sdk = [30],
         qualifiers = "w227dp-h227dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
     )
     fun testSquare() {
@@ -58,7 +58,7 @@ class FillMaxRectangleTest {
 
     @Test
     @Config(
-        sdk = [33],
+        sdk = [30],
         qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
     )
     fun testCircle() {

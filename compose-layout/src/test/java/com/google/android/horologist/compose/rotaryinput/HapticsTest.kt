@@ -72,7 +72,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [33])
+    @Config(sdk = [30])
     fun testGenericWear35() {
         ShadowBuild.setManufacturer("XXX")
         ShadowBuild.setModel("YYY")
@@ -88,7 +88,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [33])
+    @Config(sdk = [30])
     fun testGenericWear3() {
         ShadowBuild.setManufacturer("XXX")
         ShadowBuild.setModel("YYY")

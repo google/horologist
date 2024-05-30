@@ -55,7 +55,6 @@ fun VerticalPageIndicator(
             .fillMaxSize()
             .rotate(90f)
             .scale(scaleY = -1f, scaleX = 1f)
-            .padding(4.dp)
     ) {
         HorizontalPageIndicator(
             pageIndicatorState = pageIndicatorState,

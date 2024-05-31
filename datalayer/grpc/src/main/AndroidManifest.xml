@@ -19,7 +19,7 @@
     package="com.google.android.horologist.datalayer.grpc">
 
     <uses-sdk
-        android:minSdkVersion="23"
+        android:minSdkVersion="21"
         tools:ignore="GradleOverrides" />
 
 </manifest>

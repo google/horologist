@@ -19,7 +19,7 @@
     package="com.google.android.horologist.datalayer">
 
     <uses-sdk
-        android:minSdkVersion="23"
+        android:minSdkVersion="21"
         tools:ignore="GradleOverrides"
         tools:overrideLibrary="androidx.wear.remote.interactions"
         />

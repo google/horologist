@@ -26,7 +26,7 @@ android {
     defaultConfig {
         applicationId = "com.google.android.horologist.auth.sample"
 
-        minSdk = 23
+        minSdk = 21
         targetSdk = 33
 
         versionCode = 1

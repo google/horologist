@@ -39,7 +39,7 @@ import java.time.LocalDate
 
 @RunWith(RobolectricTestRunner::class)
 @Config(
-    sdk = [30],
+    sdk = [33],
     qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)

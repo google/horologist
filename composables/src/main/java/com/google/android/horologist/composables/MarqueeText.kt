@@ -105,7 +105,7 @@ public fun MarqueeText(
             .semantics { focused = true }
             .basicMarquee(
                 iterations = Int.MAX_VALUE,
-                delayMillis = pauseTime.inWholeMilliseconds.toInt(),
+                repeatDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
                 initialDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
                 spacing = MarqueeSpacing(followGap),
                 velocity = marqueeDpPerSecond,

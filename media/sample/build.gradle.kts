@@ -38,7 +38,7 @@ android {
         applicationId = "com.google.android.horologist.mediasample"
         // Min because of Tiles
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
 
         versionCode = 1
         versionName = "1.0"
@@ -131,7 +131,7 @@ android {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:4.26.1"
+        artifact = "com.google.protobuf:protoc:4.27.0"
     }
     plugins {
         id("javalite") {

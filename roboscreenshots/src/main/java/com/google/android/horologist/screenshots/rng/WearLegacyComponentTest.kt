@@ -32,7 +32,6 @@ import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.ThresholdValidator
 import com.github.takahirom.roborazzi.captureRoboImage
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
-import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withDrawingEnabled
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withImageLoader
 import org.junit.Rule
 import org.junit.rules.TestName
@@ -64,41 +63,37 @@ public abstract class WearLegacyComponentTest {
 
     public open val imageLoader: FakeImageLoaderEngine? = null
 
-    public open val forceHardware: Boolean = false
-
     public fun runComponentTest(
-        background: Color? = if (forceHardware) Color.Black.copy(alpha = 0.3f) else null,
+        background: Color? = Color.Black.copy(alpha = 0.3f),
         content: @Composable () -> Unit,
     ) {
-        withDrawingEnabled(forceHardware) {
-            device?.let {
-                RuntimeEnvironment.setQualifiers("+w${it.dp}dp-h${it.dp}dp")
-                RuntimeEnvironment.setFontScale(it.fontScale)
-            }
-            captureRoboImage(
-                filePath = testName(""),
-                roborazziOptions = RoborazziOptions(
-                    recordOptions = RoborazziOptions.RecordOptions(
-                        applyDeviceCrop = false,
-                    ),
-                    compareOptions = RoborazziOptions.CompareOptions(
-                        resultValidator = ThresholdValidator(tolerance),
-                    ),
+        device?.let {
+            RuntimeEnvironment.setQualifiers("+w${it.dp}dp-h${it.dp}dp")
+            RuntimeEnvironment.setFontScale(it.fontScale)
+        }
+        captureRoboImage(
+            filePath = testName(""),
+            roborazziOptions = RoborazziOptions(
+                recordOptions = RoborazziOptions.RecordOptions(
+                    applyDeviceCrop = false,
                 ),
-            ) {
-                withImageLoader(imageLoader) {
-                    Box(
-                        modifier = Modifier.run {
-                            if (background != null) {
-                                background(background)
-                            } else {
-                                this
-                            }
-                        },
-                    ) {
-                        ComponentScaffold {
-                            content()
+                compareOptions = RoborazziOptions.CompareOptions(
+                    resultValidator = ThresholdValidator(tolerance),
+                ),
+            ),
+        ) {
+            withImageLoader(imageLoader) {
+                Box(
+                    modifier = Modifier.run {
+                        if (background != null) {
+                            background(background)
+                        } else {
+                            this
                         }
+                    },
+                ) {
+                    ComponentScaffold {
+                        content()
                     }
                 }
             }

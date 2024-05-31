@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter.ofPattern
+import java.util.Locale
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -27,10 +31,12 @@ android {
         applicationId = "com.google.android.horologist.sample"
         // Min because of Tiles
         minSdk = 26
-        targetSdk = 30
+        targetSdk = 34
 
-        versionCode = 1
-        versionName = "1.0"
+        val date = LocalDate.now()
+
+        versionCode = date.format(ofPattern("yyyyMMdd", Locale.ROOT)).toInt()
+        versionName = date.toString()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

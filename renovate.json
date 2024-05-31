@@ -18,19 +18,27 @@
       "matchPackagePatterns": [
         "org.jetbrains.kotlin.*"
       ],
-      "groupName": "kotlin"
+      "groupName": "kotlin",
+      "allowedVersions": "<2.0.0"
     },
     {
       "matchPackagePatterns": [
         "com.google.devtools.ksp"
       ],
-      "groupName": "kotlin"
+      "groupName": "kotlin",
+      "allowedVersions": "<2.0.0"
     },
     {
       "matchPackagePatterns": [
         "com.android.tools.build:gradle"
       ],
       "allowedVersions": "<8.3.0"
+    },
+    {
+      "matchPackagePatterns": [
+        "com.mikepenz:multiplatform-markdown-renderer"
+      ],
+      "allowedVersions": "/coil2/"
     }
   ]
 }

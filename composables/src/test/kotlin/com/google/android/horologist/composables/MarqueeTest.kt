@@ -48,42 +48,38 @@ class MarqueeTest : WearLegacyScreenTest() {
 
     @Test
     fun marquee() {
-        withDrawingEnabled(forceHardware = true) {
-            composeRule.mainClock.autoAdvance = false
-            composeRule.setContent {
-                withImageLoader(imageLoader) {
-                    Box(
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .background(Color.Black),
-                    ) {
-                        MarqueeSample("Tikki Tikki Tembo-no Sa Rembo-chari Bari Ruchi-pip Peri Pembo")
-                    }
+        composeRule.mainClock.autoAdvance = false
+        composeRule.setContent {
+            withImageLoader(imageLoader) {
+                Box(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .background(Color.Black),
+                ) {
+                    MarqueeSample("Tikki Tikki Tembo-no Sa Rembo-chari Bari Ruchi-pip Peri Pembo")
                 }
             }
-            captureComponentImage()
-            composeRule.mainClock.advanceTimeBy(4_500)
-            captureComponentImage("_4500")
         }
+        captureComponentImage()
+        composeRule.mainClock.advanceTimeBy(4_500)
+        captureComponentImage("_4500")
     }
 
     public fun runComponentTest(
         content: @Composable () -> Unit,
     ) {
-        withDrawingEnabled(forceHardware = true) {
-            composeRule.setContent {
-                withImageLoader(imageLoader) {
-                    Box(
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .background(Color.Black),
-                    ) {
-                        content()
-                    }
+        composeRule.setContent {
+            withImageLoader(imageLoader) {
+                Box(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .background(Color.Black),
+                ) {
+                    content()
                 }
             }
-            captureComponentImage()
         }
+        captureComponentImage()
     }
 
     private fun captureComponentImage(suffix: String = "") {

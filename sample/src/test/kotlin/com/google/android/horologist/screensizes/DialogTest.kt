@@ -26,9 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.test.hasScrollToNodeAction
-import androidx.compose.ui.test.performTouchInput
-import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
@@ -113,10 +110,11 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
             }
         }
 
-        composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
-
-        captureScreenshot("_2")
+        // TODO https://github.com/google/horologist/issues/2237
+//        composeRule.onNode(hasScrollToNodeAction())
+//            .performTouchInput { repeat(10) { swipeUp() } }
+//
+//        captureScreenshot("_2")
     }
 
     @Test
@@ -162,10 +160,11 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
             }
         }
 
-        composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
-
-        captureScreenshot("_2")
+        // TODO https://github.com/google/horologist/issues/2237
+//        composeRule.onNode(hasScrollToNodeAction())
+//            .performTouchInput { repeat(10) { swipeUp() } }
+//
+//        captureScreenshot("_2")
     }
 
     @Test

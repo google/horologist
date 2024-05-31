@@ -37,7 +37,7 @@ plugins {
     kotlin("android")
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.24"
 }
 
 val localProperties = Properties().apply {
@@ -54,7 +54,7 @@ android {
         applicationId = "com.google.android.horologist.ai.sample.wear.gemini"
         // Min because of Tiles
         minSdk = 30
-        targetSdk = 33
+        targetSdk = 34
 
         versionCode = 1
         versionName = "1.0"

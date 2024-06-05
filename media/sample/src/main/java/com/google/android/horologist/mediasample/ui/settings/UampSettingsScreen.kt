@@ -43,10 +43,11 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnStat
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
 import com.google.android.horologist.compose.material.ResponsiveListHeader
+import com.google.android.horologist.media.ui.navigation.NavigationScreen
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.ui.navigation.navigateToDeveloperOptions
-import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignIn
-import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignOutScreen
+import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.DeveloperOptions
+import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignInScreen
+import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignOutScreen
 
 @Composable
 fun UampSettingsScreen(
@@ -78,14 +79,20 @@ fun UampSettingsScreen(
                     Chip(
                         label = stringResource(id = R.string.login),
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { navController.navigateToGoogleSignIn() },
+                        onClick = {
+                            navController.navigate(GoogleSignInScreen)
+                        },
                         enabled = !screenState.guestMode,
                     )
                 } else {
                     Chip(
                         label = stringResource(id = R.string.logout),
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { navController.navigateToGoogleSignOutScreen() },
+                        onClick = {
+                            navController.navigate(GoogleSignOutScreen) {
+                                popUpTo(NavigationScreen.Player)
+                            }
+                        },
                     )
                 }
             }
@@ -104,7 +111,9 @@ fun UampSettingsScreen(
                         text = stringResource(id = R.string.sample_developer_options),
                         icon = Icons.Default.DataObject,
                         colors = ChipDefaults.secondaryChipColors(),
-                        onClick = { navController.navigateToDeveloperOptions() },
+                        onClick = {
+                            navController.navigate(DeveloperOptions)
+                        },
                     )
                 }
             }

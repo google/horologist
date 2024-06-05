@@ -29,8 +29,8 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.ui.navigation.navigateToAudioDebug
-import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
+import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.AudioDebug
+import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.Samples
 
 @Composable
 fun DeveloperOptionsScreen(
@@ -65,14 +65,14 @@ fun DeveloperOptionsScreen(
             ActionSetting(
                 stringResource(id = R.string.sample_audio_debug),
             ) {
-                navController.navigateToAudioDebug()
+                navController.navigate(AudioDebug)
             }
         }
         item {
             ActionSetting(
                 stringResource(id = R.string.sample_samples),
             ) {
-                navController.navigateToSamples()
+                navController.navigate(Samples)
             }
         }
         item {

@@ -26,12 +26,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.toRoute
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.pager.PagerScreen
-import com.google.android.horologist.media.ui.navigation.NavigationScreens
+import com.google.android.horologist.media.ui.navigation.NavigationScreen
 import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.CancellationException
 
@@ -49,16 +50,15 @@ public fun PlayerLibraryPagerScreen(
     backStack: NavBackStackEntry,
     modifier: Modifier = Modifier,
 ) {
-    val pageParam = NavigationScreens.Player.getPageParam(backStack, remove = true)
+    val route = backStack.toRoute<NavigationScreen.Player>()
 
-    LaunchedEffect(pageParam) {
-        if (pageParam != null) {
+    LaunchedEffect(route.page) {
+        if (route.page != null) {
             try {
-                pagerState.animateScrollToPage(pageParam)
+                pagerState.animateScrollToPage(route.page)
             } catch (e: CancellationException) {
-                // Not sure why we get a cancellation here, but we want the page
-                // nav to take effect and persist
-                pagerState.scrollToPage(pageParam)
+                // may be cancelled by user interaction
+                pagerState.scrollToPage(route.page)
             }
         }
     }

@@ -20,6 +20,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.wear.protolayout.ResourceBuilders
+import androidx.wear.protolayout.ResourceBuilders.IMAGE_FORMAT_ARGB_8888
+import androidx.wear.protolayout.ResourceBuilders.IMAGE_FORMAT_RGB_565
+import androidx.wear.protolayout.ResourceBuilders.ImageFormat
 import androidx.wear.protolayout.ResourceBuilders.ImageResource
 import coil.ImageLoader
 import coil.request.ImageRequest
@@ -40,7 +43,7 @@ public suspend fun ImageLoader.loadImage(
     val request = ImageRequest.Builder(context)
         .data(data)
         .apply(configurer)
-        .allowRgb565(true)
+        .allowRgb565(false)
         .allowHardware(false)
         .build()
     val response = execute(request)
@@ -66,23 +69,29 @@ public suspend fun ImageLoader.loadImageResource(
  * Ensures it uses RGB_565 encoding, then generates an ImageResource
  * with the correct width and height.
  */
-public fun Bitmap.toImageResource(): ImageResource {
-    val rgb565Bitmap = if (config == Bitmap.Config.RGB_565) {
-        this
-    } else {
-        copy(Bitmap.Config.RGB_565, false)
+public fun Bitmap.toImageResource(@ImageFormat format: Int = IMAGE_FORMAT_ARGB_8888): ImageResource {
+    val newConfig = when (format) {
+        IMAGE_FORMAT_ARGB_8888 -> Bitmap.Config.ARGB_8888
+        IMAGE_FORMAT_RGB_565 -> Bitmap.Config.RGB_565
+        else -> null
     }
 
-    val byteBuffer = ByteBuffer.allocate(rgb565Bitmap.byteCount)
-    rgb565Bitmap.copyPixelsToBuffer(byteBuffer)
+    val correctedBitmap = if (newConfig == null || config == newConfig) {
+        this
+    } else {
+        copy(newConfig, false)
+    }
+
+    val byteBuffer = ByteBuffer.allocate(correctedBitmap.byteCount)
+    correctedBitmap.copyPixelsToBuffer(byteBuffer)
     val bytes: ByteArray = byteBuffer.array()
 
     return ImageResource.Builder().setInlineResource(
         ResourceBuilders.InlineImageResource.Builder()
             .setData(bytes)
-            .setWidthPx(rgb565Bitmap.width)
-            .setHeightPx(rgb565Bitmap.height)
-            .setFormat(ResourceBuilders.IMAGE_FORMAT_RGB_565)
+            .setWidthPx(correctedBitmap.width)
+            .setHeightPx(correctedBitmap.height)
+            .setFormat(format)
             .build(),
     )
         .build()

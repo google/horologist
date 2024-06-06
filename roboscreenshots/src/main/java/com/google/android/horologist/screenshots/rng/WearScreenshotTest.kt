@@ -18,16 +18,16 @@
 
 package com.google.android.horologist.screenshots.rng
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
+import android.util.LayoutDirection.RTL
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.wear.compose.material.MaterialTheme
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.LocalImageLoader
@@ -37,9 +37,6 @@ import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.ThresholdValidator
 import com.github.takahirom.roborazzi.captureScreenRoboImage
-import com.google.android.horologist.compose.layout.AppScaffold
-import com.google.android.horologist.compose.layout.ResponsiveTimeText
-import com.google.android.horologist.screenshots.FixedTimeSource
 import org.junit.Rule
 import org.junit.experimental.categories.Category
 import org.junit.rules.TestName
@@ -110,12 +107,7 @@ public abstract class WearScreenshotTest {
 
     @Composable
     public open fun TestScaffold(content: @Composable () -> Unit) {
-        AppScaffold(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background),
-            timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
-        ) {
+        CorrectLayout {
             content()
         }
     }
@@ -149,6 +141,20 @@ public abstract class WearScreenshotTest {
                 CompositionLocalProvider(LocalImageLoader provides imageLoader) {
                     content()
                 }
+            }
+        }
+
+        @Composable
+        public fun CorrectLayout(
+            content: @Composable () -> Unit,
+        ) {
+            // TODO why needed
+            val layoutDirection = when (LocalConfiguration.current.layoutDirection) {
+                RTL -> LayoutDirection.Rtl
+                else -> LayoutDirection.Ltr
+            }
+            CompositionLocalProvider(value = LocalLayoutDirection provides layoutDirection) {
+                content()
             }
         }
     }

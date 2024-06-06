@@ -16,8 +16,8 @@
 
 package com.google.android.horologist.health.composables.screens
 
-import androidx.compose.ui.unit.LayoutDirection
-import com.google.accompanist.testharness.TestHarness
+import androidx.compose.ui.res.stringResource
+import com.google.android.horologist.health.composables.R
 import com.google.android.horologist.health.composables.model.MetricUiModel
 import com.google.android.horologist.health.composables.theme.HR_MAXIMUM
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
@@ -32,12 +32,12 @@ class MetricsScreenA11yTest : WearLegacyA11yTest() {
             MetricsScreen(
                 firstMetric = MetricUiModel(
                     text = "198",
-                    bottomRightText = "Peak",
+                    bottomRightText = stringResource(R.string.horologist_peak),
                     color = HR_MAXIMUM,
                 ),
                 secondMetric = MetricUiModel(
                     text = "2.7",
-                    bottomRightText = "mi",
+                    bottomRightText = stringResource(R.string.horologist_miles),
                 ),
             )
         }
@@ -50,12 +50,12 @@ class MetricsScreenA11yTest : WearLegacyA11yTest() {
                 MetricsScreen(
                     firstMetric = MetricUiModel(
                         text = "198",
-                        bottomRightText = "Peak",
+                        bottomRightText = stringResource(R.string.horologist_peak),
                         color = HR_MAXIMUM,
                     ),
                     secondMetric = MetricUiModel(
                         text = "2.7",
-                        bottomRightText = "mi",
+                        bottomRightText = stringResource(R.string.horologist_miles),
                     ),
                 )
             }

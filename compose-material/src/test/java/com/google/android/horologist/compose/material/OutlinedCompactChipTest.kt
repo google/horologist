@@ -20,6 +20,7 @@ import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.ui.res.stringResource
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
@@ -34,7 +35,7 @@ class OutlinedCompactChipTest : WearLegacyComponentTest() {
         runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
             )
         }
     }
@@ -44,7 +45,7 @@ class OutlinedCompactChipTest : WearLegacyComponentTest() {
         runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 icon = Icons.Filled.Add.asPaintable(),
             )
         }
@@ -65,7 +66,7 @@ class OutlinedCompactChipTest : WearLegacyComponentTest() {
         runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 icon = Icons.Filled.Add.asPaintable(),
                 enabled = false,
             )
@@ -99,7 +100,7 @@ class OutlinedCompactChipTest : WearLegacyComponentTest() {
         runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 icon = DrawableResPaintable(R.drawable.ic_delete),
             )
         }
@@ -111,7 +112,7 @@ class OutlinedCompactChipTest : WearLegacyComponentTest() {
         runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
             )
         }
@@ -122,7 +123,7 @@ class OutlinedCompactChipTest : WearLegacyComponentTest() {
         runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
                 iconRtlMode = IconRtlMode.Mirrored,
             )
@@ -135,7 +136,7 @@ class OutlinedCompactChipTest : WearLegacyComponentTest() {
         runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
                 iconRtlMode = IconRtlMode.Mirrored,
             )
@@ -148,7 +149,7 @@ class OutlinedCompactChipTest : WearLegacyComponentTest() {
         runComponentTest {
             OutlinedCompactChip(
                 onClick = { },
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 icon = DrawableResPaintable(R.drawable.ic_media_play),
                 iconRtlMode = IconRtlMode.Mirrored,
             )

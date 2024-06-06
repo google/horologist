@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.compose.material
 
-import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MusicNote
 import androidx.compose.ui.graphics.Color
@@ -31,7 +30,7 @@ class TitleTest : WearLegacyComponentTest() {
     fun defaultPrimary() {
         runComponentTest {
             Title(
-                text = stringResource(id = R.string.paste),
+                text = stringResource(id = R.string.title),
             )
         }
     }
@@ -51,7 +50,7 @@ class TitleTest : WearLegacyComponentTest() {
     fun defaultSecondary() {
         runComponentTest {
             SecondaryTitle(
-                text = stringResource(id = R.string.paste),
+                text = stringResource(id = R.string.title),
             )
         }
     }
@@ -71,7 +70,7 @@ class TitleTest : WearLegacyComponentTest() {
     fun defaultSecondaryWithIcon() {
         runComponentTest {
             SecondaryTitle(
-                text = stringResource(id = R.string.paste),
+                text = stringResource(id = R.string.title),
                 icon = Icons.Outlined.MusicNote,
                 iconTint = Color(0xFF946EB1),
             )
@@ -96,7 +95,7 @@ class TitleTest : WearLegacyComponentTest() {
     fun defaultPrimaryRtl() {
         runComponentTest {
             Title(
-                text = stringResource(id = R.string.paste),
+                text = stringResource(id = R.string.title),
             )
         }
     }
@@ -106,7 +105,7 @@ class TitleTest : WearLegacyComponentTest() {
     fun defaultSecondaryRtl() {
         runComponentTest {
             SecondaryTitle(
-                text = stringResource(id = R.string.paste),
+                text = stringResource(id = R.string.title),
             )
         }
     }
@@ -115,7 +114,7 @@ class TitleTest : WearLegacyComponentTest() {
     fun mirroredSecondary() {
         runComponentTest {
             SecondaryTitle(
-                text = stringResource(id = R.string.paste),
+                text = stringResource(id = R.string.title),
                 icon = Icons.Outlined.MusicNote,
                 iconTint = Color(0xFF946EB1),
                 iconRtlMode = IconRtlMode.Mirrored,
@@ -128,7 +127,7 @@ class TitleTest : WearLegacyComponentTest() {
     fun mirroredRtlSecondary() {
         runComponentTest {
             SecondaryTitle(
-                text = stringResource(id = R.string.paste),
+                text = stringResource(id = R.string.title),
                 icon = Icons.Outlined.MusicNote,
                 iconTint = Color(0xFF946EB1),
                 iconRtlMode = IconRtlMode.Mirrored,

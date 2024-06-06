@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
@@ -35,7 +36,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
             )
         }
@@ -47,7 +48,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Radio,
             )
         }
@@ -59,7 +60,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Checkbox,
             )
         }
@@ -71,7 +72,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = false,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
             )
         }
@@ -83,9 +84,9 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
             )
         }
     }
@@ -96,7 +97,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
                 icon = Icons.Default.Image,
             )
@@ -109,9 +110,9 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                 icon = Icons.Default.Image,
             )
         }
@@ -123,7 +124,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
                 enabled = false,
             )
@@ -136,7 +137,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = false,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
                 enabled = false,
             )
@@ -261,7 +262,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
                 icon = Icon12dp,
             )
@@ -274,7 +275,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
                 icon = Icon32dp,
             )
@@ -289,9 +290,9 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                 icon = Icons.Default.PlayArrow,
             )
         }
@@ -304,9 +305,9 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                 icon = Icons.Default.PlayArrow,
             )
         }
@@ -318,9 +319,9 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                 icon = Icons.Default.PlayArrow,
                 iconRtlMode = IconRtlMode.Mirrored,
             )
@@ -334,9 +335,9 @@ class ToggleChipTest : WearLegacyComponentTest() {
             ToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = "Primary label",
+                label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                 icon = Icons.Default.PlayArrow,
                 iconRtlMode = IconRtlMode.Mirrored,
             )

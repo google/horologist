@@ -53,13 +53,11 @@ public fun PlayerLibraryPagerScreen(
     val route = backStack.toRoute<NavigationScreen.Player>()
 
     LaunchedEffect(route.page) {
-        if (route.page != null) {
-            try {
-                pagerState.animateScrollToPage(route.page)
-            } catch (e: CancellationException) {
-                // may be cancelled by user interaction
-                pagerState.scrollToPage(route.page)
-            }
+        try {
+            pagerState.animateScrollToPage(route.page)
+        } catch (e: CancellationException) {
+            // may be cancelled by user interaction
+            pagerState.scrollToPage(route.page)
         }
     }
 

@@ -47,17 +47,17 @@ class MetricsScreenA11yTest : WearLegacyA11yTest() {
     @Config(qualifiers = "+ar-rXB-ldrtl")
     fun metricsScreenTwoMetrics_rtl() {
         runScreenTest {
-                MetricsScreen(
-                    firstMetric = MetricUiModel(
-                        text = "198",
-                        bottomRightText = stringResource(R.string.horologist_peak),
-                        color = HR_MAXIMUM,
-                    ),
-                    secondMetric = MetricUiModel(
-                        text = "2.7",
-                        bottomRightText = stringResource(R.string.horologist_miles),
-                    ),
-                )
-            }
+            MetricsScreen(
+                firstMetric = MetricUiModel(
+                    text = "198",
+                    bottomRightText = stringResource(R.string.horologist_peak),
+                    color = HR_MAXIMUM,
+                ),
+                secondMetric = MetricUiModel(
+                    text = "2.7",
+                    bottomRightText = stringResource(R.string.horologist_miles),
+                ),
+            )
+        }
     }
 }

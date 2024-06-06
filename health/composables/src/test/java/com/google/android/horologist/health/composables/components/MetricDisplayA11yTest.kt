@@ -45,14 +45,14 @@ class MetricDisplayA11yTest : WearLegacyA11yTest() {
     @Config(qualifiers = "+ar-rXB-ldrtl")
     fun rtl() {
         runComponentTest {
-                MetricDisplay(
-                    metric = MetricUiModel(
-                        text = "139",
-                        topRightText = stringResource(R.string.horologist_vigorous),
-                        bottomRightText = stringResource(R.string.horologist_bpm),
-                        color = HR_HARD,
-                    ),
-                )
+            MetricDisplay(
+                metric = MetricUiModel(
+                    text = "139",
+                    topRightText = stringResource(R.string.horologist_vigorous),
+                    bottomRightText = stringResource(R.string.horologist_bpm),
+                    color = HR_HARD,
+                ),
+            )
         }
     }
 }

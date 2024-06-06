@@ -29,7 +29,7 @@ public object MediaNavController {
      */
     public fun NavController.navigateToPlayer() {
         navigate(NavigationScreen.Player(0)) {
-            popUpTo(NavigationScreen.Player) {
+            popUpTo<NavigationScreen.Player> {
                 inclusive = true
                 saveState = false
             }
@@ -41,7 +41,7 @@ public object MediaNavController {
      */
     public fun NavController.navigateToLibrary() {
         navigate(NavigationScreen.Player(1)) {
-            popUpTo(NavigationScreen.Player) {
+            popUpTo<NavigationScreen.Player> {
                 inclusive = true
                 saveState = false
             }

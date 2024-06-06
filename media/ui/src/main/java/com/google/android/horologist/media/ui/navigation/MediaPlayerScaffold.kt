@@ -86,7 +86,7 @@ public fun MediaPlayerScaffold(
         timeText = { timeText() },
     ) {
         SwipeDismissableNavHost(
-            startDestination = NavigationScreen.Player,
+            startDestination = NavigationScreen.Player(page = 0),
             navController = navController,
             modifier = modifier.background(Color.Transparent),
             state = navHostState,

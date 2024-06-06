@@ -90,7 +90,7 @@ fun UampSettingsScreen(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
                             navController.navigate(GoogleSignOutScreen) {
-                                popUpTo(NavigationScreen.Player)
+                                popUpTo<NavigationScreen.Player>()
                             }
                         },
                     )

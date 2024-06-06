@@ -18,12 +18,14 @@ package com.google.android.horologist.media.ui.navigation
 
 import androidx.navigation.NavDeepLink
 import androidx.navigation.navDeepLink
+import kotlinx.serialization.Serializable
 
 /**
  * Navigation routes enum.
  */
 interface NavigationScreen {
-    public data class Player(val page: Int? = 0) : NavigationScreen {
+    @Serializable
+    public data class Player(val page: Int = 0) : NavigationScreen {
         companion object {
             fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
                 navDeepLink {
@@ -33,6 +35,7 @@ interface NavigationScreen {
         }
     }
 
+    @Serializable
     public data object Volume : NavigationScreen {
         fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {
@@ -41,6 +44,7 @@ interface NavigationScreen {
         )
     }
 
+    @Serializable
     public data class MediaItem(val id: String, val collectionId: String?) : NavigationScreen {
         companion object {
             fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
@@ -51,6 +55,7 @@ interface NavigationScreen {
         }
     }
 
+    @Serializable
     public data object Settings : NavigationScreen {
         fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {
@@ -59,6 +64,7 @@ interface NavigationScreen {
         )
     }
 
+    @Serializable
     public data object Collections : NavigationScreen {
         fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {
@@ -67,6 +73,7 @@ interface NavigationScreen {
         )
     }
 
+    @Serializable
     public data class Collection(val id: String, val name: String?) : NavigationScreen {
         companion object {
             fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(

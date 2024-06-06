@@ -52,7 +52,7 @@ class NavActivityTest {
 
         rule.runOnUiThread {
             rule.activity.navController.navigate(NavScreen.Menu.route) {
-                this.popUpTo(NavScreen.Menu.route)
+                popUpTo(NavScreen.Menu.route)
             }
         }
         rule.waitForIdle()

@@ -34,7 +34,11 @@ import org.junit.Test
 class TileScreenshotTest : WearScreenshotTest() {
 
     override fun testName(suffix: String): String =
-        "src/test/screenshots/${javaClass.simpleName}_${testInfo.methodName}_${super.device?.id ?: WearDevice.GenericLargeRound.id}$suffix.png"
+        "src/test/screenshots/" +
+            "${javaClass.simpleName}_" +
+            "${testInfo.methodName}_" +
+            "${super.device?.id ?: WearDevice.GenericLargeRound.id}" +
+            "$suffix.png"
 
     @Composable
     override fun TestScaffold(content: @Composable () -> Unit) {

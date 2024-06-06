@@ -21,11 +21,11 @@ import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
+import org.robolectric.annotation.Config
 
 class ToggleChipTest : WearLegacyComponentTest() {
 
@@ -298,18 +298,17 @@ class ToggleChipTest : WearLegacyComponentTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun defaultRtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                ToggleChip(
-                    checked = true,
-                    onCheckedChanged = { },
-                    label = "Primary label",
-                    toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label",
-                    icon = Icons.Default.PlayArrow,
-                )
-            }
+            ToggleChip(
+                checked = true,
+                onCheckedChanged = { },
+                label = "Primary label",
+                toggleControl = ToggleChipToggleControl.Switch,
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.PlayArrow,
+            )
         }
     }
 
@@ -329,19 +328,18 @@ class ToggleChipTest : WearLegacyComponentTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun mirroredRtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                ToggleChip(
-                    checked = true,
-                    onCheckedChanged = { },
-                    label = "Primary label",
-                    toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label",
-                    icon = Icons.Default.PlayArrow,
-                    iconRtlMode = IconRtlMode.Mirrored,
-                )
-            }
+            ToggleChip(
+                checked = true,
+                onCheckedChanged = { },
+                label = "Primary label",
+                toggleControl = ToggleChipToggleControl.Switch,
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.PlayArrow,
+                iconRtlMode = IconRtlMode.Mirrored,
+            )
         }
     }
 

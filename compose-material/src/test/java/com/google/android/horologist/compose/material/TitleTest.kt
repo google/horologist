@@ -16,13 +16,14 @@
 
 package com.google.android.horologist.compose.material
 
+import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MusicNote
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.LayoutDirection
-import com.google.accompanist.testharness.TestHarness
+import androidx.compose.ui.res.stringResource
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
+import org.robolectric.annotation.Config
 
 class TitleTest : WearLegacyComponentTest() {
 
@@ -30,7 +31,7 @@ class TitleTest : WearLegacyComponentTest() {
     fun defaultPrimary() {
         runComponentTest {
             Title(
-                text = "Title",
+                text = stringResource(id = R.string.paste),
             )
         }
     }
@@ -50,7 +51,7 @@ class TitleTest : WearLegacyComponentTest() {
     fun defaultSecondary() {
         runComponentTest {
             SecondaryTitle(
-                text = "Title",
+                text = stringResource(id = R.string.paste),
             )
         }
     }
@@ -70,7 +71,7 @@ class TitleTest : WearLegacyComponentTest() {
     fun defaultSecondaryWithIcon() {
         runComponentTest {
             SecondaryTitle(
-                text = "Title",
+                text = stringResource(id = R.string.paste),
                 icon = Icons.Outlined.MusicNote,
                 iconTint = Color(0xFF946EB1),
             )
@@ -91,24 +92,22 @@ class TitleTest : WearLegacyComponentTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun defaultPrimaryRtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                Title(
-                    text = "Title",
-                )
-            }
+            Title(
+                text = stringResource(id = R.string.paste),
+            )
         }
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun defaultSecondaryRtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                SecondaryTitle(
-                    text = "Title",
-                )
-            }
+            SecondaryTitle(
+                text = stringResource(id = R.string.paste),
+            )
         }
     }
 
@@ -116,7 +115,7 @@ class TitleTest : WearLegacyComponentTest() {
     fun mirroredSecondary() {
         runComponentTest {
             SecondaryTitle(
-                text = "Title",
+                text = stringResource(id = R.string.paste),
                 icon = Icons.Outlined.MusicNote,
                 iconTint = Color(0xFF946EB1),
                 iconRtlMode = IconRtlMode.Mirrored,
@@ -125,16 +124,15 @@ class TitleTest : WearLegacyComponentTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun mirroredRtlSecondary() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                SecondaryTitle(
-                    text = "Title",
-                    icon = Icons.Outlined.MusicNote,
-                    iconTint = Color(0xFF946EB1),
-                    iconRtlMode = IconRtlMode.Mirrored,
-                )
-            }
+            SecondaryTitle(
+                text = stringResource(id = R.string.paste),
+                icon = Icons.Outlined.MusicNote,
+                iconTint = Color(0xFF946EB1),
+                iconRtlMode = IconRtlMode.Mirrored,
+            )
         }
     }
 }

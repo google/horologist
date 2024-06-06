@@ -16,10 +16,10 @@
 
 package com.google.android.horologist.compose.material
 
-import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
+import org.robolectric.annotation.Config
 
 class SplitToggleChipTest : WearLegacyComponentTest() {
 
@@ -176,18 +176,17 @@ class SplitToggleChipTest : WearLegacyComponentTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun rtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                SplitToggleChip(
-                    checked = true,
-                    onCheckedChanged = { },
-                    label = "Primary label",
-                    onClick = { },
-                    toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label",
-                )
-            }
+            SplitToggleChip(
+                checked = true,
+                onCheckedChanged = { },
+                label = "Primary label",
+                onClick = { },
+                toggleControl = ToggleChipToggleControl.Switch,
+                secondaryLabel = "Secondary label",
+            )
         }
     }
 

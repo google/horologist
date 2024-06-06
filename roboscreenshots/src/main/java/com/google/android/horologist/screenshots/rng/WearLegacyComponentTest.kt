@@ -18,11 +18,16 @@
 
 package com.google.android.horologist.screenshots.rng
 
+import android.util.LayoutDirection.RTL
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import coil.annotation.ExperimentalCoilApi
 import coil.test.FakeImageLoaderEngine
@@ -102,7 +107,14 @@ public abstract class WearLegacyComponentTest {
 
     @Composable
     public open fun ComponentScaffold(content: @Composable () -> Unit) {
-        content()
+        // TODO why needed
+        val layoutDirection = when (LocalConfiguration.current.layoutDirection) {
+            RTL -> LayoutDirection.Rtl
+            else -> LayoutDirection.Ltr
+        }
+        CompositionLocalProvider(value = LocalLayoutDirection provides layoutDirection) {
+            content()
+        }
     }
 
     internal companion object {

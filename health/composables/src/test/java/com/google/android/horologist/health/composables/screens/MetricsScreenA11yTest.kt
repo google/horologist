@@ -22,6 +22,7 @@ import com.google.android.horologist.health.composables.model.MetricUiModel
 import com.google.android.horologist.health.composables.theme.HR_MAXIMUM
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
+import org.robolectric.annotation.Config
 
 class MetricsScreenA11yTest : WearLegacyA11yTest() {
 
@@ -43,9 +44,9 @@ class MetricsScreenA11yTest : WearLegacyA11yTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun metricsScreenTwoMetrics_rtl() {
         runScreenTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
                 MetricsScreen(
                     firstMetric = MetricUiModel(
                         text = "198",
@@ -58,6 +59,5 @@ class MetricsScreenA11yTest : WearLegacyA11yTest() {
                     ),
                 )
             }
-        }
     }
 }

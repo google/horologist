@@ -65,13 +65,6 @@ allprojects {
         if (composeSnapshot.length > 1) {
             maven(url = uri("https://androidx.dev/snapshots/builds/$composeSnapshot/artifacts/repository/"))
         }
-
-        maven {
-            url = uri("https://jitpack.io")
-            content {
-                includeGroup("com.github.QuickBirdEng.kotlin-snapshot-testing")
-            }
-        }
     }
 
     plugins.withId("com.vanniktech.maven.publish") {
@@ -104,28 +97,9 @@ subprojects {
         }
     }
 
-    configurations.configureEach {
-        resolutionStrategy.eachDependency {
-            // Make sure that we're using the Android version of Guava
-            if (this@configureEach.name.contains("android", ignoreCase = true)
-                && requested.group == "com.google.guava"
-                && requested.module.name == "guava"
-                && requested.version?.contains("jre") == true) {
-                requested.version?.replace(
-                    "jre",
-                    "android"
-                )?.let { useVersion(it) }
-            }
-
-            if (requested.group.startsWith("androidx.compose.") && requested.version == "1.7.0-alpha08") {
-                useVersion("1.7.0-alpha07")
-            }
-        }
-    }
-
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions {
-            if (System.getenv("CI") == "true") {
+            if (property("strict.build") == true) {
                 // Treat all Kotlin warnings as errors
                 allWarningsAsErrors = true
             }
@@ -204,14 +178,6 @@ subprojects {
                 suppressedFiles.from(file("src/debug/java"))
             }
         }
-        if (plugins.hasPlugin("com.android.library")) {
-            configure<LibraryExtension> {
-                lint {
-                    // Remove once fixed: https://issuetracker.google.com/196420849
-                    disable.add("ExpiringTargetSdkVersion")
-                }
-            }
-        }
 
         val buildDir = project.layout.buildDirectory
         val outputDirectory =
@@ -277,18 +243,15 @@ subprojects {
             // any snapshot dependencies
             configurations.configureEach {
                 dependencies.configureEach {
-                    if (this is ProjectDependency) {
-                        // We don't care about internal project dependencies
-                        return@configureEach
+                    // We don't care about internal project dependencies
+                    if (this !is ProjectDependency) {
+                        val depVersion = this.version
+                        if (depVersion != null && depVersion.endsWith("SNAPSHOT")) {
+                            throw IllegalArgumentException(
+                                "Using SNAPSHOT dependency with non-SNAPSHOT library version: $this"
+                            )
+                        }
                     }
-
-//                    val depVersion = dependency.version
-                    // TODO reenable https://github.com/google/horologist/issues/34
-//                    if (depVersion != null && depVersion.endsWith("SNAPSHOT")) {
-//                        throw IllegalArgumentException(
-//                                "Using SNAPSHOT dependency with non-SNAPSHOT library version: $dependency"
-//                        )
-//                    }
                 }
             }
         }

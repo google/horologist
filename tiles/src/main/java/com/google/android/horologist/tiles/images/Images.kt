@@ -60,8 +60,9 @@ public suspend fun ImageLoader.loadImage(
 public suspend fun ImageLoader.loadImageResource(
     context: Context,
     data: Any?,
+    @ImageFormat format: Int = IMAGE_FORMAT_ARGB_8888,
     configurer: ImageRequest.Builder.() -> Unit = {},
-): ImageResource? = loadImage(context, data, configurer)?.toImageResource()
+): ImageResource? = loadImage(context, data, configurer)?.toImageResource(format = format)
 
 /**
  * Convert a bitmap to a ImageResource.

@@ -21,11 +21,11 @@ import androidx.compose.material.icons.automirrored.filled.VolumeOff
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.AirplanemodeActive
 import androidx.compose.material.icons.filled.AirplanemodeInactive
-import androidx.compose.ui.unit.LayoutDirection
 import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
+import org.robolectric.annotation.Config
 
 class ToggleButtonTest : WearLegacyComponentTest() {
 
@@ -237,16 +237,15 @@ class ToggleButtonTest : WearLegacyComponentTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun rtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                ToggleButton(
-                    checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
-                    notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
-                    contentDescription = "contentDescription",
-                    onCheckedChanged = {},
-                )
-            }
+            ToggleButton(
+                checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
+                notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+            )
         }
     }
 
@@ -266,15 +265,13 @@ class ToggleButtonTest : WearLegacyComponentTest() {
     @Test
     fun mirroredRtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                ToggleButton(
-                    checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
-                    notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
-                    contentDescription = "contentDescription",
-                    onCheckedChanged = {},
-                    iconRtlMode = IconRtlMode.Mirrored,
-                )
-            }
+            ToggleButton(
+                checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
+                notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
+                contentDescription = "contentDescription",
+                onCheckedChanged = {},
+                iconRtlMode = IconRtlMode.Mirrored,
+            )
         }
     }
 

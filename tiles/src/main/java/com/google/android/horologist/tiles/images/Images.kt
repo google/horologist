@@ -69,8 +69,7 @@ public suspend fun ImageLoader.loadImageResource(
  * Format will be one of IMAGE_FORMAT_ARGB_8888, IMAGE_FORMAT_RGB_565 or IMAGE_FORMAT_UNDEFINED,
  * based on the bitmap.
  */
-public fun Bitmap.toImageResource(
-): ImageResource {
+public fun Bitmap.toImageResource(): ImageResource {
     val format = when (this.config) {
         Bitmap.Config.ARGB_8888 -> IMAGE_FORMAT_ARGB_8888
         Bitmap.Config.RGB_565 -> IMAGE_FORMAT_RGB_565

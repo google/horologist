@@ -99,11 +99,11 @@ subprojects {
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions {
-            if (property("strict.build") == true) {
+            if (rootProject.property("strict.build") == true) {
                 // Treat all Kotlin warnings as errors
                 allWarningsAsErrors = true
             }
-            // Set JVM target to 1.8
+            // Set JVM target to 11
             jvmTarget = "11"
             freeCompilerArgs = freeCompilerArgs + listOf(
                 // Allow use of @OptIn

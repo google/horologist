@@ -24,7 +24,9 @@ import android.os.Looper
 import android.view.accessibility.AccessibilityManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
@@ -35,6 +37,7 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.Root
 import androidx.test.espresso.base.RootsOracle_Factory
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.wear.compose.material.MaterialTheme
 import coil.annotation.ExperimentalCoilApi
 import coil.test.FakeImageLoaderEngine
 import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
@@ -43,6 +46,9 @@ import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.ThresholdValidator
 import com.github.takahirom.roborazzi.captureRoboImage
+import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
+import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.CorrectLayout
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
@@ -158,14 +164,28 @@ public abstract class WearLegacyA11yTest {
     @Composable
     public open fun TestScaffold(content: @Composable () -> Unit) {
         CorrectLayout {
-            content()
+            AppScaffold(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colors.background),
+                timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
+            ) {
+                content()
+            }
         }
     }
 
     @Composable
     public open fun ComponentScaffold(content: @Composable () -> Unit) {
         CorrectLayout {
-            content()
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black),
+            ) {
+                content()
+            }
         }
     }
 

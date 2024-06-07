@@ -150,7 +150,7 @@ jobs:
       - name: Compile tests
         uses: gradle/gradle-build-action@v3
         with:
-          arguments: compileDebugAndroidTestSources
+          arguments: -Pstrict.build=true compileDebugAndroidTestSources
 
   verify:
     # Skip build if head commit contains 'skip ci'

@@ -27,6 +27,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
@@ -35,6 +36,7 @@ import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
+import org.robolectric.annotation.Config
 
 class OutlinedChipTest : WearLegacyComponentTest() {
 
@@ -42,7 +44,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun default() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
             )
         }
@@ -52,9 +54,9 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun withSecondaryLabel() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
             )
         }
     }
@@ -63,7 +65,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun withIcon() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
                 icon = Icons.Default.Image.asPaintable(),
             )
@@ -74,7 +76,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun withLargeIcon() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
                 icon = Icon32dp.asPaintable(),
                 largeIcon = true,
@@ -86,9 +88,9 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun withSecondaryLabelAndIcon() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                 icon = Icons.Default.Image.asPaintable(),
             )
         }
@@ -98,9 +100,9 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun withSecondaryLabelAndLargeIcon() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                 icon = Icon32dp.asPaintable(),
                 largeIcon = true,
             )
@@ -111,9 +113,9 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun disabled() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                 icon = Icons.Default.Image.asPaintable(),
                 enabled = false,
             )
@@ -212,7 +214,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun usingSmallIcon() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
                 icon = Icon12dp.asPaintable(),
             )
@@ -223,7 +225,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun usingDrawableResAsIcon() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
                 icon = DrawableResPaintable(R.drawable.ic_delete),
             )
@@ -234,7 +236,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun withLargeIconUsingSmallIcon() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
                 icon = Icon12dp.asPaintable(),
                 largeIcon = true,
@@ -246,7 +248,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun usingExtraLargeIcon() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
                 icon = Icon48dp.asPaintable(),
             )
@@ -257,7 +259,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun withLargeIconUsingExtraLargeIcon() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
                 icon = Icon48dp.asPaintable(),
                 largeIcon = true,
@@ -266,16 +268,15 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun withSecondaryLabelAndIconRtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                OutlinedChip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image.asPaintable(),
-                )
-            }
+            OutlinedChip(
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+                onClick = { },
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
+                icon = Icons.Default.Image.asPaintable(),
+            )
         }
     }
 
@@ -283,9 +284,9 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun withSecondaryChipColors() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                 icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.secondaryChipColors(),
             )
@@ -296,9 +297,9 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun withGradientBackgroundChipColors() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                 icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.gradientBackgroundChipColors(),
             )
@@ -309,9 +310,9 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     fun withImageBackgroundChipColors() {
         runComponentTest {
             OutlinedChip(
-                label = "Primary label",
+                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
-                secondaryLabel = "Secondary label",
+                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                 icon = Icons.Default.Image.asPaintable(),
                 colors = ChipDefaults.imageBackgroundChipColors(
                     backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
@@ -326,9 +327,9 @@ class OutlinedChipTest : WearLegacyComponentTest() {
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                 @Suppress("Deprecation")
                 OutlinedChip(
-                    label = "Primary label",
+                    label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                     onClick = { },
-                    secondaryLabel = "Secondary label",
+                    secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                     icon = Icons.Outlined.VolumeDown.asPaintable(),
                     iconRtlMode = IconRtlMode.Mirrored,
                     colors = ChipDefaults.imageBackgroundChipColors(

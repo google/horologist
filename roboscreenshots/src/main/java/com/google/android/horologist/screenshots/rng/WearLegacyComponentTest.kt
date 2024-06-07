@@ -31,6 +31,7 @@ import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.ThresholdValidator
 import com.github.takahirom.roborazzi.captureRoboImage
+import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.CorrectLayout
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withImageLoader
 import org.junit.Rule
@@ -102,7 +103,9 @@ public abstract class WearLegacyComponentTest {
 
     @Composable
     public open fun ComponentScaffold(content: @Composable () -> Unit) {
-        content()
+        CorrectLayout {
+            content()
+        }
     }
 
     internal companion object {

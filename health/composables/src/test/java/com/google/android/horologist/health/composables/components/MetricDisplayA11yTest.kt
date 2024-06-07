@@ -16,13 +16,14 @@
 
 package com.google.android.horologist.health.composables.components
 
-import androidx.compose.ui.unit.LayoutDirection
-import com.google.accompanist.testharness.TestHarness
+import androidx.compose.ui.res.stringResource
+import com.google.android.horologist.health.composables.R
 import com.google.android.horologist.health.composables.model.MetricUiModel
 import com.google.android.horologist.health.composables.theme.HR_HARD
 import com.google.android.horologist.health.composables.theme.HR_MODERATE
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
+import org.robolectric.annotation.Config
 
 class MetricDisplayA11yTest : WearLegacyA11yTest() {
 
@@ -32,8 +33,8 @@ class MetricDisplayA11yTest : WearLegacyA11yTest() {
             MetricDisplay(
                 metric = MetricUiModel(
                     text = "139",
-                    topRightText = "Vigorous",
-                    bottomRightText = "bpm",
+                    topRightText = stringResource(R.string.horologist_vigorous),
+                    bottomRightText = stringResource(R.string.horologist_bpm),
                     color = HR_MODERATE,
                 ),
             )
@@ -41,18 +42,17 @@ class MetricDisplayA11yTest : WearLegacyA11yTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun rtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                MetricDisplay(
-                    metric = MetricUiModel(
-                        text = "139",
-                        topRightText = "Vigorous",
-                        bottomRightText = "bpm",
-                        color = HR_HARD,
-                    ),
-                )
-            }
+            MetricDisplay(
+                metric = MetricUiModel(
+                    text = "139",
+                    topRightText = stringResource(R.string.horologist_vigorous),
+                    bottomRightText = stringResource(R.string.horologist_bpm),
+                    color = HR_HARD,
+                ),
+            )
         }
     }
 }

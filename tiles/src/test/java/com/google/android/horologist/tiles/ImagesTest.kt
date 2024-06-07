@@ -59,7 +59,7 @@ class ImagesTest {
             val imageResource = imageLoader.loadImageResource(context, android.R.drawable.ic_delete)
 
             val inlineResource = imageResource!!.inlineResource!!
-            assertThat(inlineResource.format).isEqualTo(ResourceBuilders.IMAGE_FORMAT_RGB_565)
+            assertThat(inlineResource.format).isEqualTo(ResourceBuilders.IMAGE_FORMAT_ARGB_8888)
             assertThat(inlineResource.widthPx).isEqualTo(64)
             assertThat(inlineResource.heightPx).isEqualTo(64)
         }
@@ -78,7 +78,7 @@ class ImagesTest {
             }
 
             val inlineResource = imageResource!!.inlineResource!!
-            assertThat(inlineResource.format).isEqualTo(ResourceBuilders.IMAGE_FORMAT_RGB_565)
+            assertThat(inlineResource.format).isEqualTo(ResourceBuilders.IMAGE_FORMAT_ARGB_8888)
         }
     }
 }

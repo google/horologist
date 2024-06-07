@@ -70,7 +70,9 @@ public suspend fun ImageLoader.loadImageResource(
  * Ensures it uses RGB_565 encoding, then generates an ImageResource
  * with the correct width and height.
  */
-public fun Bitmap.toImageResource(@ImageFormat format: Int = IMAGE_FORMAT_ARGB_8888): ImageResource {
+public fun Bitmap.toImageResource(
+    @ImageFormat format: Int = IMAGE_FORMAT_ARGB_8888,
+): ImageResource {
     val newConfig = when (format) {
         IMAGE_FORMAT_ARGB_8888 -> Bitmap.Config.ARGB_8888
         IMAGE_FORMAT_RGB_565 -> Bitmap.Config.RGB_565

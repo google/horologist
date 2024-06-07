@@ -1,3 +1,19 @@
+/*
+ * Copyright 2024 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 @file:Suppress("UnstableApiUsage", "DEPRECATION")
 
 package com.google.android.horologist.tiles
@@ -61,8 +77,8 @@ class TileScreenshotTest : WearScreenshotTest() {
                     context = context,
                     bitmap = bitmap,
                     // With transparency
-                    format = ResourceBuilders.IMAGE_FORMAT_ARGB_8888
-                )
+                    format = ResourceBuilders.IMAGE_FORMAT_ARGB_8888,
+                ),
             )
         }
     }
@@ -83,8 +99,8 @@ class TileScreenshotTest : WearScreenshotTest() {
                     context = context,
                     bitmap = bitmap,
                     // Opaque background
-                    format = ResourceBuilders.IMAGE_FORMAT_RGB_565
-                )
+                    format = ResourceBuilders.IMAGE_FORMAT_RGB_565,
+                ),
             )
         }
     }
@@ -92,11 +108,11 @@ class TileScreenshotTest : WearScreenshotTest() {
     class TestImageTileRenderer(
         context: Context,
         val bitmap: Bitmap,
-        @ImageFormat val format: Int
+        @ImageFormat val format: Int,
     ) : SingleTileLayoutRenderer<Unit, Unit>(context) {
         override fun renderTile(
             state: Unit,
-            deviceParameters: DeviceParameters
+            deviceParameters: DeviceParameters,
         ): LayoutElementBuilders.LayoutElement {
             return Box.Builder()
                 .setHeight(expand())
@@ -106,9 +122,9 @@ class TileScreenshotTest : WearScreenshotTest() {
                         .setBackground(
                             Background.Builder()
                                 .setColor(argb(Color.DKGRAY))
-                                .build()
+                                .build(),
                         )
-                        .build()
+                        .build(),
                 )
                 .addContent(
                     PrimaryLayout.Builder(deviceParameters)
@@ -118,17 +134,17 @@ class TileScreenshotTest : WearScreenshotTest() {
                                 .setResourceId("dice")
                                 .setWidth(expand())
                                 .setHeight(dp(130f))
-                                .build()
+                                .build(),
                         )
                         .setPrimaryLabelTextContent(
                             Text.Builder(
                                 context,
-                                if (format == IMAGE_FORMAT_ARGB_8888) "ARGB_8888" else "RGB_565"
+                                if (format == IMAGE_FORMAT_ARGB_8888) "ARGB_8888" else "RGB_565",
                             )
                                 .setColor(argb(Color.WHITE))
                                 .setTypography(Typography.TYPOGRAPHY_BODY2)
-                                .build()
-                        ).build()
+                                .build(),
+                        ).build(),
                 )
                 .build()
         }
@@ -136,7 +152,7 @@ class TileScreenshotTest : WearScreenshotTest() {
         override fun ResourceBuilders.Resources.Builder.produceRequestedResources(
             resourceState: Unit,
             deviceParameters: DeviceParameters,
-            resourceIds: List<String>
+            resourceIds: List<String>,
         ) {
             addIdToImageMapping("dice", bitmap.toImageResource(format))
         }

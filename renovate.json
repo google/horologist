@@ -39,6 +39,13 @@
         "com.mikepenz:multiplatform-markdown-renderer"
       ],
       "allowedVersions": "/coil2/"
+    },
+    {
+      "matchPackagePatterns": [
+        "org.jetbrains.kotlinx:kotlinx-serialization-.*"
+      ],
+      "groupName": "kotlin",
+      "allowedVersions": "<1.7.0"
     }
   ]
 }

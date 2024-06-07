@@ -19,6 +19,7 @@ plugins {
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
+    alias(libs.plugins.roborazzi)
 }
 
 android {
@@ -38,6 +39,7 @@ android {
     }
 
     buildFeatures {
+        compose = true
         buildConfig = false
     }
 
@@ -109,6 +111,7 @@ dependencies {
     implementation(libs.androidx.complications.datasource.ktx)
     api(libs.wearcompose.material)
 
+    testImplementation(projects.roboscreenshots)
     testImplementation(libs.androidx.wear.tiles.testing)
     testImplementation(libs.androidx.test.espressocore)
     testImplementation(libs.junit)

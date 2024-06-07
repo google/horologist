@@ -22,7 +22,7 @@ import android.graphics.drawable.BitmapDrawable
 import androidx.wear.protolayout.ResourceBuilders
 import androidx.wear.protolayout.ResourceBuilders.IMAGE_FORMAT_ARGB_8888
 import androidx.wear.protolayout.ResourceBuilders.IMAGE_FORMAT_RGB_565
-import androidx.wear.protolayout.ResourceBuilders.ImageFormat
+import androidx.wear.protolayout.ResourceBuilders.IMAGE_FORMAT_UNDEFINED
 import androidx.wear.protolayout.ResourceBuilders.ImageResource
 import coil.ImageLoader
 import coil.request.ImageRequest
@@ -60,40 +60,32 @@ public suspend fun ImageLoader.loadImage(
 public suspend fun ImageLoader.loadImageResource(
     context: Context,
     data: Any?,
-    @ImageFormat format: Int = IMAGE_FORMAT_ARGB_8888,
     configurer: ImageRequest.Builder.() -> Unit = {},
-): ImageResource? = loadImage(context, data, configurer)?.toImageResource(format = format)
+): ImageResource? = loadImage(context, data, configurer)?.toImageResource()
 
 /**
  * Convert a bitmap to a ImageResource.
  *
- * Ensures it uses RGB_565 encoding, then generates an ImageResource
- * with the correct width and height.
+ * Format will be one of IMAGE_FORMAT_ARGB_8888, IMAGE_FORMAT_RGB_565 or IMAGE_FORMAT_UNDEFINED,
+ * based on the bitmap.
  */
 public fun Bitmap.toImageResource(
-    @ImageFormat format: Int = IMAGE_FORMAT_ARGB_8888,
 ): ImageResource {
-    val newConfig = when (format) {
-        IMAGE_FORMAT_ARGB_8888 -> Bitmap.Config.ARGB_8888
-        IMAGE_FORMAT_RGB_565 -> Bitmap.Config.RGB_565
-        else -> null
+    val format = when (this.config) {
+        Bitmap.Config.ARGB_8888 -> IMAGE_FORMAT_ARGB_8888
+        Bitmap.Config.RGB_565 -> IMAGE_FORMAT_RGB_565
+        else -> IMAGE_FORMAT_UNDEFINED
     }
 
-    val correctedBitmap = if (newConfig == null || config == newConfig) {
-        this
-    } else {
-        copy(newConfig, false)
-    }
-
-    val byteBuffer = ByteBuffer.allocate(correctedBitmap.byteCount)
-    correctedBitmap.copyPixelsToBuffer(byteBuffer)
+    val byteBuffer = ByteBuffer.allocate(byteCount)
+    copyPixelsToBuffer(byteBuffer)
     val bytes: ByteArray = byteBuffer.array()
 
     return ImageResource.Builder().setInlineResource(
         ResourceBuilders.InlineImageResource.Builder()
             .setData(bytes)
-            .setWidthPx(correctedBitmap.width)
-            .setHeightPx(correctedBitmap.height)
+            .setWidthPx(width)
+            .setHeightPx(height)
             .setFormat(format)
             .build(),
     )

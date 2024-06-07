@@ -35,8 +35,6 @@ import androidx.wear.protolayout.LayoutElementBuilders.Image
 import androidx.wear.protolayout.ModifiersBuilders.Background
 import androidx.wear.protolayout.ModifiersBuilders.Modifiers
 import androidx.wear.protolayout.ResourceBuilders
-import androidx.wear.protolayout.ResourceBuilders.IMAGE_FORMAT_ARGB_8888
-import androidx.wear.protolayout.ResourceBuilders.ImageFormat
 import androidx.wear.protolayout.material.Text
 import androidx.wear.protolayout.material.Typography
 import androidx.wear.protolayout.material.layouts.PrimaryLayout
@@ -76,8 +74,6 @@ class TileScreenshotTest : WearScreenshotTest() {
                 renderer = TestImageTileRenderer(
                     context = context,
                     bitmap = bitmap,
-                    // With transparency
-                    format = ResourceBuilders.IMAGE_FORMAT_ARGB_8888,
                 ),
             )
         }
@@ -88,6 +84,7 @@ class TileScreenshotTest : WearScreenshotTest() {
         // https://en.wikipedia.org/wiki/File:PNG_transparency_demonstration_1.png
         val bitmap =
             BitmapFactory.decodeFile("src/test/resources/PNG_transparency_demonstration_1.png")
+                .copy(Bitmap.Config.RGB_565, false)
 
         runTest {
             val context = LocalContext.current
@@ -98,8 +95,6 @@ class TileScreenshotTest : WearScreenshotTest() {
                 renderer = TestImageTileRenderer(
                     context = context,
                     bitmap = bitmap,
-                    // Opaque background
-                    format = ResourceBuilders.IMAGE_FORMAT_RGB_565,
                 ),
             )
         }
@@ -108,7 +103,6 @@ class TileScreenshotTest : WearScreenshotTest() {
     class TestImageTileRenderer(
         context: Context,
         val bitmap: Bitmap,
-        @ImageFormat val format: Int,
     ) : SingleTileLayoutRenderer<Unit, Unit>(context) {
         override fun renderTile(
             state: Unit,
@@ -139,7 +133,11 @@ class TileScreenshotTest : WearScreenshotTest() {
                         .setPrimaryLabelTextContent(
                             Text.Builder(
                                 context,
-                                if (format == IMAGE_FORMAT_ARGB_8888) "ARGB_8888" else "RGB_565",
+                                when (bitmap.config) {
+                                    Bitmap.Config.ARGB_8888 -> "ARGB_8888"
+                                    Bitmap.Config.RGB_565 -> "RGB_565"
+                                    else -> "UNDEFINED"
+                                },
                             )
                                 .setColor(argb(Color.WHITE))
                                 .setTypography(Typography.TYPOGRAPHY_BODY2)
@@ -154,7 +152,7 @@ class TileScreenshotTest : WearScreenshotTest() {
             deviceParameters: DeviceParameters,
             resourceIds: List<String>,
         ) {
-            addIdToImageMapping("dice", bitmap.toImageResource(format))
+            addIdToImageMapping("dice", bitmap.toImageResource())
         }
     }
 }

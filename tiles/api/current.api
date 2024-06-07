@@ -89,8 +89,8 @@ package com.google.android.horologist.tiles.images {
 
   public final class ImagesKt {
     method public static suspend Object? loadImage(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super android.graphics.Bitmap>);
-    method public static suspend Object? loadImageResource(coil.ImageLoader, android.content.Context context, Object? data, optional @androidx.wear.protolayout.ResourceBuilders.ImageFormat int format, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super androidx.wear.protolayout.ResourceBuilders.ImageResource>);
-    method public static androidx.wear.protolayout.ResourceBuilders.ImageResource toImageResource(android.graphics.Bitmap, optional @androidx.wear.protolayout.ResourceBuilders.ImageFormat int format);
+    method public static suspend Object? loadImageResource(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super androidx.wear.protolayout.ResourceBuilders.ImageResource>);
+    method public static androidx.wear.protolayout.ResourceBuilders.ImageResource toImageResource(android.graphics.Bitmap);
   }
 
 }

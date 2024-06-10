@@ -38,14 +38,15 @@ import androidx.paging.PagingState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.PlaceholderDefaults
+import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TitleCard
 import androidx.wear.compose.material.placeholder
 import androidx.wear.compose.material.placeholderShimmer
-import androidx.wear.compose.material.rememberPlaceholderState
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSquare
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberActivePlaceholderState
 import com.google.android.horologist.compose.paging.items
 import com.google.android.horologist.sample.R
 import kotlinx.coroutines.delay
@@ -78,6 +79,7 @@ fun PagingScreen(
         columnState = columnState,
         modifier = modifier,
     ) {
+        // TODO This should be folded into com.google.android.horologist.compose.paging.items
         if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
             items(10) {
                 PagingItemCard(item = null)
@@ -98,35 +100,32 @@ fun PagingScreen(
 private fun PagingItemCard(
     item: PagingItem?,
     modifier: Modifier = Modifier,
+    placeholderState: PlaceholderState = rememberActivePlaceholderState { item != null },
     onClick: () -> Unit = {},
 ) {
-    // Workaround for https://issuetracker.google.com/issues/260343754
-    val chipPlaceholderState =
-        if (item != null) rememberPlaceholderState { true } else rememberPlaceholderState { false }
-
     TitleCard(
         modifier = modifier
             .fillMaxWidth()
-            .placeholderShimmer(chipPlaceholderState),
+            .placeholderShimmer(placeholderState),
         enabled = item != null,
         onClick = onClick,
         title = {
             Text(
                 modifier = Modifier
-                    .fillMaxWidth(if (chipPlaceholderState.isShowContent) 1f else 0.5f)
-                    .placeholder(chipPlaceholderState),
+                    .fillMaxWidth(if (placeholderState.isShowContent) 1f else 0.5f)
+                    .placeholder(placeholderState),
                 text = item?.toString().orEmpty(),
             )
         },
         backgroundPainter = PlaceholderDefaults.painterWithPlaceholderOverlayBackgroundBrush(
-            placeholderState = chipPlaceholderState,
+            placeholderState = placeholderState,
             painter = CardDefaults.cardBackgroundPainter(),
         ),
     ) {
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .placeholder(chipPlaceholderState),
+                .placeholder(placeholderState),
             text = if (item != null) {
                 stringResource(R.string.lorem_ipsum)
             } else {
@@ -135,12 +134,6 @@ private fun PagingItemCard(
             maxLines = 3,
             overflow = TextOverflow.Ellipsis,
         )
-    }
-
-    if (!chipPlaceholderState.isShowContent) {
-        LaunchedEffect(chipPlaceholderState) {
-            chipPlaceholderState.startPlaceholderAnimation()
-        }
     }
 }
 

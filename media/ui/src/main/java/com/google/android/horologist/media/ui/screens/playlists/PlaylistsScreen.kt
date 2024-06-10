@@ -29,6 +29,7 @@ import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberActivePlaceholderState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.coil.CoilPaintable
@@ -59,6 +60,10 @@ public fun <T> PlaylistsScreen(
     playlistContent: @Composable (playlist: T) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    // TODO This should be folded into SectionedList
+    val placeholderState =
+        rememberActivePlaceholderState { playlistsScreenState !is PlaylistsScreenState.Loading }
+
     ScreenScaffold(scrollState = columnState) {
         SectionedList(
             modifier = modifier,
@@ -85,7 +90,11 @@ public fun <T> PlaylistsScreen(
 
                 loading(count = 4) {
                     Column {
-                        PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+                        PlaceholderChip(
+                            colors = ChipDefaults.secondaryChipColors(),
+                            placeholderState = placeholderState,
+                            secondaryLabel = false,
+                        )
                     }
                 }
             }

@@ -104,7 +104,7 @@ fun ItemListScreen(route: ItemList, onClick: (Item) -> Unit) {
 
 @Composable
 fun ItemListScreen(screenState: ItemListScreenState, onClick: (Item) -> Unit) {
-    val placeholderState = rememberPlaceholderState {
+    val placeholderState = rememberActivePlaceholderState {
         screenState !is ItemListScreenState.Loading
     }
 
@@ -141,12 +141,6 @@ fun ItemListScreen(screenState: ItemListScreenState, onClick: (Item) -> Unit) {
                     placeholderState = placeholderState
                 )
             }
-        }
-    }
-
-    if (!placeholderState.isShowContent) {
-        LaunchedEffect(placeholderState) {
-            placeholderState.startPlaceholderAnimation()
         }
     }
 }

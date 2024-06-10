@@ -219,7 +219,7 @@ package com.google.android.horologist.media.ui.components.controls {
 package com.google.android.horologist.media.ui.components.display {
 
   public final class LoadingMediaDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void LoadingMediaDisplay(optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void LoadingMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.PlaceholderState placeholderState);
   }
 
   public final class MessageMediaDisplayKt {

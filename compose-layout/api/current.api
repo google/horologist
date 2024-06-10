@@ -55,6 +55,10 @@ package com.google.android.horologist.compose.layout {
     method @androidx.compose.runtime.Composable public static void PagerScaffold(optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? timeText, optional androidx.compose.foundation.pager.PagerState? pagerState, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
   }
 
+  public final class PlaceholderKt {
+    method @androidx.compose.runtime.Composable public static androidx.wear.compose.material.PlaceholderState rememberActivePlaceholderState(kotlin.jvm.functions.Function0<java.lang.Boolean> isContentReady);
+  }
+
   public final class ResponsiveTimeTextKt {
     method @androidx.compose.runtime.Composable public static void ResponsiveTimeText(optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.TimeSource timeSource, optional androidx.compose.ui.text.TextStyle timeTextStyle, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit>? startLinearContent, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.CurvedScope,kotlin.Unit>? startCurvedContent, optional kotlin.jvm.functions.Function0<kotlin.Unit>? endLinearContent, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.CurvedScope,kotlin.Unit>? endCurvedContent, optional kotlin.jvm.functions.Function0<kotlin.Unit> textLinearSeparator, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.CurvedScope,kotlin.Unit> textCurvedSeparator);
     method @androidx.compose.runtime.Composable public static androidx.compose.foundation.layout.PaddingValues responsivePaddingDefaults();

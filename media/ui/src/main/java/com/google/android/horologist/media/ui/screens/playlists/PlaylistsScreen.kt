@@ -93,7 +93,7 @@ public fun <T> PlaylistsScreen(
                         PlaceholderChip(
                             colors = ChipDefaults.secondaryChipColors(),
                             placeholderState = placeholderState,
-                            secondaryLabel = false
+                            secondaryLabel = false,
                         )
                     }
                 }

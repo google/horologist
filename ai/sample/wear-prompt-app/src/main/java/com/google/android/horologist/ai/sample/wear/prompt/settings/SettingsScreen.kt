@@ -77,7 +77,7 @@ private fun SettingsScreen(
                     PlaceholderChip(
                         placeholderState = placeholderState,
                         icon = false,
-                        secondaryLabel = false
+                        secondaryLabel = false,
                     )
                 }
             } else {

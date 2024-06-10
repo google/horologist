@@ -78,7 +78,7 @@ public fun PlaylistStreamingScreen(
                 PlaceholderChip(
                     colors = ChipDefaults.secondaryChipColors(),
                     placeholderState = placeholderState,
-                    secondaryLabel = false
+                    secondaryLabel = false,
                 )
             }
         },

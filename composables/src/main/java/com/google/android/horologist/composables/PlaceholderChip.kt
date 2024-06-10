@@ -101,7 +101,9 @@ public fun PlaceholderChip(
                         .placeholder(placeholderState),
                 )
             }
-        } else null,
+        } else {
+            null
+        },
         icon = if (icon) {
             {
                 Box(
@@ -111,7 +113,9 @@ public fun PlaceholderChip(
                         .placeholder(placeholderState),
                 )
             }
-        } else null,
+        } else {
+            null
+        },
         colors = PlaceholderDefaults.placeholderChipColors(
             originalChipColors = colors,
             placeholderState = placeholderState,

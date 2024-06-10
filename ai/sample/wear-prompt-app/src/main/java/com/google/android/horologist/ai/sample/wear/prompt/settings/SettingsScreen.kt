@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearMaterialApi::class)
+
 package com.google.android.horologist.ai.sample.wear.prompt.settings
 
 import androidx.compose.runtime.Composable
@@ -23,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.lazy.items
+import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
@@ -32,6 +35,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.It
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberActivePlaceholderState
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.compose.material.ToggleChip
@@ -64,11 +68,17 @@ private fun SettingsScreen(
         ),
     )
 
+    val placeholderState = rememberActivePlaceholderState { uiState.models != null }
+
     ScreenScaffold(scrollState = columnState, modifier = modifier) {
         ScalingLazyColumn(columnState = columnState) {
             if (uiState.models == null) {
                 items(3) {
-                    PlaceholderChip()
+                    PlaceholderChip(
+                        placeholderState = placeholderState,
+                        icon = false,
+                        secondaryLabel = false
+                    )
                 }
             } else {
                 item {

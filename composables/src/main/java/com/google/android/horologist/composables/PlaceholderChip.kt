@@ -26,7 +26,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
@@ -41,10 +40,11 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PlaceholderDefaults
+import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.placeholder
 import androidx.wear.compose.material.placeholderShimmer
-import androidx.wear.compose.material.rememberPlaceholderState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.layout.rememberActivePlaceholderState
 
 /**
  * A placeholder chip to be displayed while the contents of the [Chip] is being loaded.
@@ -55,12 +55,13 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 public fun PlaceholderChip(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    placeholderState: PlaceholderState = rememberActivePlaceholderState { false },
+    secondaryLabel: Boolean = true,
+    icon: Boolean = true,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = false,
     contentDescription: String = stringResource(id = R.string.horologist_placeholderchip_content_description),
 ) {
-    val chipPlaceholderState = rememberPlaceholderState { false }
-
     Chip(
         modifier = modifier
             .height(ChipDefaults.Height)
@@ -70,7 +71,7 @@ public fun PlaceholderChip(
                 painter = colors.background(enabled = enabled).value,
                 contentScale = ContentScale.Crop,
             )
-            .placeholderShimmer(chipPlaceholderState)
+            .placeholderShimmer(placeholderState)
             .semantics {
                 this.contentDescription = contentDescription
             },
@@ -84,38 +85,36 @@ public fun PlaceholderChip(
                         .clip(RoundedCornerShape(12.dp))
                         .fillMaxWidth()
                         .height(12.dp)
-                        .placeholder(chipPlaceholderState),
+                        .placeholder(placeholderState),
                 )
                 Spacer(Modifier.size(8.dp))
             }
         },
-        secondaryLabel = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 30.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .height(12.dp)
-                    .placeholder(chipPlaceholderState),
-            )
-        },
-        icon = {
-            Box(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .size(ChipDefaults.LargeIconSize)
-                    .placeholder(chipPlaceholderState),
-            )
-        },
+        secondaryLabel = if (secondaryLabel) {
+            {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 30.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .height(12.dp)
+                        .placeholder(placeholderState),
+                )
+            }
+        } else null,
+        icon = if (icon) {
+            {
+                Box(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(ChipDefaults.LargeIconSize)
+                        .placeholder(placeholderState),
+                )
+            }
+        } else null,
         colors = PlaceholderDefaults.placeholderChipColors(
             originalChipColors = colors,
-            placeholderState = chipPlaceholderState,
+            placeholderState = placeholderState,
         ),
     )
-
-    if (!chipPlaceholderState.isShowContent) {
-        LaunchedEffect(chipPlaceholderState) {
-            chipPlaceholderState.startPlaceholderAnimation()
-        }
-    }
 }

@@ -31,6 +31,7 @@ import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberActivePlaceholderState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.images.coil.CoilPaintable
@@ -64,11 +65,23 @@ public fun PlaylistStreamingScreen(
             PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed
         }
 
+    // TODO This should be folded into SectionedList
+    val placeholderState =
+        rememberActivePlaceholderState { entityScreenState !is EntityScreenState.Loading }
+
     EntityScreen(
         columnState = columnState,
         entityScreenState = entityScreenState,
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
-        loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
+        loadingContent = {
+            items(count = 2) {
+                PlaceholderChip(
+                    colors = ChipDefaults.secondaryChipColors(),
+                    placeholderState = placeholderState,
+                    secondaryLabel = false
+                )
+            }
+        },
         mediaContent = { mediaUiModel ->
             val mediaTitle = mediaUiModel.title ?: defaultMediaTitle
             Chip(

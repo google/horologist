@@ -36,6 +36,7 @@ import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.OutlinedCompactChip
+import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
@@ -58,6 +59,7 @@ public fun OutlinedCompactChip(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     border: ChipBorder = ChipDefaults.outlinedChipBorder(),
+    placeholderState: PlaceholderState? = null,
 ) {
     OutlinedCompactChip(
         onClick = onClick,
@@ -70,6 +72,7 @@ public fun OutlinedCompactChip(
         enabled = enabled,
         interactionSource = interactionSource,
         border = border,
+        placeholderState = placeholderState,
     )
 }
 
@@ -90,6 +93,7 @@ public fun OutlinedCompactChip(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     border: ChipBorder = ChipDefaults.outlinedChipBorder(),
+    placeholderState: PlaceholderState? = null,
 ) {
     OutlinedCompactChip(
         onClick = onClick,
@@ -101,6 +105,7 @@ public fun OutlinedCompactChip(
         enabled = enabled,
         interactionSource = interactionSource,
         border = border,
+        placeholderState = placeholderState,
     )
 }
 
@@ -121,6 +126,7 @@ public fun OutlinedCompactChip(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     border: ChipBorder = ChipDefaults.outlinedChipBorder(),
+    placeholderState: PlaceholderState? = null,
 ) {
     OutlinedCompactChip(
         onClick = onClick,
@@ -133,6 +139,7 @@ public fun OutlinedCompactChip(
         enabled = enabled,
         interactionSource = interactionSource,
         border = border,
+        placeholderState = placeholderState,
     )
 }
 
@@ -148,11 +155,12 @@ internal fun OutlinedCompactChip(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     border: ChipBorder = ChipDefaults.outlinedChipBorder(),
+    placeholderState: PlaceholderState? = null,
 ) {
     val iconParam: (@Composable BoxScope.() -> Unit)? = icon?.let {
         {
             Row {
-                val iconModifier = Modifier.size(ChipDefaults.SmallIconSize)
+                val iconModifier = Modifier.size(ChipDefaults.SmallIconSize).placeholderIf(placeholderState)
 
                 if (it is PaintableIcon) {
                     Icon(
@@ -178,7 +186,7 @@ internal fun OutlinedCompactChip(
     val labelParam: (@Composable RowScope.() -> Unit)? = label?.let {
         {
             Text(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().placeholderIf(placeholderState),
                 text = label,
                 textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
@@ -188,7 +196,7 @@ internal fun OutlinedCompactChip(
     }
 
     OutlinedCompactChip(
-        modifier = modifier,
+        modifier = modifier.placeholderShimmerIf(placeholderState),
         onClick = onClick,
         label = labelParam,
         icon = iconParam,

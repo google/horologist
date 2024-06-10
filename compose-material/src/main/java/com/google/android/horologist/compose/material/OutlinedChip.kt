@@ -37,6 +37,7 @@ import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.OutlinedChip
+import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
@@ -60,6 +61,7 @@ public fun OutlinedChip(
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
     enabled: Boolean = true,
+    placeholderState: PlaceholderState? = null,
 ) {
     val iconParam: (@Composable BoxScope.() -> Unit)? =
         icon?.let {
@@ -103,6 +105,7 @@ public fun OutlinedChip(
         largeIcon = largeIcon,
         colors = colors,
         enabled = enabled,
+        placeholderState = placeholderState,
     )
 }
 
@@ -124,6 +127,7 @@ public fun OutlinedChip(
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
     enabled: Boolean = true,
+    placeholderState: PlaceholderState? = null,
 ) {
     OutlinedChip(
         label = stringResource(id = labelId),
@@ -135,6 +139,7 @@ public fun OutlinedChip(
         iconRtlMode = iconRtlMode,
         colors = colors,
         enabled = enabled,
+        placeholderState = placeholderState,
     )
 }
 
@@ -153,6 +158,7 @@ public fun OutlinedChip(
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
     enabled: Boolean = true,
+    placeholderState: PlaceholderState? = null,
 ) {
     val hasSecondaryLabel = secondaryLabel != null
     val hasIcon = icon != null
@@ -161,7 +167,7 @@ public fun OutlinedChip(
         {
             Text(
                 text = label,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().placeholderIf(placeholderState),
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
@@ -175,6 +181,7 @@ public fun OutlinedChip(
                     text = secondaryLabel,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
+                    modifier = Modifier.placeholderIf(placeholderState)
                 )
             }
         }
@@ -195,7 +202,8 @@ public fun OutlinedChip(
         label = labelParam,
         onClick = onClick,
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .placeholderShimmerIf(placeholderState),
         secondaryLabel = secondaryLabelParam,
         icon = icon,
         colors = colors,

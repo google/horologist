@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipColors
@@ -62,6 +63,7 @@ public fun ToggleChip(
     colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    placeholderState: PlaceholderState? = null,
 ) {
     val hasSecondaryLabel = secondaryLabel != null
 
@@ -69,7 +71,7 @@ public fun ToggleChip(
         {
             Text(
                 text = label,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().placeholderIf(placeholderState),
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
@@ -85,6 +87,7 @@ public fun ToggleChip(
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     style = MaterialTheme.typography.caption2,
+                    modifier = Modifier.placeholderIf(placeholderState),
                 )
             }
         }
@@ -112,7 +115,8 @@ public fun ToggleChip(
                         contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                         modifier = Modifier
                             .size(ChipDefaults.IconSize)
-                            .clip(CircleShape),
+                            .clip(CircleShape)
+                            .placeholderIf(placeholderState),
                         rtlMode = iconRtlMode,
                     )
                 }
@@ -135,7 +139,8 @@ public fun ToggleChip(
             .fillMaxWidth()
             .semantics {
                 stateDescription = stateDescriptionSemantics
-            },
+            }
+            .placeholderShimmerIf(placeholderState),
         appIcon = iconParam,
         secondaryLabel = secondaryLabelParam,
         colors = colors,

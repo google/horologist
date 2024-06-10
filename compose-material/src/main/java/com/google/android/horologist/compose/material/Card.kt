@@ -35,6 +35,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.PlaceholderState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import androidx.wear.compose.material.Card as MaterialCard
 
@@ -53,13 +54,15 @@ public fun Card(
     contentPadding: PaddingValues = CardDefaults.ContentPadding,
     shape: Shape = MaterialTheme.shapes.large,
     role: Role? = null,
+    placeholderState: PlaceholderState? = null,
     content: @Composable () -> Unit,
 ) {
     if (onLongClick != null) {
         val interactionSource = remember { MutableInteractionSource() }
         MaterialCard(
             onClick = onClick,
-            modifier = modifier,
+            modifier = modifier
+                .placeholderShimmerIf(placeholderState),
             backgroundPainter = backgroundPainter,
             contentColor = contentColor,
             enabled = enabled,
@@ -87,7 +90,8 @@ public fun Card(
     } else {
         MaterialCard(
             onClick = onClick,
-            modifier = modifier,
+            modifier = modifier
+                .placeholderShimmerIf(placeholderState),
             backgroundPainter = backgroundPainter,
             contentColor = contentColor,
             enabled = enabled,

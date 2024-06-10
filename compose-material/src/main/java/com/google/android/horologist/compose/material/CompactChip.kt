@@ -36,6 +36,7 @@ import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CompactChip
 import androidx.wear.compose.material.LocalContentAlpha
+import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
@@ -58,6 +59,7 @@ public fun CompactChip(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     border: ChipBorder = ChipDefaults.chipBorder(),
+    placeholderState: PlaceholderState? = null,
 ) {
     CompactChip(
         onClick = onClick,
@@ -90,6 +92,7 @@ public fun CompactChip(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     border: ChipBorder = ChipDefaults.chipBorder(),
+    placeholderState: PlaceholderState? = null,
 ) {
     CompactChip(
         label = stringResource(id = labelId),
@@ -120,6 +123,7 @@ public fun CompactChip(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     border: ChipBorder = ChipDefaults.chipBorder(),
+    placeholderState: PlaceholderState? = null,
 ) {
     CompactChip(
         onClick = onClick,
@@ -147,6 +151,7 @@ internal fun CompactChip(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     border: ChipBorder = ChipDefaults.chipBorder(),
+    placeholderState: PlaceholderState? = null,
 ) {
     val iconParam: (@Composable BoxScope.() -> Unit)? = icon?.let {
         {

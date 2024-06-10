@@ -376,7 +376,7 @@ public fun Chip(
 }
 
 @Composable
-private fun Modifier.placeholderIf(
+internal fun Modifier.placeholderIf(
     placeholderState: PlaceholderState?,
     shape: Shape = MaterialTheme.shapes.small,
     color: Color = MaterialTheme.colors.onSurface
@@ -391,7 +391,7 @@ private fun Modifier.placeholderIf(
 }
 
 @Composable
-private fun Modifier.placeholderShimmerIf(
+internal fun Modifier.placeholderShimmerIf(
     placeholderState: PlaceholderState?,
     shape: Shape = MaterialTheme.shapes.small,
     color: Color = MaterialTheme.colors.onSurface,

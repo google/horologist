@@ -29,6 +29,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.SplitToggleChip
 import androidx.wear.compose.material.SplitToggleChipColors
 import androidx.wear.compose.material.Text
@@ -55,13 +56,14 @@ public fun SplitToggleChip(
     enabled: Boolean = true,
     checkedInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     clickInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    placeholderState: PlaceholderState? = null,
 ) {
     val hasSecondaryLabel = secondaryLabel != null
 
     val labelParam: (@Composable RowScope.() -> Unit) =
         {
             Text(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().placeholderIf(placeholderState),
                 text = label,
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
@@ -78,6 +80,7 @@ public fun SplitToggleChip(
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     style = MaterialTheme.typography.caption2,
+                    modifier = Modifier.placeholderIf(placeholderState),
                 )
             }
         }
@@ -99,7 +102,7 @@ public fun SplitToggleChip(
             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
             modifier = Modifier.semantics {
                 stateDescription = stateDescriptionSemantics
-            },
+            }.placeholderIf(placeholderState),
             rtlMode = IconRtlMode.Mirrored,
         )
     }
@@ -110,7 +113,8 @@ public fun SplitToggleChip(
         label = labelParam,
         onClick = onClick,
         toggleControl = toggleControlParam,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth()
+            .placeholderShimmerIf(placeholderState),
         secondaryLabel = secondaryLabelParam,
         colors = colors,
         enabled = enabled,

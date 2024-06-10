@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
-
 package com.google.android.horologist.compose.material
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -41,10 +38,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -65,7 +63,10 @@ import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.placeholder
+import androidx.wear.compose.material.placeholderShimmer
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.Paintable
@@ -91,6 +92,7 @@ public fun Chip(
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
+    placeholderState: PlaceholderState? = null,
 ) {
     val iconParam: (@Composable BoxScope.() -> Unit)? =
         icon?.let {
@@ -105,6 +107,7 @@ public fun Chip(
                     val iconModifier = Modifier
                         .size(iconSize)
                         .clip(CircleShape)
+                        .placeholderIf(placeholderState)
                     if (it is PaintableIcon) {
                         Icon(
                             paintable = it,
@@ -135,6 +138,7 @@ public fun Chip(
         largeIcon = largeIcon,
         colors = colors,
         enabled = enabled,
+        placeholderState = placeholderState,
     )
 }
 
@@ -157,6 +161,7 @@ public fun Chip(
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
+    placeholderState: PlaceholderState? = null,
 ) {
     Chip(
         label = stringResource(id = labelId),
@@ -169,6 +174,7 @@ public fun Chip(
         colors = colors,
         enabled = enabled,
         iconRtlMode = iconRtlMode,
+        placeholderState = placeholderState,
     )
 }
 
@@ -188,6 +194,7 @@ public fun Chip(
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
+    placeholderState: PlaceholderState? = null,
 ) {
     val hasSecondaryLabel = secondaryLabel != null
     val hasIcon = icon != null
@@ -196,7 +203,8 @@ public fun Chip(
         {
             Text(
                 text = label,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth()
+                    .placeholderIf(placeholderState),
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
@@ -210,6 +218,8 @@ public fun Chip(
                     text = secondaryLabel,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
+                    modifier = Modifier
+                        .placeholderIf(placeholderState),
                 )
             }
         }
@@ -259,13 +269,15 @@ public fun Chip(
             colors = colors,
             enabled = enabled,
             contentPadding = contentPadding,
+            placeholderState = placeholderState,
         )
     } else {
         MaterialChip(
             label = labelParam,
             onClick = onClick,
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .placeholderShimmerIf(placeholderState),
             secondaryLabel = secondaryLabelParam,
             icon = icon,
             colors = colors,
@@ -294,6 +306,7 @@ public fun Chip(
     contentPadding: PaddingValues = ChipDefaults.ContentPadding,
     shape: Shape = MaterialTheme.shapes.large,
     border: ChipBorder = ChipDefaults.chipBorder(),
+    placeholderState: PlaceholderState? = null,
 ) {
     Chip(
         onClick = onClick,
@@ -306,6 +319,7 @@ public fun Chip(
         shape = shape,
         interactionSource = interactionSource,
         role = Role.Button,
+        placeholderState = placeholderState,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -315,7 +329,8 @@ public fun Chip(
         ) {
             if (icon != null) {
                 Box(
-                    modifier = Modifier.wrapContentSize(align = Alignment.Center),
+                    modifier = Modifier
+                        .wrapContentSize(align = Alignment.Center),
                     content = {
                         val color = colors.iconColor(enabled).value
                         CompositionLocalProvider(
@@ -360,6 +375,34 @@ public fun Chip(
     }
 }
 
+@Composable
+private fun Modifier.placeholderIf(
+    placeholderState: PlaceholderState?,
+    shape: Shape = MaterialTheme.shapes.small,
+    color: Color = MaterialTheme.colors.onSurface
+        .copy(alpha = 0.1f)
+        .compositeOver(MaterialTheme.colors.surface)
+): Modifier {
+    return if (placeholderState != null) {
+        this.placeholder(placeholderState, shape, color)
+    } else {
+        this
+    }
+}
+
+@Composable
+private fun Modifier.placeholderShimmerIf(
+    placeholderState: PlaceholderState?,
+    shape: Shape = MaterialTheme.shapes.small,
+    color: Color = MaterialTheme.colors.onSurface,
+): Modifier {
+    return if (placeholderState != null) {
+        this.placeholderShimmer(placeholderState, shape, color)
+    } else {
+        this
+    }
+}
+
 /**
  * Temporary copy of Wear Compose Material Chip with support for
  * onLongClick.
@@ -377,13 +420,14 @@ public fun Chip(
     shape: Shape = MaterialTheme.shapes.large,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     role: Role = Role.Button,
+    placeholderState: PlaceholderState? = null,
     content: @Composable BoxScope.() -> Unit,
 ) {
     MaterialChip(
         onClick = onClick,
         colors = colors,
         border = border,
-        modifier = modifier,
+        modifier = modifier.placeholderShimmerIf(placeholderState),
         enabled = enabled,
         contentPadding = PaddingValues(0.dp),
         shape = shape,

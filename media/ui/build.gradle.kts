@@ -49,6 +49,7 @@ android {
             com.google.android.horologist.annotations.ExperimentalHorologistApi
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
+            androidx.wear.compose.material.ExperimentalWearMaterialApi
             """.trim().split("\\s+".toRegex()).map {
                 "-opt-in=$it"
             }

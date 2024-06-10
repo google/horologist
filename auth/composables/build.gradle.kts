@@ -44,8 +44,11 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
+        freeCompilerArgs += listOf(
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+            "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi",
+        )
     }
 
     composeOptions {

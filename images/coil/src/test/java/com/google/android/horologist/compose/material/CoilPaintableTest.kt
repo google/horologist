@@ -19,8 +19,6 @@
 package com.google.android.horologist.compose.material
 
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.os.Looper
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -31,7 +29,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.core.graphics.drawable.toDrawable
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.LocalContentAlpha
@@ -47,7 +44,6 @@ import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.images.coil.R.drawable.sample_image
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
-import org.robolectric.Shadows.shadowOf
 
 class CoilPaintableTest : WearLegacyComponentTest() {
 
@@ -126,7 +122,7 @@ class CoilPaintableTest : WearLegacyComponentTest() {
                 painter = paintable.rememberPainter(),
                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                 modifier = Modifier
-                    .size(ChipDefaults.LargeIconSize)
+                    .size(ChipDefaults.LargeIconSize),
             )
         }
     }
@@ -137,7 +133,7 @@ class CoilPaintableTest : WearLegacyComponentTest() {
             val paintable = CoilPaintable(
                 ImageRequest.Builder(LocalContext.current)
                     .data(sample_image)
-                    .build()
+                    .build(),
             )
 
             Image(
@@ -157,14 +153,14 @@ class CoilPaintableTest : WearLegacyComponentTest() {
                 ImageRequest.Builder(LocalContext.current)
                     .data(sample_image)
                     .transformations(CircleCropTransformation())
-                    .build()
+                    .build(),
             )
 
             Image(
                 painter = paintable.rememberPainter(),
                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                 alpha = 0.5f,
-                modifier = Modifier.size(ChipDefaults.LargeIconSize)
+                modifier = Modifier.size(ChipDefaults.LargeIconSize),
             )
         }
     }
@@ -179,7 +175,7 @@ class CoilPaintableTest : WearLegacyComponentTest() {
                 modifier = Modifier
                     .size(ChipDefaults.LargeIconSize)
                     .clip(CircleShape)
-                    .alpha(0.5f)
+                    .alpha(0.5f),
             )
         }
     }

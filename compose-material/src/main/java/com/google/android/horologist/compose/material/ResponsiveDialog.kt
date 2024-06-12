@@ -81,6 +81,11 @@ public fun ResponsiveDialogContent(
     ScreenScaffold(
         modifier = modifier.fillMaxSize(),
         scrollState = if (showPositionIndicator) state else null,
+        positionIndicator = if (showPositionIndicator) {
+            null
+        } else {
+            {}
+        },
         timeText = {},
     ) {
         // This will be applied only to the content.

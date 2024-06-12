@@ -23,10 +23,10 @@ import kotlinx.serialization.Serializable
 /**
  * Navigation routes enum.
  */
-interface NavigationScreen {
+public interface NavigationScreen {
     @Serializable
     public data class Player(val page: Int = 0) : NavigationScreen {
-        companion object {
+        public companion object {
             fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
                 navDeepLink {
                     uriPattern = "$deepLinkPrefix/player?page={page}"
@@ -37,7 +37,7 @@ interface NavigationScreen {
 
     @Serializable
     public data object Volume : NavigationScreen {
-        fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
+        public fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {
                 uriPattern = "$deepLinkPrefix/volume"
             },
@@ -46,8 +46,8 @@ interface NavigationScreen {
 
     @Serializable
     public data class MediaItem(val id: String, val collectionId: String?) : NavigationScreen {
-        companion object {
-            fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
+        public companion object {
+            public fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
                 navDeepLink {
                     uriPattern = "$deepLinkPrefix/mediaItem?id={id}&collectionId={collectionId}"
                 }
@@ -57,7 +57,7 @@ interface NavigationScreen {
 
     @Serializable
     public data object Settings : NavigationScreen {
-        fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
+        public fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {
                 uriPattern = "$deepLinkPrefix/settings"
             },
@@ -66,7 +66,7 @@ interface NavigationScreen {
 
     @Serializable
     public data object Collections : NavigationScreen {
-        fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
+        public fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {
                 uriPattern = "$deepLinkPrefix/collections"
             },
@@ -75,8 +75,8 @@ interface NavigationScreen {
 
     @Serializable
     public data class Collection(val id: String, val name: String?) : NavigationScreen {
-        companion object {
-            fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
+        public companion object {
+            public fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
                 navDeepLink {
                     uriPattern = "$deepLinkPrefix/collection?id={id}&name={name}"
                 },

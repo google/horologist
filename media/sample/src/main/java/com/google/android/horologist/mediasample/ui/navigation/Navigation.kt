@@ -16,55 +16,25 @@
 
 package com.google.android.horologist.mediasample.ui.navigation
 
-import androidx.navigation.NavController
-import com.google.android.horologist.media.ui.navigation.NavigationScreens
+import com.google.android.horologist.media.ui.navigation.NavigationScreen
+import kotlinx.serialization.Serializable
 
-public fun NavController.navigateToAudioDebug() {
-    navigate(AudioDebug.destination())
-}
+object UampNavigationScreen {
+    @Serializable
+    public data object AudioDebug : NavigationScreen
 
-public object AudioDebug : NavigationScreens("audioDebug") {
-    public fun destination(): String = navRoute
-}
+    @Serializable
+    public data object Samples : NavigationScreen
 
-public fun NavController.navigateToSamples() {
-    navigate(Samples.destination())
-}
+    @Serializable
+    public data object GoogleSignInPromptScreen : NavigationScreen
 
-public object Samples : NavigationScreens("samples") {
-    public fun destination(): String = navRoute
-}
+    @Serializable
+    public data object GoogleSignInScreen : NavigationScreen
 
-public fun NavController.navigateToGoogleSignInPrompt() {
-    navigate(GoogleSignInPromptScreen.destination())
-}
+    @Serializable
+    public object GoogleSignOutScreen : NavigationScreen
 
-public object GoogleSignInPromptScreen : NavigationScreens("signInPrompt") {
-    public fun destination(): String = navRoute
-}
-
-public fun NavController.navigateToGoogleSignIn() {
-    navigate(GoogleSignInScreen.destination())
-}
-
-public object GoogleSignInScreen : NavigationScreens("signIn") {
-    public fun destination(): String = navRoute
-}
-
-public fun NavController.navigateToGoogleSignOutScreen() {
-    navigate(GoogleSignOutScreen.destination()) {
-        popUpTo(NavigationScreens.Player.navRoute)
-    }
-}
-
-public object GoogleSignOutScreen : NavigationScreens("signOut") {
-    public fun destination(): String = navRoute
-}
-
-public fun NavController.navigateToDeveloperOptions() {
-    navigate(DeveloperOptions.destination())
-}
-
-public object DeveloperOptions : NavigationScreens("developerOptions") {
-    public fun destination(): String = navRoute
+    @Serializable
+    public object DeveloperOptions : NavigationScreen
 }

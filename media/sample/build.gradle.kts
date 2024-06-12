@@ -23,6 +23,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
     kotlin("android")
+    kotlin("plugin.serialization")
 }
 
 val localProperties = Properties()
@@ -213,6 +214,7 @@ dependencies {
     implementation(libs.moshi.adapters)
     implementation(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
+    implementation(libs.kotlinx.serialization.core)
 
     implementation(libs.androidx.palette.ktx)
 

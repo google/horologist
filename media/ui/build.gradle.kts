@@ -20,6 +20,7 @@ plugins {
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
     alias(libs.plugins.roborazzi)
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -122,6 +123,7 @@ dependencies {
     implementation(projects.images.coil)
     implementation(projects.tiles)
     api(libs.wearcompose.navigation)
+    implementation(libs.kotlinx.serialization.core)
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.wear)

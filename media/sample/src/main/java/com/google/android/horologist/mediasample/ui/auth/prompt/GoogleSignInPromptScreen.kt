@@ -31,19 +31,19 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignIn
+import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignInScreen
 
 @Composable
 fun GoogleSignInPromptScreen(
     navController: NavHostController,
-    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     modifier: Modifier = Modifier,
     viewModel: UampSignInPromptViewModel,
 ) {
+    // TODO switch to responsive
+    val columnState = rememberResponsiveColumnState()
     var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
 
     SignInPromptScreen(
@@ -58,7 +58,7 @@ fun GoogleSignInPromptScreen(
         item {
             SignInChip(
                 onClick = {
-                    navController.navigateToGoogleSignIn()
+                    navController.navigate(GoogleSignInScreen)
                 },
                 colors = ChipDefaults.secondaryChipColors(),
             )

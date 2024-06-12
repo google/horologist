@@ -22,7 +22,7 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.platform.ComposeView
 import androidx.metrics.performance.JankStats
 import androidx.metrics.performance.PerformanceMetricsState
-import com.google.android.horologist.media.ui.navigation.NavigationScreens
+import com.google.android.horologist.media.ui.navigation.NavigationScreen
 import com.google.android.horologist.mediasample.BuildConfig
 import java.util.concurrent.TimeUnit
 
@@ -44,7 +44,8 @@ class JankPrinter {
 
             stateHolder = PerformanceMetricsState.getHolderForHierarchy(contentView).apply {
                 state?.putState("Activity", activity.javaClass.simpleName)
-                state?.putState("route", NavigationScreens.Player.navRoute)
+                // TODO compute this, as it is probably wrong
+                state?.putState("route", NavigationScreen.Player.toString())
             }
 
             jankStats = JankStats.createAndTrack(

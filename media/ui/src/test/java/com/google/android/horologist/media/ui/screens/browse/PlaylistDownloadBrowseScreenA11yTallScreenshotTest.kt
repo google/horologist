@@ -20,16 +20,18 @@ package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams
 import androidx.wear.compose.foundation.lazy.ScalingParams
+import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
-import com.google.android.horologist.media.ui.PlayerLibraryPreview
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 
 @Config(
     sdk = [33],
-    qualifiers = "w227dp-h400dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
+    qualifiers = "w227dp-h330dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
 )
 class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() {
 
@@ -38,21 +40,28 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() 
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         runScreenTest {
-            val columnState: ScalingLazyColumnState = rememberResponsiveColumnState().copy(
+            val columnState = rememberColumnState(
+                factory = ScalingLazyColumnDefaults.belowTimeText(),
+            ).copy(
                 scalingParams = scalingParams(
                     edgeScale = 1f,
                     edgeAlpha = 1f,
                 ),
             )
 
-            PlayerLibraryPreview(columnState = columnState, round = false) {
-                PlaylistDownloadBrowseScreen(
-                    browseScreenState = screenState,
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onPlaylistsClick = { },
-                    onSettingsClick = { },
-                    onDownloadItemInProgressClickActionLabel = "cancel",
+            ScreenScaffold(scrollState = columnState) {
+                SectionedList(
+                    columnState = columnState,
+                    sections = BrowseScreenScope().apply {
+                        PlaylistDownloadBrowseScreenContent(
+                            browseScreenState = screenState,
+                            onDownloadItemClick = { },
+                            onDownloadItemInProgressClick = { },
+                            onPlaylistsClick = { },
+                            onSettingsClick = { },
+                            onDownloadItemInProgressClickActionLabel = "cancel",
+                        )
+                    }.sections,
                 )
             }
         }

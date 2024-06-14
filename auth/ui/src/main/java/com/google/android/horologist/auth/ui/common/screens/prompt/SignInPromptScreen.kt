@@ -116,7 +116,7 @@ public fun SignInPromptScreen(
                     contentPadding = padding(
                         first = ItemType.Text,
                         last = ItemType.Chip,
-                    )
+                    ),
                 )
 
                 ScalingLazyColumn(

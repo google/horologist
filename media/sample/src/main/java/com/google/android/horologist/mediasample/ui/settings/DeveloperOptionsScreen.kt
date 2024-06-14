@@ -46,7 +46,7 @@ fun DeveloperOptionsScreen(
         contentPadding = padding(
             first = ItemType.Text,
             last = ItemType.Chip,
-        )
+        ),
     )
 
     ScalingLazyColumn(

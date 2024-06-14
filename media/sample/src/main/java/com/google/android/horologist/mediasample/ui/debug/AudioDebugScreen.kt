@@ -48,7 +48,7 @@ fun AudioDebugScreen(
         contentPadding = padding(
             first = ItemType.Text,
             last = ItemType.Chip,
-        )
+        ),
     )
 
     ScalingLazyColumn(

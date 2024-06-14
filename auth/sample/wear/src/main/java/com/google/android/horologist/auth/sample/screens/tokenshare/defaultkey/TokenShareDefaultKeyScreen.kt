@@ -48,7 +48,7 @@ fun TokenShareDefaultKeyScreen(
         contentPadding = padding(
             first = ItemType.Text,
             last = ItemType.Chip,
-        )
+        ),
     )
 
     ScreenScaffold(scrollState = columnState) {

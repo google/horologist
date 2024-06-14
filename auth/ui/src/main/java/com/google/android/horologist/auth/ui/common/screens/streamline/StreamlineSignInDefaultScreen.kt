@@ -55,7 +55,7 @@ public fun StreamlineSignInDefaultScreen(
         contentPadding = padding(
             first = ItemType.Text,
             last = ItemType.Chip,
-        )
+        ),
     )
 
     ScreenScaffold(scrollState = columnState) {

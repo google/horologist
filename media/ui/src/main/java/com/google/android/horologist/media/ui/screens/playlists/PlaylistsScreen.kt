@@ -63,7 +63,7 @@ public fun <T> PlaylistsScreen(
         contentPadding = padding(
             first = ItemType.Text,
             last = ItemType.Chip,
-        )
+        ),
     )
 
     // TODO This should be folded into SectionedList

@@ -33,45 +33,85 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewLoadingSection() {
-    SectionedList {
-        downloadsSection(state = Section.State.Loading)
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            first = ItemType.Text,
+            last = ItemType.Chip,
+        ),
+    )
 
-        favouritesSection(state = Section.State.Empty)
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(columnState = columnState) {
+            downloadsSection(state = Section.State.Loading)
+
+            favouritesSection(state = Section.State.Empty)
+        }
     }
 }
 
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewLoadedSection() {
-    SectionedList {
-        downloadsSection(state = Section.State.Loaded(downloads))
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            first = ItemType.Text,
+            last = ItemType.Chip,
+        ),
+    )
 
-        favouritesSection(state = Section.State.Failed)
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(columnState = columnState) {
+            downloadsSection(state = Section.State.Loaded(downloads))
+
+            favouritesSection(state = Section.State.Failed)
+        }
     }
 }
 
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewFailedSection() {
-    SectionedList {
-        downloadsSection(state = Section.State.Failed)
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            first = ItemType.Text,
+            last = ItemType.Chip,
+        ),
+    )
 
-        favouritesSection(state = Section.State.Loaded(favourites))
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(columnState = columnState) {
+            downloadsSection(state = Section.State.Failed)
+
+            favouritesSection(state = Section.State.Loaded(favourites))
+        }
     }
 }
 
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewEmptySection() {
-    SectionedList {
-        downloadsSection(state = Section.State.Empty)
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            first = ItemType.Text,
+            last = ItemType.Chip,
+        ),
+    )
 
-        favouritesSection(state = Section.State.Loading)
+    ScreenScaffold(scrollState = columnState) {
+        SectionedList(columnState = columnState) {
+            downloadsSection(state = Section.State.Empty)
+
+            favouritesSection(state = Section.State.Loading)
+        }
     }
 }
 

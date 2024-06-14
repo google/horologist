@@ -26,7 +26,6 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
@@ -41,7 +40,6 @@ class SignInPromptScreenTest : WearLegacyScreenTest() {
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
             ) {
                 testContent()
             }
@@ -57,7 +55,6 @@ class SignInPromptScreenTest : WearLegacyScreenTest() {
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
             ) {
                 testContent()
             }
@@ -73,7 +70,6 @@ class SignInPromptScreenTest : WearLegacyScreenTest() {
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
                 loadingContent = {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text("Loading...")
@@ -94,7 +90,6 @@ class SignInPromptScreenTest : WearLegacyScreenTest() {
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
             ) {
                 testContent()
             }
@@ -110,7 +105,6 @@ class SignInPromptScreenTest : WearLegacyScreenTest() {
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
             ) {
                 testContent()
             }
@@ -131,7 +125,6 @@ class SignInPromptScreenTest : WearLegacyScreenTest() {
                     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
                 onIdleStateObserved = { },
                 onAlreadySignedIn = { },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
             ) {
                 testContent()
             }

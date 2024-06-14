@@ -91,7 +91,14 @@ public fun SignInPromptScreen(
     loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
     content: ScalingLazyListScope.() -> Unit,
 ) {
-    ScreenScaffold(timeText = {}) {
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            first = ItemType.Text,
+            last = ItemType.Chip,
+        ),
+    )
+
+    ScreenScaffold(timeText = {}, scrollState = columnState) {
         when (state) {
             SignInPromptScreenState.Idle -> {
                 SideEffect {
@@ -112,13 +119,6 @@ public fun SignInPromptScreen(
             }
 
             SignInPromptScreenState.SignedOut -> {
-                val columnState = rememberResponsiveColumnState(
-                    contentPadding = padding(
-                        first = ItemType.Text,
-                        last = ItemType.Chip,
-                    ),
-                )
-
                 ScalingLazyColumn(
                     columnState = columnState,
                     modifier = modifier,

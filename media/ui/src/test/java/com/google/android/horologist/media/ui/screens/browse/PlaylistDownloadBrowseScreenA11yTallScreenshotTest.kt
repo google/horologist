@@ -41,7 +41,7 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() 
 
         runScreenTest {
             val columnState = rememberColumnState(
-                factory = ScalingLazyColumnDefaults.belowTimeText()
+                factory = ScalingLazyColumnDefaults.belowTimeText(),
             ).copy(
                 scalingParams = scalingParams(
                     edgeScale = 1f,

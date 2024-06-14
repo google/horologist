@@ -61,7 +61,7 @@ public fun PlaylistDownloadBrowseScreen(
             onPlaylistsClick,
             onSettingsClick,
             downloadItemArtworkPlaceholder,
-            onDownloadItemInProgressClickActionLabel
+            onDownloadItemInProgressClickActionLabel,
         )
     }
 }

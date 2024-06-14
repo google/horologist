@@ -61,6 +61,7 @@ public class MediaCollectionsTileRenderer(
         deviceParameters: DeviceParameters,
     ): LayoutElementBuilders.LayoutElement {
         return PrimaryLayout.Builder(deviceParameters)
+            .setResponsiveContentInsetEnabled(true)
             .setContent(
                 Column.Builder()
                     .setWidth(expandedDimensionProp)

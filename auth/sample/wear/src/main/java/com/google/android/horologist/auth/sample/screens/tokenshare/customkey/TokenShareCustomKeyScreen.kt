@@ -30,40 +30,51 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 
 @Composable
 fun TokenShareCustomKeyScreen(
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: TokenShareCustomKeyViewModel = viewModel(factory = TokenShareCustomKeyViewModel.Factory),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Title(R.string.token_share_custom_key_title)
-        }
-        item {
-            Text(
-                text = stringResource(id = R.string.token_share_custom_key_message),
-                modifier = Modifier.padding(horizontal = 8.dp),
-                textAlign = TextAlign.Center,
-            )
-        }
-        items(state) { tokenBundle ->
-            tokenBundle?.let {
-                Chip(
-                    label = tokenBundle.accessToken,
-                    onClick = { /* do nothing */ },
-                    colors = ChipDefaults.secondaryChipColors(),
-                    enabled = false,
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            first = ItemType.Text,
+            last = ItemType.Chip,
+        )
+    )
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                Title(R.string.token_share_custom_key_title)
+            }
+            item {
+                Text(
+                    text = stringResource(id = R.string.token_share_custom_key_message),
+                    modifier = Modifier.padding(horizontal = 8.dp),
+                    textAlign = TextAlign.Center,
                 )
+            }
+            items(state) { tokenBundle ->
+                tokenBundle?.let {
+                    Chip(
+                        label = tokenBundle.accessToken,
+                        onClick = { /* do nothing */ },
+                        colors = ChipDefaults.secondaryChipColors(),
+                        enabled = false,
+                    )
+                }
             }
         }
     }

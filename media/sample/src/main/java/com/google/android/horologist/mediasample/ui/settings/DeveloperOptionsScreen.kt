@@ -27,19 +27,27 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToAudioDebug
 import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
 
 @Composable
 fun DeveloperOptionsScreen(
-    columnState: ScalingLazyColumnState,
     developerOptionsScreenViewModel: DeveloperOptionsScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
     val uiState by developerOptionsScreenViewModel.uiState.collectAsStateWithLifecycle()
+
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            first = ItemType.Text,
+            last = ItemType.Chip,
+        )
+    )
 
     ScalingLazyColumn(
         columnState = columnState,

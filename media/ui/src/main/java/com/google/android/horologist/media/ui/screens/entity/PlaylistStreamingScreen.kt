@@ -30,8 +30,10 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.PlaceholderChip
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.rememberActivePlaceholderState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.images.coil.CoilPaintable
@@ -46,7 +48,6 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistApi
 @Composable
 public fun PlaylistStreamingScreen(
-    columnState: ScalingLazyColumnState,
     playlistName: String,
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
     onShuffleButtonClick: () -> Unit,
@@ -65,12 +66,18 @@ public fun PlaylistStreamingScreen(
             PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed
         }
 
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            first = ItemType.Text,
+            last = ItemType.Chip,
+        )
+    )
+
     // TODO This should be folded into SectionedList
     val placeholderState =
         rememberActivePlaceholderState { entityScreenState !is EntityScreenState.Loading }
 
     EntityScreen(
-        columnState = columnState,
         entityScreenState = entityScreenState,
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
         loadingContent = {

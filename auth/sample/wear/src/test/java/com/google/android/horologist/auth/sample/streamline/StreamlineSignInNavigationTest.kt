@@ -18,15 +18,12 @@
 
 package com.google.android.horologist.auth.sample.streamline
 
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasScrollToNodeAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onChild
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
@@ -52,7 +49,6 @@ class StreamlineSignInNavigationTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val rootViewTag = "root_view"
     private val streamLineSignInChipText = "Streamline Sign-in"
     private lateinit var navController: TestNavHostController
 
@@ -61,11 +57,10 @@ class StreamlineSignInNavigationTest {
         composeTestRule.setContent {
             navController = TestNavHostController(LocalContext.current)
             navController.navigatorProvider.addNavigator(WearNavigator())
-            WearApp(modifier = Modifier.testTag(rootViewTag), navController = navController)
+            WearApp(navController = navController)
         }
 
-        composeTestRule.onNodeWithTag(rootViewTag)
-            .onChild()
+        composeTestRule.onNode(hasScrollToNodeAction())
             .performScrollToNode(hasText(streamLineSignInChipText))
 
         composeTestRule.onNodeWithText(streamLineSignInChipText)

@@ -23,8 +23,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.AlertDialog
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
@@ -34,7 +32,6 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampEntityScreen(
-    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     playlistName: String,
     uampEntityScreenViewModel: UampEntityScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
@@ -77,7 +74,6 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.play()
             onPlayClick(it)
         },
-        columnState = columnState,
         onDownloadCompletedButtonClick = {
             showRemoveDownloadsDialog = true
         },

@@ -24,7 +24,6 @@ import com.google.android.horologist.composables.Section.Companion.ALL_STATES
 import com.google.android.horologist.composables.Section.Companion.DEFAULT_LOADING_CONTENT_COUNT
 import com.google.android.horologist.composables.Section.Companion.LOADED_STATE_ONLY
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 /**
@@ -35,7 +34,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 @Composable
 public fun SectionedList(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState = ScalingLazyColumnDefaults.responsive().create(),
+    columnState: ScalingLazyColumnState,
     content: SectionedListScope.() -> Unit,
 ) {
     SectionedList(
@@ -53,7 +52,7 @@ public fun SectionedList(
 @Composable
 public fun SectionedList(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState = ScalingLazyColumnDefaults.responsive().create(),
+    columnState: ScalingLazyColumnState,
     sections: List<Section<*>> = emptyList(),
 ) {
     ScalingLazyColumn(

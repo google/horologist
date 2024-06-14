@@ -30,8 +30,6 @@ import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.coil.CoilPaintable
@@ -50,12 +48,10 @@ public fun PlaylistDownloadBrowseScreen(
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     downloadItemArtworkPlaceholder: Painter? = null,
     onDownloadItemInProgressClickActionLabel: String? = null,
 ) {
     BrowseScreen(
-        columnState = columnState,
         modifier = modifier,
     ) {
         val downloadsSectionState = when (browseScreenState) {

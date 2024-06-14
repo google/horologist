@@ -28,7 +28,6 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.media.ui.R
@@ -72,7 +71,7 @@ private fun BrowseScreenPreviewSample(
     trendingSectionState: Section.State<String>,
     downloadsSectionState: Section.State<Pair<String, String>>,
 ) {
-    BrowseScreen(columnState = rememberResponsiveColumnState()) {
+    BrowseScreen {
         button(
             BrowseScreenPlaylistsSectionButton(
                 textId = R.string.horologist_browse_screen_preview_sign_in,
@@ -101,7 +100,7 @@ private fun BrowseScreenPreviewSample(
             }
         }
 
-        downloadsSection<Pair<String, String>>(
+        downloadsSection(
             state = downloadsSectionState,
         ) {
             loaded { item ->

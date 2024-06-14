@@ -52,7 +52,6 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() 
                     onDownloadItemInProgressClick = { },
                     onPlaylistsClick = { },
                     onSettingsClick = { },
-                    columnState = columnState,
                     onDownloadItemInProgressClickActionLabel = "cancel",
                 )
             }

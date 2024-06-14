@@ -36,9 +36,10 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
@@ -48,9 +49,14 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun loadingSection() {
         runTest {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState(
+                contentPadding = padding(
+                    first = ItemType.Text,
+                    last = ItemType.Chip,
+                ),
+            )
 
-            SectionedListPreview(columnState) {
+            ScreenScaffold(scrollState = columnState) {
                 SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Loading)
 
@@ -63,9 +69,14 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun loadedSection() {
         runTest {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState(
+                contentPadding = padding(
+                    first = ItemType.Text,
+                    last = ItemType.Chip,
+                ),
+            )
 
-            SectionedListPreview(columnState) {
+            ScreenScaffold(scrollState = columnState) {
                 SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Loaded(downloads))
 
@@ -78,9 +89,14 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun loadedSection_secondPage() {
         runTest(captureScreenshot = false) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState(
+                contentPadding = padding(
+                    first = ItemType.Text,
+                    last = ItemType.Chip,
+                ),
+            )
 
-            SectionedListPreview(columnState) {
+            ScreenScaffold(scrollState = columnState) {
                 SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Loaded(downloads))
 
@@ -99,9 +115,14 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun failedSection() {
         runTest {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState(
+                contentPadding = padding(
+                    first = ItemType.Text,
+                    last = ItemType.Chip,
+                ),
+            )
 
-            SectionedListPreview(columnState) {
+            ScreenScaffold(scrollState = columnState) {
                 SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Failed)
 
@@ -114,9 +135,14 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun failedSection_secondPage() {
         runTest(captureScreenshot = false) {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState(
+                contentPadding = padding(
+                    first = ItemType.Text,
+                    last = ItemType.Chip,
+                ),
+            )
 
-            SectionedListPreview(columnState) {
+            ScreenScaffold(scrollState = columnState) {
                 SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Failed)
 
@@ -135,9 +161,14 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun emptySection() {
         runTest {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState(
+                contentPadding = padding(
+                    first = ItemType.Text,
+                    last = ItemType.Chip,
+                ),
+            )
 
-            SectionedListPreview(columnState) {
+            ScreenScaffold(scrollState = columnState) {
                 SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Empty)
 
@@ -150,9 +181,14 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun emptyContentForStates() {
         runTest {
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
+            val columnState = rememberResponsiveColumnState(
+                contentPadding = padding(
+                    first = ItemType.Text,
+                    last = ItemType.Chip,
+                ),
+            )
 
-            SectionedListPreview(columnState) {
+            ScreenScaffold(scrollState = columnState) {
                 SectionedList(columnState = columnState) {
                     section {
                         header { Text("Section 1") }
@@ -179,16 +215,6 @@ class SectionedListTest : WearLegacyScreenTest() {
     }
 
     internal companion object {
-
-        @Composable
-        fun SectionedListPreview(
-            columnState: ScalingLazyColumnState,
-            content: @Composable () -> Unit,
-        ) {
-            ScreenScaffold(scrollState = columnState) {
-                content()
-            }
-        }
 
         val downloads = listOf("Nu Metal Essentials", "00s Rock")
 

@@ -29,7 +29,9 @@ import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.mediasample.R
 import java.time.Instant
 import java.time.ZoneId
@@ -37,11 +39,17 @@ import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun AudioDebugScreen(
-    columnState: ScalingLazyColumnState,
     audioDebugScreenViewModel: AudioDebugScreenViewModel,
     modifier: Modifier = Modifier,
 ) {
     val uiState by audioDebugScreenViewModel.uiState.collectAsStateWithLifecycle()
+
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            first = ItemType.Text,
+            last = ItemType.Chip,
+        ),
+    )
 
     ScalingLazyColumn(
         columnState = columnState,

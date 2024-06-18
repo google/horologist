@@ -58,6 +58,7 @@ public fun PlaceholderChip(
     placeholderState: PlaceholderState = rememberActivePlaceholderState { false },
     secondaryLabel: Boolean = true,
     icon: Boolean = true,
+    largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = false,
     contentDescription: String = stringResource(id = R.string.horologist_placeholderchip_content_description),
@@ -106,10 +107,16 @@ public fun PlaceholderChip(
         },
         icon = if (icon) {
             {
+                val iconSize = if (largeIcon) {
+                    ChipDefaults.LargeIconSize
+                } else {
+                    ChipDefaults.IconSize
+                }
+
                 Box(
                     modifier = Modifier
                         .clip(CircleShape)
-                        .size(ChipDefaults.LargeIconSize)
+                        .size(iconSize)
                         .placeholder(placeholderState),
                 )
             }

@@ -199,11 +199,14 @@ public fun Chip(
     val hasSecondaryLabel = secondaryLabel != null
     val hasIcon = icon != null
 
+    val showContent = placeholderState == null || placeholderState.isShowContent
     val labelParam: (@Composable RowScope.() -> Unit) =
         {
             Text(
-                text = label,
-                modifier = Modifier.fillMaxWidth()
+                text = if (showContent) label else "",
+                modifier = Modifier
+                    .run { if (showContent) this else this.padding(end = 10.dp) }
+                    .fillMaxWidth()
                     .placeholderIf(placeholderState),
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
@@ -215,10 +218,12 @@ public fun Chip(
         secondaryLabel?.let {
             {
                 Text(
-                    text = secondaryLabel,
+                    text = if (showContent) secondaryLabel else "",
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     modifier = Modifier
+                        .run { if (showContent) this else this.padding(end = 30.dp) }
+                        .fillMaxWidth()
                         .placeholderIf(placeholderState),
                 )
             }

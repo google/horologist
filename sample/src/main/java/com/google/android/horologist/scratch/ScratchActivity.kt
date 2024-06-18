@@ -19,6 +19,7 @@ package com.google.android.horologist.scratch
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,14 +28,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
 import androidx.navigation.toRoute
 import androidx.wear.compose.foundation.lazy.items
+import androidx.wear.compose.foundation.lazy.itemsIndexed
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.placeholder
 import androidx.wear.compose.material.placeholderShimmer
-import androidx.wear.compose.material.rememberPlaceholderState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
@@ -47,10 +48,15 @@ import com.google.android.horologist.compose.material.ListHeaderDefaults.firstIt
 import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.compose.nav.SwipeDismissableNavHost
 import com.google.android.horologist.compose.nav.composable
+import com.google.android.horologist.images.base.paintable.Conversions.orPlaceholder
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.images.base.paintable.Paintable
+import com.google.android.horologist.sample.R
 import com.google.android.horologist.scratch.Nav.ItemDetail
 import com.google.android.horologist.scratch.Nav.ItemList
 import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
+import kotlin.time.Duration.Companion.seconds
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,10 +90,16 @@ fun WearApp() {
     }
 }
 
-suspend fun items(): List<Item> {
-    delay(3000)
-    return List(10) {
-        Item(it, "Item $it")
+val items: List<Item> = List(10) {
+    when (it) {
+        1 -> Item(it, "Item $it", secondaryLabel = "Secondary", icon = null)
+        2 -> Item(it, "Item $it", secondaryLabel = null, icon = null)
+        else -> Item(
+            it,
+            "Item $it",
+            secondaryLabel = "Secondary",
+            icon = DrawableResPaintable(R.drawable.ic_tileicon)
+        )
     }
 }
 
@@ -96,7 +108,8 @@ fun ItemListScreen(route: ItemList, onClick: (Item) -> Unit) {
     var screenState by remember { mutableStateOf<ItemListScreenState>(ItemListScreenState.Loading) }
 
     LaunchedEffect(Unit) {
-        screenState = ItemListScreenState.Loaded(items())
+        delay(3.seconds)
+        screenState = ItemListScreenState.Loaded(items)
     }
 
     ItemListScreen(screenState = screenState, onClick)
@@ -128,18 +141,23 @@ fun ItemListScreen(screenState: ItemListScreenState, onClick: (Item) -> Unit) {
                 is ItemListScreenState.Loading -> List(5) { null }
             }
 
-            items(listItems) {
-                Chip(
-                    label = it?.name ?: "           ",
-                    secondaryLabel = "Item: ${it?.id ?: ""}",
-                    onClick = {
-                        if (it != null) {
-                            onClick(it)
-                        }
-                    },
-                    enabled = it != null,
-                    placeholderState = placeholderState
-                )
+            itemsIndexed(listItems) { idx, it ->
+                if (placeholderState.isShowContent || idx > 0) {
+                    Chip(
+                        label = it?.name.orEmpty(),
+                        secondaryLabel = it?.secondaryLabel.orEmpty(),
+                        icon = it?.icon.orPlaceholder(),
+                        onClick = {
+                            if (it != null) {
+                                onClick(it)
+                            }
+                        },
+                        enabled = it != null,
+                        placeholderState = placeholderState
+                    )
+                } else {
+                    PlaceholderChip(placeholderState = placeholderState)
+                }
             }
         }
     }
@@ -150,7 +168,8 @@ fun ItemDetailScreen(route: ItemDetail) {
     var screenState by remember { mutableStateOf<ItemDetailScreenState>(ItemDetailScreenState.Loading) }
 
     LaunchedEffect(Unit) {
-        val item = items().find { it.id < 8 && it.id == route.id }
+        delay(1.seconds)
+        val item = items.find { it.id < 8 && it.id == route.id }
         screenState = if (item != null) {
             ItemDetailScreenState.Loaded(item)
         } else {
@@ -182,10 +201,15 @@ fun ItemDetailScreen(screenState: ItemDetailScreenState) {
     ScreenScaffold(scrollState = columnState) {
         ScalingLazyColumn(columnState = columnState) {
             item {
-                ResponsiveListHeader(contentPadding = firstItemPadding(), modifier = Modifier.placeholderShimmer(placeholderState, shape = RectangleShape)) {
+                ResponsiveListHeader(
+                    contentPadding = firstItemPadding(),
+                    modifier = Modifier.placeholderShimmer(placeholderState, shape = RectangleShape)
+                ) {
                     Text(
-                        item?.name ?: "          ",
-                        modifier = Modifier.placeholder(placeholderState, shape = RectangleShape)
+                        item?.name.orEmpty(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .placeholder(placeholderState, shape = RectangleShape)
                     )
                 }
             }
@@ -211,6 +235,8 @@ sealed interface ItemDetailScreenState {
 data class Item(
     val id: Int,
     val name: String,
+    val secondaryLabel: String? = null,
+    val icon: Paintable?,
 )
 
 sealed interface Nav {

@@ -157,7 +157,7 @@ fun ItemListScreen(screenState: ItemListScreenState, onClick: (Item) -> Unit) {
             }
 
             itemsIndexed(listItems) { idx, it ->
-                if (!placeholderState.isShowContent && idx <= 0) {
+                if (!placeholderState.isShowContent && idx == 0) {
                     // Code to use Horologist PlaceHolderChip
                     PlaceholderChip()
                 } else if (idx % 2 == 0) {
@@ -201,14 +201,14 @@ private fun WearComposePlaceholderChip(
     MaterialChip(
         modifier = Modifier
             .fillMaxWidth()
-            .placeholderShimmerIf(placeholderState),
+            .placeholderShimmer(placeholderState),
         label = {
             Text(
                 text = if (placeholderState.isShowContent) item?.name.orEmpty() else "",
                 modifier = Modifier
                     .run { if (placeholderState.isShowContent) this else padding(end = 10.dp) }
                     .fillMaxWidth()
-                    .placeholderIf(placeholderState = placeholderState),
+                    .placeholder(placeholderState = placeholderState),
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
@@ -231,7 +231,7 @@ private fun WearComposePlaceholderChip(
                         )
                     }
                     .fillMaxWidth()
-                    .placeholderIf(placeholderState = placeholderState),
+                    .placeholder(placeholderState = placeholderState),
             )
         },
         icon = {
@@ -239,7 +239,7 @@ private fun WearComposePlaceholderChip(
                 modifier = Modifier
                     .clip(CircleShape)
                     .size(ChipDefaults.IconSize)
-                    .placeholderIf(
+                    .placeholder(
                         placeholderState
                     )
             ) {

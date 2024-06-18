@@ -54,8 +54,6 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.PlaceholderChip
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.ButtonSize
 import com.google.android.horologist.compose.material.Chip
@@ -84,7 +82,6 @@ public fun PlaylistDownloadScreen(
     onShuffleButtonClick: (PlaylistUiModel) -> Unit,
     onPlayButtonClick: (PlaylistUiModel) -> Unit,
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(),
     onDownloadCompletedButtonClick: ((PlaylistUiModel) -> Unit)? = null,
     defaultMediaTitle: String = "",
     downloadItemArtworkPlaceholder: Painter? = null,
@@ -101,7 +98,6 @@ public fun PlaylistDownloadScreen(
         }
 
     EntityScreen(
-        columnState = columnState,
         entityScreenState = entityScreenState,
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },

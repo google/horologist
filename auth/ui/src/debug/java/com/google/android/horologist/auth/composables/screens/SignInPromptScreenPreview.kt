@@ -26,7 +26,6 @@ import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
 @WearPreviewDevices
 @Composable
@@ -37,7 +36,6 @@ fun SignInPromptScreenPreviewSignedOut() {
         message = "Send messages and create chat groups with your friends",
         onIdleStateObserved = { },
         onAlreadySignedIn = { },
-        columnState = rememberResponsiveColumnState(),
     ) {
         item {
             SignInChip(
@@ -63,7 +61,6 @@ fun SignInPromptScreenPreviewLoading() {
         message = "Send messages and create chat groups with your friends",
         onIdleStateObserved = { },
         onAlreadySignedIn = { },
-        columnState = rememberResponsiveColumnState(),
     ) {
         item {
             SignInChip(
@@ -89,7 +86,6 @@ fun SignInPromptScreenPreviewCustomLoading() {
         message = "Send messages and create chat groups with your friends",
         onIdleStateObserved = { },
         onAlreadySignedIn = { },
-        columnState = rememberResponsiveColumnState(),
         loadingContent = {
             Box(contentAlignment = Alignment.Center) {
                 Text("Loading...")

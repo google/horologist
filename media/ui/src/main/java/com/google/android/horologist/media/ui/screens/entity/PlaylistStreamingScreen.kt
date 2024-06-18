@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.PlaceholderChip
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberActivePlaceholderState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
@@ -46,7 +45,6 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistApi
 @Composable
 public fun PlaylistStreamingScreen(
-    columnState: ScalingLazyColumnState,
     playlistName: String,
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
     onShuffleButtonClick: () -> Unit,
@@ -70,7 +68,6 @@ public fun PlaylistStreamingScreen(
         rememberActivePlaceholderState { entityScreenState !is EntityScreenState.Loading }
 
     EntityScreen(
-        columnState = columnState,
         entityScreenState = entityScreenState,
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
         loadingContent = {

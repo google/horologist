@@ -19,7 +19,6 @@ package com.google.android.horologist.auth.composables.screens
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
@@ -38,7 +37,6 @@ class SelectAccountScreenTest : WearLegacyScreenTest() {
                     AccountUiModel(email = "thisisaverylongemail@example.com"),
                 ),
                 onAccountClicked = { _, _ -> },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
             )
         }
     }
@@ -52,7 +50,6 @@ class SelectAccountScreenTest : WearLegacyScreenTest() {
                     AccountUiModel(email = "thisisaverylongemailaccountsample@example.com"),
                 ),
                 onAccountClicked = { _, _ -> },
-                columnState = ScalingLazyColumnDefaults.responsive().create(),
                 defaultAvatar = null,
             )
         }

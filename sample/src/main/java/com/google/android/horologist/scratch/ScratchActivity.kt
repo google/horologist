@@ -238,6 +238,7 @@ private fun WearComposePlaceholderChip(
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
+                    .size(ChipDefaults.IconSize)
                     .placeholderIf(
                         placeholderState
                     )
@@ -246,8 +247,6 @@ private fun WearComposePlaceholderChip(
                     Image(
                         paintable.rememberPainter(),
                         contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                        modifier = Modifier
-                            .size(ChipDefaults.IconSize),
                     )
                 }
             }

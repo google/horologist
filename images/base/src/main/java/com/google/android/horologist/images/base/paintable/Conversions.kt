@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.painter.ColorPainter
 
 object Conversions {
     fun Paintable?.orPlaceholder(): Paintable {
-        return this ?: Paintable { ColorPainter(Color.Transparent) }
+        return this ?: PlaceholderPaintable
     }
+
+    val PlaceholderPaintable = Paintable { ColorPainter(Color.Transparent) }
 }

@@ -19,7 +19,12 @@ package com.google.android.horologist.scratch
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,10 +32,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.navigation.toRoute
-import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.itemsIndexed
+import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.placeholder
 import androidx.wear.compose.material.placeholderShimmer
@@ -46,8 +56,12 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnStat
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
 import com.google.android.horologist.compose.material.ResponsiveListHeader
+import com.google.android.horologist.compose.material.placeholderIf
+import com.google.android.horologist.compose.material.placeholderShimmerIf
+import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.compose.nav.SwipeDismissableNavHost
 import com.google.android.horologist.compose.nav.composable
+import com.google.android.horologist.images.base.paintable.Conversions.PlaceholderPaintable
 import com.google.android.horologist.images.base.paintable.Conversions.orPlaceholder
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
@@ -57,6 +71,7 @@ import com.google.android.horologist.scratch.Nav.ItemList
 import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
 import kotlin.time.Duration.Companion.seconds
+import androidx.wear.compose.material.Chip as MaterialChip
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,7 +113,7 @@ val items: List<Item> = List(10) {
             it,
             "Item $it",
             secondaryLabel = "Secondary",
-            icon = DrawableResPaintable(R.drawable.ic_tileicon)
+            icon = DrawableResPaintable(R.drawable.ic_person)
         )
     }
 }
@@ -142,25 +157,103 @@ fun ItemListScreen(screenState: ItemListScreenState, onClick: (Item) -> Unit) {
             }
 
             itemsIndexed(listItems) { idx, it ->
-                if (placeholderState.isShowContent || idx > 0) {
-                    Chip(
-                        label = it?.name.orEmpty(),
-                        secondaryLabel = it?.secondaryLabel.orEmpty(),
-                        icon = it?.icon.orPlaceholder(),
-                        onClick = {
-                            if (it != null) {
-                                onClick(it)
-                            }
-                        },
-                        enabled = it != null,
-                        placeholderState = placeholderState
-                    )
+                if (!placeholderState.isShowContent && idx <= 0) {
+                    // Code to use Horologist PlaceHolderChip
+                    PlaceholderChip()
+                } else if (idx % 2 == 0) {
+                    HorologistMaterialChip(it, onClick, placeholderState)
                 } else {
-                    PlaceholderChip(placeholderState = placeholderState)
+                    WearComposePlaceholderChip(it, onClick, placeholderState)
                 }
             }
         }
     }
+}
+
+// Code to use Horologist Material Chip directly with Placeholder support
+@Composable
+private fun HorologistMaterialChip(
+    it: Item?,
+    onClick: (Item) -> Unit,
+    placeholderState: PlaceholderState
+) {
+    Chip(
+        label = it?.name.orEmpty(),
+        secondaryLabel = if (it != null) it.secondaryLabel else "",
+        icon = if (it != null) it.icon else PlaceholderPaintable,
+        onClick = {
+            if (it != null) {
+                onClick(it)
+            }
+        },
+        enabled = it != null,
+        placeholderState = placeholderState
+    )
+}
+
+// Code to use Wear Compose Chip directly with Placeholder support
+@Composable
+private fun WearComposePlaceholderChip(
+    item: Item?,
+    onClick: (Item) -> Unit,
+    placeholderState: PlaceholderState
+) {
+    MaterialChip(
+        modifier = Modifier
+            .fillMaxWidth()
+            .placeholderShimmerIf(placeholderState),
+        label = {
+            Text(
+                text = if (placeholderState.isShowContent) item?.name.orEmpty() else "",
+                modifier = Modifier
+                    .run { if (placeholderState.isShowContent) this else padding(end = 10.dp) }
+                    .fillMaxWidth()
+                    .placeholderIf(placeholderState = placeholderState),
+                textAlign = TextAlign.Start,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+            )
+        },
+        onClick = {
+            if (item != null) {
+                onClick(item)
+            }
+        },
+        secondaryLabel = {
+            Text(
+                text = if (placeholderState.isShowContent) item?.secondaryLabel.orEmpty() else "",
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+                modifier = Modifier
+                    .run {
+                        if (placeholderState.isShowContent) this else padding(
+                            end = 30.dp
+                        )
+                    }
+                    .fillMaxWidth()
+                    .placeholderIf(placeholderState = placeholderState),
+            )
+        },
+        icon = {
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .placeholderIf(
+                        placeholderState
+                    )
+            ) {
+                item?.icon?.let { paintable: Paintable ->
+                    Image(
+                        paintable.rememberPainter(),
+                        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                        modifier = Modifier
+                            .size(ChipDefaults.IconSize),
+                    )
+                }
+            }
+        },
+        enabled = item != null,
+    )
 }
 
 @Composable

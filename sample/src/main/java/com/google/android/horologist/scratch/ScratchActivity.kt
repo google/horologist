@@ -36,6 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.toRoute
 import androidx.wear.compose.foundation.lazy.itemsIndexed
@@ -56,13 +57,10 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnStat
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
 import com.google.android.horologist.compose.material.ResponsiveListHeader
-import com.google.android.horologist.compose.material.placeholderIf
-import com.google.android.horologist.compose.material.placeholderShimmerIf
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.compose.nav.SwipeDismissableNavHost
 import com.google.android.horologist.compose.nav.composable
 import com.google.android.horologist.images.base.paintable.Conversions.PlaceholderPaintable
-import com.google.android.horologist.images.base.paintable.Conversions.orPlaceholder
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.sample.R
@@ -337,4 +335,22 @@ sealed interface Nav {
 
     @Serializable
     data class ItemDetail(val id: Int)
+}
+
+@Preview(widthDp = 192)
+@Composable
+fun PlaceholderChipPreview() {
+    PlaceholderChip()
+}
+
+@Preview(widthDp = 192)
+@Composable
+fun HorologistMaterialPreview() {
+    HorologistMaterialChip(null, {}, rememberActivePlaceholderState { false })
+}
+
+@Preview(widthDp = 192)
+@Composable
+fun MaterialChipPreview() {
+    WearComposePlaceholderChip(null, {}, rememberActivePlaceholderState { false })
 }

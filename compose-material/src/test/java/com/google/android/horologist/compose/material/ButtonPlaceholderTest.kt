@@ -17,7 +17,6 @@
 package com.google.android.horologist.compose.material
 
 import com.google.android.horologist.compose.material.BasePlaceholderTest.Item.Companion.Full
-import com.google.android.horologist.compose.material.BasePlaceholderTest.Item.Companion.LabelOnly
 import com.google.android.horologist.images.base.paintable.Conversions.orPlaceholder
 import org.junit.Test
 
@@ -31,7 +30,7 @@ class ButtonPlaceholderTest : BasePlaceholderTest() {
                 contentDescription = "Button",
                 onClick = {},
                 enabled = item != null,
-                placeholderState = placeholderState
+                placeholderState = placeholderState,
             )
         }
     }

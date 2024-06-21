@@ -17,7 +17,6 @@
 package com.google.android.horologist.compose.material
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -32,19 +31,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.compositeOver
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -66,15 +59,11 @@ import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.placeholder
-import androidx.wear.compose.material.placeholderShimmer
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.ChipIcon
-import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.compose.material.util.placeholderIf
 import com.google.android.horologist.compose.material.util.placeholderShimmerIf
 import com.google.android.horologist.images.base.paintable.Paintable
-import com.google.android.horologist.images.base.paintable.PaintableIcon
 import androidx.wear.compose.material.Chip as MaterialChip
 
 /**
@@ -180,14 +169,18 @@ public fun Chip(
             text = if (showContent) label else "",
             modifier = Modifier
                 .run {
-                    if (showContent)
+                    if (showContent) {
                         this
-                    else
-                        if (hasSecondaryLabel || hasIcon) this
-                            .padding(end = 30.dp)
-                            .fillMaxWidth()
-                        else this
-                            .padding(start = 30.dp, end = 30.dp)
+                    } else {
+                        if (hasSecondaryLabel || hasIcon) {
+                            this
+                                .padding(end = 30.dp)
+                                .fillMaxWidth()
+                        } else {
+                            this
+                                .padding(start = 30.dp, end = 30.dp)
+                        }
+                    }
                 }
                 .fillMaxWidth()
                 .placeholderIf(placeholderState),

@@ -44,7 +44,7 @@ class CardPlaceholderTest : BasePlaceholderTest() {
                         modifier = Modifier
                             .run { if (placeholderState.isShowContent) this else this.padding(end = 10.dp) }
                             .fillMaxWidth()
-                            .placeholderIf(placeholderState)
+                            .placeholderIf(placeholderState),
                     )
                 }
             }

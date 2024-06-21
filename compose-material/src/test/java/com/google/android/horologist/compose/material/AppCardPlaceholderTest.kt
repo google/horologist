@@ -41,7 +41,7 @@ class AppCardPlaceholderTest : BasePlaceholderTest() {
                     item?.content ?: "\n",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .placeholderIf(placeholderState)
+                        .placeholderIf(placeholderState),
                 )
             }
         }

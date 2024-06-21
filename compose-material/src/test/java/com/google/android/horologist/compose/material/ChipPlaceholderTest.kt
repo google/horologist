@@ -32,7 +32,7 @@ class ChipPlaceholderTest : BasePlaceholderTest() {
                 icon = item?.icon.orPlaceholder(),
                 onClick = {},
                 enabled = item != null,
-                placeholderState = placeholderState
+                placeholderState = placeholderState,
             )
         }
     }
@@ -44,7 +44,7 @@ class ChipPlaceholderTest : BasePlaceholderTest() {
                 label = item?.label.orEmpty(),
                 onClick = {},
                 enabled = item != null,
-                placeholderState = placeholderState
+                placeholderState = placeholderState,
             )
         }
     }

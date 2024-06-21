@@ -21,8 +21,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -135,10 +133,11 @@ internal fun OutlinedCompactChip(
                 text = if (showContent) label else "",
                 modifier = Modifier
                     .run {
-                        if (showContent)
+                        if (showContent) {
                             this
-                        else
+                        } else {
                             this.width(40.dp)
+                        }
                     }
                     .placeholderIf(placeholderState),
                 textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,

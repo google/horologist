@@ -91,7 +91,8 @@ fun WearApp() {
 
                 ItemListScreen(
                     route,
-                    onClick = { navController.navigate(Nav.ItemDetail(id = it.id)) })
+                    onClick = { navController.navigate(Nav.ItemDetail(id = it.id)) },
+                )
             }
 
             composable<ItemDetail> {
@@ -111,7 +112,7 @@ val items: List<Item> = List(10) {
             it,
             "Item $it",
             secondaryLabel = "Secondary",
-            icon = DrawableResPaintable(R.drawable.ic_person)
+            icon = DrawableResPaintable(R.drawable.ic_person),
         )
     }
 }
@@ -137,8 +138,8 @@ fun ItemListScreen(screenState: ItemListScreenState, onClick: (Item) -> Unit) {
     val columnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ItemType.Text,
-            last = ItemType.Chip
-        )
+            last = ItemType.Chip,
+        ),
     )
 
     ScreenScaffold(scrollState = columnState) {
@@ -173,7 +174,7 @@ fun ItemListScreen(screenState: ItemListScreenState, onClick: (Item) -> Unit) {
 private fun HorologistMaterialChip(
     it: Item?,
     onClick: (Item) -> Unit,
-    placeholderState: PlaceholderState
+    placeholderState: PlaceholderState,
 ) {
     Chip(
         label = it?.name.orEmpty(),
@@ -185,7 +186,7 @@ private fun HorologistMaterialChip(
             }
         },
         enabled = it != null,
-        placeholderState = placeholderState
+        placeholderState = placeholderState,
     )
 }
 
@@ -194,7 +195,7 @@ private fun HorologistMaterialChip(
 private fun WearComposePlaceholderChip(
     item: Item?,
     onClick: (Item) -> Unit,
-    placeholderState: PlaceholderState
+    placeholderState: PlaceholderState,
 ) {
     MaterialChip(
         modifier = Modifier
@@ -224,9 +225,13 @@ private fun WearComposePlaceholderChip(
                 maxLines = 1,
                 modifier = Modifier
                     .run {
-                        if (placeholderState.isShowContent) this else padding(
-                            end = 30.dp
-                        )
+                        if (placeholderState.isShowContent) {
+                            this
+                        } else {
+                            padding(
+                                end = 30.dp,
+                            )
+                        }
                     }
                     .fillMaxWidth()
                     .placeholder(placeholderState = placeholderState),
@@ -238,8 +243,8 @@ private fun WearComposePlaceholderChip(
                     .clip(CircleShape)
                     .size(ChipDefaults.IconSize)
                     .placeholder(
-                        placeholderState
-                    )
+                        placeholderState,
+                    ),
             ) {
                 item?.icon?.let { paintable: Paintable ->
                     Image(
@@ -279,8 +284,8 @@ fun ItemDetailScreen(screenState: ItemDetailScreenState) {
     val columnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ItemType.Text,
-            last = ItemType.Text
-        )
+            last = ItemType.Text,
+        ),
     )
 
     val item = when (screenState) {
@@ -293,13 +298,13 @@ fun ItemDetailScreen(screenState: ItemDetailScreenState) {
             item {
                 ResponsiveListHeader(
                     contentPadding = firstItemPadding(),
-                    modifier = Modifier.placeholderShimmer(placeholderState, shape = RectangleShape)
+                    modifier = Modifier.placeholderShimmer(placeholderState, shape = RectangleShape),
                 ) {
                     Text(
                         item?.name.orEmpty(),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .placeholder(placeholderState, shape = RectangleShape)
+                            .placeholder(placeholderState, shape = RectangleShape),
                     )
                 }
             }

@@ -31,7 +31,7 @@ class CompactChipPlaceholderTest : BasePlaceholderTest() {
                 icon = item?.icon.orPlaceholder(),
                 onClick = {},
                 enabled = item != null,
-                placeholderState = placeholderState
+                placeholderState = placeholderState,
             )
         }
     }
@@ -43,7 +43,7 @@ class CompactChipPlaceholderTest : BasePlaceholderTest() {
                 label = item?.label.orEmpty(),
                 onClick = {},
                 enabled = item != null,
-                placeholderState = placeholderState
+                placeholderState = placeholderState,
             )
         }
     }

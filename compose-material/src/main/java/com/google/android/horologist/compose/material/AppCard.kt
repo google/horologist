@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -74,7 +73,7 @@ fun AppCard(
         Column {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 appImage?.let {
                     ChipIcon(icon = it, largeIcon = false, placeholderState = placeholderState)
@@ -82,13 +81,13 @@ fun AppCard(
                 }
                 CompositionLocalProvider(
                     LocalContentColor provides appColor,
-                    LocalTextStyle provides MaterialTheme.typography.caption1
+                    LocalTextStyle provides MaterialTheme.typography.caption1,
                 ) {
                     Text(
                         text = appName,
                         modifier = Modifier
                             .run { if (showContent) this else this.width(60.dp) }
-                            .placeholderIf(placeholderState)
+                            .placeholderIf(placeholderState),
                     )
                 }
                 Spacer(modifier = Modifier.weight(1.0f))
@@ -102,7 +101,7 @@ fun AppCard(
                             text = time,
                             modifier = Modifier
                                 .run { if (showContent) this else this.width(30.dp) }
-                                .placeholderIf(placeholderState)
+                                .placeholderIf(placeholderState),
                         )
                     }
                 }
@@ -114,11 +113,14 @@ fun AppCard(
             ) {
                 CompositionLocalProvider(
                     LocalContentColor provides titleColor,
-                    LocalTextStyle provides MaterialTheme.typography.title3
+                    LocalTextStyle provides MaterialTheme.typography.title3,
                 ) {
-                    Text(title, modifier = Modifier
-                        .run { if (showContent) this else this.width(60.dp) }
-                        .placeholderIf(placeholderState))
+                    Text(
+                        title,
+                        modifier = Modifier
+                            .run { if (showContent) this else this.width(60.dp) }
+                            .placeholderIf(placeholderState),
+                    )
                 }
             }
             CompositionLocalProvider(

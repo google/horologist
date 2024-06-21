@@ -69,7 +69,7 @@ fun TitleCard(
         Column {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 CompositionLocalProvider(
                     LocalContentColor provides titleColor,
@@ -79,7 +79,7 @@ fun TitleCard(
                         text = title,
                         modifier = Modifier
                             .run { if (showContent) this else this.width(60.dp) }
-                            .placeholderIf(placeholderState)
+                            .placeholderIf(placeholderState),
                     )
                 }
                 time?.let {
@@ -92,7 +92,7 @@ fun TitleCard(
                             text = time,
                             modifier = Modifier
                                 .run { if (showContent) this else this.width(30.dp) }
-                                .placeholderIf(placeholderState)
+                                .placeholderIf(placeholderState),
                         )
                     }
                 }

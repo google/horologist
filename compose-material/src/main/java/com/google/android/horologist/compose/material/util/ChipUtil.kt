@@ -37,7 +37,6 @@ import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
 
-
 @ExperimentalHorologistApi
 @Composable
 internal fun ChipIcon(
@@ -79,7 +78,7 @@ fun Modifier.placeholderIf(
     placeholderState: PlaceholderState?,
     shape: Shape = MaterialTheme.shapes.small,
     color: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.1f)
-        .compositeOver(MaterialTheme.colors.surface)
+        .compositeOver(MaterialTheme.colors.surface),
 ): Modifier {
     return if (placeholderState != null) {
         this.placeholder(placeholderState, shape, color)

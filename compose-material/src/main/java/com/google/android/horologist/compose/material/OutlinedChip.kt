@@ -17,36 +17,27 @@
 package com.google.android.horologist.compose.material
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.OutlinedChip
 import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.ChipIcon
-import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.compose.material.util.placeholderIf
 import com.google.android.horologist.compose.material.util.placeholderShimmerIf
 import com.google.android.horologist.images.base.paintable.Paintable
-import com.google.android.horologist.images.base.paintable.PaintableIcon
 /**
  * This component is an alternative to [OutlinedChip], providing the following:
  * - a convenient way of providing a label and a secondary label;
@@ -145,14 +136,18 @@ public fun OutlinedChip(
                 text = if (showContent) label else "",
                 modifier = Modifier
                     .run {
-                        if (showContent)
+                        if (showContent) {
                             this
-                        else
-                            if (hasSecondaryLabel || hasIcon) this
-                                .padding(end = 30.dp)
-                                .fillMaxWidth()
-                            else this
-                                .padding(start = 30.dp, end = 30.dp)
+                        } else {
+                            if (hasSecondaryLabel || hasIcon) {
+                                this
+                                    .padding(end = 30.dp)
+                                    .fillMaxWidth()
+                            } else {
+                                this
+                                    .padding(start = 30.dp, end = 30.dp)
+                            }
+                        }
                     }
                     .fillMaxWidth()
                     .placeholderIf(placeholderState),

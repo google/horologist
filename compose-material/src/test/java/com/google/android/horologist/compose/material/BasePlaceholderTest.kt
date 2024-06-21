@@ -61,7 +61,7 @@ abstract class BasePlaceholderTest {
 
     fun runPlaceholderTest(
         item: Item,
-        component: @Composable (Item?, PlaceholderState) -> Unit
+        component: @Composable (Item?, PlaceholderState) -> Unit,
     ) {
         composeRule.mainClock.autoAdvance = false
 
@@ -114,7 +114,7 @@ abstract class BasePlaceholderTest {
                 secondaryLabel = "bobby@bonson.bx",
                 icon = RedPaintable,
                 time = "12:05",
-                content = "This is sample\ncontent."
+                content = "This is sample\ncontent.",
             )
             val LabelOnly = Item(label = "Bobby Bonson", secondaryLabel = null, icon = null)
         }

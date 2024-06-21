@@ -50,32 +50,6 @@ import com.google.android.horologist.images.base.paintable.Paintable
 @ExperimentalHorologistApi
 @Composable
 public fun CompactChip(
-    icon: Paintable,
-    contentDescription: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.chipBorder(),
-    placeholderState: PlaceholderState? = null,
-) {
-    CompactChip(
-        onClick = onClick,
-        modifier = modifier,
-        label = null,
-        icon = icon,
-        contentDescription = contentDescription,
-        colors = colors,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        border = border,
-        placeholderState = placeholderState,
-    )
-}
-
-@Composable
-internal fun CompactChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     label: String? = null,

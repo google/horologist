@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -68,7 +69,10 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.placeholder
 import androidx.wear.compose.material.placeholderShimmer
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.util.ChipIcon
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.compose.material.util.placeholderIf
+import com.google.android.horologist.compose.material.util.placeholderShimmerIf
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
 import androidx.wear.compose.material.Chip as MaterialChip
@@ -87,46 +91,19 @@ public fun Chip(
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
     secondaryLabel: String? = null,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     icon: Paintable? = null,
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
     placeholderState: PlaceholderState? = null,
 ) {
-    val iconParam: (@Composable BoxScope.() -> Unit)? =
-        icon?.let {
-            {
-                val iconSize = if (largeIcon) {
-                    ChipDefaults.LargeIconSize
-                } else {
-                    ChipDefaults.IconSize
-                }
-
-                Row {
-                    val iconModifier = Modifier
-                        .size(iconSize)
-                        .clip(CircleShape)
-                        .placeholderIf(placeholderState)
-                    if (it is PaintableIcon) {
-                        Icon(
-                            paintable = it,
-                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                            modifier = iconModifier,
-                            rtlMode = iconRtlMode,
-                        )
-                    } else {
-                        Image(
-                            painter = it.rememberPainter(),
-                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                            modifier = iconModifier,
-                            contentScale = ContentScale.Crop,
-                            alpha = LocalContentAlpha.current,
-                        )
-                    }
-                }
+    val iconParam: (@Composable BoxScope.() -> Unit)? = icon?.let {
+        {
+            Row {
+                ChipIcon(it, largeIcon, placeholderState)
             }
         }
+    }
 
     Chip(
         label = label,
@@ -156,7 +133,6 @@ public fun Chip(
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
     @StringRes secondaryLabel: Int? = null,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     icon: Paintable? = null,
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
@@ -173,7 +149,6 @@ public fun Chip(
         largeIcon = largeIcon,
         colors = colors,
         enabled = enabled,
-        iconRtlMode = iconRtlMode,
         placeholderState = placeholderState,
     )
 }
@@ -190,44 +165,51 @@ public fun Chip(
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
     secondaryLabel: String? = null,
-    icon: (@Composable BoxScope.() -> Unit)? = null,
+    icon: (@Composable BoxScope.() -> Unit)?,
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true,
     placeholderState: PlaceholderState? = null,
 ) {
+    val showContent = placeholderState == null || placeholderState.isShowContent
     val hasSecondaryLabel = secondaryLabel != null
     val hasIcon = icon != null
 
-    val showContent = placeholderState == null || placeholderState.isShowContent
-    val labelParam: (@Composable RowScope.() -> Unit) =
+    val labelParam: (@Composable RowScope.() -> Unit) = {
+        Text(
+            text = if (showContent) label else "",
+            modifier = Modifier
+                .run {
+                    if (showContent)
+                        this
+                    else
+                        if (hasSecondaryLabel || hasIcon) this
+                            .padding(end = 30.dp)
+                            .fillMaxWidth()
+                        else this
+                            .padding(start = 30.dp, end = 30.dp)
+                }
+                .fillMaxWidth()
+                .placeholderIf(placeholderState),
+            textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = if (hasSecondaryLabel) 1 else 2,
+        )
+    }
+
+    val secondaryLabelParam: (@Composable RowScope.() -> Unit)? = secondaryLabel?.let {
         {
             Text(
-                text = if (showContent) label else "",
+                text = if (showContent) secondaryLabel else "",
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
                 modifier = Modifier
-                    .run { if (showContent) this else this.padding(end = 10.dp) }
+                    .run { if (showContent) this else this.padding(end = 30.dp) }
                     .fillMaxWidth()
                     .placeholderIf(placeholderState),
-                textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = if (hasSecondaryLabel) 1 else 2,
             )
         }
-
-    val secondaryLabelParam: (@Composable RowScope.() -> Unit)? =
-        secondaryLabel?.let {
-            {
-                Text(
-                    text = if (showContent) secondaryLabel else "",
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    modifier = Modifier
-                        .run { if (showContent) this else this.padding(end = 30.dp) }
-                        .fillMaxWidth()
-                        .placeholderIf(placeholderState),
-                )
-            }
-        }
+    }
 
     val contentPadding = if (largeIcon) {
         val verticalPadding = ChipDefaults.ChipVerticalPadding
@@ -334,8 +316,7 @@ public fun Chip(
         ) {
             if (icon != null) {
                 Box(
-                    modifier = Modifier
-                        .wrapContentSize(align = Alignment.Center),
+                    modifier = Modifier.wrapContentSize(align = Alignment.Center),
                     content = {
                         val color = colors.iconColor(enabled).value
                         CompositionLocalProvider(
@@ -377,34 +358,6 @@ public fun Chip(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Modifier.placeholderIf(
-    placeholderState: PlaceholderState?,
-    shape: Shape = MaterialTheme.shapes.small,
-    color: Color = MaterialTheme.colors.onSurface
-        .copy(alpha = 0.1f)
-        .compositeOver(MaterialTheme.colors.surface)
-): Modifier {
-    return if (placeholderState != null) {
-        this.placeholder(placeholderState, shape, color)
-    } else {
-        this
-    }
-}
-
-@Composable
-fun Modifier.placeholderShimmerIf(
-    placeholderState: PlaceholderState?,
-    shape: Shape = MaterialTheme.shapes.small,
-    color: Color = MaterialTheme.colors.onSurface,
-): Modifier {
-    return if (placeholderState != null) {
-        this.placeholderShimmer(placeholderState, shape, color)
-    } else {
-        this
     }
 }
 

@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -40,7 +41,10 @@ import androidx.wear.compose.material.OutlinedChip
 import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.util.ChipIcon
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.compose.material.util.placeholderIf
+import com.google.android.horologist.compose.material.util.placeholderShimmerIf
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
 /**
@@ -55,9 +59,8 @@ public fun OutlinedChip(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     secondaryLabel: String? = null,
-    icon: Paintable? = null,
+    icon: Paintable?,
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
     enabled: Boolean = true,
@@ -66,33 +69,7 @@ public fun OutlinedChip(
     val iconParam: (@Composable BoxScope.() -> Unit)? =
         icon?.let {
             {
-                val iconSize = if (largeIcon) {
-                    ChipDefaults.LargeIconSize
-                } else {
-                    ChipDefaults.IconSize
-                }
-
-                Row {
-                    val iconModifier = Modifier
-                        .size(iconSize)
-                        .clip(CircleShape)
-                    if (it is PaintableIcon) {
-                        Icon(
-                            paintable = it,
-                            rtlMode = iconRtlMode,
-                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                            modifier = iconModifier,
-                        )
-                    } else {
-                        Image(
-                            painter = it.rememberPainter(),
-                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                            modifier = iconModifier,
-                            contentScale = ContentScale.Crop,
-                            alpha = LocalContentAlpha.current,
-                        )
-                    }
-                }
+                ChipIcon(it, largeIcon, placeholderState)
             }
         }
 
@@ -121,7 +98,6 @@ public fun OutlinedChip(
     @StringRes labelId: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     @StringRes secondaryLabel: Int? = null,
     icon: Paintable? = null,
     largeIcon: Boolean = false,
@@ -136,7 +112,6 @@ public fun OutlinedChip(
         secondaryLabel = secondaryLabel?.let { stringResource(id = it) },
         icon = icon,
         largeIcon = largeIcon,
-        iconRtlMode = iconRtlMode,
         colors = colors,
         enabled = enabled,
         placeholderState = placeholderState,
@@ -160,14 +135,27 @@ public fun OutlinedChip(
     enabled: Boolean = true,
     placeholderState: PlaceholderState? = null,
 ) {
+    val showContent = placeholderState == null || placeholderState.isShowContent
     val hasSecondaryLabel = secondaryLabel != null
     val hasIcon = icon != null
 
     val labelParam: (@Composable RowScope.() -> Unit) =
         {
             Text(
-                text = label,
-                modifier = Modifier.fillMaxWidth().placeholderIf(placeholderState),
+                text = if (showContent) label else "",
+                modifier = Modifier
+                    .run {
+                        if (showContent)
+                            this
+                        else
+                            if (hasSecondaryLabel || hasIcon) this
+                                .padding(end = 30.dp)
+                                .fillMaxWidth()
+                            else this
+                                .padding(start = 30.dp, end = 30.dp)
+                    }
+                    .fillMaxWidth()
+                    .placeholderIf(placeholderState),
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2,
@@ -181,7 +169,10 @@ public fun OutlinedChip(
                     text = secondaryLabel,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    modifier = Modifier.placeholderIf(placeholderState)
+                    modifier = Modifier
+                        .run { if (showContent) this else this.padding(end = 30.dp) }
+                        .fillMaxWidth()
+                        .placeholderIf(placeholderState),
                 )
             }
         }

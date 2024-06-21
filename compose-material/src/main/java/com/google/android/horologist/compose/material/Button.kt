@@ -48,7 +48,10 @@ import androidx.wear.compose.material.ButtonDefaults.LargeButtonSize
 import androidx.wear.compose.material.ButtonDefaults.LargeIconSize
 import androidx.wear.compose.material.ButtonDefaults.SmallButtonSize
 import androidx.wear.compose.material.ButtonDefaults.SmallIconSize
+import androidx.wear.compose.material.PlaceholderState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.util.placeholderIf
+import com.google.android.horologist.compose.material.util.placeholderShimmerIf
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
@@ -71,6 +74,7 @@ public fun Button(
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true,
+    placeholderState: PlaceholderState? = null,
 ) {
     Button(
         icon = ImageVectorPaintable(imageVector),
@@ -82,6 +86,7 @@ public fun Button(
         buttonSize = buttonSize,
         iconRtlMode = iconRtlMode,
         enabled = enabled,
+        placeholderState = placeholderState,
     )
 }
 
@@ -102,6 +107,7 @@ public fun Button(
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true,
+    placeholderState: PlaceholderState? = null,
 ) {
     Button(
         icon = DrawableResPaintable(id),
@@ -113,6 +119,7 @@ public fun Button(
         buttonSize = buttonSize,
         iconRtlMode = iconRtlMode,
         enabled = enabled,
+        placeholderState = placeholderState,
     )
 }
 
@@ -128,6 +135,7 @@ internal fun Button(
     buttonSize: ButtonSize = ButtonSize.Default,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true,
+    placeholderState: PlaceholderState? = null,
 ) {
     if (onLongClick != null) {
         val interactionSource = remember { MutableInteractionSource() }
@@ -149,7 +157,8 @@ internal fun Button(
                         onLongClick()
                         true
                     })
-                },
+                }
+                .placeholderShimmerIf(placeholderState),
             enabled = enabled,
             colors = colors,
             interactionSource = interactionSource,
@@ -170,6 +179,7 @@ internal fun Button(
                 val iconModifier = Modifier
                     .size(buttonSize.iconSize)
                     .align(Alignment.Center)
+                    .placeholderIf(placeholderState)
 
                 Icon(
                     paintable = icon,
@@ -182,13 +192,15 @@ internal fun Button(
     } else {
         MaterialButton(
             onClick = onClick,
-            modifier = modifier.size(buttonSize.tapTargetSize),
+            modifier = modifier.size(buttonSize.tapTargetSize)
+                .placeholderShimmerIf(placeholderState),
             enabled = enabled,
             colors = colors,
         ) {
             val iconModifier = Modifier
                 .size(buttonSize.iconSize)
                 .align(Alignment.Center)
+                .placeholderIf(placeholderState)
 
             Icon(
                 paintable = icon,

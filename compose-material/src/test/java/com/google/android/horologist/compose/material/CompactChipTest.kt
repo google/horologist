@@ -119,6 +119,7 @@ class CompactChipTest : WearLegacyComponentTest() {
         }
     }
 
+    // TODO remove
     @Test
     fun mirrored() {
         runComponentTest {
@@ -126,11 +127,11 @@ class CompactChipTest : WearLegacyComponentTest() {
                 label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
                 icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
-                iconRtlMode = IconRtlMode.Mirrored,
             )
         }
     }
 
+    // TODO remove
     @Test
     @Config(qualifiers = "+ar-rXB-ldrtl")
     fun mirroredRtl() {
@@ -139,11 +140,11 @@ class CompactChipTest : WearLegacyComponentTest() {
                 label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
                 icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
-                iconRtlMode = IconRtlMode.Mirrored,
             )
         }
     }
 
+    // TODO remove
     @Test
     @Config(qualifiers = "+ar-rXB-ldrtl")
     fun usingDrawableResAsIconMirroredRtl() {
@@ -152,7 +153,6 @@ class CompactChipTest : WearLegacyComponentTest() {
                 label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
                 onClick = { },
                 icon = DrawableResPaintable(R.drawable.ic_media_play),
-                iconRtlMode = IconRtlMode.Mirrored,
             )
         }
     }

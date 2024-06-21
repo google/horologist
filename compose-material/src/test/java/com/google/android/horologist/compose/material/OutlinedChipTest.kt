@@ -321,6 +321,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
         }
     }
 
+    // TODO remove
     @Test
     fun withIconMirrored() {
         runComponentTest {
@@ -331,7 +332,6 @@ class OutlinedChipTest : WearLegacyComponentTest() {
                     onClick = { },
                     secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                     icon = Icons.Outlined.VolumeDown.asPaintable(),
-                    iconRtlMode = IconRtlMode.Mirrored,
                     colors = ChipDefaults.imageBackgroundChipColors(
                         backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
                     ),

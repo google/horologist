@@ -24,5 +24,10 @@ object Conversions {
         return this ?: PlaceholderPaintable
     }
 
+    fun PaintableIcon?.orPlaceholder(): PaintableIcon {
+        return this ?: PlaceholderPaintableIcon
+    }
+
     val PlaceholderPaintable = Paintable { ColorPainter(Color.Transparent) }
+    val PlaceholderPaintableIcon = PaintableIcon { ColorPainter(Color.Transparent) }
 }

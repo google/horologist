@@ -321,6 +321,7 @@ class ChipTest : WearLegacyComponentTest() {
         }
     }
 
+    // TODO remove
     @Test
     fun withIconMirrored() {
         runComponentTest {
@@ -331,7 +332,6 @@ class ChipTest : WearLegacyComponentTest() {
                     onClick = { },
                     secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
                     icon = Icons.Outlined.VolumeDown.asPaintable(),
-                    iconRtlMode = IconRtlMode.Mirrored,
                 )
             }
         }

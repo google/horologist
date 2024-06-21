@@ -34,9 +34,12 @@ fun rememberActivePlaceholderState(isContentReady: () -> Boolean): PlaceholderSt
 
     OnFocusChange { focused ->
         if (focused) {
+            println("placeholderState.isShowContent ${placeholderState.isShowContent}")
             if (!placeholderState.isShowContent) {
                 launch {
+                    println("Starting startPlaceholderAnimation")
                     placeholderState.startPlaceholderAnimation()
+                    println("Ended startPlaceholderAnimation")
                 }
             }
         }

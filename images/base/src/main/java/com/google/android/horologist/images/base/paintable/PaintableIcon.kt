@@ -24,4 +24,4 @@ import androidx.compose.ui.graphics.painter.Painter
  * that should be treated as an icon rather than an image (for example, tinting can be applied).
  **/
 @Stable
-public interface PaintableIcon : Paintable
+public fun interface PaintableIcon : Paintable

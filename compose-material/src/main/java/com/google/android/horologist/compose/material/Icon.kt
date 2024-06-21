@@ -54,6 +54,7 @@ public fun Icon(
     )
 }
 
+// TODO remove this API, since AutoMirrored came along
 @ExperimentalHorologistApi
 public enum class IconRtlMode {
     Default,

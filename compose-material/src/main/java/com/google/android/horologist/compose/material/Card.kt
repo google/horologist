@@ -37,6 +37,7 @@ import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PlaceholderState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.material.util.placeholderShimmerIf
 import androidx.wear.compose.material.Card as MaterialCard
 
 /**
@@ -95,7 +96,7 @@ public fun Card(
             backgroundPainter = backgroundPainter,
             contentColor = contentColor,
             enabled = enabled,
-            contentPadding = PaddingValues(0.dp),
+            contentPadding = contentPadding,
             shape = shape,
             role = role,
         ) {

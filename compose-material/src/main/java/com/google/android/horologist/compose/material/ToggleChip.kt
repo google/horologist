@@ -42,6 +42,8 @@ import androidx.wear.compose.material.ToggleChipColors
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.compose.material.util.placeholderIf
+import com.google.android.horologist.compose.material.util.placeholderShimmerIf
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 /**
  * This component is an alternative to [ToggleChip], providing the following:

@@ -12,6 +12,16 @@ package com.google.android.horologist.images.base.paintable {
     method public androidx.compose.ui.graphics.ImageBitmap asPaintable(androidx.compose.ui.graphics.ImageBitmap);
   }
 
+  public final class Conversions {
+    method public com.google.android.horologist.images.base.paintable.Paintable getPlaceholderPaintable();
+    method public com.google.android.horologist.images.base.paintable.PaintableIcon getPlaceholderPaintableIcon();
+    method public com.google.android.horologist.images.base.paintable.Paintable orPlaceholder(com.google.android.horologist.images.base.paintable.Paintable?);
+    method public com.google.android.horologist.images.base.paintable.PaintableIcon orPlaceholder(com.google.android.horologist.images.base.paintable.PaintableIcon?);
+    property public final com.google.android.horologist.images.base.paintable.Paintable PlaceholderPaintable;
+    property public final com.google.android.horologist.images.base.paintable.PaintableIcon PlaceholderPaintableIcon;
+    field public static final com.google.android.horologist.images.base.paintable.Conversions INSTANCE;
+  }
+
   @kotlin.jvm.JvmInline public final value class DrawableResPaintable implements com.google.android.horologist.images.base.paintable.PaintableIcon {
     ctor public DrawableResPaintable(@DrawableRes int id);
     method @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
@@ -27,11 +37,11 @@ package com.google.android.horologist.images.base.paintable {
     method public androidx.compose.ui.graphics.vector.ImageVector asPaintable(androidx.compose.ui.graphics.vector.ImageVector);
   }
 
-  @androidx.compose.runtime.Stable public interface Paintable {
+  @androidx.compose.runtime.Stable public fun interface Paintable {
     method @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
   }
 
-  @androidx.compose.runtime.Stable public interface PaintableIcon extends com.google.android.horologist.images.base.paintable.Paintable {
+  @androidx.compose.runtime.Stable public fun interface PaintableIcon extends com.google.android.horologist.images.base.paintable.Paintable {
   }
 
 }

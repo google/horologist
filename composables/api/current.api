@@ -11,7 +11,7 @@ package com.google.android.horologist.composables {
   }
 
   public final class PlaceholderChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void PlaceholderChip(optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material.PlaceholderState placeholderState, optional boolean secondaryLabel, optional boolean icon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional String contentDescription);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void PlaceholderChip(optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material.PlaceholderState placeholderState, optional boolean secondaryLabel, optional boolean icon, optional boolean largeIcon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional String contentDescription);
   }
 
   public final class ProgressIndicatorSegment {

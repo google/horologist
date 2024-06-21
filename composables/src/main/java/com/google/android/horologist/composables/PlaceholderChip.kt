@@ -58,7 +58,7 @@ public fun PlaceholderChip(
     placeholderState: PlaceholderState = rememberActivePlaceholderState { false },
     secondaryLabel: Boolean = true,
     icon: Boolean = true,
-    largeIcon: Boolean = false,
+    largeIcon: Boolean = true,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = false,
     contentDescription: String = stringResource(id = R.string.horologist_placeholderchip_content_description),

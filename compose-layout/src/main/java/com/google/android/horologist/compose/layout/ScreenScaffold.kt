@@ -77,17 +77,19 @@ fun ScreenScaffold(
     Scaffold(
         modifier = modifier,
         timeText = timeText,
-        positionIndicator = {
-            if (positionIndicator != null) {
-                positionIndicator()
-            } else if (scrollState is ScalingLazyColumnState) {
-                PositionIndicator(scalingLazyListState = scrollState.state)
-            } else if (scrollState is ScalingLazyListState) {
-                PositionIndicator(scalingLazyListState = scrollState)
-            } else if (scrollState is LazyListState) {
-                PositionIndicator(scrollState)
-            } else if (scrollState is ScrollState) {
-                PositionIndicator(scrollState)
+        positionIndicator = remember(scrollState, positionIndicator) {
+            {
+                if (positionIndicator != null) {
+                    positionIndicator()
+                } else if (scrollState is ScalingLazyColumnState) {
+                    PositionIndicator(scalingLazyListState = scrollState.state)
+                } else if (scrollState is ScalingLazyListState) {
+                    PositionIndicator(scalingLazyListState = scrollState)
+                } else if (scrollState is LazyListState) {
+                    PositionIndicator(scrollState)
+                } else if (scrollState is ScrollState) {
+                    PositionIndicator(scrollState)
+                }
             }
         },
         content = { Box { content() } },

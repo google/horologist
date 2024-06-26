@@ -49,7 +49,7 @@ moshi = "1.15.1"
 okio = "3.9.0"
 org-robolectric = "4.12.2"
 playServicesAuth = "21.2.0"
-protobuf = "4.27.1"
+protobuf = "4.27.2"
 roborazzi = "1.20.0"
 room = "2.6.1"
 runtimeTracing = "1.0.0-beta01"
@@ -116,7 +116,7 @@ androidx-test-runner = { group = "androidx.test", name = "runner", version.ref =
 androidx-test-espressocore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
 androidx-test-ext = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext" }
 androidx-test-ext-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "androidx-test-ext" }
-androidx-test-rules = "androidx.test:rules:1.5.0"
+androidx-test-rules = "androidx.test:rules:1.6.0"
 androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.3.0"
 androidx-tracing-ktx = { module = "androidx.tracing:tracing-ktx", version.ref = "androidxTracing" }
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }

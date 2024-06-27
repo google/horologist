@@ -23,6 +23,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavBackStackEntry
@@ -49,10 +53,11 @@ public fun PlayerLibraryPagerScreen(
     backStack: NavBackStackEntry,
     modifier: Modifier = Modifier,
 ) {
-    val pageParam = NavigationScreens.Player.getPageParam(backStack, remove = true)
+    val pageParam = NavigationScreens.Player.getPageParam(backStack)
+    var pageApplied by rememberSaveable(backStack) { mutableStateOf(false) }
 
     LaunchedEffect(pageParam) {
-        if (pageParam != null) {
+        if (pageParam != null && !pageApplied) {
             try {
                 pagerState.animateScrollToPage(pageParam)
             } catch (e: CancellationException) {
@@ -60,6 +65,7 @@ public fun PlayerLibraryPagerScreen(
                 // nav to take effect and persist
                 pagerState.scrollToPage(pageParam)
             }
+            pageApplied = true
         }
     }
 

@@ -296,7 +296,7 @@ package com.google.android.horologist.media.ui.navigation {
 
   public static final class NavigationScreens.Player extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
     method public String getPage();
-    method public Integer? getPageParam(androidx.navigation.NavBackStackEntry backStack, optional boolean remove);
+    method public Integer? getPageParam(androidx.navigation.NavBackStackEntry backStack);
     method public String libraryDestination();
     method public String playerDestination();
     property public java.util.List<androidx.navigation.NamedNavArgument> arguments;

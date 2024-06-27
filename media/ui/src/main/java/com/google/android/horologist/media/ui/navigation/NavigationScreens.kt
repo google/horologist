@@ -43,11 +43,8 @@ public open class NavigationScreens(
             },
         )
 
-        public fun getPageParam(backStack: NavBackStackEntry, remove: Boolean = false): Int? {
+        public fun getPageParam(backStack: NavBackStackEntry): Int? {
             val pageNumber = backStack.arguments?.getInt(page, -1) ?: -1
-            if (remove) {
-                backStack.arguments?.remove(page)
-            }
             return if (pageNumber < 0) null else pageNumber
         }
 

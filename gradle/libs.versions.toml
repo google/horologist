@@ -55,7 +55,7 @@ room = "2.6.1"
 runtimeTracing = "1.0.0-beta01"
 spotless = "6.25.0"
 tiles-tooling-preview = "1.4.0-alpha05"
-truth = "1.4.2"
+truth = "1.4.3"
 wearcompose = "1.4.0-beta03"
 wearToolingPreview = "1.0.0"
 appcompat = "1.7.0"
@@ -116,7 +116,7 @@ androidx-test-runner = { group = "androidx.test", name = "runner", version.ref =
 androidx-test-espressocore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
 androidx-test-ext = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext" }
 androidx-test-ext-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "androidx-test-ext" }
-androidx-test-rules = "androidx.test:rules:1.6.0"
+androidx-test-rules = "androidx.test:rules:1.6.1"
 androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.3.0"
 androidx-tracing-ktx = { module = "androidx.tracing:tracing-ktx", version.ref = "androidxTracing" }
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
@@ -166,10 +166,10 @@ gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugi
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 hilt-ext-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
 hilt-navigationcompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
-io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.64.0"
+io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.65.0"
 io-grpc-grpc-kotlin = "io.grpc:grpc-kotlin-stub:1.4.1"
-io-grpc-grpc-android = "io.grpc:grpc-android:1.64.0"
-io-grpc-grpc-binder = "io.grpc:grpc-binder:1.64.0"
+io-grpc-grpc-android = "io.grpc:grpc-android:1.65.0"
+io-grpc-grpc-binder = "io.grpc:grpc-binder:1.65.0"
 google-generativeai = "com.google.ai.client.generativeai:generativeai:0.8.0"
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

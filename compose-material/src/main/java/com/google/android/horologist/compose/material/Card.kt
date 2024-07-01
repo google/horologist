@@ -91,7 +91,7 @@ public fun Card(
             backgroundPainter = backgroundPainter,
             contentColor = contentColor,
             enabled = enabled,
-            contentPadding = PaddingValues(0.dp),
+            contentPadding = contentPadding,
             shape = shape,
             role = role,
         ) {

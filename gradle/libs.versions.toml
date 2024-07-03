@@ -50,7 +50,7 @@ okio = "3.9.0"
 org-robolectric = "4.12.2"
 playServicesAuth = "21.2.0"
 protobuf = "4.27.2"
-roborazzi = "1.20.0"
+roborazzi = "1.21.0"
 room = "2.6.1"
 runtimeTracing = "1.0.0-beta01"
 spotless = "6.25.0"
@@ -170,7 +170,7 @@ io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.65.0"
 io-grpc-grpc-kotlin = "io.grpc:grpc-kotlin-stub:1.4.1"
 io-grpc-grpc-android = "io.grpc:grpc-android:1.65.0"
 io-grpc-grpc-binder = "io.grpc:grpc-binder:1.65.0"
-google-generativeai = "com.google.ai.client.generativeai:generativeai:0.8.0"
+google-generativeai = "com.google.ai.client.generativeai:generativeai:0.9.0"
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }

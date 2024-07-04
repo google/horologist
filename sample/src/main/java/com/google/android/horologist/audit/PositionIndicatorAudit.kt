@@ -85,6 +85,7 @@ fun PositionIndicatorAudit(route: AuditNavigation.PositionIndicator.Audit) {
     }
 
     LaunchedEffect(Unit) {
+        columnState.state.scrollToItem(initial + 1)
         columnState.state.scrollToItem(initial)
     }
 }

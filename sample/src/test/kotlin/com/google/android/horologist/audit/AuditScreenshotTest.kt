@@ -30,7 +30,7 @@ public abstract class AuditScreenshotTest(override val device: WearDevice) :
     abstract val audit: AuditNavigation
 
     override fun testName(suffix: String): String {
-        return "src/test/screenshots/${audit.id}${suffix}_${device.id}.png"
+        return "src/test/audit/${audit.id}${suffix}_${device.id}.png"
     }
 
     public fun runTest(content: @Composable () -> Unit) {

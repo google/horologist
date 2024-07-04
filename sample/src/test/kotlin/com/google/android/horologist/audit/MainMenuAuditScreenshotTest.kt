@@ -22,6 +22,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.pa
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.screenshots.rng.WearDevice
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.robolectric.Shadows.shadowOf
@@ -52,7 +53,7 @@ public class MainMenuAuditScreenshotTest(device: WearDevice) :
         captureScreenshot(suffix = "_top")
 
         runBlocking {
-            columnState.state.scrollToItem(100, 0)
+            columnState.state.scrollToItem(99, 0)
         }
 
         shadowOf(Looper.getMainLooper()).idle()

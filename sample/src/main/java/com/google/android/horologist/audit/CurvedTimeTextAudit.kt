@@ -17,8 +17,25 @@
 package com.google.android.horologist.audit
 
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.material.curvedText
+import com.google.android.horologist.audit.AuditNavigation.CurvedTimeText.Config
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.screensizes.FixedTimeSource
 
 @Composable
 fun CurvedTimeTextAudit(route: AuditNavigation.CurvedTimeText.Audit) {
-    
+    ScreenScaffold(
+        timeText = {
+            when (route.config) {
+                Config.H12 -> TimeText(timeSource = FixedTimeSource.H12)
+                Config.H24 -> TimeText(timeSource = FixedTimeSource.H24)
+                Config.LongerTextString -> TimeText(timeSource = FixedTimeSource, startCurvedContent = {
+                    this.curvedText("Network unavailable")
+                })
+            }
+        }
+    ) {
+
+    }
 }

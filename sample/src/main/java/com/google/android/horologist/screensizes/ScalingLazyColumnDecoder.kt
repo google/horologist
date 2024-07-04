@@ -17,6 +17,7 @@
 package com.google.android.horologist.screensizes
 
 import android.graphics.Paint
+import android.text.format.DateFormat
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,6 +42,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.Chip
+import java.util.Calendar
 
 @Composable
 fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
@@ -79,9 +81,13 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
         val layoutDirection = LocalLayoutDirection.current
         val density = LocalDensity.current
         val leftPadding =
-            with(density) { columnState.contentPadding.calculateLeftPadding(layoutDirection).toPx() }
+            with(density) {
+                columnState.contentPadding.calculateLeftPadding(layoutDirection).toPx()
+            }
         val rightPadding =
-            with(density) { columnState.contentPadding.calculateRightPadding(layoutDirection).toPx() }
+            with(density) {
+                columnState.contentPadding.calculateRightPadding(layoutDirection).toPx()
+            }
         val topPadding = with(density) { columnState.contentPadding.calculateTopPadding().toPx() }
         val scalingParams = columnState.scalingParams
         Canvas(modifier = Modifier.fillMaxSize()) {
@@ -172,6 +178,22 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
 public object FixedTimeSource : TimeSource {
     override val currentTime: String
         @Composable get() = "10:10"
+
+    val H12: TimeSource = object : TimeSource {
+        override val currentTime: String
+            @Composable get() = DateFormat.format("h:mm", Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 21)
+                set(Calendar.MINUTE, 30)
+            }).toString()
+    }
+
+    val H24: TimeSource = object : TimeSource {
+        override val currentTime: String
+            @Composable get() = DateFormat.format("HH:mm", Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 21)
+                set(Calendar.MINUTE, 30)
+            }).toString()
+    }
 }
 
 @WearPreviewDevices

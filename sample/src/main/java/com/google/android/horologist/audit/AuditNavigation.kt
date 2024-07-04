@@ -116,7 +116,7 @@ interface AuditNavigation {
     data object Confirmations : AuditSection<Confirmations.Config, Confirmations.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            OneBottomChip, OneBottomButton, TwoBottomRound, NoBottomButton
+            IconAnd1Line, IconAnd3Line, TwoBottomRound
         }
 
         @Serializable

@@ -16,9 +16,34 @@
 
 package com.google.android.horologist.audit
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Cyclone
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.material.Icon
+import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
 fun ConfirmationsAudit(route: AuditNavigation.Confirmations.Audit) {
-    
+    when (route.config) {
+        AuditNavigation.Confirmations.Config.IconAnd1Line -> {
+            Confirmation(
+                showDialog = true,
+                title = "Title",
+                icon = { Icon(Icons.Default.Cyclone, contentDescription = "") },
+                onTimeout = {}
+            )
+        }
+
+        AuditNavigation.Confirmations.Config.IconAnd3Line -> {
+            Confirmation(
+                showDialog = true,
+                title = "Title\nThis is a second and third line.",
+                icon = { Icon(Icons.Default.Cyclone, contentDescription = "") },
+                onTimeout = {}
+            )
+        }
+
+        AuditNavigation.Confirmations.Config.TwoBottomRound -> {
+        }
+    }
 }

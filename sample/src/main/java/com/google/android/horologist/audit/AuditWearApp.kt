@@ -17,63 +17,98 @@
 package com.google.android.horologist.audit
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.toRoute
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.audit.AuditNavigation.Cards
+import com.google.android.horologist.audit.AuditNavigation.Confirmations
+import com.google.android.horologist.audit.AuditNavigation.CurvedTimeText
+import com.google.android.horologist.audit.AuditNavigation.Dialogs
+import com.google.android.horologist.audit.AuditNavigation.Lists
+import com.google.android.horologist.audit.AuditNavigation.PageIndicator
+import com.google.android.horologist.audit.AuditNavigation.Pickers
+import com.google.android.horologist.audit.AuditNavigation.PositionIndicator
+import com.google.android.horologist.audit.AuditNavigation.ProgressIndicator
+import com.google.android.horologist.audit.AuditNavigation.Stepper
+import com.google.android.horologist.audit.AuditNavigation.VolumeRsb
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.nav.SwipeDismissableNavHost
 import com.google.android.horologist.compose.nav.composable
+import kotlin.reflect.typeOf
 
 @Composable
-fun AuditWearApp() {
-    val navController = rememberSwipeDismissableNavController()
-
+fun AuditWearApp(
+    navController: NavHostController = rememberSwipeDismissableNavController()
+) {
     AppScaffold {
         SwipeDismissableNavHost(navController = navController, startDestination = AuditNavigation.MainMenu) {
             composable<AuditNavigation.MainMenu> {
                 AuditMenuScreen(onClick = { navController.navigate(it) })
             }
-            composable<AuditNavigation.Lists.Audit> {
-                val route = it.toRoute<AuditNavigation.Lists.Audit>()
+            composable<Lists.Audit>(
+                typeMap = mapOf(typeOf<Lists.Config>() to enumType<Lists.Config>())
+            ) {
+                val route = it.toRoute<Lists.Audit>()
                 ListsAudit(route)
             }
-            composable<AuditNavigation.Dialogs.Audit> {
-                val route = it.toRoute<AuditNavigation.Dialogs.Audit>()
+            composable<Dialogs.Audit>(
+                typeMap = mapOf(typeOf<Dialogs.Config>() to enumType<Dialogs.Config>())
+            ) {
+                val route = it.toRoute<Dialogs.Audit>()
                 DialogsAudit(route)
             }
-            composable<AuditNavigation.Confirmations.Audit> {
-                val route = it.toRoute<AuditNavigation.Confirmations.Audit>()
+            composable<Confirmations.Audit>(
+                typeMap = mapOf(typeOf<Confirmations.Config>() to enumType<Confirmations.Config>())
+            ) {
+                val route = it.toRoute<Confirmations.Audit>()
                 ConfirmationsAudit(route)
             }
-            composable<AuditNavigation.Pickers.Audit> {
-                val route = it.toRoute<AuditNavigation.Pickers.Audit>()
+            composable<Pickers.Audit>(
+                typeMap = mapOf(typeOf<Pickers.Config>() to enumType<Pickers.Config>())
+            ) {
+                val route = it.toRoute<Pickers.Audit>()
                 PickersAudit(route)
             }
-            composable<AuditNavigation.Stepper.Audit> {
-                val route = it.toRoute<AuditNavigation.Stepper.Audit>()
+            composable<Stepper.Audit>(
+                typeMap = mapOf(typeOf<Stepper.Config>() to enumType<Stepper.Config>())
+            ) {
+                val route = it.toRoute<Stepper.Audit>()
                 StepperAudit(route)
             }
-            composable<AuditNavigation.ProgressIndicator.Audit> {
-                val route = it.toRoute<AuditNavigation.ProgressIndicator.Audit>()
+            composable<ProgressIndicator.Audit>(
+                typeMap = mapOf(typeOf<ProgressIndicator.Config>() to enumType<ProgressIndicator.Config>())
+            ) {
+                val route = it.toRoute<ProgressIndicator.Audit>()
                 ProgressIndicatorAudit(route)
             }
-            composable<AuditNavigation.PageIndicator.Audit> {
-                val route = it.toRoute<AuditNavigation.PageIndicator.Audit>()
+            composable<PageIndicator.Audit>(
+                typeMap = mapOf(typeOf<PageIndicator.Config>() to enumType<PageIndicator.Config>())
+            ) {
+                val route = it.toRoute<PageIndicator.Audit>()
                 PageIndicatorAudit(route)
             }
-            composable<AuditNavigation.PositionIndicator.Audit> {
-                val route = it.toRoute<AuditNavigation.PositionIndicator.Audit>()
+            composable<PositionIndicator.Audit>(
+                typeMap = mapOf(typeOf<PositionIndicator.Config>() to enumType<PositionIndicator.Config>())
+            ) {
+                val route = it.toRoute<PositionIndicator.Audit>()
                 PositionIndicatorAudit(route)
             }
-            composable<AuditNavigation.VolumeRsb.Audit> {
-                val route = it.toRoute<AuditNavigation.VolumeRsb.Audit>()
+            composable<VolumeRsb.Audit>(
+                typeMap = mapOf(typeOf<VolumeRsb.Config>() to enumType<VolumeRsb.Config>())
+            ) {
+                val route = it.toRoute<VolumeRsb.Audit>()
                 VolumeRsbAudit(route)
             }
-            composable<AuditNavigation.CurvedTimeText.Audit> {
-                val route = it.toRoute<AuditNavigation.CurvedTimeText.Audit>()
+            composable<CurvedTimeText.Audit>(
+                typeMap = mapOf(typeOf<CurvedTimeText.Config>() to enumType<CurvedTimeText.Config>())
+            ) {
+                val route = it.toRoute<CurvedTimeText.Audit>()
                 CurvedTimeTextAudit(route)
             }
-            composable<AuditNavigation.Cards.Audit> {
-                val route = it.toRoute<AuditNavigation.Cards.Audit>()
+            composable<Cards.Audit>(
+                typeMap = mapOf(typeOf<Cards.Config>() to enumType<Cards.Config>())
+            ) {
+                val route = it.toRoute<Cards.Audit>()
                 CardsAudit(route)
             }
         }

@@ -20,5 +20,5 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun ProgressIndicatorAudit(route: AuditNavigation.ProgressIndicator.Audit) {
-    TODO("Not yet implemented")
+    
 }

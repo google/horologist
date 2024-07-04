@@ -16,8 +16,11 @@
 
 package com.google.android.horologist.audit
 
+import android.os.Bundle
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
+import androidx.navigation.NavType
+import com.google.common.base.Enums
 import kotlinx.serialization.Serializable
 
 interface AuditNavigation {
@@ -54,15 +57,16 @@ interface AuditNavigation {
             get() = (this as Enum<*>).name
     }
 
-    @Serializable
     data object Lists : AuditSection<Lists.Config, Lists.Audit>() {
+        @Serializable
         enum class Config : SingleAuditConfig {
             OneBottomChip, OneBottomButton, TwoBottomRound, NoBottomButton
         }
 
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
-            override val parent: AuditNavigation = Lists
+            override val parent: AuditNavigation
+                get() = Lists
         }
 
         override val configs: List<Config>
@@ -73,13 +77,15 @@ interface AuditNavigation {
 
     @Serializable
     data object Dialogs : AuditSection<Dialogs.Config, Dialogs.Audit>() {
+        @Serializable
         enum class Config : SingleAuditConfig {
             IconAndTitle, Title, OneButtonChip, OneBottomButton, TwoBottomButtons, NoBottomButton
         }
 
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
-            override val parent: AuditNavigation = Lists
+            override val parent: AuditNavigation
+                get() = Lists
         }
 
         override val configs: List<Config>
@@ -90,13 +96,15 @@ interface AuditNavigation {
 
     @Serializable
     data object Confirmations : AuditSection<Confirmations.Config, Confirmations.Audit>() {
+        @Serializable
         enum class Config : SingleAuditConfig {
             OneBottomChip, OneBottomButton, TwoBottomRound, NoBottomButton
         }
 
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
-            override val parent: AuditNavigation = Lists
+            override val parent: AuditNavigation
+                get() = Lists
         }
 
         override val configs: List<Config>
@@ -107,13 +115,15 @@ interface AuditNavigation {
 
     @Serializable
     data object Pickers : AuditSection<Pickers.Config, Pickers.Audit>() {
+        @Serializable
         enum class Config : SingleAuditConfig {
             Time12h, Time12hWithSeconds, Time24Hour, Date
         }
 
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
-            override val parent: AuditNavigation = Lists
+            override val parent: AuditNavigation
+                get() = Lists
         }
 
         override val configs: List<Config>
@@ -124,13 +134,15 @@ interface AuditNavigation {
 
     @Serializable
     data object Stepper : AuditSection<Stepper.Config, Stepper.Audit>() {
+        @Serializable
         enum class Config : SingleAuditConfig {
             ButtonAndIcon, ButtonOnly, TextOnly, VolumeIndicator
         }
 
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
-            override val parent: AuditNavigation = Lists
+            override val parent: AuditNavigation
+                get() = Lists
         }
 
         override val configs: List<Config>
@@ -142,13 +154,15 @@ interface AuditNavigation {
     @Serializable
     data object ProgressIndicator :
         AuditSection<ProgressIndicator.Config, ProgressIndicator.Audit>() {
+        @Serializable
         enum class Config : SingleAuditConfig {
             GapAtTop, GapAtBottom, WithoutGap
         }
 
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
-            override val parent: AuditNavigation = Lists
+            override val parent: AuditNavigation
+                get() = Lists
         }
 
         override val configs: List<Config>
@@ -159,13 +173,15 @@ interface AuditNavigation {
 
     @Serializable
     data object PageIndicator : AuditSection<PageIndicator.Config, PageIndicator.Audit>() {
+        @Serializable
         enum class Config : SingleAuditConfig {
             TwoDots, FourDots, Left5Plus, Right5Plus
         }
 
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
-            override val parent: AuditNavigation = Lists
+            override val parent: AuditNavigation
+                get() = Lists
         }
 
         override val configs: List<Config>
@@ -177,13 +193,15 @@ interface AuditNavigation {
     @Serializable
     data object PositionIndicator :
         AuditSection<PositionIndicator.Config, PositionIndicator.Audit>() {
+        @Serializable
         enum class Config : SingleAuditConfig {
             TopShort, MiddleShort, BottomShort, TopLong, MiddleLong, BottomLong
         }
 
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
-            override val parent: AuditNavigation = Lists
+            override val parent: AuditNavigation
+                get() = Lists
         }
 
         override val configs: List<Config>
@@ -194,13 +212,15 @@ interface AuditNavigation {
 
     @Serializable
     data object VolumeRsb : AuditSection<VolumeRsb.Config, VolumeRsb.Audit>() {
+        @Serializable
         enum class Config : SingleAuditConfig {
             TopShort, MiddleShort, BottomShort, TopLong, MiddleLong, BottomLong
         }
 
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
-            override val parent: AuditNavigation = Lists
+            override val parent: AuditNavigation
+                get() = Lists
         }
 
         override val configs: List<Config>
@@ -211,13 +231,15 @@ interface AuditNavigation {
 
     @Serializable
     data object CurvedTimeText : AuditSection<CurvedTimeText.Config, CurvedTimeText.Audit>() {
+        @Serializable
         enum class Config : SingleAuditConfig {
             H12, H24, LongerTextString
         }
 
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
-            override val parent: AuditNavigation = Lists
+            override val parent: AuditNavigation
+                get() = Lists
         }
 
         override val configs: List<Config>
@@ -228,13 +250,15 @@ interface AuditNavigation {
 
     @Serializable
     data object Cards : AuditSection<Cards.Config, Cards.Audit>() {
+        @Serializable
         enum class Config : SingleAuditConfig {
             BackgroundImage
         }
 
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
-            override val parent: AuditNavigation = Lists
+            override val parent: AuditNavigation
+                get() = Lists
         }
 
         override val configs: List<Config>
@@ -243,6 +267,7 @@ interface AuditNavigation {
         override fun screen(config: Config): Audit = Audit(config)
     }
 
+    @Serializable
     data object MainMenu : AuditNavigation
 
     interface ScreenList {
@@ -271,4 +296,16 @@ private fun String.toWords(): String {
         .map { it.capitalize(Locale.current) }.joinToString(" ").also {
             println(it)
         }
+}
+
+inline fun <reified T : Enum<T>> enumType(
+    isNullableAllowed: Boolean = false,
+) = object : NavType<T>(isNullableAllowed = isNullableAllowed) {
+    override fun get(bundle: Bundle, key: String) = parseValue(bundle.getString(key)!!)
+
+    override fun parseValue(value: String): T = Enums.getIfPresent(T::class.java, value).get()
+
+    override fun serializeAsValue(value: T): String = value.name
+
+    override fun put(bundle: Bundle, key: String, value: T) = bundle.putString(key, serializeAsValue(value))
 }

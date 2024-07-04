@@ -331,7 +331,10 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object MainMenu : AuditNavigation
+    data object MainMenu : AuditNavigation {
+        override val id: String
+            get() = "MainMenu"
+    }
 
     interface ScreenList {
         val screens: List<AuditNavigation>

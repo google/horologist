@@ -16,36 +16,21 @@
 
 package com.google.android.horologist.audit
 
-import android.os.Looper
-import androidx.navigation.NavHostController
-import androidx.navigation.toRoute
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.screenshots.rng.WearDevice
 import org.junit.Test
 import org.robolectric.ParameterizedRobolectricTestRunner
-import org.robolectric.Shadows.shadowOf
 
 public class BulkAuditScreenshotTest(val testInstance: TestInstance) :
     AuditScreenshotTest(testInstance.device) {
 
-    override val audit: AuditNavigation
+    override val audit: AuditNavigation.SingleAuditScreen<*>
         get() = testInstance.audit
 
     @Test
     fun theAudit() {
-        lateinit var navController: NavHostController
-
         runTest(captureScreenshot = false) {
-            navController = rememberSwipeDismissableNavController()
-            AuditWearApp(navController)
+            audit.compose()
         }
-
-        println("NAvigating to $audit")
-        navController.navigate(audit)
-
-        shadowOf(Looper.getMainLooper()).idle()
-
-        println(navController.currentDestination?.route)
 
         captureScreenshot()
     }
@@ -62,6 +47,6 @@ public class BulkAuditScreenshotTest(val testInstance: TestInstance) :
         public fun devices(): List<TestInstance> =
             AuditScreenshotTest.devices().flatMap { d ->
                 AuditNavigation.screens.map { a -> TestInstance(a, d) }
-            }.take(2)
+            }
     }
 }

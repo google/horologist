@@ -49,7 +49,8 @@ fun AuditWearApp(
                 typeMap = mapOf(typeOf<Lists.Config>() to enumType<Lists.Config>())
             ) {
                 val route = it.toRoute<Lists.Audit>()
-                ListsAudit(route)
+
+                route.compose()
             }
             composable<Dialogs.Audit>(
                 typeMap = mapOf(typeOf<Dialogs.Config>() to enumType<Dialogs.Config>())

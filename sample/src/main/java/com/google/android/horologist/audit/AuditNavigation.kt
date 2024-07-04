@@ -17,6 +17,7 @@
 package com.google.android.horologist.audit
 
 import android.os.Bundle
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.navigation.NavType
@@ -46,6 +47,9 @@ interface AuditNavigation {
     }
 
     interface SingleAuditScreen<C : SingleAuditConfig> : AuditNavigation {
+        @Composable
+        fun compose()
+
         val config: C
 
         override val title: String
@@ -67,6 +71,11 @@ interface AuditNavigation {
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
                 get() = Lists
+
+            @Composable
+            override fun compose() {
+                ListsAudit(this)
+            }
         }
 
         override val configs: List<Config>
@@ -86,6 +95,11 @@ interface AuditNavigation {
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
                 get() = Lists
+
+            @Composable
+            override fun compose() {
+                DialogsAudit(this)
+            }
         }
 
         override val configs: List<Config>
@@ -105,6 +119,11 @@ interface AuditNavigation {
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
                 get() = Lists
+
+            @Composable
+            override fun compose() {
+                ConfirmationsAudit(this)
+            }
         }
 
         override val configs: List<Config>
@@ -124,6 +143,11 @@ interface AuditNavigation {
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
                 get() = Lists
+
+            @Composable
+            override fun compose() {
+                PickersAudit(this)
+            }
         }
 
         override val configs: List<Config>
@@ -143,6 +167,11 @@ interface AuditNavigation {
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
                 get() = Lists
+
+            @Composable
+            override fun compose() {
+                StepperAudit(this)
+            }
         }
 
         override val configs: List<Config>
@@ -163,6 +192,11 @@ interface AuditNavigation {
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
                 get() = Lists
+
+            @Composable
+            override fun compose() {
+                ProgressIndicatorAudit(this)
+            }
         }
 
         override val configs: List<Config>
@@ -182,6 +216,11 @@ interface AuditNavigation {
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
                 get() = Lists
+
+            @Composable
+            override fun compose() {
+                PageIndicatorAudit(this)
+            }
         }
 
         override val configs: List<Config>
@@ -202,6 +241,11 @@ interface AuditNavigation {
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
                 get() = Lists
+
+            @Composable
+            override fun compose() {
+                PositionIndicatorAudit(this)
+            }
         }
 
         override val configs: List<Config>
@@ -221,6 +265,11 @@ interface AuditNavigation {
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
                 get() = Lists
+
+            @Composable
+            override fun compose() {
+                VolumeRsbAudit(this)
+            }
         }
 
         override val configs: List<Config>
@@ -240,6 +289,11 @@ interface AuditNavigation {
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
                 get() = Lists
+
+            @Composable
+            override fun compose() {
+                CurvedTimeTextAudit(this)
+            }
         }
 
         override val configs: List<Config>
@@ -259,6 +313,11 @@ interface AuditNavigation {
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
                 get() = Lists
+
+            @Composable
+            override fun compose() {
+                CardsAudit(this)
+            }
         }
 
         override val configs: List<Config>

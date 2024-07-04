@@ -92,7 +92,7 @@ interface AuditNavigation {
     data object Dialogs : AuditSection<Dialogs.Config, Dialogs.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            IconAndTitle, Title, OneButtonChip, OneBottomButton, TwoBottomButtons, NoBottomButton
+            IconAndTitle, Title, OneButtonChip, OneBottomButton, TwoBottomButtons, NoBottomButton, NonScrollable
         }
 
         @Serializable

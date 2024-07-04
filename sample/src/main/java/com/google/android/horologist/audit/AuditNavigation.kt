@@ -98,7 +98,7 @@ interface AuditNavigation {
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
-                get() = Lists
+                get() = Dialogs
 
             @Composable
             override fun compose() {
@@ -122,7 +122,7 @@ interface AuditNavigation {
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
-                get() = Lists
+                get() = Confirmations
 
             @Composable
             override fun compose() {
@@ -146,7 +146,7 @@ interface AuditNavigation {
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
-                get() = Lists
+                get() = Pickers
 
             @Composable
             override fun compose() {
@@ -170,7 +170,7 @@ interface AuditNavigation {
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
-                get() = Lists
+                get() = Stepper
 
             @Composable
             override fun compose() {
@@ -195,7 +195,7 @@ interface AuditNavigation {
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
-                get() = Lists
+                get() = ProgressIndicator
 
             @Composable
             override fun compose() {
@@ -219,7 +219,7 @@ interface AuditNavigation {
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
-                get() = Lists
+                get() = PageIndicator
 
             @Composable
             override fun compose() {
@@ -244,7 +244,7 @@ interface AuditNavigation {
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
-                get() = Lists
+                get() = PositionIndicator
 
             @Composable
             override fun compose() {
@@ -268,7 +268,7 @@ interface AuditNavigation {
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
-                get() = Lists
+                get() = VolumeRsb
 
             @Composable
             override fun compose() {
@@ -292,7 +292,7 @@ interface AuditNavigation {
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
-                get() = Lists
+                get() = CurvedTimeText
 
             @Composable
             override fun compose() {
@@ -316,7 +316,7 @@ interface AuditNavigation {
         @Serializable
         data class Audit(override val config: Config) : SingleAuditScreen<Config> {
             override val parent: AuditNavigation
-                get() = Lists
+                get() = Cards
 
             @Composable
             override fun compose() {

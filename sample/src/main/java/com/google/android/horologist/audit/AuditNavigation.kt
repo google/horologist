@@ -140,7 +140,7 @@ interface AuditNavigation {
     data object Pickers : AuditSection<Pickers.Config, Pickers.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            Time12h, Time12hWithSeconds, Time24Hour, Date
+            Time12h, Time24hWithSeconds, Time24Hour, Date
         }
 
         @Serializable

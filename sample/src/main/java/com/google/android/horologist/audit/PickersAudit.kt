@@ -29,7 +29,7 @@ fun PickersAudit(route: AuditNavigation.Pickers.Audit) {
         AuditNavigation.Pickers.Config.Time12h -> {
             TimePickerWith12HourClock(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0))}
         AuditNavigation.Pickers.Config.Time24Hour -> {
-            TimePicker(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0))
+            TimePicker(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0), showSeconds = false)
         }
         AuditNavigation.Pickers.Config.Time24hWithSeconds -> {
             TimePicker(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0), showSeconds = true)

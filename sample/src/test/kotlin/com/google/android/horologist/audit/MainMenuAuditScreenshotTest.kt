@@ -25,6 +25,9 @@ import org.junit.Test
 public class MainMenuAuditScreenshotTest(device: WearDevice) :
     AuditScreenshotTest(device) {
 
+    override val audit: AuditNavigation
+        get() = AuditNavigation.MainMenu
+
     @Test
     fun mainMenu() {
         runTest {

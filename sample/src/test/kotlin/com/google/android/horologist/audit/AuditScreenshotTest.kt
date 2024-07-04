@@ -27,6 +27,12 @@ public abstract class AuditScreenshotTest(override val device: WearDevice) :
     WearScreenshotTest() {
     public override val tolerance: Float = 0.02f
 
+    abstract val audit: AuditNavigation
+
+    override fun testName(suffix: String): String {
+        return "src/test/screenshots/${audit.id}${suffix}_${device.id}.png"
+    }
+
     public fun runTest(content: @Composable () -> Unit) {
         runTest(suffix = null, content = content)
     }

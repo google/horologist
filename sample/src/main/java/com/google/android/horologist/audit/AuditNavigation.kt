@@ -25,6 +25,9 @@ interface AuditNavigation {
     val title: String
         get() = javaClass.simpleName
 
+    val id: String
+        get() = title.lowercase().replace(" ", "")
+
     abstract class AuditSection<C: SingleAuditConfig, S: SingleAuditScreen<C>>: AuditNavigation, ScreenList {
         abstract val configs: List<C>
 

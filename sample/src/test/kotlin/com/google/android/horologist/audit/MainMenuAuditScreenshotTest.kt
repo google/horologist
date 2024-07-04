@@ -36,7 +36,7 @@ public class MainMenuAuditScreenshotTest(device: WearDevice) :
     fun mainMenu() {
         lateinit var columnState: ScalingLazyColumnState
 
-        runTest {
+        runTest(captureScreenshot = false) {
             columnState = rememberResponsiveColumnState(
                 contentPadding = padding(
                     first = ItemType.Text,
@@ -48,6 +48,8 @@ public class MainMenuAuditScreenshotTest(device: WearDevice) :
                 columnState = columnState
             ) {  }
         }
+
+        captureScreenshot(suffix = "_top")
 
         runBlocking {
             columnState.state.scrollToItem(100, 0)

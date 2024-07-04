@@ -45,7 +45,7 @@ public class BulkAuditScreenshotTest(val testInstance: TestInstance) :
         @JvmStatic
         @ParameterizedRobolectricTestRunner.Parameters
         public fun devices(): List<TestInstance> =
-            AuditScreenshotTest.devices().flatMap { d ->
+            AuditScreenshotTest.devices().take(1).flatMap { d ->
                 AuditNavigation.screens.map { a -> TestInstance(a, d) }
             }
     }

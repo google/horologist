@@ -32,7 +32,11 @@ interface AuditNavigation {
         get() = javaClass.simpleName
 
     val id: String
-        get() = title.lowercase().replace(" ", "")
+        get() = buildString {
+            append(this@AuditNavigation.javaClass.name.split('$').dropLast(1).last())
+            append("_")
+            append(title.lowercase().replace(" ", ""))
+        }
 
     abstract class AuditSection<C : SingleAuditConfig, S : SingleAuditScreen<C>> : AuditNavigation,
         ScreenList {

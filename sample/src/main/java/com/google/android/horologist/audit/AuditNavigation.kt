@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.audit
 
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
 import kotlinx.serialization.Serializable
 
 interface AuditNavigation {
@@ -28,7 +30,8 @@ interface AuditNavigation {
     val id: String
         get() = title.lowercase().replace(" ", "")
 
-    abstract class AuditSection<C: SingleAuditConfig, S: SingleAuditScreen<C>>: AuditNavigation, ScreenList {
+    abstract class AuditSection<C : SingleAuditConfig, S : SingleAuditScreen<C>> : AuditNavigation,
+        ScreenList {
         abstract val configs: List<C>
 
         abstract fun screen(config: C): S
@@ -39,11 +42,11 @@ interface AuditNavigation {
         override val parent: AuditNavigation = MainMenu
     }
 
-    interface SingleAuditScreen<C: SingleAuditConfig>: AuditNavigation {
+    interface SingleAuditScreen<C : SingleAuditConfig> : AuditNavigation {
         val config: C
 
         override val title: String
-            get() = config.title
+            get() = config.title.toWords()
     }
 
     interface SingleAuditConfig {
@@ -52,8 +55,8 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object Lists: AuditSection<Lists.Config, Lists.Audit>() {
-        enum class Config: SingleAuditConfig {
+    data object Lists : AuditSection<Lists.Config, Lists.Audit>() {
+        enum class Config : SingleAuditConfig {
             OneBottomChip, OneBottomButton, TwoBottomRound, NoBottomButton
         }
 
@@ -69,8 +72,8 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object Dialogs: AuditSection<Dialogs.Config, Dialogs.Audit>() {
-        enum class Config: SingleAuditConfig {
+    data object Dialogs : AuditSection<Dialogs.Config, Dialogs.Audit>() {
+        enum class Config : SingleAuditConfig {
             IconAndTitle, Title, OneButtonChip, OneBottomButton, TwoBottomButtons, NoBottomButton
         }
 
@@ -86,8 +89,8 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object Confirmations: AuditSection<Confirmations.Config, Confirmations.Audit>() {
-        enum class Config: SingleAuditConfig {
+    data object Confirmations : AuditSection<Confirmations.Config, Confirmations.Audit>() {
+        enum class Config : SingleAuditConfig {
             OneBottomChip, OneBottomButton, TwoBottomRound, NoBottomButton
         }
 
@@ -103,8 +106,8 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object Pickers: AuditSection<Pickers.Config, Pickers.Audit>() {
-        enum class Config: SingleAuditConfig {
+    data object Pickers : AuditSection<Pickers.Config, Pickers.Audit>() {
+        enum class Config : SingleAuditConfig {
             Time12h, Time12hWithSeconds, Time24Hour, Date
         }
 
@@ -120,8 +123,8 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object Stepper: AuditSection<Stepper.Config, Stepper.Audit>() {
-        enum class Config: SingleAuditConfig {
+    data object Stepper : AuditSection<Stepper.Config, Stepper.Audit>() {
+        enum class Config : SingleAuditConfig {
             ButtonAndIcon, ButtonOnly, TextOnly, VolumeIndicator
         }
 
@@ -137,8 +140,9 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object ProgressIndicator: AuditSection<ProgressIndicator.Config, ProgressIndicator.Audit>() {
-        enum class Config: SingleAuditConfig {
+    data object ProgressIndicator :
+        AuditSection<ProgressIndicator.Config, ProgressIndicator.Audit>() {
+        enum class Config : SingleAuditConfig {
             GapAtTop, GapAtBottom, WithoutGap
         }
 
@@ -154,8 +158,8 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object PageIndicator: AuditSection<PageIndicator.Config, PageIndicator.Audit>() {
-        enum class Config: SingleAuditConfig {
+    data object PageIndicator : AuditSection<PageIndicator.Config, PageIndicator.Audit>() {
+        enum class Config : SingleAuditConfig {
             TwoDots, FourDots, Left5Plus, Right5Plus
         }
 
@@ -171,8 +175,9 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object PositionIndicator: AuditSection<PositionIndicator.Config, PositionIndicator.Audit>() {
-        enum class Config: SingleAuditConfig {
+    data object PositionIndicator :
+        AuditSection<PositionIndicator.Config, PositionIndicator.Audit>() {
+        enum class Config : SingleAuditConfig {
             TopShort, MiddleShort, BottomShort, TopLong, MiddleLong, BottomLong
         }
 
@@ -188,8 +193,8 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object VolumeRsb: AuditSection<VolumeRsb.Config, VolumeRsb.Audit>() {
-        enum class Config: SingleAuditConfig {
+    data object VolumeRsb : AuditSection<VolumeRsb.Config, VolumeRsb.Audit>() {
+        enum class Config : SingleAuditConfig {
             TopShort, MiddleShort, BottomShort, TopLong, MiddleLong, BottomLong
         }
 
@@ -205,8 +210,8 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object CurvedTimeText: AuditSection<CurvedTimeText.Config, CurvedTimeText.Audit>() {
-        enum class Config: SingleAuditConfig {
+    data object CurvedTimeText : AuditSection<CurvedTimeText.Config, CurvedTimeText.Audit>() {
+        enum class Config : SingleAuditConfig {
             H12, H24, LongerTextString
         }
 
@@ -222,8 +227,8 @@ interface AuditNavigation {
     }
 
     @Serializable
-    data object Cards: AuditSection<Cards.Config, Cards.Audit>() {
-        enum class Config: SingleAuditConfig {
+    data object Cards : AuditSection<Cards.Config, Cards.Audit>() {
+        enum class Config : SingleAuditConfig {
             BackgroundImage
         }
 
@@ -238,7 +243,7 @@ interface AuditNavigation {
         override fun screen(config: Config): Audit = Audit(config)
     }
 
-    data object MainMenu: AuditNavigation
+    data object MainMenu : AuditNavigation
 
     interface ScreenList {
         val screens: List<AuditNavigation>
@@ -258,4 +263,12 @@ interface AuditNavigation {
             CurvedTimeText.Config.entries.map { CurvedTimeText.Audit(it) } +
             Cards.Config.entries.map { Cards.Audit(it) }
     }
+}
+
+private fun String.toWords(): String {
+    // https://stackoverflow.com/questions/7593969/regex-to-split-camelcase-or-titlecase-advanced
+    return this.split("(?<=[a-z])(?=[A-Z])".toRegex())
+        .map { it.capitalize(Locale.current) }.joinToString(" ").also {
+            println(it)
+        }
 }

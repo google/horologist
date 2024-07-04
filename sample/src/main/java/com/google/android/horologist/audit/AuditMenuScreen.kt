@@ -31,6 +31,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
@@ -38,15 +39,16 @@ import com.google.android.horologist.compose.material.ListHeaderDefaults.firstIt
 import com.google.android.horologist.compose.material.ResponsiveListHeader
 
 @Composable
-fun AuditMenuScreen(onClick: (AuditNavigation) -> Unit) {
-    val screens = remember { AuditNavigation.screens.groupBy { it.parent } }
-
-    val columnState = rememberResponsiveColumnState(
+fun AuditMenuScreen(
+    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ItemType.Text,
             last = ItemType.Chip
         )
-    )
+    ),
+    onClick: (AuditNavigation) -> Unit
+) {
+    val screens = remember { AuditNavigation.screens.groupBy { it.parent } }
 
     ScreenScaffold(scrollState = columnState) {
         ScalingLazyColumn(columnState = columnState) {

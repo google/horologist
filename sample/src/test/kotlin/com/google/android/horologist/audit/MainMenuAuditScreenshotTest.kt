@@ -16,11 +16,15 @@
 
 package com.google.android.horologist.audit
 
-import androidx.compose.ui.test.hasScrollToNodeAction
-import androidx.compose.ui.test.performTouchInput
-import androidx.test.espresso.action.ViewActions.swipeUp
+import android.os.Looper
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.screenshots.rng.WearDevice
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
+import org.robolectric.Shadows.shadowOf
 
 public class MainMenuAuditScreenshotTest(device: WearDevice) :
     AuditScreenshotTest(device) {
@@ -30,14 +34,27 @@ public class MainMenuAuditScreenshotTest(device: WearDevice) :
 
     @Test
     fun mainMenu() {
+        lateinit var columnState: ScalingLazyColumnState
+
         runTest {
-            AuditMenuScreen {  }
+            columnState = rememberResponsiveColumnState(
+                contentPadding = padding(
+                    first = ItemType.Text,
+                    last = ItemType.Chip
+                )
+            )
+
+            AuditMenuScreen(
+                columnState = columnState
+            ) {  }
         }
 
-        composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
+        runBlocking {
+            columnState.state.scrollToItem(100, 0)
+        }
+
+        shadowOf(Looper.getMainLooper()).idle()
 
         captureScreenshot(suffix = "_bottom")
-
     }
 }

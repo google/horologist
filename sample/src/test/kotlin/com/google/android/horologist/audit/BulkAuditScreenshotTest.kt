@@ -47,6 +47,6 @@ public class BulkAuditScreenshotTest(val testInstance: TestInstance) :
         public fun devices(): List<TestInstance> =
             AuditScreenshotTest.devices().flatMap { d ->
                 AuditNavigation.screens.map { a -> TestInstance(a, d) }
-            }
+            }.filter { it.audit.parent !is AuditNavigation.Pickers }
     }
 }

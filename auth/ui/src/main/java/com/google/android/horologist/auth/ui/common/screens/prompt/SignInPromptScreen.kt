@@ -137,12 +137,7 @@ public fun SignInPromptScreen(
                     item {
                         Text(
                             text = message,
-                            modifier = Modifier.padding(
-                                top = 8.dp,
-                                bottom = 12.dp,
-                                start = 10.dp,
-                                end = 10.dp,
-                            ),
+                            modifier = Modifier.listTextPadding(),
                             color = MaterialTheme.colors.onBackground,
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.body2,

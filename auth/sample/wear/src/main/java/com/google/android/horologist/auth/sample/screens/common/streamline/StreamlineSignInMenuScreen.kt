@@ -22,15 +22,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.Title
+import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
+import com.google.android.horologist.compose.material.ResponsiveListHeader
 
 @Composable
 fun StreamlineSignInMenuScreen(
@@ -69,10 +72,9 @@ fun StreamlineSignInMenuScreen(
                 ),
             ) {
                 header {
-                    Title(
-                        stringResource(id = R.string.common_screens_streamline_sign_in_header),
-                        Modifier,
-                    )
+                    ResponsiveListHeader(contentPadding = firstItemPadding()) {
+                        Text(stringResource(id = R.string.common_screens_streamline_sign_in_header), modifier = Modifier.listTextPadding())
+                    }
                 }
                 loaded { (textId, route, mode) ->
                     Chip(

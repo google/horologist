@@ -127,7 +127,11 @@ public fun SignInPromptScreen(
                 ) {
                     item {
                         ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                            Text(title, modifier = Modifier.listTextPadding())
+                            Text(
+                                text = title,
+                                modifier = Modifier.listTextPadding(),
+                                style = MaterialTheme.typography.button,
+                            )
                         }
                     }
                     item {

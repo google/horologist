@@ -31,11 +31,13 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.Title
+import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
+import com.google.android.horologist.compose.material.ResponsiveListHeader
 
 @Composable
 fun TokenShareDefaultKeyScreen(
@@ -57,7 +59,9 @@ fun TokenShareDefaultKeyScreen(
             modifier = modifier,
         ) {
             item {
-                Title(R.string.token_share_default_key_title)
+                ResponsiveListHeader(contentPadding = firstItemPadding()) {
+                    Text(stringResource(id = R.string.token_share_default_key_title), modifier = Modifier.listTextPadding())
+                }
             }
             item {
                 Text(

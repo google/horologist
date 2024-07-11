@@ -44,8 +44,6 @@
   </plurals>
   <string name="horologist_time_picker_min">الدقيقة</string>
   <string name="horologist_time_picker_period">المدة</string>
-  <string name="horologist_time_picker_am">ص</string>
-  <string name="horologist_time_picker_pm">م</string>
   <string name="horologist_picker_day">اليوم</string>
   <string name="horologist_picker_month">الشهر</string>
   <string name="horologist_picker_year">السنة</string>

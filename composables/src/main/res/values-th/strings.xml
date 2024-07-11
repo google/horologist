@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">นาที</string>
   <string name="horologist_time_picker_period">ระยะเวลา</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">วัน</string>
   <string name="horologist_picker_month">เดือน</string>
   <string name="horologist_picker_year">ปี</string>

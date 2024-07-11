@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Min.</string>
   <string name="horologist_time_picker_period">Tydperk</string>
-  <string name="horologist_time_picker_am">vm.</string>
-  <string name="horologist_time_picker_pm">nm.</string>
   <string name="horologist_picker_day">Dag</string>
   <string name="horologist_picker_month">Maand</string>
   <string name="horologist_picker_year">Jaar</string>

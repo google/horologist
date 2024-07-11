@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Min.</string>
   <string name="horologist_time_picker_period">Periudha</string>
-  <string name="horologist_time_picker_am">paradite</string>
-  <string name="horologist_time_picker_pm">pasdite</string>
   <string name="horologist_picker_day">Dita</string>
   <string name="horologist_picker_month">Muaji</string>
   <string name="horologist_picker_year">Viti</string>

@@ -35,8 +35,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Минут</string>
   <string name="horologist_time_picker_period">Период</string>
-  <string name="horologist_time_picker_am">пр</string>
-  <string name="horologist_time_picker_pm">по</string>
   <string name="horologist_picker_day">Дан</string>
   <string name="horologist_picker_month">Месец</string>
   <string name="horologist_picker_year">Година</string>

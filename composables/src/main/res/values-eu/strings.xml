@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Minutuak</string>
   <string name="horologist_time_picker_period">Tartea</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">Eguna</string>
   <string name="horologist_picker_month">Hilabetea</string>
   <string name="horologist_picker_year">Urtea</string>

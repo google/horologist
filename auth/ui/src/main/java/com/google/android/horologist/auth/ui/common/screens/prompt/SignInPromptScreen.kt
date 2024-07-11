@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
@@ -130,6 +131,8 @@ public fun SignInPromptScreen(
                                 text = title,
                                 modifier = Modifier.listTextPadding(),
                                 style = MaterialTheme.typography.button,
+                                overflow = TextOverflow.Ellipsis,
+                                maxLines = 3,
                             )
                         }
                     }

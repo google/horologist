@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Նվազ․</string>
   <string name="horologist_time_picker_period">Ժամանակահատված</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">Օր</string>
   <string name="horologist_picker_month">Ամիս</string>
   <string name="horologist_picker_year">Տարի</string>

@@ -38,8 +38,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Хв</string>
   <string name="horologist_time_picker_period">Період</string>
-  <string name="horologist_time_picker_am">дп</string>
-  <string name="horologist_time_picker_pm">пп</string>
   <string name="horologist_picker_day">День</string>
   <string name="horologist_picker_month">Місяць</string>
   <string name="horologist_picker_year">Рік</string>

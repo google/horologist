@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">ਮਿੰ.</string>
   <string name="horologist_time_picker_period">ਮਿਆਦ</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">ਦਿਨ</string>
   <string name="horologist_picker_month">ਮਹੀਨਾ</string>
   <string name="horologist_picker_year">ਸਾਲ</string>

@@ -56,4 +56,15 @@ class TimePicker12hTest : WearLegacyScreenTest() {
             )
         }
     }
+
+    @Test
+    @Config(qualifiers = "+en-rGB")
+    fun localeEnGb() {
+        runTest {
+            TimePickerWith12HourClock(
+                time = LocalTime.of(10, 10, 0),
+                onTimeConfirm = {},
+            )
+        }
+    }
 }

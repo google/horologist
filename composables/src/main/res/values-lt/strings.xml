@@ -38,8 +38,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Min.</string>
   <string name="horologist_time_picker_period">Laikotarpis</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">Diena</string>
   <string name="horologist_picker_month">Mėnuo</string>
   <string name="horologist_picker_year">Metai</string>

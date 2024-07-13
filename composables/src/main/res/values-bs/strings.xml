@@ -35,8 +35,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Min</string>
   <string name="horologist_time_picker_period">Period</string>
-  <string name="horologist_time_picker_am">prijepodne</string>
-  <string name="horologist_time_picker_pm">poslijepodne</string>
   <string name="horologist_picker_day">Dan</string>
   <string name="horologist_picker_month">Mjesec</string>
   <string name="horologist_picker_year">Godina</string>

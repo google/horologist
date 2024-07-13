@@ -87,6 +87,7 @@ import androidx.wear.compose.material.rememberPickerState
 import com.google.android.horologist.compose.layout.FontScaleIndependent
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
 
 /**
@@ -408,8 +409,14 @@ public fun TimePickerWith12HourClock(
         R.plurals.horologist_time_picker_minutes_content_description,
     )
 
-    val amString = stringResource(R.string.horologist_time_picker_am)
-    val pmString = stringResource(R.string.horologist_time_picker_pm)
+    val primaryLocale = LocalConfiguration.current.locales[0]
+    val (amString, pmString) =
+        remember(primaryLocale) {
+            DateTimeFormatter.ofPattern("a", primaryLocale).let { formatter ->
+                LocalTime.of(0, 0).format(formatter) to LocalTime.of(12, 0).format(formatter)
+            }
+        }
+
     val periodContentDescription by remember(
         pickerGroupState.selectedIndex,
         periodState.selectedOption,

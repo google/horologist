@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">မိနစ်</string>
   <string name="horologist_time_picker_period">ကာလ</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">ရက်</string>
   <string name="horologist_picker_month">လ</string>
   <string name="horologist_picker_year">ခုနှစ်</string>

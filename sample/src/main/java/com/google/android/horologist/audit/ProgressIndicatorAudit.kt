@@ -17,8 +17,10 @@
 package com.google.android.horologist.audit
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.ProgressIndicatorDefaults
 
@@ -28,9 +30,9 @@ fun ProgressIndicatorAudit(route: AuditNavigation.ProgressIndicator.Audit) {
         AuditNavigation.ProgressIndicator.Config.GapAtTop -> {
 
             CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize(),
-                startAngle = 295.5f,
-                endAngle = 245.5f,
+                modifier = Modifier.fillMaxSize().padding(1.dp),
+                startAngle = 270f + (51f / 2f),
+                endAngle = 270f - (51f / 2f),
                 progress = 0.3f,
                 strokeWidth = ProgressIndicatorDefaults.FullScreenStrokeWidth
             )
@@ -38,9 +40,9 @@ fun ProgressIndicatorAudit(route: AuditNavigation.ProgressIndicator.Audit) {
 
         AuditNavigation.ProgressIndicator.Config.GapAtBottom -> {
             CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize(),
-                startAngle = 295.5f - 180f,
-                endAngle = 245.5f - 180f,
+                modifier = Modifier.fillMaxSize().padding(1.dp),
+                startAngle = 90f + (51f / 2f),
+                endAngle = 90f - (51f / 2f),
                 progress = 0.3f,
                 strokeWidth = ProgressIndicatorDefaults.FullScreenStrokeWidth
             )
@@ -49,7 +51,7 @@ fun ProgressIndicatorAudit(route: AuditNavigation.ProgressIndicator.Audit) {
         AuditNavigation.ProgressIndicator.Config.WithoutGap -> {
             CircularProgressIndicator(
                 0.40f,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().padding(1.dp),
             )
         }
     }

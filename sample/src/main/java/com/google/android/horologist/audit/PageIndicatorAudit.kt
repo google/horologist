@@ -24,25 +24,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import com.google.android.horologist.audit.AuditNavigation.Cards.Config
+import com.google.android.horologist.audit.AuditNavigation.PageIndicator.Config.*
+import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.pager.PagerScreen
 
 @Composable
 fun PageIndicatorAudit(route: AuditNavigation.PageIndicator.Audit) {
     val pagerState = when (route.config) {
-        AuditNavigation.PageIndicator.Config.TwoDots -> {
+        TwoDots -> {
             rememberPagerState { 2 }
         }
 
-        AuditNavigation.PageIndicator.Config.FourDots -> {
+        FourDots -> {
             rememberPagerState { 4 }
         }
 
-        AuditNavigation.PageIndicator.Config.Left5Plus -> {
-            rememberPagerState(initialPage = 0) { 6 }
+        Left5Plus -> {
+            rememberPagerState(initialPage = 0) { 100 }
         }
 
-        AuditNavigation.PageIndicator.Config.Right5Plus -> {
-            rememberPagerState(initialPage = 5) { 6 }
+        Right5Plus -> {
+            rememberPagerState(initialPage = 99) { 100 }
         }
     }
 
@@ -50,5 +55,23 @@ fun PageIndicatorAudit(route: AuditNavigation.PageIndicator.Audit) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text("This page intentionally left blank.\npage $it", textAlign = TextAlign.Center)
         }
+    }
+}
+
+@Composable
+@WearPreviewSmallRound
+@WearPreviewLargeRound
+fun PageIndicatorLeft5PlusAuditPreview() {
+    AppScaffold {
+        PageIndicatorAudit(AuditNavigation.PageIndicator.Audit(Left5Plus))
+    }
+}
+
+@Composable
+@WearPreviewSmallRound
+@WearPreviewLargeRound
+fun PageIndicatorRight5PlusAuditPreview() {
+    AppScaffold {
+        PageIndicatorAudit(AuditNavigation.PageIndicator.Audit(Right5Plus))
     }
 }

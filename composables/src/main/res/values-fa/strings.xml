@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">دقیقه</string>
   <string name="horologist_time_picker_period">دوره زمانی</string>
-  <string name="horologist_time_picker_am">ق.ظ.</string>
-  <string name="horologist_time_picker_pm">ب.ظ.</string>
   <string name="horologist_picker_day">روز</string>
   <string name="horologist_picker_month">ماه</string>
   <string name="horologist_picker_year">سال</string>

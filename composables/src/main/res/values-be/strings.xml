@@ -38,8 +38,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Хв</string>
   <string name="horologist_time_picker_period">Кропка</string>
-  <string name="horologist_time_picker_am">да паўдня</string>
-  <string name="horologist_time_picker_pm">пасля паўдня</string>
   <string name="horologist_picker_day">Дні</string>
   <string name="horologist_picker_month">Месяцы</string>
   <string name="horologist_picker_year">Гады</string>

@@ -23,7 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
@@ -34,10 +34,12 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
-import com.google.android.horologist.compose.material.Title
+import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
+import com.google.android.horologist.compose.material.ResponsiveListHeader
 
 /**
  * A screen to prompt users to sign in.
@@ -123,16 +125,21 @@ public fun SignInPromptScreen(
                     columnState = columnState,
                     modifier = modifier,
                 ) {
-                    item { Title(title) }
+                    item {
+                        ResponsiveListHeader(contentPadding = firstItemPadding()) {
+                            Text(
+                                text = title,
+                                modifier = Modifier.listTextPadding(),
+                                style = MaterialTheme.typography.button,
+                                overflow = TextOverflow.Ellipsis,
+                                maxLines = 3,
+                            )
+                        }
+                    }
                     item {
                         Text(
                             text = message,
-                            modifier = Modifier.padding(
-                                top = 8.dp,
-                                bottom = 12.dp,
-                                start = 10.dp,
-                                end = 10.dp,
-                            ),
+                            modifier = Modifier.listTextPadding(),
                             color = MaterialTheme.colors.onBackground,
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.body2,

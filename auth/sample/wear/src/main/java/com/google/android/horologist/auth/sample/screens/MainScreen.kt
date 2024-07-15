@@ -21,16 +21,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
+import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.compose.material.Title
 
 @Composable
@@ -70,7 +74,9 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
         ),
     ) {
         header {
-            Title(stringResource(id = R.string.auth_menu_google_sign_in_header))
+            ResponsiveListHeader(contentPadding = firstItemPadding()) {
+                Text(stringResource(id = R.string.auth_menu_google_sign_in_header), modifier = Modifier.listTextPadding())
+            }
         }
         loaded { (textId, route) ->
             Chip(
@@ -96,7 +102,9 @@ private fun SectionedListScope.tokenShareSection(navigateToRoute: (String) -> Un
         ),
     ) {
         header {
-            Title(stringResource(id = R.string.auth_menu_token_share_header))
+            ResponsiveListHeader(contentPadding = firstItemPadding()) {
+                Text(stringResource(id = R.string.auth_menu_token_share_header), modifier = Modifier.listTextPadding())
+            }
         }
         loaded { (textId, route) ->
             Chip(

@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Umzuzo</string>
   <string name="horologist_time_picker_period">Isikhathi</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">Usuku</string>
   <string name="horologist_picker_month">Inyanga</string>
   <string name="horologist_picker_year">Unyaka</string>

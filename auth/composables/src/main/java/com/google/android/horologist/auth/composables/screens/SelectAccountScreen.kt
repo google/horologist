@@ -16,25 +16,27 @@
 
 package com.google.android.horologist.auth.composables.screens
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.LineBreak
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.chips.AccountChip
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
-import com.google.android.horologist.compose.material.Title
+import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
+import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
 
@@ -63,7 +65,17 @@ public fun SelectAccountScreen(
             modifier = modifier,
             columnState = columnState,
         ) {
-            item { Title(title, Modifier.padding(bottom = 8.dp)) }
+            item {
+                ResponsiveListHeader(contentPadding = firstItemPadding()) {
+                    Text(
+                        text = title,
+                        modifier = Modifier.listTextPadding(),
+                        style = MaterialTheme.typography.button,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 3,
+                    )
+                }
+            }
 
             items(accounts.size) { index ->
                 val account = accounts[index]

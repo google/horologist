@@ -189,7 +189,7 @@ interface AuditNavigation {
         AuditSection<ProgressIndicator.Config, ProgressIndicator.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            GapAtTop, GapAtBottom, WithoutGap
+            GapAtTop, GapAtBottom, WithoutGap, Indeterminate
         }
 
         @Serializable

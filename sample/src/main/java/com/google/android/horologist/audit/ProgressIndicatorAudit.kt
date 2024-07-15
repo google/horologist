@@ -54,6 +54,12 @@ fun ProgressIndicatorAudit(route: AuditNavigation.ProgressIndicator.Audit) {
                 modifier = Modifier.fillMaxSize().padding(1.dp),
             )
         }
+
+        AuditNavigation.ProgressIndicator.Config.Indeterminate -> {
+            CircularProgressIndicator(
+                modifier = Modifier.fillMaxSize().padding(1.dp),
+            )
+        }
     }
 
 }

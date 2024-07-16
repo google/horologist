@@ -26,8 +26,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
-import com.google.android.horologist.audit.AuditNavigation.Cards.Config
-import com.google.android.horologist.audit.AuditNavigation.PageIndicator.Config.*
+import com.google.android.horologist.audit.AuditNavigation.PageIndicator.Config.FourDots
+import com.google.android.horologist.audit.AuditNavigation.PageIndicator.Config.Left5Plus
+import com.google.android.horologist.audit.AuditNavigation.PageIndicator.Config.Right5Plus
+import com.google.android.horologist.audit.AuditNavigation.PageIndicator.Config.TwoDots
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.pager.PagerScreen
 

@@ -28,13 +28,12 @@ import androidx.wear.compose.material.ProgressIndicatorDefaults
 fun ProgressIndicatorAudit(route: AuditNavigation.ProgressIndicator.Audit) {
     when (route.config) {
         AuditNavigation.ProgressIndicator.Config.GapAtTop -> {
-
             CircularProgressIndicator(
                 modifier = Modifier.fillMaxSize().padding(1.dp),
                 startAngle = 270f + (51f / 2f),
                 endAngle = 270f - (51f / 2f),
                 progress = 0.3f,
-                strokeWidth = ProgressIndicatorDefaults.FullScreenStrokeWidth
+                strokeWidth = ProgressIndicatorDefaults.FullScreenStrokeWidth,
             )
         }
 
@@ -44,7 +43,7 @@ fun ProgressIndicatorAudit(route: AuditNavigation.ProgressIndicator.Audit) {
                 startAngle = 90f + (51f / 2f),
                 endAngle = 90f - (51f / 2f),
                 progress = 0.3f,
-                strokeWidth = ProgressIndicatorDefaults.FullScreenStrokeWidth
+                strokeWidth = ProgressIndicatorDefaults.FullScreenStrokeWidth,
             )
         }
 
@@ -61,5 +60,4 @@ fun ProgressIndicatorAudit(route: AuditNavigation.ProgressIndicator.Audit) {
             )
         }
     }
-
 }

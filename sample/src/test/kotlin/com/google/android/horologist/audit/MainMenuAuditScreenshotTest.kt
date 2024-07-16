@@ -22,7 +22,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.pa
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.screenshots.rng.WearDevice
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.robolectric.Shadows.shadowOf
@@ -30,34 +29,34 @@ import org.robolectric.Shadows.shadowOf
 public class MainMenuAuditScreenshotTest(device: WearDevice) :
     AuditScreenshotTest(device) {
 
-    override val audit: AuditNavigation
-        get() = AuditNavigation.MainMenu
+        override val audit: AuditNavigation
+            get() = AuditNavigation.MainMenu
 
-    @Test
-    fun mainMenu() {
-        lateinit var columnState: ScalingLazyColumnState
+        @Test
+        fun mainMenu() {
+            lateinit var columnState: ScalingLazyColumnState
 
-        runTest(captureScreenshot = false) {
-            columnState = rememberResponsiveColumnState(
-                contentPadding = padding(
-                    first = ItemType.Text,
-                    last = ItemType.Chip
+            runTest(captureScreenshot = false) {
+                columnState = rememberResponsiveColumnState(
+                    contentPadding = padding(
+                        first = ItemType.Text,
+                        last = ItemType.Chip,
+                    ),
                 )
-            )
 
-            AuditMenuScreen(
-                columnState = columnState
-            ) {  }
+                AuditMenuScreen(
+                    columnState = columnState,
+                ) { }
+            }
+
+            captureScreenshot(suffix = "_top")
+
+            runBlocking {
+                columnState.state.scrollToItem(99, 0)
+            }
+
+            shadowOf(Looper.getMainLooper()).idle()
+
+            captureScreenshot(suffix = "_bottom")
         }
-
-        captureScreenshot(suffix = "_top")
-
-        runBlocking {
-            columnState.state.scrollToItem(99, 0)
-        }
-
-        shadowOf(Looper.getMainLooper()).idle()
-
-        captureScreenshot(suffix = "_bottom")
     }
-}

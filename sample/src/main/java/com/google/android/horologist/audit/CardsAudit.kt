@@ -40,12 +40,11 @@ import com.google.android.horologist.sample.R
 
 @Composable
 fun CardsAudit(route: AuditNavigation.Cards.Audit) {
-
     val columnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ItemType.Text,
-            last = ItemType.Chip
-        )
+            last = ItemType.Chip,
+        ),
     )
 
     ScreenScaffold(scrollState = columnState) {
@@ -65,7 +64,7 @@ fun BackgroundImageCard() {
         onClick = { /* Do something */ },
         title = { Text("TitleCard With an ImageBackground") },
         backgroundPainter = CardDefaults.imageWithScrimBackgroundPainter(
-            backgroundImagePainter = painterResource(id = R.drawable.backgroundimage)
+            backgroundImagePainter = painterResource(id = R.drawable.backgroundimage),
         ),
         contentColor = MaterialTheme.colors.onSurface,
         titleColor = MaterialTheme.colors.onSurface,

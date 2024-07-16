@@ -181,18 +181,24 @@ public object FixedTimeSource : TimeSource {
 
     val H12: TimeSource = object : TimeSource {
         override val currentTime: String
-            @Composable get() = DateFormat.format("h:mm", Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, 21)
-                set(Calendar.MINUTE, 30)
-            }).toString()
+            @Composable get() = DateFormat.format(
+                "h:mm",
+                Calendar.getInstance().apply {
+                    set(Calendar.HOUR_OF_DAY, 21)
+                    set(Calendar.MINUTE, 30)
+                },
+            ).toString()
     }
 
     val H24: TimeSource = object : TimeSource {
         override val currentTime: String
-            @Composable get() = DateFormat.format("HH:mm", Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, 21)
-                set(Calendar.MINUTE, 30)
-            }).toString()
+            @Composable get() = DateFormat.format(
+                "HH:mm",
+                Calendar.getInstance().apply {
+                    set(Calendar.HOUR_OF_DAY, 21)
+                    set(Calendar.MINUTE, 30)
+                },
+            ).toString()
     }
 }
 

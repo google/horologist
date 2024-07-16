@@ -38,7 +38,8 @@ interface AuditNavigation {
             append(title.lowercase().replace(" ", ""))
         }
 
-    abstract class AuditSection<C : SingleAuditConfig, S : SingleAuditScreen<C>> : AuditNavigation,
+    abstract class AuditSection<C : SingleAuditConfig, S : SingleAuditScreen<C>> :
+        AuditNavigation,
         ScreenList {
         abstract val configs: List<C>
 
@@ -310,7 +311,7 @@ interface AuditNavigation {
     data object Cards : AuditSection<Cards.Config, Cards.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            BackgroundImage
+            BackgroundImage,
         }
 
         @Serializable

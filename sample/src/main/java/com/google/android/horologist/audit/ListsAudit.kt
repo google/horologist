@@ -43,8 +43,8 @@ fun ListsAudit(route: AuditNavigation.Lists.Audit) {
     val columnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ItemType.Text,
-            last = ItemType.Chip
-        )
+            last = ItemType.Chip,
+        ),
     )
 
     ScreenScaffold(scrollState = columnState) {
@@ -58,7 +58,7 @@ fun ListsAudit(route: AuditNavigation.Lists.Audit) {
                         Text(
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
                             modifier = Modifier.listTextPadding(),
-                            maxLines = 3
+                            maxLines = 3,
                         )
                     }
 
@@ -67,16 +67,19 @@ fun ListsAudit(route: AuditNavigation.Lists.Audit) {
                     }
 
                     AuditNavigation.Lists.Config.TwoBottomRound -> {
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                        ) {
                             Button(
                                 onClick = {},
                                 imageVector = Icons.Default.PlusOne,
-                                contentDescription = ""
+                                contentDescription = "",
                             )
                             Button(
                                 onClick = {},
                                 imageVector = Icons.Default.LooksTwo,
-                                contentDescription = ""
+                                contentDescription = "",
                             )
                         }
                     }
@@ -85,7 +88,7 @@ fun ListsAudit(route: AuditNavigation.Lists.Audit) {
                         Button(
                             onClick = {},
                             imageVector = Icons.Default.WhereToVote,
-                            contentDescription = ""
+                            contentDescription = "",
                         )
                     }
                 }

@@ -42,7 +42,8 @@ fun StepperAudit(route: AuditNavigation.Stepper.Audit) {
                     increaseIcon = { Icon(Icons.Default.Add, contentDescription = "") },
                     decreaseIcon = {
                         Icon(Icons.Default.Remove, contentDescription = "")
-                    }) { }
+                    },
+                ) { }
             }
 
             AuditNavigation.Stepper.Config.ButtonOnly -> {
@@ -57,7 +58,8 @@ fun StepperAudit(route: AuditNavigation.Stepper.Audit) {
                     increaseIcon = { Text("Plus") },
                     decreaseIcon = {
                         Text("Minus")
-                    }) { }
+                    },
+                ) { }
             }
 
             AuditNavigation.Stepper.Config.VolumeIndicator -> {

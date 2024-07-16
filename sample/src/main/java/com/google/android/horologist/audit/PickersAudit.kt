@@ -27,7 +27,8 @@ import java.time.LocalTime
 fun PickersAudit(route: AuditNavigation.Pickers.Audit) {
     when (route.config) {
         AuditNavigation.Pickers.Config.Time12h -> {
-            TimePickerWith12HourClock(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0))}
+            TimePickerWith12HourClock(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0))
+        }
         AuditNavigation.Pickers.Config.Time24Hour -> {
             TimePicker(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0), showSeconds = false)
         }

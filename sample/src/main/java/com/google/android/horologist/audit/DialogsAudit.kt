@@ -39,7 +39,8 @@ fun DialogsAudit(route: AuditNavigation.Dialogs.Audit) {
                 showDialog = true,
                 title = "Title",
                 onDismiss = {},
-                icon = { Icon(Icons.Default.MedicalServices, contentDescription = "") })
+                icon = { Icon(Icons.Default.MedicalServices, contentDescription = "") },
+            )
         }
 
         AuditNavigation.Dialogs.Config.OneButtonChip -> {
@@ -61,7 +62,7 @@ fun DialogsAudit(route: AuditNavigation.Dialogs.Audit) {
                     Button(
                         onClick = {},
                         imageVector = Icons.Default.WhereToVote,
-                        contentDescription = ""
+                        contentDescription = "",
                     )
                 }
             }
@@ -79,5 +80,4 @@ fun DialogsAudit(route: AuditNavigation.Dialogs.Audit) {
             }
         }
     }
-
 }

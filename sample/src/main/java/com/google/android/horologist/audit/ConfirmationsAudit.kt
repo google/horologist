@@ -30,7 +30,7 @@ fun ConfirmationsAudit(route: AuditNavigation.Confirmations.Audit) {
                 showDialog = true,
                 title = "Title",
                 icon = { Icon(Icons.Default.Cyclone, contentDescription = "") },
-                onTimeout = {}
+                onTimeout = {},
             )
         }
 
@@ -39,7 +39,7 @@ fun ConfirmationsAudit(route: AuditNavigation.Confirmations.Audit) {
                 showDialog = true,
                 title = "Title\nThis is a second and third line.",
                 icon = { Icon(Icons.Default.Cyclone, contentDescription = "") },
-                onTimeout = {}
+                onTimeout = {},
             )
         }
 

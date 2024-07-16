@@ -23,30 +23,30 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 public class BulkAuditScreenshotTest(val testInstance: TestInstance) :
     AuditScreenshotTest(testInstance.device) {
 
-    override val audit: AuditNavigation.SingleAuditScreen<*>
-        get() = testInstance.audit
+        override val audit: AuditNavigation.SingleAuditScreen<*>
+            get() = testInstance.audit
 
-    @Test
-    fun theAudit() {
-        runTest(captureScreenshot = false) {
-            audit.compose()
+        @Test
+        fun theAudit() {
+            runTest(captureScreenshot = false) {
+                audit.compose()
+            }
+
+            captureScreenshot()
         }
 
-        captureScreenshot()
+        data class TestInstance(
+            val audit: AuditNavigation.SingleAuditScreen<*>,
+            val device: WearDevice,
+        )
+
+        companion object {
+
+            @JvmStatic
+            @ParameterizedRobolectricTestRunner.Parameters
+            public fun devices(): List<TestInstance> =
+                AuditScreenshotTest.devices().flatMap { d ->
+                    AuditNavigation.screens.map { a -> TestInstance(a, d) }
+                }.filter { it.audit.parent !is AuditNavigation.Pickers }
+        }
     }
-
-    data class TestInstance(
-        val audit: AuditNavigation.SingleAuditScreen<*>,
-        val device: WearDevice
-    )
-
-    companion object {
-
-        @JvmStatic
-        @ParameterizedRobolectricTestRunner.Parameters
-        public fun devices(): List<TestInstance> =
-            AuditScreenshotTest.devices().flatMap { d ->
-                AuditNavigation.screens.map { a -> TestInstance(a, d) }
-            }.filter { it.audit.parent !is AuditNavigation.Pickers }
-    }
-}

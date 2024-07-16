@@ -64,8 +64,8 @@ fun PositionIndicatorAudit(route: AuditNavigation.PositionIndicator.Audit) {
     val columnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ScalingLazyColumnDefaults.ItemType.Chip,
-            last = ScalingLazyColumnDefaults.ItemType.Chip
-        )
+            last = ScalingLazyColumnDefaults.ItemType.Chip,
+        ),
     )
 
     ScreenScaffold(scrollState = columnState) {
@@ -77,8 +77,8 @@ fun PositionIndicatorAudit(route: AuditNavigation.PositionIndicator.Audit) {
                         .fillMaxWidth()
                         .clip(MaterialTheme.shapes.small)
                         .background(
-                            Color.DarkGray.copy(alpha = 0.5f)
-                        )
+                            Color.DarkGray.copy(alpha = 0.5f),
+                        ),
                 )
             }
         }

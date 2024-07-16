@@ -43,10 +43,10 @@ fun AuditMenuScreen(
     columnState: ScalingLazyColumnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ItemType.Text,
-            last = ItemType.Chip
-        )
+            last = ItemType.Chip,
+        ),
     ),
-    onClick: (AuditNavigation) -> Unit
+    onClick: (AuditNavigation) -> Unit,
 ) {
     val screens = remember { AuditNavigation.screens.groupBy { it.parent } }
 
@@ -61,7 +61,7 @@ fun AuditMenuScreen(
                 Text(
                     "DP: " + LocalConfiguration.current.screenWidthDp + " FontScale: " + LocalDensity.current.fontScale,
                     modifier = Modifier.listTextPadding(),
-                    style = MaterialTheme.typography.caption3
+                    style = MaterialTheme.typography.caption3,
                 )
             }
             screens.forEach { (section, auditNavigations) ->

@@ -34,8 +34,7 @@ fun CurvedTimeTextAudit(route: AuditNavigation.CurvedTimeText.Audit) {
                     this.curvedText("Network unavailable")
                 })
             }
-        }
+        },
     ) {
-
     }
 }

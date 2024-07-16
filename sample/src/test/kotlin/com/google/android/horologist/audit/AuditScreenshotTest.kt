@@ -25,50 +25,52 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 @RunWith(ParameterizedRobolectricTestRunner::class)
 public abstract class AuditScreenshotTest(override val device: WearDevice) :
     WearScreenshotTest() {
-    public override val tolerance: Float = 0.02f
+        public override val tolerance: Float = 0.02f
 
-    abstract val audit: AuditNavigation
+        abstract val audit: AuditNavigation
 
-    override fun testName(suffix: String): String {
-        return "src/test/audit/${audit.id}${suffix}_${device.id}.png"
+        override fun testName(suffix: String): String {
+            return "src/test/audit/${audit.id}${suffix}_${device.id}.png"
+        }
+
+        public fun runTest(content: @Composable () -> Unit) {
+            runTest(suffix = null, content = content)
+        }
+
+        public companion object {
+            // Below the breakpoint
+            val Device204 = WearDevice(
+                id = "device204",
+                modelName = "Generic 204",
+                screenSizePx = 408,
+                density = 2.0f,
+            )
+
+            // Above the breakpoint
+            val Device228 = WearDevice(
+                id = "device228",
+                modelName = "Generic 228",
+                screenSizePx = 456,
+                density = 2.0f,
+            )
+
+            // Above any known device, but to test further than needed
+            val Device240 = WearDevice(
+                id = "device240",
+                modelName = "Generic 240",
+                screenSizePx = 480,
+                density = 2.0f,
+            )
+
+            @JvmStatic
+            @ParameterizedRobolectricTestRunner.Parameters
+            public fun devices(): List<WearDevice> = listOf(
+                WearDevice.GooglePixelWatch,
+                WearDevice.GooglePixelWatchLargeFont,
+                WearDevice.SamsungGalaxyWatch6SmallFont,
+                Device204,
+                Device228,
+                Device240,
+            )
+        }
     }
-
-    public fun runTest(content: @Composable () -> Unit) {
-        runTest(suffix = null, content = content)
-    }
-
-    public companion object {
-        // Below the breakpoint
-        val Device204 = WearDevice(
-            id = "device204",
-            modelName = "Generic 204",
-            screenSizePx = 408,
-            density = 2.0f,
-        )
-        // Above the breakpoint
-        val Device228 = WearDevice(
-            id = "device228",
-            modelName = "Generic 228",
-            screenSizePx = 456,
-            density = 2.0f,
-        )
-        // Above any known device, but to test further than needed
-        val Device240 = WearDevice(
-            id = "device240",
-            modelName = "Generic 240",
-            screenSizePx = 480,
-            density = 2.0f,
-        )
-
-        @JvmStatic
-        @ParameterizedRobolectricTestRunner.Parameters
-        public fun devices(): List<WearDevice> = listOf(
-            WearDevice.GooglePixelWatch,
-            WearDevice.GooglePixelWatchLargeFont,
-            WearDevice.SamsungGalaxyWatch6SmallFont,
-            Device204,
-            Device228,
-            Device240
-        )
-    }
-}

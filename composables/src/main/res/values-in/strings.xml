@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Mnt</string>
   <string name="horologist_time_picker_period">Periode</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">Hari</string>
   <string name="horologist_picker_month">Bulan</string>
   <string name="horologist_picker_year">Tahun</string>

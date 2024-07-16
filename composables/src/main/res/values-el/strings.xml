@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Λεπ.</string>
   <string name="horologist_time_picker_period">Περίοδος</string>
-  <string name="horologist_time_picker_am">π.μ.</string>
-  <string name="horologist_time_picker_pm">μ.μ.</string>
   <string name="horologist_picker_day">Ημέρα</string>
   <string name="horologist_picker_month">Μήνας</string>
   <string name="horologist_picker_year">Έτος</string>

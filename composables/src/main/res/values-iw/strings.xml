@@ -35,8 +35,6 @@
   </plurals>
   <string name="horologist_time_picker_min">דקות</string>
   <string name="horologist_time_picker_period">תקופה</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">יום</string>
   <string name="horologist_picker_month">חודש</string>
   <string name="horologist_picker_year">שנה</string>

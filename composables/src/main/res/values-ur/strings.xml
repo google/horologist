@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">منٹ</string>
   <string name="horologist_time_picker_period">وقفہ</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">دن</string>
   <string name="horologist_picker_month">ماہ</string>
   <string name="horologist_picker_year">سال</string>

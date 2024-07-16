@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Mín.</string>
   <string name="horologist_time_picker_period">Tímabil</string>
-  <string name="horologist_time_picker_am">f.h.</string>
-  <string name="horologist_time_picker_pm">e.h.</string>
   <string name="horologist_picker_day">Dagur</string>
   <string name="horologist_picker_month">Mánuður</string>
   <string name="horologist_picker_year">Ár</string>

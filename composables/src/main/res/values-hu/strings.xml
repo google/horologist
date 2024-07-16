@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Perc</string>
   <string name="horologist_time_picker_period">Időszak</string>
-  <string name="horologist_time_picker_am">de.</string>
-  <string name="horologist_time_picker_pm">du.</string>
   <string name="horologist_picker_day">Nap</string>
   <string name="horologist_picker_month">Hónap</string>
   <string name="horologist_picker_year">Év</string>

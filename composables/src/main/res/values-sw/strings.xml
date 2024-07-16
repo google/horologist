@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Dak</string>
   <string name="horologist_time_picker_period">Nukta</string>
-  <string name="horologist_time_picker_am">Asubuhi</string>
-  <string name="horologist_time_picker_pm">Jioni</string>
   <string name="horologist_picker_day">Siku</string>
   <string name="horologist_picker_month">Mwezi</string>
   <string name="horologist_picker_year">Mwaka</string>

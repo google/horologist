@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">కనిష్టం</string>
   <string name="horologist_time_picker_period">వ్యవధి</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">రోజు</string>
   <string name="horologist_picker_month">నెల</string>
   <string name="horologist_picker_year">సంవత్సరం</string>

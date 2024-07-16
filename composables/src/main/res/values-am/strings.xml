@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">ደቂቃ</string>
   <string name="horologist_time_picker_period">ክፍለ-ጊዜ</string>
-  <string name="horologist_time_picker_am">ጠዋት</string>
-  <string name="horologist_time_picker_pm">ከሰዓት</string>
   <string name="horologist_picker_day">ቀን</string>
   <string name="horologist_picker_month">ወር</string>
   <string name="horologist_picker_year">ዓመት</string>

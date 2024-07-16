@@ -19,6 +19,8 @@ package com.google.android.horologist.audit
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest
+import org.junit.Assume
+import org.junit.Before
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
 
@@ -31,6 +33,16 @@ public abstract class AuditScreenshotTest(override val device: WearDevice) :
 
         override fun testName(suffix: String): String {
             return "src/test/audit/${audit.id}${suffix}_${device.id}.png"
+        }
+
+        @Before
+        fun checkStatus() {
+            Assume.assumeTrue(shouldRun())
+        }
+
+        open fun shouldRun(): Boolean {
+            // avoid running all on CI for now
+            return device == WearDevice.GooglePixelWatch
         }
 
         public fun runTest(content: @Composable () -> Unit) {

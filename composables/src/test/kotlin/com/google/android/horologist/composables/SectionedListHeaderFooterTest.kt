@@ -46,7 +46,7 @@ class SectionedListHeaderFooterTest(
         runTest {
             val columnState = rememberResponsiveColumnState(
                 contentPadding = padding(
-                    first = ItemType.Text,
+                    first = if (headerVisibleStatesParam == ALL_STATES) ItemType.Text else ItemType.Chip,
                     last = ItemType.Chip,
                 ),
             )

@@ -83,6 +83,7 @@ package com.google.android.horologist.compose.layout {
     property public final float bottomPaddingDp;
     property public final float paddingCorrection;
     property public final float topPaddingDp;
+    enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType BodyText;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Card;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Chip;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType CompactChip;

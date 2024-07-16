@@ -25,7 +25,7 @@ import com.google.android.horologist.compose.material.centeredDialogColumnState
 
 @ExperimentalHorologistApi
 @Composable
-public fun NonScrollableAlertContent(
+internal fun NonScrollableAlertContent(
     onCancel: (() -> Unit)? = null,
     onOk: (() -> Unit)? = null,
     icon: @Composable (() -> Unit)? = null,

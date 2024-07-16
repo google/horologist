@@ -18,6 +18,7 @@ package com.google.android.horologist.sample.di
 
 import android.content.Context
 import android.net.ConnectivityManager
+import com.google.android.horologist.audit.AuditActivity
 import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.navsample.NavActivity
 import com.google.android.horologist.networks.InMemoryStatusLogger
@@ -46,6 +47,10 @@ import kotlin.time.Duration.Companion.seconds
 object SampleAppDI {
     @Suppress("UNUSED_PARAMETER")
     fun inject(mainActivity: MainActivity) {
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    fun inject(auditActivity: AuditActivity) {
     }
 
     @Suppress("UNUSED_PARAMETER")

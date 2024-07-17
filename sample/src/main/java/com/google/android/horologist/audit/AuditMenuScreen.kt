@@ -35,8 +35,8 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
-import com.google.android.horologist.compose.material.ResponsiveListHeader
+import com.google.android.horologist.compose.material.SecondaryTitle
+import com.google.android.horologist.compose.material.Title
 
 @Composable
 fun AuditMenuScreen(
@@ -53,9 +53,7 @@ fun AuditMenuScreen(
     ScreenScaffold(scrollState = columnState) {
         ScalingLazyColumn(columnState = columnState) {
             item {
-                ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                    Text("Large Screens")
-                }
+                Title("Large Screens")
             }
             item {
                 Text(
@@ -67,9 +65,7 @@ fun AuditMenuScreen(
             screens.forEach { (section, auditNavigations) ->
                 if (section != null) {
                     item {
-                        ResponsiveListHeader(modifier = Modifier.listTextPadding()) {
-                            Text(section.title)
-                        }
+                        SecondaryTitle(section.title)
                     }
                 }
                 items(auditNavigations) {

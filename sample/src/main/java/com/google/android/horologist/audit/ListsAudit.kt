@@ -19,6 +19,7 @@ package com.google.android.horologist.audit
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LooksTwo
 import androidx.compose.material.icons.filled.PlusOne
@@ -43,7 +44,12 @@ fun ListsAudit(route: AuditNavigation.Lists.Audit) {
     val columnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ItemType.Text,
-            last = ItemType.Chip,
+            last = when (route.config) {
+                AuditNavigation.Lists.Config.OneBottomChip -> ItemType.Chip
+                AuditNavigation.Lists.Config.NoBottomButton -> ItemType.BodyText
+                AuditNavigation.Lists.Config.OneBottomButton -> ItemType.SingleButton
+                AuditNavigation.Lists.Config.TwoBottomRound -> ItemType.MultiButton
+            },
         ),
     )
 
@@ -63,13 +69,16 @@ fun ListsAudit(route: AuditNavigation.Lists.Audit) {
                     }
 
                     AuditNavigation.Lists.Config.OneBottomChip -> {
-                        Chip("Final Chip", onClick = {})
+                        Chip("Final Chip", onClick = {}, modifier = Modifier.padding(top = 12.dp))
                     }
 
                     AuditNavigation.Lists.Config.TwoBottomRound -> {
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                            modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+                            horizontalArrangement = Arrangement.spacedBy(
+                                8.dp,
+                                Alignment.CenterHorizontally
+                            ),
                         ) {
                             Button(
                                 onClick = {},
@@ -89,6 +98,7 @@ fun ListsAudit(route: AuditNavigation.Lists.Audit) {
                             onClick = {},
                             imageVector = Icons.Default.WhereToVote,
                             contentDescription = "",
+                            modifier = Modifier.padding(top = 12.dp),
                         )
                     }
                 }

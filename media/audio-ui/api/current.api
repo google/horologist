@@ -111,11 +111,11 @@ package com.google.android.horologist.audio.ui.components.actions {
   }
 
   public final class SetVolumeButtonKt {
-    method @androidx.compose.runtime.Composable public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeUiState? volumeUiState, optional boolean enabled);
+    method @androidx.compose.runtime.Composable public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeUiState? volumeUiState, optional boolean enabled, optional androidx.compose.ui.Alignment iconAlignment, optional androidx.compose.foundation.layout.PaddingValues? iconPadding);
   }
 
   public final class SettingsButtonKt {
-    method @androidx.compose.runtime.Composable public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean enabled, optional float iconSize, optional float tapTargetSize);
+    method @androidx.compose.runtime.Composable public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean enabled, optional float iconSize, optional androidx.compose.ui.Alignment iconAlignment, optional androidx.compose.foundation.layout.PaddingValues? iconPadding, optional float tapTargetSize);
   }
 
 }

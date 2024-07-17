@@ -63,10 +63,10 @@ public fun Title(
     text: String,
     modifier: Modifier = Modifier,
 ) {
-    ResponsiveListHeader(contentPadding = firstItemPadding()) {
+    ResponsiveListHeader(modifier = modifier, contentPadding = firstItemPadding()) {
         Text(
             text = text,
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .listTextPadding(),
             color = MaterialTheme.colors.onSurfaceVariant,
@@ -111,7 +111,7 @@ public fun SecondaryTitle(
     iconSize: Dp = 24.dp,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
 ) {
-    ResponsiveListHeader {
+    ResponsiveListHeader(modifier = modifier) {
         icon?.let {
             Icon(
                 paintable = icon.asPaintable(),
@@ -126,7 +126,7 @@ public fun SecondaryTitle(
         }
         Text(
             text = text,
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .listTextPadding()
                 .align(Alignment.CenterVertically),

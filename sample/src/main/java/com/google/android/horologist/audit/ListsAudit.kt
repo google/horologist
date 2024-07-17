@@ -38,6 +38,8 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ResponsiveButton
+import com.google.android.horologist.compose.material.responsiveButtonWidth
 
 @Composable
 fun ListsAudit(route: AuditNavigation.Lists.Audit) {
@@ -73,22 +75,25 @@ fun ListsAudit(route: AuditNavigation.Lists.Audit) {
                     }
 
                     AuditNavigation.Lists.Config.TwoBottomRound -> {
+                        val (buttonSpacedBy, buttonWidth) = responsiveButtonWidth(2)
                         Row(
                             modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
                             horizontalArrangement = Arrangement.spacedBy(
-                                8.dp,
+                                buttonSpacedBy,
                                 Alignment.CenterHorizontally
                             ),
                         ) {
-                            Button(
+                            ResponsiveButton(
                                 onClick = {},
-                                imageVector = Icons.Default.PlusOne,
+                                icon = Icons.Default.PlusOne,
                                 contentDescription = "",
+                                buttonWidth = buttonWidth,
                             )
-                            Button(
+                            ResponsiveButton(
                                 onClick = {},
-                                imageVector = Icons.Default.LooksTwo,
+                                icon = Icons.Default.LooksTwo,
                                 contentDescription = "",
+                                buttonWidth = buttonWidth,
                             )
                         }
                     }

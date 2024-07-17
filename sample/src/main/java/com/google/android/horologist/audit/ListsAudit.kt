@@ -19,6 +19,7 @@ package com.google.android.horologist.audit
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LooksTwo
 import androidx.compose.material.icons.filled.PlusOne
@@ -37,13 +38,20 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.material.ResponsiveButton
+import com.google.android.horologist.compose.material.responsiveButtonWidth
 
 @Composable
 fun ListsAudit(route: AuditNavigation.Lists.Audit) {
     val columnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ItemType.Text,
-            last = ItemType.Chip,
+            last = when (route.config) {
+                AuditNavigation.Lists.Config.OneBottomChip -> ItemType.Chip
+                AuditNavigation.Lists.Config.NoBottomButton -> ItemType.BodyText
+                AuditNavigation.Lists.Config.OneBottomButton -> ItemType.SingleButton
+                AuditNavigation.Lists.Config.TwoBottomRound -> ItemType.MultiButton
+            },
         ),
     )
 
@@ -63,23 +71,29 @@ fun ListsAudit(route: AuditNavigation.Lists.Audit) {
                     }
 
                     AuditNavigation.Lists.Config.OneBottomChip -> {
-                        Chip("Final Chip", onClick = {})
+                        Chip("Final Chip", onClick = {}, modifier = Modifier.padding(top = 12.dp))
                     }
 
                     AuditNavigation.Lists.Config.TwoBottomRound -> {
+                        val (buttonSpacedBy, buttonWidth) = responsiveButtonWidth(2)
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                            modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+                            horizontalArrangement = Arrangement.spacedBy(
+                                buttonSpacedBy,
+                                Alignment.CenterHorizontally,
+                            ),
                         ) {
-                            Button(
+                            ResponsiveButton(
                                 onClick = {},
-                                imageVector = Icons.Default.PlusOne,
+                                icon = Icons.Default.PlusOne,
                                 contentDescription = "",
+                                buttonWidth = buttonWidth,
                             )
-                            Button(
+                            ResponsiveButton(
                                 onClick = {},
-                                imageVector = Icons.Default.LooksTwo,
+                                icon = Icons.Default.LooksTwo,
                                 contentDescription = "",
+                                buttonWidth = buttonWidth,
                             )
                         }
                     }
@@ -89,6 +103,7 @@ fun ListsAudit(route: AuditNavigation.Lists.Audit) {
                             onClick = {},
                             imageVector = Icons.Default.WhereToVote,
                             contentDescription = "",
+                            modifier = Modifier.padding(top = 12.dp),
                         )
                     }
                 }

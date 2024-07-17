@@ -49,14 +49,8 @@ public fun SettingsButton(
     iconPadding: PaddingValues? = null,
     tapTargetSize: Dp = 52.dp,
 ) {
-    val buttonModifier =
-        if (iconPadding != null) {
-            modifier.padding(iconPadding).size(tapTargetSize)
-        } else {
-            modifier.size(tapTargetSize)
-        }
     UnboundedRippleButton(
-        modifier = buttonModifier,
+        modifier = modifier.size(tapTargetSize),
         onClick = onClick,
         colors = buttonColors(
             backgroundColor = Color.Transparent,
@@ -66,12 +60,13 @@ public fun SettingsButton(
         enabled = enabled,
         rippleRadius = tapTargetSize / 2,
     ) {
+        val iconModifier = if (iconPadding != null) Modifier.padding(iconPadding) else Modifier
         Icon(
             paintable = imageVector.asPaintable(),
             contentDescription = contentDescription,
-            modifier = Modifier
+            modifier = iconModifier
                 .size(iconSize)
-                .align(Alignment.Center),
+                .align(iconAlignment),
             rtlMode = iconRtlMode,
         )
     }

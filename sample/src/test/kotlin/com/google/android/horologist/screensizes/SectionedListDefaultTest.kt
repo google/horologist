@@ -45,8 +45,8 @@ class SectionedListDefaultTest(device: Device) : WearLegacyScreenSizeTest(device
                 columnState = rememberResponsiveColumnState(
                     contentPadding = padding(
                         first = ItemType.Text,
-                        last = ItemType.Chip
-                    )
+                        last = ItemType.Chip,
+                    ),
                 ),
             )
         }

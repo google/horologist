@@ -80,7 +80,7 @@ fun ListsAudit(route: AuditNavigation.Lists.Audit) {
                             modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
                             horizontalArrangement = Arrangement.spacedBy(
                                 buttonSpacedBy,
-                                Alignment.CenterHorizontally
+                                Alignment.CenterHorizontally,
                             ),
                         ) {
                             ResponsiveButton(

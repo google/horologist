@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.audio.ui.components.actions
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,16 +28,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonDefaults.buttonColors
 import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.composables.UnboundedRippleButton
 import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.compose.material.IconRtlMode
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 /**
- * Button to launch a screen to control the system volume.
- *
- * See [VolumeState]
+ * An icon button to launch a screen to control the system.
  */
 @Composable
 public fun SettingsButton(
@@ -46,10 +45,18 @@ public fun SettingsButton(
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true,
     iconSize: Dp = 26.dp,
+    iconAlignment: Alignment = Alignment.Center,
+    iconPadding: PaddingValues? = null,
     tapTargetSize: Dp = 52.dp,
 ) {
+    val buttonModifier =
+        if (iconPadding != null) {
+            modifier.padding(iconPadding).size(tapTargetSize)
+        } else {
+            modifier.size(tapTargetSize)
+        }
     UnboundedRippleButton(
-        modifier = modifier.size(tapTargetSize),
+        modifier = buttonModifier,
         onClick = onClick,
         colors = buttonColors(
             backgroundColor = Color.Transparent,

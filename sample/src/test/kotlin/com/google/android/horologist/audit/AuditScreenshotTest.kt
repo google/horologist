@@ -41,8 +41,7 @@ public abstract class AuditScreenshotTest(override val device: WearDevice) :
         }
 
         open fun shouldRun(): Boolean {
-            // avoid running all on CI for now
-            return device == WearDevice.GooglePixelWatch
+            return true
         }
 
         public fun runTest(content: @Composable () -> Unit) {

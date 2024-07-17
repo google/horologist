@@ -16,10 +16,8 @@
 
 package com.google.android.horologist.media.ui.screens.entity
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
@@ -166,5 +164,5 @@ public fun DefaultEntityScreenHeader(
     title: String,
     modifier: Modifier = Modifier,
 ) {
-    Title(title, modifier.padding(bottom = 12.dp))
+    Title(title, modifier)
 }

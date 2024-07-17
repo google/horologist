@@ -62,7 +62,7 @@ fun CardsAudit(route: AuditNavigation.Cards.Audit) {
 fun BackgroundImageCard() {
     TitleCard(
         onClick = { /* Do something */ },
-        title = { Text("TitleCard With an ImageBackground") },
+        title = { Text("TitleCard With an ImageBackground", maxLines = 2) },
         backgroundPainter = CardDefaults.imageWithScrimBackgroundPainter(
             backgroundImagePainter = painterResource(id = R.drawable.backgroundimage),
         ),
@@ -76,7 +76,7 @@ fun BackgroundImageCard() {
                 .fillMaxSize()
                 .padding(bottom = 12.dp),
         ) {
-            Text("Text coloured to stand out on the image")
+            Text("Text coloured to stand out on the image", maxLines = 2)
         }
     }
 }

@@ -86,8 +86,8 @@ public object ListHeaderDefaults {
     )
 
     private const val HorizontalPaddingPercent = 0.073f
-    private val TopPadding = 12.dp
-    private val BottomPadding = 8.dp
+    private val TopPadding = 12.dp // + 4.dp default from SLC
+    private val BottomPadding = 8.dp // + 4.dp default from SLC
 
     @Composable
     internal fun screenHeightDp() = LocalConfiguration.current.screenHeightDp

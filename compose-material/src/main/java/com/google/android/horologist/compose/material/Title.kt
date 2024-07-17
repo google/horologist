@@ -17,10 +17,8 @@
 package com.google.android.horologist.compose.material
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -29,8 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -38,8 +34,11 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
+import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+
 /**
  * A primary title heading to group and identify items.
  */
@@ -64,18 +63,18 @@ public fun Title(
     text: String,
     modifier: Modifier = Modifier,
 ) {
-    Text(
-        text = text,
-        modifier = modifier
-            .semantics { heading() }
-            .padding(horizontal = 14.dp)
-            .fillMaxWidth(),
-        color = MaterialTheme.colors.onSurfaceVariant,
-        textAlign = TextAlign.Center,
-        overflow = TextOverflow.Ellipsis,
-        maxLines = 3,
-        style = MaterialTheme.typography.button,
-    )
+    ResponsiveListHeader(modifier = modifier, contentPadding = firstItemPadding()) {
+        Text(
+            text = text,
+            modifier = Modifier
+                .fillMaxWidth()
+                .listTextPadding(),
+            color = MaterialTheme.colors.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 3,
+        )
+    }
 }
 
 /**
@@ -112,17 +111,14 @@ public fun SecondaryTitle(
     iconSize: Dp = 24.dp,
     iconRtlMode: IconRtlMode = IconRtlMode.Default,
 ) {
-    Row(
-        modifier = modifier
-            .padding(horizontal = 14.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
+    ResponsiveListHeader(modifier = modifier) {
         icon?.let {
             Icon(
                 paintable = icon.asPaintable(),
                 contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                 modifier = Modifier
-                    .size(iconSize),
+                    .size(iconSize)
+                    .align(Alignment.CenterVertically),
                 tint = iconTint,
                 rtlMode = iconRtlMode,
             )
@@ -131,8 +127,9 @@ public fun SecondaryTitle(
         Text(
             text = text,
             modifier = Modifier
-                .semantics { heading() }
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .listTextPadding()
+                .align(Alignment.CenterVertically),
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Start,
             overflow = TextOverflow.Ellipsis,

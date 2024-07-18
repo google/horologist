@@ -102,9 +102,10 @@ dependencies {
     implementation(libs.compose.ui.util)
 
     implementation(libs.compose.ui.tooling)
-    implementation(libs.compose.ui.toolingpreview)
+    implementation(libs.androidx.wear.tooling.preview)
+    implementation(libs.wearcompose.tooling)
 
-    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.toolingpreview)
     debugImplementation(projects.composeTools)
     debugImplementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.test.manifest)

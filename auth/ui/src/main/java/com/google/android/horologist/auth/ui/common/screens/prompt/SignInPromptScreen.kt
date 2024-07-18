@@ -107,7 +107,7 @@ public fun SignInPromptScreen(
                     title = title,
                     message = message,
                     content = content,
-                    modifier = modifier
+                    modifier = modifier,
                 )
             }
         }

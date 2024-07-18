@@ -16,30 +16,19 @@
 
 package com.google.android.horologist.auth.ui.common.screens.prompt
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
-import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
-import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
-import com.google.android.horologist.compose.material.ResponsiveListHeader
+import com.google.android.horologist.compose.material.AlertContent
 
 /**
  * A screen to prompt users to sign in.
@@ -93,14 +82,7 @@ public fun SignInPromptScreen(
     loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
     content: ScalingLazyListScope.() -> Unit,
 ) {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
-    )
-
-    ScreenScaffold(timeText = {}, scrollState = columnState) {
+    ScreenScaffold(timeText = {}) {
         when (state) {
             SignInPromptScreenState.Idle -> {
                 SideEffect {
@@ -121,32 +103,12 @@ public fun SignInPromptScreen(
             }
 
             SignInPromptScreenState.SignedOut -> {
-                ScalingLazyColumn(
-                    columnState = columnState,
-                    modifier = modifier,
-                ) {
-                    item {
-                        ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                            Text(
-                                text = title,
-                                modifier = Modifier.listTextPadding(),
-                                style = MaterialTheme.typography.button,
-                                overflow = TextOverflow.Ellipsis,
-                                maxLines = 3,
-                            )
-                        }
-                    }
-                    item {
-                        Text(
-                            text = message,
-                            modifier = Modifier.listTextPadding(),
-                            color = MaterialTheme.colors.onBackground,
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.body2,
-                        )
-                    }
-                    apply(content)
-                }
+                AlertContent(
+                    title = title,
+                    message = message,
+                    content = content,
+                    modifier = modifier
+                )
             }
         }
     }

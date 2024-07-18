@@ -123,6 +123,7 @@ public fun AlertDialog(
 @ExperimentalHorologistApi
 @Composable
 public fun AlertContent(
+    modifier: Modifier = Modifier,
     onCancel: (() -> Unit)? = null,
     onOk: (() -> Unit)? = null,
     icon: @Composable (() -> Unit)? = null,
@@ -144,6 +145,7 @@ public fun AlertContent(
     }
 
     ResponsiveDialogContent(
+        modifier = modifier,
         icon = icon,
         title = title?.let {
             {

@@ -113,6 +113,7 @@ public object ScalingLazyColumnDefaults {
         anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
         hapticsEnabled: Boolean = true,
         reverseLayout: Boolean = false,
+        userScrollEnabled: Boolean = true,
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
@@ -131,6 +132,7 @@ public object ScalingLazyColumnDefaults {
                         anchorType = anchorType,
                         hapticsEnabled = hapticsEnabled,
                         reverseLayout = reverseLayout,
+                        userScrollEnabled = userScrollEnabled,
                     )
                 }
             }
@@ -284,7 +286,8 @@ public object ScalingLazyColumnDefaults {
         Icon(Padding12Pct, Padding21Pct),
         MultiButton(Padding21Pct, Padding20Pct),
         SingleButton(Padding12Pct, Padding20Pct),
-        Text(Padding21Pct, Padding31Pct),
+        Text(Padding16Pct, Padding31Pct),
+        BodyText(Padding21Pct, Padding31Pct),
         Unspecified(0f, 0f),
     }
 

@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
@@ -56,34 +57,39 @@ fun ScreenScaffold(
 
     val key = remember { Any() }
 
-    DisposableEffect(key) {
-        onDispose {
-            scaffoldState.removeScreen(key)
+    // We need to update the scaffoldState with the proper scrollState
+    key(scrollState) {
+        DisposableEffect(key) {
+            onDispose {
+                scaffoldState.removeScreen(key)
+            }
         }
-    }
 
-    OnFocusChange { focused ->
-        if (focused) {
-            scaffoldState.addScreen(key, timeText, scrollState)
-        } else {
-            scaffoldState.removeScreen(key)
+        OnFocusChange { focused ->
+            if (focused) {
+                scaffoldState.addScreen(key, timeText, scrollState)
+            } else {
+                scaffoldState.removeScreen(key)
+            }
         }
     }
 
     Scaffold(
         modifier = modifier,
         timeText = timeText,
-        positionIndicator = {
-            if (positionIndicator != null) {
-                positionIndicator()
-            } else if (scrollState is ScalingLazyColumnState) {
-                PositionIndicator(scalingLazyListState = scrollState.state)
-            } else if (scrollState is ScalingLazyListState) {
-                PositionIndicator(scalingLazyListState = scrollState)
-            } else if (scrollState is LazyListState) {
-                PositionIndicator(scrollState)
-            } else if (scrollState is ScrollState) {
-                PositionIndicator(scrollState)
+        positionIndicator = remember(scrollState, positionIndicator) {
+            {
+                if (positionIndicator != null) {
+                    positionIndicator()
+                } else if (scrollState is ScalingLazyColumnState) {
+                    PositionIndicator(scalingLazyListState = scrollState.state)
+                } else if (scrollState is ScalingLazyListState) {
+                    PositionIndicator(scalingLazyListState = scrollState)
+                } else if (scrollState is LazyListState) {
+                    PositionIndicator(scrollState)
+                } else if (scrollState is ScrollState) {
+                    PositionIndicator(scrollState)
+                }
             }
         },
         content = { Box { content() } },

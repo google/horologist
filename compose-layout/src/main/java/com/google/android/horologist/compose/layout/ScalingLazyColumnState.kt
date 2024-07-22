@@ -44,6 +44,7 @@ import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.snapBeha
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.responsiveScalingParams
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState.ScrollPosition
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults as WearScalingLazyColumnDefaults
 
 /**
@@ -53,6 +54,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults as WearSc
 @ExperimentalHorologistApi
 public class ScalingLazyColumnState(
     public val initialScrollPosition: ScrollPosition = ScrollPosition(1, 0),
+    public val timeTextHomeOffset: ScrollPosition = initialScrollPosition,
     public val autoCentering: AutoCenteringParams? = AutoCenteringParams(
         initialScrollPosition.index,
         initialScrollPosition.offsetPx,
@@ -162,13 +164,19 @@ public fun rememberResponsiveColumnState(
     val topPaddingPx = with(density) { contentPaddingCalculated.calculateTopPadding().roundToPx() }
     val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
 
-    val initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
+    // Calculate the offset from which TimeText scrollAway should move
+    val timeTextHomeOffset = ScrollPosition(
         index = 0,
         offsetPx = topScreenOffsetPx,
     )
 
+    // Try to put the top of the first item in the centre, but rely on
+    // ScalingLazyColumn to stick to the ContentPadding.
+    val initialScrollPosition = ScrollPosition(0, 0)
+
     val columnState = ScalingLazyColumnState(
         initialScrollPosition = initialScrollPosition,
+        timeTextHomeOffset = timeTextHomeOffset,
         autoCentering = null,
         anchorType = ScalingLazyListAnchorType.ItemStart,
         rotaryMode = rotaryMode,

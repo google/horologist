@@ -90,10 +90,10 @@ fun SampleWearApp() {
             composable(
                 route = Screen.Menu.route,
             ) {
-                    MenuScreen(
-                        navigateToRoute = { route -> navController.navigate(route) },
-                        time = time,
-                    )
+                MenuScreen(
+                    navigateToRoute = { route -> navController.navigate(route) },
+                    time = time,
+                )
             }
             composable(
                 Screen.Network.route,
@@ -120,8 +120,8 @@ fun SampleWearApp() {
                 val columnState = rememberResponsiveColumnState(
                     contentPadding = padding(
                         first = ScalingLazyColumnDefaults.ItemType.Card,
-                        last = ScalingLazyColumnDefaults.ItemType.Card
-                    )
+                        last = ScalingLazyColumnDefaults.ItemType.Card,
+                    ),
                 )
 
                 ScreenScaffold(scrollState = columnState) {

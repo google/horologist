@@ -69,14 +69,15 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() 
 }
 
 public fun ScalingLazyColumnState.copy(scalingParams: ScalingParams): ScalingLazyColumnState = ScalingLazyColumnState(
-    initialScrollPosition,
-    autoCentering,
-    anchorType,
-    contentPadding,
-    rotaryMode,
-    reverseLayout,
-    verticalArrangement,
-    horizontalAlignment,
-    userScrollEnabled,
-    scalingParams,
+    initialScrollPosition = initialScrollPosition,
+    timeTextHomeOffset = timeTextHomeOffset,
+    autoCentering = autoCentering,
+    anchorType = anchorType,
+    contentPadding = contentPadding,
+    rotaryMode = rotaryMode,
+    reverseLayout = reverseLayout,
+    verticalArrangement = verticalArrangement,
+    horizontalAlignment = horizontalAlignment,
+    userScrollEnabled = userScrollEnabled,
+    scalingParams = scalingParams,
 )

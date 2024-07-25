@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter.ofPattern
 import java.util.Locale
@@ -23,6 +24,7 @@ plugins {
     kotlin("android")
     alias(libs.plugins.roborazzi)
     kotlin("plugin.serialization")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -62,16 +64,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    buildFeatures {
-        compose = true
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = JavaVersion.VERSION_17.majorVersion
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs +
             """
@@ -94,10 +92,6 @@ android {
             }
         }
         animationsDisabled = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
     lint {

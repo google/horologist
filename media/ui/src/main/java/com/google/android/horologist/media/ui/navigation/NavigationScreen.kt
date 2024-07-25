@@ -53,7 +53,7 @@ public interface NavigationScreen {
             public fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
                 navDeepLink {
                     uriPattern = "$deepLinkPrefix/mediaItem?id={id}&collectionId={collectionId}"
-                }
+                },
             )
         }
     }

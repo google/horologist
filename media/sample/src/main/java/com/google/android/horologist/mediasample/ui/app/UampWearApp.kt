@@ -106,7 +106,7 @@ fun UampWearApp(
                             navController.navigate(
                                 NavigationScreen.Collection(
                                     it.playlistUiModel.id,
-                                    it.playlistUiModel.title
+                                    it.playlistUiModel.title,
                                 ),
                             )
                         },
@@ -162,7 +162,7 @@ fun UampWearApp(
                         navController.navigate(
                             NavigationScreen.Collection(
                                 playlistUiModel.id,
-                                playlistUiModel.title
+                                playlistUiModel.title,
                             ),
                         )
                     },

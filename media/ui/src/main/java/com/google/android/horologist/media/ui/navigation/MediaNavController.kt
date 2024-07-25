@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.ui.navigation
 
 import androidx.navigation.NavController
-import java.net.URLEncoder
 
 /**
  * Domain focused NavController extensions that links to the screens of a typical Media app.
@@ -47,5 +46,4 @@ public object MediaNavController {
             }
         }
     }
-
 }

@@ -22,7 +22,6 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.platform.ComposeView
 import androidx.metrics.performance.JankStats
 import androidx.metrics.performance.PerformanceMetricsState
-import com.google.android.horologist.media.ui.navigation.NavigationScreen
 import com.google.android.horologist.mediasample.BuildConfig
 import java.util.concurrent.TimeUnit
 

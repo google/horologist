@@ -25,13 +25,16 @@ import kotlinx.serialization.Serializable
  */
 public interface NavigationScreen {
     @Serializable
-    public data class Player(val page: Int = -1) : NavigationScreen {
+    public data class Player(val page: Int? = null) : NavigationScreen {
         public companion object {
             public fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
                 navDeepLink {
                     uriPattern = "$deepLinkPrefix/player?page={page}"
                 },
             )
+
+            public const val Player: Int = 0
+            public const val Library: Int = 1
         }
     }
 
@@ -74,7 +77,7 @@ public interface NavigationScreen {
     }
 
     @Serializable
-    public data class Collection(val id: String, val name: String?) : NavigationScreen {
+    public data class Collection(val id: String, val name: String? = null) : NavigationScreen {
         public companion object {
             public fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
                 navDeepLink {

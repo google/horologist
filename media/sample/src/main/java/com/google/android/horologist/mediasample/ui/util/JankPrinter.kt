@@ -44,8 +44,6 @@ class JankPrinter {
 
             stateHolder = PerformanceMetricsState.getHolderForHierarchy(contentView).apply {
                 state?.putState("Activity", activity.javaClass.simpleName)
-                // TODO compute this, as it is probably wrong
-                state?.putState("route", NavigationScreen.Player.toString())
             }
 
             jankStats = JankStats.createAndTrack(

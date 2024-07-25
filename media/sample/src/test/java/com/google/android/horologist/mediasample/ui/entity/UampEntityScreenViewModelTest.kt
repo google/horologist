@@ -34,11 +34,17 @@ import com.google.android.horologist.test.toolbox.testdoubles.FakePlayerReposito
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlaylistDownloadDataSource
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlaylistDownloadRepository
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltTestApplication
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
+@RunWith(RobolectricTestRunner::class)
+@Config(application = HiltTestApplication::class, sdk = [33])
 class UampEntityScreenViewModelTest {
 
     @get:Rule

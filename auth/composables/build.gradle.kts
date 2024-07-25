@@ -22,6 +22,7 @@ plugins {
     alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
     alias(libs.plugins.roborazzi)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {

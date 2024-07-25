@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")

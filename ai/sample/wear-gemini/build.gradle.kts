@@ -32,7 +32,6 @@ import java.util.Properties
  * limitations under the License.
  */
 
-
 plugins {
     id("com.android.application")
     kotlin("android")

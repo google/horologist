@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 import com.google.protobuf.gradle.id
 import java.util.Properties
 

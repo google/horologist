@@ -19,11 +19,10 @@ package com.google.android.horologist.compose.material
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.ButtonDefaults
-import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
+import org.robolectric.annotation.Config
 
 internal class ButtonTest : WearLegacyComponentTest() {
 
@@ -125,15 +124,14 @@ internal class ButtonTest : WearLegacyComponentTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun usingDrawableResAsIconRtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                Button(
-                    id = android.R.drawable.ic_media_play,
-                    contentDescription = "contentDescription",
-                    onClick = { },
-                )
-            }
+            Button(
+                id = android.R.drawable.ic_media_play,
+                contentDescription = "contentDescription",
+                onClick = { },
+            )
         }
     }
 
@@ -150,29 +148,27 @@ internal class ButtonTest : WearLegacyComponentTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun usingDrawableResAsIconMirroredRtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                Button(
-                    id = android.R.drawable.ic_media_play,
-                    contentDescription = "contentDescription",
-                    onClick = { },
-                    iconRtlMode = IconRtlMode.Mirrored,
-                )
-            }
+            Button(
+                id = android.R.drawable.ic_media_play,
+                contentDescription = "contentDescription",
+                onClick = { },
+                iconRtlMode = IconRtlMode.Mirrored,
+            )
         }
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun defaultRtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                Button(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "contentDescription",
-                    onClick = { },
-                )
-            }
+            Button(
+                imageVector = Icons.Default.Check,
+                contentDescription = "contentDescription",
+                onClick = { },
+            )
         }
     }
 
@@ -189,16 +185,15 @@ internal class ButtonTest : WearLegacyComponentTest() {
     }
 
     @Test
+    @Config(qualifiers = "+ar-rXB-ldrtl")
     fun mirroredRtl() {
         runComponentTest {
-            TestHarness(layoutDirection = LayoutDirection.Rtl) {
-                Button(
-                    imageVector = Icons.AutoMirrored.Default.DirectionsBike,
-                    contentDescription = "contentDescription",
-                    onClick = { },
-                    iconRtlMode = IconRtlMode.Mirrored,
-                )
-            }
+            Button(
+                imageVector = Icons.AutoMirrored.Default.DirectionsBike,
+                contentDescription = "contentDescription",
+                onClick = { },
+                iconRtlMode = IconRtlMode.Mirrored,
+            )
         }
     }
 }

@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">ນທ</string>
   <string name="horologist_time_picker_period">ໄລຍະເວລາ</string>
-  <string name="horologist_time_picker_am">ກ່ອນທ່ຽງ</string>
-  <string name="horologist_time_picker_pm">ຫຼັງທ່ຽງ</string>
   <string name="horologist_picker_day">ມື້</string>
   <string name="horologist_picker_month">ເດືອນ</string>
   <string name="horologist_picker_year">ປີ</string>

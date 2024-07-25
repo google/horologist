@@ -74,14 +74,14 @@ android {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:4.27.0"
+        artifact = "com.google.protobuf:protoc:4.27.2"
     }
     plugins {
         create("javalite") {
             artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
         }
         create("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.64.0"
+            artifact = "io.grpc:protoc-gen-grpc-java:1.65.1"
         }
         create("grpckt") {
             artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"

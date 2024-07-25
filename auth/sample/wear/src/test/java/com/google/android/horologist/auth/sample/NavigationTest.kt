@@ -16,9 +16,7 @@
 
 package com.google.android.horologist.auth.sample
 
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
@@ -38,7 +36,6 @@ class NavigationTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val rootViewTag = "root_view"
     private lateinit var navController: TestNavHostController
 
     @Before
@@ -46,7 +43,7 @@ class NavigationTest {
         composeTestRule.setContent {
             navController = TestNavHostController(LocalContext.current)
             navController.navigatorProvider.addNavigator(WearNavigator())
-            WearApp(modifier = Modifier.testTag(rootViewTag), navController = navController)
+            WearApp(navController = navController)
         }
     }
 

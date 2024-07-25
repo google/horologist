@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">ମିନିଟ</string>
   <string name="horologist_time_picker_period">ପୂର୍ଣ୍ଣଚ୍ଛେଦ</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">ଦିନ</string>
   <string name="horologist_picker_month">ମାସ</string>
   <string name="horologist_picker_year">ବର୍ଷ</string>

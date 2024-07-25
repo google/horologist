@@ -22,6 +22,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     alias(libs.plugins.roborazzi)
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -77,6 +78,7 @@ android {
             androidx.compose.ui.ExperimentalComposeUiApi
             androidx.wear.compose.material.ExperimentalWearMaterialApi
             com.google.android.horologist.annotations.ExperimentalHorologistApi
+            androidx.compose.foundation.ExperimentalFoundationApi
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
             """.trim().split("\\s+".toRegex()).map {
@@ -151,6 +153,8 @@ dependencies {
 
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.androidx.wear.tooling.preview)
+
+    implementation(libs.kotlinx.serialization.core)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

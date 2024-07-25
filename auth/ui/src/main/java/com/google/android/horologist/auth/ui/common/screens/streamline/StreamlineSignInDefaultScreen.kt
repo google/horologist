@@ -24,7 +24,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SelectAccountScreen
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 /**
  * An opinionated implementation of [StreamlineSignInScreen] that:
@@ -42,7 +41,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 public fun StreamlineSignInDefaultScreen(
     onSignedInConfirmationDialogDismissOrTimeout: (account: AccountUiModel) -> Unit,
     onNoAccountsAvailable: () -> Unit,
-    columnState: ScalingLazyColumnState,
     viewModel: StreamlineSignInDefaultViewModel,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit = { },
@@ -77,7 +75,6 @@ public fun StreamlineSignInDefaultScreen(
                 onAccountClicked = { _, account ->
                     viewModel.onAccountSelected(account)
                 },
-                columnState = columnState,
                 modifier = modifier,
             )
         }

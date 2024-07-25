@@ -21,7 +21,6 @@ import androidx.compose.material.icons.automirrored.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.images.base.util.rememberVectorPainter
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -31,7 +30,6 @@ import com.google.android.horologist.media.ui.uamp.UampTheme
 @Composable
 fun PlaylistDownloadBrowseScreenPreview() {
     PlaylistDownloadBrowseScreen(
-        columnState = rememberResponsiveColumnState(),
         browseScreenState = BrowseScreenState.Loaded(downloadList),
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
@@ -48,7 +46,6 @@ fun PlaylistDownloadBrowseScreenPreview() {
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
     PlaylistDownloadBrowseScreen(
-        columnState = rememberResponsiveColumnState(),
         browseScreenState = BrowseScreenState.Loaded(emptyList()),
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
@@ -61,7 +58,6 @@ fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewLoading() {
     PlaylistDownloadBrowseScreen(
-        columnState = rememberResponsiveColumnState(),
         browseScreenState = BrowseScreenState.Loading,
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
@@ -75,7 +71,6 @@ fun PlaylistDownloadBrowseScreenPreviewLoading() {
 fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
     UampTheme {
         PlaylistDownloadBrowseScreen(
-            columnState = rememberResponsiveColumnState(),
             browseScreenState = BrowseScreenState.Loaded(downloadList),
             onDownloadItemClick = { },
             onDownloadItemInProgressClick = { },

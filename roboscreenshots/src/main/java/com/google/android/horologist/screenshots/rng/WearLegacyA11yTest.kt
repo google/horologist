@@ -50,6 +50,7 @@ import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
+import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.CorrectLayout
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withImageLoader
 import org.junit.Rule
@@ -162,25 +163,29 @@ public abstract class WearLegacyA11yTest {
 
     @Composable
     public open fun TestScaffold(content: @Composable () -> Unit) {
-        AppScaffold(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background),
-            timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
-        ) {
-            content()
+        CorrectLayout {
+            AppScaffold(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colors.background),
+                timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
+            ) {
+                content()
+            }
         }
     }
 
     @Composable
     public open fun ComponentScaffold(content: @Composable () -> Unit) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black),
-        ) {
-            content()
+        CorrectLayout {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black),
+            ) {
+                content()
+            }
         }
     }
 

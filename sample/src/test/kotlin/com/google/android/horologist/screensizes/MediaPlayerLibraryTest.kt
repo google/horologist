@@ -19,20 +19,15 @@
 package com.google.android.horologist.screensizes
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.PositionIndicator
-import androidx.wear.compose.material.Scaffold
 import coil.annotation.ExperimentalCoilApi
 import coil.test.FakeImageLoaderEngine
+import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.images.base.util.rememberVectorPainter
@@ -80,25 +75,19 @@ class MediaPlayerLibraryTest(device: Device) :
                 ),
             )
 
-            val columnState = ScalingLazyColumnDefaults.responsive().create()
-            PagerScreen(
-                state = rememberPagerState(1) {
-                    2
+            AppScaffold(
+                timeText = {
+                    ResponsiveTimeText(
+                        timeSource = FixedTimeSource,
+                    )
                 },
             ) {
-                if (it == 1) {
-                    Scaffold(
-                        modifier = Modifier.fillMaxSize(),
-                        timeText = {
-                            ResponsiveTimeText(
-                                modifier = Modifier.scrollAway(columnState),
-                                timeSource = FixedTimeSource,
-                            )
-                        },
-                        positionIndicator = {
-                            PositionIndicator(columnState.state)
-                        },
-                    ) {
+                PagerScreen(
+                    state = rememberPagerState(1) {
+                        2
+                    },
+                ) {
+                    if (it == 1) {
                         PlaylistDownloadScreen(
                             playlistName = "Playlist name",
                             playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
@@ -111,7 +100,6 @@ class MediaPlayerLibraryTest(device: Device) :
                             onDownloadItemInProgressClick = { },
                             onShuffleButtonClick = { },
                             onPlayButtonClick = { },
-                            columnState = columnState,
                             downloadItemArtworkPlaceholder = rememberVectorPainter(
                                 image = Icons.Default.MusicNote,
                                 tintColor = Color.Blue,

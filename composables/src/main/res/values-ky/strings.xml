@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Мүн.</string>
   <string name="horologist_time_picker_period">Убакыт аралыгы</string>
-  <string name="horologist_time_picker_am">түшкө чейин</string>
-  <string name="horologist_time_picker_pm">түштөн кийин</string>
   <string name="horologist_picker_day">Күн</string>
   <string name="horologist_picker_month">Ай</string>
   <string name="horologist_picker_year">Жыл</string>

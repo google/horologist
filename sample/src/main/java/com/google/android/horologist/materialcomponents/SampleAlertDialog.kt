@@ -28,11 +28,14 @@ import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.AlertDialog
+import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
 import com.google.android.horologist.compose.material.centeredDialogColumnState
@@ -40,52 +43,59 @@ import com.google.android.horologist.compose.material.centeredDialogColumnState
 @Composable
 internal fun SampleAlertDialog(
     modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
 ) {
+    val columnState = rememberResponsiveColumnState(
+        contentPadding = padding(
+            first = ScalingLazyColumnDefaults.ItemType.Text,
+            last = ScalingLazyColumnDefaults.ItemType.Chip,
+        ),
+    )
+
     var showSimpleDialog by remember { mutableStateOf(false) }
     var showBedtimeModeDialog by remember { mutableStateOf(false) }
     var showAllowDebuggingDialog by remember { mutableStateOf(false) }
     var showCenteredDialog by remember { mutableStateOf(false) }
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            ListHeader {
-                Text("AlertDialog samples")
+
+    ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(
+            columnState = columnState,
+            modifier = modifier,
+        ) {
+            item {
+                Title("AlertDialog samples")
             }
-        }
-        item {
-            Chip(
-                onClick = { showSimpleDialog = true },
-                label = { Text("Simple alert") },
-                colors = ChipDefaults.secondaryChipColors(),
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        item {
-            Chip(
-                onClick = { showCenteredDialog = true },
-                label = { Text("Centered alert") },
-                colors = ChipDefaults.secondaryChipColors(),
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        item {
-            Chip(
-                onClick = { showBedtimeModeDialog = true },
-                label = { Text("Bedtime Mode") },
-                colors = ChipDefaults.secondaryChipColors(),
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        item {
-            Chip(
-                onClick = { showAllowDebuggingDialog = true },
-                label = { Text("Allow debugging") },
-                colors = ChipDefaults.secondaryChipColors(),
-                modifier = Modifier.fillMaxWidth(),
-            )
+            item {
+                Chip(
+                    onClick = { showSimpleDialog = true },
+                    label = { Text("Simple alert") },
+                    colors = ChipDefaults.secondaryChipColors(),
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+            item {
+                Chip(
+                    onClick = { showCenteredDialog = true },
+                    label = { Text("Centered alert") },
+                    colors = ChipDefaults.secondaryChipColors(),
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+            item {
+                Chip(
+                    onClick = { showBedtimeModeDialog = true },
+                    label = { Text("Bedtime Mode") },
+                    colors = ChipDefaults.secondaryChipColors(),
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+            item {
+                Chip(
+                    onClick = { showAllowDebuggingDialog = true },
+                    label = { Text("Allow debugging") },
+                    colors = ChipDefaults.secondaryChipColors(),
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
         }
     }
 

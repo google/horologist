@@ -38,14 +38,11 @@ import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
 import com.google.android.horologist.auth.ui.googlesignin.prompt.GoogleSignInPromptViewModelFactory
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
 fun GoogleSignInPromptSampleScreen(
     navController: NavHostController,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: SignInPromptViewModel = viewModel(factory = GoogleSignInPromptViewModelFactory),
 ) {
@@ -54,7 +51,6 @@ fun GoogleSignInPromptSampleScreen(
     SignInPromptScreen(
         message = stringResource(id = R.string.google_sign_in_prompt_message),
         onAlreadySignedIn = { showAlreadySignedInDialog = true },
-        columnState = columnState,
         modifier = modifier,
         viewModel = viewModel,
     ) {
@@ -98,6 +94,5 @@ fun GoogleSignInPromptSampleScreen(
 fun GoogleSignInPromptSampleScreenPreview() {
     GoogleSignInPromptSampleScreen(
         navController = rememberSwipeDismissableNavController(),
-        columnState = rememberResponsiveColumnState(),
     )
 }

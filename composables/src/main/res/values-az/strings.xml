@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Dəq</string>
   <string name="horologist_time_picker_period">Müddət</string>
-  <string name="horologist_time_picker_am">G.Ə.</string>
-  <string name="horologist_time_picker_pm">G.S.</string>
   <string name="horologist_picker_day">Gün</string>
   <string name="horologist_picker_month">Ay</string>
   <string name="horologist_picker_year">İl</string>

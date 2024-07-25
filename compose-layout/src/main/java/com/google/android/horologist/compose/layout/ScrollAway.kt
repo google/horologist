@@ -70,12 +70,13 @@ public fun Modifier.scrollAway(
 ): Modifier = scrollAwayImpl {
     when (val scrollState = scrollableState()) {
         is ScalingLazyColumnState -> {
-            val initialOffsetDp = scrollState.initialScrollPosition.offsetPx.toDp()
+            val timeTextHomeOffset = scrollState.timeTextHomeOffset
+            val initialOffsetDp = timeTextHomeOffset.offsetPx.toDp()
 
             ScrollParams(
-                valid = scrollState.initialScrollPosition.index < scrollState.state.layoutInfo.totalItemsCount,
+                valid = timeTextHomeOffset.index < scrollState.state.layoutInfo.totalItemsCount,
                 isScrollInProgress = scrollState.isScrollInProgress,
-                yPx = scrollState.state.layoutInfo.visibleItemsInfo.find { it.index == scrollState.initialScrollPosition.index }
+                yPx = scrollState.state.layoutInfo.visibleItemsInfo.find { it.index == timeTextHomeOffset.index }
                     ?.let {
                         -it.offset - initialOffsetDp.toPx()
                     },

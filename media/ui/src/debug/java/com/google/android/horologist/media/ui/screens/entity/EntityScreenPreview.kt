@@ -45,7 +45,6 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.composables.PlaceholderChip
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
 
@@ -53,7 +52,6 @@ import com.google.android.horologist.compose.material.Chip
 @Composable
 fun EntityScreenPreview() {
     EntityScreen(
-        columnState = rememberResponsiveColumnState(),
         headerContent = {
             Box(
                 modifier = Modifier
@@ -109,7 +107,6 @@ fun EntityScreenPreview() {
 @Composable
 fun EntityScreenPreviewLoadedState() {
     EntityScreen(
-        columnState = rememberResponsiveColumnState(),
         entityScreenState = EntityScreenState.Loaded(listOf("Song 1", "Song 2")),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },
@@ -122,7 +119,6 @@ fun EntityScreenPreviewLoadedState() {
 @Composable
 fun EntityScreenPreviewLoadingState() {
     EntityScreen(
-        columnState = rememberResponsiveColumnState(),
         entityScreenState = EntityScreenState.Loading,
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
@@ -135,7 +131,6 @@ fun EntityScreenPreviewLoadingState() {
 @Composable
 fun EntityScreenPreviewFailedState() {
     EntityScreen(
-        columnState = rememberResponsiveColumnState(),
         entityScreenState = EntityScreenState.Failed,
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },

@@ -16,26 +16,19 @@
 
 package com.google.android.horologist.auth.ui.common.screens.prompt
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
-import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.material.Title
+import com.google.android.horologist.compose.material.AlertContent
 
 /**
  * A screen to prompt users to sign in.
@@ -58,7 +51,6 @@ import com.google.android.horologist.compose.material.Title
 public fun SignInPromptScreen(
     message: String,
     onAlreadySignedIn: (account: AccountUiModel) -> Unit,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_signin_prompt_title),
     viewModel: SignInPromptViewModel = viewModel(),
@@ -73,7 +65,6 @@ public fun SignInPromptScreen(
         message = message,
         onIdleStateObserved = { viewModel.onIdleStateObserved() },
         onAlreadySignedIn = onAlreadySignedIn,
-        columnState = columnState,
         loadingContent = loadingContent,
         modifier = modifier,
         content = content,
@@ -87,7 +78,6 @@ public fun SignInPromptScreen(
     message: String,
     onIdleStateObserved: () -> Unit,
     onAlreadySignedIn: (account: AccountUiModel) -> Unit,
-    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
     content: ScalingLazyListScope.() -> Unit,
@@ -113,27 +103,12 @@ public fun SignInPromptScreen(
             }
 
             SignInPromptScreenState.SignedOut -> {
-                ScalingLazyColumn(
-                    columnState = columnState,
+                AlertContent(
+                    title = title,
+                    message = message,
+                    content = content,
                     modifier = modifier,
-                ) {
-                    item { Title(title) }
-                    item {
-                        Text(
-                            text = message,
-                            modifier = Modifier.padding(
-                                top = 8.dp,
-                                bottom = 12.dp,
-                                start = 10.dp,
-                                end = 10.dp,
-                            ),
-                            color = MaterialTheme.colors.onBackground,
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.body2,
-                        )
-                    }
-                    apply(content)
-                }
+                )
             }
         }
     }

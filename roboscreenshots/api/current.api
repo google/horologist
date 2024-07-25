@@ -137,6 +137,7 @@ package com.google.android.horologist.screenshots.rng {
   }
 
   public static final class WearScreenshotTest.Companion {
+    method @androidx.compose.runtime.Composable public void CorrectLayout(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public void useHardwareRenderer();
     method @androidx.compose.runtime.Composable public void withImageLoader(coil.test.FakeImageLoaderEngine? imageLoaderEngine, kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }

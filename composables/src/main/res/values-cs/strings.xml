@@ -38,8 +38,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Min</string>
   <string name="horologist_time_picker_period">Období</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">Den</string>
   <string name="horologist_picker_month">Měsíc</string>
   <string name="horologist_picker_year">Rok</string>

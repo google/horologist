@@ -23,6 +23,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavBackStackEntry
@@ -51,13 +55,18 @@ public fun PlayerLibraryPagerScreen(
     modifier: Modifier = Modifier,
 ) {
     val route = backStack.toRoute<NavigationScreen.Player>()
+    var pageApplied by rememberSaveable(backStack) { mutableStateOf(false) }
 
     LaunchedEffect(route.page) {
-        try {
-            pagerState.animateScrollToPage(route.page)
-        } catch (e: CancellationException) {
-            // may be cancelled by user interaction
-            pagerState.scrollToPage(route.page)
+        if (route.page != null && !pageApplied) {
+            try {
+                pagerState.animateScrollToPage(route.page)
+            } catch (e: CancellationException) {
+                // Not sure why we get a cancellation here, but we want the page
+                // nav to take effect and persist
+                pagerState.scrollToPage(route.page)
+            }
+            pageApplied = true
         }
     }
 

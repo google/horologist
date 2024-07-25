@@ -94,6 +94,18 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.google.android.horologist.audit.AuditActivity"
+            android:exported="true"
+            android:label="Large Screen Audit"
+            android:icon="@drawable/audit_24"
+            android:taskAffinity=".audit">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".tiles.ExampleTileService"
             android:description="@string/tile_description"

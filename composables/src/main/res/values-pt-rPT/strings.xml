@@ -32,8 +32,6 @@
   </plurals>
   <string name="horologist_time_picker_min">Min</string>
   <string name="horologist_time_picker_period">Período</string>
-  <string name="horologist_time_picker_am">AM</string>
-  <string name="horologist_time_picker_pm">PM</string>
   <string name="horologist_picker_day">Dia</string>
   <string name="horologist_picker_month">Mês</string>
   <string name="horologist_picker_year">Ano</string>

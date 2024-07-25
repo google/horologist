@@ -81,6 +81,11 @@ public fun ResponsiveDialogContent(
     ScreenScaffold(
         modifier = modifier.fillMaxSize(),
         scrollState = if (showPositionIndicator) state else null,
+        positionIndicator = if (showPositionIndicator) {
+            null
+        } else {
+            {}
+        },
         timeText = {},
     ) {
         // This will be applied only to the content.
@@ -133,16 +138,7 @@ public fun ResponsiveDialogContent(
                 }
                 if (onOk != null || onCancel != null) {
                     item {
-                        val width = LocalConfiguration.current.screenWidthDp
-                        val buttonSpacedBy = 12
-                        // Single buttons, or buttons on smaller screens are not meant to be
-                        // responsive.
-                        val buttonWidth = if (width < 225 || onOk == null || onCancel == null) {
-                            ButtonDefaults.DefaultButtonSize
-                        } else {
-                            // 14.56% margin on the sides, 12.dp between.
-                            ((width * (1f - 2 * 0.1456f) - buttonSpacedBy) / 2).dp
-                        }
+                        val (buttonSpacedBy, buttonWidth) = responsiveButtonWidth(if (onOk != null && onCancel != null) 2 else 1)
                         Row(
                             Modifier
                                 .fillMaxWidth()
@@ -150,7 +146,7 @@ public fun ResponsiveDialogContent(
                                     top = if (content != null) 12.dp else 0.dp,
                                 ),
                             horizontalArrangement = spacedBy(
-                                buttonSpacedBy.dp,
+                                buttonSpacedBy,
                                 Alignment.CenterHorizontally,
                             ),
                             verticalAlignment = Alignment.CenterVertically,
@@ -181,7 +177,24 @@ public fun ResponsiveDialogContent(
 }
 
 @Composable
-private fun ResponsiveButton(
+public fun responsiveButtonWidth(
+    buttonCount: Int,
+): Pair<Dp, Dp> {
+    val width = LocalConfiguration.current.screenWidthDp
+    val buttonSpacedBy = 12.dp
+    // Single buttons, or buttons on smaller screens are not meant to be
+    // responsive.
+    val buttonWidth = if (width < 225 || buttonCount != 2) {
+        ButtonDefaults.DefaultButtonSize
+    } else {
+        // 14.56% margin on the sides, 12.dp between.
+        ((width * (1f - 2 * 0.1456f) - buttonSpacedBy.value) / 2).dp
+    }
+    return Pair(buttonSpacedBy, buttonWidth)
+}
+
+@Composable
+public fun ResponsiveButton(
     icon: ImageVector,
     contentDescription: String,
     onClick: () -> Unit,

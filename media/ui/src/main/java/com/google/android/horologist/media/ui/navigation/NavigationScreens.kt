@@ -27,7 +27,7 @@ public interface NavigationScreen {
     @Serializable
     public data class Player(val page: Int = -1) : NavigationScreen {
         public companion object {
-            fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
+            public fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
                 navDeepLink {
                     uriPattern = "$deepLinkPrefix/player?page={page}"
                 },

@@ -23,6 +23,8 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
     kotlin("android")
+    kotlin("plugin.serialization")
+    alias(libs.plugins.compose.compiler)
 }
 
 val localProperties = Properties()
@@ -93,17 +95,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     buildFeatures {
-        compose = true
         buildConfig = true
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = JavaVersion.VERSION_17.majorVersion
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + """
             androidx.compose.foundation.ExperimentalFoundationApi
@@ -115,10 +116,6 @@ android {
             """.trim().split("\\s+".toRegex()).map {
             "-opt-in=$it"
         }
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
     lint {
@@ -213,6 +210,7 @@ dependencies {
     implementation(libs.moshi.adapters)
     implementation(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
+    implementation(libs.kotlinx.serialization.core)
 
     implementation(libs.androidx.palette.ktx)
 

@@ -19,11 +19,12 @@ package com.google.android.horologist.mediasample.ui.entity
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.google.android.horologist.media.model.PlaylistDownload
 import com.google.android.horologist.media.repository.MediaDownloadRepository
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.repository.PlaylistDownloadRepository
-import com.google.android.horologist.media.ui.navigation.NavigationScreens
+import com.google.android.horologist.media.ui.navigation.NavigationScreen
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
 import com.google.android.horologist.media.ui.screens.entity.createPlaylistDownloadScreenStateLoaded
 import com.google.android.horologist.media.ui.state.mapper.DownloadMediaUiModelMapper
@@ -51,10 +52,10 @@ class UampEntityScreenViewModel
         private val playerRepository: PlayerRepository,
         private val settingsRepository: SettingsRepository,
     ) : ViewModel() {
-        private val playlistId: String = savedStateHandle[NavigationScreens.Collection.id]!!
+        private val route = savedStateHandle.toRoute<NavigationScreen.Collection>()
 
         private val playlistDownload: StateFlow<PlaylistDownload?> =
-            playlistDownloadRepository.get(playlistId)
+            playlistDownloadRepository.get(route.id)
                 .stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
 
         val uiState: StateFlow<PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>> =
@@ -89,7 +90,7 @@ class UampEntityScreenViewModel
                     .indexOfFirst { it.media.id == mediaId }
                     .coerceAtLeast(0)
                 viewModelScope.launch {
-                    settingsRepository.edit { it.copy { currentMediaListId = playlistId } }
+                    settingsRepository.edit { it.copy { currentMediaListId = route.id } }
                 }
                 playerRepository.setShuffleModeEnabled(shuffled)
                 playerRepository.setMediaList(playlistDownload.playlist.mediaList, index)

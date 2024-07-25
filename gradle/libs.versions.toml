@@ -39,10 +39,10 @@ gradlePlugin = "8.4.2"
 gradlePublishPlugin = "0.29.0"
 io-coil-kt = "2.7.0"
 junit = "4.13.2"
-kotlin = "1.9.24"
+kotlin = "2.0.0"
 kotlinxCoroutine = "1.8.1"
-kotlinxSerialization = "1.6.3"
-ksp = "1.9.24-1.0.20"
+kotlinxSerialization = "1.7.0"
+ksp = "2.0.0-1.0.23"
 ktlint = "0.50.0"
 metalava = "0.3.5"
 moshi = "1.15.1"
@@ -221,3 +221,4 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 metalavaGradle = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava" }
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

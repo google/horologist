@@ -19,6 +19,7 @@ plugins {
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
     kotlin("android")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -30,22 +31,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     buildFeatures {
         buildConfig = false
-        compose = true
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = JavaVersion.VERSION_17.majorVersion
         freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
     packaging {
@@ -75,8 +71,8 @@ android {
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
     if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        this.kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+        compilerOptions {
+            freeCompilerArgs.add("-Xexplicit-api=strict")
         }
     }
 }

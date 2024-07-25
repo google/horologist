@@ -30,12 +30,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.toRoute
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.pager.PagerScreen
-import com.google.android.horologist.media.ui.navigation.NavigationScreens
+import com.google.android.horologist.media.ui.navigation.NavigationScreen
 import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.CancellationException
 
@@ -53,17 +54,17 @@ public fun PlayerLibraryPagerScreen(
     backStack: NavBackStackEntry,
     modifier: Modifier = Modifier,
 ) {
-    val pageParam = NavigationScreens.Player.getPageParam(backStack)
+    val route = backStack.toRoute<NavigationScreen.Player>()
     var pageApplied by rememberSaveable(backStack) { mutableStateOf(false) }
 
-    LaunchedEffect(pageParam) {
-        if (pageParam != null && !pageApplied) {
+    LaunchedEffect(route.page) {
+        if (route.page != null && !pageApplied) {
             try {
-                pagerState.animateScrollToPage(pageParam)
+                pagerState.animateScrollToPage(route.page)
             } catch (e: CancellationException) {
                 // Not sure why we get a cancellation here, but we want the page
                 // nav to take effect and persist
-                pagerState.scrollToPage(pageParam)
+                pagerState.scrollToPage(route.page)
             }
             pageApplied = true
         }

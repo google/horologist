@@ -1,5 +1,6 @@
 import com.android.build.gradle.LibraryExtension
 import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URL
 import java.util.Properties
 
@@ -47,6 +48,7 @@ plugins {
     alias(libs.plugins.dependencyAnalysis)
     alias(libs.plugins.roborazzi) apply false
     alias(libs.plugins.kotlinx.serialization) apply false
+    alias(libs.plugins.compose.compiler) apply false
 }
 
 apply(plugin = "org.jetbrains.dokka")
@@ -98,19 +100,18 @@ subprojects {
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        kotlinOptions {
+        compilerOptions {
             if (rootProject.property("strict.build") == true) {
                 // Treat all Kotlin warnings as errors
                 allWarningsAsErrors = true
             }
-            // Set JVM target to 11
-            jvmTarget = "11"
-            freeCompilerArgs = freeCompilerArgs + listOf(
+            jvmTarget.set(JvmTarget.JVM_17)
+            freeCompilerArgs.addAll(listOf(
                 // Allow use of @OptIn
                 "-opt-in=kotlin.RequiresOptIn",
                 // Enable default methods in interfaces
                 "-Xjvm-default=all"
-            )
+            ))
         }
     }
 

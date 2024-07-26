@@ -25,7 +25,7 @@ import kotlinx.serialization.Serializable
  */
 public interface NavigationScreen {
     @Serializable
-    public data class Player(val page: Int? = null) : NavigationScreen {
+    public data class Player(val page: Int = -1) : NavigationScreen {
         public companion object {
             public fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
                 navDeepLink {

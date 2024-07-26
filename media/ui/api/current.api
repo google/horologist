@@ -256,7 +256,7 @@ package com.google.android.horologist.media.ui.navigation {
   }
 
   @kotlinx.serialization.Serializable public static final class NavigationScreen.Collection implements com.google.android.horologist.media.ui.navigation.NavigationScreen {
-    ctor public NavigationScreen.Collection(String id, String? name);
+    ctor public NavigationScreen.Collection(String id, optional String? name);
     method public String component1();
     method public String? component2();
     method public com.google.android.horologist.media.ui.navigation.NavigationScreen.Collection copy(String id, String? name);
@@ -293,12 +293,14 @@ package com.google.android.horologist.media.ui.navigation {
   }
 
   @kotlinx.serialization.Serializable public static final class NavigationScreen.Player implements com.google.android.horologist.media.ui.navigation.NavigationScreen {
-    ctor public NavigationScreen.Player(optional Integer? page);
-    method public Integer? component1();
-    method public com.google.android.horologist.media.ui.navigation.NavigationScreen.Player copy(Integer? page);
-    method public Integer? getPage();
-    property public final Integer? page;
+    ctor public NavigationScreen.Player(optional int page);
+    method public int component1();
+    method public com.google.android.horologist.media.ui.navigation.NavigationScreen.Player copy(int page);
+    method public int getPage();
+    property public final int page;
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreen.Player.Companion Companion;
+    field public static final int Library = 1; // 0x1
+    field public static final int Player = 0; // 0x0
   }
 
   public static final class NavigationScreen.Player.Companion {

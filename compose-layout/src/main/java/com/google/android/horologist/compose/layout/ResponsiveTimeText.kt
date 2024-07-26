@@ -63,7 +63,5 @@ public fun ResponsiveTimeText(
 
 @Composable
 public fun responsivePaddingDefaults(): PaddingValues {
-    val height = LocalConfiguration.current.screenHeightDp
-    val padding = height * 0.021
-    return PaddingValues(padding.dp)
+    return PaddingValues(4.dp)
 }

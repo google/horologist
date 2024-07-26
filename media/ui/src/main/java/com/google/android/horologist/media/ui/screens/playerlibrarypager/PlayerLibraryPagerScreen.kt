@@ -58,7 +58,7 @@ public fun PlayerLibraryPagerScreen(
     var pageApplied by rememberSaveable(backStack) { mutableStateOf(false) }
 
     LaunchedEffect(route.page) {
-        if (route.page != null && !pageApplied) {
+        if (route.page != -1 && !pageApplied) {
             try {
                 pagerState.animateScrollToPage(route.page)
             } catch (e: CancellationException) {

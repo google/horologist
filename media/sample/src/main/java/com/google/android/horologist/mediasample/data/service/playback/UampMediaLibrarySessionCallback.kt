@@ -16,10 +16,12 @@
 
 package com.google.android.horologist.mediasample.data.service.playback
 
+import android.annotation.SuppressLint
 import androidx.media3.common.MediaItem
 import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
+import androidx.media3.session.SessionError
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.service.SuspendingMediaLibrarySessionCallback
 import com.google.common.collect.ImmutableList
@@ -28,25 +30,28 @@ import kotlinx.coroutines.CoroutineScope
 class UampMediaLibrarySessionCallback(
     serviceScope: CoroutineScope,
     appEventLogger: ErrorReporter,
-) : SuspendingMediaLibrarySessionCallback(serviceScope, appEventLogger) {
+) : SuspendingMediaLibrarySessionCallback(serviceScope, appEventLogger) {        
+    @SuppressLint("UnsafeOptInUsageError")
     override suspend fun onGetLibraryRootInternal(
         session: MediaLibraryService.MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
         params: MediaLibraryService.LibraryParams?,
     ): LibraryResult<MediaItem> {
-        // TODO implement
-        return LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
+        // TODO implement                    
+        LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
     }
 
+    @SuppressLint("UnsafeOptInUsageError")
     override suspend fun onGetItemInternal(
         session: MediaLibraryService.MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
         mediaId: String,
     ): LibraryResult<MediaItem> {
         // TODO implement
-        return LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
+        LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
     }
 
+    @SuppressLint("UnsafeOptInUsageError")
     override suspend fun onGetChildrenInternal(
         session: MediaLibraryService.MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
@@ -56,6 +61,6 @@ class UampMediaLibrarySessionCallback(
         params: MediaLibraryService.LibraryParams?,
     ): LibraryResult<ImmutableList<MediaItem>> {
         // TODO implement
-        return LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
+        LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
     }
 }

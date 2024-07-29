@@ -37,7 +37,7 @@ class UampMediaLibrarySessionCallback(
         browser: MediaSession.ControllerInfo,
         params: MediaLibraryService.LibraryParams?,
     ): LibraryResult<MediaItem> {
-        // TODO implement                    
+        // TODO implement
         LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
     }
 

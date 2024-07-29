@@ -32,7 +32,7 @@ import androidx.wear.compose.material.TimeTextDefaults.TextSeparator
 import androidx.wear.compose.material.TimeTextDefaults.timeFormat
 
 /**
- * Provides a [TimeText] component with a responsive padding of 2.1%.
+ * Provides a [TimeText] component with a responsive padding of 2dp.
  */
 @Composable
 public fun ResponsiveTimeText(
@@ -63,5 +63,5 @@ public fun ResponsiveTimeText(
 
 @Composable
 public fun responsivePaddingDefaults(): PaddingValues {
-    return PaddingValues(4.dp)
+    return PaddingValues(2.dp)
 }

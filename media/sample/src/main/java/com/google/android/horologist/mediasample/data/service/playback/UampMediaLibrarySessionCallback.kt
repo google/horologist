@@ -38,7 +38,7 @@ class UampMediaLibrarySessionCallback(
         params: MediaLibraryService.LibraryParams?,
     ): LibraryResult<MediaItem> {
         // TODO implement
-        LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
+        return LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
     }
 
     @SuppressLint("UnsafeOptInUsageError")
@@ -48,7 +48,7 @@ class UampMediaLibrarySessionCallback(
         mediaId: String,
     ): LibraryResult<MediaItem> {
         // TODO implement
-        LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
+        return LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
     }
 
     @SuppressLint("UnsafeOptInUsageError")
@@ -61,6 +61,6 @@ class UampMediaLibrarySessionCallback(
         params: MediaLibraryService.LibraryParams?,
     ): LibraryResult<ImmutableList<MediaItem>> {
         // TODO implement
-        LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
+        return LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
     }
 }

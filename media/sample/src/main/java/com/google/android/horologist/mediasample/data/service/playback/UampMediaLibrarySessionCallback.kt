@@ -30,7 +30,7 @@ import kotlinx.coroutines.CoroutineScope
 class UampMediaLibrarySessionCallback(
     serviceScope: CoroutineScope,
     appEventLogger: ErrorReporter,
-) : SuspendingMediaLibrarySessionCallback(serviceScope, appEventLogger) {        
+) : SuspendingMediaLibrarySessionCallback(serviceScope, appEventLogger) {
     @SuppressLint("UnsafeOptInUsageError")
     override suspend fun onGetLibraryRootInternal(
         session: MediaLibraryService.MediaLibrarySession,

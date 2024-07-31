@@ -140,6 +140,7 @@ com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logg
 com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "com-squareup-okhttp3" }
 compose-bom = "androidx.compose:compose-bom:2024.06.00"
+compose-animation-animationgraphics = { module = "androidx.compose.animation:animation-graphics", version.ref = "compose" }
 compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-foundation-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
 compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }

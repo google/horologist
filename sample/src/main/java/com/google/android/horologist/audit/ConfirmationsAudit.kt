@@ -16,12 +16,24 @@
 
 package com.google.android.horologist.audit
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Cyclone
+import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
+import androidx.compose.animation.graphics.res.animatedVectorResource
+import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
+import androidx.compose.animation.graphics.vector.AnimatedImageVector
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.wear.compose.material.Icon
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.material.Confirmation
+import com.google.android.horologist.sample.R
 
+@OptIn(ExperimentalAnimationGraphicsApi::class)
 @Composable
 fun ConfirmationsAudit(route: AuditNavigation.Confirmations.Audit) {
     when (route.config) {
@@ -29,7 +41,11 @@ fun ConfirmationsAudit(route: AuditNavigation.Confirmations.Audit) {
             Confirmation(
                 showDialog = true,
                 title = "Title",
-                icon = { Icon(Icons.Default.Cyclone, contentDescription = "") },
+                icon = {
+                    AnimatedIcon(
+                        AnimatedImageVector.animatedVectorResource(R.drawable.openonphone),
+                    )
+                },
                 onTimeout = {},
             )
         }
@@ -38,12 +54,32 @@ fun ConfirmationsAudit(route: AuditNavigation.Confirmations.Audit) {
             Confirmation(
                 showDialog = true,
                 title = "Title\nThis is a second and third line.",
-                icon = { Icon(Icons.Default.Cyclone, contentDescription = "") },
+                icon = {
+                    AnimatedIcon(
+                        AnimatedImageVector.animatedVectorResource(R.drawable.openonphone),
+                    )
+                },
                 onTimeout = {},
             )
         }
-
-        AuditNavigation.Confirmations.Config.TwoBottomRound -> {
-        }
     }
+}
+
+@OptIn(ExperimentalAnimationGraphicsApi::class)
+@Composable
+private fun AnimatedIcon(animation: AnimatedImageVector) {
+    // Initially, animation is static and shown at the start position (atEnd =
+    // false).
+    // Then, we use the EffectAPI to trigger a state change to atEnd = true,
+    // which plays the animation from start to end.
+    var atEnd by remember { mutableStateOf(false) }
+    DisposableEffect(Unit) {
+        atEnd = true
+        onDispose {}
+    }
+    Image(
+        painter = rememberAnimatedVectorPainter(animation, atEnd),
+        contentDescription = "Open on phone",
+        modifier = Modifier.size(48.dp),
+    )
 }

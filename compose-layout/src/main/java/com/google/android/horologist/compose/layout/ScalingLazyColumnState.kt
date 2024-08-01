@@ -42,6 +42,7 @@ import androidx.wear.compose.foundation.lazy.ScalingParams
 import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
 import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.snapBehavior
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -251,7 +252,7 @@ public fun ScalingLazyColumn(
 @WearPreviewFontScales
 fun previewInitialScrolling() {
     AppScaffold(
-        timeText = { ResponsiveTimeText() },
+        timeText = { TimeText() },
     ) {
         val columnState = rememberResponsiveColumnState(
             contentPadding = ScalingLazyColumnDefaults.padding(

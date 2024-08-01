@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalAccessibilityManager
@@ -105,7 +106,11 @@ public fun ConfirmationContent(
     title: String? = null,
     columnState: ScalingLazyColumnState = rememberColumnState(
         ScalingLazyColumnDefaults.responsive(
-            verticalArrangement = DialogDefaults.ConfirmationVerticalArrangement,
+            verticalArrangement = Arrangement.spacedBy(
+                // NB an additional 4dp bottom padding is added after the icon
+                // in ResponsiveDialogContent to make the 8dp in the UX spec.
+                space = 4.dp, alignment = Alignment.CenterVertically
+            ),
             additionalPaddingAtBottom = 0.dp,
         ),
     ),

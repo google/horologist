@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
-import com.google.android.horologist.compose.layout.ResponsiveTimeText
+import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.pager.PagerScreen
@@ -51,7 +51,7 @@ fun PlayerLibraryPreview(
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     timeText = {
-                        ResponsiveTimeText(
+                        TimeText(
                             modifier = Modifier.scrollAway(columnState),
                             timeSource = FixedTimeSource,
                         )

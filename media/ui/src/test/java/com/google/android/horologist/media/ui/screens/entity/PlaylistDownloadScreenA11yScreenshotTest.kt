@@ -32,12 +32,12 @@ import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.LocalReduceMotion
 import androidx.wear.compose.foundation.ReduceMotion
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.TimeText
 import coil.annotation.ExperimentalCoilApi
 import coil.decode.DataSource
 import coil.request.SuccessResult
 import coil.test.FakeImageLoaderEngine
 import com.google.android.horologist.compose.layout.AppScaffold
-import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.images.base.util.rememberVectorPainter
 import com.google.android.horologist.images.coil.FakeImageLoader
@@ -260,7 +260,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colors.background),
-            timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
+            timeText = { TimeText(timeSource = FixedTimeSource) },
         ) {
             PagerScreen(
                 state = rememberPagerState {

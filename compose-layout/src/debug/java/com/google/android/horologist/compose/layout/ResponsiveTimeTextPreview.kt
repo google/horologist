@@ -22,5 +22,6 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @WearPreviewDevices
 @Composable
 fun ResponsiveTimeTextPreview() {
+    @Suppress("DEPRECATION")
     ResponsiveTimeText()
 }

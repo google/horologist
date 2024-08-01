@@ -24,10 +24,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.material.TimeText
 import coil.annotation.ExperimentalCoilApi
 import coil.test.FakeImageLoaderEngine
 import com.google.android.horologist.compose.layout.AppScaffold
-import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.images.base.util.rememberVectorPainter
@@ -77,7 +77,7 @@ class MediaPlayerLibraryTest(device: Device) :
 
             AppScaffold(
                 timeText = {
-                    ResponsiveTimeText(
+                    TimeText(
                         timeSource = FixedTimeSource,
                     )
                 },

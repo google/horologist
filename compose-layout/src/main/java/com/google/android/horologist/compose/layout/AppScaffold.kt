@@ -40,7 +40,7 @@ import androidx.wear.compose.material.TimeText
 @Composable
 fun AppScaffold(
     modifier: Modifier = Modifier,
-    timeText: @Composable () -> Unit = { ResponsiveTimeText() },
+    timeText: @Composable () -> Unit = { TimeText() },
     content: @Composable BoxScope.() -> Unit,
 ) {
     val scaffoldState = LocalScaffoldState.current.apply {

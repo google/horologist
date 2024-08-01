@@ -48,8 +48,8 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CompactChip
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
@@ -142,7 +142,7 @@ fun RotaryScrollScreen(
         rememberColumnState(ScalingLazyColumnDefaults.responsive(reverseLayout = reverseDirection))
     Scaffold(timeText = {
         if (!reverseDirection) {
-            ResponsiveTimeText(modifier = Modifier.scrollAway(columnState))
+            TimeText(modifier = Modifier.scrollAway(columnState))
         }
     }) {
         ScalingLazyColumn(
@@ -172,7 +172,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
             ),
         )
 
-        Scaffold(timeText = { ResponsiveTimeText(modifier = Modifier.scrollAway(columnState)) }) {
+        Scaffold(timeText = { TimeText(modifier = Modifier.scrollAway(columnState)) }) {
             ScalingLazyColumn(
                 columnState = columnState,
             ) {
@@ -196,7 +196,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
                 hapticsEnabled = hapticsEnabled,
             ),
         )
-        Scaffold(timeText = { ResponsiveTimeText(modifier = Modifier.scrollAway(columnState)) }) {
+        Scaffold(timeText = { TimeText(modifier = Modifier.scrollAway(columnState)) }) {
             ScrollPreferences(
                 columnState = columnState,
                 itemTypeIndex = itemTypeIndex,

@@ -38,6 +38,7 @@ import androidx.test.espresso.Root
 import androidx.test.espresso.base.RootsOracle_Factory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.TimeText
 import coil.annotation.ExperimentalCoilApi
 import coil.test.FakeImageLoaderEngine
 import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
@@ -47,7 +48,6 @@ import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.ThresholdValidator
 import com.github.takahirom.roborazzi.captureRoboImage
 import com.google.android.horologist.compose.layout.AppScaffold
-import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.CorrectLayout
@@ -168,7 +168,7 @@ public abstract class WearLegacyA11yTest {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colors.background),
-                timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
+                timeText = { TimeText(timeSource = FixedTimeSource) },
             ) {
                 content()
             }

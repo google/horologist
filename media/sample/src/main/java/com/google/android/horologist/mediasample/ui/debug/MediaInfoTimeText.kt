@@ -27,7 +27,6 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.mediasample.data.service.offload.AudioOffloadStatus
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.NetworkType
@@ -65,7 +64,7 @@ public fun MediaInfoTimeText(
     val style = CurvedTextStyle(MaterialTheme.typography.caption3)
     val context = LocalContext.current
 
-    ResponsiveTimeText(
+    TimeText(
         modifier = modifier,
         startCurvedContent = {
             curveDataUsage(

@@ -187,6 +187,8 @@ public fun DatePicker(
             }
         }
 
+    val paddingAroundPicker = if (isLargeScreen) 6.dp else 4.dp
+
     ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
@@ -214,7 +216,7 @@ public fun DatePicker(
                     style = MaterialTheme.typography.button,
                     maxLines = 1,
                 )
-                Spacer(Modifier.height(4.dp))
+                Spacer(Modifier.height(paddingAroundPicker))
                 val spacerWidth = if (isLargeScreen) 6.dp else 2.dp
                 val textPadding = 6.dp // Update if UX decides a different value should be used.
 
@@ -333,7 +335,7 @@ public fun DatePicker(
                         )
                     }
                 }
-                Spacer(Modifier.height(4.dp))
+                Spacer(Modifier.height(paddingAroundPicker))
                 Button(
                     onClick = {
                         if (pickerGroupState.selectedIndex >= 2) {

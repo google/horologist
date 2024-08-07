@@ -1,10 +1,9 @@
 # Gradle
 .gradle
 build/
+/local.properties
 
 captures
-
-/local.properties
 
 # IntelliJ .idea folder
 .idea/workspace.xml

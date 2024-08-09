@@ -35,9 +35,12 @@ import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.compose.material.IconRtlMode
 
 /**
- * Button to launch a screen to control the system volume, using volume up icon as
- * default if no [volumeUiState] is passed in.
+ * Button to launch a screen to control the system audio output and volume.
  *
+ * Using media output off icon as default if no [audioOutputUi] is passed in.
+ * Using volume up icon as default if no [volumeUiState] is passed in.
+ *
+ * See [AudioOutputUi]
  * See [VolumeUiState]
  */
 @Composable
@@ -56,7 +59,7 @@ public fun SetAudioOutputButton(
         onClick = onVolumeClick,
         enabled = enabled,
         imageVector = when {
-            audioOutputUi?.isConnected ?: false -> audioOutputUi!!.imageVector
+            audioOutputUi?.isConnected == true -> audioOutputUi.imageVector
             else -> ImageVector.vectorResource(R.drawable.media_output_off_24)
         },
         badgeVector = if (audioOutputUi?.isConnected ?: false) {

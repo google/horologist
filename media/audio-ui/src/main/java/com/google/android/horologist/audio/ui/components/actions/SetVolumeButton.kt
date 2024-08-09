@@ -30,6 +30,9 @@ import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.compose.material.IconRtlMode
 
 /**
+ * It is recommended to use [SetAudioOutputButton] as it also provides the information about current
+ * audio output.
+ *
  * Button to launch a screen to control the system volume, using volume up icon as
  * default if no [volumeUiState] is passed in.
  *

@@ -25,6 +25,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons

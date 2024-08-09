@@ -18,10 +18,9 @@ package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -72,17 +71,17 @@ public fun SettingsButton(
             Icon(
                 paintable = imageVector.asPaintable(),
                 contentDescription = contentDescription,
-                modifier = Modifier.size(iconSize).border(width=0.dp, color=Color.Transparent, shape=CircleShape),
+                modifier = Modifier.size(iconSize).border(width = 0.dp, color = Color.Transparent, shape = CircleShape),
                 rtlMode = iconRtlMode,
             )
-            if(badgeVector != null) {
+            if (badgeVector != null) {
                 Icon(
                     paintable = badgeVector!!.asPaintable(),
                     contentDescription = contentDescription,
                     modifier = Modifier.size(badgeSize)
                         .align(Alignment.CenterEnd)
-                        .offset(badgeSize-2.dp)
-                        .background(color=badgeColor, shape = CircleShape),
+                        .offset(badgeSize - 2.dp)
+                        .background(color = badgeColor, shape = CircleShape),
                 )
             }
         }

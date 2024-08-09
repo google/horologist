@@ -17,6 +17,7 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.screenshots.rng.WearDevice
@@ -40,7 +41,7 @@ class ScalingLazyColumnStateTest(override val device: WearDevice) : WearScreensh
     fun testRememberResponsiveColumnState() =
         runTest {
             AppScaffold(
-                timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
+                timeText = { TimeText(timeSource = FixedTimeSource) },
             ) {
                 val columnState = rememberResponsiveColumnState(
                     contentPadding = ScalingLazyColumnDefaults.padding(
@@ -64,7 +65,7 @@ class ScalingLazyColumnStateTest(override val device: WearDevice) : WearScreensh
     fun testSetInitialRememberResponsiveColumnState() =
         runTest {
             AppScaffold(
-                timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
+                timeText = { TimeText(timeSource = FixedTimeSource) },
             ) {
                 val columnState = rememberResponsiveColumnState(
                     contentPadding = ScalingLazyColumnDefaults.padding(

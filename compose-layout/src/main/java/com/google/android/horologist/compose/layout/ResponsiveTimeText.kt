@@ -19,7 +19,6 @@ package com.google.android.horologist.compose.layout
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.CurvedScope
@@ -32,8 +31,15 @@ import androidx.wear.compose.material.TimeTextDefaults.TextSeparator
 import androidx.wear.compose.material.TimeTextDefaults.timeFormat
 
 /**
- * Provides a [TimeText] component with a responsive padding of 2.1%.
+ * Provides a [TimeText] component with a responsive padding of 2dp.
  */
+@Deprecated(
+    message = "Use TimeText instead",
+    replaceWith = ReplaceWith(
+        "TimeText",
+        "androidx.wear.compose.material.TimeText",
+    ),
+)
 @Composable
 public fun ResponsiveTimeText(
     modifier: Modifier = Modifier,
@@ -63,7 +69,5 @@ public fun ResponsiveTimeText(
 
 @Composable
 public fun responsivePaddingDefaults(): PaddingValues {
-    val height = LocalConfiguration.current.screenHeightDp
-    val padding = height * 0.021
-    return PaddingValues(padding.dp)
+    return PaddingValues(2.dp)
 }

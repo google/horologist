@@ -25,6 +25,7 @@ class ResponsiveTimeTextTest : WearLegacyScreenTest() {
     @Test
     fun defaultTimeText() {
         runTest {
+            @Suppress("DEPRECATION")
             ResponsiveTimeText(
                 timeSource = object : TimeSource {
                     override val currentTime: String

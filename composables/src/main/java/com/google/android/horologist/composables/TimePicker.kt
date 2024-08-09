@@ -204,6 +204,8 @@ public fun TimePicker(
             }
         }
 
+    val paddingAroundPicker = if (isLargeScreen) 6.dp else 4.dp
+
     ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
@@ -227,11 +229,11 @@ public fun TimePicker(
                 style = MaterialTheme.typography.button,
                 maxLines = 1,
             )
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(paddingAroundPicker))
             Row(
-                // Horizontal padding is 2.08% + 5.2%
+                // Horizontal padding is 5.2%
                 modifier = Modifier
-                    .fillMaxWidth(1 - 2 * 0.0728f)
+                    .fillMaxWidth(1 - 2 * 0.052f)
                     .weight(1f),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
@@ -297,7 +299,7 @@ public fun TimePicker(
                     touchExplorationStateProvider = touchExplorationStateProvider,
                 )
             }
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(paddingAroundPicker))
             Button(
                 onClick = {
                     val seconds = if (showSeconds) secondState.selectedOption else 0
@@ -432,6 +434,8 @@ public fun TimePickerWith12HourClock(
         }
     }
 
+    val paddingAroundPicker = if (isLargeScreen) 6.dp else 4.dp
+
     ScreenScaffold(
         modifier = modifier
             .fillMaxSize()
@@ -454,7 +458,7 @@ public fun TimePickerWith12HourClock(
                 style = MaterialTheme.typography.button,
                 maxLines = 1,
             )
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(paddingAroundPicker))
             FontScaleIndependent {
                 val measurer = rememberTextMeasurer()
                 val density = LocalDensity.current
@@ -479,7 +483,7 @@ public fun TimePickerWith12HourClock(
 
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth(1 - 2 * 0.0728f)
+                        .fillMaxWidth(1 - 2 * 0.052f)
                         .weight(1f),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
@@ -551,7 +555,7 @@ public fun TimePickerWith12HourClock(
                     )
                 }
             }
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(paddingAroundPicker))
             Button(
                 onClick = {
                     val confirmedTime = LocalTime.of(

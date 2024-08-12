@@ -71,8 +71,8 @@ class SLCTitleTest(device: WearDevice) : WearDeviceScreenshotTest(device) {
                     val columnState = rememberResponsiveColumnState(
                         contentPadding = padding(
                             first = topPadding,
-                            last = ItemType.Text
-                        )
+                            last = ItemType.Text,
+                        ),
                     )
 
                     val alpha = remember {
@@ -94,7 +94,7 @@ class SLCTitleTest(device: WearDevice) : WearDeviceScreenshotTest(device) {
                                     Text(
                                         modifier = Modifier.fillMaxWidth(),
                                         textAlign = TextAlign.Center,
-                                        text = "Alpha ${alpha.value}"
+                                        text = "Alpha ${alpha.value}",
                                     )
                                 }
                             }
@@ -118,14 +118,14 @@ class SLCTitleTest(device: WearDevice) : WearDeviceScreenshotTest(device) {
                                     Text(
                                         modifier = Modifier.fillMaxWidth(),
                                         textAlign = TextAlign.Center,
-                                        text = "Header ${textColor.hex}"
+                                        text = "Header ${textColor.hex}",
                                     )
                                 }
                             }
                             item {
                                 ResponsiveListHeader(
                                     contentColor = Color.White,
-                                    contentPadding = firstItemPadding()
+                                    contentPadding = firstItemPadding(),
                                 ) {
                                     val style = LocalTextStyle.current
                                     BasicText(
@@ -138,26 +138,26 @@ class SLCTitleTest(device: WearDevice) : WearDeviceScreenshotTest(device) {
                             item {
                                 ResponsiveListHeader(
                                     contentColor = Color.White,
-                                    contentPadding = firstItemPadding()
+                                    contentPadding = firstItemPadding(),
                                 ) {
                                     val localContentColor =
                                         LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
                                     BasicText(
                                         modifier = Modifier.fillMaxWidth(),
                                         text = "content color ${localContentColor.hex}",
-                                        color = { localContentColor }
+                                        color = { localContentColor },
                                     )
                                 }
                             }
                             item {
                                 ResponsiveListHeader(
                                     contentColor = Color.White,
-                                    contentPadding = firstItemPadding()
+                                    contentPadding = firstItemPadding(),
                                 ) {
                                     BasicText(
                                         modifier = Modifier.fillMaxWidth(),
                                         text = "White ${Color.White.hex}",
-                                        color = { Color.White }
+                                        color = { Color.White },
                                     )
                                 }
                             }

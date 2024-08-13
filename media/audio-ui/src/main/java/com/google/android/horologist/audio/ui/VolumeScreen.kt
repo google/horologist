@@ -51,7 +51,6 @@ import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.compose.material.Icon
-import com.google.android.horologist.compose.material.IconRtlMode
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import kotlin.math.roundToInt
@@ -235,7 +234,6 @@ public object VolumeScreenDefaults {
             modifier = Modifier.size(26.dp),
             paintable = Icons.AutoMirrored.Outlined.VolumeUp.asPaintable(),
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description),
-            rtlMode = IconRtlMode.Mirrored,
         )
     }
 
@@ -245,7 +243,6 @@ public object VolumeScreenDefaults {
             modifier = Modifier.size(26.dp),
             paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description),
-            rtlMode = IconRtlMode.Mirrored,
         )
     }
 }

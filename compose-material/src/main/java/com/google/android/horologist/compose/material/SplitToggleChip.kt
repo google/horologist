@@ -100,7 +100,6 @@ public fun SplitToggleChip(
             modifier = Modifier.semantics {
                 stateDescription = stateDescriptionSemantics
             },
-            rtlMode = IconRtlMode.Mirrored,
         )
     }
 

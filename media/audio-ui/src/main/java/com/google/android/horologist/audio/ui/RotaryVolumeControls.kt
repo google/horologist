@@ -14,31 +14,18 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalWearFoundationApi::class)
-@file:Suppress("DEPRECATION")
-
 package com.google.android.horologist.audio.ui
 
 import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.annotation.VisibleForTesting
-import androidx.compose.foundation.focusable
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalView
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.RequestFocusWhenActive
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.rotaryinput.RotaryDefaults.isLowResInput
 import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.RATE_LIMITING_DISABLED
 import com.google.android.horologist.compose.rotaryinput.accumulatedBehavior
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -47,137 +34,6 @@ private const val VOLUME_FRACTION_PER_PIXEL: Float = 0.001f
 private const val VOLUME_PERCENT_CHANGE_PIXEL: Float = 48f
 
 private const val TAG = "HorologistAudioUi"
-
-/**
- * A Focusable modifier, that depending on rotary resolution (by [isLowRes] parameter), accumulates
- * the input by [onRotaryInputAccumulated] modifier, and converts the accumulated input into a
- * target volume to pass into [onRotaryVolumeInput] for a corresponding volume change.
- */
-@Deprecated(
-    "Replaced by wear compose",
-)
-@ExperimentalHorologistApi
-public fun Modifier.rotaryVolumeControlsWithFocus(
-    focusRequester: FocusRequester? = null,
-    volumeUiStateProvider: () -> VolumeUiState,
-    onRotaryVolumeInput: (Int) -> Unit,
-    localView: View,
-    isLowRes: Boolean,
-): Modifier = composed {
-    val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
-    RequestFocusWhenActive(localFocusRequester)
-
-    if (isLowRes) {
-        lowResRotaryVolumeControls(
-            volumeUiStateProvider = volumeUiStateProvider,
-            onRotaryVolumeInput = onRotaryVolumeInput,
-            localView = localView,
-        )
-    } else {
-        highResRotaryVolumeControls(
-            volumeUiStateProvider = volumeUiStateProvider,
-            onRotaryVolumeInput = onRotaryVolumeInput,
-            localView = localView,
-        )
-    }
-        .focusRequester(localFocusRequester)
-        .focusable()
-}
-
-/**
- * A low resolution rotary volume modifier, that treats the accumulated input with 1:1 volume
- * change to pass into [onRotaryVolumeInput] for a corresponding volume change. E.g. 2f change
- * would increase volume by 2 and -3f change would decrease volume by 3.
- */
-@Deprecated(
-    "Replaced by wear compose",
-)
-@ExperimentalHorologistApi
-public fun Modifier.lowResRotaryVolumeControls(
-    volumeUiStateProvider: () -> VolumeUiState,
-    onRotaryVolumeInput: (Int) -> Unit,
-    localView: View,
-): Modifier = onRotaryInputAccumulated(
-    rateLimitCoolDownMs = RATE_LIMITING_DISABLED,
-    isLowRes = true,
-) { change ->
-    Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
-
-    if (change != 0f) {
-        val targetVolume =
-            (volumeUiStateProvider().current + change.toInt()).coerceIn(
-                0,
-                volumeUiStateProvider().max,
-            )
-
-        Log.d(
-            TAG,
-            "change=$change, " +
-                "currentVolume=${volumeUiStateProvider().current}, " +
-                "targetVolume=$targetVolume ",
-        )
-
-        performHapticFeedback(
-            targetVolume = targetVolume,
-            volumeUiStateProvider = volumeUiStateProvider,
-            localView = localView,
-        )
-
-        onRotaryVolumeInput(targetVolume)
-    }
-}
-
-/**
- * A high resolution rotary volume modifier, that uses [convertPixelToVolume] to convert
- * accumulated scrolled pixels to volume to pass into [onRotaryVolumeInput] for a corresponding
- * volume change
- */
-@Deprecated(
-    "Replaced by wear compose",
-    replaceWith = ReplaceWith(
-        "this.rotary(" +
-            "volumeRotaryBehavior(" +
-            "volumeUiStateProvider = volumeUiStateProvider, " +
-            "onRotaryVolumeInput = onRotaryVolumeInput" +
-            "), " +
-            "focusRequester = focusRequester" +
-            ")",
-        imports = [
-            "androidx.wear.compose.foundation.rotary.rotary",
-            "com.google.android.horologist.audio.ui.volumeRotaryBehavior",
-        ],
-    ),
-)
-@ExperimentalHorologistApi
-public fun Modifier.highResRotaryVolumeControls(
-    volumeUiStateProvider: () -> VolumeUiState,
-    onRotaryVolumeInput: (Int) -> Unit,
-    localView: View,
-): Modifier = onRotaryInputAccumulated(
-    rateLimitCoolDownMs = RATE_LIMITING_DISABLED,
-    isLowRes = false,
-) { change ->
-    Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
-
-    if (change != 0f) {
-        val targetVolume = convertPixelToVolume(change, volumeUiStateProvider)
-
-        Log.d(
-            TAG,
-            "change=$change, " +
-                "currentVolume=${volumeUiStateProvider().current}, " +
-                "targetVolume=$targetVolume ",
-        )
-
-        performHapticFeedback(
-            targetVolume = targetVolume,
-            volumeUiStateProvider = volumeUiStateProvider,
-            localView = localView,
-        )
-
-        onRotaryVolumeInput(targetVolume)
-    }
-}
 
 @Composable
 public fun volumeRotaryBehavior(

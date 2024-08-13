@@ -19,32 +19,25 @@ package com.google.android.horologist.audio.ui
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Headphones
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.compose.tools.WearPreview
-import com.google.android.horologist.compose.tools.WidthConstrainedBox
 
 @WearPreview
 @Composable
 fun DeviceChipPreview() {
-    WidthConstrainedBox(
-        widths = listOf(100.dp, 164.dp, 192.dp, 227.dp),
-        comfortableHeight = 100.dp,
-    ) {
-        DeviceChip(
-            volumeDescription = "",
-            deviceName = "Bluetooth Headphones",
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Headphones,
-                    contentDescription = "",
-                    tint = MaterialTheme.colors.onSurfaceVariant,
-                )
-            },
-            onAudioOutputClick = {
-            },
-        )
-    }
+    DeviceChip(
+        volumeDescription = "",
+        deviceName = "Bluetooth Headphones",
+        icon = {
+            Icon(
+                imageVector = Icons.Default.Headphones,
+                contentDescription = "",
+                tint = MaterialTheme.colors.onSurfaceVariant,
+            )
+        },
+        onAudioOutputClick = {
+        },
+    )
 }

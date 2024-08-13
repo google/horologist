@@ -57,7 +57,6 @@ public fun ToggleChip(
     toggleControl: ToggleChipToggleControl,
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     secondaryLabel: String? = null,
     colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
     enabled: Boolean = true,
@@ -97,9 +96,6 @@ public fun ToggleChip(
                 ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
             }.asPaintable(),
             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-            // This potentially be removed once this issue is addressed:
-            // https://issuetracker.google.com/issues/287087138
-            rtlMode = if (toggleControl == ToggleChipToggleControl.Switch) IconRtlMode.Mirrored else IconRtlMode.Default,
         )
     }
 
@@ -113,7 +109,6 @@ public fun ToggleChip(
                         modifier = Modifier
                             .size(ChipDefaults.IconSize)
                             .clip(CircleShape),
-                        rtlMode = iconRtlMode,
                     )
                 }
             }

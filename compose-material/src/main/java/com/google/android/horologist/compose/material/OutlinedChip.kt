@@ -54,8 +54,8 @@ public fun OutlinedChip(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     secondaryLabel: String? = null,
+    iconRtlMode: Any? = null, // kept to avoid ambiguity with other Chip
     icon: Paintable? = null,
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.outlinedChipColors(),
@@ -77,7 +77,6 @@ public fun OutlinedChip(
                     if (it is PaintableIcon) {
                         Icon(
                             paintable = it,
-                            rtlMode = iconRtlMode,
                             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                             modifier = iconModifier,
                         )
@@ -118,7 +117,6 @@ public fun OutlinedChip(
     @StringRes labelId: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     @StringRes secondaryLabel: Int? = null,
     icon: Paintable? = null,
     largeIcon: Boolean = false,
@@ -132,7 +130,6 @@ public fun OutlinedChip(
         secondaryLabel = secondaryLabel?.let { stringResource(id = it) },
         icon = icon,
         largeIcon = largeIcon,
-        iconRtlMode = iconRtlMode,
         colors = colors,
         enabled = enabled,
     )

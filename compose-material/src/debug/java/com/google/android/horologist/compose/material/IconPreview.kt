@@ -41,7 +41,6 @@ fun IconPreviewMirrored() {
         Icon(
             paintable = ImageVectorPaintable(Icons.AutoMirrored.Outlined.VolumeDown),
             contentDescription = "contentDescription",
-            rtlMode = IconRtlMode.Mirrored,
         )
     }
 }

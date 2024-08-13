@@ -38,9 +38,9 @@ import androidx.wear.protolayout.ResourceBuilders
 import androidx.wear.protolayout.material.Text
 import androidx.wear.protolayout.material.Typography
 import androidx.wear.protolayout.material.layouts.PrimaryLayout
-import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest
+import com.google.android.horologist.screenshots.tiles.TileLayoutPreview
 import com.google.android.horologist.tiles.images.toImageResource
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 import org.junit.Test

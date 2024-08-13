@@ -87,14 +87,12 @@ public fun SecondaryTitle(
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     iconSize: Dp = 24.dp,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
 ) {
     SecondaryTitle(
         text = stringResource(id = textId),
         modifier = modifier,
         icon = icon,
         iconSize = iconSize,
-        iconRtlMode = iconRtlMode,
     )
 }
 
@@ -109,7 +107,6 @@ public fun SecondaryTitle(
     icon: ImageVector? = null,
     iconTint: Color = MaterialTheme.colors.onBackground,
     iconSize: Dp = 24.dp,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
 ) {
     ResponsiveListHeader(modifier = modifier) {
         icon?.let {
@@ -120,7 +117,6 @@ public fun SecondaryTitle(
                     .size(iconSize)
                     .align(Alignment.CenterVertically),
                 tint = iconTint,
-                rtlMode = iconRtlMode,
             )
             Spacer(modifier = Modifier.width(6.dp))
         }

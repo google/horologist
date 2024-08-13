@@ -207,15 +207,3 @@ public object FixedTimeSource : TimeSource {
 fun Standard() {
     ScalingLazyColumnDecoder(factory = ScalingLazyColumnDefaults.scalingLazyColumnDefaults())
 }
-
-@WearPreviewDevices
-@Composable
-fun BelowTimeText() {
-    ScalingLazyColumnDecoder(factory = ScalingLazyColumnDefaults.belowTimeText())
-}
-
-@WearPreviewDevices
-@Composable
-fun Responsive() {
-    ScalingLazyColumnDecoder(factory = ScalingLazyColumnDefaults.responsive())
-}

@@ -68,7 +68,7 @@ public fun ResponsiveDialogContent(
     onCancel: (() -> Unit)? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    state: ScalingLazyColumnState =
+    @Suppress("DEPRECATION") state: ScalingLazyColumnState =
         rememberColumnState(
             responsive(
                 firstItemIsFullWidth = icon == null,
@@ -239,6 +239,7 @@ internal val titleMaxWidthFraction = 1f - 2f * calculatePaddingFraction(
 internal fun calculatePaddingFraction(extraPadding: Float) =
     extraPadding / (100f - 2f * globalHorizontalPadding)
 
+@Suppress("DEPRECATION")
 @Composable
 public fun centeredDialogColumnState(): ScalingLazyColumnState = rememberColumnState(
     ScalingLazyColumnDefaults.scalingLazyColumnDefaults(

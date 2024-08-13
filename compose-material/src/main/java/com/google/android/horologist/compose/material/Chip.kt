@@ -86,7 +86,7 @@ public fun Chip(
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
     secondaryLabel: String? = null,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
+    iconRtlMode: Any? = null, // kept to avoid ambiguity with other Chip
     icon: Paintable? = null,
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
@@ -110,7 +110,6 @@ public fun Chip(
                             paintable = it,
                             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                             modifier = iconModifier,
-                            rtlMode = iconRtlMode,
                         )
                     } else {
                         Image(
@@ -152,7 +151,6 @@ public fun Chip(
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
     @StringRes secondaryLabel: Int? = null,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     icon: Paintable? = null,
     largeIcon: Boolean = false,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
@@ -168,7 +166,6 @@ public fun Chip(
         largeIcon = largeIcon,
         colors = colors,
         enabled = enabled,
-        iconRtlMode = iconRtlMode,
     )
 }
 

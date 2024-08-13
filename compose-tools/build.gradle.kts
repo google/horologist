@@ -93,9 +93,6 @@ dependencies {
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)
 
-    implementation(libs.androidx.wear.tiles)
-    implementation(libs.androidx.wear.tiles.renderer)
-
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.androidx.wear.tooling.preview)
     implementation(libs.kotlinx.coroutines.guava)

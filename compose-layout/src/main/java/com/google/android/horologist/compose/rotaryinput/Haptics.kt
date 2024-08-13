@@ -251,10 +251,8 @@ private fun rememberHapticChannel() =
         )
     }
 
-@Deprecated("Replaced by wear compose")
-@ExperimentalHorologistApi
 @Composable
-public fun rememberDefaultRotaryHapticFeedback(): RotaryHapticFeedback =
+internal fun rememberDefaultRotaryHapticFeedback(): RotaryHapticFeedback =
     LocalView.current.let { view -> remember { findDeviceSpecificHapticFeedback(view) } }
 
 internal fun findDeviceSpecificHapticFeedback(view: View): RotaryHapticFeedback =

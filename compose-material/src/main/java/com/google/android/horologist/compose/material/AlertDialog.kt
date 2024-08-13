@@ -37,7 +37,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberColumnState
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 
 /**
  * This component is an alternative to [AlertContent], providing the following:
@@ -58,7 +57,9 @@ public fun AlertDialog(
     message: String? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    state: ScalingLazyColumnState = rememberResponsiveColumnState(),
+    @Suppress("DEPRECATION") state: ScalingLazyColumnState = rememberColumnState(
+        ScalingLazyColumnDefaults.responsive(),
+    ),
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
     Dialog(
@@ -97,7 +98,9 @@ public fun AlertDialog(
     icon: @Composable (() -> Unit)? = null,
     title: String? = null,
     message: String? = null,
-    state: ScalingLazyColumnState = rememberResponsiveColumnState(),
+    @Suppress("DEPRECATION") state: ScalingLazyColumnState = rememberColumnState(
+        ScalingLazyColumnDefaults.responsive(),
+    ),
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
     Dialog(

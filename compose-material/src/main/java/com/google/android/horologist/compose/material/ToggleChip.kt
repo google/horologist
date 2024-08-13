@@ -99,7 +99,7 @@ public fun ToggleChip(
                 ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
             }.asPaintable(),
             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-            modifier = Modifier.autoMirrored(LocalLayoutDirection.current == LayoutDirection.Rtl)
+            modifier = Modifier.autoMirrored(LocalLayoutDirection.current == LayoutDirection.Rtl),
         )
     }
 

@@ -21,10 +21,8 @@ package com.google.android.horologist.media.ui.screens.browse
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams
 import androidx.wear.compose.foundation.lazy.ScalingParams
 import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test

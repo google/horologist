@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.LocalContentColor
@@ -48,9 +47,7 @@ public fun Icon(
 }
 
 @Composable
-internal fun Modifier.autoMirrored(autoMirror: Boolean): Modifier = graphicsLayer {
-    scale(
-        scaleX = if (autoMirror) -1f else 1f,
-        scaleY = 1f,
-    )
-}
+internal fun Modifier.autoMirrored(autoMirror: Boolean): Modifier = scale(
+    scaleX = if (autoMirror) -1f else 1f,
+    scaleY = 1f,
+)

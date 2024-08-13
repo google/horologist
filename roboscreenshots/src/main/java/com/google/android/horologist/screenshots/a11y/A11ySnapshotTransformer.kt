@@ -61,7 +61,7 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
         return Bitmap.createBitmap(
             bitmap.width * 2,
             bitmap.height,
-            bitmap.config ?: Bitmap.Config.ARGB_8888
+            bitmap.config ?: Bitmap.Config.ARGB_8888,
         ).apply {
             val canvas = Canvas(this)
 

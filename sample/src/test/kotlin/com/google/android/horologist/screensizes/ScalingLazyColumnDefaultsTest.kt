@@ -28,8 +28,8 @@ import androidx.wear.compose.material.AppCard
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.tools.Device
@@ -49,16 +49,6 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
         }
 
         @Test
-        fun responsive() {
-            runTest { Responsive() }
-        }
-
-        @Test
-        fun belowTimeText() {
-            runTest { BelowTimeText() }
-        }
-
-        @Test
         fun standard_end() {
             runTest(capture = false) {
                 val listState = ScalingLazyListState()
@@ -71,36 +61,6 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
                         SampleAppCard()
                     }
                 }
-            }
-
-            // TODO https://github.com/google/horologist/issues/2237
-//            composeRule.onNode(hasScrollToNodeAction())
-//                .performTouchInput { repeat(10) { swipeUp() } }
-//
-//            captureScreenshot()
-        }
-
-        @Test
-        fun responsive_end() {
-            runTest(capture = false) {
-                val columnState = ScalingLazyColumnDefaults.responsive().create()
-
-                SampleMenu(columnState = columnState)
-            }
-
-            // TODO https://github.com/google/horologist/issues/2237
-//            composeRule.onNode(hasScrollToNodeAction())
-//                .performTouchInput { repeat(10) { swipeUp() } }
-//
-//            captureScreenshot()
-        }
-
-        @Test
-        fun belowTimeText_end() {
-            runTest(capture = false) {
-                val columnState = ScalingLazyColumnDefaults.belowTimeText().create()
-
-                SampleMenu(columnState = columnState)
             }
 
             // TODO https://github.com/google/horologist/issues/2237
@@ -129,7 +89,7 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
         @Test
         fun responsive_chips() {
             runTest {
-                val columnState = ScalingLazyColumnDefaults.responsive().create()
+                val columnState = rememberResponsiveColumnState()
 
                 SampleChipMenu(columnState = columnState)
             }
@@ -164,7 +124,7 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
         @Test
         fun responsive_chips_end() {
             runTest(capture = false) {
-                val columnState = ScalingLazyColumnDefaults.responsive().create()
+                val columnState = rememberResponsiveColumnState()
 
                 SampleChipMenu(columnState = columnState)
             }

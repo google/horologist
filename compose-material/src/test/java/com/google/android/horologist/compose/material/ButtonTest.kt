@@ -17,7 +17,6 @@
 package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Check
 import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest

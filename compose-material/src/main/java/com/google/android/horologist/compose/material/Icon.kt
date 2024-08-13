@@ -18,12 +18,14 @@ package com.google.android.horologist.compose.material
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.LocalContentColor
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.images.base.paintable.PaintableIcon
+
 /**
  * This component is an alternative to [Icon], providing the following:
  * - a API for different image loaders;
@@ -43,3 +45,9 @@ public fun Icon(
         modifier = modifier,
     )
 }
+
+@Composable
+internal fun Modifier.autoMirrored(autoMirror: Boolean): Modifier = scale(
+    scaleX = if (autoMirror) -1f else 1f,
+    scaleY = 1f,
+)

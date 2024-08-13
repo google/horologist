@@ -28,11 +28,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
@@ -42,6 +44,7 @@ import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+
 /**
  * This component is an alternative to [ToggleChip], providing the following:
  * - a convenient way of providing a label and a secondary label;
@@ -96,6 +99,7 @@ public fun ToggleChip(
                 ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
             }.asPaintable(),
             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+            modifier = Modifier.autoMirrored(LocalLayoutDirection.current == LayoutDirection.Rtl),
         )
     }
 

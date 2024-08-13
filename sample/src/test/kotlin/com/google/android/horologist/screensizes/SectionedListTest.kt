@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.compose.layout.AppScaffold
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.sectionedlist.SectionedListMenuScreen
@@ -33,7 +33,7 @@ class SectionedListTest(device: Device) : WearLegacyScreenSizeTest(device = devi
 
     @Composable
     override fun Content() {
-        val columnState = ScalingLazyColumnDefaults.responsive().create()
+        val columnState = rememberResponsiveColumnState()
 
         SectionedListPreview(columnState) {
             SectionedListMenuScreen(

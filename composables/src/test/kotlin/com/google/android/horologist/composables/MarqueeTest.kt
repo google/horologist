@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 @file:OptIn(ExperimentalRoborazziApi::class, ExperimentalCoilApi::class)
 
 package com.google.android.horologist.composables

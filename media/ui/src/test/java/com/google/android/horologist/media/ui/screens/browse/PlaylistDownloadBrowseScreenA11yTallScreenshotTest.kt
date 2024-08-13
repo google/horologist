@@ -25,6 +25,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 import org.robolectric.annotation.Config
@@ -40,9 +41,7 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() 
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         runScreenTest {
-            val columnState = rememberColumnState(
-                factory = ScalingLazyColumnDefaults.belowTimeText(),
-            ).copy(
+            val columnState = rememberResponsiveColumnState().copy(
                 scalingParams = scalingParams(
                     edgeScale = 1f,
                     edgeAlpha = 1f,

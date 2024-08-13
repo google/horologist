@@ -24,7 +24,6 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.tools.RoundPreview
 
 @Composable
 fun VolumeScreenTestCase(
@@ -33,25 +32,23 @@ fun VolumeScreenTestCase(
     audioOutput: AudioOutput,
 ) {
     val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
-    RoundPreview {
-        MaterialTheme(colors = colors) {
-            ScreenScaffold(
-                positionIndicator = {
-                    VolumePositionIndicator(
-                        volumeUiState = { volumeUiState },
-                    )
-                },
-                timeText = {},
-            ) {
-                VolumeScreen(
-                    volume = { volumeUiState },
-                    audioOutputUi = audioOutput.toAudioOutputUi(),
-                    increaseVolume = { },
-                    decreaseVolume = { },
-                    onAudioOutputClick = { },
-                    showVolumeIndicator = false,
+    MaterialTheme(colors = colors) {
+        ScreenScaffold(
+            positionIndicator = {
+                VolumePositionIndicator(
+                    volumeUiState = { volumeUiState },
                 )
-            }
+            },
+            timeText = {},
+        ) {
+            VolumeScreen(
+                volume = { volumeUiState },
+                audioOutputUi = audioOutput.toAudioOutputUi(),
+                increaseVolume = { },
+                decreaseVolume = { },
+                onAudioOutputClick = { },
+                showVolumeIndicator = false,
+            )
         }
     }
 }

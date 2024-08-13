@@ -69,7 +69,6 @@ public fun Button(
     onLongClick: (() -> Unit)? = null,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true,
 ) {
     Button(
@@ -80,7 +79,6 @@ public fun Button(
         modifier = modifier,
         colors = colors,
         buttonSize = buttonSize,
-        iconRtlMode = iconRtlMode,
         enabled = enabled,
     )
 }
@@ -100,7 +98,6 @@ public fun Button(
     onLongClick: (() -> Unit)? = null,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true,
 ) {
     Button(
@@ -111,7 +108,6 @@ public fun Button(
         modifier = modifier,
         colors = colors,
         buttonSize = buttonSize,
-        iconRtlMode = iconRtlMode,
         enabled = enabled,
     )
 }
@@ -126,7 +122,6 @@ internal fun Button(
     onLongClick: (() -> Unit)? = null,
     colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
     buttonSize: ButtonSize = ButtonSize.Default,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     enabled: Boolean = true,
 ) {
     if (onLongClick != null) {
@@ -175,7 +170,6 @@ internal fun Button(
                     paintable = icon,
                     contentDescription = contentDescription,
                     modifier = iconModifier,
-                    rtlMode = iconRtlMode,
                 )
             }
         }
@@ -194,7 +188,6 @@ internal fun Button(
                 paintable = icon,
                 contentDescription = contentDescription,
                 modifier = iconModifier,
-                rtlMode = iconRtlMode,
             )
         }
     }

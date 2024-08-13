@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.layout
+package com.google.android.horologist.compose.rotaryinput
 
 import androidx.compose.runtime.Composable
-import androidx.wear.compose.material.TimeSource
-import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
-import org.junit.Test
+import androidx.compose.ui.platform.LocalContext
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-class ResponsiveTimeTextTest : WearLegacyScreenTest() {
-    @Test
-    fun defaultTimeText() {
-        runTest {
-            @Suppress("DEPRECATION")
-            ResponsiveTimeText(
-                timeSource = object : TimeSource {
-                    override val currentTime: String
-                        @Composable get() = "10:10"
-                },
-            )
-        }
-    }
+/**
+ * Defaults for rotary modifiers
+ */
+@ExperimentalHorologistApi
+public object RotaryDefaults {
+
+    /**
+     * Returns whether the input is Low-res (a bezel) or high-res(a crown/rsb).
+     */
+    @ExperimentalHorologistApi
+    @Composable
+    public fun isLowResInput(): Boolean = LocalContext.current.packageManager
+        .hasSystemFeature("android.hardware.rotaryencoder.lowres")
 }

@@ -166,7 +166,7 @@ class SLCTitleTest(device: WearDevice) : WearDeviceScreenshotTest(device) {
                 }
 
                 Canvas(modifier = Modifier.fillMaxSize()) {
-                    val paddingLine = topPadding.topPaddingDp * size.height
+                    val paddingLine = topPadding.topPaddingPct * size.height
                     drawLine(Color.White, start = Offset(0f, paddingLine), end = Offset(size.width, paddingLine))
                 }
             }

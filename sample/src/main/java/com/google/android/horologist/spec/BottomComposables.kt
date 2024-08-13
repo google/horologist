@@ -32,7 +32,7 @@ fun Bottom1Button() {
             ),
         ),
         borders = {
-            bottom(ItemType.SingleButton.bottomPaddingDp)
+            bottom(ItemType.SingleButton.bottomPaddingPct)
         },
         after = {
             AddCircleButton()
@@ -57,7 +57,7 @@ fun Bottom2Buttons() {
             }
         },
         borders = {
-            bottom(ItemType.MultiButton.bottomPaddingDp)
+            bottom(ItemType.MultiButton.bottomPaddingPct)
         },
     )
 }
@@ -79,7 +79,7 @@ fun Bottom3Buttons() {
             }
         },
         borders = {
-            bottom(ItemType.MultiButton.bottomPaddingDp)
+            bottom(ItemType.MultiButton.bottomPaddingPct)
         },
     )
 }
@@ -94,7 +94,7 @@ fun BottomOtherChips() {
             ),
         ),
         borders = {
-            bottom(ItemType.Chip.bottomPaddingDp)
+            bottom(ItemType.Chip.bottomPaddingPct)
         },
     )
 }
@@ -109,7 +109,7 @@ fun BottomOtherCards() {
             ),
         ),
         borders = {
-            bottom(ItemType.Card.bottomPaddingDp)
+            bottom(ItemType.Card.bottomPaddingPct)
         },
     ) {
         item {
@@ -150,7 +150,7 @@ fun BottomOtherText() {
             ),
         ),
         borders = {
-            bottom(ItemType.Text.bottomPaddingDp)
+            bottom(ItemType.Text.bottomPaddingPct)
         },
     ) {
         warningTextItems()

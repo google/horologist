@@ -313,37 +313,6 @@ class ToggleChipTest : WearLegacyComponentTest() {
         }
     }
 
-    @Test
-    fun mirrored() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icons.Default.PlayArrow,
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun mirroredRtl() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icons.Default.PlayArrow,
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
     companion object {
         private const val largestFontScale = 1.18f
 

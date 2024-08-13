@@ -109,29 +109,4 @@ class TitleTest : WearLegacyComponentTest() {
             )
         }
     }
-
-    @Test
-    fun mirroredSecondary() {
-        runComponentTest {
-            SecondaryTitle(
-                text = stringResource(id = R.string.title),
-                icon = Icons.Outlined.MusicNote,
-                iconTint = Color(0xFF946EB1),
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun mirroredRtlSecondary() {
-        runComponentTest {
-            SecondaryTitle(
-                text = stringResource(id = R.string.title),
-                icon = Icons.Outlined.MusicNote,
-                iconTint = Color(0xFF946EB1),
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
 }

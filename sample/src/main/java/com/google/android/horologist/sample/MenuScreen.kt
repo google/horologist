@@ -16,16 +16,11 @@
 
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
@@ -62,46 +57,80 @@ fun MenuScreen(
                 }
             }
             item {
-                NetworkChip { navigateToRoute(Screen.Network.route) }
+                Chip(
+                    onClick = {
+                        navigateToRoute(Screen.Network.route)
+                    },
+                    label = "Networks",
+                )
             }
             item {
-                FillMaxRectangleChip(navigateToRoute)
+                Chip(
+                    onClick = { navigateToRoute(Screen.FillMaxRectangle.route) },
+                    label = {
+                        Text(modifier = Modifier.weight(1f), text = "Fill Max Rectangle")
+                    },
+                )
             }
             item {
-                VolumeScreenChip(navigateToRoute)
+                Chip(
+                    onClick = { navigateToRoute(Screen.Volume.route) },
+                    label = "Volume Screen",
+                )
             }
             item {
                 SecondaryTitle("Scroll Away")
             }
             item {
-                ScrollAwayChip("Scroll Away") { navigateToRoute(Screen.ScrollAway.route) }
-            }
-            item {
-                ScrollAwayChip("Scroll Away SLC") { navigateToRoute(Screen.ScrollAwaySLC.route) }
-            }
-            item {
-                ScrollAwayChip("Scroll Away Column") { navigateToRoute(Screen.ScrollAwayColumn.route) }
-            }
-            item {
                 SecondaryTitle("Composables")
             }
             item {
-                TimePickerChip(time) { navigateToRoute(Screen.TimePicker.route) }
+                Chip(
+                    onClick = {
+                        navigateToRoute(Screen.TimePicker.route)
+                    },
+                    label = "Time Picker",
+                )
             }
             item {
-                DatePickerChip(time) { navigateToRoute(Screen.DatePicker.route) }
+                Chip(
+                    onClick = {
+                        navigateToRoute(Screen.DatePicker.route)
+                    },
+                    label = "Date Picker",
+                )
             }
             item {
-                FromDatePickerChip(time) { navigateToRoute(Screen.FromDatePicker.route) }
+                Chip(
+                    onClick = {
+                        navigateToRoute(Screen.FromDatePicker.route)
+                    },
+                    label = "From Date Picker",
+                )
             }
             item {
-                ToDatePickerChip(time) { navigateToRoute(Screen.ToDatePicker.route) }
+                Chip(
+                    onClick = {
+                        navigateToRoute(Screen.ToDatePicker.route)
+                    },
+                    label = "To Date Picker",
+                )
             }
             item {
-                TimeWithSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithSecondsPicker.route) }
+                Chip(
+                    onClick = {
+                        navigateToRoute(Screen.TimeWithSecondsPicker.route)
+                    },
+                    label = "Time With Seconds Picker",
+                )
             }
             item {
-                TimeWithoutSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithoutSecondsPicker.route) }
+                Chip(
+                    onClick = {
+                        navigateToRoute(Screen.TimeWithoutSecondsPicker.route)
+                    },
+                    label = "Time Without Seconds Picker",
+                )
             }
 
             item {
@@ -238,49 +267,32 @@ fun MenuScreen(
                 SecondaryTitle("Rotary Scrolling")
             }
             item {
-                androidx.wear.compose.material.Chip(
-                    label = {
-                        Text(text = "Rotary scroll")
+                Chip(
+                    onClick = {
+                        navigateToRoute(Screen.Paging.route)
                     },
-                    modifier = modifier.fillMaxWidth(),
-                    onClick = { navigateToRoute(Screen.RotaryMenuScreen.route) },
-                    colors = ChipDefaults.primaryChipColors(),
+                    label = stringResource(R.string.paging_chip_label),
                 )
             }
             item {
-                PagingChip { navigateToRoute(Screen.Paging.route) }
+                Chip(
+                    onClick = {
+                        navigateToRoute(Screen.PagerScreen.route)
+                    },
+                    label = stringResource(R.string.pager_screen_chip_label),
+                )
             }
             item {
-                PagerScreenChip { navigateToRoute(Screen.PagerScreen.route) }
-            }
-            item {
-                VerticalPagerScreenChip { navigateToRoute(Screen.VerticalPagerScreen.route) }
+                Chip(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {
+                        navigateToRoute(Screen.VerticalPagerScreen.route)
+                    },
+                    label = stringResource(R.string.pager_screen_chip_label),
+                )
             }
         }
     }
-}
-
-@Composable
-fun SampleChip(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-    label: String,
-    content: (@Composable () -> Unit)? = null,
-) {
-    androidx.wear.compose.material.Chip(
-        modifier = modifier.fillMaxWidth(),
-        onClick = onClick,
-        label = {
-            Text(modifier = Modifier.weight(1f), text = label)
-        },
-        icon = {
-            if (content != null) {
-                Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
-                    content()
-                }
-            }
-        },
-    )
 }
 
 @WearPreviewDevices

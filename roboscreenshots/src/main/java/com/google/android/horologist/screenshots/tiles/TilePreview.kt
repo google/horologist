@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 @file:Suppress("DEPRECATION")
 
-package com.google.android.horologist.compose.tools
+package com.google.android.horologist.screenshots.tiles
 
 import android.content.res.Resources
 import android.graphics.Color
@@ -59,7 +59,6 @@ import kotlin.math.roundToInt
  * Any bitmaps should be preloaded from test resources and passed in via [resourceState] as
  * Bitmap or ImageResource.
  */
-@Deprecated("Use androidx.wear.tiles.tooling.preview")
 @Composable
 public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLayoutRenderer<T, R>) {
     val context = LocalContext.current
@@ -82,7 +81,6 @@ public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLa
  * Preview a Tile by providing the final proto representation of tiles and resources. It's possible
  * to provide an updated Tile representation whenever a load action is triggered.
  */
-@Deprecated("Use androidx.wear.tiles.tooling.preview")
 @Composable
 public fun TilePreview(
     tile: TileBuilders.Tile,
@@ -103,13 +101,11 @@ public fun TilePreview(
                 parent.context,
                 /* loadActionExecutor = */
                 Dispatchers.Main.asExecutor(),
-                /* loadActionListener = */
-                { newState ->
-                    onLoadAction?.invoke(newState)?.let { newTile ->
-                        tileRenderer.preview(newTile, tileResources, parent)
-                    }
-                },
-            )
+            ) { newState ->
+                onLoadAction?.invoke(newState)?.let { newTile ->
+                    tileRenderer.preview(newTile, tileResources, parent)
+                }
+            }
             tileRenderer.preview(tile, tileResources, parent)
         },
     )
@@ -137,7 +133,6 @@ private fun TileRenderer.preview(
  */
 @ExperimentalHorologistApi
 @Composable
-@Deprecated("Use androidx.wear.tiles.tooling.preview")
 public fun LayoutElementPreview(
     element: LayoutElement,
     @ColorInt windowBackgroundColor: Int = Color.DKGRAY,
@@ -165,7 +160,6 @@ public fun LayoutElementPreview(
  * Preview a root layout component such as a PrimaryLayout, that is full screen.
  */
 @Composable
-@Deprecated("Use androidx.wear.tiles.tooling.preview")
 public fun LayoutRootPreview(
     root: LayoutElement,
     tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {},
@@ -201,7 +195,6 @@ private fun resourceParams(resources: Resources, version: String) =
     RequestBuilders.ResourcesRequest.Builder().setDeviceConfiguration(buildDeviceParameters(resources))
         .setVersion(version).build()
 
-@Deprecated("Use androidx.wear.tiles.tooling.preview")
 public fun buildDeviceParameters(resources: Resources): DeviceParametersBuilders.DeviceParameters {
     val displayMetrics: DisplayMetrics = resources.displayMetrics
     val isScreenRound: Boolean = resources.configuration.isScreenRound

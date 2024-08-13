@@ -30,7 +30,7 @@ class SplitToggleChipTest : WearLegacyComponentTest() {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+                label = stringResource(R.string.primary_label),
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Switch,
             )
@@ -43,7 +43,7 @@ class SplitToggleChipTest : WearLegacyComponentTest() {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+                label = stringResource(R.string.primary_label),
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Radio,
             )
@@ -56,7 +56,7 @@ class SplitToggleChipTest : WearLegacyComponentTest() {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+                label = stringResource(R.string.primary_label),
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Checkbox,
             )
@@ -69,7 +69,7 @@ class SplitToggleChipTest : WearLegacyComponentTest() {
             SplitToggleChip(
                 checked = false,
                 onCheckedChanged = { },
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+                label = stringResource(R.string.primary_label),
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Switch,
             )
@@ -82,7 +82,7 @@ class SplitToggleChipTest : WearLegacyComponentTest() {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+                label = stringResource(R.string.primary_label),
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Switch,
                 secondaryLabel = "Secondary label",
@@ -96,7 +96,7 @@ class SplitToggleChipTest : WearLegacyComponentTest() {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+                label = stringResource(R.string.primary_label),
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Switch,
                 enabled = false,
@@ -110,7 +110,7 @@ class SplitToggleChipTest : WearLegacyComponentTest() {
             SplitToggleChip(
                 checked = false,
                 onCheckedChanged = { },
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+                label = stringResource(R.string.primary_label),
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Switch,
                 enabled = false,
@@ -183,7 +183,7 @@ class SplitToggleChipTest : WearLegacyComponentTest() {
             SplitToggleChip(
                 checked = true,
                 onCheckedChanged = { },
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+                label = stringResource(R.string.primary_label),
                 onClick = { },
                 toggleControl = ToggleChipToggleControl.Switch,
                 secondaryLabel = "Secondary label",

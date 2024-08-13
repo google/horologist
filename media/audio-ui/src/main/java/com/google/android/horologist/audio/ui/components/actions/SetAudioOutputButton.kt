@@ -16,13 +16,11 @@
 
 package com.google.android.horologist.audio.ui.components.actions
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.VolumeDown
 import androidx.compose.material.icons.automirrored.filled.VolumeMute
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -32,7 +30,6 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.R
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
-import com.google.android.horologist.compose.material.IconRtlMode
 
 /**
  * Button to launch a screen to control the system audio output and volume.
@@ -50,8 +47,6 @@ public fun SetAudioOutputButton(
     volumeUiState: VolumeUiState? = null,
     audioOutputUi: AudioOutputUi? = null,
     enabled: Boolean = true,
-    iconAlignment: Alignment = Alignment.Center,
-    iconPadding: PaddingValues? = null,
     badgeColor: Color = MaterialTheme.colors.primary,
 ) {
     SettingsButton(
@@ -72,9 +67,6 @@ public fun SetAudioOutputButton(
             null
         },
         badgeColor = badgeColor,
-        iconRtlMode = IconRtlMode.Mirrored,
-        iconAlignment = iconAlignment,
-        iconPadding = iconPadding,
         contentDescription = stringResource(R.string.horologist_set_volume_content_description),
 
     )

@@ -35,7 +35,7 @@ fun Sample1Line() {
             Title(lines = 1)
         },
         borders = {
-            top(ItemType.Text.topPaddingDp)
+            top(ItemType.Text.topPaddingPct)
         },
     )
 }
@@ -53,7 +53,7 @@ fun Sample2Lines() {
             Title(lines = 2)
         },
         borders = {
-            top(ItemType.Text.topPaddingDp)
+            top(ItemType.Text.topPaddingPct)
         },
     )
 }
@@ -71,7 +71,7 @@ fun Sample3Lines() {
             Title(lines = 3)
         },
         borders = {
-            top(ItemType.Text.topPaddingDp)
+            top(ItemType.Text.topPaddingPct)
         },
     )
 }
@@ -89,7 +89,7 @@ fun Sample1Button() {
             AddCircleButton()
         },
         borders = {
-            top(ItemType.SingleButton.topPaddingDp)
+            top(ItemType.SingleButton.topPaddingPct)
         },
     )
 }
@@ -110,7 +110,7 @@ fun Sample2Buttons() {
             }
         },
         borders = {
-            top(ItemType.MultiButton.topPaddingDp)
+            top(ItemType.MultiButton.topPaddingPct)
         },
     )
 }
@@ -128,7 +128,7 @@ fun SampleCompactChip() {
             DoneCompactChip()
         },
         borders = {
-            top(ItemType.CompactChip.topPaddingDp)
+            top(ItemType.CompactChip.topPaddingPct)
         },
     )
 }
@@ -143,7 +143,7 @@ fun SampleOtherChips() {
             ),
         ),
         borders = {
-            top(ItemType.Chip.topPaddingDp)
+            top(ItemType.Chip.topPaddingPct)
         },
     )
 }
@@ -169,7 +169,7 @@ fun SampleOtherCards() {
             ),
         ),
         borders = {
-            top(ItemType.Card.topPaddingDp)
+            top(ItemType.Card.topPaddingPct)
         },
     ) {
         item {
@@ -191,7 +191,7 @@ fun SampleOtherText() {
             ),
         ),
         borders = {
-            top(ItemType.Text.topPaddingDp)
+            top(ItemType.Text.topPaddingPct)
         },
     ) {
         warningTextItems()

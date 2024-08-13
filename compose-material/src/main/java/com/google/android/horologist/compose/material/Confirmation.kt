@@ -60,7 +60,7 @@ public fun Confirmation(
     icon: @Composable (() -> Unit)? = null,
     title: String? = null,
     durationMillis: Long = DialogDefaults.ShortDurationMillis,
-    columnState: ScalingLazyColumnState = rememberColumnState(
+    @Suppress("DEPRECATION") columnState: ScalingLazyColumnState = rememberColumnState(
         ScalingLazyColumnDefaults.responsive(
             verticalArrangement = confirmationVerticalArrangement(),
             additionalPaddingAtBottom = 0.dp,
@@ -104,7 +104,7 @@ public fun Confirmation(
 public fun ConfirmationContent(
     icon: @Composable (() -> Unit)? = null,
     title: String? = null,
-    columnState: ScalingLazyColumnState = rememberColumnState(
+    @Suppress("DEPRECATION") columnState: ScalingLazyColumnState = rememberColumnState(
         ScalingLazyColumnDefaults.responsive(
             verticalArrangement = confirmationVerticalArrangement(),
             additionalPaddingAtBottom = 0.dp,

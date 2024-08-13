@@ -89,6 +89,7 @@ dependencies {
     api(projects.composeTools)
     api(projects.composeLayout)
     api(projects.images.coil)
+    api(projects.tiles)
 
     api(libs.kotlin.stdlib)
     api(libs.okio)
@@ -97,6 +98,9 @@ dependencies {
     api(libs.coil)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
+
+    api(libs.androidx.wear.tiles)
+    implementation(libs.androidx.wear.tiles.renderer)
 
     api(libs.coil.test)
     api(libs.roborazzi)

@@ -52,3 +52,4 @@ out/
 /.idea/shelf
 /.idea/deploymentTargetSelector.xml
 /.idea/appInsightsSettings.xml
+/.kotlin/**/*

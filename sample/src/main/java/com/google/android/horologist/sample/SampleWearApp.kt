@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,11 +33,8 @@ import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.layout.AppScaffold
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.materialcomponents.SampleAlertDialog
 import com.google.android.horologist.materialcomponents.SampleAnimatedComponents
@@ -63,9 +58,6 @@ import com.google.android.horologist.pager.SamplePagerScreen
 import com.google.android.horologist.pager.SampleVerticalPagerScreen
 import com.google.android.horologist.paging.PagingItemScreen
 import com.google.android.horologist.paging.PagingScreen
-import com.google.android.horologist.rotary.RotaryMenuScreen
-import com.google.android.horologist.rotary.RotaryScrollScreen
-import com.google.android.horologist.rotary.RotaryScrollWithFlingOrSnapScreen
 import com.google.android.horologist.sectionedlist.SectionedListMenuScreen
 import com.google.android.horologist.sectionedlist.expandable.SectionedListExpandableScreen
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreen
@@ -105,40 +97,6 @@ fun SampleWearApp() {
             }
             composable(Screen.Volume.route) {
                 VolumeScreen()
-            }
-            composable(Screen.ScrollAway.route) {
-                val scrollState = rememberLazyListState()
-                ScreenScaffold(scrollState = scrollState) {
-                    ScrollScreenLazyColumn(
-                        scrollState = scrollState,
-                    )
-                }
-            }
-            composable(
-                Screen.ScrollAwaySLC.route,
-            ) {
-                val columnState = rememberResponsiveColumnState(
-                    contentPadding = padding(
-                        first = ScalingLazyColumnDefaults.ItemType.Card,
-                        last = ScalingLazyColumnDefaults.ItemType.Card,
-                    ),
-                )
-
-                ScreenScaffold(scrollState = columnState) {
-                    ScrollAwayScreenScalingLazyColumn(
-                        columnState = columnState,
-                    )
-                }
-            }
-            composable(
-                Screen.ScrollAwayColumn.route,
-            ) {
-                val scrollState = rememberScrollState()
-                ScreenScaffold(scrollState = scrollState) {
-                    ScrollAwayScreenColumn(
-                        scrollState = scrollState,
-                    )
-                }
             }
             composable(Screen.DatePicker.route) {
                 DatePicker(
@@ -207,7 +165,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialAnimatedComponents.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(timeText = {}, scrollState = columnState) {
                     SampleAnimatedComponents(columnState = columnState)
@@ -216,7 +174,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialButtonsScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleButtonScreen(columnState = columnState)
@@ -225,7 +183,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialCardsScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleCardScreen(columnState = columnState)
@@ -234,7 +192,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialChipsScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleChipScreen(columnState = columnState)
@@ -243,7 +201,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialChipIconWithProgressScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleChipIconWithProgressScreen(columnState = columnState)
@@ -252,7 +210,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialCompactChipsScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleCompactChipScreen(columnState = columnState)
@@ -275,7 +233,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialIconScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleIconScreen(columnState = columnState)
@@ -284,7 +242,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialOutlinedChipScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleOutlinedChipScreen(columnState = columnState)
@@ -293,7 +251,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialOutlinedCompactChipScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleOutlinedCompactChipScreen(columnState = columnState)
@@ -302,7 +260,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialSplitToggleChipScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleSplitToggleChipScreen(columnState = columnState)
@@ -316,7 +274,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialTitleScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleTitleScreen(columnState = columnState)
@@ -325,7 +283,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialToggleButtonScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleToggleButtonScreen(columnState = columnState)
@@ -334,7 +292,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialToggleChipScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleToggleChipScreen(columnState = columnState)
@@ -343,7 +301,7 @@ fun SampleWearApp() {
             composable(
                 route = Screen.SectionedListMenuScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SectionedListMenuScreen(
@@ -355,7 +313,7 @@ fun SampleWearApp() {
             composable(
                 Screen.SectionedListStatelessScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SectionedListStatelessScreen(
@@ -366,7 +324,7 @@ fun SampleWearApp() {
             composable(
                 Screen.SectionedListStatefulScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SectionedListStatefulScreen(
@@ -377,7 +335,7 @@ fun SampleWearApp() {
             composable(
                 Screen.SectionedListExpandableScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SectionedListExpandableScreen(
@@ -386,41 +344,9 @@ fun SampleWearApp() {
                 }
             }
             composable(
-                route = Screen.RotaryMenuScreen.route,
-            ) {
-                val columnState = rememberColumnState()
-
-                ScreenScaffold(scrollState = columnState) {
-                    RotaryMenuScreen(
-                        navigateToRoute = { route -> navController.navigate(route) },
-                        columnState = columnState,
-                    )
-                }
-            }
-            composable(route = Screen.RotaryScrollScreen.route) {
-                ScreenScaffold(timeText = {}) {
-                    RotaryScrollScreen()
-                }
-            }
-            composable(route = Screen.RotaryScrollReversedScreen.route) {
-                ScreenScaffold(timeText = {}) {
-                    RotaryScrollScreen(reverseDirection = true)
-                }
-            }
-            composable(route = Screen.RotaryScrollWithFlingScreen.route) {
-                ScreenScaffold(timeText = {}) {
-                    RotaryScrollWithFlingOrSnapScreen(RotaryMode.Scroll)
-                }
-            }
-            composable(route = Screen.RotarySnapListScreen.route) {
-                ScreenScaffold(timeText = {}) {
-                    RotaryScrollWithFlingOrSnapScreen(RotaryMode.Snap)
-                }
-            }
-            composable(
                 route = Screen.Paging.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     PagingScreen(navController = navController, columnState = columnState)

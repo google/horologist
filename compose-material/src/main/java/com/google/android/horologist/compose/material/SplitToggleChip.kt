@@ -23,11 +23,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.SplitToggleChip
 import androidx.wear.compose.material.SplitToggleChipColors
@@ -99,7 +103,7 @@ public fun SplitToggleChip(
             contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
             modifier = Modifier.semantics {
                 stateDescription = stateDescriptionSemantics
-            },
+            }.autoMirrored(LocalLayoutDirection.current == LayoutDirection.Rtl),
         )
     }
 

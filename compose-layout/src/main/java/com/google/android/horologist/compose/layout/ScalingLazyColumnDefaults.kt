@@ -220,6 +220,7 @@ public object ScalingLazyColumnDefaults {
     }
 
     internal val Padding12Pct = 0.1248f
+    internal val Padding14Pct = 0.1456f
     internal val Padding16Pct = 0.1664f
     internal val Padding20Pct = 0.2083f
     internal val Padding21Pct = 0.2188f
@@ -242,6 +243,7 @@ public object ScalingLazyColumnDefaults {
         SingleButton(Padding12Pct, Padding20Pct),
         Text(Padding16Pct, Padding31Pct),
         BodyText(Padding21Pct, Padding31Pct),
+        Dialog(Padding14Pct, Padding20Pct),
         Unspecified(0f, 0f),
     }
 

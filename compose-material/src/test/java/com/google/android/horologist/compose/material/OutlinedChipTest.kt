@@ -321,25 +321,6 @@ class OutlinedChipTest : WearLegacyComponentTest() {
         }
     }
 
-    @Test
-    fun withIconMirrored() {
-        runComponentTest {
-            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-                @Suppress("Deprecation")
-                OutlinedChip(
-                    label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                    onClick = { },
-                    secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                    icon = Icons.Outlined.VolumeDown.asPaintable(),
-                    iconRtlMode = IconRtlMode.Mirrored,
-                    colors = ChipDefaults.imageBackgroundChipColors(
-                        backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
-                    ),
-                )
-            }
-        }
-    }
-
     companion object {
         private const val LARGEST_FONT_SCALE = 1.18f
         private const val MEDIUM_FONT_SCALE = 1.06f

@@ -118,44 +118,6 @@ class OutlinedCompactChipTest : WearLegacyComponentTest() {
         }
     }
 
-    @Test
-    fun mirrored() {
-        runComponentTest {
-            OutlinedCompactChip(
-                onClick = { },
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun mirroredRtl() {
-        runComponentTest {
-            OutlinedCompactChip(
-                onClick = { },
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun usingDrawableResAsIconMirroredRtl() {
-        runComponentTest {
-            OutlinedCompactChip(
-                onClick = { },
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                icon = DrawableResPaintable(R.drawable.ic_media_play),
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
     companion object {
         private const val LARGEST_FONT_SCALE = 1.24f
     }

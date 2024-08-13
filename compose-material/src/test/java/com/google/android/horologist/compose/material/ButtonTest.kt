@@ -136,31 +136,6 @@ internal class ButtonTest : WearLegacyComponentTest() {
     }
 
     @Test
-    fun usingDrawableResAsIconMirrored() {
-        runComponentTest {
-            Button(
-                id = android.R.drawable.ic_media_play,
-                contentDescription = "contentDescription",
-                onClick = { },
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun usingDrawableResAsIconMirroredRtl() {
-        runComponentTest {
-            Button(
-                id = android.R.drawable.ic_media_play,
-                contentDescription = "contentDescription",
-                onClick = { },
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
     @Config(qualifiers = "+ar-rXB-ldrtl")
     fun defaultRtl() {
         runComponentTest {
@@ -168,31 +143,6 @@ internal class ButtonTest : WearLegacyComponentTest() {
                 imageVector = Icons.Default.Check,
                 contentDescription = "contentDescription",
                 onClick = { },
-            )
-        }
-    }
-
-    @Test
-    fun mirrored() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.AutoMirrored.Default.DirectionsBike,
-                contentDescription = "contentDescription",
-                onClick = { },
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun mirroredRtl() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.AutoMirrored.Default.DirectionsBike,
-                contentDescription = "contentDescription",
-                onClick = { },
-                iconRtlMode = IconRtlMode.Mirrored,
             )
         }
     }

@@ -18,34 +18,25 @@
       "matchPackagePatterns": [
         "org.jetbrains.kotlin.*"
       ],
-      "groupName": "kotlin",
-      "allowedVersions": "<2.0.0"
+      "groupName": "kotlin"
     },
     {
       "matchPackagePatterns": [
         "com.google.devtools.ksp"
       ],
-      "groupName": "kotlin",
-      "allowedVersions": "<2.0.0"
+      "groupName": "kotlin"
     },
     {
       "matchPackagePatterns": [
-        "com.android.tools.build:gradle"
+        "org.jetbrains.kotlinx:kotlinx-serialization-.*"
       ],
-      "allowedVersions": "<8.3.0"
+      "groupName": "kotlin"
     },
     {
       "matchPackagePatterns": [
         "com.mikepenz:multiplatform-markdown-renderer"
       ],
       "allowedVersions": "/coil2/"
-    },
-    {
-      "matchPackagePatterns": [
-        "org.jetbrains.kotlinx:kotlinx-serialization-.*"
-      ],
-      "groupName": "kotlin",
-      "allowedVersions": "<1.7.0"
     }
   ]
 }

@@ -51,7 +51,6 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.responsive
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
@@ -74,7 +73,7 @@ public fun ResponsiveDialogContent(
             contentPadding = ScalingLazyColumnDefaults.padding(
                 first = ScalingLazyColumnDefaults.ItemType.Dialog,
                 last = ScalingLazyColumnDefaults.ItemType.Dialog,
-            )
+            ),
         ),
     showPositionIndicator: Boolean = true,
     content: (ScalingLazyListScope.() -> Unit)? = null,

@@ -25,9 +25,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
@@ -85,6 +85,6 @@ fun SectionedListMenuScreen(
 fun Preview() {
     SectionedListMenuScreen(
         navigateToRoute = {},
-        columnState = ScalingLazyColumnDefaults.responsive().create(),
+        columnState = rememberResponsiveColumnState(),
     )
 }

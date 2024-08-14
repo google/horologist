@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -53,7 +54,7 @@ public fun AnimatedSetVolumeButton(
     )
     val lottieAnimatable = rememberLottieAnimatable()
 
-    var lastVolume by remember { mutableStateOf(volumeUiState.current) }
+    var lastVolume by remember { mutableIntStateOf(volumeUiState.current) }
 
     LaunchedEffect(volumeUiState) {
         val lastVolumeBefore = lastVolume

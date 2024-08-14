@@ -46,8 +46,8 @@ import com.google.android.horologist.media.ui.util.isLargeScreen
 public fun TextMediaDisplay(
     title: String,
     subtitle: String,
-    titleIcon: Paintable? = null,
     modifier: Modifier = Modifier,
+    titleIcon: Paintable? = null,
 ) {
     val isLargeScreen = LocalConfiguration.current.isLargeScreen
 

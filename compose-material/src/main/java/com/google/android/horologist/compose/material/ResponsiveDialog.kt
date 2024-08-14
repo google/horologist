@@ -51,10 +51,10 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.responsive
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @ExperimentalHorologistApi
@@ -68,11 +68,11 @@ public fun ResponsiveDialogContent(
     onCancel: (() -> Unit)? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    @Suppress("DEPRECATION") state: ScalingLazyColumnState =
-        rememberColumnState(
-            responsive(
-                firstItemIsFullWidth = icon == null,
-                additionalPaddingAtBottom = 0.dp,
+    state: ScalingLazyColumnState =
+        rememberResponsiveColumnState(
+            contentPadding = ScalingLazyColumnDefaults.padding(
+                first = ScalingLazyColumnDefaults.ItemType.Dialog,
+                last = ScalingLazyColumnDefaults.ItemType.Dialog,
             ),
         ),
     showPositionIndicator: Boolean = true,
@@ -113,7 +113,7 @@ public fun ResponsiveDialogContent(
                             Box(
                                 Modifier
                                     .fillMaxWidth(titleMaxWidthFraction)
-                                    .padding(bottom = 8.dp), // 12.dp below icon
+                                    .padding(bottom = if (message == null) 12.dp else 8.dp), // 16.dp or 12.dp below title
                             ) { it() }
                         }
                     }

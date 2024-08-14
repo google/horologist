@@ -81,6 +81,7 @@ package com.google.android.horologist.compose.layout {
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Card;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Chip;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType CompactChip;
+    enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Dialog;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Icon;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType MultiButton;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType SingleButton;

@@ -49,7 +49,10 @@ checksum.txt
 
 # Paparazzi failures output folder
 out/
+
 /.idea/shelf
 /.idea/deploymentTargetSelector.xml
 /.idea/appInsightsSettings.xml
 /.kotlin/**/*
+/.idea/runConfigurations.xml
+/.idea/assetWizardSettings.xml

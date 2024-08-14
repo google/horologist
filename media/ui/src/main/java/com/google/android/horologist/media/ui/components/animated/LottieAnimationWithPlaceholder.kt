@@ -38,6 +38,8 @@ public fun LottieAnimationWithPlaceholder(
     modifier: Modifier = Modifier,
     dynamicProperties: LottieDynamicProperties? = null,
 ) {
+    // False positive - https://issuetracker.google.com/issues/349411310
+    @Suppress("ProduceStateDoesNotAssignValue")
     val isCompositionReady by produceState(initialValue = false, producer = {
         lottieCompositionResult.await()
         value = true

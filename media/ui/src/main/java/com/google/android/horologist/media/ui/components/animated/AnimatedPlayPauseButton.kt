@@ -229,6 +229,8 @@ public fun AnimatedPlayPauseProgressButton(
 
 @Composable
 private fun animateChangeAsRotation(rotateProgressIndicator: Flow<Unit>): Float {
+    // False positive - https://issuetracker.google.com/issues/349411310
+    @Suppress("ProduceStateDoesNotAssignValue")
     val progressIndicatorRotation by produceState(0f, rotateProgressIndicator) {
         rotateProgressIndicator.collectLatest { value += 360 }
     }

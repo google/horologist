@@ -48,8 +48,6 @@ checksum.txt
 /localbin/
 /.java-version
 
-# Paparazzi failures output folder
-out/
 /.idea/shelf
 /.idea/deploymentTargetSelector.xml
 /.idea/appInsightsSettings.xml

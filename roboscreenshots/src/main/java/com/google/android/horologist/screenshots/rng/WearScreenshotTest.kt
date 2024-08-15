@@ -32,7 +32,6 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.TimeText
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.LocalImageLoader
@@ -43,6 +42,7 @@ import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.ThresholdValidator
 import com.github.takahirom.roborazzi.captureScreenRoboImage
 import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.screenshots.FixedTimeSource
 import org.junit.Rule
 import org.junit.experimental.categories.Category
@@ -119,7 +119,7 @@ public abstract class WearScreenshotTest {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colors.background),
-                timeText = { TimeText(timeSource = FixedTimeSource) },
+                timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
             ) {
                 content()
             }

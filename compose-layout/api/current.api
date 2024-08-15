@@ -60,33 +60,33 @@ package com.google.android.horologist.compose.layout {
   }
 
   public final class ResponsiveTimeTextKt {
-    method @Deprecated @androidx.compose.runtime.Composable public static void ResponsiveTimeText(optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.TimeSource timeSource, optional androidx.compose.ui.text.TextStyle timeTextStyle, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit>? startLinearContent, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.CurvedScope,kotlin.Unit>? startCurvedContent, optional kotlin.jvm.functions.Function0<kotlin.Unit>? endLinearContent, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.CurvedScope,kotlin.Unit>? endCurvedContent, optional kotlin.jvm.functions.Function0<kotlin.Unit> textLinearSeparator, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.CurvedScope,kotlin.Unit> textCurvedSeparator);
+    method @androidx.compose.runtime.Composable public static void ResponsiveTimeText(optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.TimeSource timeSource, optional androidx.compose.ui.text.TextStyle timeTextStyle, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit>? startLinearContent, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.CurvedScope,kotlin.Unit>? startCurvedContent, optional kotlin.jvm.functions.Function0<kotlin.Unit>? endLinearContent, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.CurvedScope,kotlin.Unit>? endCurvedContent, optional kotlin.jvm.functions.Function0<kotlin.Unit> textLinearSeparator, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.CurvedScope,kotlin.Unit> textCurvedSeparator);
     method @androidx.compose.runtime.Composable public static androidx.compose.foundation.layout.PaddingValues responsivePaddingDefaults();
   }
 
   public final class ScalingLazyColumnDefaults {
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory belowTimeText(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional boolean firstItemIsFullWidth, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional float topPaddingDp);
     method @androidx.compose.runtime.Composable public androidx.compose.ui.Modifier listTextPadding(androidx.compose.ui.Modifier);
     method @androidx.compose.runtime.Composable public kotlin.jvm.functions.Function0<androidx.compose.foundation.layout.PaddingValues> padding(optional com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType first, optional com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType last, optional float horizontalPercent);
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory responsive(optional boolean firstItemIsFullWidth, optional float additionalPaddingAtBottom, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional float horizontalPaddingPercent, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode? rotaryMode, optional boolean hapticsEnabled, optional boolean reverseLayout, optional boolean userScrollEnabled);
+    method @Deprecated public com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory responsive(optional boolean firstItemIsFullWidth, optional float additionalPaddingAtBottom, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional float horizontalPaddingPercent, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode? rotaryMode, optional boolean hapticsEnabled, optional boolean reverseLayout, optional boolean userScrollEnabled);
     method public androidx.wear.compose.foundation.lazy.ScalingParams responsiveScalingParams(float screenWidthDp);
     method @com.google.android.horologist.annotations.ExperimentalHorologistApi public com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory scalingLazyColumnDefaults(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional int initialCenterIndex, optional int initialCenterOffset, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional androidx.wear.compose.foundation.lazy.AutoCenteringParams? autoCentering, optional int anchorType, optional boolean hapticsEnabled, optional boolean reverseLayout, optional boolean userScrollEnabled);
     field public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults INSTANCE;
   }
 
   public enum ScalingLazyColumnDefaults.ItemType {
-    method public final float getBottomPaddingDp();
+    method public final float getBottomPaddingPct();
     method public final float getPaddingCorrection();
-    method public final float getTopPaddingDp();
+    method public final float getTopPaddingPct();
     method public static com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
     method public static com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType[] values();
-    property public final float bottomPaddingDp;
+    property public final float bottomPaddingPct;
     property public final float paddingCorrection;
-    property public final float topPaddingDp;
+    property public final float topPaddingPct;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType BodyText;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Card;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Chip;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType CompactChip;
+    enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Dialog;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType Icon;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType MultiButton;
     enum_constant public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType SingleButton;
@@ -159,8 +159,8 @@ package com.google.android.horologist.compose.layout {
 
   public final class ScalingLazyColumnStateKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ScalingLazyColumn(com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.ScalingLazyListScope,kotlin.Unit> content);
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices @androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales public static void previewInitialScrolling();
-    method @androidx.compose.runtime.Composable public static com.google.android.horologist.compose.layout.ScalingLazyColumnState rememberColumnState(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory factory);
+    method @Deprecated @androidx.compose.runtime.Composable public static com.google.android.horologist.compose.layout.ScalingLazyColumnState rememberColumnState(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory factory);
+    method @androidx.compose.runtime.Composable public static com.google.android.horologist.compose.layout.ScalingLazyColumnState rememberResponsiveColumnState(com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType first, com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType last, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode? rotaryMode, optional boolean hapticsEnabled, optional boolean reverseLayout, optional boolean userScrollEnabled, optional int initialItemIndex);
     method @androidx.compose.runtime.Composable public static com.google.android.horologist.compose.layout.ScalingLazyColumnState rememberResponsiveColumnState(optional kotlin.jvm.functions.Function0<? extends androidx.compose.foundation.layout.PaddingValues> contentPadding, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode? rotaryMode, optional boolean hapticsEnabled, optional boolean reverseLayout, optional boolean userScrollEnabled, optional int initialItemIndex);
   }
 
@@ -234,8 +234,6 @@ package com.google.android.horologist.compose.rotaryinput {
 
   public final class AccumulatedRotaryInputModifierKt {
     method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior accumulatedBehavior(optional long eventAccumulationThresholdMs, optional float minValueChangeDistancePx, optional long rateLimitCoolDownMs, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onValueChange);
-    method @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier onRotaryInputAccumulated(androidx.compose.ui.Modifier, optional long eventAccumulationThresholdMs, optional float minValueChangeDistancePx, optional long rateLimitCoolDownMs, optional boolean isLowRes, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onValueChange);
-    method @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier onRotaryInputAccumulatedWithFocus(androidx.compose.ui.Modifier, optional androidx.compose.ui.focus.FocusRequester? focusRequester, optional boolean isLowRes, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onValueChange);
   }
 
   @Deprecated public final class DefaultRotaryHapticHandler implements com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler {
@@ -250,15 +248,12 @@ package com.google.android.horologist.compose.rotaryinput {
   }
 
   public final class HapticsKt {
-    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rememberDefaultRotaryHapticFeedback();
     method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler rememberDisabledHaptic();
     method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler rememberRotaryHapticHandler(androidx.compose.foundation.gestures.ScrollableState scrollableState, optional long throttleThresholdMs, optional long hapticsThresholdPx, optional kotlinx.coroutines.channels.Channel<com.google.android.horologist.compose.rotaryinput.RotaryHapticsType> hapticsChannel, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class RotaryDefaults {
-    method @Deprecated public com.google.android.horologist.compose.rotaryinput.SnapParameters getSnapParametersDefault();
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public boolean isLowResInput();
-    property @Deprecated public final com.google.android.horologist.compose.rotaryinput.SnapParameters snapParametersDefault;
     field public static final com.google.android.horologist.compose.rotaryinput.RotaryDefaults INSTANCE;
   }
 
@@ -293,21 +288,6 @@ package com.google.android.horologist.compose.rotaryinput {
     field public static final long RATE_LIMITING_DISABLED = -1L; // 0xffffffffffffffffL
   }
 
-  public final class RotaryKt {
-    method @Deprecated @androidx.compose.runtime.Composable public static androidx.compose.ui.Modifier rotaryWithScroll(androidx.compose.ui.Modifier, androidx.compose.foundation.gestures.ScrollableState scrollableState, optional androidx.compose.ui.focus.FocusRequester focusRequester, optional androidx.compose.foundation.gestures.FlingBehavior? flingBehavior, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler rotaryHaptics, optional boolean reverseDirection);
-    method @Deprecated @androidx.compose.runtime.Composable public static androidx.compose.ui.Modifier rotaryWithSnap(androidx.compose.ui.Modifier, com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter rotaryScrollAdapter, optional androidx.compose.ui.focus.FocusRequester focusRequester, optional com.google.android.horologist.compose.rotaryinput.SnapParameters snapParameters, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticHandler rotaryHaptics, optional boolean reverseDirection);
-    method @Deprecated @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter toRotaryScrollAdapter(androidx.wear.compose.foundation.lazy.ScalingLazyListState);
-  }
-
-  @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface RotaryScrollAdapter {
-    method @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public float averageItemSize();
-    method @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public int currentItemIndex();
-    method @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public float currentItemOffset();
-    method @Deprecated public androidx.compose.foundation.gestures.ScrollableState getScrollableState();
-    method @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public int totalItemsCount();
-    property @Deprecated public abstract androidx.compose.foundation.gestures.ScrollableState scrollableState;
-  }
-
   public final class RotaryVelocityTracker {
     ctor public RotaryVelocityTracker();
     method public void end();
@@ -320,27 +300,6 @@ package com.google.android.horologist.compose.rotaryinput {
   public final class RotaryWithPagerKt {
     method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior pagerRotaryBehaviour(androidx.compose.foundation.pager.PagerState state);
     method public static androidx.compose.ui.Modifier rotaryWithPager(androidx.compose.ui.Modifier, androidx.compose.foundation.pager.PagerState state, androidx.compose.ui.focus.FocusRequester focusRequester);
-  }
-
-  @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class ScalingLazyColumnRotaryScrollAdapter implements com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter {
-    ctor @Deprecated public ScalingLazyColumnRotaryScrollAdapter(androidx.wear.compose.foundation.lazy.ScalingLazyListState scrollableState);
-    method @Deprecated public float averageItemSize();
-    method @Deprecated public int currentItemIndex();
-    method @Deprecated public float currentItemOffset();
-    method @Deprecated public androidx.wear.compose.foundation.lazy.ScalingLazyListState getScrollableState();
-    method @Deprecated public int totalItemsCount();
-    property @Deprecated public androidx.wear.compose.foundation.lazy.ScalingLazyListState scrollableState;
-  }
-
-  @Deprecated public final class SnapParameters {
-    ctor @Deprecated public SnapParameters(int snapOffset, float thresholdDivider, float resistanceFactor);
-    method @Deprecated public float getResistanceFactor();
-    method @Deprecated public int getSnapOffset();
-    method @Deprecated public float getThresholdDivider();
-    method @Deprecated @androidx.compose.runtime.Composable public float snapOffsetDp();
-    property @Deprecated public final float resistanceFactor;
-    property @Deprecated public final int snapOffset;
-    property @Deprecated public final float thresholdDivider;
   }
 
 }

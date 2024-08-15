@@ -23,7 +23,7 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 26
@@ -92,9 +92,6 @@ dependencies {
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)
-
-    implementation(libs.androidx.wear.tiles)
-    implementation(libs.androidx.wear.tiles.renderer)
 
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.androidx.wear.tooling.preview)

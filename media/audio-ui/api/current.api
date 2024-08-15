@@ -2,11 +2,8 @@
 package com.google.android.horologist.audio.ui {
 
   public final class RotaryVolumeControlsKt {
-    method @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier highResRotaryVolumeControls(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput, android.view.View localView);
     method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior highResVolumeRotaryBehavior(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput);
-    method @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier lowResRotaryVolumeControls(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput, android.view.View localView);
     method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior lowResVolumeRotaryBehavior(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput);
-    method @Deprecated @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.Modifier rotaryVolumeControlsWithFocus(androidx.compose.ui.Modifier, optional androidx.compose.ui.focus.FocusRequester? focusRequester, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput, android.view.View localView, boolean isLowRes);
     method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior volumeRotaryBehavior(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput);
   }
 
@@ -110,12 +107,16 @@ package com.google.android.horologist.audio.ui.components.actions {
     method @androidx.compose.runtime.Composable public static void AudioOutputButton(kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
   }
 
+  public final class SetAudioOutputButtonKt {
+    method @androidx.compose.runtime.Composable public static void SetAudioOutputButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeUiState? volumeUiState, optional com.google.android.horologist.audio.ui.components.AudioOutputUi? audioOutputUi, optional boolean enabled, optional long badgeColor);
+  }
+
   public final class SetVolumeButtonKt {
     method @androidx.compose.runtime.Composable public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeUiState? volumeUiState, optional boolean enabled, optional androidx.compose.ui.Alignment iconAlignment, optional androidx.compose.foundation.layout.PaddingValues? iconPadding);
   }
 
   public final class SettingsButtonKt {
-    method @androidx.compose.runtime.Composable public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.material.IconRtlMode iconRtlMode, optional boolean enabled, optional float iconSize, optional androidx.compose.ui.Alignment iconAlignment, optional androidx.compose.foundation.layout.PaddingValues? iconPadding, optional float tapTargetSize);
+    method @androidx.compose.runtime.Composable public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector? badgeVector, optional long badgeColor, optional boolean enabled, optional float iconSize, optional float badgeSize, optional float tapTargetSize);
   }
 
 }

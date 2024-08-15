@@ -1,4 +1,7 @@
 import com.android.build.gradle.LibraryExtension
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+import com.vanniktech.maven.publish.JavaLibrary
+import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URL
@@ -71,6 +74,15 @@ allprojects {
 
     plugins.withId("com.vanniktech.maven.publish") {
         mavenPublishing {
+            if (project.plugins.hasPlugin("com.android.library")) {
+                configure(AndroidSingleVariantLibrary(
+                    variant = "release",
+                    sourcesJar = true,
+                    publishJavadocJar = false
+                ))
+            } else if (project.plugins.hasPlugin("java-library")) {
+                configure(JavaLibrary(javadocJar = JavadocJar.Empty(), sourcesJar = true))
+            }
             publishToMavenCentral(SonatypeHost("https://google.oss.sonatype.org"))
         }
     }

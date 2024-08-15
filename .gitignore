@@ -3,7 +3,6 @@
 build/
 
 captures
-
 /local.properties
 
 # IntelliJ .idea folder
@@ -51,3 +50,6 @@ checksum.txt
 /.idea/shelf
 /.idea/deploymentTargetSelector.xml
 /.idea/appInsightsSettings.xml
+/.kotlin/**/*
+/.idea/runConfigurations.xml
+/.idea/assetWizardSettings.xml

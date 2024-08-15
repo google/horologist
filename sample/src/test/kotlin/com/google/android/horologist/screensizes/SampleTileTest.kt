@@ -23,11 +23,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.wear.protolayout.ActionBuilders
 import com.google.android.horologist.compose.tools.Device
-import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.media.ui.uamp.UampColors
+import com.google.android.horologist.screenshots.tiles.TileLayoutPreview
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 
 class SampleTileTest(device: Device) : WearLegacyScreenSizeTest(device = device, showTimeText = false) {

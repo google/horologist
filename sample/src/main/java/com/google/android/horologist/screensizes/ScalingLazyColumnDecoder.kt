@@ -35,9 +35,9 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeSource
-import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
@@ -58,7 +58,7 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
         timeText = {
             val size = LocalConfiguration.current.screenWidthDp
             val listState = columnState.state
-            TimeText(
+            ResponsiveTimeText(
                 timeSource = FixedTimeSource,
                 startCurvedContent = { curvedText("${listState.centerItemIndex}/${listState.centerItemScrollOffset}") },
                 endCurvedContent = { curvedText("${size}dp") },
@@ -206,16 +206,4 @@ public object FixedTimeSource : TimeSource {
 @Composable
 fun Standard() {
     ScalingLazyColumnDecoder(factory = ScalingLazyColumnDefaults.scalingLazyColumnDefaults())
-}
-
-@WearPreviewDevices
-@Composable
-fun BelowTimeText() {
-    ScalingLazyColumnDecoder(factory = ScalingLazyColumnDefaults.belowTimeText())
-}
-
-@WearPreviewDevices
-@Composable
-fun Responsive() {
-    ScalingLazyColumnDecoder(factory = ScalingLazyColumnDefaults.responsive())
 }

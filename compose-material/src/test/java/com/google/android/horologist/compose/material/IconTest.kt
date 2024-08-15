@@ -49,29 +49,6 @@ class IconTest : WearLegacyComponentTest() {
     }
 
     @Test
-    fun mirrored() {
-        runComponentTest {
-            Icon(
-                paintable = Icons.Outlined.Abc.asPaintable(),
-                contentDescription = "contentDescription",
-                rtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun mirroredRtl() {
-        runComponentTest {
-            Icon(
-                paintable = Icons.Outlined.Abc.asPaintable(),
-                contentDescription = "contentDescription",
-                rtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
     fun autoMirroredLTR() {
         runComponentTest {
             Icon(
@@ -109,29 +86,6 @@ class IconTest : WearLegacyComponentTest() {
             Icon(
                 paintable = DrawableResPaintable(android.R.drawable.ic_media_play),
                 contentDescription = "contentDescription",
-            )
-        }
-    }
-
-    @Test
-    fun usingDrawableResAsIconMirrored() {
-        runComponentTest {
-            Icon(
-                paintable = DrawableResPaintable(android.R.drawable.ic_media_play),
-                contentDescription = "contentDescription",
-                rtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun usingDrawableResAsIconMirroredRtl() {
-        runComponentTest {
-            Icon(
-                paintable = DrawableResPaintable(android.R.drawable.ic_media_play),
-                contentDescription = "contentDescription",
-                rtlMode = IconRtlMode.Mirrored,
             )
         }
     }

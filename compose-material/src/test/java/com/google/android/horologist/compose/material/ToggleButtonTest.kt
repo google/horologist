@@ -250,32 +250,6 @@ class ToggleButtonTest : WearLegacyComponentTest() {
     }
 
     @Test
-    fun mirrored() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
-                notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
-    fun mirroredRtl() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
-                notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                iconRtlMode = IconRtlMode.Mirrored,
-            )
-        }
-    }
-
-    @Test
     fun textWithLargestFontScale() {
         runComponentTest {
             TestHarness(fontScale = largestFontScale) {

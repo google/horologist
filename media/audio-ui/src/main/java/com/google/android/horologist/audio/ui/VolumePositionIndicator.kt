@@ -44,6 +44,8 @@ public fun VolumePositionIndicator(
     displayIndicatorEvents: Flow<Unit>? = null,
     color: Color = MaterialTheme.colors.secondary,
 ) {
+    // False positive - https://issuetracker.google.com/issues/349411310
+    @Suppress("ProduceStateDoesNotAssignValue")
     val visible by produceState(displayIndicatorEvents == null, displayIndicatorEvents) {
         displayIndicatorEvents?.collectLatest {
             value = true

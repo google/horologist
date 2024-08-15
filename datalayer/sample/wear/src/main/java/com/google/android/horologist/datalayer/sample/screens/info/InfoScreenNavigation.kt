@@ -25,8 +25,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.wear.compose.navigation.composable
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.datalayer.sample.Screen
 import java.net.URLDecoder
 import java.net.URLEncoder
@@ -57,7 +58,7 @@ fun NavGraphBuilder.infoScreen(
             navArgument(messageArg) { type = NavType.StringType },
         ),
     ) {
-        val columnState = rememberColumnState()
+        val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
         ScreenScaffold(scrollState = columnState) {
             InfoScreen(

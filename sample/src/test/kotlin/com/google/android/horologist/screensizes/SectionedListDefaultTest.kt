@@ -21,8 +21,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
@@ -38,7 +38,7 @@ class SectionedListDefaultTest(device: Device) : WearLegacyScreenSizeTest(device
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colors.background),
-            timeText = { TimeText(timeSource = FixedTimeSource) },
+            timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
         ) {
             SectionedListMenuScreen(
                 navigateToRoute = {},

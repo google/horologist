@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
 <!--
  Copyright 2024 The Android Open Source Project
 
@@ -44,5 +45,5 @@
   <string name="horologist_playlist_download_button_play_content_description">Oynat</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s İndirme işlemi devam ediyor</string>
   <string name="horologist_playlist_download_download_progress_known_size">%2$s alanın %%%1$.0f kadarı</string>
-  <string name="horologist_playlist_download_download_progress_waiting">Bekleniyor...</string>
+  <string name="horologist_playlist_download_download_progress_waiting" tools:ignore="TypographyEllipsis">Bekleniyor...</string>
 </resources>

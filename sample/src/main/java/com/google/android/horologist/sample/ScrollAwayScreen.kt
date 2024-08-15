@@ -42,9 +42,9 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.scrollAway
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
@@ -86,7 +86,7 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = {
-            TimeText(modifier = Modifier.scrollAway(scrollState))
+            ResponsiveTimeText(modifier = Modifier.scrollAway(scrollState))
         },
         positionIndicator = {
             PositionIndicator(scrollState = scrollState)

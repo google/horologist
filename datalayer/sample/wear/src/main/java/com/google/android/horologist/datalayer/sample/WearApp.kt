@@ -27,8 +27,9 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberColumnState
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.datalayer.sample.screens.MainScreen
 import com.google.android.horologist.datalayer.sample.screens.datalayer.DataLayerScreen
 import com.google.android.horologist.datalayer.sample.screens.info.infoScreen
@@ -54,7 +55,7 @@ fun WearApp(
             composable(
                 route = Screen.MainScreen.route,
             ) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
                 ScreenScaffold(scrollState = columnState) {
                     MainScreen(
@@ -64,21 +65,21 @@ fun WearApp(
                 }
             }
             composable(route = Screen.CounterScreen.route) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
                 ScreenScaffold(scrollState = columnState) {
                     DataLayerScreen(columnState = columnState)
                 }
             }
             composable(route = Screen.ListNodesScreen.route) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
                 ScreenScaffold(scrollState = columnState) {
                     DataLayerNodesScreen(columnState = columnState)
                 }
             }
             composable(route = Screen.AppHelperTrackingScreen.route) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
                 ScreenScaffold(scrollState = columnState) {
                     TrackingScreen(
@@ -88,7 +89,7 @@ fun WearApp(
                 }
             }
             composable(route = Screen.AppHelperNodesActionsScreen.route) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
                 ScreenScaffold(scrollState = columnState) {
                     NodesActionsScreen(
@@ -98,7 +99,7 @@ fun WearApp(
                 }
             }
             composable(route = Screen.AppHelperNodesListenerScreen.route) {
-                val columnState = rememberColumnState()
+                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
                 ScreenScaffold(scrollState = columnState) {
                     NodesListenerScreen(columnState = columnState)

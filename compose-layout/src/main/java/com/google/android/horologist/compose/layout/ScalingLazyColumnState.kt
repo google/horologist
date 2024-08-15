@@ -41,10 +41,6 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.ScalingParams
 import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
 import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.snapBehavior
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.TimeText
-import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.responsiveScalingParams
@@ -125,10 +121,10 @@ public class ScalingLazyColumnState(
     }
 }
 
-// @Deprecated("Replaced by rememberResponsiveColumnState")
 @Composable
+@Deprecated("Use rememberResponsiveColumnState")
 public fun rememberColumnState(
-    factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.responsive(),
+    @Suppress("DEPRECATION") factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.responsive(),
 ): ScalingLazyColumnState {
     val columnState = factory.create()
 
@@ -141,9 +137,38 @@ public fun rememberColumnState(
 
 @Composable
 public fun rememberResponsiveColumnState(
+    first: ItemType,
+    last: ItemType,
+    verticalArrangement: Arrangement.Vertical =
+        Arrangement.spacedBy(
+            space = 4.dp,
+            alignment = Alignment.Top,
+        ),
+    rotaryMode: RotaryMode? = RotaryMode.Scroll,
+    hapticsEnabled: Boolean = true,
+    reverseLayout: Boolean = false,
+    userScrollEnabled: Boolean = true,
+    initialItemIndex: Int = 0,
+): ScalingLazyColumnState {
+    return rememberResponsiveColumnState(
+        ScalingLazyColumnDefaults.padding(
+            first = first,
+            last = last,
+        ),
+        verticalArrangement,
+        rotaryMode,
+        hapticsEnabled,
+        reverseLayout,
+        userScrollEnabled,
+        initialItemIndex,
+    )
+}
+
+@Composable
+public fun rememberResponsiveColumnState(
     contentPadding: @Composable () -> PaddingValues = ScalingLazyColumnDefaults.padding(
-        first = ScalingLazyColumnDefaults.ItemType.Unspecified,
-        last = ScalingLazyColumnDefaults.ItemType.Unspecified,
+        first = ItemType.Unspecified,
+        last = ItemType.Unspecified,
     ),
     verticalArrangement: Arrangement.Vertical =
         Arrangement.spacedBy(
@@ -245,30 +270,4 @@ public fun ScalingLazyColumn(
         rotaryScrollableBehavior = rotaryBehavior,
         content = content,
     )
-}
-
-@Composable
-@WearPreviewDevices
-@WearPreviewFontScales
-fun previewInitialScrolling() {
-    AppScaffold(
-        timeText = { TimeText() },
-    ) {
-        val columnState = rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(
-                first = ItemType.Text,
-                last = ItemType.Text,
-            ),
-            initialItemIndex = 50,
-        )
-        ScreenScaffold(scrollState = columnState) {
-            ScalingLazyColumn(
-                columnState = columnState,
-            ) {
-                items(100) {
-                    Text("Item $it")
-                }
-            }
-        }
-    }
 }

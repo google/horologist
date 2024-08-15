@@ -16,9 +16,12 @@
 
 package com.google.android.horologist.audio.ui.components.actions
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +33,6 @@ import androidx.wear.compose.material.ButtonDefaults.buttonColors
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.composables.UnboundedRippleButton
 import com.google.android.horologist.compose.material.Icon
-import com.google.android.horologist.compose.material.IconRtlMode
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 /**
@@ -42,11 +44,11 @@ public fun SettingsButton(
     imageVector: ImageVector,
     contentDescription: String,
     modifier: Modifier = Modifier,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
+    badgeVector: ImageVector? = null,
+    badgeColor: Color = MaterialTheme.colors.primary,
     enabled: Boolean = true,
     iconSize: Dp = 26.dp,
-    iconAlignment: Alignment = Alignment.Center,
-    iconPadding: PaddingValues? = null,
+    badgeSize: Dp = 16.dp,
     tapTargetSize: Dp = 52.dp,
 ) {
     UnboundedRippleButton(
@@ -60,14 +62,22 @@ public fun SettingsButton(
         enabled = enabled,
         rippleRadius = tapTargetSize / 2,
     ) {
-        val iconModifier = if (iconPadding != null) Modifier.padding(iconPadding) else Modifier
-        Icon(
-            paintable = imageVector.asPaintable(),
-            contentDescription = contentDescription,
-            modifier = iconModifier
-                .size(iconSize)
-                .align(iconAlignment),
-            rtlMode = iconRtlMode,
-        )
+        Box() {
+            Icon(
+                paintable = imageVector.asPaintable(),
+                contentDescription = contentDescription,
+                modifier = Modifier.size(iconSize).border(width = 0.dp, color = Color.Transparent, shape = CircleShape),
+            )
+            if (badgeVector != null) {
+                Icon(
+                    paintable = badgeVector.asPaintable(),
+                    contentDescription = contentDescription,
+                    modifier = Modifier.size(badgeSize)
+                        .align(Alignment.CenterEnd)
+                        .offset(badgeSize - 2.dp)
+                        .background(color = badgeColor, shape = CircleShape),
+                )
+            }
+        }
     }
 }

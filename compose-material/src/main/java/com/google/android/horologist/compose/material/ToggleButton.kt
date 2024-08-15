@@ -98,7 +98,6 @@ public fun ToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = CircleShape,
     role: Role = ToggleButtonDefaults.DefaultRole,
-    iconRtlMode: IconRtlMode = IconRtlMode.Default,
     smallSize: Boolean = false,
 ) {
     val stateDescriptionSemantics = stringResource(
@@ -133,7 +132,6 @@ public fun ToggleButton(
             },
             modifier = modifier,
             contentDescription = contentDescription,
-            rtlMode = iconRtlMode,
         )
     }
 }

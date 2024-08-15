@@ -33,15 +33,12 @@ import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.compose.rotaryinput.rotaryWithPager
 
 /**
  * A Wear Material Compliant Vertical Pager screen.
  *
  * Combines the Compose Foundation Pager, with a VerticalPageIndicator.
- *
- * The screens gets an [onRotaryInputAccumulated] modifier added for RSB handling.
  */
 @Composable
 @ExperimentalHorologistApi

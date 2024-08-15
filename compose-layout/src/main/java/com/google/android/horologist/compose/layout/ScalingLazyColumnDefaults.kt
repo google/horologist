@@ -45,57 +45,9 @@ import kotlin.math.sqrt
  */
 public object ScalingLazyColumnDefaults {
     /**
-     * Layout the first item, directly under the time text.
-     * This is positioned from the top of the screen instead of the
-     * center.
-     */
-//    @Deprecated("Replaced by rememberResponsiveColumnState")
-    @ExperimentalHorologistApi
-    public fun belowTimeText(
-        rotaryMode: RotaryMode = RotaryMode.Scroll,
-        firstItemIsFullWidth: Boolean = false,
-        verticalArrangement: Arrangement.Vertical =
-            Arrangement.spacedBy(
-                space = 4.dp,
-                alignment = Alignment.Top,
-            ),
-        horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-        contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-        topPaddingDp: Dp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp),
-    ): ScalingLazyColumnState.Factory {
-        return object : ScalingLazyColumnState.Factory {
-            @Composable
-            override fun create(): ScalingLazyColumnState {
-                val density = LocalDensity.current
-                val configuration = LocalConfiguration.current
-
-                return remember {
-                    val screenHeightPx =
-                        with(density) { configuration.screenHeightDp.dp.roundToPx() }
-                    val topPaddingPx = with(density) { topPaddingDp.roundToPx() }
-                    val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
-
-                    ScalingLazyColumnState(
-                        initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
-                            index = 0,
-                            offsetPx = topScreenOffsetPx,
-                        ),
-                        anchorType = ScalingLazyListAnchorType.ItemStart,
-                        rotaryMode = rotaryMode,
-                        verticalArrangement = verticalArrangement,
-                        horizontalAlignment = horizontalAlignment,
-                        contentPadding = contentPadding,
-                    )
-                }
-            }
-        }
-    }
-
-    /**
      * Layout the item [initialCenterIndex] at [initialCenterOffset] from the
      * center of the screen.
      */
-//    @Deprecated("Replaced by rememberResponsiveColumnState")
     @ExperimentalHorologistApi
     public fun scalingLazyColumnDefaults(
         rotaryMode: RotaryMode = RotaryMode.Scroll,
@@ -156,8 +108,7 @@ public object ScalingLazyColumnDefaults {
      * @param reverseLayout whether to start at the bottom.
      * @param userScrollEnabled whether to allow user to scroll.
      */
-//    @Deprecated("Replaced by rememberResponsiveColumnState")
-    @ExperimentalHorologistApi
+    @Deprecated("Use rememberResponsiveColumnState")
     public fun responsive(
         firstItemIsFullWidth: Boolean = true,
         additionalPaddingAtBottom: Dp = 10.dp,
@@ -269,21 +220,22 @@ public object ScalingLazyColumnDefaults {
     }
 
     internal val Padding12Pct = 0.1248f
+    internal val Padding14Pct = 0.1456f
     internal val Padding16Pct = 0.1664f
     internal val Padding20Pct = 0.2083f
     internal val Padding21Pct = 0.2188f
     internal val Padding31Pct = 0.3646f
 
     enum class ItemType(
-        val topPaddingDp: Float,
-        val bottomPaddingDp: Float,
+        val topPaddingPct: Float,
+        val bottomPaddingPct: Float,
         val paddingCorrection: Dp = 0.dp,
     ) {
         Card(Padding21Pct, Padding31Pct),
         Chip(Padding21Pct, Padding31Pct),
         CompactChip(
-            topPaddingDp = Padding12Pct,
-            bottomPaddingDp = Padding20Pct,
+            topPaddingPct = Padding12Pct,
+            bottomPaddingPct = Padding20Pct,
             paddingCorrection = (-8).dp,
         ),
         Icon(Padding12Pct, Padding21Pct),
@@ -291,6 +243,7 @@ public object ScalingLazyColumnDefaults {
         SingleButton(Padding12Pct, Padding20Pct),
         Text(Padding16Pct, Padding31Pct),
         BodyText(Padding21Pct, Padding31Pct),
+        Dialog(Padding14Pct, Padding20Pct),
         Unspecified(0f, 0f),
     }
 
@@ -309,7 +262,7 @@ public object ScalingLazyColumnDefaults {
             val horizontalPadding = screenWidthDp.dp * horizontalPercent
 
             val topPadding = if (first != ItemType.Unspecified) {
-                first.topPaddingDp * height + first.paddingCorrection
+                first.topPaddingPct * height + first.paddingCorrection
             } else {
                 if (configuration.isScreenRound) {
                     calculateVerticalOffsetForChip(screenWidthDp, horizontalPercent)
@@ -319,7 +272,7 @@ public object ScalingLazyColumnDefaults {
             }
 
             val bottomPadding = if (last != ItemType.Unspecified) {
-                last.bottomPaddingDp * height + first.paddingCorrection
+                last.bottomPaddingPct * height + first.paddingCorrection
             } else {
                 if (configuration.isScreenRound) {
                     calculateVerticalOffsetForChip(

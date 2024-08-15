@@ -18,12 +18,14 @@
 
 package com.google.android.horologist.navsample
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.sample.SampleChip
 
 @Composable
 fun NavMenuScreen(
@@ -36,39 +38,57 @@ fun NavMenuScreen(
         columnState = columnState,
     ) {
         item {
-            SampleChip(
+            Chip(
+                modifier = Modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(NavScreen.ScalingLazyColumn.route) },
-                label = "ScalingLazyColumn",
+                label = {
+                    Text(modifier = Modifier.weight(1f), text = "ScalingLazyColumn")
+                },
             )
         }
         item {
-            SampleChip(
+            Chip(
+                modifier = Modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(NavScreen.Column.route) },
-                label = "Column",
+                label = {
+                    Text(modifier = Modifier.weight(1f), text = "Column")
+                },
             )
         }
         item {
-            SampleChip(
+            Chip(
+                modifier = Modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(NavScreen.Dialog.route) },
-                label = "Dialog",
+                label = {
+                    Text(modifier = Modifier.weight(1f), text = "Dialog")
+                },
             )
         }
         item {
-            SampleChip(
+            Chip(
+                modifier = Modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(NavScreen.Pager.route) },
-                label = "Pager",
+                label = {
+                    Text(modifier = Modifier.weight(1f), text = "Pager")
+                },
             )
         }
         item {
-            SampleChip(
+            Chip(
+                modifier = Modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(NavScreen.Volume.route) },
-                label = "Volume (custom scrolling)",
+                label = {
+                    Text(modifier = Modifier.weight(1f), text = "Volume (custom scrolling)")
+                },
             )
         }
         item {
-            SampleChip(
+            Chip(
+                modifier = Modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(NavScreen.Snackbar.route) },
-                label = "Snackbar",
+                label = {
+                    Text(modifier = Modifier.weight(1f), text = "Snackbar")
+                },
             )
         }
     }

@@ -23,6 +23,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.Stroke.Companion.HairlineWidth
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.TimeSource
 import androidx.wear.compose.material.curvedText
@@ -42,11 +44,10 @@ fun CurvedTimeTextAudit(route: AuditNavigation.CurvedTimeText.Audit) {
             when (route.config) {
                 Config.H12 -> ResponsiveTimeText(timeSource = FixedTimeSource.H12)
                 Config.H24 -> ResponsiveTimeText(timeSource = FixedTimeSource.H24)
-                Config.Tall -> ResponsiveTimeText(timeSource = object :
-                    TimeSource {
+                Config.Tall -> ResponsiveTimeText(timeSource = object : TimeSource {
                     override val currentTime: String
                         @Composable get() = DateFormat.format(
-                            "⎥⎥:⎥⎥",
+                            "9⎥:⎥0",
                             Calendar.getInstance().apply {
                                 set(Calendar.HOUR_OF_DAY, 21)
                                 set(Calendar.MINUTE, 30)
@@ -54,8 +55,7 @@ fun CurvedTimeTextAudit(route: AuditNavigation.CurvedTimeText.Audit) {
                         ).toString()
                 })
 
-                Config.LongerTextString -> ResponsiveTimeText(
-                    timeSource = FixedTimeSource,
+                Config.LongerTextString -> ResponsiveTimeText(timeSource = FixedTimeSource,
                     startCurvedContent = {
                         this.curvedText("Network unavailable")
                     })
@@ -65,6 +65,11 @@ fun CurvedTimeTextAudit(route: AuditNavigation.CurvedTimeText.Audit) {
         if (route.config == Config.Tall) {
             Canvas(modifier = Modifier.fillMaxSize()) {
                 val fromTop = 2.dp.toPx()
+                drawCircle(
+                    style = Stroke(HairlineWidth),
+                    color = Color.White,
+                    radius = size.width / 2f - fromTop,
+                )
                 drawLine(Color.White, Offset(0f, fromTop), Offset(size.width, fromTop))
             }
         }

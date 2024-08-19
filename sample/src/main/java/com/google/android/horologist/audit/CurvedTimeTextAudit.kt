@@ -44,21 +44,25 @@ fun CurvedTimeTextAudit(route: AuditNavigation.CurvedTimeText.Audit) {
             when (route.config) {
                 Config.H12 -> ResponsiveTimeText(timeSource = FixedTimeSource.H12)
                 Config.H24 -> ResponsiveTimeText(timeSource = FixedTimeSource.H24)
-                Config.Tall -> ResponsiveTimeText(timeSource = object : TimeSource {
-                    override val currentTime: String
-                        @Composable get() = DateFormat.format(
-                            "9⎥:⎥0",
-                            Calendar.getInstance().apply {
-                                set(Calendar.HOUR_OF_DAY, 21)
-                                set(Calendar.MINUTE, 30)
-                            },
-                        ).toString()
-                })
+                Config.Tall -> ResponsiveTimeText(
+                    timeSource = object : TimeSource {
+                        override val currentTime: String
+                            @Composable get() = DateFormat.format(
+                                "9⎥:⎥0",
+                                Calendar.getInstance().apply {
+                                    set(Calendar.HOUR_OF_DAY, 21)
+                                    set(Calendar.MINUTE, 30)
+                                },
+                            ).toString()
+                    },
+                )
 
-                Config.LongerTextString -> ResponsiveTimeText(timeSource = FixedTimeSource,
+                Config.LongerTextString -> ResponsiveTimeText(
+                    timeSource = FixedTimeSource,
                     startCurvedContent = {
                         this.curvedText("Network unavailable")
-                    })
+                    },
+                )
             }
         },
     ) {

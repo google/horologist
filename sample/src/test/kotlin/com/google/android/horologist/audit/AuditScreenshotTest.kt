@@ -27,7 +27,7 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 @RunWith(ParameterizedRobolectricTestRunner::class)
 public abstract class AuditScreenshotTest(override val device: WearDevice) :
     WearScreenshotTest() {
-        public override val tolerance: Float = 0.02f
+        public override val tolerance: Float = 0.001f
 
         abstract val audit: AuditNavigation
 

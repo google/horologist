@@ -287,7 +287,7 @@ interface AuditNavigation {
     data object CurvedTimeText : AuditSection<CurvedTimeText.Config, CurvedTimeText.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            H12, H24, LongerTextString
+            H12, H24, LongerTextString, Tall
         }
 
         @Serializable

@@ -16,12 +16,24 @@
 
 package com.google.android.horologist.audit
 
+import android.text.format.DateFormat
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.TimeSource
 import androidx.wear.compose.material.curvedText
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.audit.AuditNavigation.CurvedTimeText.Config
+import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.screensizes.FixedTimeSource
+import java.util.Calendar
 
 @Composable
 fun CurvedTimeTextAudit(route: AuditNavigation.CurvedTimeText.Audit) {
@@ -30,11 +42,40 @@ fun CurvedTimeTextAudit(route: AuditNavigation.CurvedTimeText.Audit) {
             when (route.config) {
                 Config.H12 -> ResponsiveTimeText(timeSource = FixedTimeSource.H12)
                 Config.H24 -> ResponsiveTimeText(timeSource = FixedTimeSource.H24)
-                Config.LongerTextString -> ResponsiveTimeText(timeSource = FixedTimeSource, startCurvedContent = {
-                    this.curvedText("Network unavailable")
+                Config.Tall -> ResponsiveTimeText(timeSource = object :
+                    TimeSource {
+                    override val currentTime: String
+                        @Composable get() = DateFormat.format(
+                            "⎥⎥:⎥⎥",
+                            Calendar.getInstance().apply {
+                                set(Calendar.HOUR_OF_DAY, 21)
+                                set(Calendar.MINUTE, 30)
+                            },
+                        ).toString()
                 })
+
+                Config.LongerTextString -> ResponsiveTimeText(
+                    timeSource = FixedTimeSource,
+                    startCurvedContent = {
+                        this.curvedText("Network unavailable")
+                    })
             }
         },
     ) {
+        if (route.config == Config.Tall) {
+            Canvas(modifier = Modifier.fillMaxSize()) {
+                val fromTop = 2.dp.toPx()
+                drawLine(Color.White, Offset(0f, fromTop), Offset(size.width, fromTop))
+            }
+        }
+    }
+}
+
+@Composable
+@WearPreviewSmallRound
+@WearPreviewLargeRound
+fun CurvedTimeTextAuditPreview() {
+    AppScaffold {
+        CurvedTimeTextAudit(AuditNavigation.CurvedTimeText.Audit(AuditNavigation.CurvedTimeText.Config.H24))
     }
 }

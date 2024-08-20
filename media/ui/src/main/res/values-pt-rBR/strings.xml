@@ -27,7 +27,7 @@
   <string name="horologist_shuffle_button_on_content_description">Modo de ordem aleatória ativado</string>
   <string name="horologist_nothing_playing">Não há nada tocando</string>
   <string name="horologist_browse_downloads_title">Downloads</string>
-  <string name="horologist_browse_downloads_empty">Faça o download de músicas para começar a ouvir</string>
+  <string name="horologist_browse_downloads_empty">Baixe músicas para começar a ouvir</string>
   <string name="horologist_browse_library_title">Biblioteca</string>
   <string name="horologist_browse_library_playlists">Playlists</string>
   <string name="horologist_browse_library_playlists_button">Playlists</string>

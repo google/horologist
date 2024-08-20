@@ -29,10 +29,10 @@
   <string name="horologist_browse_downloads_title">Λήψεις</string>
   <string name="horologist_browse_downloads_empty">Κατεβάστε μουσική για να αρχίσετε την ακρόαση</string>
   <string name="horologist_browse_library_title">Βιβλιοθήκη</string>
-  <string name="horologist_browse_library_playlists">Playlist</string>
-  <string name="horologist_browse_library_playlists_button">Playlist</string>
+  <string name="horologist_browse_library_playlists">Λίστα αναπαραγωγής</string>
+  <string name="horologist_browse_library_playlists_button">Λίστα αναπαραγωγής</string>
   <string name="horologist_browse_library_settings_button">Ρυθμίσεις</string>
-  <string name="horologist_browse_playlist_title">Playlist</string>
+  <string name="horologist_browse_playlist_title">Λίστα αναπαραγωγής</string>
   <string name="horologist_playlist_download_button_download">Λήψη στο ρολόι σας</string>
   <string name="horologist_playlist_download_button_cancel">Ακύρωση</string>
   <string name="horologist_playlist_download_button_download_content_description">Διαθέσιμη λήψη</string>

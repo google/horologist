@@ -19,7 +19,6 @@ package com.google.android.horologist.compose.layout
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.CurvedScope
@@ -63,7 +62,6 @@ public fun ResponsiveTimeText(
 
 @Composable
 public fun responsivePaddingDefaults(): PaddingValues {
-    val height = LocalConfiguration.current.screenHeightDp
-    val padding = height * 0.021
-    return PaddingValues(padding.dp)
+    // The Text "Top" baseline makes it look much lower
+    return PaddingValues(0.dp)
 }

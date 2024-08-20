@@ -37,7 +37,7 @@ plugins {
     kotlin("android")
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.24"
+    kotlin("plugin.serialization")
 }
 
 val localProperties = Properties().apply {
@@ -48,7 +48,7 @@ val localProperties = Properties().apply {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.google.android.horologist.ai.sample.wear.gemini"

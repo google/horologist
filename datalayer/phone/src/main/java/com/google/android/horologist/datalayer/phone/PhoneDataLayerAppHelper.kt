@@ -117,7 +117,7 @@ public class PhoneDataLayerAppHelper(
                 context.packageManager.getPackageInfo("com.google.android.apps.wear.companion", 0)
             val version = packageInfo.versionName
 
-            val companionVersion = Version.parse(version)
+            val companionVersion = version?.let { Version.parse(version) }
             if (companionVersion != null && companionVersion >= RequiredCompanionVersion) {
                 AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
             } else {

@@ -93,6 +93,44 @@ AppScaffold {
 }
 ```
 
+## Typesafe Navigation.
+
+This provides an implementation of typesafe navigation for Wear Compose.
+See https://developer.android.com/guide/navigation/design/type-safety for more information.
+
+```kotlin
+import com.google.android.horologist.compose.nav.SwipeDismissableNavHost
+import com.google.android.horologist.compose.nav.composable
+
+@kotlinx.serialization.Serializable
+object Prompt
+
+@kotlinx.serialization.Serializable
+object Settings
+
+@Composable
+fun WearApp(
+    modifier: Modifier = Modifier,
+    navController: NavHostController = rememberSwipeDismissableNavController(),
+) {
+    AppScaffold(modifier = modifier) {
+        SwipeDismissableNavHost(
+            startDestination = Prompt,
+            navController = navController,
+        ) {
+            composable<Prompt> {
+                SamplePromptScreen(
+                    onSettingsClick = { navController.navigate(Settings) },
+                )
+            }
+            composable<Settings> {
+                SettingsScreen()
+            }
+        }
+    }
+}
+```
+
 ## Box Inset Layout.
 
 Use as a break glass for simple layout to fit within a safe square.

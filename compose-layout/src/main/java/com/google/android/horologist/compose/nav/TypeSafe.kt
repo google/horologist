@@ -46,6 +46,17 @@ public class WearComposeNavigatorDestinationBuilder(
     }
 }
 
+/**
+ * Add the [Composable] to the [NavGraphBuilder].
+ *
+ * <b>This implements type safe navigation for Wear.</b>
+ *
+ * @param T route from a [KClass] for the destination
+ * @param typeMap map of destination arguments' kotlin type [KType] to its respective custom
+ *   [NavType]. May be empty if [T] does not use custom NavTypes.
+ * @param deepLinks list of deep links to associate with the destinations
+ * @param content composable for the destination
+ */
 @ExperimentalHorologistApi
 public inline fun <reified T : Any> NavGraphBuilder.composable(
     typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = emptyMap(),
@@ -66,6 +77,29 @@ public inline fun <reified T : Any> NavGraphBuilder.composable(
     )
 }
 
+/**
+ * Provides a place in the Compose hierarchy for self-contained navigation to occur, with backwards
+ * navigation provided by a swipe gesture.
+ *
+ * <b>This implements type safe navigation for Wear.</b>
+ *
+ * Once this is called, any Composable within the given [NavGraphBuilder] can be navigated to from
+ * the provided [navController].
+ *
+ * The builder passed into this method is [remember]ed. This means that for this NavHost, the
+ * contents of the builder cannot be changed.
+ *
+ * Content is displayed within a [BasicSwipeToDismissBox], showing the current navigation level.
+ * During a swipe-to-dismiss gesture, the previous navigation level (if any) is shown in the
+ * background. BackgroundScrimColor and ContentScrimColor of it are taken from
+ * [LocalSwipeToDismissBackgroundScrimColor] and [LocalSwipeToDismissContentScrimColor].
+ *
+ * @param navController the navController for this host
+ * @param startDestination the route from a an Object for the start destination
+ * @param modifier The modifier to be applied to the layout.
+ * @param route the route from a [KClass] for the graph
+ * @param builder the builder used to construct the graph
+ */
 @ExperimentalHorologistApi
 @Composable
 public fun SwipeDismissableNavHost(

@@ -26,7 +26,7 @@ import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.DurationUnit
 
 public class CompositionMetric(private val composable: String) : TraceMetric() {
-    override fun getResult(
+    override fun getMeasurements(
         captureInfo: CaptureInfo,
         traceSession: PerfettoTraceProcessor.Session,
     ): List<Measurement> {

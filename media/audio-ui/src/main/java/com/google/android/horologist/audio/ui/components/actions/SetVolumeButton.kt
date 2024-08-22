@@ -56,5 +56,7 @@ public fun SetVolumeButton(
             else -> Icons.AutoMirrored.Default.VolumeUp // volumeUiState == null || volumeUiState.isMax == true
         },
         contentDescription = stringResource(R.string.horologist_set_volume_content_description),
+        iconAlignment = iconAlignment,
+        iconPadding = iconPadding,
     )
 }

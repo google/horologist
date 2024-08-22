@@ -17,9 +17,10 @@
 package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -49,6 +50,8 @@ public fun SettingsButton(
     enabled: Boolean = true,
     iconSize: Dp = 26.dp,
     badgeSize: Dp = 16.dp,
+    iconAlignment: Alignment = Alignment.Center,
+    iconPadding: PaddingValues? = null,
     tapTargetSize: Dp = 52.dp,
 ) {
     UnboundedRippleButton(
@@ -62,11 +65,12 @@ public fun SettingsButton(
         enabled = enabled,
         rippleRadius = tapTargetSize / 2,
     ) {
-        Box() {
+        val boxModifier = if (iconPadding != null) Modifier.padding(iconPadding) else Modifier
+        Box(modifier = boxModifier.align(iconAlignment)) {
             Icon(
                 paintable = imageVector.asPaintable(),
                 contentDescription = contentDescription,
-                modifier = Modifier.size(iconSize).border(width = 0.dp, color = Color.Transparent, shape = CircleShape),
+                modifier = Modifier.size(iconSize),
             )
             if (badgeVector != null) {
                 Icon(

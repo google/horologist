@@ -128,7 +128,7 @@ android {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:4.27.3"
+        artifact = "com.google.protobuf:protoc:4.28.0"
     }
     plugins {
         id("javalite") {

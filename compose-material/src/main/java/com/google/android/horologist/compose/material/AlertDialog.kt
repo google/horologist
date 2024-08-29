@@ -57,9 +57,7 @@ public fun AlertDialog(
     message: String? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    @Suppress("DEPRECATION") state: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(),
-    ),
+    state: ScalingLazyColumnState = rememberResponsiveDialogState(),
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
     Dialog(
@@ -98,9 +96,7 @@ public fun AlertDialog(
     icon: @Composable (() -> Unit)? = null,
     title: String? = null,
     message: String? = null,
-    @Suppress("DEPRECATION") state: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(),
-    ),
+    state: ScalingLazyColumnState = rememberResponsiveDialogState(),
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
     Dialog(

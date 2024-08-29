@@ -33,8 +33,6 @@ public fun NonScrollableAlertContent(
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
-    val columnState = centeredDialogColumnState()
-
     AlertContent(
         onCancel = onCancel,
         onOk = onOk,
@@ -43,7 +41,6 @@ public fun NonScrollableAlertContent(
         message = message,
         okButtonContentDescription = okButtonContentDescription,
         cancelButtonContentDescription = cancelButtonContentDescription,
-        state = columnState,
         showPositionIndicator = false,
         content = content,
     )

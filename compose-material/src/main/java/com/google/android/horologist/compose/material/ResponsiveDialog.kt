@@ -91,7 +91,7 @@ public fun ResponsiveDialogContent(
                         Row(
                             Modifier
                                 .fillMaxWidth()
-                                .padding(bottom = 4.dp), // 8.dp bellow icon
+                                .padding(bottom = 4.dp), // 8.dp below icon
                             horizontalArrangement = Arrangement.Center,
                         ) {
                             it()
@@ -186,17 +186,14 @@ public fun rememberResponsiveDialogState() = rememberColumnState(
  */
 @Composable
 public fun contentPadding(): PaddingValues {
-    val verticalContentPaddingPercentage = 10f
-    val horizontalContentPaddingPercentage = 5.2f
+    val horizontalContentPaddingPercentage = 0.052f
 
     val screenWidth = LocalConfiguration.current.screenWidthDp
-    val verticalContentPadding =
-        screenWidth.dp * verticalContentPaddingPercentage / 100
     val horizontalContentPadding =
-        screenWidth.dp * horizontalContentPaddingPercentage / 100
+        screenWidth.dp * horizontalContentPaddingPercentage
     return PaddingValues(
-        top = verticalContentPadding,
-        bottom = verticalContentPadding,
+        top = screenWidth.dp * ScalingLazyColumnDefaults.ItemType.Dialog.topPaddingPct,
+        bottom = screenWidth.dp * ScalingLazyColumnDefaults.ItemType.Dialog.bottomPaddingPct,
         start = horizontalContentPadding,
         end = horizontalContentPadding,
     )

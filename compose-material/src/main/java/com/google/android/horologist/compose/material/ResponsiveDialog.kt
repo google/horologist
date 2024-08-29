@@ -54,7 +54,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberColumnState
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @ExperimentalHorologistApi
@@ -74,7 +73,7 @@ public fun ResponsiveDialogContent(
                 initialCenterIndex = 0,
                 autoCentering = null,
                 verticalArrangement = spacedBy(space = 4.dp, alignment = Alignment.CenterVertically),
-                contentPadding = contentPadding()
+                contentPadding = contentPadding(),
             ),
         ),
     showPositionIndicator: Boolean = true,
@@ -177,7 +176,6 @@ public fun ResponsiveDialogContent(
         }
     }
 }
-
 
 /**
  * The padding to apply around the content.

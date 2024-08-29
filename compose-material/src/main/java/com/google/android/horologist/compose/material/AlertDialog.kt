@@ -131,11 +131,7 @@ public fun AlertContent(
     message: String? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    @Suppress("DEPRECATION") state: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(
-            additionalPaddingAtBottom = 0.dp,
-        ),
-    ),
+    state: ScalingLazyColumnState = rememberResponsiveDialogState(),
     showPositionIndicator: Boolean = true,
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {

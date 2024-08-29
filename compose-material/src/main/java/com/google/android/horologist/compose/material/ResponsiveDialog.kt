@@ -67,15 +67,7 @@ public fun ResponsiveDialogContent(
     onCancel: (() -> Unit)? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    state: ScalingLazyColumnState =
-        rememberColumnState(
-            factory = ScalingLazyColumnDefaults.scalingLazyColumnDefaults(
-                initialCenterIndex = 0,
-                autoCentering = null,
-                verticalArrangement = spacedBy(space = 4.dp, alignment = Alignment.CenterVertically),
-                contentPadding = contentPadding(),
-            ),
-        ),
+    state: ScalingLazyColumnState = rememberResponsiveDialogState(),
     showPositionIndicator: Boolean = true,
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
@@ -177,11 +169,23 @@ public fun ResponsiveDialogContent(
     }
 }
 
+@Suppress("DEPRECATION")
+@ExperimentalHorologistApi
+@Composable
+public fun rememberResponsiveDialogState() = rememberColumnState(
+    factory = ScalingLazyColumnDefaults.scalingLazyColumnDefaults(
+        initialCenterIndex = 0,
+        autoCentering = null,
+        verticalArrangement = spacedBy(space = 4.dp, alignment = Alignment.CenterVertically),
+        contentPadding = contentPadding(),
+    ),
+)
+
 /**
  * The padding to apply around the content.
  */
 @Composable
-fun contentPadding(): PaddingValues {
+public fun contentPadding(): PaddingValues {
     val verticalContentPaddingPercentage = 10f
     val horizontalContentPaddingPercentage = 5.2f
 

@@ -141,4 +141,3 @@ public fun ToggleChip(
         interactionSource = interactionSource,
     )
 }
-

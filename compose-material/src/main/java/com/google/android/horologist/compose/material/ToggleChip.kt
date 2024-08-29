@@ -44,6 +44,7 @@ import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.base.paintable.PaintableIcon
 
 /**
  * This component is an alternative to [ToggleChip], providing the following:
@@ -59,7 +60,7 @@ public fun ToggleChip(
     label: String,
     toggleControl: ToggleChipToggleControl,
     modifier: Modifier = Modifier,
-    icon: ImageVector? = null,
+    icon: PaintableIcon? = null,
     secondaryLabel: String? = null,
     colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
     enabled: Boolean = true,
@@ -108,7 +109,7 @@ public fun ToggleChip(
             {
                 Row {
                     Icon(
-                        paintable = it.asPaintable(),
+                        paintable = it,
                         contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                         modifier = Modifier
                             .size(ChipDefaults.IconSize)
@@ -137,6 +138,33 @@ public fun ToggleChip(
             },
         appIcon = iconParam,
         secondaryLabel = secondaryLabelParam,
+        colors = colors,
+        enabled = enabled,
+        interactionSource = interactionSource,
+    )
+}
+
+@Composable
+public fun ToggleChip(
+    checked: Boolean,
+    onCheckedChanged: (Boolean) -> Unit,
+    label: String,
+    toggleControl: ToggleChipToggleControl,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
+    secondaryLabel: String? = null,
+    colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) {
+    ToggleChip(
+        checked = checked,
+        onCheckedChanged = onCheckedChanged,
+        label = label,
+        toggleControl = toggleControl,
+        modifier = modifier,
+        icon = icon?.asPaintable(),
+        secondaryLabel = secondaryLabel,
         colors = colors,
         enabled = enabled,
         interactionSource = interactionSource,

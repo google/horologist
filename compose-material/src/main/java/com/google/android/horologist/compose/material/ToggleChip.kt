@@ -24,10 +24,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
@@ -64,7 +62,7 @@ public fun ToggleChip(
     secondaryLabel: String? = null,
     colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
     enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    interactionSource: MutableInteractionSource? = null,
 ) {
     val hasSecondaryLabel = secondaryLabel != null
 
@@ -144,29 +142,3 @@ public fun ToggleChip(
     )
 }
 
-@Composable
-public fun ToggleChip(
-    checked: Boolean,
-    onCheckedChanged: (Boolean) -> Unit,
-    label: String,
-    toggleControl: ToggleChipToggleControl,
-    modifier: Modifier = Modifier,
-    icon: ImageVector? = null,
-    secondaryLabel: String? = null,
-    colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-) {
-    ToggleChip(
-        checked = checked,
-        onCheckedChanged = onCheckedChanged,
-        label = label,
-        toggleControl = toggleControl,
-        modifier = modifier,
-        icon = icon?.asPaintable(),
-        secondaryLabel = secondaryLabel,
-        colors = colors,
-        enabled = enabled,
-        interactionSource = interactionSource,
-    )
-}

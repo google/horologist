@@ -18,6 +18,7 @@ package com.google.android.horologist.compose.material
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
@@ -31,8 +32,8 @@ class ToggleChipA11yTest : WearLegacyA11yTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
+                icon = Icons.Default.Image.asPaintable(),
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
             )
         }
     }
@@ -45,8 +46,8 @@ class ToggleChipA11yTest : WearLegacyA11yTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
+                icon = Icons.Default.Image.asPaintable(),
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
             )
         }
     }
@@ -59,8 +60,8 @@ class ToggleChipA11yTest : WearLegacyA11yTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
+                icon = Icons.Default.Image.asPaintable(),
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
                 enabled = false,
             )
         }
@@ -74,8 +75,8 @@ class ToggleChipA11yTest : WearLegacyA11yTest() {
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
+                icon = Icons.Default.Image.asPaintable(),
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
                 enabled = false,
             )
         }

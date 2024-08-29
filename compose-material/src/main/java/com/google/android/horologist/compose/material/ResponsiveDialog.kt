@@ -69,10 +69,12 @@ public fun ResponsiveDialogContent(
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
     state: ScalingLazyColumnState =
-        rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(
-                first = ScalingLazyColumnDefaults.ItemType.Dialog,
-                last = ScalingLazyColumnDefaults.ItemType.Dialog,
+        rememberColumnState(
+            factory = ScalingLazyColumnDefaults.scalingLazyColumnDefaults(
+                initialCenterIndex = 0,
+                autoCentering = null,
+                verticalArrangement = spacedBy(space = 4.dp, alignment = Alignment.CenterVertically),
+                contentPadding = contentPadding()
             ),
         ),
     showPositionIndicator: Boolean = true,
@@ -174,6 +176,28 @@ public fun ResponsiveDialogContent(
             }
         }
     }
+}
+
+
+/**
+ * The padding to apply around the content.
+ */
+@Composable
+fun contentPadding(): PaddingValues {
+    val verticalContentPaddingPercentage = 10f
+    val horizontalContentPaddingPercentage = 5.2f
+
+    val screenWidth = LocalConfiguration.current.screenWidthDp
+    val verticalContentPadding =
+        screenWidth.dp * verticalContentPaddingPercentage / 100
+    val horizontalContentPadding =
+        screenWidth.dp * horizontalContentPaddingPercentage / 100
+    return PaddingValues(
+        top = verticalContentPadding,
+        bottom = verticalContentPadding,
+        start = horizontalContentPadding,
+        end = horizontalContentPadding,
+    )
 }
 
 @Composable

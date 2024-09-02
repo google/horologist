@@ -16,16 +16,19 @@
 
 package com.google.android.horologist.audio.ui.components.actions
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.VolumeDown
 import androidx.compose.material.icons.automirrored.filled.VolumeMute
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.R
 import com.google.android.horologist.audio.ui.VolumeUiState
@@ -48,6 +51,8 @@ public fun SetAudioOutputButton(
     audioOutputUi: AudioOutputUi? = null,
     enabled: Boolean = true,
     badgeColor: Color = MaterialTheme.colors.primary,
+    iconAlignment: Alignment = Alignment.Center,
+    iconPadding: PaddingValues = PaddingValues(all = 0.dp),
 ) {
     SettingsButton(
         modifier = modifier,
@@ -57,7 +62,7 @@ public fun SetAudioOutputButton(
             audioOutputUi?.isConnected == true -> audioOutputUi.imageVector
             else -> ImageVector.vectorResource(R.drawable.media_output_off_24)
         },
-        badgeVector = if (audioOutputUi?.isConnected ?: false) {
+        badgeVector = if (audioOutputUi?.isConnected == true) {
             when {
                 volumeUiState?.isMin == true -> Icons.AutoMirrored.Default.VolumeMute
                 volumeUiState?.isMax == false -> Icons.AutoMirrored.Default.VolumeDown
@@ -68,6 +73,7 @@ public fun SetAudioOutputButton(
         },
         badgeColor = badgeColor,
         contentDescription = stringResource(R.string.horologist_set_volume_content_description),
-
+        iconAlignment = iconAlignment,
+        iconPadding = iconPadding,
     )
 }

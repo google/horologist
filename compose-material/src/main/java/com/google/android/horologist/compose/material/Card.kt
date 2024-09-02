@@ -21,7 +21,8 @@ package com.google.android.horologist.compose.material
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -53,7 +54,7 @@ public fun Card(
     contentPadding: PaddingValues = CardDefaults.ContentPadding,
     shape: Shape = MaterialTheme.shapes.large,
     role: Role? = null,
-    content: @Composable () -> Unit,
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     if (onLongClick != null) {
         val interactionSource = remember { MutableInteractionSource() }
@@ -68,7 +69,7 @@ public fun Card(
             interactionSource = interactionSource,
             role = role,
         ) {
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .combinedClickable(

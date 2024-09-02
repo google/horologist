@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.audio.ui.components
 
-import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.VolumeOff
 import androidx.compose.material.icons.filled.Add

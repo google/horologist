@@ -62,7 +62,7 @@ class VolumeScreenA11yScreenshotTest : WearLegacyA11yTest() {
     @Test
     fun volumeScreenWatchSpeakerConnected() {
         val volumeState = VolumeState(
-            current =  0,
+            current = 0,
             max = 100,
         )
 

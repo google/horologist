@@ -24,6 +24,6 @@
   <string name="horologist_guest_mode_chip_label">Käytä ilman tiliä</string>
   <string name="horologist_other_options_chip_label">Muut vaihtoehdot</string>
   <string name="horologist_create_account_chip_label">Luo tili</string>
-  <string name="horologist_select_account_title">Tilin valitseminen</string>
+  <string name="horologist_select_account_title">Valitse tili</string>
   <string name="horologist_signin_placeholder_message">Kirjaudutaan sisään…</string>
 </resources>

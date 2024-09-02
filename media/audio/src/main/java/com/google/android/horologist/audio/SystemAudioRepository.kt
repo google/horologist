@@ -22,8 +22,8 @@ import android.media.MediaRouter2
 import android.media.MediaRouter2.RoutingController
 import android.media.RouteDiscoveryPreference
 import android.media.RoutingSessionInfo
+import android.os.Build
 import android.os.Build.VERSION_CODES
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.mediarouter.media.MediaControlIntent
 import androidx.mediarouter.media.MediaRouteSelector
@@ -46,7 +46,7 @@ public class SystemAudioRepository(
     private val _available = MutableStateFlow(mediaRouter.devices)
     private val _output = MutableStateFlow(mediaRouter.output)
     private val _volume = MutableStateFlow(mediaRouter.volume)
-    private lateinit var watchSpeakerSuitabilityChecker: WatchSpeakerSuitabilityChecker
+    private val watchSpeakerSuitabilityChecker: WatchSpeakerSuitabilityChecker?
 
     override val volumeState: StateFlow<VolumeState>
         get() = _volume
@@ -93,9 +93,11 @@ public class SystemAudioRepository(
     }
 
     init {
-        if(isOsVersionAtLeastV) {
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.VANILLA_ICE_CREAM) {
             watchSpeakerSuitabilityChecker = WatchSpeakerSuitabilityChecker()
             watchSpeakerSuitabilityChecker.registerControllerCallback()
+        } else {
+            watchSpeakerSuitabilityChecker = null
         }
         mediaRouter.addCallback(
             MediaRouteSelector.Builder()
@@ -109,31 +111,19 @@ public class SystemAudioRepository(
 
     private fun update() {
         mediaRouter.fixInconsistency()
-
-        var devices = mediaRouter.devices
-        var output = mediaRouter.output
-
-        if(isOsVersionAtLeastV) {
-            devices = devices.map {setWatchSpeakerPlayability(it)}
-            output = setWatchSpeakerPlayability(output)
-        }
-
-        Log.d("Hardik", "Output: " + output.isPlayable)
-
-        _available.value = devices
-        _output.value = output
+        _available.value = mediaRouter.devices.map { setWatchSpeakerPlayability(it) }
+        _output.value = setWatchSpeakerPlayability(mediaRouter.output)
     }
 
-    @RequiresApi(VERSION_CODES.VANILLA_ICE_CREAM)
     private fun setWatchSpeakerPlayability(audioOutput: AudioOutput): AudioOutput {
-        if(audioOutput.type != AudioOutput.TYPE_WATCH) {
+        if (watchSpeakerSuitabilityChecker == null || audioOutput.type != AudioOutput.TYPE_WATCH) {
             return audioOutput
         }
 
-        return if (watchSpeakerSuitabilityChecker.isWatchSpeakerSelected()) {
-            AudioOutput.WatchSpeaker(audioOutput.id, audioOutput.name, true)
-        } else {
-            AudioOutput.WatchSpeaker(audioOutput.id, audioOutput.name, false)
+        return when {
+            Build.VERSION.SDK_INT < VERSION_CODES.VANILLA_ICE_CREAM -> audioOutput
+            watchSpeakerSuitabilityChecker.isWatchSpeakerSelected() -> AudioOutput.WatchSpeaker(audioOutput.id, audioOutput.name, true)
+            else -> AudioOutput.WatchSpeaker(audioOutput.id, audioOutput.name, false)
         }
     }
 
@@ -141,8 +131,8 @@ public class SystemAudioRepository(
         mediaRouter.removeCallback(callback)
         _output.value = AudioOutput.None
         _available.value = listOf()
-        if(isOsVersionAtLeastV) {
-            watchSpeakerSuitabilityChecker.unRegisterControllerCallback()
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.VANILLA_ICE_CREAM) {
+            watchSpeakerSuitabilityChecker?.unRegisterControllerCallback()
         }
     }
 
@@ -159,8 +149,6 @@ public class SystemAudioRepository(
                 MediaRouter.getInstance(application),
             )
         }
-
-        private val isOsVersionAtLeastV = android.os.Build.VERSION.SDK_INT >= VERSION_CODES.VANILLA_ICE_CREAM
     }
 
     @RequiresApi(VERSION_CODES.VANILLA_ICE_CREAM)
@@ -174,14 +162,15 @@ public class SystemAudioRepository(
         private val controllerCallback = object : MediaRouter2.ControllerCallback() {
             public override fun onControllerUpdated(controller: RoutingController) {
                 val isWatchSpeakerSelectedCurrently = isWatchSpeakerSelected()
-                if(wasWatchSpeakerSelectedPreviously != isWatchSpeakerSelectedCurrently) {
+                if (wasWatchSpeakerSelectedPreviously != isWatchSpeakerSelectedCurrently) {
+                    wasWatchSpeakerSelectedPreviously = isWatchSpeakerSelectedCurrently
                     update()
                 }
             }
         }
 
         fun registerControllerCallback() {
-            // It is importan to register a RouteDiscoveryPreference before registering ControllerCallback.
+            // It is important to register a RouteDiscoveryPreference before registering ControllerCallback.
             mediaRouter.registerRouteCallback(executor, routeCallback, routeDiscoveryPreference)
             mediaRouter.registerControllerCallback(executor, controllerCallback)
         }
@@ -191,14 +180,17 @@ public class SystemAudioRepository(
             mediaRouter.unregisterRouteCallback(routeCallback)
         }
 
-        fun isWatchSpeakerSelected():Boolean {
-            val isWatchSpeakerSelected = mediaRouter.systemController.selectedRoutes.firstOrNull{it.type == MediaRoute2Info.TYPE_BUILTIN_SPEAKER} != null
-            val isWatchSpeakerSelectedManually = mediaRouter.systemController.routingSessionInfo.transferReason == RoutingSessionInfo.TRANSFER_REASON_SYSTEM_REQUEST || mediaRouter.systemController.routingSessionInfo.transferReason == RoutingSessionInfo.TRANSFER_REASON_APP
+        fun isWatchSpeakerSelected(): Boolean {
+            val isWatchSpeakerSelected = mediaRouter.systemController.selectedRoutes.firstOrNull {
+                it.type == MediaRoute2Info.TYPE_BUILTIN_SPEAKER
+            } != null
+            val transferReason = mediaRouter.systemController.routingSessionInfo.transferReason
+            val isWatchSpeakerSelectedManually = transferReason == RoutingSessionInfo.TRANSFER_REASON_SYSTEM_REQUEST ||
+                transferReason == RoutingSessionInfo.TRANSFER_REASON_APP
 
             return isWatchSpeakerSelected && isWatchSpeakerSelectedManually && mediaRouter.systemController.wasTransferInitiatedBySelf()
         }
     }
-
 }
 
 private fun MediaRouter.fixInconsistency() {

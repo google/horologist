@@ -58,4 +58,23 @@ class VolumeScreenA11yScreenshotTest : WearLegacyA11yTest() {
             )
         }
     }
+
+    @Test
+    fun volumeScreenWatchSpeakerConnected() {
+        val volumeState = VolumeState(
+            current =  0,
+            max = 100,
+        )
+
+        // Media Router returns "Phone"
+        val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", true)
+
+        runScreenTest {
+            VolumeScreenTestCase(
+                colors = MaterialTheme.colors,
+                volumeState = volumeState,
+                audioOutput = audioOutput,
+            )
+        }
+    }
 }

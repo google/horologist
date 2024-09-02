@@ -17,6 +17,14 @@
 package com.google.android.horologist.audio
 
 import android.content.Context
+import android.media.MediaRoute2Info
+import android.media.MediaRouter2
+import android.media.MediaRouter2.RoutingController
+import android.media.RouteDiscoveryPreference
+import android.media.RoutingSessionInfo
+import android.os.Build.VERSION_CODES
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.mediarouter.media.MediaControlIntent
 import androidx.mediarouter.media.MediaRouteSelector
 import androidx.mediarouter.media.MediaRouter
@@ -25,6 +33,7 @@ import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSett
 import com.google.android.horologist.audio.OutputSwitcher.launchSystemMediaOutputSwitcherUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import java.util.concurrent.Executor
 
 /**
  * Audio Repository for identifying and controlling available audio devices in a simple manner.
@@ -37,6 +46,7 @@ public class SystemAudioRepository(
     private val _available = MutableStateFlow(mediaRouter.devices)
     private val _output = MutableStateFlow(mediaRouter.output)
     private val _volume = MutableStateFlow(mediaRouter.volume)
+    private lateinit var watchSpeakerSuitabilityChecker: WatchSpeakerSuitabilityChecker
 
     override val volumeState: StateFlow<VolumeState>
         get() = _volume
@@ -83,6 +93,10 @@ public class SystemAudioRepository(
     }
 
     init {
+        if(isOsVersionAtLeastV) {
+            watchSpeakerSuitabilityChecker = WatchSpeakerSuitabilityChecker()
+            watchSpeakerSuitabilityChecker.registerControllerCallback()
+        }
         mediaRouter.addCallback(
             MediaRouteSelector.Builder()
                 .addControlCategory(MediaControlIntent.CATEGORY_LIVE_AUDIO)
@@ -95,14 +109,41 @@ public class SystemAudioRepository(
 
     private fun update() {
         mediaRouter.fixInconsistency()
-        _available.value = mediaRouter.devices
-        _output.value = mediaRouter.output
+
+        var devices = mediaRouter.devices
+        var output = mediaRouter.output
+
+        if(isOsVersionAtLeastV) {
+            devices = devices.map {setWatchSpeakerPlayability(it)}
+            output = setWatchSpeakerPlayability(output)
+        }
+
+        Log.d("Hardik", "Output: " + output.isPlayable)
+
+        _available.value = devices
+        _output.value = output
+    }
+
+    @RequiresApi(VERSION_CODES.VANILLA_ICE_CREAM)
+    private fun setWatchSpeakerPlayability(audioOutput: AudioOutput): AudioOutput {
+        if(audioOutput.type != AudioOutput.TYPE_WATCH) {
+            return audioOutput
+        }
+
+        return if (watchSpeakerSuitabilityChecker.isWatchSpeakerSelected()) {
+            AudioOutput.WatchSpeaker(audioOutput.id, audioOutput.name, true)
+        } else {
+            AudioOutput.WatchSpeaker(audioOutput.id, audioOutput.name, false)
+        }
     }
 
     override fun close() {
         mediaRouter.removeCallback(callback)
         _output.value = AudioOutput.None
         _available.value = listOf()
+        if(isOsVersionAtLeastV) {
+            watchSpeakerSuitabilityChecker.unRegisterControllerCallback()
+        }
     }
 
     override fun launchOutputSelection(closeOnConnect: Boolean) {
@@ -118,7 +159,46 @@ public class SystemAudioRepository(
                 MediaRouter.getInstance(application),
             )
         }
+
+        private val isOsVersionAtLeastV = android.os.Build.VERSION.SDK_INT >= VERSION_CODES.VANILLA_ICE_CREAM
     }
+
+    @RequiresApi(VERSION_CODES.VANILLA_ICE_CREAM)
+    private inner class WatchSpeakerSuitabilityChecker {
+        private val executor = Executor { command -> command.run() }
+        private val mediaRouter = MediaRouter2.getInstance(application)
+        private var wasWatchSpeakerSelectedPreviously = isWatchSpeakerSelected()
+
+        private val routeDiscoveryPreference = RouteDiscoveryPreference.Builder(emptyList(), false).build()
+        private val routeCallback = object : MediaRouter2.RouteCallback() {}
+        private val controllerCallback = object : MediaRouter2.ControllerCallback() {
+            public override fun onControllerUpdated(controller: RoutingController) {
+                val isWatchSpeakerSelectedCurrently = isWatchSpeakerSelected()
+                if(wasWatchSpeakerSelectedPreviously != isWatchSpeakerSelectedCurrently) {
+                    update()
+                }
+            }
+        }
+
+        fun registerControllerCallback() {
+            // It is importan to register a RouteDiscoveryPreference before registering ControllerCallback.
+            mediaRouter.registerRouteCallback(executor, routeCallback, routeDiscoveryPreference)
+            mediaRouter.registerControllerCallback(executor, controllerCallback)
+        }
+
+        fun unRegisterControllerCallback() {
+            mediaRouter.unregisterControllerCallback(controllerCallback)
+            mediaRouter.unregisterRouteCallback(routeCallback)
+        }
+
+        fun isWatchSpeakerSelected():Boolean {
+            val isWatchSpeakerSelected = mediaRouter.systemController.selectedRoutes.firstOrNull{it.type == MediaRoute2Info.TYPE_BUILTIN_SPEAKER} != null
+            val isWatchSpeakerSelectedManually = mediaRouter.systemController.routingSessionInfo.transferReason == RoutingSessionInfo.TRANSFER_REASON_SYSTEM_REQUEST || mediaRouter.systemController.routingSessionInfo.transferReason == RoutingSessionInfo.TRANSFER_REASON_APP
+
+            return isWatchSpeakerSelected && isWatchSpeakerSelectedManually && mediaRouter.systemController.wasTransferInitiatedBySelf()
+        }
+    }
+
 }
 
 private fun MediaRouter.fixInconsistency() {

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.audio.ui.components
 
+import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.VolumeOff
 import androidx.compose.material.icons.filled.Add
@@ -55,7 +56,7 @@ public fun AudioOutput.toAudioOutputUi(): AudioOutputUi {
                 TYPE_NONE -> Icons.AutoMirrored.Default.VolumeOff
                 else -> Icons.Default.DeviceUnknown
             },
-            isConnected = this is AudioOutput.BluetoothHeadset,
+            isConnected = this is AudioOutput.BluetoothHeadset || this is AudioOutput.WatchSpeaker,
         )
     } else {
         return AudioOutputUi(

@@ -153,7 +153,6 @@ public class SystemAudioRepository(
 
     @RequiresApi(VERSION_CODES.VANILLA_ICE_CREAM)
     private inner class WatchSpeakerSuitabilityChecker {
-        private val executor = Executor { command -> command.run() }
         private val mediaRouter = MediaRouter2.getInstance(application)
         private var wasWatchSpeakerSelectedPreviously = isWatchSpeakerSelected()
 
@@ -171,8 +170,8 @@ public class SystemAudioRepository(
 
         fun registerControllerCallback() {
             // It is important to register a RouteDiscoveryPreference before registering ControllerCallback.
-            mediaRouter.registerRouteCallback(executor, routeCallback, routeDiscoveryPreference)
-            mediaRouter.registerControllerCallback(executor, controllerCallback)
+            mediaRouter.registerRouteCallback(application.mainExecutor, routeCallback, routeDiscoveryPreference)
+            mediaRouter.registerControllerCallback(application.mainExecutor, controllerCallback)
         }
 
         fun unRegisterControllerCallback() {

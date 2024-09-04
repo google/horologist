@@ -33,7 +33,6 @@ import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSett
 import com.google.android.horologist.audio.OutputSwitcher.launchSystemMediaOutputSwitcherUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import java.util.concurrent.Executor
 
 /**
  * Audio Repository for identifying and controlling available audio devices in a simple manner.

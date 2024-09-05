@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -105,7 +106,7 @@ fun ToggleChipPreviewWithIcon() {
         onCheckedChanged = { },
         label = "Primary label",
         toggleControl = ToggleChipToggleControl.Switch,
-        icon = Icons.Default.Image,
+        icon = Icons.Default.Image.asPaintable(),
     )
 }
 
@@ -121,8 +122,8 @@ fun ToggleChipPreviewWithSecondaryLabelAndIcon() {
         onCheckedChanged = { },
         label = "Primary label",
         toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icons.Default.Image.asPaintable(),
         secondaryLabel = "Secondary label",
-        icon = Icons.Default.Image,
     )
 }
 

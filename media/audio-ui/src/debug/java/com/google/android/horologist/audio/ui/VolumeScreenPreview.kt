@@ -145,6 +145,7 @@ class AudioOutputProvider : PreviewParameterProvider<AudioOutput> {
     override val values = sequenceOf(
         AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),
         AudioOutput.WatchSpeaker(id = "2", name = "Galaxy Watch 4"),
+        AudioOutput.WatchSpeaker(id = "2", name = "Galaxy Watch 4", true),
         AudioOutput.BluetoothHeadset(id = "3", name = "Sennheiser Momentum Wireless"),
     )
 }

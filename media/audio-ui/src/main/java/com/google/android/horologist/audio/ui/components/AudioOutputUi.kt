@@ -55,7 +55,7 @@ public fun AudioOutput.toAudioOutputUi(): AudioOutputUi {
                 TYPE_NONE -> Icons.AutoMirrored.Default.VolumeOff
                 else -> Icons.Default.DeviceUnknown
             },
-            isConnected = this is AudioOutput.BluetoothHeadset,
+            isConnected = this is AudioOutput.BluetoothHeadset || this is AudioOutput.WatchSpeaker,
         )
     } else {
         return AudioOutputUi(

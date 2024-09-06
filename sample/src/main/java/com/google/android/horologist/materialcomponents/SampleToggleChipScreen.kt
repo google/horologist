@@ -24,6 +24,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.material.ToggleChip
 import com.google.android.horologist.compose.material.ToggleChipToggleControl
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 @Composable
 internal fun SampleToggleChipScreen(
@@ -81,7 +82,7 @@ internal fun SampleToggleChipScreen(
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
         item {
@@ -90,8 +91,8 @@ internal fun SampleToggleChipScreen(
                 onCheckedChanged = { },
                 label = "Primary label",
                 toggleControl = ToggleChipToggleControl.Switch,
+                icon = Icons.Default.Image.asPaintable(),
                 secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image,
             )
         }
         item {

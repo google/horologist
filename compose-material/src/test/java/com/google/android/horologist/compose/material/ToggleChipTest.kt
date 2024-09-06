@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.testharness.TestHarness
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 import org.robolectric.annotation.Config
@@ -86,7 +87,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
                 onCheckedChanged = { },
                 label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
+                secondaryLabel = stringResource(R.string.secondary_label),
             )
         }
     }
@@ -99,7 +100,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
                 onCheckedChanged = { },
                 label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
     }
@@ -112,8 +113,8 @@ class ToggleChipTest : WearLegacyComponentTest() {
                 onCheckedChanged = { },
                 label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
+                secondaryLabel = stringResource(R.string.secondary_label),
             )
         }
     }
@@ -178,7 +179,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
                 onCheckedChanged = { },
                 label = "Primary label very very very very very very very very very very very very very very very very very long text",
                 toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
             )
         }
     }
@@ -192,7 +193,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
                     onCheckedChanged = { },
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
                     toggleControl = ToggleChipToggleControl.Switch,
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image.asPaintable(),
                 )
             }
         }
@@ -233,9 +234,9 @@ class ToggleChipTest : WearLegacyComponentTest() {
                 checked = true,
                 onCheckedChanged = { },
                 label = "Primary label very very very very very very very very long text",
-                secondaryLabel = "Secondary label very very very very very very very very very long text",
                 toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image,
+                icon = Icons.Default.Image.asPaintable(),
+                secondaryLabel = "Secondary label very very very very very very very very very long text",
             )
         }
     }
@@ -248,9 +249,9 @@ class ToggleChipTest : WearLegacyComponentTest() {
                     checked = true,
                     onCheckedChanged = { },
                     label = "Primary label very very very very very very very very long text",
-                    secondaryLabel = "Secondary label very very very very very very very very very long text",
                     toggleControl = ToggleChipToggleControl.Switch,
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image.asPaintable(),
+                    secondaryLabel = "Secondary label very very very very very very very very very long text",
                 )
             }
         }
@@ -264,7 +265,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
                 onCheckedChanged = { },
                 label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icon12dp,
+                icon = Icon12dp.asPaintable(),
             )
         }
     }
@@ -277,7 +278,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
                 onCheckedChanged = { },
                 label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icon32dp,
+                icon = Icon32dp.asPaintable(),
             )
         }
     }
@@ -292,8 +293,8 @@ class ToggleChipTest : WearLegacyComponentTest() {
                 onCheckedChanged = { },
                 label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icons.Default.PlayArrow,
+                icon = Icons.Default.PlayArrow.asPaintable(),
+                secondaryLabel = stringResource(R.string.secondary_label),
             )
         }
     }
@@ -307,8 +308,8 @@ class ToggleChipTest : WearLegacyComponentTest() {
                 onCheckedChanged = { },
                 label = stringResource(R.string.primary_label),
                 toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icons.Default.PlayArrow,
+                icon = Icons.Default.PlayArrow.asPaintable(),
+                secondaryLabel = stringResource(R.string.secondary_label),
             )
         }
     }

@@ -84,7 +84,6 @@ fun SampleWearApp() {
             ) {
                 MenuScreen(
                     navigateToRoute = { route -> navController.navigate(route) },
-                    time = time,
                 )
             }
             composable(

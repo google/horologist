@@ -56,6 +56,28 @@ plugins {
 
 apply(plugin = "org.jetbrains.dokka")
 
+val media3Checkout = project.properties["media3Checkout"]?.toString() ?: ""
+
+if (media3Checkout.isNotBlank()) {
+    configurations.all {
+        resolutionStrategy {
+            dependencySubstitution {
+                substitute(module("androidx.media3:media3-common")).using(project(":media3-lib-common"))
+                substitute(module("androidx.media3:media3-datasource-okhttp")).using(project(":media3-lib-datasource-okhttp"))
+                substitute(module("androidx.media3:media3-exoplayer")).using(project(":media3-lib-exoplayer"))
+                substitute(module("androidx.media3:media3-exoplayer-dash")).using(project(":media3-lib-exoplayer-dash"))
+                substitute(module("androidx.media3:media3-exoplayer-hls")).using(project(":media3-lib-exoplayer-hls"))
+                substitute(module("androidx.media3:media3-exoplayer-rtsp")).using(project(":media3-lib-exoplayer-rtsp"))
+                substitute(module("androidx.media3:media3-exoplayer-workmanager")).using(project(":media3-lib-exoplayer-workmanager"))
+                substitute(module("androidx.media3:media3-session")).using(project(":media3-lib-session"))
+                substitute(module("androidx.media3:media3-test-utils")).using(project(":media3-test-utils"))
+                substitute(module("androidx.media3:media3-test-utils-robolectric")).using(project(":media3-test-utils-robolectric"))
+                substitute(module("androidx.media3:media3-ui")).using(project(":media3-lib-ui"))
+            }
+        }
+    }
+}
+
 tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach {
     outputDirectory.set(rootProject.file("docs/api"))
     failOnWarning.set(true)

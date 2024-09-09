@@ -26,6 +26,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
@@ -34,6 +36,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.LocalContentAlpha
+import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
@@ -63,6 +67,7 @@ public fun ToggleChip(
     colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
+    iconTint: Color = Color.Unspecified,
 ) {
     val hasSecondaryLabel = secondaryLabel != null
 
@@ -112,6 +117,9 @@ public fun ToggleChip(
                         modifier = Modifier
                             .size(ChipDefaults.IconSize)
                             .clip(CircleShape),
+                        tint = iconTint.takeOrElse {
+                            LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
+                        },
                     )
                 }
             }

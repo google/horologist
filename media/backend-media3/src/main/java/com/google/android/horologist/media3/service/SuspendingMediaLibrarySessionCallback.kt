@@ -16,11 +16,13 @@
 
 package com.google.android.horologist.media3.service
 
+import android.annotation.SuppressLint
 import androidx.media3.common.MediaItem
 import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaLibraryService.MediaLibrarySession
 import androidx.media3.session.MediaSession
+import androidx.media3.session.SessionError
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.common.collect.ImmutableList
@@ -39,6 +41,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
     private val appEventLogger: ErrorReporter,
 ) :
     MediaLibrarySession.Callback {
+        @SuppressLint("UnsafeOptInUsageError")
         override fun onGetLibraryRoot(
             session: MediaLibrarySession,
             browser: MediaSession.ControllerInfo,
@@ -53,7 +56,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
                         ErrorReporter.Category.App,
                         ErrorReporter.Level.Error,
                     )
-                    LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
+                    LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
                 }
             }
         }
@@ -64,6 +67,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
             params: MediaLibraryService.LibraryParams?,
         ): LibraryResult<MediaItem>
 
+        @SuppressLint("UnsafeOptInUsageError")
         override fun onGetItem(
             session: MediaLibrarySession,
             browser: MediaSession.ControllerInfo,
@@ -78,7 +82,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
                         ErrorReporter.Category.App,
                         ErrorReporter.Level.Error,
                     )
-                    LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
+                    LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
                 }
             }
         }
@@ -119,6 +123,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
             }.toMutableList()
         }
 
+        @SuppressLint("UnsafeOptInUsageError")
         override fun onGetChildren(
             session: MediaLibrarySession,
             browser: MediaSession.ControllerInfo,
@@ -136,7 +141,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
                         ErrorReporter.Category.App,
                         ErrorReporter.Level.Error,
                     )
-                    LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE)
+                    LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
                 }
             }
         }

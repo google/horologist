@@ -74,6 +74,8 @@ android {
 dependencies {
     api(projects.annotations)
 
+    implementation(platform(libs.compose.bom))
+
     implementation(projects.ai.sample.core)
 
     implementation(libs.dagger.hiltandroid)

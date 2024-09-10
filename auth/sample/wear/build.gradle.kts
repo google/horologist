@@ -91,6 +91,7 @@ android {
 dependencies {
     api(projects.annotations)
 
+    implementation(platform(libs.compose.bom))
     implementation(projects.auth.composables)
     implementation(projects.auth.data)
     implementation(projects.auth.sample.shared)

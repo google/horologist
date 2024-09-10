@@ -178,6 +178,7 @@ dependencies {
         libs.androidx.media3.ui,
     )
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui.util)
 
     implementation(libs.compose.foundation.foundation)
@@ -251,6 +252,7 @@ dependencies {
     debugImplementation(libs.androidx.wear.tiles.tooling.preview)
     debugImplementation(libs.androidx.wear.tiles.tooling)
 
+    testImplementation(platform(libs.compose.bom))
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.androidx.test.ext.ktx)
@@ -262,6 +264,7 @@ dependencies {
     kspTest(libs.dagger.hiltandroidcompiler)
     testImplementation(libs.androidx.work.testing)
 
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espressocore)
     androidTestImplementation(libs.junit)

@@ -104,6 +104,7 @@ android {
 dependencies {
     api(projects.annotations)
 
+    implementation(platform(libs.compose.bom))
     implementation(projects.composeLayout)
     implementation(projects.media.audio)
     implementation(projects.media.audioUi)
@@ -156,6 +157,7 @@ dependencies {
     debugImplementation(libs.androidx.wear.tiles.tooling)
     releaseCompileOnly(projects.composeTools)
 
+    testImplementation(platform(libs.compose.bom))
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(projects.composeTools)
@@ -163,6 +165,7 @@ dependencies {
     testImplementation(projects.roboscreenshots)
     testImplementation(libs.robolectric)
 
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espressocore)
     androidTestImplementation(libs.junit)

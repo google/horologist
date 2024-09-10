@@ -91,6 +91,8 @@ metalava {
 }
 
 dependencies {
+    implementation(platform(libs.compose.bom))
+
     api(projects.annotations)
     api(libs.compose.ui.graphics)
     api(libs.compose.runtime)

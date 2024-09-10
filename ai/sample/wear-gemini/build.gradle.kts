@@ -122,6 +122,7 @@ android {
 dependencies {
     api(projects.annotations)
 
+    implementation(platform(libs.compose.bom))
     implementation(projects.ai.ui)
     implementation(projects.ai.sample.core)
     implementation(projects.ai.sample.wearCore)

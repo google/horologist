@@ -87,6 +87,8 @@ metalava {
 }
 
 dependencies {
+    implementation(platform(libs.compose.bom))
+
     api(projects.annotations)
 
     api(projects.media.audio)

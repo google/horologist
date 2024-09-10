@@ -85,6 +85,8 @@ android {
 dependencies {
     api(projects.annotations)
 
+    implementation(platform(libs.compose.bom))
+
     implementation(projects.ai.sample.wearCore)
 
     implementation(projects.ai.ui)

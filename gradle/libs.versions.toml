@@ -14,6 +14,7 @@ androidx-test-runner = "1.6.2"
 androidx-wear-watchface = "1.2.1"
 androidxActivity = "1.9.2"
 androidxCore = "1.13.1"
+androidxComposeBom = "2024.09.00-alpha"
 androidxLifecycle = "2.8.5"
 androidxNavigation = "2.8.0"
 androidxPhoneInteractions = "1.1.0-alpha04"
@@ -28,7 +29,6 @@ annotation = "1.0.1"
 app-cash-turbine = "1.1.0"
 com-squareup-okhttp3 = "5.0.0-alpha.14"
 com-squareup-retrofit2 = "2.11.0"
-compose = "1.7.0"
 compose-material3 = "1.3.0"
 composesnapshot = "-"
 dependencyAnalysis = "2.0.1"
@@ -138,25 +138,25 @@ coil-test = { module = "io.coil-kt:coil-test", version.ref = "io-coil-kt" }
 com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "com-squareup-okhttp3" }
-compose-bom = "androidx.compose:compose-bom:2024.09.00-alpha"
-compose-animation-animationgraphics = { module = "androidx.compose.animation:animation-graphics", version.ref = "compose" }
-compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-foundation-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
-compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }
-compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
-compose-material-ripple = { module = "androidx.compose.material:material-ripple", version.ref = "compose" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
+compose-animation-animationgraphics = { group = "androidx.compose.animation", name = "animation-graphics" }
+compose-foundation-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+compose-foundation-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
+compose-material-iconscore = { group = "androidx.compose.material", name = "material-icons-core" }
+compose-material-iconsext = { group = "androidx.compose.material", name = "material-icons-extended" }
+compose-material-ripple = { group = "androidx.compose.material", name = "material-ripple" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" } # version 2023.10.01 from BOM is crashing
-compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "compose" }
-compose-ui-test = { module = "androidx.compose.ui:ui-test", version.ref = "compose" }
-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
-compose-ui-text = { module = "androidx.compose.ui:ui-text", version.ref = "compose" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-compose-ui-unit = { module = "androidx.compose.ui:ui-unit", version.ref = "compose" }
-compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
+compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+compose-ui-test = { group = "androidx.compose.ui", name = "ui-test" }
+compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+compose-ui-text = { group = "androidx.compose.ui", name = "ui-text" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-ui-toolingpreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-ui-unit = { group = "androidx.compose.ui", name = "ui-unit" }
+compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 dagger-hiltandroid = { module = "com.google.dagger:hilt-android", version.ref = "googledagger" }
 dagger-hiltandroidcompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "googledagger" }
 dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "googledagger" }

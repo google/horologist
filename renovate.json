@@ -16,6 +16,12 @@
     },
     {
       "matchPackagePatterns": [
+        "androidx.compose:compose-bom"
+      ],
+      "allowedVersions": "/-alpha/"
+    },
+    {
+      "matchPackagePatterns": [
         "org.jetbrains.kotlin.*"
       ],
       "groupName": "kotlin"

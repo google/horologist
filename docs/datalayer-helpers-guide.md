@@ -30,7 +30,7 @@ phone.
 
    Add a `wear.xml` file in the `res/values` folder with the following content:
 
-    ```
+    ```xml
     <resources xmlns:tools="http://schemas.android.com/tools"
         tools:keep="@array/android_wear_capabilities">
         <string-array name="android_wear_capabilities">
@@ -55,6 +55,11 @@ phone.
     </string-array>
     </resources>
     ```
+   and a `wear_keep.xml`
+
+   ```xml
+    <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@array/android_wear_capabilities"/>
+   ```
 
    on your wear and phone projects respectively.
 

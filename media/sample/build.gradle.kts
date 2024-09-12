@@ -169,6 +169,8 @@ dependencies {
     implementation(projects.networkAwareness.db)
     implementation(projects.tiles)
     implementation(projects.logo)
+    implementation("androidx.wear.compose:compose-material3:1.0.0-SNAPSHOT")
+    implementation("androidx.profileinstaller:profileinstaller:1.4.0-SNAPSHOT")
 
     implementation(
         libs.androidx.media3.datasourceokhttp,

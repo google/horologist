@@ -279,9 +279,15 @@ subprojects {
         if (composeSnapshot.length > 1) {
             // We're depending on a Jetpack Compose snapshot, update the library version name
             // to indicate it's from a Compose snapshot
-            val versionName = project.properties.get("VERSION_NAME") as String
-            if (versionName.contains("SNAPSHOT")) {
-                version = versionName.replace("-SNAPSHOT", ".compose-${composeSnapshot}-SNAPSHOT")
+//            val versionName = project.properties.get("VERSION_NAME") as String
+//            if (versionName.contains("SNAPSHOT")) {
+//                version = versionName.replace("-SNAPSHOT", ".compose-${composeSnapshot}-SNAPSHOT")
+//            }
+        }
+
+        configurations {
+            all {
+                resolutionStrategy.force("androidx.profileinstaller:profileinstaller:1.4.0-SNAPSHOT")
             }
         }
 

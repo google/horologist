@@ -74,17 +74,17 @@ android {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:4.28.1"
+        artifact = libs.protobuf.protoc.stnd.get().toString()
     }
     plugins {
         create("javalite") {
-            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+            artifact = libs.protobuf.protoc.gen.javalite.get().toString()
         }
         create("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.66.0"
+            artifact = libs.protobuf.protoc.gen.grpc.java.get().toString()
         }
         create("grpckt") {
-            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"
+            artifact = libs.protobuf.protoc.gen.grpc.kotlin.get().toString()
         }
     }
     generateProtoTasks {

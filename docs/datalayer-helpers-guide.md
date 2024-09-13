@@ -28,7 +28,7 @@ phone.
 
 2. Add the capabilities
 
-   Add a `wear.xml` file in the `res/values` folder with the following content:
+   Add a `wear.xml` file in the `res/raw` folder with the following content:
 
     ```xml
     <resources xmlns:tools="http://schemas.android.com/tools"
@@ -55,7 +55,7 @@ phone.
     </string-array>
     </resources>
     ```
-   and a `wear_keep.xml`
+   and a `res/raw/wear_keep.xml`
 
    ```xml
     <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@array/android_wear_capabilities"/>

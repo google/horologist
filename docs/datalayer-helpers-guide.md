@@ -28,7 +28,8 @@ phone.
 
 2. Add the capabilities
 
-   Add a `wear.xml` file in the `res/raw` folder with the following content:
+   Add a `wear.xml` file in the `res/raw` folder with the following content. It needs to be
+   `res/raw` folder due to https://issuetracker.google.com/issues/348688201
 
     ```xml
     <resources xmlns:tools="http://schemas.android.com/tools"

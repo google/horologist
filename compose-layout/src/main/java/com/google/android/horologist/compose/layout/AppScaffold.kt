@@ -43,18 +43,12 @@ fun AppScaffold(
     timeText: @Composable () -> Unit = { ResponsiveTimeText() },
     content: @Composable BoxScope.() -> Unit,
 ) {
-    val scaffoldState = LocalScaffoldState.current.apply {
-        appTimeText.value = timeText
-    }
-
-    Scaffold(
+    androidx.wear.compose.material3.AppScaffold(
         modifier = modifier,
-        timeText = scaffoldState.timeText,
+        timeText = timeText,
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             content()
         }
     }
 }
-
-internal val LocalScaffoldState = compositionLocalOf { ScaffoldState() }

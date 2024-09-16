@@ -102,6 +102,8 @@ dependencies {
     implementation(libs.androidx.wear.tooling.preview)
     implementation(libs.wearcompose.tooling)
 
+    implementation("androidx.wear.compose:compose-material3:1.0.0-alpha24")
+
     debugImplementation(libs.compose.ui.toolingpreview)
     debugImplementation(projects.composeTools)
     debugImplementation(libs.androidx.activity.compose)

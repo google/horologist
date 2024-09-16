@@ -29,7 +29,7 @@ sealed class Screen(
     object TimeWithSecondsPicker : Screen("timeWithSecondsPicker")
     object TimeWithoutSecondsPicker : Screen("timeWithoutSecondsPicker")
     object Network : Screen("network")
-
+    object NonEditableTextField : Screen("nonEditableTextField")
     object MaterialAlertDialog : Screen("materialAlertDialog")
     object MaterialAnimatedComponents : Screen("materialAnimatedComponents")
     object MaterialButtonsScreen : Screen("materialButtonsScreen")

@@ -16,11 +16,18 @@
 
 package com.google.android.horologist.sample
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.wear.compose.foundation.rememberSwipeToDismissBoxState
@@ -30,6 +37,7 @@ import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.composables.DatePicker
+import com.google.android.horologist.composables.NonEditableBasicTextField
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.layout.AppScaffold
@@ -116,6 +124,22 @@ fun SampleWearApp() {
                         navController.popBackStack()
                     },
                 )
+            }
+            composable(Screen.NonEditableTextField.route) {
+                var text by remember { mutableStateOf("Text") }
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    NonEditableBasicTextField(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .background(Color.Gray),
+                        onTextChanged = {
+                            text = it
+                        },
+                        value = TextFieldValue(text),
+                    )
+                }
             }
             composable(Screen.ToDatePicker.route) {
                 val date = time.toLocalDate()

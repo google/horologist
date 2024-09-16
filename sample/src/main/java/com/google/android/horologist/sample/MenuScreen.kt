@@ -100,6 +100,12 @@ fun MenuScreen(
             }
             item {
                 Chip(
+                    label = "NonEditableTextField",
+                    onClick = { navigateToRoute(Screen.NonEditableTextField.route) },
+                )
+            }
+            item {
+                Chip(
                     label = "Time With Seconds Picker",
                     onClick = { navigateToRoute(Screen.TimeWithSecondsPicker.route) },
                 )

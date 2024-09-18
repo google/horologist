@@ -108,11 +108,11 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:4.28.1"
+        artifact = libs.protobuf.protoc.stnd.get().toString()
     }
     plugins {
         id("javalite") {
-            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+            artifact = libs.protobuf.protoc.gen.javalite.get().toString()
         }
     }
     generateProtoTasks {

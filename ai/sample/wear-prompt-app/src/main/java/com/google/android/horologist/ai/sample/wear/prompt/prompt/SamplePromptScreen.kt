@@ -19,7 +19,6 @@ package com.google.android.horologist.ai.sample.wear.prompt.prompt
 import android.content.Intent
 import android.speech.RecognizerIntent
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -66,18 +65,19 @@ fun SamplePromptScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val voiceLauncher =
-        rememberLauncherForActivityResult(
-            ActivityResultContracts.StartActivityForResult(),
-        ) {
-            it.data?.let { data ->
-                val results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                val enteredPrompt = results?.get(0)
-                if (!enteredPrompt.isNullOrBlank()) {
-                    viewModel.askQuestion(enteredPrompt)
-                }
+    val voiceLauncher = rememberLauncherForActivityResult(
+        VoiceContract(),
+    ) {
+        when (it) {
+            VoiceContract.Result.Empty -> {
+                /* NO-OP */
+            }
+
+            is VoiceContract.Result.EnteredPrompt -> {
+                viewModel.askQuestion(it.prompt)
             }
         }
+    }
 
     val voiceIntent: Intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
         putExtra(

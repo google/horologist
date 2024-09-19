@@ -28,8 +28,7 @@ phone.
 
 2. Add the capabilities
 
-   Add a `wear.xml` file in the `res/raw` folder with the following content. It needs to be
-   `res/raw` folder due to https://issuetracker.google.com/issues/348688201
+   Add a `wear.xml` file in the `res/values` folder with the following content.
 
     ```xml
     <resources xmlns:tools="http://schemas.android.com/tools"
@@ -56,13 +55,17 @@ phone.
     </string-array>
     </resources>
     ```
-   and a `res/raw/wear_keep.xml`
-
-   ```xml
-    <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@array/android_wear_capabilities"/>
-   ```
 
    on your wear and phone projects respectively.
+
+   After this you will need to add a `wear_keep.xml` file in your `res/raw` folder with the
+   following content:
+
+      ```xml
+    <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@array/android_wear_capabilities"/>
+   ```
+   NB! Notice that this is a different folder than the first two. `res/raw/wear_keep.xml`. It needs
+   to be `res/raw` folder due to https://issuetracker.google.com/issues/348688201.
 
    For more details, see
    [Specify capability names for detecting your apps](https://developer.android.com/training/wearables/apps/standalone-apps#capability-names).

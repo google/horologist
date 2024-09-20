@@ -62,6 +62,5 @@ public fun ResponsiveTimeText(
 
 @Composable
 public fun responsivePaddingDefaults(): PaddingValues {
-    // The Text "Top" baseline makes it look much lower
-    return PaddingValues(0.dp)
+    return PaddingValues(2.dp)
 }

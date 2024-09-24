@@ -80,7 +80,7 @@ class UampMediaPlayerA11yScreenshotTest : WearLegacyA11yTest() {
 
         val audioOutput = AudioOutput.BluetoothHeadset(
             id = "bt0",
-            name = "BT_Headphone"
+            name = "BT_Headphone",
         )
 
         runScreenTest {

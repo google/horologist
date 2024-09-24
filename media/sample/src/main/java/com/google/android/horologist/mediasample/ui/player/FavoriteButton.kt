@@ -24,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.google.android.horologist.audio.ui.components.actions.SettingsButton
@@ -37,6 +38,7 @@ import com.google.android.horologist.mediasample.R
 @Composable
 public fun FavoriteButton(
     modifier: Modifier = Modifier,
+    iconAlignment: Alignment = Alignment.Center,
 ) {
     var faved by remember { mutableStateOf(false) }
     SettingsButton(
@@ -44,5 +46,6 @@ public fun FavoriteButton(
         onClick = { faved = !faved },
         imageVector = if (faved) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
         contentDescription = stringResource(R.string.favorite_content_description),
+        iconAlignment = iconAlignment,
     )
 }

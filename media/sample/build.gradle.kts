@@ -23,6 +23,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
     kotlin("android")
+    alias(libs.plugins.roborazzi)
     kotlin("plugin.serialization")
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
@@ -53,7 +54,11 @@ android {
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
+            all {
+                it.systemProperty("screenshot.record", findProperty("screenshot.record") ?: "false")
+            }
         }
+        animationsDisabled = true
     }
 
     buildTypes {

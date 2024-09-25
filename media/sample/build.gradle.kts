@@ -23,7 +23,6 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
     kotlin("android")
-    alias(libs.plugins.roborazzi)
     kotlin("plugin.serialization")
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)

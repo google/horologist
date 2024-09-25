@@ -22,10 +22,10 @@ A good first step is
 Also make sure you have ([Git LFS](https://git-lfs.github.com/)) installed.
 
 If you change any code affecting screenshot tests, then run the following to update changed images
-on a Linux host. Alternatively uncomment the same property in gradle.properties.
+on a Linux host. 
 
 ```
-./gradlew testDebug -P screenshot.record=repair
+./gradlew verifyAndRecordRoborazziDebug
 ```
 
 This can be automated For a PR against the same branch, the Github action should commit against

@@ -38,8 +38,7 @@
         android:icon="@mipmap/ic_horologist"
         android:label="@string/sample_app_name"
         android:roundIcon="@mipmap/ic_horologist_round"
-        android:supportsRtl="true"
-        android:theme="@style/SplashTheme">
+        android:supportsRtl="true">
         <uses-library
             android:name="com.google.android.wearable"
             android:required="true" />

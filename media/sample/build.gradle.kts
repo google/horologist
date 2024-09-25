@@ -24,6 +24,7 @@ plugins {
     id("com.google.protobuf")
     kotlin("android")
     kotlin("plugin.serialization")
+    alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -263,6 +264,7 @@ dependencies {
     testImplementation(libs.dagger.hiltandroidtesting)
     kspTest(libs.dagger.hiltandroidcompiler)
     testImplementation(libs.androidx.work.testing)
+    testImplementation(projects.roboscreenshots)
 
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)

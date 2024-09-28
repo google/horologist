@@ -21,7 +21,7 @@ plugins {
     id("org.jetbrains.dokka")
     id("com.google.protobuf")
     kotlin("android")
-    id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.metalavaGradle)
 }
 
 android {

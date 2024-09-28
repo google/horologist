@@ -24,6 +24,7 @@ import androidx.concurrent.futures.await
 import androidx.datastore.core.DataStore
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.remote.interactions.RemoteActivityHelper
+import androidx.wear.tiles.TileService
 import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceService
 import com.google.android.gms.wearable.Node
@@ -48,6 +49,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
+import java.util.concurrent.Executor
 
 private const val TAG = "DataLayerAppHelper"
 
@@ -163,6 +165,36 @@ public class WearDataLayerAppHelper internal constructor(
                 val exists = tiles.find { it.equalWithoutTimestamp(tile) } != null
                 if (!exists) {
                     tiles.add(tile)
+                }
+            }
+        }
+    }
+
+    /**
+     * Updates the installed tiles
+     *
+     * Gets all the installed tiles async and updates them.
+     *
+     * @param executor The executor on which methods should be invoked.
+     * To dispatch events through the main thread of your application, you can
+     * use Context. getMainExecutor().
+     */
+    public suspend fun updateInstalledTiles(executor: Executor) {
+        val activeTiles = TileService.getActiveTilesAsync(
+            context,
+            executor,
+        ).await()
+
+        surfacesInfoDataStore.updateData { info ->
+            info.copy {
+                tiles.clear()
+                for (activeTileIdentifier in activeTiles) {
+                    tiles.add(
+                        tileInfo {
+                            timestamp = System.currentTimeMillis().toProtoTimestamp()
+                            name = activeTileIdentifier.componentName.className
+                        },
+                    )
                 }
             }
         }

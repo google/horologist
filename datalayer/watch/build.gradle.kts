@@ -101,6 +101,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
     implementation(libs.androidx.wear.phone.interactions)
+    implementation(libs.androidx.wear.tiles)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

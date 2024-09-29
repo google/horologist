@@ -35,23 +35,22 @@ buildscript {
 
         classpath(libs.gradleMavenPublishPlugin)
 
-        classpath(libs.dokka)
-
         classpath(libs.dagger.hiltandroidplugin)
     }
 }
 
 plugins {
-    alias(libs.plugins.spotless)
-    alias(libs.plugins.kotlinGradle) apply false
-    alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.protobuf) apply false
-    alias(libs.plugins.gradleMavenPublishPlugin)
-    alias(libs.plugins.metalavaGradle) apply false
-    alias(libs.plugins.dependencyAnalysis)
-    alias(libs.plugins.roborazzi) apply false
-    alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.dependencyAnalysis)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.gradleMavenPublishPlugin)
+    alias(libs.plugins.kotlinGradle) apply false
+    alias(libs.plugins.kotlinx.serialization) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.metalavaGradle) apply false
+    alias(libs.plugins.protobuf) apply false
+    alias(libs.plugins.roborazzi) apply false
+    alias(libs.plugins.spotless)
 }
 
 apply(plugin = "org.jetbrains.dokka")

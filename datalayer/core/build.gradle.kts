@@ -18,7 +18,7 @@ import com.google.protobuf.gradle.id
 
 plugins {
     id("com.android.library")
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.dokka)
     id("com.google.protobuf")
     kotlin("android")
     alias(libs.plugins.metalavaGradle)

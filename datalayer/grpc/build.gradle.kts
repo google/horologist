@@ -17,7 +17,7 @@
 plugins {
     id("com.android.library")
     alias(libs.plugins.dokka)
-    //alias(libs.plugins.metalavaGradle)
+    // alias(libs.plugins.metalavaGradle)
     kotlin("android")
     id("com.google.protobuf")
 }

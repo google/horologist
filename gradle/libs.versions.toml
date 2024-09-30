@@ -221,6 +221,7 @@ wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", ver
 [plugins]
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = "gradlePublishPlugin" }
 kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

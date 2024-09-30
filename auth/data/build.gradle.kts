@@ -16,9 +16,9 @@
 
 plugins {
     id("com.android.library")
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.dokka)
     id("com.google.devtools.ksp")
-    id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.metalavaGradle)
     alias(libs.plugins.dependencyAnalysis)
     kotlin("android")
 }

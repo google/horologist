@@ -16,7 +16,7 @@
 
 plugins {
     id("com.android.library")
-    id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.metalavaGradle)
     kotlin("android")
 }
 

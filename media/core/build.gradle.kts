@@ -17,8 +17,8 @@
 plugins {
     id("java-library")
     id("org.jetbrains.kotlin.jvm")
-    id("org.jetbrains.dokka")
-    id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.metalavaGradle)
 }
 
 java {

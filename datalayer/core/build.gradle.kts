@@ -18,10 +18,10 @@ import com.google.protobuf.gradle.id
 
 plugins {
     id("com.android.library")
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.dokka)
     id("com.google.protobuf")
     kotlin("android")
-    id("me.tylerbwong.gradle.metalava")
+    alias(libs.plugins.metalavaGradle)
 }
 
 android {

@@ -324,17 +324,29 @@ private class MarqueeController(
     private val padding = object : PaddingValues {
         override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
             if (layoutDirection == LayoutDirection.Ltr) {
-                if (startGap > 0.dp) startGap
-                else if (needsScrolling) startEdgeGradientWidth
-                else 0.dp
-            } else 0.dp
+                if (startGap > 0.dp) {
+                    startGap
+                } else if (needsScrolling) {
+                    startEdgeGradientWidth
+                } else {
+                    0.dp
+                }
+            } else {
+                0.dp
+            }
 
         override fun calculateRightPadding(layoutDirection: LayoutDirection): Dp =
             if (layoutDirection != LayoutDirection.Ltr) {
-                if (startGap > 0.dp) startGap
-                else if (needsScrolling) startEdgeGradientWidth
-                else 0.dp
-            } else 0.dp
+                if (startGap > 0.dp) {
+                    startGap
+                } else if (needsScrolling) {
+                    startEdgeGradientWidth
+                } else {
+                    0.dp
+                }
+            } else {
+                0.dp
+            }
 
         override fun calculateTopPadding(): Dp = 0.dp
         override fun calculateBottomPadding(): Dp = 0.dp

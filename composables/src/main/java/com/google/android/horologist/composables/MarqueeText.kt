@@ -74,6 +74,7 @@ import kotlin.time.Duration.Companion.seconds
  * @param textAlign The alignment of the text within the lines of the paragraph.
  * See [TextStyle.textAlign].
  * @param followGap the width between end of each scrolling text and the start of the following one.
+ * @param startGap the width before the text when the scrolling text is static.
  * @param startEdgeGradientWidth the width of the fade out zone on the start edge, so text isn't cut
  * off harshly.
  * @param endEdgeGradientWidth the width of the fade out zone on the end edge, so text isn't cut off
@@ -91,12 +92,15 @@ public fun MarqueeText(
     style: TextStyle = LocalTextStyle.current,
     textAlign: TextAlign = TextAlign.Left,
     followGap: Dp = 96.dp,
+    startGap: Dp = 0.dp,
     startEdgeGradientWidth: Dp = 16.dp,
     endEdgeGradientWidth: Dp = 16.dp,
     marqueeDpPerSecond: Dp = 64.dp,
     pauseTime: Duration = 4.seconds,
 ) {
-    val controller = remember(text, style) { MarqueeController(startEdgeGradientWidth, endEdgeGradientWidth) }
+    val controller = remember(text, style) {
+        MarqueeController(startEdgeGradientWidth, endEdgeGradientWidth, startGap)
+    }
     controller.startEdgeGradientWidth = startEdgeGradientWidth
     controller.endEdgeGradientWidth = endEdgeGradientWidth
 
@@ -138,6 +142,7 @@ public fun MarqueeText(
  * @param textAlign The alignment of the text within the lines of the paragraph.
  * See [TextStyle.textAlign].
  * @param followGap the width between end of each scrolling text and the start of the following one.
+ * @param startGap the width before the text when the scrolling text is static.
  * @param startEdgeGradientWidth the width of the fade out zone on the start edge, so text isn't cut
  * off harshly.
  * @param endEdgeGradientWidth the width of the fade out zone on the end edge, so text isn't cut off
@@ -154,6 +159,7 @@ public fun MarqueeText(
     style: TextStyle = LocalTextStyle.current,
     textAlign: TextAlign = TextAlign.Left,
     followGap: Dp = 96.dp,
+    startGap: Dp = 0.dp,
     startEdgeGradientWidth: Dp = 16.dp,
     endEdgeGradientWidth: Dp = 16.dp,
     marqueeDpPerSecond: Dp = 64.dp,
@@ -167,6 +173,7 @@ public fun MarqueeText(
         style = style,
         textAlign = textAlign,
         followGap = followGap,
+        startGap = startGap,
         startEdgeGradientWidth = startEdgeGradientWidth,
         endEdgeGradientWidth = endEdgeGradientWidth,
         marqueeDpPerSecond = marqueeDpPerSecond,
@@ -193,6 +200,7 @@ public fun MarqueeText(
  * @param textAlign The alignment of the text within the lines of the paragraph.
  * See [TextStyle.textAlign].
  * @param followGap the width between end of each scrolling text and the start of the following one.
+ * @param startGap the width before the text when the scrolling text is static.
  * @param edgeGradientWidth the width of the fade out zone on the edges, so text isn't cut off
  * harshly.
  * @param marqueeDpPerSecond the speed of scrolling in dp per second.
@@ -208,6 +216,7 @@ public fun MarqueeText(
     style: TextStyle = LocalTextStyle.current,
     textAlign: TextAlign = TextAlign.Left,
     followGap: Dp = 96.dp,
+    startGap: Dp = 0.dp,
     edgeGradientWidth: Dp = 16.dp,
     marqueeDpPerSecond: Dp = 64.dp,
     pauseTime: Duration = 4.seconds,
@@ -220,6 +229,7 @@ public fun MarqueeText(
         style = style,
         textAlign = textAlign,
         followGap = followGap,
+        startGap = startGap,
         startEdgeGradientWidth = edgeGradientWidth,
         marqueeDpPerSecond = marqueeDpPerSecond,
         pauseTime = pauseTime,
@@ -243,6 +253,7 @@ public fun MarqueeText(
  * @param textAlign The alignment of the text within the lines of the paragraph.
  * See [TextStyle.textAlign].
  * @param followGap the width between end of each scrolling text and the start of the following one.
+ * @param startGap the width before the text when the scrolling text is static.
  * @param edgeGradientWidth the width of the fade out zone on the edges, so text isn't cut off
  * harshly.
  * @param marqueeDpPerSecond the speed of scrolling in dp per second.
@@ -257,6 +268,7 @@ public fun MarqueeText(
     style: TextStyle = LocalTextStyle.current,
     textAlign: TextAlign = TextAlign.Left,
     followGap: Dp = 96.dp,
+    startGap: Dp = 0.dp,
     edgeGradientWidth: Dp = 16.dp,
     marqueeDpPerSecond: Dp = 64.dp,
     pauseTime: Duration = 4.seconds,
@@ -269,6 +281,7 @@ public fun MarqueeText(
         style = style,
         textAlign = textAlign,
         followGap = followGap,
+        startGap = startGap,
         edgeGradientWidth = edgeGradientWidth,
         marqueeDpPerSecond = marqueeDpPerSecond,
         pauseTime = pauseTime,
@@ -278,6 +291,7 @@ public fun MarqueeText(
 private class MarqueeController(
     startEdgeGradientWidth: Dp,
     endEdgeGradientWidth: Dp,
+    startGap: Dp,
 ) {
 
     var startEdgeGradientWidth: Dp by mutableStateOf(startEdgeGradientWidth)
@@ -309,10 +323,10 @@ private class MarqueeController(
 
     private val padding = object : PaddingValues {
         override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
-            if (layoutDirection == LayoutDirection.Ltr) startEdgeGradientWidth else 0.dp
+            if (layoutDirection == LayoutDirection.Ltr) startGap else 0.dp
 
         override fun calculateRightPadding(layoutDirection: LayoutDirection): Dp =
-            if (layoutDirection != LayoutDirection.Ltr) startEdgeGradientWidth else 0.dp
+            if (layoutDirection != LayoutDirection.Ltr) startGap else 0.dp
 
         override fun calculateTopPadding(): Dp = 0.dp
         override fun calculateBottomPadding(): Dp = 0.dp

@@ -74,7 +74,7 @@ import kotlin.time.Duration.Companion.seconds
  * @param textAlign The alignment of the text within the lines of the paragraph.
  * See [TextStyle.textAlign].
  * @param followGap the width between end of each scrolling text and the start of the following one.
- * @param startGap the width before the text when the scrolling text is static.
+ * @param startGap the padding in [Dp] added before the [text].
  * @param startEdgeGradientWidth the width of the fade out zone on the start edge, so text isn't cut
  * off harshly.
  * @param endEdgeGradientWidth the width of the fade out zone on the end edge, so text isn't cut off
@@ -142,7 +142,7 @@ public fun MarqueeText(
  * @param textAlign The alignment of the text within the lines of the paragraph.
  * See [TextStyle.textAlign].
  * @param followGap the width between end of each scrolling text and the start of the following one.
- * @param startGap the width before the text when the scrolling text is static.
+ * @param startGap the padding in [Dp] added before the [text].
  * @param startEdgeGradientWidth the width of the fade out zone on the start edge, so text isn't cut
  * off harshly.
  * @param endEdgeGradientWidth the width of the fade out zone on the end edge, so text isn't cut off
@@ -200,7 +200,7 @@ public fun MarqueeText(
  * @param textAlign The alignment of the text within the lines of the paragraph.
  * See [TextStyle.textAlign].
  * @param followGap the width between end of each scrolling text and the start of the following one.
- * @param startGap the width before the text when the scrolling text is static.
+ * @param startGap the padding in [Dp] added before the [text].
  * @param edgeGradientWidth the width of the fade out zone on the edges, so text isn't cut off
  * harshly.
  * @param marqueeDpPerSecond the speed of scrolling in dp per second.
@@ -253,7 +253,7 @@ public fun MarqueeText(
  * @param textAlign The alignment of the text within the lines of the paragraph.
  * See [TextStyle.textAlign].
  * @param followGap the width between end of each scrolling text and the start of the following one.
- * @param startGap the width before the text when the scrolling text is static.
+ * @param startGap the padding in [Dp] added before the [text].
  * @param edgeGradientWidth the width of the fade out zone on the edges, so text isn't cut off
  * harshly.
  * @param marqueeDpPerSecond the speed of scrolling in dp per second.
@@ -323,10 +323,18 @@ private class MarqueeController(
 
     private val padding = object : PaddingValues {
         override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
-            if (layoutDirection == LayoutDirection.Ltr) startGap else 0.dp
+            if (layoutDirection == LayoutDirection.Ltr) {
+                if (startGap > 0.dp) startGap
+                else if (needsScrolling) startEdgeGradientWidth
+                else 0.dp
+            } else 0.dp
 
         override fun calculateRightPadding(layoutDirection: LayoutDirection): Dp =
-            if (layoutDirection != LayoutDirection.Ltr) startGap else 0.dp
+            if (layoutDirection != LayoutDirection.Ltr) {
+                if (startGap > 0.dp) startGap
+                else if (needsScrolling) startEdgeGradientWidth
+                else 0.dp
+            } else 0.dp
 
         override fun calculateTopPadding(): Dp = 0.dp
         override fun calculateBottomPadding(): Dp = 0.dp

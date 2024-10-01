@@ -37,52 +37,52 @@ import org.junit.Test
 class UampNothingPlayerScreenshotTest(device: WearDevice) :
     WearDeviceScreenshotTest(device = device) {
 
-    @Test
-    fun nothingPlayerScreen() = runTest {
-        val volumeUiState = VolumeUiState(current = 1)
+        @Test
+        fun nothingPlayerScreen() = runTest {
+            val volumeUiState = VolumeUiState(current = 1)
 
-        val audioOutput = AudioOutput.BluetoothHeadset(
-            id = "bt0",
-            name = "BT_Headphone",
-        )
-
-        UampTheme {
-            PlayerScreen(
-                mediaDisplay = {
-                    AnimatedMediaInfoDisplay(
-                        media = null,
-                        loading = false,
-                        appIcon = DrawableResPaintable(R.drawable.ic_horologist_monochrome),
-                    )
-                },
-                controlButtons = {
-                    AnimatedMediaControlButtons(
-                        onPlayButtonClick = { },
-                        onPauseButtonClick = { },
-                        playPauseButtonEnabled = false,
-                        playing = false,
-                        onSeekToPreviousButtonClick = { },
-                        seekToPreviousButtonEnabled = false,
-                        onSeekToNextButtonClick = { },
-                        seekToNextButtonEnabled = false,
-                        trackPositionUiModel = TrackPositionUiModel.Actual.ZERO,
-                    )
-                },
-                buttons = {
-                    UampSettingsButtons(
-                        volumeUiState = volumeUiState,
-                        audioOutputUi = audioOutput.toAudioOutputUi(),
-                        onVolumeClick = { },
-                    )
-                },
-                background = {
-                    ArtworkColorBackground(
-                        paintable = null,
-                        defaultColor = MaterialTheme.colors.primary,
-                        modifier = Modifier.fillMaxSize(),
-                    )
-                },
+            val audioOutput = AudioOutput.BluetoothHeadset(
+                id = "bt0",
+                name = "BT_Headphone",
             )
+
+            UampTheme {
+                PlayerScreen(
+                    mediaDisplay = {
+                        AnimatedMediaInfoDisplay(
+                            media = null,
+                            loading = false,
+                            appIcon = DrawableResPaintable(R.drawable.ic_horologist_monochrome),
+                        )
+                    },
+                    controlButtons = {
+                        AnimatedMediaControlButtons(
+                            onPlayButtonClick = { },
+                            onPauseButtonClick = { },
+                            playPauseButtonEnabled = false,
+                            playing = false,
+                            onSeekToPreviousButtonClick = { },
+                            seekToPreviousButtonEnabled = false,
+                            onSeekToNextButtonClick = { },
+                            seekToNextButtonEnabled = false,
+                            trackPositionUiModel = TrackPositionUiModel.Actual.ZERO,
+                        )
+                    },
+                    buttons = {
+                        UampSettingsButtons(
+                            volumeUiState = volumeUiState,
+                            audioOutputUi = audioOutput.toAudioOutputUi(),
+                            onVolumeClick = { },
+                        )
+                    },
+                    background = {
+                        ArtworkColorBackground(
+                            paintable = null,
+                            defaultColor = MaterialTheme.colors.primary,
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                    },
+                )
+            }
         }
     }
-}

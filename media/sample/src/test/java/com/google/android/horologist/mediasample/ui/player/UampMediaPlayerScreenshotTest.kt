@@ -40,77 +40,77 @@ import kotlin.time.Duration.Companion.seconds
 class UampMediaPlayerScreenshotTest(device: WearDevice) :
     WearDeviceScreenshotTest(device = device) {
 
-    @Test
-    fun mediaPlayerScreen() = runTest {
-        val playerUiState = PlayerUiState(
-            playEnabled = true,
-            pauseEnabled = true,
-            seekBackEnabled = true,
-            seekForwardEnabled = true,
-            seekInCurrentMediaItemEnabled = true,
-            seekToPreviousEnabled = false,
-            seekToNextEnabled = true,
-            shuffleEnabled = false,
-            shuffleOn = false,
-            playPauseEnabled = true,
-            playing = true,
-            media = MediaUiModel.Ready(
-                id = "",
-                title = "Weather with You",
-                subtitle = "Crowded House",
-            ),
-            trackPositionUiModel = TrackPositionUiModel.Actual(
-                percent = 0.133f,
-                position = 30.seconds,
-                duration = 225.seconds,
-            ),
-            connected = true,
-        )
-
-        val volumeUiState = VolumeUiState(current = 1)
-
-        val audioOutput = AudioOutput.BluetoothHeadset(
-            id = "bt0",
-            name = "BT_Headphone",
-        )
-
-        UampTheme {
-            PlayerScreen(
-                mediaDisplay = {
-                    AnimatedMediaInfoDisplay(
-                        media = playerUiState.media,
-                        loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
-                        appIcon = DrawableResPaintable(R.drawable.ic_horologist_monochrome),
-                    )
-                },
-                controlButtons = {
-                    AnimatedMediaControlButtons(
-                        onPlayButtonClick = { },
-                        onPauseButtonClick = { },
-                        playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                        playing = playerUiState.playing,
-                        onSeekToPreviousButtonClick = { },
-                        seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-                        onSeekToNextButtonClick = { },
-                        seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-                        trackPositionUiModel = playerUiState.trackPositionUiModel,
-                    )
-                },
-                buttons = {
-                    UampSettingsButtons(
-                        volumeUiState = volumeUiState,
-                        audioOutputUi = audioOutput.toAudioOutputUi(),
-                        onVolumeClick = { },
-                    )
-                },
-                background = {
-                    ArtworkColorBackground(
-                        paintable = null,
-                        defaultColor = MaterialTheme.colors.primary,
-                        modifier = Modifier.fillMaxSize(),
-                    )
-                },
+        @Test
+        fun mediaPlayerScreen() = runTest {
+            val playerUiState = PlayerUiState(
+                playEnabled = true,
+                pauseEnabled = true,
+                seekBackEnabled = true,
+                seekForwardEnabled = true,
+                seekInCurrentMediaItemEnabled = true,
+                seekToPreviousEnabled = false,
+                seekToNextEnabled = true,
+                shuffleEnabled = false,
+                shuffleOn = false,
+                playPauseEnabled = true,
+                playing = true,
+                media = MediaUiModel.Ready(
+                    id = "",
+                    title = "Weather with You",
+                    subtitle = "Crowded House",
+                ),
+                trackPositionUiModel = TrackPositionUiModel.Actual(
+                    percent = 0.133f,
+                    position = 30.seconds,
+                    duration = 225.seconds,
+                ),
+                connected = true,
             )
+
+            val volumeUiState = VolumeUiState(current = 1)
+
+            val audioOutput = AudioOutput.BluetoothHeadset(
+                id = "bt0",
+                name = "BT_Headphone",
+            )
+
+            UampTheme {
+                PlayerScreen(
+                    mediaDisplay = {
+                        AnimatedMediaInfoDisplay(
+                            media = playerUiState.media,
+                            loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
+                            appIcon = DrawableResPaintable(R.drawable.ic_horologist_monochrome),
+                        )
+                    },
+                    controlButtons = {
+                        AnimatedMediaControlButtons(
+                            onPlayButtonClick = { },
+                            onPauseButtonClick = { },
+                            playPauseButtonEnabled = playerUiState.playPauseEnabled,
+                            playing = playerUiState.playing,
+                            onSeekToPreviousButtonClick = { },
+                            seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
+                            onSeekToNextButtonClick = { },
+                            seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
+                            trackPositionUiModel = playerUiState.trackPositionUiModel,
+                        )
+                    },
+                    buttons = {
+                        UampSettingsButtons(
+                            volumeUiState = volumeUiState,
+                            audioOutputUi = audioOutput.toAudioOutputUi(),
+                            onVolumeClick = { },
+                        )
+                    },
+                    background = {
+                        ArtworkColorBackground(
+                            paintable = null,
+                            defaultColor = MaterialTheme.colors.primary,
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                    },
+                )
+            }
         }
     }
-}

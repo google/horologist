@@ -16,7 +16,9 @@
 
 package com.google.android.horologist.media.ui.components.display
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
@@ -56,9 +58,7 @@ public fun TextMediaDisplay(
         val text = buildAnnotatedString {
             if (titleIcon != null) {
                 appendInlineContent(id = "iconSlot")
-                append(" ")
             }
-            append(title)
         }
         val inlineContent = if (titleIcon != null) {
             mapOf(
@@ -71,22 +71,36 @@ public fun TextMediaDisplay(
         } else {
             emptyMap()
         }
-        Text(
-            text = text,
-            inlineContent = inlineContent,
+
+        Row(
             modifier = Modifier
-                // 89.76% of parent equals 4.16% of screen width applied on each side when
+                // 84.49% of parent equals 6.3% of screen width applied on each side when
                 // applied on top of the 9.38% in the ConstraintLayout.
-                .fillMaxWidth(0.8976f)
+                .fillMaxWidth(0.8449f)
                 .padding(
                     top = if (isLargeScreen) 0.dp else 2.dp,
                     bottom = if (isLargeScreen) 3.dp else 1.dp,
                 ),
-            color = MaterialTheme.colors.onBackground,
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-            style = textStyle,
-        )
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Text(
+                text = text,
+                inlineContent = inlineContent,
+                style = textStyle,
+                color = MaterialTheme.colors.onBackground,
+            )
+            Text(
+                text = title,
+                modifier = Modifier.padding(
+                    start = if (titleIcon != null) 8.dp else 12.dp,
+                    end = 12.dp,
+                ),
+                color = MaterialTheme.colors.onBackground,
+                textAlign = TextAlign.Left,
+                maxLines = 1,
+                style = textStyle,
+            )
+        }
         Text(
             text = subtitle,
             modifier = Modifier

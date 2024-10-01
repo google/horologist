@@ -19,18 +19,13 @@ package com.google.android.horologist.mediasample.ui.player
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
-import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetAudioOutputButton
-import com.google.android.horologist.logo.R
 
 /**
  * Settings buttons for the UAMP media app.
@@ -42,40 +37,21 @@ public fun UampSettingsButtons(
     audioOutputUi: AudioOutputUi,
     onVolumeClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
 ) {
-    val configuration = LocalConfiguration.current
-    val verticalPadding = (configuration.screenWidthDp * VERTICAL_PADDING_SCREEN_PERCENTAGE).dp
-
     Row(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(vertical = verticalPadding),
+        modifier = modifier.fillMaxSize(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
-        FavoriteButton(
-            modifier = Modifier.weight(1f),
-            iconAlignment = Alignment.TopCenter,
-        )
-
-        SettingsButtonsDefaults.BrandIcon(
-            modifier = Modifier
-                .align(Alignment.Bottom)
-                .weight(1f)
-                .size(16.dp),
-            iconId = R.drawable.ic_stat_horologist,
-            enabled = enabled,
-        )
-
         SetAudioOutputButton(
             modifier = Modifier.weight(1f),
             onVolumeClick = onVolumeClick,
             volumeUiState = volumeUiState,
             audioOutputUi = audioOutputUi,
-            iconAlignment = Alignment.TopCenter,
+        )
+
+        FavoriteButton(
+            modifier = Modifier.weight(1f),
         )
     }
 }
-
-private const val VERTICAL_PADDING_SCREEN_PERCENTAGE = 0.026f

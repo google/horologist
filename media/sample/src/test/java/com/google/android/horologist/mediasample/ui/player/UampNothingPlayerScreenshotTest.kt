@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist
+package com.google.android.horologist.mediasample.ui.player
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
@@ -22,48 +22,23 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
-import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.mediasample.ui.app.UampTheme
-import com.google.android.horologist.mediasample.ui.player.UampSettingsButtons
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
 import org.junit.Test
-import kotlin.time.Duration.Companion.seconds
 
-class UampPlayerScreenshotTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
+class UampNothingPlayerScreenshotTest(device: WearDevice) :
+    WearDeviceScreenshotTest(device = device) {
+
     @Test
-    fun initial() = runTest {
-        val playerUiState = PlayerUiState(
-            playEnabled = true,
-            pauseEnabled = true,
-            seekBackEnabled = true,
-            seekForwardEnabled = true,
-            seekInCurrentMediaItemEnabled = true,
-            seekToPreviousEnabled = false,
-            seekToNextEnabled = true,
-            shuffleEnabled = false,
-            shuffleOn = false,
-            playPauseEnabled = true,
-            playing = true,
-            media = MediaUiModel.Ready(
-                id = "",
-                title = "Weather with You",
-                subtitle = "Crowded House",
-            ),
-            trackPositionUiModel = TrackPositionUiModel.Actual(
-                percent = 0.133f,
-                position = 30.seconds,
-                duration = 225.seconds,
-            ),
-            connected = true,
-        )
-
+    fun nothingPlayerScreen() = runTest {
         val volumeUiState = VolumeUiState(current = 1)
 
         val audioOutput = AudioOutput.BluetoothHeadset(
@@ -75,21 +50,22 @@ class UampPlayerScreenshotTest(device: WearDevice) : WearDeviceScreenshotTest(de
             PlayerScreen(
                 mediaDisplay = {
                     AnimatedMediaInfoDisplay(
-                        media = playerUiState.media,
-                        loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
+                        media = null,
+                        loading = false,
+                        appIcon = DrawableResPaintable(R.drawable.ic_horologist_monochrome),
                     )
                 },
                 controlButtons = {
                     AnimatedMediaControlButtons(
                         onPlayButtonClick = { },
                         onPauseButtonClick = { },
-                        playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                        playing = playerUiState.playing,
+                        playPauseButtonEnabled = false,
+                        playing = false,
                         onSeekToPreviousButtonClick = { },
-                        seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
+                        seekToPreviousButtonEnabled = false,
                         onSeekToNextButtonClick = { },
-                        seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-                        trackPositionUiModel = playerUiState.trackPositionUiModel,
+                        seekToNextButtonEnabled = false,
+                        trackPositionUiModel = TrackPositionUiModel.Actual.ZERO,
                     )
                 },
                 buttons = {

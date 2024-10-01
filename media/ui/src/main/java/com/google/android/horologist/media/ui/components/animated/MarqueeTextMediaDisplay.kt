@@ -25,7 +25,9 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
@@ -85,9 +87,7 @@ public fun MarqueeTextMediaDisplay(
             val text = buildAnnotatedString {
                 if (titleIcon != null) {
                     appendInlineContent(id = "iconSlot")
-                    append(" ")
                 }
-                append(currentTitle.orEmpty())
             }
             val inlineContent = if (titleIcon != null) {
                 mapOf(
@@ -100,22 +100,31 @@ public fun MarqueeTextMediaDisplay(
             } else {
                 emptyMap()
             }
-            MarqueeText(
-                text = text,
-                inlineContent = inlineContent,
-                edgeGradientWidth = 8.dp,
+            Row(
                 modifier = Modifier
-                    // 89.76% of parent equals 4.16% of screen width applied on each side when
+                    // 84.49% of parent equals 6.3% of screen width applied on each side when
                     // applied on top of the 9.38% in the ConstraintLayout.
-                    .fillMaxWidth(0.8976f)
+                    .fillMaxWidth(0.8449f)
                     .padding(
                         top = if (isLargeScreen) 0.dp else 2.dp,
                         bottom = if (isLargeScreen) 3.dp else 1.dp,
                     ),
-                color = MaterialTheme.colors.onBackground,
-                style = textStyle,
-                textAlign = TextAlign.Center,
-            )
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                Text(
+                    text = text,
+                    inlineContent = inlineContent,
+                    style = textStyle,
+                    color = MaterialTheme.colors.onBackground,
+                )
+                MarqueeText(
+                    text = currentTitle.orEmpty(),
+                    startEdgeGradientWidth = if (titleIcon != null) 8.dp else 12.dp,
+                    endEdgeGradientWidth = 12.dp,
+                    color = MaterialTheme.colors.onBackground,
+                    style = textStyle,
+                )
+            }
         }
 
         AnimatedContent(

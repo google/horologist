@@ -19,6 +19,7 @@ package com.google.android.horologist.media.ui.components.display
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
@@ -29,11 +30,12 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 public fun TrackMediaDisplay(
     media: MediaUiModel.Ready,
     modifier: Modifier = Modifier,
+    appIcon: Paintable? = null,
 ) {
     TextMediaDisplay(
         title = media.title,
         subtitle = media.subtitle,
-        titleIcon = media.titleIcon,
+        titleIcon = media.titleIcon ?: appIcon,
         modifier = modifier,
     )
 }

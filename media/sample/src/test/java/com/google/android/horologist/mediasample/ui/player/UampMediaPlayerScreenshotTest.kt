@@ -22,6 +22,8 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
@@ -29,28 +31,17 @@ import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.media.ui.uamp.UampTheme
-import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
+import com.google.android.horologist.mediasample.ui.app.UampTheme
+import com.google.android.horologist.screenshots.rng.WearDevice
+import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
 import org.junit.Test
-import org.robolectric.annotation.Config
 import kotlin.time.Duration.Companion.seconds
 
-class UampMediaPlayerA11yScreenshotTest : WearLegacyA11yTest() {
+class UampMediaPlayerScreenshotTest(device: WearDevice) :
+    WearDeviceScreenshotTest(device = device) {
 
     @Test
-    fun mediaPlayerLargeRound() {
-        uampMediaPlayerScreen()
-    }
-
-    @Config(
-        qualifiers = "+w192dp-h192dp",
-    )
-    @Test
-    fun mediaPlayerSmallRound() {
-        uampMediaPlayerScreen()
-    }
-
-    private fun uampMediaPlayerScreen() {
+    fun mediaPlayerScreen() = runTest {
         val playerUiState = PlayerUiState(
             playEnabled = true,
             pauseEnabled = true,
@@ -83,44 +74,43 @@ class UampMediaPlayerA11yScreenshotTest : WearLegacyA11yTest() {
             name = "BT_Headphone",
         )
 
-        runScreenTest {
-            UampTheme {
-                PlayerScreen(
-                    mediaDisplay = {
-                        AnimatedMediaInfoDisplay(
-                            media = playerUiState.media,
-                            loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
-                        )
-                    },
-                    controlButtons = {
-                        AnimatedMediaControlButtons(
-                            onPlayButtonClick = { },
-                            onPauseButtonClick = { },
-                            playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                            playing = playerUiState.playing,
-                            onSeekToPreviousButtonClick = { },
-                            seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-                            onSeekToNextButtonClick = { },
-                            seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-                            trackPositionUiModel = playerUiState.trackPositionUiModel,
-                        )
-                    },
-                    buttons = {
-                        UampSettingsButtons(
-                            volumeUiState = volumeUiState,
-                            audioOutputUi = audioOutput.toAudioOutputUi(),
-                            onVolumeClick = { },
-                        )
-                    },
-                    background = {
-                        ArtworkColorBackground(
-                            paintable = null,
-                            defaultColor = MaterialTheme.colors.primary,
-                            modifier = Modifier.fillMaxSize(),
-                        )
-                    },
-                )
-            }
+        UampTheme {
+            PlayerScreen(
+                mediaDisplay = {
+                    AnimatedMediaInfoDisplay(
+                        media = playerUiState.media,
+                        loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
+                        appIcon = DrawableResPaintable(R.drawable.ic_horologist_monochrome),
+                    )
+                },
+                controlButtons = {
+                    AnimatedMediaControlButtons(
+                        onPlayButtonClick = { },
+                        onPauseButtonClick = { },
+                        playPauseButtonEnabled = playerUiState.playPauseEnabled,
+                        playing = playerUiState.playing,
+                        onSeekToPreviousButtonClick = { },
+                        seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
+                        onSeekToNextButtonClick = { },
+                        seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
+                        trackPositionUiModel = playerUiState.trackPositionUiModel,
+                    )
+                },
+                buttons = {
+                    UampSettingsButtons(
+                        volumeUiState = volumeUiState,
+                        audioOutputUi = audioOutput.toAudioOutputUi(),
+                        onVolumeClick = { },
+                    )
+                },
+                background = {
+                    ArtworkColorBackground(
+                        paintable = null,
+                        defaultColor = MaterialTheme.colors.primary,
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                },
+            )
         }
     }
 }

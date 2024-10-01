@@ -17,7 +17,9 @@
 package com.google.android.horologist.media.ui.components.controls
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -33,7 +35,12 @@ import com.google.android.horologist.images.base.paintable.PaintableIcon
 internal fun MediaTitleIcon(icon: Paintable) {
     if (icon is PaintableIcon) {
         Icon(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    color = MaterialTheme.colors.primary,
+                    shape = CircleShape,
+                ),
             paintable = icon,
             contentDescription = null,
             tint = MaterialTheme.colors.onBackground,

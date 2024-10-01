@@ -25,7 +25,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.coil.CoilPaintable
+import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
@@ -75,6 +77,7 @@ fun UampMediaPlayerScreen(
                 AnimatedMediaInfoDisplay(
                     media = playerUiState.media,
                     loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
+                    appIcon = DrawableResPaintable(R.drawable.ic_horologist_monochrome),
                 )
             } else {
                 DefaultMediaInfoDisplay(playerUiState)
@@ -85,7 +88,6 @@ fun UampMediaPlayerScreen(
                 volumeUiState = volumeUiState,
                 audioOutputUi = audioOutput.toAudioOutputUi(),
                 onVolumeClick = onVolumeClick,
-                enabled = state.connected && state.media != null,
             )
         },
         controlButtons = { playerUiController, playerUiState ->

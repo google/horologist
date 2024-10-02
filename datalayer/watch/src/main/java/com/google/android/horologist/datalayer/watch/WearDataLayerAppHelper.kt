@@ -155,6 +155,7 @@ public class WearDataLayerAppHelper internal constructor(
      *
      * @param tileName The name of the tile.
      */
+    @Deprecated("Please use updateInstalledTiles instead")
     public suspend fun markTileAsInstalled(tileName: String) {
         surfacesInfoDataStore.updateData { info ->
             val tile = tileInfo {
@@ -268,6 +269,7 @@ public class WearDataLayerAppHelper internal constructor(
      *
      * @param tileName The name of the tile.
      */
+    @Deprecated("Please use updateInstalledTiles instead")
     public suspend fun markTileAsRemoved(tileName: String) {
         surfacesInfoDataStore.updateData { info ->
             val tile = tileInfo {

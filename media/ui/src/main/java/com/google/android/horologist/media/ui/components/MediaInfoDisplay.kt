@@ -19,6 +19,7 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.components.display.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay
 import com.google.android.horologist.media.ui.components.display.TrackMediaDisplay
@@ -29,12 +30,17 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
  */
 @ExperimentalHorologistApi
 @Composable
-public fun MediaInfoDisplay(media: MediaUiModel?, loading: Boolean, modifier: Modifier = Modifier) {
+public fun MediaInfoDisplay(
+    media: MediaUiModel?,
+    loading: Boolean,
+    modifier: Modifier = Modifier,
+    appIcon: Paintable? = null,
+) {
     if (loading) {
         LoadingMediaDisplay(modifier)
     } else if (media is MediaUiModel.Ready) {
-        TrackMediaDisplay(media = media, modifier = modifier)
+        TrackMediaDisplay(media = media, modifier = modifier, appIcon = appIcon)
     } else {
-        NothingPlayingDisplay(modifier)
+        NothingPlayingDisplay(modifier = modifier, appIcon = appIcon)
     }
 }

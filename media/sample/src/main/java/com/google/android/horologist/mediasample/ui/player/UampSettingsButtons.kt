@@ -18,14 +18,13 @@ package com.google.android.horologist.mediasample.ui.player
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
-import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetAudioOutputButton
-import com.google.android.horologist.logo.R
 
 /**
  * Settings buttons for the UAMP media app.
@@ -37,24 +36,21 @@ public fun UampSettingsButtons(
     audioOutputUi: AudioOutputUi,
     onVolumeClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceEvenly,
+        horizontalArrangement = Arrangement.Center,
     ) {
-        FavoriteButton()
-
-        SettingsButtonsDefaults.BrandIcon(
-            iconId = R.drawable.ic_stat_horologist,
-            enabled = enabled,
-        )
-
         SetAudioOutputButton(
+            modifier = Modifier.weight(1f),
             onVolumeClick = onVolumeClick,
             volumeUiState = volumeUiState,
             audioOutputUi = audioOutputUi,
+        )
+
+        FavoriteButton(
+            modifier = Modifier.weight(1f),
         )
     }
 }

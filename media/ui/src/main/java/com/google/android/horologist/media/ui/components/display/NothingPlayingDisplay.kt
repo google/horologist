@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.R
 
 /**
@@ -27,9 +28,13 @@ import com.google.android.horologist.media.ui.R
  */
 @ExperimentalHorologistApi
 @Composable
-public fun NothingPlayingDisplay(modifier: Modifier = Modifier) {
+public fun NothingPlayingDisplay(
+    modifier: Modifier = Modifier,
+    appIcon: Paintable? = null,
+) {
     MessageMediaDisplay(
         message = stringResource(R.string.horologist_nothing_playing),
+        appIcon = appIcon,
         modifier = modifier,
     )
 }

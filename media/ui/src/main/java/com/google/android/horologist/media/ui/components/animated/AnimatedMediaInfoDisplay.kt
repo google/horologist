@@ -19,6 +19,7 @@ package com.google.android.horologist.media.ui.components.animated
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.components.display.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
@@ -32,6 +33,7 @@ public fun AnimatedMediaInfoDisplay(
     media: MediaUiModel?,
     loading: Boolean,
     modifier: Modifier = Modifier,
+    appIcon: Paintable? = null,
 ) {
     if (loading) {
         LoadingMediaDisplay(modifier)
@@ -40,9 +42,9 @@ public fun AnimatedMediaInfoDisplay(
             modifier = modifier,
             title = media.title,
             artist = media.subtitle,
-            titleIcon = media.titleIcon,
+            titleIcon = media.titleIcon ?: appIcon,
         )
     } else {
-        NothingPlayingDisplay(modifier)
+        NothingPlayingDisplay(modifier = modifier, appIcon = appIcon)
     }
 }

@@ -23,6 +23,8 @@ import androidx.wear.watchface.complications.data.ComplicationType
 import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -43,6 +45,7 @@ class TrackingScreenViewModel
 
         private val _uiState = MutableStateFlow<TrackingScreenUiState>(TrackingScreenUiState.Idle)
         public val uiState: StateFlow<TrackingScreenUiState> = _uiState
+        private val executor = Dispatchers.Default.asExecutor()
 
         @MainThread
         fun initialize() {
@@ -99,13 +102,9 @@ class TrackingScreenViewModel
             }
         }
 
-        fun onTileCheckedChanged(tile: String, checked: Boolean) {
+        fun onTileCheckedChanged() {
             viewModelScope.launch {
-                if (checked) {
-                    wearDataLayerAppHelper.markTileAsInstalled(tile)
-                } else {
-                    wearDataLayerAppHelper.markTileAsRemoved(tile)
-                }
+                wearDataLayerAppHelper.updateInstalledTiles(executor)
             }
         }
 

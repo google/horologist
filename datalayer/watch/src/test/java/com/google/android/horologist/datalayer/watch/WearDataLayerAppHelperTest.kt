@@ -99,13 +99,13 @@ class WearDataLayerAppHelperTest {
         val infoInitial = testDataStore.data.first()
         assertThat(infoInitial.tilesList).isEmpty()
 
-        helper.markTileAsInstalled("my.SampleTileService")
+        helper.updateInstalledTiles(context.mainExecutor)
 
         val infoUpdated = testDataStore.data.first()
         assertThat(infoUpdated.tilesList).hasSize(1)
         assertThat(infoUpdated.tilesList.first().name).isEqualTo("my.SampleTileService")
 
-        helper.markTileAsRemoved("my.SampleTileService")
+        helper.updateInstalledTiles(context.mainExecutor)
 
         val infoReverted = testDataStore.data.first()
         assertThat(infoReverted.tilesList).isEmpty()

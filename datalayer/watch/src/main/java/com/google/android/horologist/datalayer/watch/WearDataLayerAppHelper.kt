@@ -176,6 +176,9 @@ public class WearDataLayerAppHelper internal constructor(
      *
      * Gets all the installed tiles async and updates them.
      *
+     * This function has some limitations on older SDK versions, please see
+     * the docs for [TileService#getActiveTilesAsync](https://developer.android.com/reference/androidx/wear/tiles/TileService#getActiveTilesAsync(android.content.Context,java.util.concurrent.Executor))
+     *
      * @param executor The executor on which methods should be invoked.
      * To dispatch events through the main thread of your application, you can
      * use Context. getMainExecutor().

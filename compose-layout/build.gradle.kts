@@ -99,6 +99,7 @@ dependencies {
     api(libs.androidx.navigation.runtime)
     api(libs.wearcompose.navigation)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui.util)
 
     implementation(libs.compose.ui.tooling)

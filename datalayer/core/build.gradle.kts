@@ -107,7 +107,7 @@ metalava {
 dependencies {
     api(projects.annotations)
 
-    implementation(libs.kotlin.stdlib)
+    implementation(platform(libs.compose.bom))
     implementation(libs.kotlinx.coroutines.core)
 
     api(libs.playservices.wearable)

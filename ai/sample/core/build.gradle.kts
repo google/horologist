@@ -117,9 +117,9 @@ dependencies {
     implementation(projects.datalayer.grpc)
     ksp(libs.dagger.hiltandroidcompiler)
 
-    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
 
+    implementation(platform(libs.compose.bom))
     api(libs.playservices.wearable)
     implementation(libs.kotlinx.coroutines.playservices)
     api(libs.androidx.datastore.preferences)

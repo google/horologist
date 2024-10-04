@@ -90,7 +90,7 @@ dependencies {
     api(projects.annotations)
     api(projects.networkAwareness.core)
 
-    implementation(libs.kotlin.stdlib)
+    implementation(platform(libs.compose.bom))
     implementation(libs.com.squareup.okhttp3.okhttp)
 
     implementation(libs.room.common)

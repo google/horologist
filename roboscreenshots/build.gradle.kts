@@ -94,7 +94,7 @@ dependencies {
     api(projects.composeLayout)
     api(projects.images.coil)
 
-    api(libs.kotlin.stdlib)
+    implementation(platform(libs.compose.bom))
     api(libs.okio)
     api(libs.compose.ui.test.junit4)
     api(libs.robolectric)

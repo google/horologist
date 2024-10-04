@@ -173,6 +173,7 @@ dependencies {
     implementation(projects.tiles)
     implementation(projects.logo)
 
+    implementation(platform(libs.compose.bom))
     implementation(
         libs.androidx.media3.datasourceokhttp,
     )
@@ -218,7 +219,6 @@ dependencies {
 
     implementation(libs.lottie.compose)
 
-    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.guava)
 
     implementation(libs.androidx.datastore.preferences)

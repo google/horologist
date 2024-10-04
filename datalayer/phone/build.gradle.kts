@@ -91,7 +91,6 @@ dependencies {
     api(projects.annotations)
     api(projects.datalayer.core)
 
-    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
 
     api(libs.playservices.wearable)

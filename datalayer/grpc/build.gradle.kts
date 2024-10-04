@@ -128,7 +128,6 @@ dependencies {
     api(projects.annotations)
 
     api(projects.datalayer.core)
-    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.lifecycle.service)
     api(libs.io.grpc.protobuf.lite)

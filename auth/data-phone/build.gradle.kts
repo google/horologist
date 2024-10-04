@@ -96,7 +96,6 @@ dependencies {
 
     api(libs.androidx.datastore.core)
 
-    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.playservices.base)
     implementation(libs.playservices.wearable)

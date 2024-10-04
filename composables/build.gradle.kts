@@ -99,6 +99,7 @@ dependencies {
     api(projects.annotations)
     api(projects.images.base)
 
+    implementation(platform(libs.compose.bom))
     implementation(projects.composeLayout)
     implementation(libs.androidx.wear)
     api(libs.wearcompose.material)

@@ -90,6 +90,7 @@ metalava {
 dependencies {
     api(projects.annotations)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.kotlin.reflect)
     implementation(projects.tiles)
 

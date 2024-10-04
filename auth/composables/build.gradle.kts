@@ -104,6 +104,7 @@ metalava {
 dependencies {
     api(projects.composeLayout)
 
+    implementation(platform(libs.compose.bom))
     api(libs.compose.runtime)
     api(libs.compose.ui)
 
@@ -117,7 +118,6 @@ dependencies {
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.text)
     implementation(libs.compose.ui.unit)
-    implementation(libs.kotlin.stdlib)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
 

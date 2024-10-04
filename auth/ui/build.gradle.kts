@@ -107,6 +107,7 @@ dependencies {
     api(projects.auth.data)
     api(projects.composeLayout)
 
+    implementation(platform(libs.compose.bom))
     api(libs.androidx.lifecycle.viewmodel)
     api(libs.compose.runtime)
     api(libs.compose.ui)
@@ -126,7 +127,6 @@ dependencies {
     implementation(libs.compose.foundation.foundation.layout)
     implementation(libs.compose.ui.text)
     implementation(libs.compose.ui.unit)
-    implementation(libs.kotlin.stdlib)
     implementation(libs.playservices.auth)
     implementation(libs.wearcompose.material)
 

@@ -264,6 +264,7 @@ dependencies {
     kspTest(libs.dagger.hiltandroidcompiler)
     testImplementation(libs.androidx.work.testing)
 
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espressocore)
     androidTestImplementation(libs.junit)

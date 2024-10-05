@@ -24,8 +24,9 @@ class CombinedInferenceServiceRegistry(
     val registries: List<InferenceServiceRegistry>,
 ) : InferenceServiceRegistry {
     override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
-        return combine(registries.map { registry -> registry.models() }) {
-            it.toList().flatten()
-        }
+        return registries.asFlow()
+            .flatMapConcat { registry -> registry.models() }
+            .toList()
+            .asFlow()
     }
 }

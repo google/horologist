@@ -31,8 +31,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -231,7 +233,7 @@ public object VolumeScreenDefaults {
     @Composable
     public fun IncreaseIcon() {
         Icon(
-            modifier = Modifier.size(26.dp),
+            modifier = Modifier.size(26.dp).semantics { role = Role.Button },
             paintable = Icons.AutoMirrored.Outlined.VolumeUp.asPaintable(),
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description),
         )
@@ -240,7 +242,7 @@ public object VolumeScreenDefaults {
     @Composable
     public fun DecreaseIcon() {
         Icon(
-            modifier = Modifier.size(26.dp),
+            modifier = Modifier.size(26.dp).semantics { role = Role.Button },
             paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description),
         )

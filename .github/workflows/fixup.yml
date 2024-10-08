@@ -25,7 +25,7 @@ jobs:
       - name: Reformat
         uses: gradle/gradle-build-action@v3
         with:
-          arguments: spotlessApply
+          arguments: --continue spotlessApply
 
       - name: Push reformatted code
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -37,7 +37,7 @@ jobs:
       - name: Generate APIs
         uses: gradle/gradle-build-action@v3
         with:
-          arguments: metalavaGenerateSignature metalavaGenerateSignatureDebug
+          arguments: --continue metalavaGenerateSignature metalavaGenerateSignatureDebug
 
       - name: Push new apis
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -49,12 +49,12 @@ jobs:
       - name: Repair screenshots
         uses: gradle/gradle-build-action@v3
         with:
-          arguments: verifyAndRecordRoborazziDebug
+          arguments: --continue verifyAndRecordRoborazziDebug
 
       - name: Push new screenshots if available
         uses: stefanzweifel/git-auto-commit-action@v5
         if: ${{ always() }}
         with:
-          file_pattern: '**/snapshots/images/*.png **/screenshots/*.png'
+          file_pattern: '**/snapshots/images/*.png **/screenshots/*.png **/audit/*.png'
           disable_globbing: true
           commit_message: "🤖 Updates screenshots"

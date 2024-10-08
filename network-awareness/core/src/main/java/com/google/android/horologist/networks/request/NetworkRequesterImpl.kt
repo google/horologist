@@ -33,7 +33,12 @@ public class NetworkRequesterImpl(
     override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
         val lease = NetworkLeaseImpl()
 
-        connectivityManager.requestNetwork(request.toNetworkRequest(), lease)
+        try {
+            connectivityManager.requestNetwork(request.toNetworkRequest(), lease)
+        } catch (e: Exception) {
+            // Likely ConnectivityManager$TooManyRequestsException
+            lease.onUnavailable()
+        }
 
         return lease
     }

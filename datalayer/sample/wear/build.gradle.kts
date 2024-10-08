@@ -136,6 +136,7 @@ protobuf {
 dependencies {
     api(projects.annotations)
 
+    implementation(platform(libs.compose.bom))
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
@@ -155,7 +156,6 @@ dependencies {
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
     implementation(libs.compose.ui.toolingpreview)
-    implementation(libs.kotlin.stdlib)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)

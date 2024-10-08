@@ -98,13 +98,13 @@ metalava {
 
 dependencies {
     api(projects.media.audio)
-    api(libs.kotlin.stdlib)
     api(projects.annotations)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
     implementation(project(":composables"))
     debugImplementation(projects.logo)
 
+    implementation(platform(libs.compose.bom))
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
     implementation(libs.androidx.corektx)

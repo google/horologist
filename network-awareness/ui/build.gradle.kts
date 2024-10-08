@@ -95,7 +95,7 @@ dependencies {
     api(projects.networkAwareness.core)
     api(projects.composeLayout)
 
-    implementation(libs.kotlin.stdlib)
+    implementation(platform(libs.compose.bom))
     implementation(libs.androidx.wear)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)

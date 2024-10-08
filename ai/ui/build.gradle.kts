@@ -107,6 +107,7 @@ dependencies {
     api(projects.composeLayout)
     api(projects.composeMaterial)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.androidx.wear)
 
     debugImplementation(projects.composeTools)

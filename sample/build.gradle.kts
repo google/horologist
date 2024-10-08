@@ -128,6 +128,7 @@ dependencies {
     implementation(projects.tiles)
     implementation(projects.logo)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui.util)
 
     implementation(libs.compose.foundation.foundation)
@@ -145,7 +146,6 @@ dependencies {
     implementation(libs.androidx.wear.protolayout.material)
 
     implementation(libs.kotlinx.coroutines.playservices)
-    implementation(libs.kotlin.stdlib)
 
     implementation(libs.lottie.compose)
 
@@ -169,6 +169,7 @@ dependencies {
     testImplementation(projects.roboscreenshots)
     testImplementation(libs.robolectric)
 
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espressocore)
     androidTestImplementation(libs.junit)

@@ -117,9 +117,9 @@ dependencies {
     implementation(projects.datalayer.grpc)
     ksp(libs.dagger.hiltandroidcompiler)
 
-    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
 
+    implementation(platform(libs.compose.bom))
     api(libs.playservices.wearable)
     implementation(libs.kotlinx.coroutines.playservices)
     api(libs.androidx.datastore.preferences)
@@ -138,6 +138,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
 
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espressocore)
     androidTestImplementation(libs.junit)

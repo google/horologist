@@ -76,13 +76,13 @@ dependencies {
 
     implementation(projects.ai.sample.core)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.dagger.hiltandroid)
     ksp(libs.dagger.hiltandroidcompiler)
     implementation(projects.datalayer.core)
     implementation(projects.datalayer.grpc)
     implementation(projects.datalayer.watch)
 
-    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
 
     api(libs.playservices.wearable)
@@ -103,6 +103,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
 
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espressocore)
     androidTestImplementation(libs.junit)

@@ -85,7 +85,6 @@ dependencies {
 
     implementation(projects.media.core)
 
-    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.wear)

@@ -94,11 +94,11 @@ metalava {
 }
 
 dependencies {
+    implementation(platform(libs.compose.bom))
     api(projects.annotations)
     api(libs.compose.ui.graphics)
     api(libs.compose.runtime)
     api(libs.compose.ui)
-    api(libs.kotlin.stdlib)
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {

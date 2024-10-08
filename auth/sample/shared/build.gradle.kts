@@ -115,7 +115,6 @@ dependencies {
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.datastore)
-    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.protobuf.kotlin.lite)
 

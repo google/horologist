@@ -97,6 +97,7 @@ dependencies {
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.dagger.hiltandroid)
     implementation(libs.androidx.wear.input)
     ksp(libs.dagger.hiltandroidcompiler)
@@ -116,7 +117,6 @@ dependencies {
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
     implementation(libs.compose.ui.toolingpreview)
-    implementation(libs.kotlin.stdlib)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)

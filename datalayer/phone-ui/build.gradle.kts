@@ -98,6 +98,7 @@ metalava {
 }
 
 dependencies {
+    implementation(platform(libs.compose.bom))
     api(libs.compose.runtime)
     api(libs.compose.ui)
     api(projects.annotations)
@@ -109,7 +110,6 @@ dependencies {
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.compose.material3)
     implementation(libs.material)
-    implementation(platform(libs.compose.bom))
 
     testImplementation(libs.junit)
 

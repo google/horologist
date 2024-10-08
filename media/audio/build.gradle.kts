@@ -88,9 +88,9 @@ metalava {
 }
 
 dependencies {
-    implementation(libs.kotlin.stdlib)
     api(projects.annotations)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.androidx.mediarouter)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.kotlinx.coroutines.android)

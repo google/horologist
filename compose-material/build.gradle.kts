@@ -110,6 +110,7 @@ dependencies {
     api(projects.composeLayout)
     api(projects.images.base)
 
+    implementation(platform(libs.compose.bom))
     api(libs.compose.foundation.foundation)
     api(libs.compose.foundation.foundation.layout)
     api(libs.compose.runtime)

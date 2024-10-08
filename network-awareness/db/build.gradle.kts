@@ -90,7 +90,7 @@ dependencies {
     api(projects.annotations)
     api(projects.networkAwareness.core)
 
-    implementation(libs.kotlin.stdlib)
+    implementation(platform(libs.compose.bom))
     implementation(libs.com.squareup.okhttp3.okhttp)
 
     implementation(libs.room.common)
@@ -107,6 +107,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
 
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espressocore)
     androidTestImplementation(libs.junit)

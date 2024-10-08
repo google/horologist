@@ -98,7 +98,6 @@ dependencies {
     api(libs.androidx.datastore.core)
     api(libs.androidx.wear.phone.interactions)
 
-    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.playservices.auth)
     implementation(libs.playservices.wearable)

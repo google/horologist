@@ -108,9 +108,9 @@ dependencies {
 
     implementation(projects.composeLayout)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.androidx.wear)
     implementation(libs.androidx.health.services)
-    implementation(libs.kotlin.stdlib)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
 

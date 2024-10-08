@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.networks.request
 
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import java.time.Instant
 
 /**
@@ -25,5 +25,5 @@ import java.time.Instant
  */
 public interface NetworkLease : AutoCloseable {
     public val acquiredAt: Instant
-    public val grantedNetwork: Flow<NetworkReference?>
+    public val grantedNetwork: StateFlow<NetworkReference?>
 }

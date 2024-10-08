@@ -38,7 +38,6 @@ import org.robolectric.shadows.ShadowNetwork
 import org.robolectric.shadows.ShadowNetworkCapabilities
 import org.robolectric.shadows.ShadowNetworkInfo
 
-
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [33])
 class NetworkRequesterTest {
@@ -56,13 +55,15 @@ class NetworkRequesterTest {
         val callback = shadowConnectivityManager.networkCallbacks.first()
 
         val cellNetwork: Network = ShadowNetwork.newInstance(123)
-        @Suppress("DEPRECATION") val cellNetworkInfo: NetworkInfo =
+
+        @Suppress("DEPRECATION")
+        val cellNetworkInfo: NetworkInfo =
             ShadowNetworkInfo.newInstance(
                 NetworkInfo.DetailedState.CONNECTED,
                 ConnectivityManager.TYPE_VPN,
                 0,
                 true,
-                NetworkInfo.State.CONNECTED
+                NetworkInfo.State.CONNECTED,
             )
         val cellCapabilities = ShadowNetworkCapabilities.newInstance()
         shadowOf(cellCapabilities).addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
@@ -74,8 +75,8 @@ class NetworkRequesterTest {
         assertThat(lease.grantedNetwork.value).isEqualTo(
             NetworkReference(
                 id = cellNetwork.id,
-                type = NetworkType.Cell
-            )
+                type = NetworkType.Cell,
+            ),
         )
     }
 
@@ -104,7 +105,7 @@ public class FailingConnectivityManager : ShadowConnectivityManager() {
     override fun registerNetworkCallback(
         request: NetworkRequest,
         networkCallback: ConnectivityManager.NetworkCallback,
-        handler: Handler
+        handler: Handler,
     ) {
         throw RuntimeException("TooManyRequestsException")
     }

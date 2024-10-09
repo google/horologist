@@ -67,7 +67,7 @@ class SampleTileService : SuspendingTileService() {
 
     private fun updateTiles() {
         runBlocking {
-            tileSync.trackInstalledTiles(this@SampleTileService)
+            tileSync.trackInstalledTiles()
         }
     }
 }

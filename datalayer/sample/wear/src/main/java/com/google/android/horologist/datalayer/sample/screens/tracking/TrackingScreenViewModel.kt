@@ -23,8 +23,6 @@ import androidx.wear.watchface.complications.data.ComplicationType
 import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -38,14 +36,15 @@ class TrackingScreenViewModel
         private val wearDataLayerAppHelper: WearDataLayerAppHelper,
     ) : ViewModel() {
 
-        private val fakeTileList = listOf("Tile1", "Tile2")
+        private val realTileList = listOf(
+            "com.google.android.horologist.datalayer.sample.SampleTileService"
+        )
         private val fakeComplicationList = listOf("Comp1", "Comp2")
 
         private var initializeCalled = false
 
         private val _uiState = MutableStateFlow<TrackingScreenUiState>(TrackingScreenUiState.Idle)
         public val uiState: StateFlow<TrackingScreenUiState> = _uiState
-        private val executor = Dispatchers.Default.asExecutor()
 
         @MainThread
         fun initialize() {
@@ -60,7 +59,7 @@ class TrackingScreenViewModel
                         TrackingScreenUiState.Loading,
                         is TrackingScreenUiState.Loaded,
                         -> {
-                            val tilesMap = fakeTileList.associateWith { tile ->
+                            val tilesMap = realTileList.associateWith { tile ->
                                 surfacesInfo.tilesList.any { it.name == tile }
                             }
 
@@ -99,12 +98,6 @@ class TrackingScreenViewModel
                 } else {
                     wearDataLayerAppHelper.markSetupNoLongerComplete()
                 }
-            }
-        }
-
-        fun onTileCheckedChanged() {
-            viewModelScope.launch {
-                wearDataLayerAppHelper.updateInstalledTiles(executor)
             }
         }
 

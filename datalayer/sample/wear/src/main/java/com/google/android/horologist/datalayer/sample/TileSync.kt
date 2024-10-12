@@ -27,11 +27,9 @@ class TileSync(
     private val registry: WearDataLayerRegistry,
     private val wearAppHelper: WearDataLayerAppHelper,
 ) {
-    private val executor = Dispatchers.Default.asExecutor()
-
     suspend fun trackInstalledTiles() {
         registry.dataClient
             .putDataItem(PutDataRequest.create("/tile_tracking_enabled")).await()
-        wearAppHelper.updateInstalledTiles(executor)
+        wearAppHelper.updateInstalledTiles()
     }
 }

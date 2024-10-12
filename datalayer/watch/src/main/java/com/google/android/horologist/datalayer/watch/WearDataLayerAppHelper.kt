@@ -45,11 +45,12 @@ import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.data.usageInfo
 import com.google.protobuf.Timestamp
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
-import java.util.concurrent.Executor
 
 private const val TAG = "DataLayerAppHelper"
 
@@ -64,6 +65,7 @@ public class WearDataLayerAppHelper internal constructor(
     context: Context,
     registry: WearDataLayerRegistry,
     private val appStoreUri: String?,
+    private val scope: CoroutineScope,
     surfacesInfoDataStoreFn: () -> DataStore<SurfacesInfo>,
 ) : DataLayerAppHelper(context, registry) {
     public constructor(
@@ -71,7 +73,7 @@ public class WearDataLayerAppHelper internal constructor(
         registry: WearDataLayerRegistry,
         scope: CoroutineScope,
         appStoreUri: String? = null,
-    ) : this(context, registry, appStoreUri, {
+    ) : this(context, registry, appStoreUri, scope, {
         registry.protoDataStore(
             path = SURFACE_INFO_PATH,
             coroutineScope = scope,
@@ -178,12 +180,15 @@ public class WearDataLayerAppHelper internal constructor(
      *
      * This function has some limitations on older SDK versions, please see
      * the docs for [TileService#getActiveTilesAsync](https://developer.android.com/reference/androidx/wear/tiles/TileService#getActiveTilesAsync(android.content.Context,java.util.concurrent.Executor))
-     *
-     * @param executor The executor on which methods should be invoked.
-     * To dispatch events through the main thread of your application, you can
-     * use Context. getMainExecutor().
      */
-    public suspend fun updateInstalledTiles(executor: Executor) {
+    @OptIn(ExperimentalStdlibApi::class)
+    public suspend fun updateInstalledTiles() {
+        val executor = scope.coroutineContext[CoroutineDispatcher]?.asExecutor()
+
+        require(executor != null) {
+            "Executor is null, something is wrong during initalization of WearDataLayerAppHelper"
+        }
+
         val activeTiles = TileService.getActiveTilesAsync(
             context,
             executor,

@@ -37,7 +37,7 @@ class TrackingScreenViewModel
     ) : ViewModel() {
 
         private val realTileList = listOf(
-            "com.google.android.horologist.datalayer.sample.SampleTileService"
+            "com.google.android.horologist.datalayer.sample.SampleTileService",
         )
         private val fakeComplicationList = listOf("Comp1", "Comp2")
 

@@ -67,7 +67,7 @@ class WearDataLayerAppHelperRoboTest {
         val executor = InlineExecutorService()
         val testTileClient = TestTileClient(
             service = fakeTileService,
-            executor = executor
+            executor = executor,
         )
         testTileClient.requestTile(RequestBuilders.TileRequest.Builder().build())
 
@@ -122,7 +122,7 @@ private class FakeTileService : TileService() {
     }
 
     override fun onTileResourcesRequest(
-        requestParams: RequestBuilders.ResourcesRequest
+        requestParams: RequestBuilders.ResourcesRequest,
     ): ListenableFuture<ResourceBuilders.Resources> {
         val f = ResolvableFuture.create<ResourceBuilders.Resources>()
 

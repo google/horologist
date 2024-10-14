@@ -19,8 +19,6 @@ package com.google.android.horologist.datalayer.sample
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.tasks.await
 
 class TileSync(

@@ -17,6 +17,7 @@
 package com.google.android.horologist.datalayer.watch
 
 import android.app.Application
+import android.os.Looper
 import androidx.concurrent.futures.ResolvableFuture
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
@@ -37,10 +38,12 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.model.FrameworkMethod
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows.shadowOf
 import org.robolectric.android.util.concurrent.InlineExecutorService
 import org.robolectric.annotation.internal.DoNotInstrument
 import org.robolectric.internal.bytecode.InstrumentationConfiguration
@@ -51,25 +54,22 @@ class WearDataLayerAppHelperRoboTest {
 
     private val fakeTileService = FakeTileService()
     private lateinit var clientUnderTest: TestTileClient<FakeTileService>
+    private lateinit var executor: InlineExecutorService
 
     @Before
-    public fun setUp() {
-        val executor = InlineExecutorService()
+    fun setUp() {
+        executor = InlineExecutorService()
         clientUnderTest = TestTileClient(fakeTileService, executor)
     }
 
+    @Ignore("This won't work until https://issuetracker.google.com/issues/374901735 is fixed")
     @Test
     fun testTilesWithUpdate() = runTest {
+
         val context = ApplicationProvider.getApplicationContext<Application>()
         val registry = WearDataLayerRegistry.fromContext(context, this)
 
-        val fakeTileService = FakeTileService()
-        val executor = InlineExecutorService()
-        val testTileClient = TestTileClient(
-            service = fakeTileService,
-            executor = executor,
-        )
-        testTileClient.requestTile(RequestBuilders.TileRequest.Builder().build())
+        clientUnderTest.requestTile(RequestBuilders.TileRequest.Builder().build())
 
         val testDataStore: DataStore<SurfacesInfo> =
             DataStoreFactory.create(
@@ -88,19 +88,22 @@ class WearDataLayerAppHelperRoboTest {
         val infoInitial = testDataStore.data.first()
         assertThat(infoInitial.tilesList).isEmpty()
 
-        testTileClient.sendOnTileAddedEvent()
+        clientUnderTest.sendOnTileAddedEvent()
         helper.updateInstalledTiles()
 
         val infoUpdated = testDataStore.data.first()
         assertThat(infoUpdated.tilesList).hasSize(1)
-        assertThat(infoUpdated.tilesList.first().name).isEqualTo("my.SampleTileService")
+        assertThat(infoUpdated.tilesList.first().name).isEqualTo(
+            "com.google.android.horologist.datalayer.watch.FakeTileService"
+        )
 
-        testTileClient.sendOnTileRemovedEvent()
+        clientUnderTest.sendOnTileRemovedEvent()
+
         helper.updateInstalledTiles()
+        shadowOf(Looper.getMainLooper()).idle()
 
         val infoReverted = testDataStore.data.first()
         assertThat(infoReverted.tilesList).isEmpty()
-
         coroutineContext.cancelChildren()
     }
 }
@@ -152,7 +155,7 @@ private class FakeTileService : TileService() {
     }
 }
 
-public class TilesTestingTestRunner(testClass: Class<*>) : RobolectricTestRunner(testClass) {
+internal class TilesTestingTestRunner(testClass: Class<*>) : RobolectricTestRunner(testClass) {
     override fun createClassLoaderConfig(method: FrameworkMethod): InstrumentationConfiguration =
         InstrumentationConfiguration.Builder(super.createClassLoaderConfig(method))
             .doNotInstrumentPackage("androidx.wear.tiles.connection")

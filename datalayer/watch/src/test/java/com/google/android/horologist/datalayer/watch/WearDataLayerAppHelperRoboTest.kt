@@ -51,10 +51,11 @@ class WearDataLayerAppHelperRoboTest {
 
     private val fakeTileService = FakeTileService()
     private lateinit var clientUnderTest: TestTileClient<FakeTileService>
+    private lateinit var executor: InlineExecutorService
 
     @Before
-    public fun setUp() {
-        val executor = InlineExecutorService()
+    fun setUp() {
+        executor = InlineExecutorService()
         clientUnderTest = TestTileClient(fakeTileService, executor)
     }
 
@@ -63,13 +64,7 @@ class WearDataLayerAppHelperRoboTest {
         val context = ApplicationProvider.getApplicationContext<Application>()
         val registry = WearDataLayerRegistry.fromContext(context, this)
 
-        val fakeTileService = FakeTileService()
-        val executor = InlineExecutorService()
-        val testTileClient = TestTileClient(
-            service = fakeTileService,
-            executor = executor,
-        )
-        testTileClient.requestTile(RequestBuilders.TileRequest.Builder().build())
+        clientUnderTest.requestTile(RequestBuilders.TileRequest.Builder().build())
 
         val testDataStore: DataStore<SurfacesInfo> =
             DataStoreFactory.create(
@@ -88,14 +83,14 @@ class WearDataLayerAppHelperRoboTest {
         val infoInitial = testDataStore.data.first()
         assertThat(infoInitial.tilesList).isEmpty()
 
-        testTileClient.sendOnTileAddedEvent()
+        clientUnderTest.sendOnTileAddedEvent()
         helper.updateInstalledTiles()
 
         val infoUpdated = testDataStore.data.first()
         assertThat(infoUpdated.tilesList).hasSize(1)
         assertThat(infoUpdated.tilesList.first().name).isEqualTo("my.SampleTileService")
 
-        testTileClient.sendOnTileRemovedEvent()
+        clientUnderTest.sendOnTileRemovedEvent()
         helper.updateInstalledTiles()
 
         val infoReverted = testDataStore.data.first()
@@ -152,7 +147,7 @@ private class FakeTileService : TileService() {
     }
 }
 
-public class TilesTestingTestRunner(testClass: Class<*>) : RobolectricTestRunner(testClass) {
+internal class TilesTestingTestRunner(testClass: Class<*>) : RobolectricTestRunner(testClass) {
     override fun createClassLoaderConfig(method: FrameworkMethod): InstrumentationConfiguration =
         InstrumentationConfiguration.Builder(super.createClassLoaderConfig(method))
             .doNotInstrumentPackage("androidx.wear.tiles.connection")

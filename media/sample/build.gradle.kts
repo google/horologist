@@ -211,6 +211,8 @@ dependencies {
 
     implementation(libs.moshi.adapters)
     implementation(libs.moshi.kotlin)
+    implementation(project(":media:audio-ui-model"))
+    testImplementation(project(":media:audio-ui-model"))
     ksp(libs.moshi.kotlin.codegen)
     implementation(libs.kotlinx.serialization.core)
 

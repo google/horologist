@@ -88,3 +88,4 @@ if (media3Checkout.isNotBlank()) {
     gradle.extra.set("androidxMediaModulePrefix", "media3-")
     apply(from = file("$media3Checkout/core_settings.gradle"))
 }
+include(":media:audio-ui-model")

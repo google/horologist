@@ -147,6 +147,8 @@ dependencies {
     implementation(libs.androidx.wear.tooling.preview)
 
     implementation(libs.kotlinx.serialization.core)
+    implementation(project(":media:audio-ui-model"))
+    testImplementation(project(":media:audio-ui-model"))
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

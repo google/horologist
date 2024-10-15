@@ -97,7 +97,6 @@ dependencies {
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
     implementation(project(":composables"))
-    implementation(project(":media:audio-ui-model"))
     debugImplementation(projects.logo)
 
     api(libs.wearcompose.material)
@@ -129,7 +128,7 @@ dependencies {
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     dokkaSourceSets {
         configureEach {
-            moduleName.set("media-audio-ui")
+            moduleName.set("media-audio-ui-model")
         }
     }
 }

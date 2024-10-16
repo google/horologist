@@ -71,7 +71,8 @@ class PlayerScreenTest {
         // given
         val playerRepository =
             FakePlayerRepository()
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         playerRepository.setPosition(1.minutes, 10.minutes)
         composeTestRule.setContent {
@@ -92,7 +93,8 @@ class PlayerScreenTest {
         val playerRepository =
             FakePlayerRepository()
         playerRepository.setPosition(null, null)
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
             PlayerScreen(
@@ -119,7 +121,8 @@ class PlayerScreenTest {
         playerRepository.addCommand(Command.PlayPause)
         // Needed for play to be enabled
         playerRepository.pause()
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isNotEqualTo(
             PlayerState.Playing,
@@ -152,7 +155,8 @@ class PlayerScreenTest {
         playerRepository.addCommand(Command.PlayPause)
         playerRepository.play()
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isEqualTo(
             PlayerState.Playing,
@@ -189,7 +193,8 @@ class PlayerScreenTest {
         playerRepository.seekToDefaultPosition(1)
         playerRepository.play()
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         assertThat(playerRepository.currentMedia.value).isEqualTo(media2)
 
@@ -222,7 +227,8 @@ class PlayerScreenTest {
         playerRepository.seekToDefaultPosition(0)
         playerRepository.play()
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         assertThat(playerRepository.currentMedia.value).isEqualTo(media1)
 
@@ -248,7 +254,8 @@ class PlayerScreenTest {
         // given
         val playerRepository =
             FakePlayerRepository()
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
             PlayerScreen(
@@ -279,7 +286,8 @@ class PlayerScreenTest {
             FakePlayerRepository()
         playerRepository.play()
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
             PlayerScreen(
@@ -305,7 +313,8 @@ class PlayerScreenTest {
         // given
         val playerRepository =
             FakePlayerRepository()
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
             PlayerScreen(
@@ -331,7 +340,8 @@ class PlayerScreenTest {
         // given
         val playerRepository =
             FakePlayerRepository()
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
             PlayerScreen(
@@ -363,7 +373,8 @@ class PlayerScreenTest {
         playerRepository.setMedia(media)
         playerRepository.play()
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
             PlayerScreen(
@@ -388,7 +399,8 @@ class PlayerScreenTest {
         playerRepository.setMedia(media)
         playerRepository.play()
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
             PlayerScreen(
@@ -410,7 +422,9 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(
+                    FakePlayerRepository(),
+                ),
                 controlButtons = { _, _ -> Text("Custom") },
                 volumeViewModel = volumeViewModel,
             )
@@ -431,7 +445,9 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(
+                    FakePlayerRepository(),
+                ),
                 buttons = { Text("Custom") },
                 volumeViewModel = volumeViewModel,
             )
@@ -446,7 +462,9 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(
+                    FakePlayerRepository(),
+                ),
                 background = { Text("Custom") },
                 volumeViewModel = volumeViewModel,
             )
@@ -461,7 +479,8 @@ class PlayerScreenTest {
         // given
         val playerRepository =
             FakePlayerRepository()
-        val playerViewModel = PlayerViewModel(playerRepository)
+        val playerViewModel =
+            PlayerViewModel(playerRepository)
 
         // when
         composeTestRule.setContent {

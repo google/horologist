@@ -149,6 +149,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.core)
     implementation(project(":media:audio-ui-model"))
     testImplementation(project(":media:audio-ui-model"))
+    testImplementation(project(":media:ui-model"))
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

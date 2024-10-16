@@ -103,71 +103,21 @@ metalava {
 }
 
 dependencies {
-    api(projects.annotations)
     api(projects.media.core)
-    api(projects.tiles)
-
-    api(projects.composables)
     api(libs.wearcompose.material)
-    api(libs.wearcompose.foundation)
-
-    implementation(projects.media.audio)
-    implementation(projects.media.audioUi)
-    implementation(projects.composeLayout)
-    implementation(projects.composeMaterial)
     implementation(projects.images.coil)
-    implementation(projects.tiles)
-    api(libs.wearcompose.navigation)
-    implementation(libs.kotlinx.serialization.core)
-
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.androidx.wear)
-    implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodelktx)
-    implementation(libs.compose.material.iconscore)
-    implementation(libs.compose.material.iconsext)
-    implementation(libs.compose.material.ripple)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    implementation(libs.lottie.compose)
-
-    implementation(libs.androidx.complications.datasource.ktx)
-    implementation(libs.androidx.wear.tiles)
-    implementation(libs.androidx.wear.protolayout.material)
-    implementation(libs.compose.ui.util)
-    implementation(libs.compose.ui.toolingpreview)
-    implementation(libs.androidx.constraintlayout.compose)
-    implementation(project(":media:audio-ui-model"))
-    implementation(project(":media:ui-model"))
-
-    debugImplementation(projects.logo)
-
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.compose.ui.test.manifest)
-    debugImplementation(projects.media.audioUi)
-    debugImplementation(projects.composeTools)
-    releaseCompileOnly(projects.composeTools)
-
-    debugImplementation(libs.androidx.complications.rendering)
-
-    testImplementation(libs.junit)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.truth)
     testImplementation(libs.robolectric)
-    testImplementation(projects.media.audio)
-    testImplementation(projects.media.audioUi)
-    testImplementation(projects.roboscreenshots)
-    testImplementation(projects.logo)
-    testImplementation(libs.compose.ui.test.junit4)
-    testImplementation(libs.androidx.test.espressocore)
-    testImplementation(libs.androidx.test.ext)
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     dokkaSourceSets {
         configureEach {
-            moduleName.set("media-ui")
+            moduleName.set("media-ui-model")
         }
     }
 }

@@ -89,3 +89,4 @@ if (media3Checkout.isNotBlank()) {
     apply(from = file("$media3Checkout/core_settings.gradle"))
 }
 include(":media:audio-ui-model")
+include(":media:ui-model")

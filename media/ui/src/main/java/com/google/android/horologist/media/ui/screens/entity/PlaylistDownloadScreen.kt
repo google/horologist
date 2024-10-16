@@ -148,18 +148,18 @@ private fun MediaContent(
                     is DownloadMediaUiModel.Size.Known -> {
                         val size = Formatter.formatShortFileSize(
                             LocalContext.current,
-                            downloadMediaUiModel.size.sizeInBytes,
+                            (downloadMediaUiModel.size as DownloadMediaUiModel.Size.Known).sizeInBytes,
                         )
                         stringResource(
                             id = R.string.horologist_playlist_download_download_progress_known_size,
-                            downloadMediaUiModel.progress.progress,
+                            (downloadMediaUiModel.progress as DownloadMediaUiModel.Progress.InProgress).progress,
                             size,
                         )
                     }
 
                     DownloadMediaUiModel.Size.Unknown -> stringResource(
                         id = R.string.horologist_playlist_download_download_progress_unknown_size,
-                        downloadMediaUiModel.progress.progress,
+                        (downloadMediaUiModel.progress as DownloadMediaUiModel.Progress.InProgress).progress,
                     )
                 }
             }
@@ -193,7 +193,7 @@ private fun MediaContent(
                     is DownloadMediaUiModel.Progress.InProgress -> {
                         {
                             val progress by animateFloatAsState(
-                                targetValue = downloadMediaUiModel.progress.progress,
+                                targetValue = (downloadMediaUiModel.progress as DownloadMediaUiModel.Progress.InProgress).progress,
                                 animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec,
                             )
 

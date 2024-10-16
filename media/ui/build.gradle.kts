@@ -137,7 +137,8 @@ dependencies {
     implementation(libs.compose.ui.util)
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.androidx.constraintlayout.compose)
-    implementation(project(":media:audio-ui-model"))
+    implementation(projects.media.audioUiModel)
+    implementation(projects.media.uiModel)
 
     debugImplementation(projects.logo)
 

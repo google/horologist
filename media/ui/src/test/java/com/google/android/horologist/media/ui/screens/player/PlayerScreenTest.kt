@@ -410,7 +410,9 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(
+                    FakePlayerRepository(),
+                ),
                 controlButtons = { _, _ -> Text("Custom") },
                 volumeViewModel = volumeViewModel,
             )
@@ -431,7 +433,9 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(
+                    FakePlayerRepository(),
+                ),
                 buttons = { Text("Custom") },
                 volumeViewModel = volumeViewModel,
             )
@@ -446,7 +450,9 @@ class PlayerScreenTest {
         // given
         composeTestRule.setContent {
             PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                playerViewModel = PlayerViewModel(
+                    FakePlayerRepository(),
+                ),
                 background = { Text("Custom") },
                 volumeViewModel = volumeViewModel,
             )

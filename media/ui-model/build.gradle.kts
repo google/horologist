@@ -20,6 +20,7 @@ plugins {
     alias(libs.plugins.metalavaGradle)
     kotlin("android")
     alias(libs.plugins.roborazzi)
+    kotlin("plugin.serialization")
     alias(libs.plugins.compose.compiler)
 }
 
@@ -28,6 +29,7 @@ android {
 
     defaultConfig {
         minSdk = 26
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -42,7 +44,16 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
+        // Allow for widescale experimental APIs in Alpha libraries we build upon
+        freeCompilerArgs = freeCompilerArgs +
+            """
+            com.google.android.horologist.annotations.ExperimentalHorologistApi
+            kotlin.RequiresOptIn
+            kotlinx.coroutines.ExperimentalCoroutinesApi
+            androidx.wear.compose.material.ExperimentalWearMaterialApi
+            """.trim().split("\\s+".toRegex()).map {
+                "-opt-in=$it"
+            }
     }
 
     packaging {
@@ -55,24 +66,25 @@ android {
         }
     }
 
+    sourceSets.getByName("main") {
+        assets.srcDir("src/main/assets")
+    }
+
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
         }
         animationsDisabled = true
     }
-
-    sourceSets.getByName("main") {
-        assets.srcDir("src/main/assets")
-    }
-
     lint {
-        disable += listOf("MissingTranslation", "ExtraTranslation")
         checkReleaseBuilds = false
         textReport = true
-    }
+        disable += listOf("MissingTranslation", "ExtraTranslation")
 
-    namespace = "com.google.android.horologist.audio.ui.model"
+        // https://buganizer.corp.google.com/issues/328279054
+        disable.add("UnsafeOptInUsageError")
+    }
+    namespace = "com.google.android.horologist.media.ui.model"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -91,14 +103,21 @@ metalava {
 }
 
 dependencies {
-    api(projects.media.audio)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    api(projects.media.core)
+    api(libs.wearcompose.material)
+    implementation(projects.images.coil)
+    implementation(libs.androidx.lifecycle.viewmodelktx)
+
+    testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(libs.robolectric)
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     dokkaSourceSets {
         configureEach {
-            moduleName.set("media-audio-ui-model")
+            moduleName.set("media-ui-model")
         }
     }
 }

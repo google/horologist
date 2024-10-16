@@ -97,7 +97,7 @@ dependencies {
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
     implementation(project(":composables"))
-    implementation(project(":media:audio-ui-model"))
+    implementation(projects.media.audioUiModel)
     debugImplementation(projects.logo)
 
     api(libs.wearcompose.material)

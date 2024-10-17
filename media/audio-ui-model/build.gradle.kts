@@ -72,7 +72,7 @@ android {
         textReport = true
     }
 
-    namespace = "com.google.android.horologist.audio.ui"
+    namespace = "com.google.android.horologist.audio.ui.model"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -92,44 +92,13 @@ metalava {
 
 dependencies {
     api(projects.media.audio)
-    api(libs.kotlin.stdlib)
-    api(projects.annotations)
-    implementation(projects.composeLayout)
-    implementation(projects.composeMaterial)
-    implementation(project(":composables"))
-    implementation(projects.media.audioUiModel)
-    debugImplementation(projects.logo)
-
-    api(libs.wearcompose.material)
-    api(libs.wearcompose.foundation)
-    implementation(libs.androidx.corektx)
-
-    implementation(libs.compose.material.iconscore)
-    implementation(libs.compose.material.iconsext)
-    implementation(libs.compose.material.ripple)
-
-    implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-    implementation(libs.lottie.compose)
-
-    implementation(libs.compose.ui.toolingpreview)
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(projects.composeTools)
-    debugImplementation(libs.compose.ui.test.manifest)
-
-    testImplementation(libs.junit)
-    testImplementation(projects.roboscreenshots)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.compose.ui.test.junit4)
-    testImplementation(libs.androidx.test.espressocore)
-    testImplementation(libs.truth)
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     dokkaSourceSets {
         configureEach {
-            moduleName.set("media-audio-ui")
+            moduleName.set("media-audio-ui-model")
         }
     }
 }

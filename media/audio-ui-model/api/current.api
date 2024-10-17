@@ -1,0 +1,55 @@
+// Signature format: 4.0
+package com.google.android.horologist.audio.ui {
+
+  public final class VolumeUiState {
+    ctor public VolumeUiState(optional int current, optional int max, optional int min);
+    method public int component1();
+    method public int component2();
+    method public int component3();
+    method public com.google.android.horologist.audio.ui.VolumeUiState copy(int current, int max, int min);
+    method public int getCurrent();
+    method public int getMax();
+    method public int getMin();
+    method public boolean isMax();
+    method public boolean isMin();
+    property public final int current;
+    property public final boolean isMax;
+    property public final boolean isMin;
+    property public final int max;
+    property public final int min;
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public class VolumeViewModel extends androidx.lifecycle.ViewModel {
+    ctor public VolumeViewModel(com.google.android.horologist.audio.VolumeRepository volumeRepository, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository, optional kotlin.jvm.functions.Function0<kotlin.Unit> onCleared, android.os.Vibrator vibrator);
+    method public final void decreaseVolume();
+    method public final void decreaseVolumeWithHaptics();
+    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
+    method public final kotlinx.coroutines.flow.Flow<kotlin.Unit> getDisplayIndicatorEvents();
+    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.ui.VolumeUiState> getVolumeUiState();
+    method public final void increaseVolume();
+    method public final void increaseVolumeWithHaptics();
+    method public final void launchOutputSelection();
+    method public final void onVolumeChangeByScroll(float pixels);
+    method public final void setVolume(int volume);
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;
+    property public final kotlinx.coroutines.flow.Flow<kotlin.Unit> displayIndicatorEvents;
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState;
+    field public static final com.google.android.horologist.audio.ui.VolumeViewModel.Companion Companion;
+  }
+
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public static final class VolumeViewModel.Companion {
+    method public androidx.lifecycle.ViewModelProvider.Factory getFactory();
+    property public final androidx.lifecycle.ViewModelProvider.Factory Factory;
+  }
+
+}
+
+package com.google.android.horologist.audio.ui.mapper {
+
+  public final class VolumeUiStateMapper {
+    method public com.google.android.horologist.audio.ui.VolumeUiState map(com.google.android.horologist.audio.VolumeState volumeState);
+    field public static final com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper INSTANCE;
+  }
+
+}
+

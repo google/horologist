@@ -24,13 +24,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.media3.common.Player
 import androidx.wear.compose.material.Text
 
 @Composable
 fun NewHotnessPlayerScreen(
     newHotnessPlayerScreenViewModel: NewHotnessPlayerScreenViewModel = hiltViewModel(),
 ) {
-    val player by newHotnessPlayerScreenViewModel.player.collectAsStateWithLifecycle()
+    val player: Player? by newHotnessPlayerScreenViewModel.player.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Text(player.toString(), modifier = Modifier.align(Alignment.Center))

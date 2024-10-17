@@ -139,7 +139,7 @@ class RotaryVolumeControlsTest {
     @Test
     fun highResRotary_with15Max_converts30Pixels_getsOneVolumeIncrease() {
         val actual =
-            com.google.android.horologist.audio.ui.convertPixelToVolume(
+            convertPixelToVolume(
                 change = 30f,
                 volumeUiStateProvider = { VolumeUiState(current = 2, max = 15) },
             )
@@ -150,7 +150,7 @@ class RotaryVolumeControlsTest {
     @Test
     fun highResRotary_with15Max_convertsNegative30Pixels_getsOneVolumeDecrease() {
         val actual =
-            com.google.android.horologist.audio.ui.convertPixelToVolume(
+            convertPixelToVolume(
                 change = -30f,
                 volumeUiStateProvider = { VolumeUiState(current = 2, max = 15) },
             )
@@ -161,7 +161,7 @@ class RotaryVolumeControlsTest {
     @Test
     fun highResRotary_increasesBeyondMax_getsMax() {
         val actual =
-            com.google.android.horologist.audio.ui.convertPixelToVolume(
+            convertPixelToVolume(
                 change = 100f,
                 volumeUiStateProvider = { VolumeUiState(current = 25, max = 25) },
             )
@@ -172,7 +172,7 @@ class RotaryVolumeControlsTest {
     @Test
     fun highResRotary_decreasesBeyondMin_getsMin() {
         val actual =
-            com.google.android.horologist.audio.ui.convertPixelToVolume(
+            convertPixelToVolume(
                 change = -100f,
                 volumeUiStateProvider = { VolumeUiState(current = 0, max = 25, min = 0) },
             )
@@ -183,7 +183,7 @@ class RotaryVolumeControlsTest {
     @Test
     fun highResRotary_converts48Pixels_withSmallMax_getsNewVolumeCorrectly() {
         val actual =
-            com.google.android.horologist.audio.ui.convertPixelToVolume(
+            convertPixelToVolume(
                 change = 48f,
                 volumeUiStateProvider = { VolumeUiState(current = 0, max = 5, min = 0) },
             )
@@ -195,7 +195,7 @@ class RotaryVolumeControlsTest {
     fun highResRotary_converts23Pixels_withSmallMax_getsNoChange() {
         // 23/48 = 0.47916 which would round to 0
         val actual =
-            com.google.android.horologist.audio.ui.convertPixelToVolume(
+            convertPixelToVolume(
                 change = 23f,
                 volumeUiStateProvider = { VolumeUiState(current = 0, max = 5, min = 0) },
             )
@@ -221,7 +221,7 @@ class RotaryVolumeControlsTest {
                 modifier =
                     Modifier
                         .rotaryScrollable(
-                            behavior = com.google.android.horologist.audio.ui.volumeRotaryBehavior(
+                            behavior = volumeRotaryBehavior(
                                 volumeUiStateProvider = { VolumeUiStateMapper.map(volumeState) },
                                 onRotaryVolumeInput = { newVolume ->
                                     volumeRepository.setVolume(

@@ -169,12 +169,7 @@ class TrackPositionUiModelMapperTest {
         val playbackState = PlaybackState.IDLE
 
         // when
-        val result = TrackPositionUiModelMapper.map(
-            PlaybackStateEvent(
-                playbackState,
-                PlaybackStateEvent.Cause.Initial,
-            ),
-        )
+        val result = TrackPositionUiModelMapper.map(PlaybackStateEvent(playbackState, PlaybackStateEvent.Cause.Initial))
 
         // then
         assertThat(result).isInstanceOf(TrackPositionUiModel.Hidden::class.java)

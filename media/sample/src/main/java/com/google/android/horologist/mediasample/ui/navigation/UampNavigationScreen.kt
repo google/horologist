@@ -37,4 +37,7 @@ object UampNavigationScreen {
 
     @Serializable
     public object DeveloperOptions : NavigationScreen
+
+    @Serializable
+    public data object NewHotness : NavigationScreen
 }

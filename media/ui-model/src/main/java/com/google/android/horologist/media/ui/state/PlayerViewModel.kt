@@ -29,7 +29,8 @@ public open class PlayerViewModel(
     playerRepository: PlayerRepository,
 ) : ViewModel() {
 
-    private val producer = PlayerUiStateProducer(playerRepository)
+    private val producer =
+        PlayerUiStateProducer(playerRepository)
 
     public val playerUiState: StateFlow<PlayerUiState> = producer.playerUiStateFlow.stateIn(
         scope = viewModelScope,
@@ -37,5 +38,6 @@ public open class PlayerViewModel(
         initialValue = PlayerUiState.NotConnected,
     )
 
-    public val playerUiController: PlayerUiController = PlayerUiController(playerRepository)
+    public val playerUiController: PlayerUiController =
+        PlayerUiController(playerRepository)
 }

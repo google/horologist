@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.request
+package com.google.android.horologist.mediasample.ui.newhotness
 
-import kotlinx.coroutines.flow.StateFlow
-import java.time.Instant
+import androidx.lifecycle.ViewModel
+import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-/**
- * Cancellable network request lease. Allows caller to close or observe the current network as a
- * flow.
- */
-public interface NetworkLease : AutoCloseable {
-    public val acquiredAt: Instant
-    public val grantedNetwork: StateFlow<NetworkReference?>
-}
+@HiltViewModel
+class NewHotnessPlayerScreenViewModel
+    @Inject
+    constructor(
+        playerRepository: PlayerRepositoryImpl,
+    ) : ViewModel() {
+
+        val player = playerRepository.player
+    }

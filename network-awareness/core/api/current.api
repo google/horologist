@@ -360,9 +360,9 @@ package com.google.android.horologist.networks.request {
 
   public interface NetworkLease extends java.lang.AutoCloseable {
     method public java.time.Instant getAcquiredAt();
-    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.request.NetworkReference> getGrantedNetwork();
+    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.request.NetworkReference> getGrantedNetwork();
     property public abstract java.time.Instant acquiredAt;
-    property public abstract kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.request.NetworkReference> grantedNetwork;
+    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.request.NetworkReference> grantedNetwork;
   }
 
   public final class NetworkReference {

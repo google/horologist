@@ -24,6 +24,7 @@ import androidx.concurrent.futures.await
 import androidx.datastore.core.DataStore
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.remote.interactions.RemoteActivityHelper
+import androidx.wear.tiles.TileService
 import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceService
 import com.google.android.gms.wearable.Node
@@ -44,7 +45,9 @@ import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.data.usageInfo
 import com.google.protobuf.Timestamp
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
@@ -62,6 +65,7 @@ public class WearDataLayerAppHelper internal constructor(
     context: Context,
     registry: WearDataLayerRegistry,
     private val appStoreUri: String?,
+    private val scope: CoroutineScope,
     surfacesInfoDataStoreFn: () -> DataStore<SurfacesInfo>,
 ) : DataLayerAppHelper(context, registry) {
     public constructor(
@@ -69,7 +73,7 @@ public class WearDataLayerAppHelper internal constructor(
         registry: WearDataLayerRegistry,
         scope: CoroutineScope,
         appStoreUri: String? = null,
-    ) : this(context, registry, appStoreUri, {
+    ) : this(context, registry, appStoreUri, scope, {
         registry.protoDataStore(
             path = SURFACE_INFO_PATH,
             coroutineScope = scope,
@@ -153,6 +157,7 @@ public class WearDataLayerAppHelper internal constructor(
      *
      * @param tileName The name of the tile.
      */
+    @Deprecated("Please use updateInstalledTiles instead")
     public suspend fun markTileAsInstalled(tileName: String) {
         surfacesInfoDataStore.updateData { info ->
             val tile = tileInfo {
@@ -163,6 +168,42 @@ public class WearDataLayerAppHelper internal constructor(
                 val exists = tiles.find { it.equalWithoutTimestamp(tile) } != null
                 if (!exists) {
                     tiles.add(tile)
+                }
+            }
+        }
+    }
+
+    /**
+     * Updates the installed tiles
+     *
+     * Gets all the installed tiles async and updates them.
+     *
+     * This function has some limitations on older SDK versions, please see
+     * the docs for [TileService#getActiveTilesAsync](https://developer.android.com/reference/androidx/wear/tiles/TileService#getActiveTilesAsync(android.content.Context,java.util.concurrent.Executor))
+     */
+    @OptIn(ExperimentalStdlibApi::class)
+    public suspend fun updateInstalledTiles() {
+        val executor = scope.coroutineContext[CoroutineDispatcher]?.asExecutor()
+
+        require(executor != null) {
+            "Executor is null, something is wrong during initalization of WearDataLayerAppHelper"
+        }
+
+        val activeTiles = TileService.getActiveTilesAsync(
+            context,
+            executor,
+        ).await()
+
+        surfacesInfoDataStore.updateData { info ->
+            info.copy {
+                tiles.clear()
+                for (activeTileIdentifier in activeTiles) {
+                    tiles.add(
+                        tileInfo {
+                            timestamp = System.currentTimeMillis().toProtoTimestamp()
+                            name = activeTileIdentifier.componentName.className
+                        },
+                    )
                 }
             }
         }
@@ -236,6 +277,7 @@ public class WearDataLayerAppHelper internal constructor(
      *
      * @param tileName The name of the tile.
      */
+    @Deprecated("Please use updateInstalledTiles instead")
     public suspend fun markTileAsRemoved(tileName: String) {
         surfacesInfoDataStore.updateData { info ->
             val tile = tileInfo {

@@ -16,24 +16,19 @@
 
 package com.google.android.horologist.mediasample.ui.newhotness
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.media3.common.Player
-import androidx.wear.compose.material.Text
+import com.google.android.horologist.media.media_ui.screens.player.PlayerScreen
 
 @Composable
 fun NewHotnessPlayerScreen(
+    modifier: Modifier = Modifier,
     newHotnessPlayerScreenViewModel: NewHotnessPlayerScreenViewModel = hiltViewModel(),
 ) {
-    val player: Player? by newHotnessPlayerScreenViewModel.player.collectAsStateWithLifecycle()
+    val player by newHotnessPlayerScreenViewModel.player.collectAsStateWithLifecycle()
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Text(player.toString(), modifier = Modifier.align(Alignment.Center))
-    }
+    PlayerScreen(player, modifier)
 }

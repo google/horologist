@@ -65,7 +65,6 @@ class WearDataLayerAppHelperRoboTest {
     @Ignore("This won't work until https://issuetracker.google.com/issues/374901735 is fixed")
     @Test
     fun testTilesWithUpdate() = runTest {
-
         val context = ApplicationProvider.getApplicationContext<Application>()
         val registry = WearDataLayerRegistry.fromContext(context, this)
 
@@ -94,7 +93,7 @@ class WearDataLayerAppHelperRoboTest {
         val infoUpdated = testDataStore.data.first()
         assertThat(infoUpdated.tilesList).hasSize(1)
         assertThat(infoUpdated.tilesList.first().name).isEqualTo(
-            "com.google.android.horologist.datalayer.watch.FakeTileService"
+            "com.google.android.horologist.datalayer.watch.FakeTileService",
         )
 
         clientUnderTest.sendOnTileRemovedEvent()

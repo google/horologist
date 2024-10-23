@@ -149,10 +149,10 @@ public fun PlayerScreen(
             modifier = Modifier.fillMaxSize(),
         ) {
             val (topSection, middleSection, bottomSection) = createRefs()
-            val startGuideline = createGuidelineFromStart(0.0938f)
-            val endGuideline = createGuidelineFromEnd(0.0938f)
-            val topGuideline = createGuidelineFromTop(0.12f)
-            val bottomGuideline = createGuidelineFromBottom(0.063f)
+            val startGuideline = createGuidelineFromStart(0.063f)
+            val endGuideline = createGuidelineFromEnd(0.063f)
+            val topGuideline = createGuidelineFromTop(0.073f)
+            val bottomGuideline = createGuidelineFromBottom(0.0416f)
 
             Box(
                 modifier = Modifier.constrainAs(topSection) {

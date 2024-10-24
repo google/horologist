@@ -60,7 +60,6 @@ import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScr
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.NewHotness
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.Samples
 import com.google.android.horologist.mediasample.ui.newhotness.NewHotnessPlayerScreen
-import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
 import com.google.android.horologist.mediasample.ui.settings.DeveloperOptionsScreen
@@ -83,14 +82,18 @@ fun UampWearApp(
     UampTheme {
         MediaPlayerScaffold(
             playerScreen = {
-                UampMediaPlayerScreen(
+                NewHotnessPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
-                    mediaPlayerScreenViewModel = hiltViewModel(),
-                    volumeViewModel = volumeViewModel,
-                    onVolumeClick = {
-                        navController.navigate(NavigationScreen.Volume)
-                    },
+                    newHotnessPlayerScreenViewModel = hiltViewModel(),
                 )
+//                UampMediaPlayerScreen(
+//                    modifier = Modifier.fillMaxSize(),
+//                    mediaPlayerScreenViewModel = hiltViewModel(),
+//                    volumeViewModel = volumeViewModel,
+//                    onVolumeClick = {
+//                        navController.navigate(NavigationScreen.Volume)
+//                    },
+//                )
             },
             libraryScreen = {
                 if (appState.streamingMode == true) {

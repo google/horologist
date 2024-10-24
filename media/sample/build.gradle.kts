@@ -163,7 +163,7 @@ dependencies {
     implementation(projects.media.backendMedia3)
     implementation(projects.media.data)
     implementation(projects.media.sync)
-    implementation(projects.media.ui)
+    implementation(projects.media.media3Ui)
     implementation(projects.networkAwareness.core)
     implementation(projects.networkAwareness.ui)
     implementation(projects.networkAwareness.okhttp)
@@ -171,6 +171,7 @@ dependencies {
     implementation(projects.tiles)
     implementation(projects.logo)
 
+    implementation(libs.androidx.media3.common.ktx)
     implementation(
         libs.androidx.media3.datasourceokhttp,
     )

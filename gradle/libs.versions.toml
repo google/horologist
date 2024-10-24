@@ -7,7 +7,7 @@ androidx-constraintlayout-compose = "1.0.1"
 androidx-datastore = "1.1.1"
 androidx-health-services = "1.0.0-rc02"
 androidx-hilt = "1.2.0"
-androidx-media3 = "1.4.1"
+androidx-media3 = "1.5.0-alpha01"
 androidx-test-espresso = "3.6.1"
 androidx-test-ext = "1.2.1"
 androidx-test-runner = "1.6.2"
@@ -95,6 +95,7 @@ androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmode
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodelktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 androidx-media3-common = { module = "androidx.media3:media3-common", version.ref = "androidx-media3" }
+androidx-media3-common-ktx = { module = "androidx.media3:media3-common-ktx", version.ref = "androidx-media3" }
 androidx-media3-datasourceokhttp = { module = "androidx.media3:media3-datasource-okhttp", version.ref = "androidx-media3" }
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "androidx-media3" }
 androidx-media3-exoplayerdash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "androidx-media3" }

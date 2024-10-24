@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.compose.pager
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.TargetedFlingBehavior
@@ -45,7 +47,7 @@ public object HorizontalPagerDefaults {
         return PagerDefaults.flingBehavior(
             state = pagerState,
             pagerSnapDistance = PagerSnapDistance.atMost(0),
-            snapAnimationSpec = tween(150, 0),
+            snapAnimationSpec = spring(Spring.DampingRatioNoBouncy, 2000f),
         )
     }
 }

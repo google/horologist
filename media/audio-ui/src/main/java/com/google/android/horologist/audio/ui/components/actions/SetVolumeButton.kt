@@ -25,8 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.ui.R
 import com.google.android.horologist.audio.ui.VolumeUiState
 
@@ -47,7 +45,6 @@ public fun SetVolumeButton(
     enabled: Boolean = true,
     iconAlignment: Alignment = Alignment.Center,
     iconPadding: PaddingValues? = null,
-    tapTargetSize: Dp = 52.dp
 ) {
     SettingsButton(
         modifier = modifier,
@@ -61,6 +58,5 @@ public fun SetVolumeButton(
         contentDescription = stringResource(R.string.horologist_set_volume_content_description),
         iconAlignment = iconAlignment,
         iconPadding = iconPadding,
-        tapTargetSize = tapTargetSize
     )
 }

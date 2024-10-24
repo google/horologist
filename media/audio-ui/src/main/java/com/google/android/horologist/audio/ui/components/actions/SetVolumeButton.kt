@@ -45,6 +45,7 @@ public fun SetVolumeButton(
     enabled: Boolean = true,
     iconAlignment: Alignment = Alignment.Center,
     iconPadding: PaddingValues? = null,
+    tapTargetSize: Dp = 52.dp
 ) {
     SettingsButton(
         modifier = modifier,
@@ -58,5 +59,6 @@ public fun SetVolumeButton(
         contentDescription = stringResource(R.string.horologist_set_volume_content_description),
         iconAlignment = iconAlignment,
         iconPadding = iconPadding,
+        tapTargetSize = tapTargetSize
     )
 }

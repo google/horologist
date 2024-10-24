@@ -18,7 +18,6 @@ package com.google.android.horologist.compose.pager
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.TargetedFlingBehavior
 import androidx.compose.foundation.pager.HorizontalPager

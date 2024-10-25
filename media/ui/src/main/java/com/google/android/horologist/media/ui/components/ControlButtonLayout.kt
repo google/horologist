@@ -36,7 +36,7 @@ public fun ControlButtonLayout(
     rightButton: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val middleSize = if (LocalConfiguration.current.isLargeScreen) 80.dp else 60.dp
+    val middleSize = if (LocalConfiguration.current.isLargeScreen) 72.dp else 60.dp
     Row(
         modifier = modifier.height(middleSize),
         verticalAlignment = Alignment.CenterVertically,

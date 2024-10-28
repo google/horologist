@@ -14,28 +14,22 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.google.android.horologist.pager
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.foundation.SwipeToDismissBoxState
-import androidx.wear.compose.foundation.edgeSwipeToDismiss
+import androidx.wear.compose.foundation.pager.rememberPagerState
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.pager.PagerScreen
 
 @Composable
-fun SamplePagerScreen(swipeToDismissBoxState: SwipeToDismissBoxState) {
+fun SamplePagerScreen() {
     PagerScreen(
-        modifier = Modifier.edgeSwipeToDismiss(swipeToDismissBoxState),
         state = rememberPagerState {
             10
         },

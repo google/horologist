@@ -22,9 +22,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerDefaults
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -37,6 +35,8 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
+import androidx.wear.compose.foundation.pager.HorizontalPager
+import androidx.wear.compose.foundation.pager.PagerState
 import androidx.wear.compose.material.PageIndicatorState
 import com.google.android.horologist.compose.layout.PagerScaffold
 
@@ -72,7 +72,6 @@ public fun PagerScreen(
             userScrollEnabled = userScrollEnabled,
             reverseLayout = reverseLayout,
             key = key,
-            pageNestedScrollConnection = pageNestedScrollConnection,
             flingBehavior = HorizontalPagerDefaults.flingParams(state),
         ) { page ->
             ClippedBox(state) {

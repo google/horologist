@@ -16,8 +16,8 @@
 
 package com.google.android.horologist.compose.pager
 
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.foundation.pager.PagerState
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 
 @WearPreviewDevices

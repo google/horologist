@@ -14,24 +14,17 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.google.android.horologist.pager
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.wear.compose.foundation.SwipeToDismissBoxState
-import androidx.wear.compose.foundation.edgeSwipeToDismiss
+import androidx.wear.compose.foundation.pager.rememberPagerState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.pager.VerticalPagerScreen
 
 @Composable
-fun SampleVerticalPagerScreen(swipeToDismissBoxState: SwipeToDismissBoxState) {
+fun SampleVerticalPagerScreen() {
     ScreenScaffold(timeText = {}) {
         VerticalPagerScreen(
-            modifier = Modifier.edgeSwipeToDismiss(swipeToDismissBoxState),
             state = rememberPagerState {
                 10
             },

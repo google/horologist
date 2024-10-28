@@ -19,11 +19,11 @@
 package com.google.android.horologist.screensizes
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.foundation.pager.rememberPagerState
 import coil.annotation.ExperimentalCoilApi
 import coil.test.FakeImageLoaderEngine
 import com.google.android.horologist.compose.layout.AppScaffold

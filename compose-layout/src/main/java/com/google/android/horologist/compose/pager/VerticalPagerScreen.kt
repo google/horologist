@@ -14,22 +14,15 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalFoundationApi::class, ExperimentalWearFoundationApi::class)
-
 package com.google.android.horologist.compose.pager
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.PagerDefaults
-import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.pager.PagerState
+import androidx.wear.compose.foundation.pager.VerticalPager
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScreenScaffold
@@ -49,11 +42,7 @@ public fun VerticalPagerScreen(
     userScrollEnabled: Boolean = true,
     reverseLayout: Boolean = false,
     key: ((index: Int) -> Any)? = null,
-    pageNestedScrollConnection: NestedScrollConnection = PagerDefaults.pageNestedScrollConnection(
-        state,
-        Orientation.Vertical,
-    ),
-    content: @Composable ((Int) -> Unit),
+    content: @Composable (Int) -> Unit,
 ) {
     ScreenScaffold(
         modifier = modifier.fillMaxSize(),
@@ -73,7 +62,6 @@ public fun VerticalPagerScreen(
             userScrollEnabled = userScrollEnabled,
             reverseLayout = reverseLayout,
             key = key,
-            pageNestedScrollConnection = pageNestedScrollConnection,
             flingBehavior = HorizontalPagerDefaults.flingParams(state),
         ) { page ->
             ClippedBox(state) {

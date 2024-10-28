@@ -18,9 +18,9 @@ package com.google.android.horologist.compose.pager
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.wear.compose.foundation.pager.rememberPagerState
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test

@@ -42,10 +42,15 @@ The toolkit includes:
   such as avoiding playing music on the watch speaker.
 - [media sample](https://google.github.io/horologist/media-sample): sample app to listen to
   downloaded music.
+- [audio](https://google.github.io/horologist/audio): domain model for Audio related functionality,
+  such as Volume Control and Output switching, subscribing to a Flow of changes in audio or output.
+- [audio-ui](https://google.github.io/horologist/audio-ui): UI components for Audio related functionality,
+  such as Volume Control and Output switching
 
-Player Screen | Browse Screen | Entity Screen
-:------------:|:-------------:|:-------------:
-<img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/playerscreen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/browse.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/detail.png" height="120" width="120" >
+Player Screen | Browse Screen | Entity Screen | Volume Screen
+:------------:|:-------------:|:-------------:|:-------------:
+<img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/playerscreen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/browse.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/detail.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
+
 
 ## 📅 Composables
 
@@ -80,18 +85,6 @@ of [Wear Material Design Kit](https://developer.android.com/design/ui/wear/guide
 .
 
 - [horologist-compose-material](https://google.github.io/horologist/compose-material)
-
-## 🔊 Audio and UI
-
-Domain model for Audio related functionality. Volume Control, Output switching.
-Subscribing to a Flow of changes in audio or output.
-
-- [horologist-audio](https://google.github.io/horologist/audio)
-- [horologist-audio-ui](https://google.github.io/horologist/audio-ui)
-
-|                                                              VolumeScreen                                                              |
-|:--------------------------------------------------------------------------------------------------------------------------------------:|
-| <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
 
 ## 🔐 Auth
 

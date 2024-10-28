@@ -25,9 +25,6 @@ nav:
       - 'Auth Data Phone lib': auth-data-phone.md
       - 'Token sharing guide': auth-tokenshare-guide.md
       - 'Google Sign-In guide': auth-googlesignin-guide.md
-  - 'Audio':
-      - 'Audio Guide': audio.md
-      - 'Audio UI Guide': audio-ui.md
   - 'Composables':
       - 'Guide': composables.md
   - 'Compose Layout':
@@ -48,6 +45,8 @@ nav:
       - 'Media3 Backend lib': media3-backend.md
       - 'Media sample app': media-sample.md
       - 'Stateful PlayerScreen Guide': media-playerscreen.md
+      - 'Audio Guide': audio.md
+      - 'Audio UI Guide': audio-ui.md
   - 'Network Awareness':
       - 'Guide': network-awareness.md
   - 'Tiles':

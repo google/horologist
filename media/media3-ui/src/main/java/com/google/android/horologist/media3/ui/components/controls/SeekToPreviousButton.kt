@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.media_ui.components.controls
+package com.google.android.horologist.media3.ui.components.controls
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.media3.common.Player
-import androidx.media3.compose.rememberSeekToNextButtonState
+import androidx.media3.compose.rememberSeekToPreviousButtonState
 import androidx.wear.compose.material.ButtonColors
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
-import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
+import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
 
 @ExperimentalHorologistApi
 @Composable
-fun SeekToNextButton(
+fun SeekToPreviousButton(
     player: Player,
     modifier: Modifier = Modifier,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     iconSize: Dp = 32.dp,
 ) {
-    val state = rememberSeekToNextButtonState(player)
-    SeekToNextButton(
+    val state = rememberSeekToPreviousButtonState(player)
+    SeekToPreviousButton(
         onClick = state::onClick,
         modifier = modifier,
         enabled = state.isEnabled,

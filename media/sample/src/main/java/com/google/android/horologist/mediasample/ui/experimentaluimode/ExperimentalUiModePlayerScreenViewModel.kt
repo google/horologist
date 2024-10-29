@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.newhotness
+package com.google.android.horologist.mediasample.ui.experimentaluimode
 
 import androidx.lifecycle.ViewModel
 import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
@@ -22,7 +22,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class NewHotnessPlayerScreenViewModel
+class ExperimentalUiModePlayerScreenViewModel
     @Inject
     constructor(
         playerRepository: PlayerRepositoryImpl,

@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.newhotness
+package com.google.android.horologist.mediasample.ui.experimentaluimode
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.horologist.media.media_ui.screens.player.PlayerScreen
+import com.google.android.horologist.media3.ui.screens.player.PlayerScreen
 
 @Composable
-fun NewHotnessPlayerScreen(
+fun ExperimentalUiModePlayerScreen(
     modifier: Modifier = Modifier,
-    newHotnessPlayerScreenViewModel: NewHotnessPlayerScreenViewModel = hiltViewModel(),
+    experimentalUiModePlayerScreenViewModel: ExperimentalUiModePlayerScreenViewModel = hiltViewModel(),
 ) {
-    val player by newHotnessPlayerScreenViewModel.player.collectAsStateWithLifecycle()
+    val player by experimentalUiModePlayerScreenViewModel.player.collectAsStateWithLifecycle()
 
     PlayerScreen(player, modifier)
 }

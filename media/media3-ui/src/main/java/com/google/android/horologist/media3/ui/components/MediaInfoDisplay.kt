@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.media_ui.components
+package com.google.android.horologist.media3.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.media_ui.screens.player
+package com.google.android.horologist.media3.ui.screens.player
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.media3.common.Player
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.images.coil.CoilPaintable
-import com.google.android.horologist.media.media_ui.components.MediaControlButtons
-import com.google.android.horologist.media.media_ui.components.MediaInfoDisplay
+import com.google.android.horologist.media3.ui.components.MediaControlButtons
+import com.google.android.horologist.media3.ui.components.MediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 

@@ -14,33 +14,39 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.media_ui.components.controls
+package com.google.android.horologist.media3.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.media3.common.Player
-import androidx.media3.compose.rememberSeekToPreviousButtonState
+import androidx.media3.compose.rememberPlayPauseButtonState
 import androidx.wear.compose.material.ButtonColors
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
-import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
+import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.MaterialTheme
+import com.google.android.horologist.media.ui.components.PlayPauseButton
 
-@ExperimentalHorologistApi
 @Composable
-fun SeekToPreviousButton(
+public fun PlayPauseButton(
     player: Player,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 32.dp,
+    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
+    progress: @Composable () -> Unit = {},
 ) {
-    val state = rememberSeekToPreviousButtonState(player)
-    SeekToPreviousButton(
-        onClick = state::onClick,
+    val state = rememberPlayPauseButtonState(player)
+    PlayPauseButton(
+        onPlayClick = state::onClick,
+        onPauseClick = state::onClick,
+        playing = !state.showPlay,
         modifier = modifier,
         enabled = state.isEnabled,
         colors = colors,
         iconSize = iconSize,
+        backgroundColor = backgroundColor,
+        progress = progress
     )
 }

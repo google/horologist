@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.media_ui.components
+package com.google.android.horologist.media3.ui.components
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.media3.common.Player
 import androidx.wear.compose.material.ButtonColors
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.media_ui.components.controls.SeekToNextButton
-import com.google.android.horologist.media.media_ui.components.controls.SeekToPreviousButton
+import com.google.android.horologist.media3.ui.components.controls.SeekToNextButton
+import com.google.android.horologist.media3.ui.components.controls.SeekToPreviousButton
 import com.google.android.horologist.media.ui.components.ControlButtonLayout
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.util.isLargeScreen

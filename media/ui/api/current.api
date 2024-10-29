@@ -457,7 +457,7 @@ package com.google.android.horologist.media.ui.screens.player {
 package com.google.android.horologist.media.ui.screens.playerlibrarypager {
 
   public final class PlayerLibraryPagerScreenKt {
-    method @androidx.compose.runtime.Composable public static void PlayerLibraryPagerScreen(androidx.compose.foundation.pager.PagerState pagerState, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState, kotlinx.coroutines.flow.Flow<kotlin.Unit> displayVolumeIndicatorEvents, kotlin.jvm.functions.Function0<kotlin.Unit> playerScreen, kotlin.jvm.functions.Function0<kotlin.Unit> libraryScreen, androidx.navigation.NavBackStackEntry backStack, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable public static void PlayerLibraryPagerScreen(androidx.wear.compose.foundation.pager.PagerState pagerState, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState, kotlinx.coroutines.flow.Flow<kotlin.Unit> displayVolumeIndicatorEvents, kotlin.jvm.functions.Function0<kotlin.Unit> playerScreen, kotlin.jvm.functions.Function0<kotlin.Unit> libraryScreen, androidx.navigation.NavBackStackEntry backStack, optional androidx.compose.ui.Modifier modifier);
   }
 
 }

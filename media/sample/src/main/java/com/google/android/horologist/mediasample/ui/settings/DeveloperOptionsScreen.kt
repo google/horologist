@@ -32,7 +32,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.pa
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.AudioDebug
-import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.NewHotness
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.Samples
 
 @Composable
@@ -60,13 +59,6 @@ fun DeveloperOptionsScreen(
                 modifier = Modifier.padding(bottom = 12.dp),
                 style = MaterialTheme.typography.title3,
             )
-        }
-        item {
-            ActionSetting(
-                "New Hotness Player",
-            ) {
-                navController.navigate(NewHotness)
-            }
         }
         item {
             CheckedSetting(
@@ -134,6 +126,15 @@ fun DeveloperOptionsScreen(
                 enabled = uiState.writable,
             ) {
                 developerOptionsScreenViewModel.setStreamingMode(it)
+            }
+        }
+        item {
+            CheckedSetting(
+                uiState.experimentalUiMode,
+                stringResource(id = R.string.experimental_ui_mode),
+                enabled = uiState.writable,
+            ) {
+                developerOptionsScreenViewModel.setExperimentalUiMode(it)
             }
         }
         item {

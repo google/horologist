@@ -64,6 +64,7 @@ class MediaPlayerAppViewModel
             UampAppState(
                 streamingMode = it.streamingMode,
                 guestMode = it.guestMode,
+                experimentalUiMode = it.experimentalUiMode
             )
         }.stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000), initialValue = UampAppState())
 
@@ -188,4 +189,5 @@ class MediaPlayerAppViewModel
 data class UampAppState(
     val streamingMode: Boolean? = null,
     val guestMode: Boolean? = null,
+    val experimentalUiMode: Boolean? = null
 )

@@ -33,4 +33,5 @@ message Settings {
   int64 currentPosition = 9;
   bool streaming_mode = 10;
   bool guest_mode = 11;
+  bool experimental_ui_mode = 12;
 }

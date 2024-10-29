@@ -59,6 +59,7 @@ class DeveloperOptionsScreenViewModel
                     writable = true,
                     networkRequest = networkRequest,
                     streamingMode = it.streamingMode,
+                    experimentalUiMode = it.experimentalUiMode
                 )
             }.stateIn(
                 scope = viewModelScope,
@@ -75,6 +76,7 @@ class DeveloperOptionsScreenViewModel
             val writable: Boolean = false,
             val networkRequest: HighBandwidthConnectionLease? = null,
             val streamingMode: Boolean = false,
+            val experimentalUiMode: Boolean = false,
         )
 
         fun setShowTimeTextInfo(enabled: Boolean) {
@@ -121,6 +123,14 @@ class DeveloperOptionsScreenViewModel
             viewModelScope.launch {
                 settingsRepository.edit {
                     it.copy { streamingMode = mode }
+                }
+            }
+        }
+
+        fun setExperimentalUiMode(mode: Boolean) {
+            viewModelScope.launch {
+                settingsRepository.edit {
+                    it.copy { experimentalUiMode = mode }
                 }
             }
         }

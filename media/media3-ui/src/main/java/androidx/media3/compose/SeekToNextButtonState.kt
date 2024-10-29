@@ -26,22 +26,22 @@ import androidx.media3.common.Player
 import androidx.media3.common.listen
 
 @Composable
-fun rememberSeekToNextButtonState(player: Player): SeekToNextButtonState {
+public fun rememberSeekToNextButtonState(player: Player): SeekToNextButtonState {
     val seekToNextButtonState = remember(player) { SeekToNextButtonState(player) }
     LaunchedEffect(player) { seekToNextButtonState.observe() }
     return seekToNextButtonState
 }
 
-class SeekToNextButtonState(private val player: Player) {
+public class SeekToNextButtonState(private val player: Player) {
     private var _isEnabled by mutableStateOf(shouldEnableSeekToNextButton(player))
-    val isEnabled: Boolean
+    public val isEnabled: Boolean
         get() = _isEnabled
 
-    fun onClick() {
+    public fun onClick() {
         player.seekToNext()
     }
 
-    suspend fun observe(): Nothing =
+    public suspend fun observe(): Nothing =
         player.listen { events ->
             if (
                 // TODO: Update trigger logic

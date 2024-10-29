@@ -22,13 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.media3.common.Player
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.images.coil.CoilPaintable
-import com.google.android.horologist.media3.ui.components.MediaControlButtons
-import com.google.android.horologist.media3.ui.components.MediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
+import com.google.android.horologist.media3.ui.components.MediaControlButtons
+import com.google.android.horologist.media3.ui.components.MediaInfoDisplay
 
 @Composable
-fun PlayerScreen(
+public fun PlayerScreen(
     player: Player?,
     modifier: Modifier = Modifier,
     mediaInfoDisplay: @Composable (player: Player) -> Unit = { MediaInfoDisplay(it) },

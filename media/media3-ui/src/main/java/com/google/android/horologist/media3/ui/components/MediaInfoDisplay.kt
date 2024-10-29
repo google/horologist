@@ -34,7 +34,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @ExperimentalHorologistApi
 @Composable
-fun MediaInfoDisplay(player: Player, modifier: Modifier = Modifier) {
+public fun MediaInfoDisplay(player: Player, modifier: Modifier = Modifier) {
     val state = rememberMediaInfoDisplayState(player)
     when(val mediaUiModel = state.mediaUiModel) {
         MediaUiModel.Loading -> LoadingMediaDisplay(modifier)
@@ -44,17 +44,17 @@ fun MediaInfoDisplay(player: Player, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun rememberMediaInfoDisplayState(player: Player): MediaInfoDisplayState {
+public fun rememberMediaInfoDisplayState(player: Player): MediaInfoDisplayState {
     val mediaInfoDisplayState = remember(player) { MediaInfoDisplayState(player) }
     LaunchedEffect(player) { mediaInfoDisplayState.observe() }
     return mediaInfoDisplayState
 }
 
-class MediaInfoDisplayState(private val player: Player) {
-    var mediaUiModel by mutableStateOf(getMediaUiModel(player))
+public class MediaInfoDisplayState(private val player: Player) {
+    public var mediaUiModel by mutableStateOf(getMediaUiModel(player))
         private set
 
-    suspend fun observe(): Nothing =
+    public suspend fun observe(): Nothing =
         player.listen { events ->
             if (
                 // TODO: Find the right triggers

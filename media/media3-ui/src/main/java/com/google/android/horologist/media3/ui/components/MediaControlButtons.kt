@@ -24,15 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.media3.common.Player
 import androidx.wear.compose.material.ButtonColors
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media3.ui.components.controls.SeekToNextButton
-import com.google.android.horologist.media3.ui.components.controls.SeekToPreviousButton
 import com.google.android.horologist.media.ui.components.ControlButtonLayout
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.util.isLargeScreen
+import com.google.android.horologist.media3.ui.components.controls.SeekToNextButton
+import com.google.android.horologist.media3.ui.components.controls.SeekToPreviousButton
 
 @ExperimentalHorologistApi
 @Composable
-fun MediaControlButtons(
+public fun MediaControlButtons(
     player: Player,
     modifier: Modifier = Modifier,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,

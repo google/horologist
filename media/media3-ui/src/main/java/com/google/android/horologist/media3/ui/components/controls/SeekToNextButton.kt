@@ -29,7 +29,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekToNextButt
 
 @ExperimentalHorologistApi
 @Composable
-fun SeekToNextButton(
+public fun SeekToNextButton(
     player: Player,
     modifier: Modifier = Modifier,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,

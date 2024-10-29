@@ -31,7 +31,7 @@ import androidx.media3.common.util.Util.shouldShowPlayButton
  * This is useful syntactic sugar and should be public
  */
 @Composable
-fun rememberPlayPauseButtonState(player: Player): PlayPauseButtonState {
+public fun rememberPlayPauseButtonState(player: Player): PlayPauseButtonState {
     val playPauseButtonState = remember(player) { PlayPauseButtonState(player) }
     LaunchedEffect(player) { playPauseButtonState.observe() }
     return playPauseButtonState
@@ -43,12 +43,12 @@ fun rememberPlayPauseButtonState(player: Player): PlayPauseButtonState {
  * @property[isEnabled] determined by `isCommandAvailable(Player.COMMAND_PLAY_PAUSE)` and having
  *   something in the [Timeline] to play
  */
-class PlayPauseButtonState(private val player: Player) {
+public class PlayPauseButtonState(private val player: Player) {
     private var _isEnabled by mutableStateOf(shouldEnablePlayPauseButton(player))
-    val isEnabled: Boolean
+    public val isEnabled: Boolean
         get() = _isEnabled
 
-    var showPlay by mutableStateOf(shouldShowPlayButton(player))
+    public var showPlay by mutableStateOf(shouldShowPlayButton(player))
         private set
 
     /**
@@ -62,7 +62,7 @@ class PlayPauseButtonState(private val player: Player) {
      * @see [handlePauseButtonAction]
      * @see [shouldShowPlayButton]
      */
-    fun onClick() {
+    public fun onClick() {
         handlePlayPauseButtonAction(player)
     }
 
@@ -73,7 +73,7 @@ class PlayPauseButtonState(private val player: Player) {
      * * [Player.EVENT_AVAILABLE_COMMANDS_CHANGED] in order to determine whether the button should be
      *   enabled, i.e. respond to user input.
      */
-    suspend fun observe(): Nothing =
+    public suspend fun observe(): Nothing =
         player.listen { events ->
             if (
                 events.containsAny(

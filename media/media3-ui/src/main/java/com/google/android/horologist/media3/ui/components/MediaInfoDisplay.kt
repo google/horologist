@@ -51,7 +51,7 @@ public fun rememberMediaInfoDisplayState(player: Player): MediaInfoDisplayState 
 }
 
 public class MediaInfoDisplayState(private val player: Player) {
-    public var mediaUiModel by mutableStateOf(getMediaUiModel(player))
+    public var mediaUiModel: MediaUiModel by mutableStateOf(getMediaUiModel(player))
         private set
 
     public suspend fun observe(): Nothing =

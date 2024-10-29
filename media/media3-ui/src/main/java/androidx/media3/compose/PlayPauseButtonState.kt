@@ -48,7 +48,7 @@ public class PlayPauseButtonState(private val player: Player) {
     public val isEnabled: Boolean
         get() = _isEnabled
 
-    public var showPlay by mutableStateOf(shouldShowPlayButton(player))
+    public var showPlay: Boolean by mutableStateOf(shouldShowPlayButton(player))
         private set
 
     /**

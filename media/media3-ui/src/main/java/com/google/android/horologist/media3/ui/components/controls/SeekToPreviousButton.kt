@@ -29,7 +29,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekToPrevious
 
 @ExperimentalHorologistApi
 @Composable
-fun SeekToPreviousButton(
+public fun SeekToPreviousButton(
     player: Player,
     modifier: Modifier = Modifier,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,

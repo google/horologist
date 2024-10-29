@@ -14,6 +14,11 @@ The following modules in the Horologist project are part of the toolkit:
 - [media3-backend](media3-backend.md): `Player` on top of Media3 including functionalities such as
   avoiding playing music on the watch speaker.
 - [media-sample](media-sample.md): sample app to listen to downloaded music.
+- [audio](audio.md): domain model for Audio related functionality,
+    such as Volume Control and Output switching, subscribing to a Flow of changes in audio or output.
+- [audio-ui](audio-ui.md): UI components for Audio related functionality,
+  such as Volume Control and Output switching
+
 
 ## Architecture overview
 

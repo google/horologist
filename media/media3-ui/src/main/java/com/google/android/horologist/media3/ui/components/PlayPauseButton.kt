@@ -47,6 +47,6 @@ public fun PlayPauseButton(
         colors = colors,
         iconSize = iconSize,
         backgroundColor = backgroundColor,
-        progress = progress
+        progress = progress,
     )
 }

@@ -45,6 +45,6 @@ public fun MediaControlButtons(
             PlayPauseButton(player, Modifier.fillMaxSize(), colors, playPauseSize)
         },
         rightButton = { SeekToNextButton(player, Modifier.fillMaxSize(), colors) },
-        modifier = modifier
+        modifier = modifier,
     )
 }

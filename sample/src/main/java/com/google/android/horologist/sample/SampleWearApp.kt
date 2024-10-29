@@ -23,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import androidx.wear.compose.foundation.rememberSwipeToDismissBoxState
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
@@ -66,9 +65,8 @@ import java.time.LocalDateTime
 
 @Composable
 fun SampleWearApp() {
-    val swipeToDismissBoxState = rememberSwipeToDismissBoxState()
     val navHostState =
-        rememberSwipeDismissableNavHostState(swipeToDismissBoxState = swipeToDismissBoxState)
+        rememberSwipeDismissableNavHostState()
     val navController = rememberSwipeDismissableNavController()
 
     var time by remember { mutableStateOf(LocalDateTime.now()) }
@@ -362,10 +360,10 @@ fun SampleWearApp() {
                 PagingItemScreen(it.arguments!!.getInt("id"))
             }
             composable(route = Screen.PagerScreen.route) {
-                SamplePagerScreen(swipeToDismissBoxState)
+                SamplePagerScreen()
             }
             composable(route = Screen.VerticalPagerScreen.route) {
-                SampleVerticalPagerScreen(swipeToDismissBoxState)
+                SampleVerticalPagerScreen()
             }
         }
     }

@@ -33,7 +33,7 @@ public fun PlayerScreen(
     modifier: Modifier = Modifier,
     mediaInfoDisplay: @Composable (player: Player) -> Unit = { MediaInfoDisplay(it) },
     controlButtons: @Composable (player: Player) -> Unit = { MediaControlButtons(it) },
-    background: @Composable (player: Player) -> Unit = { DefaultBackground(it) }
+    background: @Composable (player: Player) -> Unit = { DefaultBackground(it) },
 ) {
     // TODO: I've been ignoring the animated versions for now
     if (player != null) {

@@ -20,7 +20,6 @@ package com.google.android.horologist.media.ui.screens.entity
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
@@ -31,6 +30,7 @@ import androidx.core.content.ContextCompat
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.LocalReduceMotion
 import androidx.wear.compose.foundation.ReduceMotion
+import androidx.wear.compose.foundation.pager.rememberPagerState
 import androidx.wear.compose.material.MaterialTheme
 import coil.annotation.ExperimentalCoilApi
 import coil.decode.DataSource

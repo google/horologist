@@ -22,10 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.media3.common.Player
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.images.coil.CoilPaintable
-import com.google.android.horologist.media3.ui.components.MediaControlButtons
-import com.google.android.horologist.media3.ui.components.MediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
+import com.google.android.horologist.media3.ui.components.MediaControlButtons
+import com.google.android.horologist.media3.ui.components.MediaInfoDisplay
 
 @Composable
 fun PlayerScreen(
@@ -33,7 +33,7 @@ fun PlayerScreen(
     modifier: Modifier = Modifier,
     mediaInfoDisplay: @Composable (player: Player) -> Unit = { MediaInfoDisplay(it) },
     controlButtons: @Composable (player: Player) -> Unit = { MediaControlButtons(it) },
-    background: @Composable (player: Player) -> Unit = { DefaultBackground(it) }
+    background: @Composable (player: Player) -> Unit = { DefaultBackground(it) },
 ) {
     // TODO: I've been ignoring the animated versions for now
     if (player != null) {

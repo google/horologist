@@ -59,7 +59,7 @@ class DeveloperOptionsScreenViewModel
                     writable = true,
                     networkRequest = networkRequest,
                     streamingMode = it.streamingMode,
-                    experimentalUiMode = it.experimentalUiMode
+                    experimentalUiMode = it.experimentalUiMode,
                 )
             }.stateIn(
                 scope = viewModelScope,

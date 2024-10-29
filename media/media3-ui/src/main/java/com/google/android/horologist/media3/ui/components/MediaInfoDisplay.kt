@@ -36,7 +36,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @Composable
 fun MediaInfoDisplay(player: Player, modifier: Modifier = Modifier) {
     val state = rememberMediaInfoDisplayState(player)
-    when(val mediaUiModel = state.mediaUiModel) {
+    when (val mediaUiModel = state.mediaUiModel) {
         MediaUiModel.Loading -> LoadingMediaDisplay(modifier)
         is MediaUiModel.Ready -> TrackMediaDisplay(mediaUiModel, modifier)
         else -> NothingPlayingDisplay(modifier)
@@ -72,7 +72,7 @@ class MediaInfoDisplayState(private val player: Player) {
         val mediaItem = player.currentMediaItem
         val mediaMetadata = mediaItem?.mediaMetadata
 
-        return if(mediaItem != null && mediaMetadata != null) {
+        return if (mediaItem != null && mediaMetadata != null) {
             MediaUiModel.Ready(
                 id = mediaItem.mediaId,
                 title = mediaMetadata.title?.toString() ?: "",
@@ -80,8 +80,10 @@ class MediaInfoDisplayState(private val player: Player) {
                     ?: mediaMetadata.albumArtist?.toString()
                     ?: mediaMetadata.subtitle?.toString()
                     ?: "",
-                artwork = mediaMetadata.artworkUri?.let { CoilPaintable(it) }
+                artwork = mediaMetadata.artworkUri?.let { CoilPaintable(it) },
             )
-        } else MediaUiModel.Loading
+        } else {
+            MediaUiModel.Loading
+        }
     }
 }

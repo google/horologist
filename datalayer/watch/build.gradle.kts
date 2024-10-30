@@ -101,6 +101,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
     implementation(libs.androidx.wear.phone.interactions)
+    implementation(libs.androidx.wear.tiles)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
@@ -109,6 +110,8 @@ dependencies {
     testImplementation(libs.androidx.test.ext)
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.runner)
+    testImplementation(libs.androidx.wear.tiles.testing)
+    testImplementation(libs.androidx.concurrent.future)
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {

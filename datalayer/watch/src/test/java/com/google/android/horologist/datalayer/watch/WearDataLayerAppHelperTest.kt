@@ -93,6 +93,7 @@ class WearDataLayerAppHelperTest {
             context = context,
             registry = registry,
             appStoreUri = null,
+            scope = this,
             surfacesInfoDataStoreFn = { testDataStore },
         )
 
@@ -129,6 +130,7 @@ class WearDataLayerAppHelperTest {
             context = context,
             registry = registry,
             appStoreUri = null,
+            scope = this,
             surfacesInfoDataStoreFn = { testDataStore },
         )
 

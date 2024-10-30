@@ -36,7 +36,9 @@ class TrackingScreenViewModel
         private val wearDataLayerAppHelper: WearDataLayerAppHelper,
     ) : ViewModel() {
 
-        private val fakeTileList = listOf("Tile1", "Tile2")
+        private val realTileList = listOf(
+            "com.google.android.horologist.datalayer.sample.SampleTileService",
+        )
         private val fakeComplicationList = listOf("Comp1", "Comp2")
 
         private var initializeCalled = false
@@ -57,7 +59,7 @@ class TrackingScreenViewModel
                         TrackingScreenUiState.Loading,
                         is TrackingScreenUiState.Loaded,
                         -> {
-                            val tilesMap = fakeTileList.associateWith { tile ->
+                            val tilesMap = realTileList.associateWith { tile ->
                                 surfacesInfo.tilesList.any { it.name == tile }
                             }
 
@@ -95,16 +97,6 @@ class TrackingScreenViewModel
                     wearDataLayerAppHelper.markSetupComplete()
                 } else {
                     wearDataLayerAppHelper.markSetupNoLongerComplete()
-                }
-            }
-        }
-
-        fun onTileCheckedChanged(tile: String, checked: Boolean) {
-            viewModelScope.launch {
-                if (checked) {
-                    wearDataLayerAppHelper.markTileAsInstalled(tile)
-                } else {
-                    wearDataLayerAppHelper.markTileAsRemoved(tile)
                 }
             }
         }

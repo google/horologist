@@ -62,9 +62,9 @@ DatePicker             |  TimePickerWith12HourClock |  TimePicker
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/date_picker.png" height="120" width="120" >  |  <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/time_12h_picker.png" height="120" width="120"> | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/time_24h_picker.png" height="120" width="120">
 
-SegmentedProgressIndicator | SquareSegmentedProgressIndicator
-:-------------------------:|:--------------------------------:
-<img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/segmented_progress_indicator.png" height="120" width="120">  | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/square_segmented_progress_indicator.png" height="120" width="120">
+SegmentedProgressIndicator 
+:-------------------------:
+<img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/segmented_progress_indicator.png" height="120" width="120">
 
 ## 📐 Compose Layout
 

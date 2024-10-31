@@ -174,9 +174,7 @@ public class WearDataLayerAppHelper internal constructor(
     }
 
     /**
-     * Updates the installed tiles
-     *
-     * Gets all the installed tiles async and updates them.
+     * Updates the list of currently installed tiles on this watch.
      *
      * This function has some limitations on older SDK versions, please see
      * the docs for [TileService#getActiveTilesAsync](https://developer.android.com/reference/androidx/wear/tiles/TileService#getActiveTilesAsync(android.content.Context,java.util.concurrent.Executor))

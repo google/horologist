@@ -108,7 +108,7 @@ fun AppHelperNodeStatusCard(
                         style = MaterialTheme.typography.labelMedium,
                         text = stringResource(
                             R.string.node_status_tiles_label,
-                            nodeStatus.surfacesInfo.tilesList.joinToString { it.name },
+                            nodeStatus.surfacesInfo.tilesList.joinToString { it.name.substringAfterLast(".") },
                         ),
                     )
                 }

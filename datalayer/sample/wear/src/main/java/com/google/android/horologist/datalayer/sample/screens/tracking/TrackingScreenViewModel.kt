@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.text.substringAfterLast
 
 @HiltViewModel
 class TrackingScreenViewModel
@@ -59,8 +60,12 @@ class TrackingScreenViewModel
                         TrackingScreenUiState.Loading,
                         is TrackingScreenUiState.Loaded,
                         -> {
-                            val tilesMap = realTileList.associateWith { tile ->
-                                surfacesInfo.tilesList.any { it.name == tile }
+                            val tilesMap = mutableMapOf<String, Boolean>()
+                            for (tile in realTileList) {
+                                tilesMap.put(
+                                    tile.substringAfterLast("."),
+                                    surfacesInfo.tilesList.any { it.name == tile },
+                                )
                             }
 
                             val complicationsMap = fakeComplicationList.associateWith { complication ->

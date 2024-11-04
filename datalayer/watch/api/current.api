@@ -11,8 +11,6 @@ package com.google.android.horologist.datalayer.watch {
     method public suspend Object? markComplicationAsDeactivated(int complicationInstanceId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? markSetupComplete(kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? markSetupNoLongerComplete(kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    method @Deprecated public suspend Object? markTileAsInstalled(String tileName, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    method @Deprecated public suspend Object? markTileAsRemoved(String tileName, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @CheckResult public suspend Object? startCompanion(String nodeId, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
     method public suspend Object? updateInstalledTiles(kotlin.coroutines.Continuation<? super kotlin.Unit>);
     property public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> connectedAndInstalledNodes;

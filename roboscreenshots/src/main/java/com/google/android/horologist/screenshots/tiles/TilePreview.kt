@@ -44,6 +44,7 @@ import androidx.wear.protolayout.ModifiersBuilders.Modifiers
 import androidx.wear.protolayout.ResourceBuilders
 import androidx.wear.protolayout.StateBuilders.State
 import androidx.wear.protolayout.TimelineBuilders
+import androidx.wear.protolayout.TimelineBuilders.TimelineEntry
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.renderer.TileRenderer
@@ -169,12 +170,7 @@ public fun LayoutRootPreview(
             .setResourcesVersion(PERMANENT_RESOURCES_VERSION)
             .setTileTimeline(
                 TimelineBuilders.Timeline.Builder().addTimelineEntry(
-                    TimelineBuilders.TimelineEntry.Builder()
-                        .setLayout(
-                            LayoutElementBuilders.Layout.Builder()
-                                .setRoot(root)
-                                .build(),
-                        ).build(),
+                    TimelineEntry.fromLayoutElement(root),
                 ).build(),
             ).build()
     }

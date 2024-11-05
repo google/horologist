@@ -34,7 +34,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.wear.protolayout.ColorBuilders.argb
 import androidx.wear.protolayout.DeviceParametersBuilders
 import androidx.wear.protolayout.DimensionBuilders.ExpandedDimensionProp
-import androidx.wear.protolayout.LayoutElementBuilders
 import androidx.wear.protolayout.LayoutElementBuilders.Box
 import androidx.wear.protolayout.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
 import androidx.wear.protolayout.LayoutElementBuilders.LayoutElement

@@ -37,8 +37,8 @@ import org.robolectric.annotation.GraphicsMode
 import org.robolectric.shadows.ShadowBuild
 
 @Config(
-    sdk = [34],
-    qualifiers = RobolectricDeviceQualifiers.Pixel4,
+    sdk = [35],
+    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
     shadows = [ExtraShadowAccessibilityManager::class, NonShadowShadowAccessibilityNodeInfo::class],
 )
 @RunWith(AndroidJUnit4::class)

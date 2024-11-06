@@ -86,7 +86,7 @@ public abstract class WearLegacyA11yTest {
     public open val runAtf: Boolean
         get() = true
 
-    open fun configureAccessibilityValidator(validator: AccessibilityValidator) {
+    public open fun configureAccessibilityValidator(validator: AccessibilityValidator) {
     }
 
     public fun runScreenTest(

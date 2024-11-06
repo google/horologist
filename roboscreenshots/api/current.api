@@ -93,6 +93,7 @@ package com.google.android.horologist.screenshots.rng {
     method @androidx.compose.runtime.Composable public void TestScaffold(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public final void captureScreenA11yRoboImage(String filePath, com.github.takahirom.roborazzi.RoborazziOptions roborazziOptions);
     method public final void captureScreenshot(optional String suffix);
+    method public void configureAccessibilityValidator(com.google.android.apps.common.testing.accessibility.framework.integrations.espresso.AccessibilityValidator validator);
     method @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule getComposeRule();
     method public coil.test.FakeImageLoaderEngine? getImageLoader();
     method public boolean getRunAtf();

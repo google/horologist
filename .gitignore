@@ -5,19 +5,6 @@ build/
 captures
 /local.properties
 
-# IntelliJ .idea folder
-.idea/workspace.xml
-.idea/libraries
-.idea/caches
-.idea/navEditor.xml
-.idea/tasks.xml
-.idea/modules.xml
-.idea/compiler.xml
-.idea/jarRepositories.xml
-.idea/deploymentTargetDropDown.xml
-.idea/misc.xml
-.idea/other.xml
-/.idea/androidTestResultsUserPreferences.xml
 gradle.xml
 *.iml
 

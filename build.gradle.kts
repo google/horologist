@@ -99,7 +99,6 @@ allprojects {
         if (composeSnapshot.length > 1) {
             maven(url = uri("https://androidx.dev/snapshots/builds/$composeSnapshot/artifacts/repository/"))
         }
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
 
     plugins.withId("com.vanniktech.maven.publish") {

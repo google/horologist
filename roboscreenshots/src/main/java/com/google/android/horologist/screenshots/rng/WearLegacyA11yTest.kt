@@ -20,6 +20,7 @@ package com.google.android.horologist.screenshots.rng
 
 import android.app.Application
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Looper
 import android.view.accessibility.AccessibilityManager
 import androidx.compose.foundation.background
@@ -32,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.tryPerformAccessibilityChecks
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Root
@@ -59,9 +61,10 @@ import org.junit.runner.RunWith
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
+import org.robolectric.shadows.ShadowBuild
 
 @Config(
-    sdk = [33],
+    sdk = [34],
     qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 @RunWith(AndroidJUnit4::class)
@@ -78,6 +81,9 @@ public abstract class WearLegacyA11yTest {
 
     public open val imageLoader: FakeImageLoaderEngine? = null
 
+    public open val runAtf: Boolean
+        get() = true
+
     public fun runScreenTest(
         content: @Composable () -> Unit,
     ) {
@@ -85,6 +91,15 @@ public abstract class WearLegacyA11yTest {
             TestScaffold {
                 content()
             }
+        }
+
+        if (runAtf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            // TODO change this check in ATF
+            ShadowBuild.setFingerprint("test_fingerprint")
+
+            composeRule.enableAccessibilityChecks()
+
+            composeRule.onRoot().tryPerformAccessibilityChecks()
         }
 
         captureScreenshot()

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist
+package com.google.android.horologist.screenshots.a11y
 
+import android.annotation.SuppressLint
 import android.view.accessibility.AccessibilityManager
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
@@ -23,16 +24,19 @@ import org.robolectric.shadows.ShadowAccessibilityManager
 import org.robolectric.versioning.AndroidVersions.U
 
 @Implements(AccessibilityManager::class)
-class ExtraShadowAccessibilityManager: ShadowAccessibilityManager() {
+class ExtraShadowAccessibilityManager : ShadowAccessibilityManager() {
 
     /**
      * This shadow method is required because {@link
      * android.view.accessibility.DirectAccessibilityConnection} calls it to determine if any
      * transformations have occurred on this window.
      */
+    @SuppressLint("PrivateApi")
     @Implementation(minSdk = U.SDK_INT)
-    fun getWindowTransformationSpec(windowId: Int):  Any {
-        val instance = Class.forName("android.view.accessibility.IAccessibilityManager\$WindowTransformationSpec").newInstance()
+    fun getWindowTransformationSpec(windowId: Int): Any {
+        val instance =
+            Class.forName("android.view.accessibility.IAccessibilityManager\$WindowTransformationSpec")
+                .getDeclaredConstructor().newInstance()
 
         return instance
     }

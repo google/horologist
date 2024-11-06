@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist
+package com.google.android.horologist.screenshots.a11y
 
 import android.view.accessibility.AccessibilityNodeInfo
 import org.robolectric.annotation.Implements

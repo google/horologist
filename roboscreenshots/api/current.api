@@ -9,19 +9,6 @@ package com.google.android.horologist.screenshots {
 
 }
 
-package com.google.android.horologist.screenshots.a11y {
-
-  @org.robolectric.annotation.Implements(AccessibilityManager::class) public final class ExtraShadowAccessibilityManager extends org.robolectric.shadows.ShadowAccessibilityManager {
-    ctor public ExtraShadowAccessibilityManager();
-    method @org.robolectric.annotation.Implementation(minSdk=org.robolectric.versioning.AndroidVersions.U.SDK_INT) public Object getWindowTransformationSpec(int windowId);
-  }
-
-  @org.robolectric.annotation.Implements(AccessibilityNodeInfo::class) public final class NonShadowShadowAccessibilityNodeInfo {
-    ctor public NonShadowShadowAccessibilityNodeInfo();
-  }
-
-}
-
 package com.google.android.horologist.screenshots.rng {
 
   public interface ScreenshotTest {

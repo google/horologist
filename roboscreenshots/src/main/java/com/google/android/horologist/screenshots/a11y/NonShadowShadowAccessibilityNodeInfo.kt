@@ -20,4 +20,4 @@ import android.view.accessibility.AccessibilityNodeInfo
 import org.robolectric.annotation.Implements
 
 @Implements(AccessibilityNodeInfo::class)
-class NonShadowShadowAccessibilityNodeInfo
+internal class NonShadowShadowAccessibilityNodeInfo

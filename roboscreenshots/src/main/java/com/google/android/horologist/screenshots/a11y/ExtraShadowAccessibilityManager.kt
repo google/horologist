@@ -24,7 +24,7 @@ import org.robolectric.shadows.ShadowAccessibilityManager
 import org.robolectric.versioning.AndroidVersions.U
 
 @Implements(AccessibilityManager::class)
-class ExtraShadowAccessibilityManager : ShadowAccessibilityManager() {
+internal class ExtraShadowAccessibilityManager : ShadowAccessibilityManager() {
 
     /**
      * This shadow method is required because {@link

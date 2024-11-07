@@ -63,7 +63,7 @@ public interface ColumnItemType {
         val Button: ColumnItemType
             get() = ItemType.Chip
 
-        val Title: ColumnItemType
+        val ListHeader: ColumnItemType
             get() = ItemType.Text
 
         val BodyText: ColumnItemType

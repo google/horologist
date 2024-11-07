@@ -20,11 +20,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performTouchInput
-import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumnState
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
@@ -66,7 +62,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                     TransformingLazyColumn(
                         state = columnState,
                         contentPadding = rememberResponsiveColumnPadding(
-                            first = ColumnItemType.Title,
+                            first = ColumnItemType.ListHeader,
                             last = ColumnItemType.Card
                         ),
                         modifier = Modifier.fillMaxSize().testTag("TransformingLazyColumn")

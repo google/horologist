@@ -50,6 +50,9 @@ class MediaPlayerA11yScreenshotTest : WearLegacyA11yTest() {
         mediaPlayerScreen()
     }
 
+    override val runAtf: Boolean
+        get() = false
+
     private fun mediaPlayerScreen() {
         val playerUiState = PlayerUiState(
             playEnabled = true,

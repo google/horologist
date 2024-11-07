@@ -30,9 +30,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.Icon
@@ -107,11 +110,10 @@ class SectionedListTest : WearLegacyScreenTest() {
             }
         }
 
-        // TODO https://github.com/google/horologist/issues/2237
-//        composeRule.onNode(hasScrollToNodeAction())
-//            .performTouchInput { repeat(10) { swipeUp() } }
-//
-//        captureScreenshot()
+        composeRule.onNode(hasScrollToNodeAction())
+            .performTouchInput { repeat(10) { swipeUp() } }
+
+        captureScreenshot()
     }
 
     @Test
@@ -153,11 +155,10 @@ class SectionedListTest : WearLegacyScreenTest() {
             }
         }
 
-        // TODO https://github.com/google/horologist/issues/2237
-//        composeRule.onNode(hasScrollToNodeAction())
-//            .performTouchInput { repeat(10) { swipeUp() } }
-//
-//        captureScreenshot()
+        composeRule.onNode(hasScrollToNodeAction())
+            .performTouchInput { repeat(10) { swipeUp() } }
+
+        captureScreenshot()
     }
 
     @Test

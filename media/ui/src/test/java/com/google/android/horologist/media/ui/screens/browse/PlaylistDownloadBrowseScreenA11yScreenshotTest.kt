@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.media.ui.screens.browse
 
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.performTouchInput
+import androidx.test.espresso.action.ViewActions.swipeUp
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
@@ -58,11 +61,10 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : WearLegacyA11yTest() {
             }
         }
 
-        // TODO https://github.com/google/horologist/issues/2237
-//        composeRule.onNode(hasScrollToNodeAction())
-//            .performTouchInput { repeat(10) { swipeUp() } }
-//
-//        captureScreenshot()
+        composeRule.onNode(hasScrollToNodeAction())
+            .performTouchInput { repeat(10) { swipeUp() } }
+
+        captureScreenshot()
     }
 }
 

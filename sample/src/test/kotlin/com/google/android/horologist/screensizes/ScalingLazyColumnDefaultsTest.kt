@@ -22,7 +22,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.unit.dp
+import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.material.AppCard
 import androidx.wear.compose.material.Text
@@ -63,11 +66,10 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
                 }
             }
 
-            // TODO https://github.com/google/horologist/issues/2237
-//            composeRule.onNode(hasScrollToNodeAction())
-//                .performTouchInput { repeat(10) { swipeUp() } }
-//
-//            captureScreenshot()
+            composeRule.onNode(hasScrollToNodeAction())
+                .performTouchInput { repeat(10) { swipeUp() } }
+
+            captureScreenshot()
         }
 
         @Test
@@ -114,11 +116,10 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
                 }
             }
 
-            // TODO https://github.com/google/horologist/issues/2237
-//            composeRule.onNode(hasScrollToNodeAction())
-//                .performTouchInput { repeat(10) { swipeUp() } }
-//
-//            captureScreenshot()
+            composeRule.onNode(hasScrollToNodeAction())
+                .performTouchInput { repeat(10) { swipeUp() } }
+
+            captureScreenshot()
         }
 
         @Test
@@ -129,11 +130,10 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
                 SampleChipMenu(columnState = columnState)
             }
 
-            // TODO https://github.com/google/horologist/issues/2237
-//            composeRule.onNode(hasScrollToNodeAction())
-//                .performTouchInput { repeat(10) { swipeUp() } }
-//
-//            captureScreenshot()
+            composeRule.onNode(hasScrollToNodeAction())
+                .performTouchInput { repeat(10) { swipeUp() } }
+
+            captureScreenshot()
         }
 
         @Composable

@@ -230,7 +230,7 @@ public object ScalingLazyColumnDefaults {
         val topPaddingPct: Float,
         val bottomPaddingPct: Float,
         val paddingCorrection: Dp = 0.dp,
-    ) {
+    ) : ColumnItemType {
         Card(Padding21Pct, Padding31Pct),
         Chip(Padding21Pct, Padding31Pct),
         CompactChip(
@@ -245,6 +245,43 @@ public object ScalingLazyColumnDefaults {
         BodyText(Padding21Pct, Padding31Pct),
         Dialog(Padding14Pct, Padding20Pct),
         Unspecified(0f, 0f),
+        ;
+
+        @Composable
+        override fun topPadding(horizontalPercent: Float): Dp {
+            val configuration = LocalConfiguration.current
+            val screenWidthDp = configuration.screenWidthDp.dp
+            val screenHeightDp = configuration.screenHeightDp.dp
+
+            return if (this != Unspecified) {
+                topPaddingPct * screenHeightDp + paddingCorrection
+            } else {
+                if (configuration.isScreenRound) {
+                    calculateVerticalOffsetForChip(screenWidthDp.value, horizontalPercent)
+                } else {
+                    32.dp
+                }
+            }
+        }
+
+        @Composable
+        override fun bottomPadding(horizontalPercent: Float): Dp {
+            val configuration = LocalConfiguration.current
+            val screenWidthDp = configuration.screenWidthDp.dp
+            val screenHeightDp = configuration.screenHeightDp.dp
+            return if (this != Unspecified) {
+                bottomPaddingPct * screenHeightDp + paddingCorrection
+            } else {
+                if (configuration.isScreenRound) {
+                    calculateVerticalOffsetForChip(
+                        screenWidthDp.value,
+                        horizontalPercent,
+                    ) + 10.dp
+                } else {
+                    0.dp
+                }
+            }
+        }
     }
 
     @Composable

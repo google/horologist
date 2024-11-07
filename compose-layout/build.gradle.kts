@@ -107,6 +107,7 @@ dependencies {
     debugImplementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.test.manifest)
 
+    testImplementation(libs.androidx.wear.compose.material3)
     testImplementation(libs.junit)
     testImplementation(libs.truth)
     testImplementation(libs.compose.ui.test.junit4)

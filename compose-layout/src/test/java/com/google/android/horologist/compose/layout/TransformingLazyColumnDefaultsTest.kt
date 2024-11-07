@@ -51,11 +51,13 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         lateinit var columnState: TransformingLazyColumnState
         runTest {
             AppScaffold(
-                timeText = { TimeText {
-                    text("10:10")
-                } },
+                timeText = {
+                    TimeText {
+                        text("10:10")
+                    }
+                },
                 // Why black needed here
-                modifier = Modifier.background(MaterialTheme.colorScheme.background)
+                modifier = Modifier.background(MaterialTheme.colorScheme.background),
             ) {
                 columnState = rememberTransformingLazyColumnState()
                 ScreenScaffold(scrollState = columnState) {
@@ -63,9 +65,9 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                         state = columnState,
                         contentPadding = rememberResponsiveColumnPadding(
                             first = ColumnItemType.ListHeader,
-                            last = ColumnItemType.Card
+                            last = ColumnItemType.Card,
                         ),
-                        modifier = Modifier.fillMaxSize().testTag("TransformingLazyColumn")
+                        modifier = Modifier.fillMaxSize().testTag("TransformingLazyColumn"),
                     ) {
                         item {
                             ListHeader(modifier = Modifier.scrollTransform(this)) {

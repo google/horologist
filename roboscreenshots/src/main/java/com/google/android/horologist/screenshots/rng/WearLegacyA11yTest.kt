@@ -20,6 +20,7 @@ package com.google.android.horologist.screenshots.rng
 
 import android.app.Application
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Looper
 import android.view.accessibility.AccessibilityManager
 import androidx.compose.foundation.background
@@ -29,9 +30,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.tryPerformAccessibilityChecks
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Root
@@ -46,6 +49,7 @@ import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.ThresholdValidator
 import com.github.takahirom.roborazzi.captureRoboImage
+import com.google.android.apps.common.testing.accessibility.framework.integrations.espresso.AccessibilityValidator
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.screenshots.FixedTimeSource
@@ -59,9 +63,10 @@ import org.junit.runner.RunWith
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
+import org.robolectric.shadows.ShadowBuild
 
 @Config(
-    sdk = [33],
+    sdk = [34],
     qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 @RunWith(AndroidJUnit4::class)
@@ -78,6 +83,12 @@ public abstract class WearLegacyA11yTest {
 
     public open val imageLoader: FakeImageLoaderEngine? = null
 
+    public open val runAtf: Boolean
+        get() = true
+
+    public open fun configureAccessibilityValidator(validator: AccessibilityValidator) {
+    }
+
     public fun runScreenTest(
         content: @Composable () -> Unit,
     ) {
@@ -85,6 +96,19 @@ public abstract class WearLegacyA11yTest {
             TestScaffold {
                 content()
             }
+        }
+
+        if (runAtf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            // TODO change this check in ATF
+            ShadowBuild.setFingerprint("test_fingerprint")
+
+            composeRule.enableAccessibilityChecks()
+
+            val accessibilityValidator =
+                (composeRule as AndroidComposeTestRule<*, *>).accessibilityValidator!!
+            configureAccessibilityValidator(accessibilityValidator)
+
+            composeRule.onRoot().tryPerformAccessibilityChecks()
         }
 
         captureScreenshot()

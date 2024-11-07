@@ -90,6 +90,7 @@ dependencies {
     api(projects.composeLayout)
     api(projects.images.coil)
     api(projects.tiles)
+    api(libs.accessibility.test.framework)
 
     api(libs.kotlin.stdlib)
     api(libs.okio)

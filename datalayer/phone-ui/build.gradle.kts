@@ -106,6 +106,8 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.material)
     implementation(platform(libs.compose.bom))
+    implementation(libs.compose.material.iconscore)
+    implementation(libs.compose.material.iconsext)
 
     testImplementation(libs.junit)
 

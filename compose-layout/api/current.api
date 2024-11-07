@@ -55,13 +55,13 @@ package com.google.android.horologist.compose.layout {
     method public com.google.android.horologist.compose.layout.ColumnItemType getButtonRow();
     method public com.google.android.horologist.compose.layout.ColumnItemType getCard();
     method public com.google.android.horologist.compose.layout.ColumnItemType getIconButton();
-    method public com.google.android.horologist.compose.layout.ColumnItemType getTitle();
+    method public com.google.android.horologist.compose.layout.ColumnItemType getListHeader();
     property public final com.google.android.horologist.compose.layout.ColumnItemType BodyText;
     property public final com.google.android.horologist.compose.layout.ColumnItemType Button;
     property public final com.google.android.horologist.compose.layout.ColumnItemType ButtonRow;
     property public final com.google.android.horologist.compose.layout.ColumnItemType Card;
     property public final com.google.android.horologist.compose.layout.ColumnItemType IconButton;
-    property public final com.google.android.horologist.compose.layout.ColumnItemType Title;
+    property public final com.google.android.horologist.compose.layout.ColumnItemType ListHeader;
   }
 
   public final class FillMaxRectangleKt {

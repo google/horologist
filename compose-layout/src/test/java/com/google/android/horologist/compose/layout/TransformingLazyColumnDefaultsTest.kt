@@ -20,11 +20,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performTouchInput
-import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumnState
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
@@ -55,11 +51,13 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         lateinit var columnState: TransformingLazyColumnState
         runTest {
             AppScaffold(
-                timeText = { TimeText {
-                    text("10:10")
-                } },
+                timeText = {
+                    TimeText {
+                        text("10:10")
+                    }
+                },
                 // Why black needed here
-                modifier = Modifier.background(MaterialTheme.colorScheme.background)
+                modifier = Modifier.background(MaterialTheme.colorScheme.background),
             ) {
                 columnState = rememberTransformingLazyColumnState()
                 ScreenScaffold(scrollState = columnState) {
@@ -67,9 +65,9 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                         state = columnState,
                         contentPadding = rememberResponsiveColumnPadding(
                             first = ColumnItemType.Title,
-                            last = ColumnItemType.Card
+                            last = ColumnItemType.Card,
                         ),
-                        modifier = Modifier.fillMaxSize().testTag("TransformingLazyColumn")
+                        modifier = Modifier.fillMaxSize().testTag("TransformingLazyColumn"),
                     ) {
                         item {
                             ListHeader(modifier = Modifier.scrollTransform(this)) {

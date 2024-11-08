@@ -35,6 +35,7 @@ import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButton
 import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.OutlinedIconButton
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.ScreenScaffoldDefaults
 import androidx.wear.compose.material3.Text
@@ -181,7 +182,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
     }
 
     @Test
-    fun ButtonAndExtraSmallEdgeButton() {
+    fun IconButtonAndExtraSmallEdgeButton() {
         lateinit var columnState: TransformingLazyColumnState
         runTest {
             AppScaffold(
@@ -210,7 +211,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                             .testTag("TransformingLazyColumn"),
                     ) {
                         item {
-                            IconButton(onClick = {}) {
+                            OutlinedIconButton(onClick = {}) {
                                 Icon(
                                     imageVector = Icons.Rounded.ArrowUpward,
                                     contentDescription = null,

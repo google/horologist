@@ -144,7 +144,64 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                         state = columnState,
                         contentPadding = rememberResponsiveColumnPadding(
                             first = ColumnItemType.IconButton,
-                            last = ColumnItemType.Card,
+                            last = EdgeButtonPadding(buttonSize = EdgeButtonSize.Large),
+                        ),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .testTag("TransformingLazyColumn"),
+                    ) {
+                        item {
+                            IconButton(onClick = {}) {
+                                Icon(imageVector = Icons.Rounded.ArrowUpward, contentDescription = null)
+                            }
+                        }
+                        items(3) {
+                            TitleCard(
+                                modifier = Modifier.scrollTransform(this),
+                                onClick = { /* Do something */ },
+                                title = { Text("Title card") },
+                                time = { Text("now") },
+                            ) { Text("Card content") }
+                        }
+                    }
+                }
+            }
+        }
+
+        composeRule.waitForIdle()
+
+        runBlocking {
+            columnState.scrollToItem(5)
+        }
+
+        captureScreenshot("_end")
+    }
+
+    @Test
+    fun ButtonAndExtraSmallEdgeButton() {
+        lateinit var columnState: TransformingLazyColumnState
+        runTest {
+            AppScaffold(
+                timeText = {
+                    TimeText {
+                        text("10:10")
+                    }
+                },
+                // Why black needed here
+                modifier = Modifier.background(MaterialTheme.colorScheme.background),
+            ) {
+                columnState = rememberTransformingLazyColumnState()
+                ScreenScaffold(scrollState = columnState,
+                    edgeButton = {
+                        EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.ExtraSmall) {
+                            Text("To top")
+                        }
+                    }) {
+                    TransformingLazyColumn(
+                        state = columnState,
+                        contentPadding = rememberResponsiveColumnPadding(
+                            first = ColumnItemType.IconButton,
+                            last = EdgeButtonPadding(buttonSize = EdgeButtonSize.ExtraSmall),
                         ),
                         modifier = Modifier
                             .fillMaxSize()

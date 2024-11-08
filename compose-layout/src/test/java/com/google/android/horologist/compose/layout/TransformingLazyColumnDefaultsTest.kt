@@ -52,7 +52,8 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : WearScreenshotTest() {
 
     override fun testName(suffix: String): String =
-        "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName}_${device?.id ?: WearDevice.GenericLargeRound.id}$suffix.png"
+        "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName}_" +
+            "${device.id}$suffix.png"
 
     @Composable
     override fun TestScaffold(content: @Composable (() -> Unit)) {
@@ -134,12 +135,11 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                 modifier = Modifier.background(MaterialTheme.colorScheme.background),
             ) {
                 columnState = rememberTransformingLazyColumnState()
-                ScreenScaffold(scrollState = columnState,
-                    edgeButton = {
-                        EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.Large) {
-                            Text("To top")
-                        }
-                    }) {
+                ScreenScaffold(scrollState = columnState, edgeButton = {
+                    EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.Large) {
+                        Text("To top")
+                    }
+                }) {
                     TransformingLazyColumn(
                         state = columnState,
                         contentPadding = rememberResponsiveColumnPadding(
@@ -152,7 +152,10 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                     ) {
                         item {
                             IconButton(onClick = {}) {
-                                Icon(imageVector = Icons.Rounded.ArrowUpward, contentDescription = null)
+                                Icon(
+                                    imageVector = Icons.Rounded.ArrowUpward,
+                                    contentDescription = null,
+                                )
                             }
                         }
                         items(3) {
@@ -191,12 +194,11 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                 modifier = Modifier.background(MaterialTheme.colorScheme.background),
             ) {
                 columnState = rememberTransformingLazyColumnState()
-                ScreenScaffold(scrollState = columnState,
-                    edgeButton = {
-                        EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.ExtraSmall) {
-                            Text("To top")
-                        }
-                    }) {
+                ScreenScaffold(scrollState = columnState, edgeButton = {
+                    EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.ExtraSmall) {
+                        Text("To top")
+                    }
+                }) {
                     TransformingLazyColumn(
                         state = columnState,
                         contentPadding = rememberResponsiveColumnPadding(
@@ -209,7 +211,10 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                     ) {
                         item {
                             IconButton(onClick = {}) {
-                                Icon(imageVector = Icons.Rounded.ArrowUpward, contentDescription = null)
+                                Icon(
+                                    imageVector = Icons.Rounded.ArrowUpward,
+                                    contentDescription = null,
+                                )
                             }
                         }
                         items(3) {

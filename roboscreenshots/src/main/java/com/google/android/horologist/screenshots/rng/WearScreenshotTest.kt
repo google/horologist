@@ -74,7 +74,7 @@ public abstract class WearScreenshotTest {
 
     public open val imageLoader: FakeImageLoaderEngine? = null
 
-    open fun roborazziOptions(applyDeviceCrop: Boolean = true) = RoborazziOptions(
+    public open fun roborazziOptions(applyDeviceCrop: Boolean = true) = RoborazziOptions(
         recordOptions = RoborazziOptions.RecordOptions(
             applyDeviceCrop = applyDeviceCrop,
         ),

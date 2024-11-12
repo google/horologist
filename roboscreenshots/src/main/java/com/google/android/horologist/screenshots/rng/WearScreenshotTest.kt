@@ -74,14 +74,15 @@ public abstract class WearScreenshotTest {
 
     public open val imageLoader: FakeImageLoaderEngine? = null
 
-    public open fun roborazziOptions(applyDeviceCrop: Boolean = true) = RoborazziOptions(
-        recordOptions = RoborazziOptions.RecordOptions(
-            applyDeviceCrop = applyDeviceCrop,
-        ),
-        compareOptions = RoborazziOptions.CompareOptions(
-            resultValidator = ThresholdValidator(tolerance),
-        ),
-    )
+    public open fun roborazziOptions(applyDeviceCrop: Boolean = true): RoborazziOptions =
+        RoborazziOptions(
+            recordOptions = RoborazziOptions.RecordOptions(
+                applyDeviceCrop = applyDeviceCrop,
+            ),
+            compareOptions = RoborazziOptions.CompareOptions(
+                resultValidator = ThresholdValidator(tolerance),
+            ),
+        )
 
     public fun runTest(
         suffix: String? = null,

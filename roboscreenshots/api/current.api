@@ -129,6 +129,7 @@ package com.google.android.horologist.screenshots.rng {
     method public coil.test.FakeImageLoaderEngine? getImageLoader();
     method @org.junit.Rule public final org.junit.rules.TestName getTestInfo();
     method public float getTolerance();
+    method public com.github.takahirom.roborazzi.RoborazziOptions roborazziOptions(optional boolean applyDeviceCrop);
     method public final void runTest(optional String? suffix, optional com.google.android.horologist.screenshots.rng.WearDevice? device, optional boolean applyDeviceConfig, optional boolean captureScreenshot, kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public String testName(String suffix);
     property @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule composeRule;

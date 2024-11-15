@@ -87,6 +87,8 @@ public abstract class WearLegacyA11yTest {
         get() = true
 
     public open fun configureAccessibilityValidator(validator: AccessibilityValidator) {
+        validator.setCaptureScreenshots(true)
+        validator.setSaveImages(true)
     }
 
     public fun runScreenTest(

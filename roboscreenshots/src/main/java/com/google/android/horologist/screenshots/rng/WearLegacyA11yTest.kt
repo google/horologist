@@ -66,7 +66,7 @@ import org.robolectric.annotation.GraphicsMode
 import org.robolectric.shadows.ShadowBuild
 
 @Config(
-    sdk = [34],
+    sdk = [35],
     qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 @RunWith(AndroidJUnit4::class)

@@ -47,7 +47,7 @@ import org.robolectric.annotation.Config
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
 @Config(
-    sdk = [30],
+    sdk = [35],
     qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
 )
 class SnackbarHostTest {

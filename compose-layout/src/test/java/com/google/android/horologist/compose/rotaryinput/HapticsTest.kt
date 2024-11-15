@@ -34,7 +34,7 @@ import org.robolectric.shadows.ShadowBuild
 @RunWith(RobolectricTestRunner::class)
 class HapticsTest {
     @Test
-    @Config(sdk = [33])
+    @Config(sdk = [35])
     fun testPixelWatch1Wear4() {
         ShadowBuild.setManufacturer("Google")
         ShadowBuild.setModel("Google Pixel Watch")
@@ -45,7 +45,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [34])
+    @Config(sdk = [35])
     fun testPixelWatch1Wear35() {
         ShadowBuild.setManufacturer("Google")
         ShadowBuild.setModel("Google Pixel Watch")
@@ -61,7 +61,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [33])
+    @Config(sdk = [35])
     fun testGenericWear4() {
         ShadowBuild.setManufacturer("XXX")
         ShadowBuild.setModel("YYY")
@@ -72,7 +72,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [30])
+    @Config(sdk = [35])
     fun testGenericWear35() {
         ShadowBuild.setManufacturer("XXX")
         ShadowBuild.setModel("YYY")
@@ -88,7 +88,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [30])
+    @Config(sdk = [35])
     fun testGenericWear3() {
         ShadowBuild.setManufacturer("XXX")
         ShadowBuild.setModel("YYY")
@@ -110,7 +110,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [33])
+    @Config(sdk = [35])
     fun testGalaxyWatchClassic() {
         ShadowBuild.setManufacturer("Samsung")
         // Galaxy Watch4 Classic
@@ -122,7 +122,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [33])
+    @Config(sdk = [35])
     fun testGalaxyWatch() {
         ShadowBuild.setManufacturer("Samsung")
         // Galaxy Watch 5 Pro

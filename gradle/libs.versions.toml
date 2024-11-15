@@ -14,10 +14,10 @@ androidx-test-ext = "1.2.1"
 androidx-test-runner = "1.6.2"
 androidx-wear-watchface = "1.2.1"
 androidxActivity = "1.9.3"
-androidxComposeBom = "2024.10.00"
+androidxComposeBom = "2024.11.00"
 androidxCore = "1.15.0"
 androidxLifecycle = "2.8.7"
-androidxNavigation = "2.8.3"
+androidxNavigation = "2.8.4"
 androidxPhoneInteractions = "1.1.0-alpha04"
 androidxRemoteInteractions = "1.1.0-rc01"
 androidxStartup = "1.2.0"
@@ -32,7 +32,7 @@ appcompat = "1.7.0"
 com-squareup-okhttp3 = "5.0.0-alpha.14"
 com-squareup-retrofit2 = "2.11.0"
 compose-material3 = "1.3.1"
-wearComposeMaterial3 = "1.0.0-alpha28"
+wearComposeMaterial3 = "1.0.0-alpha29"
 composesnapshot = "-"
 dependencyAnalysis = "2.4.2"
 dokka = "1.9.20"
@@ -50,7 +50,7 @@ material = "1.12.0"
 metalava = "0.3.5"
 moshi = "1.15.1"
 okio = "3.9.1"
-org-robolectric = "4.13"
+org-robolectric = "4.14"
 playServicesAuth = "21.2.0"
 protobuf = "4.28.3"
 protobuf-gen-grpc-java = "1.68.1"
@@ -64,7 +64,7 @@ tiles-tooling-preview = "1.4.1"
 truth = "1.4.4"
 wearInput = "1.2.0-alpha02"
 wearToolingPreview = "1.0.0"
-wearcompose = "1.5.0-alpha05"
+wearcompose = "1.5.0-alpha06"
 
 [libraries]
 accessibility-test-framework = { module = "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework", version.ref = "accessibilityTestFramework" }
@@ -114,7 +114,7 @@ androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0-beta0
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-runtime = { module = "androidx.navigation:navigation-runtime", version.ref = "androidxNavigation" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidxNavigation" }
-androidx-paging = "androidx.paging:paging-compose:3.3.2"
+androidx-paging = "androidx.paging:paging-compose:3.3.4"
 androidx-palette-ktx = "androidx.palette:palette-ktx:1.0.0"
 androidx-runtime-tracing = { module = "androidx.compose.runtime:runtime-tracing", version.ref = "runtimeTracing" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "androidxStartup" }
@@ -191,7 +191,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 lottie-compose = "com.airbnb.android:lottie-compose:6.6.0"
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.20.0-coil2"
+mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.26.0"
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }

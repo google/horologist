@@ -39,7 +39,7 @@ import org.robolectric.shadows.ShadowNetworkCapabilities
 import org.robolectric.shadows.ShadowNetworkInfo
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [33])
+@Config(sdk = [35])
 class NetworkRequesterTest {
     val connectivityManager = ApplicationProvider.getApplicationContext<Context>()
         .getSystemService(ConnectivityManager::class.java)

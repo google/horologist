@@ -26,7 +26,6 @@ import org.robolectric.versioning.AndroidVersions.U
 @Implements(AccessibilityManager::class)
 internal class ExtraShadowAccessibilityManager : ShadowAccessibilityManager() {
 
-
     /**
      * This shadow method is required because {@link
      * android.view.accessibility.DirectAccessibilityConnection} calls it to determine if any

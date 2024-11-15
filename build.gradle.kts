@@ -79,6 +79,7 @@ if (media3Checkout.isNotBlank()) {
                         project(":media3-test-utils-robolectric")
                     )
                     substitute(module("androidx.media3:media3-ui")).using(project(":media3-lib-ui"))
+                    substitute(module("androidx.media3:media3-ui-compose")).using(project(":media3-lib-ui-compose"))
                 }
             }
         }

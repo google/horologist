@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.media3.common.Player
-import androidx.media3.compose.rememberSeekToPreviousButtonState
+import androidx.media3.ui.compose.state.rememberPreviousButtonState
 import androidx.wear.compose.material.ButtonColors
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
@@ -35,7 +35,7 @@ public fun SeekToPreviousButton(
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     iconSize: Dp = 32.dp,
 ) {
-    val state = rememberSeekToPreviousButtonState(player)
+    val state = rememberPreviousButtonState(player)
     SeekToPreviousButton(
         onClick = state::onClick,
         modifier = modifier,

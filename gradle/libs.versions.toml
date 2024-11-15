@@ -8,7 +8,7 @@ androidx-constraintlayout-compose = "1.1.0"
 androidx-datastore = "1.1.1"
 androidx-health-services = "1.0.0-rc02"
 androidx-hilt = "1.2.0"
-androidx-media3 = "1.5.0-alpha01"
+androidx-media3 = "1.5.0-rc01"
 androidx-test-espresso = "3.6.1"
 androidx-test-ext = "1.2.1"
 androidx-test-runner = "1.6.2"
@@ -110,6 +110,7 @@ androidx-media3-session = { module = "androidx.media3:media3-session", version.r
 androidx-media3-testutils = { module = "androidx.media3:media3-test-utils", version.ref = "androidx-media3" }
 androidx-media3-testutils-robolectric = { module = "androidx.media3:media3-test-utils-robolectric", version.ref = "androidx-media3" }
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidx-media3" }
+androidx-media3-ui-compose = { module = "androidx.media3:media3-ui-compose", version.ref = "androidx-media3" }
 androidx-mediarouter = "androidx.mediarouter:mediarouter:1.7.0"
 androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0-beta01"
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }

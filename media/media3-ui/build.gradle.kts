@@ -112,6 +112,9 @@ dependencies {
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
 
+    api(libs.androidx.media3.ui.compose)
+//    api(project(":media3-lib-ui-compose"))
+
     implementation(projects.media.audio)
     implementation(projects.media.audioUi)
     implementation(projects.composeLayout)

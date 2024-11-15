@@ -18,11 +18,11 @@ package com.google.android.horologist.tiles.render
 
 import android.content.Context
 import androidx.wear.protolayout.DeviceParametersBuilders
-import androidx.wear.protolayout.LayoutElementBuilders.Layout
 import androidx.wear.protolayout.LayoutElementBuilders.LayoutElement
 import androidx.wear.protolayout.ResourceBuilders.Resources
 import androidx.wear.protolayout.StateBuilders.State
 import androidx.wear.protolayout.TimelineBuilders
+import androidx.wear.protolayout.TimelineBuilders.TimelineEntry
 import androidx.wear.protolayout.material.Colors
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders.Tile
@@ -52,15 +52,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
         val rootLayout = renderTile(state, requestParams.deviceConfiguration)
 
         val singleTileTimeline = TimelineBuilders.Timeline.Builder()
-            .addTimelineEntry(
-                TimelineBuilders.TimelineEntry.Builder()
-                    .setLayout(
-                        Layout.Builder()
-                            .setRoot(rootLayout)
-                            .build(),
-                    )
-                    .build(),
-            )
+            .addTimelineEntry(TimelineEntry.fromLayoutElement(rootLayout))
             .build()
 
         return Tile.Builder()

@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            tileSync.trackInstalledTiles(this@MainActivity)
+            tileSync.trackInstalledTiles()
         }
 
         setContent {

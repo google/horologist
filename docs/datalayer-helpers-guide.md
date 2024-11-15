@@ -201,13 +201,13 @@ To determine whether your Tile(s) are installed, add the following to your `Tile
 In `onTileAddEvent`:
 
 ```kotlin
-wearAppHelper.markTileAsInstalled("SummaryTile")
+wearAppHelper.updateInstalledTiles()
 ```
 
 In `onTileRemoveEvent`:
 
 ```kotlin
-wearAppHelper.markTileAsRemoved("SummaryTile")
+wearAppHelper.updateInstalledTiles()
 ```
 
 ## Deeplink into Tiles settings editor to install a Tile (phone only)

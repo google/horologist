@@ -74,14 +74,16 @@ package com.google.android.horologist.screenshots.rng {
     method @org.robolectric.ParameterizedRobolectricTestRunner.Parameters public java.util.List<com.google.android.horologist.screenshots.rng.WearDevice> devices();
   }
 
-  @org.junit.runner.RunWith(AndroidJUnit4::class) @org.robolectric.annotation.Config(sdk={33}, qualifiers=com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSLargeRound) @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class WearLegacyA11yTest {
+  @org.junit.runner.RunWith(AndroidJUnit4::class) @org.robolectric.annotation.Config(sdk={34}, qualifiers=com.github.takahirom.roborazzi.RobolectricDeviceQualifiers.WearOSLargeRound) @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE) public abstract class WearLegacyA11yTest {
     ctor public WearLegacyA11yTest();
     method @androidx.compose.runtime.Composable public void ComponentScaffold(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method @androidx.compose.runtime.Composable public void TestScaffold(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public final void captureScreenA11yRoboImage(String filePath, com.github.takahirom.roborazzi.RoborazziOptions roborazziOptions);
     method public final void captureScreenshot(optional String suffix);
+    method public void configureAccessibilityValidator(com.google.android.apps.common.testing.accessibility.framework.integrations.espresso.AccessibilityValidator validator);
     method @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule getComposeRule();
     method public coil.test.FakeImageLoaderEngine? getImageLoader();
+    method public boolean getRunAtf();
     method @org.junit.Rule public final org.junit.rules.TestName getTestInfo();
     method public float getTolerance();
     method public final void runComponentTest(optional androidx.compose.ui.graphics.Color? background, kotlin.jvm.functions.Function0<kotlin.Unit> content);
@@ -89,6 +91,7 @@ package com.google.android.horologist.screenshots.rng {
     method public String testName(String suffix);
     property @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule composeRule;
     property public coil.test.FakeImageLoaderEngine? imageLoader;
+    property public boolean runAtf;
     property @org.junit.Rule public final org.junit.rules.TestName testInfo;
     property public float tolerance;
     field public static final com.google.android.horologist.screenshots.rng.WearLegacyA11yTest.Companion Companion;
@@ -126,6 +129,7 @@ package com.google.android.horologist.screenshots.rng {
     method public coil.test.FakeImageLoaderEngine? getImageLoader();
     method @org.junit.Rule public final org.junit.rules.TestName getTestInfo();
     method public float getTolerance();
+    method public com.github.takahirom.roborazzi.RoborazziOptions roborazziOptions(optional boolean applyDeviceCrop);
     method public final void runTest(optional String? suffix, optional com.google.android.horologist.screenshots.rng.WearDevice? device, optional boolean applyDeviceConfig, optional boolean captureScreenshot, kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public String testName(String suffix);
     property @org.junit.Rule public final androidx.compose.ui.test.junit4.ComposeContentTestRule composeRule;

@@ -56,7 +56,6 @@ fun TrackingScreen(
         state = state,
         onActivityLaunchedOnceCheckedChanged = viewModel::onActivityLaunchedOnceCheckedChanged,
         onSetupCompletedCheckedChanged = viewModel::onSetupCompletedCheckedChanged,
-        onTileCheckedChanged = viewModel::onTileCheckedChanged,
         onComplicationCheckedChanged = viewModel::onComplicationCheckedChanged,
         onDisplayInfoClicked = onDisplayInfoClicked,
         columnState = columnState,
@@ -69,7 +68,6 @@ fun TrackingScreen(
     state: TrackingScreenUiState,
     onActivityLaunchedOnceCheckedChanged: (Boolean) -> Unit,
     onSetupCompletedCheckedChanged: (Boolean) -> Unit,
-    onTileCheckedChanged: (tile: String, Boolean) -> Unit,
     onComplicationCheckedChanged: (complication: String, Boolean) -> Unit,
     onDisplayInfoClicked: (info: String) -> Unit,
     columnState: ScalingLazyColumnState,
@@ -140,7 +138,7 @@ fun TrackingScreen(
                         )
                         SplitToggleChip(
                             checked = tileEntry.value,
-                            onCheckedChanged = { onTileCheckedChanged(tileEntry.key, it) },
+                            onCheckedChanged = { /* NO-OP */ },
                             label = tileEntry.key,
                             onClick = { onDisplayInfoClicked(info) },
                             toggleControl = ToggleChipToggleControl.Switch,
@@ -196,7 +194,6 @@ fun TrackingScreenPreview() {
         ),
         onActivityLaunchedOnceCheckedChanged = { },
         onSetupCompletedCheckedChanged = { },
-        onTileCheckedChanged = { _, _ -> },
         onComplicationCheckedChanged = { _, _ -> },
         onDisplayInfoClicked = { },
         columnState = rememberResponsiveColumnState(),

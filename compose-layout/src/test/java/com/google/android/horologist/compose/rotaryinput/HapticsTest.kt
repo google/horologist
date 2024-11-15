@@ -35,7 +35,7 @@ import org.robolectric.shadows.ShadowBuild
 class HapticsTest {
     @Test
     @Config(sdk = [35])
-    fun testPixelWatch1Wear4() {
+    fun testPixelWatch1Wear_API35() {
         ShadowBuild.setManufacturer("Google")
         ShadowBuild.setModel("Google Pixel Watch")
 
@@ -45,8 +45,30 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [35])
-    fun testPixelWatch1Wear35() {
+    @Config(sdk = [34])
+    fun testPixelWatch1Wear_5() {
+        ShadowBuild.setManufacturer("Google")
+        ShadowBuild.setModel("Google Pixel Watch")
+
+        val hapticFeedback = getHapticFeedback()
+
+        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
+    }
+
+    @Test
+    @Config(sdk = [33])
+    fun testPixelWatch1Wear_4() {
+        ShadowBuild.setManufacturer("Google")
+        ShadowBuild.setModel("Google Pixel Watch")
+
+        val hapticFeedback = getHapticFeedback()
+
+        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
+    }
+
+    @Test
+    @Config(sdk = [30])
+    fun testPixelWatch1Wear_3_5() {
         ShadowBuild.setManufacturer("Google")
         ShadowBuild.setModel("Google Pixel Watch")
         Settings.Global.putString(
@@ -57,12 +79,12 @@ class HapticsTest {
 
         val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
+        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear3point5RotaryHapticFeedback")
     }
 
     @Test
-    @Config(sdk = [35])
-    fun testGenericWear4() {
+    @Config(sdk = [33])
+    fun testGenericWear_4() {
         ShadowBuild.setManufacturer("XXX")
         ShadowBuild.setModel("YYY")
 
@@ -72,8 +94,8 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [35])
-    fun testGenericWear35() {
+    @Config(sdk = [30])
+    fun testGenericWear_3_5() {
         ShadowBuild.setManufacturer("XXX")
         ShadowBuild.setModel("YYY")
         Settings.Global.putString(
@@ -88,8 +110,8 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [35])
-    fun testGenericWear3() {
+    @Config(sdk = [30])
+    fun testGenericWear_3() {
         ShadowBuild.setManufacturer("XXX")
         ShadowBuild.setModel("YYY")
 
@@ -100,7 +122,7 @@ class HapticsTest {
 
     @Test
     @Config(sdk = [28])
-    fun testGenericWear2() {
+    fun testGenericWear_2() {
         ShadowBuild.setManufacturer("XXX")
         ShadowBuild.setModel("YYY")
 
@@ -110,7 +132,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [35])
+    @Config(sdk = [33])
     fun testGalaxyWatchClassic() {
         ShadowBuild.setManufacturer("Samsung")
         // Galaxy Watch4 Classic
@@ -122,7 +144,7 @@ class HapticsTest {
     }
 
     @Test
-    @Config(sdk = [35])
+    @Config(sdk = [33])
     fun testGalaxyWatch() {
         ShadowBuild.setManufacturer("Samsung")
         // Galaxy Watch 5 Pro

@@ -44,7 +44,8 @@ class DatePickerA11yTest : WearLegacyA11yTest() {
                 override fun describeTo(description: Description) {
                     description.appendText("a TouchTargetSizeCheck on the screen edge")
                 }
-            })
+            },
+        )
     }
 
     @Test

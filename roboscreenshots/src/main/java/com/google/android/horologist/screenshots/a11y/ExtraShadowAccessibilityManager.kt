@@ -26,6 +26,7 @@ import org.robolectric.versioning.AndroidVersions.U
 @Implements(AccessibilityManager::class)
 internal class ExtraShadowAccessibilityManager : ShadowAccessibilityManager() {
 
+
     /**
      * This shadow method is required because {@link
      * android.view.accessibility.DirectAccessibilityConnection} calls it to determine if any
@@ -33,7 +34,7 @@ internal class ExtraShadowAccessibilityManager : ShadowAccessibilityManager() {
      */
     @SuppressLint("PrivateApi")
     @Implementation(minSdk = U.SDK_INT)
-    fun getWindowTransformationSpec(windowId: Int): Any {
+    override fun getWindowTransformationSpec(windowId: Int): Any {
         val instance =
             Class.forName("android.view.accessibility.IAccessibilityManager\$WindowTransformationSpec")
                 .getDeclaredConstructor().newInstance()

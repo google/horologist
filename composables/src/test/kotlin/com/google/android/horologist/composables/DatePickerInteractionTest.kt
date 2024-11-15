@@ -27,6 +27,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.wear.compose.material.Text
+import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert
 import org.junit.Rule
@@ -40,7 +41,7 @@ import java.time.LocalDate
 @RunWith(RobolectricTestRunner::class)
 @Config(
     sdk = [35],
-    qualifiers = "w227dp-h227dp-small-notlong-round-watch-xhdpi-keyshidden-nonav",
+    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class DatePickerInteractionTest {

@@ -29,7 +29,7 @@ import org.junit.Test
 import org.robolectric.annotation.Config
 
 @Config(
-    sdk = [33],
+    sdk = [35],
     qualifiers = "w227dp-h330dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
 )
 class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() {

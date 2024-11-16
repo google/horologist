@@ -53,7 +53,7 @@ import kotlin.time.Duration.Companion.minutes
 @FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 @LargeTest
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [33])
+@Config(sdk = [35])
 class PlayerScreenTest {
 
     @get:Rule

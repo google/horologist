@@ -61,7 +61,7 @@ import org.robolectric.annotation.GraphicsMode
 import org.robolectric.shadows.ShadowDisplay
 
 @Config(
-    sdk = [33],
+    sdk = [35],
     qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 @RunWith(ParameterizedRobolectricTestRunner::class)

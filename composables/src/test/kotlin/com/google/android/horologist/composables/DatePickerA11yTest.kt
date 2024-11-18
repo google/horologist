@@ -20,11 +20,34 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.google.android.apps.common.testing.accessibility.framework.AccessibilityViewCheckResult
+import com.google.android.apps.common.testing.accessibility.framework.checks.TouchTargetSizeCheck
+import com.google.android.apps.common.testing.accessibility.framework.integrations.espresso.AccessibilityValidator
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
+import org.hamcrest.Description
+import org.hamcrest.TypeSafeMatcher
 import org.junit.Test
 import java.time.LocalDate
 
 class DatePickerA11yTest : WearLegacyA11yTest() {
+    override fun configureAccessibilityValidator(validator: AccessibilityValidator) {
+        super.configureAccessibilityValidator(validator)
+        validator.setSuppressingResultMatcher(
+            // Year is off screen initially
+            object : TypeSafeMatcher<AccessibilityViewCheckResult>() {
+                override fun matchesSafely(item: AccessibilityViewCheckResult): Boolean {
+                    val isTouchTargetCheck =
+                        item.accessibilityHierarchyCheck == TouchTargetSizeCheck::class.java
+                    return (isTouchTargetCheck && item.element?.boundsInScreen?.right == 454)
+                }
+
+                override fun describeTo(description: Description) {
+                    description.appendText("a TouchTargetSizeCheck on the screen edge")
+                }
+            },
+        )
+    }
+
     @Test
     fun screenshot() {
         enableTouchExploration()
@@ -48,28 +71,19 @@ class DatePickerA11yTest : WearLegacyA11yTest() {
             )
         }
 
-        composeRule.onNodeWithContentDescription("Next")
-            .assertHasClickAction()
-            .performClick()
+        composeRule.onNodeWithContentDescription("Next").assertHasClickAction().performClick()
 
-        composeRule.onNodeWithText("Day")
-            .assertExists()
+        composeRule.onNodeWithText("Day").assertExists()
         captureScreenshot("_1")
 
-        composeRule.onNodeWithContentDescription("Next")
-            .assertHasClickAction()
-            .performClick()
+        composeRule.onNodeWithContentDescription("Next").assertHasClickAction().performClick()
 
-        composeRule.onNodeWithText("Month")
-            .assertExists()
+        composeRule.onNodeWithText("Month").assertExists()
         captureScreenshot("_2")
 
-        composeRule.onNodeWithContentDescription("Next")
-            .assertHasClickAction()
-            .performClick()
+        composeRule.onNodeWithContentDescription("Next").assertHasClickAction().performClick()
 
-        composeRule.onNodeWithText("Year")
-            .assertExists()
+        composeRule.onNodeWithText("Year").assertExists()
         captureScreenshot("_3")
     }
 }

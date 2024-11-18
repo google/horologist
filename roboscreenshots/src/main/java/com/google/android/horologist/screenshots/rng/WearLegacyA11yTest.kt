@@ -66,7 +66,7 @@ import org.robolectric.annotation.GraphicsMode
 import org.robolectric.shadows.ShadowBuild
 
 @Config(
-    sdk = [34],
+    sdk = [35],
     qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 @RunWith(AndroidJUnit4::class)
@@ -87,6 +87,8 @@ public abstract class WearLegacyA11yTest {
         get() = true
 
     public open fun configureAccessibilityValidator(validator: AccessibilityValidator) {
+        validator.setCaptureScreenshots(true)
+        validator.setSaveImages(true)
     }
 
     public fun runScreenTest(

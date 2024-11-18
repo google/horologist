@@ -41,7 +41,7 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @Config(
-    sdk = [33],
+    sdk = [35],
     qualifiers = RobolectricDeviceQualifiers.LargeDesktop,
 )
 @RunWith(ParameterizedRobolectricTestRunner::class)

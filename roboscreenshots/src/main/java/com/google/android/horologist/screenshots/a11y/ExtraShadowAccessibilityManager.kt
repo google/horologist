@@ -33,7 +33,7 @@ internal class ExtraShadowAccessibilityManager : ShadowAccessibilityManager() {
      */
     @SuppressLint("PrivateApi")
     @Implementation(minSdk = U.SDK_INT)
-    fun getWindowTransformationSpec(windowId: Int): Any {
+    override fun getWindowTransformationSpec(windowId: Int): Any {
         val instance =
             Class.forName("android.view.accessibility.IAccessibilityManager\$WindowTransformationSpec")
                 .getDeclaredConstructor().newInstance()

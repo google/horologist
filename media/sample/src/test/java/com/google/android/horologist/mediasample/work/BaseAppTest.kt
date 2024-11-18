@@ -25,7 +25,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
 @RunWith(RobolectricTestRunner::class)
-@Config(application = HiltTestApplication::class, sdk = [33])
+@Config(application = HiltTestApplication::class, sdk = [35])
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 abstract class BaseAppTest {
     @get:Rule

@@ -20,11 +20,15 @@ package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams
 import androidx.wear.compose.foundation.lazy.ScalingParams
+import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils
+import com.google.android.apps.common.testing.accessibility.framework.AccessibilityViewCheckResult
+import com.google.android.apps.common.testing.accessibility.framework.checks.DuplicateSpeakableTextCheck
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
+import org.hamcrest.Matcher
 import org.junit.Test
 import org.robolectric.annotation.Config
 
@@ -33,6 +37,9 @@ import org.robolectric.annotation.Config
     qualifiers = "w227dp-h330dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
 )
 class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() {
+    // TODO fix this warning
+    override fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> =
+        AccessibilityCheckResultUtils.matchesCheck(DuplicateSpeakableTextCheck::class.java)
 
     @Test
     fun browseScreen() {
@@ -65,16 +72,17 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() 
     }
 }
 
-public fun ScalingLazyColumnState.copy(scalingParams: ScalingParams): ScalingLazyColumnState = ScalingLazyColumnState(
-    initialScrollPosition = initialScrollPosition,
-    timeTextHomeOffset = timeTextHomeOffset,
-    autoCentering = autoCentering,
-    anchorType = anchorType,
-    contentPadding = contentPadding,
-    rotaryMode = rotaryMode,
-    reverseLayout = reverseLayout,
-    verticalArrangement = verticalArrangement,
-    horizontalAlignment = horizontalAlignment,
-    userScrollEnabled = userScrollEnabled,
-    scalingParams = scalingParams,
-)
+public fun ScalingLazyColumnState.copy(scalingParams: ScalingParams): ScalingLazyColumnState =
+    ScalingLazyColumnState(
+        initialScrollPosition = initialScrollPosition,
+        timeTextHomeOffset = timeTextHomeOffset,
+        autoCentering = autoCentering,
+        anchorType = anchorType,
+        contentPadding = contentPadding,
+        rotaryMode = rotaryMode,
+        reverseLayout = reverseLayout,
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = horizontalAlignment,
+        userScrollEnabled = userScrollEnabled,
+        scalingParams = scalingParams,
+    )

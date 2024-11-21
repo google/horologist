@@ -110,7 +110,7 @@ public abstract class WearLegacyA11yTest {
 
     public fun SemanticsNodeInteraction.runAccessibilityChecks() {
         checkRoboAccessibility(
-            roborazziATFAccessibilityCheckOptions = accessibilityCheckOptions()
+            roborazziATFAccessibilityCheckOptions = accessibilityCheckOptions(),
         )
     }
 
@@ -118,9 +118,9 @@ public abstract class WearLegacyA11yTest {
         return RoborazziATFAccessibilityCheckOptions(
             checker = RoborazziATFAccessibilityChecker(
                 preset = AccessibilityCheckPreset.LATEST,
-                suppressions = accessibilitySuppressions()
+                suppressions = accessibilitySuppressions(),
             ),
-            failureLevel = failureLevel
+            failureLevel = failureLevel,
         )
     }
 

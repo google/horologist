@@ -29,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
@@ -88,6 +89,9 @@ public abstract class WearLegacyA11yTest {
     public open val runAtf: Boolean
         get() = true
 
+    public open val failureLevel: RoborazziATFAccessibilityChecker.CheckLevel
+        get() = RoborazziATFAccessibilityChecker.CheckLevel.Warning
+
     public fun runScreenTest(
         content: @Composable () -> Unit,
     ) {
@@ -98,24 +102,29 @@ public abstract class WearLegacyA11yTest {
         }
 
         if (runAtf) {
-            composeRule.onRoot().checkRoboAccessibility(
-                roborazziATFAccessibilityCheckOptions = accessibilityCheckOptions()
-            )
+            composeRule.onRoot().runAccessibilityChecks()
         }
 
         captureScreenshot()
     }
 
-    open fun accessibilityCheckOptions(): RoborazziATFAccessibilityCheckOptions =
-        RoborazziATFAccessibilityCheckOptions(
+    public fun SemanticsNodeInteraction.runAccessibilityChecks() {
+        checkRoboAccessibility(
+            roborazziATFAccessibilityCheckOptions = accessibilityCheckOptions()
+        )
+    }
+
+    public open fun accessibilityCheckOptions(): RoborazziATFAccessibilityCheckOptions {
+        return RoborazziATFAccessibilityCheckOptions(
             checker = RoborazziATFAccessibilityChecker(
                 preset = AccessibilityCheckPreset.LATEST,
                 suppressions = accessibilitySuppressions()
             ),
-            failureLevel = RoborazziATFAccessibilityChecker.CheckLevel.Warning
+            failureLevel = failureLevel
         )
+    }
 
-    open fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> {
+    public open fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> {
         return Matchers.not(Matchers.anything())
     }
 

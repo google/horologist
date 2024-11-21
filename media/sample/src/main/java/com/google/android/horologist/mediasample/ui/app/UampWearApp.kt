@@ -52,14 +52,13 @@ import com.google.android.horologist.mediasample.ui.entity.UampEntityScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreenViewModel
 import com.google.android.horologist.mediasample.ui.entity.UampStreamingPlaylistScreen
 import com.google.android.horologist.mediasample.ui.entity.UampStreamingPlaylistScreenViewModel
+import com.google.android.horologist.mediasample.ui.experimentaluimode.ExperimentalUiModePlayerScreen
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.AudioDebug
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.DeveloperOptions
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignInPromptScreen
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignInScreen
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignOutScreen
-import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.NewHotness
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.Samples
-import com.google.android.horologist.mediasample.ui.newhotness.NewHotnessPlayerScreen
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
@@ -83,14 +82,21 @@ fun UampWearApp(
     UampTheme {
         MediaPlayerScaffold(
             playerScreen = {
-                UampMediaPlayerScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    mediaPlayerScreenViewModel = hiltViewModel(),
-                    volumeViewModel = volumeViewModel,
-                    onVolumeClick = {
-                        navController.navigate(NavigationScreen.Volume)
-                    },
-                )
+                if (appState.experimentalUiMode == true) {
+                    ExperimentalUiModePlayerScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        experimentalUiModePlayerScreenViewModel = hiltViewModel(),
+                    )
+                } else {
+                    UampMediaPlayerScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        mediaPlayerScreenViewModel = hiltViewModel(),
+                        volumeViewModel = volumeViewModel,
+                        onVolumeClick = {
+                            navController.navigate(NavigationScreen.Volume)
+                        },
+                    )
+                }
             },
             libraryScreen = {
                 if (appState.streamingMode == true) {
@@ -241,10 +247,6 @@ fun UampWearApp(
                         navController = navController,
                         viewModel = hiltViewModel(),
                     )
-                }
-
-                composable<NewHotness> {
-                    NewHotnessPlayerScreen()
                 }
             },
         )

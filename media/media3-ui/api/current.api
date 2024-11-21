@@ -1,0 +1,87 @@
+// Signature format: 4.0
+package androidx.media3.compose {
+
+  public final class PlayPauseButtonState {
+    ctor public PlayPauseButtonState(androidx.media3.common.Player player);
+    method public boolean getShowPlay();
+    method public boolean isEnabled();
+    method public suspend Object? observe(kotlin.coroutines.Continuation<?>);
+    method public void onClick();
+    property public final boolean isEnabled;
+    property public final boolean showPlay;
+  }
+
+  public final class PlayPauseButtonStateKt {
+    method @androidx.compose.runtime.Composable public static androidx.media3.compose.PlayPauseButtonState rememberPlayPauseButtonState(androidx.media3.common.Player player);
+  }
+
+  public final class SeekToNextButtonState {
+    ctor public SeekToNextButtonState(androidx.media3.common.Player player);
+    method public boolean isEnabled();
+    method public suspend Object? observe(kotlin.coroutines.Continuation<?>);
+    method public void onClick();
+    property public final boolean isEnabled;
+  }
+
+  public final class SeekToNextButtonStateKt {
+    method @androidx.compose.runtime.Composable public static androidx.media3.compose.SeekToNextButtonState rememberSeekToNextButtonState(androidx.media3.common.Player player);
+  }
+
+  public final class SeekToPreviousButtonState {
+    ctor public SeekToPreviousButtonState(androidx.media3.common.Player player);
+    method public boolean isEnabled();
+    method public suspend Object? observe(kotlin.coroutines.Continuation<?>);
+    method public void onClick();
+    property public final boolean isEnabled;
+  }
+
+  public final class SeekToPreviousButtonStateKt {
+    method @androidx.compose.runtime.Composable public static androidx.media3.compose.SeekToPreviousButtonState rememberSeekToPreviousButtonState(androidx.media3.common.Player player);
+  }
+
+}
+
+package com.google.android.horologist.media3.ui.components {
+
+  public final class MediaControlButtonsKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaControlButtons(androidx.media3.common.Player player, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+  public final class MediaInfoDisplayKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaInfoDisplay(androidx.media3.common.Player player, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable public static com.google.android.horologist.media3.ui.components.MediaInfoDisplayState rememberMediaInfoDisplayState(androidx.media3.common.Player player);
+  }
+
+  public final class MediaInfoDisplayState {
+    ctor public MediaInfoDisplayState(androidx.media3.common.Player player);
+    method public com.google.android.horologist.media.ui.state.model.MediaUiModel getMediaUiModel();
+    method public suspend Object? observe(kotlin.coroutines.Continuation<?>);
+    property public final com.google.android.horologist.media.ui.state.model.MediaUiModel mediaUiModel;
+  }
+
+  public final class PlayPauseButtonKt {
+    method @androidx.compose.runtime.Composable public static void PlayPauseButton(androidx.media3.common.Player player, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long backgroundColor, optional kotlin.jvm.functions.Function0<kotlin.Unit> progress);
+  }
+
+}
+
+package com.google.android.horologist.media3.ui.components.controls {
+
+  public final class SeekToNextButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SeekToNextButton(androidx.media3.common.Player player, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize);
+  }
+
+  public final class SeekToPreviousButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SeekToPreviousButton(androidx.media3.common.Player player, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize);
+  }
+
+}
+
+package com.google.android.horologist.media3.ui.screens.player {
+
+  public final class PlayerScreenKt {
+    method @androidx.compose.runtime.Composable public static void PlayerScreen(androidx.media3.common.Player? player, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.media3.common.Player,kotlin.Unit> mediaInfoDisplay, optional kotlin.jvm.functions.Function1<? super androidx.media3.common.Player,kotlin.Unit> controlButtons, optional kotlin.jvm.functions.Function1<? super androidx.media3.common.Player,kotlin.Unit> background);
+  }
+
+}
+

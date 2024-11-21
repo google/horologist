@@ -18,22 +18,17 @@
 
 package com.google.android.horologist.media.ui.screens.browse
 
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams
 import androidx.wear.compose.foundation.lazy.ScalingParams
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityViewCheckResult
 import com.google.android.apps.common.testing.accessibility.framework.checks.DuplicateSpeakableTextCheck
-import com.google.android.apps.common.testing.accessibility.framework.checks.TouchTargetSizeCheck
-import com.google.android.apps.common.testing.accessibility.framework.matcher.ElementMatchers
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
-import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.TypeSafeMatcher
 import org.junit.Test
 import org.robolectric.annotation.Config
 

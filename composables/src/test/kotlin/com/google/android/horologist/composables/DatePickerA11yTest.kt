@@ -28,24 +28,22 @@ import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Test
 import java.time.LocalDate
+import org.hamcrest.Matcher
 
 class DatePickerA11yTest : WearLegacyA11yTest() {
-    override fun configureAccessibilityValidator(validator: AccessibilityValidator) {
-        super.configureAccessibilityValidator(validator)
-        validator.setSuppressingResultMatcher(
-            // Year is off screen initially
-            object : TypeSafeMatcher<AccessibilityViewCheckResult>() {
-                override fun matchesSafely(item: AccessibilityViewCheckResult): Boolean {
-                    val isTouchTargetCheck =
-                        item.accessibilityHierarchyCheck == TouchTargetSizeCheck::class.java
-                    return (isTouchTargetCheck && item.element?.boundsInScreen?.right == 454)
-                }
+    override fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> {
+        // Year is off screen initially
+        return object : TypeSafeMatcher<AccessibilityViewCheckResult>() {
+            override fun matchesSafely(item: AccessibilityViewCheckResult): Boolean {
+                val isTouchTargetCheck =
+                    item.accessibilityHierarchyCheck == TouchTargetSizeCheck::class.java
+                return (isTouchTargetCheck && item.element?.boundsInScreen?.right == 454)
+            }
 
-                override fun describeTo(description: Description) {
-                    description.appendText("a TouchTargetSizeCheck on the screen edge")
-                }
-            },
-        )
+            override fun describeTo(description: Description) {
+                description.appendText("a TouchTargetSizeCheck on the screen edge")
+            }
+        }
     }
 
     @Test

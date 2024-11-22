@@ -20,7 +20,6 @@ package com.google.android.horologist.screenshots.rng
 
 import android.app.Application
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Looper
 import android.view.accessibility.AccessibilityManager
 import androidx.compose.foundation.background
@@ -30,11 +29,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
-import androidx.compose.ui.test.tryPerformAccessibilityChecks
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Root
@@ -46,10 +44,14 @@ import coil.test.FakeImageLoaderEngine
 import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
 import com.github.takahirom.roborazzi.RoboComponent
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import com.github.takahirom.roborazzi.RoborazziATFAccessibilityCheckOptions
+import com.github.takahirom.roborazzi.RoborazziATFAccessibilityChecker
 import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.ThresholdValidator
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.google.android.apps.common.testing.accessibility.framework.integrations.espresso.AccessibilityValidator
+import com.github.takahirom.roborazzi.checkRoboAccessibility
+import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckPreset
+import com.google.android.apps.common.testing.accessibility.framework.AccessibilityViewCheckResult
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.screenshots.FixedTimeSource
@@ -57,13 +59,14 @@ import com.google.android.horologist.screenshots.a11y.A11ySnapshotTransformer
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.CorrectLayout
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withImageLoader
+import org.hamcrest.Matcher
+import org.hamcrest.Matchers
 import org.junit.Rule
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
-import org.robolectric.shadows.ShadowBuild
 
 @Config(
     sdk = [35],
@@ -86,10 +89,8 @@ public abstract class WearLegacyA11yTest {
     public open val runAtf: Boolean
         get() = true
 
-    public open fun configureAccessibilityValidator(validator: AccessibilityValidator) {
-        validator.setCaptureScreenshots(true)
-        validator.setSaveImages(true)
-    }
+    public open val failureLevel: RoborazziATFAccessibilityChecker.CheckLevel
+        get() = RoborazziATFAccessibilityChecker.CheckLevel.Warning
 
     public fun runScreenTest(
         content: @Composable () -> Unit,
@@ -100,20 +101,31 @@ public abstract class WearLegacyA11yTest {
             }
         }
 
-        if (runAtf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            // TODO change this check in ATF
-            ShadowBuild.setFingerprint("test_fingerprint")
-
-            composeRule.enableAccessibilityChecks()
-
-            val accessibilityValidator =
-                (composeRule as AndroidComposeTestRule<*, *>).accessibilityValidator!!
-            configureAccessibilityValidator(accessibilityValidator)
-
-            composeRule.onRoot().tryPerformAccessibilityChecks()
+        if (runAtf) {
+            composeRule.onRoot().runAccessibilityChecks()
         }
 
         captureScreenshot()
+    }
+
+    public fun SemanticsNodeInteraction.runAccessibilityChecks() {
+        checkRoboAccessibility(
+            roborazziATFAccessibilityCheckOptions = accessibilityCheckOptions(),
+        )
+    }
+
+    public open fun accessibilityCheckOptions(): RoborazziATFAccessibilityCheckOptions {
+        return RoborazziATFAccessibilityCheckOptions(
+            checker = RoborazziATFAccessibilityChecker(
+                preset = AccessibilityCheckPreset.LATEST,
+                suppressions = accessibilitySuppressions(),
+            ),
+            failureLevel = failureLevel,
+        )
+    }
+
+    public open fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> {
+        return Matchers.not(Matchers.anything())
     }
 
     public fun runComponentTest(

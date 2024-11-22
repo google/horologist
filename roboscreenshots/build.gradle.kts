@@ -90,7 +90,6 @@ dependencies {
     api(projects.composeLayout)
     api(projects.images.coil)
     api(projects.tiles)
-    api(libs.accessibility.test.framework)
 
     api(libs.kotlin.stdlib)
     api(libs.okio)
@@ -108,6 +107,7 @@ dependencies {
     api(libs.roborazzi.compose)
     api(libs.roborazzi.painter)
     api(libs.roborazzi.rule)
+    api(libs.roborazzi.accessibility.check)
 
     testImplementation(libs.robolectric)
 }

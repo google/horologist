@@ -25,19 +25,21 @@ package com.google.android.horologist.media.model {
   }
 
   public final class Media {
-    ctor public Media(String id, String uri, String title, String artist, optional String? artworkUri, optional Integer? artworkColor, optional java.util.Map<java.lang.String,?> extras);
+    ctor public Media(String id, String uri, String title, String artist, optional String? clientPackageName, optional String? artworkUri, optional Integer? artworkColor, optional java.util.Map<java.lang.String,?> extras);
     method public String component1();
     method public String component2();
     method public String component3();
     method public String component4();
     method public String? component5();
-    method public Integer? component6();
-    method public java.util.Map<java.lang.String,java.lang.Object> component7();
-    method public com.google.android.horologist.media.model.Media copy(String id, String uri, String title, String artist, String? artworkUri, Integer? artworkColor, java.util.Map<java.lang.String,?> extras);
+    method public String? component6();
+    method public Integer? component7();
+    method public java.util.Map<java.lang.String,java.lang.Object> component8();
+    method public com.google.android.horologist.media.model.Media copy(String id, String uri, String title, String artist, String? clientPackageName, String? artworkUri, Integer? artworkColor, java.util.Map<java.lang.String,?> extras);
     method public boolean equals(Object? other);
     method public String getArtist();
     method public Integer? getArtworkColor();
     method public String? getArtworkUri();
+    method public String? getClientPackageName();
     method public java.util.Map<java.lang.String,java.lang.Object> getExtras();
     method public String getId();
     method public String getTitle();
@@ -47,6 +49,7 @@ package com.google.android.horologist.media.model {
     property public final String artist;
     property public final Integer? artworkColor;
     property public final String? artworkUri;
+    property public final String? clientPackageName;
     property public final java.util.Map<java.lang.String,java.lang.Object> extras;
     property public final String id;
     property public final String title;

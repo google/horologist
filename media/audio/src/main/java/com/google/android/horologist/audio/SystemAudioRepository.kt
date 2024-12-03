@@ -135,8 +135,8 @@ public class SystemAudioRepository(
         }
     }
 
-    override fun launchOutputSelection(closeOnConnect: Boolean) {
-        if (!application.launchSystemMediaOutputSwitcherUi()) {
+    override fun launchOutputSelection(closeOnConnect: Boolean, clientPackageName: String?) {
+        if (!application.launchSystemMediaOutputSwitcherUi(clientPackageName)) {
             application.launchBluetoothSettings(closeOnConnect)
         }
     }

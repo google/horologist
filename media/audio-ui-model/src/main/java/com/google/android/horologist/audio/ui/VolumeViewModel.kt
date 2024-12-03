@@ -97,8 +97,8 @@ public open class VolumeViewModel(
 
     public fun launchOutputSelection(clientPackageName: String? = null) {
         audioOutputRepository.launchOutputSelection(
-                closeOnConnect = false,
-                clientPackageName = clientPackageName,
+            closeOnConnect = false,
+            clientPackageName = clientPackageName,
         )
     }
 

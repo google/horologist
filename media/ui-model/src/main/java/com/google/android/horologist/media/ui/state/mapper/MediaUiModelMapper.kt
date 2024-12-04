@@ -39,6 +39,7 @@ public object MediaUiModelMapper {
             id = media.id,
             title = title,
             subtitle = artist,
+            clientPackageName = media.clientPackageName,
             artwork = media.artworkUri?.let { CoilPaintable(it) },
             artworkColor = media.artworkColor?.let { Color(it) },
         )

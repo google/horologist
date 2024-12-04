@@ -31,10 +31,10 @@ public object OutputSwitcher {
     /**
      * Open the Output Switcher Dialog.
      */
-    public fun Context.launchSystemMediaOutputSwitcherUi(): Boolean {
+    public fun Context.launchSystemMediaOutputSwitcherUi(callingPkgName: String? = null): Boolean {
         val outputSwitcherLaunchIntent: Intent = Intent(OUTPUT_SWITCHER_INTENT_ACTION_NAME)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            .putExtra(EXTRA_OUTPUT_SWITCHER_PACKAGE_NAME, packageName)
+            .putExtra(EXTRA_OUTPUT_SWITCHER_PACKAGE_NAME, callingPkgName ?: packageName)
         val outputSwitcherSystemComponentName =
             getSystemOrSystemUpdatedAppComponent(outputSwitcherLaunchIntent)
         if (outputSwitcherSystemComponentName != null) {

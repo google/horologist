@@ -95,8 +95,11 @@ public open class VolumeViewModel(
         volumeRepository.decreaseVolume()
     }
 
-    public fun launchOutputSelection() {
-        audioOutputRepository.launchOutputSelection(closeOnConnect = false)
+    public fun launchOutputSelection(clientPackageName: String? = null) {
+        audioOutputRepository.launchOutputSelection(
+            closeOnConnect = false,
+            clientPackageName = clientPackageName,
+        )
     }
 
     override fun onCleared() {

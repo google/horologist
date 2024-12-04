@@ -35,5 +35,5 @@ public interface AudioOutputRepository : AutoCloseable {
     /**
      * Action to launch output selection by the user.
      */
-    public fun launchOutputSelection(closeOnConnect: Boolean)
+    public fun launchOutputSelection(closeOnConnect: Boolean, clientPackageName: String? = null)
 }

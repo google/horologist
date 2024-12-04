@@ -28,7 +28,7 @@ package com.google.android.horologist.audio.ui {
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.ui.VolumeUiState> getVolumeUiState();
     method public final void increaseVolume();
     method public final void increaseVolumeWithHaptics();
-    method public final void launchOutputSelection();
+    method public final void launchOutputSelection(optional String? clientPackageName);
     method public final void onVolumeChangeByScroll(float pixels);
     method public final void setVolume(int volume);
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;

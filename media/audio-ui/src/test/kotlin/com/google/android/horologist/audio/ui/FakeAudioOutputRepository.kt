@@ -23,7 +23,7 @@ class FakeAudioOutputRepository : AudioOutputRepository {
     override val audioOutput: MutableStateFlow<AudioOutput> = MutableStateFlow(AudioOutput.None)
     override val available: MutableStateFlow<List<AudioOutput>> = MutableStateFlow(listOf())
 
-    override fun launchOutputSelection(closeOnConnect: Boolean) {
+    override fun launchOutputSelection(closeOnConnect: Boolean, clientPackageName: String?) {
     }
 
     override fun close() {

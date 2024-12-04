@@ -26,11 +26,21 @@ import androidx.wear.ambient.AmbientLifecycleObserver
 data class AmbientStateUpdate(
     val ambientState: AmbientState,
     val changeTimeMillis: Long = System.currentTimeMillis(),
-)
+) {
+    override fun toString(): String {
+        return "${ambientState.javaClass.simpleName}[$changeTimeMillis]"
+    }
+
+    val isInteractive: Boolean
+        get() = ambientState is AmbientState.Interactive
+
+    val isAmbient: Boolean
+        get() = ambientState is AmbientState.Ambient
+}
 
 sealed interface AmbientState {
     data class Ambient(val ambientDetails: AmbientLifecycleObserver.AmbientDetails? = null) :
         AmbientState
 
-    object Interactive : AmbientState
+    data object Interactive : AmbientState
 }

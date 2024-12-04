@@ -21,10 +21,9 @@ import android.content.Context
 import android.content.ContextWrapper
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.wear.ambient.AmbientLifecycleObserver
@@ -49,44 +48,44 @@ import androidx.wear.ambient.AmbientLifecycleObserver
 @Composable
 fun AmbientAware(
     isAlwaysOnScreen: Boolean = true,
-    block: @Composable (AmbientStateUpdate) -> Unit,
+    block: @Composable (State<AmbientStateUpdate>) -> Unit,
 ) {
-    var ambientUpdate by remember(isAlwaysOnScreen) {
-        mutableStateOf(if (isAlwaysOnScreen) null else AmbientStateUpdate(AmbientState.Interactive))
-    }
-
-    val activity = LocalContext.current.findActivityOrNull()
     // Using AmbientAware correctly relies on there being an Activity context. If there isn't, then
     // gracefully allow the composition of [block], but no ambient-mode functionality is enabled.
-    if (activity != null && isAlwaysOnScreen) {
-        val lifecycle = LocalLifecycleOwner.current.lifecycle
-        val observer = remember {
-            val callback = object : AmbientLifecycleObserver.AmbientLifecycleCallback {
-                override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
-                    ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(ambientDetails))
-                }
+    val activity = LocalContext.current.findActivityOrNull()
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
 
-                override fun onExitAmbient() {
-                    ambientUpdate = AmbientStateUpdate(AmbientState.Interactive)
-                }
+    var ambientState = remember {
+        mutableStateOf<AmbientStateUpdate>(AmbientStateUpdate(AmbientState.Interactive))
+    }
 
-                override fun onUpdateAmbient() {
-                    val lastAmbientDetails =
-                        (ambientUpdate?.ambientState as? AmbientState.Ambient)?.ambientDetails
-                    ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(lastAmbientDetails))
-                }
-            }
-            AmbientLifecycleObserver(activity, callback).also {
-                // Necessary to populate the initial value
-                val initialAmbientState = if (it.isAmbient) {
-                    AmbientState.Ambient(null)
-                } else {
-                    AmbientState.Interactive
-                }
-                ambientUpdate = AmbientStateUpdate(initialAmbientState)
-            }
+    val observer = remember {
+        if (activity != null) {
+            AmbientLifecycleObserver(
+                activity,
+                object : AmbientLifecycleObserver.AmbientLifecycleCallback {
+                    override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
+                        ambientState.value = AmbientStateUpdate(AmbientState.Ambient(ambientDetails))
+                    }
+
+                    override fun onExitAmbient() {
+                        ambientState.value = AmbientStateUpdate(AmbientState.Interactive)
+                    }
+
+                    override fun onUpdateAmbient() {
+                        val lastAmbientDetails =
+                            (ambientState.value.ambientState as? AmbientState.Ambient)?.ambientDetails
+                        ambientState.value =
+                            AmbientStateUpdate(AmbientState.Ambient(lastAmbientDetails))
+                    }
+                },
+            )
+        } else {
+            null
         }
+    }
 
+    if (observer != null) {
         DisposableEffect(Unit) {
             lifecycle.addObserver(observer)
 
@@ -96,8 +95,8 @@ fun AmbientAware(
         }
     }
 
-    ambientUpdate?.let {
-        block(it)
+    if (isAlwaysOnScreen || ambientState.value.ambientState is AmbientState.Interactive) {
+        block(ambientState)
     }
 }
 

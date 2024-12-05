@@ -20,8 +20,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.State
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -30,25 +31,21 @@ import androidx.wear.ambient.AmbientLifecycleObserver
 
 /**
  * Composable for general handling of changes and updates to ambient status. A new
- * [AmbientStateUpdate] is generated with any change of ambient state, as well as with any periodic
+ * [AmbientAwareState] is generated with any change of ambient state, as well as with any periodic
  * update generated whilst the screen is in ambient mode.
  *
  * This composable changes the behavior of the activity, enabling Always-On. See:
  *
  *     https://developer.android.com/training/wearables/views/always-on).
  *
- * It should therefore be used high up in the tree of composables.
+ * It should be used within each individual screen inside nav routes.
  *
- * @param isAlwaysOnScreen If supplied, this indicates whether always-on should be enabled. This can
- * be used to ensure that some screens display an ambient-mode version, whereas others do not, for
- * example, a workout screen vs a end-of-workout summary screen.
- * @param block Lambda that will be used for building the UI, which is passed the current ambient
+ * @param content Lambda that will be used for building the UI, which is passed the current ambient
  * state.
  */
 @Composable
 fun AmbientAware(
-    isAlwaysOnScreen: Boolean = true,
-    block: @Composable (State<AmbientStateUpdate>) -> Unit,
+    content: @Composable (AmbientState) -> Unit,
 ) {
     // Using AmbientAware correctly relies on there being an Activity context. If there isn't, then
     // gracefully allow the composition of [block], but no ambient-mode functionality is enabled.
@@ -56,49 +53,60 @@ fun AmbientAware(
     val lifecycle = LocalLifecycleOwner.current.lifecycle
 
     var ambientState = remember {
-        mutableStateOf<AmbientStateUpdate>(AmbientStateUpdate(AmbientState.Interactive))
+        mutableStateOf<AmbientState>(AmbientState.Inactive)
     }
 
     val observer = remember {
         if (activity != null) {
+            println("Creating observer")
             AmbientLifecycleObserver(
                 activity,
                 object : AmbientLifecycleObserver.AmbientLifecycleCallback {
                     override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
-                        ambientState.value = AmbientStateUpdate(AmbientState.Ambient(ambientDetails))
+                        println("onEnterAmbient")
+                        ambientState.value = AmbientState.Ambient(
+                            burnInProtectionRequired = ambientDetails.burnInProtectionRequired,
+                            deviceHasLowBitAmbient = ambientDetails.deviceHasLowBitAmbient,
+                        )
                     }
 
                     override fun onExitAmbient() {
-                        ambientState.value = AmbientStateUpdate(AmbientState.Interactive)
+                        println("onExitAmbient")
+                        ambientState.value = AmbientState.Interactive
                     }
 
                     override fun onUpdateAmbient() {
+                        println("onUpdateAmbient")
                         val lastAmbientDetails =
-                            (ambientState.value.ambientState as? AmbientState.Ambient)?.ambientDetails
-                        ambientState.value =
-                            AmbientStateUpdate(AmbientState.Ambient(lastAmbientDetails))
+                            (ambientState.value as? AmbientState.Ambient)
+                        ambientState.value = AmbientState.Ambient(
+                            burnInProtectionRequired = lastAmbientDetails?.burnInProtectionRequired == true,
+                            deviceHasLowBitAmbient = lastAmbientDetails?.deviceHasLowBitAmbient == true,
+                        )
                     }
                 },
-            )
+            ).also { observer ->
+                ambientState.value =
+                    if (observer.isAmbient) AmbientState.Ambient() else AmbientState.Interactive
+
+                println("addObserver")
+                lifecycle.addObserver(observer)
+            }
         } else {
             null
         }
     }
 
-    if (observer != null) {
-        DisposableEffect(Unit) {
-            lifecycle.addObserver(observer)
-
-            onDispose {
-                lifecycle.removeObserver(observer)
-            }
-        }
+    val value = ambientState.value
+    SideEffect {
+        println("Side Effect $value")
     }
-
-    if (isAlwaysOnScreen || ambientState.value.ambientState is AmbientState.Interactive) {
-        block(ambientState)
+    CompositionLocalProvider(LocalAmbientState provides value) {
+        content(value)
     }
 }
+
+val LocalAmbientState = compositionLocalOf<AmbientState> { AmbientState.Inactive }
 
 private fun Context.findActivityOrNull(): Activity? {
     var context = this

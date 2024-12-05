@@ -61,7 +61,7 @@ import java.time.ZonedDateTime
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AmbientAwareTime(
-    stateUpdate: AmbientStateUpdate,
+    stateUpdate: AmbientState,
     updatePeriodMillis: Long = 1000,
     block: @Composable (dateTime: ZonedDateTime, isAmbient: Boolean) -> Unit,
 ) {
@@ -75,7 +75,7 @@ fun AmbientAwareTime(
     }
 
     LaunchedEffect(stateUpdate) {
-        if (stateUpdate.ambientState == AmbientState.Interactive) {
+        if (stateUpdate.isInteractive) {
             while (isActive) {
                 isAmbient = false
                 currentTime = ZonedDateTime.now()

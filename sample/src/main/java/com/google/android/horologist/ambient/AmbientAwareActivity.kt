@@ -75,6 +75,8 @@ class AmbientAwareActivity : ComponentActivity() {
 fun AmbientAwareWearApp() {
     val navController = rememberSwipeDismissableNavController()
 
+    navController.cu
+
     AppScaffold {
         Box(modifier = Modifier.fillMaxSize()) {
             SwipeDismissableNavHost(navController, Home) {

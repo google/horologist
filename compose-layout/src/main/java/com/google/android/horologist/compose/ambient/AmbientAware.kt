@@ -31,7 +31,7 @@ import androidx.wear.ambient.AmbientLifecycleObserver
 
 /**
  * Composable for general handling of changes and updates to ambient status. A new
- * [AmbientAwareState] is generated with any change of ambient state, as well as with any periodic
+ * [AmbientState] is generated with any change of ambient state, as well as with any periodic
  * update generated whilst the screen is in ambient mode.
  *
  * This composable changes the behavior of the activity, enabling Always-On. See:
@@ -58,12 +58,10 @@ fun AmbientAware(
 
     val observer = remember {
         if (activity != null) {
-            println("Creating observer")
             AmbientLifecycleObserver(
                 activity,
                 object : AmbientLifecycleObserver.AmbientLifecycleCallback {
                     override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
-                        println("onEnterAmbient")
                         ambientState.value = AmbientState.Ambient(
                             burnInProtectionRequired = ambientDetails.burnInProtectionRequired,
                             deviceHasLowBitAmbient = ambientDetails.deviceHasLowBitAmbient,
@@ -71,12 +69,10 @@ fun AmbientAware(
                     }
 
                     override fun onExitAmbient() {
-                        println("onExitAmbient")
                         ambientState.value = AmbientState.Interactive
                     }
 
                     override fun onUpdateAmbient() {
-                        println("onUpdateAmbient")
                         val lastAmbientDetails =
                             (ambientState.value as? AmbientState.Ambient)
                         ambientState.value = AmbientState.Ambient(
@@ -89,7 +85,6 @@ fun AmbientAware(
                 ambientState.value =
                     if (observer.isAmbient) AmbientState.Ambient() else AmbientState.Interactive
 
-                println("addObserver")
                 lifecycle.addObserver(observer)
             }
         } else {
@@ -98,9 +93,6 @@ fun AmbientAware(
     }
 
     val value = ambientState.value
-    SideEffect {
-        println("Side Effect $value")
-    }
     CompositionLocalProvider(LocalAmbientState provides value) {
         content(value)
     }

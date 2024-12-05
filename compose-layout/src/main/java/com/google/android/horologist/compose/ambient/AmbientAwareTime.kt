@@ -16,17 +16,15 @@
 
 package com.google.android.horologist.compose.ambient
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import java.time.ZonedDateTime
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
-import java.time.ZonedDateTime
 
 /**
  * An example of using [AmbientAware]: Provides the time, at the specified update frequency, whilst
@@ -58,7 +56,6 @@ import java.time.ZonedDateTime
  * @param updatePeriodMillis The update period, whilst in interactive mode
  * @param block The developer-supplied composable for rendering the date and time.
  */
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AmbientAwareTime(
     stateUpdate: AmbientState,

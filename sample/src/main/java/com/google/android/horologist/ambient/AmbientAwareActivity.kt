@@ -75,8 +75,6 @@ class AmbientAwareActivity : ComponentActivity() {
 fun AmbientAwareWearApp() {
     val navController = rememberSwipeDismissableNavController()
 
-    navController.cu
-
     AppScaffold {
         Box(modifier = Modifier.fillMaxSize()) {
             SwipeDismissableNavHost(navController, Home) {
@@ -165,7 +163,7 @@ fun PreparingScreen(modifier: Modifier = Modifier, onStart: () -> Unit, onSettin
                     color = Color.Blue,
                 )
                 Text(
-                    ambientState.name,
+                    ambientState.displayName,
                     color = Color.Blue,
                 )
                 Button(onClick = onStart, imageVector = Icons.Rounded.PlayArrow, contentDescription = "Start")
@@ -224,7 +222,7 @@ internal fun Modifier.ambientGray(ambientState: AmbientState): Modifier =
 @Composable
 fun AmbientAwareTimeText(ambientState: AmbientState) {
     TimeText(endCurvedContent = {
-        curvedText(ambientState.name, color = Color.LightGray)
+        curvedText(ambientState.displayName, color = Color.LightGray)
     })
 }
 

@@ -21,7 +21,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -98,6 +97,18 @@ fun AmbientAware(
     }
 }
 
+/**
+ * AmbientState represents the current state of an ambient effect.
+ * It defaults to [AmbientState.Inactive] if no state is provided.
+ *
+ * @sample
+ * ```kotlin
+ * val state = LocalAmbientState.current
+ * if (state is AmbientState.Active) {
+ *   // Perform actions based on the active state
+ * }
+ * ```
+ */
 val LocalAmbientState = compositionLocalOf<AmbientState> { AmbientState.Inactive }
 
 private fun Context.findActivityOrNull(): Activity? {

@@ -22,9 +22,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import java.time.ZonedDateTime
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import java.time.ZonedDateTime
 
 /**
  * An example of using [AmbientAware]: Provides the time, at the specified update frequency, whilst

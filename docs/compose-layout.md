@@ -113,46 +113,28 @@ Box(
 `AmbientAware` allows your UI to react to ambient mode changes. For more information on how Ambient
 mode and Always-on work on Wear OS, see the [developer guidance][always-on].
 
-You should place this composable high up in your design, as it alters the behavior of the Activity.
+You should place this composable high up in your screen, but within navigation routes so that 
+different screens can handle ambient mode differently.
 
 ```kotlin
 @Composable
-fun WearApp() {
-    AmbientAware { ambientStateUpdate ->
-        when (val state = ambientStateUpdate.ambientState) {
-            is AmbientState.Ambient -> {
-                val ambientDetails = state.ambientDetails
-                val burnInProtectionRequired = ambientDetails?.burnInProtectionRequired
-                val deviceHasLowBitAmbient = ambientDetails?.deviceHasLowBitAmbient
-                // Device is in ambient (low power) mode
-            }
-            is AmbientState.Interactive -> {
-                // Device is in interactive (high power) mode
-            }
+fun MyScreen() {
+    AmbientAware { ambientState ->
+        if (ambientState.isAmbient) {
+            val ambientDetails = state.ambientDetails
+            val burnInProtectionRequired = ambientDetails?.burnInProtectionRequired
+            val deviceHasLowBitAmbient = ambientDetails?.deviceHasLowBitAmbient
+            // Device is in ambient (low power) mode
+        } else {
+            // Device is in interactive (high power) mode
         }
     }
 }
 ```
 
-If you need some screens to use always-on, and others not to, then you can use
-the additional argument supplied to `AmbientAware` to indicate whether a
-recomposition should be triggered when the system goes into ambient mode (i.e.
-whether the composable wants to handle ambient mode or not).
-
 For example, in a workout app, it is desirable that the main  workout screen uses always-on, but the
 workout summary at the end does not. See the [`ExerciseClient`][exercise-client]
 guide and [samples][health-samples] for more information on building a workout app.
-
-```kotlin
-@Composable
-fun WearApp() {
-    // Hoist state here for your current screen logic
-    
-    AmbientAware(isAlwaysOnScreen = currentScreen.useAlwaysOn) { ambientStateUpdate ->
-        // App Content here
-    }
-}
-```
 
 ## Download
 

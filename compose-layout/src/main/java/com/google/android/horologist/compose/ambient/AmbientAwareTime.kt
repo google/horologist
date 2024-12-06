@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.compose.ambient
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -58,10 +56,9 @@ import java.time.ZonedDateTime
  * @param updatePeriodMillis The update period, whilst in interactive mode
  * @param block The developer-supplied composable for rendering the date and time.
  */
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AmbientAwareTime(
-    stateUpdate: AmbientStateUpdate,
+    stateUpdate: AmbientState,
     updatePeriodMillis: Long = 1000,
     block: @Composable (dateTime: ZonedDateTime, isAmbient: Boolean) -> Unit,
 ) {
@@ -75,7 +72,7 @@ fun AmbientAwareTime(
     }
 
     LaunchedEffect(stateUpdate) {
-        if (stateUpdate.ambientState == AmbientState.Interactive) {
+        if (stateUpdate.isInteractive) {
             while (isActive) {
                 isAmbient = false
                 currentTime = ZonedDateTime.now()

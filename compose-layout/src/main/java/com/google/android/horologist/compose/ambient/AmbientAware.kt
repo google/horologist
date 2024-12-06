@@ -64,7 +64,7 @@ fun AmbientAware(
 @Composable
 private fun rememberAmbientState(
     activity: Activity?,
-    lifecycle: Lifecycle
+    lifecycle: Lifecycle,
 ): State<AmbientState> {
     val ambientState = remember {
         mutableStateOf<AmbientState>(AmbientState.Inactive)
@@ -84,7 +84,7 @@ private fun rememberAmbientState(
 private fun createObserver(
     activity: Activity,
     ambientState: MutableState<AmbientState>,
-    lifecycle: Lifecycle
+    lifecycle: Lifecycle,
 ): AmbientLifecycleObserver? {
     return try {
         AmbientLifecycleObserver(

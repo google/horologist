@@ -22,7 +22,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
-import kotlin.math.roundToInt
+import kotlin.math.ceil
 
 /**
  * Calculates and remembers padding values for a Wear column based on screen size and item types.
@@ -49,7 +49,7 @@ public fun rememberResponsiveColumnPadding(
     val configuration = LocalConfiguration.current
     val screenWidthDp = configuration.screenWidthDp.toFloat()
 
-    val horizontalPadding: Dp = (screenWidthDp * horizontalPercent).roundToInt().dp
+    val horizontalPadding: Dp = ceil(screenWidthDp * horizontalPercent).dp
 
     return PaddingValues(
         top = first.topPadding(horizontalPercent),

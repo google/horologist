@@ -38,7 +38,7 @@ import androidx.wear.compose.foundation.lazy.ScalingParams
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
-import kotlin.math.roundToInt
+import kotlin.math.ceil
 import kotlin.math.sqrt
 
 /**
@@ -255,7 +255,7 @@ public object ScalingLazyColumnDefaults {
             val screenHeightDp = configuration.screenHeightDp.toFloat()
 
             return if (this != Unspecified) {
-                (topPaddingPct * screenHeightDp).roundToInt().dp + paddingCorrection
+                ceil(topPaddingPct * screenHeightDp).dp + paddingCorrection
             } else {
                 if (configuration.isScreenRound) {
                     calculateVerticalOffsetForChip(screenWidthDp, horizontalPercent)
@@ -271,7 +271,7 @@ public object ScalingLazyColumnDefaults {
             val screenWidthDp = configuration.screenWidthDp.toFloat()
             val screenHeightDp = configuration.screenHeightDp.toFloat()
             return if (this != Unspecified) {
-                (bottomPaddingPct * screenHeightDp).roundToInt().dp + paddingCorrection
+                ceil(bottomPaddingPct * screenHeightDp).dp + paddingCorrection
             } else {
                 if (configuration.isScreenRound) {
                     calculateVerticalOffsetForChip(

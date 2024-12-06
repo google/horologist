@@ -38,6 +38,7 @@ import androidx.wear.compose.foundation.lazy.ScalingParams
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 /**
@@ -250,14 +251,14 @@ public object ScalingLazyColumnDefaults {
         @Composable
         override fun topPadding(horizontalPercent: Float): Dp {
             val configuration = LocalConfiguration.current
-            val screenWidthDp = configuration.screenWidthDp.dp
-            val screenHeightDp = configuration.screenHeightDp.dp
+            val screenWidthDp = configuration.screenWidthDp.toFloat()
+            val screenHeightDp = configuration.screenHeightDp.toFloat()
 
             return if (this != Unspecified) {
-                topPaddingPct * screenHeightDp + paddingCorrection
+                (topPaddingPct * screenHeightDp).roundToInt().dp + paddingCorrection
             } else {
                 if (configuration.isScreenRound) {
-                    calculateVerticalOffsetForChip(screenWidthDp.value, horizontalPercent)
+                    calculateVerticalOffsetForChip(screenWidthDp, horizontalPercent)
                 } else {
                     32.dp
                 }
@@ -267,14 +268,14 @@ public object ScalingLazyColumnDefaults {
         @Composable
         override fun bottomPadding(horizontalPercent: Float): Dp {
             val configuration = LocalConfiguration.current
-            val screenWidthDp = configuration.screenWidthDp.dp
-            val screenHeightDp = configuration.screenHeightDp.dp
+            val screenWidthDp = configuration.screenWidthDp.toFloat()
+            val screenHeightDp = configuration.screenHeightDp.toFloat()
             return if (this != Unspecified) {
-                bottomPaddingPct * screenHeightDp + paddingCorrection
+                (bottomPaddingPct * screenHeightDp).roundToInt().dp + paddingCorrection
             } else {
                 if (configuration.isScreenRound) {
                     calculateVerticalOffsetForChip(
-                        screenWidthDp.value,
+                        screenWidthDp,
                         horizontalPercent,
                     ) + 10.dp
                 } else {

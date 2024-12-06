@@ -21,10 +21,13 @@ import android.content.Context
 import android.content.ContextWrapper
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.wear.ambient.AmbientLifecycleObserver
 
@@ -51,49 +54,72 @@ fun AmbientAware(
     val activity = LocalContext.current.findActivityOrNull()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
 
-    var ambientState = remember {
+    val ambientState = rememberAmbientState(activity, lifecycle)
+
+    CompositionLocalProvider(LocalAmbientState provides ambientState.value) {
+        content(ambientState.value)
+    }
+}
+
+@Composable
+private fun rememberAmbientState(
+    activity: Activity?,
+    lifecycle: Lifecycle
+): State<AmbientState> {
+    val ambientState = remember {
         mutableStateOf<AmbientState>(AmbientState.Inactive)
     }
 
-    val observer = remember {
+    remember {
         if (activity != null) {
-            AmbientLifecycleObserver(
-                activity,
-                object : AmbientLifecycleObserver.AmbientLifecycleCallback {
-                    override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
-                        ambientState.value = AmbientState.Ambient(
-                            burnInProtectionRequired = ambientDetails.burnInProtectionRequired,
-                            deviceHasLowBitAmbient = ambientDetails.deviceHasLowBitAmbient,
-                        )
-                    }
-
-                    override fun onExitAmbient() {
-                        ambientState.value = AmbientState.Interactive
-                    }
-
-                    override fun onUpdateAmbient() {
-                        val lastAmbientDetails =
-                            (ambientState.value as? AmbientState.Ambient)
-                        ambientState.value = AmbientState.Ambient(
-                            burnInProtectionRequired = lastAmbientDetails?.burnInProtectionRequired == true,
-                            deviceHasLowBitAmbient = lastAmbientDetails?.deviceHasLowBitAmbient == true,
-                        )
-                    }
-                },
-            ).also { observer ->
-                ambientState.value =
-                    if (observer.isAmbient) AmbientState.Ambient() else AmbientState.Interactive
-
-                lifecycle.addObserver(observer)
-            }
+            createObserver(activity, ambientState, lifecycle)
         } else {
             null
         }
     }
 
-    val value = ambientState.value
-    CompositionLocalProvider(LocalAmbientState provides value) {
-        content(value)
+    return ambientState
+}
+
+private fun createObserver(
+    activity: Activity,
+    ambientState: MutableState<AmbientState>,
+    lifecycle: Lifecycle
+): AmbientLifecycleObserver? {
+    return try {
+        AmbientLifecycleObserver(
+            activity,
+            object : AmbientLifecycleObserver.AmbientLifecycleCallback {
+                override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
+                    ambientState.value = AmbientState.Ambient(
+                        burnInProtectionRequired = ambientDetails.burnInProtectionRequired,
+                        deviceHasLowBitAmbient = ambientDetails.deviceHasLowBitAmbient,
+                    )
+                }
+
+                override fun onExitAmbient() {
+                    ambientState.value = AmbientState.Interactive
+                }
+
+                override fun onUpdateAmbient() {
+                    val lastAmbientDetails =
+                        (ambientState.value as? AmbientState.Ambient)
+                    ambientState.value = AmbientState.Ambient(
+                        burnInProtectionRequired = lastAmbientDetails?.burnInProtectionRequired == true,
+                        deviceHasLowBitAmbient = lastAmbientDetails?.deviceHasLowBitAmbient == true,
+                    )
+                }
+            },
+        ).also { observer ->
+            ambientState.value =
+                if (observer.isAmbient) AmbientState.Ambient() else AmbientState.Interactive
+
+            lifecycle.addObserver(observer)
+        }
+    } catch (e: NoClassDefFoundError) {
+        // Fails in Robolectric
+        // java.lang.NoClassDefFoundError: com/google/android/wearable/compat/WearableActivityController$AmbientCallback
+        null
     }
 }
 

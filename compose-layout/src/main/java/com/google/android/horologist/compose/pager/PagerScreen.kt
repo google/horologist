@@ -55,18 +55,13 @@ public fun PagerScreen(
     userScrollEnabled: Boolean = true,
     reverseLayout: Boolean = false,
     key: ((index: Int) -> Any)? = null,
-    pageNestedScrollConnection: NestedScrollConnection = PagerDefaults.pageNestedScrollConnection(
-        state,
-        Orientation.Horizontal,
-    ),
     content: @Composable (Int) -> Unit,
 ) {
     PagerScaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         pagerState = state,
     ) {
         HorizontalPager(
-            modifier = modifier,
             state = state,
             beyondViewportPageCount = beyondViewportPageCount,
             userScrollEnabled = userScrollEnabled,

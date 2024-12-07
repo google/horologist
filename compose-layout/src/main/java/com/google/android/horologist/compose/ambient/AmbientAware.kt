@@ -20,86 +20,122 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.wear.ambient.AmbientLifecycleObserver
 
 /**
  * Composable for general handling of changes and updates to ambient status. A new
- * [AmbientStateUpdate] is generated with any change of ambient state, as well as with any periodic
+ * [AmbientState] is generated with any change of ambient state, as well as with any periodic
  * update generated whilst the screen is in ambient mode.
  *
  * This composable changes the behavior of the activity, enabling Always-On. See:
  *
  *     https://developer.android.com/training/wearables/views/always-on).
  *
- * It should therefore be used high up in the tree of composables.
+ * It should be used within each individual screen inside nav routes.
  *
- * @param isAlwaysOnScreen If supplied, this indicates whether always-on should be enabled. This can
- * be used to ensure that some screens display an ambient-mode version, whereas others do not, for
- * example, a workout screen vs a end-of-workout summary screen.
- * @param block Lambda that will be used for building the UI, which is passed the current ambient
+ * @param content Lambda that will be used for building the UI, which is passed the current ambient
  * state.
  */
 @Composable
 fun AmbientAware(
-    isAlwaysOnScreen: Boolean = true,
-    block: @Composable (AmbientStateUpdate) -> Unit,
+    content: @Composable (AmbientState) -> Unit,
 ) {
-    var ambientUpdate by remember(isAlwaysOnScreen) {
-        mutableStateOf(if (isAlwaysOnScreen) null else AmbientStateUpdate(AmbientState.Interactive))
-    }
-
-    val activity = LocalContext.current.findActivityOrNull()
     // Using AmbientAware correctly relies on there being an Activity context. If there isn't, then
     // gracefully allow the composition of [block], but no ambient-mode functionality is enabled.
-    if (activity != null && isAlwaysOnScreen) {
-        val lifecycle = LocalLifecycleOwner.current.lifecycle
-        val observer = remember {
-            val callback = object : AmbientLifecycleObserver.AmbientLifecycleCallback {
+    val activity = LocalContext.current.findActivityOrNull()
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+
+    val ambientState = rememberAmbientState(activity, lifecycle)
+
+    CompositionLocalProvider(LocalAmbientState provides ambientState.value) {
+        content(ambientState.value)
+    }
+}
+
+@Composable
+private fun rememberAmbientState(
+    activity: Activity?,
+    lifecycle: Lifecycle,
+): State<AmbientState> {
+    val ambientState = remember {
+        mutableStateOf<AmbientState>(AmbientState.Inactive)
+    }
+
+    remember {
+        if (activity != null) {
+            createObserver(activity, ambientState, lifecycle)
+        } else {
+            null
+        }
+    }
+
+    return ambientState
+}
+
+private fun createObserver(
+    activity: Activity,
+    ambientState: MutableState<AmbientState>,
+    lifecycle: Lifecycle,
+): AmbientLifecycleObserver? {
+    return try {
+        AmbientLifecycleObserver(
+            activity,
+            object : AmbientLifecycleObserver.AmbientLifecycleCallback {
                 override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
-                    ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(ambientDetails))
+                    ambientState.value = AmbientState.Ambient(
+                        burnInProtectionRequired = ambientDetails.burnInProtectionRequired,
+                        deviceHasLowBitAmbient = ambientDetails.deviceHasLowBitAmbient,
+                    )
                 }
 
                 override fun onExitAmbient() {
-                    ambientUpdate = AmbientStateUpdate(AmbientState.Interactive)
+                    ambientState.value = AmbientState.Interactive
                 }
 
                 override fun onUpdateAmbient() {
                     val lastAmbientDetails =
-                        (ambientUpdate?.ambientState as? AmbientState.Ambient)?.ambientDetails
-                    ambientUpdate = AmbientStateUpdate(AmbientState.Ambient(lastAmbientDetails))
+                        (ambientState.value as? AmbientState.Ambient)
+                    ambientState.value = AmbientState.Ambient(
+                        burnInProtectionRequired = lastAmbientDetails?.burnInProtectionRequired == true,
+                        deviceHasLowBitAmbient = lastAmbientDetails?.deviceHasLowBitAmbient == true,
+                    )
                 }
-            }
-            AmbientLifecycleObserver(activity, callback).also {
-                // Necessary to populate the initial value
-                val initialAmbientState = if (it.isAmbient) {
-                    AmbientState.Ambient(null)
-                } else {
-                    AmbientState.Interactive
-                }
-                ambientUpdate = AmbientStateUpdate(initialAmbientState)
-            }
-        }
+            },
+        ).also { observer ->
+            ambientState.value =
+                if (observer.isAmbient) AmbientState.Ambient() else AmbientState.Interactive
 
-        DisposableEffect(Unit) {
             lifecycle.addObserver(observer)
-
-            onDispose {
-                lifecycle.removeObserver(observer)
-            }
         }
-    }
-
-    ambientUpdate?.let {
-        block(it)
+    } catch (e: NoClassDefFoundError) {
+        // Fails in Robolectric
+        // java.lang.NoClassDefFoundError: com/google/android/wearable/compat/WearableActivityController$AmbientCallback
+        null
     }
 }
+
+/**
+ * AmbientState represents the current state of an ambient effect.
+ * It defaults to [AmbientState.Inactive] if no state is provided.
+ *
+ * @sample
+ * ```kotlin
+ * val state = LocalAmbientState.current
+ * if (state is AmbientState.Active) {
+ *   // Perform actions based on the active state
+ * }
+ * ```
+ */
+val LocalAmbientState = compositionLocalOf<AmbientState> { AmbientState.Inactive }
 
 private fun Context.findActivityOrNull(): Activity? {
     var context = this

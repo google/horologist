@@ -48,7 +48,7 @@ public fun rememberResponsiveColumnPadding(
     val configuration = LocalConfiguration.current
     val screenWidthDp = configuration.screenWidthDp.dp
 
-    val horizontalPadding = screenWidthDp * horizontalPercent
+    val horizontalPadding = (screenWidthDp * horizontalPercent).ceilPx()
 
     return PaddingValues(
         top = first.topPadding(horizontalPercent).ceilPx(),

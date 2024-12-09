@@ -38,6 +38,7 @@ import androidx.wear.compose.foundation.lazy.ScalingParams
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
+import kotlin.math.ceil
 import kotlin.math.sqrt
 
 /**
@@ -253,15 +254,17 @@ public object ScalingLazyColumnDefaults {
             val screenWidthDp = configuration.screenWidthDp.dp
             val screenHeightDp = configuration.screenHeightDp.dp
 
-            return if (this != Unspecified) {
-                topPaddingPct * screenHeightDp + paddingCorrection
-            } else {
-                if (configuration.isScreenRound) {
-                    calculateVerticalOffsetForChip(screenWidthDp.value, horizontalPercent)
+            return (
+                if (this != Unspecified) {
+                    topPaddingPct * screenHeightDp + paddingCorrection
                 } else {
-                    32.dp
+                    if (configuration.isScreenRound) {
+                        calculateVerticalOffsetForChip(screenWidthDp.value, horizontalPercent)
+                    } else {
+                        32.dp
+                    }
                 }
-            }
+                ).ceilPx()
         }
 
         @Composable
@@ -269,18 +272,20 @@ public object ScalingLazyColumnDefaults {
             val configuration = LocalConfiguration.current
             val screenWidthDp = configuration.screenWidthDp.dp
             val screenHeightDp = configuration.screenHeightDp.dp
-            return if (this != Unspecified) {
-                bottomPaddingPct * screenHeightDp + paddingCorrection
-            } else {
-                if (configuration.isScreenRound) {
-                    calculateVerticalOffsetForChip(
-                        screenWidthDp.value,
-                        horizontalPercent,
-                    ) + 10.dp
+            return (
+                if (this != Unspecified) {
+                    bottomPaddingPct * screenHeightDp + paddingCorrection
                 } else {
-                    0.dp
+                    if (configuration.isScreenRound) {
+                        calculateVerticalOffsetForChip(
+                            screenWidthDp.value,
+                            horizontalPercent,
+                        ) + 10.dp
+                    } else {
+                        0.dp
+                    }
                 }
-            }
+                ).ceilPx()
         }
     }
 
@@ -332,4 +337,13 @@ public object ScalingLazyColumnDefaults {
 
     @Composable
     fun Modifier.listTextPadding() = this.padding(horizontal = 0.052f * LocalConfiguration.current.screenWidthDp.dp)
+}
+
+@Composable
+internal fun Dp.ceilPx(): Dp {
+    val density = LocalDensity.current
+
+    return with(density) {
+        ceil(this@ceilPx.toPx()).toDp()
+    }
 }

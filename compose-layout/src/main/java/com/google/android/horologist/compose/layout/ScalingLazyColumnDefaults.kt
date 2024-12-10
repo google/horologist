@@ -38,6 +38,7 @@ import androidx.wear.compose.foundation.lazy.ScalingParams
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
+import kotlin.math.ceil
 import kotlin.math.sqrt
 
 /**
@@ -308,7 +309,7 @@ public object ScalingLazyColumnDefaults {
 
         return {
             val height = screenHeightDp.dp
-            val horizontalPadding = screenWidthDp.dp * horizontalPercent
+            val horizontalPadding = (screenWidthDp.dp * horizontalPercent).ceilPx()
 
             val topPadding = if (first != ItemType.Unspecified) {
                 first.topPaddingDp * height + first.paddingCorrection
@@ -318,7 +319,7 @@ public object ScalingLazyColumnDefaults {
                 } else {
                     32.dp
                 }
-            }
+            }.ceilPx()
 
             val bottomPadding = if (last != ItemType.Unspecified) {
                 last.bottomPaddingDp * height + first.paddingCorrection
@@ -331,7 +332,7 @@ public object ScalingLazyColumnDefaults {
                 } else {
                     0.dp
                 }
-            }
+            }.ceilPx()
 
             PaddingValues(
                 top = topPadding,
@@ -344,4 +345,13 @@ public object ScalingLazyColumnDefaults {
 
     @Composable
     fun Modifier.listTextPadding() = this.padding(horizontal = 0.052f * LocalConfiguration.current.screenWidthDp.dp)
+}
+
+@Composable
+internal fun Dp.ceilPx(): Dp {
+    val density = LocalDensity.current
+
+    return with(density) {
+        ceil(this@ceilPx.toPx()).toDp()
+    }
 }

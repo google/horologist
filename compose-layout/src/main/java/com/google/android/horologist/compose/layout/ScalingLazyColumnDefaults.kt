@@ -322,7 +322,7 @@ public object ScalingLazyColumnDefaults {
             }.ceilPx()
 
             val bottomPadding = if (last != ItemType.Unspecified) {
-                last.topPaddingDp * height + first.paddingCorrection
+                last.bottomPaddingDp * height + first.paddingCorrection
             } else {
                 if (configuration.isScreenRound) {
                     calculateVerticalOffsetForChip(

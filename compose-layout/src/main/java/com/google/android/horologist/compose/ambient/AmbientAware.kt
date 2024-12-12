@@ -42,17 +42,18 @@ import androidx.wear.ambient.AmbientLifecycleObserver
  *
  * It should be used within each individual screen inside nav routes.
  *
+ * @param lifecycle The [Lifecycle] of the activity or current owner such as NavBackStackEntry.
  * @param content Lambda that will be used for building the UI, which is passed the current ambient
  * state.
  */
 @Composable
 fun AmbientAware(
+    lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
     content: @Composable (AmbientState) -> Unit,
 ) {
     // Using AmbientAware correctly relies on there being an Activity context. If there isn't, then
     // gracefully allow the composition of [block], but no ambient-mode functionality is enabled.
     val activity = LocalContext.current.findActivityOrNull()
-    val lifecycle = LocalLifecycleOwner.current.lifecycle
 
     val ambientState = rememberAmbientState(activity, lifecycle)
 

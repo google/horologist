@@ -110,9 +110,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             Bottom1Button()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -120,9 +119,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             Bottom2Buttons()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -130,9 +128,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             Bottom3Buttons()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -140,9 +137,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             BottomOtherChips()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -150,9 +146,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             BottomOtherCards()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -160,9 +155,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             BottomUnspecified()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -170,9 +164,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             BottomOtherText()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     private fun scrollToBottom() {

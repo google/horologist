@@ -26,6 +26,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Density
@@ -49,16 +51,14 @@ class FontScaleIndependentTest(val fontSize: Size) : WearScreenshotTest() {
 
     public override fun testName(suffix: String): String =
         "src/test/snapshots/images/" +
-            "${this.javaClass.simpleName}_${fontSize.size}.png".also {
-                println(it)
-            }
+            "${this.javaClass.simpleName}_${fontSize.size}.png"
 
     @Test
     fun testSizes() {
         val sizes = listOf(0.94f, 1f, 1.06f, 1.12f, 1.18f, 1.24f)
-        captureRoboImage(testName("")) {
+        composeRule.setContent {
             val density = LocalDensity.current
-            Column(modifier = Modifier.background(Color.Black)) {
+            Column(modifier = Modifier.background(Color.Black).testTag("Column")) {
                 sizes.forEach { fontScale ->
                     CompositionLocalProvider(
                         LocalDensity provides Density(
@@ -94,6 +94,8 @@ class FontScaleIndependentTest(val fontSize: Size) : WearScreenshotTest() {
                 }
             }
         }
+
+        composeRule.onNodeWithTag("Column").captureRoboImage(testName(""))
     }
 
     public companion object {

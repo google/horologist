@@ -109,12 +109,10 @@ package com.google.android.horologist.compose.layout {
 
   public enum ScalingLazyColumnDefaults.ItemType implements com.google.android.horologist.compose.layout.ColumnItemType {
     method @androidx.compose.runtime.Composable public float bottomPadding(float horizontalPercent);
-    method public final float getBottomPaddingPct();
-    method public final float getPaddingCorrection();
-    method public final float getTopPaddingPct();
+    method public float getBottomPaddingPct();
+    method public float getPaddingCorrection();
+    method public float getTopPaddingPct();
     method @androidx.compose.runtime.Composable public float topPadding(float horizontalPercent);
-    method public static com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType[] values();
     property public final float bottomPaddingPct;
     property public final float paddingCorrection;
     property public final float topPaddingPct;
@@ -147,7 +145,7 @@ package com.google.android.horologist.compose.layout {
     method public boolean getUserScrollEnabled();
     method public androidx.compose.foundation.layout.Arrangement.Vertical getVerticalArrangement();
     method public boolean isScrollInProgress();
-    method public suspend Object? scroll(androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> block, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? scroll(androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,? extends java.lang.Object?> block, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public void setState(androidx.wear.compose.foundation.lazy.ScalingLazyListState);
     property public final int anchorType;
     property public final androidx.wear.compose.foundation.lazy.AutoCenteringParams? autoCentering;
@@ -206,7 +204,7 @@ package com.google.android.horologist.compose.layout {
 
   public final class ScrollAwayKt {
     method public static androidx.compose.ui.Modifier scrollAway(androidx.compose.ui.Modifier, com.google.android.horologist.compose.layout.ScalingLazyColumnState scalingLazyColumnState);
-    method public static androidx.compose.ui.Modifier scrollAway(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<? extends androidx.compose.foundation.gestures.ScrollableState> scrollableState);
+    method public static androidx.compose.ui.Modifier scrollAway(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<? extends androidx.compose.foundation.gestures.ScrollableState?> scrollableState);
   }
 
   public final class TransformingLazyColumnDefaultsKt {
@@ -218,12 +216,12 @@ package com.google.android.horologist.compose.layout {
 package com.google.android.horologist.compose.nav {
 
   public final class TypeSafeKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SwipeDismissableNavHost(androidx.navigation.NavHostController navController, Object startDestination, optional androidx.compose.ui.Modifier modifier, optional boolean userSwipeEnabled, optional androidx.wear.compose.navigation.SwipeDismissableNavHostState state, optional kotlin.reflect.KClass<?>? route, kotlin.jvm.functions.Function1<? super androidx.navigation.NavGraphBuilder,kotlin.Unit> builder);
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static inline <reified T> void composable(androidx.navigation.NavGraphBuilder, optional java.util.Map<kotlin.reflect.KType,androidx.navigation.NavType<?>> typeMap, optional java.util.List<? extends androidx.navigation.NavDeepLink> deepLinks, kotlin.jvm.functions.Function1<? super androidx.navigation.NavBackStackEntry,? extends kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SwipeDismissableNavHost(androidx.navigation.NavHostController navController, Object startDestination, optional androidx.compose.ui.Modifier modifier, optional boolean userSwipeEnabled, optional androidx.wear.compose.navigation.SwipeDismissableNavHostState state, optional kotlin.reflect.KClass<? extends java.lang.Object?>? route, kotlin.jvm.functions.Function1<? super androidx.navigation.NavGraphBuilder,kotlin.Unit> builder);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static inline <reified T> void composable(androidx.navigation.NavGraphBuilder, optional java.util.Map<kotlin.reflect.KType,androidx.navigation.NavType<? extends java.lang.Object?>> typeMap, optional java.util.List<androidx.navigation.NavDeepLink> deepLinks, kotlin.jvm.functions.Function1<? super androidx.navigation.NavBackStackEntry,kotlin.Unit> content);
   }
 
   public final class WearComposeNavigatorDestinationBuilder extends androidx.navigation.NavDestinationBuilder<androidx.wear.compose.navigation.WearNavigator.Destination> {
-    ctor public WearComposeNavigatorDestinationBuilder(androidx.wear.compose.navigation.WearNavigator wearNavigator, kotlin.reflect.KClass<?> route, java.util.Map<kotlin.reflect.KType,androidx.navigation.NavType<?>> typeMap, kotlin.jvm.functions.Function1<? super androidx.navigation.NavBackStackEntry,kotlin.Unit> content);
+    ctor public WearComposeNavigatorDestinationBuilder(androidx.wear.compose.navigation.WearNavigator wearNavigator, kotlin.reflect.KClass<? extends java.lang.Object?> route, java.util.Map<kotlin.reflect.KType,androidx.navigation.NavType<? extends java.lang.Object?>> typeMap, kotlin.jvm.functions.Function1<? super androidx.navigation.NavBackStackEntry,kotlin.Unit> content);
     method public androidx.wear.compose.navigation.WearNavigator getWearNavigator();
     method protected androidx.wear.compose.navigation.WearNavigator.Destination instantiateDestination();
     property public final androidx.wear.compose.navigation.WearNavigator wearNavigator;
@@ -265,7 +263,7 @@ package com.google.android.horologist.compose.pager {
 package com.google.android.horologist.compose.paging {
 
   public final class ItemsKt {
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static <T> void items(androidx.wear.compose.foundation.lazy.ScalingLazyListScope, androidx.paging.compose.LazyPagingItems<T> items, optional kotlin.jvm.functions.Function1<? super T,?>? key, kotlin.jvm.functions.Function2<? super androidx.wear.compose.foundation.lazy.ScalingLazyListItemScope,? super T,kotlin.Unit> itemContent);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static <T> void items(androidx.wear.compose.foundation.lazy.ScalingLazyListScope, androidx.paging.compose.LazyPagingItems<T> items, optional kotlin.jvm.functions.Function1<? super T,?>? key, kotlin.jvm.functions.Function2<? super androidx.wear.compose.foundation.lazy.ScalingLazyListItemScope,? super T?,kotlin.Unit> itemContent);
   }
 
 }
@@ -362,8 +360,6 @@ package com.google.android.horologist.compose.snackbar {
   }
 
   public enum SnackbarDuration {
-    method public static com.google.android.horologist.compose.snackbar.SnackbarDuration valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.compose.snackbar.SnackbarDuration[] values();
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarDuration Indefinite;
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarDuration Long;
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarDuration Short;
@@ -372,7 +368,7 @@ package com.google.android.horologist.compose.snackbar {
   @androidx.compose.runtime.Stable public final class SnackbarHostState {
     ctor public SnackbarHostState();
     method public com.google.android.horologist.compose.snackbar.SnackbarData? getCurrentSnackbarData();
-    method public suspend Object? showSnackbar(String message, optional String? actionLabel, optional com.google.android.horologist.compose.snackbar.SnackbarDuration duration, optional kotlin.coroutines.Continuation<? super com.google.android.horologist.compose.snackbar.SnackbarResult>);
+    method public suspend Object? showSnackbar(String message, optional String? actionLabel, optional com.google.android.horologist.compose.snackbar.SnackbarDuration duration, kotlin.coroutines.Continuation<? super com.google.android.horologist.compose.snackbar.SnackbarResult>);
     property public final com.google.android.horologist.compose.snackbar.SnackbarData? currentSnackbarData;
   }
 
@@ -381,8 +377,6 @@ package com.google.android.horologist.compose.snackbar {
   }
 
   public enum SnackbarResult {
-    method public static com.google.android.horologist.compose.snackbar.SnackbarResult valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.compose.snackbar.SnackbarResult[] values();
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarResult ActionPerformed;
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarResult Dismissed;
   }

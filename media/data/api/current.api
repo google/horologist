@@ -57,8 +57,8 @@ package com.google.android.horologist.media.data.database.dao {
     method @androidx.room.Query("\n        DELETE FROM PlaylistEntity\n        WHERE playlistId in (:playlistIds)\n    ") public void delete(java.util.List<java.lang.String> playlistIds);
     method @androidx.room.Query("\n        SELECT * FROM PlaylistEntity\n        WHERE EXISTS (\n            SELECT 1 FROM PlaylistMediaEntity\n            WHERE PlaylistMediaEntity.playlistId = PlaylistEntity.playlistId\n            AND EXISTS (\n                SELECT 1 FROM MediaDownloadEntity\n                WHERE MediaDownloadEntity.mediaId = PlaylistMediaEntity.mediaId\n            )\n        )\n    ") @androidx.room.Transaction public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllDownloaded();
     method @androidx.room.Query("\n        SELECT * FROM PlaylistEntity\n    ") @androidx.room.Transaction public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllPopulated();
-    method @androidx.room.Query("\n        SELECT * FROM PlaylistEntity\n        WHERE playlistId = :playlistId\n    ") @androidx.room.Transaction public suspend Object? getPopulated(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.data.database.model.PopulatedPlaylist>);
-    method @androidx.room.Query("\n        SELECT * FROM playlistentity\n        WHERE playlistId = :playlistId\n    ") @androidx.room.Transaction public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.data.database.model.PopulatedPlaylist> getPopulatedStream(String playlistId);
+    method @androidx.room.Query("\n        SELECT * FROM PlaylistEntity\n        WHERE playlistId = :playlistId\n    ") @androidx.room.Transaction public suspend Object? getPopulated(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.data.database.model.PopulatedPlaylist?>);
+    method @androidx.room.Query("\n        SELECT * FROM playlistentity\n        WHERE playlistId = :playlistId\n    ") @androidx.room.Transaction public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.data.database.model.PopulatedPlaylist?> getPopulatedStream(String playlistId);
     method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.REPLACE) public suspend Object? upsert(com.google.android.horologist.media.data.database.model.PlaylistEntity playlistEntity, java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity> mediaEntityList, java.util.List<com.google.android.horologist.media.data.database.model.PlaylistMediaEntity> playlistMediaEntityList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
@@ -113,8 +113,6 @@ package com.google.android.horologist.media.data.database.model {
   }
 
   public enum MediaDownloadEntityStatus {
-    method public static com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus[] values();
     enum_constant public static final com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus Downloaded;
     enum_constant public static final com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus Downloading;
     enum_constant public static final com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus Failed;
@@ -209,8 +207,8 @@ package com.google.android.horologist.media.data.datasource {
     method public suspend Object? delete(java.util.List<java.lang.String> playlistIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllDownloaded();
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllPopulated();
-    method public suspend Object? getPopulated(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.data.database.model.PopulatedPlaylist>);
-    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.data.database.model.PopulatedPlaylist> getPopulatedStream(String playlistId);
+    method public suspend Object? getPopulated(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.data.database.model.PopulatedPlaylist?>);
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.data.database.model.PopulatedPlaylist?> getPopulatedStream(String playlistId);
     method public suspend Object? upsert(java.util.List<com.google.android.horologist.media.model.Playlist> playlists, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
@@ -306,14 +304,14 @@ package com.google.android.horologist.media.data.repository {
     method public void connect(androidx.media3.common.Player player, kotlin.jvm.functions.Function0<kotlin.Unit> onClose);
     method public kotlinx.coroutines.flow.StateFlow<java.util.Set<com.google.android.horologist.media.model.Command>> getAvailableCommands();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getConnected();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media> getCurrentMedia();
+    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media?> getCurrentMedia();
     method public int getCurrentMediaIndex();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlaybackStateEvent> getLatestPlaybackState();
     method public com.google.android.horologist.media.model.Media? getMediaAt(int index);
     method public int getMediaCount();
-    method public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player> getPlayer();
-    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getSeekBackIncrement();
-    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getSeekForwardIncrement();
+    method public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player?> getPlayer();
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> getSeekBackIncrement();
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> getSeekForwardIncrement();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleModeEnabled();
     method public boolean hasNextMedia();
     method public boolean hasPreviousMedia();
@@ -332,24 +330,24 @@ package com.google.android.horologist.media.data.repository {
     method public void skipToPreviousMedia();
     property public kotlinx.coroutines.flow.StateFlow<java.util.Set<com.google.android.horologist.media.model.Command>> availableCommands;
     property public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> connected;
-    property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media> currentMedia;
+    property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media?> currentMedia;
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlaybackStateEvent> latestPlaybackState;
-    property public final kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player> player;
-    property public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekBackIncrement;
-    property public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekForwardIncrement;
+    property public final kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player?> player;
+    property public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> seekBackIncrement;
+    property public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> seekForwardIncrement;
     property public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistDownloadRepositoryImpl implements com.google.android.horologist.media.repository.PlaylistDownloadRepository {
     ctor public PlaylistDownloadRepositoryImpl(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource playlistLocalDataSource, com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource mediaDownloadLocalDataSource, com.google.android.horologist.media.data.datasource.Media3DownloadDataSource media3DownloadDataSource, com.google.android.horologist.media.data.mapper.PlaylistDownloadMapper playlistDownloadMapper);
     method public void download(com.google.android.horologist.media.model.Playlist playlist);
-    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.model.PlaylistDownload> get(String playlistId);
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.model.PlaylistDownload?> get(String playlistId);
     method public void remove(com.google.android.horologist.media.model.Playlist playlist);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistRepositoryImpl implements com.google.android.horologist.media.repository.PlaylistRepository {
     ctor public PlaylistRepositoryImpl(com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource playlistLocalDataSource, com.google.android.horologist.media.data.mapper.PlaylistMapper playlistMapper);
-    method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist>);
+    method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist?>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAll();
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAllDownloaded();
   }

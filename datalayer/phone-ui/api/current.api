@@ -17,7 +17,7 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.installapp {
     ctor public InstallAppPrompt(com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper phoneDataLayerAppHelper);
     method public android.content.Intent getIntent(android.content.Context context, String appPackageName, @DrawableRes int image, String topMessage, String bottomMessage);
     method public void performAction(android.content.Context context, String appPackageName);
-    method public suspend Object? shouldDisplayPrompt(optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus,java.lang.Boolean>? predicate, optional kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus>);
+    method public suspend Object? shouldDisplayPrompt(optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus,java.lang.Boolean>? predicate, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus?>);
   }
 
 }
@@ -32,7 +32,7 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.installtile {
     ctor public InstallTilePrompt(com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper phoneDataLayerAppHelper);
     method public android.content.Intent getIntent(android.content.Context context, String appPackageName, @DrawableRes int image, String topMessage, String bottomMessage);
     method public void performAction(android.content.Context context);
-    method public suspend Object? shouldDisplayPrompt(String tileName, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus>);
+    method public suspend Object? shouldDisplayPrompt(String tileName, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus?>);
   }
 
 }
@@ -47,7 +47,7 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.reengage {
     ctor public ReEngagePrompt(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper phoneDataLayerAppHelper);
     method public android.content.Intent getIntent(android.content.Context context, String nodeId, @DrawableRes int image, String topMessage, String bottomMessage, optional String? positiveButtonLabel, optional String? negativeButtonLabel);
     method public suspend Object? performAction(String nodeId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    method public suspend Object? shouldDisplayPrompt(kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus>);
+    method public suspend Object? shouldDisplayPrompt(kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus?>);
   }
 
 }
@@ -62,7 +62,7 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.signin {
     ctor public SignInPrompt(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper phoneDataLayerAppHelper);
     method public android.content.Intent getIntent(android.content.Context context, String nodeId, @DrawableRes int image, String topMessage, String bottomMessage, optional String? positiveButtonLabel, optional String? negativeButtonLabel);
     method public suspend Object? performAction(String nodeId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    method public suspend Object? shouldDisplayPrompt(kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus>);
+    method public suspend Object? shouldDisplayPrompt(kotlin.coroutines.Continuation<? super com.google.android.horologist.data.apphelper.AppHelperNodeStatus?>);
   }
 
 }

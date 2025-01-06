@@ -174,8 +174,6 @@ package com.google.android.horologist.networks.data {
   }
 
   public enum NetworkType {
-    method public static com.google.android.horologist.networks.data.NetworkType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.networks.data.NetworkType[] values();
     enum_constant public static final com.google.android.horologist.networks.data.NetworkType BT;
     enum_constant public static final com.google.android.horologist.networks.data.NetworkType Cell;
     enum_constant public static final com.google.android.horologist.networks.data.NetworkType Unknown;
@@ -232,8 +230,6 @@ package com.google.android.horologist.networks.data {
   }
 
   public enum RequestType.MediaRequest.MediaRequestType {
-    method public static com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType[] values();
     enum_constant public static final com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType Download;
     enum_constant public static final com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType Live;
     enum_constant public static final com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType Stream;
@@ -347,10 +343,8 @@ package com.google.android.horologist.networks.request {
   }
 
   public enum HighBandwidthRequest.Type {
-    method public final boolean getCell();
-    method public final boolean getWifi();
-    method public static com.google.android.horologist.networks.request.HighBandwidthRequest.Type valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.networks.request.HighBandwidthRequest.Type[] values();
+    method public boolean getCell();
+    method public boolean getWifi();
     property public final boolean cell;
     property public final boolean wifi;
     enum_constant public static final com.google.android.horologist.networks.request.HighBandwidthRequest.Type All;
@@ -360,9 +354,9 @@ package com.google.android.horologist.networks.request {
 
   public interface NetworkLease extends java.lang.AutoCloseable {
     method public java.time.Instant getAcquiredAt();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.request.NetworkReference> getGrantedNetwork();
+    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.request.NetworkReference?> getGrantedNetwork();
     property public abstract java.time.Instant acquiredAt;
-    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.request.NetworkReference> grantedNetwork;
+    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.request.NetworkReference?> grantedNetwork;
   }
 
   public final class NetworkReference {

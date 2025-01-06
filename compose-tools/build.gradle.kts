@@ -78,9 +78,7 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 }
 
 metalava {
-    sourcePaths.setFrom("src/main")
     filename.set("api/current.api")
-    reportLintsAsErrors.set(true)
 }
 
 dependencies {

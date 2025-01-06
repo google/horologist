@@ -2,8 +2,8 @@
 package com.google.android.horologist.data {
 
   public final class ProtoDataStoreHelper {
-    method public inline <reified T> androidx.datastore.core.DataStore<T>! protoDataStore(com.google.android.horologist.data.WearDataLayerRegistry, kotlinx.coroutines.CoroutineScope coroutineScope);
-    method public inline <reified T> kotlinx.coroutines.flow.Flow<? extends T>! protoFlow(com.google.android.horologist.data.WearDataLayerRegistry, com.google.android.horologist.data.TargetNodeId node);
+    method public inline <reified T> androidx.datastore.core.DataStore<T> protoDataStore(com.google.android.horologist.data.WearDataLayerRegistry, kotlinx.coroutines.CoroutineScope coroutineScope);
+    method public inline <reified T> kotlinx.coroutines.flow.Flow<T> protoFlow(com.google.android.horologist.data.WearDataLayerRegistry, com.google.android.horologist.data.TargetNodeId node);
     method public inline <reified T> void registerProtoDataListener(com.google.android.horologist.data.WearDataLayerRegistry, com.google.android.horologist.data.store.ProtoDataListener<T> listener);
     field public static final com.google.android.horologist.data.ProtoDataStoreHelper INSTANCE;
   }
@@ -12,12 +12,12 @@ package com.google.android.horologist.data {
     ctor public SerializerRegistry();
     method public inline <reified T> void registerSerializer(androidx.datastore.core.Serializer<T> serializer);
     method public <T> void registerSerializer(kotlin.reflect.KClass<T> type, androidx.datastore.core.Serializer<T> serializer);
-    method public inline <reified T> androidx.datastore.core.Serializer<T>! serializerForType();
+    method public inline <reified T> androidx.datastore.core.Serializer<T> serializerForType();
     method public <T> androidx.datastore.core.Serializer<T> serializerForType(kotlin.reflect.KClass<T> type);
   }
 
   public interface TargetNodeId {
-    method public suspend Object? evaluate(com.google.android.horologist.data.WearDataLayerRegistry dataLayerRegistry, kotlin.coroutines.Continuation<? super java.lang.String>);
+    method public suspend Object? evaluate(com.google.android.horologist.data.WearDataLayerRegistry dataLayerRegistry, kotlin.coroutines.Continuation<? super java.lang.String?>);
     field public static final com.google.android.horologist.data.TargetNodeId.Companion Companion;
     field public static final String HOROLOGIST_PHONE = "horologist_phone";
     field public static final String HOROLOGIST_WATCH = "horologist_watch";
@@ -29,7 +29,7 @@ package com.google.android.horologist.data {
   }
 
   public static final class TargetNodeId.PairedPhone implements com.google.android.horologist.data.TargetNodeId {
-    method public suspend Object? evaluate(com.google.android.horologist.data.WearDataLayerRegistry dataLayerRegistry, kotlin.coroutines.Continuation<? super java.lang.String>);
+    method public suspend Object? evaluate(com.google.android.horologist.data.WearDataLayerRegistry dataLayerRegistry, kotlin.coroutines.Continuation<? super java.lang.String?>);
     field public static final com.google.android.horologist.data.TargetNodeId.PairedPhone INSTANCE;
   }
 
@@ -68,7 +68,7 @@ package com.google.android.horologist.data {
 
   public static final class WearDataLayerRegistry.Companion {
     method public android.net.Uri buildUri(String nodeId, String path);
-    method public String dataStorePath(kotlin.reflect.KClass<?> t, optional boolean persisted);
+    method public String dataStorePath(kotlin.reflect.KClass<? extends java.lang.Object?> t, optional boolean persisted);
     method public com.google.android.horologist.data.WearDataLayerRegistry fromContext(android.content.Context application, kotlinx.coroutines.CoroutineScope coroutineScope);
     method public String preferencesPath(String name, optional boolean persisted);
   }
@@ -83,7 +83,7 @@ package com.google.android.horologist.data {
 
   public final class WearableApiAvailability {
     method public String getTAG();
-    method public suspend Object? isAvailable(com.google.android.gms.common.api.GoogleApi<?> api, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
+    method public suspend Object? isAvailable(com.google.android.gms.common.api.GoogleApi<? extends java.lang.Object?> api, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
     property public final String TAG;
     field public static final com.google.android.horologist.data.WearableApiAvailability INSTANCE;
   }
@@ -93,23 +93,23 @@ package com.google.android.horologist.data {
 package com.google.android.horologist.data.apphelper {
 
   public final class AppHelperNodeStatus {
-    ctor public AppHelperNodeStatus(String id, String displayName, boolean isNearby, com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, optional error.NonExistentClass surfacesInfo);
+    ctor public AppHelperNodeStatus(String id, String displayName, boolean isNearby, com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, optional com.google.android.horologist.data.SurfacesInfo surfacesInfo);
     method public String component1();
     method public String component2();
     method public boolean component3();
     method public com.google.android.horologist.data.apphelper.AppInstallationStatus component4();
-    method public error.NonExistentClass! component5();
-    method public com.google.android.horologist.data.apphelper.AppHelperNodeStatus copy(String id, String displayName, boolean isNearby, com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, error.NonExistentClass! surfacesInfo);
+    method public com.google.android.horologist.data.SurfacesInfo component5();
+    method public com.google.android.horologist.data.apphelper.AppHelperNodeStatus copy(String id, String displayName, boolean isNearby, com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, com.google.android.horologist.data.SurfacesInfo surfacesInfo);
     method public com.google.android.horologist.data.apphelper.AppInstallationStatus getAppInstallationStatus();
     method public String getDisplayName();
     method public String getId();
-    method public error.NonExistentClass! getSurfacesInfo();
+    method public com.google.android.horologist.data.SurfacesInfo getSurfacesInfo();
     method public boolean isNearby();
     property public final com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus;
     property public final String displayName;
     property public final String id;
     property public final boolean isNearby;
-    property public final error.NonExistentClass! surfacesInfo;
+    property public final com.google.android.horologist.data.SurfacesInfo surfacesInfo;
   }
 
   public final class AppHelperNodeStatusKt {
@@ -132,8 +132,6 @@ package com.google.android.horologist.data.apphelper {
   }
 
   public enum AppInstallationStatusNodeType {
-    method public static com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType[] values();
     enum_constant public static final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType PHONE;
     enum_constant public static final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType WATCH;
   }
@@ -148,12 +146,12 @@ package com.google.android.horologist.data.apphelper {
     method protected final String getPlayStoreUri();
     method protected final com.google.android.horologist.data.WearDataLayerRegistry getRegistry();
     method protected final androidx.wear.remote.interactions.RemoteActivityHelper getRemoteActivityHelper();
-    method public abstract suspend Object? installOnNode(String nodeId, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
+    method public abstract suspend Object? installOnNode(String nodeId, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
     method public final suspend Object? isAvailable(kotlin.coroutines.Continuation<? super java.lang.Boolean>);
-    method @CheckResult protected final suspend Object? sendRequestWithTimeout(String nodeId, String path, byte[] data, optional long timeoutMs, optional kotlin.coroutines.Continuation<? super error.NonExistentClass>);
-    method @CheckResult public abstract suspend Object? startCompanion(String nodeId, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
-    method @CheckResult public final suspend Object? startRemoteActivity(String nodeId, error.NonExistentClass config, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
-    method @CheckResult public final suspend Object? startRemoteOwnApp(String nodeId, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
+    method @CheckResult protected final suspend Object? sendRequestWithTimeout(String nodeId, String path, byte[] data, optional long timeoutMs, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
+    method @CheckResult public abstract suspend Object? startCompanion(String nodeId, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
+    method @CheckResult public final suspend Object? startRemoteActivity(String nodeId, com.google.android.horologist.data.ActivityConfig config, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
+    method @CheckResult public final suspend Object? startRemoteOwnApp(String nodeId, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
     property public abstract kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> connectedAndInstalledNodes;
     property protected final android.content.Context context;
     property protected final String playStoreUri;
@@ -173,7 +171,7 @@ package com.google.android.horologist.data.apphelper {
   }
 
   public final class DataLayerAppHelperKt {
-    method public static byte[] byteArrayForResultCode(error.NonExistentClass resultCode);
+    method public static byte[] byteArrayForResultCode(com.google.android.horologist.data.AppHelperResultCode resultCode);
   }
 
   public abstract class DataLayerAppHelperService extends com.google.android.gms.wearable.WearableListenerService {
@@ -186,11 +184,11 @@ package com.google.android.horologist.data.apphelper {
   public static final class DataLayerAppHelperService.Companion {
   }
 
-  public final class SurfacesInfoSerializer implements androidx.datastore.core.Serializer<error.NonExistentClass> {
-    method public error.NonExistentClass! getDefaultValue();
-    method public suspend Object? readFrom(java.io.InputStream input, kotlin.coroutines.Continuation<? super error.NonExistentClass>);
-    method public suspend Object? writeTo(error.NonExistentClass t, java.io.OutputStream output, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    property public error.NonExistentClass! defaultValue;
+  public final class SurfacesInfoSerializer implements androidx.datastore.core.Serializer<com.google.android.horologist.data.SurfacesInfo> {
+    method public com.google.android.horologist.data.SurfacesInfo getDefaultValue();
+    method public suspend Object? readFrom(java.io.InputStream input, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.SurfacesInfo>);
+    method public suspend Object? writeTo(com.google.android.horologist.data.SurfacesInfo t, java.io.OutputStream output, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    property public com.google.android.horologist.data.SurfacesInfo defaultValue;
     field public static final com.google.android.horologist.data.apphelper.SurfacesInfoSerializer INSTANCE;
   }
 
@@ -238,7 +236,7 @@ package com.google.android.horologist.data.store.impl {
     ctor public WearLocalDataStore(com.google.android.horologist.data.WearDataLayerRegistry wearDataLayerRegistry, optional kotlinx.coroutines.flow.SharingStarted started, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<T> serializer, String path);
     method public kotlinx.coroutines.flow.Flow<T> getData();
     method public com.google.android.gms.wearable.DataClient getDataClient();
-    method public suspend Object? updateData(kotlin.jvm.functions.Function2<? super T,? super kotlin.coroutines.Continuation<? super T>,?> transform, kotlin.coroutines.Continuation<? super T>);
+    method public suspend Object? updateData(kotlin.jvm.functions.Function2<? super T,? super kotlin.coroutines.Continuation<? super T>,? extends java.lang.Object?> transform, kotlin.coroutines.Continuation<? super T>);
     property public kotlinx.coroutines.flow.Flow<T> data;
     property public final com.google.android.gms.wearable.DataClient dataClient;
   }

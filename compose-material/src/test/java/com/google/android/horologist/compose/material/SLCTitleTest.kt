@@ -34,6 +34,7 @@ import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
@@ -41,6 +42,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.pa
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
+import com.google.android.horologist.screenshots.FixedTimeSource
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
 import org.junit.Test
@@ -67,7 +69,7 @@ class SLCTitleTest(device: WearDevice) : WearDeviceScreenshotTest(device) {
     fun listWithPadding(topPadding: ItemType) {
         runTest {
             Box {
-                AppScaffold {
+                AppScaffold(timeText = { TimeText(timeSource = FixedTimeSource) }) {
                     val columnState = rememberResponsiveColumnState(
                         contentPadding = padding(
                             first = topPadding,

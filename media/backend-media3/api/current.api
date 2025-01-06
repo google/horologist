@@ -17,7 +17,7 @@ package com.google.android.horologist.media3.flows {
   }
 
   public final class CurrentMediaItemFlowKt {
-    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static kotlinx.coroutines.flow.Flow<androidx.media3.common.MediaItem> currentMediaItemFlow(androidx.media3.common.Player);
+    method @com.google.android.horologist.annotations.ExperimentalHorologistApi public static kotlinx.coroutines.flow.Flow<androidx.media3.common.MediaItem?> currentMediaItemFlow(androidx.media3.common.Player);
   }
 
   public final class IsPlayingFlowKt {

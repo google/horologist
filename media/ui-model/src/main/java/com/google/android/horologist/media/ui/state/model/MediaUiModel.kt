@@ -33,7 +33,7 @@ public sealed class MediaUiModel {
      * @param subtitle The subtitle of the media item (optional).
      * @param artwork The artwork to display for the media item (optional).
      * @param artworkColor The primary color to use for the artwork background (optional).
-     * @param artworkColorSeed The seed color to use for generating the artwork color pallet
+     * @param artworkColorSeed The seed color to use for generating the artwork color palette
      *   (optional).
      * @param titleIcon An icon to display next to the title (optional).
      * @param selectedAudioOutput The audio output on which the media is currently playing (optional).

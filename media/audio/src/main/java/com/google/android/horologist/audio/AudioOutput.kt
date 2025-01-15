@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.audio
 
+import android.media.MediaRoute2Info
+
 /**
  * A device capable of playing audio.
  *
@@ -33,12 +35,19 @@ public interface AudioOutput {
     public val name: String
 
     /**
+     * Whether the audio output has ability to play media.
+     */
+    public val isPlayable: Boolean
+
+    /**
      * Optional type of output which may be associated with an icon or displayed name.
      */
     public val type: String
         get() = ""
 
-    public val isPlayable: Boolean
+    /** Optional [MediaRoute2Info.getType] associated. */
+    public val mediaRouteType: Int?
+        get() = null
 
     /**
      * No current device.
@@ -73,6 +82,18 @@ public interface AudioOutput {
     }
 
     /**
+     * The media output connected to the paired phone on which media is currently playing.
+     */
+    public data class Remote(
+        override val id: String,
+        override val name: String,
+        override val mediaRouteType: Int,
+        override val isPlayable: Boolean = true,
+    ) : AudioOutput {
+        override val type: String = TYPE_REMOTE
+    }
+
+    /**
      * An unknown audio output device
      */
     public data class Unknown(
@@ -84,6 +105,7 @@ public interface AudioOutput {
     public companion object {
         public const val TYPE_WATCH: String = "watch"
         public const val TYPE_HEADPHONES: String = "headphones"
+        public const val TYPE_REMOTE: String = "remote"
         public const val TYPE_NONE: String = "none"
     }
 }

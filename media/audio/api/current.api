@@ -3,16 +3,19 @@ package com.google.android.horologist.audio {
 
   public interface AudioOutput {
     method public String getId();
+    method public default Integer? getMediaRouteType();
     method public String getName();
     method public default String getType();
     method public boolean isPlayable();
     property public abstract String id;
     property public abstract boolean isPlayable;
+    property public default Integer? mediaRouteType;
     property public abstract String name;
     property public default String type;
     field public static final com.google.android.horologist.audio.AudioOutput.Companion Companion;
     field public static final String TYPE_HEADPHONES = "headphones";
     field public static final String TYPE_NONE = "none";
+    field public static final String TYPE_REMOTE = "remote";
     field public static final String TYPE_WATCH = "watch";
   }
 
@@ -34,6 +37,7 @@ package com.google.android.horologist.audio {
   public static final class AudioOutput.Companion {
     field public static final String TYPE_HEADPHONES = "headphones";
     field public static final String TYPE_NONE = "none";
+    field public static final String TYPE_REMOTE = "remote";
     field public static final String TYPE_WATCH = "watch";
   }
 
@@ -46,6 +50,24 @@ package com.google.android.horologist.audio {
     property public String name;
     property public String type;
     field public static final com.google.android.horologist.audio.AudioOutput.None INSTANCE;
+  }
+
+  public static final class AudioOutput.Remote implements com.google.android.horologist.audio.AudioOutput {
+    ctor public AudioOutput.Remote(String id, String name, int mediaRouteType, optional boolean isPlayable);
+    method public String component1();
+    method public String component2();
+    method public int component3();
+    method public boolean component4();
+    method public com.google.android.horologist.audio.AudioOutput.Remote copy(String id, String name, int mediaRouteType, boolean isPlayable);
+    method public String getId();
+    method public int getMediaRouteType();
+    method public String getName();
+    method public boolean isPlayable();
+    property public String id;
+    property public boolean isPlayable;
+    property public int mediaRouteType;
+    property public String name;
+    property public String type;
   }
 
   public static final class AudioOutput.Unknown implements com.google.android.horologist.audio.AudioOutput {

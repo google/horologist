@@ -105,7 +105,7 @@ dependencies {
     api(libs.wearcompose.material)
     implementation(projects.images.coil)
     implementation(libs.androidx.lifecycle.viewmodelktx)
-  implementation(project(":media:audio"))
+    implementation(project(":media:audio"))
 
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)

@@ -62,6 +62,9 @@ package com.google.android.horologist.media.sync.workers {
   @dagger.hilt.EntryPoint @dagger.hilt.InstallIn(SingletonComponent.class) @dagger.hilt.codegen.OriginatingElement(topLevelClass=HiltWorkerFactoryEntryPoint.class) @javax.annotation.processing.Generated("dagger.hilt.processor.internal.aggregateddeps.PkgPrivateEntryPointGenerator") public interface HiltWrapper_HiltWorkerFactoryEntryPoint {
   }
 
+  @dagger.hilt.EntryPoint @dagger.hilt.InstallIn(SingletonComponent.class) @dagger.hilt.codegen.OriginatingElement(topLevelClass=HiltWorkerFactoryEntryPoint.class) @javax.annotation.processing.Generated("dagger.hilt.processor.internal.aggregateddeps.PkgPrivateEntryPointGenerator") public interface HiltWrapper_HiltWorkerFactoryEntryPoint {
+  }
+
   @androidx.hilt.work.HiltWorker public final class SyncWorker extends androidx.work.CoroutineWorker implements com.google.android.horologist.media.sync.api.Synchronizer {
     ctor @dagger.assisted.AssistedInject public SyncWorker(@dagger.assisted.Assisted android.content.Context appContext, @dagger.assisted.Assisted androidx.work.WorkerParameters workerParams, com.google.android.horologist.media.sync.api.CoroutineDispatcherProvider coroutineDispatcherProvider, com.google.android.horologist.media.sync.api.NotificationConfigurationProvider notificationConfigurationProvider, com.google.android.horologist.media.sync.api.ChangeListVersionRepository changeListVersionRepository, com.google.android.horologist.media.sync.api.Syncable[] syncables);
     method public suspend Object? doWork(kotlin.coroutines.Continuation<? super androidx.work.ListenableWorker.Result>);
@@ -78,10 +81,26 @@ package com.google.android.horologist.media.sync.workers {
   @dagger.assisted.AssistedFactory @javax.annotation.processing.Generated("androidx.hilt.AndroidXHiltProcessor") public interface SyncWorker_AssistedFactory extends androidx.hilt.work.WorkerAssistedFactory<com.google.android.horologist.media.sync.workers.SyncWorker!> {
   }
 
+  @dagger.assisted.AssistedFactory @javax.annotation.processing.Generated("androidx.hilt.AndroidXHiltProcessor") public interface SyncWorker_AssistedFactory extends androidx.hilt.work.WorkerAssistedFactory<com.google.android.horologist.media.sync.workers.SyncWorker!> {
+  }
+
   @dagger.internal.DaggerGenerated @javax.annotation.processing.Generated(value="dagger.internal.codegen.ComponentProcessor", comments="https://dagger.dev") public final class SyncWorker_AssistedFactory_Impl implements com.google.android.horologist.media.sync.workers.SyncWorker_AssistedFactory {
     method public com.google.android.horologist.media.sync.workers.SyncWorker! create(android.content.Context!, androidx.work.WorkerParameters!);
     method public static javax.inject.Provider<com.google.android.horologist.media.sync.workers.SyncWorker_AssistedFactory!>! create(com.google.android.horologist.media.sync.workers.SyncWorker_Factory!);
     method public static dagger.internal.Provider<com.google.android.horologist.media.sync.workers.SyncWorker_AssistedFactory!>! createFactoryProvider(com.google.android.horologist.media.sync.workers.SyncWorker_Factory!);
+  }
+
+  @dagger.internal.DaggerGenerated @javax.annotation.processing.Generated(value="dagger.internal.codegen.ComponentProcessor", comments="https://dagger.dev") public final class SyncWorker_AssistedFactory_Impl implements com.google.android.horologist.media.sync.workers.SyncWorker_AssistedFactory {
+    method public com.google.android.horologist.media.sync.workers.SyncWorker! create(android.content.Context!, androidx.work.WorkerParameters!);
+    method public static javax.inject.Provider<com.google.android.horologist.media.sync.workers.SyncWorker_AssistedFactory!>! create(com.google.android.horologist.media.sync.workers.SyncWorker_Factory!);
+    method public static dagger.internal.Provider<com.google.android.horologist.media.sync.workers.SyncWorker_AssistedFactory!>! createFactoryProvider(com.google.android.horologist.media.sync.workers.SyncWorker_Factory!);
+  }
+
+  @dagger.internal.DaggerGenerated @dagger.internal.QualifierMetadata @dagger.internal.ScopeMetadata @javax.annotation.processing.Generated(value="dagger.internal.codegen.ComponentProcessor", comments="https://dagger.dev") public final class SyncWorker_Factory {
+    ctor public SyncWorker_Factory(javax.inject.Provider<com.google.android.horologist.media.sync.api.CoroutineDispatcherProvider!>!, javax.inject.Provider<com.google.android.horologist.media.sync.api.NotificationConfigurationProvider!>!, javax.inject.Provider<com.google.android.horologist.media.sync.api.ChangeListVersionRepository!>!, javax.inject.Provider<com.google.android.horologist.media.sync.api.Syncable![]!>!);
+    method public static com.google.android.horologist.media.sync.workers.SyncWorker_Factory! create(javax.inject.Provider<com.google.android.horologist.media.sync.api.CoroutineDispatcherProvider!>!, javax.inject.Provider<com.google.android.horologist.media.sync.api.NotificationConfigurationProvider!>!, javax.inject.Provider<com.google.android.horologist.media.sync.api.ChangeListVersionRepository!>!, javax.inject.Provider<com.google.android.horologist.media.sync.api.Syncable![]!>!);
+    method public com.google.android.horologist.media.sync.workers.SyncWorker! get(android.content.Context!, androidx.work.WorkerParameters!);
+    method public static com.google.android.horologist.media.sync.workers.SyncWorker! newInstance(android.content.Context!, androidx.work.WorkerParameters!, com.google.android.horologist.media.sync.api.CoroutineDispatcherProvider!, com.google.android.horologist.media.sync.api.NotificationConfigurationProvider!, com.google.android.horologist.media.sync.api.ChangeListVersionRepository!, com.google.android.horologist.media.sync.api.Syncable![]!);
   }
 
   @dagger.internal.DaggerGenerated @dagger.internal.QualifierMetadata @dagger.internal.ScopeMetadata @javax.annotation.processing.Generated(value="dagger.internal.codegen.ComponentProcessor", comments="https://dagger.dev") public final class SyncWorker_Factory {
@@ -96,12 +115,24 @@ package com.google.android.horologist.media.sync.workers {
     method @dagger.Binds @dagger.multibindings.IntoMap @dagger.multibindings.StringKey("com.google.android.horologist.media.sync.workers.SyncWorker") public androidx.hilt.work.WorkerAssistedFactory<? extends androidx.work.ListenableWorker!>! bind(com.google.android.horologist.media.sync.workers.SyncWorker_AssistedFactory!);
   }
 
+  @dagger.Module @dagger.hilt.InstallIn(SingletonComponent.class) @dagger.hilt.codegen.OriginatingElement(topLevelClass=SyncWorker.class) @javax.annotation.processing.Generated("androidx.hilt.AndroidXHiltProcessor") public interface SyncWorker_HiltModule {
+    method @dagger.Binds @dagger.multibindings.IntoMap @dagger.multibindings.StringKey("com.google.android.horologist.media.sync.workers.SyncWorker") public androidx.hilt.work.WorkerAssistedFactory<? extends androidx.work.ListenableWorker!>! bind(com.google.android.horologist.media.sync.workers.SyncWorker_AssistedFactory!);
+  }
+
 }
 
 package hilt_aggregated_deps {
 
   @dagger.hilt.processor.internal.aggregateddeps.AggregatedDeps(components="dagger.hilt.components.SingletonComponent", entryPoints="com.google.android.horologist.media.sync.workers.HiltWrapper_HiltWorkerFactoryEntryPoint") @javax.annotation.processing.Generated("dagger.hilt.processor.internal.aggregateddeps.AggregatedDepsGenerator") public class _com_google_android_horologist_media_sync_workers_HiltWrapper_HiltWorkerFactoryEntryPoint {
     ctor public _com_google_android_horologist_media_sync_workers_HiltWrapper_HiltWorkerFactoryEntryPoint();
+  }
+
+  @dagger.hilt.processor.internal.aggregateddeps.AggregatedDeps(components="dagger.hilt.components.SingletonComponent", entryPoints="com.google.android.horologist.media.sync.workers.HiltWrapper_HiltWorkerFactoryEntryPoint") @javax.annotation.processing.Generated("dagger.hilt.processor.internal.aggregateddeps.AggregatedDepsGenerator") public class _com_google_android_horologist_media_sync_workers_HiltWrapper_HiltWorkerFactoryEntryPoint {
+    ctor public _com_google_android_horologist_media_sync_workers_HiltWrapper_HiltWorkerFactoryEntryPoint();
+  }
+
+  @dagger.hilt.processor.internal.aggregateddeps.AggregatedDeps(components="dagger.hilt.components.SingletonComponent", modules="com.google.android.horologist.media.sync.workers.SyncWorker_HiltModule") @javax.annotation.processing.Generated("dagger.hilt.processor.internal.aggregateddeps.AggregatedDepsGenerator") public class _com_google_android_horologist_media_sync_workers_SyncWorker_HiltModule {
+    ctor public _com_google_android_horologist_media_sync_workers_SyncWorker_HiltModule();
   }
 
   @dagger.hilt.processor.internal.aggregateddeps.AggregatedDeps(components="dagger.hilt.components.SingletonComponent", modules="com.google.android.horologist.media.sync.workers.SyncWorker_HiltModule") @javax.annotation.processing.Generated("dagger.hilt.processor.internal.aggregateddeps.AggregatedDepsGenerator") public class _com_google_android_horologist_media_sync_workers_SyncWorker_HiltModule {

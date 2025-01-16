@@ -8,8 +8,8 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class AlertDialogPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void AlertDialogPreview();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void AlertDialogWithLongBodyPreview();
+    method @androidx.compose.runtime.Composable public static void AlertDialogPreview();
+    method @androidx.compose.runtime.Composable public static void AlertDialogWithLongBodyPreview();
   }
 
   public final class AnimatedLabelKt {
@@ -22,13 +22,13 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class ButtonPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void ButtonPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void ButtonPreviewCustomSize();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void ButtonPreviewDisabled();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void ButtonPreviewLarge();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void ButtonPreviewSmall();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void ButtonPreviewWithIconButtonColors();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void ButtonPreviewWithSecondaryButtonColors();
+    method @androidx.compose.runtime.Composable public static void ButtonPreview();
+    method @androidx.compose.runtime.Composable public static void ButtonPreviewCustomSize();
+    method @androidx.compose.runtime.Composable public static void ButtonPreviewDisabled();
+    method @androidx.compose.runtime.Composable public static void ButtonPreviewLarge();
+    method @androidx.compose.runtime.Composable public static void ButtonPreviewSmall();
+    method @androidx.compose.runtime.Composable public static void ButtonPreviewWithIconButtonColors();
+    method @androidx.compose.runtime.Composable public static void ButtonPreviewWithSecondaryButtonColors();
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract sealed class ButtonSize {
@@ -71,11 +71,11 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class ChipIconWithProgressPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With 75 percent download complete with large icon", backgroundColor=4278190080L, showBackground=true) public static void ChipIconWithProgressInProgressLargeIconPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With 75 percent download complete with medium icon", backgroundColor=4278190080L, showBackground=true) public static void ChipIconWithProgressInProgressMediumIconPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With 75 percent download complete", backgroundColor=4278190080L, showBackground=true) public static void ChipIconWithProgressInProgressPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With 75 percent download complete with small icon", backgroundColor=4278190080L, showBackground=true) public static void ChipIconWithProgressInProgressSmallIconPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Standard", backgroundColor=4278190080L, showBackground=true) public static void ChipIconWithProgressPreview();
+    method @androidx.compose.runtime.Composable public static void ChipIconWithProgressInProgressLargeIconPreview();
+    method @androidx.compose.runtime.Composable public static void ChipIconWithProgressInProgressMediumIconPreview();
+    method @androidx.compose.runtime.Composable public static void ChipIconWithProgressInProgressPreview();
+    method @androidx.compose.runtime.Composable public static void ChipIconWithProgressInProgressSmallIconPreview();
+    method @androidx.compose.runtime.Composable public static void ChipIconWithProgressPreview();
   }
 
   public final class ChipKt {
@@ -87,16 +87,16 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class ChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ChipPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Disabled", backgroundColor=4278190080L, showBackground=true) public static void ChipPreviewDisabled();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With gradient background chip colors", backgroundColor=4278190080L, showBackground=true) public static void ChipPreviewWithGradientBackgroundChipColors();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With icon", backgroundColor=4278190080L, showBackground=true) public static void ChipPreviewWithIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With image background chip colors", backgroundColor=4278190080L, showBackground=true) public static void ChipPreviewWithImageBackgroundChipColors();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With large icon", backgroundColor=4278190080L, showBackground=true) public static void ChipPreviewWithLargeIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary chip colors", backgroundColor=4278190080L, showBackground=true) public static void ChipPreviewWithSecondaryChipColors();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label", backgroundColor=4278190080L, showBackground=true) public static void ChipPreviewWithSecondaryLabel();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label and icon", backgroundColor=4278190080L, showBackground=true) public static void ChipPreviewWithSecondaryLabelAndIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label and large icon", backgroundColor=4278190080L, showBackground=true) public static void ChipPreviewWithSecondaryLabelAndLargeIcon();
+    method @androidx.compose.runtime.Composable public static void ChipPreview();
+    method @androidx.compose.runtime.Composable public static void ChipPreviewDisabled();
+    method @androidx.compose.runtime.Composable public static void ChipPreviewWithGradientBackgroundChipColors();
+    method @androidx.compose.runtime.Composable public static void ChipPreviewWithIcon();
+    method @androidx.compose.runtime.Composable public static void ChipPreviewWithImageBackgroundChipColors();
+    method @androidx.compose.runtime.Composable public static void ChipPreviewWithLargeIcon();
+    method @androidx.compose.runtime.Composable public static void ChipPreviewWithSecondaryChipColors();
+    method @androidx.compose.runtime.Composable public static void ChipPreviewWithSecondaryLabel();
+    method @androidx.compose.runtime.Composable public static void ChipPreviewWithSecondaryLabelAndIcon();
+    method @androidx.compose.runtime.Composable public static void ChipPreviewWithSecondaryLabelAndLargeIcon();
   }
 
   public final class CompactChipKt {
@@ -106,9 +106,9 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class CompactChipPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void CompactChipPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void CompactChipPreviewIconOnly();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void CompactChipPreviewWithIcon();
+    method @androidx.compose.runtime.Composable public static void CompactChipPreview();
+    method @androidx.compose.runtime.Composable public static void CompactChipPreviewIconOnly();
+    method @androidx.compose.runtime.Composable public static void CompactChipPreviewWithIcon();
   }
 
   public final class ConfirmationKt {
@@ -122,8 +122,8 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class IconPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void IconPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void IconPreviewMirrored();
+    method @androidx.compose.runtime.Composable public static void IconPreview();
+    method @androidx.compose.runtime.Composable public static void IconPreviewMirrored();
   }
 
   public final class ListHeaderDefaults {
@@ -143,13 +143,13 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class OutlinedChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void OutlinedChipPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Disabled", backgroundColor=4278190080L, showBackground=true) public static void OutlinedChipPreviewDisabled();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With icon", backgroundColor=4278190080L, showBackground=true) public static void OutlinedChipPreviewWithIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With large icon", backgroundColor=4278190080L, showBackground=true) public static void OutlinedChipPreviewWithLargeIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label", backgroundColor=4278190080L, showBackground=true) public static void OutlinedChipPreviewWithSecondaryLabel();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label and icon", backgroundColor=4278190080L, showBackground=true) public static void OutlinedChipPreviewWithSecondaryLabelAndIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label and large icon", backgroundColor=4278190080L, showBackground=true) public static void OutlinedChipPreviewWithSecondaryLabelAndLargeIcon();
+    method @androidx.compose.runtime.Composable public static void OutlinedChipPreview();
+    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewDisabled();
+    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewWithIcon();
+    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewWithLargeIcon();
+    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewWithSecondaryLabel();
+    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewWithSecondaryLabelAndIcon();
+    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewWithSecondaryLabelAndLargeIcon();
   }
 
   public final class OutlinedCompactChipKt {
@@ -159,9 +159,9 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class OutlinedCompactChipPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void OutlinedCompactChipPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void OutlinedCompactChipPreviewIconOnly();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void OutlinedCompactChipPreviewWithIcon();
+    method @androidx.compose.runtime.Composable public static void OutlinedCompactChipPreview();
+    method @androidx.compose.runtime.Composable public static void OutlinedCompactChipPreviewIconOnly();
+    method @androidx.compose.runtime.Composable public static void OutlinedCompactChipPreviewWithIcon();
   }
 
   public final class ResponsiveDialogKt {
@@ -176,10 +176,10 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class SecondaryTitlePreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SecondaryTitlePreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SecondaryTitlePreviewWithIcon();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SecondaryTitlePreviewWithIconAndLongText();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SecondaryTitlePreviewWithLongText();
+    method @androidx.compose.runtime.Composable public static void SecondaryTitlePreview();
+    method @androidx.compose.runtime.Composable public static void SecondaryTitlePreviewWithIcon();
+    method @androidx.compose.runtime.Composable public static void SecondaryTitlePreviewWithIconAndLongText();
+    method @androidx.compose.runtime.Composable public static void SecondaryTitlePreviewWithLongText();
   }
 
   public final class SplitToggleChipKt {
@@ -187,13 +187,13 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class SplitToggleChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void SplitToggleChipCheckboxPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Disabled", backgroundColor=4278190080L, showBackground=true) public static void SplitToggleChipPreviewDisabled();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void SplitToggleChipRadioPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void SplitToggleChipSwitchPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void SplitToggleChipUncheckedAndDisabledPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void SplitToggleChipUncheckedPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label", backgroundColor=4278190080L, showBackground=true) public static void SplitToggleChipWithSecondaryLabel();
+    method @androidx.compose.runtime.Composable public static void SplitToggleChipCheckboxPreview();
+    method @androidx.compose.runtime.Composable public static void SplitToggleChipPreviewDisabled();
+    method @androidx.compose.runtime.Composable public static void SplitToggleChipRadioPreview();
+    method @androidx.compose.runtime.Composable public static void SplitToggleChipSwitchPreview();
+    method @androidx.compose.runtime.Composable public static void SplitToggleChipUncheckedAndDisabledPreview();
+    method @androidx.compose.runtime.Composable public static void SplitToggleChipUncheckedPreview();
+    method @androidx.compose.runtime.Composable public static void SplitToggleChipWithSecondaryLabel();
   }
 
   public final class StepperKt {
@@ -209,8 +209,8 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class TitlePreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void TitlePreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void TitlePreviewWithLongText();
+    method @androidx.compose.runtime.Composable public static void TitlePreview();
+    method @androidx.compose.runtime.Composable public static void TitlePreviewWithLongText();
   }
 
   public final class ToggleButtonDefaults {
@@ -224,16 +224,16 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class ToggleButtonPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleButtonPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleButtonPreviewDisabled();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleButtonPreviewIconOnly();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleButtonPreviewIconOnlyNotChecked();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleButtonPreviewNotChecked();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleButtonPreviewNotCheckedDisabled();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleButtonPreviewSmall();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleButtonPreviewSmallNotChecked();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleButtonPreviewText();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleButtonPreviewTextNotChecked();
+    method @androidx.compose.runtime.Composable public static void ToggleButtonPreview();
+    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewDisabled();
+    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewIconOnly();
+    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewIconOnlyNotChecked();
+    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewNotChecked();
+    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewNotCheckedDisabled();
+    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewSmall();
+    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewSmallNotChecked();
+    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewText();
+    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewTextNotChecked();
   }
 
   public final class ToggleChipKt {
@@ -241,15 +241,15 @@ package com.google.android.horologist.compose.material {
   }
 
   public final class ToggleChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleChipCheckboxPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Disabled", backgroundColor=4278190080L, showBackground=true) public static void ToggleChipPreviewDisabled();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With icon", backgroundColor=4278190080L, showBackground=true) public static void ToggleChipPreviewWithIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label and icon", backgroundColor=4278190080L, showBackground=true) public static void ToggleChipPreviewWithSecondaryLabelAndIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleChipRadioPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleChipSwitchPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleChipUncheckedAndDisabledPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void ToggleChipUncheckedPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label", backgroundColor=4278190080L, showBackground=true) public static void ToggleChipWithSecondaryLabel();
+    method @androidx.compose.runtime.Composable public static void ToggleChipCheckboxPreview();
+    method @androidx.compose.runtime.Composable public static void ToggleChipPreviewDisabled();
+    method @androidx.compose.runtime.Composable public static void ToggleChipPreviewWithIcon();
+    method @androidx.compose.runtime.Composable public static void ToggleChipPreviewWithSecondaryLabelAndIcon();
+    method @androidx.compose.runtime.Composable public static void ToggleChipRadioPreview();
+    method @androidx.compose.runtime.Composable public static void ToggleChipSwitchPreview();
+    method @androidx.compose.runtime.Composable public static void ToggleChipUncheckedAndDisabledPreview();
+    method @androidx.compose.runtime.Composable public static void ToggleChipUncheckedPreview();
+    method @androidx.compose.runtime.Composable public static void ToggleChipWithSecondaryLabel();
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum ToggleChipToggleControl {

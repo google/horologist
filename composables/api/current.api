@@ -6,7 +6,7 @@ package com.google.android.horologist.composables {
   }
 
   public final class DatePickerPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices @androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales public static void DatePickerPreview();
+    method @androidx.compose.runtime.Composable public static void DatePickerPreview();
     method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Small", fontScale=0.94f) public static void DatePickerPreviewLargeDeviceSmallFont();
     method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Largest", fontScale=1.24f) public static void DatePickerPreviewSmallDeviceWithLargeFontBold();
   }
@@ -17,13 +17,13 @@ package com.google.android.horologist.composables {
   }
 
   public final class MarqueeTextPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextConstantScrollingPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextConstantWithIconScrollingPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextShortTextCenterPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextShortTextRightPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextShortTextRtlPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextStyledPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextTypicalPreview();
+    method @androidx.compose.runtime.Composable public static void MarqueeTextConstantScrollingPreview();
+    method @androidx.compose.runtime.Composable public static void MarqueeTextConstantWithIconScrollingPreview();
+    method @androidx.compose.runtime.Composable public static void MarqueeTextShortTextCenterPreview();
+    method @androidx.compose.runtime.Composable public static void MarqueeTextShortTextRightPreview();
+    method @androidx.compose.runtime.Composable public static void MarqueeTextShortTextRtlPreview();
+    method @androidx.compose.runtime.Composable public static void MarqueeTextStyledPreview();
+    method @androidx.compose.runtime.Composable public static void MarqueeTextTypicalPreview();
   }
 
   public final class PlaceholderChipKt {
@@ -31,8 +31,8 @@ package com.google.android.horologist.composables {
   }
 
   public final class PlaceholderChipPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void PlaceholderChipPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void PlaceholderChipPreviewWithSecondaryColors();
+    method @androidx.compose.runtime.Composable public static void PlaceholderChipPreview();
+    method @androidx.compose.runtime.Composable public static void PlaceholderChipPreviewWithSecondaryColors();
   }
 
   public enum PreviewAnimationState {
@@ -170,10 +170,10 @@ package com.google.android.horologist.composables {
 
   public final class SectionedListPreviewKt {
     method @androidx.compose.runtime.Composable public static void FavouritesFooter();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SectionedListPreviewEmptySection();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SectionedListPreviewFailedSection();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SectionedListPreviewLoadedSection();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SectionedListPreviewLoadingSection();
+    method @androidx.compose.runtime.Composable public static void SectionedListPreviewEmptySection();
+    method @androidx.compose.runtime.Composable public static void SectionedListPreviewFailedSection();
+    method @androidx.compose.runtime.Composable public static void SectionedListPreviewLoadedSection();
+    method @androidx.compose.runtime.Composable public static void SectionedListPreviewLoadingSection();
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class SectionedListScope {
@@ -192,11 +192,11 @@ package com.google.android.horologist.composables {
   }
 
   public final class SquareSegmentedProgressIndicatorPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSquare public static void PreviewHighCornerRadius();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSquare public static void PreviewProgressAnimation();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSquare public static void PreviewSquare();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSquare public static void PreviewSquareWithBrushAndColorsCombined();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSquare public static void PreviewSquareWithBrushColors();
+    method @androidx.compose.runtime.Composable public static void PreviewHighCornerRadius();
+    method @androidx.compose.runtime.Composable public static void PreviewProgressAnimation();
+    method @androidx.compose.runtime.Composable public static void PreviewSquare();
+    method @androidx.compose.runtime.Composable public static void PreviewSquareWithBrushAndColorsCombined();
+    method @androidx.compose.runtime.Composable public static void PreviewSquareWithBrushColors();
     method public static java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> getPreviewProgressSections();
     method public static java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> getPreviewProgressSectionsBrush();
     method public static java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> getPreviewProgressSectionsBrushAndColorCombined();
@@ -206,7 +206,7 @@ package com.google.android.horologist.composables {
   }
 
   public final class TimePicker12hPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices @androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales public static void TimePicker12hPreview();
+    method @androidx.compose.runtime.Composable public static void TimePicker12hPreview();
     method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Small", fontScale=0.94f) public static void TimePicker12hPreviewLargeDeviceSmallFont();
     method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Largest", fontScale=1.24f) public static void TimePicker12hPreviewSmallDeviceWithLargeFontBold();
   }
@@ -217,7 +217,7 @@ package com.google.android.horologist.composables {
   }
 
   public final class TimePickerPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices @androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales public static void TimePickerPreview();
+    method @androidx.compose.runtime.Composable public static void TimePickerPreview();
     method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Small", fontScale=0.94f) public static void TimePickerPreviewLargeDeviceSmallFont();
     method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Largest", fontScale=1.24f) public static void TimePickerPreviewSmallDeviceWithLargeFontBold();
   }

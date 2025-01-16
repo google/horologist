@@ -8,7 +8,7 @@ package com.google.android.horologist.audio.ui {
   }
 
   public final class DeviceChipPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void DeviceChipPreview();
+    method @androidx.compose.runtime.Composable public static void DeviceChipPreview();
   }
 
   public final class RotaryVolumeControlsKt {
@@ -34,14 +34,14 @@ package com.google.android.horologist.audio.ui {
   }
 
   public final class VolumeScreenLocalePreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearLocalePreview public static void VolumeScreenLocalePreview();
+    method @androidx.compose.runtime.Composable public static void VolumeScreenLocalePreview();
   }
 
   public final class VolumeScreenPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound public static void VolumeScreenGuideWithLongText();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices @androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales public static void VolumeScreenPreview(@androidx.compose.ui.tooling.preview.PreviewParameter(provider=AudioOutputProvider::class) com.google.android.horologist.audio.AudioOutput audioOutput);
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound public static void VolumeScreenTheme(@androidx.compose.ui.tooling.preview.PreviewParameter(provider=WearPreviewThemes::class) com.google.android.horologist.compose.tools.ThemeValues themeValues);
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices @androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales public static void VolumeScreenWithLabel();
+    method @androidx.compose.runtime.Composable public static void VolumeScreenGuideWithLongText();
+    method @androidx.compose.runtime.Composable public static void VolumeScreenPreview(@androidx.compose.ui.tooling.preview.PreviewParameter(provider=AudioOutputProvider::class) com.google.android.horologist.audio.AudioOutput audioOutput);
+    method @androidx.compose.runtime.Composable public static void VolumeScreenTheme(@androidx.compose.ui.tooling.preview.PreviewParameter(provider=WearPreviewThemes::class) error.NonExistentClass themeValues);
+    method @androidx.compose.runtime.Composable public static void VolumeScreenWithLabel();
   }
 
 }
@@ -117,9 +117,9 @@ package com.google.android.horologist.audio.ui.components.actions {
   }
 
   public final class SettingsButtonsPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SettingsButtonsDisabledPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SettingsButtonsPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SettingsButtonsWithBrandIconPreview();
+    method @androidx.compose.runtime.Composable public static void SettingsButtonsDisabledPreview();
+    method @androidx.compose.runtime.Composable public static void SettingsButtonsPreview();
+    method @androidx.compose.runtime.Composable public static void SettingsButtonsWithBrandIconPreview();
   }
 
 }
@@ -131,7 +131,7 @@ package com.google.android.horologist.audio.ui.components.animated {
   }
 
   public final class AnimatedSetVolumeButtonPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound public static void AnimatedSetVolumeButtonPreview();
+    method @androidx.compose.runtime.Composable public static void AnimatedSetVolumeButtonPreview();
   }
 
   public final class InteractivePreviewAwareKt {

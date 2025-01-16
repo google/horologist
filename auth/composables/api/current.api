@@ -7,8 +7,8 @@ package com.google.android.horologist.auth.composables.chips {
   }
 
   public final class AccountChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void AccountChipPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void AccountChipPreviewNoAvatar();
+    method @androidx.compose.runtime.Composable public static void AccountChipPreview();
+    method @androidx.compose.runtime.Composable public static void AccountChipPreviewNoAvatar();
   }
 
   public final class CreateAccountChipKt {
@@ -16,8 +16,8 @@ package com.google.android.horologist.auth.composables.chips {
   }
 
   public final class CreateAccountChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void CreateAccountChipPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void CreateAccountChipPreviewLargeIconSpace();
+    method @androidx.compose.runtime.Composable public static void CreateAccountChipPreview();
+    method @androidx.compose.runtime.Composable public static void CreateAccountChipPreviewLargeIconSpace();
   }
 
   public final class GuestModeChipKt {
@@ -25,7 +25,7 @@ package com.google.android.horologist.auth.composables.chips {
   }
 
   public final class GuestModeChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void GuestModeChipPreview();
+    method @androidx.compose.runtime.Composable public static void GuestModeChipPreview();
   }
 
   public final class OtherOptionsChipKt {
@@ -33,7 +33,7 @@ package com.google.android.horologist.auth.composables.chips {
   }
 
   public final class OtherOptionsChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void OtherOptionsChipPreview();
+    method @androidx.compose.runtime.Composable public static void OtherOptionsChipPreview();
   }
 
   public final class SignInChipKt {
@@ -41,7 +41,7 @@ package com.google.android.horologist.auth.composables.chips {
   }
 
   public final class SignInChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void SignInChipPreview();
+    method @androidx.compose.runtime.Composable public static void SignInChipPreview();
   }
 
 }
@@ -54,11 +54,11 @@ package com.google.android.horologist.auth.composables.dialogs {
   }
 
   public final class SignedInConfirmationDialogPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SignedInConfirmationDialogPreview();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SignedInConfirmationDialogPreviewNoEmail();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SignedInConfirmationDialogPreviewNoInformation();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SignedInConfirmationDialogPreviewNoName();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SignedInConfirmationDialogPreviewTruncation();
+    method @androidx.compose.runtime.Composable public static void SignedInConfirmationDialogPreview();
+    method @androidx.compose.runtime.Composable public static void SignedInConfirmationDialogPreviewNoEmail();
+    method @androidx.compose.runtime.Composable public static void SignedInConfirmationDialogPreviewNoInformation();
+    method @androidx.compose.runtime.Composable public static void SignedInConfirmationDialogPreviewNoName();
+    method @androidx.compose.runtime.Composable public static void SignedInConfirmationDialogPreviewTruncation();
   }
 
 }
@@ -88,7 +88,7 @@ package com.google.android.horologist.auth.composables.screens {
   }
 
   public final class AuthErrorScreenPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void AuthErrorScreenPreview();
+    method @androidx.compose.runtime.Composable public static void AuthErrorScreenPreview();
   }
 
   public final class CheckYourPhoneScreenKt {
@@ -96,8 +96,8 @@ package com.google.android.horologist.auth.composables.screens {
   }
 
   public final class CheckYourPhoneScreenPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void CheckYourPhoneScreenPreview();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void CheckYourPhoneScreenPreviewWithMessage();
+    method @androidx.compose.runtime.Composable public static void CheckYourPhoneScreenPreview();
+    method @androidx.compose.runtime.Composable public static void CheckYourPhoneScreenPreviewWithMessage();
   }
 
   public final class SelectAccountScreenKt {
@@ -105,8 +105,8 @@ package com.google.android.horologist.auth.composables.screens {
   }
 
   public final class SelectAccountScreenPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SelectAccountScreenPreview();
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SelectAccountScreenPreviewNoAvatar();
+    method @androidx.compose.runtime.Composable public static void SelectAccountScreenPreview();
+    method @androidx.compose.runtime.Composable public static void SelectAccountScreenPreviewNoAvatar();
   }
 
   public final class SignInPlaceholderScreenKt {
@@ -114,7 +114,7 @@ package com.google.android.horologist.auth.composables.screens {
   }
 
   public final class SignInPlaceholderScreenPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SignInPlaceholderScreenPreview();
+    method @androidx.compose.runtime.Composable public static void SignInPlaceholderScreenPreview();
   }
 
 }

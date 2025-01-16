@@ -20,7 +20,7 @@ package com.google.android.horologist.auth.data.common.model {
 package com.google.android.horologist.auth.data.common.repository {
 
   public interface AuthUserRepository {
-    method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser>);
+    method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser?>);
     method public default suspend Object? getAvailable(kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.auth.data.common.model.AuthUser>>);
   }
 
@@ -35,7 +35,7 @@ package com.google.android.horologist.auth.data.googlesignin {
 
   public final class GoogleSignInAuthUserRepository implements com.google.android.horologist.auth.data.common.repository.AuthUserRepository {
     ctor public GoogleSignInAuthUserRepository(android.content.Context applicationContext);
-    method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser>);
+    method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser?>);
   }
 
   public interface GoogleSignInEventListener {

@@ -5,13 +5,41 @@ package com.google.android.horologist.composables {
     method @androidx.compose.runtime.Composable public static void DatePicker(kotlin.jvm.functions.Function1<? super java.time.LocalDate,kotlin.Unit> onDateConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalDate date, optional java.time.LocalDate? fromDate, optional java.time.LocalDate? toDate);
   }
 
+  public final class DatePickerPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices @androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales public static void DatePickerPreview();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Small", fontScale=0.94f) public static void DatePickerPreviewLargeDeviceSmallFont();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Largest", fontScale=1.24f) public static void DatePickerPreviewSmallDeviceWithLargeFontBold();
+  }
+
   public final class MarqueeTextKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MarqueeText(androidx.compose.ui.text.AnnotatedString text, optional androidx.compose.ui.Modifier modifier, optional java.util.Map<java.lang.String,androidx.compose.foundation.text.InlineTextContent> inlineContent, optional long color, optional androidx.compose.ui.text.TextStyle style, optional int textAlign, optional float followGap, optional float edgeGradientWidth, optional float marqueeDpPerSecond, optional long pauseTime);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MarqueeText(String text, optional androidx.compose.ui.Modifier modifier, optional long color, optional androidx.compose.ui.text.TextStyle style, optional int textAlign, optional float followGap, optional float edgeGradientWidth, optional float marqueeDpPerSecond, optional long pauseTime);
   }
 
+  public final class MarqueeTextPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextConstantScrollingPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextConstantWithIconScrollingPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextShortTextCenterPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextShortTextRightPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextShortTextRtlPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextStyledPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextTypicalPreview();
+  }
+
   public final class PlaceholderChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void PlaceholderChip(optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material.PlaceholderState placeholderState, optional boolean secondaryLabel, optional boolean icon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional String contentDescription);
+  }
+
+  public final class PlaceholderChipPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void PlaceholderChipPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void PlaceholderChipPreviewWithSecondaryColors();
+  }
+
+  public enum PreviewAnimationState {
+    method public float getTarget();
+    property public final float target;
+    enum_constant public static final com.google.android.horologist.composables.PreviewAnimationState End;
+    enum_constant public static final com.google.android.horologist.composables.PreviewAnimationState Start;
   }
 
   public final class ProgressIndicatorSegment {
@@ -136,8 +164,16 @@ package com.google.android.horologist.composables {
   }
 
   public final class SectionedListKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SectionedList(optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional java.util.List<? extends com.google.android.horologist.composables.Section<?>> sections);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SectionedList(optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional java.util.List<? extends com.google.android.horologist.composables.Section<? extends java.lang.Object?>> sections);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SectionedList(optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionedListScope,kotlin.Unit> content);
+  }
+
+  public final class SectionedListPreviewKt {
+    method @androidx.compose.runtime.Composable public static void FavouritesFooter();
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SectionedListPreviewEmptySection();
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SectionedListPreviewFailedSection();
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SectionedListPreviewLoadedSection();
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SectionedListPreviewLoadingSection();
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class SectionedListScope {
@@ -155,9 +191,35 @@ package com.google.android.horologist.composables {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SquareSegmentedProgressIndicator(optional androidx.compose.ui.Modifier modifier, float progress, optional float strokeWidth, optional long trackColor, optional float cornerRadiusDp, java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> trackSegments, optional float paddingDp);
   }
 
+  public final class SquareSegmentedProgressIndicatorPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSquare public static void PreviewHighCornerRadius();
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSquare public static void PreviewProgressAnimation();
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSquare public static void PreviewSquare();
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSquare public static void PreviewSquareWithBrushAndColorsCombined();
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSquare public static void PreviewSquareWithBrushColors();
+    method public static java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> getPreviewProgressSections();
+    method public static java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> getPreviewProgressSectionsBrush();
+    method public static java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> getPreviewProgressSectionsBrushAndColorCombined();
+    property public static final java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> previewProgressSections;
+    property public static final java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> previewProgressSectionsBrush;
+    property public static final java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> previewProgressSectionsBrushAndColorCombined;
+  }
+
+  public final class TimePicker12hPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices @androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales public static void TimePicker12hPreview();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Small", fontScale=0.94f) public static void TimePicker12hPreviewLargeDeviceSmallFont();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Largest", fontScale=1.24f) public static void TimePicker12hPreviewSmallDeviceWithLargeFontBold();
+  }
+
   public final class TimePickerKt {
     method @androidx.compose.runtime.Composable public static void TimePicker(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onTimeConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime time, optional boolean showSeconds);
     method @androidx.compose.runtime.Composable public static void TimePickerWith12HourClock(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onTimeConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime time);
+  }
+
+  public final class TimePickerPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices @androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales public static void TimePickerPreview();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Small", fontScale=0.94f) public static void TimePickerPreviewLargeDeviceSmallFont();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(device=androidx.wear.tooling.preview.devices.WearDevices.SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Largest", fontScale=1.24f) public static void TimePickerPreviewSmallDeviceWithLargeFontBold();
   }
 
   public final class UnboundedRippleButtonKt {

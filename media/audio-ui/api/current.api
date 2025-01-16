@@ -1,6 +1,16 @@
 // Signature format: 4.0
 package com.google.android.horologist.audio.ui {
 
+  public final class AudioOutputProvider implements androidx.compose.ui.tooling.preview.PreviewParameterProvider<com.google.android.horologist.audio.AudioOutput> {
+    ctor public AudioOutputProvider();
+    method public kotlin.sequences.Sequence<com.google.android.horologist.audio.AudioOutput> getValues();
+    property public kotlin.sequences.Sequence<com.google.android.horologist.audio.AudioOutput> values;
+  }
+
+  public final class DeviceChipPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void DeviceChipPreview();
+  }
+
   public final class RotaryVolumeControlsKt {
     method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior highResVolumeRotaryBehavior(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput);
     method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior lowResVolumeRotaryBehavior(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput);
@@ -21,6 +31,17 @@ package com.google.android.horologist.audio.ui {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void VolumeScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, optional boolean showVolumeIndicator, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon);
     method @androidx.compose.runtime.Composable public static void VolumeScreen(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volume, com.google.android.horologist.audio.ui.components.AudioOutputUi audioOutputUi, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator);
     method @androidx.compose.runtime.Composable public static void VolumeWithLabelScreen(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volume, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional long volumeColor);
+  }
+
+  public final class VolumeScreenLocalePreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearLocalePreview public static void VolumeScreenLocalePreview();
+  }
+
+  public final class VolumeScreenPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound public static void VolumeScreenGuideWithLongText();
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices @androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales public static void VolumeScreenPreview(@androidx.compose.ui.tooling.preview.PreviewParameter(provider=AudioOutputProvider::class) com.google.android.horologist.audio.AudioOutput audioOutput);
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound public static void VolumeScreenTheme(@androidx.compose.ui.tooling.preview.PreviewParameter(provider=WearPreviewThemes::class) com.google.android.horologist.compose.tools.ThemeValues themeValues);
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices @androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales public static void VolumeScreenWithLabel();
   }
 
 }
@@ -66,16 +87,39 @@ package com.google.android.horologist.audio.ui.components.actions {
     method @androidx.compose.runtime.Composable public static void AudioOutputButton(kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
   }
 
+  public final class AudioOutputButtonPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview public static void AudioOutputButtonPreview();
+  }
+
   public final class SetAudioOutputButtonKt {
     method @androidx.compose.runtime.Composable public static void SetAudioOutputButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeUiState? volumeUiState, optional com.google.android.horologist.audio.ui.components.AudioOutputUi? audioOutputUi, optional boolean enabled, optional long badgeColor, optional androidx.compose.ui.Alignment iconAlignment, optional androidx.compose.foundation.layout.PaddingValues iconPadding);
+  }
+
+  public final class SetAudioOutputButtonPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Other volume", backgroundColor=4278190080L, showBackground=true, widthDp=60) public static void SetAudioOutputButtonPreview();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Max volume", backgroundColor=4278190080L, showBackground=true, widthDp=60) public static void SetAudioOutputButtonPreviewMaxVolume();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Min volume", backgroundColor=4278190080L, showBackground=true, widthDp=60) public static void SetAudioOutputButtonPreviewMinVolume();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="NoAudioOutput", backgroundColor=4278190080L, showBackground=true, widthDp=60) public static void SetAudioOutputButtonPreviewNoOutput();
   }
 
   public final class SetVolumeButtonKt {
     method @androidx.compose.runtime.Composable public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeUiState? volumeUiState, optional boolean enabled, optional androidx.compose.ui.Alignment iconAlignment, optional androidx.compose.foundation.layout.PaddingValues? iconPadding);
   }
 
+  public final class SetVolumeButtonPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Other volume", backgroundColor=4278190080L, showBackground=true) public static void SetVolumeButtonPreview();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Max volume", backgroundColor=4278190080L, showBackground=true) public static void SetVolumeButtonPreviewMaxVolume();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Min volume", backgroundColor=4278190080L, showBackground=true) public static void SetVolumeButtonPreviewMinVolume();
+  }
+
   public final class SettingsButtonKt {
     method @androidx.compose.runtime.Composable public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector? badgeVector, optional long badgeColor, optional boolean enabled, optional float iconSize, optional float badgeSize, optional androidx.compose.ui.Alignment iconAlignment, optional androidx.compose.foundation.layout.PaddingValues? iconPadding, optional float tapTargetSize);
+  }
+
+  public final class SettingsButtonsPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SettingsButtonsDisabledPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SettingsButtonsPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SettingsButtonsWithBrandIconPreview();
   }
 
 }
@@ -84,6 +128,10 @@ package com.google.android.horologist.audio.ui.components.animated {
 
   public final class AnimatedSetVolumeButtonKt {
     method @androidx.compose.runtime.Composable public static void AnimatedSetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.ui.VolumeUiState volumeUiState, optional androidx.compose.ui.Modifier modifier);
+  }
+
+  public final class AnimatedSetVolumeButtonPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound public static void AnimatedSetVolumeButtonPreview();
   }
 
   public final class InteractivePreviewAwareKt {

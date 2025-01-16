@@ -1,4 +1,14 @@
 // Signature format: 4.0
+package com.google.android.horologist.auth.composables.screens {
+
+  public final class SignInPromptScreenPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SignInPromptScreenPreviewCustomLoading();
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SignInPromptScreenPreviewLoading();
+    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void SignInPromptScreenPreviewSignedOut();
+  }
+
+}
+
 package com.google.android.horologist.auth.ui.common.screens.prompt {
 
   public final class SignInPromptScreenKt {

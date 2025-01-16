@@ -39,6 +39,14 @@ package com.google.android.horologist.networks.db {
     method @androidx.room.Query("UPDATE DataUsage SET bytesTotal = bytesTotal + :bytes WHERE day = :day AND networkType = :networkType") public suspend Object? updateBytes(int day, long bytes, String networkType, kotlin.coroutines.Continuation<? super java.lang.Integer>);
   }
 
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class NetworkUsageDao_Impl implements com.google.android.horologist.networks.db.NetworkUsageDao {
+    ctor public NetworkUsageDao_Impl(androidx.room.RoomDatabase);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.networks.db.DataUsage!>!>! getRecords(int);
+    method public static java.util.List<java.lang.Class<? extends java.lang.Object!>!> getRequiredConverters();
+    method public Object! insert(com.google.android.horologist.networks.db.DataUsage!, kotlin.coroutines.Continuation<? super java.lang.Long!>!);
+    method public Object! updateBytes(int, long, String!, kotlin.coroutines.Continuation<? super java.lang.Integer!>!);
+  }
+
   @androidx.room.Database(entities={DataUsage::class}, version=1, exportSchema=false) @androidx.room.TypeConverters(NetworkUsageDatabase.Converters::class) public abstract class NetworkUsageDatabase extends androidx.room.RoomDatabase {
     ctor public NetworkUsageDatabase();
     method public abstract com.google.android.horologist.networks.db.NetworkUsageDao networkUsageDao();
@@ -53,6 +61,14 @@ package com.google.android.horologist.networks.db {
     ctor public NetworkUsageDatabase.Converters();
     method @androidx.room.TypeConverter public Long? dateToTimestamp(java.time.Instant? date);
     method @androidx.room.TypeConverter public java.time.Instant? fromTimestamp(Long? value);
+  }
+
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class NetworkUsageDatabase_Impl extends com.google.android.horologist.networks.db.NetworkUsageDatabase {
+    ctor public NetworkUsageDatabase_Impl();
+    method public void clearAllTables();
+    method protected androidx.room.InvalidationTracker createInvalidationTracker();
+    method protected androidx.sqlite.db.SupportSQLiteOpenHelper createOpenHelper(androidx.room.DatabaseConfiguration);
+    method public com.google.android.horologist.networks.db.NetworkUsageDao! networkUsageDao();
   }
 
 }

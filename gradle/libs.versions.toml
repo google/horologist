@@ -79,6 +79,7 @@ androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro
 androidx-complications-data = { module = "androidx.wear.watchface:watchface-complications-data", version.ref = "androidx-complications-data" }
 androidx-complications-datasource-ktx = { module = "androidx.wear.watchface:watchface-complications-data-source-ktx", version.ref = "androidx-wear-watchface" }
 androidx-complications-rendering = { module = "androidx.wear.watchface:watchface-complications-rendering", version.ref = "androidx-wear-watchface" }
+androidx-datastore-preferences-proto = { module = "androidx.datastore:datastore-preferences-proto", version.ref = "androidx-datastore" }
 androidx-wear-compose-material3 = { module = "androidx.wear.compose:compose-material3", version.ref = "wearComposeMaterial3" }
 androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures", version.ref = "androidx-concurrent" }
 androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }

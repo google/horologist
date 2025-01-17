@@ -81,6 +81,7 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 
 metalava {
     filename.set("api/current.api")
+    hiddenAnnotations.addAll("dagger.internal.DaggerGenerated", "dagger.assisted.AssistedFactory", "javax.annotation.processing.Generated")
 }
 
 dependencies {

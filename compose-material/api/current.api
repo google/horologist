@@ -7,11 +7,6 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void AlertDialog(boolean showDialog, kotlin.jvm.functions.Function0<kotlin.Unit> onCancel, kotlin.jvm.functions.Function0<kotlin.Unit> onOk, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? icon, optional String? title, optional String? message, optional String okButtonContentDescription, optional String cancelButtonContentDescription, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState state, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.ScalingLazyListScope,kotlin.Unit>? content);
   }
 
-  public final class AlertDialogPreviewKt {
-    method @androidx.compose.runtime.Composable public static void AlertDialogPreview();
-    method @androidx.compose.runtime.Composable public static void AlertDialogWithLongBodyPreview();
-  }
-
   public final class AnimatedLabelKt {
     method @androidx.compose.runtime.Composable public static void AnimatedLabel(String? label, kotlin.jvm.functions.Function2<? super androidx.compose.animation.AnimatedContentScope,? super java.lang.String,kotlin.Unit> content);
   }
@@ -19,16 +14,6 @@ package com.google.android.horologist.compose.material {
   public final class ButtonKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Button(androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onLongClick, optional androidx.wear.compose.material.ButtonColors colors, optional com.google.android.horologist.compose.material.ButtonSize buttonSize, optional boolean enabled);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Button(@DrawableRes int id, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onLongClick, optional androidx.wear.compose.material.ButtonColors colors, optional com.google.android.horologist.compose.material.ButtonSize buttonSize, optional boolean enabled);
-  }
-
-  public final class ButtonPreviewKt {
-    method @androidx.compose.runtime.Composable public static void ButtonPreview();
-    method @androidx.compose.runtime.Composable public static void ButtonPreviewCustomSize();
-    method @androidx.compose.runtime.Composable public static void ButtonPreviewDisabled();
-    method @androidx.compose.runtime.Composable public static void ButtonPreviewLarge();
-    method @androidx.compose.runtime.Composable public static void ButtonPreviewSmall();
-    method @androidx.compose.runtime.Composable public static void ButtonPreviewWithIconButtonColors();
-    method @androidx.compose.runtime.Composable public static void ButtonPreviewWithSecondaryButtonColors();
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract sealed class ButtonSize {
@@ -70,14 +55,6 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ChipIconWithProgress(float progress, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? icon, optional boolean largeIcon, optional long progressIndicatorColor, optional long progressTrackColor);
   }
 
-  public final class ChipIconWithProgressPreviewKt {
-    method @androidx.compose.runtime.Composable public static void ChipIconWithProgressInProgressLargeIconPreview();
-    method @androidx.compose.runtime.Composable public static void ChipIconWithProgressInProgressMediumIconPreview();
-    method @androidx.compose.runtime.Composable public static void ChipIconWithProgressInProgressPreview();
-    method @androidx.compose.runtime.Composable public static void ChipIconWithProgressInProgressSmallIconPreview();
-    method @androidx.compose.runtime.Composable public static void ChipIconWithProgressPreview();
-  }
-
   public final class ChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onLongClick, optional @StringRes Integer? secondaryLabel, optional com.google.android.horologist.images.base.paintable.Paintable? icon, optional boolean largeIcon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onLongClick, optional String? secondaryLabel, optional Object? iconRtlMode, optional com.google.android.horologist.images.base.paintable.Paintable? icon, optional boolean largeIcon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
@@ -86,29 +63,10 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Chip(kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onLongClick, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit>? secondaryLabel, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? icon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional androidx.compose.ui.graphics.Shape shape, optional androidx.wear.compose.material.ChipBorder border);
   }
 
-  public final class ChipPreviewKt {
-    method @androidx.compose.runtime.Composable public static void ChipPreview();
-    method @androidx.compose.runtime.Composable public static void ChipPreviewDisabled();
-    method @androidx.compose.runtime.Composable public static void ChipPreviewWithGradientBackgroundChipColors();
-    method @androidx.compose.runtime.Composable public static void ChipPreviewWithIcon();
-    method @androidx.compose.runtime.Composable public static void ChipPreviewWithImageBackgroundChipColors();
-    method @androidx.compose.runtime.Composable public static void ChipPreviewWithLargeIcon();
-    method @androidx.compose.runtime.Composable public static void ChipPreviewWithSecondaryChipColors();
-    method @androidx.compose.runtime.Composable public static void ChipPreviewWithSecondaryLabel();
-    method @androidx.compose.runtime.Composable public static void ChipPreviewWithSecondaryLabelAndIcon();
-    method @androidx.compose.runtime.Composable public static void ChipPreviewWithSecondaryLabelAndLargeIcon();
-  }
-
   public final class CompactChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CompactChip(com.google.android.horologist.images.base.paintable.Paintable icon, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CompactChip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? icon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void CompactChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? icon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
-  }
-
-  public final class CompactChipPreviewKt {
-    method @androidx.compose.runtime.Composable public static void CompactChipPreview();
-    method @androidx.compose.runtime.Composable public static void CompactChipPreviewIconOnly();
-    method @androidx.compose.runtime.Composable public static void CompactChipPreviewWithIcon();
   }
 
   public final class ConfirmationKt {
@@ -119,11 +77,6 @@ package com.google.android.horologist.compose.material {
 
   public final class IconKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Icon(com.google.android.horologist.images.base.paintable.PaintableIcon paintable, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional long tint);
-  }
-
-  public final class IconPreviewKt {
-    method @androidx.compose.runtime.Composable public static void IconPreview();
-    method @androidx.compose.runtime.Composable public static void IconPreviewMirrored();
   }
 
   public final class ListHeaderDefaults {
@@ -142,26 +95,10 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void OutlinedChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? icon, optional boolean largeIcon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
   }
 
-  public final class OutlinedChipPreviewKt {
-    method @androidx.compose.runtime.Composable public static void OutlinedChipPreview();
-    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewDisabled();
-    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewWithIcon();
-    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewWithLargeIcon();
-    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewWithSecondaryLabel();
-    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewWithSecondaryLabelAndIcon();
-    method @androidx.compose.runtime.Composable public static void OutlinedChipPreviewWithSecondaryLabelAndLargeIcon();
-  }
-
   public final class OutlinedCompactChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void OutlinedCompactChip(com.google.android.horologist.images.base.paintable.Paintable icon, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void OutlinedCompactChip(@StringRes int labelId, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? icon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void OutlinedCompactChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? icon, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.wear.compose.material.ChipBorder border);
-  }
-
-  public final class OutlinedCompactChipPreviewKt {
-    method @androidx.compose.runtime.Composable public static void OutlinedCompactChipPreview();
-    method @androidx.compose.runtime.Composable public static void OutlinedCompactChipPreviewIconOnly();
-    method @androidx.compose.runtime.Composable public static void OutlinedCompactChipPreviewWithIcon();
   }
 
   public final class ResponsiveDialogKt {
@@ -175,25 +112,8 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable public static void ResponsiveListHeader(optional androidx.compose.ui.Modifier modifier, optional long backgroundColor, optional long contentColor, optional androidx.compose.foundation.layout.PaddingValues contentPadding, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> content);
   }
 
-  public final class SecondaryTitlePreviewKt {
-    method @androidx.compose.runtime.Composable public static void SecondaryTitlePreview();
-    method @androidx.compose.runtime.Composable public static void SecondaryTitlePreviewWithIcon();
-    method @androidx.compose.runtime.Composable public static void SecondaryTitlePreviewWithIconAndLongText();
-    method @androidx.compose.runtime.Composable public static void SecondaryTitlePreviewWithLongText();
-  }
-
   public final class SplitToggleChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SplitToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.compose.material.ToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional androidx.wear.compose.material.SplitToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource checkedInteractionSource, optional androidx.compose.foundation.interaction.MutableInteractionSource clickInteractionSource);
-  }
-
-  public final class SplitToggleChipPreviewKt {
-    method @androidx.compose.runtime.Composable public static void SplitToggleChipCheckboxPreview();
-    method @androidx.compose.runtime.Composable public static void SplitToggleChipPreviewDisabled();
-    method @androidx.compose.runtime.Composable public static void SplitToggleChipRadioPreview();
-    method @androidx.compose.runtime.Composable public static void SplitToggleChipSwitchPreview();
-    method @androidx.compose.runtime.Composable public static void SplitToggleChipUncheckedAndDisabledPreview();
-    method @androidx.compose.runtime.Composable public static void SplitToggleChipUncheckedPreview();
-    method @androidx.compose.runtime.Composable public static void SplitToggleChipWithSecondaryLabel();
   }
 
   public final class StepperKt {
@@ -208,11 +128,6 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void Title(String text, optional androidx.compose.ui.Modifier modifier);
   }
 
-  public final class TitlePreviewKt {
-    method @androidx.compose.runtime.Composable public static void TitlePreview();
-    method @androidx.compose.runtime.Composable public static void TitlePreviewWithLongText();
-  }
-
   public final class ToggleButtonDefaults {
     method @androidx.compose.runtime.Composable public androidx.wear.compose.material.ToggleButtonColors iconOnlyColors();
     field public static final com.google.android.horologist.compose.material.ToggleButtonDefaults INSTANCE;
@@ -223,33 +138,8 @@ package com.google.android.horologist.compose.material {
     method @androidx.compose.runtime.Composable public static void ToggleButton(String text, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, optional androidx.compose.ui.Modifier modifier, optional boolean checked, optional boolean enabled, optional androidx.wear.compose.material.ToggleButtonColors colors, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.compose.ui.graphics.Shape shape, optional int role, optional boolean smallSize);
   }
 
-  public final class ToggleButtonPreviewKt {
-    method @androidx.compose.runtime.Composable public static void ToggleButtonPreview();
-    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewDisabled();
-    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewIconOnly();
-    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewIconOnlyNotChecked();
-    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewNotChecked();
-    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewNotCheckedDisabled();
-    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewSmall();
-    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewSmallNotChecked();
-    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewText();
-    method @androidx.compose.runtime.Composable public static void ToggleButtonPreviewTextNotChecked();
-  }
-
   public final class ToggleChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ToggleChip(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onCheckedChanged, String label, com.google.android.horologist.compose.material.ToggleChipToggleControl toggleControl, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.PaintableIcon? icon, optional String? secondaryLabel, optional androidx.wear.compose.material.ToggleChipColors colors, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource? interactionSource, optional long iconTint);
-  }
-
-  public final class ToggleChipPreviewKt {
-    method @androidx.compose.runtime.Composable public static void ToggleChipCheckboxPreview();
-    method @androidx.compose.runtime.Composable public static void ToggleChipPreviewDisabled();
-    method @androidx.compose.runtime.Composable public static void ToggleChipPreviewWithIcon();
-    method @androidx.compose.runtime.Composable public static void ToggleChipPreviewWithSecondaryLabelAndIcon();
-    method @androidx.compose.runtime.Composable public static void ToggleChipRadioPreview();
-    method @androidx.compose.runtime.Composable public static void ToggleChipSwitchPreview();
-    method @androidx.compose.runtime.Composable public static void ToggleChipUncheckedAndDisabledPreview();
-    method @androidx.compose.runtime.Composable public static void ToggleChipUncheckedPreview();
-    method @androidx.compose.runtime.Composable public static void ToggleChipWithSecondaryLabel();
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum ToggleChipToggleControl {

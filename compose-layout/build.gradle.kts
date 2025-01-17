@@ -79,6 +79,7 @@ android {
 }
 
 metalava {
+    excludedSourceSets.setFrom("src/debug/java")
     filename.set("api/current.api")
 }
 

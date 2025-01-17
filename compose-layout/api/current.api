@@ -81,10 +81,6 @@ package com.google.android.horologist.compose.layout {
     method @androidx.compose.runtime.Stable public static androidx.compose.ui.Modifier fillMaxRectangle(androidx.compose.ui.Modifier);
   }
 
-  public final class FillMaxRectanglePreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void FillMaxRectanglePreview();
-  }
-
   public final class FontScaleIndependentKt {
     method @androidx.compose.runtime.Composable public static void FontScaleIndependent(kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
@@ -256,10 +252,6 @@ package com.google.android.horologist.compose.pager {
 
   public final class VerticalPageIndicatorKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void VerticalPageIndicator(androidx.wear.compose.material.PageIndicatorState pageIndicatorState, optional androidx.compose.ui.Modifier modifier, optional int indicatorStyle, optional long selectedColor, optional long unselectedColor, optional float indicatorSize, optional float spacing, optional androidx.compose.ui.graphics.Shape indicatorShape);
-  }
-
-  public final class VerticalPagerIndicatorPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.wear.compose.ui.tooling.preview.WearPreviewDevices public static void VerticalPagerIndicatorPreview();
   }
 
   public final class VerticalPagerScreenKt {

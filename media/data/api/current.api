@@ -9,6 +9,28 @@ package com.google.android.horologist.media.data.database {
     method public abstract com.google.android.horologist.media.data.database.dao.PlaylistMediaDao playlistMediaDao();
   }
 
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class MediaDatabase_Impl extends com.google.android.horologist.media.data.database.MediaDatabase {
+    ctor public MediaDatabase_Impl();
+    method public void clearAllTables();
+    method protected androidx.room.InvalidationTracker createInvalidationTracker();
+    method protected androidx.sqlite.db.SupportSQLiteOpenHelper createOpenHelper(androidx.room.DatabaseConfiguration);
+    method public com.google.android.horologist.media.data.database.dao.MediaDao! mediaDao();
+    method public com.google.android.horologist.media.data.database.dao.MediaDownloadDao! mediaDownloadDao();
+    method public com.google.android.horologist.media.data.database.dao.PlaylistDao! playlistDao();
+    method public com.google.android.horologist.media.data.database.dao.PlaylistMediaDao! playlistMediaDao();
+  }
+
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class MediaDatabase_Impl extends com.google.android.horologist.media.data.database.MediaDatabase {
+    ctor public MediaDatabase_Impl();
+    method public void clearAllTables();
+    method protected androidx.room.InvalidationTracker createInvalidationTracker();
+    method protected androidx.sqlite.db.SupportSQLiteOpenHelper createOpenHelper(androidx.room.DatabaseConfiguration);
+    method public com.google.android.horologist.media.data.database.dao.MediaDao! mediaDao();
+    method public com.google.android.horologist.media.data.database.dao.MediaDownloadDao! mediaDownloadDao();
+    method public com.google.android.horologist.media.data.database.dao.PlaylistDao! playlistDao();
+    method public com.google.android.horologist.media.data.database.dao.PlaylistMediaDao! playlistMediaDao();
+  }
+
 }
 
 package com.google.android.horologist.media.data.database.dao {
@@ -16,6 +38,20 @@ package com.google.android.horologist.media.data.database.dao {
   @androidx.room.Dao @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface MediaDao {
     method @androidx.room.Query("\n        DELETE FROM MediaEntity\n        WHERE mediaId in (:mediaIds)\n    ") public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.REPLACE) public suspend Object? upsert(java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity> mediaList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  }
+
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class MediaDao_Impl implements com.google.android.horologist.media.data.database.dao.MediaDao {
+    ctor public MediaDao_Impl(androidx.room.RoomDatabase);
+    method public Object! delete(java.util.List<java.lang.String!>!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+    method public static java.util.List<java.lang.Class<? extends java.lang.Object!>!> getRequiredConverters();
+    method public Object! upsert(java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity!>!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+  }
+
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class MediaDao_Impl implements com.google.android.horologist.media.data.database.dao.MediaDao {
+    ctor public MediaDao_Impl(androidx.room.RoomDatabase);
+    method public Object! delete(java.util.List<java.lang.String!>!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+    method public static java.util.List<java.lang.Class<? extends java.lang.Object!>!> getRequiredConverters();
+    method public Object! upsert(java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity!>!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
   }
 
   @androidx.room.Dao @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface MediaDownloadDao {
@@ -53,6 +89,32 @@ package com.google.android.horologist.media.data.database.dao {
     property public final com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status;
   }
 
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class MediaDownloadDao_Impl implements com.google.android.horologist.media.data.database.dao.MediaDownloadDao {
+    ctor public MediaDownloadDao_Impl(androidx.room.RoomDatabase);
+    method public Object! delete(String!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+    method public Object! delete(java.util.List<java.lang.String!>!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+    method public Object! getAllByStatus(com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus!, kotlin.coroutines.Continuation<? super java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity!>!>!);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity!>!>! getList(java.util.List<java.lang.String!>!);
+    method public static java.util.List<java.lang.Class<? extends java.lang.Object!>!> getRequiredConverters();
+    method public Object! insert(com.google.android.horologist.media.data.database.model.MediaDownloadEntity!, kotlin.coroutines.Continuation<? super java.lang.Long!>!);
+    method public Object! updateProgress(String!, float, long, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+    method public Object! updateStatus(String!, com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+    method public Object! updateStatusAndProgress(com.google.android.horologist.media.data.database.dao.MediaDownloadDao.StatusAndProgress!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+  }
+
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class MediaDownloadDao_Impl implements com.google.android.horologist.media.data.database.dao.MediaDownloadDao {
+    ctor public MediaDownloadDao_Impl(androidx.room.RoomDatabase);
+    method public Object! delete(String!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+    method public Object! delete(java.util.List<java.lang.String!>!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+    method public Object! getAllByStatus(com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus!, kotlin.coroutines.Continuation<? super java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity!>!>!);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity!>!>! getList(java.util.List<java.lang.String!>!);
+    method public static java.util.List<java.lang.Class<? extends java.lang.Object!>!> getRequiredConverters();
+    method public Object! insert(com.google.android.horologist.media.data.database.model.MediaDownloadEntity!, kotlin.coroutines.Continuation<? super java.lang.Long!>!);
+    method public Object! updateProgress(String!, float, long, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+    method public Object! updateStatus(String!, com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+    method public Object! updateStatusAndProgress(com.google.android.horologist.media.data.database.dao.MediaDownloadDao.StatusAndProgress!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+  }
+
   @androidx.room.Dao @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface PlaylistDao {
     method @androidx.room.Query("\n        DELETE FROM PlaylistEntity\n        WHERE playlistId in (:playlistIds)\n    ") public void delete(java.util.List<java.lang.String> playlistIds);
     method @androidx.room.Query("\n        SELECT * FROM PlaylistEntity\n        WHERE EXISTS (\n            SELECT 1 FROM PlaylistMediaEntity\n            WHERE PlaylistMediaEntity.playlistId = PlaylistEntity.playlistId\n            AND EXISTS (\n                SELECT 1 FROM MediaDownloadEntity\n                WHERE MediaDownloadEntity.mediaId = PlaylistMediaEntity.mediaId\n            )\n        )\n    ") @androidx.room.Transaction public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllDownloaded();
@@ -62,9 +124,45 @@ package com.google.android.horologist.media.data.database.dao {
     method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.REPLACE) public suspend Object? upsert(com.google.android.horologist.media.data.database.model.PlaylistEntity playlistEntity, java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity> mediaEntityList, java.util.List<com.google.android.horologist.media.data.database.model.PlaylistMediaEntity> playlistMediaEntityList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class PlaylistDao_Impl implements com.google.android.horologist.media.data.database.dao.PlaylistDao {
+    ctor public PlaylistDao_Impl(androidx.room.RoomDatabase);
+    method public void delete(java.util.List<java.lang.String!>!);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist!>!>! getAllDownloaded();
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist!>!>! getAllPopulated();
+    method public Object! getPopulated(String!, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.data.database.model.PopulatedPlaylist!>!);
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.data.database.model.PopulatedPlaylist!>! getPopulatedStream(String!);
+    method public static java.util.List<java.lang.Class<? extends java.lang.Object!>!> getRequiredConverters();
+    method public Object! upsert(com.google.android.horologist.media.data.database.model.PlaylistEntity!, java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity!>!, java.util.List<com.google.android.horologist.media.data.database.model.PlaylistMediaEntity!>!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+  }
+
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class PlaylistDao_Impl implements com.google.android.horologist.media.data.database.dao.PlaylistDao {
+    ctor public PlaylistDao_Impl(androidx.room.RoomDatabase);
+    method public void delete(java.util.List<java.lang.String!>!);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist!>!>! getAllDownloaded();
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist!>!>! getAllPopulated();
+    method public Object! getPopulated(String!, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.data.database.model.PopulatedPlaylist!>!);
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.data.database.model.PopulatedPlaylist!>! getPopulatedStream(String!);
+    method public static java.util.List<java.lang.Class<? extends java.lang.Object!>!> getRequiredConverters();
+    method public Object! upsert(com.google.android.horologist.media.data.database.model.PlaylistEntity!, java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity!>!, java.util.List<com.google.android.horologist.media.data.database.model.PlaylistMediaEntity!>!, kotlin.coroutines.Continuation<? super kotlin.Unit!>!);
+  }
+
   @androidx.room.Dao @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface PlaylistMediaDao {
     method @androidx.room.Query("\n        DELETE FROM PlaylistMediaEntity\n        WHERE mediaId in (:mediaIds)\n    ") public void deleteByMediaId(java.util.List<java.lang.String> mediaIds);
     method @androidx.room.Query("\n        DELETE FROM PlaylistMediaEntity\n        WHERE playlistId in (:playlistIds)\n    ") public void deleteByPlaylistId(java.util.List<java.lang.String> playlistIds);
+  }
+
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class PlaylistMediaDao_Impl implements com.google.android.horologist.media.data.database.dao.PlaylistMediaDao {
+    ctor public PlaylistMediaDao_Impl(androidx.room.RoomDatabase);
+    method public void deleteByMediaId(java.util.List<java.lang.String!>!);
+    method public void deleteByPlaylistId(java.util.List<java.lang.String!>!);
+    method public static java.util.List<java.lang.Class<? extends java.lang.Object!>!> getRequiredConverters();
+  }
+
+  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class PlaylistMediaDao_Impl implements com.google.android.horologist.media.data.database.dao.PlaylistMediaDao {
+    ctor public PlaylistMediaDao_Impl(androidx.room.RoomDatabase);
+    method public void deleteByMediaId(java.util.List<java.lang.String!>!);
+    method public void deleteByPlaylistId(java.util.List<java.lang.String!>!);
+    method public static java.util.List<java.lang.Class<? extends java.lang.Object!>!> getRequiredConverters();
   }
 
 }

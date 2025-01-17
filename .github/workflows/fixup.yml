@@ -37,7 +37,7 @@ jobs:
       - name: Generate APIs
         uses: gradle/gradle-build-action@v3
         with:
-          arguments: --continue metalavaGenerateSignature metalavaGenerateSignatureDebug
+          arguments: --continue metalavaGenerateSignature metalavaGenerateSignatureRelease
 
       - name: Push new apis
         uses: stefanzweifel/git-auto-commit-action@v5

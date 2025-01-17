@@ -143,8 +143,6 @@ package com.google.android.horologist.compose.material {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public enum ToggleChipToggleControl {
-    method public static com.google.android.horologist.compose.material.ToggleChipToggleControl valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.compose.material.ToggleChipToggleControl[] values();
     enum_constant public static final com.google.android.horologist.compose.material.ToggleChipToggleControl Checkbox;
     enum_constant public static final com.google.android.horologist.compose.material.ToggleChipToggleControl Radio;
     enum_constant public static final com.google.android.horologist.compose.material.ToggleChipToggleControl Switch;

@@ -97,6 +97,7 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 }
 
 metalava {
+    excludedSourceSets.setFrom("src/debug/java")
     filename.set("api/current.api")
 }
 

@@ -1,6 +1,1062 @@
 // Signature format: 4.0
 package com.google.android.horologist.data {
 
+  public final class ActivityConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ActivityConfig!,com.google.android.horologist.data.ActivityConfig.Builder!> implements com.google.android.horologist.data.ActivityConfigOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public String! getClassFullName();
+    method public com.google.protobuf.ByteString! getClassFullNameBytes();
+    method public static com.google.android.horologist.data.ActivityConfig! getDefaultInstance();
+    method public static com.google.android.horologist.data.ActivityConfig.Builder! newBuilder();
+    method public static com.google.android.horologist.data.ActivityConfig.Builder! newBuilder(com.google.android.horologist.data.ActivityConfig!);
+    method public static com.google.android.horologist.data.ActivityConfig! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.ActivityConfig!>! parser();
+    field public static final int CLASSFULLNAME_FIELD_NUMBER = 2; // 0x2
+  }
+
+  public final class ActivityConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ActivityConfig!,com.google.android.horologist.data.ActivityConfig.Builder!> implements com.google.android.horologist.data.ActivityConfigOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public String! getClassFullName();
+    method public com.google.protobuf.ByteString! getClassFullNameBytes();
+    method public static com.google.android.horologist.data.ActivityConfig! getDefaultInstance();
+    method public static com.google.android.horologist.data.ActivityConfig.Builder! newBuilder();
+    method public static com.google.android.horologist.data.ActivityConfig.Builder! newBuilder(com.google.android.horologist.data.ActivityConfig!);
+    method public static com.google.android.horologist.data.ActivityConfig! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityConfig! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.ActivityConfig!>! parser();
+    field public static final int CLASSFULLNAME_FIELD_NUMBER = 2; // 0x2
+  }
+
+  public static final class ActivityConfig.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.ActivityConfig!,com.google.android.horologist.data.ActivityConfig.Builder!> implements com.google.android.horologist.data.ActivityConfigOrBuilder {
+    method public com.google.android.horologist.data.ActivityConfig.Builder! clearClassFullName();
+    method public String! getClassFullName();
+    method public com.google.protobuf.ByteString! getClassFullNameBytes();
+    method public com.google.android.horologist.data.ActivityConfig.Builder! setClassFullName(String!);
+    method public com.google.android.horologist.data.ActivityConfig.Builder! setClassFullNameBytes(com.google.protobuf.ByteString!);
+  }
+
+  public static final class ActivityConfig.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.ActivityConfig!,com.google.android.horologist.data.ActivityConfig.Builder!> implements com.google.android.horologist.data.ActivityConfigOrBuilder {
+    method public com.google.android.horologist.data.ActivityConfig.Builder! clearClassFullName();
+    method public String! getClassFullName();
+    method public com.google.protobuf.ByteString! getClassFullNameBytes();
+    method public com.google.android.horologist.data.ActivityConfig.Builder! setClassFullName(String!);
+    method public com.google.android.horologist.data.ActivityConfig.Builder! setClassFullNameBytes(com.google.protobuf.ByteString!);
+  }
+
+  public final class ActivityConfigKt {
+    field public static final com.google.android.horologist.data.ActivityConfigKt INSTANCE;
+  }
+
+  public final class ActivityConfigKt {
+    field public static final com.google.android.horologist.data.ActivityConfigKt INSTANCE;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class ActivityConfigKt.Dsl {
+    method public void clearClassFullName();
+    method public String getClassFullName();
+    method public void setClassFullName(String);
+    property public final String classFullName;
+    field public static final com.google.android.horologist.data.ActivityConfigKt.Dsl.Companion Companion;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class ActivityConfigKt.Dsl {
+    method public void clearClassFullName();
+    method public String getClassFullName();
+    method public void setClassFullName(String);
+    property public final String classFullName;
+    field public static final com.google.android.horologist.data.ActivityConfigKt.Dsl.Companion Companion;
+  }
+
+  public static final class ActivityConfigKt.Dsl.Companion {
+  }
+
+  public static final class ActivityConfigKt.Dsl.Companion {
+  }
+
+  public final class ActivityConfigKtKt {
+    method public static inline com.google.android.horologist.data.ActivityConfig -initializeactivityConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityConfigKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.ActivityConfig copy(com.google.android.horologist.data.ActivityConfig, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityConfigKt.Dsl,kotlin.Unit> block);
+  }
+
+  public final class ActivityConfigKtKt {
+    method public static inline com.google.android.horologist.data.ActivityConfig -initializeactivityConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityConfigKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.ActivityConfig copy(com.google.android.horologist.data.ActivityConfig, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityConfigKt.Dsl,kotlin.Unit> block);
+  }
+
+  public interface ActivityConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public String! getClassFullName();
+    method public com.google.protobuf.ByteString! getClassFullNameBytes();
+  }
+
+  public interface ActivityConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public String! getClassFullName();
+    method public com.google.protobuf.ByteString! getClassFullNameBytes();
+  }
+
+  public final class ActivityLaunched extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ActivityLaunched!,com.google.android.horologist.data.ActivityLaunched.Builder!> implements com.google.android.horologist.data.ActivityLaunchedOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public boolean getActivityLaunchedOnce();
+    method public static com.google.android.horologist.data.ActivityLaunched! getDefaultInstance();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+    method public static com.google.android.horologist.data.ActivityLaunched.Builder! newBuilder();
+    method public static com.google.android.horologist.data.ActivityLaunched.Builder! newBuilder(com.google.android.horologist.data.ActivityLaunched!);
+    method public static com.google.android.horologist.data.ActivityLaunched! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.ActivityLaunched!>! parser();
+    field public static final int ACTIVITYLAUNCHEDONCE_FIELD_NUMBER = 1; // 0x1
+    field public static final int TIMESTAMP_FIELD_NUMBER = 2; // 0x2
+  }
+
+  public final class ActivityLaunched extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ActivityLaunched!,com.google.android.horologist.data.ActivityLaunched.Builder!> implements com.google.android.horologist.data.ActivityLaunchedOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public boolean getActivityLaunchedOnce();
+    method public static com.google.android.horologist.data.ActivityLaunched! getDefaultInstance();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+    method public static com.google.android.horologist.data.ActivityLaunched.Builder! newBuilder();
+    method public static com.google.android.horologist.data.ActivityLaunched.Builder! newBuilder(com.google.android.horologist.data.ActivityLaunched!);
+    method public static com.google.android.horologist.data.ActivityLaunched! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ActivityLaunched! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.ActivityLaunched!>! parser();
+    field public static final int ACTIVITYLAUNCHEDONCE_FIELD_NUMBER = 1; // 0x1
+    field public static final int TIMESTAMP_FIELD_NUMBER = 2; // 0x2
+  }
+
+  public static final class ActivityLaunched.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.ActivityLaunched!,com.google.android.horologist.data.ActivityLaunched.Builder!> implements com.google.android.horologist.data.ActivityLaunchedOrBuilder {
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! clearActivityLaunchedOnce();
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! clearTimestamp();
+    method public boolean getActivityLaunchedOnce();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! mergeTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! setActivityLaunchedOnce(boolean);
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! setTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! setTimestamp(com.google.protobuf.Timestamp.Builder!);
+  }
+
+  public static final class ActivityLaunched.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.ActivityLaunched!,com.google.android.horologist.data.ActivityLaunched.Builder!> implements com.google.android.horologist.data.ActivityLaunchedOrBuilder {
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! clearActivityLaunchedOnce();
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! clearTimestamp();
+    method public boolean getActivityLaunchedOnce();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! mergeTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! setActivityLaunchedOnce(boolean);
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! setTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.ActivityLaunched.Builder! setTimestamp(com.google.protobuf.Timestamp.Builder!);
+  }
+
+  public final class ActivityLaunchedKt {
+    field public static final com.google.android.horologist.data.ActivityLaunchedKt INSTANCE;
+  }
+
+  public final class ActivityLaunchedKt {
+    field public static final com.google.android.horologist.data.ActivityLaunchedKt INSTANCE;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class ActivityLaunchedKt.Dsl {
+    method public void clearActivityLaunchedOnce();
+    method public void clearTimestamp();
+    method public boolean getActivityLaunchedOnce();
+    method public com.google.protobuf.Timestamp getTimestamp();
+    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ActivityLaunchedKt.Dsl);
+    method public boolean hasTimestamp();
+    method public void setActivityLaunchedOnce(boolean);
+    method public void setTimestamp(com.google.protobuf.Timestamp);
+    property public final boolean activityLaunchedOnce;
+    property public final com.google.protobuf.Timestamp timestamp;
+    field public static final com.google.android.horologist.data.ActivityLaunchedKt.Dsl.Companion Companion;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class ActivityLaunchedKt.Dsl {
+    method public void clearActivityLaunchedOnce();
+    method public void clearTimestamp();
+    method public boolean getActivityLaunchedOnce();
+    method public com.google.protobuf.Timestamp getTimestamp();
+    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ActivityLaunchedKt.Dsl);
+    method public boolean hasTimestamp();
+    method public void setActivityLaunchedOnce(boolean);
+    method public void setTimestamp(com.google.protobuf.Timestamp);
+    property public final boolean activityLaunchedOnce;
+    property public final com.google.protobuf.Timestamp timestamp;
+    field public static final com.google.android.horologist.data.ActivityLaunchedKt.Dsl.Companion Companion;
+  }
+
+  public static final class ActivityLaunchedKt.Dsl.Companion {
+  }
+
+  public static final class ActivityLaunchedKt.Dsl.Companion {
+  }
+
+  public final class ActivityLaunchedKtKt {
+    method public static inline com.google.android.horologist.data.ActivityLaunched -initializeactivityLaunched(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityLaunchedKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.ActivityLaunched copy(com.google.android.horologist.data.ActivityLaunched, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityLaunchedKt.Dsl,kotlin.Unit> block);
+    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ActivityLaunchedOrBuilder);
+  }
+
+  public final class ActivityLaunchedKtKt {
+    method public static inline com.google.android.horologist.data.ActivityLaunched -initializeactivityLaunched(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityLaunchedKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.ActivityLaunched copy(com.google.android.horologist.data.ActivityLaunched, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityLaunchedKt.Dsl,kotlin.Unit> block);
+    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ActivityLaunchedOrBuilder);
+  }
+
+  public interface ActivityLaunchedOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public boolean getActivityLaunchedOnce();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+  }
+
+  public interface ActivityLaunchedOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public boolean getActivityLaunchedOnce();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+  }
+
+  public final class AppHelperPb {
+    method public static void registerAllExtensions(com.google.protobuf.ExtensionRegistryLite!);
+  }
+
+  public final class AppHelperPb {
+    method public static void registerAllExtensions(com.google.protobuf.ExtensionRegistryLite!);
+  }
+
+  public final class AppHelperResult extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.AppHelperResult!,com.google.android.horologist.data.AppHelperResult.Builder!> implements com.google.android.horologist.data.AppHelperResultOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public com.google.android.horologist.data.AppHelperResultCode! getCode();
+    method public int getCodeValue();
+    method public static com.google.android.horologist.data.AppHelperResult! getDefaultInstance();
+    method public static com.google.android.horologist.data.AppHelperResult.Builder! newBuilder();
+    method public static com.google.android.horologist.data.AppHelperResult.Builder! newBuilder(com.google.android.horologist.data.AppHelperResult!);
+    method public static com.google.android.horologist.data.AppHelperResult! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.AppHelperResult!>! parser();
+    field public static final int CODE_FIELD_NUMBER = 1; // 0x1
+  }
+
+  public final class AppHelperResult extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.AppHelperResult!,com.google.android.horologist.data.AppHelperResult.Builder!> implements com.google.android.horologist.data.AppHelperResultOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public com.google.android.horologist.data.AppHelperResultCode! getCode();
+    method public int getCodeValue();
+    method public static com.google.android.horologist.data.AppHelperResult! getDefaultInstance();
+    method public static com.google.android.horologist.data.AppHelperResult.Builder! newBuilder();
+    method public static com.google.android.horologist.data.AppHelperResult.Builder! newBuilder(com.google.android.horologist.data.AppHelperResult!);
+    method public static com.google.android.horologist.data.AppHelperResult! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.AppHelperResult! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.AppHelperResult!>! parser();
+    field public static final int CODE_FIELD_NUMBER = 1; // 0x1
+  }
+
+  public static final class AppHelperResult.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.AppHelperResult!,com.google.android.horologist.data.AppHelperResult.Builder!> implements com.google.android.horologist.data.AppHelperResultOrBuilder {
+    method public com.google.android.horologist.data.AppHelperResult.Builder! clearCode();
+    method public com.google.android.horologist.data.AppHelperResultCode! getCode();
+    method public int getCodeValue();
+    method public com.google.android.horologist.data.AppHelperResult.Builder! setCode(com.google.android.horologist.data.AppHelperResultCode!);
+    method public com.google.android.horologist.data.AppHelperResult.Builder! setCodeValue(int);
+  }
+
+  public static final class AppHelperResult.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.AppHelperResult!,com.google.android.horologist.data.AppHelperResult.Builder!> implements com.google.android.horologist.data.AppHelperResultOrBuilder {
+    method public com.google.android.horologist.data.AppHelperResult.Builder! clearCode();
+    method public com.google.android.horologist.data.AppHelperResultCode! getCode();
+    method public int getCodeValue();
+    method public com.google.android.horologist.data.AppHelperResult.Builder! setCode(com.google.android.horologist.data.AppHelperResultCode!);
+    method public com.google.android.horologist.data.AppHelperResult.Builder! setCodeValue(int);
+  }
+
+  public enum AppHelperResultCode implements com.google.protobuf.Internal.EnumLite {
+    method public static com.google.android.horologist.data.AppHelperResultCode! forNumber(int);
+    method public int getNumber();
+    method public static com.google.protobuf.Internal.EnumLiteMap<com.google.android.horologist.data.AppHelperResultCode!>! internalGetValueMap();
+    method public static com.google.protobuf.Internal.EnumVerifier! internalGetVerifier();
+    method @Deprecated public static com.google.android.horologist.data.AppHelperResultCode! valueOf(int);
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_ACTIVITY_NOT_FOUND;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_CANNOT_DETERMINE_DEVICE_TYPE;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_ERROR_STARTING_ACTIVITY;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_INVALID_COMPANION;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_INVALID_COMPONENT;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_NO_COMPANION_FOUND;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_SUCCESS;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_TEMPORARILY_UNAVAILABLE;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_TIMEOUT;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_UNAVAILABLE;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_UNKNOWN_REQUEST;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_UNSPECIFIED;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode UNRECOGNIZED;
+    field public static final int APP_HELPER_RESULT_ACTIVITY_NOT_FOUND_VALUE = 3; // 0x3
+    field public static final int APP_HELPER_RESULT_CANNOT_DETERMINE_DEVICE_TYPE_VALUE = 8; // 0x8
+    field public static final int APP_HELPER_RESULT_ERROR_STARTING_ACTIVITY_VALUE = 7; // 0x7
+    field public static final int APP_HELPER_RESULT_INVALID_COMPANION_VALUE = 11; // 0xb
+    field public static final int APP_HELPER_RESULT_INVALID_COMPONENT_VALUE = 4; // 0x4
+    field public static final int APP_HELPER_RESULT_NO_COMPANION_FOUND_VALUE = 5; // 0x5
+    field public static final int APP_HELPER_RESULT_SUCCESS_VALUE = 1; // 0x1
+    field public static final int APP_HELPER_RESULT_TEMPORARILY_UNAVAILABLE_VALUE = 10; // 0xa
+    field public static final int APP_HELPER_RESULT_TIMEOUT_VALUE = 6; // 0x6
+    field public static final int APP_HELPER_RESULT_UNAVAILABLE_VALUE = 9; // 0x9
+    field public static final int APP_HELPER_RESULT_UNKNOWN_REQUEST_VALUE = 2; // 0x2
+    field public static final int APP_HELPER_RESULT_UNSPECIFIED_VALUE = 0; // 0x0
+  }
+
+  public enum AppHelperResultCode implements com.google.protobuf.Internal.EnumLite {
+    method public static com.google.android.horologist.data.AppHelperResultCode! forNumber(int);
+    method public int getNumber();
+    method public static com.google.protobuf.Internal.EnumLiteMap<com.google.android.horologist.data.AppHelperResultCode!>! internalGetValueMap();
+    method public static com.google.protobuf.Internal.EnumVerifier! internalGetVerifier();
+    method @Deprecated public static com.google.android.horologist.data.AppHelperResultCode! valueOf(int);
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_ACTIVITY_NOT_FOUND;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_CANNOT_DETERMINE_DEVICE_TYPE;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_ERROR_STARTING_ACTIVITY;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_INVALID_COMPANION;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_INVALID_COMPONENT;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_NO_COMPANION_FOUND;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_SUCCESS;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_TEMPORARILY_UNAVAILABLE;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_TIMEOUT;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_UNAVAILABLE;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_UNKNOWN_REQUEST;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode APP_HELPER_RESULT_UNSPECIFIED;
+    enum_constant public static final com.google.android.horologist.data.AppHelperResultCode UNRECOGNIZED;
+    field public static final int APP_HELPER_RESULT_ACTIVITY_NOT_FOUND_VALUE = 3; // 0x3
+    field public static final int APP_HELPER_RESULT_CANNOT_DETERMINE_DEVICE_TYPE_VALUE = 8; // 0x8
+    field public static final int APP_HELPER_RESULT_ERROR_STARTING_ACTIVITY_VALUE = 7; // 0x7
+    field public static final int APP_HELPER_RESULT_INVALID_COMPANION_VALUE = 11; // 0xb
+    field public static final int APP_HELPER_RESULT_INVALID_COMPONENT_VALUE = 4; // 0x4
+    field public static final int APP_HELPER_RESULT_NO_COMPANION_FOUND_VALUE = 5; // 0x5
+    field public static final int APP_HELPER_RESULT_SUCCESS_VALUE = 1; // 0x1
+    field public static final int APP_HELPER_RESULT_TEMPORARILY_UNAVAILABLE_VALUE = 10; // 0xa
+    field public static final int APP_HELPER_RESULT_TIMEOUT_VALUE = 6; // 0x6
+    field public static final int APP_HELPER_RESULT_UNAVAILABLE_VALUE = 9; // 0x9
+    field public static final int APP_HELPER_RESULT_UNKNOWN_REQUEST_VALUE = 2; // 0x2
+    field public static final int APP_HELPER_RESULT_UNSPECIFIED_VALUE = 0; // 0x0
+  }
+
+  public final class AppHelperResultKt {
+    field public static final com.google.android.horologist.data.AppHelperResultKt INSTANCE;
+  }
+
+  public final class AppHelperResultKt {
+    field public static final com.google.android.horologist.data.AppHelperResultKt INSTANCE;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class AppHelperResultKt.Dsl {
+    method public void clearCode();
+    method public com.google.android.horologist.data.AppHelperResultCode getCode();
+    method public int getCodeValue();
+    method public void setCode(com.google.android.horologist.data.AppHelperResultCode);
+    method public void setCodeValue(int);
+    property public final com.google.android.horologist.data.AppHelperResultCode code;
+    property public final int codeValue;
+    field public static final com.google.android.horologist.data.AppHelperResultKt.Dsl.Companion Companion;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class AppHelperResultKt.Dsl {
+    method public void clearCode();
+    method public com.google.android.horologist.data.AppHelperResultCode getCode();
+    method public int getCodeValue();
+    method public void setCode(com.google.android.horologist.data.AppHelperResultCode);
+    method public void setCodeValue(int);
+    property public final com.google.android.horologist.data.AppHelperResultCode code;
+    property public final int codeValue;
+    field public static final com.google.android.horologist.data.AppHelperResultKt.Dsl.Companion Companion;
+  }
+
+  public static final class AppHelperResultKt.Dsl.Companion {
+  }
+
+  public static final class AppHelperResultKt.Dsl.Companion {
+  }
+
+  public final class AppHelperResultKtKt {
+    method public static inline com.google.android.horologist.data.AppHelperResult -initializeappHelperResult(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.AppHelperResultKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.AppHelperResult copy(com.google.android.horologist.data.AppHelperResult, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.AppHelperResultKt.Dsl,kotlin.Unit> block);
+  }
+
+  public final class AppHelperResultKtKt {
+    method public static inline com.google.android.horologist.data.AppHelperResult -initializeappHelperResult(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.AppHelperResultKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.AppHelperResult copy(com.google.android.horologist.data.AppHelperResult, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.AppHelperResultKt.Dsl,kotlin.Unit> block);
+  }
+
+  public interface AppHelperResultOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public com.google.android.horologist.data.AppHelperResultCode! getCode();
+    method public int getCodeValue();
+  }
+
+  public interface AppHelperResultOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public com.google.android.horologist.data.AppHelperResultCode! getCode();
+    method public int getCodeValue();
+  }
+
+  public final class CompanionConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.CompanionConfig!,com.google.android.horologist.data.CompanionConfig.Builder!> implements com.google.android.horologist.data.CompanionConfigOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public static com.google.android.horologist.data.CompanionConfig! getDefaultInstance();
+    method public String! getSourceNode();
+    method public com.google.protobuf.ByteString! getSourceNodeBytes();
+    method public static com.google.android.horologist.data.CompanionConfig.Builder! newBuilder();
+    method public static com.google.android.horologist.data.CompanionConfig.Builder! newBuilder(com.google.android.horologist.data.CompanionConfig!);
+    method public static com.google.android.horologist.data.CompanionConfig! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.CompanionConfig!>! parser();
+    field public static final int SOURCENODE_FIELD_NUMBER = 1; // 0x1
+  }
+
+  public final class CompanionConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.CompanionConfig!,com.google.android.horologist.data.CompanionConfig.Builder!> implements com.google.android.horologist.data.CompanionConfigOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public static com.google.android.horologist.data.CompanionConfig! getDefaultInstance();
+    method public String! getSourceNode();
+    method public com.google.protobuf.ByteString! getSourceNodeBytes();
+    method public static com.google.android.horologist.data.CompanionConfig.Builder! newBuilder();
+    method public static com.google.android.horologist.data.CompanionConfig.Builder! newBuilder(com.google.android.horologist.data.CompanionConfig!);
+    method public static com.google.android.horologist.data.CompanionConfig! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.CompanionConfig! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.CompanionConfig!>! parser();
+    field public static final int SOURCENODE_FIELD_NUMBER = 1; // 0x1
+  }
+
+  public static final class CompanionConfig.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.CompanionConfig!,com.google.android.horologist.data.CompanionConfig.Builder!> implements com.google.android.horologist.data.CompanionConfigOrBuilder {
+    method public com.google.android.horologist.data.CompanionConfig.Builder! clearSourceNode();
+    method public String! getSourceNode();
+    method public com.google.protobuf.ByteString! getSourceNodeBytes();
+    method public com.google.android.horologist.data.CompanionConfig.Builder! setSourceNode(String!);
+    method public com.google.android.horologist.data.CompanionConfig.Builder! setSourceNodeBytes(com.google.protobuf.ByteString!);
+  }
+
+  public static final class CompanionConfig.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.CompanionConfig!,com.google.android.horologist.data.CompanionConfig.Builder!> implements com.google.android.horologist.data.CompanionConfigOrBuilder {
+    method public com.google.android.horologist.data.CompanionConfig.Builder! clearSourceNode();
+    method public String! getSourceNode();
+    method public com.google.protobuf.ByteString! getSourceNodeBytes();
+    method public com.google.android.horologist.data.CompanionConfig.Builder! setSourceNode(String!);
+    method public com.google.android.horologist.data.CompanionConfig.Builder! setSourceNodeBytes(com.google.protobuf.ByteString!);
+  }
+
+  public final class CompanionConfigKt {
+    field public static final com.google.android.horologist.data.CompanionConfigKt INSTANCE;
+  }
+
+  public final class CompanionConfigKt {
+    field public static final com.google.android.horologist.data.CompanionConfigKt INSTANCE;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class CompanionConfigKt.Dsl {
+    method public void clearSourceNode();
+    method public String getSourceNode();
+    method public void setSourceNode(String);
+    property public final String sourceNode;
+    field public static final com.google.android.horologist.data.CompanionConfigKt.Dsl.Companion Companion;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class CompanionConfigKt.Dsl {
+    method public void clearSourceNode();
+    method public String getSourceNode();
+    method public void setSourceNode(String);
+    property public final String sourceNode;
+    field public static final com.google.android.horologist.data.CompanionConfigKt.Dsl.Companion Companion;
+  }
+
+  public static final class CompanionConfigKt.Dsl.Companion {
+  }
+
+  public static final class CompanionConfigKt.Dsl.Companion {
+  }
+
+  public final class CompanionConfigKtKt {
+    method public static inline com.google.android.horologist.data.CompanionConfig -initializecompanionConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.CompanionConfigKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.CompanionConfig copy(com.google.android.horologist.data.CompanionConfig, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.CompanionConfigKt.Dsl,kotlin.Unit> block);
+  }
+
+  public final class CompanionConfigKtKt {
+    method public static inline com.google.android.horologist.data.CompanionConfig -initializecompanionConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.CompanionConfigKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.CompanionConfig copy(com.google.android.horologist.data.CompanionConfig, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.CompanionConfigKt.Dsl,kotlin.Unit> block);
+  }
+
+  public interface CompanionConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public String! getSourceNode();
+    method public com.google.protobuf.ByteString! getSourceNodeBytes();
+  }
+
+  public interface CompanionConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public String! getSourceNode();
+    method public com.google.protobuf.ByteString! getSourceNodeBytes();
+  }
+
+  public final class ComplicationInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ComplicationInfo!,com.google.android.horologist.data.ComplicationInfo.Builder!> implements com.google.android.horologist.data.ComplicationInfoOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public static com.google.android.horologist.data.ComplicationInfo! getDefaultInstance();
+    method public int getInstanceId();
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public String! getType();
+    method public com.google.protobuf.ByteString! getTypeBytes();
+    method public boolean hasTimestamp();
+    method public static com.google.android.horologist.data.ComplicationInfo.Builder! newBuilder();
+    method public static com.google.android.horologist.data.ComplicationInfo.Builder! newBuilder(com.google.android.horologist.data.ComplicationInfo!);
+    method public static com.google.android.horologist.data.ComplicationInfo! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.ComplicationInfo!>! parser();
+    field public static final int INSTANCEID_FIELD_NUMBER = 2; // 0x2
+    field public static final int NAME_FIELD_NUMBER = 1; // 0x1
+    field public static final int TIMESTAMP_FIELD_NUMBER = 5; // 0x5
+    field public static final int TYPE_FIELD_NUMBER = 3; // 0x3
+  }
+
+  public final class ComplicationInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ComplicationInfo!,com.google.android.horologist.data.ComplicationInfo.Builder!> implements com.google.android.horologist.data.ComplicationInfoOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public static com.google.android.horologist.data.ComplicationInfo! getDefaultInstance();
+    method public int getInstanceId();
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public String! getType();
+    method public com.google.protobuf.ByteString! getTypeBytes();
+    method public boolean hasTimestamp();
+    method public static com.google.android.horologist.data.ComplicationInfo.Builder! newBuilder();
+    method public static com.google.android.horologist.data.ComplicationInfo.Builder! newBuilder(com.google.android.horologist.data.ComplicationInfo!);
+    method public static com.google.android.horologist.data.ComplicationInfo! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.ComplicationInfo! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.ComplicationInfo!>! parser();
+    field public static final int INSTANCEID_FIELD_NUMBER = 2; // 0x2
+    field public static final int NAME_FIELD_NUMBER = 1; // 0x1
+    field public static final int TIMESTAMP_FIELD_NUMBER = 5; // 0x5
+    field public static final int TYPE_FIELD_NUMBER = 3; // 0x3
+  }
+
+  public static final class ComplicationInfo.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.ComplicationInfo!,com.google.android.horologist.data.ComplicationInfo.Builder!> implements com.google.android.horologist.data.ComplicationInfoOrBuilder {
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! clearInstanceId();
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! clearName();
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! clearTimestamp();
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! clearType();
+    method public int getInstanceId();
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public String! getType();
+    method public com.google.protobuf.ByteString! getTypeBytes();
+    method public boolean hasTimestamp();
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! mergeTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setInstanceId(int);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setName(String!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setNameBytes(com.google.protobuf.ByteString!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setTimestamp(com.google.protobuf.Timestamp.Builder!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setType(String!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setTypeBytes(com.google.protobuf.ByteString!);
+  }
+
+  public static final class ComplicationInfo.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.ComplicationInfo!,com.google.android.horologist.data.ComplicationInfo.Builder!> implements com.google.android.horologist.data.ComplicationInfoOrBuilder {
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! clearInstanceId();
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! clearName();
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! clearTimestamp();
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! clearType();
+    method public int getInstanceId();
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public String! getType();
+    method public com.google.protobuf.ByteString! getTypeBytes();
+    method public boolean hasTimestamp();
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! mergeTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setInstanceId(int);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setName(String!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setNameBytes(com.google.protobuf.ByteString!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setTimestamp(com.google.protobuf.Timestamp.Builder!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setType(String!);
+    method public com.google.android.horologist.data.ComplicationInfo.Builder! setTypeBytes(com.google.protobuf.ByteString!);
+  }
+
+  public final class ComplicationInfoKt {
+    field public static final com.google.android.horologist.data.ComplicationInfoKt INSTANCE;
+  }
+
+  public final class ComplicationInfoKt {
+    field public static final com.google.android.horologist.data.ComplicationInfoKt INSTANCE;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class ComplicationInfoKt.Dsl {
+    method public void clearInstanceId();
+    method public void clearName();
+    method public void clearTimestamp();
+    method public void clearType();
+    method public int getInstanceId();
+    method public String getName();
+    method public com.google.protobuf.Timestamp getTimestamp();
+    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ComplicationInfoKt.Dsl);
+    method public String getType();
+    method public boolean hasTimestamp();
+    method public void setInstanceId(int);
+    method public void setName(String);
+    method public void setTimestamp(com.google.protobuf.Timestamp);
+    method public void setType(String);
+    property public final int instanceId;
+    property public final String name;
+    property public final com.google.protobuf.Timestamp timestamp;
+    property public final String type;
+    field public static final com.google.android.horologist.data.ComplicationInfoKt.Dsl.Companion Companion;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class ComplicationInfoKt.Dsl {
+    method public void clearInstanceId();
+    method public void clearName();
+    method public void clearTimestamp();
+    method public void clearType();
+    method public int getInstanceId();
+    method public String getName();
+    method public com.google.protobuf.Timestamp getTimestamp();
+    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ComplicationInfoKt.Dsl);
+    method public String getType();
+    method public boolean hasTimestamp();
+    method public void setInstanceId(int);
+    method public void setName(String);
+    method public void setTimestamp(com.google.protobuf.Timestamp);
+    method public void setType(String);
+    property public final int instanceId;
+    property public final String name;
+    property public final com.google.protobuf.Timestamp timestamp;
+    property public final String type;
+    field public static final com.google.android.horologist.data.ComplicationInfoKt.Dsl.Companion Companion;
+  }
+
+  public static final class ComplicationInfoKt.Dsl.Companion {
+  }
+
+  public static final class ComplicationInfoKt.Dsl.Companion {
+  }
+
+  public final class ComplicationInfoKtKt {
+    method public static inline com.google.android.horologist.data.ComplicationInfo -initializecomplicationInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ComplicationInfoKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.ComplicationInfo copy(com.google.android.horologist.data.ComplicationInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ComplicationInfoKt.Dsl,kotlin.Unit> block);
+    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ComplicationInfoOrBuilder);
+  }
+
+  public final class ComplicationInfoKtKt {
+    method public static inline com.google.android.horologist.data.ComplicationInfo -initializecomplicationInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ComplicationInfoKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.ComplicationInfo copy(com.google.android.horologist.data.ComplicationInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ComplicationInfoKt.Dsl,kotlin.Unit> block);
+    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ComplicationInfoOrBuilder);
+  }
+
+  public interface ComplicationInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public int getInstanceId();
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public String! getType();
+    method public com.google.protobuf.ByteString! getTypeBytes();
+    method public boolean hasTimestamp();
+  }
+
+  public interface ComplicationInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public int getInstanceId();
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public String! getType();
+    method public com.google.protobuf.ByteString! getTypeBytes();
+    method public boolean hasTimestamp();
+  }
+
+  public final class LaunchRequest extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.LaunchRequest!,com.google.android.horologist.data.LaunchRequest.Builder!> implements com.google.android.horologist.data.LaunchRequestOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public com.google.android.horologist.data.ActivityConfig! getActivity();
+    method public com.google.android.horologist.data.CompanionConfig! getCompanion();
+    method public static com.google.android.horologist.data.LaunchRequest! getDefaultInstance();
+    method public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! getLaunchConfigCase();
+    method public com.google.android.horologist.data.OwnAppConfig! getOwnApp();
+    method public boolean hasActivity();
+    method public boolean hasCompanion();
+    method public boolean hasOwnApp();
+    method public static com.google.android.horologist.data.LaunchRequest.Builder! newBuilder();
+    method public static com.google.android.horologist.data.LaunchRequest.Builder! newBuilder(com.google.android.horologist.data.LaunchRequest!);
+    method public static com.google.android.horologist.data.LaunchRequest! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.LaunchRequest!>! parser();
+    field public static final int ACTIVITY_FIELD_NUMBER = 3; // 0x3
+    field public static final int COMPANION_FIELD_NUMBER = 2; // 0x2
+    field public static final int OWN_APP_FIELD_NUMBER = 1; // 0x1
+  }
+
+  public final class LaunchRequest extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.LaunchRequest!,com.google.android.horologist.data.LaunchRequest.Builder!> implements com.google.android.horologist.data.LaunchRequestOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public com.google.android.horologist.data.ActivityConfig! getActivity();
+    method public com.google.android.horologist.data.CompanionConfig! getCompanion();
+    method public static com.google.android.horologist.data.LaunchRequest! getDefaultInstance();
+    method public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! getLaunchConfigCase();
+    method public com.google.android.horologist.data.OwnAppConfig! getOwnApp();
+    method public boolean hasActivity();
+    method public boolean hasCompanion();
+    method public boolean hasOwnApp();
+    method public static com.google.android.horologist.data.LaunchRequest.Builder! newBuilder();
+    method public static com.google.android.horologist.data.LaunchRequest.Builder! newBuilder(com.google.android.horologist.data.LaunchRequest!);
+    method public static com.google.android.horologist.data.LaunchRequest! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.LaunchRequest! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.LaunchRequest!>! parser();
+    field public static final int ACTIVITY_FIELD_NUMBER = 3; // 0x3
+    field public static final int COMPANION_FIELD_NUMBER = 2; // 0x2
+    field public static final int OWN_APP_FIELD_NUMBER = 1; // 0x1
+  }
+
+  public static final class LaunchRequest.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.LaunchRequest!,com.google.android.horologist.data.LaunchRequest.Builder!> implements com.google.android.horologist.data.LaunchRequestOrBuilder {
+    method public com.google.android.horologist.data.LaunchRequest.Builder! clearActivity();
+    method public com.google.android.horologist.data.LaunchRequest.Builder! clearCompanion();
+    method public com.google.android.horologist.data.LaunchRequest.Builder! clearLaunchConfig();
+    method public com.google.android.horologist.data.LaunchRequest.Builder! clearOwnApp();
+    method public com.google.android.horologist.data.ActivityConfig! getActivity();
+    method public com.google.android.horologist.data.CompanionConfig! getCompanion();
+    method public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! getLaunchConfigCase();
+    method public com.google.android.horologist.data.OwnAppConfig! getOwnApp();
+    method public boolean hasActivity();
+    method public boolean hasCompanion();
+    method public boolean hasOwnApp();
+    method public com.google.android.horologist.data.LaunchRequest.Builder! mergeActivity(com.google.android.horologist.data.ActivityConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! mergeCompanion(com.google.android.horologist.data.CompanionConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! mergeOwnApp(com.google.android.horologist.data.OwnAppConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setActivity(com.google.android.horologist.data.ActivityConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setActivity(com.google.android.horologist.data.ActivityConfig.Builder!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setCompanion(com.google.android.horologist.data.CompanionConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setCompanion(com.google.android.horologist.data.CompanionConfig.Builder!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setOwnApp(com.google.android.horologist.data.OwnAppConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setOwnApp(com.google.android.horologist.data.OwnAppConfig.Builder!);
+  }
+
+  public static final class LaunchRequest.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.LaunchRequest!,com.google.android.horologist.data.LaunchRequest.Builder!> implements com.google.android.horologist.data.LaunchRequestOrBuilder {
+    method public com.google.android.horologist.data.LaunchRequest.Builder! clearActivity();
+    method public com.google.android.horologist.data.LaunchRequest.Builder! clearCompanion();
+    method public com.google.android.horologist.data.LaunchRequest.Builder! clearLaunchConfig();
+    method public com.google.android.horologist.data.LaunchRequest.Builder! clearOwnApp();
+    method public com.google.android.horologist.data.ActivityConfig! getActivity();
+    method public com.google.android.horologist.data.CompanionConfig! getCompanion();
+    method public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! getLaunchConfigCase();
+    method public com.google.android.horologist.data.OwnAppConfig! getOwnApp();
+    method public boolean hasActivity();
+    method public boolean hasCompanion();
+    method public boolean hasOwnApp();
+    method public com.google.android.horologist.data.LaunchRequest.Builder! mergeActivity(com.google.android.horologist.data.ActivityConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! mergeCompanion(com.google.android.horologist.data.CompanionConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! mergeOwnApp(com.google.android.horologist.data.OwnAppConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setActivity(com.google.android.horologist.data.ActivityConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setActivity(com.google.android.horologist.data.ActivityConfig.Builder!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setCompanion(com.google.android.horologist.data.CompanionConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setCompanion(com.google.android.horologist.data.CompanionConfig.Builder!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setOwnApp(com.google.android.horologist.data.OwnAppConfig!);
+    method public com.google.android.horologist.data.LaunchRequest.Builder! setOwnApp(com.google.android.horologist.data.OwnAppConfig.Builder!);
+  }
+
+  public enum LaunchRequest.LaunchConfigCase {
+    method public static com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! forNumber(int);
+    method public int getNumber();
+    method @Deprecated public static com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! valueOf(int);
+    enum_constant public static final com.google.android.horologist.data.LaunchRequest.LaunchConfigCase ACTIVITY;
+    enum_constant public static final com.google.android.horologist.data.LaunchRequest.LaunchConfigCase COMPANION;
+    enum_constant public static final com.google.android.horologist.data.LaunchRequest.LaunchConfigCase LAUNCHCONFIG_NOT_SET;
+    enum_constant public static final com.google.android.horologist.data.LaunchRequest.LaunchConfigCase OWN_APP;
+  }
+
+  public enum LaunchRequest.LaunchConfigCase {
+    method public static com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! forNumber(int);
+    method public int getNumber();
+    method @Deprecated public static com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! valueOf(int);
+    enum_constant public static final com.google.android.horologist.data.LaunchRequest.LaunchConfigCase ACTIVITY;
+    enum_constant public static final com.google.android.horologist.data.LaunchRequest.LaunchConfigCase COMPANION;
+    enum_constant public static final com.google.android.horologist.data.LaunchRequest.LaunchConfigCase LAUNCHCONFIG_NOT_SET;
+    enum_constant public static final com.google.android.horologist.data.LaunchRequest.LaunchConfigCase OWN_APP;
+  }
+
+  public final class LaunchRequestKt {
+    field public static final com.google.android.horologist.data.LaunchRequestKt INSTANCE;
+  }
+
+  public final class LaunchRequestKt {
+    field public static final com.google.android.horologist.data.LaunchRequestKt INSTANCE;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class LaunchRequestKt.Dsl {
+    method public void clearActivity();
+    method public void clearCompanion();
+    method public void clearLaunchConfig();
+    method public void clearOwnApp();
+    method public com.google.android.horologist.data.ActivityConfig getActivity();
+    method public com.google.android.horologist.data.CompanionConfig getCompanion();
+    method public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase getLaunchConfigCase();
+    method public com.google.android.horologist.data.OwnAppConfig getOwnApp();
+    method public boolean hasActivity();
+    method public boolean hasCompanion();
+    method public boolean hasOwnApp();
+    method public void setActivity(com.google.android.horologist.data.ActivityConfig);
+    method public void setCompanion(com.google.android.horologist.data.CompanionConfig);
+    method public void setOwnApp(com.google.android.horologist.data.OwnAppConfig);
+    property public final com.google.android.horologist.data.ActivityConfig activity;
+    property public final com.google.android.horologist.data.CompanionConfig companion;
+    property public final com.google.android.horologist.data.LaunchRequest.LaunchConfigCase launchConfigCase;
+    property public final com.google.android.horologist.data.OwnAppConfig ownApp;
+    field public static final com.google.android.horologist.data.LaunchRequestKt.Dsl.Companion Companion;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class LaunchRequestKt.Dsl {
+    method public void clearActivity();
+    method public void clearCompanion();
+    method public void clearLaunchConfig();
+    method public void clearOwnApp();
+    method public com.google.android.horologist.data.ActivityConfig getActivity();
+    method public com.google.android.horologist.data.CompanionConfig getCompanion();
+    method public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase getLaunchConfigCase();
+    method public com.google.android.horologist.data.OwnAppConfig getOwnApp();
+    method public boolean hasActivity();
+    method public boolean hasCompanion();
+    method public boolean hasOwnApp();
+    method public void setActivity(com.google.android.horologist.data.ActivityConfig);
+    method public void setCompanion(com.google.android.horologist.data.CompanionConfig);
+    method public void setOwnApp(com.google.android.horologist.data.OwnAppConfig);
+    property public final com.google.android.horologist.data.ActivityConfig activity;
+    property public final com.google.android.horologist.data.CompanionConfig companion;
+    property public final com.google.android.horologist.data.LaunchRequest.LaunchConfigCase launchConfigCase;
+    property public final com.google.android.horologist.data.OwnAppConfig ownApp;
+    field public static final com.google.android.horologist.data.LaunchRequestKt.Dsl.Companion Companion;
+  }
+
+  public static final class LaunchRequestKt.Dsl.Companion {
+  }
+
+  public static final class LaunchRequestKt.Dsl.Companion {
+  }
+
+  public final class LaunchRequestKtKt {
+    method public static inline com.google.android.horologist.data.LaunchRequest -initializelaunchRequest(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.LaunchRequestKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.LaunchRequest copy(com.google.android.horologist.data.LaunchRequest, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.LaunchRequestKt.Dsl,kotlin.Unit> block);
+    method public static com.google.android.horologist.data.ActivityConfig? getActivityOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
+    method public static com.google.android.horologist.data.CompanionConfig? getCompanionOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
+    method public static com.google.android.horologist.data.OwnAppConfig? getOwnAppOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
+  }
+
+  public final class LaunchRequestKtKt {
+    method public static inline com.google.android.horologist.data.LaunchRequest -initializelaunchRequest(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.LaunchRequestKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.LaunchRequest copy(com.google.android.horologist.data.LaunchRequest, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.LaunchRequestKt.Dsl,kotlin.Unit> block);
+    method public static com.google.android.horologist.data.ActivityConfig? getActivityOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
+    method public static com.google.android.horologist.data.CompanionConfig? getCompanionOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
+    method public static com.google.android.horologist.data.OwnAppConfig? getOwnAppOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
+  }
+
+  public interface LaunchRequestOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public com.google.android.horologist.data.ActivityConfig! getActivity();
+    method public com.google.android.horologist.data.CompanionConfig! getCompanion();
+    method public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! getLaunchConfigCase();
+    method public com.google.android.horologist.data.OwnAppConfig! getOwnApp();
+    method public boolean hasActivity();
+    method public boolean hasCompanion();
+    method public boolean hasOwnApp();
+  }
+
+  public interface LaunchRequestOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public com.google.android.horologist.data.ActivityConfig! getActivity();
+    method public com.google.android.horologist.data.CompanionConfig! getCompanion();
+    method public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! getLaunchConfigCase();
+    method public com.google.android.horologist.data.OwnAppConfig! getOwnApp();
+    method public boolean hasActivity();
+    method public boolean hasCompanion();
+    method public boolean hasOwnApp();
+  }
+
+  public final class OwnAppConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.OwnAppConfig!,com.google.android.horologist.data.OwnAppConfig.Builder!> implements com.google.android.horologist.data.OwnAppConfigOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public static com.google.android.horologist.data.OwnAppConfig! getDefaultInstance();
+    method public static com.google.android.horologist.data.OwnAppConfig.Builder! newBuilder();
+    method public static com.google.android.horologist.data.OwnAppConfig.Builder! newBuilder(com.google.android.horologist.data.OwnAppConfig!);
+    method public static com.google.android.horologist.data.OwnAppConfig! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.OwnAppConfig!>! parser();
+  }
+
+  public final class OwnAppConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.OwnAppConfig!,com.google.android.horologist.data.OwnAppConfig.Builder!> implements com.google.android.horologist.data.OwnAppConfigOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public static com.google.android.horologist.data.OwnAppConfig! getDefaultInstance();
+    method public static com.google.android.horologist.data.OwnAppConfig.Builder! newBuilder();
+    method public static com.google.android.horologist.data.OwnAppConfig.Builder! newBuilder(com.google.android.horologist.data.OwnAppConfig!);
+    method public static com.google.android.horologist.data.OwnAppConfig! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.OwnAppConfig! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.OwnAppConfig!>! parser();
+  }
+
+  public static final class OwnAppConfig.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.OwnAppConfig!,com.google.android.horologist.data.OwnAppConfig.Builder!> implements com.google.android.horologist.data.OwnAppConfigOrBuilder {
+  }
+
+  public static final class OwnAppConfig.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.OwnAppConfig!,com.google.android.horologist.data.OwnAppConfig.Builder!> implements com.google.android.horologist.data.OwnAppConfigOrBuilder {
+  }
+
+  public final class OwnAppConfigKt {
+    field public static final com.google.android.horologist.data.OwnAppConfigKt INSTANCE;
+  }
+
+  public final class OwnAppConfigKt {
+    field public static final com.google.android.horologist.data.OwnAppConfigKt INSTANCE;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class OwnAppConfigKt.Dsl {
+    field public static final com.google.android.horologist.data.OwnAppConfigKt.Dsl.Companion Companion;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class OwnAppConfigKt.Dsl {
+    field public static final com.google.android.horologist.data.OwnAppConfigKt.Dsl.Companion Companion;
+  }
+
+  public static final class OwnAppConfigKt.Dsl.Companion {
+  }
+
+  public static final class OwnAppConfigKt.Dsl.Companion {
+  }
+
+  public final class OwnAppConfigKtKt {
+    method public static inline com.google.android.horologist.data.OwnAppConfig -initializeownAppConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.OwnAppConfigKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.OwnAppConfig copy(com.google.android.horologist.data.OwnAppConfig, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.OwnAppConfigKt.Dsl,kotlin.Unit> block);
+  }
+
+  public final class OwnAppConfigKtKt {
+    method public static inline com.google.android.horologist.data.OwnAppConfig -initializeownAppConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.OwnAppConfigKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.OwnAppConfig copy(com.google.android.horologist.data.OwnAppConfig, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.OwnAppConfigKt.Dsl,kotlin.Unit> block);
+  }
+
+  public interface OwnAppConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  }
+
+  public interface OwnAppConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  }
+
   public final class ProtoDataStoreHelper {
     method public inline <reified T> androidx.datastore.core.DataStore<T> protoDataStore(com.google.android.horologist.data.WearDataLayerRegistry, kotlinx.coroutines.CoroutineScope coroutineScope);
     method public inline <reified T> kotlinx.coroutines.flow.Flow<T> protoFlow(com.google.android.horologist.data.WearDataLayerRegistry, com.google.android.horologist.data.TargetNodeId node);
@@ -14,6 +1070,290 @@ package com.google.android.horologist.data {
     method public <T> void registerSerializer(kotlin.reflect.KClass<T> type, androidx.datastore.core.Serializer<T> serializer);
     method public inline <reified T> androidx.datastore.core.Serializer<T> serializerForType();
     method public <T> androidx.datastore.core.Serializer<T> serializerForType(kotlin.reflect.KClass<T> type);
+  }
+
+  public final class SurfacesInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.SurfacesInfo!,com.google.android.horologist.data.SurfacesInfo.Builder!> implements com.google.android.horologist.data.SurfacesInfoOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public com.google.android.horologist.data.ActivityLaunched! getActivityLaunched();
+    method public com.google.android.horologist.data.ComplicationInfo! getComplications(int);
+    method public int getComplicationsCount();
+    method public java.util.List<com.google.android.horologist.data.ComplicationInfo!>! getComplicationsList();
+    method public com.google.android.horologist.data.ComplicationInfoOrBuilder! getComplicationsOrBuilder(int);
+    method public java.util.List<? extends com.google.android.horologist.data.ComplicationInfoOrBuilder!>! getComplicationsOrBuilderList();
+    method public static com.google.android.horologist.data.SurfacesInfo! getDefaultInstance();
+    method public com.google.android.horologist.data.TileInfo! getTiles(int);
+    method public int getTilesCount();
+    method public java.util.List<com.google.android.horologist.data.TileInfo!>! getTilesList();
+    method public com.google.android.horologist.data.TileInfoOrBuilder! getTilesOrBuilder(int);
+    method public java.util.List<? extends com.google.android.horologist.data.TileInfoOrBuilder!>! getTilesOrBuilderList();
+    method public com.google.android.horologist.data.UsageInfo! getUsageInfo();
+    method public boolean hasActivityLaunched();
+    method public boolean hasUsageInfo();
+    method public static com.google.android.horologist.data.SurfacesInfo.Builder! newBuilder();
+    method public static com.google.android.horologist.data.SurfacesInfo.Builder! newBuilder(com.google.android.horologist.data.SurfacesInfo!);
+    method public static com.google.android.horologist.data.SurfacesInfo! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.SurfacesInfo!>! parser();
+    field public static final int ACTIVITYLAUNCHED_FIELD_NUMBER = 4; // 0x4
+    field public static final int COMPLICATIONS_FIELD_NUMBER = 2; // 0x2
+    field public static final int TILES_FIELD_NUMBER = 3; // 0x3
+    field public static final int USAGEINFO_FIELD_NUMBER = 5; // 0x5
+  }
+
+  public final class SurfacesInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.SurfacesInfo!,com.google.android.horologist.data.SurfacesInfo.Builder!> implements com.google.android.horologist.data.SurfacesInfoOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public com.google.android.horologist.data.ActivityLaunched! getActivityLaunched();
+    method public com.google.android.horologist.data.ComplicationInfo! getComplications(int);
+    method public int getComplicationsCount();
+    method public java.util.List<com.google.android.horologist.data.ComplicationInfo!>! getComplicationsList();
+    method public com.google.android.horologist.data.ComplicationInfoOrBuilder! getComplicationsOrBuilder(int);
+    method public java.util.List<? extends com.google.android.horologist.data.ComplicationInfoOrBuilder!>! getComplicationsOrBuilderList();
+    method public static com.google.android.horologist.data.SurfacesInfo! getDefaultInstance();
+    method public com.google.android.horologist.data.TileInfo! getTiles(int);
+    method public int getTilesCount();
+    method public java.util.List<com.google.android.horologist.data.TileInfo!>! getTilesList();
+    method public com.google.android.horologist.data.TileInfoOrBuilder! getTilesOrBuilder(int);
+    method public java.util.List<? extends com.google.android.horologist.data.TileInfoOrBuilder!>! getTilesOrBuilderList();
+    method public com.google.android.horologist.data.UsageInfo! getUsageInfo();
+    method public boolean hasActivityLaunched();
+    method public boolean hasUsageInfo();
+    method public static com.google.android.horologist.data.SurfacesInfo.Builder! newBuilder();
+    method public static com.google.android.horologist.data.SurfacesInfo.Builder! newBuilder(com.google.android.horologist.data.SurfacesInfo!);
+    method public static com.google.android.horologist.data.SurfacesInfo! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.SurfacesInfo! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.SurfacesInfo!>! parser();
+    field public static final int ACTIVITYLAUNCHED_FIELD_NUMBER = 4; // 0x4
+    field public static final int COMPLICATIONS_FIELD_NUMBER = 2; // 0x2
+    field public static final int TILES_FIELD_NUMBER = 3; // 0x3
+    field public static final int USAGEINFO_FIELD_NUMBER = 5; // 0x5
+  }
+
+  public static final class SurfacesInfo.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.SurfacesInfo!,com.google.android.horologist.data.SurfacesInfo.Builder!> implements com.google.android.horologist.data.SurfacesInfoOrBuilder {
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addAllComplications(Iterable<? extends com.google.android.horologist.data.ComplicationInfo!>!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addAllTiles(Iterable<? extends com.google.android.horologist.data.TileInfo!>!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addComplications(com.google.android.horologist.data.ComplicationInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addComplications(com.google.android.horologist.data.ComplicationInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addComplications(int, com.google.android.horologist.data.ComplicationInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addComplications(int, com.google.android.horologist.data.ComplicationInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addTiles(com.google.android.horologist.data.TileInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addTiles(com.google.android.horologist.data.TileInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addTiles(int, com.google.android.horologist.data.TileInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addTiles(int, com.google.android.horologist.data.TileInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! clearActivityLaunched();
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! clearComplications();
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! clearTiles();
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! clearUsageInfo();
+    method public com.google.android.horologist.data.ActivityLaunched! getActivityLaunched();
+    method public com.google.android.horologist.data.ComplicationInfo! getComplications(int);
+    method public int getComplicationsCount();
+    method public java.util.List<com.google.android.horologist.data.ComplicationInfo!>! getComplicationsList();
+    method public com.google.android.horologist.data.TileInfo! getTiles(int);
+    method public int getTilesCount();
+    method public java.util.List<com.google.android.horologist.data.TileInfo!>! getTilesList();
+    method public com.google.android.horologist.data.UsageInfo! getUsageInfo();
+    method public boolean hasActivityLaunched();
+    method public boolean hasUsageInfo();
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! mergeActivityLaunched(com.google.android.horologist.data.ActivityLaunched!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! mergeUsageInfo(com.google.android.horologist.data.UsageInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! removeComplications(int);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! removeTiles(int);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setActivityLaunched(com.google.android.horologist.data.ActivityLaunched!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setActivityLaunched(com.google.android.horologist.data.ActivityLaunched.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setComplications(int, com.google.android.horologist.data.ComplicationInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setComplications(int, com.google.android.horologist.data.ComplicationInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setTiles(int, com.google.android.horologist.data.TileInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setTiles(int, com.google.android.horologist.data.TileInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setUsageInfo(com.google.android.horologist.data.UsageInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setUsageInfo(com.google.android.horologist.data.UsageInfo.Builder!);
+  }
+
+  public static final class SurfacesInfo.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.SurfacesInfo!,com.google.android.horologist.data.SurfacesInfo.Builder!> implements com.google.android.horologist.data.SurfacesInfoOrBuilder {
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addAllComplications(Iterable<? extends com.google.android.horologist.data.ComplicationInfo!>!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addAllTiles(Iterable<? extends com.google.android.horologist.data.TileInfo!>!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addComplications(com.google.android.horologist.data.ComplicationInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addComplications(com.google.android.horologist.data.ComplicationInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addComplications(int, com.google.android.horologist.data.ComplicationInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addComplications(int, com.google.android.horologist.data.ComplicationInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addTiles(com.google.android.horologist.data.TileInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addTiles(com.google.android.horologist.data.TileInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addTiles(int, com.google.android.horologist.data.TileInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! addTiles(int, com.google.android.horologist.data.TileInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! clearActivityLaunched();
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! clearComplications();
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! clearTiles();
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! clearUsageInfo();
+    method public com.google.android.horologist.data.ActivityLaunched! getActivityLaunched();
+    method public com.google.android.horologist.data.ComplicationInfo! getComplications(int);
+    method public int getComplicationsCount();
+    method public java.util.List<com.google.android.horologist.data.ComplicationInfo!>! getComplicationsList();
+    method public com.google.android.horologist.data.TileInfo! getTiles(int);
+    method public int getTilesCount();
+    method public java.util.List<com.google.android.horologist.data.TileInfo!>! getTilesList();
+    method public com.google.android.horologist.data.UsageInfo! getUsageInfo();
+    method public boolean hasActivityLaunched();
+    method public boolean hasUsageInfo();
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! mergeActivityLaunched(com.google.android.horologist.data.ActivityLaunched!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! mergeUsageInfo(com.google.android.horologist.data.UsageInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! removeComplications(int);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! removeTiles(int);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setActivityLaunched(com.google.android.horologist.data.ActivityLaunched!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setActivityLaunched(com.google.android.horologist.data.ActivityLaunched.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setComplications(int, com.google.android.horologist.data.ComplicationInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setComplications(int, com.google.android.horologist.data.ComplicationInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setTiles(int, com.google.android.horologist.data.TileInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setTiles(int, com.google.android.horologist.data.TileInfo.Builder!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setUsageInfo(com.google.android.horologist.data.UsageInfo!);
+    method public com.google.android.horologist.data.SurfacesInfo.Builder! setUsageInfo(com.google.android.horologist.data.UsageInfo.Builder!);
+  }
+
+  public final class SurfacesInfoKt {
+    field public static final com.google.android.horologist.data.SurfacesInfoKt INSTANCE;
+  }
+
+  public final class SurfacesInfoKt {
+    field public static final com.google.android.horologist.data.SurfacesInfoKt INSTANCE;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class SurfacesInfoKt.Dsl {
+    method @kotlin.jvm.JvmSynthetic public void addAllComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, Iterable<com.google.android.horologist.data.ComplicationInfo> values);
+    method @kotlin.jvm.JvmSynthetic public void addAllTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, Iterable<com.google.android.horologist.data.TileInfo> values);
+    method @kotlin.jvm.JvmSynthetic public void addComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, com.google.android.horologist.data.ComplicationInfo value);
+    method @kotlin.jvm.JvmSynthetic public void addTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, com.google.android.horologist.data.TileInfo value);
+    method public void clearActivityLaunched();
+    method @kotlin.jvm.JvmSynthetic public void clearComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>);
+    method @kotlin.jvm.JvmSynthetic public void clearTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>);
+    method public void clearUsageInfo();
+    method public com.google.android.horologist.data.ActivityLaunched getActivityLaunched();
+    method public com.google.android.horologist.data.ActivityLaunched? getActivityLaunchedOrNull(com.google.android.horologist.data.SurfacesInfoKt.Dsl);
+    method @kotlin.jvm.JvmSynthetic public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy> getComplications();
+    method @kotlin.jvm.JvmSynthetic public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy> getTiles();
+    method public com.google.android.horologist.data.UsageInfo getUsageInfo();
+    method public com.google.android.horologist.data.UsageInfo? getUsageInfoOrNull(com.google.android.horologist.data.SurfacesInfoKt.Dsl);
+    method public boolean hasActivityLaunched();
+    method public boolean hasUsageInfo();
+    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignAllComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, Iterable<com.google.android.horologist.data.ComplicationInfo> values);
+    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignAllTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, Iterable<com.google.android.horologist.data.TileInfo> values);
+    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, com.google.android.horologist.data.ComplicationInfo value);
+    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, com.google.android.horologist.data.TileInfo value);
+    method public void setActivityLaunched(com.google.android.horologist.data.ActivityLaunched);
+    method @kotlin.jvm.JvmSynthetic public operator void setComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, int index, com.google.android.horologist.data.ComplicationInfo value);
+    method @kotlin.jvm.JvmSynthetic public operator void setTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, int index, com.google.android.horologist.data.TileInfo value);
+    method public void setUsageInfo(com.google.android.horologist.data.UsageInfo);
+    property public final com.google.android.horologist.data.ActivityLaunched activityLaunched;
+    property @kotlin.jvm.JvmSynthetic public final com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy> complications;
+    property @kotlin.jvm.JvmSynthetic public final com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy> tiles;
+    property public final com.google.android.horologist.data.UsageInfo usageInfo;
+    field public static final com.google.android.horologist.data.SurfacesInfoKt.Dsl.Companion Companion;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class SurfacesInfoKt.Dsl {
+    method @kotlin.jvm.JvmSynthetic public void addAllComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, Iterable<com.google.android.horologist.data.ComplicationInfo> values);
+    method @kotlin.jvm.JvmSynthetic public void addAllTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, Iterable<com.google.android.horologist.data.TileInfo> values);
+    method @kotlin.jvm.JvmSynthetic public void addComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, com.google.android.horologist.data.ComplicationInfo value);
+    method @kotlin.jvm.JvmSynthetic public void addTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, com.google.android.horologist.data.TileInfo value);
+    method public void clearActivityLaunched();
+    method @kotlin.jvm.JvmSynthetic public void clearComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>);
+    method @kotlin.jvm.JvmSynthetic public void clearTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>);
+    method public void clearUsageInfo();
+    method public com.google.android.horologist.data.ActivityLaunched getActivityLaunched();
+    method public com.google.android.horologist.data.ActivityLaunched? getActivityLaunchedOrNull(com.google.android.horologist.data.SurfacesInfoKt.Dsl);
+    method @kotlin.jvm.JvmSynthetic public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy> getComplications();
+    method @kotlin.jvm.JvmSynthetic public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy> getTiles();
+    method public com.google.android.horologist.data.UsageInfo getUsageInfo();
+    method public com.google.android.horologist.data.UsageInfo? getUsageInfoOrNull(com.google.android.horologist.data.SurfacesInfoKt.Dsl);
+    method public boolean hasActivityLaunched();
+    method public boolean hasUsageInfo();
+    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignAllComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, Iterable<com.google.android.horologist.data.ComplicationInfo> values);
+    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignAllTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, Iterable<com.google.android.horologist.data.TileInfo> values);
+    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, com.google.android.horologist.data.ComplicationInfo value);
+    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, com.google.android.horologist.data.TileInfo value);
+    method public void setActivityLaunched(com.google.android.horologist.data.ActivityLaunched);
+    method @kotlin.jvm.JvmSynthetic public operator void setComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, int index, com.google.android.horologist.data.ComplicationInfo value);
+    method @kotlin.jvm.JvmSynthetic public operator void setTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, int index, com.google.android.horologist.data.TileInfo value);
+    method public void setUsageInfo(com.google.android.horologist.data.UsageInfo);
+    property public final com.google.android.horologist.data.ActivityLaunched activityLaunched;
+    property @kotlin.jvm.JvmSynthetic public final com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy> complications;
+    property @kotlin.jvm.JvmSynthetic public final com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy> tiles;
+    property public final com.google.android.horologist.data.UsageInfo usageInfo;
+    field public static final com.google.android.horologist.data.SurfacesInfoKt.Dsl.Companion Companion;
+  }
+
+  public static final class SurfacesInfoKt.Dsl.Companion {
+  }
+
+  public static final class SurfacesInfoKt.Dsl.Companion {
+  }
+
+  public static final class SurfacesInfoKt.Dsl.ComplicationsProxy extends com.google.protobuf.kotlin.DslProxy {
+  }
+
+  public static final class SurfacesInfoKt.Dsl.ComplicationsProxy extends com.google.protobuf.kotlin.DslProxy {
+  }
+
+  public static final class SurfacesInfoKt.Dsl.TilesProxy extends com.google.protobuf.kotlin.DslProxy {
+  }
+
+  public static final class SurfacesInfoKt.Dsl.TilesProxy extends com.google.protobuf.kotlin.DslProxy {
+  }
+
+  public final class SurfacesInfoKtKt {
+    method public static inline com.google.android.horologist.data.SurfacesInfo -initializesurfacesInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.SurfacesInfoKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.SurfacesInfo copy(com.google.android.horologist.data.SurfacesInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.SurfacesInfoKt.Dsl,kotlin.Unit> block);
+    method public static com.google.android.horologist.data.ActivityLaunched? getActivityLaunchedOrNull(com.google.android.horologist.data.SurfacesInfoOrBuilder);
+    method public static com.google.android.horologist.data.UsageInfo? getUsageInfoOrNull(com.google.android.horologist.data.SurfacesInfoOrBuilder);
+  }
+
+  public final class SurfacesInfoKtKt {
+    method public static inline com.google.android.horologist.data.SurfacesInfo -initializesurfacesInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.SurfacesInfoKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.SurfacesInfo copy(com.google.android.horologist.data.SurfacesInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.SurfacesInfoKt.Dsl,kotlin.Unit> block);
+    method public static com.google.android.horologist.data.ActivityLaunched? getActivityLaunchedOrNull(com.google.android.horologist.data.SurfacesInfoOrBuilder);
+    method public static com.google.android.horologist.data.UsageInfo? getUsageInfoOrNull(com.google.android.horologist.data.SurfacesInfoOrBuilder);
+  }
+
+  public interface SurfacesInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public com.google.android.horologist.data.ActivityLaunched! getActivityLaunched();
+    method public com.google.android.horologist.data.ComplicationInfo! getComplications(int);
+    method public int getComplicationsCount();
+    method public java.util.List<com.google.android.horologist.data.ComplicationInfo!>! getComplicationsList();
+    method public com.google.android.horologist.data.TileInfo! getTiles(int);
+    method public int getTilesCount();
+    method public java.util.List<com.google.android.horologist.data.TileInfo!>! getTilesList();
+    method public com.google.android.horologist.data.UsageInfo! getUsageInfo();
+    method public boolean hasActivityLaunched();
+    method public boolean hasUsageInfo();
+  }
+
+  public interface SurfacesInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public com.google.android.horologist.data.ActivityLaunched! getActivityLaunched();
+    method public com.google.android.horologist.data.ComplicationInfo! getComplications(int);
+    method public int getComplicationsCount();
+    method public java.util.List<com.google.android.horologist.data.ComplicationInfo!>! getComplicationsList();
+    method public com.google.android.horologist.data.TileInfo! getTiles(int);
+    method public int getTilesCount();
+    method public java.util.List<com.google.android.horologist.data.TileInfo!>! getTilesList();
+    method public com.google.android.horologist.data.UsageInfo! getUsageInfo();
+    method public boolean hasActivityLaunched();
+    method public boolean hasUsageInfo();
   }
 
   public interface TargetNodeId {
@@ -43,6 +1383,338 @@ package com.google.android.horologist.data {
   public static final class TargetNodeId.ThisNodeId implements com.google.android.horologist.data.TargetNodeId {
     method public suspend Object? evaluate(com.google.android.horologist.data.WearDataLayerRegistry dataLayerRegistry, kotlin.coroutines.Continuation<? super java.lang.String>);
     field public static final com.google.android.horologist.data.TargetNodeId.ThisNodeId INSTANCE;
+  }
+
+  public final class TileInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.TileInfo!,com.google.android.horologist.data.TileInfo.Builder!> implements com.google.android.horologist.data.TileInfoOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public static com.google.android.horologist.data.TileInfo! getDefaultInstance();
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+    method public static com.google.android.horologist.data.TileInfo.Builder! newBuilder();
+    method public static com.google.android.horologist.data.TileInfo.Builder! newBuilder(com.google.android.horologist.data.TileInfo!);
+    method public static com.google.android.horologist.data.TileInfo! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.TileInfo!>! parser();
+    field public static final int NAME_FIELD_NUMBER = 2; // 0x2
+    field public static final int TIMESTAMP_FIELD_NUMBER = 3; // 0x3
+  }
+
+  public final class TileInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.TileInfo!,com.google.android.horologist.data.TileInfo.Builder!> implements com.google.android.horologist.data.TileInfoOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public static com.google.android.horologist.data.TileInfo! getDefaultInstance();
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+    method public static com.google.android.horologist.data.TileInfo.Builder! newBuilder();
+    method public static com.google.android.horologist.data.TileInfo.Builder! newBuilder(com.google.android.horologist.data.TileInfo!);
+    method public static com.google.android.horologist.data.TileInfo! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.TileInfo! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.TileInfo!>! parser();
+    field public static final int NAME_FIELD_NUMBER = 2; // 0x2
+    field public static final int TIMESTAMP_FIELD_NUMBER = 3; // 0x3
+  }
+
+  public static final class TileInfo.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.TileInfo!,com.google.android.horologist.data.TileInfo.Builder!> implements com.google.android.horologist.data.TileInfoOrBuilder {
+    method public com.google.android.horologist.data.TileInfo.Builder! clearName();
+    method public com.google.android.horologist.data.TileInfo.Builder! clearTimestamp();
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+    method public com.google.android.horologist.data.TileInfo.Builder! mergeTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.TileInfo.Builder! setName(String!);
+    method public com.google.android.horologist.data.TileInfo.Builder! setNameBytes(com.google.protobuf.ByteString!);
+    method public com.google.android.horologist.data.TileInfo.Builder! setTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.TileInfo.Builder! setTimestamp(com.google.protobuf.Timestamp.Builder!);
+  }
+
+  public static final class TileInfo.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.TileInfo!,com.google.android.horologist.data.TileInfo.Builder!> implements com.google.android.horologist.data.TileInfoOrBuilder {
+    method public com.google.android.horologist.data.TileInfo.Builder! clearName();
+    method public com.google.android.horologist.data.TileInfo.Builder! clearTimestamp();
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+    method public com.google.android.horologist.data.TileInfo.Builder! mergeTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.TileInfo.Builder! setName(String!);
+    method public com.google.android.horologist.data.TileInfo.Builder! setNameBytes(com.google.protobuf.ByteString!);
+    method public com.google.android.horologist.data.TileInfo.Builder! setTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.TileInfo.Builder! setTimestamp(com.google.protobuf.Timestamp.Builder!);
+  }
+
+  public final class TileInfoKt {
+    field public static final com.google.android.horologist.data.TileInfoKt INSTANCE;
+  }
+
+  public final class TileInfoKt {
+    field public static final com.google.android.horologist.data.TileInfoKt INSTANCE;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class TileInfoKt.Dsl {
+    method public void clearName();
+    method public void clearTimestamp();
+    method public String getName();
+    method public com.google.protobuf.Timestamp getTimestamp();
+    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.TileInfoKt.Dsl);
+    method public boolean hasTimestamp();
+    method public void setName(String);
+    method public void setTimestamp(com.google.protobuf.Timestamp);
+    property public final String name;
+    property public final com.google.protobuf.Timestamp timestamp;
+    field public static final com.google.android.horologist.data.TileInfoKt.Dsl.Companion Companion;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class TileInfoKt.Dsl {
+    method public void clearName();
+    method public void clearTimestamp();
+    method public String getName();
+    method public com.google.protobuf.Timestamp getTimestamp();
+    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.TileInfoKt.Dsl);
+    method public boolean hasTimestamp();
+    method public void setName(String);
+    method public void setTimestamp(com.google.protobuf.Timestamp);
+    property public final String name;
+    property public final com.google.protobuf.Timestamp timestamp;
+    field public static final com.google.android.horologist.data.TileInfoKt.Dsl.Companion Companion;
+  }
+
+  public static final class TileInfoKt.Dsl.Companion {
+  }
+
+  public static final class TileInfoKt.Dsl.Companion {
+  }
+
+  public final class TileInfoKtKt {
+    method public static inline com.google.android.horologist.data.TileInfo -initializetileInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.TileInfoKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.TileInfo copy(com.google.android.horologist.data.TileInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.TileInfoKt.Dsl,kotlin.Unit> block);
+    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.TileInfoOrBuilder);
+  }
+
+  public final class TileInfoKtKt {
+    method public static inline com.google.android.horologist.data.TileInfo -initializetileInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.TileInfoKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.TileInfo copy(com.google.android.horologist.data.TileInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.TileInfoKt.Dsl,kotlin.Unit> block);
+    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.TileInfoOrBuilder);
+  }
+
+  public interface TileInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+  }
+
+  public interface TileInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public String! getName();
+    method public com.google.protobuf.ByteString! getNameBytes();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public boolean hasTimestamp();
+  }
+
+  public final class UsageInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.UsageInfo!,com.google.android.horologist.data.UsageInfo.Builder!> implements com.google.android.horologist.data.UsageInfoOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public static com.google.android.horologist.data.UsageInfo! getDefaultInstance();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public com.google.android.horologist.data.UsageStatus! getUsageStatus();
+    method public int getUsageStatusValue();
+    method public boolean hasTimestamp();
+    method public static com.google.android.horologist.data.UsageInfo.Builder! newBuilder();
+    method public static com.google.android.horologist.data.UsageInfo.Builder! newBuilder(com.google.android.horologist.data.UsageInfo!);
+    method public static com.google.android.horologist.data.UsageInfo! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.UsageInfo!>! parser();
+    field public static final int TIMESTAMP_FIELD_NUMBER = 2; // 0x2
+    field public static final int USAGESTATUS_FIELD_NUMBER = 1; // 0x1
+  }
+
+  public final class UsageInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.UsageInfo!,com.google.android.horologist.data.UsageInfo.Builder!> implements com.google.android.horologist.data.UsageInfoOrBuilder {
+    method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
+    method public static com.google.android.horologist.data.UsageInfo! getDefaultInstance();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public com.google.android.horologist.data.UsageStatus! getUsageStatus();
+    method public int getUsageStatusValue();
+    method public boolean hasTimestamp();
+    method public static com.google.android.horologist.data.UsageInfo.Builder! newBuilder();
+    method public static com.google.android.horologist.data.UsageInfo.Builder! newBuilder(com.google.android.horologist.data.UsageInfo!);
+    method public static com.google.android.horologist.data.UsageInfo! parseDelimitedFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseDelimitedFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(byte[]!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(byte[]!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(com.google.protobuf.ByteString!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(com.google.protobuf.ByteString!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(com.google.protobuf.CodedInputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(com.google.protobuf.CodedInputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(java.io.InputStream!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(java.io.InputStream!, com.google.protobuf.ExtensionRegistryLite!) throws java.io.IOException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(java.nio.ByteBuffer!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.android.horologist.data.UsageInfo! parseFrom(java.nio.ByteBuffer!, com.google.protobuf.ExtensionRegistryLite!) throws com.google.protobuf.InvalidProtocolBufferException;
+    method public static com.google.protobuf.Parser<com.google.android.horologist.data.UsageInfo!>! parser();
+    field public static final int TIMESTAMP_FIELD_NUMBER = 2; // 0x2
+    field public static final int USAGESTATUS_FIELD_NUMBER = 1; // 0x1
+  }
+
+  public static final class UsageInfo.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.UsageInfo!,com.google.android.horologist.data.UsageInfo.Builder!> implements com.google.android.horologist.data.UsageInfoOrBuilder {
+    method public com.google.android.horologist.data.UsageInfo.Builder! clearTimestamp();
+    method public com.google.android.horologist.data.UsageInfo.Builder! clearUsageStatus();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public com.google.android.horologist.data.UsageStatus! getUsageStatus();
+    method public int getUsageStatusValue();
+    method public boolean hasTimestamp();
+    method public com.google.android.horologist.data.UsageInfo.Builder! mergeTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.UsageInfo.Builder! setTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.UsageInfo.Builder! setTimestamp(com.google.protobuf.Timestamp.Builder!);
+    method public com.google.android.horologist.data.UsageInfo.Builder! setUsageStatus(com.google.android.horologist.data.UsageStatus!);
+    method public com.google.android.horologist.data.UsageInfo.Builder! setUsageStatusValue(int);
+  }
+
+  public static final class UsageInfo.Builder extends com.google.protobuf.GeneratedMessageLite.Builder<com.google.android.horologist.data.UsageInfo!,com.google.android.horologist.data.UsageInfo.Builder!> implements com.google.android.horologist.data.UsageInfoOrBuilder {
+    method public com.google.android.horologist.data.UsageInfo.Builder! clearTimestamp();
+    method public com.google.android.horologist.data.UsageInfo.Builder! clearUsageStatus();
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public com.google.android.horologist.data.UsageStatus! getUsageStatus();
+    method public int getUsageStatusValue();
+    method public boolean hasTimestamp();
+    method public com.google.android.horologist.data.UsageInfo.Builder! mergeTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.UsageInfo.Builder! setTimestamp(com.google.protobuf.Timestamp!);
+    method public com.google.android.horologist.data.UsageInfo.Builder! setTimestamp(com.google.protobuf.Timestamp.Builder!);
+    method public com.google.android.horologist.data.UsageInfo.Builder! setUsageStatus(com.google.android.horologist.data.UsageStatus!);
+    method public com.google.android.horologist.data.UsageInfo.Builder! setUsageStatusValue(int);
+  }
+
+  public final class UsageInfoKt {
+    field public static final com.google.android.horologist.data.UsageInfoKt INSTANCE;
+  }
+
+  public final class UsageInfoKt {
+    field public static final com.google.android.horologist.data.UsageInfoKt INSTANCE;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class UsageInfoKt.Dsl {
+    method public void clearTimestamp();
+    method public void clearUsageStatus();
+    method public com.google.protobuf.Timestamp getTimestamp();
+    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.UsageInfoKt.Dsl);
+    method public com.google.android.horologist.data.UsageStatus getUsageStatus();
+    method public int getUsageStatusValue();
+    method public boolean hasTimestamp();
+    method public void setTimestamp(com.google.protobuf.Timestamp);
+    method public void setUsageStatus(com.google.android.horologist.data.UsageStatus);
+    method public void setUsageStatusValue(int);
+    property public final com.google.protobuf.Timestamp timestamp;
+    property public final com.google.android.horologist.data.UsageStatus usageStatus;
+    property public final int usageStatusValue;
+    field public static final com.google.android.horologist.data.UsageInfoKt.Dsl.Companion Companion;
+  }
+
+  @com.google.protobuf.kotlin.ProtoDslMarker public static final class UsageInfoKt.Dsl {
+    method public void clearTimestamp();
+    method public void clearUsageStatus();
+    method public com.google.protobuf.Timestamp getTimestamp();
+    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.UsageInfoKt.Dsl);
+    method public com.google.android.horologist.data.UsageStatus getUsageStatus();
+    method public int getUsageStatusValue();
+    method public boolean hasTimestamp();
+    method public void setTimestamp(com.google.protobuf.Timestamp);
+    method public void setUsageStatus(com.google.android.horologist.data.UsageStatus);
+    method public void setUsageStatusValue(int);
+    property public final com.google.protobuf.Timestamp timestamp;
+    property public final com.google.android.horologist.data.UsageStatus usageStatus;
+    property public final int usageStatusValue;
+    field public static final com.google.android.horologist.data.UsageInfoKt.Dsl.Companion Companion;
+  }
+
+  public static final class UsageInfoKt.Dsl.Companion {
+  }
+
+  public static final class UsageInfoKt.Dsl.Companion {
+  }
+
+  public final class UsageInfoKtKt {
+    method public static inline com.google.android.horologist.data.UsageInfo -initializeusageInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.UsageInfoKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.UsageInfo copy(com.google.android.horologist.data.UsageInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.UsageInfoKt.Dsl,kotlin.Unit> block);
+    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.UsageInfoOrBuilder);
+  }
+
+  public final class UsageInfoKtKt {
+    method public static inline com.google.android.horologist.data.UsageInfo -initializeusageInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.UsageInfoKt.Dsl,kotlin.Unit> block);
+    method public static inline com.google.android.horologist.data.UsageInfo copy(com.google.android.horologist.data.UsageInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.UsageInfoKt.Dsl,kotlin.Unit> block);
+    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.UsageInfoOrBuilder);
+  }
+
+  public interface UsageInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public com.google.android.horologist.data.UsageStatus! getUsageStatus();
+    method public int getUsageStatusValue();
+    method public boolean hasTimestamp();
+  }
+
+  public interface UsageInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+    method public com.google.protobuf.Timestamp! getTimestamp();
+    method public com.google.android.horologist.data.UsageStatus! getUsageStatus();
+    method public int getUsageStatusValue();
+    method public boolean hasTimestamp();
+  }
+
+  public enum UsageStatus implements com.google.protobuf.Internal.EnumLite {
+    method public static com.google.android.horologist.data.UsageStatus! forNumber(int);
+    method public int getNumber();
+    method public static com.google.protobuf.Internal.EnumLiteMap<com.google.android.horologist.data.UsageStatus!>! internalGetValueMap();
+    method public static com.google.protobuf.Internal.EnumVerifier! internalGetVerifier();
+    method @Deprecated public static com.google.android.horologist.data.UsageStatus! valueOf(int);
+    enum_constant public static final com.google.android.horologist.data.UsageStatus UNRECOGNIZED;
+    enum_constant public static final com.google.android.horologist.data.UsageStatus USAGE_STATUS_LAUNCHED_ONCE;
+    enum_constant public static final com.google.android.horologist.data.UsageStatus USAGE_STATUS_SETUP_COMPLETE;
+    enum_constant public static final com.google.android.horologist.data.UsageStatus USAGE_STATUS_UNSPECIFIED;
+    field public static final int USAGE_STATUS_LAUNCHED_ONCE_VALUE = 1; // 0x1
+    field public static final int USAGE_STATUS_SETUP_COMPLETE_VALUE = 2; // 0x2
+    field public static final int USAGE_STATUS_UNSPECIFIED_VALUE = 0; // 0x0
+  }
+
+  public enum UsageStatus implements com.google.protobuf.Internal.EnumLite {
+    method public static com.google.android.horologist.data.UsageStatus! forNumber(int);
+    method public int getNumber();
+    method public static com.google.protobuf.Internal.EnumLiteMap<com.google.android.horologist.data.UsageStatus!>! internalGetValueMap();
+    method public static com.google.protobuf.Internal.EnumVerifier! internalGetVerifier();
+    method @Deprecated public static com.google.android.horologist.data.UsageStatus! valueOf(int);
+    enum_constant public static final com.google.android.horologist.data.UsageStatus UNRECOGNIZED;
+    enum_constant public static final com.google.android.horologist.data.UsageStatus USAGE_STATUS_LAUNCHED_ONCE;
+    enum_constant public static final com.google.android.horologist.data.UsageStatus USAGE_STATUS_SETUP_COMPLETE;
+    enum_constant public static final com.google.android.horologist.data.UsageStatus USAGE_STATUS_UNSPECIFIED;
+    field public static final int USAGE_STATUS_LAUNCHED_ONCE_VALUE = 1; // 0x1
+    field public static final int USAGE_STATUS_SETUP_COMPLETE_VALUE = 2; // 0x2
+    field public static final int USAGE_STATUS_UNSPECIFIED_VALUE = 0; // 0x0
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class WearDataLayerRegistry {

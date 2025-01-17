@@ -18,6 +18,9 @@ Maintenance branches will not delete existing APIs and they should remain stable
 the main branch will actively update to incorporate new API guidance, removing or changing
 APIs.
 
+[![Build & test (nightly release)](https://github.com/google/horologist/actions/workflows/build_nightly.yml/badge.svg?branch=main)](https://github.com/google/horologist/actions/workflows/build_nightly.yml)
+[![Build & test](https://github.com/google/horologist/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/google/horologist/actions/workflows/build.yml)
+
 ---
 
 ## 🎵 Media

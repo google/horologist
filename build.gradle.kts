@@ -3,6 +3,7 @@ import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 import com.vanniktech.maven.publish.JavaLibrary
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.SonatypeHost
+import java.net.URI
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URL
 import java.util.Properties
@@ -99,6 +100,12 @@ allprojects {
         val composeSnapshot = rootProject.libs.versions.composesnapshot.get()
         if (composeSnapshot.length > 1) {
             maven(url = uri("https://androidx.dev/snapshots/builds/$composeSnapshot/artifacts/repository/"))
+        }
+        maven {
+            url = URI("https://jitpack.io")
+            content {
+                includeGroup("com.github.droibit.oss-licenses-android")
+            }
         }
     }
 

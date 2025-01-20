@@ -125,10 +125,12 @@ fun UampSettingsScreen(
                     label = stringResource(id = R.string.show_licenses),
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
-                        activity?.startActivity(Intent().apply {
-                            setPackage(activity.packageName)
-                            setAction("com.google.wear.ACTION_SHOW_LICENSE")
-                        })
+                        activity?.startActivity(
+                            Intent().apply {
+                                setPackage(activity.packageName)
+                                setAction("com.google.wear.ACTION_SHOW_LICENSE")
+                            },
+                        )
                     },
                     enabled = true,
                 )

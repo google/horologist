@@ -36,6 +36,7 @@ buildscript {
         classpath(libs.gradleMavenPublishPlugin)
 
         classpath(libs.dagger.hiltandroidplugin)
+        classpath(libs.oss.licenses.plugin)
     }
 }
 

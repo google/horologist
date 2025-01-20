@@ -132,6 +132,24 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+            android:exported="true"
+            android:label="@string/oss_license_title"
+            android:taskAffinity=".licenses"
+            android:theme="@style/Theme.AppCompat"
+            tools:node="replace">
+            <intent-filter>
+                <action android:name="com.google.wear.ACTION_SHOW_LICENSE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
+            android:exported="false"
+            android:taskAffinity=".licenses"
+            android:theme="@style/Theme.AppCompat"
+            tools:node="replace" />
     </application>
 
     <uses-sdk

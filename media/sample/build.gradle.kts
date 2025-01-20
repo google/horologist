@@ -248,7 +248,8 @@ dependencies {
     implementation(libs.playservices.auth)
     implementation(libs.kotlinx.coroutines.playservices)
 
-    implementation(libs.play.services.oss.licenses)
+    implementation(libs.osslicenses.parser)
+    implementation(libs.osslicenses.wear.compose)
 
     add("benchmarkImplementation", libs.androidx.runtime.tracing)
 

@@ -33,6 +33,7 @@ com-squareup-okhttp3 = "5.0.0-alpha.14"
 com-squareup-retrofit2 = "2.11.0"
 compose-material3 = "1.3.1"
 ossLicensesPlugin = "0.10.6"
+osslicenses = "0.5.0"
 playServicesOssLicenses = "17.1.0"
 wearComposeMaterial3 = "1.0.0-alpha31"
 composesnapshot = "-"
@@ -200,6 +201,8 @@ moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "mosh
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 oss-licenses-plugin = { module = "com.google.android.gms:oss-licenses-plugin", version.ref = "ossLicensesPlugin" }
+osslicenses-parser = { module = "com.github.droibit.oss-licenses-android:parser", version.ref = "osslicenses" }
+osslicenses-wear-compose = { module = "com.github.droibit.oss-licenses-android:ui-wear-compose", version.ref = "osslicenses" }
 play-services-oss-licenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "playServicesOssLicenses" }
 playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 playservices-base = "com.google.android.gms:play-services-base:18.5.0"

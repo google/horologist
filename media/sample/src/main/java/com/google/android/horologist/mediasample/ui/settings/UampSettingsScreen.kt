@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.mediasample.ui.settings
 
+import android.content.Intent
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
@@ -116,6 +118,22 @@ fun UampSettingsScreen(
                         },
                     )
                 }
+            }
+            item {
+                val activity = LocalActivity.current
+                Chip(
+                    label = stringResource(id = R.string.show_licenses),
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {
+                        activity?.startActivity(
+                            Intent().apply {
+                                setPackage(activity.packageName)
+                                setAction("com.google.wear.ACTION_SHOW_LICENSE")
+                            },
+                        )
+                    },
+                    enabled = true,
+                )
             }
         }
     }

@@ -270,8 +270,9 @@ package com.google.android.horologist.media.ui.state.model {
   }
 
   public static final class MediaUiModel.Ready extends com.google.android.horologist.media.ui.state.model.MediaUiModel {
-    ctor public MediaUiModel.Ready(String id, String title, optional String subtitle, optional String? clientPackageName, optional com.google.android.horologist.images.base.paintable.Paintable? artwork, optional androidx.compose.ui.graphics.Color? artworkColor, optional androidx.compose.ui.graphics.Color? artworkColorSeed, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon, optional com.google.android.horologist.audio.AudioOutput? selectedAudioOutput);
+    ctor public MediaUiModel.Ready(String id, String title, optional String subtitle, optional String? clientPackageName, optional com.google.android.horologist.images.base.paintable.Paintable? artwork, optional androidx.compose.ui.graphics.Color? artworkColor, optional androidx.compose.ui.graphics.Color? artworkColorSeed, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon, optional String? appLabel, optional com.google.android.horologist.audio.AudioOutput? selectedAudioOutput);
     method public String component1();
+    method public com.google.android.horologist.audio.AudioOutput? component10();
     method public String component2();
     method public String component3();
     method public String? component4();
@@ -279,8 +280,9 @@ package com.google.android.horologist.media.ui.state.model {
     method public androidx.compose.ui.graphics.Color? component6-QN2ZGVo();
     method public androidx.compose.ui.graphics.Color? component7-QN2ZGVo();
     method public com.google.android.horologist.images.base.paintable.Paintable? component8();
-    method public com.google.android.horologist.audio.AudioOutput? component9();
-    method public com.google.android.horologist.media.ui.state.model.MediaUiModel.Ready copy-pnjrP7c(String id, String title, String subtitle, String? clientPackageName, com.google.android.horologist.images.base.paintable.Paintable? artwork, androidx.compose.ui.graphics.Color? artworkColor, androidx.compose.ui.graphics.Color? artworkColorSeed, com.google.android.horologist.images.base.paintable.Paintable? titleIcon, com.google.android.horologist.audio.AudioOutput? selectedAudioOutput);
+    method public String? component9();
+    method public com.google.android.horologist.media.ui.state.model.MediaUiModel.Ready copy-Rhg8lNc(String id, String title, String subtitle, String? clientPackageName, com.google.android.horologist.images.base.paintable.Paintable? artwork, androidx.compose.ui.graphics.Color? artworkColor, androidx.compose.ui.graphics.Color? artworkColorSeed, com.google.android.horologist.images.base.paintable.Paintable? titleIcon, String? appLabel, com.google.android.horologist.audio.AudioOutput? selectedAudioOutput);
+    method public String? getAppLabel();
     method public com.google.android.horologist.images.base.paintable.Paintable? getArtwork();
     method public androidx.compose.ui.graphics.Color? getArtworkColor();
     method public androidx.compose.ui.graphics.Color? getArtworkColorSeed();
@@ -290,6 +292,7 @@ package com.google.android.horologist.media.ui.state.model {
     method public String getSubtitle();
     method public String getTitle();
     method public com.google.android.horologist.images.base.paintable.Paintable? getTitleIcon();
+    property public final String? appLabel;
     property public final com.google.android.horologist.images.base.paintable.Paintable? artwork;
     property public final androidx.compose.ui.graphics.Color? artworkColor;
     property public final androidx.compose.ui.graphics.Color? artworkColorSeed;

@@ -36,6 +36,7 @@ public sealed class MediaUiModel {
      * @param artworkColorSeed The seed color to use for generating the artwork color palette
      *   (optional).
      * @param titleIcon An icon to display next to the title (optional).
+     * @param appLabel The name of the app that is playing media.
      * @param selectedAudioOutput The audio output on which the media is currently playing (optional).
      */
     public data class Ready(
@@ -47,6 +48,7 @@ public sealed class MediaUiModel {
         val artworkColor: Color? = null,
         val artworkColorSeed: Color? = null,
         val titleIcon: Paintable? = null,
+        val appLabel: String? = null,
         val selectedAudioOutput: AudioOutput? = null,
     ) : MediaUiModel()
     public object Loading : MediaUiModel()

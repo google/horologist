@@ -36,7 +36,7 @@ public sealed class MediaUiModel {
      * @param artworkColorSeed The seed color to use for generating the artwork color palette
      *   (optional).
      * @param titleIcon An icon to display next to the title (optional).
-     * @param appLabel The name of the app that is playing media. 
+     * @param appLabel The name of the app that is playing media.
      * @param selectedAudioOutput The audio output on which the media is currently playing (optional).
      */
     public data class Ready(

@@ -105,9 +105,6 @@ public fun MarqueeTextMediaDisplay(
                 inlineContent = inlineContent,
                 edgeGradientWidth = 8.dp,
                 modifier = Modifier
-                    // 89.76% of parent equals 4.16% of screen width applied on each side when
-                    // applied on top of the 9.38% in the ConstraintLayout.
-                    .fillMaxWidth(0.8976f)
                     .padding(
                         top = if (isLargeScreen) 0.dp else 2.dp,
                         bottom = if (isLargeScreen) 3.dp else 1.dp,

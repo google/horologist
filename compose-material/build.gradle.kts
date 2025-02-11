@@ -52,8 +52,6 @@ android {
         jvmTarget = JavaVersion.VERSION_17.majorVersion
         freeCompilerArgs += listOf(
             "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-            "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi",
         )
     }
 

@@ -25,9 +25,10 @@ import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.test.DeviceConfigurationOverride
+import androidx.compose.ui.test.FontScale
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
-import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
@@ -131,7 +132,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     @Test
     fun withLongTextAndLargestFontScale() {
         runComponentTest {
-            TestHarness(fontScale = LARGEST_FONT_SCALE) {
+            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(LARGEST_FONT_SCALE)) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
                     onClick = { },
@@ -143,7 +144,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     @Test
     fun withLongTextAndMediumFontScale() {
         runComponentTest {
-            TestHarness(fontScale = MEDIUM_FONT_SCALE) {
+            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(MEDIUM_FONT_SCALE)) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
                     onClick = { },
@@ -167,7 +168,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     @Test
     fun withSecondaryLabelAndIconAndLongTextAndLargestFontScale() {
         runComponentTest {
-            TestHarness(fontScale = LARGEST_FONT_SCALE) {
+            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(LARGEST_FONT_SCALE)) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
@@ -194,7 +195,7 @@ class OutlinedChipTest : WearLegacyComponentTest() {
     @Test
     fun withSecondaryLabelAndLargeIconAndLongTextAndLargestFontScale() {
         runComponentTest {
-            TestHarness(fontScale = LARGEST_FONT_SCALE) {
+            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(LARGEST_FONT_SCALE)) {
                 OutlinedChip(
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },

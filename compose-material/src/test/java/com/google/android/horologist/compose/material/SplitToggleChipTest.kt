@@ -17,7 +17,8 @@
 package com.google.android.horologist.compose.material
 
 import androidx.compose.ui.res.stringResource
-import com.google.accompanist.testharness.TestHarness
+import androidx.compose.ui.test.DeviceConfigurationOverride
+import androidx.compose.ui.test.FontScale
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 import org.robolectric.annotation.Config
@@ -134,7 +135,7 @@ class SplitToggleChipTest : WearLegacyComponentTest() {
     @Test
     fun withLongTextAndLargestFontScale() {
         runComponentTest {
-            TestHarness(fontScale = largestFontScale) {
+            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
                 SplitToggleChip(
                     checked = true,
                     onCheckedChanged = { },
@@ -163,7 +164,7 @@ class SplitToggleChipTest : WearLegacyComponentTest() {
     @Test
     fun withSecondaryLabelAndLongTextAndLargestFontScale() {
         runComponentTest {
-            TestHarness(fontScale = largestFontScale) {
+            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
                 SplitToggleChip(
                     checked = true,
                     onCheckedChanged = { },

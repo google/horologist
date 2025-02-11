@@ -86,12 +86,12 @@ public open class VolumeViewModel(
     }
 
     public fun increaseVolume() {
-        this.userActionEvents.tryEmit(Unit)
+        val unused = userActionEvents.tryEmit(Unit)
         volumeRepository.increaseVolume()
     }
 
     public fun decreaseVolume() {
-        this.userActionEvents.tryEmit(Unit)
+        val unused = userActionEvents.tryEmit(Unit)
         volumeRepository.decreaseVolume()
     }
 
@@ -127,7 +127,7 @@ public open class VolumeViewModel(
     }
 
     public fun setVolume(volume: Int) {
-        this.userActionEvents.tryEmit(Unit)
+        val unused = userActionEvents.tryEmit(Unit)
         if (volume != volumeRepository.volumeState.value.current) {
             volumeRepository.setVolume(volume)
         }

@@ -19,9 +19,7 @@ package com.google.android.horologist.datalayer.phone.ui.play
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 
 private const val PLAY_STORE_APP_URI_PREFIX = "market://details?id="

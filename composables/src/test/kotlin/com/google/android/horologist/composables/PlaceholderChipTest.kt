@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalWearFoundationApi::class)
+@file:OptIn(ExperimentalWearMaterialApi::class)
 
 package com.google.android.horologist.composables
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.LocalReduceMotion
 import androidx.wear.compose.foundation.ReduceMotion
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 

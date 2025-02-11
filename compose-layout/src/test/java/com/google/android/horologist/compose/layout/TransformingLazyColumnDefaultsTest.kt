@@ -25,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumnState
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
@@ -56,7 +55,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
 
     override fun testName(suffix: String): String =
         "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName}_" +
-                "${device.id}$suffix.png"
+            "${device.id}$suffix.png"
 
     @Composable
     override fun TestScaffold(content: @Composable (() -> Unit)) {

@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.LocalReduceMotion
-import androidx.wear.compose.foundation.ReduceMotion
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
@@ -46,9 +45,7 @@ class PlaceholderChipTest : WearLegacyComponentTest() {
     @Composable
     override fun ComponentScaffold(content: @Composable () -> Unit) {
         CompositionLocalProvider(
-            LocalReduceMotion provides ReduceMotion {
-                true
-            },
+            LocalReduceMotion provides true,
         ) {
             super.ComponentScaffold(content)
         }

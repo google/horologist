@@ -29,7 +29,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.LocalReduceMotion
-import androidx.wear.compose.foundation.ReduceMotion
 import com.google.android.horologist.media.ui.components.animated.MarqueeTextMediaDisplay
 import com.google.android.horologist.media.ui.components.display.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.display.TextMediaDisplay
@@ -106,9 +105,7 @@ class LoadingMediaDisplayTest : WearLegacyComponentTest() {
     @Composable
     override fun ComponentScaffold(content: @Composable () -> Unit) {
         CompositionLocalProvider(
-            LocalReduceMotion provides ReduceMotion {
-                true
-            },
+            LocalReduceMotion provides true,
         ) {
             super.ComponentScaffold(content)
         }

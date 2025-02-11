@@ -128,7 +128,6 @@ dependencies {
     debugRuntimeOnly(libs.compose.ui.test.manifest)
 
     testImplementation(projects.roboscreenshots)
-    testImplementation(libs.accompanist.testharness)
     testImplementation(libs.androidx.core)
     testImplementation(libs.compose.material.iconsext)
     testImplementation(libs.compose.ui.test)

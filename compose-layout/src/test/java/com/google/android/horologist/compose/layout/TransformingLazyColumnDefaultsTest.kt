@@ -37,11 +37,11 @@ import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.OutlinedIconButton
 import androidx.wear.compose.material3.ScreenScaffold
-import androidx.wear.compose.material3.ScreenScaffoldDefaults
 import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.TimeText
 import androidx.wear.compose.material3.TitleCard
 import androidx.wear.compose.material3.lazy.scrollTransform
+import androidx.wear.compose.material3.timeTextCurvedText
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest
 import kotlinx.coroutines.runBlocking
@@ -67,9 +67,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         runTest {
             AppScaffold(
                 timeText = {
-                    TimeText {
-                        text("10:10")
-                    }
+                    TimeText(timeSource = FixedTimeSource3)
                 },
                 // Why black needed here
                 modifier = Modifier.background(MaterialTheme.colorScheme.background),
@@ -118,8 +116,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         override fun topPadding(horizontalPercent: Float): Dp = 0.dp
 
         @Composable
-        override fun bottomPadding(horizontalPercent: Float): Dp =
-            ScreenScaffoldDefaults.contentPaddingWithEdgeButton(buttonSize).calculateBottomPadding()
+        override fun bottomPadding(horizontalPercent: Float): Dp = 0.dp
     }
 
     @Test
@@ -128,9 +125,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         runTest {
             AppScaffold(
                 timeText = {
-                    TimeText {
-                        text("10:10")
-                    }
+                    TimeText(timeSource = FixedTimeSource3)
                 },
                 // Why black needed here
                 modifier = Modifier.background(MaterialTheme.colorScheme.background),
@@ -188,7 +183,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
             AppScaffold(
                 timeText = {
                     TimeText {
-                        text("10:10")
+                        timeTextCurvedText("10:10")
                     }
                 },
                 // Why black needed here

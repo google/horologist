@@ -17,6 +17,12 @@ package com.google.android.horologist.audio.ui {
     property public final boolean isMin;
     property public final int max;
     property public final int min;
+    field public static final com.google.android.horologist.audio.ui.VolumeUiState.Companion Companion;
+  }
+
+  public static final class VolumeUiState.Companion {
+    method public com.google.android.horologist.audio.ui.VolumeUiState getUnknown();
+    property public final com.google.android.horologist.audio.ui.VolumeUiState Unknown;
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public class VolumeViewModel extends androidx.lifecycle.ViewModel {

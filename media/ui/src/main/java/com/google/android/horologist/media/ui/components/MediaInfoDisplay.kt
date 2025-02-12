@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearMaterialApi::class)
+
 package com.google.android.horologist.media.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.display.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay

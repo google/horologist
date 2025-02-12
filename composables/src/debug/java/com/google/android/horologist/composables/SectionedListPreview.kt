@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearMaterialApi::class)
+
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.padding
@@ -29,6 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text

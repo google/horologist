@@ -21,7 +21,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.ui.res.stringResource
-import com.google.accompanist.testharness.TestHarness
+import androidx.compose.ui.test.DeviceConfigurationOverride
+import androidx.compose.ui.test.FontScale
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
@@ -86,7 +87,7 @@ class OutlinedCompactChipTest : WearLegacyComponentTest() {
     @Test
     fun withLongTextAndLargestFontScale() {
         runComponentTest {
-            TestHarness(fontScale = LARGEST_FONT_SCALE) {
+            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(LARGEST_FONT_SCALE)) {
                 OutlinedCompactChip(
                     onClick = { },
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",

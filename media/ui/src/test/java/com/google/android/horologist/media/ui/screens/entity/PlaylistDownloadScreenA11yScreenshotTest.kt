@@ -29,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.LocalReduceMotion
-import androidx.wear.compose.foundation.ReduceMotion
 import androidx.wear.compose.foundation.pager.rememberPagerState
 import androidx.wear.compose.material.MaterialTheme
 import coil.annotation.ExperimentalCoilApi
@@ -251,9 +250,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
     @Composable
     override fun TestScaffold(content: @Composable () -> Unit) {
         CompositionLocalProvider(
-            LocalReduceMotion provides ReduceMotion {
-                true
-            },
+            LocalReduceMotion provides true,
         ) {
         }
         AppScaffold(

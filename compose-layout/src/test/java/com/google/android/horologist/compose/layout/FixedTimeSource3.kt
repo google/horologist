@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,12 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalWearMaterialApi::class)
-
-package com.google.android.horologist.composables
+package com.google.android.horologist.compose.layout
 
 import androidx.compose.runtime.Composable
-import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.ExperimentalWearMaterialApi
-import com.google.android.horologist.compose.tools.WearPreview
+import androidx.wear.compose.material3.TimeSource
 
-@WearPreview
-@Composable
-fun PlaceholderChipPreview() {
-    PlaceholderChip()
-}
-
-@WearPreview
-@Composable
-fun PlaceholderChipPreviewWithSecondaryColors() {
-    PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+object FixedTimeSource3 : TimeSource {
+    @Composable
+    override fun currentTime(): String = "10:10"
 }

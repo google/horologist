@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearMaterialApi::class)
+
 package com.google.android.horologist.media.ui.screens.entity
 
 import androidx.compose.foundation.background
@@ -41,6 +43,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices

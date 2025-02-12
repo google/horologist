@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.components.display
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -50,8 +51,9 @@ public fun TextMediaDisplay(
     titleIcon: Paintable? = null,
 ) {
     val isLargeScreen = LocalConfiguration.current.isLargeScreen
+    val titleSidePadding = (0.063f * LocalConfiguration.current.screenWidthDp).dp
 
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         val textStyle = MaterialTheme.typography.button
         val text = buildAnnotatedString {
             if (titleIcon != null) {
@@ -75,12 +77,11 @@ public fun TextMediaDisplay(
             text = text,
             inlineContent = inlineContent,
             modifier = Modifier
-                // 89.76% of parent equals 4.16% of screen width applied on each side when
-                // applied on top of the 9.38% in the ConstraintLayout.
-                .fillMaxWidth(0.8976f)
                 .padding(
                     top = if (isLargeScreen) 0.dp else 2.dp,
                     bottom = if (isLargeScreen) 3.dp else 1.dp,
+                    start = titleSidePadding,
+                    end = titleSidePadding,
                 ),
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,

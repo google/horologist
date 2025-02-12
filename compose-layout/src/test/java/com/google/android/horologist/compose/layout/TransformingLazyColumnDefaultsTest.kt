@@ -81,10 +81,10 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                 ) { contentPadding ->
                     TransformingLazyColumn(
                         state = columnState,
+                        contentPadding = contentPadding,
                         modifier = Modifier
                             .fillMaxSize()
                             .testTag("TransformingLazyColumn"),
-                        contentPadding = contentPadding,
                     ) {
                         item {
                             ListHeader {
@@ -146,6 +146,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                 ) { contentPadding ->
                     TransformingLazyColumn(
                         state = columnState,
+                        contentPadding = contentPadding,
                         modifier = Modifier
                             .fillMaxSize()
                             .testTag("TransformingLazyColumn"),

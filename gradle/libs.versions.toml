@@ -14,7 +14,7 @@ androidx-test-ext = "1.2.1"
 androidx-test-runner = "1.6.2"
 androidx-wear-watchface = "1.2.1"
 androidxActivity = "1.10.0"
-androidxComposeBom = "2025.01.00"
+androidxComposeBom = "2025.01.01"
 androidxCore = "1.15.0"
 androidxLifecycle = "2.8.7"
 androidxNavigation = "2.8.7"
@@ -195,7 +195,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 lottie-compose = "com.airbnb.android:lottie-compose:6.6.2"
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.26.0"
+mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.27.0"
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }

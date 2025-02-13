@@ -149,7 +149,8 @@ private fun SampleTypography() = DefaultMarkdownTypography(
     bullet = MaterialTheme.typography.body1,
     list = MaterialTheme.typography.body1,
     link = MaterialTheme.typography.body1.copy(
-        fontWeight = FontWeight.Bold, textDecoration = TextDecoration.Underline
+        fontWeight = FontWeight.Bold,
+        textDecoration = TextDecoration.Underline,
     ),
     inlineCode = MaterialTheme.typography.body1.copy(fontFamily = FontFamily.Monospace),
 )

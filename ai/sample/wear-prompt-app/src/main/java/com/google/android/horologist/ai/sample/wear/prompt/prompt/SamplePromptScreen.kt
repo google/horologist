@@ -34,6 +34,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.Card
@@ -146,6 +148,10 @@ private fun SampleTypography() = DefaultMarkdownTypography(
     ordered = MaterialTheme.typography.body1,
     bullet = MaterialTheme.typography.body1,
     list = MaterialTheme.typography.body1,
+    link = MaterialTheme.typography.body1.copy(
+        fontWeight = FontWeight.Bold, textDecoration = TextDecoration.Underline
+    ),
+    inlineCode = MaterialTheme.typography.body1.copy(fontFamily = FontFamily.Monospace),
 )
 
 @Composable

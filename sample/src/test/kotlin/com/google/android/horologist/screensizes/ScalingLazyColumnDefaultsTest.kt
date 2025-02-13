@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalTestApi::class)
+
 package com.google.android.horologist.screensizes
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,10 +24,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasScrollToNodeAction
-import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.compose.ui.unit.dp
-import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.material.AppCard
 import androidx.wear.compose.material.Text
@@ -67,7 +69,7 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
             }
 
             composeRule.onNode(hasScrollToNodeAction())
-                .performTouchInput { repeat(10) { swipeUp() } }
+                .performRotaryScrollInput { repeat(10) { rotateToScrollVertically(100f) } }
 
             captureScreenshot()
         }
@@ -117,7 +119,7 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
             }
 
             composeRule.onNode(hasScrollToNodeAction())
-                .performTouchInput { repeat(10) { swipeUp() } }
+                .performRotaryScrollInput { repeat(10) { rotateToScrollVertically(100f) } }
 
             captureScreenshot()
         }
@@ -131,7 +133,7 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
             }
 
             composeRule.onNode(hasScrollToNodeAction())
-                .performTouchInput { repeat(10) { swipeUp() } }
+                .performRotaryScrollInput { repeat(10) { rotateToScrollVertically(100f) } }
 
             captureScreenshot()
         }

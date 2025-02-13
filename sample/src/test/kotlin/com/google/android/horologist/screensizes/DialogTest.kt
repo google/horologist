@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalTestApi::class)
+
 package com.google.android.horologist.screensizes
 
 import android.R
@@ -26,10 +28,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasScrollToNodeAction
-import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.compose.ui.text.style.TextAlign
-import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
@@ -114,7 +116,7 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
         }
 
         composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
+            .performRotaryScrollInput { repeat(10) { rotateToScrollVertically(100f) } }
 
         captureScreenshot("_2")
     }
@@ -163,7 +165,7 @@ class DialogTest(device: Device) : WearLegacyScreenSizeTest(
         }
 
         composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
+            .performRotaryScrollInput { repeat(10) { rotateToScrollVertically(100f) } }
 
         captureScreenshot("_2")
     }

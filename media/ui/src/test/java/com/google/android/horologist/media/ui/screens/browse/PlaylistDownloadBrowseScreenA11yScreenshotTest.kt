@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalTestApi::class)
+
 package com.google.android.horologist.media.ui.screens.browse
 
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasScrollToNodeAction
-import androidx.compose.ui.test.performTouchInput
-import androidx.test.espresso.action.ViewActions.swipeUp
+import androidx.compose.ui.test.performRotaryScrollInput
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
@@ -62,7 +64,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest : WearLegacyA11yTest() {
         }
 
         composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
+            .performRotaryScrollInput { repeat(10) { rotateToScrollVertically(100f) } }
 
         captureScreenshot()
     }

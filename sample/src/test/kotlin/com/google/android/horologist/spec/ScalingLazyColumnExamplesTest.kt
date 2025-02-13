@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalTestApi::class)
+
 package com.google.android.horologist.spec
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasScrollToNodeAction
-import androidx.compose.ui.test.performTouchInput
-import androidx.compose.ui.test.swipeUp
+import androidx.compose.ui.test.performRotaryScrollInput
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.screensizes.WearLegacyScreenSizeTest
 import org.junit.Assume.assumeFalse
@@ -170,7 +172,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
 
     private fun scrollToBottom() {
         composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
+            .performRotaryScrollInput { repeat(10) { rotateToScrollVertically(100f) } }
+        composeRule.waitForIdle()
     }
 
     @Test

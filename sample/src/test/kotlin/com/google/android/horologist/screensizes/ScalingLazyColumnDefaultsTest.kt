@@ -112,10 +112,6 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
                         SampleChip(it)
                     }
                 }
-
-                LaunchedEffect(Unit) {
-                    listState.scrollToItem(100, 0)
-                }
             }
 
             composeRule.onNode(hasScrollToNodeAction())

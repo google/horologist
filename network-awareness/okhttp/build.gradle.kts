@@ -92,6 +92,7 @@ dependencies {
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.com.squareup.okhttp3.okhttp)
+    implementation(libs.okhttp.coroutines)
     implementation(libs.androidx.annotation)
     api(libs.kotlinx.coroutines.core)
 

@@ -142,6 +142,7 @@ dependencies {
     implementation(libs.lottie.compose)
 
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
+    implementation(libs.okhttp.coroutines)
 
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.androidx.wear.tooling.preview)

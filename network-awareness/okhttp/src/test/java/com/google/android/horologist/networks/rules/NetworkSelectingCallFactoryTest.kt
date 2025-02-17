@@ -36,17 +36,13 @@ import com.google.android.horologist.networks.testdoubles.FakeNetworkRequester
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
-import okhttp3.Call
-import okhttp3.Callback
+import kotlinx.coroutines.test.runTest
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.Response
+import okhttp3.coroutines.executeAsync
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import java.io.IOException
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.ExecutionException
-import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.seconds
 
 class NetworkSelectingCallFactoryTest {
@@ -114,7 +110,7 @@ class NetworkSelectingCallFactoryTest {
     }
 
     @Test
-    fun enqueueNormalConnectionForImages() {
+    fun enqueueNormalConnectionForImages() = runTest {
         val request = Request.Builder()
             .url("https://example.org/image.png")
             .requestType(RequestType.ImageRequest)
@@ -128,7 +124,7 @@ class NetworkSelectingCallFactoryTest {
     }
 
     @Test
-    fun enqueueRequestHighBandwidthForDownloads() {
+    fun enqueueRequestHighBandwidthForDownloads() = runTest {
         networkingRules.preferredNetworks[RequestType.MediaRequest(Download)] = NetworkType.Wifi
         networkingRules.highBandwidthTypes[RequestType.MediaRequest(Download)] = true
         networkRequester.supportedNetworks = listOf(NetworkType.Wifi)
@@ -149,7 +145,7 @@ class NetworkSelectingCallFactoryTest {
     }
 
     @Test
-    fun enqueueRequestHighBandwidthForDownloadsButFails() {
+    fun enqueueRequestHighBandwidthForDownloadsButFails(): Unit = runTest {
         networkingRules.preferredNetworks[DownloadRequest] = NetworkType.Wifi
         networkingRules.highBandwidthTypes[DownloadRequest] = true
         networkingRules.validRequests[Pair(DownloadRequest, BT)] = false
@@ -160,32 +156,13 @@ class NetworkSelectingCallFactoryTest {
             .requestType(RequestType.MediaRequest(Download))
             .build()
 
-        val thrown = assertThrows(IOException::class.java) {
-            callFactory.newCall(request).executeAsync()
-        }
+        val result = runCatching { callFactory.newCall(request).executeAsync() }
 
-        assertThat(thrown).hasMessageThat().isEqualTo("Unable to use BT for media-download")
+        assertThat(result.isFailure).isTrue()
+        val throwable = result.exceptionOrNull()
+        assertThat(throwable).isInstanceOf(IOException::class.java)
+        assertThat(throwable).hasMessageThat().isEqualTo("Unable to use BT for media-download")
 
 //        assertThat(highBandwidthRequester.pinned.value).isNull()
-    }
-}
-
-private fun Call.executeAsync(): Response {
-    val future = CompletableFuture<Response>()
-
-    enqueue(object : Callback {
-        override fun onFailure(call: Call, e: IOException) {
-            future.completeExceptionally(e)
-        }
-
-        override fun onResponse(call: Call, response: Response) {
-            future.complete(response)
-        }
-    })
-
-    return try {
-        future.get(5, TimeUnit.SECONDS)
-    } catch (ee: ExecutionException) {
-        throw ee.cause!!
     }
 }

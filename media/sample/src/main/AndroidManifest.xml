@@ -135,9 +135,7 @@
 
         <activity
             android:name="com.github.droibit.oss_licenses.ui.wear.compose.material.WearableOssLicensesActivity"
-            android:label="@string/show_licenses"
-            tools:node="merge">
-        </activity>
+            android:label="@string/show_licenses" />
     </application>
 
     <uses-sdk

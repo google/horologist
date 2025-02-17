@@ -132,10 +132,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-
-        <activity
-            android:name="com.github.droibit.oss_licenses.ui.wear.compose.material.WearableOssLicensesActivity"
-            android:label="@string/show_licenses" />
     </application>
 
     <uses-sdk

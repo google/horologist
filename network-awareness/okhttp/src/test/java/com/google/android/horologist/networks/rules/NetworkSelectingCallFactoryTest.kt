@@ -35,7 +35,6 @@ import com.google.android.horologist.networks.testdoubles.FakeNetworkRepository
 import com.google.android.horologist.networks.testdoubles.FakeNetworkRequester
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.async
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import okhttp3.OkHttpClient
@@ -146,7 +145,7 @@ class NetworkSelectingCallFactoryTest {
     }
 
     @Test
-    fun enqueueRequestHighBandwidthForDownloadsButFails() = runTest {
+    fun enqueueRequestHighBandwidthForDownloadsButFails(): Unit = runTest {
         networkingRules.preferredNetworks[DownloadRequest] = NetworkType.Wifi
         networkingRules.highBandwidthTypes[DownloadRequest] = true
         networkingRules.validRequests[Pair(DownloadRequest, BT)] = false
@@ -157,10 +156,7 @@ class NetworkSelectingCallFactoryTest {
             .requestType(RequestType.MediaRequest(Download))
             .build()
 
-        val responseAsync = async { callFactory.newCall(request).executeAsync() }
-        val result = runCatching {
-            responseAsync.await()
-        }
+        val result = runCatching { callFactory.newCall(request).executeAsync() }
 
         assertThat(result.isFailure).isTrue()
         assertThat(result.exceptionOrNull()).hasMessageThat().isEqualTo("Unable to use BT for media-download")

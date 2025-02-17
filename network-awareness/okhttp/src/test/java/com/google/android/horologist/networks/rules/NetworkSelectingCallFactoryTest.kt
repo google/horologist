@@ -158,11 +158,12 @@ class NetworkSelectingCallFactoryTest {
             .build()
 
         val responseAsync = async { callFactory.newCall(request).executeAsync() }
-        val thrown = assertThrows(IOException::class.java) {
+        val result = runCatching {
             responseAsync.await()
         }
 
-        assertThat(thrown).hasMessageThat().isEqualTo("Unable to use BT for media-download")
+        assertThat(result.isFailure).isTrue()
+        assertThat(result.exceptionOrNull()).hasMessageThat().isEqualTo("Unable to use BT for media-download")
 
 //        assertThat(highBandwidthRequester.pinned.value).isNull()
     }

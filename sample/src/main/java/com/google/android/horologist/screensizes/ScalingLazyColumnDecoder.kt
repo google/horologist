@@ -28,7 +28,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.wear.compose.material.PositionIndicator
@@ -41,6 +40,7 @@ import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.currentWindowDpSize
 import com.google.android.horologist.compose.material.Chip
 import java.util.Calendar
 
@@ -56,7 +56,7 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
             PositionIndicator(columnState.state)
         },
         timeText = {
-            val size = LocalConfiguration.current.screenWidthDp
+            val size = currentWindowDpSize().width
             val listState = columnState.state
             ResponsiveTimeText(
                 timeSource = FixedTimeSource,

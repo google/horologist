@@ -44,7 +44,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
@@ -63,6 +62,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberPickerGroupState
 import com.google.android.horologist.compose.layout.FontScaleIndependent
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.currentWindowDpSize
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
@@ -112,7 +112,7 @@ public fun DatePicker(
         rememberPickerGroupState(FocusableElementDatePicker.DAY.index)
     }
 
-    val isLargeScreen = LocalConfiguration.current.screenWidthDp > 225
+    val isLargeScreen = currentWindowDpSize().width > 225.dp
     val textStyle = if (isLargeScreen) {
         MaterialTheme.typography.display2
     } else {
@@ -225,7 +225,7 @@ public fun DatePicker(
                     val density = LocalDensity.current
                     val (digitWidth, maxMonthWidth) = remember(
                         density.density,
-                        LocalConfiguration.current.screenWidthDp,
+                        currentWindowDpSize(),
                     ) {
                         val mm = measurer.measure(
                             "0123456789\n" + shortMonthNames.joinToString("\n"),

@@ -28,13 +28,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.MaterialTheme
+import com.google.android.horologist.compose.layout.currentWindowDpSize
 
 @Composable
 public fun ResponsiveListHeader(
@@ -69,8 +69,8 @@ public object ListHeaderDefaults {
      */
     @Composable
     public fun firstItemPadding(): PaddingValues = PaddingValues(
-        start = screenWidthDp().dp * HorizontalPaddingPercent,
-        end = screenWidthDp().dp * HorizontalPaddingPercent,
+        start = screenWidthDp() * HorizontalPaddingPercent,
+        end = screenWidthDp() * HorizontalPaddingPercent,
         bottom = BottomPadding,
     )
 
@@ -79,8 +79,8 @@ public object ListHeaderDefaults {
      */
     @Composable
     public fun itemPadding(): PaddingValues = PaddingValues(
-        start = screenWidthDp().dp * HorizontalPaddingPercent,
-        end = screenWidthDp().dp * HorizontalPaddingPercent,
+        start = screenWidthDp() * HorizontalPaddingPercent,
+        end = screenWidthDp() * HorizontalPaddingPercent,
         top = TopPadding,
         bottom = BottomPadding,
     )
@@ -90,8 +90,8 @@ public object ListHeaderDefaults {
     private val BottomPadding = 8.dp // + 4.dp default from SLC
 
     @Composable
-    internal fun screenHeightDp() = LocalConfiguration.current.screenHeightDp
+    internal fun screenHeightDp() = currentWindowDpSize().height
 
     @Composable
-    internal fun screenWidthDp() = LocalConfiguration.current.screenWidthDp
+    internal fun screenWidthDp() = currentWindowDpSize().width
 }

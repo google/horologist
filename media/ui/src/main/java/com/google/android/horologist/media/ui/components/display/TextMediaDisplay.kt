@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.layout.currentWindowDpSize
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.components.controls.MediaTitleIcon
 import com.google.android.horologist.media.ui.util.isLargeScreen
@@ -51,7 +52,7 @@ public fun TextMediaDisplay(
     titleIcon: Paintable? = null,
 ) {
     val isLargeScreen = LocalConfiguration.current.isLargeScreen
-    val titleSidePadding = (0.063f * LocalConfiguration.current.screenWidthDp).dp
+    val titleSidePadding = currentWindowDpSize().width * 0.063f
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         val textStyle = MaterialTheme.typography.button

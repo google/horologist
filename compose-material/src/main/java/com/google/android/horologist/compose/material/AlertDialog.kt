@@ -20,8 +20,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
@@ -140,9 +140,7 @@ public fun AlertContent(
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
     val density = LocalDensity.current
-    val maxScreenWidthPx = with(density) {
-        LocalConfiguration.current.screenWidthDp.dp.toPx()
-    }
+    val maxScreenWidthPx = LocalWindowInfo.current.containerSize.width
 
     ResponsiveDialogContent(
         modifier = modifier,

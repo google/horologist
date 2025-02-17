@@ -31,8 +31,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
@@ -47,6 +45,7 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.currentWindowDpSize
 
 @Composable
 fun ScrollScreenLazyColumn(scrollState: LazyListState) {
@@ -100,7 +99,7 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
                 )
                 .verticalScroll(scrollState),
         ) {
-            val modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp / 2)
+            val modifier = Modifier.height(currentWindowDpSize().height / 2)
             repeat(3) { i ->
                 ExampleCard(modifier, i)
             }

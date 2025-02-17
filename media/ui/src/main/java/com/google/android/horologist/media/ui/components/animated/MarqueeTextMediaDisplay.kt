@@ -45,6 +45,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.MarqueeText
+import com.google.android.horologist.compose.layout.currentWindowDpSize
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.components.controls.MediaTitleIcon
 import com.google.android.horologist.media.ui.util.isLargeScreen
@@ -65,7 +66,7 @@ public fun MarqueeTextMediaDisplay(
     @FloatRange(from = 0.0, to = 1.0) transitionLength: Float = 0.125f,
 ) {
     val isLargeScreen = LocalConfiguration.current.isLargeScreen
-    val titleSidePadding = (0.063f * LocalConfiguration.current.screenWidthDp).dp
+    val titleSidePadding = currentWindowDpSize().width * 0.063f
 
     fun getTransitionAnimation(delay: Int = 0): ContentTransform {
         return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {

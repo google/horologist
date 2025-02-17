@@ -59,6 +59,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -86,6 +87,7 @@ import androidx.wear.compose.material.rememberPickerGroupState
 import androidx.wear.compose.material.rememberPickerState
 import com.google.android.horologist.compose.layout.FontScaleIndependent
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.currentWindowDpSize
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
@@ -140,7 +142,7 @@ public fun TimePicker(
         rememberPickerGroupState(FocusableElementsTimePicker.HOURS.index)
     }
 
-    val isLargeScreen = LocalConfiguration.current.screenWidthDp > 225
+    val isLargeScreen = currentWindowDpSize().width > 225.dp
     val textStyle = when {
         !showSeconds -> MaterialTheme.typography.display1
         isLargeScreen -> MaterialTheme.typography.display2
@@ -151,7 +153,7 @@ public fun TimePicker(
     val density = LocalDensity.current
     val digitWidth = remember(
         density.density,
-        LocalConfiguration.current.screenWidthDp,
+        LocalWindowInfo.current.containerSize.width,
     ) {
         val mm = measurer.measure(
             "0123456789",
@@ -384,7 +386,7 @@ public fun TimePickerWith12HourClock(
         rememberPickerGroupState(FocusableElement12Hour.HOURS.index)
     }
 
-    val isLargeScreen = LocalConfiguration.current.screenWidthDp > 225
+    val isLargeScreen = currentWindowDpSize().width > 225.dp
     val textStyle = if (isLargeScreen) {
         MaterialTheme.typography.display2
     } else {
@@ -464,7 +466,7 @@ public fun TimePickerWith12HourClock(
                 val density = LocalDensity.current
                 val (digitWidth, amPmWidth) = remember(
                     density.density,
-                    LocalConfiguration.current.screenWidthDp,
+                    currentWindowDpSize(),
                 ) {
                     val mm = measurer.measure(
                         "0123456789\n$amString\n$pmString",

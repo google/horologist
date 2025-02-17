@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
@@ -336,7 +337,7 @@ public object ScalingLazyColumnDefaults {
     }
 
     @Composable
-    fun Modifier.listTextPadding() = this.padding(horizontal = 0.052f * LocalConfiguration.current.screenWidthDp.dp)
+    fun Modifier.listTextPadding() = this.padding(horizontal = 0.052f * LocalWindowInfo.current.containerSize.width.dp)
 }
 
 @Composable

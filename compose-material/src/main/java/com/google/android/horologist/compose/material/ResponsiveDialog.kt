@@ -37,7 +37,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -53,6 +52,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.currentWindowDpSize
 import com.google.android.horologist.compose.layout.rememberColumnState
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
@@ -180,11 +180,11 @@ public fun ResponsiveDialogContent(
 public fun responsiveButtonWidth(
     buttonCount: Int,
 ): Pair<Dp, Dp> {
-    val width = LocalConfiguration.current.screenWidthDp
+    val width = currentWindowDpSize().width
     val buttonSpacedBy = 12.dp
     // Single buttons, or buttons on smaller screens are not meant to be
     // responsive.
-    val buttonWidth = if (width < 225 || buttonCount != 2) {
+    val buttonWidth = if (width < 225.dp || buttonCount != 2) {
         ButtonDefaults.DefaultButtonSize
     } else {
         // 14.56% margin on the sides, 12.dp between.

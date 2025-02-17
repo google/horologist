@@ -19,7 +19,6 @@ package com.google.android.horologist.audit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.material.MaterialTheme
@@ -33,6 +32,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.li
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.layout.currentWindowDpSize
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.SecondaryTitle
@@ -57,7 +57,7 @@ fun AuditMenuScreen(
             }
             item {
                 Text(
-                    "DP: " + LocalConfiguration.current.screenWidthDp + " FontScale: " + LocalDensity.current.fontScale,
+                    "DP: " + currentWindowDpSize().width + " FontScale: " + LocalDensity.current.fontScale,
                     modifier = Modifier.listTextPadding(),
                     style = MaterialTheme.typography.caption3,
                 )

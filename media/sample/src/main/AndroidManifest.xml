@@ -132,19 +132,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-
-        <activity
-            android:name="com.github.droibit.oss_licenses.ui.wear.compose.WearableOssLicensesActivity"
-            android:exported="true"
-            android:label="@string/show_licenses"
-            android:taskAffinity=".licenses"
-            android:theme="@android:style/Theme.DeviceDefault"
-            tools:node="replace">
-            <intent-filter>
-                <action android:name="com.google.wear.ACTION_SHOW_LICENSE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
     </application>
 
     <uses-sdk

@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalTestApi::class)
+
 package com.google.android.horologist.spec
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasScrollToNodeAction
-import androidx.compose.ui.test.performTouchInput
-import androidx.compose.ui.test.swipeUp
+import androidx.compose.ui.test.performRotaryScrollInput
 import com.google.android.horologist.compose.tools.Device
 import com.google.android.horologist.screensizes.WearLegacyScreenSizeTest
 import org.junit.Assume.assumeFalse
@@ -110,9 +112,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             Bottom1Button()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -120,9 +121,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             Bottom2Buttons()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -130,9 +130,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             Bottom3Buttons()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -140,9 +139,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             BottomOtherChips()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -150,9 +148,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             BottomOtherCards()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -160,9 +157,8 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             BottomUnspecified()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     @Test
@@ -170,14 +166,14 @@ class ScalingLazyColumnExamplesTest(device: Device) : WearLegacyScreenSizeTest(
         runTest(capture = false) {
             BottomOtherText()
         }
-        // TODO https://github.com/google/horologist/issues/2237
-//        scrollToBottom()
-//        captureScreenshot()
+        scrollToBottom()
+        captureScreenshot()
     }
 
     private fun scrollToBottom() {
         composeRule.onNode(hasScrollToNodeAction())
-            .performTouchInput { repeat(10) { swipeUp() } }
+            .performRotaryScrollInput { repeat(10) { rotateToScrollVertically(100f) } }
+        composeRule.waitForIdle()
     }
 
     @Test

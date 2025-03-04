@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalTestApi::class)
+
 package com.google.android.horologist.screensizes
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults
+import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.AppCard
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.composables.SectionedList
@@ -63,11 +70,10 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
                 }
             }
 
-            // TODO https://github.com/google/horologist/issues/2237
-//            composeRule.onNode(hasScrollToNodeAction())
-//                .performTouchInput { repeat(10) { swipeUp() } }
-//
-//            captureScreenshot()
+            composeRule.onNode(hasScrollToNodeAction())
+                .performRotaryScrollInput { repeat(10) { rotateToScrollVertically(100f) } }
+
+            captureScreenshot()
         }
 
         @Test
@@ -102,23 +108,23 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
 
                 androidx.wear.compose.foundation.lazy.ScalingLazyColumn(
                     state = listState,
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .rotaryScrollable(
+                            behavior = RotaryScrollableDefaults.behavior(listState),
+                            focusRequester = rememberActiveFocusRequester(),
+                        ),
                 ) {
                     items(20) {
                         SampleChip(it)
                     }
                 }
-
-                LaunchedEffect(Unit) {
-                    listState.scrollToItem(100, 0)
-                }
             }
 
-            // TODO https://github.com/google/horologist/issues/2237
-//            composeRule.onNode(hasScrollToNodeAction())
-//                .performTouchInput { repeat(10) { swipeUp() } }
-//
-//            captureScreenshot()
+            composeRule.onNode(hasScrollToNodeAction())
+                .performRotaryScrollInput { repeat(10) { rotateToScrollVertically(100f) } }
+
+            captureScreenshot()
         }
 
         @Test
@@ -129,11 +135,10 @@ class ScalingLazyColumnDefaultsTest(device: Device) :
                 SampleChipMenu(columnState = columnState)
             }
 
-            // TODO https://github.com/google/horologist/issues/2237
-//            composeRule.onNode(hasScrollToNodeAction())
-//                .performTouchInput { repeat(10) { swipeUp() } }
-//
-//            captureScreenshot()
+            composeRule.onNode(hasScrollToNodeAction())
+                .performRotaryScrollInput { repeat(10) { rotateToScrollVertically(100f) } }
+
+            captureScreenshot()
         }
 
         @Composable

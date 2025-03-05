@@ -17,7 +17,9 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowUpward
 import androidx.compose.runtime.Composable
@@ -29,6 +31,7 @@ import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumnState
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.AppScaffold
+import androidx.wear.compose.material3.Button
 import androidx.wear.compose.material3.EdgeButton
 import androidx.wear.compose.material3.EdgeButtonSize
 import androidx.wear.compose.material3.Icon
@@ -58,6 +61,36 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
     @Composable
     override fun TestScaffold(content: @Composable (() -> Unit)) {
         content()
+    }
+
+    @Test
+    fun SingleItem() {
+        lateinit var columnState: TransformingLazyColumnState
+        runTest {
+            AppScaffold(
+                timeText = {
+                    TimeText(timeSource = FixedTimeSource3)
+                },
+                // Why black needed here
+                modifier = Modifier.background(MaterialTheme.colorScheme.background),
+            ) {
+                columnState = rememberTransformingLazyColumnState()
+                ScreenScaffold(
+                    scrollState = columnState,
+                ) { contentPadding ->
+                    TransformingLazyColumn(
+                        state = columnState,
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        item {
+                            Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text("Hello") }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Test

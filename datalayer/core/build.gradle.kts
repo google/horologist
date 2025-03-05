@@ -113,6 +113,7 @@ dependencies {
     api(libs.playservices.wearable)
     implementation(libs.kotlinx.coroutines.playservices)
     api(libs.androidx.datastore.preferences)
+    api(libs.androidx.datastore.preferences.proto)
     api(libs.androidx.datastore)
     api(libs.protobuf.kotlin.lite)
     implementation(libs.androidx.lifecycle.runtime)

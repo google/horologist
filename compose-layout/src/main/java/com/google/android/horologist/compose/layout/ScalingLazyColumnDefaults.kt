@@ -232,8 +232,8 @@ public object ScalingLazyColumnDefaults {
         val bottomPaddingPct: Float,
         val paddingCorrection: Dp = 0.dp,
     ) : ColumnItemType {
-        Card(Padding21Pct, Padding31Pct),
-        Chip(Padding21Pct, Padding31Pct),
+        Card(Padding21Pct, Padding20Pct),
+        Chip(Padding21Pct, Padding20Pct),
         CompactChip(
             topPaddingPct = Padding12Pct,
             bottomPaddingPct = Padding20Pct,
@@ -242,8 +242,8 @@ public object ScalingLazyColumnDefaults {
         Icon(Padding12Pct, Padding21Pct),
         MultiButton(Padding21Pct, Padding20Pct),
         SingleButton(Padding12Pct, Padding20Pct),
-        Text(Padding16Pct, Padding31Pct),
-        BodyText(Padding21Pct, Padding31Pct),
+        Text(Padding16Pct, Padding20Pct),
+        BodyText(Padding21Pct, Padding20Pct),
         Dialog(Padding14Pct, Padding20Pct),
         Unspecified(0f, 0f),
         ;

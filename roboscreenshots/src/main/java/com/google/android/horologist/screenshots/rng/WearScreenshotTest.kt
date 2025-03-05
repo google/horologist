@@ -53,7 +53,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
 @Config(
-    sdk = [33],
+    sdk = [35],
     qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 @RunWith(AndroidJUnit4::class)
@@ -73,6 +73,16 @@ public abstract class WearScreenshotTest {
     public open val tolerance: Float = 0.0f
 
     public open val imageLoader: FakeImageLoaderEngine? = null
+
+    public open fun roborazziOptions(applyDeviceCrop: Boolean = true): RoborazziOptions =
+        RoborazziOptions(
+            recordOptions = RoborazziOptions.RecordOptions(
+                applyDeviceCrop = applyDeviceCrop,
+            ),
+            compareOptions = RoborazziOptions.CompareOptions(
+                resultValidator = ThresholdValidator(tolerance),
+            ),
+        )
 
     public fun runTest(
         suffix: String? = null,
@@ -101,14 +111,7 @@ public abstract class WearScreenshotTest {
     public fun captureScreenshot(suffix: String = "") {
         captureScreenRoboImage(
             filePath = testName(suffix),
-            roborazziOptions = RoborazziOptions(
-                recordOptions = RoborazziOptions.RecordOptions(
-                    applyDeviceCrop = true,
-                ),
-                compareOptions = RoborazziOptions.CompareOptions(
-                    resultValidator = ThresholdValidator(tolerance),
-                ),
-            ),
+            roborazziOptions = roborazziOptions(),
         )
     }
 

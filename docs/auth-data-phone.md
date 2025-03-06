@@ -1,6 +1,6 @@
 # Auth Data Phone
 
-This library contains implementation for Mobile apps for some of the authentication methods provided
+This library contains implementations for Mobile apps for some of the authentication methods provided
 by the `auth-data` library.
 
 ## [Token sharing](https://developer.android.com/training/wearables/apps/auth-wear#tokens)

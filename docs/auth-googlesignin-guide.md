@@ -1,11 +1,11 @@
 # Google Sign-In guide
 
 This guide will walk you through on how to display a screen on your watch app so that users can
-select their Google account to sign-in to your app.
+select their Google account to sign in to your app.
 
 ## Requirements
 
-Follow the setup instructions for integrating Google Sign-in into an Android app
+Follow the setup instructions for integrating Google Sign in into an Android app
 from [this link](https://developers.google.com/identity/sign-in/android/start-integrating).
 
 ## Getting started
@@ -43,7 +43,7 @@ from [this link](https://developers.google.com/identity/sign-in/android/start-in
 
     Create your implementation 
     of [GoogleSignInViewModel](https://google.github.io/horologist/api/auth/ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-view-model/index.html), 
-    passing the `GoogleSignInClient` created:
+    passing the created `GoogleSignInClient`:
 
     ```kotlin
     class MyGoogleSignInViewModel(
@@ -72,7 +72,7 @@ for more info.
 
 ## Retrieve the signed in account
 
-In order to have access an instance of
+In order to access an instance of
 the [GoogleSignInAccount](https://developers.google.com/android/reference/com/google/android/gms/auth/api/signin/GoogleSignInAccount)
 selected by the user, follow the steps:
 

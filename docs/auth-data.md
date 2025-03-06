@@ -1,6 +1,6 @@
 # Auth Data
 
-This library contains implementation for Wear apps for most of the authentication methods listed in
+This library contains implementations for Wear apps for most of the authentication methods listed in
 the [Authentication on wearables](https://developer.android.com/training/wearables/apps/auth-wear)
 guide.
 

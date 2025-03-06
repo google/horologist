@@ -1,6 +1,6 @@
 # Auth Composables
 
-This library contains a set of composables screens and components related to authentication.
+This library contains a set of composable screens and components related to authentication.
 
 The previews of the composables can be found in the `debug` folder of the module source code.
 

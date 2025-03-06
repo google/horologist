@@ -5,8 +5,8 @@
 The purpose of the auth libraries is to:
 
 - help developers to build apps following
-  the [Sign-In guidelines for Wear OS](https://developer.android.com/training/wearables/design/sign-in);
-- provide implementation (for Wear and Mobile) for most of the authentication methods listed in
+  the [Sign-In for Wear OS guidelines](https://developer.android.com/training/wearables/design/sign-in);
+- provide implementations (for Wear and Mobile) for most of the authentication methods listed in
   the [Authentication on wearables](https://developer.android.com/training/wearables/apps/auth-wear)
   guide;
 

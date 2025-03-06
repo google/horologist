@@ -3,7 +3,7 @@
 ## Volume Screen
 
 A volume screen, showing the current audio output (headphones, speakers) and
-allowing to change the button with a stepper or bezel.
+allowing to change the volume with a stepper or bezel.
 
 ```kotlin
 VolumeScreen(focusRequester = focusRequester)

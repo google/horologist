@@ -7,7 +7,7 @@
 
 ## ScalingLazyColumn Responsive layout.
 
-The `rememberResponsiveColumnState()` method will ensure that your ScalingLazyColumn is positioned 
+The `rememberResponsiveColumnState()` method ensures that your ScalingLazyColumn is positioned 
 correctly on all screen sizes.
 
 Pass in a padding configuration based on your item types.

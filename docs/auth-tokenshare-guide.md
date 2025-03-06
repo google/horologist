@@ -2,7 +2,7 @@
 
 This guide will walk you through on how to
 securely [transfer authentication data](https://developer.android.com/training/wearables/apps/auth-wear#tokens)
-from the phone app to the watch app using Horologist's Auth libraries.
+from the phone app to the watch app using Horologist Auth libraries.
 
 ## Requirements
 
@@ -71,7 +71,7 @@ your phone and watch apps must:
 
 1.  Define the data to be transferred
 
-    Define which authentication data that should be transferred from the phone to the watch. It can
+Define which authentication data to transfer from the phone to the watch. It can
     be a data class with many properties, it can also be a [protocol buffer](https://protobuf.dev/).
     For this guide, we will pass a simple `String` instance.
 
@@ -79,7 +79,7 @@ your phone and watch apps must:
 
     Create
     a [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) `Serializer`
-    class for the class defined to be transferred from the phone to the watch (`String` for this
+    class for the class defined to transfer from the phone to the watch (`String` for this
     guide):
 
     ```kotlin

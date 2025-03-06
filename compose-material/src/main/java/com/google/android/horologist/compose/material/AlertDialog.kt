@@ -44,6 +44,32 @@ import com.google.android.horologist.compose.layout.rememberColumnState
  * - additional content can be specified between the message and the buttons
  * - default positive and negative buttons;
  * - wrapped in a [Dialog];
+ *
+ * @param showDialog whether the dialog should be shown.
+ * @param onCancel Callback to run when the user clicks the cancel button.
+ * @param onOk Callback to run when the user clicks the Ok button.
+ * @param modifier The modifier for this composable.
+ * @param icon The Composable to display as the icon for the header.
+ * @param title The String to display as the title for the header.
+ * @param message The String to display as the message for the header.
+ * @param okButtonContentDescription The String to display as the contentDescription for the Ok button.
+ * @param cancelButtonContentDescription The String to display as the contentDescription for the Cancel button.
+ * @param state the ScalingLazyColumnState used for vertical scrolling.
+ * @param content The composables to be displayed under this one.
+ */
+/**
+ * This component is an alternative to [AlertContent], providing the following:
+ * - slot for scrollable content (including stack of Chips for options);
+ * - wrapped in a [Dialog];
+ *
+ * @param showDialog whether the dialog should be shown.
+ * @param onDismiss Callback to run when the user dismisses the dialog.
+ * @param modifier The modifier for this composable.
+ * @param icon The Composable to display as the icon for the header.
+ * @param title The String to display as the title for the header.
+ * @param message The String to display as the message for the header.
+ * @param state the ScalingLazyColumnState used for vertical scrolling.
+ * @param content The composables to be displayed under this one.
  */
 @ExperimentalHorologistApi
 @Composable
@@ -56,7 +82,7 @@ public fun AlertDialog(
     title: String? = null,
     message: String? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
-    cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
+    cancelButtonContentDescription: String = stringResource(android.string.cancel),
     @Suppress("DEPRECATION") state: ScalingLazyColumnState = rememberColumnState(
         ScalingLazyColumnDefaults.responsive(),
     ),
@@ -88,6 +114,18 @@ public fun AlertDialog(
  * - a convenient way of passing a title and a message;
  * - slot for scrollable content (including stack of Chips for options);
  * - wrapped in a [Dialog];
+ *
+ * @param showDialog whether the dialog should be shown.
+ * @param onCancel Callback to run when the user clicks the cancel button.
+ * @param onOk Callback to run when the user clicks the Ok button.
+ * @param modifier The modifier for this composable.
+ * @param icon The Composable to display as the icon for the header.
+ * @param title The String to display as the title for the header.
+ * @param message The String to display as the message for the header.
+ * @param okButtonContentDescription The String to display as the contentDescription for the Ok button.
+ * @param cancelButtonContentDescription The String to display as the contentDescription for the Cancel button.
+ * @param state the ScalingLazyColumnState used for vertical scrolling.
+ * @param content The composables to be displayed under this one.
  */
 @ExperimentalHorologistApi
 @Composable

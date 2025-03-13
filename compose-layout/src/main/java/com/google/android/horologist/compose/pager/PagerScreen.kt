@@ -64,7 +64,6 @@ public fun PagerScreen(
             userScrollEnabled = userScrollEnabled,
             reverseLayout = reverseLayout,
             key = key,
-            flingBehavior = HorizontalPagerDefaults.flingParams(state),
         ) { page ->
             ClippedBox(state) {
                 HierarchicalFocusCoordinator(requiresFocus = { page == state.currentPage }) {

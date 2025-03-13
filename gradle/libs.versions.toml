@@ -14,10 +14,10 @@ androidx-test-ext = "1.2.1"
 androidx-test-runner = "1.6.2"
 androidx-wear-watchface = "1.2.1"
 androidxActivity = "1.10.1"
-androidxComposeBom = "2025.02.00"
+androidxComposeBom = "2025.03.00"
 androidxCore = "1.15.0"
 androidxLifecycle = "2.8.7"
-androidxNavigation = "2.8.8"
+androidxNavigation = "2.8.9"
 androidxPhoneInteractions = "1.1.0"
 androidxRemoteInteractions = "1.1.0"
 androidxStartup = "1.2.0"
@@ -35,7 +35,7 @@ compose-material3 = "1.3.1"
 ossLicensesPlugin = "0.10.6"
 osslicenses = "0.7.1"
 playServicesOssLicenses = "17.1.0"
-wearComposeMaterial3 = "1.0.0-alpha33"
+wearComposeMaterial3 = "1.0.0-alpha34"
 composesnapshot = "-"
 dependencyAnalysis = "2.11.0"
 dokka = "2.0.0"
@@ -67,7 +67,7 @@ tiles-tooling-preview = "1.4.1"
 truth = "1.4.4"
 wearInput = "1.2.0-alpha02"
 wearToolingPreview = "1.0.0"
-wearcompose = "1.5.0-alpha10"
+wearcompose = "1.5.0-alpha11"
 
 [libraries]
 accessibility-test-framework = { module = "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework", version.ref = "accessibilityTestFramework" }
@@ -114,7 +114,7 @@ androidx-media3-testutils = { module = "androidx.media3:media3-test-utils", vers
 androidx-media3-testutils-robolectric = { module = "androidx.media3:media3-test-utils-robolectric", version.ref = "androidx-media3" }
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidx-media3" }
 androidx-mediarouter = "androidx.mediarouter:mediarouter:1.7.0"
-androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0-beta01"
+androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0-beta02"
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-runtime = { module = "androidx.navigation:navigation-runtime", version.ref = "androidxNavigation" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidxNavigation" }

@@ -23,10 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.pager.PagerState
 import androidx.wear.compose.foundation.pager.VerticalPager
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.rotaryinput.rotaryWithPager
 
 /**
  * A Wear Material Compliant Vertical Pager screen.
@@ -55,14 +53,12 @@ public fun VerticalPagerScreen(
     ) {
         VerticalPager(
             modifier = Modifier
-                .fillMaxSize()
-                .rotaryWithPager(state, rememberActiveFocusRequester()),
+                .fillMaxSize(),
             state = state,
             beyondViewportPageCount = beyondViewportPageCount,
             userScrollEnabled = userScrollEnabled,
             reverseLayout = reverseLayout,
             key = key,
-            flingBehavior = HorizontalPagerDefaults.flingParams(state),
         ) { page ->
             ClippedBox(state) {
                 content(page)

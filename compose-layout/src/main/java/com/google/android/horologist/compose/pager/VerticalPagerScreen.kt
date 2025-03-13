@@ -55,14 +55,12 @@ public fun VerticalPagerScreen(
     ) {
         VerticalPager(
             modifier = Modifier
-                .fillMaxSize()
-                .rotaryWithPager(state, rememberActiveFocusRequester()),
+                .fillMaxSize(),
             state = state,
             beyondViewportPageCount = beyondViewportPageCount,
             userScrollEnabled = userScrollEnabled,
             reverseLayout = reverseLayout,
             key = key,
-            flingBehavior = HorizontalPagerDefaults.flingParams(state),
         ) { page ->
             ClippedBox(state) {
                 content(page)

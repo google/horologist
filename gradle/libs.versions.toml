@@ -37,9 +37,9 @@ osslicenses = "0.8.0"
 playServicesOssLicenses = "17.1.0"
 wearComposeMaterial3 = "1.0.0-alpha34"
 composesnapshot = "-"
-dependencyAnalysis = "2.12.0"
+dependencyAnalysis = "2.13.0"
 dokka = "2.0.0"
-googledagger = "2.55"
+googledagger = "2.56"
 gradlePlugin = "8.9.0"
 gradlePublishPlugin = "0.31.0"
 io-coil-kt = "2.7.0"
@@ -193,7 +193,7 @@ kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-
 kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
-lottie-compose = "com.airbnb.android:lottie-compose:6.6.3"
+lottie-compose = "com.airbnb.android:lottie-compose:6.6.4"
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.27.0"
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }

@@ -46,7 +46,7 @@
     },
     {
       "matchPackagePatterns": [
-        "com.google.protobuf:protobuf-kotlin-lite"
+        "com.google.protobuf:protobuf-kotlin-lite",
         "com.google.protobuf:protoc"
       ],
       "allowedVersions": "<=4.26.1"

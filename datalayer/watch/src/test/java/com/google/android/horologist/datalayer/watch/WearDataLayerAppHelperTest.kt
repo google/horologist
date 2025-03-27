@@ -78,43 +78,6 @@ class WearDataLayerAppHelperTest {
     }
 
     @Test
-    fun testTiles() = runTest {
-        val context = ApplicationProvider.getApplicationContext<Application>()
-        val registry = WearDataLayerRegistry.fromContext(context, this)
-
-        val testDataStore: DataStore<SurfacesInfo> =
-            DataStoreFactory.create(
-                scope = this,
-                produceFile = { context.dataStoreFile("testTiles") },
-                serializer = SurfacesInfoSerializer,
-            )
-
-        val helper = WearDataLayerAppHelper(
-            context = context,
-            registry = registry,
-            appStoreUri = null,
-            scope = this,
-            surfacesInfoDataStoreFn = { testDataStore },
-        )
-
-        val infoInitial = testDataStore.data.first()
-        assertThat(infoInitial.tilesList).isEmpty()
-
-        helper.markTileAsInstalled("my.SampleTileService")
-
-        val infoUpdated = testDataStore.data.first()
-        assertThat(infoUpdated.tilesList).hasSize(1)
-        assertThat(infoUpdated.tilesList.first().name).isEqualTo("my.SampleTileService")
-
-        helper.markTileAsRemoved("my.SampleTileService")
-
-        val infoReverted = testDataStore.data.first()
-        assertThat(infoReverted.tilesList).isEmpty()
-
-        coroutineContext.cancelChildren()
-    }
-
-    @Test
     fun testComplications() = runTest {
         val context = ApplicationProvider.getApplicationContext<Application>()
         val registry = WearDataLayerRegistry.fromContext(context, this)

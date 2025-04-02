@@ -241,6 +241,6 @@ kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 metalavaGradle = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava" }
-protobuf = "com.google.protobuf:0.9.4"
+protobuf = "com.google.protobuf:0.9.5"
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

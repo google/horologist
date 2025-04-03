@@ -3,6 +3,7 @@ package com.google.android.horologist.media3.logging {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class AnalyticsEventLogger extends androidx.media3.exoplayer.util.EventLogger {
     ctor public AnalyticsEventLogger(com.google.android.horologist.media3.logging.ErrorReporter appEventLogger);
+    method public void onLoadStarted(androidx.media3.exoplayer.analytics.AnalyticsListener.EventTime eventTime, androidx.media3.exoplayer.source.LoadEventInfo loadEventInfo, androidx.media3.exoplayer.source.MediaLoadData mediaLoadData);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface ErrorReporter {

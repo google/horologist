@@ -19,7 +19,7 @@ package com.google.android.horologist.tiles
 import android.content.Intent
 import android.os.IBinder
 import androidx.annotation.CallSuper
-import androidx.concurrent.futures.CallbackToFutureAdapter
+import androidx.concurrent.futures.SuspendToFutureAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ServiceLifecycleDispatcher
@@ -31,9 +31,7 @@ import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TileService
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.common.util.concurrent.ListenableFuture
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * Base class for a Kotlin and Coroutines friendly TileService.
@@ -47,23 +45,24 @@ public abstract class SuspendingTileService : TileService(), LifecycleOwner {
     @Suppress("LeakingThis")
     private val mDispatcher = ServiceLifecycleDispatcher(this)
 
+    /**
+     * Override if a custom serviceScope, otherwise lifecycleScope will be used.
+     */
+    open val serviceScope: CoroutineScope? = null
+
     final override fun onTileRequest(
         requestParams: TileRequest,
-    ): ListenableFuture<Tile> {
-        return CallbackToFutureAdapter.getFuture { completer ->
-            val job = lifecycleScope.launch {
-                try {
-                    completer.set(tileRequest(requestParams))
-                } catch (e: CancellationException) {
-                    completer.setCancelled()
-                } catch (e: Exception) {
-                    completer.setException(e)
-                }
-            }
+    ): ListenableFuture<Tile> = launch {
+        tileRequest(requestParams)
+    }
 
-            completer.addCancellationListener({ job.cancel() }, Runnable::run)
-
-            "Tile Request"
+    private fun <T> launch(
+        block: suspend CoroutineScope.() -> T,
+    ): ListenableFuture<T> {
+        return SuspendToFutureAdapter.launchFuture(
+            (serviceScope ?: lifecycleScope).coroutineContext
+        ) {
+            block()
         }
     }
 
@@ -77,24 +76,8 @@ public abstract class SuspendingTileService : TileService(), LifecycleOwner {
 
     final override fun onTileResourcesRequest(
         requestParams: ResourcesRequest,
-    ): ListenableFuture<Resources> = CallbackToFutureAdapter.getFuture { completer ->
-        val job = lifecycleScope.launch {
-            this.ensureActive()
-
-            try {
-                completer.set(resourcesRequest(requestParams))
-            } catch (e: CancellationException) {
-                completer.setCancelled()
-            } catch (e: Exception) {
-                completer.setException(e)
-            }
-        }
-
-        completer.addCancellationListener({
-            job.cancel()
-        }, Runnable::run)
-
-        "Resource Request"
+    ): ListenableFuture<Resources> = launch {
+        resourcesRequest(requestParams)
     }
 
     /**

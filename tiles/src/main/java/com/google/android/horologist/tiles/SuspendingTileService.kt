@@ -48,7 +48,7 @@ public abstract class SuspendingTileService : TileService(), LifecycleOwner {
     /**
      * Override if a custom serviceScope, otherwise lifecycleScope will be used.
      */
-    open val serviceScope: CoroutineScope? = null
+    public open val serviceScope: CoroutineScope? = null
 
     final override fun onTileRequest(
         requestParams: TileRequest,

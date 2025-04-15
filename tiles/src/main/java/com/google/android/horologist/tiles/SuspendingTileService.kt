@@ -60,7 +60,7 @@ public abstract class SuspendingTileService : TileService(), LifecycleOwner {
         block: suspend CoroutineScope.() -> T,
     ): ListenableFuture<T> {
         return SuspendToFutureAdapter.launchFuture(
-            (serviceScope ?: lifecycleScope).coroutineContext
+            (serviceScope ?: lifecycleScope).coroutineContext,
         ) {
             block()
         }

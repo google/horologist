@@ -23,7 +23,9 @@ import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.ExperimentalTestApi
@@ -33,7 +35,7 @@ import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.hierarchicalFocusRequester
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.VolumeState
@@ -214,12 +216,12 @@ class RotaryVolumeControlsTest {
 
         this.volumeState = volumeState
         composeTestRule.setContent {
-            val focusRequester = rememberActiveFocusRequester()
             view = LocalView.current
 
             Scaffold(
                 modifier =
                     Modifier
+                        .hierarchicalFocusRequester()
                         .rotaryScrollable(
                             behavior = volumeRotaryBehavior(
                                 volumeUiStateProvider = { VolumeUiStateMapper.map(volumeState) },
@@ -229,7 +231,7 @@ class RotaryVolumeControlsTest {
                                     )
                                 },
                             ),
-                            focusRequester = focusRequester,
+                            focusRequester = remember { FocusRequester() },
                         )
                         .testTag(ROTARY_TEST_TAG),
             ) {

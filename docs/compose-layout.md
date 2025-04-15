@@ -79,7 +79,8 @@ AppScaffold {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .rotaryWithScroll(scrollState, rememberActiveFocusRequester())
+                        .hierarchicalFocusRequester()
+                        .rotaryWithScroll(scrollState, remember { FocusRequester() })
                         .verticalScroll(scrollState),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {

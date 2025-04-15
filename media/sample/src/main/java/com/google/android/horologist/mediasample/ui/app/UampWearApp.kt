@@ -190,35 +190,23 @@ fun UampWearApp(
             navController = navController,
             additionalNavRoutes = {
                 composable<AudioDebug> {
-                    val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
-
-                    ScreenScaffold(scrollState = columnState) {
-                        AudioDebugScreen(
-                            audioDebugScreenViewModel = hiltViewModel(),
-                        )
-                    }
+                    AudioDebugScreen(
+                        audioDebugScreenViewModel = hiltViewModel(),
+                    )
                 }
 
                 composable<Samples> {
-                    val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
-
-                    ScreenScaffold(scrollState = columnState) {
-                        SamplesScreen(
-                            samplesScreenViewModel = hiltViewModel(),
-                            navController = navController,
-                        )
-                    }
+                    SamplesScreen(
+                        samplesScreenViewModel = hiltViewModel(),
+                        navController = navController,
+                    )
                 }
 
                 composable<DeveloperOptions> {
-                    val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
-
-                    ScreenScaffold(scrollState = columnState) {
-                        DeveloperOptionsScreen(
-                            developerOptionsScreenViewModel = hiltViewModel(),
-                            navController = navController,
-                        )
-                    }
+                    DeveloperOptionsScreen(
+                        developerOptionsScreenViewModel = hiltViewModel(),
+                        navController = navController,
+                    )
                 }
 
                 composable<GoogleSignInPromptScreen> {

@@ -21,9 +21,12 @@ package com.google.android.horologist.scratch
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.expandableItem
+import androidx.wear.compose.foundation.hierarchicalFocusRequester
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
@@ -46,9 +49,10 @@ fun ScratchPreview() {
         ScalingLazyColumn(
             modifier = Modifier
                 .fillMaxSize()
+                .hierarchicalFocusRequester()
                 .rotaryScrollable(
                     behavior = behavior(scrollableState = state),
-                    focusRequester = rememberActiveFocusRequester(),
+                    focusRequester = remember { FocusRequester() },
                 ),
             state = state,
         ) {

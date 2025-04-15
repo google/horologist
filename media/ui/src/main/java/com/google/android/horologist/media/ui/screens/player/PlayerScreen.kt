@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -30,6 +31,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.hierarchicalFocusRequester
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -69,7 +71,7 @@ public fun PlayerScreen(
     },
     buttons: SettingsButtons = { },
     background: PlayerBackground = {},
-    focusRequester: FocusRequester = rememberActiveFocusRequester(),
+    focusRequester: FocusRequester = remember { FocusRequester() },
 ) {
     val playerUiState by playerViewModel.playerUiState.collectAsStateWithLifecycle()
     val volumeUiState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
@@ -79,6 +81,7 @@ public fun PlayerScreen(
         controlButtons = { controlButtons(playerViewModel.playerUiController, playerUiState) },
         buttons = { buttons(playerUiState) },
         modifier = modifier
+            .hierarchicalFocusRequester()
             .rotaryScrollable(
                 volumeRotaryBehavior(
                     volumeUiStateProvider = { volumeUiState },

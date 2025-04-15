@@ -19,6 +19,7 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.wear.compose.foundation.ActiveFocusListener
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.material.ExperimentalWearMaterialApi
@@ -32,13 +33,9 @@ fun rememberActivePlaceholderState(isContentReady: () -> Boolean): PlaceholderSt
         isContentReady()
     }
 
-    ActiveFocusListener { focused ->
-        if (focused) {
-            if (!placeholderState.isShowContent) {
-                launch {
-                    placeholderState.startPlaceholderAnimation()
-                }
-            }
+    if (!placeholderState.isShowContent) {
+        LaunchedEffect(Unit) {
+            placeholderState.startPlaceholderAnimation()
         }
     }
 

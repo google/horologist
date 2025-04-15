@@ -30,9 +30,6 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
-import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.nav.composable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer

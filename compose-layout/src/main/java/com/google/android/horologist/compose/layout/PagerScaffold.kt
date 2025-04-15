@@ -25,7 +25,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.ActiveFocusListener
 import androidx.wear.compose.foundation.hierarchicalFocus
 import androidx.wear.compose.foundation.pager.PagerState
 import androidx.wear.compose.material.HorizontalPageIndicator

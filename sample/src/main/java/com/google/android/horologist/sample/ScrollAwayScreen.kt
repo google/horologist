@@ -56,9 +56,9 @@ fun ScrollScreenLazyColumn(scrollState: LazyListState) {
         modifier = Modifier
             .hierarchicalFocusRequester()
             .rotaryScrollable(
-            behavior = behavior(scrollableState = scrollState),
-            focusRequester = remember { FocusRequester() },
-        ),
+                behavior = behavior(scrollableState = scrollState),
+                focusRequester = remember { FocusRequester() },
+            ),
         state = scrollState,
     ) {
         items(3) { i ->

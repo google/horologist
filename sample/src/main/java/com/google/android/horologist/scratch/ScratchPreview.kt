@@ -29,7 +29,6 @@ import androidx.wear.compose.foundation.expandableItem
 import androidx.wear.compose.foundation.hierarchicalFocusRequester
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.foundation.rememberExpandableState
 import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
 import androidx.wear.compose.foundation.rotary.rotaryScrollable

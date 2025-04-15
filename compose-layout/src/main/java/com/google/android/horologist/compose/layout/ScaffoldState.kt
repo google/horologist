@@ -91,7 +91,7 @@ internal class ScaffoldState {
         constructor(
             key: Any,
             scrollState: ScrollableState?,
-            timeText: @Composable (() -> Unit)?
+            timeText: @Composable (() -> Unit)?,
         ) : this(key, mutableStateOf(scrollState), mutableStateOf(timeText))
     }
 }

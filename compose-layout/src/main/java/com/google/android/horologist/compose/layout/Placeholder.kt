@@ -20,12 +20,10 @@ package com.google.android.horologist.compose.layout
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.wear.compose.foundation.ActiveFocusListener
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.rememberPlaceholderState
-import kotlinx.coroutines.launch
 
 @Composable
 fun rememberActivePlaceholderState(isContentReady: () -> Boolean): PlaceholderState {

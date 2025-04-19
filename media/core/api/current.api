@@ -2,8 +2,6 @@
 package com.google.android.horologist.media.model {
 
   public enum Command {
-    method public static com.google.android.horologist.media.model.Command valueOf(String value);
-    method public static com.google.android.horologist.media.model.Command[] values();
     enum_constant public static final com.google.android.horologist.media.model.Command PlayPause;
     enum_constant public static final com.google.android.horologist.media.model.Command SeekBack;
     enum_constant public static final com.google.android.horologist.media.model.Command SeekForward;
@@ -178,8 +176,6 @@ package com.google.android.horologist.media.model {
   }
 
   public enum PlaybackStateEvent.Cause {
-    method public static com.google.android.horologist.media.model.PlaybackStateEvent.Cause valueOf(String value);
-    method public static com.google.android.horologist.media.model.PlaybackStateEvent.Cause[] values();
     enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause Initial;
     enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause Other;
     enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause ParametersChanged;
@@ -194,8 +190,6 @@ package com.google.android.horologist.media.model {
   }
 
   public enum PlayerState {
-    method public static com.google.android.horologist.media.model.PlayerState valueOf(String value);
-    method public static com.google.android.horologist.media.model.PlayerState[] values();
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Idle;
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Loading;
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Playing;
@@ -260,13 +254,13 @@ package com.google.android.horologist.media.repository {
     method public void clearMediaList();
     method public kotlinx.coroutines.flow.StateFlow<java.util.Set<com.google.android.horologist.media.model.Command>> getAvailableCommands();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getConnected();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media> getCurrentMedia();
+    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media?> getCurrentMedia();
     method public int getCurrentMediaIndex();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlaybackStateEvent> getLatestPlaybackState();
     method public com.google.android.horologist.media.model.Media? getMediaAt(int index);
     method public int getMediaCount();
-    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getSeekBackIncrement();
-    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getSeekForwardIncrement();
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> getSeekBackIncrement();
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> getSeekForwardIncrement();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleModeEnabled();
     method public boolean hasNextMedia();
     method public boolean hasPreviousMedia();
@@ -285,21 +279,21 @@ package com.google.android.horologist.media.repository {
     method public void skipToPreviousMedia();
     property public abstract kotlinx.coroutines.flow.StateFlow<java.util.Set<com.google.android.horologist.media.model.Command>> availableCommands;
     property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> connected;
-    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media> currentMedia;
+    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media?> currentMedia;
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlaybackStateEvent> latestPlaybackState;
-    property public abstract kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekBackIncrement;
-    property public abstract kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekForwardIncrement;
+    property public abstract kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> seekBackIncrement;
+    property public abstract kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> seekForwardIncrement;
     property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
   }
 
   public interface PlaylistDownloadRepository {
     method public void download(com.google.android.horologist.media.model.Playlist playlist);
-    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.model.PlaylistDownload> get(String playlistId);
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.model.PlaylistDownload?> get(String playlistId);
     method public void remove(com.google.android.horologist.media.model.Playlist playlist);
   }
 
   public interface PlaylistRepository {
-    method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist>);
+    method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist?>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAll();
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAllDownloaded();
   }

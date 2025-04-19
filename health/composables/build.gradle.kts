@@ -91,9 +91,8 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 }
 
 metalava {
-    sourcePaths.setFrom("src/main")
+    excludedSourceSets.setFrom("src/debug/java")
     filename.set("api/current.api")
-    reportLintsAsErrors.set(true)
 }
 
 dependencies {
@@ -113,7 +112,6 @@ dependencies {
     releaseCompileOnly(projects.composeTools)
 
     testImplementation(projects.roboscreenshots)
-    testImplementation(libs.accompanist.testharness)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

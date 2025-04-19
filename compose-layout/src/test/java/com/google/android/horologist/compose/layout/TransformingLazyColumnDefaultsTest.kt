@@ -37,11 +37,10 @@ import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.OutlinedIconButton
 import androidx.wear.compose.material3.ScreenScaffold
-import androidx.wear.compose.material3.ScreenScaffoldDefaults
 import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.TimeText
 import androidx.wear.compose.material3.TitleCard
-import androidx.wear.compose.material3.lazy.scrollTransform
+import androidx.wear.compose.material3.timeTextCurvedText
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest
 import kotlinx.coroutines.runBlocking
@@ -67,33 +66,33 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         runTest {
             AppScaffold(
                 timeText = {
-                    TimeText {
-                        text("10:10")
-                    }
+                    TimeText(timeSource = FixedTimeSource3)
                 },
                 // Why black needed here
                 modifier = Modifier.background(MaterialTheme.colorScheme.background),
             ) {
                 columnState = rememberTransformingLazyColumnState()
-                ScreenScaffold(scrollState = columnState) {
+                ScreenScaffold(
+                    scrollState = columnState,
+                    contentPadding = rememberResponsiveColumnPadding(
+                        first = ColumnItemType.ListHeader,
+                        last = ColumnItemType.Card,
+                    ),
+                ) { contentPadding ->
                     TransformingLazyColumn(
                         state = columnState,
-                        contentPadding = rememberResponsiveColumnPadding(
-                            first = ColumnItemType.ListHeader,
-                            last = ColumnItemType.Card,
-                        ),
+                        contentPadding = contentPadding,
                         modifier = Modifier
                             .fillMaxSize()
                             .testTag("TransformingLazyColumn"),
                     ) {
                         item {
-                            ListHeader(modifier = Modifier.scrollTransform(this)) {
+                            ListHeader {
                                 Text("Title")
                             }
                         }
                         items(3) {
                             TitleCard(
-                                modifier = Modifier.scrollTransform(this),
                                 onClick = { /* Do something */ },
                                 title = { Text("Title card") },
                                 time = { Text("now") },
@@ -107,19 +106,18 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         composeRule.waitForIdle()
 
         runBlocking {
-            columnState.scrollToItem(5)
+            columnState.dispatchRawDelta(2000f)
         }
 
         captureScreenshot("_end")
     }
 
-    class EdgeButtonPadding(val buttonSize: EdgeButtonSize) : ColumnItemType {
+    object EdgeButtonPadding : ColumnItemType {
         @Composable
         override fun topPadding(horizontalPercent: Float): Dp = 0.dp
 
         @Composable
-        override fun bottomPadding(horizontalPercent: Float): Dp =
-            ScreenScaffoldDefaults.contentPaddingWithEdgeButton(buttonSize).calculateBottomPadding()
+        override fun bottomPadding(horizontalPercent: Float): Dp = 0.dp
     }
 
     @Test
@@ -128,25 +126,27 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         runTest {
             AppScaffold(
                 timeText = {
-                    TimeText {
-                        text("10:10")
-                    }
+                    TimeText(timeSource = FixedTimeSource3)
                 },
                 // Why black needed here
                 modifier = Modifier.background(MaterialTheme.colorScheme.background),
             ) {
                 columnState = rememberTransformingLazyColumnState()
-                ScreenScaffold(scrollState = columnState, edgeButton = {
-                    EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.Large) {
-                        Text("To top")
-                    }
-                }) {
+                ScreenScaffold(
+                    scrollState = columnState,
+                    contentPadding = rememberResponsiveColumnPadding(
+                        first = ColumnItemType.IconButton,
+                        last = EdgeButtonPadding,
+                    ),
+                    edgeButton = {
+                        EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.Large) {
+                            Text("To top")
+                        }
+                    },
+                ) { contentPadding ->
                     TransformingLazyColumn(
                         state = columnState,
-                        contentPadding = rememberResponsiveColumnPadding(
-                            first = ColumnItemType.IconButton,
-                            last = EdgeButtonPadding(buttonSize = EdgeButtonSize.Large),
-                        ),
+                        contentPadding = contentPadding,
                         modifier = Modifier
                             .fillMaxSize()
                             .testTag("TransformingLazyColumn"),
@@ -161,7 +161,6 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                         }
                         items(3) {
                             TitleCard(
-                                modifier = Modifier.scrollTransform(this),
                                 onClick = { /* Do something */ },
                                 title = { Text("Title card") },
                                 time = { Text("now") },
@@ -175,7 +174,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         composeRule.waitForIdle()
 
         runBlocking {
-            columnState.scrollToItem(5)
+            columnState.dispatchRawDelta(2000f)
         }
 
         captureScreenshot("_end")
@@ -188,24 +187,28 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
             AppScaffold(
                 timeText = {
                     TimeText {
-                        text("10:10")
+                        timeTextCurvedText("10:10")
                     }
                 },
                 // Why black needed here
                 modifier = Modifier.background(MaterialTheme.colorScheme.background),
             ) {
                 columnState = rememberTransformingLazyColumnState()
-                ScreenScaffold(scrollState = columnState, edgeButton = {
-                    EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.ExtraSmall) {
-                        Text("To top")
-                    }
-                }) {
+                ScreenScaffold(
+                    scrollState = columnState,
+                    contentPadding = rememberResponsiveColumnPadding(
+                        first = ColumnItemType.IconButton,
+                        last = EdgeButtonPadding,
+                    ),
+                    edgeButton = {
+                        EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.ExtraSmall) {
+                            Text("To top")
+                        }
+                    },
+                ) { contentPadding ->
                     TransformingLazyColumn(
                         state = columnState,
-                        contentPadding = rememberResponsiveColumnPadding(
-                            first = ColumnItemType.IconButton,
-                            last = EdgeButtonPadding(buttonSize = EdgeButtonSize.ExtraSmall),
-                        ),
+                        contentPadding = contentPadding,
                         modifier = Modifier
                             .fillMaxSize()
                             .testTag("TransformingLazyColumn"),
@@ -220,7 +223,6 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                         }
                         items(3) {
                             TitleCard(
-                                modifier = Modifier.scrollTransform(this),
                                 onClick = { /* Do something */ },
                                 title = { Text("Title card") },
                                 time = { Text("now") },
@@ -234,7 +236,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         composeRule.waitForIdle()
 
         runBlocking {
-            columnState.scrollToItem(5)
+            columnState.dispatchRawDelta(2000f)
         }
 
         captureScreenshot("_end")

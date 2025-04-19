@@ -50,7 +50,6 @@ android {
             com.google.android.horologist.annotations.ExperimentalHorologistApi
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
-            androidx.wear.compose.material.ExperimentalWearMaterialApi
             """.trim().split("\\s+".toRegex()).map {
                 "-opt-in=$it"
             }
@@ -97,9 +96,7 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 }
 
 metalava {
-    sourcePaths.setFrom("src/main")
     filename.set("api/current.api")
-    reportLintsAsErrors.set(true)
 }
 
 dependencies {
@@ -107,6 +104,7 @@ dependencies {
     api(libs.wearcompose.material)
     implementation(projects.images.coil)
     implementation(libs.androidx.lifecycle.viewmodelktx)
+    implementation(project(":media:audio"))
 
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)

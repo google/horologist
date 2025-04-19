@@ -4,7 +4,7 @@ import com.vanniktech.maven.publish.JavaLibrary
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.net.URL
+import java.net.URI
 import java.util.Properties
 
 /*
@@ -36,6 +36,7 @@ buildscript {
         classpath(libs.gradleMavenPublishPlugin)
 
         classpath(libs.dagger.hiltandroidplugin)
+        classpath(libs.oss.licenses.plugin)
     }
 }
 
@@ -198,18 +199,18 @@ subprojects {
 
                 // AndroidX + Compose docs
                 externalDocumentationLink {
-                    url.set(URL("https://developer.android.com/reference/"))
-                    packageListUrl.set(URL("https://developer.android.com/reference/androidx/package-list"))
+                    url.set(URI("https://developer.android.com/reference/").toURL())
+                    packageListUrl.set(URI("https://developer.android.com/reference/androidx/package-list").toURL())
                 }
                 externalDocumentationLink {
-                    url.set(URL("https://developer.android.com/reference/kotlin/"))
-                    packageListUrl.set(URL("https://developer.android.com/reference/kotlin/androidx/package-list"))
+                    url.set(URI("https://developer.android.com/reference/kotlin/").toURL())
+                    packageListUrl.set(URI("https://developer.android.com/reference/kotlin/androidx/package-list").toURL())
                 }
 
                 sourceLink {
                     localDirectory.set(project.file("src/main/java"))
                     // URL showing where the source code can be accessed through the web browser
-                    remoteUrl.set(URL("https://github.com/google/horologist/blob/main/${project.name}/src/main/java"))
+                    remoteUrl.set(URI("https://github.com/google/horologist/blob/main/${project.name}/src/main/java").toURL())
                     // Suffix which is used to append the line number to the URL. Use #L for GitHub
                     remoteLineSuffix.set("#L")
                 }

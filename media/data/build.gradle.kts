@@ -75,9 +75,7 @@ android {
 }
 
 metalava {
-    sourcePaths.setFrom("src/main")
     filename.set("api/current.api")
-    reportLintsAsErrors.set(true)
 }
 
 dependencies {

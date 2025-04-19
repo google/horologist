@@ -136,7 +136,7 @@ package com.google.android.horologist.composables {
   }
 
   public final class SectionedListKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SectionedList(optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional java.util.List<? extends com.google.android.horologist.composables.Section<?>> sections);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SectionedList(optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional java.util.List<? extends com.google.android.horologist.composables.Section<? extends java.lang.Object?>> sections);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void SectionedList(optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionedListScope,kotlin.Unit> content);
   }
 
@@ -161,7 +161,7 @@ package com.google.android.horologist.composables {
   }
 
   public final class UnboundedRippleButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void UnboundedRippleButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional float rippleRadius, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.compose.ui.graphics.Shape shape, optional androidx.wear.compose.material.ButtonBorder border, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void UnboundedRippleButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional float rippleRadius, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.compose.ui.graphics.Shape shape, optional androidx.wear.compose.material.ButtonBorder border, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onLongClick, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
   }
 
 }

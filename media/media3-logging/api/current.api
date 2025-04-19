@@ -3,6 +3,7 @@ package com.google.android.horologist.media3.logging {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class AnalyticsEventLogger extends androidx.media3.exoplayer.util.EventLogger {
     ctor public AnalyticsEventLogger(com.google.android.horologist.media3.logging.ErrorReporter appEventLogger);
+    method public void onLoadStarted(androidx.media3.exoplayer.analytics.AnalyticsListener.EventTime eventTime, androidx.media3.exoplayer.source.LoadEventInfo loadEventInfo, androidx.media3.exoplayer.source.MediaLoadData mediaLoadData);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface ErrorReporter {
@@ -11,8 +12,6 @@ package com.google.android.horologist.media3.logging {
   }
 
   public enum ErrorReporter.Category {
-    method public static com.google.android.horologist.media3.logging.ErrorReporter.Category valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.media3.logging.ErrorReporter.Category[] values();
     enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category App;
     enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category DB;
     enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category Downloads;
@@ -23,8 +22,6 @@ package com.google.android.horologist.media3.logging {
   }
 
   public enum ErrorReporter.Level {
-    method public static com.google.android.horologist.media3.logging.ErrorReporter.Level valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.media3.logging.ErrorReporter.Level[] values();
     enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Debug;
     enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Error;
     enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Info;

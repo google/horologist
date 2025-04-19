@@ -50,7 +50,6 @@ android {
             com.google.android.horologist.annotations.ExperimentalHorologistApi
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
-            androidx.wear.compose.material.ExperimentalWearMaterialApi
             """.trim().split("\\s+".toRegex()).map {
                 "-opt-in=$it"
             }
@@ -97,9 +96,8 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 }
 
 metalava {
-    sourcePaths.setFrom("src/main")
+    excludedSourceSets.setFrom("src/debug/java")
     filename.set("api/current.api")
-    reportLintsAsErrors.set(true)
 }
 
 dependencies {

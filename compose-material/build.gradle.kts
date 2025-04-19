@@ -52,8 +52,6 @@ android {
         jvmTarget = JavaVersion.VERSION_17.majorVersion
         freeCompilerArgs += listOf(
             "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-            "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi",
         )
     }
 
@@ -94,9 +92,8 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 }
 
 metalava {
-    sourcePaths.setFrom("src/main")
+    excludedSourceSets.setFrom("src/debug/java")
     filename.set("api/current.api")
-    reportLintsAsErrors.set(true)
 }
 
 dependencies {
@@ -129,7 +126,6 @@ dependencies {
     debugRuntimeOnly(libs.compose.ui.test.manifest)
 
     testImplementation(projects.roboscreenshots)
-    testImplementation(libs.accompanist.testharness)
     testImplementation(libs.androidx.core)
     testImplementation(libs.compose.material.iconsext)
     testImplementation(libs.compose.ui.test)

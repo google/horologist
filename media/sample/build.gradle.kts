@@ -26,6 +26,7 @@ plugins {
     kotlin("plugin.serialization")
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
+    id("com.google.android.gms.oss-licenses-plugin")
 }
 
 val localProperties = Properties()
@@ -246,6 +247,8 @@ dependencies {
     implementation(projects.auth.ui)
     implementation(libs.playservices.auth)
     implementation(libs.kotlinx.coroutines.playservices)
+
+    implementation(libs.osslicenses.wear.compose.material)
 
     add("benchmarkImplementation", libs.androidx.runtime.tracing)
 

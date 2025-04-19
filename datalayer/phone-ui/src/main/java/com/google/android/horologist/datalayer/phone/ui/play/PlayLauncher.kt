@@ -19,9 +19,8 @@ package com.google.android.horologist.datalayer.phone.ui.play
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 
 private const val PLAY_STORE_APP_URI_PREFIX = "market://details?id="
 private const val PLAY_STORE_WEB_URL_PREFIX = "https://play.google.com/store/apps/details?id="
@@ -31,21 +30,19 @@ private const val PLAY_STORE_WEB_URL_PREFIX = "https://play.google.com/store/app
  */
 public fun Context.launchPlay(packageName: String) {
     try {
-        ContextCompat.startActivity(
-            this,
+        startActivity(
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse(PLAY_STORE_APP_URI_PREFIX + packageName),
+                (PLAY_STORE_APP_URI_PREFIX + packageName).toUri(),
             ),
             Bundle(),
         )
     } catch (anfe: ActivityNotFoundException) {
         // Handle scenario where Google Play app is not installed
-        ContextCompat.startActivity(
-            this,
+        startActivity(
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse(PLAY_STORE_WEB_URL_PREFIX + packageName),
+                (PLAY_STORE_WEB_URL_PREFIX + packageName).toUri(),
             ),
             Bundle(),
         )

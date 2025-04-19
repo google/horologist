@@ -399,7 +399,7 @@ package com.google.android.horologist.media.ui.screens.entity {
     method public java.util.List<Media> component2();
     method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState component3();
     method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress component4();
-    method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded<Collection,Media> copy(Collection! collectionModel, java.util.List<? extends Media> mediaList, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState downloadMediaListState, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress downloadsProgress);
+    method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded<Collection,Media> copy(Collection collectionModel, java.util.List<? extends Media> mediaList, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState downloadMediaListState, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress downloadsProgress);
     method public Collection getCollectionModel();
     method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState getDownloadMediaListState();
     method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress getDownloadsProgress();
@@ -411,8 +411,6 @@ package com.google.android.horologist.media.ui.screens.entity {
   }
 
   public enum PlaylistDownloadScreenState.Loaded.DownloadMediaListState {
-    method public static com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
-    method public static com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState[] values();
     enum_constant public static final com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState Fully;
     enum_constant public static final com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState None;
     enum_constant public static final com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState Partially;
@@ -573,14 +571,14 @@ package com.google.android.horologist.media.ui.tiles {
   }
 
   public static final class MediaCollectionsTileRenderer.ResourceState {
-    ctor public MediaCollectionsTileRenderer.ResourceState(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource> images);
+    ctor public MediaCollectionsTileRenderer.ResourceState(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource?> images);
     method public int component1();
-    method public java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource> component2();
-    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState copy(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource> images);
+    method public java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource?> component2();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState copy(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource?> images);
     method public int getAppIcon();
-    method public java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource> getImages();
+    method public java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource?> getImages();
     property public final int appIcon;
-    property public final java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource> images;
+    property public final java.util.Map<java.lang.String,androidx.wear.protolayout.ResourceBuilders.ImageResource?> images;
   }
 
   public final class ToTileColorsKt {

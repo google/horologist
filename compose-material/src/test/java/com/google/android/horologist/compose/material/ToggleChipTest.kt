@@ -22,8 +22,9 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.test.DeviceConfigurationOverride
+import androidx.compose.ui.test.FontScale
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.testharness.TestHarness
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
@@ -160,7 +161,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
     @Test
     fun withLongTextAndLargestFontScale() {
         runComponentTest {
-            TestHarness(fontScale = largestFontScale) {
+            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
                 ToggleChip(
                     checked = true,
                     onCheckedChanged = { },
@@ -187,7 +188,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
     @Test
     fun withIconAndLongTextAndLargestFontScale() {
         runComponentTest {
-            TestHarness(fontScale = largestFontScale) {
+            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
                 ToggleChip(
                     checked = true,
                     onCheckedChanged = { },
@@ -215,7 +216,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
     @Test
     fun withSecondaryLabelAndLongTextAndLargestFontScale() {
         runComponentTest {
-            TestHarness(fontScale = largestFontScale) {
+            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
                 ToggleChip(
                     checked = true,
                     onCheckedChanged = { },
@@ -244,7 +245,7 @@ class ToggleChipTest : WearLegacyComponentTest() {
     @Test
     fun withIconAndSecondaryLabelAndLongTextAndLargestFontScale() {
         runComponentTest {
-            TestHarness(fontScale = largestFontScale) {
+            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
                 ToggleChip(
                     checked = true,
                     onCheckedChanged = { },

@@ -16,7 +16,11 @@
 
 package com.google.android.horologist.audio.ui.material3
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.ScreenScaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
@@ -78,7 +82,12 @@ class VolumeScreenA11yScreenshotTest : WearLegacyA11yTest() {
 
     @Composable
     override fun TestScaffold(content: @Composable () -> Unit) {
-        ScreenScaffold(timeText = {}) {
+        ScreenScaffold(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
+            timeText = {},
+        ) {
             content()
         }
     }

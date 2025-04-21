@@ -70,7 +70,14 @@ class VolumeButtonTest : WearLegacyComponentTest() {
     }
 
     @Test
-    fun givenNoVolumeUiState_thenIconIsVolumeUp() {
+    fun givenNullVolumeUiState_thenIconIsVolumeUp() {
+        runComponentTest {
+            VolumeButton(onVolumeClick = {}, volumeUiState = null)
+        }
+    }
+
+    @Test
+    fun givenNoVolumeUiState_thenIconIsRadio() {
         runComponentTest {
             VolumeButton(onVolumeClick = {})
         }

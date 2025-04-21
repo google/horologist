@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.audio.ui.material3
 
+import androidx.compose.runtime.Composable
+import androidx.wear.compose.material3.ScreenScaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
@@ -24,7 +26,7 @@ import org.junit.Test
 class VolumeScreenA11yScreenshotTest : WearLegacyA11yTest() {
 
     @Test
-    fun volumeScreenAtMinimums() {
+    fun volumeScreenAtMinimum() {
         val volumeState = VolumeState(
             current = 0,
             max = 100,
@@ -71,6 +73,13 @@ class VolumeScreenA11yScreenshotTest : WearLegacyA11yTest() {
                 volumeState = volumeState,
                 audioOutput = audioOutput,
             )
+        }
+    }
+
+    @Composable
+    override fun TestScaffold(content: @Composable () -> Unit) {
+        ScreenScaffold(timeText = {}) {
+            content()
         }
     }
 }

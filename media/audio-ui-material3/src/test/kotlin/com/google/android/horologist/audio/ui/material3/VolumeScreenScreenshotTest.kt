@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.audio.ui.material3
 
+import androidx.compose.runtime.Composable
+import androidx.wear.compose.material3.ScreenScaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
@@ -120,6 +122,13 @@ class VolumeScreenScreenshotTest : WearLegacyScreenTest() {
                 increaseVolume = {},
                 decreaseVolume = {},
             )
+        }
+    }
+
+    @Composable
+    override fun TestScaffold(content: @Composable () -> Unit) {
+        ScreenScaffold(timeText = {}) {
+            content()
         }
     }
 }

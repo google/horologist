@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.material3.components.toAudioOutputUi
@@ -141,7 +142,7 @@ class VolumeButtonTest : WearLegacyComponentTest() {
         Box(
             modifier = Modifier
                 .wrapContentSize()
-                .background(Color.Black.copy(alpha = 0.5f))
+                .background(MaterialTheme.colorScheme.background)
                 .border(1.dp, Color.White),
         ) {
             content()

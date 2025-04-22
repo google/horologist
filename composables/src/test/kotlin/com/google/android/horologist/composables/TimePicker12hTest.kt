@@ -35,6 +35,16 @@ class TimePicker12hTest : WearLegacyScreenTest() {
     }
 
     @Test
+    fun midnight() {
+        runTest {
+            TimePickerWith12HourClock(
+                time = LocalTime.of(0, 0, 0),
+                onTimeConfirm = {},
+            )
+        }
+    }
+
+    @Test
     @Config(
         fontScale = 1.24f,
     )

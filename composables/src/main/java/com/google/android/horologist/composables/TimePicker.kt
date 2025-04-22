@@ -161,7 +161,7 @@ public fun TimePicker(
 
         (0..9).maxOf { mm.getBoundingBox(it).width }
     }
-    val pickerWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() + 6.dp }
+    val pickerWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() - 6.dp }
 
     val optionColor = MaterialTheme.colors.secondary
     val pickerOption = pickerTextOption(textStyle, { "%02d".format(it) })

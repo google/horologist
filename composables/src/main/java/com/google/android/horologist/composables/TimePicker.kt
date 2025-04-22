@@ -67,6 +67,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -161,7 +162,7 @@ public fun TimePicker(
 
         (0..9).maxOf { mm.getBoundingBox(it).width }
     }
-    val pickerWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() - 6.dp }
+    val pickerWidth = with(LocalDensity.current) { (digitWidth * 2).toDp() + 6.dp }
 
     val optionColor = MaterialTheme.colors.secondary
     val pickerOption = pickerTextOption(textStyle, { "%02d".format(it) })
@@ -628,10 +629,14 @@ internal fun pickerTextOption(
     indexToText: (Int) -> String,
     isValid: (Int) -> Boolean = { true },
 ): (@Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit) = { value: Int, pickerSelected: Boolean ->
+
     Box(modifier = Modifier.fillMaxSize()) {
         Text(
             text = indexToText(value),
             maxLines = 1,
+            overflow = TextOverflow.Visible,
+            // Softwrap ensures the Visible works b/283157037
+            softWrap = false,
             style = textStyle,
             color = if (!isValid(value)) {
                 Color(0xFF757575)

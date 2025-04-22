@@ -153,6 +153,7 @@ public fun TimePicker(
     val digitWidth = remember(
         density.density,
         LocalConfiguration.current.screenWidthDp,
+        textStyle,
     ) {
         val mm = measurer.measure(
             "0123456789",

@@ -635,7 +635,6 @@ internal fun pickerTextOption(
             text = indexToText(value),
             maxLines = 1,
             overflow = TextOverflow.Visible,
-            // Softwrap ensures the Visible works b/283157037
             softWrap = false,
             style = textStyle,
             color = if (!isValid(value)) {

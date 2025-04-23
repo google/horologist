@@ -25,9 +25,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.MaterialShapes
-import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
@@ -38,6 +35,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.graphics.shapes.CornerRounding
+import androidx.graphics.shapes.RoundedPolygon
+import androidx.graphics.shapes.star
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButtonColors
@@ -46,7 +46,9 @@ import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.minimumInteractiveComponentSize
 import com.google.android.horologist.audio.ui.material3.DisabledContainerAlpha
 import com.google.android.horologist.audio.ui.material3.DisabledContentAlpha
+import com.google.android.horologist.audio.ui.material3.rotateNeg90
 import com.google.android.horologist.audio.ui.material3.toDisabledColor
+import com.google.android.horologist.audio.ui.material3.toShape
 
 /** An icon button to launch a screen to control the system. */
 @Composable
@@ -160,9 +162,12 @@ public object SettingsButtonDefaults {
         )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-internal fun defaultBadgeShape(): Shape = MaterialShapes.Cookie7Sided.toShape()
+internal fun defaultBadgeShape(): Shape = RoundedPolygon.star(
+    numVerticesPerRadius = 7,
+    innerRadius = .75f,
+    rounding = CornerRounding(radius = .5f),
+).rotateNeg90().normalized().toShape()
 
 private val BUTTON_WIDTH = 44.dp
 private val BUTTON_HEIGHT = 32.dp

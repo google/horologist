@@ -53,15 +53,6 @@ package com.google.android.horologist.audio.ui.material3.components {
     method @androidx.compose.runtime.Composable public static void DeviceButton(String volumeDescription, String deviceName, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> icon, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ButtonColors colors);
   }
 
-  public final class SettingsButtonsDefaults {
-    method @androidx.compose.runtime.Composable public void BrandIcon(@DrawableRes int iconId, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
-    field public static final com.google.android.horologist.audio.ui.material3.components.SettingsButtonsDefaults INSTANCE;
-  }
-
-  public final class SettingsButtonsKt {
-    method @androidx.compose.runtime.Composable public static void SettingsButtons(com.google.android.horologist.audio.ui.VolumeUiState volumeUiState, kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> brandIcon, optional boolean enabled);
-  }
-
 }
 
 package com.google.android.horologist.audio.ui.material3.components.actions {
@@ -82,22 +73,6 @@ package com.google.android.horologist.audio.ui.material3.components.actions {
     method @androidx.compose.runtime.Composable public static void VolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.audio.ui.VolumeUiState? volumeUiState, optional boolean enabled, optional androidx.compose.ui.Alignment alignment, optional androidx.wear.compose.material3.IconButtonColors buttonColors, optional String contentDescription, optional androidx.compose.foundation.BorderStroke? border);
     method @androidx.compose.runtime.Composable public static void VolumeButtonWithBadge(kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.compose.ui.Alignment alignment, optional androidx.wear.compose.material3.IconButtonColors buttonColors, optional androidx.compose.ui.graphics.vector.ImageVector? badgeVector, optional androidx.wear.compose.material3.IconButtonColors badgeColors, optional String contentDescription, optional androidx.compose.foundation.BorderStroke? border);
     method @androidx.compose.runtime.Composable public static void VolumeButtonWithBadge(kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, com.google.android.horologist.audio.ui.material3.components.AudioOutputUi audioOutputUi, com.google.android.horologist.audio.ui.VolumeUiState? volumeUiState, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.compose.ui.Alignment alignment, optional androidx.wear.compose.material3.IconButtonColors buttonColors, optional androidx.wear.compose.material3.IconButtonColors badgeColors, optional String contentDescription, optional androidx.compose.foundation.BorderStroke? border);
-  }
-
-}
-
-package com.google.android.horologist.audio.ui.material3.components.animated {
-
-  public final class AnimatedSetVolumeButtonKt {
-    method @androidx.compose.runtime.Composable public static void AnimatedSetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.ui.VolumeUiState volumeUiState, optional androidx.compose.ui.Modifier modifier);
-  }
-
-  public final class InteractivePreviewAwareKt {
-    method @androidx.compose.runtime.Composable public static void InteractivePreviewAware(kotlin.jvm.functions.Function0<kotlin.Unit> block);
-    method public static androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> getLocalInteractivePreview();
-    method public static androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> getLocalStaticPreview();
-    property public static final androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> LocalInteractivePreview;
-    property public static final androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> LocalStaticPreview;
   }
 
 }

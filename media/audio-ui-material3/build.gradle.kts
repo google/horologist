@@ -64,6 +64,7 @@ android {
 
     sourceSets.getByName("main") {
         assets.srcDir("src/main/assets")
+        res.srcDirs("src/main/res", "../audio-ui-model/src/main/res")
     }
 
     lint {
@@ -101,10 +102,9 @@ dependencies {
     api(libs.androidx.wear.compose.material3)
     api(libs.wearcompose.foundation)
     implementation(libs.androidx.corektx)
-
+    implementation(libs.androidx.graphics.shapes)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
-    implementation(libs.compose.material3)
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 

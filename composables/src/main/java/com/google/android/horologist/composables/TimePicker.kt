@@ -67,6 +67,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -152,6 +153,7 @@ public fun TimePicker(
     val digitWidth = remember(
         density.density,
         LocalConfiguration.current.screenWidthDp,
+        textStyle,
     ) {
         val mm = measurer.measure(
             "0123456789",
@@ -628,10 +630,13 @@ internal fun pickerTextOption(
     indexToText: (Int) -> String,
     isValid: (Int) -> Boolean = { true },
 ): (@Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit) = { value: Int, pickerSelected: Boolean ->
+
     Box(modifier = Modifier.fillMaxSize()) {
         Text(
             text = indexToText(value),
             maxLines = 1,
+            overflow = TextOverflow.Visible,
+            softWrap = false,
             style = textStyle,
             color = if (!isValid(value)) {
                 Color(0xFF757575)

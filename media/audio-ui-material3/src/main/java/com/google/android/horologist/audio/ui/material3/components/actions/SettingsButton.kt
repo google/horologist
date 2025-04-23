@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.audio.ui.material3.components.actions
 
+import android.graphics.Matrix
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.star
+import androidx.graphics.shapes.transformed
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButtonColors
@@ -46,7 +48,6 @@ import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.minimumInteractiveComponentSize
 import com.google.android.horologist.audio.ui.material3.DisabledContainerAlpha
 import com.google.android.horologist.audio.ui.material3.DisabledContentAlpha
-import com.google.android.horologist.audio.ui.material3.rotateNeg90
 import com.google.android.horologist.audio.ui.material3.toDisabledColor
 import com.google.android.horologist.audio.ui.material3.toShape
 
@@ -167,7 +168,7 @@ internal fun defaultBadgeShape(): Shape = RoundedPolygon.star(
     numVerticesPerRadius = 7,
     innerRadius = .75f,
     rounding = CornerRounding(radius = .5f),
-).rotateNeg90().normalized().toShape()
+).transformed(Matrix().apply { setRotate(-90f) }).normalized().toShape()
 
 private val BUTTON_WIDTH = 44.dp
 private val BUTTON_HEIGHT = 32.dp

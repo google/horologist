@@ -6,6 +6,7 @@ androidx-complications-data = "1.2.1"
 androidx-concurrent = "1.2.0"
 androidx-constraintlayout-compose = "1.1.1"
 androidx-datastore = "1.1.4"
+androidx-graphics = "1.0.1"
 androidx-health-services = "1.0.0-rc02"
 androidx-hilt = "1.2.0"
 androidx-media3 = "1.6.0"
@@ -93,6 +94,7 @@ androidx-corektx = { module = "androidx.core:core-ktx", version.ref = "androidxC
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "androidx-datastore" }
 androidx-datastore-core = { module = "androidx.datastore:datastore-core", version.ref = "androidx-datastore" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
+androidx-graphics-shapes = { module = "androidx.graphics:graphics-shapes", version.ref =  "androidx-graphics"}
 androidx-health-services = { module = "androidx.health:health-services-client", version.ref = "androidx-health-services" }
 androidx-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common", version.ref = "androidxLifecycle" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidxLifecycle" }

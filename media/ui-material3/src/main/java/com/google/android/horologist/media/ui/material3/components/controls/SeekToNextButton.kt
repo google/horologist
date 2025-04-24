@@ -26,7 +26,7 @@ import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
-import com.google.android.horologist.media.ui.material3.R
+import com.google.android.horologist.media.ui.model.R
 
 @Composable
 public fun SeekToNextButton(
@@ -40,7 +40,9 @@ public fun SeekToNextButton(
 ) {
     MediaButton(
         onClick = onClick,
-        icon = ImageVector.vectorResource(R.drawable.rounded_skip_next_24),
+        icon = ImageVector.vectorResource(
+            com.google.android.horologist.media.ui.material3.R.drawable.rounded_skip_next_24,
+        ),
         contentDescription = contentDescription,
         modifier = modifier,
         enabled = enabled,

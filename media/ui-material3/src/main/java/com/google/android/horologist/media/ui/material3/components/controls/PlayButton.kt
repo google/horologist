@@ -29,7 +29,7 @@ import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
-import com.google.android.horologist.media.ui.material3.R
+import com.google.android.horologist.media.ui.model.R
 
 @Composable
 public fun PlayButton(

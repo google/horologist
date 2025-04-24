@@ -26,7 +26,7 @@ import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
-import com.google.android.horologist.media.ui.material3.R
+import com.google.android.horologist.media.ui.model.R
 
 @Composable
 public fun SeekToPreviousButton(
@@ -34,13 +34,16 @@ public fun SeekToPreviousButton(
     colorScheme: ColorScheme = MaterialTheme.colorScheme,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    contentDescription: String = stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
+    contentDescription: String =
+        stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
     iconSize: Dp = IconButtonDefaults.LargeIconSize,
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(colorScheme),
 ) {
     MediaButton(
         onClick = onClick,
-        icon = ImageVector.vectorResource(R.drawable.rounded_skip_previous_24),
+        icon = ImageVector.vectorResource(
+            com.google.android.horologist.media.ui.material3.R.drawable.rounded_skip_previous_24,
+        ),
         contentDescription = contentDescription,
         modifier = modifier,
         enabled = enabled,

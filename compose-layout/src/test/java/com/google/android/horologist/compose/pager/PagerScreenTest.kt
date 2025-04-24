@@ -40,9 +40,9 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onParent
 import androidx.test.filters.MediumTest
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.hierarchicalFocusRequester
 import androidx.wear.compose.foundation.pager.PagerState
 import androidx.wear.compose.foundation.pager.rememberPagerState
-import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.Text
@@ -83,7 +83,7 @@ class PagerScreenTest {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .requestFocusOnHierarchyActive()
+                        .hierarchicalFocusRequester()
                         .rotaryScrollable(
                             behavior = behavior(scrollableState = scrollState),
                             focusRequester = remember { FocusRequester() },

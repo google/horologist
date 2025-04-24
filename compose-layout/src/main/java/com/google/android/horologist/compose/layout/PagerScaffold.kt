@@ -22,11 +22,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.LocalScreenIsActive
+import androidx.wear.compose.foundation.hierarchicalFocus
 import androidx.wear.compose.foundation.pager.PagerState
 import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.Scaffold
@@ -57,19 +56,15 @@ fun PagerScaffold(
     // present
     scaffoldState.updateIfNeeded(key, timeText = timeText, null)
 
-    val screenIsActive = LocalScreenIsActive.current
-    LaunchedEffect(screenIsActive) {
-        if (screenIsActive) {
-            scaffoldState.addScreen(key, timeText, null)
+    DisposableEffect(key) { onDispose { scaffoldState.removeScreen(key) } }
+
+    Scaffold(        modifier = modifier.fillMaxSize().hierarchicalFocus(true) { focused ->
+        if (focused) {
+            scaffoldState.addScreen(key, timeText = timeText, null)
         } else {
             scaffoldState.removeScreen(key)
         }
-    }
-
-    DisposableEffect(key) { onDispose { scaffoldState.removeScreen(key) } }
-
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
+    },
         timeText = timeText,
         pageIndicator = {
             if (pagerState != null) {

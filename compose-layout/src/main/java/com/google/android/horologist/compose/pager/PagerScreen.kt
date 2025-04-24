@@ -31,7 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.hierarchicalFocusGroup
+import androidx.wear.compose.foundation.hierarchicalFocus
 import androidx.wear.compose.foundation.pager.HorizontalPager
 import androidx.wear.compose.foundation.pager.PagerState
 import androidx.wear.compose.material.PageIndicatorState
@@ -65,7 +65,7 @@ public fun PagerScreen(
             reverseLayout = reverseLayout,
             key = key,
         ) { page ->
-            ClippedBox(state, modifier = Modifier.hierarchicalFocusGroup(page == state.currentPage)) {
+            ClippedBox(state, modifier = Modifier.hierarchicalFocus(page == state.currentPage)) {
                 content(page)
             }
         }

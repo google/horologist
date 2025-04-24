@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.datalayer.phone
 
-public data class Version internal constructor(val inputVersion: List<Int>) :
+public data class Version(val inputVersion: List<Int>) :
     Comparable<Version> {
 
         public override fun compareTo(other: Version): Int {

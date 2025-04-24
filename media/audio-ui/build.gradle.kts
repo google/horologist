@@ -64,6 +64,7 @@ android {
 
     sourceSets.getByName("main") {
         assets.srcDir("src/main/assets")
+        res.srcDirs("src/main/res", "../audio-ui-model/src/main/res")
     }
 
     lint {

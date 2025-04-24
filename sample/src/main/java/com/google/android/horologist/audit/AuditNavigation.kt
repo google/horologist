@@ -21,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.navigation.NavType
-import com.google.common.base.Enums
 import kotlinx.serialization.Serializable
 
 interface AuditNavigation {
@@ -360,7 +359,7 @@ interface AuditNavigation {
 private fun String.toWords(): String {
     // https://stackoverflow.com/questions/7593969/regex-to-split-camelcase-or-titlecase-advanced
     return this.split("(?<=[a-z])(?=[A-Z])".toRegex())
-        .map { it.capitalize(Locale.current) }.joinToString(" ").also {
+        .joinToString(" ") { it.capitalize(Locale.current) }.also {
             println(it)
         }
 }
@@ -370,7 +369,7 @@ inline fun <reified T : Enum<T>> enumType(
 ) = object : NavType<T>(isNullableAllowed = isNullableAllowed) {
     override fun get(bundle: Bundle, key: String) = parseValue(bundle.getString(key)!!)
 
-    override fun parseValue(value: String): T = Enums.getIfPresent(T::class.java, value).get()
+    override fun parseValue(value: String): T = enumValueOf(value)
 
     override fun serializeAsValue(value: T): String = value.name
 

@@ -62,13 +62,14 @@ fun ScreenScaffold(
 
     DisposableEffect(key) { onDispose { scaffoldState.removeScreen(key) } }
 
-    Scaffold(        modifier = modifier.hierarchicalFocus(true) { focused ->
-        if (focused) {
-            scaffoldState.addScreen(key, timeText, scrollState)
-        } else {
-            scaffoldState.removeScreen(key)
-        }
-    },
+    Scaffold(
+        modifier = modifier.hierarchicalFocus(true) { focused ->
+            if (focused) {
+                scaffoldState.addScreen(key, timeText, scrollState)
+            } else {
+                scaffoldState.removeScreen(key)
+            }
+        },
         positionIndicator = remember(scrollState, positionIndicator) {
             {
                 if (positionIndicator != null) {

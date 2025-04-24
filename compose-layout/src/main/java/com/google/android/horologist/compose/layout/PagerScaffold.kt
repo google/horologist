@@ -58,13 +58,14 @@ fun PagerScaffold(
 
     DisposableEffect(key) { onDispose { scaffoldState.removeScreen(key) } }
 
-    Scaffold(        modifier = modifier.fillMaxSize().hierarchicalFocus(true) { focused ->
-        if (focused) {
-            scaffoldState.addScreen(key, timeText = timeText, null)
-        } else {
-            scaffoldState.removeScreen(key)
-        }
-    },
+    Scaffold(
+        modifier = modifier.fillMaxSize().hierarchicalFocus(true) { focused ->
+            if (focused) {
+                scaffoldState.addScreen(key, timeText = timeText, null)
+            } else {
+                scaffoldState.removeScreen(key)
+            }
+        },
         timeText = timeText,
         pageIndicator = {
             if (pagerState != null) {

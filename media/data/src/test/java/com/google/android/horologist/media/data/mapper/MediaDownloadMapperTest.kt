@@ -16,8 +16,8 @@
 
 package com.google.android.horologist.media.data.mapper
 
-import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
-import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
+import com.google.android.horologist.media.database.model.MediaDownloadEntity
+import com.google.android.horologist.media.database.model.MediaDownloadEntityStatus
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.MediaDownload
 import com.google.android.horologist.media.model.Playlist

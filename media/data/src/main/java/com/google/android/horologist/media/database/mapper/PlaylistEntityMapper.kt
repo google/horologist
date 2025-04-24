@@ -14,30 +14,24 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data.database.dao
+package com.google.android.horologist.media.database.mapper
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.model.MediaEntity
+import com.google.android.horologist.media.database.model.PlaylistEntity
+import com.google.android.horologist.media.model.Playlist
 
 /**
- * DAO for [MediaEntity].
+ * Functions to map models from other layers and / or packages into a [com.google.android.horologist.media.database.model.PlaylistEntity].
  */
 @ExperimentalHorologistApi
-@Dao
-public interface MediaDao {
+public object PlaylistEntityMapper {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public suspend fun upsert(mediaList: List<MediaEntity>)
-
-    @Query(
-        value = """
-        DELETE FROM MediaEntity
-        WHERE mediaId in (:mediaIds)
-    """,
+    /**
+     * Maps from a [Playlist].
+     */
+    public fun map(playlist: Playlist): PlaylistEntity = PlaylistEntity(
+        playlistId = playlist.id,
+        name = playlist.name,
+        artworkUri = playlist.artworkUri,
     )
-    public suspend fun delete(mediaIds: List<String>)
 }

@@ -18,11 +18,11 @@ package com.google.android.horologist.mediasample.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import com.google.android.horologist.media.data.database.MediaDatabase
-import com.google.android.horologist.media.data.database.dao.MediaDao
-import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
-import com.google.android.horologist.media.data.database.dao.PlaylistDao
-import com.google.android.horologist.media.data.database.dao.PlaylistMediaDao
+import com.google.android.horologist.media.database.MediaDatabase
+import com.google.android.horologist.media.database.dao.MediaDao
+import com.google.android.horologist.media.database.dao.MediaDownloadDao
+import com.google.android.horologist.media.database.dao.PlaylistDao
+import com.google.android.horologist.media.database.dao.PlaylistMediaDao
 import com.google.android.horologist.media.data.datasource.Media3DownloadDataSource
 import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.media.data.datasource.MediaLocalDataSource

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ public fun MessageMediaDisplay(
             text = message,
             modifier = Modifier
                 .fillMaxWidth(
-                    if (isLargeScreen) 0.71f else 0.75f
+                    if (isLargeScreen) 0.71f else 0.75f,
                 )
                 .semantics { heading() },
             color = MaterialTheme.colorScheme.onSurfaceVariant,

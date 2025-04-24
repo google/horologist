@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,13 +56,13 @@ public fun TextMediaDisplay(
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(
-                if (titleIcon != null) 0.66f else 0.6672f
+                if (titleIcon != null) 0.66f else 0.6672f,
             ).height(SONG_TITLE_HEIGHT),
             horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             titleIcon?. let {
-                Box (modifier = Modifier.size(MEDIA_TITLE_ICON_SIZE)) {
+                Box(modifier = Modifier.size(MEDIA_TITLE_ICON_SIZE)) {
                     MediaTitleIcon(
                         paintableRes = it,
                     )
@@ -79,10 +79,10 @@ public fun TextMediaDisplay(
         }
         Row(
             modifier = Modifier.fillMaxWidth(
-                if (titleIcon != null) 0.71f else 0.75f
+                if (titleIcon != null) 0.71f else 0.75f,
             ).height(ARTIST_DETAILS_HEIGHT),
             horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = subtitle,

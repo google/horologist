@@ -1,3 +1,19 @@
+/*
+ * Copyright 2025 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.google.android.horologist.media.ui.material3.util
 /*
  * Copyright 2024 The Android Open Source Project
@@ -35,7 +51,7 @@ import androidx.compose.runtime.withFrameMillis
  *   being no change, 100f being double, speed and so on.
  */
 internal fun <T> FiniteAnimationSpec<T>.faster(
-    @FloatRange(from = 0.0) speedupPct: Float
+    @FloatRange(from = 0.0) speedupPct: Float,
 ): FiniteAnimationSpec<T> {
     require(speedupPct >= 0f) { "speedupPct has to be positive. Was: $speedupPct" }
     return speedFactor(1 + speedupPct / 100)
@@ -48,7 +64,7 @@ internal fun <T> FiniteAnimationSpec<T>.faster(
  *   being no change, 50f being half the speed.
  */
 internal fun <T> FiniteAnimationSpec<T>.slower(
-    @FloatRange(from = 0.0, to = 100.0, toInclusive = false) slowdownPct: Float
+    @FloatRange(from = 0.0, to = 100.0, toInclusive = false) slowdownPct: Float,
 ): FiniteAnimationSpec<T> {
     require(slowdownPct >= 0f && slowdownPct < 100f) {
         "slowdownPct has to be between 0 and 100. Was: $slowdownPct"
@@ -63,7 +79,7 @@ internal fun <T> FiniteAnimationSpec<T>.slower(
  *   allowed) 0.5f -> half speed 1f -> current speed 2f -> double speed
  */
 internal fun <T> FiniteAnimationSpec<T>.speedFactor(
-    @FloatRange(from = 0.0, fromInclusive = false) factor: Float
+    @FloatRange(from = 0.0, fromInclusive = false) factor: Float,
 ): FiniteAnimationSpec<T> {
     require(factor > 0f) { "factor has to be positive. Was: $factor" }
     return when (this) {
@@ -74,10 +90,10 @@ internal fun <T> FiniteAnimationSpec<T>.speedFactor(
 
 private class WrappedAnimationSpec<T>(
     val wrapped: FiniteAnimationSpec<T>,
-    val speedupFactor: Float
+    val speedupFactor: Float,
 ) : FiniteAnimationSpec<T> {
     override fun <V : AnimationVector> vectorize(
-        converter: TwoWayConverter<T, V>
+        converter: TwoWayConverter<T, V>,
     ): VectorizedFiniteAnimationSpec<V> =
         WrappedVectorizedAnimationSpec(wrapped.vectorize(converter), speedupFactor)
 }
@@ -93,24 +109,24 @@ private class WrappedVectorizedAnimationSpec<V : AnimationVector>(
         playTimeNanos: Long,
         initialValue: V,
         targetValue: V,
-        initialVelocity: V
+        initialVelocity: V,
     ): V = wrapped.getValueFromNanos(
         (playTimeNanos * speedupFactor).toLong(),
         initialValue,
         targetValue,
-        initialVelocity
+        initialVelocity,
     )
 
     override fun getVelocityFromNanos(
         playTimeNanos: Long,
         initialValue: V,
         targetValue: V,
-        initialVelocity: V
+        initialVelocity: V,
     ): V = wrapped.getVelocityFromNanos(
         (playTimeNanos * speedupFactor).toLong(),
         initialValue,
         targetValue,
-        initialVelocity
+        initialVelocity,
     ) * speedupFactor
 
     @Suppress("MethodNameUnits")

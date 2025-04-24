@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -204,12 +204,16 @@ private class MarqueeController(
         override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
             if ((needsScrolling || startGap > 0.dp) && layoutDirection == LayoutDirection.Ltr) {
                 edgeGradientWidth
-            } else 0.dp
+            } else {
+                0.dp
+            }
 
         override fun calculateRightPadding(layoutDirection: LayoutDirection): Dp =
             if ((needsScrolling || startGap > 0.dp) && layoutDirection != LayoutDirection.Ltr) {
                 edgeGradientWidth
-            } else 0.dp
+            } else {
+                0.dp
+            }
 
         override fun calculateTopPadding(): Dp = 0.dp
         override fun calculateBottomPadding(): Dp = 0.dp

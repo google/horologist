@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
-class SeekForwardButtonTest : WearLegacyComponentTest() {
+public class SeekForwardButtonTest : WearLegacyComponentTest() {
 
     @Test
     fun givenIncrementIsFive_thenIconIsFive() {

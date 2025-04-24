@@ -30,8 +30,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.wear.compose.material3.IconButtonColors
 import com.google.android.horologist.audio.ui.VolumeUiState
-import com.google.android.horologist.audio.ui.material3.R
 import com.google.android.horologist.audio.ui.material3.components.AudioOutputUi
+import com.google.android.horologist.audio.ui.material3.R
+import com.google.android.horologist.audio.ui.model.R as ModelR
 
 /**
  * A composable function that creates a volume button.
@@ -53,7 +54,7 @@ public fun VolumeButton(
     enabled: Boolean = true,
     alignment: Alignment = Alignment.Center,
     buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
-    contentDescription: String = stringResource(R.string.horologist_set_volume_content_description),
+    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
     border: BorderStroke? = null,
 ) {
     SettingsButton(
@@ -94,7 +95,7 @@ public fun VolumeButton(
     enabled: Boolean = true,
     alignment: Alignment = Alignment.Center,
     buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
-    contentDescription: String = stringResource(R.string.horologist_set_volume_content_description),
+    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
     border: BorderStroke? = null,
 ) {
     VolumeButton(
@@ -131,7 +132,7 @@ public fun VolumeButtonWithBadge(
     buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
     badgeVector: ImageVector? = null,
     badgeColors: IconButtonColors = SettingsButtonDefaults.badgeColors(),
-    contentDescription: String = stringResource(R.string.horologist_set_volume_content_description),
+    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
     border: BorderStroke? = null,
 ) {
     SettingsButton(
@@ -183,7 +184,7 @@ public fun VolumeButtonWithBadge(
     alignment: Alignment = Alignment.Center,
     buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
     badgeColors: IconButtonColors = SettingsButtonDefaults.badgeColors(),
-    contentDescription: String = stringResource(R.string.horologist_set_volume_content_description),
+    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
     border: BorderStroke? = null,
 ) {
     VolumeButtonWithBadge(

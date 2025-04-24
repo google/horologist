@@ -47,7 +47,7 @@ object DatabaseModule {
             MEDIA_DATABASE_NAME,
         )
             // Until stable, don't require incrementing MediaDatabase version.
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(dropAllTables = true)
             .build()
     }
 

@@ -67,7 +67,6 @@ android {
 
     sourceSets.getByName("main") {
         assets.srcDir("src/main/assets")
-        res.srcDirs("src/main/res", "../ui-model/src/main/res")
     }
 
     testOptions {

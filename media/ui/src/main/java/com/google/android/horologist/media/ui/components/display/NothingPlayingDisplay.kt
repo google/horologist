@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.model.R
 
 /**
  * A media display indicating nothing is playing.

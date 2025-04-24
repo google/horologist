@@ -22,7 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.wear.watchface.complications.data.SmallImageType
 import com.google.android.horologist.compose.tools.WearPreview
-import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.model.R
 
 @Composable
 @WearPreview

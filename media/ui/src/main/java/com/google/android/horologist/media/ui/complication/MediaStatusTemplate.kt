@@ -50,8 +50,8 @@ public class MediaStatusTemplate(
         )
 
         override fun previewData(): Data = Data(
-            title = context.getString(R.string.horologist_preview_app_name),
-            text = context.getString(R.string.horologist_preview_favorites),
+            title = context.getString(com.google.android.horologist.media.ui.model.R.string.horologist_preview_app_name),
+            text = context.getString(com.google.android.horologist.media.ui.model.R.string.horologist_preview_favorites),
             appIconRes = R.drawable.ic_baseline_queue_music_24,
             type = SmallImageType.ICON,
             launchIntent = null,

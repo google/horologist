@@ -42,7 +42,7 @@ import com.google.android.horologist.compose.material.ListHeaderDefaults.firstIt
 import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
-import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.model.R
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
 /**

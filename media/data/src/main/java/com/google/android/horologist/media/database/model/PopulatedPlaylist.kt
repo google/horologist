@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data.database.model
+package com.google.android.horologist.media.database.model
 
 import androidx.room.Embedded
 import androidx.room.Junction

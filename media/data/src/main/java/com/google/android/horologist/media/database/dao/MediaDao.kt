@@ -14,22 +14,30 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data.database.model
+package com.google.android.horologist.media.database.dao
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.media.database.model.MediaEntity
 
 /**
- * A table to store media information.
+ * DAO for [com.google.android.horologist.media.database.model.MediaEntity].
  */
 @ExperimentalHorologistApi
-@Entity
-public data class MediaEntity(
-    @PrimaryKey val mediaId: String,
-    @ColumnInfo val mediaUrl: String,
-    @ColumnInfo val artworkUrl: String,
-    @ColumnInfo val title: String?,
-    @ColumnInfo val artist: String?,
-)
+@Dao
+public interface MediaDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public suspend fun upsert(mediaList: List<MediaEntity>)
+
+    @Query(
+        value = """
+        DELETE FROM MediaEntity
+        WHERE mediaId in (:mediaIds)
+    """,
+    )
+    public suspend fun delete(mediaIds: List<String>)
+}

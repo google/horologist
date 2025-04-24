@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data.database.dao
+package com.google.android.horologist.media.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -22,12 +22,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
-import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
+import com.google.android.horologist.media.database.model.MediaDownloadEntity
+import com.google.android.horologist.media.database.model.MediaDownloadEntityStatus
 import kotlinx.coroutines.flow.Flow
 
 /**
- * DAO for [MediaDownloadEntity].
+ * DAO for [com.google.android.horologist.media.database.model.MediaDownloadEntity].
  */
 @ExperimentalHorologistApi
 @Dao

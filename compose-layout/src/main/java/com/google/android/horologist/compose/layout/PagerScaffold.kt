@@ -18,13 +18,14 @@ package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.ActiveFocusListener
+import androidx.wear.compose.foundation.hierarchicalFocus
 import androidx.wear.compose.foundation.pager.PagerState
 import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.Scaffold
@@ -51,22 +52,20 @@ fun PagerScaffold(
 
     val key = remember { Any() }
 
-    DisposableEffect(key) {
-        onDispose {
-            scaffoldState.removeScreen(key)
-        }
-    }
+    // Update the timeText & scrollInfoProvider if there is a change and the screen is already
+    // present
+    scaffoldState.updateIfNeeded(key, timeText = timeText, null)
 
-    ActiveFocusListener { focused ->
-        if (focused) {
-            scaffoldState.addScreen(key, timeText, null)
-        } else {
-            scaffoldState.removeScreen(key)
-        }
-    }
+    DisposableEffect(key) { onDispose { scaffoldState.removeScreen(key) } }
 
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize().hierarchicalFocus(true) { focused ->
+            if (focused) {
+                scaffoldState.addScreen(key, timeText = timeText, null)
+            } else {
+                scaffoldState.removeScreen(key)
+            }
+        },
         timeText = timeText,
         pageIndicator = {
             if (pagerState != null) {

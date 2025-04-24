@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data.database.mapper
+package com.google.android.horologist.media.database.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.model.PlaylistEntity
-import com.google.android.horologist.media.model.Playlist
 
 /**
- * Functions to map models from other layers and / or packages into a [PlaylistEntity].
+ * A table to store [media][MediaEntity] download information.
  */
 @ExperimentalHorologistApi
-public object PlaylistEntityMapper {
+@Entity
+public data class MediaDownloadEntity(
+    @PrimaryKey val mediaId: String,
+    val status: MediaDownloadEntityStatus,
+    val progress: Float,
+    val size: Long,
+)
 
-    /**
-     * Maps from a [Playlist].
-     */
-    public fun map(playlist: Playlist): PlaylistEntity = PlaylistEntity(
-        playlistId = playlist.id,
-        name = playlist.name,
-        artworkUri = playlist.artworkUri,
-    )
+/**
+ * Represents the download status of [MediaDownloadEntity].
+ */
+public enum class MediaDownloadEntityStatus {
+    NotDownloaded, Downloading, Downloaded, Failed
 }

@@ -27,7 +27,9 @@ import androidx.compose.material.icons.automirrored.outlined.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -41,7 +43,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.hierarchicalFocusRequester
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
@@ -84,12 +86,13 @@ public fun VolumeScreen(
 
     VolumeScreen(
         modifier = modifier
+            .hierarchicalFocusRequester()
             .rotaryScrollable(
                 volumeRotaryBehavior(
                     volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
                     onRotaryVolumeInput = { newVolume -> volumeViewModel.setVolume(newVolume) },
                 ),
-                focusRequester = rememberActiveFocusRequester(),
+                focusRequester = remember { FocusRequester() },
             ),
         volume = { volumeUiState },
         audioOutputUi = audioOutput.toAudioOutputUi(),

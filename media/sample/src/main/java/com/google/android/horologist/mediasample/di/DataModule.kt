@@ -18,11 +18,6 @@ package com.google.android.horologist.mediasample.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import com.google.android.horologist.media.data.database.MediaDatabase
-import com.google.android.horologist.media.data.database.dao.MediaDao
-import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
-import com.google.android.horologist.media.data.database.dao.PlaylistDao
-import com.google.android.horologist.media.data.database.dao.PlaylistMediaDao
 import com.google.android.horologist.media.data.datasource.Media3DownloadDataSource
 import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.media.data.datasource.MediaLocalDataSource
@@ -35,6 +30,11 @@ import com.google.android.horologist.media.data.mapper.PlaylistMapper
 import com.google.android.horologist.media.data.repository.MediaDownloadRepositoryImpl
 import com.google.android.horologist.media.data.repository.PlaylistDownloadRepositoryImpl
 import com.google.android.horologist.media.data.repository.PlaylistRepositoryImpl
+import com.google.android.horologist.media.database.MediaDatabase
+import com.google.android.horologist.media.database.dao.MediaDao
+import com.google.android.horologist.media.database.dao.MediaDownloadDao
+import com.google.android.horologist.media.database.dao.PlaylistDao
+import com.google.android.horologist.media.database.dao.PlaylistMediaDao
 import com.google.android.horologist.media.repository.MediaDownloadRepository
 import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import com.google.android.horologist.media.repository.PlaylistRepository

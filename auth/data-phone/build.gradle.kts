@@ -32,6 +32,8 @@ android {
     }
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -98,6 +100,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.playservices.base)
     implementation(libs.playservices.wearable)
+
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     testImplementation(libs.kotlinx.coroutines.test)
     testRuntimeOnly(libs.robolectric)

@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data.database
+package com.google.android.horologist.media.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.dao.MediaDao
-import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
-import com.google.android.horologist.media.data.database.dao.PlaylistDao
-import com.google.android.horologist.media.data.database.dao.PlaylistMediaDao
-import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
-import com.google.android.horologist.media.data.database.model.MediaEntity
-import com.google.android.horologist.media.data.database.model.PlaylistEntity
-import com.google.android.horologist.media.data.database.model.PlaylistMediaEntity
+import com.google.android.horologist.media.database.dao.MediaDao
+import com.google.android.horologist.media.database.dao.MediaDownloadDao
+import com.google.android.horologist.media.database.dao.PlaylistDao
+import com.google.android.horologist.media.database.dao.PlaylistMediaDao
+import com.google.android.horologist.media.database.model.MediaDownloadEntity
+import com.google.android.horologist.media.database.model.MediaEntity
+import com.google.android.horologist.media.database.model.PlaylistEntity
+import com.google.android.horologist.media.database.model.PlaylistMediaEntity
 
 @ExperimentalHorologistApi
 @Database(

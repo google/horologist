@@ -25,11 +25,10 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.wear.compose.foundation.ActiveFocusListener
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.hierarchicalFocus
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -57,25 +56,20 @@ fun ScreenScaffold(
 
     val key = remember { Any() }
 
-    // We need to update the scaffoldState with the proper scrollState
-    key(scrollState) {
-        DisposableEffect(key) {
-            onDispose {
-                scaffoldState.removeScreen(key)
-            }
-        }
+    // Update the timeText & scrollInfoProvider if there is a change and the screen is already
+    // present
+    scaffoldState.updateIfNeeded(key, timeText, scrollState)
 
-        ActiveFocusListener { focused ->
+    DisposableEffect(key) { onDispose { scaffoldState.removeScreen(key) } }
+
+    Scaffold(
+        modifier = modifier.hierarchicalFocus(true) { focused ->
             if (focused) {
                 scaffoldState.addScreen(key, timeText, scrollState)
             } else {
                 scaffoldState.removeScreen(key)
             }
-        }
-    }
-
-    Scaffold(
-        modifier = modifier,
+        },
         positionIndicator = remember(scrollState, positionIndicator) {
             {
                 if (positionIndicator != null) {

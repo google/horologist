@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -134,26 +135,32 @@ private fun SamplePromptScreen(
 }
 
 @Composable
-private fun SampleTypography() = DefaultMarkdownTypography(
-    h1 = MaterialTheme.typography.title1,
-    h2 = MaterialTheme.typography.title2,
-    h3 = MaterialTheme.typography.title3,
-    h4 = MaterialTheme.typography.caption1,
-    h5 = MaterialTheme.typography.caption2,
-    h6 = MaterialTheme.typography.caption3,
-    text = MaterialTheme.typography.body1,
-    code = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace),
-    quote = MaterialTheme.typography.body2.plus(SpanStyle(fontStyle = FontStyle.Italic)),
-    paragraph = MaterialTheme.typography.body1,
-    ordered = MaterialTheme.typography.body1,
-    bullet = MaterialTheme.typography.body1,
-    list = MaterialTheme.typography.body1,
-    link = MaterialTheme.typography.body1.copy(
+private fun SampleTypography(): DefaultMarkdownTypography {
+    val link = MaterialTheme.typography.body1.copy(
         fontWeight = FontWeight.Bold,
         textDecoration = TextDecoration.Underline,
-    ),
-    inlineCode = MaterialTheme.typography.body1.copy(fontFamily = FontFamily.Monospace),
-)
+    )
+    val text = MaterialTheme.typography.body1
+    return DefaultMarkdownTypography(
+        h1 = MaterialTheme.typography.title1,
+        h2 = MaterialTheme.typography.title2,
+        h3 = MaterialTheme.typography.title3,
+        h4 = MaterialTheme.typography.caption1,
+        h5 = MaterialTheme.typography.caption2,
+        h6 = MaterialTheme.typography.caption3,
+        text = text,
+        code = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace),
+        quote = MaterialTheme.typography.body2.plus(SpanStyle(fontStyle = FontStyle.Italic)),
+        paragraph = MaterialTheme.typography.body1,
+        ordered = MaterialTheme.typography.body1,
+        bullet = MaterialTheme.typography.body1,
+        list = MaterialTheme.typography.body1,
+        link = link,
+        inlineCode = MaterialTheme.typography.body1.copy(fontFamily = FontFamily.Monospace),
+        textLink = TextLinkStyles(style = link.toSpanStyle()),
+        table = text,
+    )
+}
 
 @Composable
 private fun SampleColors() = DefaultMarkdownColors(
@@ -164,6 +171,8 @@ private fun SampleColors() = DefaultMarkdownColors(
     inlineCodeBackground = MaterialTheme.colors.background,
     dividerColor = MaterialTheme.colors.onSurface.copy(alpha = 0.12f),
     inlineCodeText = LocalContentColor.current,
+    tableText = Color.Unspecified,
+    tableBackground = MaterialTheme.colors.onBackground.copy(alpha = 0.02f),
 )
 
 @Composable

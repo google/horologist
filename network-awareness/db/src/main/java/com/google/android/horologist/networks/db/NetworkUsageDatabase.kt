@@ -57,7 +57,7 @@ public abstract class NetworkUsageDatabase : RoomDatabase() {
                         "networkUsage",
                     )
                         // TODO support migrations
-                        .fallbackToDestructiveMigration()
+                        .fallbackToDestructiveMigration(dropAllTables = true)
                         .apply {
                             if (multiprocess) {
                                 // enabled to support Flow updates between processes

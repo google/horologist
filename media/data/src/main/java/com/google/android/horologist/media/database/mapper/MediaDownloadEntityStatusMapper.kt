@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data.database.mapper
+package com.google.android.horologist.media.database.mapper
 
 import android.annotation.SuppressLint
 import androidx.media3.exoplayer.offline.Download
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
+import com.google.android.horologist.media.database.model.MediaDownloadEntityStatus
 
 /**
- * Functions to map models from other layers and / or packages into a [MediaDownloadEntityStatus].
+ * Functions to map models from other layers and / or packages into a [com.google.android.horologist.media.database.model.MediaDownloadEntityStatus].
  */
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi

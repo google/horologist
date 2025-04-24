@@ -43,7 +43,7 @@ public suspend fun Call.await(): Response {
 
             override fun onResponse(call: Call, response: Response) {
                 if (!cont.isCompleted) {
-                    cont.resume(response, onCancellation = { response.close() })
+                    cont.resume(response, onCancellation = { cause, _, _ -> response.close() })
                 }
             }
         })

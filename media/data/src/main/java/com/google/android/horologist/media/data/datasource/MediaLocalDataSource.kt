@@ -19,10 +19,10 @@ package com.google.android.horologist.media.data.datasource
 import androidx.room.RoomDatabase
 import androidx.room.withTransaction
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.dao.MediaDao
-import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
-import com.google.android.horologist.media.data.database.dao.PlaylistMediaDao
-import com.google.android.horologist.media.data.database.mapper.MediaEntityMapper
+import com.google.android.horologist.media.database.dao.MediaDao
+import com.google.android.horologist.media.database.dao.MediaDownloadDao
+import com.google.android.horologist.media.database.dao.PlaylistMediaDao
+import com.google.android.horologist.media.database.mapper.MediaEntityMapper
 import com.google.android.horologist.media.model.Media
 
 /**

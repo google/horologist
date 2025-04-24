@@ -31,7 +31,7 @@ import androidx.wear.compose.material3.Button
 import androidx.wear.compose.material3.ButtonColors
 import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.Text
-import com.google.android.horologist.audio.ui.material3.R
+import com.google.android.horologist.audio.ui.model.R
 
 @Composable
 public fun DeviceButton(

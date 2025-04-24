@@ -43,6 +43,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.audio.ui.material3.components.toAudioOutputUi
+import com.google.android.horologist.audio.ui.model.R
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Rule

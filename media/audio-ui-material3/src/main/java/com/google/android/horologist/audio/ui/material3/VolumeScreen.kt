@@ -58,6 +58,7 @@ import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.material3.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.material3.components.DeviceButton
 import com.google.android.horologist.audio.ui.material3.components.toAudioOutputUi
+import com.google.android.horologist.audio.ui.model.R
 import kotlin.math.roundToInt
 
 /**

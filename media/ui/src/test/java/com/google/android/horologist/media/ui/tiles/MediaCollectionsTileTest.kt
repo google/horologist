@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.wear.protolayout.ActionBuilders
-import com.google.android.horologist.media.ui.model.R
+import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.uamp.UampColors
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import com.google.android.horologist.screenshots.tiles.TileLayoutPreview
@@ -65,7 +65,7 @@ class MediaCollectionsTileTest : WearLegacyScreenTest() {
 
         val tileState = remember {
             MediaCollectionsTileRenderer.MediaCollectionsState(
-                chipName = R.string.sample_playlists_name,
+                chipName = com.google.android.horologist.media.ui.model.R.string.sample_playlists_name,
                 chipAction = action,
                 collection1 = MediaCollectionsTileRenderer.MediaCollection(
                     name = "Liked Songs",

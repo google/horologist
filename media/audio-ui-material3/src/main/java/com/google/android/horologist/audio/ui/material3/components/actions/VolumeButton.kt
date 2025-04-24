@@ -30,8 +30,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.wear.compose.material3.IconButtonColors
 import com.google.android.horologist.audio.ui.VolumeUiState
-import com.google.android.horologist.audio.ui.material3.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.material3.R
+import com.google.android.horologist.audio.ui.material3.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.model.R as ModelR
 
 /**

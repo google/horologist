@@ -28,6 +28,7 @@ import androidx.compose.ui.test.performClick
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.model.R
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Rule

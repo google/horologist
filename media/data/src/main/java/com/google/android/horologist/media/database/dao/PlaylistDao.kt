@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data.database.dao
+package com.google.android.horologist.media.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -22,14 +22,14 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.model.MediaEntity
-import com.google.android.horologist.media.data.database.model.PlaylistEntity
-import com.google.android.horologist.media.data.database.model.PlaylistMediaEntity
-import com.google.android.horologist.media.data.database.model.PopulatedPlaylist
+import com.google.android.horologist.media.database.model.MediaEntity
+import com.google.android.horologist.media.database.model.PlaylistEntity
+import com.google.android.horologist.media.database.model.PlaylistMediaEntity
+import com.google.android.horologist.media.database.model.PopulatedPlaylist
 import kotlinx.coroutines.flow.Flow
 
 /**
- * DAO for [PlaylistEntity].
+ * DAO for [com.google.android.horologist.media.database.model.PlaylistEntity].
  */
 @ExperimentalHorologistApi
 @Dao

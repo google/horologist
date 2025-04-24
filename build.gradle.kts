@@ -272,35 +272,4 @@ subprojects {
             }
         }
     }
-
-    afterEvaluate {
-        var version: String? = null
-        val composeSnapshot = libs.versions.composesnapshot.get()
-        if (composeSnapshot.length > 1) {
-            // We're depending on a Jetpack Compose snapshot, update the library version name
-            // to indicate it's from a Compose snapshot
-            val versionName = project.properties.get("VERSION_NAME") as String
-            if (versionName.contains("SNAPSHOT")) {
-                version = versionName.replace("-SNAPSHOT", ".compose-${composeSnapshot}-SNAPSHOT")
-            }
-        }
-
-        if (version?.endsWith("SNAPSHOT") == false) {
-            // If we're not a SNAPSHOT library version, we fail the build if we're relying on
-            // any snapshot dependencies
-            configurations.configureEach {
-                dependencies.configureEach {
-                    // We don't care about internal project dependencies
-                    if (this !is ProjectDependency) {
-                        val depVersion = this.version
-                        if (depVersion != null && depVersion.endsWith("SNAPSHOT")) {
-                            throw IllegalArgumentException(
-                                "Using SNAPSHOT dependency with non-SNAPSHOT library version: $this"
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
 }

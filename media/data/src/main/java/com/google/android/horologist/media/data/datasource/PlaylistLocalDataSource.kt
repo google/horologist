@@ -19,12 +19,12 @@ package com.google.android.horologist.media.data.datasource
 import androidx.room.RoomDatabase
 import androidx.room.withTransaction
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.dao.PlaylistDao
-import com.google.android.horologist.media.data.database.dao.PlaylistMediaDao
-import com.google.android.horologist.media.data.database.mapper.MediaEntityMapper
-import com.google.android.horologist.media.data.database.mapper.PlaylistEntityMapper
-import com.google.android.horologist.media.data.database.mapper.PlaylistMediaEntityMapper
-import com.google.android.horologist.media.data.database.model.PopulatedPlaylist
+import com.google.android.horologist.media.database.dao.PlaylistDao
+import com.google.android.horologist.media.database.dao.PlaylistMediaDao
+import com.google.android.horologist.media.database.mapper.MediaEntityMapper
+import com.google.android.horologist.media.database.mapper.PlaylistEntityMapper
+import com.google.android.horologist.media.database.mapper.PlaylistMediaEntityMapper
+import com.google.android.horologist.media.database.model.PopulatedPlaylist
 import com.google.android.horologist.media.model.Playlist
 import kotlinx.coroutines.flow.Flow
 

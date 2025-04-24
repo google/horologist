@@ -24,6 +24,7 @@ package com.google.android.horologist.datalayer.phone {
   }
 
   public final class Version implements java.lang.Comparable<com.google.android.horologist.datalayer.phone.Version> {
+    ctor public Version(java.util.List<java.lang.Integer> inputVersion);
     method public int compareTo(com.google.android.horologist.datalayer.phone.Version other);
     method public java.util.List<java.lang.Integer> component1();
     method public com.google.android.horologist.datalayer.phone.Version copy(java.util.List<java.lang.Integer> inputVersion);

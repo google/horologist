@@ -16,10 +16,10 @@
 
 package com.google.android.horologist.media.data.mapper
 
-import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
-import com.google.android.horologist.media.data.database.model.MediaEntity
-import com.google.android.horologist.media.data.database.model.PlaylistEntity
-import com.google.android.horologist.media.data.database.model.PopulatedPlaylist
+import com.google.android.horologist.media.database.model.MediaDownloadEntity
+import com.google.android.horologist.media.database.model.MediaEntity
+import com.google.android.horologist.media.database.model.PlaylistEntity
+import com.google.android.horologist.media.database.model.PopulatedPlaylist
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.MediaDownload
 import com.google.android.horologist.media.model.Playlist

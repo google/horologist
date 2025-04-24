@@ -26,7 +26,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.audio.ui.R
+import com.google.android.horologist.audio.ui.model.R
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.material.Stepper
 

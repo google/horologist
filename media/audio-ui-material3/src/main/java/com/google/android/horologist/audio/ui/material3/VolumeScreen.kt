@@ -32,8 +32,10 @@ import androidx.compose.material.icons.automirrored.rounded.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
@@ -42,7 +44,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.ButtonDefaults.ButtonExtraLargeIconStartPadding
@@ -58,6 +59,7 @@ import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.material3.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.material3.components.DeviceButton
 import com.google.android.horologist.audio.ui.material3.components.toAudioOutputUi
+import com.google.android.horologist.audio.ui.model.R
 import kotlin.math.roundToInt
 
 /**
@@ -90,7 +92,7 @@ public fun VolumeScreen(
                     volumeUiStateProvider = { volumeViewModel.volumeUiState.value },
                     onRotaryVolumeInput = { newVolume -> volumeViewModel.setVolume(newVolume) },
                 ),
-                focusRequester = rememberActiveFocusRequester(),
+                focusRequester = remember { FocusRequester() },
             ),
         volume = { volumeUiState },
         audioOutputUi = audioOutput.toAudioOutputUi(),

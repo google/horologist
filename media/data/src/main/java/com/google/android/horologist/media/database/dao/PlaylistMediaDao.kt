@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data.database.dao
+package com.google.android.horologist.media.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.model.PlaylistMediaEntity
 
 /**
- * DAO for [PlaylistMediaEntity].
+ * DAO for [com.google.android.horologist.media.database.model.PlaylistMediaEntity].
  */
 @ExperimentalHorologistApi
 @Dao

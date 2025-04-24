@@ -65,7 +65,7 @@ class MediaCollectionsTileTest : WearLegacyScreenTest() {
 
         val tileState = remember {
             MediaCollectionsTileRenderer.MediaCollectionsState(
-                chipName = R.string.sample_playlists_name,
+                chipName = com.google.android.horologist.media.ui.model.R.string.sample_playlists_name,
                 chipAction = action,
                 collection1 = MediaCollectionsTileRenderer.MediaCollection(
                     name = "Liked Songs",

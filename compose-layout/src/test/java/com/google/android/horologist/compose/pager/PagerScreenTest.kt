@@ -28,7 +28,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
@@ -38,9 +40,9 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onParent
 import androidx.test.filters.MediumTest
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.wear.compose.foundation.hierarchicalFocusRequester
 import androidx.wear.compose.foundation.pager.PagerState
 import androidx.wear.compose.foundation.pager.rememberPagerState
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.Text
@@ -77,14 +79,14 @@ class PagerScreenTest {
                 5
             }
             PagerScreen(modifier = Modifier.fillMaxSize(), state = pagerState) { i ->
-                val focusRequester = rememberActiveFocusRequester()
                 val scrollState = rememberScrollState()
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
+                        .hierarchicalFocusRequester()
                         .rotaryScrollable(
                             behavior = behavior(scrollableState = scrollState),
-                            focusRequester = focusRequester,
+                            focusRequester = remember { FocusRequester() },
                         )
                         .verticalScroll(scrollState),
                     verticalArrangement = Arrangement.Center,

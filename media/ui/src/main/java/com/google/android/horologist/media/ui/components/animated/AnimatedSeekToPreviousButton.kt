@@ -26,7 +26,7 @@ import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.model.R
 
 @Composable
 public fun AnimatedSeekToPreviousButton(

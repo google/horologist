@@ -30,6 +30,7 @@ import com.google.android.horologist.audio.AudioOutput.Companion.TYPE_HEADPHONES
 import com.google.android.horologist.audio.AudioOutput.Companion.TYPE_NONE
 import com.google.android.horologist.audio.AudioOutput.Companion.TYPE_WATCH
 import com.google.android.horologist.audio.ui.material3.R
+import com.google.android.horologist.audio.ui.model.R as ModelR
 
 /** UI representation of [AudioOutput]. */
 public data class AudioOutputUi(
@@ -45,8 +46,8 @@ public fun AudioOutput.toAudioOutputUi(): AudioOutputUi {
         return AudioOutputUi(
             displayName =
                 when (type) {
-                    TYPE_WATCH -> stringResource(id = R.string.horologist_speaker_name)
-                    TYPE_NONE -> stringResource(id = R.string.horologist_output_none)
+                    TYPE_WATCH -> stringResource(id = ModelR.string.horologist_speaker_name)
+                    TYPE_NONE -> stringResource(id = ModelR.string.horologist_output_none)
                     else -> name
                 },
             imageVector =
@@ -60,7 +61,7 @@ public fun AudioOutput.toAudioOutputUi(): AudioOutputUi {
         )
     } else {
         return AudioOutputUi(
-            displayName = stringResource(id = R.string.choose_device),
+            displayName = stringResource(id = ModelR.string.choose_device),
             imageVector = Icons.Rounded.Add,
             isConnected = false,
         )

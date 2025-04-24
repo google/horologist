@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.audio.ui.R
+import com.google.android.horologist.audio.ui.model.R
 
 @Composable
 public fun DeviceChip(

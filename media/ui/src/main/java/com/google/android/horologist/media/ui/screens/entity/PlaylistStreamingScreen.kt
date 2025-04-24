@@ -37,7 +37,7 @@ import com.google.android.horologist.compose.layout.rememberActivePlaceholderSta
 import com.google.android.horologist.compose.material.Button
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.images.coil.CoilPaintable
-import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.model.R
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 

@@ -39,12 +39,28 @@ package com.google.android.horologist.networks.db {
     method @androidx.room.Query("UPDATE DataUsage SET bytesTotal = bytesTotal + :bytes WHERE day = :day AND networkType = :networkType") public suspend Object? updateBytes(int day, long bytes, String networkType, kotlin.coroutines.Continuation<? super java.lang.Integer>);
   }
 
-  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class NetworkUsageDao_Impl implements com.google.android.horologist.networks.db.NetworkUsageDao {
-    ctor public NetworkUsageDao_Impl(androidx.room.RoomDatabase);
-    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.networks.db.DataUsage!>!>! getRecords(int);
-    method public static java.util.List<java.lang.Class<? extends java.lang.Object!>!> getRequiredConverters();
-    method public Object! insert(com.google.android.horologist.networks.db.DataUsage!, kotlin.coroutines.Continuation<? super java.lang.Long!>!);
-    method public Object! updateBytes(int, long, String!, kotlin.coroutines.Continuation<? super java.lang.Integer!>!);
+  @javax.annotation.processing.Generated({"androidx.room.RoomProcessor"}) public final class NetworkUsageDao_Impl implements com.google.android.horologist.networks.db.NetworkUsageDao {
+    ctor public NetworkUsageDao_Impl(androidx.room.RoomDatabase __db);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.networks.db.DataUsage>> getRecords(int day);
+    method public suspend Object? insert(com.google.android.horologist.networks.db.DataUsage media, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    method public suspend Object? updateBytes(int day, long bytes, String networkType, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+    field public static final com.google.android.horologist.networks.db.NetworkUsageDao_Impl.Companion Companion;
+  }
+
+  @javax.annotation.processing.Generated({"androidx.room.RoomProcessor"}) public final class NetworkUsageDao_Impl implements com.google.android.horologist.networks.db.NetworkUsageDao {
+    ctor public NetworkUsageDao_Impl(androidx.room.RoomDatabase __db);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.networks.db.DataUsage>> getRecords(int day);
+    method public suspend Object? insert(com.google.android.horologist.networks.db.DataUsage media, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    method public suspend Object? updateBytes(int day, long bytes, String networkType, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+    field public static final com.google.android.horologist.networks.db.NetworkUsageDao_Impl.Companion Companion;
+  }
+
+  public static final class NetworkUsageDao_Impl.Companion {
+    method public java.util.List<kotlin.reflect.KClass<? extends java.lang.Object?>> getRequiredConverters();
+  }
+
+  public static final class NetworkUsageDao_Impl.Companion {
+    method public java.util.List<kotlin.reflect.KClass<? extends java.lang.Object?>> getRequiredConverters();
   }
 
   @androidx.room.Database(entities={DataUsage::class}, version=1, exportSchema=false) @androidx.room.TypeConverters(NetworkUsageDatabase.Converters::class) public abstract class NetworkUsageDatabase extends androidx.room.RoomDatabase {
@@ -63,12 +79,20 @@ package com.google.android.horologist.networks.db {
     method @androidx.room.TypeConverter public java.time.Instant? fromTimestamp(Long? value);
   }
 
-  @javax.annotation.processing.Generated("androidx.room.RoomProcessor") public final class NetworkUsageDatabase_Impl extends com.google.android.horologist.networks.db.NetworkUsageDatabase {
+  @javax.annotation.processing.Generated({"androidx.room.RoomProcessor"}) public final class NetworkUsageDatabase_Impl extends com.google.android.horologist.networks.db.NetworkUsageDatabase {
     ctor public NetworkUsageDatabase_Impl();
     method public void clearAllTables();
     method protected androidx.room.InvalidationTracker createInvalidationTracker();
-    method protected androidx.sqlite.db.SupportSQLiteOpenHelper createOpenHelper(androidx.room.DatabaseConfiguration);
-    method public com.google.android.horologist.networks.db.NetworkUsageDao! networkUsageDao();
+    method protected androidx.room.RoomOpenDelegate createOpenDelegate();
+    method public com.google.android.horologist.networks.db.NetworkUsageDao networkUsageDao();
+  }
+
+  @javax.annotation.processing.Generated({"androidx.room.RoomProcessor"}) public final class NetworkUsageDatabase_Impl extends com.google.android.horologist.networks.db.NetworkUsageDatabase {
+    ctor public NetworkUsageDatabase_Impl();
+    method public void clearAllTables();
+    method protected androidx.room.InvalidationTracker createInvalidationTracker();
+    method protected androidx.room.RoomOpenDelegate createOpenDelegate();
+    method public com.google.android.horologist.networks.db.NetworkUsageDao networkUsageDao();
   }
 
 }

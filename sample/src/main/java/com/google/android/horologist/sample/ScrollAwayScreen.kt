@@ -29,12 +29,14 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.hierarchicalFocusRequester
 import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.Card
@@ -50,13 +52,13 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 @Composable
 fun ScrollScreenLazyColumn(scrollState: LazyListState) {
-    val focusRequester = rememberActiveFocusRequester()
-
     LazyColumn(
-        modifier = Modifier.rotaryScrollable(
-            behavior = behavior(scrollableState = scrollState),
-            focusRequester = focusRequester,
-        ),
+        modifier = Modifier
+            .hierarchicalFocusRequester()
+            .rotaryScrollable(
+                behavior = behavior(scrollableState = scrollState),
+                focusRequester = remember { FocusRequester() },
+            ),
         state = scrollState,
     ) {
         items(3) { i ->
@@ -81,8 +83,6 @@ fun ScrollAwayScreenScalingLazyColumn(
 
 @Composable
 fun ScrollAwayScreenColumn(scrollState: ScrollState) {
-    val focusRequester = rememberActiveFocusRequester()
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = {
@@ -94,9 +94,10 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
     ) {
         Column(
             modifier = Modifier
+                .hierarchicalFocusRequester()
                 .rotaryScrollable(
                     behavior = behavior(scrollableState = scrollState),
-                    focusRequester = focusRequester,
+                    focusRequester = remember { FocusRequester() },
                 )
                 .verticalScroll(scrollState),
         ) {

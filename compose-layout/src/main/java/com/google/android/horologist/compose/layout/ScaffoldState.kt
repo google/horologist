@@ -39,6 +39,17 @@ internal class ScaffoldState {
         screenContent.add(ScreenContent(key, scrollState, timeText))
     }
 
+    fun updateIfNeeded(
+        key: Any,
+        timeText: @Composable (() -> Unit)?,
+        scrollState: ScrollableState?,
+    ) {
+        screenContent.find { it.key == key }?.let {
+            it.timeText.value = timeText
+            it.scrollState.value = scrollState
+        }
+    }
+
     internal val appTimeText: MutableState<(@Composable (() -> Unit))> =
         mutableStateOf({ ResponsiveTimeText() })
     internal val screenContent = mutableStateListOf<ScreenContent>()
@@ -62,11 +73,11 @@ internal class ScaffoldState {
         var resultTimeText: @Composable (() -> Unit)? = null
         var resultState: ScrollableState? = null
         screenContent.forEach {
-            if (it.timeText != null) {
-                resultTimeText = it.timeText
+            if (it.timeText.value != null) {
+                resultTimeText = it.timeText.value
             }
-            if (it.scrollState != null) {
-                resultState = it.scrollState
+            if (it.scrollState.value != null) {
+                resultState = it.scrollState.value
             }
         }
         return Pair(resultState, resultTimeText ?: appTimeText.value)
@@ -74,7 +85,13 @@ internal class ScaffoldState {
 
     internal data class ScreenContent(
         val key: Any,
-        val scrollState: ScrollableState? = null,
-        val timeText: (@Composable () -> Unit)? = null,
-    )
+        val scrollState: MutableState<ScrollableState?> = mutableStateOf(null),
+        val timeText: MutableState<(@Composable () -> Unit)?> = mutableStateOf(null),
+    ) {
+        constructor(
+            key: Any,
+            scrollState: ScrollableState?,
+            timeText: @Composable (() -> Unit)?,
+        ) : this(key, mutableStateOf(scrollState), mutableStateOf(timeText))
+    }
 }

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalWearFoundationApi::class, ExperimentalWearMaterialApi::class)
-
 package com.google.android.horologist.media.ui.material3.components.display
 
 import androidx.compose.foundation.background
@@ -27,9 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.LocalReduceMotion
-import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 import org.robolectric.annotation.Config

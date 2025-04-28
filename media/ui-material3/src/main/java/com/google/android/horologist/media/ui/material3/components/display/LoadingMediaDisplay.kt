@@ -33,7 +33,8 @@ import androidx.wear.compose.material3.placeholderShimmer
 import androidx.wear.compose.material3.rememberPlaceholderState
 import com.google.android.horologist.media.ui.material3.util.ARTIST_DETAILS_HEIGHT
 import com.google.android.horologist.media.ui.material3.util.ARTIST_DETAILS_PLACEHOLDER_WIDTH
-import com.google.android.horologist.media.ui.material3.util.LOADING_MEDIA_INFO_PLACEHOLDER_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.LOADING_MEDIA_INFO_SUBTITLE_PLACEHOLDER_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.LOADING_MEDIA_INFO_TITLE_PLACEHOLDER_HEIGHT
 import com.google.android.horologist.media.ui.material3.util.SONG_TITLE_HEIGHT
 import com.google.android.horologist.media.ui.material3.util.SONG_TITLE_PLACEHOLDER_WIDTH
 
@@ -59,7 +60,7 @@ public fun LoadingMediaDisplay(
             Box(
                 modifier =
                     Modifier.width(SONG_TITLE_PLACEHOLDER_WIDTH)
-                        .height(LOADING_MEDIA_INFO_PLACEHOLDER_HEIGHT)
+                        .height(LOADING_MEDIA_INFO_TITLE_PLACEHOLDER_HEIGHT)
                         .placeholderShimmer(
                             placeholderState = placeholderState,
                             color = colorScheme.onBackground,
@@ -74,7 +75,7 @@ public fun LoadingMediaDisplay(
             Box(
                 modifier =
                     Modifier.width(ARTIST_DETAILS_PLACEHOLDER_WIDTH)
-                        .height(LOADING_MEDIA_INFO_PLACEHOLDER_HEIGHT)
+                        .height(LOADING_MEDIA_INFO_SUBTITLE_PLACEHOLDER_HEIGHT)
                         .placeholderShimmer(
                             placeholderState = placeholderState,
                             color = colorScheme.onBackground,

@@ -18,6 +18,7 @@ package com.google.android.horologist.media.ui.material3.components.display
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,7 +33,7 @@ class MessageMediaDisplayTest : WearLegacyComponentTest() {
     @Test
     fun default() {
         runComponentTest {
-            MessageMediaDisplay(modifier = Modifier.alpha(0.5f), "Test")
+            MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "Test")
         }
     }
 
@@ -40,7 +41,7 @@ class MessageMediaDisplayTest : WearLegacyComponentTest() {
     fun messageMediaDisplay_whenEmptyMessage() {
         runComponentTest {
             DisplayArea {
-                MessageMediaDisplay(modifier = Modifier.alpha(0.5f), "")
+                MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "")
             }
         }
     }
@@ -52,7 +53,7 @@ class MessageMediaDisplayTest : WearLegacyComponentTest() {
     fun messageMediaDisplay_whenSmallScreen() {
         runComponentTest {
             DisplayArea {
-                MessageMediaDisplay(modifier = Modifier.alpha(0.5f), "David Mode")
+                MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "David Mode")
             }
         }
     }
@@ -61,7 +62,7 @@ class MessageMediaDisplayTest : WearLegacyComponentTest() {
     fun messageMediaDisplay_whenLargeScreen() {
         runComponentTest {
             DisplayArea {
-                MessageMediaDisplay(modifier = Modifier.alpha(0.5f), "David Mode")
+                MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "David Mode")
             }
         }
     }

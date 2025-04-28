@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.ui.material3.components.display
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -41,7 +40,7 @@ public fun MessageMediaDisplay(
     message: String,
 ) {
     val isLargeScreen = LocalConfiguration.current.isLargeScreen
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
         MarqueeText(
             text = message,
             modifier = Modifier

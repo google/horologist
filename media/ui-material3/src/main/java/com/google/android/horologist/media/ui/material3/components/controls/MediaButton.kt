@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.ui.material3.components.controls
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Forward10
@@ -61,7 +60,7 @@ public fun MediaButton(
 ) {
     IconButton(
         onClick = onClick,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
         enabled = enabled,
         colors = colors,
         border = border,

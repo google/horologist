@@ -1,1 +1,141 @@
 // Signature format: 4.0
+package com.google.android.horologist.media.ui.material3.colorscheme {
+
+  public final class AnimatedColorScheme {
+    ctor public AnimatedColorScheme(androidx.wear.compose.material3.ColorScheme initialColorScheme);
+    method public suspend Object? animateTo(androidx.wear.compose.material3.ColorScheme targetColorScheme, androidx.compose.animation.core.AnimationSpec<java.lang.Float> animationSpec, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public long getBackground();
+    method public long getError();
+    method public long getErrorContainer();
+    method public long getOnBackground();
+    method public long getOnError();
+    method public long getOnErrorContainer();
+    method public long getOnPrimary();
+    method public long getOnPrimaryContainer();
+    method public long getOnSecondary();
+    method public long getOnSecondaryContainer();
+    method public long getOnSurface();
+    method public long getOnSurfaceVariant();
+    method public long getOnTertiary();
+    method public long getOnTertiaryContainer();
+    method public long getOutline();
+    method public long getOutlineVariant();
+    method public long getPrimary();
+    method public long getPrimaryContainer();
+    method public long getPrimaryDim();
+    method public long getSecondary();
+    method public long getSecondaryContainer();
+    method public long getSecondaryDim();
+    method public long getSurfaceContainer();
+    method public long getSurfaceContainerHigh();
+    method public long getSurfaceContainerLow();
+    method public long getTertiary();
+    method public long getTertiaryContainer();
+    method public long getTertiaryDim();
+    method public boolean isRunning();
+    property public final long background;
+    property public final long error;
+    property public final long errorContainer;
+    property public final long onBackground;
+    property public final long onError;
+    property public final long onErrorContainer;
+    property public final long onPrimary;
+    property public final long onPrimaryContainer;
+    property public final long onSecondary;
+    property public final long onSecondaryContainer;
+    property public final long onSurface;
+    property public final long onSurfaceVariant;
+    property public final long onTertiary;
+    property public final long onTertiaryContainer;
+    property public final long outline;
+    property public final long outlineVariant;
+    property public final long primary;
+    property public final long primaryContainer;
+    property public final long primaryDim;
+    property public final long secondary;
+    property public final long secondaryContainer;
+    property public final long secondaryDim;
+    property public final long surfaceContainer;
+    property public final long surfaceContainerHigh;
+    property public final long surfaceContainerLow;
+    property public final long tertiary;
+    property public final long tertiaryContainer;
+    property public final long tertiaryDim;
+  }
+
+}
+
+package com.google.android.horologist.media.ui.material3.components.controls {
+
+  public final class MediaButtonDefaults {
+    method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors mediaButtonAmbientColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors mediaButtonDefaultColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors playPauseButtonDefaultColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method public androidx.compose.ui.graphics.vector.ImageVector seekBackIcon(com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement);
+    method public androidx.compose.ui.graphics.vector.ImageVector seekForwardIcon(com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement);
+    field public static final com.google.android.horologist.media.ui.material3.components.controls.MediaButtonDefaults INSTANCE;
+  }
+
+  public final class MediaButtonKt {
+    method @androidx.compose.runtime.Composable public static void MediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector icon, String contentDescription, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional float iconSize, optional androidx.compose.ui.Alignment iconAlign, optional androidx.wear.compose.material3.IconButtonColors colors, optional androidx.compose.foundation.BorderStroke? border);
+  }
+
+  public final class PauseButtonKt {
+    method @androidx.compose.runtime.Composable public static void PauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional String contentDescription, optional float iconSize, optional androidx.wear.compose.material3.IconButtonColors colors);
+  }
+
+  public final class PlayButtonKt {
+    method @androidx.compose.runtime.Composable public static void PlayButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional String contentDescription, optional float iconSize, optional androidx.wear.compose.material3.IconButtonColors colors);
+  }
+
+  public final class SeekBackButtonKt {
+    method @androidx.compose.runtime.Composable public static void SeekBackButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector icon, optional boolean enabled, optional float iconSize, optional androidx.wear.compose.material3.IconButtonColors colors);
+  }
+
+  public final class SeekForwardButtonKt {
+    method @androidx.compose.runtime.Composable public static void SeekForwardButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector icon, optional boolean enabled, optional float iconSize, optional androidx.wear.compose.material3.IconButtonColors colors);
+  }
+
+  public final class SeekToNextButtonKt {
+    method @androidx.compose.runtime.Composable public static void SeekToNextButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional String contentDescription, optional float iconSize, optional androidx.wear.compose.material3.IconButtonColors colors);
+  }
+
+  public final class SeekToPreviousButtonKt {
+    method @androidx.compose.runtime.Composable public static void SeekToPreviousButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional String contentDescription, optional float iconSize, optional androidx.wear.compose.material3.IconButtonColors colors);
+  }
+
+}
+
+package com.google.android.horologist.media.ui.material3.components.display {
+
+  public final class LoadingMediaDisplayKt {
+    method @androidx.compose.runtime.Composable public static void LoadingMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.PlaceholderState placeholderState, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+  }
+
+  public final class MessageMediaDisplayKt {
+    method @androidx.compose.runtime.Composable public static void MessageMediaDisplay(optional androidx.compose.ui.Modifier modifier, String message);
+  }
+
+  public final class NothingPlayingDisplayKt {
+    method @androidx.compose.runtime.Composable public static void NothingPlayingDisplay(optional androidx.compose.ui.Modifier modifier);
+  }
+
+  public final class TextMediaDisplayKt {
+    method @androidx.compose.runtime.Composable public static void TextMediaDisplay(String title, String subtitle, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon);
+  }
+
+  public final class TrackMediaDisplayKt {
+    method @androidx.compose.runtime.Composable public static void TrackMediaDisplay(com.google.android.horologist.media.ui.state.model.MediaUiModel.Ready media, optional androidx.compose.ui.Modifier modifier);
+  }
+
+}
+
+package com.google.android.horologist.media.ui.material3.composables {
+
+  public final class MarqueeTextKt {
+    method @androidx.compose.runtime.Composable public static void MarqueeText(androidx.compose.ui.text.AnnotatedString text, optional androidx.compose.ui.Modifier modifier, optional java.util.Map<java.lang.String,androidx.compose.foundation.text.InlineTextContent> inlineContent, optional long color, optional androidx.compose.ui.text.TextStyle style, optional int textAlign, optional float followGap, optional float edgeGradientWidth, optional float startGap, optional float marqueeDpPerSecond, optional long pauseTime);
+    method @androidx.compose.runtime.Composable public static void MarqueeText(String text, optional androidx.compose.ui.Modifier modifier, optional long color, optional androidx.compose.ui.text.TextStyle style, optional int textAlign, optional float followGap, optional float edgeGradientWidth, optional float startGap, optional float marqueeDpPerSecond, optional long pauseTime);
+  }
+
+}
+

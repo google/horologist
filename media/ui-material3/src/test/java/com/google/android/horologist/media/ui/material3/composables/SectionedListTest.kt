@@ -212,6 +212,7 @@ class SectionedListTest : WearLegacyScreenTest() {
         fun DownloadsLoading() {
             PlaceholderButton(
                 modifier = Modifier.fillMaxWidth(),
+                enabled = true,
                 colors = ButtonDefaults.filledTonalButtonColors(),
             )
         }
@@ -293,7 +294,11 @@ class SectionedListTest : WearLegacyScreenTest() {
 
         @Composable
         private fun FavouritesLoading() {
-            PlaceholderButton(colors = ButtonDefaults.filledTonalButtonColors())
+            PlaceholderButton(
+                modifier = Modifier.fillMaxWidth(),
+                enabled = true,
+                colors = ButtonDefaults.filledTonalButtonColors(),
+            )
         }
 
         @Composable

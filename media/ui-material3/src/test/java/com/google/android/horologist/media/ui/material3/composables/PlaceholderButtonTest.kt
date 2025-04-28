@@ -30,7 +30,7 @@ class PlaceholderButtonTest : WearLegacyComponentTest() {
     @Test
     fun default() {
         runComponentTest {
-            PlaceholderButton(modifier = Modifier.fillMaxWidth())
+            PlaceholderButton(modifier = Modifier.fillMaxWidth(), enabled = true)
         }
     }
 
@@ -39,6 +39,7 @@ class PlaceholderButtonTest : WearLegacyComponentTest() {
         runComponentTest {
             PlaceholderButton(
                 modifier = Modifier.fillMaxWidth(),
+                enabled = true,
                 colors = ButtonDefaults.filledTonalButtonColors(),
             )
         }

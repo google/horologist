@@ -66,7 +66,7 @@ public fun <T> PlaylistsScreen(
 
     // TODO This should be folded into SectionedList
     val placeholderState =
-        rememberPlaceholderState(playlistsScreenState !is PlaylistsScreenState.Loading)
+        rememberPlaceholderState(playlistsScreenState is PlaylistsScreenState.Loading)
 
     ScreenScaffold(scrollState = scrollState) {
         SectionedList(

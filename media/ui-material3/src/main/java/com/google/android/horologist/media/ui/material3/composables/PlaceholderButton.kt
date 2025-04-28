@@ -46,7 +46,7 @@ import com.google.android.horologist.composables.R
 public fun PlaceholderButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
-    placeholderState: PlaceholderState = rememberPlaceholderState(false),
+    placeholderState: PlaceholderState = rememberPlaceholderState(true),
     secondaryLabel: Boolean = true,
     icon: Boolean = true,
     colors: ButtonColors = ButtonDefaults.buttonColors(),

@@ -27,6 +27,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -148,7 +149,10 @@ class SectionedListTest : WearLegacyScreenTest() {
             val scrollState = rememberScalingLazyListState()
 
             ScreenScaffold(scrollState = scrollState) {
-                SectionedList(scrollState = scrollState) {
+                SectionedList(
+                    scrollState = scrollState,
+                    modifier = Modifier.fillMaxWidth().align(Alignment.TopCenter)
+                ) {
                     section {
                         header { Text("Section 1") }
                         loaded { Text("Item 1") }

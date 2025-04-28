@@ -68,7 +68,7 @@ public fun PlaylistStreamingScreen(
 
     // TODO This should be folded into SectionedList
     val placeholderState =
-        rememberPlaceholderState(entityScreenState !is EntityScreenState.Loading)
+        rememberPlaceholderState(entityScreenState is EntityScreenState.Loading)
 
     EntityScreen(
         entityScreenState = entityScreenState,

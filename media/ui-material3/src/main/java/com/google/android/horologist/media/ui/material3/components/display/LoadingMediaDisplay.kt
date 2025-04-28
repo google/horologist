@@ -63,7 +63,7 @@ public fun LoadingMediaDisplay(
                         .height(TRACK_TITLE_PLACEHOLDER_HEIGHT)
                         .placeholderShimmer(
                             placeholderState = placeholderState,
-                            color = colorScheme.onBackground,
+                            color = colorScheme.outlineVariant,
                         )
                         .placeholder(placeholderState = placeholderState, color = colorScheme.onPrimary),
             )
@@ -78,7 +78,7 @@ public fun LoadingMediaDisplay(
                         .height(TRACK_SUBTITLE_PLACEHOLDER_HEIGHT)
                         .placeholderShimmer(
                             placeholderState = placeholderState,
-                            color = colorScheme.onBackground,
+                            color = colorScheme.outlineVariant,
                         )
                         .placeholder(placeholderState = placeholderState, color = colorScheme.onPrimary),
             )

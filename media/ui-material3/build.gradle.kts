@@ -157,6 +157,7 @@ dependencies {
     testImplementation(projects.media.audioUiMaterial3)
     testImplementation(projects.roboscreenshots)
     testImplementation(projects.logo)
+    testImplementation(libs.androidx.wear.compose.material3)
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.androidx.test.espressocore)
     testImplementation(libs.androidx.test.ext)

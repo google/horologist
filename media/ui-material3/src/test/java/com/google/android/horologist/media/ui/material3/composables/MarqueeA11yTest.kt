@@ -47,6 +47,7 @@ class MarqueeA11yTest : WearLegacyA11yTest() {
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .width(192.dp),
+            startGap = 0.dp,
         )
     }
 }

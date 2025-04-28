@@ -102,6 +102,7 @@ class MarqueeTest : WearLegacyScreenTest() {
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .width(192.dp),
+            startGap = 0.dp,
         )
     }
 }

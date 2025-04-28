@@ -16,8 +16,10 @@
 
 package com.google.android.horologist.media.ui.material3.composables
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.LocalReduceMotion
 import androidx.wear.compose.material3.ButtonDefaults
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
@@ -28,14 +30,17 @@ class PlaceholderButtonTest : WearLegacyComponentTest() {
     @Test
     fun default() {
         runComponentTest {
-            PlaceholderButton()
+            PlaceholderButton(modifier = Modifier.fillMaxWidth())
         }
     }
 
     @Test
     fun secondaryColors() {
         runComponentTest {
-            PlaceholderButton(colors = ButtonDefaults.filledTonalButtonColors())
+            PlaceholderButton(
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.filledTonalButtonColors()
+            )
         }
     }
 

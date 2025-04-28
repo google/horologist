@@ -35,6 +35,7 @@ class SeekBackButtonA11yTest : WearLegacyA11yTest() {
                 SeekBackButton(
                     onClick = {},
                     seekButtonIncrement = SeekButtonIncrement.Five,
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
         }
@@ -47,6 +48,7 @@ class SeekBackButtonA11yTest : WearLegacyA11yTest() {
                 SeekBackButton(
                     onClick = {},
                     seekButtonIncrement = SeekButtonIncrement.Ten,
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
         }
@@ -59,6 +61,7 @@ class SeekBackButtonA11yTest : WearLegacyA11yTest() {
                 SeekBackButton(
                     onClick = {},
                     seekButtonIncrement = SeekButtonIncrement.Thirty,
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
         }
@@ -71,6 +74,7 @@ class SeekBackButtonA11yTest : WearLegacyA11yTest() {
                 SeekBackButton(
                     onClick = {},
                     seekButtonIncrement = SeekButtonIncrement.Known(15),
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
         }
@@ -83,6 +87,7 @@ class SeekBackButtonA11yTest : WearLegacyA11yTest() {
                 SeekBackButton(
                     onClick = {},
                     seekButtonIncrement = SeekButtonIncrement.Unknown,
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
         }

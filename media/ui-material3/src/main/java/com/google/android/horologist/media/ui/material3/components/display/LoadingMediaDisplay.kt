@@ -31,12 +31,12 @@ import androidx.wear.compose.material3.PlaceholderState
 import androidx.wear.compose.material3.placeholder
 import androidx.wear.compose.material3.placeholderShimmer
 import androidx.wear.compose.material3.rememberPlaceholderState
-import com.google.android.horologist.media.ui.material3.util.ARTIST_DETAILS_HEIGHT
-import com.google.android.horologist.media.ui.material3.util.ARTIST_DETAILS_PLACEHOLDER_WIDTH
-import com.google.android.horologist.media.ui.material3.util.LOADING_MEDIA_INFO_SUBTITLE_PLACEHOLDER_HEIGHT
-import com.google.android.horologist.media.ui.material3.util.LOADING_MEDIA_INFO_TITLE_PLACEHOLDER_HEIGHT
-import com.google.android.horologist.media.ui.material3.util.SONG_TITLE_HEIGHT
-import com.google.android.horologist.media.ui.material3.util.SONG_TITLE_PLACEHOLDER_WIDTH
+import com.google.android.horologist.media.ui.material3.util.TRACK_SUBTITLE_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.TRACK_SUBTITLE_PLACEHOLDER_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.TRACK_SUBTITLE_PLACEHOLDER_WIDTH
+import com.google.android.horologist.media.ui.material3.util.TRACK_TITLE_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.TRACK_TITLE_PLACEHOLDER_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.TRACK_TITLE_PLACEHOLDER_WIDTH
 
 /**
  * A loading state display. This style is matched to the Text of [TextMediaDisplay] as
@@ -54,13 +54,13 @@ public fun LoadingMediaDisplay(
         verticalArrangement = Arrangement.Center,
     ) {
         Box(
-            modifier = Modifier.fillMaxWidth().height(SONG_TITLE_HEIGHT),
+            modifier = Modifier.fillMaxWidth().height(TRACK_TITLE_HEIGHT),
             contentAlignment = Alignment.Center,
         ) {
             Box(
                 modifier =
-                    Modifier.width(SONG_TITLE_PLACEHOLDER_WIDTH)
-                        .height(LOADING_MEDIA_INFO_TITLE_PLACEHOLDER_HEIGHT)
+                    Modifier.width(TRACK_TITLE_PLACEHOLDER_WIDTH)
+                        .height(TRACK_TITLE_PLACEHOLDER_HEIGHT)
                         .placeholderShimmer(
                             placeholderState = placeholderState,
                             color = colorScheme.onBackground,
@@ -69,13 +69,13 @@ public fun LoadingMediaDisplay(
             )
         }
         Box(
-            modifier = Modifier.fillMaxWidth().height(ARTIST_DETAILS_HEIGHT),
+            modifier = Modifier.fillMaxWidth().height(TRACK_SUBTITLE_HEIGHT),
             contentAlignment = Alignment.Center,
         ) {
             Box(
                 modifier =
-                    Modifier.width(ARTIST_DETAILS_PLACEHOLDER_WIDTH)
-                        .height(LOADING_MEDIA_INFO_SUBTITLE_PLACEHOLDER_HEIGHT)
+                    Modifier.width(TRACK_SUBTITLE_PLACEHOLDER_WIDTH)
+                        .height(TRACK_SUBTITLE_PLACEHOLDER_HEIGHT)
                         .placeholderShimmer(
                             placeholderState = placeholderState,
                             color = colorScheme.onBackground,

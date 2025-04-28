@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.ui.material3.components.display
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -30,6 +29,6 @@ import com.google.android.horologist.media.ui.model.R
 public fun NothingPlayingDisplay(modifier: Modifier = Modifier) {
     MessageMediaDisplay(
         message = stringResource(R.string.horologist_nothing_playing),
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
     )
 }

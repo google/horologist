@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.ui.material3.components.controls
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -46,7 +45,7 @@ public fun SeekToPreviousButton(
             com.google.android.horologist.media.ui.material3.R.drawable.rounded_skip_previous_24,
         ),
         contentDescription = contentDescription,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
         enabled = enabled,
         colorScheme = colorScheme,
         iconSize = iconSize,

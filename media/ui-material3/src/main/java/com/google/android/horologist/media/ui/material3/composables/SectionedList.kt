@@ -31,7 +31,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @Composable
 public fun SectionedList(
     modifier: Modifier = Modifier,
-    scrollState: ScalingLazyListState, //TODO: Migrate to TransformingLazyColumnState
+    scrollState: ScalingLazyListState, // TODO: Migrate to TransformingLazyColumnState
     content: SectionedListScope.() -> Unit,
 ) {
     SectionedList(

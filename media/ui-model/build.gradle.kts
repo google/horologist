@@ -101,12 +101,9 @@ metalava {
 
 dependencies {
     api(projects.media.core)
-    api(projects.tiles)
-    api(libs.wearcompose.navigation)
-    implementation(projects.composeLayout)
     implementation(projects.images.coil)
+    implementation(libs.compose.animation.animationgraphics)
     implementation(libs.androidx.lifecycle.viewmodelktx)
-    implementation(libs.androidx.complications.datasource.ktx)
     implementation(project(":media:audio"))
 
     testImplementation(libs.androidx.test.ext.ktx)

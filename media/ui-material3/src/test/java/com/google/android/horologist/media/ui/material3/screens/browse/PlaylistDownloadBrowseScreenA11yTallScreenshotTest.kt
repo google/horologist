@@ -18,10 +18,6 @@
 
 package com.google.android.horologist.media.ui.material3.screens.browse
 
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams
-import androidx.wear.compose.foundation.lazy.ScalingLazyListItemInfo
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.foundation.lazy.ScalingParams
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material3.ScreenScaffold
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils

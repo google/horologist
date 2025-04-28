@@ -39,7 +39,7 @@ class PlaceholderButtonTest : WearLegacyComponentTest() {
         runComponentTest {
             PlaceholderButton(
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.filledTonalButtonColors()
+                colors = ButtonDefaults.filledTonalButtonColors(),
             )
         }
     }

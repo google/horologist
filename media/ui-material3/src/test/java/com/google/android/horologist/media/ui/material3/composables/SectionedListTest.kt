@@ -208,7 +208,7 @@ class SectionedListTest : WearLegacyScreenTest() {
         fun DownloadsLoading() {
             PlaceholderButton(
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.filledTonalButtonColors()
+                colors = ButtonDefaults.filledTonalButtonColors(),
             )
         }
 

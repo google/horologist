@@ -151,7 +151,7 @@ class SectionedListTest : WearLegacyScreenTest() {
             ScreenScaffold(scrollState = scrollState) {
                 SectionedList(
                     scrollState = scrollState,
-                    modifier = Modifier.fillMaxWidth().align(Alignment.TopCenter)
+                    modifier = Modifier.fillMaxWidth().align(Alignment.TopCenter),
                 ) {
                     section {
                         header { Text("Section 1") }

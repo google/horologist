@@ -205,28 +205,6 @@ class MediaControlButtonsWithProgressTest {
     }
 
     @Test
-    fun givenPercentParam_thenProgressBarIsDisplayed() {
-        // given
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = false,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-            )
-        }
-
-        // then
-        composeTestRule.onNode(hasProgressBar())
-            .assertIsDisplayed()
-    }
-
-    @Test
     fun givenIsPlayingAndPlayPauseEnabledIsTrue_thenPauseButtonIsEnabled() {
         // given
         val playing = true

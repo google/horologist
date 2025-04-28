@@ -16,12 +16,13 @@
 
 package com.google.android.horologist.media.ui.material3.components
 
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
-import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -87,5 +88,10 @@ class PlayPauseButtonTest {
 
         composeTestRule.onNode(hasProgressBar())
             .assertDoesNotExist()
+    }
+
+    companion object {
+        fun hasProgressBar(): SemanticsMatcher =
+            SemanticsMatcher.keyIsDefined(SemanticsProperties.ProgressBarRangeInfo)
     }
 }

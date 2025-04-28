@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.ui.material3.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -35,16 +34,13 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.material3.VolumeScreen
-import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.media.ui.material3.screens.playerlibrarypager.PlayerLibraryPagerScreen
-import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
 
 /**
  * A UI scaffold for a Media Player with a subset of the following screens. Structure is a ViewPager
  * with [playerScreen] and [libraryScreen], with navigation to other screens.
  *
  * @param modifier The modifier to be applied to the component
- * @param snackbarViewModel Stateful view model for snackbar
  * @param volumeViewModel Stateful view model for volume screens
  * @param playerScreen the first screen with player controls.
  * @param libraryScreen the long scrolling library top screen.
@@ -61,7 +57,6 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
  */
 @Composable
 public fun MediaPlayerScaffold(
-    snackbarViewModel: SnackbarViewModel,
     volumeViewModel: VolumeViewModel,
     playerScreen: @Composable () -> Unit,
     libraryScreen: @Composable () -> Unit,
@@ -150,10 +145,5 @@ public fun MediaPlayerScaffold(
 
             additionalNavRoutes()
         }
-
-        DialogSnackbarHost(
-            modifier = Modifier.fillMaxSize(),
-            hostState = snackbarViewModel.snackbarHostState,
-        )
     }
 }

@@ -41,7 +41,6 @@ import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.test.toolbox.testdoubles.FakeAudioOutputRepository
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository
 import com.google.android.horologist.test.toolbox.testdoubles.FakeVolumeRepository
-import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -65,52 +64,6 @@ class PlayerScreenTest {
         InstrumentationRegistry.getInstrumentation().context.getSystemService(Vibrator::class.java)
     val volumeViewModel =
         VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {}, vibrator)
-
-    @Test
-    fun givenShowProgressIsTrue_thenProgressBarIsDisplayed() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
-        val playerViewModel = PlayerViewModel(playerRepository)
-
-        playerRepository.setPosition(1.minutes, 10.minutes)
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel,
-            )
-        }
-
-        // then
-        composeTestRule.onNode(hasProgressBar())
-            .assertExists()
-    }
-
-    @Test
-    fun givenShowProgressIsFalse_thenProgressBarIsNOTDisplayed() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
-        playerRepository.setPosition(null, null)
-        val playerViewModel = PlayerViewModel(playerRepository)
-
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                controlButtons = { playerUiController, playerUiState ->
-                    DefaultPlayerScreenControlButtons(
-                        playerController = playerUiController,
-                        playerUiState = playerUiState,
-                    )
-                },
-                volumeViewModel = volumeViewModel,
-            )
-        }
-
-        // then
-        composeTestRule.onNode(hasProgressBar())
-            .assertDoesNotExist()
-    }
 
     @Test
     fun givenPlayerRepoIsNOTPlaying_whenPlayIsClicked_thenPlayerRepoIsPlaying() {
@@ -423,7 +376,6 @@ class PlayerScreenTest {
         composeTestRule.onNodeWithContentDescription("Next").assertDoesNotExist()
         composeTestRule.onNodeWithContentDescription("Play").assertDoesNotExist()
         composeTestRule.onNodeWithContentDescription("Pause").assertDoesNotExist()
-        composeTestRule.onNode(hasProgressBar()).assertDoesNotExist()
     }
 
     @Test

@@ -26,7 +26,6 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 /**
  * A display implementation that shows the track information, loading or nothing playing.
  */
-
 @Composable
 public fun MediaInfoDisplay(media: MediaUiModel?, loading: Boolean, modifier: Modifier = Modifier) {
     if (loading) {

@@ -35,9 +35,9 @@ import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.material3.components.controls.MediaTitleIcon
-import com.google.android.horologist.media.ui.material3.util.ARTIST_DETAILS_HEIGHT
 import com.google.android.horologist.media.ui.material3.util.MEDIA_TITLE_ICON_SIZE
-import com.google.android.horologist.media.ui.material3.util.SONG_TITLE_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.TRACK_SUBTITLE_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.TRACK_TITLE_HEIGHT
 
 /**
  * A simple text only display showing artist and title in two separated rows.
@@ -57,7 +57,7 @@ public fun TextMediaDisplay(
         Row(
             modifier = Modifier.fillMaxWidth(
                 if (titleIcon != null) 0.66f else 0.6672f,
-            ).height(SONG_TITLE_HEIGHT),
+            ).height(TRACK_TITLE_HEIGHT),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -80,7 +80,7 @@ public fun TextMediaDisplay(
         Row(
             modifier = Modifier.fillMaxWidth(
                 if (titleIcon != null) 0.71f else 0.75f,
-            ).height(ARTIST_DETAILS_HEIGHT),
+            ).height(TRACK_SUBTITLE_HEIGHT),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {

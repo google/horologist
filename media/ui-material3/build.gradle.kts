@@ -108,9 +108,10 @@ dependencies {
     api(projects.composables)
     api(libs.androidx.wear.compose.material3)
     api(libs.wearcompose.foundation)
+    api(libs.wearcompose.navigation)
 
     implementation(projects.media.audio)
-    implementation(projects.media.audioUi)
+    implementation(projects.media.audioUiMaterial3)
     implementation(projects.composeLayout)
     implementation(projects.images.coil)
     implementation(projects.tiles)
@@ -118,6 +119,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.core)
 
     implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.graphics.shapes)
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodelktx)

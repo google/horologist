@@ -24,6 +24,7 @@ public data class VolumeUiState(
     val max: Int = 1,
     val min: Int = 0,
 ) {
+    private var unknown = false
 
     public val isMax: Boolean
         get() = current >= max
@@ -32,6 +33,14 @@ public data class VolumeUiState(
         get() = current == min
 
     public companion object {
-        public val Unknown: VolumeUiState = VolumeUiState(current = -1, max = -1, min = -1)
+        /** Represents an unknown [VolumeUiState].
+         *
+         * Since this is not a type but an instance of [VolumeUiState] the members are intentionally
+         * as they are are, current=0, max=1, min=0, in case this is accidentally interpreted as
+         * a known volume. This will prevent potential issues such as division by zero, negativeranges etc.
+         */
+        public val Unknown: VolumeUiState = VolumeUiState(current = 0, max = 1, min = 0)
+          .also { it.unknown = true } // Set unknown here to guarantee equality check to be correct
     }
 }
+

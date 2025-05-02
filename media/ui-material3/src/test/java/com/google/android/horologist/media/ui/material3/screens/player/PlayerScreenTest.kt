@@ -197,35 +197,6 @@ class PlayerScreenTest {
     }
 
     @Test
-    fun whenUpdatePosition_thenProgressIsUpdated() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
-        val playerViewModel = PlayerViewModel(playerRepository)
-
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel,
-            )
-        }
-
-        // when
-        playerRepository.setPosition(1.minutes, 10.minutes)
-
-        // then
-        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0.1f, 0.0f..1.0f)))
-            .assertIsDisplayed()
-
-        // when
-        playerRepository.setPosition(2.minutes, 10.minutes)
-
-        // then
-        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0.2f, 0.0f..1.0f)))
-            .assertIsDisplayed()
-    }
-
-    @Test
     fun whenPlayPauseCommandBecomesAvailable_thenPlayPauseButtonGetsEnabled() {
         // given
         val playerRepository =

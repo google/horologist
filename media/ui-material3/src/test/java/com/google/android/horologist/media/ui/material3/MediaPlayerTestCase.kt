@@ -101,6 +101,11 @@ fun MediaPlayerTestCase(
                 } else {
                     SettingsButtonDefaults.buttonColors()
                 },
+                border = if (isAmbientModeEnabled) {
+                    SettingsButtonDefaults.outlinedButtonBorder()
+                } else {
+                    null
+                },
             )
             SettingsButton(
                 onClick = { },
@@ -111,6 +116,11 @@ fun MediaPlayerTestCase(
                     SettingsButtonDefaults.ambientButtonColors()
                 } else {
                     SettingsButtonDefaults.buttonColors()
+                },
+                border = if (isAmbientModeEnabled) {
+                    SettingsButtonDefaults.outlinedButtonBorder()
+                } else {
+                    null
                 },
             )
         }

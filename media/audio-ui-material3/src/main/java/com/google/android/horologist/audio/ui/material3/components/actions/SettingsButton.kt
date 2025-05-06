@@ -161,6 +161,12 @@ public object SettingsButtonDefaults {
             disabledContainerColor = Color.Transparent,
             disabledContentColor = colorScheme.onSurface,
         )
+
+    @Composable
+    public fun outlinedButtonBorder(
+        colorScheme: ColorScheme = MaterialTheme.colorScheme,
+    ): BorderStroke =
+        BorderStroke(1.dp, colorScheme.onSurface.toDisabledColor(DisabledContentAlpha))
 }
 
 @Composable

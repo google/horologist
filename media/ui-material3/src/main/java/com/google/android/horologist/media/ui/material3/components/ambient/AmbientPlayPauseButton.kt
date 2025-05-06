@@ -52,7 +52,7 @@ import com.google.android.horologist.media.ui.material3.util.isLargeScreen
  * @param onPlayClick Callback to invoke when the play button is clicked.
  * @param onPauseClick Callback to invoke when the pause button is clicked.
  * @param playing Whether the button should be in the play or pause state.
- * @param colorScheme The color scheme used for the button.
+ * @param colorScheme The [ColorScheme] used for the button.
  * @param modifier The modifier to apply to the button.
  * @param enabled Whether the button is enabled.
  * @param iconSize The size of the icon.
@@ -76,9 +76,10 @@ public fun AmbientPlayPauseButton(
             SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
         }
     }
-    val scallopHeight = remember(density, scallopSize) { with(density) { scallopSize.toPx() } }
+    val scallopHeight =
+        remember(scallopSize) { with(density) { (scallopSize - 1.dp).toPx() } }
 
-    val scallopPolygon = remember(density, scallopSize, scallopHeight) {
+    val scallopPolygon = remember(scallopSize, scallopHeight) {
         PlayPauseButtonDefaults.indicatorScallopPolygon(density, scallopSize)
             .scaleToSize(scallopHeight)
     }
@@ -105,17 +106,19 @@ public fun AmbientPlayPauseButton(
 
     Box(
         modifier =
-            modifier.fillMaxSize().drawBehind {
-                val centerX = size.width / 2f
-                val centerY = size.height / 2f
+            modifier
+                .fillMaxSize()
+                .drawBehind {
+                    val centerX = size.width / 2f
+                    val centerY = size.height / 2f
 
-                val translatedPath = Path().apply { addPath(path, Offset(centerX, centerY)) }
-                drawPath(
-                    path = translatedPath,
-                    color = colorScheme.primaryDim,
-                    style = Stroke(1.dp.toPx(), cap = StrokeCap.Round),
-                )
-            },
+                    val translatedPath = Path().apply { addPath(path, Offset(centerX, centerY)) }
+                    drawPath(
+                        path = translatedPath,
+                        color = colorScheme.primaryDim,
+                        style = Stroke(1.dp.toPx(), cap = StrokeCap.Round),
+                    )
+                },
         contentAlignment = Alignment.Center,
     ) {
         if (playing) {

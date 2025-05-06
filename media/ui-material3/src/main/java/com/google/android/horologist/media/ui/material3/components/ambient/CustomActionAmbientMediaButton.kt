@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
@@ -42,11 +43,13 @@ import com.google.android.horologist.media.ui.material3.components.controls.Medi
  * @param enabled Controls the enabled state of the button. When `false`, this button will not be
  *   clickable (Optional).
  * @param shape Defines the shape for this button (Optional).
- * @param colors [IconButtonColors] that will be used to resolve the background and icon color for
- *   this button in different states (Optional).
+ * @param colorScheme The [ColorScheme] used for the button (Optional).
  * @param interactionSource an optional hoisted [MutableInteractionSource] for observing and
  *   emitting interactions for this button (Optional).
  * @param buttonSize The size of the button (Optional).
+ * @param buttonPadding The padding around the button (Optional).
+ * @param colors [IconButtonColors] that will be used to resolve the background and icon color for
+ *   this button in different states (Optional).
  * @param border Optional [BorderStroke] to be applied to the button. If null, no border is drawn.
  *   Defaults to a thin border with primary-dim color and `0.5f` alpha.
  */
@@ -58,12 +61,13 @@ public fun CustomActionAmbientMediaButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     shape: Shape = CircleShape,
-    colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(),
+    colorScheme: ColorScheme = MaterialTheme.colorScheme,
     interactionSource: MutableInteractionSource? = null,
     buttonSize: Dp = IconButtonDefaults.DefaultButtonSize,
     buttonPadding: PaddingValues = PaddingValues.Zero,
+    colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(colorScheme),
     border: BorderStroke? =
-        BorderStroke(1.dp, MaterialTheme.colorScheme.primaryDim.copy(alpha = 0.5f)),
+        BorderStroke(1.dp, colorScheme.primaryDim.copy(alpha = 0.5f)),
 ) {
     CustomActionMediaButton(
         onClick = onClick,

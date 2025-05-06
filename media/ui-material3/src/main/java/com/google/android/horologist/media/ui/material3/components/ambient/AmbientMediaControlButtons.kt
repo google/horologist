@@ -24,6 +24,8 @@ import androidx.wear.compose.material3.ButtonGroupScope
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayout
+import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayoutDefaults
+import com.google.android.horologist.media.ui.state.PlayerUiState
 
 /**
  * Media control button for display in the ambient mode, showing [AmbientPlayPauseButton] button in
@@ -66,5 +68,41 @@ public fun AmbientMediaControlButtons(
             )
         },
         rightButton = rightButton,
+    )
+}
+
+@Composable
+public fun AmbientMediaControlButtons(
+    playerUiState: PlayerUiState,
+    onPlayButtonClick: () -> Unit,
+    onPauseButtonClick: () -> Unit,
+    onSeekToPreviousButtonClick: () -> Unit,
+    onSeekToNextButtonClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+) {
+    val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
+    val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)
+    AmbientMediaControlButtons(
+        onPlayButtonClick = onPlayButtonClick,
+        onPauseButtonClick = onPauseButtonClick,
+        playPauseButtonEnabled = playerUiState.playPauseEnabled,
+        playing = playerUiState.playing,
+        modifier = modifier,
+        colorScheme = colorScheme,
+        leftButton = {
+            AmbientSeekToPreviousButton(
+                onClick = onSeekToPreviousButtonClick,
+                buttonPadding = leftButtonPadding,
+                colorScheme = colorScheme,
+            )
+        },
+        rightButton = {
+            AmbientSeekToNextButton(
+                onClick = onSeekToNextButtonClick,
+                buttonPadding = rightButtonPadding,
+                colorScheme = colorScheme,
+            )
+        },
     )
 }

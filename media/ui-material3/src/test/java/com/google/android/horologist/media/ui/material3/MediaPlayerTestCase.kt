@@ -39,8 +39,6 @@ import com.google.android.horologist.audio.ui.material3.components.actions.Setti
 import com.google.android.horologist.audio.ui.material3.components.actions.VolumeButtonWithBadge
 import com.google.android.horologist.audio.ui.material3.components.toAudioOutputUi
 import com.google.android.horologist.media.ui.material3.components.ambient.AmbientMediaControlButtons
-import com.google.android.horologist.media.ui.material3.components.ambient.AmbientSeekToNextButton
-import com.google.android.horologist.media.ui.material3.components.ambient.AmbientSeekToPreviousButton
 import com.google.android.horologist.media.ui.material3.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.material3.components.animated.AnimatedMediaInfoDisplay
 import com.google.android.horologist.media.ui.material3.components.background.ArtworkImageBackground
@@ -58,12 +56,11 @@ fun MediaPlayerTestCase(
     controlButtons: @Composable () -> Unit = {
         if (isAmbientModeEnabled) {
             AmbientMediaControlButtons(
+                playerUiState = playerUiState,
                 onPlayButtonClick = { },
                 onPauseButtonClick = { },
-                playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                playing = playerUiState.playing,
-                leftButton = { AmbientSeekToPreviousButton(onClick = { }) },
-                rightButton = { AmbientSeekToNextButton(onClick = { }) },
+                onSeekToPreviousButtonClick = { },
+                onSeekToNextButtonClick = { },
             )
         } else {
             AnimatedMediaControlButtons(

@@ -31,8 +31,8 @@ import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.toPath
 
 @Composable
-internal fun RoundedPolygon.toShape(startAngle: Int = 0): Shape {
-    return remember(this, startAngle) {
+internal fun RoundedPolygon.toShape(): Shape {
+    return remember(this) {
         object : Shape {
             // Store the Path we convert from the RoundedPolygon here. The path we will be
             // manipulating and using on the createOutline would be a copy of this to ensure we

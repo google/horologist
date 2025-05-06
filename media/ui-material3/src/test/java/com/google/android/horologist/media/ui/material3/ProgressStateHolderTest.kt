@@ -32,7 +32,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-// @Ignore("XXX")
 @RunWith(RobolectricTestRunner::class)
 class ProgressStateHolderTest {
     @get:Rule

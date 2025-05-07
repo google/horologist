@@ -43,7 +43,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.hierarchicalFocusRequester
+import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
@@ -86,7 +86,7 @@ public fun VolumeScreen(
 
     VolumeScreen(
         modifier = modifier
-            .hierarchicalFocusRequester()
+            .requestFocusOnHierarchyActive()
             .rotaryScrollable(
                 volumeRotaryBehavior(
                     volumeUiStateProvider = { volumeViewModel.volumeUiState.value },

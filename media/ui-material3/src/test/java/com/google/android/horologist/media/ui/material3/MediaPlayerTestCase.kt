@@ -19,6 +19,7 @@ package com.google.android.horologist.media.ui.material3
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -90,39 +91,43 @@ fun MediaPlayerTestCase(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
         ) {
-            VolumeButtonWithBadge(
-                volumeUiState = VolumeUiState(5, 10),
-                audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name")
-                    .toAudioOutputUi(),
-                onOutputClick = { },
-                alignment = Alignment.TopCenter,
-                buttonColors = if (isAmbientModeEnabled) {
-                    SettingsButtonDefaults.ambientButtonColors()
-                } else {
-                    SettingsButtonDefaults.buttonColors()
-                },
-                border = if (isAmbientModeEnabled) {
-                    SettingsButtonDefaults.outlinedButtonBorder()
-                } else {
-                    null
-                },
-            )
-            SettingsButton(
-                onClick = { },
-                imageVector = Icons.Rounded.MoreVert,
-                alignment = Alignment.TopCenter,
-                contentDescription = "More Actions",
-                buttonColors = if (isAmbientModeEnabled) {
-                    SettingsButtonDefaults.ambientButtonColors()
-                } else {
-                    SettingsButtonDefaults.buttonColors()
-                },
-                border = if (isAmbientModeEnabled) {
-                    SettingsButtonDefaults.outlinedButtonBorder()
-                } else {
-                    null
-                },
-            )
+            Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                VolumeButtonWithBadge(
+                    volumeUiState = VolumeUiState(5, 10),
+                    audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name")
+                        .toAudioOutputUi(),
+                    onOutputClick = { },
+                    alignment = Alignment.TopCenter,
+                    buttonColors = if (isAmbientModeEnabled) {
+                        SettingsButtonDefaults.ambientButtonColors()
+                    } else {
+                        SettingsButtonDefaults.buttonColors()
+                    },
+                    border = if (isAmbientModeEnabled) {
+                        SettingsButtonDefaults.outlinedButtonBorder()
+                    } else {
+                        null
+                    },
+                )
+            }
+            Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                SettingsButton(
+                    onClick = { },
+                    imageVector = Icons.Rounded.MoreVert,
+                    alignment = Alignment.TopCenter,
+                    contentDescription = "More Actions",
+                    buttonColors = if (isAmbientModeEnabled) {
+                        SettingsButtonDefaults.ambientButtonColors()
+                    } else {
+                        SettingsButtonDefaults.buttonColors()
+                    },
+                    border = if (isAmbientModeEnabled) {
+                        SettingsButtonDefaults.outlinedButtonBorder()
+                    } else {
+                        null
+                    },
+                )
+            }
         }
     },
 ) {

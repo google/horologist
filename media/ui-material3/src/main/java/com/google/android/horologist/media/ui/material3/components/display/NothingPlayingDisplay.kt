@@ -16,19 +16,22 @@
 
 package com.google.android.horologist.media.ui.material3.components.display
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import com.google.android.horologist.media.ui.material3.util.TRACK_SUBTITLE_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.TRACK_TITLE_HEIGHT
 import com.google.android.horologist.media.ui.model.R
 
 /**
  * A media display indicating nothing is playing.
  */
-
 @Composable
 public fun NothingPlayingDisplay(modifier: Modifier = Modifier) {
+    val height = TRACK_TITLE_HEIGHT + TRACK_SUBTITLE_HEIGHT
     MessageMediaDisplay(
         message = stringResource(R.string.horologist_nothing_playing),
-        modifier = modifier,
+        modifier = modifier.height(height),
     )
 }

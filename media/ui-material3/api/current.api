@@ -78,6 +78,15 @@ package com.google.android.horologist.media.ui.material3.components {
     method @androidx.compose.runtime.Composable public static void ButtonGroupLayout(kotlin.jvm.functions.Function2<? super androidx.wear.compose.material3.ButtonGroupScope,? super androidx.compose.foundation.interaction.MutableInteractionSource,kotlin.Unit> leftButton, kotlin.jvm.functions.Function2<? super androidx.wear.compose.material3.ButtonGroupScope,? super androidx.compose.foundation.interaction.MutableInteractionSource,kotlin.Unit> middleButton, kotlin.jvm.functions.Function2<? super androidx.wear.compose.material3.ButtonGroupScope,? super androidx.compose.foundation.interaction.MutableInteractionSource,kotlin.Unit> rightButton, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.foundation.interaction.MutableInteractionSource[] interactionSources);
   }
 
+  public final class CustomActionMediaButtonDefaults {
+    method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors buttonColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    field public static final com.google.android.horologist.media.ui.material3.components.CustomActionMediaButtonDefaults INSTANCE;
+  }
+
+  public final class CustomActionMediaButtonKt {
+    method @androidx.compose.runtime.Composable public static void CustomActionMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.images.base.paintable.Paintable icon, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.compose.ui.graphics.Shape shape, optional androidx.wear.compose.material3.IconButtonColors colors, optional androidx.compose.foundation.layout.PaddingValues buttonPadding, optional androidx.compose.foundation.interaction.MutableInteractionSource? interactionSource, optional float buttonSize, optional androidx.compose.foundation.BorderStroke? border);
+  }
+
   public final class MediaArtworkKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaArtwork(androidx.compose.ui.graphics.painter.Painter painter, String? contentDescription, optional androidx.compose.ui.Modifier modifier);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void MediaArtwork(com.google.android.horologist.images.base.paintable.Paintable artworkPaintable, String? contentDescription, optional androidx.compose.ui.Modifier modifier);
@@ -109,6 +118,69 @@ package com.google.android.horologist.media.ui.material3.components.actions {
 
   public final class ShowPlaylistButtonKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ShowPlaylistButton(com.google.android.horologist.images.base.paintable.Paintable? artworkPaintable, String? name, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier);
+  }
+
+}
+
+package com.google.android.horologist.media.ui.material3.components.ambient {
+
+  public final class AmbientMediaControlButtonsKt {
+    method @androidx.compose.runtime.Composable public static void AmbientMediaControlButtons(com.google.android.horologist.media.ui.state.PlayerUiState playerUiState, kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToPreviousButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToNextButtonClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public static void AmbientMediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, kotlin.jvm.functions.Function2<? super androidx.wear.compose.material3.ButtonGroupScope,? super androidx.compose.foundation.interaction.MutableInteractionSource,kotlin.Unit> leftButton, kotlin.jvm.functions.Function2<? super androidx.wear.compose.material3.ButtonGroupScope,? super androidx.compose.foundation.interaction.MutableInteractionSource,kotlin.Unit> rightButton, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+  }
+
+  public final class AmbientPlayPauseButtonKt {
+    method @androidx.compose.runtime.Composable public static void AmbientPlayPauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional boolean enabled, optional float iconSize);
+  }
+
+  public final class AmbientSeekToNextButtonKt {
+    method @androidx.compose.runtime.Composable public static void AmbientSeekToNextButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.graphics.vector.ImageVector icon, optional float iconSize, optional androidx.compose.foundation.layout.PaddingValues buttonPadding, optional androidx.wear.compose.material3.IconButtonColors colors, optional androidx.compose.foundation.BorderStroke? border);
+  }
+
+  public final class AmbientSeekToPreviousButtonKt {
+    method @androidx.compose.runtime.Composable public static void AmbientSeekToPreviousButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.graphics.vector.ImageVector icon, optional float iconSize, optional androidx.compose.foundation.layout.PaddingValues buttonPadding, optional androidx.wear.compose.material3.IconButtonColors colors, optional androidx.compose.foundation.BorderStroke? border);
+  }
+
+  public final class CustomActionAmbientMediaButtonKt {
+    method @androidx.compose.runtime.Composable public static void CustomActionAmbientMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.images.base.paintable.Paintable icon, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.compose.ui.graphics.Shape shape, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.foundation.interaction.MutableInteractionSource? interactionSource, optional float buttonSize, optional androidx.compose.foundation.layout.PaddingValues buttonPadding, optional androidx.wear.compose.material3.IconButtonColors colors, optional androidx.compose.foundation.BorderStroke? border);
+  }
+
+}
+
+package com.google.android.horologist.media.ui.material3.components.animated {
+
+  public final class AnimatedMediaButtonKt {
+    method @androidx.compose.runtime.Composable public static void AnimatedMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.airbnb.lottie.compose.LottieCompositionResult compositionResult, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onRepeatableClick, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onRepeatableClickEnd, optional boolean enabled, optional androidx.wear.compose.material3.IconButtonColors colors, optional androidx.compose.foundation.interaction.MutableInteractionSource? interactionSource, optional androidx.compose.foundation.layout.PaddingValues buttonPadding, optional float iconSize, optional androidx.compose.ui.Alignment iconAlign);
+  }
+
+  public final class AnimatedMediaControlButtonsKt {
+    method @androidx.compose.runtime.Composable public static void AnimatedMediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToPreviousButtonClick, boolean seekToPreviousButtonEnabled, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToNextButtonClick, boolean seekToNextButtonEnabled, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onSeekToPreviousRepeatableClick, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onSeekToPreviousRepeatableClickEnd, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onSeekToNextRepeatableClick, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onSeekToNextRepeatableClickEnd, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel trackPositionUiModel, optional kotlinx.coroutines.flow.Flow<kotlin.Unit> rotateProgressIndicator);
+    method @androidx.compose.runtime.Composable public static void AnimatedMediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, kotlin.jvm.functions.Function2<? super androidx.wear.compose.material3.ButtonGroupScope,? super androidx.compose.foundation.interaction.MutableInteractionSource,kotlin.Unit> leftButton, kotlin.jvm.functions.Function2<? super androidx.wear.compose.material3.ButtonGroupScope,? super androidx.compose.foundation.interaction.MutableInteractionSource,kotlin.Unit> rightButton, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel trackPositionUiModel, optional kotlinx.coroutines.flow.Flow<kotlin.Unit> rotateProgressIndicator);
+  }
+
+  public final class AnimatedMediaInfoDisplayKt {
+    method @androidx.compose.runtime.Composable public static void AnimatedMediaInfoDisplay(com.google.android.horologist.media.ui.state.model.MediaUiModel? media, boolean loading, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+  }
+
+  public final class AnimatedPlayPauseButtonKt {
+    method @androidx.compose.runtime.Composable public static void AnimatedPlayPauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.Shape shape, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.foundation.interaction.MutableInteractionSource? interactionSource, optional boolean enabled, optional float iconSize, optional kotlin.jvm.functions.Function0<kotlin.Unit> progressIndicator);
+    method @androidx.compose.runtime.Composable public static void AnimatedPlayPauseProgressButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel trackPositionUiModel, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource? interactionSource, optional androidx.compose.runtime.State<java.lang.Boolean> isAnyButtonPressed, optional float iconSize, optional float progressStrokeWidth, optional kotlinx.coroutines.flow.Flow<kotlin.Unit> rotateProgressIndicator);
+  }
+
+  public final class AnimatedSeekToNextButtonKt {
+    method @androidx.compose.runtime.Composable public static void AnimatedSeekToNextButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onRepeatableClick, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onRepeatableClickEnd, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource? interactionSource, optional androidx.compose.foundation.layout.PaddingValues buttonPadding, optional androidx.wear.compose.material3.IconButtonColors colors, optional float iconSize);
+  }
+
+  public final class AnimatedSeekToPreviousButtonKt {
+    method @androidx.compose.runtime.Composable public static void AnimatedSeekToPreviousButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onRepeatableClick, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onRepeatableClickEnd, optional boolean enabled, optional androidx.compose.foundation.interaction.MutableInteractionSource? interactionSource, optional androidx.compose.foundation.layout.PaddingValues buttonPadding, optional androidx.wear.compose.material3.IconButtonColors colors, optional float iconSize);
+  }
+
+  public final class LottieAnimationWithPlaceholderKt {
+    method @androidx.compose.runtime.Composable public static void LottieAnimationWithPlaceholder(com.airbnb.lottie.compose.LottieCompositionResult lottieCompositionResult, kotlin.jvm.functions.Function0<java.lang.Float> progress, androidx.compose.ui.graphics.vector.ImageVector placeholder, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional com.airbnb.lottie.compose.LottieDynamicProperties? dynamicProperties);
+  }
+
+  public final class MarqueeTextMediaDisplayKt {
+    method @androidx.compose.runtime.Composable public static void MarqueeTextMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? title, optional String? artist, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon, optional int enterTransitionDelay, optional int subtextTransitionDelay, optional @FloatRange(from=0.0, to=1.0) float transitionLength, optional androidx.wear.compose.material3.ColorScheme colorScheme);
   }
 
 }
@@ -201,6 +273,10 @@ package com.google.android.horologist.media.ui.material3.composables {
 
   public final class PlaceholderButtonKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void PlaceholderButton(optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material3.PlaceholderState placeholderState, optional boolean secondaryLabel, optional boolean icon, optional androidx.wear.compose.material3.ButtonColors colors, optional boolean enabled, optional String contentDescription);
+  }
+
+  public final class RepeatableClickableButtonKt {
+    method @androidx.compose.runtime.Composable public static void RepeatableClickableButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onRepeatableClick, optional kotlin.jvm.functions.Function0<kotlin.Unit> onRepeatableClickEnd, optional boolean enabled, optional androidx.compose.ui.graphics.Shape shape, optional androidx.wear.compose.material3.IconButtonColors colors, optional androidx.compose.foundation.BorderStroke? border, optional androidx.compose.foundation.layout.PaddingValues buttonPadding, optional androidx.compose.foundation.Indication? indication, optional androidx.compose.foundation.interaction.MutableInteractionSource? interactionSource, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class Section<T> {
@@ -312,6 +388,10 @@ package com.google.android.horologist.media.ui.material3.composables {
     method public <T> void section(com.google.android.horologist.media.ui.material3.composables.Section.State<? extends T> state, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.material3.composables.SectionScope<T>,kotlin.Unit> content);
     method public <T> void section(java.util.List<? extends T> list, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.material3.composables.SectionScope<T>,kotlin.Unit> content);
     method public void section(kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.material3.composables.SectionScope<kotlin.Unit>,kotlin.Unit> content);
+  }
+
+  public final class UnboundedRippleIconButtonKt {
+    method @androidx.compose.runtime.Composable public static void UnboundedRippleIconButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material3.IconButtonColors colors, optional androidx.compose.foundation.interaction.MutableInteractionSource? interactionSource, optional androidx.compose.ui.unit.Dp? rippleRadius, optional androidx.compose.ui.graphics.Shape shape, optional androidx.compose.foundation.layout.PaddingValues buttonPadding, optional androidx.compose.foundation.BorderStroke? border, optional androidx.compose.animation.core.FiniteAnimationSpec<androidx.compose.ui.graphics.Color> animationSpec, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
   }
 
 }

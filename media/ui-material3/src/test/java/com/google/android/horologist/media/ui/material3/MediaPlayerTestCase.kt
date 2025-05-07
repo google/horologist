@@ -97,6 +97,7 @@ fun MediaPlayerTestCase(
                     audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name")
                         .toAudioOutputUi(),
                     onOutputClick = { },
+                    enabled = playerUiState.connected,
                     alignment = Alignment.TopCenter,
                     buttonColors = if (isAmbientModeEnabled) {
                         SettingsButtonDefaults.ambientButtonColors()
@@ -113,6 +114,7 @@ fun MediaPlayerTestCase(
             Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
                 SettingsButton(
                     onClick = { },
+                    enabled = playerUiState.connected,
                     imageVector = Icons.Rounded.MoreVert,
                     alignment = Alignment.TopCenter,
                     contentDescription = "More Actions",

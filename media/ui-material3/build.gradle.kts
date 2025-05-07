@@ -167,7 +167,7 @@ dependencies {
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     dokkaSourceSets {
         configureEach {
-            moduleName.set("media-ui")
+            moduleName.set("media-ui-material3")
         }
     }
 }

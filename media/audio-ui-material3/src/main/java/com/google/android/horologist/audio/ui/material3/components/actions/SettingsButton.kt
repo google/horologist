@@ -90,17 +90,23 @@ public fun SettingsButton(
         Box(
             modifier =
                 Modifier.minimumInteractiveComponentSize()
-                    .size(BUTTON_WIDTH, BUTTON_HEIGHT)
-                    .then(border?.let { Modifier.border(border = it, shape = shape) } ?: Modifier)
-                    .background(color = buttonContainerColor.value, shape = shape),
+                    .size(BUTTON_WIDTH, BUTTON_HEIGHT),
             contentAlignment = Alignment.Center,
         ) {
-            Icon(
-                imageVector = imageVector,
-                contentDescription = contentDescription,
-                modifier = Modifier.size(iconSize),
-                tint = buttonContentColor.value,
-            )
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .then(border?.let { Modifier.border(border = it, shape = shape) } ?: Modifier)
+                        .background(color = buttonContainerColor.value, shape = shape),
+            ){
+                Icon(
+                    imageVector = imageVector,
+                    contentDescription = contentDescription,
+                    modifier = Modifier.size(iconSize),
+                    tint = buttonContentColor.value,
+                )
+            }
             badgeVector?.let {
                 val badgeContentColor =
                     rememberUpdatedState(

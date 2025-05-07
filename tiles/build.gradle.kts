@@ -97,7 +97,7 @@ dependencies {
     api(libs.androidx.wear.tiles)
     api(libs.androidx.wear.protolayout.material)
     api(libs.androidx.lifecycle.service)
-    api(libs.kotlinx.coroutines.guava) // it is part of SuspendingTileService API
+    api(libs.androidx.concurrent.future.ktx)
 
     implementation(libs.coil)
     implementation(libs.wearcompose.foundation)

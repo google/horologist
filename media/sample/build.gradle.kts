@@ -285,29 +285,3 @@ dependencies {
     androidTestImplementation(libs.dagger.hiltandroidtesting)
     kspAndroidTest(libs.dagger.hiltandroidcompiler)
 }
-
-val device: String? = localProperties.getProperty("DEVICE")
-if (device != null) {
-    task<Exec>("appLaunch") {
-        group = "Media"
-        description = "Run on device $device"
-        dependsOn(":media:media-sample:installRelease")
-        description = "Launch App"
-        commandLine =
-            (
-                "adb -s $device shell am start -n com.google.android.horologist.mediasample" +
-                    "/com.google.android.horologist.mediasample.ui.app.MediaActivity"
-                )
-                .split(" ")
-    }
-
-    task<Exec>("offloadStatus") {
-        group = "Media"
-        description = "Offload Status for $device"
-        description = "Offload Status"
-        commandLine = "adb -s $device shell dumpsys media.audio_flinger".split(" ")
-    }
-}
-
-// tasks.maybeCreate("prepareKotlinIdeaImport")
-//    .dependsOn("generateDebugProto")

@@ -101,8 +101,8 @@ metalava {
 
 dependencies {
     api(projects.media.core)
-    api(libs.wearcompose.material)
     implementation(projects.images.coil)
+    implementation(libs.compose.animation.animationgraphics)
     implementation(libs.androidx.lifecycle.viewmodelktx)
     implementation(project(":media:audio"))
 

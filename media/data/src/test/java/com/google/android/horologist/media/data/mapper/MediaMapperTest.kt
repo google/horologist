@@ -19,7 +19,7 @@ package com.google.android.horologist.media.data.mapper
 import android.net.Uri
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
-import com.google.android.horologist.media.data.database.model.MediaEntity
+import com.google.android.horologist.media.database.model.MediaEntity
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test

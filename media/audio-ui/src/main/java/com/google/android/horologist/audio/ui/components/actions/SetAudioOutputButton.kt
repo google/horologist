@@ -72,7 +72,9 @@ public fun SetAudioOutputButton(
             null
         },
         badgeColor = badgeColor,
-        contentDescription = stringResource(R.string.horologist_set_volume_content_description),
+        contentDescription = stringResource(
+            com.google.android.horologist.audio.ui.model.R.string.horologist_set_volume_content_description,
+        ),
         iconAlignment = iconAlignment,
         iconPadding = iconPadding,
     )

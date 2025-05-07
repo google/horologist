@@ -1,0 +1,80 @@
+// Signature format: 4.0
+package com.google.android.horologist.audio.ui.material3 {
+
+  public final class RotaryVolumeControlsKt {
+    method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior highResVolumeRotaryBehavior(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput);
+    method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior lowResVolumeRotaryBehavior(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput);
+    method @androidx.compose.runtime.Composable public static androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior volumeRotaryBehavior(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiStateProvider, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onRotaryVolumeInput);
+  }
+
+  public final class VolumeLevelIndicatorKt {
+    method @androidx.compose.runtime.Composable public static void VolumeLevelIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState, optional androidx.compose.ui.Modifier modifier, optional kotlinx.coroutines.flow.Flow<kotlin.Unit>? displayIndicatorEvents, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+  }
+
+  public final class VolumeScreenDefaults {
+    method @androidx.compose.runtime.Composable public void DecreaseIcon();
+    method @androidx.compose.runtime.Composable public void IncreaseIcon();
+    field public static final com.google.android.horologist.audio.ui.material3.VolumeScreenDefaults INSTANCE;
+  }
+
+  public final class VolumeScreenKt {
+    method @androidx.compose.runtime.Composable public static void VolumeScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, optional boolean showVolumeIndicator, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public static void VolumeScreen(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volume, com.google.android.horologist.audio.ui.material3.components.AudioOutputUi audioOutputUi, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public static void VolumeWithAudioOutputAsLabel(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volume, com.google.android.horologist.audio.ui.material3.components.AudioOutputUi audioOutputUi, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public static void VolumeWithDefaultLabel(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volume, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+  }
+
+}
+
+package com.google.android.horologist.audio.ui.material3.components {
+
+  public final class AudioOutputUi {
+    ctor public AudioOutputUi(String displayName, androidx.compose.ui.graphics.vector.ImageVector imageVector, boolean isConnected, optional String? audioSourceDisplayName);
+    method public String component1();
+    method public androidx.compose.ui.graphics.vector.ImageVector component2();
+    method public boolean component3();
+    method public String? component4();
+    method public com.google.android.horologist.audio.ui.material3.components.AudioOutputUi copy(String displayName, androidx.compose.ui.graphics.vector.ImageVector imageVector, boolean isConnected, String? audioSourceDisplayName);
+    method public String? getAudioSourceDisplayName();
+    method public String getDisplayName();
+    method public androidx.compose.ui.graphics.vector.ImageVector getImageVector();
+    method public boolean isConnected();
+    property public final String? audioSourceDisplayName;
+    property public final String displayName;
+    property public final androidx.compose.ui.graphics.vector.ImageVector imageVector;
+    property public final boolean isConnected;
+  }
+
+  public final class AudioOutputUiKt {
+    method @androidx.compose.runtime.Composable public static com.google.android.horologist.audio.ui.material3.components.AudioOutputUi toAudioOutputUi(com.google.android.horologist.audio.AudioOutput);
+  }
+
+  public final class DeviceButtonKt {
+    method @androidx.compose.runtime.Composable public static void DeviceButton(String volumeDescription, String deviceName, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> icon, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ButtonColors colors);
+  }
+
+}
+
+package com.google.android.horologist.audio.ui.material3.components.actions {
+
+  public final class SettingsButtonDefaults {
+    method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors ambientButtonColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors badgeColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors buttonColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public androidx.compose.foundation.BorderStroke outlinedButtonBorder(optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    field public static final com.google.android.horologist.audio.ui.material3.components.actions.SettingsButtonDefaults INSTANCE;
+  }
+
+  public final class SettingsButtonKt {
+    method @androidx.compose.runtime.Composable public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.compose.ui.Alignment alignment, optional androidx.wear.compose.material3.IconButtonColors buttonColors, optional androidx.compose.ui.graphics.Shape shape, optional float iconSize, optional androidx.compose.ui.graphics.vector.ImageVector? badgeVector, optional androidx.compose.ui.graphics.Shape badgeShape, optional androidx.wear.compose.material3.IconButtonColors badgeColors, optional androidx.compose.foundation.BorderStroke? border);
+  }
+
+  public final class VolumeButtonKt {
+    method @androidx.compose.runtime.Composable public static void VolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector imageVector, optional boolean enabled, optional androidx.compose.ui.Alignment alignment, optional androidx.wear.compose.material3.IconButtonColors buttonColors, optional String contentDescription, optional androidx.compose.foundation.BorderStroke? border);
+    method @androidx.compose.runtime.Composable public static void VolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.audio.ui.VolumeUiState? volumeUiState, optional boolean enabled, optional androidx.compose.ui.Alignment alignment, optional androidx.wear.compose.material3.IconButtonColors buttonColors, optional String contentDescription, optional androidx.compose.foundation.BorderStroke? border);
+    method @androidx.compose.runtime.Composable public static void VolumeButtonWithBadge(kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.compose.ui.Alignment alignment, optional androidx.wear.compose.material3.IconButtonColors buttonColors, optional androidx.compose.ui.graphics.vector.ImageVector? badgeVector, optional androidx.wear.compose.material3.IconButtonColors badgeColors, optional String contentDescription, optional androidx.compose.foundation.BorderStroke? border);
+    method @androidx.compose.runtime.Composable public static void VolumeButtonWithBadge(kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, com.google.android.horologist.audio.ui.material3.components.AudioOutputUi audioOutputUi, com.google.android.horologist.audio.ui.VolumeUiState? volumeUiState, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.compose.ui.Alignment alignment, optional androidx.wear.compose.material3.IconButtonColors buttonColors, optional androidx.wear.compose.material3.IconButtonColors badgeColors, optional String contentDescription, optional androidx.compose.foundation.BorderStroke? border);
+  }
+
+}
+

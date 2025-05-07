@@ -17,7 +17,7 @@
 package com.google.android.horologist.dialog
 
 import androidx.compose.ui.res.stringResource
-import com.google.android.horologist.audio.ui.R.string.horologist_volume_screen_change_audio_output
+import com.google.android.horologist.audio.ui.model.R.string.horologist_volume_screen_change_audio_output
 import com.google.android.horologist.compose.material.AlertContent
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest

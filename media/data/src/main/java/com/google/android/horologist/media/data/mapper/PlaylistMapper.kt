@@ -17,7 +17,7 @@
 package com.google.android.horologist.media.data.mapper
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.model.PopulatedPlaylist
+import com.google.android.horologist.media.database.model.PopulatedPlaylist
 import com.google.android.horologist.media.model.Playlist
 
 /**

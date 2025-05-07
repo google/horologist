@@ -4,6 +4,7 @@ package com.google.android.horologist.tiles {
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract class SuspendingTileService extends androidx.wear.tiles.TileService implements androidx.lifecycle.LifecycleOwner {
     ctor public SuspendingTileService();
     method public androidx.lifecycle.Lifecycle getLifecycle();
+    method public kotlinx.coroutines.CoroutineScope? getServiceScope();
     method @Deprecated public final void onStart(android.content.Intent? intent, int startId);
     method public final int onStartCommand(android.content.Intent? intent, int flags, int startId);
     method protected final com.google.common.util.concurrent.ListenableFuture<androidx.wear.tiles.TileBuilders.Tile> onTileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
@@ -11,6 +12,7 @@ package com.google.android.horologist.tiles {
     method public abstract suspend Object? resourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.protolayout.ResourceBuilders.Resources>);
     method public abstract suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile>);
     property public androidx.lifecycle.Lifecycle lifecycle;
+    property public kotlinx.coroutines.CoroutineScope? serviceScope;
   }
 
 }

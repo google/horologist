@@ -43,7 +43,7 @@ class MediaPlayerScreenTest() : WearLegacyScreenTest() {
             shuffleEnabled = false,
             shuffleOn = false,
             playPauseEnabled = true,
-            playing = false,
+            playing = true,
             media = MediaUiModel.Ready(
                 id = "",
                 title = "Weather with You",

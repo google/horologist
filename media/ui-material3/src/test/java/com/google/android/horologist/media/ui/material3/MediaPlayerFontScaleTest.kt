@@ -48,7 +48,7 @@ class MediaPlayerFontScaleTest(device: WearDevice) : WearDeviceScreenshotTest(de
             shuffleEnabled = false,
             shuffleOn = false,
             playPauseEnabled = true,
-            playing = false,
+            playing = true,
             media = MediaUiModel.Ready(
                 id = "",
                 title = "Outro - Totally Here and Now (feat. Alan Watts)",

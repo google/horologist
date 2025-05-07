@@ -54,7 +54,7 @@ class MediaPlayerA11yScreenshotTest : WearLegacyA11yTest() {
             shuffleEnabled = false,
             shuffleOn = false,
             playPauseEnabled = true,
-            playing = false,
+            playing = true,
             media = MediaUiModel.Ready(
                 id = "",
                 title = "Weather with You",

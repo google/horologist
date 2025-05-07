@@ -99,7 +99,7 @@ public fun SettingsButton(
                         .fillMaxSize()
                         .then(border?.let { Modifier.border(border = it, shape = shape) } ?: Modifier)
                         .background(color = buttonContainerColor.value, shape = shape),
-            ){
+            ) {
                 Icon(
                     imageVector = imageVector,
                     contentDescription = contentDescription,

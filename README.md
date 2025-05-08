@@ -9,10 +9,10 @@ commonly required by developers but not yet available.
 
 The currently maintained branches of Horologist are.
 
-| Version | Branch        | Min SDK (Wear) | Kotlin/JDK | Description                                                                         |
-| ------- |---------------| -------------- | ----------- |-------------------------------------------------------------------------------------|
-| 0.6.x   | release-0.6.x | 26             | 1.9.x / 11 | Wear Compose 1.4.x, Compose 1.7.x and recent stable versions of Androidx.           |
-| 0.7.x   | main          | 26             | 2.0.x / 17 | Wear Compose 1.5.x, Compose 1.8.x and generally latest relevant alphas of Androidx. |
+| Version | Branch        | Min SDK (Wear) | Kotlin/JDK  | Description                                                                         |
+| ------- |---------------| -------------- | ----------  |-------------------------------------------------------------------------------------|
+| 0.7.x   | main          | 26             | 2.1.20 / 17 | Wear Compose 1.5.x, Compose 1.8.x and generally latest stable Androidx.             |
+| 0.8.x   | planned       | 26             | 2.x / 17    | Wear Compose 1.6.x, Compose 1.8.x and generally latest relevant alphas of Androidx. |
 
 Maintenance branches will not delete existing APIs and they should remain stable. However
 the main branch will actively update to incorporate new API guidance, removing or changing

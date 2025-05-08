@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -39,7 +40,7 @@ public fun AnimatedSeekToPreviousButton(
     onRepeatableClickEnd: (() -> Unit)? = null,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
-    buttonPadding: PaddingValues = PaddingValues.Zero,
+    buttonPadding: PaddingValues = PaddingValues(0.dp),
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(),
     iconSize: Dp = IconButtonDefaults.LargeIconSize,
 ) {

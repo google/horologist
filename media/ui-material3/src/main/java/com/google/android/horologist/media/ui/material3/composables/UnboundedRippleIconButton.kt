@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.LocalContentColor
@@ -72,7 +73,7 @@ public fun UnboundedRippleIconButton(
     interactionSource: MutableInteractionSource? = null,
     rippleRadius: Dp? = Dp.Unspecified,
     shape: Shape = CircleShape,
-    buttonPadding: PaddingValues = PaddingValues.Zero,
+    buttonPadding: PaddingValues = PaddingValues(0.dp),
     border: BorderStroke? = null,
     animationSpec: FiniteAnimationSpec<Color> = MaterialTheme.motionScheme.slowEffectsSpec(),
     content: @Composable BoxScope.() -> Unit,

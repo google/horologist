@@ -33,7 +33,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.wear.compose.foundation.hierarchicalFocusRequester
+import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.material3.volumeRotaryBehavior
@@ -89,7 +89,7 @@ public fun PlayerScreen(
         controlButtons = { controlButtons(playerViewModel.playerUiController, playerUiState) },
         buttons = { buttons(playerUiState) },
         modifier = modifier
-            .hierarchicalFocusRequester()
+            .requestFocusOnHierarchyActive()
             .rotaryScrollable(
                 volumeRotaryBehavior(
                     volumeUiStateProvider = { volumeUiState },

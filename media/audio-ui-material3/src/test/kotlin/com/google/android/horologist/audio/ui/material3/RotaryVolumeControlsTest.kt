@@ -32,7 +32,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.wear.compose.foundation.hierarchicalFocusRequester
+import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material3.ScreenScaffold
 import com.google.android.horologist.audio.VolumeState
@@ -215,7 +215,7 @@ class RotaryVolumeControlsTest {
             ScreenScaffold(
                 modifier =
                     Modifier
-                        .hierarchicalFocusRequester()
+                        .requestFocusOnHierarchyActive()
                         .rotaryScrollable(
                             behavior = volumeRotaryBehavior(
                                 volumeUiStateProvider = { VolumeUiStateMapper.map(volumeState) },

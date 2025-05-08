@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.LocalContentColor
@@ -69,7 +70,7 @@ public fun RepeatableClickableButton(
     shape: Shape = CircleShape,
     colors: IconButtonColors = IconButtonDefaults.iconButtonColors(),
     border: BorderStroke? = null,
-    buttonPadding: PaddingValues = PaddingValues.Zero,
+    buttonPadding: PaddingValues = PaddingValues(0.dp),
     indication: Indication? = ripple(),
     interactionSource: MutableInteractionSource? = null,
     content: @Composable BoxScope.() -> Unit,

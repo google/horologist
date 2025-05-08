@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButtonColors
@@ -61,7 +62,7 @@ public fun CustomActionMediaButton(
     enabled: Boolean = true,
     shape: Shape = CircleShape,
     colors: IconButtonColors = CustomActionMediaButtonDefaults.buttonColors(),
-    buttonPadding: PaddingValues = PaddingValues.Zero,
+    buttonPadding: PaddingValues = PaddingValues(0.dp),
     interactionSource: MutableInteractionSource? = null,
     buttonSize: Dp = IconButtonDefaults.DefaultButtonSize,
     border: BorderStroke? = null,

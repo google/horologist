@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.LocalContentColor
@@ -70,7 +71,7 @@ public fun AnimatedMediaButton(
     enabled: Boolean = true,
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(),
     interactionSource: MutableInteractionSource? = null,
-    buttonPadding: PaddingValues = PaddingValues.Zero,
+    buttonPadding: PaddingValues = PaddingValues(0.dp),
     iconSize: Dp = IconButtonDefaults.LargeIconSize,
     iconAlign: Alignment = Alignment.Center,
 ) {

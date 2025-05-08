@@ -67,10 +67,10 @@ runtimeTracing = "1.8.0"
 spotless = "7.0.3"
 tiles-tooling-preview = "1.4.1"
 truth = "1.4.4"
-wearComposeMaterial3 = "1.0.0-alpha37"
+wearComposeMaterial3 = "1.0.0-beta01"
 wearInput = "1.2.0-alpha02"
 wearToolingPreview = "1.0.0"
-wearcompose = "1.5.0-alpha14"
+wearcompose = "1.5.0-beta01"
 
 [libraries]
 accessibility-test-framework = { module = "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework", version.ref = "accessibilityTestFramework" }

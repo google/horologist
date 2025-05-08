@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.util.lerp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.hierarchicalFocusRequester
+import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.StepperDefaults
@@ -85,7 +85,7 @@ public fun Stepper(
         steps,
         decreaseIcon,
         increaseIcon,
-        modifier.hierarchicalFocusRequester().rotaryScrollable(
+        modifier.requestFocusOnHierarchyActive().rotaryScrollable(
             accumulatedBehavior {
                 if (it < 0f) {
                     updateValue(1)
@@ -140,7 +140,7 @@ public fun Stepper(
         decreaseIcon,
         increaseIcon,
         modifier
-            .hierarchicalFocusRequester()
+            .requestFocusOnHierarchyActive()
             .rotaryScrollable(
                 accumulatedBehavior {
                     if (it < 0f) {

@@ -36,7 +36,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.hierarchicalFocusRequester
+import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.Card
@@ -54,7 +54,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 fun ScrollScreenLazyColumn(scrollState: LazyListState) {
     LazyColumn(
         modifier = Modifier
-            .hierarchicalFocusRequester()
+            .requestFocusOnHierarchyActive()
             .rotaryScrollable(
                 behavior = behavior(scrollableState = scrollState),
                 focusRequester = remember { FocusRequester() },
@@ -94,7 +94,7 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
     ) {
         Column(
             modifier = Modifier
-                .hierarchicalFocusRequester()
+                .requestFocusOnHierarchyActive()
                 .rotaryScrollable(
                     behavior = behavior(scrollableState = scrollState),
                     focusRequester = remember { FocusRequester() },

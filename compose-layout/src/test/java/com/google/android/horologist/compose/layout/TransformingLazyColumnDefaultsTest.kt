@@ -37,9 +37,12 @@ import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.OutlinedIconButton
 import androidx.wear.compose.material3.ScreenScaffold
+import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.TimeText
 import androidx.wear.compose.material3.TitleCard
+import androidx.wear.compose.material3.lazy.rememberTransformationSpec
+import androidx.wear.compose.material3.lazy.transformedHeight
 import androidx.wear.compose.material3.timeTextCurvedText
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest
@@ -79,6 +82,8 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                         last = ColumnItemType.Card,
                     ),
                 ) { contentPadding ->
+                    val transformationSpec = rememberTransformationSpec()
+
                     TransformingLazyColumn(
                         state = columnState,
                         contentPadding = contentPadding,
@@ -96,6 +101,8 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                                 onClick = { /* Do something */ },
                                 title = { Text("Title card") },
                                 time = { Text("now") },
+                                modifier = Modifier.transformedHeight(this, transformationSpec),
+                                transformation = SurfaceTransformation(transformationSpec)
                             ) { Text("Card content") }
                         }
                     }
@@ -144,6 +151,8 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                         }
                     },
                 ) { contentPadding ->
+                    val transformationSpec = rememberTransformationSpec()
+
                     TransformingLazyColumn(
                         state = columnState,
                         contentPadding = contentPadding,
@@ -164,6 +173,8 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                                 onClick = { /* Do something */ },
                                 title = { Text("Title card") },
                                 time = { Text("now") },
+                                modifier = Modifier.transformedHeight(this, transformationSpec),
+                                transformation = SurfaceTransformation(transformationSpec)
                             ) { Text("Card content") }
                         }
                     }

@@ -73,7 +73,7 @@ public fun ButtonGroupLayout(
     ButtonGroup(
         modifier = modifier.fillMaxWidth().height(middleSectionHeight),
         spacing = 0.dp,
-        contentPadding = PaddingValues.Zero,
+        contentPadding = PaddingValues(0.dp),
         expansionWidth = ButtonGroupLayoutDefaults.ExpansionWidth,
     ) {
         leftButton(interactionSources[0])

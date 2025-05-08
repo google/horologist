@@ -39,7 +39,7 @@ public fun AnimatedSeekToPreviousButton(
     onRepeatableClickEnd: (() -> Unit)? = null,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
-    buttonPadding: PaddingValues = PaddingValues.Zero,
+    buttonPadding: PaddingValues = PaddingValues(0.dp),
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(),
     iconSize: Dp = IconButtonDefaults.LargeIconSize,
 ) {

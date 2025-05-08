@@ -70,7 +70,7 @@ public fun AnimatedMediaButton(
     enabled: Boolean = true,
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(),
     interactionSource: MutableInteractionSource? = null,
-    buttonPadding: PaddingValues = PaddingValues.Zero,
+    buttonPadding: PaddingValues = PaddingValues(0.dp),
     iconSize: Dp = IconButtonDefaults.LargeIconSize,
     iconAlign: Alignment = Alignment.Center,
 ) {

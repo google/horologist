@@ -59,7 +59,7 @@ public fun AmbientSeekToNextButton(
     colorScheme: ColorScheme = MaterialTheme.colorScheme,
     icon: ImageVector = ImageVector.vectorResource(R.drawable.rounded_skip_next_24),
     iconSize: Dp = IconButtonDefaults.SmallIconSize,
-    buttonPadding: PaddingValues = PaddingValues.Zero,
+    buttonPadding: PaddingValues = PaddingValues(0.dp),
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(colorScheme),
     border: BorderStroke? = BorderStroke(1.dp, colorScheme.primaryDim.copy(alpha = 0.5f)),
 ) {

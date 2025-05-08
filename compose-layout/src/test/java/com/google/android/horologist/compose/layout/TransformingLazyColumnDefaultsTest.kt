@@ -102,7 +102,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                                 title = { Text("Title card") },
                                 time = { Text("now") },
                                 modifier = Modifier.transformedHeight(this, transformationSpec),
-                                transformation = SurfaceTransformation(transformationSpec)
+                                transformation = SurfaceTransformation(transformationSpec),
                             ) { Text("Card content") }
                         }
                     }
@@ -174,7 +174,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
                                 title = { Text("Title card") },
                                 time = { Text("now") },
                                 modifier = Modifier.transformedHeight(this, transformationSpec),
-                                transformation = SurfaceTransformation(transformationSpec)
+                                transformation = SurfaceTransformation(transformationSpec),
                             ) { Text("Card content") }
                         }
                     }

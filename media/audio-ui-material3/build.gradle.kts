@@ -95,7 +95,7 @@ dependencies {
     api(projects.annotations)
     implementation(projects.composeLayout)
     implementation(project(":composables"))
-    implementation(projects.media.audioUiModel)
+    api(projects.media.audioUiModel)
     debugImplementation(projects.logo)
 
     api(libs.androidx.wear.compose.material3)

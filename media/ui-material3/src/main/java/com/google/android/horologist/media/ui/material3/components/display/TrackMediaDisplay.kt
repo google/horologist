@@ -18,21 +18,22 @@ package com.google.android.horologist.media.ui.material3.components.display
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.wear.compose.material3.ColorScheme
+import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
-/**
- * A simple text only display of [MediaUiModel] showing artist and title in two separated rows.
- */
-
+/** A simple text only display of [MediaUiModel] showing artist and title in two separated rows. */
 @Composable
 public fun TrackMediaDisplay(
     media: MediaUiModel.Ready,
     modifier: Modifier = Modifier,
+    colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
     TextMediaDisplay(
         title = media.title,
         subtitle = media.subtitle,
         titleIcon = media.titleIcon,
         modifier = modifier,
+        colorScheme = colorScheme,
     )
 }

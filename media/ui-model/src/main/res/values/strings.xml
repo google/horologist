@@ -50,4 +50,5 @@
     <string description="Lets the user know the app is trying to download this individual download. Appears on the Playlist Download screen, on an item that is currently trying to start to download. [CHAR_LIMIT=13]" name="horologist_playlist_download_download_progress_waiting">Waiting…</string>
     <string description="Default text to be displayed for the complication preview." translatable="false" name="horologist_preview_app_name">UAMP</string>
     <string description="A text to be displayed for the complication preview. It lets the user see an example of a complication that would be displayed on the watch face. [CHAR_LIMIT=NONE]" translatable="false" name="horologist_preview_favorites">Favorites</string>
+    <string description="A text to be displayed for the loading player screen. [CHAR_LIMIT=24]" name="horologist_loading_title">Loading…</string>
 </resources>

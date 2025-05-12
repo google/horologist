@@ -129,6 +129,14 @@ package com.google.android.horologist.media.ui.material3.components.ambient {
     method @androidx.compose.runtime.Composable public static void AmbientMediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, kotlin.jvm.functions.Function2<? super androidx.wear.compose.material3.ButtonGroupScope,? super androidx.compose.foundation.interaction.MutableInteractionSource,kotlin.Unit> leftButton, kotlin.jvm.functions.Function2<? super androidx.wear.compose.material3.ButtonGroupScope,? super androidx.compose.foundation.interaction.MutableInteractionSource,kotlin.Unit> rightButton, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme);
   }
 
+  public final class AmbientMediaInfoDisplayKt {
+    method @androidx.compose.runtime.Composable public static void AmbientMediaInfoDisplay(com.google.android.horologist.media.ui.state.model.MediaUiModel? media, boolean loading, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+  }
+
+  public final class AmbientMessageDisplayKt {
+    method @androidx.compose.runtime.Composable public static void AmbientMessageDisplay(String message, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+  }
+
   public final class AmbientPlayPauseButtonKt {
     method @androidx.compose.runtime.Composable public static void AmbientPlayPauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional boolean enabled, optional float iconSize);
   }
@@ -255,11 +263,11 @@ package com.google.android.horologist.media.ui.material3.components.display {
   }
 
   public final class TextMediaDisplayKt {
-    method @androidx.compose.runtime.Composable public static void TextMediaDisplay(String title, String subtitle, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon);
+    method @androidx.compose.runtime.Composable public static void TextMediaDisplay(String title, String subtitle, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon, optional androidx.wear.compose.material3.ColorScheme colorScheme);
   }
 
   public final class TrackMediaDisplayKt {
-    method @androidx.compose.runtime.Composable public static void TrackMediaDisplay(com.google.android.horologist.media.ui.state.model.MediaUiModel.Ready media, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable public static void TrackMediaDisplay(com.google.android.horologist.media.ui.state.model.MediaUiModel.Ready media, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme);
   }
 
 }

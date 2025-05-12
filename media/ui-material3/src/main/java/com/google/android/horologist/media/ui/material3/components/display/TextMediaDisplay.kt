@@ -30,24 +30,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.material3.components.controls.MediaTitleIcon
+import com.google.android.horologist.media.ui.material3.util.ARTIST_DETAILS_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.MEDIA_TITLE_EDGE_GRADIENT_WIDTH
 import com.google.android.horologist.media.ui.material3.util.MEDIA_TITLE_ICON_SIZE
-import com.google.android.horologist.media.ui.material3.util.TRACK_SUBTITLE_HEIGHT
-import com.google.android.horologist.media.ui.material3.util.TRACK_TITLE_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.SONG_TITLE_HEIGHT
 
-/**
- * A simple text only display showing artist and title in two separated rows.
- */
+/** A simple text only display showing artist and title in two separated rows. */
 @Composable
 public fun TextMediaDisplay(
     title: String,
     subtitle: String,
     modifier: Modifier = Modifier,
     titleIcon: Paintable? = null,
+    colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
     Column(
         modifier = modifier,
@@ -55,38 +55,35 @@ public fun TextMediaDisplay(
         verticalArrangement = Arrangement.Center,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(
-                if (titleIcon != null) 0.66f else 0.6672f,
-            ).height(TRACK_TITLE_HEIGHT),
+            modifier =
+                Modifier.fillMaxWidth(titleIcon?.let { 0.648f } ?: 0.6672f).height(SONG_TITLE_HEIGHT),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            titleIcon?. let {
+            titleIcon?.let {
                 Box(modifier = Modifier.size(MEDIA_TITLE_ICON_SIZE)) {
-                    MediaTitleIcon(
-                        paintableRes = it,
-                    )
+                    MediaTitleIcon(paintableRes = it, tint = colorScheme.primary)
                 }
-                Spacer(modifier = Modifier.width(8.dp))
             }
+            Spacer(modifier = Modifier.width(MEDIA_TITLE_EDGE_GRADIENT_WIDTH))
             Text(
                 text = title,
-                color = MaterialTheme.colorScheme.onBackground,
+                color = colorScheme.onSurface,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.labelMedium,
+                style = MaterialTheme.typography.titleMedium,
             )
         }
         Row(
-            modifier = Modifier.fillMaxWidth(
-                if (titleIcon != null) 0.71f else 0.75f,
-            ).height(TRACK_SUBTITLE_HEIGHT),
+            modifier =
+                Modifier.fillMaxWidth(if (titleIcon != null) 0.71f else 0.75f)
+                    .height(ARTIST_DETAILS_HEIGHT),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = subtitle,
-                color = MaterialTheme.colorScheme.onBackground,
+                color = colorScheme.onSurface,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,

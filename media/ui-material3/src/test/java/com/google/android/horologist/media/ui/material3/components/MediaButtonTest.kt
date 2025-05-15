@@ -30,7 +30,7 @@ class MediaButtonTest : WearLegacyComponentTest() {
     @Test
     fun givenMediaWithArtwork_thenDisplaysArtwork() {
         runComponentTest {
-            MediaButton(
+            MediaDetailsButton(
                 title = "Red Hot Chilli Peppers",
                 artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
                 onClick = {},
@@ -41,7 +41,7 @@ class MediaButtonTest : WearLegacyComponentTest() {
     @Test
     fun givenMediaWithNoArtwork_thenDoesNotDisplayArtwork() {
         runComponentTest {
-            MediaButton(
+            MediaDetailsButton(
                 title = "Red Hot Chilli Peppers",
                 artworkPaintable = null,
                 onClick = {},
@@ -52,7 +52,7 @@ class MediaButtonTest : WearLegacyComponentTest() {
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
         runComponentTest {
-            MediaButton(
+            MediaDetailsButton(
                 title = "Very very very very very very very very very very very long title",
                 artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
                 onClick = {},
@@ -63,7 +63,7 @@ class MediaButtonTest : WearLegacyComponentTest() {
     @Test
     fun givenNoTitle_thenDisplaysDefaultTitle() {
         runComponentTest {
-            MediaButton(
+            MediaDetailsButton(
                 media = MediaUiModel.Ready(
                     id = "id",
                     title = "",
@@ -77,7 +77,7 @@ class MediaButtonTest : WearLegacyComponentTest() {
     @Test
     fun givenModifier_thenAppliesModifierCorrectly() {
         runComponentTest {
-            MediaButton(
+            MediaDetailsButton(
                 media = MediaUiModel.Ready(
                     id = "id",
                     title = "Red Hot Chilli Peppers",

@@ -40,6 +40,7 @@ import com.google.android.horologist.audio.ui.material3.components.actions.Setti
 import com.google.android.horologist.audio.ui.material3.components.actions.VolumeButtonWithBadge
 import com.google.android.horologist.audio.ui.material3.components.toAudioOutputUi
 import com.google.android.horologist.media.ui.material3.components.ambient.AmbientMediaControlButtons
+import com.google.android.horologist.media.ui.material3.components.ambient.AmbientMediaInfoDisplay
 import com.google.android.horologist.media.ui.material3.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.material3.components.animated.AnimatedMediaInfoDisplay
 import com.google.android.horologist.media.ui.material3.components.background.ArtworkImageBackground
@@ -52,7 +53,11 @@ fun MediaPlayerTestCase(
     playerUiState: PlayerUiState,
     isAmbientModeEnabled: Boolean = false,
     mediaDisplay: @Composable () -> Unit = {
-        AnimatedMediaInfoDisplay(playerUiState.media, loading = false)
+        if (isAmbientModeEnabled) {
+            AmbientMediaInfoDisplay(playerUiState.media, loading = false)
+        } else {
+            AnimatedMediaInfoDisplay(playerUiState.media, loading = false)
+        }
     },
     controlButtons: @Composable () -> Unit = {
         if (isAmbientModeEnabled) {

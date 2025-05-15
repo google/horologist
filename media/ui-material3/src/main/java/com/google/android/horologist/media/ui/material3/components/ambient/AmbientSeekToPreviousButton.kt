@@ -18,7 +18,6 @@ package com.google.android.horologist.media.ui.material3.components.ambient
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -68,7 +67,8 @@ public fun AmbientSeekToPreviousButton(
         icon = icon,
         contentDescription =
             stringResource(com.google.android.horologist.media.ui.model.R.string.horologist_seek_to_previous_button_content_description),
-        modifier = modifier.padding(buttonPadding),
+        modifier = modifier,
+        buttonPadding = buttonPadding,
         enabled = enabled,
         iconSize = iconSize,
         colors = colors,

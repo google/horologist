@@ -52,7 +52,7 @@ class MediaButtonA11yTest : WearLegacyA11yTest() {
     @Test
     fun a11y() {
         runComponentTest {
-            MediaButton(
+            MediaDetailsButton(
                 media = MediaUiModel.Ready(
                     id = "id",
                     title = "Red Hot Chilli Peppers",

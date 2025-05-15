@@ -17,9 +17,10 @@
 package com.google.android.horologist.media.ui.material3.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material3.ColorScheme
@@ -124,7 +125,10 @@ public fun PodcastControlButtons(
 ) {
     val interactionSources =
         remember { Array(BUTTON_GROUP_ITEMS_COUNT) { MutableInteractionSource() } }
-    val isAnyButtonPressed = remember { mutableStateOf(false) }
+    val buttonPressedStateList = interactionSources.map { it.collectIsPressedAsState() }
+    val isAnyButtonPressed = remember {
+        derivedStateOf { buttonPressedStateList.any { it.value } }
+    }
 
     val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
     val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)

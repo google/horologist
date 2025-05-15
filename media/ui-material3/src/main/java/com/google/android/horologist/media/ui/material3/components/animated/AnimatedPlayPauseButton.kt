@@ -44,7 +44,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.CircularProgressIndicator
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.IconButtonDefaults
@@ -62,6 +61,7 @@ import com.google.android.horologist.media.ui.animation.PlaybackProgressAnimatio
 import com.google.android.horologist.media.ui.material3.composables.UnboundedRippleIconButton
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.LOTTIE_DYNAMIC_PROPERTY_KEY_PATH
+import com.google.android.horologist.media.ui.material3.util.MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.isLargeScreen
 import com.google.android.horologist.media.ui.model.R
@@ -193,7 +193,7 @@ public fun AnimatedPlayPauseProgressButton(
     interactionSource: MutableInteractionSource? = null,
     isAnyButtonPressed: State<Boolean> = remember { mutableStateOf(false) },
     iconSize: Dp = IconButtonDefaults.LargeIconSize,
-    progressStrokeWidth: Dp = 4.dp,
+    progressStrokeWidth: Dp = MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH,
     rotateProgressIndicator: Flow<Unit> = flowOf(), // TODO(b/379052971) Fix song change indicator motion
 ) {
     val configuration = LocalConfiguration.current

@@ -58,7 +58,10 @@ public fun AnimatedMediaControlButtons(
     rotateProgressIndicator: Flow<Unit> = flowOf(),
 ) {
     val interactionSources = remember { Array(BUTTON_GROUP_ITEMS_COUNT) { MutableInteractionSource() } }
-    val isAnyButtonPressed = remember { mutableStateOf(false) }
+    val buttonPressedStateList = interactionSources.map { it.collectIsPressedAsState() }
+    val isAnyButtonPressed = remember {
+        derivedStateOf { buttonPressedStateList.any { it.value } }
+    }
 
     val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
     val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)

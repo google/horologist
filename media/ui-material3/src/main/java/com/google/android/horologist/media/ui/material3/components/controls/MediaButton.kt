@@ -74,6 +74,7 @@ public fun MediaButton(
         border = border,
         shape = shape,
         interactionSource = interactionSource,
+        rippleRadius = null,
         buttonPadding = buttonPadding,
     ) {
         Icon(

@@ -40,7 +40,7 @@ public fun SeekToPreviousButton(
     interactionSource: MutableInteractionSource? = null,
     buttonPadding: PaddingValues = PaddingValues(0.dp),
     contentDescription: String = stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
+    iconSize: Dp = IconButtonDefaults.SmallIconSize,
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(colorScheme),
 ) {
     MediaButton(

@@ -41,7 +41,7 @@ public fun SeekForwardButton(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
     buttonPadding: PaddingValues = PaddingValues(0.dp),
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
+    iconSize: Dp = IconButtonDefaults.SmallIconSize,
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(colorScheme),
 ) {
     val contentDescription = when (seekButtonIncrement) {

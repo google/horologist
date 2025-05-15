@@ -17,7 +17,10 @@
 package com.google.android.horologist.media.ui.material3.components.controls
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Forward10
 import androidx.compose.material.icons.filled.Forward30
@@ -32,17 +35,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.Icon
-import androidx.wear.compose.material3.IconButton
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.material3.colorscheme.DisabledContainerAlpha
 import com.google.android.horologist.media.ui.material3.colorscheme.toDisabledColor
+import com.google.android.horologist.media.ui.material3.composables.UnboundedRippleIconButton
 
 /** A base button for media controls. */
 @Composable
@@ -50,20 +55,26 @@ public fun MediaButton(
     onClick: () -> Unit,
     icon: ImageVector,
     contentDescription: String,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
     modifier: Modifier = Modifier,
+    colorScheme: ColorScheme = MaterialTheme.colorScheme,
     enabled: Boolean = true,
+    interactionSource: MutableInteractionSource? = null,
+    buttonPadding: PaddingValues = PaddingValues(0.dp),
     iconSize: Dp = IconButtonDefaults.LargeIconSize,
+    shape: Shape = CircleShape,
     iconAlign: Alignment = Alignment.Center,
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(colorScheme),
     border: BorderStroke? = null,
 ) {
-    IconButton(
+    UnboundedRippleIconButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
         colors = colors,
         border = border,
+        shape = shape,
+        interactionSource = interactionSource,
+        buttonPadding = buttonPadding,
     ) {
         Icon(
             imageVector = icon,

@@ -34,7 +34,7 @@ import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
- * A rounded chip to show a single [MediaUiModel].
+ * A rounded pill-shaped button to show a single [MediaUiModel].
  *
  * @param media The [MediaUiModel] that the [title][MediaUiModel.title] and
  * [artwork][MediaUiModel.artwork] will be used to display on the chip.
@@ -46,7 +46,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
  */
 @ExperimentalHorologistApi
 @Composable
-public fun MediaButton(
+public fun MediaDetailsButton(
     media: MediaUiModel.Ready,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -56,7 +56,7 @@ public fun MediaButton(
     val artworkUri = media.artwork
     val title = media.title
 
-    MediaButton(
+    MediaDetailsButton(
         title = title.takeIf { it.isNotEmpty() } ?: defaultTitle,
         artworkPaintable = CoilPaintable(artworkUri, placeholder),
         onClick = onClick,
@@ -65,11 +65,11 @@ public fun MediaButton(
 }
 
 /**
- * A rounded chip to show a single media title and its artwork.
+ * A rounded pill-shaped button to show a single media title and its artwork.
  */
 @ExperimentalHorologistApi
 @Composable
-public fun MediaButton(
+public fun MediaDetailsButton(
     title: String,
     artworkPaintable: Paintable?,
     onClick: () -> Unit,

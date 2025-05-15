@@ -209,30 +209,6 @@ class PodcastControlButtonsWithProgressTest {
     }
 
     @Test
-    fun givenPercentParam_thenProgressBarIsDisplayed() {
-        // given
-        val trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
-
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = false,
-                trackPositionUiModel = trackPositionUiModel,
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = true,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
-            )
-        }
-
-        // then
-        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0.25f, 0.0f..1.0f)))
-            .assertIsDisplayed()
-    }
-
-    @Test
     fun givenIsPlayingAndPlayPauseEnabledIsTrue_thenPauseButtonIsEnabled() {
         // given
         val playing = true

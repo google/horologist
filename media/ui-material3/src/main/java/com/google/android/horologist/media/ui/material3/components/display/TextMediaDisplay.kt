@@ -65,8 +65,8 @@ public fun TextMediaDisplay(
                 Box(modifier = Modifier.size(MEDIA_TITLE_ICON_SIZE)) {
                     MediaTitleIcon(paintableRes = it, tint = colorScheme.primary)
                 }
+                Spacer(modifier = Modifier.width(MEDIA_TITLE_EDGE_GRADIENT_WIDTH))
             }
-            Spacer(modifier = Modifier.width(MEDIA_TITLE_EDGE_GRADIENT_WIDTH))
             Text(
                 text = title,
                 color = colorScheme.onSurface,

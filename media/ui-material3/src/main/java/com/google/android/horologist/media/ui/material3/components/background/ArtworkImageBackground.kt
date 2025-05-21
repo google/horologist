@@ -108,6 +108,6 @@ public fun ColorBackground(
                     }
                 canvas.drawRect(0f, 0f, size.width, size.height, paint = paint)
                 onDrawBehind { drawImage(bitmap) }
-            }
+            },
     )
 }

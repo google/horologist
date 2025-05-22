@@ -110,7 +110,7 @@ fun MediaPlayerTestCase(
                         SettingsButtonDefaults.buttonColors()
                     },
                     border = if (isAmbientModeEnabled) {
-                        SettingsButtonDefaults.outlinedButtonBorder()
+                        SettingsButtonDefaults.outlinedButtonBorder(playerUiState.connected)
                     } else {
                         null
                     },
@@ -129,7 +129,7 @@ fun MediaPlayerTestCase(
                         SettingsButtonDefaults.buttonColors()
                     },
                     border = if (isAmbientModeEnabled) {
-                        SettingsButtonDefaults.outlinedButtonBorder()
+                        SettingsButtonDefaults.outlinedButtonBorder(playerUiState.connected)
                     } else {
                         null
                     },

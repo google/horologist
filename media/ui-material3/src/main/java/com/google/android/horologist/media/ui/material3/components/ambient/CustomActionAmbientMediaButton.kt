@@ -66,8 +66,8 @@ public fun CustomActionAmbientMediaButton(
     buttonSize: Dp = IconButtonDefaults.DefaultButtonSize,
     buttonPadding: PaddingValues = PaddingValues(0.dp),
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(colorScheme),
-    border: BorderStroke? =
-        BorderStroke(1.dp, colorScheme.primaryDim.copy(alpha = 0.5f)),
+    border: BorderStroke? = MediaButtonDefaults
+        .outlinedButtonBorder(enabled = enabled, colorScheme = colorScheme),
 ) {
     CustomActionMediaButton(
         onClick = onClick,

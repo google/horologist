@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButtonColors
@@ -118,7 +119,7 @@ public object MediaButtonDefaults {
         containerColor = Color.Transparent,
         contentColor = colorScheme.primaryDim,
         disabledContainerColor = Color.Transparent,
-        disabledContentColor = colorScheme.primaryDim,
+        disabledContentColor = colorScheme.onSurface.toDisabledColor(),
     )
 
     /**
@@ -134,6 +135,22 @@ public object MediaButtonDefaults {
         contentColor = colorScheme.onPrimary,
         disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
         disabledContentColor = colorScheme.onSurface.toDisabledColor(),
+    )
+
+    /**
+     * Provides the appropriate [BorderStroke] for the [MediaButton].
+     *
+     * @param enabled Whether the outline should be for an enabled [MediaButton].
+     * @param colorScheme [ColorScheme] to be used. Defaults to [MaterialTheme.colorScheme].
+     */
+    @Composable
+    public fun outlinedButtonBorder(
+        enabled: Boolean,
+        colorScheme: ColorScheme = MaterialTheme.colorScheme,
+    ): BorderStroke = ButtonDefaults.outlinedButtonBorder(
+        enabled = enabled,
+        borderColor = colorScheme.primaryDim.toDisabledColor(0.5f),
+        disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
     )
 
     /**

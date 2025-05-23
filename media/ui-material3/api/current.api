@@ -218,6 +218,7 @@ package com.google.android.horologist.media.ui.material3.components.controls {
   public final class MediaButtonDefaults {
     method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors mediaButtonAmbientColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
     method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors mediaButtonDefaultColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public androidx.compose.foundation.BorderStroke outlinedButtonBorder(boolean enabled, optional androidx.wear.compose.material3.ColorScheme colorScheme);
     method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors playPauseButtonDefaultColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
     method public androidx.compose.ui.graphics.vector.ImageVector seekBackIcon(com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement);
     method public androidx.compose.ui.graphics.vector.ImageVector seekForwardIcon(com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement);

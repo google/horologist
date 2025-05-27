@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.ui.material3.components.ambient
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource

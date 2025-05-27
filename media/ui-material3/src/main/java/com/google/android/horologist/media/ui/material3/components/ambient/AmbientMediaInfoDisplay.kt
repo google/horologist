@@ -51,7 +51,7 @@ public fun AmbientMediaInfoDisplay(
                 } else {
                     stringResource(R.string.horologist_nothing_playing)
                 },
-            modifier = modifier.fillMaxSize(),
+            modifier = modifier,
             colorScheme = colorScheme,
         )
     }

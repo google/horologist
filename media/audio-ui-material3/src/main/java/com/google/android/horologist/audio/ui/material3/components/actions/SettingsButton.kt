@@ -167,7 +167,7 @@ public object SettingsButtonDefaults {
             containerColor = Color.Transparent,
             contentColor = colorScheme.onSurface,
             disabledContainerColor = Color.Transparent,
-            disabledContentColor = colorScheme.onSurface,
+            disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
         )
 
     /**

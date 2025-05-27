@@ -40,12 +40,10 @@ public fun AmbientMessageDisplay(
 ) {
     val isLargeScreen = LocalConfiguration.current.isLargeScreen
     val height = TRACK_TITLE_HEIGHT + TRACK_SUBTITLE_HEIGHT
-    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+    Box(modifier = modifier.height(height), contentAlignment = Alignment.Center) {
         Text(
             text = message,
-            modifier = modifier
-                .height(height)
-                .fillMaxWidth(if (isLargeScreen) 0.71f else 0.75f),
+            modifier = Modifier.fillMaxWidth(if (isLargeScreen) 0.71f else 0.75f),
             textAlign = TextAlign.Center,
             color = colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium,

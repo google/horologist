@@ -298,7 +298,7 @@ internal fun AnimatedPlayProgressButton(
 
     val rotationProgress = remember { mutableFloatStateOf(0f) }
 
-    val scallopShape = remember(playing, shapeMorphProgress, false) {
+    val scallopShape = remember(playing, shapeMorphProgress) {
         RotatingMorphedScallopShape(
             playing = playing,
             isLargeScreen = configuration.isLargeScreen,

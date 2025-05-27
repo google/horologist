@@ -77,6 +77,46 @@ class MediaPlayerStatesScreenTest(
         }
     }
 
+    @Test
+    fun ambientMediaPlayerScreen() {
+        val playerUiState = PlayerUiState(
+            playEnabled = state.connected,
+            pauseEnabled = state.connected,
+            seekBackEnabled = state.connected,
+            seekForwardEnabled = state.connected,
+            seekInCurrentMediaItemEnabled = state.connected,
+            seekToPreviousEnabled = false,
+            seekToNextEnabled = state.connected,
+            shuffleEnabled = false,
+            shuffleOn = false,
+            playPauseEnabled = state.connected,
+            playing = state.connected,
+            media = if (state.media) {
+                MediaUiModel.Ready(
+                    id = "",
+                    title = "Weather with You",
+                    subtitle = "Crowded House",
+                )
+            } else {
+                null
+            },
+            trackPositionUiModel = if (state.media) {
+                TrackPositionUiModel.Actual(
+                    percent = 0.133f,
+                    position = 30.seconds,
+                    duration = 225.seconds,
+                )
+            } else {
+                TrackPositionUiModel.Actual.ZERO
+            },
+            connected = state.connected,
+        )
+
+        runTest {
+            MediaPlayerTestCase(playerUiState = playerUiState, isAmbientModeEnabled = true)
+        }
+    }
+
     data class State(
         val connected: Boolean,
         val media: Boolean,

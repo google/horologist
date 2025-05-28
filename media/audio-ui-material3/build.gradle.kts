@@ -110,6 +110,7 @@ dependencies {
     implementation(libs.lottie.compose)
 
     implementation(libs.compose.ui.toolingpreview)
+    implementation(libs.androidx.wear.tooling.preview)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
     debugImplementation(libs.compose.ui.test.manifest)

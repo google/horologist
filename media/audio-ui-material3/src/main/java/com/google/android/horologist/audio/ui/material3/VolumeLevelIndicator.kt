@@ -61,7 +61,6 @@ public fun VolumeLevelIndicator(
                 value = false
             }
         }
-    val uiState = volumeUiState()
 
     AnimatedVisibility(
         visible = visible,
@@ -70,8 +69,8 @@ public fun VolumeLevelIndicator(
     ) {
         StepperLevelIndicator(
             modifier = modifier.fillMaxSize(),
-            value = { uiState.current.toFloat() },
-            valueRange = (uiState.min.toFloat())..(uiState.max.toFloat()),
+            value = { volumeUiState().current.toFloat() },
+            valueRange = (volumeUiState().min.toFloat())..(volumeUiState().max.toFloat()),
             colors =
                 LevelIndicatorDefaults.colors(
                     indicatorColor = colorScheme.secondaryDim,

@@ -69,7 +69,7 @@ import kotlin.math.roundToInt
 @Preview(
     device = WearDevices.LARGE_ROUND,
     showSystemUi = true,
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 fun VolumeScreenPreview() {
@@ -81,7 +81,7 @@ fun VolumeScreenPreview() {
         audioOutputUi = AudioOutput.BluetoothHeadset("id", "name").toAudioOutputUi(),
         increaseVolume = { currentVolume++ },
         decreaseVolume = { currentVolume-- },
-        onAudioOutputClick = { }
+        onAudioOutputClick = { },
     )
 }
 

@@ -95,6 +95,7 @@ public fun AmbientMediaControlButtons(
                 onClick = onSeekToPreviousButtonClick,
                 buttonPadding = leftButtonPadding,
                 colorScheme = colorScheme,
+                enabled = playerUiState.seekToPreviousEnabled,
             )
         },
         rightButton = {
@@ -102,6 +103,7 @@ public fun AmbientMediaControlButtons(
                 onClick = onSeekToNextButtonClick,
                 buttonPadding = rightButtonPadding,
                 colorScheme = colorScheme,
+                enabled = playerUiState.seekToNextEnabled,
             )
         },
     )

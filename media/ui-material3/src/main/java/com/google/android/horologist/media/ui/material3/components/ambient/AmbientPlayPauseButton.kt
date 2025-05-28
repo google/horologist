@@ -38,12 +38,14 @@ import androidx.graphics.shapes.toPath
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
+import com.google.android.horologist.media.ui.material3.colorscheme.DisabledContainerAlpha
+import com.google.android.horologist.media.ui.material3.colorscheme.toDisabledColor
 import com.google.android.horologist.media.ui.material3.components.PlayPauseButtonDefaults
 import com.google.android.horologist.media.ui.material3.components.animated.scaleToSize
 import com.google.android.horologist.media.ui.material3.components.controls.PauseButton
 import com.google.android.horologist.media.ui.material3.components.controls.PlayButton
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-import com.google.android.horologist.media.ui.material3.util.MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
+import com.google.android.horologist.media.ui.material3.util.PLAY_BUTTON_PROGRESS_STROKE_WIDTH
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.isLargeScreen
 
@@ -78,7 +80,7 @@ public fun AmbientPlayPauseButton(
         }
     }
     val scallopHeight =
-        remember(scallopSize) { with(density) { (scallopSize - MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH).toPx() } }
+        remember(scallopSize) { with(density) { (scallopSize - PLAY_BUTTON_PROGRESS_STROKE_WIDTH).toPx() } }
 
     val scallopPolygon = remember(scallopSize, scallopHeight) {
         PlayPauseButtonDefaults.indicatorScallopPolygon(density, scallopSize)
@@ -102,7 +104,7 @@ public fun AmbientPlayPauseButton(
         containerColor = Color.Transparent,
         contentColor = colorScheme.primary,
         disabledContainerColor = Color.Transparent,
-        disabledContentColor = colorScheme.primary,
+        disabledContentColor = colorScheme.onSurface.toDisabledColor(),
     )
 
     Box(
@@ -116,7 +118,11 @@ public fun AmbientPlayPauseButton(
                     val translatedPath = Path().apply { addPath(path, Offset(centerX, centerY)) }
                     drawPath(
                         path = translatedPath,
-                        color = colorScheme.primaryDim,
+                        color = if (enabled) {
+                            colorScheme.primaryDim
+                        } else {
+                            colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha)
+                        },
                         style = Stroke(1.dp.toPx(), cap = StrokeCap.Round),
                     )
                 },

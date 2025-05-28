@@ -40,6 +40,7 @@ import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.star
 import androidx.graphics.shapes.transformed
+import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButtonColors
@@ -166,14 +167,24 @@ public object SettingsButtonDefaults {
             containerColor = Color.Transparent,
             contentColor = colorScheme.onSurface,
             disabledContainerColor = Color.Transparent,
-            disabledContentColor = colorScheme.onSurface,
+            disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
         )
 
+    /**
+     * Provides the appropriate [BorderStroke] for the [SettingsButton].
+     *
+     * @param enabled Whether the outline should be for an enabled [SettingsButton].
+     * @param colorScheme [ColorScheme] to be used. Defaults to [MaterialTheme.colorScheme].
+     */
     @Composable
     public fun outlinedButtonBorder(
+        enabled: Boolean,
         colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    ): BorderStroke =
-        BorderStroke(1.dp, colorScheme.onSurface.toDisabledColor(DisabledContentAlpha))
+    ): BorderStroke = ButtonDefaults.outlinedButtonBorder(
+        enabled = enabled,
+        borderColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+        disabledBorderColor = colorScheme.onSurface.toDisabledColor(0.16f),
+    )
 }
 
 @Composable

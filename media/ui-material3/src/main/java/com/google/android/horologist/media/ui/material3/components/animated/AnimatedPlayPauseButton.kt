@@ -25,6 +25,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -33,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
@@ -61,7 +63,7 @@ import com.google.android.horologist.media.ui.animation.PlaybackProgressAnimatio
 import com.google.android.horologist.media.ui.material3.composables.UnboundedRippleIconButton
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.LOTTIE_DYNAMIC_PROPERTY_KEY_PATH
-import com.google.android.horologist.media.ui.material3.util.MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
+import com.google.android.horologist.media.ui.material3.util.PLAY_BUTTON_PROGRESS_STROKE_WIDTH
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.isLargeScreen
 import com.google.android.horologist.media.ui.model.R
@@ -193,7 +195,7 @@ public fun AnimatedPlayPauseProgressButton(
     interactionSource: MutableInteractionSource? = null,
     isAnyButtonPressed: State<Boolean> = remember { mutableStateOf(false) },
     iconSize: Dp = IconButtonDefaults.LargeIconSize,
-    progressStrokeWidth: Dp = MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH,
+    progressStrokeWidth: Dp = PLAY_BUTTON_PROGRESS_STROKE_WIDTH,
     rotateProgressIndicator: Flow<Unit> = flowOf(), // TODO(b/379052971) Fix song change indicator motion
 ) {
     val configuration = LocalConfiguration.current
@@ -257,6 +259,74 @@ public fun AnimatedPlayPauseProgressButton(
                 // .rotate(animateChangeAsRotation(rotateProgressIndicator)),
             )
         }
+    }
+}
+
+/**
+ * A Play button with a static RotatingWavyProgressIndicator.
+ *
+ * @param onPlayClick Lambda to invoke when the play button is clicked.
+ * @param playing State controlling the [RotatingWavyProgressIndicator]'s shape.
+ * @param progress The progress of the progress indicator.
+ * @param modifier The [Modifier] to apply to the button.
+ * @param colorScheme The [ColorScheme] used for the button.
+ * @param enabled Whether the button is enabled.
+ * @param interactionSource The interaction source to use for the button.
+ * @param iconSize The size of the icon.
+ * @param progressStrokeWidth The width of the progress stroke.
+ */
+@Composable
+internal fun AnimatedPlayProgressButton(
+    onPlayClick: () -> Unit,
+    playing: Boolean,
+    progress: State<Float>,
+    modifier: Modifier = Modifier,
+    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    iconSize: Dp = IconButtonDefaults.LargeIconSize,
+    progressStrokeWidth: Dp = PLAY_BUTTON_PROGRESS_STROKE_WIDTH,
+) {
+    val configuration = LocalConfiguration.current
+    val transition = updateTransition(
+        targetState = interactionSource.collectIsPressedAsState().value,
+        label = SHAPE_TRANSITION_LABEL,
+    )
+    val shapeMorphProgress = animatedScallopShapeProgress(
+        transition = transition,
+    )
+
+    val rotationProgress = remember { mutableFloatStateOf(0f) }
+
+    val scallopShape = remember(playing, shapeMorphProgress) {
+        RotatingMorphedScallopShape(
+            playing = playing,
+            isLargeScreen = configuration.isLargeScreen,
+            morphProgress = shapeMorphProgress,
+            rotationProgress = rotationProgress,
+        )
+    }
+
+    AnimatedPlayPauseButton(
+        onPlayClick = onPlayClick,
+        onPauseClick = {},
+        enabled = enabled,
+        playing = false,
+        modifier = modifier,
+        colorScheme = colorScheme,
+        interactionSource = interactionSource,
+        iconSize = iconSize,
+        shape = scallopShape,
+    ) {
+        RotatingWavyProgressIndicator(
+            playing = playing,
+            progress = progress,
+            shapeMorphProgress = shapeMorphProgress,
+            rotationProgress = rotationProgress,
+            strokeWidth = progressStrokeWidth,
+            colorScheme = colorScheme,
+            modifier = Modifier.fillMaxSize(),
+        )
     }
 }
 

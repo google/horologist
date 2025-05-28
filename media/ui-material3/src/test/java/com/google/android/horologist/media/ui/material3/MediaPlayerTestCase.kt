@@ -99,8 +99,11 @@ fun MediaPlayerTestCase(
             Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
                 VolumeButtonWithBadge(
                     volumeUiState = VolumeUiState(5, 10),
-                    audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name")
-                        .toAudioOutputUi(),
+                    audioOutputUi = if (playerUiState.connected) {
+                        AudioOutput.BluetoothHeadset(id = "id", name = "name")
+                    } else {
+                        AudioOutput.None
+                    }.toAudioOutputUi(),
                     onOutputClick = { },
                     enabled = playerUiState.connected,
                     alignment = Alignment.TopCenter,
@@ -110,13 +113,17 @@ fun MediaPlayerTestCase(
                         SettingsButtonDefaults.buttonColors()
                     },
                     border = if (isAmbientModeEnabled) {
-                        SettingsButtonDefaults.outlinedButtonBorder()
+                        SettingsButtonDefaults.outlinedButtonBorder(playerUiState.connected)
                     } else {
                         null
                     },
                 )
             }
-            Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight(),
+            ) {
                 SettingsButton(
                     onClick = { },
                     enabled = playerUiState.connected,
@@ -129,7 +136,7 @@ fun MediaPlayerTestCase(
                         SettingsButtonDefaults.buttonColors()
                     },
                     border = if (isAmbientModeEnabled) {
-                        SettingsButtonDefaults.outlinedButtonBorder()
+                        SettingsButtonDefaults.outlinedButtonBorder(playerUiState.connected)
                     } else {
                         null
                     },

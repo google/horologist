@@ -32,7 +32,9 @@ import androidx.compose.material.icons.automirrored.rounded.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -42,6 +44,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
@@ -53,6 +56,7 @@ import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Stepper
 import androidx.wear.compose.material3.StepperDefaults
 import androidx.wear.compose.material3.Text
+import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.VolumeViewModel
@@ -61,6 +65,25 @@ import com.google.android.horologist.audio.ui.material3.components.DeviceButton
 import com.google.android.horologist.audio.ui.material3.components.toAudioOutputUi
 import com.google.android.horologist.audio.ui.model.R
 import kotlin.math.roundToInt
+
+@Preview(
+    device = WearDevices.LARGE_ROUND,
+    showSystemUi = true,
+    showBackground = true,
+)
+@Composable
+fun VolumeScreenPreview() {
+    var currentVolume by remember { mutableStateOf(5) }
+    val maxVolume = 10
+
+    VolumeScreen(
+        volume = { VolumeUiState(current = currentVolume, max = maxVolume) },
+        audioOutputUi = AudioOutput.BluetoothHeadset("id", "name").toAudioOutputUi(),
+        increaseVolume = { currentVolume++ },
+        decreaseVolume = { currentVolume-- },
+        onAudioOutputClick = { },
+    )
+}
 
 /**
  * Volume Screen with an [Stepper] and Increase/Decrease buttons for the Audio Stream Volume.

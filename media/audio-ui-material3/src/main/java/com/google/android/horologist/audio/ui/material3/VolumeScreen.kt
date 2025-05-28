@@ -72,7 +72,7 @@ import kotlin.math.roundToInt
     showBackground = true,
 )
 @Composable
-fun VolumeScreenPreview() {
+private fun VolumeScreenPreview() {
     var currentVolume by remember { mutableStateOf(5) }
     val maxVolume = 10
 

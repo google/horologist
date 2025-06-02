@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.networks.rules
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.NetworkType.BT
@@ -43,8 +44,17 @@ import okhttp3.coroutines.executeAsync
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import java.io.IOException
+import kotlin.intArrayOf
 import kotlin.time.Duration.Companion.seconds
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.GraphicsMode
 
+@Config(
+    sdk = [35],
+)
+@RunWith(AndroidJUnit4::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
 class NetworkSelectingCallFactoryTest {
     private val testScope = TestScope()
     private val networkRepository = FakeNetworkRepository()

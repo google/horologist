@@ -43,12 +43,11 @@ import okhttp3.Request
 import okhttp3.coroutines.executeAsync
 import org.junit.Assert.assertThrows
 import org.junit.Test
-import java.io.IOException
-import kotlin.intArrayOf
-import kotlin.time.Duration.Companion.seconds
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
+import java.io.IOException
+import kotlin.time.Duration.Companion.seconds
 
 @Config(
     sdk = [35],

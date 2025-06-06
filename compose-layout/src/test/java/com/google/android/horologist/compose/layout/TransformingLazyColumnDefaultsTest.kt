@@ -23,8 +23,6 @@ import androidx.compose.material.icons.rounded.ArrowUpward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumnState
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
@@ -44,6 +42,7 @@ import androidx.wear.compose.material3.TitleCard
 import androidx.wear.compose.material3.lazy.rememberTransformationSpec
 import androidx.wear.compose.material3.lazy.transformedHeight
 import androidx.wear.compose.material3.timeTextCurvedText
+import com.google.android.horologist.compose.layout.ColumnItemType.Companion.EdgeButtonPadding
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest
 import kotlinx.coroutines.runBlocking
@@ -119,14 +118,6 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         }
 
         captureScreenshot("_end")
-    }
-
-    object EdgeButtonPadding : ColumnItemType {
-        @Composable
-        override fun topPadding(horizontalPercent: Float): Dp = 0.dp
-
-        @Composable
-        override fun bottomPadding(horizontalPercent: Float): Dp = 0.dp
     }
 
     @Test

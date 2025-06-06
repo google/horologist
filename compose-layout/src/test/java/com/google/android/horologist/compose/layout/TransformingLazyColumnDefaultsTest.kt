@@ -113,7 +113,9 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         composeRule.waitForIdle()
 
         runBlocking {
-            columnState.dispatchRawDelta(2000f)
+            columnState.scroll {
+                scrollBy(2000f)
+            }
         }
 
         captureScreenshot("_end")
@@ -185,7 +187,9 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         composeRule.waitForIdle()
 
         runBlocking {
-            columnState.dispatchRawDelta(2000f)
+            columnState.scroll {
+                scrollBy(2000f)
+            }
         }
 
         captureScreenshot("_end")
@@ -247,7 +251,9 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         composeRule.waitForIdle()
 
         runBlocking {
-            columnState.dispatchRawDelta(2000f)
+            columnState.scroll {
+                scrollBy(2000f)
+            }
         }
 
         captureScreenshot("_end")

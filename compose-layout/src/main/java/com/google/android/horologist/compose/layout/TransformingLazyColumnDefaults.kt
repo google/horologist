@@ -93,5 +93,13 @@ public interface ColumnItemType {
 
         val ButtonRow: ColumnItemType
             get() = ItemType.MultiButton
+
+        val EdgeButtonPadding: ColumnItemType = object : ColumnItemType {
+            @Composable
+            override fun topPadding(horizontalPercent: Float): Dp = 0.dp
+
+            @Composable
+            override fun bottomPadding(horizontalPercent: Float): Dp = 0.dp
+        }
     }
 }

@@ -146,7 +146,7 @@ public object SettingsButtonDefaults {
         IconButtonDefaults.iconButtonColors(
             containerColor = colorScheme.onSurface.copy(alpha = 0.16f),
             contentColor = colorScheme.onSurface,
-            disabledContainerColor = colorScheme.onSurface.toDisabledColor(disabledAlpha = 0.16f),
+            disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
             disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
         )
 
@@ -183,7 +183,7 @@ public object SettingsButtonDefaults {
     ): BorderStroke = ButtonDefaults.outlinedButtonBorder(
         enabled = enabled,
         borderColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-        disabledBorderColor = colorScheme.onSurface.toDisabledColor(0.16f),
+        disabledBorderColor = colorScheme.onSurface.toDisabledColor(alpha = DisabledContainerAlpha),
     )
 }
 

@@ -46,6 +46,7 @@ import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.material3.colorscheme.DisabledContainerAlpha
+import com.google.android.horologist.media.ui.material3.colorscheme.DisabledContentAlpha
 import com.google.android.horologist.media.ui.material3.colorscheme.toDisabledColor
 import com.google.android.horologist.media.ui.material3.composables.UnboundedRippleIconButton
 
@@ -116,7 +117,7 @@ public object MediaButtonDefaults {
         colorScheme: ColorScheme = MaterialTheme.colorScheme,
     ): IconButtonColors = IconButtonDefaults.outlinedIconButtonColors(
         contentColor = colorScheme.primaryDim,
-        disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+        disabledContentColor = colorScheme.onSurface.toDisabledColor(),
     )
 
     /**

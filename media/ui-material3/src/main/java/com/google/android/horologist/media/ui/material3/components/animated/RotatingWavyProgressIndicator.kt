@@ -57,7 +57,7 @@ import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayoutDefaults
 import com.google.android.horologist.media.ui.material3.components.PlayPauseButtonDefaults
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-import com.google.android.horologist.media.ui.material3.util.MIDDLE_BUTTON_PROGRESS_AND_BUTTON_GAP
+import com.google.android.horologist.media.ui.material3.util.PLAY_BUTTON_PROGRESS_AND_BUTTON_GAP
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.faster
 import com.google.android.horologist.media.ui.material3.util.isLargeScreen
@@ -242,7 +242,7 @@ internal class RotatingMorphedScallopShape(
         LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
     } else {
         SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-    } - (MIDDLE_BUTTON_PROGRESS_AND_BUTTON_GAP * 2)
+    } - (PLAY_BUTTON_PROGRESS_AND_BUTTON_GAP * 2)
 
     override fun createOutline(
         size: Size,

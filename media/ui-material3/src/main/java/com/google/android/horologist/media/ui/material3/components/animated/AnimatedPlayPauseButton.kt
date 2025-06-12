@@ -66,7 +66,7 @@ import com.google.android.horologist.media.ui.animation.PlaybackProgressAnimatio
 import com.google.android.horologist.media.ui.material3.composables.UnboundedRippleIconButton
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.LOTTIE_DYNAMIC_PROPERTY_KEY_PATH
-import com.google.android.horologist.media.ui.material3.util.MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
+import com.google.android.horologist.media.ui.material3.util.PLAY_BUTTON_PROGRESS_STROKE_WIDTH
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.isLargeScreen
 import com.google.android.horologist.media.ui.model.R
@@ -160,7 +160,7 @@ public fun AnimatedPlayPauseProgressButton(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
     isAnyButtonPressed: State<Boolean> = remember { mutableStateOf(false) },
-    progressStrokeWidth: Dp = MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH,
+    progressStrokeWidth: Dp = PLAY_BUTTON_PROGRESS_STROKE_WIDTH,
     rotateProgressIndicator: Flow<Unit> = flowOf(), // TODO(b/379052971) Fix song change indicator motion
     content: @Composable () -> Unit = { AnimatedPlayPauseButtonContent(playing) },
 ) {

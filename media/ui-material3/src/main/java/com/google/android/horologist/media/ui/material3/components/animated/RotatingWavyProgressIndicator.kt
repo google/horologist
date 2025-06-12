@@ -57,7 +57,7 @@ import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayoutDefaults
 import com.google.android.horologist.media.ui.material3.components.PlayPauseButtonDefaults
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-import com.google.android.horologist.media.ui.material3.util.PLAY_BUTTON_PROGRESS_AND_BUTTON_GAP
+import com.google.android.horologist.media.ui.material3.util.MIDDLE_BUTTON_PROGRESS_AND_BUTTON_GAP
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.faster
 import com.google.android.horologist.media.ui.material3.util.isLargeScreen
@@ -231,15 +231,18 @@ internal class RotatingMorphedScallopShape(
     private val isLargeScreen: Boolean,
     private val morphProgress: State<Float>,
     private val rotationProgress: State<Float>,
+    private val morphState: MutableMap<Pair<Boolean, Boolean>, Morph> =
+        mutableStateMapOf<Pair<Boolean, Boolean>, Morph>(),
 ) : Shape {
 
-    private val morphState = mutableStateMapOf<Pair<Boolean, Boolean>, Morph>()
+    private val matrix = Matrix()
+    private val path = android.graphics.Path()
 
     private val scallopSize = if (isLargeScreen) {
         LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
     } else {
         SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-    } - (PLAY_BUTTON_PROGRESS_AND_BUTTON_GAP * 2)
+    } - (MIDDLE_BUTTON_PROGRESS_AND_BUTTON_GAP * 2)
 
     override fun createOutline(
         size: Size,
@@ -268,12 +271,15 @@ internal class RotatingMorphedScallopShape(
                 if (playing) scallopPolygon else circlePolygon,
             )
         }
-        val path = morph.toPath(morphProgress.value).asComposePath().apply {
-            transform(Matrix().apply { rotateZ(rotationProgress.value * 360f) })
+        matrix.reset()
+        path.reset()
+        matrix.rotateZ(rotationProgress.value * 360f)
+        val morphPath = morph.toPath(morphProgress.value, path).asComposePath().apply {
+            transform(matrix)
             translate(Offset(size.width / 2f, size.height / 2f))
         }
 
-        return Outline.Generic(path)
+        return Outline.Generic(morphPath)
     }
 }
 

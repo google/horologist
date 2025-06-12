@@ -18,14 +18,11 @@ package com.google.android.horologist.media.ui.material3.util
 
 import androidx.compose.ui.unit.dp
 
-internal val SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT = 68.dp
-internal val LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT = 80.dp
-
 internal val SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE = 64.dp
 internal val LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE = 80.dp
 
-internal val PLAY_BUTTON_PROGRESS_AND_BUTTON_GAP = 8.dp
-internal val PLAY_BUTTON_PROGRESS_STROKE_WIDTH = 4.dp
+internal val MIDDLE_BUTTON_PROGRESS_AND_BUTTON_GAP = 8.dp
+internal val MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH = 4.dp
 
 internal val SMALL_DEVICE_PLAYER_SCREEN_TOP_SECTION_HEIGHT = 68.dp
 

@@ -34,7 +34,6 @@ import androidx.compose.material.icons.materialPath
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
@@ -115,11 +114,9 @@ public object MediaButtonDefaults {
     @Composable
     public fun mediaButtonAmbientColors(
         colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    ): IconButtonColors = IconButtonDefaults.filledIconButtonColors(
-        containerColor = Color.Transparent,
+    ): IconButtonColors = IconButtonDefaults.outlinedIconButtonColors(
         contentColor = colorScheme.primaryDim,
-        disabledContainerColor = Color.Transparent,
-        disabledContentColor = colorScheme.onSurface.toDisabledColor(),
+        disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
     )
 
     /**
@@ -138,19 +135,19 @@ public object MediaButtonDefaults {
     )
 
     /**
-     * Provides the appropriate [BorderStroke] for the [MediaButton].
+     * Provides the appropriate [BorderStroke] for the [MediaButton] in ambient mode.
      *
      * @param enabled Whether the outline should be for an enabled [MediaButton].
-     * @param colorScheme [ColorScheme] to be used. Defaults to [MaterialTheme.colorScheme].
+     * @param colorScheme [ColorScheme] to be used. Defaults to MaterialTheme.colorScheme.
      */
     @Composable
-    public fun outlinedButtonBorder(
+    public fun ambientButtonBorder(
         enabled: Boolean,
         colorScheme: ColorScheme = MaterialTheme.colorScheme,
     ): BorderStroke = ButtonDefaults.outlinedButtonBorder(
         enabled = enabled,
-        borderColor = colorScheme.primaryDim.toDisabledColor(0.5f),
-        disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+        borderColor = colorScheme.primaryDim.copy(alpha = 0.5f),
+        disabledBorderColor = colorScheme.onSurface.toDisabledColor(),
     )
 
     /**

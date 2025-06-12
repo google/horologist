@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.center
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
@@ -63,14 +62,14 @@ public fun ArtworkImageBackground(
                     modifier.fillMaxSize().drawWithCache {
                         val gradientBrush =
                             Brush.radialGradient(
-                                0.55f to Color.Transparent,
-                                0.85f to colorScheme.onSecondary,
+                                0.65f to Color.Transparent,
                                 1f to colorScheme.background,
                             )
                         onDrawWithContent {
                             drawRect(colorScheme.background)
                             drawContent()
-                            drawRect(color = colorScheme.secondary, alpha = 0.4f, blendMode = BlendMode.Darken)
+                            drawRect(color = colorScheme.primaryContainer, alpha = 0.3f)
+                            drawRect(color = colorScheme.onPrimary, alpha = 0.6f)
                             drawRect(gradientBrush)
                         }
                     },

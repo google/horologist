@@ -39,14 +39,14 @@ import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.material3.volumeRotaryBehavior
 import com.google.android.horologist.media.ui.material3.components.MediaControlButtons
 import com.google.android.horologist.media.ui.material3.components.MediaInfoDisplay
-import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_TOP_MARGIN_PERCENTAGE
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_TOP_SECTION_BOTTOM_PADDING
-import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT
+import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_TOP_MARGIN_PERCENTAGE
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_TOP_SECTION_BOTTOM_PADDING
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_TOP_SECTION_HEIGHT
-import com.google.android.horologist.media.ui.material3.util.getScreenPercentageInDp
+import com.google.android.horologist.media.ui.material3.util.getScreenSizeInDpFromPercentage
 import com.google.android.horologist.media.ui.material3.util.isLargeScreen
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
@@ -150,13 +150,13 @@ public fun PlayerScreen(
     val configuration = LocalConfiguration.current
     val middleSectionMinimumHeight = remember(configuration) {
         if (configuration.isLargeScreen) {
-            LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT
+            LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
         } else {
-            SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT
+            SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
         }
     }
     val topSectionTopPadding = remember(configuration) {
-        configuration.getScreenPercentageInDp(
+        configuration.getScreenSizeInDpFromPercentage(
             if (configuration.isLargeScreen) {
                 LARGE_DEVICE_PLAYER_SCREEN_TOP_MARGIN_PERCENTAGE
             } else {
@@ -191,7 +191,6 @@ public fun PlayerScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(min = topSectionMinimumHeight)
-                    .weight(1f)
                     .padding(
                         top = topSectionTopPadding,
                         bottom = topSectionBottomPadding,
@@ -203,8 +202,7 @@ public fun PlayerScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = middleSectionMinimumHeight)
-                    .weight(1f),
+                    .heightIn(min = middleSectionMinimumHeight),
                 contentAlignment = Alignment.Center,
             ) {
                 controlButtons()

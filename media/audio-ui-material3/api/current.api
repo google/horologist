@@ -58,10 +58,10 @@ package com.google.android.horologist.audio.ui.material3.components {
 package com.google.android.horologist.audio.ui.material3.components.actions {
 
   public final class SettingsButtonDefaults {
+    method @androidx.compose.runtime.Composable public androidx.compose.foundation.BorderStroke ambientButtonBorder(boolean enabled, optional androidx.wear.compose.material3.ColorScheme colorScheme);
     method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors ambientButtonColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
     method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors badgeColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
     method @androidx.compose.runtime.Composable public androidx.wear.compose.material3.IconButtonColors buttonColors(optional androidx.wear.compose.material3.ColorScheme colorScheme);
-    method @androidx.compose.runtime.Composable public androidx.compose.foundation.BorderStroke outlinedButtonBorder(boolean enabled, optional androidx.wear.compose.material3.ColorScheme colorScheme);
     field public static final com.google.android.horologist.audio.ui.material3.components.actions.SettingsButtonDefaults INSTANCE;
   }
 

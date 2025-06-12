@@ -122,7 +122,7 @@ public fun AnimatedPlayPauseButton(
             modifier = Modifier.fillMaxSize(),
             enabled = enabled,
             rippleRadius = scallopShapeSize / 2f,
-            colors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme)
+            colors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
         ) {
             content()
         }

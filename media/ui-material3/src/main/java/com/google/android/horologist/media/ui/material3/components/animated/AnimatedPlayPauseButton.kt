@@ -63,6 +63,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import com.google.android.horologist.media.ui.animation.PlaybackProgressAnimation.PLAYBACK_PROGRESS_ANIMATION_SPEC
+import com.google.android.horologist.media.ui.material3.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.material3.composables.UnboundedRippleIconButton
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.LOTTIE_DYNAMIC_PROPERTY_KEY_PATH
@@ -121,12 +122,7 @@ public fun AnimatedPlayPauseButton(
             modifier = Modifier.fillMaxSize(),
             enabled = enabled,
             rippleRadius = scallopShapeSize / 2f,
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = colorScheme.primary,
-                contentColor = colorScheme.onPrimary,
-                disabledContainerColor = colorScheme.onSurface.copy(0.12f),
-                disabledContentColor = colorScheme.onSurface.copy(0.38f),
-            ),
+            colors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme)
         ) {
             content()
         }

@@ -147,7 +147,7 @@ public object MediaButtonDefaults {
     ): BorderStroke = ButtonDefaults.outlinedButtonBorder(
         enabled = enabled,
         borderColor = colorScheme.primaryDim.copy(alpha = 0.5f),
-        disabledBorderColor = colorScheme.onSurface.toDisabledColor(),
+        disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
     )
 
     /**

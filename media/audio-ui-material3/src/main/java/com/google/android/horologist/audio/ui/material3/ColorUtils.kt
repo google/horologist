@@ -23,3 +23,4 @@ internal fun Color.toDisabledColor(disabledAlpha: Float) =
 
 internal const val DisabledContentAlpha = 0.38f
 internal const val DisabledContainerAlpha = 0.16f
+internal const val DisabledVolumeAlpha = 0.12f

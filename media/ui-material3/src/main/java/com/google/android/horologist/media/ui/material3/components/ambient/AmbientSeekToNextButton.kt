@@ -61,7 +61,7 @@ public fun AmbientSeekToNextButton(
     buttonPadding: PaddingValues = PaddingValues(0.dp),
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(colorScheme),
     border: BorderStroke? = MediaButtonDefaults
-        .outlinedButtonBorder(enabled = enabled, colorScheme = colorScheme),
+        .ambientButtonBorder(enabled = enabled, colorScheme = colorScheme),
 ) {
     MediaButton(
         onClick = onClick,

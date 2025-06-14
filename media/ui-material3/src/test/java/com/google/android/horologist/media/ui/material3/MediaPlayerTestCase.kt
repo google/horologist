@@ -47,6 +47,7 @@ import com.google.android.horologist.media.ui.material3.components.background.Ar
 import com.google.android.horologist.media.ui.material3.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import kotlinx.coroutines.flow.flowOf
+import kotlin.math.ceil
 
 @Composable
 fun MediaPlayerTestCase(
@@ -83,15 +84,15 @@ fun MediaPlayerTestCase(
         }
     },
     buttons: @Composable () -> Unit = {
-        val screenWidthDp = LocalConfiguration.current.screenWidthDp.dp
+        val screenWidthDp = LocalConfiguration.current.screenWidthDp
         Row(
             modifier =
                 Modifier
                     .fillMaxSize()
                     .padding(
-                        top = screenWidthDp * 0.012f,
-                        start = screenWidthDp * 0.145f,
-                        end = screenWidthDp * 0.145f,
+                        top = ceil(screenWidthDp * 0.012f).dp,
+                        start = ceil(screenWidthDp * 0.145f).dp,
+                        end = ceil(screenWidthDp * 0.145f).dp,
                     ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
@@ -113,7 +114,7 @@ fun MediaPlayerTestCase(
                         SettingsButtonDefaults.buttonColors()
                     },
                     border = if (isAmbientModeEnabled) {
-                        SettingsButtonDefaults.outlinedButtonBorder(playerUiState.connected)
+                        SettingsButtonDefaults.ambientButtonBorder(playerUiState.connected)
                     } else {
                         null
                     },
@@ -136,7 +137,7 @@ fun MediaPlayerTestCase(
                         SettingsButtonDefaults.buttonColors()
                     },
                     border = if (isAmbientModeEnabled) {
-                        SettingsButtonDefaults.outlinedButtonBorder(playerUiState.connected)
+                        SettingsButtonDefaults.ambientButtonBorder(playerUiState.connected)
                     } else {
                         null
                     },

@@ -79,8 +79,9 @@ public fun AmbientPlayPauseButton(
             SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
         }
     }
-    val scallopHeight =
-        remember(scallopSize) { with(density) { (scallopSize - PLAY_BUTTON_PROGRESS_STROKE_WIDTH).toPx() } }
+    val scallopHeight = remember(scallopSize) {
+        with(density) { (scallopSize - PLAY_BUTTON_PROGRESS_STROKE_WIDTH).toPx() }
+    }
 
     val scallopPolygon = remember(scallopSize, scallopHeight) {
         PlayPauseButtonDefaults.indicatorScallopPolygon(density, scallopSize)

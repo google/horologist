@@ -22,4 +22,5 @@ internal fun Color.toDisabledColor(disabledAlpha: Float) =
     this.copy(alpha = this.alpha * disabledAlpha)
 
 internal const val DisabledContentAlpha = 0.38f
-internal const val DisabledContainerAlpha = 0.12f
+internal const val DisabledContainerAlpha = 0.16f
+internal const val DisabledVolumeAlpha = 0.12f

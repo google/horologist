@@ -231,9 +231,12 @@ internal class RotatingMorphedScallopShape(
     private val isLargeScreen: Boolean,
     private val morphProgress: State<Float>,
     private val rotationProgress: State<Float>,
+    private val morphState: MutableMap<Pair<Boolean, Boolean>, Morph> =
+        mutableStateMapOf<Pair<Boolean, Boolean>, Morph>(),
 ) : Shape {
 
-    private val morphState = mutableStateMapOf<Pair<Boolean, Boolean>, Morph>()
+    private val matrix = Matrix()
+    private val path = android.graphics.Path()
 
     private val scallopSize = if (isLargeScreen) {
         LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
@@ -268,12 +271,15 @@ internal class RotatingMorphedScallopShape(
                 if (playing) scallopPolygon else circlePolygon,
             )
         }
-        val path = morph.toPath(morphProgress.value).asComposePath().apply {
-            transform(Matrix().apply { rotateZ(rotationProgress.value * 360f) })
+        matrix.reset()
+        path.reset()
+        matrix.rotateZ(rotationProgress.value * 360f)
+        val morphPath = morph.toPath(morphProgress.value, path).asComposePath().apply {
+            transform(matrix)
             translate(Offset(size.width / 2f, size.height / 2f))
         }
 
-        return Outline.Generic(path)
+        return Outline.Generic(morphPath)
     }
 }
 

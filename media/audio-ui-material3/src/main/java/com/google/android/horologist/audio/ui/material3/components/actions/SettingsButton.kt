@@ -30,7 +30,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
@@ -144,9 +143,9 @@ public object SettingsButtonDefaults {
     @Composable
     public fun buttonColors(colorScheme: ColorScheme = MaterialTheme.colorScheme): IconButtonColors =
         IconButtonDefaults.iconButtonColors(
-            containerColor = colorScheme.onSurface.copy(alpha = 0.16f),
+            containerColor = colorScheme.onSurface.copy(alpha = 0.24f),
             contentColor = colorScheme.onSurface,
-            disabledContainerColor = colorScheme.onSurface.toDisabledColor(disabledAlpha = 0.16f),
+            disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
             disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
         )
 
@@ -163,27 +162,25 @@ public object SettingsButtonDefaults {
     /** Button colors for [SettingsButton] in the ambient mode. */
     @Composable
     public fun ambientButtonColors(colorScheme: ColorScheme = MaterialTheme.colorScheme): IconButtonColors =
-        IconButtonDefaults.iconButtonColors(
-            containerColor = Color.Transparent,
+        IconButtonDefaults.outlinedIconButtonColors(
             contentColor = colorScheme.onSurface,
-            disabledContainerColor = Color.Transparent,
             disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
         )
 
     /**
-     * Provides the appropriate [BorderStroke] for the [SettingsButton].
+     * Provides the appropriate [BorderStroke] for the [SettingsButton] in the ambient mode.
      *
      * @param enabled Whether the outline should be for an enabled [SettingsButton].
      * @param colorScheme [ColorScheme] to be used. Defaults to [MaterialTheme.colorScheme].
      */
     @Composable
-    public fun outlinedButtonBorder(
+    public fun ambientButtonBorder(
         enabled: Boolean,
         colorScheme: ColorScheme = MaterialTheme.colorScheme,
     ): BorderStroke = ButtonDefaults.outlinedButtonBorder(
         enabled = enabled,
         borderColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-        disabledBorderColor = colorScheme.onSurface.toDisabledColor(0.16f),
+        disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
     )
 }
 

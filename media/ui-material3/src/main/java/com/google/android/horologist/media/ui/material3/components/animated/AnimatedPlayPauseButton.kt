@@ -35,6 +35,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
@@ -46,6 +47,8 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.graphics.shapes.Morph
 import androidx.wear.compose.material3.CircularProgressIndicator
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.IconButtonDefaults
@@ -60,6 +63,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import com.google.android.horologist.media.ui.animation.PlaybackProgressAnimation.PLAYBACK_PROGRESS_ANIMATION_SPEC
+import com.google.android.horologist.media.ui.material3.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.material3.composables.UnboundedRippleIconButton
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.LOTTIE_DYNAMIC_PROPERTY_KEY_PATH
@@ -84,8 +88,8 @@ import kotlinx.coroutines.flow.flowOf
  * @param colorScheme The color scheme used for the button.
  * @param interactionSource The interaction source to use for the button.
  * @param enabled Whether the button is enabled.
- * @param iconSize The size of the icon.
  * @param progressIndicator The progress indicator to display.
+ * @param content The content of the button.
  */
 @Composable
 public fun AnimatedPlayPauseButton(
@@ -97,18 +101,9 @@ public fun AnimatedPlayPauseButton(
     colorScheme: ColorScheme = MaterialTheme.colorScheme,
     interactionSource: MutableInteractionSource? = null,
     enabled: Boolean = true,
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
     progressIndicator: @Composable () -> Unit = {},
+    content: @Composable () -> Unit = { AnimatedPlayPauseButtonContent(playing) },
 ) {
-    val compositionResult =
-        rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/M3PlayPause.json"))
-    val lottieProgress =
-        animateLottieProgressAsState(playing = playing, composition = compositionResult.value)
-    val pauseContentDescription =
-        stringResource(id = R.string.horologist_pause_button_content_description)
-    val playContentDescription =
-        stringResource(id = R.string.horologist_play_button_content_description)
-
     val configuration = LocalConfiguration.current
     val scallopShapeSize = remember(configuration) {
         if (configuration.isLargeScreen) {
@@ -120,7 +115,6 @@ public fun AnimatedPlayPauseButton(
 
     Box(modifier = modifier.fillMaxSize()) {
         progressIndicator()
-
         UnboundedRippleIconButton(
             onClick = { if (playing) onPauseClick() else onPlayClick() },
             shape = shape,
@@ -128,41 +122,9 @@ public fun AnimatedPlayPauseButton(
             modifier = Modifier.fillMaxSize(),
             enabled = enabled,
             rippleRadius = scallopShapeSize / 2f,
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = colorScheme.primary,
-                contentColor = colorScheme.onPrimary,
-                disabledContainerColor = colorScheme.onSurface.copy(0.12f),
-                disabledContentColor = colorScheme.onSurface.copy(0.38f),
-            ),
+            colors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
         ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                LottieAnimationWithPlaceholder(
-                    lottieCompositionResult = compositionResult,
-                    progress = { lottieProgress.value },
-                    placeholder = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
-                    contentDescription = if (playing) pauseContentDescription else playContentDescription,
-                    modifier = Modifier
-                        .size(iconSize)
-                        .align(Alignment.Center),
-                    dynamicProperties = rememberLottieDynamicProperties(
-                        rememberLottieDynamicProperty(
-                            property = LottieProperty.COLOR,
-                            value = LocalContentColor.current.toArgb(),
-                            keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
-                        ),
-                        rememberLottieDynamicProperty(
-                            property = LottieProperty.STROKE_COLOR,
-                            value = LocalContentColor.current.toArgb(),
-                            keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
-                        ),
-                        rememberLottieDynamicProperty(
-                            property = LottieProperty.OPACITY,
-                            value = LocalContentColor.current.opacityForLottieAnimation(),
-                            keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
-                        ),
-                    ),
-                )
-            }
+            content()
         }
     }
 }
@@ -174,14 +136,14 @@ public fun AnimatedPlayPauseButton(
  * @param onPauseClick Callback to invoke when the pause button is clicked.
  * @param playing Whether the button should be in the play or pause state.
  * @param trackPositionUiModel The track position UI model.
- * @param colorScheme The color scheme used for the button.
- * @param modifier The modifier to apply to the button.
+ * @param modifier The [Modifier] to apply to the button.
+ * @param colorScheme The [ColorScheme] used for the button.
  * @param enabled Whether the button is enabled.
  * @param interactionSource The interaction source to use for the button.
  * @param isAnyButtonPressed Whether any button is pressed.
- * @param iconSize The size of the icon.
  * @param progressStrokeWidth The width of the progress stroke.
  * @param rotateProgressIndicator The flow of events to rotate the progress indicator.
+ * @param content The content of the button.
  */
 @Composable
 public fun AnimatedPlayPauseProgressButton(
@@ -189,14 +151,14 @@ public fun AnimatedPlayPauseProgressButton(
     onPauseClick: () -> Unit,
     playing: Boolean,
     trackPositionUiModel: TrackPositionUiModel,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
     modifier: Modifier = Modifier,
+    colorScheme: ColorScheme = MaterialTheme.colorScheme,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
     isAnyButtonPressed: State<Boolean> = remember { mutableStateOf(false) },
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
     progressStrokeWidth: Dp = PLAY_BUTTON_PROGRESS_STROKE_WIDTH,
     rotateProgressIndicator: Flow<Unit> = flowOf(), // TODO(b/379052971) Fix song change indicator motion
+    content: @Composable () -> Unit = { AnimatedPlayPauseButtonContent(playing) },
 ) {
     val configuration = LocalConfiguration.current
     val transition = updateTransition(
@@ -217,12 +179,14 @@ public fun AnimatedPlayPauseProgressButton(
         label = ROTATION_TRANSITION_LABEL,
     )
 
+    val shapeMorphMap = remember { mutableStateMapOf<Pair<Boolean, Boolean>, Morph>() }
     val scallopShape = remember(playing, shapeMorphProgress, trackPositionUiModel.isLoading) {
         RotatingMorphedScallopShape(
             playing = playing && !trackPositionUiModel.isLoading,
             isLargeScreen = configuration.isLargeScreen,
             morphProgress = shapeMorphProgress,
             rotationProgress = rotationProgress,
+            morphState = shapeMorphMap,
         )
     }
 
@@ -234,31 +198,83 @@ public fun AnimatedPlayPauseProgressButton(
         modifier = modifier,
         colorScheme = colorScheme,
         interactionSource = interactionSource,
-        iconSize = iconSize,
         shape = scallopShape,
-    ) {
-        if (trackPositionUiModel.isLoading && shapeMorphProgress.value == 1f) {
-            CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize(),
-                colors = ProgressIndicatorDefaults.colors(
-                    indicatorColor = colorScheme.secondaryDim,
-                    trackColor = colorScheme.secondary.copy(0.3f),
+        content = content,
+        progressIndicator = {
+            if (trackPositionUiModel.isLoading && shapeMorphProgress.value == 1f) {
+                CircularProgressIndicator(
+                    modifier = Modifier.fillMaxSize(),
+                    colors = ProgressIndicatorDefaults.colors(
+                        indicatorColor = colorScheme.secondaryDim,
+                        trackColor = colorScheme.secondary.copy(0.3f),
+                    ),
+                    strokeWidth = progressStrokeWidth,
+                )
+            } else if (trackPositionUiModel.showProgress) {
+                val progress = ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
+                RotatingWavyProgressIndicator(
+                    playing = playing,
+                    progress = progress,
+                    shapeMorphProgress = shapeMorphProgress,
+                    rotationProgress = rotationProgress,
+                    strokeWidth = progressStrokeWidth,
+                    colorScheme = colorScheme,
+                    modifier = Modifier.fillMaxSize(),
+                    // .rotate(animateChangeAsRotation(rotateProgressIndicator)),
+                )
+            }
+        },
+    )
+}
+
+/**
+ * Default content for the play and pause button that animates between a play and pause icon.
+ *
+ * @param playing Whether the button should be in the play or pause state.
+ * @param modifier The [Modifier] to apply to the button content.
+ * @param iconSize The size of the icon.
+ */
+@Composable
+public fun AnimatedPlayPauseButtonContent(
+    playing: Boolean,
+    modifier: Modifier = Modifier,
+    iconSize: Dp = IconButtonDefaults.LargeIconSize,
+) {
+    val compositionResult =
+        rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/M3PlayPause.json"))
+    val lottieProgress =
+        animateLottieProgressAsState(playing = playing, composition = compositionResult.value)
+    val pauseContentDescription =
+        stringResource(id = R.string.horologist_pause_button_content_description)
+    val playContentDescription =
+        stringResource(id = R.string.horologist_play_button_content_description)
+
+    Box(modifier = modifier.fillMaxSize()) {
+        LottieAnimationWithPlaceholder(
+            lottieCompositionResult = compositionResult,
+            progress = { lottieProgress.value },
+            placeholder = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
+            contentDescription = if (playing) pauseContentDescription else playContentDescription,
+            modifier = Modifier.size(iconSize).align(Alignment.Center),
+            dynamicProperties =
+                rememberLottieDynamicProperties(
+                    rememberLottieDynamicProperty(
+                        property = LottieProperty.COLOR,
+                        value = LocalContentColor.current.toArgb(),
+                        keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
+                    ),
+                    rememberLottieDynamicProperty(
+                        property = LottieProperty.STROKE_COLOR,
+                        value = LocalContentColor.current.toArgb(),
+                        keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
+                    ),
+                    rememberLottieDynamicProperty(
+                        property = LottieProperty.OPACITY,
+                        value = LocalContentColor.current.opacityForLottieAnimation(),
+                        keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
+                    ),
                 ),
-                strokeWidth = progressStrokeWidth,
-            )
-        } else if (trackPositionUiModel.showProgress) {
-            val progress = ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
-            RotatingWavyProgressIndicator(
-                playing = playing,
-                progress = progress,
-                shapeMorphProgress = shapeMorphProgress,
-                rotationProgress = rotationProgress,
-                strokeWidth = progressStrokeWidth,
-                colorScheme = colorScheme,
-                modifier = Modifier.fillMaxSize(),
-                // .rotate(animateChangeAsRotation(rotateProgressIndicator)),
-            )
-        }
+        )
     }
 }
 
@@ -272,8 +288,8 @@ public fun AnimatedPlayPauseProgressButton(
  * @param colorScheme The [ColorScheme] used for the button.
  * @param enabled Whether the button is enabled.
  * @param interactionSource The interaction source to use for the button.
- * @param iconSize The size of the icon.
  * @param progressStrokeWidth The width of the progress stroke.
+ * @param content The content of the button.
  */
 @Composable
 internal fun AnimatedPlayProgressButton(
@@ -284,28 +300,30 @@ internal fun AnimatedPlayProgressButton(
     colorScheme: ColorScheme = MaterialTheme.colorScheme,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
-    progressStrokeWidth: Dp = PLAY_BUTTON_PROGRESS_STROKE_WIDTH,
+    progressStrokeWidth: Dp = 4.dp,
+    content: @Composable () -> Unit = { AnimatedPlayPauseButtonContent(false) },
 ) {
     val configuration = LocalConfiguration.current
-    val transition = updateTransition(
-        targetState = interactionSource.collectIsPressedAsState().value,
-        label = SHAPE_TRANSITION_LABEL,
-    )
-    val shapeMorphProgress = animatedScallopShapeProgress(
-        transition = transition,
-    )
+    val transition =
+        updateTransition(
+            targetState = interactionSource.collectIsPressedAsState().value,
+            label = SHAPE_TRANSITION_LABEL,
+        )
+    val shapeMorphProgress = animatedScallopShapeProgress(transition = transition)
 
     val rotationProgress = remember { mutableFloatStateOf(0f) }
 
-    val scallopShape = remember(playing, shapeMorphProgress) {
-        RotatingMorphedScallopShape(
-            playing = playing,
-            isLargeScreen = configuration.isLargeScreen,
-            morphProgress = shapeMorphProgress,
-            rotationProgress = rotationProgress,
-        )
-    }
+    val shapeMorphMap = remember { mutableStateMapOf<Pair<Boolean, Boolean>, Morph>() }
+    val scallopShape =
+        remember(playing, shapeMorphProgress, false) {
+            RotatingMorphedScallopShape(
+                playing = playing,
+                isLargeScreen = configuration.isLargeScreen,
+                morphProgress = shapeMorphProgress,
+                rotationProgress = rotationProgress,
+                morphState = shapeMorphMap,
+            )
+        }
 
     AnimatedPlayPauseButton(
         onPlayClick = onPlayClick,
@@ -315,19 +333,20 @@ internal fun AnimatedPlayProgressButton(
         modifier = modifier,
         colorScheme = colorScheme,
         interactionSource = interactionSource,
-        iconSize = iconSize,
         shape = scallopShape,
-    ) {
-        RotatingWavyProgressIndicator(
-            playing = playing,
-            progress = progress,
-            shapeMorphProgress = shapeMorphProgress,
-            rotationProgress = rotationProgress,
-            strokeWidth = progressStrokeWidth,
-            colorScheme = colorScheme,
-            modifier = Modifier.fillMaxSize(),
-        )
-    }
+        content = content,
+        progressIndicator = {
+            RotatingWavyProgressIndicator(
+                playing = playing,
+                progress = progress,
+                shapeMorphProgress = shapeMorphProgress,
+                rotationProgress = rotationProgress,
+                strokeWidth = progressStrokeWidth,
+                colorScheme = colorScheme,
+                modifier = Modifier.fillMaxSize(),
+            )
+        },
+    )
 }
 
 @Composable

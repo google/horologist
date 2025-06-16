@@ -77,7 +77,7 @@ public fun VolumeLevelIndicator(
                     indicatorColor = colorScheme.secondaryDim,
                     trackColor = colorScheme.surfaceContainer,
                     disabledIndicatorColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-                    disabledTrackColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+                    disabledTrackColor = colorScheme.onSurface.toDisabledColor(DisabledVolumeAlpha),
                 ),
         )
     }

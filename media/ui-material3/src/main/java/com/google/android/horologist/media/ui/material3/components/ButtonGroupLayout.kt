@@ -35,10 +35,8 @@ import com.google.android.horologist.media.ui.material3.util.BUTTON_GROUP_MIDDLE
 import com.google.android.horologist.media.ui.material3.util.BUTTON_GROUP_SMALL_DEVICE_SIDE_BUTTONS_SPACING_PERCENTAGE
 import com.google.android.horologist.media.ui.material3.util.BUTTON_GROUP_SMALL_DEVICE_SIDE_BUTTONS_VERTICAL_MARGIN_PERCENTAGE
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT
-import com.google.android.horologist.media.ui.material3.util.getScreenPercentageInDp
+import com.google.android.horologist.media.ui.material3.util.getScreenSizeInDpFromPercentage
 import com.google.android.horologist.media.ui.material3.util.isLargeScreen
 
 /**
@@ -60,15 +58,7 @@ public fun ButtonGroupLayout(
         Array(BUTTON_GROUP_ITEMS_COUNT) { MutableInteractionSource() }
     },
 ) {
-    val configuration = LocalConfiguration.current
-    val middleSectionHeight =
-        remember(configuration) {
-            if (configuration.isLargeScreen) {
-                LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT
-            } else {
-                SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT
-            }
-        }
+    val middleSectionHeight = ButtonGroupLayoutDefaults.middleButtonSize
 
     ButtonGroup(
         modifier = modifier.fillMaxWidth().height(middleSectionHeight),
@@ -116,22 +106,22 @@ public object ButtonGroupLayoutDefaults {
         return PaddingValues.Absolute(
             left =
                 if (isLeftButton) {
-                    configuration.getScreenPercentageInDp(
+                    configuration.getScreenSizeInDpFromPercentage(
                         BUTTON_GROUP_MIDDLE_SECTION_HORIZONTAL_MARGIN_PERCENTAGE,
                     )
                 } else {
-                    configuration.getScreenPercentageInDp(buttonGroupSpacing)
+                    configuration.getScreenSizeInDpFromPercentage(buttonGroupSpacing)
                 },
             right =
                 if (!isLeftButton) {
-                    configuration.getScreenPercentageInDp(
+                    configuration.getScreenSizeInDpFromPercentage(
                         BUTTON_GROUP_MIDDLE_SECTION_HORIZONTAL_MARGIN_PERCENTAGE,
                     )
                 } else {
-                    configuration.getScreenPercentageInDp(buttonGroupSpacing)
+                    configuration.getScreenSizeInDpFromPercentage(buttonGroupSpacing)
                 },
             top =
-                configuration.getScreenPercentageInDp(
+                configuration.getScreenSizeInDpFromPercentage(
                     if (isLargeScreen) {
                         BUTTON_GROUP_LARGE_DEVICE_SIDE_BUTTONS_VERTICAL_MARGIN_PERCENTAGE
                     } else {
@@ -139,7 +129,7 @@ public object ButtonGroupLayoutDefaults {
                     },
                 ),
             bottom =
-                configuration.getScreenPercentageInDp(
+                configuration.getScreenSizeInDpFromPercentage(
                     if (isLargeScreen) {
                         BUTTON_GROUP_LARGE_DEVICE_SIDE_BUTTONS_VERTICAL_MARGIN_PERCENTAGE
                     } else {

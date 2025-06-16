@@ -92,7 +92,8 @@ public fun MediaControlButtons(
         },
         middleButton = {
             PlayPauseProgressButton(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+                    .fillMaxSize(),
                 onPlayClick = onPlayButtonClick,
                 onPauseClick = onPauseButtonClick,
                 enabled = playPauseButtonEnabled,

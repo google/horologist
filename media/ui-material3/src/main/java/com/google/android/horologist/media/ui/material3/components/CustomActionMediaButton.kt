@@ -48,10 +48,11 @@ import com.google.android.horologist.media.ui.material3.composables.UnboundedRip
  * @param shape Defines the shape for this button. Defaults to [CircleShape] (Optional).
  * @param colors [IconButtonColors] that will be used to resolve the background and icon color for
  *   this button in different states (Optional).
- * @param buttonPadding The padding to be applied around the button. Defafults to Zero (Optional).
+ * @param buttonPadding The padding to be applied around the button. Defaults to Zero (Optional).
  * @param interactionSource an optional hoisted [MutableInteractionSource] for observing and
  *   emitting [Interaction]s for this button (Optional).
- * @param buttonSize The size of the button (Optional).
+ * @param iconSize The size of the icon. Defaults to [IconButtonDefaults.SmallIconSize] (Optional).
+ * @param border [BorderStroke] to be applied to the button. If null, no border is drawn (Optional).
  */
 @Composable
 public fun CustomActionMediaButton(
@@ -64,7 +65,7 @@ public fun CustomActionMediaButton(
     colors: IconButtonColors = CustomActionMediaButtonDefaults.buttonColors(),
     buttonPadding: PaddingValues = PaddingValues(0.dp),
     interactionSource: MutableInteractionSource? = null,
-    buttonSize: Dp = IconButtonDefaults.DefaultButtonSize,
+    iconSize: Dp = IconButtonDefaults.SmallIconSize,
     border: BorderStroke? = null,
 ) {
     UnboundedRippleIconButton(
@@ -75,12 +76,13 @@ public fun CustomActionMediaButton(
         shape = shape,
         buttonPadding = buttonPadding,
         interactionSource = interactionSource,
+        rippleRadius = null,
         border = border,
     ) {
         Icon(
             painter = icon.rememberPainter(),
             contentDescription = contentDescription,
-            modifier = Modifier.size(IconButtonDefaults.iconSizeFor(buttonSize)),
+            modifier = Modifier.size(iconSize),
         )
     }
 }

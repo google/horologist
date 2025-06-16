@@ -46,7 +46,7 @@ import com.google.android.horologist.media.ui.material3.components.controls.Medi
  * @param colorScheme The [ColorScheme] used for the button (Optional).
  * @param interactionSource an optional hoisted [MutableInteractionSource] for observing and
  *   emitting interactions for this button (Optional).
- * @param buttonSize The size of the button (Optional).
+ * @param iconSize The size of the icon (Optional).
  * @param buttonPadding The padding around the button (Optional).
  * @param colors [IconButtonColors] that will be used to resolve the background and icon color for
  *   this button in different states (Optional).
@@ -63,11 +63,11 @@ public fun CustomActionAmbientMediaButton(
     shape: Shape = CircleShape,
     colorScheme: ColorScheme = MaterialTheme.colorScheme,
     interactionSource: MutableInteractionSource? = null,
-    buttonSize: Dp = IconButtonDefaults.DefaultButtonSize,
+    iconSize: Dp = IconButtonDefaults.SmallIconSize,
     buttonPadding: PaddingValues = PaddingValues(0.dp),
     colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(colorScheme),
-    border: BorderStroke? = MediaButtonDefaults
-        .outlinedButtonBorder(enabled = enabled, colorScheme = colorScheme),
+    border: BorderStroke? =
+        MediaButtonDefaults.ambientButtonBorder(enabled = enabled, colorScheme = colorScheme),
 ) {
     CustomActionMediaButton(
         onClick = onClick,
@@ -79,7 +79,7 @@ public fun CustomActionAmbientMediaButton(
         colors = colors,
         buttonPadding = buttonPadding,
         interactionSource = interactionSource,
-        buttonSize = buttonSize,
+        iconSize = iconSize,
         border = border,
     )
 }

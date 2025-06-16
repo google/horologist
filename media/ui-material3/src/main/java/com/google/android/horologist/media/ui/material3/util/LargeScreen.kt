@@ -19,11 +19,11 @@ package com.google.android.horologist.media.ui.material3.util
 import android.content.res.Configuration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlin.math.ceil
 
 /** Whether the device is considered large screen for layout adjustment purposes. */
 internal val Configuration.isLargeScreen: Boolean get() = screenHeightDp > 224
 
-/** Get percentage of screen size in [Dp]. */
-internal fun Configuration.getScreenPercentageInDp(percent: Float): Dp {
-    return screenHeightDp.dp * percent / 100f
-}
+/** Get percentage of screen size in [Dp]. Rounds off the result to next integer. */
+internal fun Configuration.getScreenSizeInDpFromPercentage(percent: Float): Dp =
+    ceil(screenHeightDp * percent / 100f).dp

@@ -18,9 +18,6 @@ package com.google.android.horologist.media.ui.material3.util
 
 import androidx.compose.ui.unit.dp
 
-internal val SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT = 68.dp
-internal val LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_SECTION_HEIGHT = 80.dp
-
 internal val SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE = 64.dp
 internal val LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE = 80.dp
 

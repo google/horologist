@@ -307,7 +307,7 @@ internal fun VolumeScreen(
                     buttonIconColor = colorScheme.primary,
                     disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
                     disabledButtonContainerColor =
-                        colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+                        colorScheme.onSurface.toDisabledColor(DisabledVolumeAlpha),
                     disabledButtonIconColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
                 ),
         ) {

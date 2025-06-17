@@ -19,6 +19,7 @@ package com.google.android.horologist.media.ui.material3.components.ambient
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.media.ui.material3.components.display.TrackMediaDisplay
@@ -41,7 +42,15 @@ public fun AmbientMediaInfoDisplay(
     colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
     if (media is MediaUiModel.Ready) {
-        TrackMediaDisplay(media = media, modifier = modifier, colorScheme = colorScheme)
+        TrackMediaDisplay(
+            media = media,
+            modifier = modifier,
+            colorScheme = colorScheme,
+            titleOverflow = TextOverflow.Clip,
+            subtitleOverflow = TextOverflow.Clip,
+            titleSoftWrap = false,
+            subtitleSoftWrap = false,
+        )
     } else {
         AmbientMessageDisplay(
             message =

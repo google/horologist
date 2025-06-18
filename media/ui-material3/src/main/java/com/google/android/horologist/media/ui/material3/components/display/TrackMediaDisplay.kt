@@ -18,6 +18,7 @@ package com.google.android.horologist.media.ui.material3.components.display
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
@@ -28,6 +29,10 @@ public fun TrackMediaDisplay(
     media: MediaUiModel.Ready,
     modifier: Modifier = Modifier,
     colorScheme: ColorScheme = MaterialTheme.colorScheme,
+    titleOverflow: TextOverflow = TextOverflow.Ellipsis,
+    subtitleOverflow: TextOverflow = TextOverflow.Ellipsis,
+    titleSoftWrap: Boolean = true,
+    subtitleSoftWrap: Boolean = true,
 ) {
     TextMediaDisplay(
         title = media.title,
@@ -35,5 +40,9 @@ public fun TrackMediaDisplay(
         titleIcon = media.titleIcon,
         modifier = modifier,
         colorScheme = colorScheme,
+        titleOverflow = titleOverflow,
+        subtitleOverflow = subtitleOverflow,
+        titleSoftWrap = titleSoftWrap,
+        subtitleSoftWrap = subtitleSoftWrap,
     )
 }

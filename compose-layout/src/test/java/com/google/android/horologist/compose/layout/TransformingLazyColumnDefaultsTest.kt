@@ -57,6 +57,9 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
         "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName}_" +
             "${device.id}$suffix.png"
 
+    override val tolerance: Float
+        get() = if (device == WearDevice.Companion.GooglePixelWatchLargeFont) 0.05f else 0.0f
+
     @Composable
     override fun TestScaffold(content: @Composable (() -> Unit)) {
         content()

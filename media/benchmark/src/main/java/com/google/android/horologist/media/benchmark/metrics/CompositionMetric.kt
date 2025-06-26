@@ -27,7 +27,7 @@ import kotlin.time.DurationUnit
 public class CompositionMetric(private val composable: String) : TraceMetric() {
     override fun getMeasurements(
         captureInfo: CaptureInfo,
-        traceSession: TraceProcessor.Session
+        traceSession: TraceProcessor.Session,
     ): List<Measurement> {
         val shortName = composable.substringAfterLast(".")
 

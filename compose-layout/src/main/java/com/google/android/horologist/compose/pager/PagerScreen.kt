@@ -31,7 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
+import androidx.wear.compose.foundation.hierarchicalFocusGroup
 import androidx.wear.compose.foundation.pager.HorizontalPager
 import androidx.wear.compose.foundation.pager.PagerState
 import androidx.wear.compose.material.PageIndicatorState
@@ -65,20 +65,22 @@ public fun PagerScreen(
             reverseLayout = reverseLayout,
             key = key,
         ) { page ->
-            ClippedBox(state) {
-                HierarchicalFocusCoordinator(requiresFocus = { page == state.currentPage }) {
-                    content(page)
-                }
+            ClippedBox(state, modifier = Modifier.hierarchicalFocusGroup(page == state.currentPage)) {
+                content(page)
             }
         }
     }
 }
 
 @Composable
-internal fun ClippedBox(pagerState: PagerState, content: @Composable () -> Unit) {
+internal fun ClippedBox(
+    pagerState: PagerState,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
     val shape = rememberClipWhenScrolling(pagerState)
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .optionalClip(shape),
     ) {

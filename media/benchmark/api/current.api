@@ -79,7 +79,7 @@ package com.google.android.horologist.media.benchmark.metrics {
 
   public final class CompositionMetric extends androidx.benchmark.macro.TraceMetric {
     ctor public CompositionMetric(String composable);
-    method public java.util.List<androidx.benchmark.macro.Metric.Measurement> getMeasurements(androidx.benchmark.macro.Metric.CaptureInfo captureInfo, androidx.benchmark.perfetto.PerfettoTraceProcessor.Session traceSession);
+    method public java.util.List<androidx.benchmark.macro.Metric.Measurement> getMeasurements(androidx.benchmark.macro.Metric.CaptureInfo captureInfo, androidx.benchmark.traceprocessor.TraceProcessor.Session traceSession);
   }
 
 }

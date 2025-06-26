@@ -25,7 +25,7 @@ plugins {
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 26
@@ -108,9 +108,10 @@ dependencies {
     api(projects.composables)
     api(libs.androidx.wear.compose.material3)
     api(libs.wearcompose.foundation)
+    api(libs.wearcompose.navigation)
 
     implementation(projects.media.audio)
-    implementation(projects.media.audioUi)
+    implementation(projects.media.audioUiMaterial3)
     implementation(projects.composeLayout)
     implementation(projects.images.coil)
     implementation(projects.tiles)
@@ -118,6 +119,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.core)
 
     implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.graphics.shapes)
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodelktx)
@@ -133,8 +135,8 @@ dependencies {
     implementation(libs.compose.ui.util)
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.androidx.constraintlayout.compose)
-    implementation(projects.media.audioUiModel)
-    implementation(projects.media.uiModel)
+    api(projects.media.audioUiModel)
+    api(projects.media.uiModel)
 
     debugImplementation(projects.logo)
 
@@ -148,6 +150,7 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.compose.material.iconscore)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.truth)
     testImplementation(libs.robolectric)
@@ -155,6 +158,7 @@ dependencies {
     testImplementation(projects.media.audioUiMaterial3)
     testImplementation(projects.roboscreenshots)
     testImplementation(projects.logo)
+    testImplementation(libs.androidx.wear.compose.material3)
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.androidx.test.espressocore)
     testImplementation(libs.androidx.test.ext)
@@ -163,7 +167,7 @@ dependencies {
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     dokkaSourceSets {
         configureEach {
-            moduleName.set("media-ui")
+            moduleName.set("media-ui-material3")
         }
     }
 }

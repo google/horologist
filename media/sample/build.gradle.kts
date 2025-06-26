@@ -36,7 +36,7 @@ if (localFile.exists()) {
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.google.android.horologist.mediasample"
@@ -212,8 +212,8 @@ dependencies {
 
     implementation(libs.moshi.adapters)
     implementation(libs.moshi.kotlin)
-    implementation(projects.media.audioUiModel)
-    implementation(projects.media.uiModel)
+    api(projects.media.audioUiModel)
+    api(projects.media.uiModel)
     testImplementation(projects.media.audioUiModel)
     ksp(libs.moshi.kotlin.codegen)
     implementation(libs.kotlinx.serialization.core)
@@ -285,29 +285,3 @@ dependencies {
     androidTestImplementation(libs.dagger.hiltandroidtesting)
     kspAndroidTest(libs.dagger.hiltandroidcompiler)
 }
-
-val device: String? = localProperties.getProperty("DEVICE")
-if (device != null) {
-    task<Exec>("appLaunch") {
-        group = "Media"
-        description = "Run on device $device"
-        dependsOn(":media:media-sample:installRelease")
-        description = "Launch App"
-        commandLine =
-            (
-                "adb -s $device shell am start -n com.google.android.horologist.mediasample" +
-                    "/com.google.android.horologist.mediasample.ui.app.MediaActivity"
-                )
-                .split(" ")
-    }
-
-    task<Exec>("offloadStatus") {
-        group = "Media"
-        description = "Offload Status for $device"
-        description = "Offload Status"
-        commandLine = "adb -s $device shell dumpsys media.audio_flinger".split(" ")
-    }
-}
-
-// tasks.maybeCreate("prepareKotlinIdeaImport")
-//    .dependsOn("generateDebugProto")

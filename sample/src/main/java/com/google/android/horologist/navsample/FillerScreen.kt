@@ -26,11 +26,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults.behavior
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.Text
@@ -64,15 +66,14 @@ fun BigColumn(
     scrollState: ScrollState,
     modifier: Modifier = Modifier,
 ) {
-    val focusRequester = rememberActiveFocusRequester()
-
     Column(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
+            .requestFocusOnHierarchyActive()
             .rotaryScrollable(
                 behavior = behavior(scrollableState = scrollState),
-                focusRequester = focusRequester,
+                focusRequester = remember { FocusRequester() },
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

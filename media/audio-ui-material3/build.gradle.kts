@@ -24,7 +24,7 @@ plugins {
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 26
@@ -95,16 +95,15 @@ dependencies {
     api(projects.annotations)
     implementation(projects.composeLayout)
     implementation(project(":composables"))
-    implementation(projects.media.audioUiModel)
+    api(projects.media.audioUiModel)
     debugImplementation(projects.logo)
 
     api(libs.androidx.wear.compose.material3)
     api(libs.wearcompose.foundation)
     implementation(libs.androidx.corektx)
-
+    implementation(libs.androidx.graphics.shapes)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
-
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 

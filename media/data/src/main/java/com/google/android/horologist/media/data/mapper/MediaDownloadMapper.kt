@@ -17,8 +17,8 @@
 package com.google.android.horologist.media.data.mapper
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.SIZE_UNKNOWN
-import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
+import com.google.android.horologist.media.database.dao.MediaDownloadDao.Companion.SIZE_UNKNOWN
+import com.google.android.horologist.media.database.model.MediaDownloadEntity
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.MediaDownload
 import com.google.android.horologist.media.model.Playlist

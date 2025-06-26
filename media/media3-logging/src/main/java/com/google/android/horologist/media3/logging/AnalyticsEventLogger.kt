@@ -141,6 +141,7 @@ public class AnalyticsEventLogger(
         eventTime: AnalyticsListener.EventTime,
         loadEventInfo: LoadEventInfo,
         mediaLoadData: MediaLoadData,
+        retryCount: Int,
     ) {
         appEventLogger.logMessage(
             "onLoadStarted",

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data.database.mapper
+package com.google.android.horologist.media.database.mapper
 
-import com.google.android.horologist.media.data.database.model.PlaylistEntity
+import com.google.android.horologist.media.database.model.PlaylistEntity
 import com.google.android.horologist.media.model.Playlist
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test

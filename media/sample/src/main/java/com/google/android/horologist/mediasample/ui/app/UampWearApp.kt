@@ -30,9 +30,6 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
-import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.nav.composable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
@@ -190,35 +187,23 @@ fun UampWearApp(
             navController = navController,
             additionalNavRoutes = {
                 composable<AudioDebug> {
-                    val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
-
-                    ScreenScaffold(scrollState = columnState) {
-                        AudioDebugScreen(
-                            audioDebugScreenViewModel = hiltViewModel(),
-                        )
-                    }
+                    AudioDebugScreen(
+                        audioDebugScreenViewModel = hiltViewModel(),
+                    )
                 }
 
                 composable<Samples> {
-                    val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
-
-                    ScreenScaffold(scrollState = columnState) {
-                        SamplesScreen(
-                            samplesScreenViewModel = hiltViewModel(),
-                            navController = navController,
-                        )
-                    }
+                    SamplesScreen(
+                        samplesScreenViewModel = hiltViewModel(),
+                        navController = navController,
+                    )
                 }
 
                 composable<DeveloperOptions> {
-                    val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
-
-                    ScreenScaffold(scrollState = columnState) {
-                        DeveloperOptionsScreen(
-                            developerOptionsScreenViewModel = hiltViewModel(),
-                            navController = navController,
-                        )
-                    }
+                    DeveloperOptionsScreen(
+                        developerOptionsScreenViewModel = hiltViewModel(),
+                        navController = navController,
+                    )
                 }
 
                 composable<GoogleSignInPromptScreen> {

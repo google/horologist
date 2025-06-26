@@ -28,7 +28,7 @@ jobs:
           arguments: --continue spotlessApply
 
       - name: Push reformatted code
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           file_pattern: '**/*.kt'
           disable_globbing: true
@@ -40,7 +40,7 @@ jobs:
           arguments: --continue metalavaGenerateSignature metalavaGenerateSignatureRelease
 
       - name: Push new apis
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           file_pattern: '**/current.api'
           disable_globbing: true
@@ -52,7 +52,7 @@ jobs:
           arguments: --continue verifyAndRecordRoborazziDebug
 
       - name: Push new screenshots if available
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         if: ${{ always() }}
         with:
           file_pattern: '**/snapshots/images/*.png **/screenshots/*.png **/audit/*.png'

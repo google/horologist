@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.model.R
 
 @ExperimentalHorologistApi
 @Composable

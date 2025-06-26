@@ -27,7 +27,7 @@ plugins {
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.google.android.horologist.sample"
@@ -146,6 +146,8 @@ dependencies {
 
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.androidx.wear.tooling.preview)
+
+    implementation(libs.androidx.wear.compose.material3)
 
     implementation(libs.kotlinx.serialization.core)
     implementation(projects.media.audioUiModel)

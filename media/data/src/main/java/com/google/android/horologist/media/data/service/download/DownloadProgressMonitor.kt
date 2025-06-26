@@ -21,8 +21,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.media3.exoplayer.offline.DownloadManager
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_START
 import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
+import com.google.android.horologist.media.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_START
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

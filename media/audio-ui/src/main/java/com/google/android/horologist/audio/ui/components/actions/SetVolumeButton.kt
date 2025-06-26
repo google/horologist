@@ -25,8 +25,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.google.android.horologist.audio.ui.R
 import com.google.android.horologist.audio.ui.VolumeUiState
+import com.google.android.horologist.audio.ui.model.R
 
 /**
  * It is recommended to use [SetAudioOutputButton] as it also provides the information about current

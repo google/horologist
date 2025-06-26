@@ -24,7 +24,7 @@ plugins {
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         //        Tiles is API 26, but if we don't stop this here, then we can't run the sample app
@@ -97,7 +97,7 @@ dependencies {
     api(libs.androidx.wear.tiles)
     api(libs.androidx.wear.protolayout.material)
     api(libs.androidx.lifecycle.service)
-    api(libs.kotlinx.coroutines.guava) // it is part of SuspendingTileService API
+    api(libs.androidx.concurrent.future.ktx)
 
     implementation(libs.coil)
     implementation(libs.wearcompose.foundation)

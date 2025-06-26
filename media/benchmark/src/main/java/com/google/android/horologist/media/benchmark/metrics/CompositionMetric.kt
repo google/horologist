@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalMetricApi::class, ExperimentalPerfettoTraceProcessorApi::class)
+@file:OptIn(ExperimentalMetricApi::class)
 
 package com.google.android.horologist.media.benchmark.metrics
 
 import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.TraceMetric
-import androidx.benchmark.perfetto.ExperimentalPerfettoTraceProcessorApi
-import androidx.benchmark.perfetto.PerfettoTraceProcessor
+import androidx.benchmark.traceprocessor.TraceProcessor
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.DurationUnit
 
 public class CompositionMetric(private val composable: String) : TraceMetric() {
     override fun getMeasurements(
         captureInfo: CaptureInfo,
-        traceSession: PerfettoTraceProcessor.Session,
+        traceSession: TraceProcessor.Session,
     ): List<Measurement> {
         val shortName = composable.substringAfterLast(".")
 

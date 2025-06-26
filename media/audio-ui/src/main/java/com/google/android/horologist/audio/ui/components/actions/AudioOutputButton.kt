@@ -21,7 +21,7 @@ import androidx.compose.material.icons.filled.Radio
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.google.android.horologist.audio.ui.R
+import com.google.android.horologist.audio.ui.model.R
 
 /**
  * A button to launch the system bluetooth settings to connect to a headset.

@@ -35,6 +35,7 @@ import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
+import com.google.android.horologist.m3.M3TLCButtonAndEdgeButton
 import com.google.android.horologist.materialcomponents.SampleAlertDialog
 import com.google.android.horologist.materialcomponents.SampleAnimatedComponents
 import com.google.android.horologist.materialcomponents.SampleButtonScreen
@@ -83,6 +84,11 @@ fun SampleWearApp() {
                 MenuScreen(
                     navigateToRoute = { route -> navController.navigate(route) },
                 )
+            }
+            composable(
+                Screen.Material3.route,
+            ) {
+                M3TLCButtonAndEdgeButton()
             }
             composable(
                 Screen.Network.route,

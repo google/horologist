@@ -22,11 +22,12 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.util.lerp
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.StepperDefaults
@@ -84,7 +85,7 @@ public fun Stepper(
         steps,
         decreaseIcon,
         increaseIcon,
-        modifier.rotaryScrollable(
+        modifier.requestFocusOnHierarchyActive().rotaryScrollable(
             accumulatedBehavior {
                 if (it < 0f) {
                     updateValue(1)
@@ -92,7 +93,7 @@ public fun Stepper(
                     updateValue(-1)
                 }
             },
-            focusRequester = rememberActiveFocusRequester(),
+            focusRequester = remember { FocusRequester() },
         ),
         valueRange,
         backgroundColor,
@@ -138,22 +139,24 @@ public fun Stepper(
         valueProgression,
         decreaseIcon,
         increaseIcon,
-        modifier.rotaryScrollable(
-            accumulatedBehavior {
-                if (it < 0f) {
-                    val newValue = (value + valueProgression.step)
-                    if (newValue <= valueProgression.last) {
-                        onValueChange(newValue)
+        modifier
+            .requestFocusOnHierarchyActive()
+            .rotaryScrollable(
+                accumulatedBehavior {
+                    if (it < 0f) {
+                        val newValue = (value + valueProgression.step)
+                        if (newValue <= valueProgression.last) {
+                            onValueChange(newValue)
+                        }
+                    } else if (it > 0f) {
+                        val newValue = (value - valueProgression.step)
+                        if (newValue >= valueProgression.first) {
+                            onValueChange(newValue)
+                        }
                     }
-                } else if (it > 0f) {
-                    val newValue = (value - valueProgression.step)
-                    if (newValue >= valueProgression.first) {
-                        onValueChange(newValue)
-                    }
-                }
-            },
-            focusRequester = rememberActiveFocusRequester(),
-        ),
+                },
+                focusRequester = remember { FocusRequester() },
+            ),
         backgroundColor,
         contentColor,
         iconColor,
@@ -182,5 +185,6 @@ internal fun snapValueToStep(
     value: Float,
     valueRange: ClosedFloatingPointRange<Float>,
     steps: Int,
-): Int = ((value - valueRange.start) / (valueRange.endInclusive - valueRange.start) * (steps + 1)).roundToInt()
-    .coerceIn(0, steps + 1)
+): Int =
+    ((value - valueRange.start) / (valueRange.endInclusive - valueRange.start) * (steps + 1)).roundToInt()
+        .coerceIn(0, steps + 1)

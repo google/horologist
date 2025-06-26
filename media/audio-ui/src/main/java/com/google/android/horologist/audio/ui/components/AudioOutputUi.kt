@@ -29,7 +29,7 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutput.Companion.TYPE_HEADPHONES
 import com.google.android.horologist.audio.AudioOutput.Companion.TYPE_NONE
 import com.google.android.horologist.audio.AudioOutput.Companion.TYPE_WATCH
-import com.google.android.horologist.audio.ui.R
+import com.google.android.horologist.audio.ui.model.R
 
 /**
  * UI representation of [AudioOutput].

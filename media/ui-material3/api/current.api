@@ -271,11 +271,11 @@ package com.google.android.horologist.media.ui.material3.components.display {
   }
 
   public final class TextMediaDisplayKt {
-    method @androidx.compose.runtime.Composable public static void TextMediaDisplay(String title, String subtitle, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public static void TextMediaDisplay(String title, String subtitle, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? titleIcon, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional int titleOverflow, optional int subtitleOverflow, optional boolean titleSoftWrap, optional boolean subtitleSoftWrap);
   }
 
   public final class TrackMediaDisplayKt {
-    method @androidx.compose.runtime.Composable public static void TrackMediaDisplay(com.google.android.horologist.media.ui.state.model.MediaUiModel.Ready media, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme);
+    method @androidx.compose.runtime.Composable public static void TrackMediaDisplay(com.google.android.horologist.media.ui.state.model.MediaUiModel.Ready media, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional int titleOverflow, optional int subtitleOverflow, optional boolean titleSoftWrap, optional boolean subtitleSoftWrap);
   }
 
 }

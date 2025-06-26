@@ -9,10 +9,10 @@ commonly required by developers but not yet available.
 
 The currently maintained branches of Horologist are.
 
-| Version | Branch        | Min SDK (Wear) | Kotlin/JDK  | Description                                                                         |
-| ------- |---------------| -------------- | ----------  |-------------------------------------------------------------------------------------|
-| 0.7.x   | main          | 26             | 2.1.20 / 17 | Wear Compose 1.5.x, Compose 1.8.x and generally latest stable Androidx.             |
-| 0.8.x   | planned       | 26             | 2.x / 17    | Wear Compose 1.6.x, Compose 1.8.x and generally latest relevant alphas of Androidx. |
+| Version | Branch        | Min SDK (Wear) | Kotlin/JDK | Description                                                                         |
+|---------|---------------|----------------|------------|-------------------------------------------------------------------------------------|
+| 0.7.x   | release-0.7.x | 26             | 2.2.0 / 17 | Wear Compose 1.5.x, Compose 1.8.x and generally latest stable Androidx.             |
+| 0.8.x   | main          | 26             | 2.x / 17   | Wear Compose 1.6.x, Compose 1.9.x and generally latest relevant alphas of Androidx. |
 
 Maintenance branches will not delete existing APIs and they should remain stable. However
 the main branch will actively update to incorporate new API guidance, removing or changing
@@ -50,9 +50,9 @@ The toolkit includes:
 - [audio-ui](https://google.github.io/horologist/audio-ui): UI components for Audio related functionality,
   such as Volume Control and Output switching
 
-Player Screen | Browse Screen | Entity Screen | Volume Screen
-:------------:|:-------------:|:-------------:|:-------------:
-<img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/playerscreen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/browse.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/detail.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
+|                                                             Player Screen                                                             |                                                          Browse Screen                                                          |                                                          Entity Screen                                                          |                                                             Volume Screen                                                              |
+|:-------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------:|
+| <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/playerscreen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/browse.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/detail.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
 
 
 ## 📅 Composables
@@ -61,12 +61,12 @@ High quality prebuilt composables, such as Time and Date pickers.
 
 - [horologist-composables](https://google.github.io/horologist/composables)
 
-DatePicker             |  TimePickerWith12HourClock |  TimePicker
-:-------------------------:|:-------------------------:|:-------------------------:
-<img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/date_picker.png" height="120" width="120" >  |  <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/time_12h_picker.png" height="120" width="120"> | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/time_24h_picker.png" height="120" width="120">
+|                                                               DatePicker                                                                |                                                         TimePickerWith12HourClock                                                          |                                                                 TimePicker                                                                 |
+|:---------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------:|
+| <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/date_picker.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/time_12h_picker.png" height="120" width="120"> | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/time_24h_picker.png" height="120" width="120"> |
 
-| SegmentedProgressIndicator |
-| :-------------------------: |
+|                                                               SegmentedProgressIndicator                                                                |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/composables/segmented_progress_indicator.png" height="120" width="120"> |
 
 ## 📐 Compose Layout

@@ -152,28 +152,6 @@ public class WearDataLayerAppHelper internal constructor(
     }
 
     /**
-     * Marks a tile as installed. Call this in [TileService#onTileAddEvent]. Supplying a name is
-     * mandatory to disambiguate from the installation or removal of other tiles your app may have.
-     *
-     * @param tileName The name of the tile.
-     */
-    @Deprecated("Please use updateInstalledTiles instead")
-    public suspend fun markTileAsInstalled(tileName: String) {
-        surfacesInfoDataStore.updateData { info ->
-            val tile = tileInfo {
-                timestamp = System.currentTimeMillis().toProtoTimestamp()
-                name = tileName
-            }
-            info.copy {
-                val exists = tiles.find { it.equalWithoutTimestamp(tile) } != null
-                if (!exists) {
-                    tiles.add(tile)
-                }
-            }
-        }
-    }
-
-    /**
      * Updates the list of currently installed tiles on this watch.
      *
      * This function has some limitations on older SDK versions, please see
@@ -264,29 +242,6 @@ public class WearDataLayerAppHelper internal constructor(
                         usageStatus = UsageStatus.USAGE_STATUS_LAUNCHED_ONCE
                         timestamp = System.currentTimeMillis().toProtoTimestamp()
                     }
-                }
-            }
-        }
-    }
-
-    /**
-     * Marks a tile as removed. Call this in [TileService#onTileRemoveEvent]. Supplying a name is
-     * mandatory to disambiguate from the installation or removal of other tiles your app may have.
-     *
-     * @param tileName The name of the tile.
-     */
-    @Deprecated("Please use updateInstalledTiles instead")
-    public suspend fun markTileAsRemoved(tileName: String) {
-        surfacesInfoDataStore.updateData { info ->
-            val tile = tileInfo {
-                timestamp = System.currentTimeMillis().toProtoTimestamp()
-                name = tileName
-            }
-            info.copy {
-                val filtered = tiles.filter { !tile.equalWithoutTimestamp(it) }
-                if (filtered.size != tiles.size) {
-                    tiles.clear()
-                    tiles.addAll(filtered)
                 }
             }
         }

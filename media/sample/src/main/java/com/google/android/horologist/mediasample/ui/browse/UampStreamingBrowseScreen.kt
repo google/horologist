@@ -22,8 +22,8 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.media.ui.model.R
-import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
-import com.google.android.horologist.media.ui.screens.browse.BrowseScreenPlaylistsSectionButton
+import com.google.android.horologist.media.ui.material3.screens.browse.BrowseScreen
+import com.google.android.horologist.media.ui.material3.screens.browse.BrowseScreenPlaylistsSectionButton
 
 @Composable
 fun UampStreamingBrowseScreen(

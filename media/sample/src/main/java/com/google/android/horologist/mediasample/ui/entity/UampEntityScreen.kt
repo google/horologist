@@ -23,9 +23,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.horologist.compose.material.AlertDialog
-import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
-import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
+import androidx.wear.compose.material3.AlertDialog
+import androidx.wear.compose.material3.AlertDialogDefaults
+import com.google.android.horologist.media.ui.material3.screens.entity.PlaylistDownloadScreen
+import com.google.android.horologist.media.ui.material3.screens.entity.PlaylistDownloadScreenState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.R
@@ -83,52 +84,79 @@ fun UampEntityScreen(
     // b/243381431 - it should stop listening to uiState emissions while dialog is presented
     if (uiState == PlaylistDownloadScreenState.Failed) {
         AlertDialog(
-            message = stringResource(R.string.entity_no_playlists),
-            onDismiss = onErrorDialogCancelClick,
-            showDialog = true,
-        )
+            visible = true,
+            title = { stringResource(R.string.entity_no_playlists)},
+            onDismissRequest =  onErrorDialogCancelClick )
     }
 
     AlertDialog(
-        message = stringResource(R.string.entity_dialog_cancel_downloads),
-        onCancel = {
+        title = {stringResource(R.string.entity_dialog_cancel_downloads)},
+        onDismissRequest = {
             showCancelDownloadsDialog = false
         },
-        onOk = {
-            showCancelDownloadsDialog = false
-            uampEntityScreenViewModel.remove()
+        dismissButton = {
+            AlertDialogDefaults.DismissButton(
+                onClick = {
+                    showCancelDownloadsDialog = false
+                }
+            )
         },
-        showDialog = showCancelDownloadsDialog,
-        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
+        confirmButton = {
+            AlertDialogDefaults.ConfirmButton(
+                onClick = {
+                    showCancelDownloadsDialog = false
+                    uampEntityScreenViewModel.remove()
+                }
+            )
+        },
+        visible = showCancelDownloadsDialog,
     )
 
     AlertDialog(
-        message = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
-        onCancel = {
+        title = {stringResource(R.string.entity_dialog_remove_downloads, playlistName)},
+        onDismissRequest = {
             showRemoveDownloadsDialog = false
         },
-        onOk = {
-            showRemoveDownloadsDialog = false
-            uampEntityScreenViewModel.remove()
+        confirmButton = {
+            AlertDialogDefaults.ConfirmButton(
+                onClick = {
+                    showRemoveDownloadsDialog = false
+                    uampEntityScreenViewModel.remove()
+                }
+            )
         },
-        showDialog = showRemoveDownloadsDialog,
-        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
+        visible = showRemoveDownloadsDialog,
+        dismissButton = {
+            AlertDialogDefaults.DismissButton(
+                onClick = {
+                    showRemoveDownloadsDialog = false
+                }
+            )
+        },
+
     )
 
     AlertDialog(
-        message = stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete),
-        onCancel = {
+        title = {stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete)},
+        onDismissRequest = {
             showRemoveSingleMediaDownloadDialog = false
         },
-        onOk = {
-            showRemoveSingleMediaDownloadDialog = false
-            mediaIdToDelete?.let { uampEntityScreenViewModel.removeMediaItem(it) }
+        visible = showRemoveSingleMediaDownloadDialog,
+        dismissButton = {
+            AlertDialogDefaults.DismissButton(
+                onClick = {
+                    showRemoveSingleMediaDownloadDialog = false
+                }
+            )
         },
-        showDialog = showRemoveSingleMediaDownloadDialog,
-        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
+        confirmButton = {
+            AlertDialogDefaults.ConfirmButton(
+                onClick = {
+                    showRemoveSingleMediaDownloadDialog = false
+                    mediaIdToDelete?.let { uampEntityScreenViewModel.removeMediaItem(it) }
+                }
+            )
+        },
 
     )
 }

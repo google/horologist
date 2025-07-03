@@ -27,14 +27,17 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.material3.Text
+import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
-import com.google.android.horologist.compose.nav.composable
-import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
-import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
-import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
-import com.google.android.horologist.media.ui.navigation.NavigationScreen
+import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToCollection
+import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToCollections
+import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToLibrary
+import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToPlayer
+import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToSettings
+import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToVolume
+import com.google.android.horologist.media.ui.material3.navigation.MediaPlayerScaffold
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.ui.auth.prompt.GoogleSignInPromptScreen
 import com.google.android.horologist.mediasample.ui.auth.signin.UampGoogleSignInViewModel
@@ -49,13 +52,7 @@ import com.google.android.horologist.mediasample.ui.entity.UampEntityScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreenViewModel
 import com.google.android.horologist.mediasample.ui.entity.UampStreamingPlaylistScreen
 import com.google.android.horologist.mediasample.ui.entity.UampStreamingPlaylistScreenViewModel
-import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.AudioDebug
-import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.DeveloperOptions
-import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignInPromptScreen
-import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignInScreen
-import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignOutScreen
-import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.NewHotness
-import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.Samples
+import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen
 import com.google.android.horologist.mediasample.ui.newhotness.NewHotnessPlayerScreen
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
@@ -85,7 +82,7 @@ fun UampWearApp(
                     mediaPlayerScreenViewModel = hiltViewModel(),
                     volumeViewModel = volumeViewModel,
                     onVolumeClick = {
-                        navController.navigate(NavigationScreen.Volume)
+                        navController.navigateToVolume()
                     },
                 )
             },
@@ -93,38 +90,36 @@ fun UampWearApp(
                 if (appState.streamingMode == true) {
                     UampStreamingBrowseScreen(
                         onPlaylistsClick = {
-                            navController.navigate(NavigationScreen.Collections)
+                            navController.navigateToCollections()
                         },
                         onSettingsClick = {
-                            navController.navigate(NavigationScreen.Settings)
+                            navController.navigateToSettings()
                         },
                     )
                 } else {
                     UampBrowseScreen(
                         uampBrowseScreenViewModel = hiltViewModel(),
                         onDownloadItemClick = {
-                            navController.navigate(
-                                NavigationScreen.Collection(
-                                    it.playlistUiModel.id,
-                                    it.playlistUiModel.title,
-                                ),
+                            navController.navigateToCollection(
+                                collectionId = it.playlistUiModel.id,
+                                collectionName = it.playlistUiModel.title,
                             )
                         },
                         onPlaylistsClick = {
-                            navController.navigate(NavigationScreen.Collections)
+                            navController.navigateToCollections()
                         },
                         onSettingsClick = {
-                            navController.navigate(NavigationScreen.Settings)
+                            navController.navigateToSettings()
                         },
                     )
                 }
             },
-            categoryEntityScreen = { category ->
+            categoryEntityScreen = { id, name ->
                 if (appState.streamingMode == true) {
                     val viewModel: UampStreamingPlaylistScreenViewModel = hiltViewModel()
 
                     UampStreamingPlaylistScreen(
-                        playlistName = category.name.orEmpty(),
+                        playlistName = name,
                         viewModel = viewModel,
                         onDownloadItemClick = {
                             navController.navigateToPlayer()
@@ -136,7 +131,7 @@ fun UampWearApp(
                     val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
 
                     UampEntityScreen(
-                        playlistName = category.name.orEmpty(),
+                        playlistName = name,
                         uampEntityScreenViewModel = uampEntityScreenViewModel,
                         onDownloadItemClick = {
                             navController.navigateToPlayer()
@@ -159,11 +154,9 @@ fun UampWearApp(
                 UampPlaylistsScreen(
                     uampPlaylistsScreenViewModel = uampPlaylistsScreenViewModel,
                     onPlaylistItemClick = { playlistUiModel ->
-                        navController.navigate(
-                            NavigationScreen.Collection(
-                                playlistUiModel.id,
-                                playlistUiModel.title,
-                            ),
+                        navController.navigateToCollection(
+                            collectionId = playlistUiModel.id,
+                            collectionName = playlistUiModel.title,
                         )
                     },
                     onErrorDialogCancelClick = { navController.popBackStack() },
@@ -176,7 +169,6 @@ fun UampWearApp(
                 )
             },
             navHostState = navHostState,
-            snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
             volumeViewModel = volumeViewModel,
             timeText = {
                 MediaInfoTimeText(
@@ -186,34 +178,34 @@ fun UampWearApp(
             deepLinkPrefix = appViewModel.deepLinkPrefix,
             navController = navController,
             additionalNavRoutes = {
-                composable<AudioDebug> {
+                composable(UampNavigationScreen.AudioDebug.navRoute) {
                     AudioDebugScreen(
                         audioDebugScreenViewModel = hiltViewModel(),
                     )
                 }
 
-                composable<Samples> {
+                composable(UampNavigationScreen.Samples.navRoute) {
                     SamplesScreen(
                         samplesScreenViewModel = hiltViewModel(),
                         navController = navController,
                     )
                 }
 
-                composable<DeveloperOptions> {
+                composable(UampNavigationScreen.DeveloperOptions.navRoute) {
                     DeveloperOptionsScreen(
                         developerOptionsScreenViewModel = hiltViewModel(),
                         navController = navController,
                     )
                 }
 
-                composable<GoogleSignInPromptScreen> {
+                composable(UampNavigationScreen.GoogleSignInPromptScreen.navRoute) {
                     GoogleSignInPromptScreen(
                         navController = navController,
                         viewModel = hiltViewModel(),
                     )
                 }
 
-                composable<GoogleSignInScreen> {
+                composable(UampNavigationScreen.GoogleSignInScreen.navRoute) {
                     GoogleSignInScreen(
                         onAuthCancelled = { navController.popBackStack() },
                         onAuthSucceed = { navController.navigateToLibrary() },
@@ -221,14 +213,14 @@ fun UampWearApp(
                     )
                 }
 
-                composable<GoogleSignOutScreen> {
+                composable(UampNavigationScreen.GoogleSignOutScreen.navRoute) {
                     GoogleSignOutScreen(
                         navController = navController,
                         viewModel = hiltViewModel(),
                     )
                 }
 
-                composable<NewHotness> {
+                composable(UampNavigationScreen.NewHotness.navRoute) {
                     NewHotnessPlayerScreen()
                 }
             },
@@ -279,7 +271,7 @@ private suspend fun startupNavigation(
     if (appViewModel.shouldShowLoginPrompt()) {
         // Allow screen to settle so it feels like a distinct step
         delay(200)
-        navController.navigate(GoogleSignInPromptScreen)
+        navController.navigate(UampNavigationScreen.GoogleSignInPromptScreen.navRoute)
     }
 }
 

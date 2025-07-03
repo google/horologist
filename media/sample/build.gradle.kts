@@ -155,6 +155,7 @@ dependencies {
     api(projects.annotations)
 
     implementation(projects.media.audio)
+    implementation(projects.media.audioUiMaterial3)
     implementation(projects.media.audioUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)
@@ -164,6 +165,7 @@ dependencies {
     implementation(projects.media.backendMedia3)
     implementation(projects.media.data)
     implementation(projects.media.sync)
+    implementation(projects.media.uiMaterial3)
     implementation(projects.media.ui)
     implementation(projects.networkAwareness.core)
     implementation(projects.networkAwareness.ui)
@@ -214,6 +216,7 @@ dependencies {
     implementation(libs.moshi.kotlin)
     api(projects.media.audioUiModel)
     api(projects.media.uiModel)
+    implementation(libs.androidx.foundation.layout)
     testImplementation(projects.media.audioUiModel)
     ksp(libs.moshi.kotlin.codegen)
     implementation(libs.kotlinx.serialization.core)

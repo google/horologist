@@ -16,24 +16,19 @@
 
 package com.google.android.horologist.mediasample.ui.playlists
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
-import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.dialog.Alert
-import androidx.wear.compose.material.dialog.Dialog
-import com.google.android.horologist.compose.material.Button
-import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreen
-import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState
+import androidx.wear.compose.material3.AlertDialog
+import androidx.wear.compose.material3.Icon
+import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.Text
+import com.google.android.horologist.media.ui.material3.screens.playlists.PlaylistsScreen
+import com.google.android.horologist.media.ui.material3.screens.playlists.PlaylistsScreenState
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.R
 
@@ -69,34 +64,24 @@ fun UampPlaylistsScreen(
 
     // b/242302037 - it should stop listening to uiState emissions while dialog is presented
     if (modifiedState == PlaylistsScreenState.Failed) {
-        Dialog(
-            showDialog = true,
+        AlertDialog(
+            visible = true,
             onDismissRequest = onErrorDialogCancelClick,
-            scrollState = rememberScalingLazyListState(),
-        ) {
-            Alert(
-                title = {
-                    Text(
-                        text = stringResource(R.string.playlists_no_playlists),
-                        color = MaterialTheme.colors.onBackground,
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.title3,
-                    )
-                },
-            ) {
-                item {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Button(
-                            onClick = onErrorDialogCancelClick,
-                            colors = ButtonDefaults.secondaryButtonColors(),
-                            imageVector = Icons.Default.Close,
-                            contentDescription = stringResource(id = R.string.playlists_failed_dialog_cancel_button_content_description),
-                        )
-                    }
-                }
-            }
-        }
+            title = {
+                Text(
+                    text = stringResource(R.string.playlists_no_playlists),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.titleSmall,
+                )
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription =
+                        stringResource(id = R.string.playlists_failed_dialog_cancel_button_content_description),
+                )
+            },
+        )
     }
 }

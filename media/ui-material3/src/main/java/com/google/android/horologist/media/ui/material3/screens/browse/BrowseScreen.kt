@@ -17,6 +17,7 @@
 package com.google.android.horologist.media.ui.material3.screens.browse
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -90,7 +91,7 @@ public class BrowseScreenScope {
             Section(
                 state = state,
                 headerContent = {
-                    ListHeader { Text(text = stringResource(id = titleId)) }
+                    ListHeader(modifier = Modifier.fillMaxWidth()) { Text(text = stringResource(id = titleId)) }
                 },
                 loadingContent = scope.loadingContent,
                 loadedContent = scope.loadedContent,
@@ -147,9 +148,9 @@ public class BrowseScreenScope {
                 headerContent = {
                     ListHeader(
                         modifier = if (firstSectionAdded) {
-                            Modifier.padding(bottom = 8.dp)
+                            Modifier.padding(bottom = 8.dp).fillMaxWidth()
                         } else {
-                            Modifier.padding(top = 8.dp, bottom = 8.dp)
+                            Modifier.padding(top = 8.dp, bottom = 8.dp).fillMaxWidth()
                         },
                     ) { Text(stringResource(R.string.horologist_browse_library_playlists)) }
                 },
@@ -163,6 +164,7 @@ public class BrowseScreenScope {
                                 contentDescription = null,
                             )
                         },
+                        modifier = Modifier.fillMaxWidth()
                     )
                 },
             ),
@@ -184,6 +186,7 @@ public class BrowseScreenScope {
                                 contentDescription = null,
                             )
                         },
+                        modifier = Modifier.fillMaxWidth()
                     )
                 },
             ),

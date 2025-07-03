@@ -82,7 +82,7 @@ fun UampSettingsScreen(
                         label = stringResource(id = R.string.login),
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            navController.navigate(GoogleSignInScreen)
+                            navController.navigate(GoogleSignInScreen.navRoute)
                         },
                         enabled = !screenState.guestMode,
                     )
@@ -91,7 +91,7 @@ fun UampSettingsScreen(
                         label = stringResource(id = R.string.logout),
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            navController.navigate(GoogleSignOutScreen) {
+                            navController.navigate(GoogleSignOutScreen.navRoute) {
                                 popUpTo<NavigationScreen.Player>()
                             }
                         },
@@ -114,7 +114,7 @@ fun UampSettingsScreen(
                         icon = Icons.Default.DataObject,
                         colors = ChipDefaults.secondaryChipColors(),
                         onClick = {
-                            navController.navigate(DeveloperOptions)
+                            navController.navigate(DeveloperOptions.navRoute)
                         },
                     )
                 }

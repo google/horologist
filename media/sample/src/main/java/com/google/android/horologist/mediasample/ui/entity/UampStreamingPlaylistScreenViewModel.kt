@@ -24,8 +24,8 @@ import com.google.android.horologist.media.model.PlaylistDownload
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import com.google.android.horologist.media.ui.navigation.NavigationScreen
-import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
-import com.google.android.horologist.media.ui.screens.entity.createPlaylistDownloadScreenStateLoaded
+import com.google.android.horologist.media.ui.material3.screens.entity.PlaylistDownloadScreenState
+import com.google.android.horologist.media.ui.material3.screens.entity.createPlaylistDownloadScreenStateLoaded
 import com.google.android.horologist.media.ui.state.mapper.DownloadMediaUiModelMapper
 import com.google.android.horologist.media.ui.state.mapper.PlaylistUiModelMapper
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel

@@ -20,7 +20,6 @@ import android.os.Process
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
-import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.di.IsEmulator
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.copy
@@ -126,12 +125,12 @@ class DeveloperOptionsScreenViewModel
         }
 
         fun showDialog(message: String) {
-            snackbarManager.showMessage(
-                UiMessage(
-                    message = message,
-                    error = true,
-                ),
-            )
+//            snackbarManager.showMessage(
+//                UiMessage(
+//                    message = message,
+//                    error = true,
+//                ),
+//            )
         }
 
         fun toggleNetworkRequest() {

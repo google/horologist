@@ -17,15 +17,17 @@
 package com.google.android.horologist.mediasample.ui.player
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
-import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
-import com.google.android.horologist.audio.ui.components.actions.SetAudioOutputButton
-import com.google.android.horologist.logo.R
+import com.google.android.horologist.audio.ui.material3.components.actions.VolumeButtonWithBadge
+import com.google.android.horologist.audio.ui.material3.components.toAudioOutputUi
 
 /**
  * Settings buttons for the UAMP media app.
@@ -44,17 +46,18 @@ public fun UampSettingsButtons(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
-        FavoriteButton()
+        Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+            VolumeButtonWithBadge(
+                onOutputClick = onVolumeClick,
+                audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name")
+                    .toAudioOutputUi(),
+                volumeUiState = volumeUiState,
+                enabled = enabled,
+            )
+        }
 
-        SettingsButtonsDefaults.BrandIcon(
-            iconId = R.drawable.ic_stat_horologist,
-            enabled = enabled,
-        )
-
-        SetAudioOutputButton(
-            onVolumeClick = onVolumeClick,
-            volumeUiState = volumeUiState,
-            audioOutputUi = audioOutputUi,
-        )
+        Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+            FavoriteButton()
+        }
     }
 }

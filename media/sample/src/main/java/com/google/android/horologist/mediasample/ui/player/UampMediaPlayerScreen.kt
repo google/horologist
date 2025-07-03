@@ -22,18 +22,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.images.coil.CoilPaintable
-import com.google.android.horologist.media.ui.components.PodcastControlButtons
-import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
-import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
-import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
-import com.google.android.horologist.media.ui.components.background.ColorBackground
-import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
-import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenControlButtons
-import com.google.android.horologist.media.ui.screens.player.PlayerScreen
+import com.google.android.horologist.media.ui.material3.components.PodcastControlButtons
+import com.google.android.horologist.media.ui.material3.components.animated.AnimatedMediaControlButtons
+import com.google.android.horologist.media.ui.material3.components.animated.AnimatedMediaInfoDisplay
+import com.google.android.horologist.media.ui.material3.components.background.ArtworkImageBackground
+import com.google.android.horologist.media.ui.material3.components.background.ColorBackground
+import com.google.android.horologist.media.ui.material3.screens.player.DefaultMediaInfoDisplay
+import com.google.android.horologist.media.ui.material3.screens.player.DefaultPlayerScreenControlButtons
+import com.google.android.horologist.media.ui.material3.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
@@ -61,9 +61,9 @@ fun UampMediaPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
                 )
             } else {
-                ArtworkColorBackground(
-                    paintable = (it.media as? MediaUiModel.Ready)?.artwork as? CoilPaintable,
-                    defaultColor = MaterialTheme.colors.primary,
+                ArtworkImageBackground(
+                    artwork = (it.media as? MediaUiModel.Ready)?.artwork as? CoilPaintable,
+                    colorScheme = MaterialTheme.colorScheme,
                     modifier = Modifier.fillMaxSize(),
                 )
             }
@@ -99,10 +99,10 @@ fun UampMediaPlayerScreen(
                         playPauseButtonEnabled = playerUiState.playPauseEnabled,
                         playing = playerUiState.playing,
                         onSeekToPreviousButtonClick = { playerUiController.skipToPreviousMedia() },
-                        onSeekToPreviousLongRepeatableClick = { playerUiController.seekBack() },
+                        onSeekToPreviousRepeatableClick = { playerUiController.seekBack() },
                         seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
                         onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
-                        onSeekToNextLongRepeatableClick = { playerUiController.seekForward() },
+                        onSeekToNextRepeatableClick = { playerUiController.seekForward() },
                         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
                         trackPositionUiModel = playerUiState.trackPositionUiModel,
                     )

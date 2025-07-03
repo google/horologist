@@ -33,7 +33,7 @@ import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignInScreen
+import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen
 
 @Composable
 fun GoogleSignInPromptScreen(
@@ -54,7 +54,7 @@ fun GoogleSignInPromptScreen(
         item {
             SignInChip(
                 onClick = {
-                    navController.navigate(GoogleSignInScreen)
+                    navController.navigate(UampNavigationScreen.GoogleSignInScreen.navRoute)
                 },
                 colors = ChipDefaults.secondaryChipColors(),
             )

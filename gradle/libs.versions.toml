@@ -70,6 +70,7 @@ truth = "1.4.4"
 wearInput = "1.2.0-alpha02"
 wearToolingPreview = "1.0.0"
 wearcompose = "1.5.0-beta04"
+foundationLayout = "1.8.3"
 
 [libraries]
 accessibility-test-framework = { module = "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework", version.ref = "accessibilityTestFramework" }
@@ -234,6 +235,7 @@ wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", 
 wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
 wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
 wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wearcompose" }
+androidx-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
 
 [plugins]
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

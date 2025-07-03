@@ -21,7 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.horologist.media.ui.screens.browse.PlaylistDownloadBrowseScreen
+import com.google.android.horologist.media.ui.material3.screens.browse.PlaylistDownloadBrowseScreen
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.mediasample.R
 

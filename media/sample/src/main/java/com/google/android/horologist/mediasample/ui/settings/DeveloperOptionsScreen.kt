@@ -67,7 +67,7 @@ fun DeveloperOptionsScreen(
                 ActionSetting(
                     "New Hotness Player",
                 ) {
-                    navController.navigate(NewHotness)
+                    navController.navigate(NewHotness.navRoute)
                 }
             }
             item {
@@ -83,14 +83,14 @@ fun DeveloperOptionsScreen(
                 ActionSetting(
                     stringResource(id = R.string.sample_audio_debug),
                 ) {
-                    navController.navigate(AudioDebug)
+                    navController.navigate(AudioDebug.navRoute)
                 }
             }
             item {
                 ActionSetting(
                     stringResource(id = R.string.sample_samples),
                 ) {
-                    navController.navigate(Samples)
+                    navController.navigate(Samples.navRoute)
                 }
             }
             item {

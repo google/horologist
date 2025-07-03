@@ -16,28 +16,21 @@
 
 package com.google.android.horologist.mediasample.ui.navigation
 
-import com.google.android.horologist.media.ui.navigation.NavigationScreen
-import kotlinx.serialization.Serializable
+import com.google.android.horologist.media.ui.material3.navigation.NavigationScreens
 
 object UampNavigationScreen {
-    @Serializable
-    public data object AudioDebug : NavigationScreen
 
-    @Serializable
-    public data object Samples : NavigationScreen
+    public data object AudioDebug : NavigationScreens("audioDebug")
 
-    @Serializable
-    public data object GoogleSignInPromptScreen : NavigationScreen
+    public data object Samples : NavigationScreens("samples")
 
-    @Serializable
-    public data object GoogleSignInScreen : NavigationScreen
+    public data object GoogleSignInPromptScreen : NavigationScreens("googleSignInPromptScreen")
 
-    @Serializable
-    public object GoogleSignOutScreen : NavigationScreen
+    public data object GoogleSignInScreen : NavigationScreens("googleSignInScreen")
 
-    @Serializable
-    public object DeveloperOptions : NavigationScreen
+    public data object GoogleSignOutScreen : NavigationScreens("googleSignOutScreen")
 
-    @Serializable
-    public data object NewHotness : NavigationScreen
+    public data object DeveloperOptions : NavigationScreens("developerOptions")
+
+    public data object NewHotness : NavigationScreens("newHotness")
 }

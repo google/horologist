@@ -55,7 +55,7 @@ public fun TextResponseCard(
             contentColor = MaterialTheme.colorScheme.onSurface,
         ),
     ) {
-        Text(text = textResponseUiModel.text, style = MaterialTheme.typography.body2)
+        Text(text = textResponseUiModel.text, style = MaterialTheme.typography.bodyMedium)
     }
 }
 

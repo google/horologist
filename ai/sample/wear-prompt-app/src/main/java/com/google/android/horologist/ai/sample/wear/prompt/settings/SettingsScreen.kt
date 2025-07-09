@@ -14,31 +14,28 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalWearMaterialApi::class)
-
 package com.google.android.horologist.ai.sample.wear.prompt.settings
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.items
+import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
+import androidx.wear.compose.material3.ListHeader
+import androidx.wear.compose.material3.RadioButton
 import androidx.wear.compose.material3.Text
+import androidx.wear.compose.material3.placeholder
+import androidx.wear.compose.material3.placeholderShimmer
 import androidx.wear.compose.material3.rememberPlaceholderState
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
-import com.google.android.horologist.composables.PlaceholderChip
-import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
-import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
-import com.google.android.horologist.compose.material.ResponsiveListHeader
-import com.google.android.horologist.compose.material.ToggleChip
-import com.google.android.horologist.compose.material.ToggleChipToggleControl
+import com.google.android.horologist.compose.layout.ColumnItemType
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
 @Composable
 fun SettingsScreen(
@@ -60,38 +57,42 @@ private fun SettingsScreen(
     modifier: Modifier = Modifier,
     selectModel: (ModelInstanceUiModel) -> Unit,
 ) {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+    val columnState = rememberTransformingLazyColumnState()
+    val contentPadding = rememberResponsiveColumnPadding(
+        first = ColumnItemType.ListHeader,
+        last = ColumnItemType.Button,
     )
 
     val placeholderState = rememberPlaceholderState(uiState.models == null)
 
-    ScreenScaffold(scrollState = columnState, modifier = modifier) {
-        ScalingLazyColumn(columnState = columnState) {
+    androidx.wear.compose.material3.ScreenScaffold(
+        scrollState = columnState,
+        modifier = modifier,
+        contentPadding = contentPadding,
+    ) { contentPadding ->
+        TransformingLazyColumn(state = columnState, contentPadding = contentPadding) {
+            item {
+                ListHeader {
+                    Text("Browse")
+                }
+            }
             if (uiState.models == null) {
                 items(3) {
-                    PlaceholderChip(
-                        placeholderState = placeholderState,
-                        icon = false,
-                        secondaryLabel = false,
+                    RadioButton(
+                        modifier = Modifier.fillMaxWidth().placeholderShimmer(placeholderState),
+                        selected = false,
+                        onSelect = {},
+                        label = { Text("      ", modifier = Modifier.placeholder(placeholderState)) },
                     )
                 }
             } else {
-                item {
-                    ResponsiveListHeader(modifier = Modifier.listTextPadding()) {
-                        Text("Browse")
-                    }
-                }
                 items(uiState.models) { model ->
                     key(model.id) {
-                        ToggleChip(
-                            checked = model == uiState.current,
-                            onCheckedChanged = { selectModel(model) },
-                            label = model.name,
-                            toggleControl = ToggleChipToggleControl.Radio,
+                        RadioButton(
+                            modifier = Modifier.fillMaxWidth(),
+                            selected = model == uiState.current,
+                            onSelect = { selectModel(model) },
+                            label = { Text(model.name) },
                         )
                     }
                 }

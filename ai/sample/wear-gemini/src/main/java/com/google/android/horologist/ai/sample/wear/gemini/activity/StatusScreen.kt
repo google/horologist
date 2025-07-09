@@ -24,8 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.layout.ScreenScaffold
+import androidx.wear.compose.material3.ScreenScaffold
+import androidx.wear.compose.material3.Text
 
 @Composable
 fun StatusScreen(

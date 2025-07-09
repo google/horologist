@@ -26,8 +26,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ListHeader
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
+import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
+import androidx.wear.compose.material3.Icon
+import androidx.wear.compose.material3.IconButton
+import androidx.wear.compose.material3.ListHeader
+import androidx.wear.compose.material3.ScreenScaffold
+import androidx.wear.compose.material3.Text
 import com.google.android.horologist.ai.ui.R
 import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.components.ResponseInProgressCard
@@ -36,11 +41,8 @@ import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
 import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
 import com.google.android.horologist.ai.ui.model.PromptUiModel
 import com.google.android.horologist.ai.ui.model.ResponseUiModel
-import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
-import com.google.android.horologist.compose.material.Button
+import com.google.android.horologist.compose.layout.ColumnItemType
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
 /**
  * A screen to display metrics, e.g. workout metrics.
@@ -60,17 +62,20 @@ public fun PromptScreen(
     },
     promptEntry: @Composable () -> Unit,
 ) {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-            first = ScalingLazyColumnDefaults.ItemType.Text,
-            last = ScalingLazyColumnDefaults.ItemType.Chip,
-        ),
+    val columnState = rememberTransformingLazyColumnState()
+    val contentPadding = rememberResponsiveColumnPadding(
+        first = ColumnItemType.ListHeader,
+        last = ColumnItemType.Button,
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(columnState = columnState, modifier = modifier) {
+    ScreenScaffold(scrollState = columnState, contentPadding = contentPadding) { contentPadding ->
+        TransformingLazyColumn(
+            state = columnState,
+            modifier = modifier,
+            contentPadding = contentPadding,
+        ) {
             item {
-                ListHeader(modifier = Modifier.fillMaxWidth(0.8f)) {
+                ListHeader {
                     Text(
                         text = uiState.modelInfo?.name
                             ?: stringResource(R.string.horologist_unknown_model),
@@ -113,11 +118,14 @@ public fun PromptScreen(
             }
             if (onSettingsClick != null) {
                 item {
-                    Button(
-                        Icons.Default.Settings,
-                        contentDescription = stringResource(R.string.horologist_settings_content_description),
+                    IconButton(
                         onClick = onSettingsClick,
-                    )
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = stringResource(R.string.horologist_settings_content_description),
+                        )
+                    }
                 }
             }
         }

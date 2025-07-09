@@ -157,8 +157,8 @@ compose-animation-animationgraphics = { group = "androidx.compose.animation", na
 compose-bom = { group = "androidx.compose", name = "compose-bom-alpha", version.ref = "androidxComposeBom" }
 compose-foundation-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 compose-foundation-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
-compose-material-iconscore = { group = "androidx.compose.material", name = "material-icons-core" }
-compose-material-iconsext = { group = "androidx.compose.material", name = "material-icons-extended" }
+compose-material-iconscore = { group = "androidx.compose.material", name = "material-icons-core", version="1.7.8" }
+compose-material-iconsext = { group = "androidx.compose.material", name = "material-icons-extended", version="1.7.8" }
 compose-material-ripple = { group = "androidx.compose.material", name = "material-ripple" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" } # version 2023.10.01 from BOM is crashing
 compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }

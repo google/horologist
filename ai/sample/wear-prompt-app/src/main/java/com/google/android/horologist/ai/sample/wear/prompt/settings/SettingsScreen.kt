@@ -28,6 +28,7 @@ import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.RadioButton
+import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.placeholder
 import androidx.wear.compose.material3.placeholderShimmer
@@ -65,7 +66,7 @@ private fun SettingsScreen(
 
     val placeholderState = rememberPlaceholderState(uiState.models == null)
 
-    androidx.wear.compose.material3.ScreenScaffold(
+    ScreenScaffold(
         scrollState = columnState,
         modifier = modifier,
         contentPadding = contentPadding,

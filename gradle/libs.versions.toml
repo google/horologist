@@ -209,7 +209,7 @@ oss-licenses-plugin = { module = "com.google.android.gms:oss-licenses-plugin", v
 osslicenses-wear-compose-material = { module = "io.github.droibit.oss-licenses-android:ui-wear-compose-material", version.ref = "osslicenses" }
 play-services-oss-licenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "playServicesOssLicenses" }
 playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
-playservices-base = "com.google.android.gms:play-services-base:18.7.1"
+playservices-base = "com.google.android.gms:play-services-base:18.7.2"
 playservices-wearable = "com.google.android.gms:play-services-wearable:19.0.0"
 protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
 protobuf-protoc-gen-grpc-java = { module = "io.grpc:protoc-gen-grpc-java", version.ref = "protobuf-gen-grpc-java"}

@@ -18,6 +18,7 @@ package com.google.android.horologist.ai.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.wear.compose.material3.lazy.TransformationSpec
 import com.google.android.horologist.ai.ui.model.FailedResponseUiModel
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
 import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
@@ -32,6 +33,7 @@ public fun PromptOrResponseDisplay(
     promptResponse: PromptOrResponseUiModel,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    transformationSpec: TransformationSpec,
 ) {
     when (promptResponse) {
         is TextResponseUiModel -> {
@@ -47,7 +49,7 @@ public fun PromptOrResponseDisplay(
         }
 
         is TextPromptUiModel -> {
-            TextPromptDisplay(prompt = promptResponse, modifier = modifier)
+            TextPromptDisplay(prompt = promptResponse, modifier = modifier,)
         }
     }
 }

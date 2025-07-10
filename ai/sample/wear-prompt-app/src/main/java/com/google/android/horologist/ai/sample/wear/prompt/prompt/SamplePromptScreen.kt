@@ -55,7 +55,6 @@ import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 import com.google.android.horologist.ai.ui.screens.PromptScreen
 import com.google.android.horologist.ai.ui.screens.PromptUiState
-import com.google.android.horologist.compose.layout.ColumnItemType.Companion.IconButton
 import com.mikepenz.markdown.compose.LocalMarkdownColors
 import com.mikepenz.markdown.compose.LocalMarkdownTypography
 import com.mikepenz.markdown.compose.Markdown
@@ -186,8 +185,7 @@ private fun ModelDisplay(it: PromptOrResponseUiModel) {
         SampleTextResponseCard(it)
     } else {
         PromptOrResponseDisplay(
-            promptResponse = it,
-            onClick = {},
+            promptResponse = it,,
         )
     }
 }

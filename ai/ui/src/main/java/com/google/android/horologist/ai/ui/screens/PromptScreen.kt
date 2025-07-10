@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.ai.ui.screens
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -32,7 +31,11 @@ import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButton
 import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.ScreenScaffold
+import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.material3.Text
+import androidx.wear.compose.material3.lazy.TransformationSpec
+import androidx.wear.compose.material3.lazy.rememberTransformationSpec
+import androidx.wear.compose.material3.lazy.transformedHeight
 import com.google.android.horologist.ai.ui.R
 import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.components.ResponseInProgressCard
@@ -54,14 +57,17 @@ public fun PromptScreen(
     uiState: PromptUiState,
     modifier: Modifier = Modifier,
     onSettingsClick: (() -> Unit)? = null,
-    promptDisplay: @Composable (PromptOrResponseUiModel) -> Unit = {
+    promptDisplay: @Composable (PromptOrResponseUiModel, Modifier, TransformationSpec) -> Unit = { model, modifier, transformationSpec ->
         PromptOrResponseDisplay(
-            promptResponse = it,
+            promptResponse = model,
             onClick = {},
+            modifier = modifier,
+            transformationSpec = transformationSpec
         )
     },
-    promptEntry: @Composable () -> Unit,
+    promptEntry: @Composable (Modifier, TransformationSpec) -> Unit,
 ) {
+    val transformationSpec: TransformationSpec = rememberTransformationSpec()
     val columnState = rememberTransformingLazyColumnState()
     val contentPadding = rememberResponsiveColumnPadding(
         first = ColumnItemType.ListHeader,
@@ -75,7 +81,10 @@ public fun PromptScreen(
             contentPadding = contentPadding,
         ) {
             item {
-                ListHeader {
+                ListHeader(
+                    modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
+                    transformation = SurfaceTransformation(transformationSpec)
+                ) {
                     Text(
                         text = uiState.modelInfo?.name
                             ?: stringResource(R.string.horologist_unknown_model),
@@ -89,13 +98,9 @@ public fun PromptScreen(
                         is ResponseUiModel -> PaddingValues(start = 20.dp)
                         else -> PaddingValues()
                     }
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(padding),
-                    ) {
-                        promptDisplay(it)
-                    }
+                    promptDisplay(it, Modifier
+                        .fillMaxWidth()
+                        .padding(padding), transformationSpec)
                 }
             }
             val inProgress = uiState.inProgress
@@ -107,14 +112,15 @@ public fun PromptScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 5.dp, end = 25.dp),
+                        transformationSpec = transformationSpec
                     )
                 }
                 item {
-                    ResponseInProgressCard(InProgressResponseUiModel)
+                    ResponseInProgressCard(InProgressResponseUiModel, transformationSpec = transformationSpec)
                 }
             }
             item {
-                promptEntry()
+                promptEntry(Modifier, transformationSpec)
             }
             if (onSettingsClick != null) {
                 item {

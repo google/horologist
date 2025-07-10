@@ -23,6 +23,7 @@ import androidx.wear.compose.material3.Card
 import androidx.wear.compose.material3.CardDefaults
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
+import androidx.wear.compose.material3.lazy.TransformationSpec
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 
 /**
@@ -33,6 +34,7 @@ public fun TextPromptDisplay(
     prompt: TextPromptUiModel,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    transformationSpec: TransformationSpec,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),

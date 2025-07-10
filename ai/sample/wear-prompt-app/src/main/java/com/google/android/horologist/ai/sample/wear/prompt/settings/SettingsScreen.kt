@@ -29,7 +29,10 @@ import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.RadioButton
 import androidx.wear.compose.material3.ScreenScaffold
+import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.material3.Text
+import androidx.wear.compose.material3.lazy.rememberTransformationSpec
+import androidx.wear.compose.material3.lazy.transformedHeight
 import androidx.wear.compose.material3.placeholder
 import androidx.wear.compose.material3.placeholderShimmer
 import androidx.wear.compose.material3.rememberPlaceholderState
@@ -58,6 +61,7 @@ private fun SettingsScreen(
     modifier: Modifier = Modifier,
     selectModel: (ModelInstanceUiModel) -> Unit,
 ) {
+    val transformationSpec = rememberTransformationSpec()
     val columnState = rememberTransformingLazyColumnState()
     val contentPadding = rememberResponsiveColumnPadding(
         first = ColumnItemType.ListHeader,
@@ -73,27 +77,32 @@ private fun SettingsScreen(
     ) { contentPadding ->
         TransformingLazyColumn(state = columnState, contentPadding = contentPadding) {
             item {
-                ListHeader {
+                ListHeader(
+                    modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
+                    transformation = SurfaceTransformation(transformationSpec)
+                ) {
                     Text("Browse")
                 }
             }
             if (uiState.models == null) {
                 items(3) {
                     RadioButton(
-                        modifier = Modifier.fillMaxWidth().placeholderShimmer(placeholderState),
+                        modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec).placeholderShimmer(placeholderState),
                         selected = false,
                         onSelect = {},
                         label = { Text("      ", modifier = Modifier.placeholder(placeholderState)) },
+                        transformation = SurfaceTransformation(transformationSpec)
                     )
                 }
             } else {
                 items(uiState.models) { model ->
                     key(model.id) {
                         RadioButton(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
                             selected = model == uiState.current,
                             onSelect = { selectModel(model) },
                             label = { Text(model.name) },
+                            transformation = SurfaceTransformation(transformationSpec)
                         )
                     }
                 }

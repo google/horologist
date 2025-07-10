@@ -57,15 +57,15 @@ public fun PromptScreen(
     uiState: PromptUiState,
     modifier: Modifier = Modifier,
     onSettingsClick: (() -> Unit)? = null,
-    promptDisplay: @Composable (PromptOrResponseUiModel, Modifier, TransformationSpec) -> Unit = { model, modifier, transformationSpec ->
+    promptDisplay: @Composable (PromptOrResponseUiModel, Modifier, SurfaceTransformation) -> Unit = { model, modifier, transformation ->
         PromptOrResponseDisplay(
             promptResponse = model,
             onClick = {},
             modifier = modifier,
-            transformationSpec = transformationSpec
+            transformation = transformation,
         )
     },
-    promptEntry: @Composable (Modifier, TransformationSpec) -> Unit,
+    promptEntry: @Composable () -> Unit,
 ) {
     val transformationSpec: TransformationSpec = rememberTransformationSpec()
     val columnState = rememberTransformingLazyColumnState()
@@ -74,7 +74,11 @@ public fun PromptScreen(
         last = ColumnItemType.Button,
     )
 
-    ScreenScaffold(scrollState = columnState, contentPadding = contentPadding) { contentPadding ->
+    ScreenScaffold(
+        scrollState = columnState,
+        contentPadding = contentPadding,
+        edgeButton = { promptEntry() },
+    ) { contentPadding ->
         TransformingLazyColumn(
             state = columnState,
             modifier = modifier,
@@ -82,8 +86,10 @@ public fun PromptScreen(
         ) {
             item {
                 ListHeader(
-                    modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
-                    transformation = SurfaceTransformation(transformationSpec)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec),
+                    transformation = SurfaceTransformation(transformationSpec),
                 ) {
                     Text(
                         text = uiState.modelInfo?.name
@@ -98,9 +104,14 @@ public fun PromptScreen(
                         is ResponseUiModel -> PaddingValues(start = 20.dp)
                         else -> PaddingValues()
                     }
-                    promptDisplay(it, Modifier
-                        .fillMaxWidth()
-                        .padding(padding), transformationSpec)
+                    promptDisplay(
+                        it,
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(padding)
+                            .transformedHeight(this, transformationSpec),
+                        SurfaceTransformation(transformationSpec),
+                    )
                 }
             }
             val inProgress = uiState.inProgress
@@ -111,16 +122,19 @@ public fun PromptScreen(
                         onClick = {},
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 5.dp, end = 25.dp),
-                        transformationSpec = transformationSpec
+                            .padding(start = 5.dp, end = 25.dp)
+                            .transformedHeight(this, transformationSpec),
+                        transformation = SurfaceTransformation(transformationSpec),
                     )
                 }
                 item {
-                    ResponseInProgressCard(InProgressResponseUiModel, transformationSpec = transformationSpec)
+                    ResponseInProgressCard(
+                        InProgressResponseUiModel,
+                        transformation = SurfaceTransformation(transformationSpec),
+                        modifier = Modifier
+                            .transformedHeight(this, transformationSpec),
+                    )
                 }
-            }
-            item {
-                promptEntry(Modifier, transformationSpec)
             }
             if (onSettingsClick != null) {
                 item {

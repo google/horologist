@@ -24,8 +24,8 @@ import androidx.wear.compose.material3.Card
 import androidx.wear.compose.material3.CardDefaults
 import androidx.wear.compose.material3.CircularProgressIndicator
 import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.material3.Text
-import androidx.wear.compose.material3.lazy.TransformationSpec
 import com.google.android.horologist.ai.ui.model.FailedResponseUiModel
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
@@ -34,7 +34,7 @@ import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 public fun FailedResponseChip(
     answer: FailedResponseUiModel,
     modifier: Modifier = Modifier,
-    transformationSpec: TransformationSpec,
+    transformation: SurfaceTransformation? = null,
 ) {
     Text(
         text = answer.message,
@@ -48,7 +48,7 @@ public fun TextResponseCard(
     textResponseUiModel: TextResponseUiModel,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
-    transformationSpec: TransformationSpec,
+    transformation: SurfaceTransformation? = null,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -57,6 +57,7 @@ public fun TextResponseCard(
             containerColor = MaterialTheme.colorScheme.surfaceContainer,
             contentColor = MaterialTheme.colorScheme.onSurface,
         ),
+        transformation = transformation,
     ) {
         Text(text = textResponseUiModel.text, style = MaterialTheme.typography.bodyMedium)
     }
@@ -66,7 +67,7 @@ public fun TextResponseCard(
 public fun ResponseInProgressCard(
     @Suppress("UNUSED_PARAMETER") inProgress: InProgressResponseUiModel,
     modifier: Modifier = Modifier,
-    transformationSpec: TransformationSpec,
+    transformation: SurfaceTransformation? = null,
 ) {
     Box(modifier = modifier) {
         CircularProgressIndicator()

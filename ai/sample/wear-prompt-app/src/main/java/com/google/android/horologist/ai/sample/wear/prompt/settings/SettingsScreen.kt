@@ -79,7 +79,7 @@ private fun SettingsScreen(
             item {
                 ListHeader(
                     modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
-                    transformation = SurfaceTransformation(transformationSpec)
+                    transformation = SurfaceTransformation(transformationSpec),
                 ) {
                     Text("Browse")
                 }
@@ -91,7 +91,7 @@ private fun SettingsScreen(
                         selected = false,
                         onSelect = {},
                         label = { Text("      ", modifier = Modifier.placeholder(placeholderState)) },
-                        transformation = SurfaceTransformation(transformationSpec)
+                        transformation = SurfaceTransformation(transformationSpec),
                     )
                 }
             } else {
@@ -102,7 +102,7 @@ private fun SettingsScreen(
                             selected = model == uiState.current,
                             onSelect = { selectModel(model) },
                             label = { Text(model.name) },
-                            transformation = SurfaceTransformation(transformationSpec)
+                            transformation = SurfaceTransformation(transformationSpec),
                         )
                     }
                 }

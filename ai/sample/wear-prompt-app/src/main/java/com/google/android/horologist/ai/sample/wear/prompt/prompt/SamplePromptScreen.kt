@@ -19,8 +19,6 @@ package com.google.android.horologist.ai.sample.wear.prompt.prompt
 import android.content.Intent
 import android.speech.RecognizerIntent
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Mic
@@ -41,10 +39,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material3.Card
 import androidx.wear.compose.material3.CardDefaults
+import androidx.wear.compose.material3.EdgeButton
+import androidx.wear.compose.material3.EdgeButtonSize
 import androidx.wear.compose.material3.Icon
-import androidx.wear.compose.material3.IconButton
 import androidx.wear.compose.material3.LocalContentColor
 import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.ai.sample.prompt.R
@@ -100,17 +100,16 @@ fun SamplePromptScreen(
         modifier = modifier,
         onSettingsClick = onSettingsClick,
     ) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            IconButton(
-                onClick = {
-                    voiceLauncher.launch(voiceIntent)
-                },
-            ) {
-                Icon(
-                    Icons.Default.Mic,
-                    contentDescription = stringResource(R.string.prompt_input),
-                )
-            }
+        EdgeButton(
+            onClick = {
+                voiceLauncher.launch(voiceIntent)
+            },
+            buttonSize = EdgeButtonSize.ExtraSmall,
+        ) {
+            Icon(
+                Icons.Default.Mic,
+                contentDescription = stringResource(R.string.prompt_input),
+            )
         }
     }
 }
@@ -131,8 +130,8 @@ private fun SamplePromptScreen(
             modifier = modifier,
             promptEntry = promptEntry,
             onSettingsClick = onSettingsClick,
-            promptDisplay = {
-                ModelDisplay(it)
+            promptDisplay = { model, modifier, spec ->
+                ModelDisplay(model, modifier, spec)
             },
         )
     }
@@ -180,12 +179,22 @@ private fun SampleColors() = DefaultMarkdownColors(
 )
 
 @Composable
-private fun ModelDisplay(it: PromptOrResponseUiModel) {
-    if (it is TextResponseUiModel) {
-        SampleTextResponseCard(it)
+private fun ModelDisplay(
+    model: PromptOrResponseUiModel,
+    modifier: Modifier = Modifier,
+    transformation: SurfaceTransformation? = null,
+) {
+    if (model is TextResponseUiModel) {
+        SampleTextResponseCard(
+            model,
+            modifier = modifier,
+            transformation = transformation,
+        )
     } else {
         PromptOrResponseDisplay(
-            promptResponse = it,,
+            promptResponse = model,
+            modifier = modifier,
+            transformation = transformation,
         )
     }
 }
@@ -195,6 +204,7 @@ public fun SampleTextResponseCard(
     textResponseUiModel: TextResponseUiModel,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    transformation: SurfaceTransformation? = null,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -202,6 +212,7 @@ public fun SampleTextResponseCard(
         colors = CardDefaults.cardColors(
             MaterialTheme.colorScheme.surfaceContainer,
         ),
+        transformation = transformation,
     ) {
         Markdown(
             textResponseUiModel.text,
@@ -218,8 +229,9 @@ fun SamplePromptScreenPreviewEmpty() {
     SamplePromptScreen(
         uiState = PromptUiState(),
         promptEntry = {
-            IconButton(
+            EdgeButton(
                 onClick = { },
+                buttonSize = EdgeButtonSize.ExtraSmall,
             ) {
                 Icon(
                     imageVector = Icons.Default.QuestionAnswer,
@@ -253,8 +265,9 @@ fun SamplePromptScreenPreviewMany() {
             ),
         ),
         promptEntry = {
-            IconButton(
+            EdgeButton(
                 onClick = { },
+                buttonSize = EdgeButtonSize.ExtraSmall,
             ) {
                 Icon(
                     imageVector = Icons.Default.QuestionAnswer,
@@ -279,8 +292,9 @@ fun SamplePromptScreenPreviewQuestion() {
             TextPromptUiModel("why did the chicken cross the road?"),
         ),
         promptEntry = {
-            IconButton(
+            EdgeButton(
                 onClick = { },
+                buttonSize = EdgeButtonSize.ExtraSmall,
             ) {
                 Icon(
                     imageVector = Icons.Default.QuestionAnswer,
@@ -303,8 +317,9 @@ fun SamplePromptScreenPreviewMarkdown() {
             ),
         ),
         promptEntry = {
-            IconButton(
+            EdgeButton(
                 onClick = { },
+                buttonSize = EdgeButtonSize.ExtraSmall,
             ) {
                 Icon(
                     imageVector = Icons.Default.QuestionAnswer,

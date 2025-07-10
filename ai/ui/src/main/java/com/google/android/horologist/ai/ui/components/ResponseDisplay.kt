@@ -20,11 +20,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.wear.compose.material.Card
-import androidx.wear.compose.material.CardDefaults
-import androidx.wear.compose.material.CircularProgressIndicator
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.material3.Card
+import androidx.wear.compose.material3.CardDefaults
+import androidx.wear.compose.material3.CircularProgressIndicator
+import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.SurfaceTransformation
+import androidx.wear.compose.material3.Text
 import com.google.android.horologist.ai.ui.model.FailedResponseUiModel
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
@@ -33,11 +34,12 @@ import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 public fun FailedResponseChip(
     answer: FailedResponseUiModel,
     modifier: Modifier = Modifier,
+    transformation: SurfaceTransformation? = null,
 ) {
     Text(
         text = answer.message,
         modifier = modifier,
-        color = MaterialTheme.colors.error,
+        color = MaterialTheme.colorScheme.error,
     )
 }
 
@@ -46,16 +48,18 @@ public fun TextResponseCard(
     textResponseUiModel: TextResponseUiModel,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    transformation: SurfaceTransformation? = null,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
-        backgroundPainter = CardDefaults.cardBackgroundPainter(
-            MaterialTheme.colors.surface,
-            MaterialTheme.colors.surface,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            contentColor = MaterialTheme.colorScheme.onSurface,
         ),
+        transformation = transformation,
     ) {
-        Text(text = textResponseUiModel.text, color = MaterialTheme.colors.onSurface, style = MaterialTheme.typography.body2)
+        Text(text = textResponseUiModel.text, style = MaterialTheme.typography.bodyMedium)
     }
 }
 
@@ -63,6 +67,7 @@ public fun TextResponseCard(
 public fun ResponseInProgressCard(
     @Suppress("UNUSED_PARAMETER") inProgress: InProgressResponseUiModel,
     modifier: Modifier = Modifier,
+    transformation: SurfaceTransformation? = null,
 ) {
     Box(modifier = modifier) {
         CircularProgressIndicator()

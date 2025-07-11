@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.ai.sample.wear.prompt
+package com.google.android.horologist.ai.sample.wear.gemini.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -22,7 +22,7 @@ import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class GeminiStandaloneActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

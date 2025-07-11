@@ -37,7 +37,7 @@
             android:value="true" />
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.GeminiStandaloneActivity"
             android:exported="true"
             android:taskAffinity=".main">
 

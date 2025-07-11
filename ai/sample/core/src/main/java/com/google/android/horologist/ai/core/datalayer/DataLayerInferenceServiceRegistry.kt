@@ -54,6 +54,9 @@ class DataLayerInferenceServiceRegistry(
         }
     }
 
+    override val priority: Int
+        get() = 2
+
     companion object {
         val CAPABILITY_INFERENCE_SERVICE = "InferenceService"
     }

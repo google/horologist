@@ -16,12 +16,14 @@
 
 package com.google.android.horologist.ai.ui.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -29,6 +31,7 @@ import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButton
+import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.SurfaceTransformation
@@ -36,6 +39,7 @@ import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.lazy.TransformationSpec
 import androidx.wear.compose.material3.lazy.rememberTransformationSpec
 import androidx.wear.compose.material3.lazy.transformedHeight
+import androidx.wear.compose.material3.touchTargetAwareSize
 import com.google.android.horologist.ai.ui.R
 import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.components.ResponseInProgressCard
@@ -91,10 +95,27 @@ public fun PromptScreen(
                         .transformedHeight(this, transformationSpec),
                     transformation = SurfaceTransformation(transformationSpec),
                 ) {
-                    Text(
-                        text = uiState.modelInfo?.name
-                            ?: stringResource(R.string.horologist_unknown_model),
-                    )
+                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        Text(
+                            text = uiState.modelInfo?.name
+                                ?: stringResource(R.string.horologist_unknown_model),
+                            modifier = Modifier.fillMaxWidth(0.6f),
+                        )
+
+                        if (onSettingsClick != null) {
+                            IconButton(
+                                onClick = onSettingsClick,
+                                modifier = Modifier
+                                    .touchTargetAwareSize(IconButtonDefaults.ExtraSmallButtonSize)
+                                    .align(Alignment.CenterEnd),
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Settings,
+                                    contentDescription = stringResource(R.string.horologist_settings_content_description),
+                                )
+                            }
+                        }
+                    }
                 }
             }
             uiState.messages.forEach {
@@ -134,18 +155,6 @@ public fun PromptScreen(
                         modifier = Modifier
                             .transformedHeight(this, transformationSpec),
                     )
-                }
-            }
-            if (onSettingsClick != null) {
-                item {
-                    IconButton(
-                        onClick = onSettingsClick,
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = stringResource(R.string.horologist_settings_content_description),
-                        )
-                    }
                 }
             }
         }

@@ -56,7 +56,10 @@ object InferenceServicesModule {
     @Provides
     @Singleton
     fun localRegistry(): LocalInferenceServiceRegistry {
-        return LocalInferenceServiceRegistry(listOf(DummyInferenceServiceImpl("dummy-local")))
+        return LocalInferenceServiceRegistry(
+            listOf(DummyInferenceServiceImpl("dummy-local")),
+            priority = Int.MIN_VALUE,
+        )
     }
 
     @Provides

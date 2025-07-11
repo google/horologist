@@ -37,14 +37,17 @@ package com.google.android.horologist.ai.ui.model {
   }
 
   public final class ModelInstanceUiModel {
-    ctor public ModelInstanceUiModel(String id, String name);
+    ctor public ModelInstanceUiModel(String id, String name, optional String? service);
     method public String component1();
     method public String component2();
-    method public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel copy(String id, String name);
+    method public String? component3();
+    method public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel copy(String id, String name, String? service);
     method public String getId();
     method public String getName();
+    method public String? getService();
     property public final String id;
     property public final String name;
+    property public final String? service;
   }
 
   public sealed interface PromptOrResponseUiModel {

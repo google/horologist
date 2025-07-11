@@ -27,6 +27,7 @@ import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.ListHeader
+import androidx.wear.compose.material3.ListSubHeader
 import androidx.wear.compose.material3.RadioButton
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.SurfaceTransformation
@@ -37,6 +38,7 @@ import androidx.wear.compose.material3.placeholder
 import androidx.wear.compose.material3.placeholderShimmer
 import androidx.wear.compose.material3.rememberPlaceholderState
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
+import com.google.android.horologist.ai.sample.wear.geminilib.BuildConfig
 import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
 import com.google.android.horologist.compose.layout.ColumnItemType
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
@@ -78,7 +80,9 @@ private fun SettingsScreen(
         TransformingLazyColumn(state = columnState, contentPadding = contentPadding) {
             item {
                 ListHeader(
-                    modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec),
                     transformation = SurfaceTransformation(transformationSpec),
                 ) {
                     Text("Browse")
@@ -87,10 +91,18 @@ private fun SettingsScreen(
             if (uiState.models == null) {
                 items(3) {
                     RadioButton(
-                        modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec).placeholderShimmer(placeholderState),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .transformedHeight(this, transformationSpec)
+                            .placeholderShimmer(placeholderState),
                         selected = false,
                         onSelect = {},
-                        label = { Text("      ", modifier = Modifier.placeholder(placeholderState)) },
+                        label = {
+                            Text(
+                                "      ",
+                                modifier = Modifier.placeholder(placeholderState),
+                            )
+                        },
                         transformation = SurfaceTransformation(transformationSpec),
                     )
                 }
@@ -98,14 +110,30 @@ private fun SettingsScreen(
                 items(uiState.models) { model ->
                     key(model.id) {
                         RadioButton(
-                            modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .transformedHeight(this, transformationSpec),
                             selected = model == uiState.current,
                             onSelect = { selectModel(model) },
                             label = { Text(model.name) },
+                            secondaryLabel = model.service?.let { { Text(it) } },
                             transformation = SurfaceTransformation(transformationSpec),
                         )
                     }
                 }
+            }
+            item {
+                ListSubHeader(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec),
+                    transformation = SurfaceTransformation(transformationSpec),
+                ) {
+                    Text("Gemini Key")
+                }
+            }
+            item {
+                Text(BuildConfig.GEMINI_API_KEY)
             }
         }
     }

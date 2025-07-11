@@ -34,6 +34,7 @@ data class GeminiModel(
         val Video = MediaModality(MediaModality.Known.VIDEO)
         val Image = MediaModality(MediaModality.Known.IMAGE)
 
+        // From https://ai.google.dev/gemini-api/docs/models
         val Gemini2dot5Pro = GeminiModel(
             "gemini-2.5-pro",
             "Gemini 2.5 Pro",
@@ -42,6 +43,7 @@ data class GeminiModel(
                 Text,
             ),
         )
+
         val Gemini2dot5Flash = GeminiModel(
             "gemini-2.5-flash",
             "Gemini 2.5 Flash",

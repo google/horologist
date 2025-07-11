@@ -38,7 +38,7 @@ fun WearApp(
             composable(
                 route = "Home",
             ) {
-                StatusScreen()
+                DeviceStatusScreen()
             }
         }
     }

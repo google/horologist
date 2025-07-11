@@ -157,6 +157,8 @@ dependencies {
     implementation(libs.wearcompose.navigation)
 
     implementation(libs.com.squareup.okhttp3.okhttp)
+    implementation(libs.coil)
+    implementation(libs.coil.svg)
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.androidx.wear.tooling.preview)

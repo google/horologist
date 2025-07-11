@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,29 @@
 
 package com.google.android.horologist.ai.sample.wear.gemini.di
 
+import android.content.Context
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.CachePolicy
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ServiceComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ServiceComponent::class)
-object ServiceModule
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+
+    @Singleton
+    @Provides
+    fun imageLoader(
+        @ApplicationContext application: Context,
+    ): ImageLoader = ImageLoader.Builder(application)
+        .components {
+            add(SvgDecoder.Factory())
+        }
+        .memoryCachePolicy(CachePolicy.ENABLED)
+        .build()
+}

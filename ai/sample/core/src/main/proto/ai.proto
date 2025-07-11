@@ -23,15 +23,25 @@ message TextPrompt {
   string text = 1;
 }
 
+message ResponseBundle {
+  repeated Response responses = 1;
+}
+
 message Response {
   oneof response_data {
     TextResponse text_response = 1;
     Failure failure = 2;
+    ImageResponse image_response = 3;
   }
 }
 
 message TextResponse {
   string text = 1;
+}
+
+message ImageResponse {
+  optional string gcsUrl = 1;
+  optional bytes encoded = 2;
 }
 
 message Failure {
@@ -64,5 +74,6 @@ message ModelInfo {
 
 service InferenceService {
   rpc serviceInfo(.google.protobuf.Empty) returns (ServiceInfo);
-  rpc answerPrompt(PromptRequest) returns (Response);
+  rpc answerPrompt(PromptRequest) returns (ResponseBundle);
+  rpc answerPromptWithStream(PromptRequest) returns (stream Response);
 }

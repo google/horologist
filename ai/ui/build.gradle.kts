@@ -98,6 +98,9 @@ dependencies {
     api(projects.composeLayout)
 
     implementation(libs.androidx.wear)
+    implementation(libs.coil)
+    implementation(libs.coil.base)
+    implementation(libs.coil.svg)
 
     debugImplementation(projects.composeTools)
     debugImplementation(libs.compose.ui.tooling)

@@ -33,12 +33,12 @@ import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 public fun TextPromptDisplay(
     prompt: TextPromptUiModel,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
     transformation: SurfaceTransformation? = null,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        onClick = onClick,
+        onClick = onClick ?: {},
         colors = CardDefaults.cardColors(
             contentColor = MaterialTheme.colorScheme.secondary,
             containerColor = MaterialTheme.colorScheme.secondaryContainer,

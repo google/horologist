@@ -19,8 +19,13 @@ package com.google.android.horologist.ai.core.binder
 import com.google.android.horologist.ai.core.InferenceServiceGrpcKt
 import com.google.android.horologist.ai.core.PromptRequest
 import com.google.android.horologist.ai.core.Response
+import com.google.android.horologist.ai.core.ResponseBundle
 import com.google.android.horologist.ai.core.ServiceInfo
 import com.google.protobuf.Empty
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 
 class BinderInferenceService(
     val stub: InferenceServiceGrpcKt.InferenceServiceCoroutineStub,
@@ -37,7 +42,13 @@ class BinderInferenceService(
         }
     }
 
-    override suspend fun answerPrompt(request: PromptRequest): Response {
+    override suspend fun answerPrompt(request: PromptRequest): ResponseBundle {
         return stub.answerPrompt(request)
+    }
+
+    override fun answerPromptWithStream(request: PromptRequest): Flow<Response> {
+        return flow {
+            emitAll(answerPrompt(request).responsesList.asFlow())
+        }
     }
 }

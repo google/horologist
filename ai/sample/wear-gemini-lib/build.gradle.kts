@@ -61,6 +61,12 @@ android {
 
         buildConfigField(
             "String",
+            "GCS_URI",
+            "\"" + localProperties["GCS_URI"] + "\"",
+        )
+
+        buildConfigField(
+            "String",
             "GEMINI_PROXY",
             if (localProperties.containsKey("gemini.apk.proxy")) "\"" + localProperties["gemini.apk.proxy"] + "\"" else "null",
         )

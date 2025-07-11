@@ -30,6 +30,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
@@ -97,5 +98,11 @@ class InferenceService
 
         fun clearModel() {
             connectedModel.value = null
+        }
+
+        suspend fun currentKnownModels(): List<ModelId> {
+            return models.filterNotNull().first().flatMap {
+                it.first.modelsList.map { it.modelId }
+            }
         }
     }

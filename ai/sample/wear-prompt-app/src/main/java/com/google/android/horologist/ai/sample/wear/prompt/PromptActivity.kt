@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.ai.core.registry
+package com.google.android.horologist.ai.sample.wear.prompt
 
-import com.google.android.horologist.ai.core.InferenceServiceGrpcKt
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import dagger.hilt.android.AndroidEntryPoint
 
-class LocalInferenceServiceRegistry(
-    val models: List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>,
-    override val priority: Int = 0,
-) : InferenceServiceRegistry {
-    override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
-        return flowOf(models)
+@AndroidEntryPoint
+class PromptActivity : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContent {
+            WearApp()
+        }
     }
 }

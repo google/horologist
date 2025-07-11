@@ -18,6 +18,7 @@ package com.google.android.horologist.ai.sample.phone.service
 
 import com.google.android.horologist.ai.core.InferenceServiceGrpcKt
 import com.google.android.horologist.ai.core.dummy.DummyInferenceServiceImpl
+import com.google.android.horologist.ai.sample.wear.gemini.service.GeminiSDKInferenceServiceImpl
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.grpc.server.BaseGrpcDataService
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +29,9 @@ class InferenceGrpcServiceImpl : BaseGrpcDataService<InferenceServiceGrpcKt.Infe
     @Inject
     public override lateinit var registry: WearDataLayerRegistry
 
+    @Inject
+    public lateinit var bindableService: GeminiSDKInferenceServiceImpl
+
     override fun buildService(): InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase =
-        DummyInferenceServiceImpl("phone")
+        bindableService
 }

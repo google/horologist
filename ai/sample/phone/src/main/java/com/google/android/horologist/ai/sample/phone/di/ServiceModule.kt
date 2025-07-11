@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.ai.sample.wear.gemini.di
+package com.google.android.horologist.ai.sample.phone.di
 
 import com.google.android.horologist.ai.sample.wear.gemini.service.GeminiModel
 import com.google.android.horologist.ai.sample.wear.gemini.service.GeminiSDKInferenceServiceImpl
@@ -51,9 +51,9 @@ object ServiceModule {
         client: Client,
     ) = GeminiSDKInferenceServiceImpl(
         client,
-        serviceName = "Standalone",
+        serviceName = "Phone",
         configuredModels = listOf(
-            GeminiModel.Imagen4,
+            GeminiModel.Veo2,
         ),
     )
 }

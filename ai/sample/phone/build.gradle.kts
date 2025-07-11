@@ -29,17 +29,13 @@ android {
     defaultConfig {
         applicationId = "com.google.android.horologist.ai.sample"
 
-        minSdk = 21
-        targetSdk = 34
+        minSdk = 26
+        targetSdk = 36
 
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -77,7 +73,13 @@ android {
 
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes +=
+                listOf(
+                    "/META-INF/AL2.0",
+                    "/META-INF/LGPL2.1",
+                    "/META-INF/INDEX.LIST",
+                    "/META-INF/DEPENDENCIES",
+                )
         }
     }
 
@@ -97,14 +99,13 @@ dependencies {
     implementation(projects.datalayer.phone)
     implementation(projects.datalayer.grpc)
 
+    implementation(projects.ai.sample.wearGeminiLib)
+
     implementation(libs.dagger.hiltandroid)
     ksp(libs.dagger.hiltandroidcompiler)
     implementation(libs.hilt.navigationcompose)
     implementation(libs.androidx.navigation.compose)
 
-    implementation(projects.datalayer.core)
-    implementation(projects.datalayer.grpc)
-    implementation(projects.datalayer.phone)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.kotlinx.coroutines.playservices)

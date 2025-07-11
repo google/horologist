@@ -15,7 +15,5 @@
   -->
 
 <resources>
-    <string name="app_name">Horologist AI Prompt</string>
-    <string name="prompt_input">Prompt</string>
-    <string name="ask_again">Ask Again</string>
+    <string name="app_name">Horologist Gemini Sample</string>
 </resources>

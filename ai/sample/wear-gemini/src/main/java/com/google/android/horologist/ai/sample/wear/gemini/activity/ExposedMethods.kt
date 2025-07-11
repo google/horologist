@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.ai.sample.wear.gemini
+package com.google.android.horologist.ai.sample.wear.gemini.activity
 
-import android.app.Application
-import coil.ImageLoader
-import coil.ImageLoaderFactory
-import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
+import android.os.Build
 
-@HiltAndroidApp
-class SampleApplication : Application(), ImageLoaderFactory {
-    @Inject
-    lateinit var imageLoader: ImageLoader
+object ExposedMethods {
+    @JvmStatic
+    fun deviceModel(): String {
+        return Build.MODEL
+    }
 
-    override fun newImageLoader(): ImageLoader = imageLoader
+    @JvmStatic
+    fun deviceManufacturer(): String {
+        return Build.MANUFACTURER
+    }
 }

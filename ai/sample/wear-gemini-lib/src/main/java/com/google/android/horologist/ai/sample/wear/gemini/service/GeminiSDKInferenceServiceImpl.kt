@@ -58,6 +58,13 @@ class GeminiSDKInferenceServiceImpl(
     val client: Client,
     val serviceName: String = "Gemini API",
     val configuredModels: List<GeminiModel> = GeminiModel.All,
+    val contentConfig: GenerateContentConfig = GenerateContentConfig.builder()
+        .mediaResolution(MediaResolution.Known.MEDIA_RESOLUTION_LOW)
+        .build(),
+    val imagesConfig: GenerateImagesConfig = GenerateImagesConfig.builder()
+        // Vertex only
+//                .outputGcsUri(BuildConfig.GCS_URI)
+        .build(),
 ) :
     InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
         override suspend fun answerPrompt(request: PromptRequest): ResponseBundle {
@@ -89,10 +96,7 @@ class GeminiSDKInferenceServiceImpl(
                 val responses = client.models.generateImages(
                     modelId,
                     request.toTextPrompt(),
-                    GenerateImagesConfig.builder()
-                        // Vertex only
-//                .outputGcsUri(BuildConfig.GCS_URI)
-                        .build(),
+                    imagesConfig,
                 )
 
                 emitAll(
@@ -121,9 +125,7 @@ class GeminiSDKInferenceServiceImpl(
                 client.models.generateContentStream(
                     modelId,
                     request.toContent(),
-                    GenerateContentConfig.builder()
-                        .mediaResolution(MediaResolution.Known.MEDIA_RESOLUTION_LOW)
-                        .build(),
+                    contentConfig,
                 )
             } catch (e: Exception) {
                 Log.w("Gemini", "Gemini query failed", e)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.ai.sample.wear.gemini.activity
+package com.google.android.horologist.ai.sample.wear.prompt.localgemini
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import com.google.android.horologist.ai.core.BindableAiGrpcService
+import com.google.android.horologist.ai.sample.wear.gemini.service.GeminiSDKInferenceServiceImpl
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            WearApp()
-        }
-    }
+class InferenceBinderGrpcServiceImpl : BindableAiGrpcService() {
+    @Inject
+    override lateinit var bindableService: GeminiSDKInferenceServiceImpl
 }

@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.ai.sample.wear.gemini.service
 
-import com.google.ai.client.generativeai.GenerativeModel
+import android.util.Log
 import com.google.android.horologist.ai.core.InferenceServiceGrpcKt
 import com.google.android.horologist.ai.core.PromptRequest
 import com.google.android.horologist.ai.core.Response
@@ -27,21 +27,20 @@ import com.google.android.horologist.ai.core.modelInfo
 import com.google.android.horologist.ai.core.response
 import com.google.android.horologist.ai.core.serviceInfo
 import com.google.android.horologist.ai.core.textResponse
+import com.google.genai.Client
+import com.google.genai.types.GenerateContentConfig
 import com.google.protobuf.Empty
-import kotlinx.coroutines.flow.first
 
-class GeminiSDKInferenceServiceImpl(val model: GenerativeModel) :
+class GeminiSDKInferenceServiceImpl(
+    val client: Client,
+    val serviceName: String = "Gemini API",
+    val configuredModels: List<GeminiModel> = GeminiModel.All,
+) :
     InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
         override suspend fun answerPrompt(request: PromptRequest): Response {
-            if (request.modelId.id != "gemini") {
-                return response {
-                    failure = failure {
-                        message = "Unknown model ${request.modelId.id}"
-                    }
-                }
-            } else if (request.prompt.hasTextPrompt()) {
-                val query = request.prompt.textPrompt.text
-                return geminiQuery(query!!)
+            if (request.prompt.hasTextPrompt()) {
+                val query = request.prompt.textPrompt.text!!
+                return geminiQuery(query, request.modelId.id)
             } else {
                 return response {
                     failure = failure {
@@ -51,11 +50,18 @@ class GeminiSDKInferenceServiceImpl(val model: GenerativeModel) :
             }
         }
 
-        private suspend fun geminiQuery(query: String): Response {
-            val textAnswer = try {
-                model.generateContentStream(query).first().text
+        private suspend fun geminiQuery(query: String, modelId: String): Response {
+            // TODO handle stream and multiple parts
+
+            val answer = try {
+                client.models.generateContentStream(
+                    modelId,
+                    query,
+                    GenerateContentConfig.builder()
+                        .build(),
+                ).first()
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.w("Gemini", "Gemini query failed", e)
                 return response {
                     failure = failure {
                         message = "Gemini query failed: $e"
@@ -63,27 +69,29 @@ class GeminiSDKInferenceServiceImpl(val model: GenerativeModel) :
                 }
             }
 
-            if (textAnswer == null) {
+            if (answer.text() != null) {
                 return response {
-                    failure = failure {
-                        message = "Gemini query failed: No text content"
+                    textResponse = textResponse {
+                        text = answer.text()!!
                     }
                 }
             }
 
             return response {
-                textResponse = textResponse {
-                    text = textAnswer
+                failure = failure {
+                    message = "Gemini query failed: No text content"
                 }
             }
         }
 
         override suspend fun serviceInfo(request: Empty): ServiceInfo {
             return serviceInfo {
-                name = "Gemini"
-                models += modelInfo {
-                    modelId = modelId { id = "gemini" }
-                    name = "Gemini"
+                name = serviceName
+                models += configuredModels.map {
+                    modelInfo {
+                        modelId = modelId { id = it.name }
+                        name = it.displayName
+                    }
                 }
             }
         }

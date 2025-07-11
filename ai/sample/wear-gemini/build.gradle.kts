@@ -61,18 +61,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField(
-            "String",
-            "GEMINI_API_KEY",
-            "\"" + localProperties["gemini.apk.key"] + "\"",
-        )
-
-        buildConfigField(
-            "String",
-            "GEMINI_PROXY",
-            if (localProperties.containsKey("gemini.apk.proxy")) "\"" + localProperties["gemini.apk.proxy"] + "\"" else "null",
-        )
     }
 
     buildTypes {
@@ -116,6 +104,18 @@ android {
         animationsDisabled = true
     }
 
+    packaging {
+        resources {
+            excludes +=
+                listOf(
+                    "/META-INF/AL2.0",
+                    "/META-INF/LGPL2.1",
+                    "/META-INF/INDEX.LIST",
+                    "/META-INF/DEPENDENCIES",
+                )
+        }
+    }
+
     namespace = "com.google.android.horologist.ai.sample.wear.gemini"
 }
 
@@ -129,6 +129,7 @@ dependencies {
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
+    implementation(projects.ai.sample.wearGeminiLib)
 
     implementation(libs.dagger.hiltandroid)
     implementation(libs.androidx.wear.input)
@@ -139,7 +140,7 @@ dependencies {
     implementation(projects.datalayer.grpc)
     implementation(projects.datalayer.watch)
     implementation(libs.kotlinx.coroutines.playservices)
-    implementation(libs.google.generativeai)
+    implementation(libs.google.genai)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.complications.data)

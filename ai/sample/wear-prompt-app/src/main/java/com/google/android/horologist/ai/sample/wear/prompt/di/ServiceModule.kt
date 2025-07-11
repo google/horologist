@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.ai.sample.wear.gemini.di
+package com.google.android.horologist.ai.sample.wear.prompt.di
 
-import com.google.android.horologist.ai.sample.wear.gemini.service.GeminiModel
 import com.google.android.horologist.ai.sample.wear.gemini.service.GeminiSDKInferenceServiceImpl
-import com.google.android.horologist.ai.sample.wear.geminilib.BuildConfig.GEMINI_API_KEY
+import com.google.android.horologist.ai.sample.wear.geminilib.BuildConfig
 import com.google.genai.Client
 import com.google.genai.types.ClientOptions
 import com.google.genai.types.HttpOptions
@@ -34,7 +33,7 @@ object ServiceModule {
     @ServiceScoped
     @Provides
     fun client() = Client.builder()
-        .apiKey(GEMINI_API_KEY)
+        .apiKey(BuildConfig.GEMINI_API_KEY)
         .clientOptions(
             ClientOptions.builder()
                 .build(),
@@ -49,11 +48,5 @@ object ServiceModule {
     @Provides
     fun geminiSDKService(
         client: Client,
-    ) = GeminiSDKInferenceServiceImpl(
-        client,
-        serviceName = "Standalone",
-        configuredModels = listOf(
-            GeminiModel.Imagen4,
-        ),
-    )
+    ) = GeminiSDKInferenceServiceImpl(client)
 }

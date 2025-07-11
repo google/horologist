@@ -27,14 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLinkStyles
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material3.Card
@@ -42,12 +35,13 @@ import androidx.wear.compose.material3.CardDefaults
 import androidx.wear.compose.material3.EdgeButton
 import androidx.wear.compose.material3.EdgeButtonSize
 import androidx.wear.compose.material3.Icon
-import androidx.wear.compose.material3.LocalContentColor
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.ai.sample.prompt.R
+import com.google.android.horologist.ai.sample.wear.prompt.markdown.sampleColors
+import com.google.android.horologist.ai.sample.wear.prompt.markdown.sampleTypography
 import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
 import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
@@ -58,8 +52,6 @@ import com.google.android.horologist.ai.ui.screens.PromptUiState
 import com.mikepenz.markdown.compose.LocalMarkdownColors
 import com.mikepenz.markdown.compose.LocalMarkdownTypography
 import com.mikepenz.markdown.compose.Markdown
-import com.mikepenz.markdown.model.DefaultMarkdownColors
-import com.mikepenz.markdown.model.DefaultMarkdownTypography
 
 @Composable
 fun SamplePromptScreen(
@@ -122,8 +114,8 @@ private fun SamplePromptScreen(
     promptEntry: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
-        LocalMarkdownColors provides SampleColors(),
-        LocalMarkdownTypography provides SampleTypography(),
+        LocalMarkdownColors provides sampleColors(),
+        LocalMarkdownTypography provides sampleTypography(),
     ) {
         PromptScreen(
             uiState = uiState,
@@ -136,47 +128,6 @@ private fun SamplePromptScreen(
         )
     }
 }
-
-@Composable
-private fun SampleTypography(): DefaultMarkdownTypography {
-    val link = MaterialTheme.typography.bodyMedium.copy(
-        fontWeight = FontWeight.Bold,
-        textDecoration = TextDecoration.Underline,
-    )
-    val text = MaterialTheme.typography.bodyMedium
-    return DefaultMarkdownTypography(
-        h1 = MaterialTheme.typography.titleLarge,
-        h2 = MaterialTheme.typography.titleMedium,
-        h3 = MaterialTheme.typography.titleSmall,
-        h4 = MaterialTheme.typography.displayLarge,
-        h5 = MaterialTheme.typography.displayMedium,
-        h6 = MaterialTheme.typography.displaySmall,
-        text = text,
-        code = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
-        quote = MaterialTheme.typography.bodyMedium.plus(SpanStyle(fontStyle = FontStyle.Italic)),
-        paragraph = MaterialTheme.typography.bodyLarge,
-        ordered = MaterialTheme.typography.bodyLarge,
-        bullet = MaterialTheme.typography.bodyLarge,
-        list = MaterialTheme.typography.bodyLarge,
-        link = link,
-        inlineCode = MaterialTheme.typography.bodyLarge.copy(fontFamily = FontFamily.Monospace),
-        textLink = TextLinkStyles(style = link.toSpanStyle()),
-        table = text,
-    )
-}
-
-@Composable
-private fun SampleColors() = DefaultMarkdownColors(
-    text = Color.White,
-    codeText = LocalContentColor.current,
-    linkText = Color.Blue,
-    codeBackground = MaterialTheme.colorScheme.background,
-    inlineCodeBackground = MaterialTheme.colorScheme.background,
-    dividerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
-    inlineCodeText = LocalContentColor.current,
-    tableText = Color.Unspecified,
-    tableBackground = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.02f),
-)
 
 @Composable
 private fun ModelDisplay(
@@ -216,8 +167,8 @@ public fun SampleTextResponseCard(
     ) {
         Markdown(
             textResponseUiModel.text,
-            colors = SampleColors(),
-            typography = SampleTypography(),
+            colors = sampleColors(),
+            typography = sampleTypography(),
         )
     }
 }
@@ -235,7 +186,7 @@ fun SamplePromptScreenPreviewEmpty() {
             ) {
                 Icon(
                     imageVector = Icons.Default.QuestionAnswer,
-                    contentDescription = "Ask Again",
+                    contentDescription = stringResource(R.string.ask_again),
                 )
             }
         },
@@ -271,7 +222,7 @@ fun SamplePromptScreenPreviewMany() {
             ) {
                 Icon(
                     imageVector = Icons.Default.QuestionAnswer,
-                    contentDescription = "Ask Again",
+                    contentDescription = stringResource(R.string.ask_again),
                 )
             }
         },
@@ -298,7 +249,7 @@ fun SamplePromptScreenPreviewQuestion() {
             ) {
                 Icon(
                     imageVector = Icons.Default.QuestionAnswer,
-                    contentDescription = "Ask Again",
+                    contentDescription = stringResource(R.string.ask_again),
                 )
             }
         },
@@ -323,7 +274,7 @@ fun SamplePromptScreenPreviewMarkdown() {
             ) {
                 Icon(
                     imageVector = Icons.Default.QuestionAnswer,
-                    contentDescription = "Ask Again",
+                    contentDescription = stringResource(R.string.ask_again),
                 )
             }
         },

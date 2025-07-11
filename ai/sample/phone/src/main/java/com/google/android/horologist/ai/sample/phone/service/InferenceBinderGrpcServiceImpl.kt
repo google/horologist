@@ -17,7 +17,6 @@
 package com.google.android.horologist.ai.sample.phone.service
 
 import com.google.android.horologist.ai.core.BindableAiGrpcService
-import com.google.android.horologist.ai.core.dummy.DummyInferenceServiceImpl
 import com.google.android.horologist.ai.sample.wear.gemini.service.GeminiSDKInferenceServiceImpl
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

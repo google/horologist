@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.ai.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -26,7 +27,9 @@ import androidx.wear.compose.material3.CircularProgressIndicator
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.material3.Text
+import coil.compose.AsyncImage
 import com.google.android.horologist.ai.ui.model.FailedResponseUiModel
+import com.google.android.horologist.ai.ui.model.ImageResponseUiModel
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 
@@ -34,6 +37,7 @@ import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 public fun FailedResponseChip(
     answer: FailedResponseUiModel,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     transformation: SurfaceTransformation? = null,
 ) {
     Text(
@@ -47,12 +51,12 @@ public fun FailedResponseChip(
 public fun TextResponseCard(
     textResponseUiModel: TextResponseUiModel,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
     transformation: SurfaceTransformation? = null,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        onClick = onClick,
+        onClick = onClick ?: {},
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer,
             contentColor = MaterialTheme.colorScheme.onSurface,
@@ -64,9 +68,24 @@ public fun TextResponseCard(
 }
 
 @Composable
+public fun ImageResponseCard(
+    imageResponseUiModel: ImageResponseUiModel,
+    modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
+    transformation: SurfaceTransformation? = null,
+) {
+    AsyncImage(
+        modifier = modifier.clickable(enabled = onClick != null, onClick = onClick ?: {}),
+        model = imageResponseUiModel.imageUrl ?: imageResponseUiModel.image,
+        contentDescription = null,
+    )
+}
+
+@Composable
 public fun ResponseInProgressCard(
     @Suppress("UNUSED_PARAMETER") inProgress: InProgressResponseUiModel,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     transformation: SurfaceTransformation? = null,
 ) {
     Box(modifier = modifier) {

@@ -14,22 +14,45 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.google.android.horologist.ai.sample.wear.gemini.service
 
 import android.util.Log
 import com.google.android.horologist.ai.core.InferenceServiceGrpcKt
 import com.google.android.horologist.ai.core.PromptRequest
 import com.google.android.horologist.ai.core.Response
+import com.google.android.horologist.ai.core.ResponseBundle
 import com.google.android.horologist.ai.core.ServiceInfo
 import com.google.android.horologist.ai.core.failure
+import com.google.android.horologist.ai.core.imageResponse
 import com.google.android.horologist.ai.core.modelId
 import com.google.android.horologist.ai.core.modelInfo
 import com.google.android.horologist.ai.core.response
+import com.google.android.horologist.ai.core.responseBundle
 import com.google.android.horologist.ai.core.serviceInfo
 import com.google.android.horologist.ai.core.textResponse
 import com.google.genai.Client
+import com.google.genai.types.Content
 import com.google.genai.types.GenerateContentConfig
+import com.google.genai.types.GenerateImagesConfig
+import com.google.genai.types.MediaResolution
+import com.google.genai.types.Part
+import com.google.protobuf.ByteString
 import com.google.protobuf.Empty
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.toList
+import kotlin.jvm.optionals.getOrNull
 
 class GeminiSDKInferenceServiceImpl(
     val client: Client,
@@ -37,49 +60,96 @@ class GeminiSDKInferenceServiceImpl(
     val configuredModels: List<GeminiModel> = GeminiModel.All,
 ) :
     InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
-        override suspend fun answerPrompt(request: PromptRequest): Response {
-            if (request.prompt.hasTextPrompt()) {
-                val query = request.prompt.textPrompt.text!!
-                return geminiQuery(query, request.modelId.id)
-            } else {
-                return response {
-                    failure = failure {
-                        message = "Unhandled request type $request"
-                    }
-                }
+        override suspend fun answerPrompt(request: PromptRequest): ResponseBundle {
+            return responseBundle {
+                responses += answerPromptWithStream(request).toList()
             }
         }
 
-        private suspend fun geminiQuery(query: String, modelId: String): Response {
+        override fun answerPromptWithStream(request: PromptRequest): Flow<Response> {
+            val model = configuredModels.first { it.name == request.modelId.id }
+
+            return if (model.isImagesOnly) {
+                geminiGenerateImages(request, model.name)
+            } else {
+                geminiGenerateContentStream(request, model.name)
+            }.catch {
+                emit(
+                    response {
+                        failure = failure {
+                            message = "Gemini query failed: $it"
+                        }
+                    },
+                )
+            }
+        }
+
+        private fun geminiGenerateImages(request: PromptRequest, modelId: String): Flow<Response> =
+            flow {
+                val responses = client.models.generateImages(
+                    modelId,
+                    request.toTextPrompt(),
+                    GenerateImagesConfig.builder()
+                        // Vertex only
+//                .outputGcsUri(BuildConfig.GCS_URI)
+                        .build(),
+                )
+
+                emitAll(
+                    responses.generatedImages().getOrNull().orEmpty().asFlow().mapNotNull {
+                        val image = it.image().getOrNull() ?: return@mapNotNull null
+                        response {
+                            imageResponse = imageResponse {
+                                if (image.gcsUri().isPresent) {
+                                    gcsUrl = image.gcsUri().get()
+                                } else {
+                                    encoded = ByteString.copyFrom(image.imageBytes().get())
+                                }
+                            }
+                        }
+                    },
+                )
+            }
+
+        private fun geminiGenerateContentStream(
+            request: PromptRequest,
+            modelId: String,
+        ): Flow<Response> {
             // TODO handle stream and multiple parts
 
-            val answer = try {
+            val responseStream = try {
                 client.models.generateContentStream(
                     modelId,
-                    query,
+                    request.toContent(),
                     GenerateContentConfig.builder()
+                        .mediaResolution(MediaResolution.Known.MEDIA_RESOLUTION_LOW)
                         .build(),
-                ).first()
+                )
             } catch (e: Exception) {
                 Log.w("Gemini", "Gemini query failed", e)
-                return response {
-                    failure = failure {
-                        message = "Gemini query failed: $e"
-                    }
-                }
+                return flowOf(
+                    response {
+                        failure = failure {
+                            message = "Gemini query failed: $e"
+                        }
+                    },
+                )
             }
 
-            if (answer.text() != null) {
-                return response {
-                    textResponse = textResponse {
-                        text = answer.text()!!
-                    }
-                }
-            }
-
-            return response {
-                failure = failure {
-                    message = "Gemini query failed: No text content"
+            return flow {
+                with(Dispatchers.IO) {
+                    this@flow.emitAll(
+                        responseStream.iterator().asFlow().flatMapConcat { generateContentResponse ->
+                            generateContentResponse.parts().orEmpty().asFlow().map {
+                                response {
+                                    Log.i("Gemini", it.toString())
+                                    textResponse = textResponse {
+                                        text = it.text().orElse("--")
+                                    }
+                                }
+                            }
+                        },
+                    )
                 }
             }
         }
@@ -94,5 +164,17 @@ class GeminiSDKInferenceServiceImpl(
                     }
                 }
             }
+        }
+
+        private fun PromptRequest.toTextPrompt(): String {
+            if (prompt.hasTextPrompt()) {
+                return prompt.textPrompt.text!!
+            } else {
+                throw IllegalArgumentException("Prompt must be a text prompt")
+            }
+        }
+
+        private fun PromptRequest.toContent(): Content {
+            return Content.builder().parts(Part.fromText(toTextPrompt())).build()
         }
     }

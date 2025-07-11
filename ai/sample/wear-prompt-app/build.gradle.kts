@@ -107,6 +107,8 @@ dependencies {
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)
+    implementation(libs.coil)
+    implementation(libs.coil.svg)
 
     implementation(libs.dagger.hiltandroid)
     implementation(libs.androidx.wear.input)

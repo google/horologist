@@ -78,13 +78,27 @@ class InferenceService
                 }
             }
 
-        suspend fun submit(prompt: Prompt): Response {
+        suspend fun submit(prompt: Prompt): ResponseBundle {
             val currentModel = connectedModel.value ?: throw Exception("No model selected")
 
             val (_, service) = models.value?.first { it.first.modelsList.find { it.modelId == currentModel } != null }
                 ?: throw Exception("Service missing")
 
             return service.answerPrompt(
+                promptRequest {
+                    this.prompt = prompt
+                    this.modelId = currentModel
+                },
+            )
+        }
+
+        suspend fun submitStream(prompt: Prompt): Flow<Response> {
+            val currentModel = connectedModel.value ?: throw Exception("No model selected")
+
+            val (_, service) = models.value?.first { it.first.modelsList.find { it.modelId == currentModel } != null }
+                ?: throw Exception("Service missing")
+
+            return service.answerPromptWithStream(
                 promptRequest {
                     this.prompt = prompt
                     this.modelId = currentModel

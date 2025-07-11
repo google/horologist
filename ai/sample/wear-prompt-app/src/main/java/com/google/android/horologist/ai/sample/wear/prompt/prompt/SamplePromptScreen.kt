@@ -91,12 +91,13 @@ fun SamplePromptScreen(
         uiState = uiState,
         modifier = modifier,
         onSettingsClick = onSettingsClick,
-    ) {
+    ) { pending ->
         EdgeButton(
             onClick = {
                 voiceLauncher.launch(voiceIntent)
             },
             buttonSize = EdgeButtonSize.ExtraSmall,
+            enabled = !pending,
         ) {
             Icon(
                 Icons.Default.Mic,
@@ -111,7 +112,7 @@ private fun SamplePromptScreen(
     uiState: PromptUiState,
     modifier: Modifier = Modifier,
     onSettingsClick: (() -> Unit)? = null,
-    promptEntry: @Composable () -> Unit,
+    promptEntry: @Composable (Boolean) -> Unit,
 ) {
     CompositionLocalProvider(
         LocalMarkdownColors provides sampleColors(),
@@ -240,7 +241,7 @@ fun SamplePromptScreenPreviewQuestion() {
                 TextPromptUiModel("why did the chicken cross the road?"),
                 TextResponseUiModel("To get to the other side."),
             ),
-            TextPromptUiModel("why did the chicken cross the road?"),
+            true,
         ),
         promptEntry = {
             EdgeButton(

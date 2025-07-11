@@ -43,7 +43,6 @@ import androidx.wear.compose.material3.touchTargetAwareSize
 import com.google.android.horologist.ai.ui.R
 import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.components.ResponseInProgressCard
-import com.google.android.horologist.ai.ui.components.TextPromptDisplay
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
 import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
 import com.google.android.horologist.ai.ui.model.PromptUiModel
@@ -69,7 +68,7 @@ public fun PromptScreen(
             transformation = transformation,
         )
     },
-    promptEntry: @Composable () -> Unit,
+    promptEntry: @Composable (Boolean) -> Unit,
 ) {
     val transformationSpec: TransformationSpec = rememberTransformationSpec()
     val columnState = rememberTransformingLazyColumnState()
@@ -81,7 +80,7 @@ public fun PromptScreen(
     ScreenScaffold(
         scrollState = columnState,
         contentPadding = contentPadding,
-        edgeButton = { promptEntry() },
+        edgeButton = { promptEntry(uiState.pending) },
     ) { contentPadding ->
         TransformingLazyColumn(
             state = columnState,
@@ -135,19 +134,8 @@ public fun PromptScreen(
                     )
                 }
             }
-            val inProgress = uiState.inProgress
-            if (inProgress != null) {
-                item {
-                    TextPromptDisplay(
-                        prompt = inProgress,
-                        onClick = {},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 5.dp, end = 25.dp)
-                            .transformedHeight(this, transformationSpec),
-                        transformation = SurfaceTransformation(transformationSpec),
-                    )
-                }
+            val pending = uiState.pending
+            if (pending) {
                 item {
                     ResponseInProgressCard(
                         InProgressResponseUiModel,

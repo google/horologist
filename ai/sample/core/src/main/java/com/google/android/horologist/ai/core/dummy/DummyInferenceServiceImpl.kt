@@ -19,44 +19,62 @@ package com.google.android.horologist.ai.core.dummy
 import com.google.android.horologist.ai.core.InferenceServiceGrpcKt
 import com.google.android.horologist.ai.core.PromptRequest
 import com.google.android.horologist.ai.core.Response
+import com.google.android.horologist.ai.core.ResponseBundle
 import com.google.android.horologist.ai.core.ServiceInfo
 import com.google.android.horologist.ai.core.failure
 import com.google.android.horologist.ai.core.modelId
 import com.google.android.horologist.ai.core.modelInfo
 import com.google.android.horologist.ai.core.response
+import com.google.android.horologist.ai.core.responseBundle
 import com.google.android.horologist.ai.core.serviceInfo
 import com.google.android.horologist.ai.core.textResponse
 import com.google.protobuf.Empty
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 
 class DummyInferenceServiceImpl(val thisId: String) :
     InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
-        override suspend fun answerPrompt(request: PromptRequest): Response {
+        override suspend fun answerPrompt(request: PromptRequest): ResponseBundle {
             if (request.modelId.id != thisId) {
-                return response {
-                    failure = failure {
-                        message = "Unknown model ${request.modelId.id}"
+                return responseBundle {
+                    responses += response {
+                        failure = failure {
+                            message = "Unknown model ${request.modelId.id}"
+                        }
                     }
                 }
             } else if (request.prompt.hasTextPrompt()) {
                 val query = request.prompt.textPrompt.text
-                return response {
-                    textResponse = textResponse {
-                        text = """ 
+                return responseBundle {
+                    responses += response {
+                        textResponse = textResponse {
+                            text = """ 
                         I didn't understand.
                         
                         > $query.
                         
                         Please try again with a different question.
                         From *$thisId*   
-                        """.trimIndent()
+                            """.trimIndent()
+                        }
                     }
                 }
             } else {
-                return response {
-                    failure = failure {
-                        message = "Unhandled request type $request"
+                return responseBundle {
+                    responses += response {
+                        failure = failure {
+                            message = "Unhandled request type $request"
+                        }
                     }
                 }
+            }
+        }
+
+        override fun answerPromptWithStream(request: PromptRequest): Flow<Response> {
+            return flow {
+                emitAll(answerPrompt(request).responsesList.asFlow())
             }
         }
 

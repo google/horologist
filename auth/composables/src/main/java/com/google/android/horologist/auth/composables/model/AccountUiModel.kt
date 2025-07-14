@@ -21,6 +21,10 @@ import com.google.android.horologist.images.base.paintable.Paintable
 /**
  * A UI model to represent an account.
  */
+@Deprecated(
+    message = "Superceded by composables-material3",
+    replaceWith = ReplaceWith("AccountUiModel", "com.google.android.horologist.auth.composables.material3.models")
+)
 public data class AccountUiModel(
     val email: String,
     val name: String? = null,

@@ -85,6 +85,7 @@ fun UampSettingsScreen(
                             navController.navigate(GoogleSignInScreen)
                         },
                         enabled = !screenState.guestMode,
+                        colors = ChipDefaults.secondaryChipColors()
                     )
                 } else {
                     Chip(
@@ -95,6 +96,7 @@ fun UampSettingsScreen(
                                 popUpTo<NavigationScreen.Player>()
                             }
                         },
+                        colors = ChipDefaults.secondaryChipColors()
                     )
                 }
             }

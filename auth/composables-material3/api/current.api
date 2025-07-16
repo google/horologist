@@ -7,3 +7,12 @@ package com.google.android.horologist.auth.composables.material3.screens {
 
 }
 
+package com.google.android.horologist.auth.composables.material3.util {
+
+  public final class A11yKt {
+    method public static String? getDECORATIVE_ELEMENT_CONTENT_DESCRIPTION();
+    property public static final String? DECORATIVE_ELEMENT_CONTENT_DESCRIPTION;
+  }
+
+}
+

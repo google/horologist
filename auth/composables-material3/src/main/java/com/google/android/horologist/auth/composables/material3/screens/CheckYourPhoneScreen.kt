@@ -27,7 +27,7 @@ import androidx.wear.compose.material3.OpenOnPhoneDialogColors
 import androidx.wear.compose.material3.openOnPhoneDialogCurvedText
 import com.google.android.horologist.auth.composables.material3.R
 import com.google.android.horologist.auth.composables.material3.theme.HorologistMaterialTheme
-import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import com.google.android.horologist.auth.composables.material3.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 /**
  * A screen to request the user to check their paired phone to proceed.

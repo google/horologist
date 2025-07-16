@@ -1,8 +1,6 @@
 package com.google.android.horologist.auth.composables.material3.screens
 
 import androidx.compose.runtime.Composable
-import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
-import androidx.wear.compose.material3.AppScaffold
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
 import com.google.android.horologist.auth.composables.material3.theme.HorologistMaterialTheme
@@ -10,19 +8,50 @@ import com.google.android.horologist.auth.composables.material3.theme.Horologist
 @WearPreviewDevices
 @Composable
 fun SelectAccountScreenPreview(){
-
     HorologistMaterialTheme {
-        TransformingLazyColumn { }
-        AppScaffold {
-        }
         SelectAccountScreen(
             accounts = listOf(
-                AccountUiModel(email = "maggie@example.com"),
-                AccountUiModel(email = "thisisaverylongemailaccountsample@example.com"),
+                AccountUiModel(
+                    email = "timandrews123@example.com",
+                    name = "Timothy Andrews",
+                    ),
+                AccountUiModel(
+                    email = "thisisaverylongemailaccountsample@example.com",
+                    name = "Kim Wong"
+                ),
             ),
             onAccountClicked = { _, _ -> },
             title = "Select Account",
-            defaultAvatar = null,
+        )
+    }
+}
+
+
+@WearPreviewDevices
+@Composable
+fun SelectAccountScreenManyAccountsPreview(){
+    HorologistMaterialTheme {
+        SelectAccountScreen(
+            accounts = listOf(
+                AccountUiModel(
+                    email = "thisisaverylongemailaccountsample@example.com",
+                    name = "Extenta Namuratus Hereditus III"
+                ),
+                AccountUiModel(
+                    email = "timandrews123@example.com",
+                    name = "Timothy Andrews",
+                ),
+                AccountUiModel(
+                    email = "john@example.com",
+                    name = "John Doe",
+                ),
+                AccountUiModel(
+                    email = "john@example.com",
+                    name = "John Doe",
+                ),
+            ),
+            onAccountClicked = { _, _ -> },
+            title = "Select Account",
         )
     }
 }

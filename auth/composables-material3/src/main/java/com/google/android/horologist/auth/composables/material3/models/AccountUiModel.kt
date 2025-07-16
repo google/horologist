@@ -7,6 +7,6 @@ import com.google.android.horologist.images.base.paintable.Paintable
  */
 public data class AccountUiModel(
     val email: String,
-    val name: String? = null,
+    val name: String,
     val avatar: Paintable? = null,
 )

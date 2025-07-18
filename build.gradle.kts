@@ -103,6 +103,8 @@ allprojects {
 
     plugins.withId("com.vanniktech.maven.publish") {
         mavenPublishing {
+            publishToMavenCentral()
+            signAllPublications()
             if (project.plugins.hasPlugin("com.android.library")) {
                 configure(
                     AndroidSingleVariantLibrary(
@@ -114,7 +116,6 @@ allprojects {
             } else if (project.plugins.hasPlugin("java-library")) {
                 configure(JavaLibrary(javadocJar = JavadocJar.Empty(), sourcesJar = true))
             }
-            publishToMavenCentral()
         }
     }
 }
@@ -157,16 +158,6 @@ subprojects {
                     "-Xjvm-default=all"
                 )
             )
-        }
-    }
-
-    // Read in the signing.properties file if it is exists
-    val signingPropsFile = rootProject.file("release/signing.properties")
-    if (signingPropsFile.exists()) {
-        val localProperties = Properties()
-        signingPropsFile.inputStream().use { istream -> localProperties.load(istream) }
-        localProperties.forEach { prop ->
-            project.extra[prop.key as String] = prop.value
         }
     }
 

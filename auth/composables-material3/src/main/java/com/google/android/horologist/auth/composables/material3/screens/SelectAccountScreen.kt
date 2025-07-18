@@ -58,14 +58,13 @@ fun SelectAccountScreen(
     val state = rememberTransformingLazyColumnState()
     val transformationSpec = rememberTransformationSpec()
 
-    val nameTextStyle = // MaterialTheme.typography.copy(
+    val nameTextStyle =
         MaterialTheme.typography.titleMedium.copy(
             lineBreak = LineBreak(
                 strategy = LineBreak.Strategy.Balanced,
                 strictness = LineBreak.Strictness.Normal,
                 wordBreak = LineBreak.WordBreak.Default,
             )
-//        ),
     )
 
 
@@ -73,18 +72,10 @@ fun SelectAccountScreen(
         state = state, contentPadding = contentPadding
     ) {
         item {
-            ListHeader(
-            ) {
-                Text(
-                    text = title, style = MaterialTheme.typography.titleLarge, maxLines = 2
-                )
+            ListHeader {
+                Text(text = title, style = MaterialTheme.typography.titleLarge, maxLines = 2)
             }
         }
-        val nameLineBreak = LineBreak(
-            strategy = LineBreak.Strategy.Balanced,
-            strictness = LineBreak.Strictness.Normal,
-            wordBreak = LineBreak.WordBreak.Default,
-        )
         accounts.forEach { account ->
             item {
                 Button(
@@ -98,16 +89,17 @@ fun SelectAccountScreen(
                             Image(
                                 it.rememberPainter(),
                                 contentDescription = null,
-                                modifier = Modifier.size(36.dp),
+                                modifier = Modifier.size(ButtonDefaults.ExtraLargeIconSize),
                             )
                         } ?: run {
                             Icon(
                                 defaultAvatar.rememberPainter(),
                                 contentDescription = null,
-                                modifier = Modifier.size(36.dp),
+                                modifier = Modifier.size(ButtonDefaults.ExtraLargeIconSize),
                             )
                         }
                     },
+                    contentPadding = ButtonDefaults.ButtonWithExtraLargeIconContentPadding,
                     colors = ButtonDefaults.filledTonalButtonColors(),
                     secondaryLabel = {
                         Text(

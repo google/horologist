@@ -69,10 +69,7 @@ fun SelectAccountScreenOneLineAccountsPreview(){
                 AccountUiModel(
                     email = "timandrews123@example.com",
                     name = "Tim Andrews",
-                ),
-                AccountUiModel(
-                    email = "john@example.com",
-                    name = "John Doe",
+                    avatar = DrawableResPaintable(R.drawable.avatar_small_1)
                 ),
                 AccountUiModel(
                     email = "john@example.com",

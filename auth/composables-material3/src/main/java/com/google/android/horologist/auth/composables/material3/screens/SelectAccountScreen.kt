@@ -1,7 +1,10 @@
 package com.google.android.horologist.auth.composables.material3.screens
 
+import android.R.attr.contentDescription
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
@@ -49,7 +52,7 @@ fun SelectAccountScreen(
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_select_account_title),
     // TODO common module for auth composables
-    defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
+    defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
     contentPadding: PaddingValues = defaultContentPadding()
 ) {
     val state = rememberTransformingLazyColumnState()
@@ -91,8 +94,18 @@ fun SelectAccountScreen(
                         .transformedHeight(this@item, transformationSpec),
                     transformation = SurfaceTransformation(transformationSpec),
                     icon = {
-                        (account.avatar ?: defaultAvatar)?.rememberPainter()?.let { painter ->
-                            Icon(painter, contentDescription = null)
+                        account.avatar?.let{
+                            Image(
+                                it.rememberPainter(),
+                                contentDescription = null,
+                                modifier = Modifier.size(36.dp),
+                            )
+                        } ?: run {
+                            Icon(
+                                defaultAvatar.rememberPainter(),
+                                contentDescription = null,
+                                modifier = Modifier.size(36.dp),
+                            )
                         }
                     },
                     colors = ButtonDefaults.filledTonalButtonColors(),

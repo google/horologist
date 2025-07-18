@@ -105,6 +105,7 @@ dependencies {
     api(projects.media.core)
     api(projects.tiles)
 
+    implementation(platform(libs.compose.bom))
     api(projects.composables)
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)

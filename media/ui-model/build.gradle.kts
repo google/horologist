@@ -100,6 +100,7 @@ metalava {
 }
 
 dependencies {
+    implementation(platform(libs.compose.bom))
     api(projects.media.core)
     implementation(projects.images.coil)
     implementation(libs.compose.animation.animationgraphics)

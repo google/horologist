@@ -1,6 +1,5 @@
 package com.google.android.horologist.auth.composables.material3.screens
 
-import android.R.attr.contentDescription
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,62 +29,45 @@ import com.google.android.horologist.auth.composables.material3.models.AccountUi
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
 
-@Composable
-private fun defaultContentPadding(): PaddingValues {
-    val (screenWidthDp, screenHeightDp) = LocalConfiguration.current.run {
-        screenWidthDp.dp to screenHeightDp.dp
-    }
-
-    val horizontalPadding = (screenWidthDp * 0.052f)
-    val topPadding = (screenHeightDp * 0.1f)
-    return PaddingValues(
-        start = horizontalPadding,
-        top = topPadding,
-        end = horizontalPadding,
-    )
-}
 
 @Composable
-fun SelectAccountScreen(
+public fun SelectAccountScreen(
     accounts: List<AccountUiModel>,
     onAccountClicked: (index: Int, account: AccountUiModel) -> Unit,
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_select_account_title),
-    // TODO common module for auth composables
     defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
     contentPadding: PaddingValues = defaultContentPadding()
 ) {
     val state = rememberTransformingLazyColumnState()
     val transformationSpec = rememberTransformationSpec()
 
-    val nameTextStyle =
-        MaterialTheme.typography.titleMedium.copy(
-            lineBreak = LineBreak(
-                strategy = LineBreak.Strategy.Balanced,
-                strictness = LineBreak.Strictness.Normal,
-                wordBreak = LineBreak.WordBreak.Default,
-            )
+    val nameTextStyle = MaterialTheme.typography.titleMedium.copy(
+        lineBreak = LineBreak(
+            strategy = LineBreak.Strategy.Balanced,
+            strictness = LineBreak.Strictness.Normal,
+            wordBreak = LineBreak.WordBreak.Default,
+        )
     )
 
-
     TransformingLazyColumn(
-        state = state, contentPadding = contentPadding
+        state = state, contentPadding = contentPadding, modifier = modifier
     ) {
         item {
             ListHeader {
                 Text(text = title, style = MaterialTheme.typography.titleLarge, maxLines = 2)
             }
         }
-        accounts.forEach { account ->
+        accounts.forEachIndexed { index, account ->
             item {
                 Button(
-                    onClick = {},
+                    onClick = { onAccountClicked(index, account) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .transformedHeight(this@item, transformationSpec),
                     transformation = SurfaceTransformation(transformationSpec),
                     icon = {
-                        account.avatar?.let{
+                        account.avatar?.let {
                             Image(
                                 it.rememberPainter(),
                                 contentDescription = null,
@@ -118,5 +100,19 @@ fun SelectAccountScreen(
             }
         }
     }
-//    }
+}
+
+@Composable
+private fun defaultContentPadding(): PaddingValues {
+    val (screenWidthDp, screenHeightDp) = LocalConfiguration.current.run {
+        screenWidthDp.dp to screenHeightDp.dp
+    }
+
+    val horizontalPadding = (screenWidthDp * 0.052f)
+    val topPadding = (screenHeightDp * 0.1f)
+    return PaddingValues(
+        start = horizontalPadding,
+        top = topPadding,
+        end = horizontalPadding,
+    )
 }

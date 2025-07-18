@@ -3,7 +3,7 @@
 This doc is mostly for maintainers.
 
 Ensure your Maven Central credentials are set in ~/.gradle/gradle.properties.
-Follow https://vanniktech.github.io/gradle-maven-publish-plugin/central/#configuring-the-pom
+Follow https://vanniktech.github.io/gradle-maven-publish-plugin/central/#secrets
 
 ```
 mavenCentralUsername=username

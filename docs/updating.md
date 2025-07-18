@@ -2,27 +2,30 @@
 
 This doc is mostly for maintainers.
 
-Ensure your [Sonatype JIRA](https://issues.sonatype.org/login.jsp) credentials are set in your environment variables.
+Ensure your Maven Central credentials are set in ~/.gradle/gradle.properties.
+Follow https://vanniktech.github.io/gradle-maven-publish-plugin/central/#configuring-the-pom
 
-```bash
-export ORG_GRADLE_PROJECT_mavenCentralUsername=username
-export ORG_GRADLE_PROJECT_mavenCentralPassword=password
+```
+mavenCentralUsername=username
+mavenCentralPassword=the_password
+
+signing.keyId=12345678
+signing.password=some_password
+signing.secretKeyRingFile=/Users/yourusername/.gnupg/secring.gpg
 ```
 
-Decrypt the signing key to release a public build.
+Publish the artifacts to staging.
 
 ```bash
-release/signing-setup.sh '<Horologist AES key>'
-gradlew clean publish --no-parallel --stacktrace
-release/signing-cleanup.sh
+./gradlew publishToMavenCentral
 ```
 
-The deployment then needs to be manually released via the [Nexus Repository Manager](https://oss.sonatype.org/#stagingRepositories). See [Releasing Deployment from OSSRH](https://central.sonatype.org/publish/release/).
+The deployment then needs to be manually released via the [Central Portal](https://central.sonatype.com/publishing/deployments).
 
 ## Snapshot release
 
-For a snapshot release, the signing key is not used. Ensure `VERSION_NAME` in [gradle.properties](https://github.com/google/horologist/blob/main/gradle.properties) has the `-SNAPSHOT` suffix or specify the version via `-PVERSION_NAME=...`.
+For a snapshot release, change the version to end with -SNAPSHOT e.g. 0.8.0-SNAPSHOT.
 
 ```bash
-gradlew -PVERSION_NAME=0.0.1-SNAPSHOT clean publish --no-parallel --stacktrace
+./gradlew publishToMavenCentral
 ```

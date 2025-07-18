@@ -108,11 +108,11 @@ allprojects {
                     AndroidSingleVariantLibrary(
                         variant = "release",
                         sourcesJar = true,
-                        publishJavadocJar = false
+                        publishJavadocJar = true
                     )
                 )
             } else if (project.plugins.hasPlugin("java-library")) {
-                configure(JavaLibrary(javadocJar = JavadocJar.Empty(), sourcesJar = true))
+                configure(JavaLibrary(javadocJar = JavadocJar.Javadoc(), sourcesJar = true))
             }
             publishToMavenCentral()
         }

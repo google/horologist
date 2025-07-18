@@ -179,6 +179,7 @@ subprojects {
         }
 
         tasks.named<org.jetbrains.dokka.gradle.DokkaTaskPartial>("dokkaHtmlPartial") {
+            failOnWarning.set(false)
             dokkaSourceSets.configureEach {
                 reportUndocumented.set(true)
                 skipEmptyPackages.set(true)

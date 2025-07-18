@@ -99,6 +99,7 @@ dependencies {
     api(projects.media.audioUiModel)
     debugImplementation(projects.logo)
 
+    implementation(platform(libs.compose.bom))
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
     implementation(libs.androidx.corektx)

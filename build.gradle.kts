@@ -2,7 +2,6 @@ import com.android.build.gradle.LibraryExtension
 import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 import com.vanniktech.maven.publish.JavaLibrary
 import com.vanniktech.maven.publish.JavadocJar
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URI
 import java.util.Properties
@@ -115,7 +114,6 @@ allprojects {
             } else if (project.plugins.hasPlugin("java-library")) {
                 configure(JavaLibrary(javadocJar = JavadocJar.Empty(), sourcesJar = true))
             }
-            publishToMavenCentral(SonatypeHost("https://google.oss.sonatype.org"))
         }
     }
 }
@@ -161,16 +159,6 @@ subprojects {
         }
     }
 
-    // Read in the signing.properties file if it is exists
-    val signingPropsFile = rootProject.file("release/signing.properties")
-    if (signingPropsFile.exists()) {
-        val localProperties = Properties()
-        signingPropsFile.inputStream().use { istream -> localProperties.load(istream) }
-        localProperties.forEach { prop ->
-            project.extra[prop.key as String] = prop.value
-        }
-    }
-
     // Must be afterEvaluate or else com.vanniktech.maven.publish will overwrite our
     // dokka and version configuration.
     afterEvaluate {
@@ -180,6 +168,7 @@ subprojects {
         }
 
         tasks.named<org.jetbrains.dokka.gradle.DokkaTaskPartial>("dokkaHtmlPartial") {
+            failOnWarning.set(false)
             dokkaSourceSets.configureEach {
                 reportUndocumented.set(true)
                 skipEmptyPackages.set(true)

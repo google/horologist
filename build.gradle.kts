@@ -103,8 +103,6 @@ allprojects {
 
     plugins.withId("com.vanniktech.maven.publish") {
         mavenPublishing {
-            publishToMavenCentral()
-            signAllPublications()
             if (project.plugins.hasPlugin("com.android.library")) {
                 configure(
                     AndroidSingleVariantLibrary(

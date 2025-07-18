@@ -24,7 +24,7 @@ The deployment then needs to be manually released via the [Central Portal](https
 
 ## Snapshot release
 
-For a snapshot release, change the version to end with -SNAPSHOT e.g. 0.8.0-SNAPSHOT.
+For a snapshot release, change the version of `VERSION_NAME` property in `gradle.properties` to end with -SNAPSHOT e.g. 0.8.0-SNAPSHOT.
 
 ```bash
 ./gradlew publishToMavenCentral

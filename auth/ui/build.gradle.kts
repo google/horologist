@@ -105,6 +105,7 @@ dependencies {
     api(libs.kotlinx.coroutines.core)
     api(libs.wearcompose.foundation)
 
+    implementation(platform(libs.compose.bom))
     implementation(projects.composeMaterial)
     implementation(projects.images.coil)
 

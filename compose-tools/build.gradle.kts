@@ -87,6 +87,7 @@ dependencies {
     implementation(libs.kotlin.reflect)
     implementation(projects.tiles)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)

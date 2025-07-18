@@ -91,6 +91,7 @@ metalava {
 dependencies {
     api(projects.annotations)
 
+    implementation(platform(libs.compose.bom))
     api(libs.androidx.wear.compose.material3)
     api(libs.wearcompose.foundation)
     implementation(libs.compose.material.iconscore)

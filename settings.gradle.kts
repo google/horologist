@@ -36,6 +36,7 @@ include(":ai:sample:wear-gemini-lib")
 include(":ai:ui")
 include(":annotations")
 include(":auth:composables")
+include(":auth:composables-material3")
 include(":auth:data")
 include(":auth:data-phone")
 include(":auth:sample:phone")
@@ -93,4 +94,3 @@ if (media3Checkout.isNotBlank()) {
     gradle.extra.set("androidxMediaModulePrefix", "media3-")
     apply(from = file("$media3Checkout/core_settings.gradle"))
 }
-include(":auth:composables-material3")

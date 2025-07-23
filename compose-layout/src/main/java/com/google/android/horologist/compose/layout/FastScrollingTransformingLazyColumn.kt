@@ -96,7 +96,7 @@ import kotlin.math.abs
 @Suppress("TikTok.CoroutinesDelay")
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun FastScrollingTransformingLazyColumn(
+public fun FastScrollingTransformingLazyColumn(
     scrollState: TransformingLazyColumnState,
     headers: SnapshotStateList<HeaderInfo>,
     modifier: Modifier = Modifier,
@@ -480,7 +480,7 @@ private fun SectionIndicator(
  *   more information).
  * @property extraScrollToOffset The optional extra offset added to the default offset.
  */
-class HeaderInfo(
+public class HeaderInfo(
     val index: Int,
     val value: String,
     val inlineContent: Map<String, InlineTextContent> = mapOf(),

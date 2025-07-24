@@ -55,7 +55,7 @@ okio = "3.15.0"
 org-robolectric = "4.15.1"
 ossLicensesPlugin = "0.10.6"
 osslicenses = "0.8.0"
-playServicesAuth = "21.3.0"
+playServicesAuth = "21.4.0"
 playServicesOssLicenses = "17.2.1"
 # Stay on 4.26.1 due to https://github.com/firebase/firebase-android-sdk/issues/5997
 protobuf = "4.26.1"
@@ -179,7 +179,7 @@ dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plu
 dagger-hiltandroidtesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "googledagger" }
 desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
-google-genai = "com.google.genai:google-genai:1.9.0"
+google-genai = "com.google.genai:google-genai:1.10.0"
 gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradlePublishPlugin" }
 grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }

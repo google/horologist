@@ -149,8 +149,8 @@ public fun FastScrollingTransformingLazyColumn(
             }
         }
 
-    var currentAnchorItemIndex by mutableStateOf(scrollState.anchorItemIndex)
-    var currentAnchorItemOffset by mutableStateOf(scrollState.anchorItemScrollOffset)
+    var currentAnchorItemIndex by remember { mutableStateOf(scrollState.anchorItemIndex) }
+    var currentAnchorItemOffset by remember { mutableStateOf(scrollState.anchorItemScrollOffset) }
 
     val transition = updateTransition(indicatorState)
 
@@ -208,13 +208,15 @@ public fun FastScrollingTransformingLazyColumn(
             }
         }
 
-    val animationValues by derivedStateOf {
-        IndicatorAnimationValues(
-            indicatorOpacity,
-            indicatorWidthScale,
-            indicatorTextPositionY,
-            indicatorTextOpacity,
-        )
+    val animationValues by remember {
+        derivedStateOf {
+            IndicatorAnimationValues(
+                indicatorOpacity,
+                indicatorWidthScale,
+                indicatorTextPositionY,
+                indicatorTextOpacity,
+            )
+        }
     }
 
     fun setCurrentSectionIndex(firstItemIndex: Int) {

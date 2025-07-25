@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.layout
+package com.google.android.horologist.compose.layout.m3
 
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
@@ -81,7 +81,7 @@ import kotlin.math.abs
  * headers. This is done by on navigation via RSB and scrolling to past a specific speed threshold,
  * the list will begin scrolling directly to each section header instead of scrolling through each
  *
- * @param scrollState The scroll state of the list.
+ * @param state The scroll state of the list.
  * @param headers The headers within the list, which includes the content of the header and the
  *   index. This is used by the FastScrollingTransformingLazyColumn to display a header over the
  *   given information and snap to the speicified header.
@@ -93,11 +93,10 @@ import kotlin.math.abs
  *   scroll to need to be considered when passing in the HeaderInfo's index to the
  *   FastScrollingTransformingLazyColumn
  */
-@Suppress("TikTok.CoroutinesDelay")
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 public fun FastScrollingTransformingLazyColumn(
-    scrollState: TransformingLazyColumnState,
+    state: TransformingLazyColumnState,
     headers: SnapshotStateList<HeaderInfo>,
     modifier: Modifier = Modifier,
     sectionIndictatorTopPadding: Dp = 0.dp,
@@ -149,8 +148,8 @@ public fun FastScrollingTransformingLazyColumn(
             }
         }
 
-    var currentAnchorItemIndex by remember { mutableStateOf(scrollState.anchorItemIndex) }
-    var currentAnchorItemOffset by remember { mutableStateOf(scrollState.anchorItemScrollOffset) }
+    var currentAnchorItemIndex by remember { mutableStateOf(state.anchorItemIndex) }
+    var currentAnchorItemOffset by remember { mutableStateOf(state.anchorItemScrollOffset) }
 
     val transition = updateTransition(indicatorState)
 
@@ -234,8 +233,8 @@ public fun FastScrollingTransformingLazyColumn(
             haptics.performHapticFeedback(HapticFeedbackType.SegmentTick)
             // We run animateScrollBy with a movement of 0 just to remove the timeText from the screen and
             // show the position indicators, as animateScrollToItem will fling from each section.
-            scrollState.animateScrollBy(0f)
-            scrollState.scrollToItem(headers[currentSectionIndex].index, offset)
+            state.animateScrollBy(0f)
+            state.scrollToItem(headers[currentSectionIndex].index, offset)
         }
     }
 
@@ -306,7 +305,7 @@ public fun FastScrollingTransformingLazyColumn(
 
     Box(modifier = Modifier.fillMaxSize()) {
         TransformingLazyColumn(
-            state = scrollState,
+            state = state,
             modifier =
                 modifier
                     .fillMaxWidth()
@@ -341,8 +340,8 @@ public fun FastScrollingTransformingLazyColumn(
                                 // Here, we animate the scroll by 0f to remove the timeText from the screen and
                                 // show the position indicators. Running animateScrollBy by the verticalScrollPixels
                                 // does not scroll as much as scrollBy for some reason.
-                                scrollState.animateScrollBy(0f)
-                                scrollState.scrollBy(verticalScrollPixels)
+                                state.animateScrollBy(0f)
+                                state.scrollBy(verticalScrollPixels)
                             }
                         }
                         true
@@ -364,8 +363,8 @@ public fun FastScrollingTransformingLazyColumn(
 
         LaunchedEffect(key1 = Unit) {
             snapshotFlow {
-                currentAnchorItemIndex != scrollState.anchorItemIndex ||
-                    currentAnchorItemOffset != scrollState.anchorItemScrollOffset
+                currentAnchorItemIndex != state.anchorItemIndex ||
+                    currentAnchorItemOffset != state.anchorItemScrollOffset
             }
                 .filter { it == true }
                 .collect {
@@ -375,20 +374,20 @@ public fun FastScrollingTransformingLazyColumn(
                     // skimming and disable fast scrolling.
                     if (
                         isSkimming &&
-                        currentAnchorItemIndex == scrollState.anchorItemIndex &&
-                        currentAnchorItemOffset != scrollState.anchorItemScrollOffset
+                        currentAnchorItemIndex == state.anchorItemIndex &&
+                        currentAnchorItemOffset != state.anchorItemScrollOffset
                     ) {
                         isSkimming = false
                     }
-                    currentAnchorItemIndex = scrollState.anchorItemIndex
-                    currentAnchorItemOffset = scrollState.anchorItemScrollOffset
+                    currentAnchorItemIndex = state.anchorItemIndex
+                    currentAnchorItemOffset = state.anchorItemScrollOffset
                 }
         }
 
         LaunchedEffect(key1 = Unit) {
             focusRequester.requestFocus()
 
-            snapshotFlow { (scrollState.layoutInfo.visibleItems.firstOrNull()?.index ?: 0) }
+            snapshotFlow { (state.layoutInfo.visibleItems.firstOrNull()?.index ?: 0) }
                 .collect {
                     val size = headers.size
                     if (!isSkimming) {

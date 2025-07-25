@@ -26,7 +26,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.AppScaffold
-import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.material3.Text
@@ -34,8 +33,8 @@ import androidx.wear.compose.material3.TitleCard
 import androidx.wear.compose.material3.lazy.rememberTransformationSpec
 import androidx.wear.compose.material3.lazy.transformedHeight
 import com.google.android.horologist.compose.layout.ColumnItemType
-import com.google.android.horologist.compose.layout.FastScrollingTransformingLazyColumn
-import com.google.android.horologist.compose.layout.HeaderInfo
+import com.google.android.horologist.compose.layout.m3.FastScrollingTransformingLazyColumn
+import com.google.android.horologist.compose.layout.m3.HeaderInfo
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
 data class Person(val name: String)
@@ -96,7 +95,7 @@ val peopleString = """
             Chloe Gray, Zoe Bailey, Stella Brooks, Layla Kelly, Nora Price, Luna Bennett, 
             Harper Barnes, Mila Henderson, Charlotte Coleman, Amelia Jenkins, Evelyn Perry, 
             Abigail Powell         
-        """.trimIndent()
+""".trimIndent()
 
 val people = peopleString.split(",").map {
     Person(it.trim())
@@ -131,7 +130,7 @@ fun FastScrollingTLCScreen() {
                 }
 
                 FastScrollingTransformingLazyColumn(
-                    scrollState = columnState,
+                    state = columnState,
                     contentPadding = contentPadding,
                     modifier = Modifier
                         .fillMaxSize()
@@ -155,5 +154,3 @@ fun FastScrollingTLCScreen() {
         }
     }
 }
-
-

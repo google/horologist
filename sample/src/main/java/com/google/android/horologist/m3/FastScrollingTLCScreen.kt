@@ -26,7 +26,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.AppScaffold
-import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.material3.Text
@@ -96,7 +95,7 @@ val peopleString = """
             Chloe Gray, Zoe Bailey, Stella Brooks, Layla Kelly, Nora Price, Luna Bennett, 
             Harper Barnes, Mila Henderson, Charlotte Coleman, Amelia Jenkins, Evelyn Perry, 
             Abigail Powell         
-        """.trimIndent()
+""".trimIndent()
 
 val people = peopleString.split(",").map {
     Person(it.trim())
@@ -155,5 +154,3 @@ fun FastScrollingTLCScreen() {
         }
     }
 }
-
-

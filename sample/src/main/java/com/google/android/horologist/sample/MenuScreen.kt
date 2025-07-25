@@ -61,6 +61,12 @@ fun MenuScreen(
             }
             item {
                 Chip(
+                    label = "Fast Scrolling TLC",
+                    onClick = { navigateToRoute(Screen.FastScrollingTLC.route) },
+                )
+            }
+            item {
+                Chip(
                     label = "Networks",
                     onClick = { navigateToRoute(Screen.Network.route) },
                 )

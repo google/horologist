@@ -101,6 +101,8 @@ dependencies {
     implementation(libs.compose.ui.tooling)
     implementation(libs.androidx.wear.tooling.preview)
     implementation(libs.wearcompose.tooling)
+    implementation(libs.androidx.wear.compose.material3)
+    implementation(libs.compose.foundation.foundation)
 
     debugImplementation(libs.compose.ui.toolingpreview)
     debugImplementation(projects.composeTools)

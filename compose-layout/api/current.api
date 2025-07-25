@@ -215,6 +215,26 @@ package com.google.android.horologist.compose.layout {
 
 }
 
+package com.google.android.horologist.compose.layout.m3 {
+
+  public final class FastScrollingTransformingLazyColumnKt {
+    method @androidx.compose.runtime.Composable public static void FastScrollingTransformingLazyColumn(androidx.wear.compose.foundation.lazy.TransformingLazyColumnState state, androidx.compose.runtime.snapshots.SnapshotStateList<com.google.android.horologist.compose.layout.m3.HeaderInfo> headers, optional androidx.compose.ui.Modifier modifier, optional float sectionIndictatorTopPadding, optional androidx.compose.foundation.layout.PaddingValues contentPadding, kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.TransformingLazyColumnScope,kotlin.Unit> content);
+  }
+
+  public final class HeaderInfo {
+    ctor public HeaderInfo(int index, String value, optional java.util.Map<java.lang.String,androidx.compose.foundation.text.InlineTextContent> inlineContent, optional Integer? extraScrollToOffset);
+    method public Integer? getExtraScrollToOffset();
+    method public int getIndex();
+    method public java.util.Map<java.lang.String,androidx.compose.foundation.text.InlineTextContent> getInlineContent();
+    method public String getValue();
+    property public final Integer? extraScrollToOffset;
+    property public final int index;
+    property public final java.util.Map<java.lang.String,androidx.compose.foundation.text.InlineTextContent> inlineContent;
+    property public final String value;
+  }
+
+}
+
 package com.google.android.horologist.compose.nav {
 
   public final class TypeSafeKt {

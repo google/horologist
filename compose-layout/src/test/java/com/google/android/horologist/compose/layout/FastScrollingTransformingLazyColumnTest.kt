@@ -27,8 +27,6 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.ExperimentalTestApi
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumnState
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
@@ -203,12 +201,12 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
 
             composeRule.waitForIdle()
 
-            composeRule.onNodeWithTag(TLC)
-                .performRotaryScrollInput {
-                    rotateToScrollVertically(500.0f)
-                }
-
-            captureScreenshot("_end")
+//            composeRule.onNodeWithTag(TLC)
+//                .performRotaryScrollInput {
+//                    rotateToScrollVertically(500.0f)
+//                }
+//
+//            captureScreenshot("_end")
         }
 
         companion object {

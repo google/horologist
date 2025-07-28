@@ -173,7 +173,7 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
                             contentPadding = contentPadding,
                             modifier = Modifier
                                 .fillMaxSize()
-                                .testTag("TransformingLazyColumn"),
+                                .testTag(TLC),
                             headers = headers,
                         ) {
                             items(tlcContent) { item ->
@@ -201,12 +201,12 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
 
             composeRule.waitForIdle()
 
-//            composeRule.onNodeWithTag(TLC)
-//                .performRotaryScrollInput {
-//                    rotateToScrollVertically(500.0f)
-//                }
-//
-//            captureScreenshot("_end")
+            composeRule.onNodeWithTag(TLC)
+                .performRotaryScrollInput {
+                    rotateToScrollVertically(15000.0f)
+                }
+
+            captureScreenshot("_end")
         }
 
         companion object {

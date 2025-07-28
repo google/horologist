@@ -17,6 +17,8 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -177,15 +179,21 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
                             headers = headers,
                         ) {
                             items(tlcContent) { item ->
-                                TitleCard(
-                                    onClick = {},
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .transformedHeight(this, transformationSpec),
-                                    transformation = SurfaceTransformation(transformationSpec),
-                                    title = { Text(item.content) },
-                                ) {
-                                    Text("Visits to the ISS:")
+                                if (item is Header) {
+                                    Row(horizontalArrangement = Arrangement.Center){
+                                        Text(item.content)
+                                    }
+                                } else if (item is Person) {
+                                    TitleCard(
+                                        onClick = {},
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .transformedHeight(this, transformationSpec),
+                                        transformation = SurfaceTransformation(transformationSpec),
+                                        title = { Text(item.content) },
+                                    ) {
+                                        Text("Visits to the ISS:")
+                                    }
                                 }
                             }
                         }

@@ -39,11 +39,10 @@ import com.google.android.horologist.compose.layout.m3.FastScrollingTransforming
 import com.google.android.horologist.compose.layout.m3.HeaderInfo
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
- open class ScrollableContent(var content: String)
+open class ScrollableContent(var content: String)
 
-        class Header(val title: String) : ScrollableContent(title)
-        class Person(val name: String) : ScrollableContent(name)
-
+class Header(val title: String) : ScrollableContent(title)
+class Person(val name: String) : ScrollableContent(name)
 
 val peopleString = """
             Olivia Smith, Liam Johnson, Emma Williams, Noah Brown, Ava Jones, Isabella Garcia, 
@@ -103,16 +102,17 @@ val peopleString = """
             Abigail Powell         
 """.trimIndent()
 
-  val people = peopleString.split(",").map {
-            Person(it.trim())
-        }
-        val headers = people.map {
-            Header(
-                it.content.take(1),
-            )
-        }.distinctBy { it.content }
+val people = peopleString.split(",").map {
+    Person(it.trim())
+}
+val headers = people.map {
+    Header(
+        it.content.take(1),
+    )
+}.distinctBy { it.content }
 
-        val tlcContent: List<ScrollableContent> = (people + headers).sortedBy { it.content }
+val tlcContent: List<ScrollableContent> = (people + headers).sortedBy { it.content }
+
 @Composable
 fun FastScrollingTLCScreen() {
     // Disable other screen scaffold

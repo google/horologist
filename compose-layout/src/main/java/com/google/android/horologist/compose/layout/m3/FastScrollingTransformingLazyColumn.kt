@@ -50,8 +50,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.rotary.RotaryScrollEvent
@@ -106,7 +104,6 @@ public fun FastScrollingTransformingLazyColumn(
     val haptics = LocalHapticFeedback.current
     val screenHeight = LocalWindowInfo.current.containerSize.height
 
-    val focusRequester = remember { FocusRequester() }
     val coroutineScope = rememberCoroutineScope()
     var fadingOutJob: Job? by remember { mutableStateOf(null) }
     var animationJob: Job? by remember { mutableStateOf(null) }
@@ -346,7 +343,6 @@ public fun FastScrollingTransformingLazyColumn(
                         }
                         true
                     }
-                    .focusRequester(focusRequester)
                     .focusable(),
             contentPadding = remember { contentPadding },
         ) {
@@ -385,22 +381,22 @@ public fun FastScrollingTransformingLazyColumn(
         }
 
         LaunchedEffect(key1 = Unit) {
-            focusRequester.requestFocus()
-
             snapshotFlow { (state.layoutInfo.visibleItems.firstOrNull()?.index ?: 0) }
-                .collect {
-                    val size = headers.size
-                    if (!isSkimming) {
-                        for (i: Int in 0..<size) {
-                            val currentIndex = headers[i].index
-                            // If it is between the current index and the next header index or if it's the last
-                            // item in the header list, we will set the current section index to the current
-                            // index it is between. This will only run when we are not skimming between sections
-                            // and is used to set the section index when we tap scroll to a new section.
-                            if (it >= currentIndex && (i == size - 1 || it < headers[i + 1].index)) {
-                                setCurrentSectionIndex(i)
+                .collect { visibleItemIndex ->
+                    if (!isSkimming && headers.isNotEmpty()) {
+                        val searchResult = headers.binarySearchBy(visibleItemIndex) { it.index }
+                        val sectionIndex =
+                            if (searchResult >= 0) {
+                                // Exact match found
+                                searchResult
+                            } else {
+                                // No exact match, visibleItemIndex is between header indices.
+                                // binarySearchBy returns (-insertion point - 1).
+                                // The section index is the item before the insertion point.
+                                val insertionPoint = -searchResult - 1
+                                (insertionPoint - 1).coerceIn(0, headers.size - 1)
                             }
-                        }
+                        setCurrentSectionIndex(sectionIndex)
                     }
                 }
         }
@@ -416,6 +412,7 @@ private fun SectionIndicator(
     headerValues: SnapshotStateList<HeaderInfo>,
     sectionIndictatorTopPadding: Dp,
 ) {
+    val currentSectionHeader = headerValues.getOrNull(currentSection())
     Box(
         contentAlignment = Alignment.TopCenter,
         modifier =
@@ -444,22 +441,22 @@ private fun SectionIndicator(
                 color = MaterialTheme.colorScheme.onSecondary,
                 fontWeight = FontWeight.Bold,
                 text =
-                    if (currentSection() < headerValues.size) {
-                        val inlineContent = headerValues[currentSection()].inlineContent
+                    if (currentSectionHeader != null) {
+                        val inlineContent = currentSectionHeader.inlineContent
                         if (inlineContent.isNotEmpty()) {
                             buildAnnotatedString {
                                 appendInlineContent(inlineContent.keys.first())
-                                append(headerValues[currentSection()].value)
+                                append(currentSectionHeader.value)
                             }
                         } else {
-                            buildAnnotatedString { append(headerValues[currentSection()].value) }
+                            buildAnnotatedString { append(currentSectionHeader.value) }
                         }
                     } else {
                         buildAnnotatedString { append("") }
                     },
                 inlineContent =
-                    if (currentSection() < headerValues.size) {
-                        headerValues[currentSection()].inlineContent
+                    if (currentSectionHeader != null) {
+                        currentSectionHeader.inlineContent
                     } else {
                         mapOf()
                     },

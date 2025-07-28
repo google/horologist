@@ -37,7 +37,11 @@ import com.google.android.horologist.compose.layout.m3.FastScrollingTransforming
 import com.google.android.horologist.compose.layout.m3.HeaderInfo
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
-data class Person(val name: String)
+ open class ScrollableContent(var content: String)
+
+        class Header(val title: String) : ScrollableContent(title)
+        class Person(val name: String) : ScrollableContent(name)
+
 
 val peopleString = """
             Olivia Smith, Liam Johnson, Emma Williams, Noah Brown, Ava Jones, Isabella Garcia, 
@@ -97,10 +101,16 @@ val peopleString = """
             Abigail Powell         
 """.trimIndent()
 
-val people = peopleString.split(",").map {
-    Person(it.trim())
-}.sortedBy { it.name }
+  val people = peopleString.split(",").map {
+            Person(it.trim())
+        }
+        val headers = people.map {
+            Header(
+                it.content.take(1),
+            )
+        }.distinctBy { it.content }
 
+        val tlcContent: List<ScrollableContent> = (people + headers).sortedBy { it.content }
 @Composable
 fun FastScrollingTLCScreen() {
     // Disable other screen scaffold
@@ -118,12 +128,11 @@ fun FastScrollingTLCScreen() {
                 ),
             ) { contentPadding ->
                 val transformationSpec = rememberTransformationSpec()
-
                 val headers = remember {
-                    val letterIndexes = people.mapIndexed { index, person ->
+                    val letterIndexes = tlcContent.mapIndexed { index, item ->
                         HeaderInfo(
                             index,
-                            person.name.take(1),
+                            item.content.take(1),
                         )
                     }.distinctBy { it.value }
                     letterIndexes.toMutableStateList()
@@ -137,14 +146,14 @@ fun FastScrollingTLCScreen() {
                         .testTag("TransformingLazyColumn"),
                     headers = headers,
                 ) {
-                    items(people) { person ->
+                    items(tlcContent) { item ->
                         TitleCard(
                             onClick = {},
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .transformedHeight(this, transformationSpec),
                             transformation = SurfaceTransformation(transformationSpec),
-                            title = { Text(person.name) },
+                            title = { Text(item.content) },
                         ) {
                             Text("Visits to the ISS:")
                         }

@@ -24,6 +24,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumnState
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
@@ -36,9 +39,10 @@ import androidx.wear.compose.material3.TimeText
 import androidx.wear.compose.material3.TitleCard
 import androidx.wear.compose.material3.lazy.rememberTransformationSpec
 import androidx.wear.compose.material3.lazy.transformedHeight
+import com.google.android.horologist.compose.layout.m3.FastScrollingTransformingLazyColumn
+import com.google.android.horologist.compose.layout.m3.HeaderInfo
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest
-import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -58,7 +62,10 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
             content()
         }
 
-        data class Person(val name: String)
+        open class ScrollableContent(var content: String)
+
+        class Header(val title: String) : ScrollableContent(title)
+        class Person(val name: String) : ScrollableContent(name)
 
         val peopleString = """
             Olivia Smith, Liam Johnson, Emma Williams, Noah Brown, Ava Jones, Isabella Garcia, 
@@ -115,13 +122,21 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
             Daniel Arnold, Joseph Boyd, Samuel Fuller, Benjamin Hayes, Leo Cox, Julian Ward, 
             Chloe Gray, Zoe Bailey, Stella Brooks, Layla Kelly, Nora Price, Luna Bennett, 
             Harper Barnes, Mila Henderson, Charlotte Coleman, Amelia Jenkins, Evelyn Perry, 
-            Abigail Powell         
+            Abigail Powell
         """.trimIndent()
 
         val people = peopleString.split(",").map {
             Person(it.trim())
-        }.sortedBy { it.name }
+        }
+        val headers = people.map {
+            Header(
+                it.content.take(1),
+            )
+        }.distinctBy { it.content }
 
+        val tlcContent: List<ScrollableContent> = (people + headers).sortedBy { it.content }
+
+        @OptIn(ExperimentalTestApi::class) // required by [#performRotaryScrollInput].
         @Test
         fun BasicExample() {
             lateinit var columnState: TransformingLazyColumnState
@@ -144,31 +159,31 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
                         val transformationSpec = rememberTransformationSpec()
 
                         val headers = remember {
-                            val letterIndexes = people.mapIndexed { index, person ->
+                            val letterIndexes = tlcContent.mapIndexed { index, item ->
                                 HeaderInfo(
                                     index,
-                                    person.name.take(1),
+                                    item.content.take(1),
                                 )
                             }.distinctBy { it.value }
                             letterIndexes.toMutableStateList()
                         }
 
                         FastScrollingTransformingLazyColumn(
-                            scrollState = columnState,
+                            state = columnState,
                             contentPadding = contentPadding,
                             modifier = Modifier
                                 .fillMaxSize()
                                 .testTag("TransformingLazyColumn"),
                             headers = headers,
                         ) {
-                            items(people) { person ->
+                            items(tlcContent) { item ->
                                 TitleCard(
                                     onClick = {},
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .transformedHeight(this, transformationSpec),
                                     transformation = SurfaceTransformation(transformationSpec),
-                                    title = { Text(person.name) },
+                                    title = { Text(item.content) },
                                 ) {
                                     Text("Visits to the ISS:")
                                 }
@@ -180,11 +195,10 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
 
             composeRule.waitForIdle()
 
-            runBlocking {
-                columnState.scroll {
-                    scrollBy(200_000f)
+            composeRule.onNodeWithTag(TLC)
+                .performRotaryScrollInput {
+                    rotateToScrollVertically(500.0f)
                 }
-            }
 
             captureScreenshot("_end")
         }
@@ -193,5 +207,7 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
             @JvmStatic
             @ParameterizedRobolectricTestRunner.Parameters
             fun devices() = WearDevice.entries
+
+            const val TLC = "TransformingLazyColumn"
         }
     }

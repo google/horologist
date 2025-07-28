@@ -180,7 +180,7 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
                         ) {
                             items(tlcContent) { item ->
                                 if (item is Header) {
-                                    Row(horizontalArrangement = Arrangement.Center){
+                                    Row(horizontalArrangement = Arrangement.Center) {
                                         Text(item.content)
                                     }
                                 } else if (item is Person) {

@@ -16,12 +16,12 @@
 
 package com.google.android.horologist.m3
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -149,13 +149,12 @@ fun FastScrollingTLCScreen() {
                     headers = headers,
                 ) {
                     items(tlcContent) { item ->
-                         if(item is Header){
-                           Row(horizontalArrangement = Arrangement.Center){
+                        if (item is Header) {
+                            Row(horizontalArrangement = Arrangement.Center) {
                                 Text(item.content)
                             }
-                        }
-                        else if(item is Person){
-                                TitleCard(
+                        } else if (item is Person) {
+                            TitleCard(
                                 onClick = {},
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -165,7 +164,7 @@ fun FastScrollingTLCScreen() {
                             ) {
                                 Text("Visits to the ISS:")
                             }
-                        }      
+                        }
                     }
                 }
             }

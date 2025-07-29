@@ -20,7 +20,6 @@ import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.gestures.scrollBy
@@ -53,9 +52,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.input.rotary.RotaryScrollEvent
-import androidx.compose.ui.input.rotary.onPreRotaryScrollEvent
-import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalWindowInfo
@@ -71,12 +67,12 @@ import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.MotionScheme.Companion.expressive
 import androidx.wear.compose.material3.MotionScheme.Companion.standard
 import androidx.wear.compose.material3.Text
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlin.math.abs
-import kotlinx.coroutines.CoroutineScope
 
 /**
  * Modification of the TransformingLazyColumn that allows for fast scrolling to objects with
@@ -312,7 +308,7 @@ public fun FastScrollingTransformingLazyColumn(
                     timestampMillis: Long,
                     delta: Float,
                     inputDeviceId: Int,
-                    orientation: Orientation
+                    orientation: Orientation,
                 ) {
                     // Track current time to ensure that we should ingest the rotary scroll event.
                     val currentTime = System.currentTimeMillis()
@@ -320,7 +316,7 @@ public fun FastScrollingTransformingLazyColumn(
                     verticalScrollPixels = delta
                     val canFastScroll =
                         headers.isNotEmpty() &&
-                                (currentSectionIndex >= 0 && currentSectionIndex < headers.size)
+                            (currentSectionIndex >= 0 && currentSectionIndex < headers.size)
                     val scrollCount = (abs(verticalScrollPixels) / Constants.RSB_SPEED_THRESHOLD).toInt()
 
                     if (!isSkimming && scrollCount > 0 && canFastScroll) {
@@ -337,7 +333,7 @@ public fun FastScrollingTransformingLazyColumn(
                         handleSkim(
                             currentTime = currentTime,
                             isScrollingDown = verticalScrollPixels > 0f,
-                            verticalScrollPixels = delta
+                            verticalScrollPixels = delta,
                         )
                     } else {
                         haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
@@ -351,7 +347,6 @@ public fun FastScrollingTransformingLazyColumn(
                     }
                     true
                 }
-
             },
             modifier =
                 modifier

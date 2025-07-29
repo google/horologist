@@ -21,6 +21,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
@@ -53,6 +54,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.rotary.RotaryScrollEvent
+import androidx.compose.ui.input.rotary.onPreRotaryScrollEvent
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -64,6 +66,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumnScope
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumnState
+import androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.MotionScheme.Companion.expressive
 import androidx.wear.compose.material3.MotionScheme.Companion.standard
@@ -73,6 +76,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlin.math.abs
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * Modification of the TransformingLazyColumn that allows for fast scrolling to objects with
@@ -265,13 +269,13 @@ public fun FastScrollingTransformingLazyColumn(
             }
     }
 
-    fun RotaryScrollEvent.handleSkim(currentTime: Long, isScrollingDown: Boolean) {
+    fun handleSkim(currentTime: Long, isScrollingDown: Boolean, verticalScrollPixels: Float) {
         if (!isFirstFastScroll) {
             // If we fast scroll in two different directions, we will reset the pixels scrolled
             // by to 0 to make sure skims in the opposite direction will be performed as intended.
             if (
-                (this.verticalScrollPixels > 0f && pixelsScrolledBy < 0f) ||
-                (this.verticalScrollPixels < 0f && pixelsScrolledBy > 0f)
+                (verticalScrollPixels > 0f && pixelsScrolledBy < 0f) ||
+                (verticalScrollPixels < 0f && pixelsScrolledBy > 0f)
             ) {
                 pixelsScrolledBy = 0f
             }
@@ -280,10 +284,10 @@ public fun FastScrollingTransformingLazyColumn(
             // the fast scrolling pixels. This is to prevent the case where a user starts
             // skimming mode by scrolling rapidly, but only wants to move a single section.
             if (currentTime - firstSkimTime > Constants.FIRST_SCROLL_TIMEOUT) {
-                pixelsScrolledBy += this.verticalScrollPixels
+                pixelsScrolledBy += verticalScrollPixels
             }
             val sectionsToSkimBy =
-                (Math.abs(pixelsScrolledBy) / Constants.VERTICAL_SCROLL_BY_THRESHOLD).toInt()
+                (abs(pixelsScrolledBy) / Constants.VERTICAL_SCROLL_BY_THRESHOLD).toInt()
             pixelsScrolledBy %= Constants.VERTICAL_SCROLL_BY_THRESHOLD
             for (i in 0..<sectionsToSkimBy) {
                 val newSectionIndex = (currentSectionIndex + (if (isScrollingDown) 1 else -1))
@@ -303,47 +307,55 @@ public fun FastScrollingTransformingLazyColumn(
     Box(modifier = Modifier.fillMaxSize()) {
         TransformingLazyColumn(
             state = state,
+            rotaryScrollableBehavior = object : RotaryScrollableBehavior {
+                override suspend fun CoroutineScope.performScroll(
+                    timestampMillis: Long,
+                    delta: Float,
+                    inputDeviceId: Int,
+                    orientation: Orientation
+                ) {
+                    // Track current time to ensure that we should ingest the rotary scroll event.
+                    val currentTime = System.currentTimeMillis()
+
+                    verticalScrollPixels = delta
+                    val canFastScroll =
+                        headers.isNotEmpty() &&
+                                (currentSectionIndex >= 0 && currentSectionIndex < headers.size)
+                    val scrollCount = (abs(verticalScrollPixels) / Constants.RSB_SPEED_THRESHOLD).toInt()
+
+                    if (!isSkimming && scrollCount > 0 && canFastScroll) {
+                        rsbScrollCount += scrollCount
+                        if (rsbScrollCount > 5) {
+                            isFirstFastScroll = true
+                            pixelsScrolledBy = 0f
+                            isSkimming = true
+                            rsbScrollCount = 0
+                        }
+                    }
+
+                    if (isSkimming) {
+                        handleSkim(
+                            currentTime = currentTime,
+                            isScrollingDown = verticalScrollPixels > 0f,
+                            verticalScrollPixels = delta
+                        )
+                    } else {
+                        haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
+                        coroutineScope.launch {
+                            // Here, we animate the scroll by 0f to remove the timeText from the screen and
+                            // show the position indicators. Running animateScrollBy by the verticalScrollPixels
+                            // does not scroll as much as scrollBy for some reason.
+                            state.animateScrollBy(0f)
+                            state.scrollBy(verticalScrollPixels)
+                        }
+                    }
+                    true
+                }
+
+            },
             modifier =
                 modifier
-                    .fillMaxWidth()
-                    .onRotaryScrollEvent {
-                        // Track current time to ensure that we should ingest the rotary scroll event.
-                        val currentTime = System.currentTimeMillis()
-
-                        verticalScrollPixels = it.verticalScrollPixels
-                        val canFastScroll =
-                            headers.isNotEmpty() &&
-                                (currentSectionIndex >= 0 && currentSectionIndex < headers.size)
-                        val scrollCount = (abs(verticalScrollPixels) / Constants.RSB_SPEED_THRESHOLD).toInt()
-
-                        if (!isSkimming && scrollCount > 0 && canFastScroll) {
-                            rsbScrollCount += scrollCount
-                            if (rsbScrollCount > 5) {
-                                isFirstFastScroll = true
-                                pixelsScrolledBy = 0f
-                                isSkimming = true
-                                rsbScrollCount = 0
-                            }
-                        }
-
-                        if (isSkimming) {
-                            it.handleSkim(
-                                currentTime = currentTime,
-                                isScrollingDown = verticalScrollPixels > 0f,
-                            )
-                        } else {
-                            haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
-                            coroutineScope.launch {
-                                // Here, we animate the scroll by 0f to remove the timeText from the screen and
-                                // show the position indicators. Running animateScrollBy by the verticalScrollPixels
-                                // does not scroll as much as scrollBy for some reason.
-                                state.animateScrollBy(0f)
-                                state.scrollBy(verticalScrollPixels)
-                            }
-                        }
-                        true
-                    }
-                    .focusable(),
+                    .fillMaxWidth(),
             contentPadding = remember { contentPadding },
         ) {
             content()
@@ -362,7 +374,7 @@ public fun FastScrollingTransformingLazyColumn(
                 currentAnchorItemIndex != state.anchorItemIndex ||
                     currentAnchorItemOffset != state.anchorItemScrollOffset
             }
-                .filter { it == true }
+                .filter { it }
                 .collect {
                     // We determine if we are not skimming if the item index is the same with
                     // a different scroll offset (caused by swiping up or down with your finger). Although

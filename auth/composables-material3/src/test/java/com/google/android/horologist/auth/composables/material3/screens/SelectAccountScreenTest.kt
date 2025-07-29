@@ -32,12 +32,12 @@ class SelectAccountScreenTest : WearLegacyScreenTest() {
                     AccountUiModel(
                         email = "timandrews123@example.com",
                         name = "Timothy Andrews",
-                        avatar = DrawableResPaintable(R.drawable.avatar_small_1)
+                        avatar = DrawableResPaintable(R.drawable.avatar_small_1),
                     ),
                     AccountUiModel(
                         email = "thisisaverylongemailaccountsample@example.com",
                         name = "Kim Wong",
-                        avatar = DrawableResPaintable(R.drawable.avatar_small_2)
+                        avatar = DrawableResPaintable(R.drawable.avatar_small_2),
                     ),
                 ),
                 onAccountClicked = { _, _ -> },

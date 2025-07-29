@@ -52,8 +52,8 @@ import com.google.android.horologist.images.base.paintable.Paintable
             com.google.android.horologist.auth.composables.material3.screens
                 .SelectAccountScreen(accounts = accounts, onAccountClicked, modifier, title, defaultAvatar)
         """,
-        "com.google.android.horologist.auth.composables.material3.screens.SelectAccountScreen"
-    )
+        "com.google.android.horologist.auth.composables.material3.screens.SelectAccountScreen",
+    ),
 )
 @Composable
 public fun SelectAccountScreen(

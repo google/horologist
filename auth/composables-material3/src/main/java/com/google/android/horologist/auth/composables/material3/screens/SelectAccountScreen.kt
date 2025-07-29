@@ -1,3 +1,19 @@
+/*
+ * Copyright 2025 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.google.android.horologist.auth.composables.material3.screens
 
 import androidx.compose.foundation.Image
@@ -29,7 +45,6 @@ import com.google.android.horologist.auth.composables.material3.models.AccountUi
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
 
-
 @Composable
 public fun SelectAccountScreen(
     accounts: List<AccountUiModel>,
@@ -37,7 +52,7 @@ public fun SelectAccountScreen(
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_select_account_title),
     defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
-    contentPadding: PaddingValues = defaultContentPadding()
+    contentPadding: PaddingValues = defaultContentPadding(),
 ) {
     val state = rememberTransformingLazyColumnState()
     val transformationSpec = rememberTransformationSpec()
@@ -47,11 +62,13 @@ public fun SelectAccountScreen(
             strategy = LineBreak.Strategy.Balanced,
             strictness = LineBreak.Strictness.Normal,
             wordBreak = LineBreak.WordBreak.Default,
-        )
+        ),
     )
 
     TransformingLazyColumn(
-        state = state, contentPadding = contentPadding, modifier = modifier
+        state = state,
+        contentPadding = contentPadding,
+        modifier = modifier,
     ) {
         item {
             ListHeader {
@@ -94,7 +111,7 @@ public fun SelectAccountScreen(
                     Text(
                         account.name,
                         style = nameTextStyle,
-                        color = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
                 }
             }

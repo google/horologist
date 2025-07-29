@@ -26,7 +26,7 @@ import com.google.android.horologist.images.base.paintable.Paintable
     replaceWith = ReplaceWith(
         "com.google.android.horologist.auth.composables.material3.models.AccountUiModel",
         "com.google.android.horologist.auth.composables.material3.models.AccountUiModel",
-    )
+    ),
 )
 public data class AccountUiModel(
     val email: String,

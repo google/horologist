@@ -16,11 +16,13 @@
 
 package com.google.android.horologist.compose.layout.m3
 
-import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.ScrollScope
+import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
@@ -70,7 +72,6 @@ import androidx.wear.compose.material3.Text
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -103,6 +104,7 @@ public fun FastScrollingTransformingLazyColumn(
 ) {
     val haptics = LocalHapticFeedback.current
     val screenHeight = LocalWindowInfo.current.containerSize.height
+    val defaultFlingBehavior = ScrollableDefaults.flingBehavior()
 
     val coroutineScope = rememberCoroutineScope()
     var fadingOutJob: Job? by remember { mutableStateOf(null) }
@@ -145,9 +147,6 @@ public fun FastScrollingTransformingLazyColumn(
             }
         }
 
-    var currentAnchorItemIndex by remember { mutableStateOf(state.anchorItemIndex) }
-    var currentAnchorItemOffset by remember { mutableStateOf(state.anchorItemScrollOffset) }
-
     val transition = updateTransition(indicatorState)
 
     val indicatorWidthScale by
@@ -170,47 +169,11 @@ public fun FastScrollingTransformingLazyColumn(
             }
         }
 
-    val indicatorTextPositionY by
-        transition.animateDp(
-            transitionSpec = {
-                when {
-                    IndicatorState.START isTransitioningTo IndicatorState.END -> standard().fastEffectsSpec()
-                    else -> standard().fastEffectsSpec()
-                }
-            },
-            label = "positionY",
-        ) {
-            when (it) {
-                IndicatorState.START -> 5.dp
-                IndicatorState.SPRING -> 2.5.dp
-                IndicatorState.END -> 0.dp
-            }
-        }
-
-    val indicatorTextOpacity by
-        transition.animateFloat(
-            transitionSpec = {
-                when {
-                    IndicatorState.START isTransitioningTo IndicatorState.END -> standard().fastEffectsSpec()
-                    else -> standard().fastEffectsSpec()
-                }
-            },
-            label = "opacity",
-        ) {
-            when (it) {
-                IndicatorState.START -> 0f
-                IndicatorState.SPRING -> .5f
-                IndicatorState.END -> 1f
-            }
-        }
-
     val animationValues by remember {
         derivedStateOf {
             IndicatorAnimationValues(
                 indicatorOpacity,
                 indicatorWidthScale,
-                indicatorTextPositionY,
-                indicatorTextOpacity,
             )
         }
     }
@@ -303,6 +266,13 @@ public fun FastScrollingTransformingLazyColumn(
     Box(modifier = Modifier.fillMaxSize()) {
         TransformingLazyColumn(
             state = state,
+            flingBehavior =
+                object : FlingBehavior {
+                    override suspend fun ScrollScope.performFling(initialVelocity: Float): Float {
+                        isSkimming = false
+                        return with(defaultFlingBehavior) { this@performFling.performFling(initialVelocity) }
+                    }
+                },
             rotaryScrollableBehavior = object : RotaryScrollableBehavior {
                 override suspend fun CoroutineScope.performScroll(
                     timestampMillis: Long,
@@ -365,29 +335,6 @@ public fun FastScrollingTransformingLazyColumn(
         )
 
         LaunchedEffect(key1 = Unit) {
-            snapshotFlow {
-                currentAnchorItemIndex != state.anchorItemIndex ||
-                    currentAnchorItemOffset != state.anchorItemScrollOffset
-            }
-                .filter { it }
-                .collect {
-                    // We determine if we are not skimming if the item index is the same with
-                    // a different scroll offset (caused by swiping up or down with your finger). Although
-                    // this is only for a couple of frames, it is enough to determine that we are not
-                    // skimming and disable fast scrolling.
-                    if (
-                        isSkimming &&
-                        currentAnchorItemIndex == state.anchorItemIndex &&
-                        currentAnchorItemOffset != state.anchorItemScrollOffset
-                    ) {
-                        isSkimming = false
-                    }
-                    currentAnchorItemIndex = state.anchorItemIndex
-                    currentAnchorItemOffset = state.anchorItemScrollOffset
-                }
-        }
-
-        LaunchedEffect(key1 = Unit) {
             snapshotFlow { (state.layoutInfo.visibleItems.firstOrNull()?.index ?: 0) }
                 .collect { visibleItemIndex ->
                     if (!isSkimming && headers.isNotEmpty()) {
@@ -438,13 +385,7 @@ private fun SectionIndicator(
         ) {
             Text(
                 modifier =
-                    Modifier.graphicsLayer {
-                        this.translationY =
-                            animationValues.indicatorTextPositionY.toPx() *
-                            (if (verticalScrollPixels > 0f) -1 else 1)
-                        this.alpha = animationValues.indicatorTextOpacity
-                    }
-                        .padding(horizontal = 16.dp),
+                    Modifier.padding(horizontal = 16.dp),
                 color = MaterialTheme.colorScheme.onSecondary,
                 fontWeight = FontWeight.Bold,
                 text =
@@ -496,8 +437,6 @@ public class HeaderInfo(
 private data class IndicatorAnimationValues(
     val indicatorOpacity: Float,
     val indicatorWidthScale: Float,
-    val indicatorTextPositionY: Dp,
-    val indicatorTextOpacity: Float,
 )
 
 // Indicatior's animation state used to modify the animation values during the animation.

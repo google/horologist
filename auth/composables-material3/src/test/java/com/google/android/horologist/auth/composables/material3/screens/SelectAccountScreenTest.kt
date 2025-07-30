@@ -52,6 +52,11 @@ class SelectAccountScreenTest : WearLegacyScreenTest() {
             SelectAccountScreen(
                 accounts = listOf(
                     AccountUiModel(
+                        email = "thisisaverylongemailaccountsample@example.com",
+                        name = "Extenta Namuratus Hereditus III",
+                        avatar = null,
+                    ),
+                    AccountUiModel(
                         email = "timandrews123@example.com",
                         name = "Timothy Andrews",
                         avatar = null,

@@ -86,6 +86,7 @@ metalava {
 dependencies {
     api(projects.annotations)
 
+    implementation(platform(libs.compose.bom))
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
 
@@ -100,6 +101,8 @@ dependencies {
     implementation(libs.compose.ui.tooling)
     implementation(libs.androidx.wear.tooling.preview)
     implementation(libs.wearcompose.tooling)
+    implementation(libs.androidx.wear.compose.material3)
+    implementation(libs.compose.foundation.foundation)
 
     debugImplementation(libs.compose.ui.toolingpreview)
     debugImplementation(projects.composeTools)

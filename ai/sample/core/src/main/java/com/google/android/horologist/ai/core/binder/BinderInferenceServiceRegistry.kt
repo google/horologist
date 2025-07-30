@@ -46,4 +46,7 @@ class BinderInferenceServiceRegistry(
             )
         }
     }
+
+    override val priority: Int
+        get() = 1
 }

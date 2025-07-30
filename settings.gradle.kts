@@ -15,7 +15,7 @@
  */
 
 plugins {
-    id("com.gradle.develocity") version "4.0.2"
+    id("com.gradle.develocity") version "4.1"
 }
 
 develocity {
@@ -32,6 +32,7 @@ include(":ai:sample:phone")
 include(":ai:sample:wear-core")
 include(":ai:sample:wear-prompt-app")
 include(":ai:sample:wear-gemini")
+include(":ai:sample:wear-gemini-lib")
 include(":ai:ui")
 include(":annotations")
 include(":auth:composables")

@@ -23,3 +23,8 @@ public object InProgressResponseUiModel : ResponseUiModel
 public data class TextResponseUiModel(
     val text: String,
 ) : ResponseUiModel
+
+public data class ImageResponseUiModel(
+    val imageUrl: String? = null,
+    val image: ByteArray? = null,
+) : ResponseUiModel

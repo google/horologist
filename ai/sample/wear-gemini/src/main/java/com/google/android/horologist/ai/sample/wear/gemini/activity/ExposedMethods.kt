@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.ai.sample.wear.prompt
+package com.google.android.horologist.ai.sample.wear.gemini.activity
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import dagger.hilt.android.AndroidEntryPoint
+import android.os.Build
 
-@AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+object ExposedMethods {
+    @JvmStatic
+    fun deviceModel(): String {
+        return Build.MODEL
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            WearApp()
-        }
+    @JvmStatic
+    fun deviceManufacturer(): String {
+        return Build.MANUFACTURER
     }
 }

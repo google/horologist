@@ -19,4 +19,5 @@ package com.google.android.horologist.ai.ui.model
 public data class ModelInstanceUiModel(
     val id: String,
     val name: String,
+    val service: String? = null,
 )

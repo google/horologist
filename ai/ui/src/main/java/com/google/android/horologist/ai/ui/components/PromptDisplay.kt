@@ -19,10 +19,11 @@ package com.google.android.horologist.ai.ui.components
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.wear.compose.material.Card
-import androidx.wear.compose.material.CardDefaults
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.material3.Card
+import androidx.wear.compose.material3.CardDefaults
+import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.SurfaceTransformation
+import androidx.wear.compose.material3.Text
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 
 /**
@@ -32,16 +33,18 @@ import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 public fun TextPromptDisplay(
     prompt: TextPromptUiModel,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
+    transformation: SurfaceTransformation? = null,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        onClick = onClick,
-        backgroundPainter = CardDefaults.cardBackgroundPainter(
-            MaterialTheme.colors.primaryVariant,
-            MaterialTheme.colors.primaryVariant,
+        onClick = onClick ?: {},
+        colors = CardDefaults.cardColors(
+            contentColor = MaterialTheme.colorScheme.secondary,
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
         ),
+        transformation = transformation,
     ) {
-        Text(text = prompt.prompt, color = MaterialTheme.colors.surface)
+        Text(text = prompt.prompt)
     }
 }

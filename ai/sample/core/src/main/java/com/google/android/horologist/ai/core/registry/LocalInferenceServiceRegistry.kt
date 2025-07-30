@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.flowOf
 
 class LocalInferenceServiceRegistry(
     val models: List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>,
+    override val priority: Int = 0,
 ) : InferenceServiceRegistry {
     override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
         return flowOf(models)

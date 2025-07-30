@@ -19,8 +19,6 @@ package com.google.android.horologist.ai.sample.wear.prompt.prompt
 import android.content.Intent
 import android.speech.RecognizerIntent
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Mic
@@ -29,23 +27,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLinkStyles
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.wear.compose.material.Card
-import androidx.wear.compose.material.CardDefaults
-import androidx.wear.compose.material.LocalContentColor
-import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material3.Card
+import androidx.wear.compose.material3.CardDefaults
+import androidx.wear.compose.material3.EdgeButton
+import androidx.wear.compose.material3.EdgeButtonSize
+import androidx.wear.compose.material3.Icon
+import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.ai.sample.prompt.R
+import com.google.android.horologist.ai.sample.wear.prompt.markdown.sampleColors
+import com.google.android.horologist.ai.sample.wear.prompt.markdown.sampleTypography
 import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
 import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
@@ -53,12 +49,9 @@ import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 import com.google.android.horologist.ai.ui.screens.PromptScreen
 import com.google.android.horologist.ai.ui.screens.PromptUiState
-import com.google.android.horologist.compose.material.Button
 import com.mikepenz.markdown.compose.LocalMarkdownColors
 import com.mikepenz.markdown.compose.LocalMarkdownTypography
 import com.mikepenz.markdown.compose.Markdown
-import com.mikepenz.markdown.model.DefaultMarkdownColors
-import com.mikepenz.markdown.model.DefaultMarkdownTypography
 
 @Composable
 fun SamplePromptScreen(
@@ -98,14 +91,17 @@ fun SamplePromptScreen(
         uiState = uiState,
         modifier = modifier,
         onSettingsClick = onSettingsClick,
-    ) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            Button(
+    ) { pending ->
+        EdgeButton(
+            onClick = {
+                voiceLauncher.launch(voiceIntent)
+            },
+            buttonSize = EdgeButtonSize.ExtraSmall,
+            enabled = !pending,
+        ) {
+            Icon(
                 Icons.Default.Mic,
                 contentDescription = stringResource(R.string.prompt_input),
-                onClick = {
-                    voiceLauncher.launch(voiceIntent)
-                },
             )
         }
     }
@@ -116,73 +112,41 @@ private fun SamplePromptScreen(
     uiState: PromptUiState,
     modifier: Modifier = Modifier,
     onSettingsClick: (() -> Unit)? = null,
-    promptEntry: @Composable () -> Unit,
+    promptEntry: @Composable (Boolean) -> Unit,
 ) {
     CompositionLocalProvider(
-        LocalMarkdownColors provides SampleColors(),
-        LocalMarkdownTypography provides SampleTypography(),
+        LocalMarkdownColors provides sampleColors(),
+        LocalMarkdownTypography provides sampleTypography(),
     ) {
         PromptScreen(
             uiState = uiState,
             modifier = modifier,
             promptEntry = promptEntry,
             onSettingsClick = onSettingsClick,
-            promptDisplay = {
-                ModelDisplay(it)
+            promptDisplay = { model, modifier, spec ->
+                ModelDisplay(model, modifier, spec)
             },
         )
     }
 }
 
 @Composable
-private fun SampleTypography(): DefaultMarkdownTypography {
-    val link = MaterialTheme.typography.body1.copy(
-        fontWeight = FontWeight.Bold,
-        textDecoration = TextDecoration.Underline,
-    )
-    val text = MaterialTheme.typography.body1
-    return DefaultMarkdownTypography(
-        h1 = MaterialTheme.typography.title1,
-        h2 = MaterialTheme.typography.title2,
-        h3 = MaterialTheme.typography.title3,
-        h4 = MaterialTheme.typography.caption1,
-        h5 = MaterialTheme.typography.caption2,
-        h6 = MaterialTheme.typography.caption3,
-        text = text,
-        code = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace),
-        quote = MaterialTheme.typography.body2.plus(SpanStyle(fontStyle = FontStyle.Italic)),
-        paragraph = MaterialTheme.typography.body1,
-        ordered = MaterialTheme.typography.body1,
-        bullet = MaterialTheme.typography.body1,
-        list = MaterialTheme.typography.body1,
-        link = link,
-        inlineCode = MaterialTheme.typography.body1.copy(fontFamily = FontFamily.Monospace),
-        textLink = TextLinkStyles(style = link.toSpanStyle()),
-        table = text,
-    )
-}
-
-@Composable
-private fun SampleColors() = DefaultMarkdownColors(
-    text = Color.White,
-    codeText = LocalContentColor.current,
-    linkText = Color.Blue,
-    codeBackground = MaterialTheme.colors.background,
-    inlineCodeBackground = MaterialTheme.colors.background,
-    dividerColor = MaterialTheme.colors.onSurface.copy(alpha = 0.12f),
-    inlineCodeText = LocalContentColor.current,
-    tableText = Color.Unspecified,
-    tableBackground = MaterialTheme.colors.onBackground.copy(alpha = 0.02f),
-)
-
-@Composable
-private fun ModelDisplay(it: PromptOrResponseUiModel) {
-    if (it is TextResponseUiModel) {
-        SampleTextResponseCard(it)
+private fun ModelDisplay(
+    model: PromptOrResponseUiModel,
+    modifier: Modifier = Modifier,
+    transformation: SurfaceTransformation? = null,
+) {
+    if (model is TextResponseUiModel) {
+        SampleTextResponseCard(
+            model,
+            modifier = modifier,
+            transformation = transformation,
+        )
     } else {
         PromptOrResponseDisplay(
-            promptResponse = it,
-            onClick = {},
+            promptResponse = model,
+            modifier = modifier,
+            transformation = transformation,
         )
     }
 }
@@ -192,19 +156,20 @@ public fun SampleTextResponseCard(
     textResponseUiModel: TextResponseUiModel,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    transformation: SurfaceTransformation? = null,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
-        backgroundPainter = CardDefaults.cardBackgroundPainter(
-            MaterialTheme.colors.surface,
-            MaterialTheme.colors.surface,
+        colors = CardDefaults.cardColors(
+            MaterialTheme.colorScheme.surfaceContainer,
         ),
+        transformation = transformation,
     ) {
         Markdown(
             textResponseUiModel.text,
-            colors = SampleColors(),
-            typography = SampleTypography(),
+            colors = sampleColors(),
+            typography = sampleTypography(),
         )
     }
 }
@@ -216,11 +181,15 @@ fun SamplePromptScreenPreviewEmpty() {
     SamplePromptScreen(
         uiState = PromptUiState(),
         promptEntry = {
-            Button(
-                imageVector = Icons.Default.QuestionAnswer,
-                contentDescription = "Ask Again",
+            EdgeButton(
                 onClick = { },
-            )
+                buttonSize = EdgeButtonSize.ExtraSmall,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.QuestionAnswer,
+                    contentDescription = stringResource(R.string.ask_again),
+                )
+            }
         },
     )
 }
@@ -248,11 +217,15 @@ fun SamplePromptScreenPreviewMany() {
             ),
         ),
         promptEntry = {
-            Button(
-                imageVector = Icons.Default.QuestionAnswer,
-                contentDescription = "Ask Again",
+            EdgeButton(
                 onClick = { },
-            )
+                buttonSize = EdgeButtonSize.ExtraSmall,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.QuestionAnswer,
+                    contentDescription = stringResource(R.string.ask_again),
+                )
+            }
         },
     )
 }
@@ -268,14 +241,18 @@ fun SamplePromptScreenPreviewQuestion() {
                 TextPromptUiModel("why did the chicken cross the road?"),
                 TextResponseUiModel("To get to the other side."),
             ),
-            TextPromptUiModel("why did the chicken cross the road?"),
+            true,
         ),
         promptEntry = {
-            Button(
-                imageVector = Icons.Default.QuestionAnswer,
-                contentDescription = "Ask Again",
+            EdgeButton(
                 onClick = { },
-            )
+                buttonSize = EdgeButtonSize.ExtraSmall,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.QuestionAnswer,
+                    contentDescription = stringResource(R.string.ask_again),
+                )
+            }
         },
     )
 }
@@ -292,11 +269,15 @@ fun SamplePromptScreenPreviewMarkdown() {
             ),
         ),
         promptEntry = {
-            Button(
-                imageVector = Icons.Default.QuestionAnswer,
-                contentDescription = "Ask Again",
+            EdgeButton(
                 onClick = { },
-            )
+                buttonSize = EdgeButtonSize.ExtraSmall,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.QuestionAnswer,
+                    contentDescription = stringResource(R.string.ask_again),
+                )
+            }
         },
     )
 }

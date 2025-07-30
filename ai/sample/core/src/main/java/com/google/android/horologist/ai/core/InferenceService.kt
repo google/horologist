@@ -30,6 +30,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
@@ -77,7 +78,7 @@ class InferenceService
                 }
             }
 
-        suspend fun submit(prompt: Prompt): Response {
+        suspend fun submit(prompt: Prompt): ResponseBundle {
             val currentModel = connectedModel.value ?: throw Exception("No model selected")
 
             val (_, service) = models.value?.first { it.first.modelsList.find { it.modelId == currentModel } != null }
@@ -91,11 +92,31 @@ class InferenceService
             )
         }
 
+        suspend fun submitStream(prompt: Prompt): Flow<Response> {
+            val currentModel = connectedModel.value ?: throw Exception("No model selected")
+
+            val (_, service) = models.value?.first { it.first.modelsList.find { it.modelId == currentModel } != null }
+                ?: throw Exception("Service missing")
+
+            return service.answerPromptWithStream(
+                promptRequest {
+                    this.prompt = prompt
+                    this.modelId = currentModel
+                },
+            )
+        }
+
         fun selectModel(modelId: ModelId) {
             connectedModel.value = modelId
         }
 
         fun clearModel() {
             connectedModel.value = null
+        }
+
+        suspend fun currentKnownModels(): List<ModelId> {
+            return models.filterNotNull().first().flatMap {
+                it.first.modelsList.map { it.modelId }
+            }
         }
     }

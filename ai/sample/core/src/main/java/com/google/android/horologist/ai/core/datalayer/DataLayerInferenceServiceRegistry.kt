@@ -32,14 +32,12 @@ class DataLayerInferenceServiceRegistry(
     override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
         return flow {
             val allCapabilities = dataLayerRegistry.capabilityClient.getAllCapabilities(CapabilityClient.FILTER_ALL).await()
-            println("Capabilties")
             allCapabilities.forEach { (key, list) ->
                 println(key)
                 list.nodes.forEach {
                     println(it.id + " " + it.displayName + " " + it.isNearby)
                 }
             }
-            println("End")
 
             val capabilities = dataLayerRegistry.capabilityClient.getCapability(
                 CAPABILITY_INFERENCE_SERVICE,
@@ -53,6 +51,9 @@ class DataLayerInferenceServiceRegistry(
             )
         }
     }
+
+    override val priority: Int
+        get() = 2
 
     companion object {
         val CAPABILITY_INFERENCE_SERVICE = "InferenceService"

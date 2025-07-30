@@ -20,5 +20,7 @@ import com.google.android.horologist.ai.core.InferenceServiceGrpcKt
 import kotlinx.coroutines.flow.Flow
 
 interface InferenceServiceRegistry {
+    val priority: Int
+
     fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>>
 }

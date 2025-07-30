@@ -44,7 +44,7 @@
             android:value="true" />
 
         <activity
-            android:name="com.google.android.horologist.ai.sample.wear.prompt.MainActivity"
+            android:name="com.google.android.horologist.ai.sample.wear.prompt.PromptActivity"
             android:exported="true"
             android:taskAffinity=".main">
 
@@ -55,6 +55,17 @@
             </intent-filter>
 
         </activity>
+
+        <service
+            android:name="com.google.android.horologist.ai.sample.wear.prompt.localgemini.InferenceBinderGrpcServiceImpl"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="grpc.io.action.BIND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="InferenceService"/>
+            </intent-filter>
+        </service>
 
     </application>
 

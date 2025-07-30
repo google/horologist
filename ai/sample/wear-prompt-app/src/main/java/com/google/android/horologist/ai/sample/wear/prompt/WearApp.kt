@@ -19,12 +19,12 @@ package com.google.android.horologist.ai.sample.wear.prompt
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.wear.compose.material3.AppScaffold
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.ai.sample.wear.prompt.prompt.SamplePromptScreen
 import com.google.android.horologist.ai.sample.wear.prompt.settings.SettingsScreen
-import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.nav.SwipeDismissableNavHost
 import com.google.android.horologist.compose.nav.composable
 

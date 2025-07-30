@@ -117,6 +117,8 @@ dependencies {
     implementation(projects.datalayer.grpc)
     ksp(libs.dagger.hiltandroidcompiler)
 
+    implementation(libs.grpc.stub)
+
     implementation(platform(libs.compose.bom))
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)

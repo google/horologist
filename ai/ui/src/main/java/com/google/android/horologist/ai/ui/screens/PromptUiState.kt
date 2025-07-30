@@ -18,10 +18,9 @@ package com.google.android.horologist.ai.ui.screens
 
 import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
 import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
-import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 
 public data class PromptUiState(
     val modelInfo: ModelInstanceUiModel? = null,
     val messages: List<PromptOrResponseUiModel> = listOf(),
-    val inProgress: TextPromptUiModel? = null,
+    val pending: Boolean = false,
 )

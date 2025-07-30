@@ -23,24 +23,32 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ListHeader
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
+import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
+import androidx.wear.compose.material3.Icon
+import androidx.wear.compose.material3.IconButton
+import androidx.wear.compose.material3.IconButtonDefaults
+import androidx.wear.compose.material3.ListHeader
+import androidx.wear.compose.material3.ScreenScaffold
+import androidx.wear.compose.material3.SurfaceTransformation
+import androidx.wear.compose.material3.Text
+import androidx.wear.compose.material3.lazy.TransformationSpec
+import androidx.wear.compose.material3.lazy.rememberTransformationSpec
+import androidx.wear.compose.material3.lazy.transformedHeight
+import androidx.wear.compose.material3.touchTargetAwareSize
 import com.google.android.horologist.ai.ui.R
 import com.google.android.horologist.ai.ui.components.PromptOrResponseDisplay
 import com.google.android.horologist.ai.ui.components.ResponseInProgressCard
-import com.google.android.horologist.ai.ui.components.TextPromptDisplay
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
 import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
 import com.google.android.horologist.ai.ui.model.PromptUiModel
 import com.google.android.horologist.ai.ui.model.ResponseUiModel
-import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
-import com.google.android.horologist.compose.material.Button
+import com.google.android.horologist.compose.layout.ColumnItemType
+import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
 /**
  * A screen to display metrics, e.g. workout metrics.
@@ -52,29 +60,61 @@ public fun PromptScreen(
     uiState: PromptUiState,
     modifier: Modifier = Modifier,
     onSettingsClick: (() -> Unit)? = null,
-    promptDisplay: @Composable (PromptOrResponseUiModel) -> Unit = {
+    promptDisplay: @Composable (PromptOrResponseUiModel, Modifier, SurfaceTransformation) -> Unit = { model, modifier, transformation ->
         PromptOrResponseDisplay(
-            promptResponse = it,
+            promptResponse = model,
             onClick = {},
+            modifier = modifier,
+            transformation = transformation,
         )
     },
-    promptEntry: @Composable () -> Unit,
+    promptEntry: @Composable (Boolean) -> Unit,
 ) {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
-            first = ScalingLazyColumnDefaults.ItemType.Text,
-            last = ScalingLazyColumnDefaults.ItemType.Chip,
-        ),
+    val transformationSpec: TransformationSpec = rememberTransformationSpec()
+    val columnState = rememberTransformingLazyColumnState()
+    val contentPadding = rememberResponsiveColumnPadding(
+        first = ColumnItemType.ListHeader,
+        last = ColumnItemType.Button,
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(columnState = columnState, modifier = modifier) {
+    ScreenScaffold(
+        scrollState = columnState,
+        contentPadding = contentPadding,
+        edgeButton = { promptEntry(uiState.pending) },
+    ) { contentPadding ->
+        TransformingLazyColumn(
+            state = columnState,
+            modifier = modifier,
+            contentPadding = contentPadding,
+        ) {
             item {
-                ListHeader(modifier = Modifier.fillMaxWidth(0.8f)) {
-                    Text(
-                        text = uiState.modelInfo?.name
-                            ?: stringResource(R.string.horologist_unknown_model),
-                    )
+                ListHeader(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec),
+                    transformation = SurfaceTransformation(transformationSpec),
+                ) {
+                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        Text(
+                            text = uiState.modelInfo?.name
+                                ?: stringResource(R.string.horologist_unknown_model),
+                            modifier = Modifier.fillMaxWidth(0.6f),
+                        )
+
+                        if (onSettingsClick != null) {
+                            IconButton(
+                                onClick = onSettingsClick,
+                                modifier = Modifier
+                                    .touchTargetAwareSize(IconButtonDefaults.ExtraSmallButtonSize)
+                                    .align(Alignment.CenterEnd),
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Settings,
+                                    contentDescription = stringResource(R.string.horologist_settings_content_description),
+                                )
+                            }
+                        }
+                    }
                 }
             }
             uiState.messages.forEach {
@@ -84,39 +124,24 @@ public fun PromptScreen(
                         is ResponseUiModel -> PaddingValues(start = 20.dp)
                         else -> PaddingValues()
                     }
-                    Box(
-                        modifier = Modifier
+                    promptDisplay(
+                        it,
+                        Modifier
                             .fillMaxWidth()
-                            .padding(padding),
-                    ) {
-                        promptDisplay(it)
-                    }
-                }
-            }
-            val inProgress = uiState.inProgress
-            if (inProgress != null) {
-                item {
-                    TextPromptDisplay(
-                        prompt = inProgress,
-                        onClick = {},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 5.dp, end = 25.dp),
+                            .padding(padding)
+                            .transformedHeight(this, transformationSpec),
+                        SurfaceTransformation(transformationSpec),
                     )
                 }
-                item {
-                    ResponseInProgressCard(InProgressResponseUiModel)
-                }
             }
-            item {
-                promptEntry()
-            }
-            if (onSettingsClick != null) {
+            val pending = uiState.pending
+            if (pending) {
                 item {
-                    Button(
-                        Icons.Default.Settings,
-                        contentDescription = stringResource(R.string.horologist_settings_content_description),
-                        onClick = onSettingsClick,
+                    ResponseInProgressCard(
+                        InProgressResponseUiModel,
+                        transformation = SurfaceTransformation(transformationSpec),
+                        modifier = Modifier
+                            .transformedHeight(this, transformationSpec),
                     )
                 }
             }

@@ -18,7 +18,9 @@ package com.google.android.horologist.ai.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.wear.compose.material3.SurfaceTransformation
 import com.google.android.horologist.ai.ui.model.FailedResponseUiModel
+import com.google.android.horologist.ai.ui.model.ImageResponseUiModel
 import com.google.android.horologist.ai.ui.model.InProgressResponseUiModel
 import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
@@ -31,23 +33,28 @@ import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 public fun PromptOrResponseDisplay(
     promptResponse: PromptOrResponseUiModel,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
+    transformation: SurfaceTransformation? = null,
 ) {
     when (promptResponse) {
         is TextResponseUiModel -> {
-            TextResponseCard(promptResponse, onClick = onClick, modifier = modifier)
+            TextResponseCard(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
+        }
+
+        is ImageResponseUiModel -> {
+            ImageResponseCard(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
         }
 
         is FailedResponseUiModel -> {
-            FailedResponseChip(promptResponse, modifier = modifier)
+            FailedResponseChip(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
         }
 
         is InProgressResponseUiModel -> {
-            ResponseInProgressCard(promptResponse, modifier = modifier)
+            ResponseInProgressCard(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
         }
 
         is TextPromptUiModel -> {
-            TextPromptDisplay(prompt = promptResponse, modifier = modifier)
+            TextPromptDisplay(prompt = promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
         }
     }
 }

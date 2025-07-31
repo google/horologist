@@ -100,6 +100,7 @@ dependencies {
     implementation(projects.composeMaterial)
     implementation(projects.images.coil)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.compose.foundation.foundation)
     implementation(libs.compose.foundation.foundation.layout)
     implementation(libs.compose.material.iconscore)

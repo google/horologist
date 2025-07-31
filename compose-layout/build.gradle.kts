@@ -86,6 +86,7 @@ metalava {
 dependencies {
     api(projects.annotations)
 
+    implementation(platform(libs.compose.bom))
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
 

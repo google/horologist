@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">Sjekk telefonen</string>
-  <string name="horologist_auth_error_message">Noe gikk galt. Prøv på nytt.</string>
+    <string name="horologist_auth_error_message">Noe gikk galt. Prøv på nytt.</string>
   <string name="horologist_signedin_confirmation_greeting">Hei, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Hei!</string>
   <string name="horologist_signin_prompt_title">Logg på</string>

@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">Tingnan ang iyong telepono</string>
-  <string name="horologist_auth_error_message">Nagkaproblema. Subukan ulit.</string>
+    <string name="horologist_auth_error_message">Nagkaproblema. Subukan ulit.</string>
   <string name="horologist_signedin_confirmation_greeting">Kumusta, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Kumusta!</string>
   <string name="horologist_signin_prompt_title">Mag-sign in</string>

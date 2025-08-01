@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">עליך לבדוק בטלפון שלך</string>
-  <string name="horologist_auth_error_message">משהו השתבש. כדאי לנסות שוב.</string>
+    <string name="horologist_auth_error_message">משהו השתבש. כדאי לנסות שוב.</string>
   <string name="horologist_signedin_confirmation_greeting">שלום, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">היי.</string>
   <string name="horologist_signin_prompt_title">כניסה לחשבון</string>

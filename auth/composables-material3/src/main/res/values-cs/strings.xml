@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">Zkontrolujte svůj telefon</string>
-  <string name="horologist_auth_error_message">Něco se pokazilo. Zkuste to znovu.</string>
+    <string name="horologist_auth_error_message">Něco se pokazilo. Zkuste to znovu.</string>
   <string name="horologist_signedin_confirmation_greeting">Dobrý den, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Dobrý den!</string>
   <string name="horologist_signin_prompt_title">Přihlásit se</string>

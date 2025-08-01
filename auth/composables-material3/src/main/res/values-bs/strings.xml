@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">Provjerite telefon</string>
-  <string name="horologist_auth_error_message">Nešto nije u redu. Pokušajte ponovo.</string>
+    <string name="horologist_auth_error_message">Nešto nije u redu. Pokušajte ponovo.</string>
   <string name="horologist_signedin_confirmation_greeting">Zdravo, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Zdravo!</string>
   <string name="horologist_signin_prompt_title">Prijava</string>

@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">Ստուգեք հեռախոսը</string>
-  <string name="horologist_auth_error_message">Սխալ առաջացավ։ Նորից փորձեք։</string>
+    <string name="horologist_auth_error_message">Սխալ առաջացավ։ Նորից փորձեք։</string>
   <string name="horologist_signedin_confirmation_greeting">Ողջո՛ւյն, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Ողջո՛ւյն</string>
   <string name="horologist_signin_prompt_title">Մուտք գործեք</string>

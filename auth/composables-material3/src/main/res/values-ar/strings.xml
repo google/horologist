@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">عليك الرجوع إلى هاتفك.</string>
-  <string name="horologist_auth_error_message">حدث خطأ. يُرجى إعادة المحاولة.</string>
+    <string name="horologist_auth_error_message">حدث خطأ. يُرجى إعادة المحاولة.</string>
   <string name="horologist_signedin_confirmation_greeting">مرحبًا %s،</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">مرحبًا،</string>
   <string name="horologist_signin_prompt_title">تسجيل الدخول</string>

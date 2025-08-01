@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">スマートフォンを確認してください</string>
-  <string name="horologist_auth_error_message">問題が発生しました。もう一度お試しください。</string>
+    <string name="horologist_auth_error_message">問題が発生しました。もう一度お試しください。</string>
   <string name="horologist_signedin_confirmation_greeting">%s さん</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">こんにちは。</string>
   <string name="horologist_signin_prompt_title">ログイン</string>

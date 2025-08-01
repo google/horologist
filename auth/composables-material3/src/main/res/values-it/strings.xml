@@ -15,7 +15,6 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">Controlla il tuo telefono</string>
   <string name="horologist_auth_error_message">Qualcosa non ha funzionato. Riprova.</string>
   <string name="horologist_signedin_confirmation_greeting">Ciao %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Ciao!</string>

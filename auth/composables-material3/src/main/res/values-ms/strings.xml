@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">Semak telefon anda</string>
-  <string name="horologist_auth_error_message">Ralat telah berlaku. Cuba lagi.</string>
+    <string name="horologist_auth_error_message">Ralat telah berlaku. Cuba lagi.</string>
   <string name="horologist_signedin_confirmation_greeting">Hai %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Hai!</string>
   <string name="horologist_signin_prompt_title">Log Masuk</string>

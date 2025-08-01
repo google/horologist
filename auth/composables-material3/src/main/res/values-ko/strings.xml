@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">휴대전화를 확인하세요</string>
-  <string name="horologist_auth_error_message">문제가 발생했습니다. 다시 시도해 보세요.</string>
+    <string name="horologist_auth_error_message">문제가 발생했습니다. 다시 시도해 보세요.</string>
   <string name="horologist_signedin_confirmation_greeting">%s님, 안녕하세요.</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">안녕하세요.</string>
   <string name="horologist_signin_prompt_title">로그인</string>

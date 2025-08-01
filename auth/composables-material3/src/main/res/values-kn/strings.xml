@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">ನಿಮ್ಮ ಫೋನ್ ಅನ್ನು ಪರಿಶೀಲಿಸಿ</string>
-  <string name="horologist_auth_error_message">ಏನೋ ತಪ್ಪಾಗಿದೆ. ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="horologist_auth_error_message">ಏನೋ ತಪ್ಪಾಗಿದೆ. ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</string>
   <string name="horologist_signedin_confirmation_greeting">ಹಾಯ್, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">ಹಾಯ್!</string>
   <string name="horologist_signin_prompt_title">ಸೈನ್ ಇನ್ ಮಾಡಿ</string>

@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">மொபைலைப் பார்க்கவும்</string>
-  <string name="horologist_auth_error_message">ஏதோ தவறாகிவிட்டது. மீண்டும் முயலவும்.</string>
+    <string name="horologist_auth_error_message">ஏதோ தவறாகிவிட்டது. மீண்டும் முயலவும்.</string>
   <string name="horologist_signedin_confirmation_greeting">வணக்கம் %s,</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">வணக்கம்!</string>
   <string name="horologist_signin_prompt_title">உள்நுழையுங்கள்</string>

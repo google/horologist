@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">ਆਪਣੇ ਫ਼ੋਨ ਦੀ ਜਾਂਚ ਕਰੋ</string>
-  <string name="horologist_auth_error_message">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="horologist_auth_error_message">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
   <string name="horologist_signedin_confirmation_greeting">ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">ਹੈਲੋ!</string>
   <string name="horologist_signin_prompt_title">ਸਾਈਨ-ਇਨ ਕਰੋ</string>

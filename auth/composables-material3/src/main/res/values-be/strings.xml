@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">Працягніце на тэлефоне</string>
-  <string name="horologist_auth_error_message">Нешта пайшло не так. Паўтарыце спробу.</string>
+    <string name="horologist_auth_error_message">Нешта пайшло не так. Паўтарыце спробу.</string>
   <string name="horologist_signedin_confirmation_greeting">Вітаем, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Прывітанне!</string>
   <string name="horologist_signin_prompt_title">Увайдзіце</string>

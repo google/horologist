@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">Telefonunuzu kontrol edin</string>
-  <string name="horologist_auth_error_message">Bir sorun oluştu. Tekrar deneyin.</string>
+    <string name="horologist_auth_error_message">Bir sorun oluştu. Tekrar deneyin.</string>
   <string name="horologist_signedin_confirmation_greeting">Merhaba %s,</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Merhaba!</string>
   <string name="horologist_signin_prompt_title">Oturum Aç</string>

@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">Kiểm tra điện thoại của bạn</string>
-  <string name="horologist_auth_error_message">Đã xảy ra lỗi. Hãy thử lại.</string>
+    <string name="horologist_auth_error_message">Đã xảy ra lỗi. Hãy thử lại.</string>
   <string name="horologist_signedin_confirmation_greeting">Xin chào %s!</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Chào bạn!</string>
   <string name="horologist_signin_prompt_title">Đăng nhập</string>

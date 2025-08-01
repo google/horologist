@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">আপোনাৰ ফ’নটো চাওক</string>
-  <string name="horologist_auth_error_message">কিবা ভুল হ’ল। পুনৰ চেষ্টা কৰক।</string>
+    <string name="horologist_auth_error_message">কিবা ভুল হ’ল। পুনৰ চেষ্টা কৰক।</string>
   <string name="horologist_signedin_confirmation_greeting">নমস্কাৰ, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">নমস্কাৰ!</string>
   <string name="horologist_signin_prompt_title">ছাইন ইন কৰক</string>

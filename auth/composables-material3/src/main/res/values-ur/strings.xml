@@ -15,8 +15,7 @@
  limitations under the License.
 -->
 
-  <string name="horologist_check_your_phone_title">اپنا فون چیک کریں</string>
-  <string name="horologist_auth_error_message">کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔</string>
+    <string name="horologist_auth_error_message">کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔</string>
   <string name="horologist_signedin_confirmation_greeting">آداب، %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">آداب!</string>
   <string name="horologist_signin_prompt_title">سائن ان کریں</string>

@@ -98,7 +98,6 @@ dependencies {
     api(libs.compose.ui)
 
     implementation(projects.images.coil)
-//    implementation(projects.auth.composables)
 
     implementation(libs.compose.foundation.foundation)
     implementation(libs.compose.foundation.foundation.layout)

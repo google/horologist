@@ -1,0 +1,214 @@
+/*
+ * Copyright 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.google.android.horologist.auth.composables.material3.screens
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.dialog.DialogDefaults
+import androidx.wear.compose.material3.ButtonDefaults
+import androidx.wear.compose.material3.ConfirmationDialog
+import androidx.wear.compose.material3.ConfirmationDialogDefaults
+import androidx.wear.compose.material3.FilledTonalButton
+import androidx.wear.compose.material3.Icon
+import androidx.wear.compose.material3.SuccessConfirmationDialog
+import androidx.wear.compose.material3.Text
+import com.google.android.horologist.auth.composables.material3.R
+import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
+import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+import com.google.android.horologist.images.base.paintable.Paintable
+import java.time.Duration
+
+private const val AVATAR_BACKGROUND_COLOR = 0xFF4ECDE6
+private const val AVATAR_TEXT_COLOR = 0xFF202124
+private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
+
+/**
+ * A signed in confirmation dialog that can display the name, email and avatar image of the user.
+ *
+ * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
+ */
+@Composable
+public fun SignedInConfirmationScreen(
+    onDismissOrTimeout: () -> Unit,
+    modifier: Modifier = Modifier,
+    name: String? = null,
+    email: String? = null,
+    avatar: Paintable? = null,
+    defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
+    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis),
+) {
+    var showConfirmation by remember { mutableStateOf(true) }
+
+    Box(Modifier.fillMaxSize()) {
+        FilledTonalButton(
+            modifier = Modifier.align(Alignment.Center),
+            onClick = { showConfirmation = true },
+            label = { Text("Show Confirmation") },
+        )
+    }
+
+        SuccessConfirmationDialog(
+            visible = showConfirmation,
+            onDismissRequest = { showConfirmation = false; onDismissOrTimeout() },
+            curvedText = null,
+            modifier = modifier,
+            durationMillis = duration.toMillis()
+        )/* {
+            Text("Hi, $name")
+
+            Text("hello")
+            Icon(
+                avatar?.rememberPainter() ?: defaultAvatar.rememberPainter(),
+                contentDescription = null,
+                modifier = Modifier.size(ButtonDefaults.ExtraLargeIconSize),
+            )
+        }*/
+}
+
+/**
+ * A [SignedInConfirmationScreen] that can display the name, email and avatar image of an
+ * [AccountUiModel].
+ *
+ * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
+ */
+@Composable
+public fun SignedInConfirmationScreen(
+    onDismissOrTimeout: () -> Unit,
+    modifier: Modifier = Modifier,
+    accountUiModel: AccountUiModel,
+    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis),
+) {
+    SignedInConfirmationScreen(
+        onDismissOrTimeout = onDismissOrTimeout,
+        modifier = modifier,
+        name = accountUiModel.name,
+        email = accountUiModel.email,
+        avatar = accountUiModel.avatar,
+        duration = duration,
+    )
+}
+
+@Composable
+internal fun SignedInConfirmationDialogContent(
+    modifier: Modifier = Modifier,
+    name: String? = null,
+    email: String? = null,
+    avatar: Paintable? = null,
+) {
+    val configuration = LocalConfiguration.current
+    val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
+
+    ScreenScaffold(timeText = {}) {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = horizontalPadding),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            val hasName = !name.isNullOrEmpty()
+
+            Box(
+                modifier = Modifier
+                    .size(60.dp)
+                    .background(color = Color(AVATAR_BACKGROUND_COLOR), shape = CircleShape),
+                contentAlignment = Alignment.Center,
+            ) {
+                if (avatar != null) {
+                    Image(
+                        modifier = Modifier.clip(CircleShape),
+                        painter = avatar.rememberPainter(),
+                        contentDescription = null,
+                        contentScale = ContentScale.Fit,
+                    )
+                } else if (hasName) {
+                    Text(
+                        text = name!!.first().uppercase(),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .fillMaxWidth(),
+                        color = Color(AVATAR_TEXT_COLOR),
+                        fontSize = 24.sp,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
+
+            Text(
+                text = if (hasName) {
+                    stringResource(
+                        id = R.string.horologist_signedin_confirmation_greeting,
+                        name!!,
+                    )
+                } else {
+                    stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)
+                },
+                modifier = Modifier
+                    .padding(top = 8.dp)
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+                style = MaterialTheme.typography.title3,
+            )
+
+            email?.let {
+                Text(
+                    text = email,
+                    modifier = Modifier
+                        .padding(top = 4.dp)
+                        .fillMaxWidth(),
+                    color = MaterialTheme.colors.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.body2,
+                )
+            }
+        }
+    }
+}

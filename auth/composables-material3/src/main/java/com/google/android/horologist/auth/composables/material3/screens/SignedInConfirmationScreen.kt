@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth.composables.material3.screens
 
+import android.R.attr.name
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -51,13 +52,17 @@ import androidx.wear.compose.material.dialog.DialogDefaults
 import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.ConfirmationDialog
 import androidx.wear.compose.material3.ConfirmationDialogDefaults
+import androidx.wear.compose.material3.Dialog
 import androidx.wear.compose.material3.FilledTonalButton
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.SuccessConfirmationDialog
 import androidx.wear.compose.material3.Text
+import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.composables.material3.R
 import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
+import com.google.android.horologist.auth.composables.material3.theme.HorologistMaterialTheme
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
 import java.time.Duration
@@ -83,30 +88,19 @@ public fun SignedInConfirmationScreen(
 ) {
     var showConfirmation by remember { mutableStateOf(true) }
 
-    Box(Modifier.fillMaxSize()) {
-        FilledTonalButton(
-            modifier = Modifier.align(Alignment.Center),
-            onClick = { showConfirmation = true },
-            label = { Text("Show Confirmation") },
+    Dialog(
+        showConfirmation,
+        onDismissRequest = { showConfirmation = false; onDismissOrTimeout() },
+        modifier = modifier,
+    ){
+
+        SignedInConfirmationDialogContent(
+            modifier = modifier,
+            name = name,
+            email = email,
+            avatar = avatar ?: defaultAvatar,
         )
     }
-
-        SuccessConfirmationDialog(
-            visible = showConfirmation,
-            onDismissRequest = { showConfirmation = false; onDismissOrTimeout() },
-            curvedText = null,
-            modifier = modifier,
-            durationMillis = duration.toMillis()
-        )/* {
-            Text("Hi, $name")
-
-            Text("hello")
-            Icon(
-                avatar?.rememberPainter() ?: defaultAvatar.rememberPainter(),
-                contentDescription = null,
-                modifier = Modifier.size(ButtonDefaults.ExtraLargeIconSize),
-            )
-        }*/
 }
 
 /**
@@ -137,7 +131,7 @@ internal fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
-    avatar: Paintable? = null,
+    avatar: Paintable
 ) {
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
@@ -160,7 +154,7 @@ internal fun SignedInConfirmationDialogContent(
             ) {
                 if (avatar != null) {
                     Image(
-                        modifier = Modifier.clip(CircleShape),
+                        modifier = Modifier.clip(MaterialShapes.Pill),
                         painter = avatar.rememberPainter(),
                         contentDescription = null,
                         contentScale = ContentScale.Fit,
@@ -210,5 +204,19 @@ internal fun SignedInConfirmationDialogContent(
                 )
             }
         }
+    }
+}
+
+
+@WearPreviewDevices
+@Composable
+fun SignedInConfirmationScreenContentPreview2() {
+    HorologistMaterialTheme {
+        SignedInConfirmationDialogContent(
+            modifier = Modifier.fillMaxSize(),
+            name = "Timothy Andrews",
+            email = "timandrews123@example.com",
+            avatar = DrawableResPaintable(R.drawable.avatar_small_1),
+        )
     }
 }

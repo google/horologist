@@ -27,6 +27,18 @@ fun SignedInConfirmationScreenPreview() {
 
 @WearPreviewDevices
 @Composable
+fun SignedInConfirmationScreenContentPreview() {
+    HorologistMaterialTheme {
+        SignedInConfirmationDialogContent(
+            modifier = Modifier.fillMaxSize(),
+            name = "Timothy Andrews",
+            email = "timandrews123@example.com",
+            avatar = DrawableResPaintable(R.drawable.avatar_small_1),
+        )
+    }
+}
+@WearPreviewDevices
+@Composable
 fun SignedInConfirmationScreenPreviewNoName() {
     SignedInConfirmationScreen(
         onDismissOrTimeout = {},

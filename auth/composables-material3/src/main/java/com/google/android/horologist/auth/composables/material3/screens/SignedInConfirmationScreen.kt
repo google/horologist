@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth.composables.material3.screens
 
+import android.R.attr.maxLines
 import android.R.attr.name
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,6 +32,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.MaterialShapes
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,7 +51,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.dialog.DialogDefaults
 import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.ConfirmationDialog
@@ -55,6 +58,7 @@ import androidx.wear.compose.material3.ConfirmationDialogDefaults
 import androidx.wear.compose.material3.Dialog
 import androidx.wear.compose.material3.FilledTonalButton
 import androidx.wear.compose.material3.Icon
+import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.SuccessConfirmationDialog
 import androidx.wear.compose.material3.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
@@ -69,7 +73,10 @@ import java.time.Duration
 
 private const val AVATAR_BACKGROUND_COLOR = 0xFF4ECDE6
 private const val AVATAR_TEXT_COLOR = 0xFF202124
-private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
+private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052f
+private const val TOP_PADDING_SCREEN_PERCENTAGE = 0.012f
+private const val BOTTOM_PADDING_SCREEN_PERCENTAGE = 0.092f
+private const val EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE = 0.092f
 
 /**
  * A signed in confirmation dialog that can display the name, email and avatar image of the user.
@@ -92,7 +99,7 @@ public fun SignedInConfirmationScreen(
         showConfirmation,
         onDismissRequest = { showConfirmation = false; onDismissOrTimeout() },
         modifier = modifier,
-    ){
+    ) {
 
         SignedInConfirmationDialogContent(
             modifier = modifier,
@@ -126,6 +133,7 @@ public fun SignedInConfirmationScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 internal fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
@@ -134,30 +142,37 @@ internal fun SignedInConfirmationDialogContent(
     avatar: Paintable
 ) {
     val configuration = LocalConfiguration.current
+    val topPadding = (configuration.screenHeightDp * TOP_PADDING_SCREEN_PERCENTAGE).dp
+    val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
 
     ScreenScaffold(timeText = {}) {
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(horizontal = horizontalPadding),
+                .padding(
+                    top = topPadding,
+                    start = horizontalPadding,
+                    end = horizontalPadding,
+                    bottom = bottomPadding,
+                ),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             val hasName = !name.isNullOrEmpty()
-
             Box(
                 modifier = Modifier
-                    .size(60.dp)
-                    .background(color = Color(AVATAR_BACKGROUND_COLOR), shape = CircleShape),
+                    .padding(4.dp)
+                    .size(96.dp)
+                    .clip(MaterialShapes.Pill.toShape()),
                 contentAlignment = Alignment.Center,
             ) {
                 if (avatar != null) {
                     Image(
-                        modifier = Modifier.clip(MaterialShapes.Pill),
+                        modifier = Modifier.fillMaxSize(),
                         painter = avatar.rememberPainter(),
                         contentDescription = null,
-                        contentScale = ContentScale.Fit,
+                        contentScale = ContentScale.FillBounds,
                     )
                 } else if (hasName) {
                     Text(
@@ -172,6 +187,7 @@ internal fun SignedInConfirmationDialogContent(
                 }
             }
 
+            // Title text
             Text(
                 text = if (hasName) {
                     stringResource(
@@ -182,41 +198,33 @@ internal fun SignedInConfirmationDialogContent(
                     stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)
                 },
                 modifier = Modifier
-                    .padding(top = 8.dp)
                     .fillMaxWidth(),
+                color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
+                overflow = TextOverflow.Clip,
                 maxLines = 1,
-                style = MaterialTheme.typography.title3,
+                style = MaterialTheme.typography.displayMedium,
             )
 
             email?.let {
+                val emailHorizontalPadding =
+                    (configuration.screenWidthDp * EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE).dp
                 Text(
                     text = email,
                     modifier = Modifier
-                        .padding(top = 4.dp)
+                        .padding(
+                            top = 4.dp,
+                            start = emailHorizontalPadding,
+                            end = emailHorizontalPadding,
+                        )
                         .fillMaxWidth(),
-                    color = MaterialTheme.colors.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.body2,
+                    overflow = TextOverflow.Clip,
+                    maxLines = 2,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
         }
-    }
-}
-
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationScreenContentPreview2() {
-    HorologistMaterialTheme {
-        SignedInConfirmationDialogContent(
-            modifier = Modifier.fillMaxSize(),
-            name = "Timothy Andrews",
-            email = "timandrews123@example.com",
-            avatar = DrawableResPaintable(R.drawable.avatar_small_1),
-        )
     }
 }

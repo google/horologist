@@ -15,12 +15,11 @@ import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 @Composable
 fun SignedInConfirmationScreenPreview() {
     HorologistMaterialTheme {
-        SignedInConfirmationScreen(
-            onDismissOrTimeout = {},
+        SignedInConfirmationDialogContent(
             modifier = Modifier.fillMaxSize(),
-            name = "Timothy Andrews",
-            email = "timandrews123@example.com",
-            avatar = DrawableResPaintable(R.drawable.avatar_small_1),
+            name = "Maggie",
+            email = "maggiesworkaccount@gmail.com",
+            avatar = DrawableResPaintable(R.drawable.avatar_small_3),
         )
     }
 }

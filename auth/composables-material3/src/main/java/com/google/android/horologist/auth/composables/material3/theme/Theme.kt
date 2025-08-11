@@ -29,6 +29,9 @@ internal fun HorologistMaterialTheme(content: @Composable () -> Unit) {
             onPrimaryContainer = horologist_on_primary_container,
             onBackground = horologist_on_background,
         ),
+        typography = MaterialTheme.typography.copy(
+            displayLarge = MaterialTheme.typography.displayLarge
+        ),
         content = content,
     )
 }

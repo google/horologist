@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Нешто се случи. Обидете се повторно.</string>
+  <string name="horologist_auth_error_message">Нешто се случи. Обидете се повторно.</string>
   <string name="horologist_signedin_confirmation_greeting">Здраво %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Здраво!</string>
   <string name="horologist_signin_prompt_title">Најавете се</string>

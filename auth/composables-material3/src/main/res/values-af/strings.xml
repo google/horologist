@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Iets is fout. Probeer weer.</string>
+  <string name="horologist_auth_error_message">Iets is fout. Probeer weer.</string>
   <string name="horologist_signedin_confirmation_greeting">Hallo, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Hallo!</string>
   <string name="horologist_signin_prompt_title">Meld aan</string>

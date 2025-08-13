@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Алдаа гарлаа. Дахин оролдоно уу.</string>
+  <string name="horologist_auth_error_message">Алдаа гарлаа. Дахин оролдоно уу.</string>
   <string name="horologist_signedin_confirmation_greeting">Сайн уу, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Сайн уу!</string>
   <string name="horologist_signin_prompt_title">Нэвтрэх</string>

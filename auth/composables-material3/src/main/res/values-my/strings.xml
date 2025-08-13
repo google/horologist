@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">တစ်ခုခုမှားသွားသည်။ ထပ်စမ်းကြည့်ပါ။</string>
+  <string name="horologist_auth_error_message">တစ်ခုခုမှားသွားသည်။ ထပ်စမ်းကြည့်ပါ။</string>
   <string name="horologist_signedin_confirmation_greeting">မင်္ဂလာပါ %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">မင်္ဂလာပါ။</string>
   <string name="horologist_signin_prompt_title">လက်မှတ်ထိုးဝင်ရန်</string>

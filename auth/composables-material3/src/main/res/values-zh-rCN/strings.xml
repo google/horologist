@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">出了点问题。请重试。</string>
+  <string name="horologist_auth_error_message">出了点问题。请重试。</string>
   <string name="horologist_signedin_confirmation_greeting">%s，您好</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">您好！</string>
   <string name="horologist_signin_prompt_title">登录</string>

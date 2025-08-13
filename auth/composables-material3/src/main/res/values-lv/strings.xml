@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Radās kļūda. Mēģiniet vēlreiz.</string>
+  <string name="horologist_auth_error_message">Radās kļūda. Mēģiniet vēlreiz.</string>
   <string name="horologist_signedin_confirmation_greeting">Labdien, %s!</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Labdien!</string>
   <string name="horologist_signin_prompt_title">Pierakstieties</string>

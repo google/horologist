@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Probléma lépett fel. Próbálja újra.</string>
+  <string name="horologist_auth_error_message">Probléma lépett fel. Próbálja újra.</string>
   <string name="horologist_signedin_confirmation_greeting">Kedves %s!</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Üdv!</string>
   <string name="horologist_signin_prompt_title">Bejelentkezés</string>

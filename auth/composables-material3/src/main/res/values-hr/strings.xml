@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Došlo je do pogreške. Pokušajte ponovo.</string>
+  <string name="horologist_auth_error_message">Došlo je do pogreške. Pokušajte ponovo.</string>
   <string name="horologist_signedin_confirmation_greeting">Pozdrav, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Pozdrav!</string>
   <string name="horologist_signin_prompt_title">Prijava</string>

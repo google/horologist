@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Arazoren bat izan da. Saiatu berriro.</string>
+  <string name="horologist_auth_error_message">Arazoren bat izan da. Saiatu berriro.</string>
   <string name="horologist_signedin_confirmation_greeting">Kaixo, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Kaixo!</string>
   <string name="horologist_signin_prompt_title">Hasi saioa</string>

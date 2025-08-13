@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Midagi läks valesti. Proovige uuesti.</string>
+  <string name="horologist_auth_error_message">Midagi läks valesti. Proovige uuesti.</string>
   <string name="horologist_signedin_confirmation_greeting">Tere, %s!</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Tere!</string>
   <string name="horologist_signin_prompt_title">Logi sisse</string>

@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Kunokuthile okungahambanga kahle. Zama futhi.</string>
+  <string name="horologist_auth_error_message">Kunokuthile okungahambanga kahle. Zama futhi.</string>
   <string name="horologist_signedin_confirmation_greeting">Sawubona, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Sawubona!</string>
   <string name="horologist_signin_prompt_title">Ngena ngemvume</string>

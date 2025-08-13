@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">ມີບາງຢ່າງຜິດພາດເກີດຂຶ້ນ. ກະລຸນາລອງໃໝ່.</string>
+  <string name="horologist_auth_error_message">ມີບາງຢ່າງຜິດພາດເກີດຂຶ້ນ. ກະລຸນາລອງໃໝ່.</string>
   <string name="horologist_signedin_confirmation_greeting">ສະບາຍດີ, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">ສະບາຍດີ!</string>
   <string name="horologist_signin_prompt_title">ເຂົ້າສູ່ລະບົບ</string>

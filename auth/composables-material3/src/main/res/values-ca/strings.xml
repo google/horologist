@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">S\'ha produït un error. Torna-ho a provar.</string>
+  <string name="horologist_auth_error_message">S\'ha produït un error. Torna-ho a provar.</string>
   <string name="horologist_signedin_confirmation_greeting">Hola, %s,</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Hola,</string>
   <string name="horologist_signin_prompt_title">Inicia la sessió</string>

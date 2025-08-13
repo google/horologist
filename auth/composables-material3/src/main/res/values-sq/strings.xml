@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Ka ndodhur një gabim. Provo përsëri.</string>
+  <string name="horologist_auth_error_message">Ka ndodhur një gabim. Provo përsëri.</string>
   <string name="horologist_signedin_confirmation_greeting">Ç\'kemi, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Përshëndetje!</string>
   <string name="horologist_signin_prompt_title">Identifikohu</string>

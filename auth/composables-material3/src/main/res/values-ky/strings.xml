@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Бир жерден ката кетти. Кайра аракет кылыңыз.</string>
+  <string name="horologist_auth_error_message">Бир жерден ката кетти. Кайра аракет кылыңыз.</string>
   <string name="horologist_signedin_confirmation_greeting">Салам, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Салам!</string>
   <string name="horologist_signin_prompt_title">Кирүү</string>

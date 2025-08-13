@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">เกิดข้อผิดพลาด โปรดลองอีกครั้ง</string>
+  <string name="horologist_auth_error_message">เกิดข้อผิดพลาด โปรดลองอีกครั้ง</string>
   <string name="horologist_signedin_confirmation_greeting">สวัสดี คุณ %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">สวัสดี</string>
   <string name="horologist_signin_prompt_title">ลงชื่อเข้าใช้</string>

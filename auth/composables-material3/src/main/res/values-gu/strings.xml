@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">કંઈક ખોટું થયું. ફરી પ્રયાસ કરો.</string>
+  <string name="horologist_auth_error_message">કંઈક ખોટું થયું. ફરી પ્રયાસ કરો.</string>
   <string name="horologist_signedin_confirmation_greeting">નમસ્તે, %s</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">નમસ્તે!</string>
   <string name="horologist_signin_prompt_title">સાઇન ઇન કરો</string>

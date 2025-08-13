@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-    <string name="horologist_auth_error_message">Något blev fel. Försök igen.</string>
+  <string name="horologist_auth_error_message">Något blev fel. Försök igen.</string>
   <string name="horologist_signedin_confirmation_greeting">Hej %s!</string>
   <string name="horologist_signedin_confirmation_greeting_no_name">Hej!</string>
   <string name="horologist_signin_prompt_title">Logga in</string>

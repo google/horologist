@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.composables.model
+package com.google.android.horologist.auth.composables.material3.theme
 
-import com.google.android.horologist.images.base.paintable.Paintable
+import androidx.compose.ui.graphics.Color
 
-/**
- * A UI model to represent an account.
- */
-@Deprecated(
-    message = "Please use AccountUiModel in composables-material3",
-)
-public data class AccountUiModel(
-    val email: String,
-    val name: String? = null,
-    val avatar: Paintable? = null,
-)
+internal val horologist_primary: Color = Color(0xFFD3E3FD)
+internal val horologist_on_primary: Color = Color(0xFF001944)
+internal val horologist_primary_container: Color = Color(0xFF04409F)
+internal val horologist_on_primary_container: Color = Color(0xFFD3E3FD)
+internal val horologist_on_background: Color = Color(0xFFFFFFFF)

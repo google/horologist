@@ -98,6 +98,7 @@ dependencies {
     api(libs.androidx.wear.protolayout.material)
     api(libs.androidx.lifecycle.service)
     api(libs.androidx.concurrent.future.ktx)
+    api(libs.androidx.lifecycle.process)
 
     implementation(libs.coil)
     implementation(libs.wearcompose.foundation)

@@ -86,4 +86,6 @@
     <string name="pager_screen_chip_content_description">Pager Screen</string>
     <string name="vertical_pager_screen_chip_content_description">Vertical Pager Screen</string>
     <string name="sample_material_cards">Material Cards Screen</string>
+    <string name="composable_tile_title">Composable Tile</string>
+    <string name="composable_tile_description">Composable Tile</string>
 </resources>

@@ -23,7 +23,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -33,6 +33,8 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.wear.compose.material3.FilledIconButton
+import androidx.wear.compose.material3.Text
 import androidx.wear.protolayout.ColorBuilders.argb
 import androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters
 import androidx.wear.protolayout.DimensionBuilders.dp
@@ -115,11 +117,12 @@ class TileScreenshotTest : WearScreenshotTest() {
         val bitmap = runBlocking {
             capture.renderComposableToBitmap(Size(100f, 100f)) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize(0.5f)
-                            .background(androidx.compose.ui.graphics.Color.Yellow),
-                    )
+                    Canvas(modifier = Modifier.fillMaxSize()) {
+                        drawCircle(androidx.compose.ui.graphics.Color.DarkGray)
+                    }
+                    FilledIconButton(onClick = {}) {
+                        Text("\uD83D\uDC6A")
+                    }
                 }
             }
         }

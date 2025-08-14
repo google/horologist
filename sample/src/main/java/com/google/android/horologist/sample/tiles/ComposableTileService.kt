@@ -41,9 +41,14 @@ import com.google.android.horologist.tiles.images.toImageResource
 import java.util.UUID
 
 class ComposableTileService : SuspendingTileService() {
-    val renderer = ServiceComposableBitmapRenderer(this.application)
-
+    private lateinit var renderer: ServiceComposableBitmapRenderer
     val ComposeId = "circleCompose"
+
+    override fun onCreate() {
+        super.onCreate()
+
+        renderer = ServiceComposableBitmapRenderer(this.application)
+    }
 
     /** This method returns a Tile object, which describes the layout of the Tile. */
     override suspend fun tileRequest(requestParams: TileRequest): Tile {

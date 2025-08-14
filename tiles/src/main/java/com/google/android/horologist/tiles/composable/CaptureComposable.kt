@@ -30,7 +30,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Size
@@ -51,7 +50,6 @@ import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
@@ -118,16 +116,11 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
                     density = outputDensity,
                     display = display,
                 ) {
-                    LaunchedEffect(Unit) {
-                        capture()
-                    }
                     composableContent()
                 }
             }
             return bitmap
         }
-
-        private data class CaptureComposableScope(val capture: () -> Unit)
 
         private fun Size.roundedToIntSize(): IntSize =
             IntSize(width.toInt(), height.toInt())
@@ -169,7 +162,7 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
             density: Density = Density(density = 1f),
             display: Display = (context.getSystemService(DISPLAY_SERVICE) as DisplayManager)
                 .getDisplay(Display.DEFAULT_DISPLAY),
-            content: @Composable CaptureComposableScope.() -> Unit,
+            content: @Composable () -> Unit,
         ): ImageBitmap {
             val presentation = Presentation(context.applicationContext, display).apply {
                 window?.decorView?.let { view ->
@@ -192,7 +185,6 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
 
             val androidBitmap = suspendCancellableCoroutine { continuation ->
                 composeView.setContent {
-                    val coroutineScope = rememberCoroutineScope()
                     val graphicsLayer = rememberGraphicsLayer()
                     Box(
                         modifier = Modifier
@@ -204,14 +196,11 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
                                 drawLayer(graphicsLayer)
                             },
                     ) {
-                        CaptureComposableScope(
-                            capture = {
-                                coroutineScope.launch {
-                                    val composeImageBitmap = graphicsLayer.toImageBitmap()
-                                    continuation.resumeWith(Result.success(composeImageBitmap))
-                                }
-                            },
-                        ).content()
+                        LaunchedEffect(Unit) {
+                            val composeImageBitmap = graphicsLayer.toImageBitmap()
+                            continuation.resumeWith(Result.success(composeImageBitmap))
+                        }
+                        content()
                     }
                 }
             }

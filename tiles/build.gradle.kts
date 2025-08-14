@@ -115,6 +115,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.concurrent.future.ktx)
     testImplementation(libs.androidx.lifecycle.testing)
+    testImplementation(libs.androidx.wear.compose.material3)
     debugImplementation(libs.compose.ui.test.manifest)
 }
 

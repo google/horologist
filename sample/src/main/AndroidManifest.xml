@@ -132,6 +132,22 @@
                 android:name="androidx.wear.tiles.PREVIEW"
                 android:resource="@drawable/example_tile" />
         </service>
+
+        <service
+            android:name=".tiles.ComposableTileService"
+            android:description="@string/composable_tile_description"
+            android:exported="true"
+            android:icon="@drawable/ic_person"
+            android:label="@string/composable_tile_title"
+            android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+            <intent-filter>
+                <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="androidx.wear.tiles.PREVIEW"
+                android:resource="@drawable/composable_tile_preview" />
+        </service>
     </application>
 
 </manifest>

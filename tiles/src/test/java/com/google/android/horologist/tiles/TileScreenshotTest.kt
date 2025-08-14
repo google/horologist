@@ -15,6 +15,7 @@
  */
 
 @file:Suppress("UnstableApiUsage", "DEPRECATION")
+@file:OptIn(ExperimentalTestApi::class)
 
 package com.google.android.horologist.tiles
 
@@ -22,8 +23,16 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.wear.protolayout.ColorBuilders.argb
 import androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters
 import androidx.wear.protolayout.DimensionBuilders.dp
@@ -43,16 +52,16 @@ import com.google.android.horologist.screenshots.rng.WearScreenshotTest
 import com.google.android.horologist.screenshots.tiles.TileLayoutPreview
 import com.google.android.horologist.tiles.images.toImageResource
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 class TileScreenshotTest : WearScreenshotTest() {
-
     override fun testName(suffix: String): String =
         "src/test/screenshots/" +
-            "${javaClass.simpleName}_" +
-            "${testInfo.methodName}_" +
-            "${super.device?.id ?: WearDevice.GenericLargeRound.id}" +
-            "$suffix.png"
+                "${javaClass.simpleName}_" +
+                "${testInfo.methodName}_" +
+                "${super.device?.id ?: WearDevice.GenericLargeRound.id}" +
+                "$suffix.png"
 
     @Composable
     override fun TestScaffold(content: @Composable () -> Unit) {
@@ -95,6 +104,35 @@ class TileScreenshotTest : WearScreenshotTest() {
                 renderer = TestImageTileRenderer(
                     context = context,
                     bitmap = bitmap,
+                ),
+            )
+        }
+    }
+
+    @Test
+    fun composable() {
+        val capture = RobolectricComposableBitmapRenderer()
+        val bitmap = runBlocking {
+            capture.renderComposableToBitmap(Size(100f, 100f)) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(0.5f)
+                            .background(androidx.compose.ui.graphics.Color.Yellow)
+                    )
+                }
+            }
+        }
+
+        runTest {
+            val context = LocalContext.current
+
+            TileLayoutPreview(
+                state = Unit,
+                resourceState = Unit,
+                renderer = TestImageTileRenderer(
+                    context = context,
+                    bitmap = bitmap.asAndroidBitmap(),
                 ),
             )
         }

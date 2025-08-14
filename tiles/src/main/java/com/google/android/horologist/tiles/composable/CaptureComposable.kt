@@ -20,7 +20,6 @@ import android.app.Application
 import android.app.Presentation
 import android.content.Context
 import android.content.Context.DISPLAY_SERVICE
-import android.graphics.Bitmap
 import android.graphics.SurfaceTexture
 import android.hardware.display.DisplayManager
 import android.hardware.display.VirtualDisplay
@@ -35,7 +34,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.layer.drawLayer
 import androidx.compose.ui.graphics.rememberGraphicsLayer
 import androidx.compose.ui.platform.ComposeView
@@ -60,7 +59,7 @@ interface ComposableBitmapRenderer {
     suspend fun renderComposableToBitmap(
         canvasSize: Size,
         composableContent: @Composable () -> Unit,
-    ): Bitmap?
+    ): ImageBitmap
 }
 
 /**
@@ -78,7 +77,7 @@ interface ComposableBitmapRenderer {
 class ComposableBitmapRendererImpl(private val application: Application) :
     ComposableBitmapRenderer {
 
-        private suspend fun <T> useVirtualDisplay(callback: suspend (display: Display) -> T): T? {
+        private suspend fun <T> useVirtualDisplay(callback: suspend (display: Display) -> T): T {
             val texture = SurfaceTexture(false)
             val surface = Surface(texture)
             val virtualDisplay: VirtualDisplay? =
@@ -101,7 +100,7 @@ class ComposableBitmapRendererImpl(private val application: Application) :
         override suspend fun renderComposableToBitmap(
             canvasSize: Size,
             composableContent: @Composable () -> Unit,
-        ): Bitmap? {
+        ): ImageBitmap {
             val bitmap = useVirtualDisplay { display ->
                 val outputDensity = Density(1f)
 
@@ -168,7 +167,7 @@ class ComposableBitmapRendererImpl(private val application: Application) :
             display: Display = (context.getSystemService(DISPLAY_SERVICE) as DisplayManager)
                 .getDisplay(Display.DEFAULT_DISPLAY),
             content: @Composable CaptureComposableScope.() -> Unit,
-        ): Bitmap {
+        ): ImageBitmap {
             val presentation = Presentation(context.applicationContext, display).apply {
                 window?.decorView?.let { view ->
                     view.setViewTreeLifecycleOwner(ProcessLifecycleOwner.get())
@@ -206,7 +205,7 @@ class ComposableBitmapRendererImpl(private val application: Application) :
                             capture = {
                                 coroutineScope.launch {
                                     val composeImageBitmap = graphicsLayer.toImageBitmap()
-                                    continuation.resumeWith(Result.success(composeImageBitmap.asAndroidBitmap()))
+                                    continuation.resumeWith(Result.success(composeImageBitmap))
                                 }
                             },
                         ).content()

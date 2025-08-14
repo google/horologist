@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.google.android.horologist.sample.tiles
 
 import android.graphics.Bitmap
@@ -38,7 +39,6 @@ import com.google.android.horologist.tiles.composable.ComposableBitmapRendererIm
 import com.google.android.horologist.tiles.images.toImageResource
 import java.util.UUID
 
-
 class ComposableTileService : SuspendingTileService() {
     val ComposeId = "circleCompose"
 
@@ -52,7 +52,7 @@ class ComposableTileService : SuspendingTileService() {
                     .setWidth(dp(100f))
                     .setHeight(dp(100f))
                     .setResourceId(ComposeId)
-                    .build()
+                    .build(),
             )
             .build()
 
@@ -63,13 +63,12 @@ class ComposableTileService : SuspendingTileService() {
     }
 
     override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
-
         // Add images to the Resources object, and return
         return Resources.Builder()
             .setVersion(requestParams.version)
             .addIdToImageMapping(
                 ComposeId,
-                circleCompose().copy(Bitmap.Config.ARGB_8888, false).toImageResource()
+                circleCompose().copy(Bitmap.Config.ARGB_8888, false).toImageResource(),
             )
             .build()
     }

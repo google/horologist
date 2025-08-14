@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.wear.compose.material3.FilledIconButton
 import androidx.wear.compose.material3.Text
 import androidx.wear.protolayout.DimensionBuilders.dp
@@ -40,6 +41,8 @@ import com.google.android.horologist.tiles.images.toImageResource
 import java.util.UUID
 
 class ComposableTileService : SuspendingTileService() {
+    val renderer = ComposableBitmapRendererImpl(this.application)
+
     val ComposeId = "circleCompose"
 
     /** This method returns a Tile object, which describes the layout of the Tile. */
@@ -73,9 +76,8 @@ class ComposableTileService : SuspendingTileService() {
             .build()
     }
 
-    private suspend fun circleCompose(): Bitmap {
-        val renderer = ComposableBitmapRendererImpl(this.application)
-        return renderer.renderComposableToBitmap(Size(200f, 200f)) {
+    private suspend fun circleCompose(): Bitmap =
+        renderer.renderComposableToBitmap(Size(200f, 200f)) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Canvas(modifier = Modifier.fillMaxSize()) {
                     drawCircle(Color.DarkGray)
@@ -84,6 +86,5 @@ class ComposableTileService : SuspendingTileService() {
                     Text("\uD83D\uDC6A")
                 }
             }
-        }!!
-    }
+        }.asAndroidBitmap()
 }

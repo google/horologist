@@ -54,9 +54,12 @@ import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 
-interface ComposableBitmapRenderer {
+/**
+ * A renderer that renders a composable to a bitmap.
+ */
+public interface ComposableBitmapRenderer {
 
-    suspend fun renderComposableToBitmap(
+    public suspend fun renderComposableToBitmap(
         canvasSize: Size,
         composableContent: @Composable () -> Unit,
     ): ImageBitmap
@@ -74,7 +77,7 @@ interface ComposableBitmapRenderer {
  *              ImageResult() // etc
  *              }
  */
-class ComposableBitmapRendererImpl(private val application: Application) :
+public class ServiceComposableBitmapRenderer(private val application: Application) :
     ComposableBitmapRenderer {
 
         private suspend fun <T> useVirtualDisplay(callback: suspend (display: Display) -> T): T {

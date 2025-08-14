@@ -36,12 +36,12 @@ import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.TileBuilders.Tile
 import com.google.android.horologist.tiles.SuspendingTileService
-import com.google.android.horologist.tiles.composable.ComposableBitmapRendererImpl
+import com.google.android.horologist.tiles.composable.ServiceComposableBitmapRenderer
 import com.google.android.horologist.tiles.images.toImageResource
 import java.util.UUID
 
 class ComposableTileService : SuspendingTileService() {
-    val renderer = ComposableBitmapRendererImpl(this.application)
+    val renderer = ServiceComposableBitmapRenderer(this.application)
 
     val ComposeId = "circleCompose"
 

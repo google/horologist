@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.google.android.horologist.tiles
 
 import android.os.Looper.getMainLooper
@@ -33,14 +34,13 @@ import org.robolectric.shadows.ShadowLooper
 class RobolectricComposableBitmapRenderer() : ComposableBitmapRenderer {
     override suspend fun renderComposableToBitmap(
         canvasSize: Size,
-        composableContent: @Composable () -> Unit
+        composableContent: @Composable () -> Unit,
     ): ImageBitmap {
-
         val scenario = ActivityScenario.launch(ComponentActivity::class.java)
 
         lateinit var content: View
         scenario.onActivity({ activity ->
-            activity.setContent{ composableContent() }
+            activity.setContent { composableContent() }
             content = activity.findViewById(android.R.id.content)
         })
 

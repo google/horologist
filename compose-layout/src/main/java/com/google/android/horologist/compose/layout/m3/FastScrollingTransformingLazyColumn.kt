@@ -16,8 +16,11 @@
 
 package com.google.android.horologist.compose.layout.m3
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.Orientation
@@ -37,7 +40,6 @@ import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -130,22 +132,11 @@ public fun FastScrollingTransformingLazyColumn(
     var isSkimming by remember { mutableStateOf(false) }
     var rsbScrollCount by remember { mutableIntStateOf(0) }
     var isFirstFastScroll by remember { mutableStateOf(false) }
+    val currentSectionHeader: HeaderInfo? =
+        remember(headers, currentSectionIndex) { headers.getOrNull(currentSectionIndex) }
 
-    val indicatorTransition = updateTransition(isSkimming)
     var indicatorState by remember { mutableStateOf(IndicatorState.START) }
     var pixelsScrolledBy by remember { mutableFloatStateOf(0f) }
-
-    val indicatorOpacity by
-        indicatorTransition.animateFloat(
-            // show immediately the indicator and fade it out slowly
-            transitionSpec = { standard().defaultEffectsSpec() },
-        ) { isShowing ->
-            if (isShowing) {
-                1f
-            } else {
-                0f
-            }
-        }
 
     val transition = updateTransition(indicatorState)
 
@@ -168,15 +159,6 @@ public fun FastScrollingTransformingLazyColumn(
                 IndicatorState.END -> 1f
             }
         }
-
-    val animationValues by remember {
-        derivedStateOf {
-            IndicatorAnimationValues(
-                indicatorOpacity,
-                indicatorWidthScale,
-            )
-        }
-    }
 
     fun setCurrentSectionIndex(firstItemIndex: Int) {
         if (currentSectionIndex != firstItemIndex) {
@@ -264,16 +246,14 @@ public fun FastScrollingTransformingLazyColumn(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        TransformingLazyColumn(
-            state = state,
-            flingBehavior =
-                object : FlingBehavior {
-                    override suspend fun ScrollScope.performFling(initialVelocity: Float): Float {
-                        isSkimming = false
-                        return with(defaultFlingBehavior) { this@performFling.performFling(initialVelocity) }
-                    }
-                },
-            rotaryScrollableBehavior = object : RotaryScrollableBehavior {
+        val flingBehavior = object : FlingBehavior {
+            override suspend fun ScrollScope.performFling(initialVelocity: Float): Float {
+                isSkimming = false
+                return with(defaultFlingBehavior) { this@performFling.performFling(initialVelocity) }
+            }
+        }
+        val rotaryScrollableBehavior =
+            object : RotaryScrollableBehavior {
                 override suspend fun CoroutineScope.performScroll(
                     timestampMillis: Long,
                     delta: Float,
@@ -300,11 +280,7 @@ public fun FastScrollingTransformingLazyColumn(
                     }
 
                     if (isSkimming) {
-                        handleSkim(
-                            currentTime = currentTime,
-                            isScrollingDown = verticalScrollPixels > 0f,
-                            verticalScrollPixels = delta,
-                        )
+                        handleSkim(currentTime = currentTime, isScrollingDown = verticalScrollPixels > 0f, verticalScrollPixels = delta)
                     } else {
                         haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
                         coroutineScope.launch {
@@ -315,9 +291,13 @@ public fun FastScrollingTransformingLazyColumn(
                             state.scrollBy(verticalScrollPixels)
                         }
                     }
-                    true
                 }
-            },
+            }
+
+        TransformingLazyColumn(
+            state = state,
+            flingBehavior = flingBehavior,
+            rotaryScrollableBehavior = rotaryScrollableBehavior,
             modifier =
                 modifier
                     .fillMaxWidth(),
@@ -326,13 +306,13 @@ public fun FastScrollingTransformingLazyColumn(
             content()
         }
 
-        SectionIndicator(
-            animationValues,
-            verticalScrollPixels,
-            { currentSectionIndex },
-            headers,
-            sectionIndictatorTopPadding,
-        )
+        AnimatedVisibility(visible = isSkimming, enter = fadeIn(), exit = fadeOut()) {
+            SectionIndicator(
+                indicatorWidthScale,
+                currentSectionHeader,
+                sectionIndictatorTopPadding,
+            )
+        }
 
         LaunchedEffect(key1 = Unit) {
             snapshotFlow { (state.layoutInfo.visibleItems.firstOrNull()?.index ?: 0) }
@@ -360,54 +340,49 @@ public fun FastScrollingTransformingLazyColumn(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun SectionIndicator(
-    animationValues: IndicatorAnimationValues,
-    verticalScrollPixels: Float,
-    currentSection: () -> Int,
-    headerValues: SnapshotStateList<HeaderInfo>,
+    indicatorWidthScale: Float,
+    currentSectionHeader: HeaderInfo?,
     sectionIndictatorTopPadding: Dp,
 ) {
-    val currentSectionHeader = headerValues.getOrNull(currentSection())
+    val shape = remember { RoundedCornerShape(24.dp) }
+    val annotatedText =
+        remember(currentSectionHeader) {
+            if (currentSectionHeader != null) {
+                val inlineContent = currentSectionHeader.inlineContent
+                if (inlineContent.isNotEmpty()) {
+                    buildAnnotatedString {
+                        appendInlineContent(inlineContent.keys.first())
+                        append(currentSectionHeader.value)
+                    }
+                } else {
+                    buildAnnotatedString { append(currentSectionHeader.value) }
+                }
+            } else {
+                buildAnnotatedString { append("") }
+            }
+        }
+    val inlineContentMap =
+        remember(currentSectionHeader) { currentSectionHeader?.inlineContent ?: mapOf() }
+
     Box(
         contentAlignment = Alignment.TopCenter,
-        modifier =
-            Modifier.graphicsLayer(alpha = animationValues.indicatorOpacity)
-                .fillMaxWidth()
-                .padding(top = sectionIndictatorTopPadding),
+        modifier = Modifier.fillMaxWidth().padding(top = sectionIndictatorTopPadding),
     ) {
         Box(
             modifier =
-                Modifier.graphicsLayer { this.scaleX = animationValues.indicatorWidthScale }
-                    .clip(shape = RoundedCornerShape(24.dp))
+                Modifier.graphicsLayer { this.scaleX = indicatorWidthScale }
+                    .clip(shape)
                     .requiredHeight(Constants.INDICATOR_HEIGHT)
                     .sizeIn(minWidth = Constants.INDICATOR_WIDTH)
                     .background(MaterialTheme.colorScheme.secondary),
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                modifier =
-                    Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = 16.dp),
                 color = MaterialTheme.colorScheme.onSecondary,
                 fontWeight = FontWeight.Bold,
-                text =
-                    if (currentSectionHeader != null) {
-                        val inlineContent = currentSectionHeader.inlineContent
-                        if (inlineContent.isNotEmpty()) {
-                            buildAnnotatedString {
-                                appendInlineContent(inlineContent.keys.first())
-                                append(currentSectionHeader.value)
-                            }
-                        } else {
-                            buildAnnotatedString { append(currentSectionHeader.value) }
-                        }
-                    } else {
-                        buildAnnotatedString { append("") }
-                    },
-                inlineContent =
-                    if (currentSectionHeader != null) {
-                        currentSectionHeader.inlineContent
-                    } else {
-                        mapOf()
-                    },
+                text = annotatedText,
+                inlineContent = inlineContentMap,
             )
         }
     }
@@ -431,12 +406,6 @@ public class HeaderInfo(
     val value: String,
     val inlineContent: Map<String, InlineTextContent> = mapOf(),
     val extraScrollToOffset: Int? = null,
-)
-
-// Mini class used to store the state of the animation at a given time
-private data class IndicatorAnimationValues(
-    val indicatorOpacity: Float,
-    val indicatorWidthScale: Float,
 )
 
 // Indicatior's animation state used to modify the animation values during the animation.

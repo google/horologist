@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 40
 
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
           lfs: 'true'
 
@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 21
 
       - name: Unit Tests
         uses: gradle/gradle-build-action@v3
@@ -55,7 +55,7 @@ jobs:
     timeout-minutes: 40
 
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
           lfs: 'true'
 
@@ -66,7 +66,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 21
 
       - name: Unit Tests
         uses: gradle/gradle-build-action@v3
@@ -93,7 +93,7 @@ jobs:
     timeout-minutes: 40
 
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
           lfs: 'true'
 
@@ -104,7 +104,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 21
 
       - name: Unit Tests 2
         uses: gradle/gradle-build-action@v3
@@ -134,7 +134,7 @@ jobs:
       TERM: dumb
 
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
           lfs: 'true'
 
@@ -145,7 +145,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 21
 
       - name: Compile tests
         uses: gradle/gradle-build-action@v3
@@ -160,7 +160,7 @@ jobs:
     timeout-minutes: 40
 
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
           lfs: 'true'
 
@@ -171,7 +171,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 21
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3

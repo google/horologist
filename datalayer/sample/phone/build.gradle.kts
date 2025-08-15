@@ -29,7 +29,7 @@ android {
     defaultConfig {
         applicationId = "com.google.android.horologist.datalayer.sample"
 
-        minSdk = 21
+        minSdk = 23
         targetSdk = 34
 
         versionCode = 1

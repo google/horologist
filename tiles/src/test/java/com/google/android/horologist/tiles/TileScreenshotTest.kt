@@ -63,7 +63,7 @@ class TileScreenshotTest : WearScreenshotTest() {
         "src/test/screenshots/" +
             "${javaClass.simpleName}_" +
             "${testInfo.methodName}_" +
-                (super.device?.id ?: WearDevice.GenericLargeRound.id) +
+            (super.device?.id ?: WearDevice.GenericLargeRound.id) +
             "$suffix.png"
 
     @Composable

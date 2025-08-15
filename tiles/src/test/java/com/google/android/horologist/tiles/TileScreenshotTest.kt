@@ -33,6 +33,8 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.FilledIconButton
 import androidx.wear.compose.material3.Text
 import androidx.wear.protolayout.ColorBuilders.argb
@@ -115,7 +117,7 @@ class TileScreenshotTest : WearScreenshotTest() {
     fun composable() {
         val capture = RobolectricComposableBitmapRenderer()
         val bitmap = runBlocking {
-            capture.renderComposableToBitmap(Size(100f, 100f)) {
+            capture.renderComposableToBitmap(DpSize(100.dp, 100.dp)) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
                         drawCircle(androidx.compose.ui.graphics.Color.DarkGray)

@@ -22,9 +22,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.FilledIconButton
 import androidx.wear.compose.material3.Text
 import androidx.wear.protolayout.DimensionBuilders.dp
@@ -72,17 +73,22 @@ class ComposableTileService : SuspendingTileService() {
 
     override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
         // Add images to the Resources object, and return
+        val circleComposeBitmap = circleCompose()
         return Resources.Builder()
             .setVersion(requestParams.version)
-            .addIdToImageMapping(
-                ComposeId,
-                circleCompose().copy(Bitmap.Config.ARGB_8888, false).toImageResource(),
-            )
+            .apply {
+                if (circleComposeBitmap != null) {
+                    addIdToImageMapping(
+                        ComposeId,
+                        circleComposeBitmap.copy(Bitmap.Config.ARGB_8888, false).toImageResource(),
+                    )
+                }
+            }
             .build()
     }
 
-    private suspend fun circleCompose(): Bitmap =
-        renderer.renderComposableToBitmap(Size(200f, 200f)) {
+    private suspend fun circleCompose(): Bitmap? =
+        renderer.renderComposableToBitmap(DpSize(100.dp, 100.dp)) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Canvas(modifier = Modifier.fillMaxSize()) {
                     drawCircle(Color.DarkGray)
@@ -91,5 +97,5 @@ class ComposableTileService : SuspendingTileService() {
                     Text("\uD83D\uDC6A")
                 }
             }
-        }.asAndroidBitmap()
+        }?.asAndroidBitmap()
 }

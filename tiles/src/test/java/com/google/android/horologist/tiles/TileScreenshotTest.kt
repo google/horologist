@@ -63,7 +63,7 @@ class TileScreenshotTest : WearScreenshotTest() {
         "src/test/screenshots/" +
             "${javaClass.simpleName}_" +
             "${testInfo.methodName}_" +
-            "${super.device?.id ?: WearDevice.GenericLargeRound.id}" +
+                (super.device?.id ?: WearDevice.GenericLargeRound.id) +
             "$suffix.png"
 
     @Composable
@@ -116,7 +116,7 @@ class TileScreenshotTest : WearScreenshotTest() {
     fun composable() {
         val capture = RobolectricComposableBitmapRenderer()
         val bitmap = runBlocking {
-            capture.renderComposableToBitmap(DpSize(100.dp, 100.dp)) {
+            capture.renderComposableToBitmap(DpSize(400.dp, 300.dp)) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
                         drawCircle(androidx.compose.ui.graphics.Color.DarkGray)

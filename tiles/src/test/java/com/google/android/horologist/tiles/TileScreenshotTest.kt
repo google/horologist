@@ -29,10 +29,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.FilledIconButton
 import androidx.wear.compose.material3.Text
 import androidx.wear.protolayout.ColorBuilders.argb
@@ -62,7 +63,7 @@ class TileScreenshotTest : WearScreenshotTest() {
         "src/test/screenshots/" +
             "${javaClass.simpleName}_" +
             "${testInfo.methodName}_" +
-            "${super.device?.id ?: WearDevice.GenericLargeRound.id}" +
+            (super.device?.id ?: WearDevice.GenericLargeRound.id) +
             "$suffix.png"
 
     @Composable
@@ -115,7 +116,7 @@ class TileScreenshotTest : WearScreenshotTest() {
     fun composable() {
         val capture = RobolectricComposableBitmapRenderer()
         val bitmap = runBlocking {
-            capture.renderComposableToBitmap(Size(100f, 100f)) {
+            capture.renderComposableToBitmap(DpSize(400.dp, 300.dp)) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
                         drawCircle(androidx.compose.ui.graphics.Color.DarkGray)

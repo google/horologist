@@ -20,10 +20,13 @@ import android.os.Looper.getMainLooper
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.unit.DpSize
 import androidx.concurrent.futures.await
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.view.captureToBitmapAsync
@@ -33,14 +36,18 @@ import org.robolectric.shadows.ShadowLooper
 
 class RobolectricComposableBitmapRenderer() : ComposableBitmapRenderer {
     override suspend fun renderComposableToBitmap(
-        canvasSize: Size,
+        canvasSize: DpSize,
         composableContent: @Composable () -> Unit,
     ): ImageBitmap {
         val scenario = ActivityScenario.launch(ComponentActivity::class.java)
 
         lateinit var content: View
         scenario.onActivity({ activity ->
-            activity.setContent { composableContent() }
+            activity.setContent {
+                Box(modifier = Modifier.size(canvasSize)) {
+                    composableContent()
+                }
+            }
             content = activity.findViewById(android.R.id.content)
         })
 

@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 21
 
       - name: Unit Tests
         uses: gradle/gradle-build-action@v3
@@ -66,7 +66,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 21
 
       - name: Unit Tests
         uses: gradle/gradle-build-action@v3
@@ -104,7 +104,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 21
 
       - name: Unit Tests 2
         uses: gradle/gradle-build-action@v3
@@ -145,7 +145,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 21
 
       - name: Compile tests
         uses: gradle/gradle-build-action@v3
@@ -171,7 +171,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 21
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3

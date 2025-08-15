@@ -78,147 +78,147 @@ public interface ComposableBitmapRenderer {
 public class ServiceComposableBitmapRenderer(private val application: Application) :
     ComposableBitmapRenderer {
 
-    private suspend fun <T> useVirtualDisplay(callback: suspend (display: Display) -> T): T? {
-        val texture = SurfaceTexture(false)
-        val surface = Surface(texture)
-        val virtualDisplay =
-            application.getSystemService(DisplayManager::class.java).createVirtualDisplay(
-                "virtualDisplay",
-                1,
-                1,
-                72,
-                surface,
-                DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY,
-            ) ?: return null
+        private suspend fun <T> useVirtualDisplay(callback: suspend (display: Display) -> T): T? {
+            val texture = SurfaceTexture(false)
+            val surface = Surface(texture)
+            val virtualDisplay =
+                application.getSystemService(DisplayManager::class.java).createVirtualDisplay(
+                    "virtualDisplay",
+                    1,
+                    1,
+                    72,
+                    surface,
+                    DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY,
+                ) ?: return null
 
-        val result = callback(virtualDisplay!!.display)
-        virtualDisplay.release()
-        surface.release()
-        texture.release()
-        return result
-    }
+            val result = callback(virtualDisplay!!.display)
+            virtualDisplay.release()
+            surface.release()
+            texture.release()
+            return result
+        }
 
-    override suspend fun renderComposableToBitmap(
-        canvasSize: DpSize,
-        composableContent: @Composable () -> Unit,
-    ): ImageBitmap? {
-        val bitmap = useVirtualDisplay { display ->
-            val density = Density(application)
+        override suspend fun renderComposableToBitmap(
+            canvasSize: DpSize,
+            composableContent: @Composable () -> Unit,
+        ): ImageBitmap? {
+            val bitmap = useVirtualDisplay { display ->
+                val density = Density(application)
 
-            val presentation = Presentation(application, display).apply {
-                window?.decorView?.let { view ->
-                    view.setViewTreeLifecycleOwner(ProcessLifecycleOwner.get())
-                    view.setViewTreeSavedStateRegistryOwner(EmptySavedStateRegistryOwner())
+                val presentation = Presentation(application, display).apply {
+                    window?.decorView?.let { view ->
+                        view.setViewTreeLifecycleOwner(ProcessLifecycleOwner.get())
+                        view.setViewTreeSavedStateRegistryOwner(EmptySavedStateRegistryOwner())
+                    }
+                }
+
+                coroutineScope {
+                    try {
+                        val result = captureComposable(
+                            context = application,
+                            size = canvasSize,
+                            density = density,
+                            presentation = presentation,
+                            coroutineScope = this,
+                        ) {
+                            composableContent()
+                        }
+
+                        result.await()
+                    } finally {
+                        presentation.dismiss()
+                    }
                 }
             }
+            return bitmap
+        }
 
-            coroutineScope {
-                try {
-                    val result = captureComposable(
-                        context = application,
-                        size = canvasSize,
-                        density = density,
-                        presentation = presentation,
-                        coroutineScope = this,
-                    ) {
-                        composableContent()
-                    }
+        private fun Size.roundedToIntSize(): IntSize =
+            IntSize(width.toInt(), height.toInt())
 
-                    result.await()
-                } finally {
-                    presentation.dismiss()
-                }
+        private class EmptySavedStateRegistryOwner : SavedStateRegistryOwner {
+            private val controller = SavedStateRegistryController.create(this).apply {
+                performRestore(null)
             }
-        }
-        return bitmap
-    }
 
-    private fun Size.roundedToIntSize(): IntSize =
-        IntSize(width.toInt(), height.toInt())
+            private val lifecycleOwner: LifecycleOwner = ProcessLifecycleOwner.get()
 
-    private class EmptySavedStateRegistryOwner : SavedStateRegistryOwner {
-        private val controller = SavedStateRegistryController.create(this).apply {
-            performRestore(null)
-        }
+            override val lifecycle: Lifecycle
+                get() =
+                    object : Lifecycle() {
+                        @Suppress("UNNECESSARY_SAFE_CALL")
+                        override fun addObserver(observer: LifecycleObserver) {
+                            lifecycleOwner?.lifecycle?.addObserver(observer)
+                        }
 
-        private val lifecycleOwner: LifecycleOwner = ProcessLifecycleOwner.get()
+                        @Suppress("UNNECESSARY_SAFE_CALL")
+                        override fun removeObserver(observer: LifecycleObserver) {
+                            lifecycleOwner?.lifecycle?.removeObserver(observer)
+                        }
 
-        override val lifecycle: Lifecycle
-            get() =
-                object : Lifecycle() {
-                    @Suppress("UNNECESSARY_SAFE_CALL")
-                    override fun addObserver(observer: LifecycleObserver) {
-                        lifecycleOwner?.lifecycle?.addObserver(observer)
+                        override val currentState = State.INITIALIZED
                     }
 
-                    @Suppress("UNNECESSARY_SAFE_CALL")
-                    override fun removeObserver(observer: LifecycleObserver) {
-                        lifecycleOwner?.lifecycle?.removeObserver(observer)
-                    }
-
-                    override val currentState = State.INITIALIZED
-                }
-
-        override val savedStateRegistry: SavedStateRegistry
-            get() = controller.savedStateRegistry
-    }
-
-    /** Captures composable content, by default using a hidden window on the default display.
-     *
-     *  Be sure to invoke capture() within the composable content (e.g. in a LaunchedEffect) to perform the capture.
-     *  This gives some level of control over when the capture occurs, so it's possible to wait for async resources */
-    private fun captureComposable(
-        context: Context,
-        size: DpSize,
-        density: Density = Density(density = 1f),
-        presentation: Dialog,
-        coroutineScope: CoroutineScope,
-        content: @Composable () -> Unit,
-    ): Deferred<ImageBitmap> {
-        val composeView = ComposeView(context).apply {
-            val intSize = with(density) { size.toSize().roundedToIntSize() }
-            require(intSize.width > 0 && intSize.height > 0) { "pixel size must not have zero dimension" }
-
-            layoutParams = ViewGroup.LayoutParams(intSize.width, intSize.height)
+            override val savedStateRegistry: SavedStateRegistry
+                get() = controller.savedStateRegistry
         }
 
-        presentation.setContentView(composeView, composeView.layoutParams)
-        presentation.show()
+        /** Captures composable content, by default using a hidden window on the default display.
+         *
+         *  Be sure to invoke capture() within the composable content (e.g. in a LaunchedEffect) to perform the capture.
+         *  This gives some level of control over when the capture occurs, so it's possible to wait for async resources */
+        private fun captureComposable(
+            context: Context,
+            size: DpSize,
+            density: Density = Density(density = 1f),
+            presentation: Dialog,
+            coroutineScope: CoroutineScope,
+            content: @Composable () -> Unit,
+        ): Deferred<ImageBitmap> {
+            val composeView = ComposeView(context).apply {
+                val intSize = with(density) { size.toSize().roundedToIntSize() }
+                require(intSize.width > 0 && intSize.height > 0) { "pixel size must not have zero dimension" }
 
-        val result = CompletableDeferred<ImageBitmap>()
-        composeView.setContent {
-            InnerComposable(
-                coroutineScope = coroutineScope,
-                content = content,
-                onResult = {
-                    result.complete(it)
-                },
-            )
+                layoutParams = ViewGroup.LayoutParams(intSize.width, intSize.height)
+            }
+
+            presentation.setContentView(composeView, composeView.layoutParams)
+            presentation.show()
+
+            val result = CompletableDeferred<ImageBitmap>()
+            composeView.setContent {
+                InnerComposable(
+                    coroutineScope = coroutineScope,
+                    content = content,
+                    onResult = {
+                        result.complete(it)
+                    },
+                )
+            }
+
+            return result
         }
 
-        return result
-    }
-
-    @Composable
-    private fun InnerComposable(
-        coroutineScope: CoroutineScope,
-        content: @Composable () -> Unit,
-        onResult: (ImageBitmap) -> Unit,
-    ) {
-        val graphicsLayer = rememberGraphicsLayer()
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .drawWithContent {
-                    graphicsLayer.record {
-                        this@drawWithContent.drawContent()
-                    }
-                    coroutineScope.launch {
-                        onResult(graphicsLayer.toImageBitmap())
-                    }
-                },
+        @Composable
+        private fun InnerComposable(
+            coroutineScope: CoroutineScope,
+            content: @Composable () -> Unit,
+            onResult: (ImageBitmap) -> Unit,
         ) {
-            content()
+            val graphicsLayer = rememberGraphicsLayer()
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .drawWithContent {
+                        graphicsLayer.record {
+                            this@drawWithContent.drawContent()
+                        }
+                        coroutineScope.launch {
+                            onResult(graphicsLayer.toImageBitmap())
+                        }
+                    },
+            ) {
+                content()
+            }
         }
     }
-}

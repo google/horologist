@@ -67,6 +67,8 @@ public interface ComposableBitmapRenderer {
  * Use a virtual display to capture composable content thats on a display.
  * This is necessary because Compose doesn't yet support offscreen bitmap creation (https://issuetracker.google.com/298037598)
  *
+ * Rebecca Frank's implementation https://gist.github.com/riggaroo/0e0072b3e85aa91443659031925fa47c
+ *
  * Original source: https://gist.github.com/iamcalledrob/871568679ad58e64959b097d4ef30738
  * Adapted to use new GraphicsLayer commands (record and toBitmap())
  *     Usage example:

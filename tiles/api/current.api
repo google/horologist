@@ -86,12 +86,12 @@ package com.google.android.horologist.tiles.components {
 package com.google.android.horologist.tiles.composable {
 
   public interface ComposableBitmapRenderer {
-    method public suspend Object? renderComposableToBitmap(long canvasSize, kotlin.jvm.functions.Function0<kotlin.Unit> composableContent, kotlin.coroutines.Continuation<? super androidx.compose.ui.graphics.ImageBitmap>);
+    method public suspend Object? renderComposableToBitmap(long canvasSize, kotlin.jvm.functions.Function0<kotlin.Unit> composableContent, kotlin.coroutines.Continuation<? super androidx.compose.ui.graphics.ImageBitmap?>);
   }
 
   public final class ServiceComposableBitmapRenderer implements com.google.android.horologist.tiles.composable.ComposableBitmapRenderer {
     ctor public ServiceComposableBitmapRenderer(android.app.Application application);
-    method public suspend Object? renderComposableToBitmap(long canvasSize, kotlin.jvm.functions.Function0<kotlin.Unit> composableContent, kotlin.coroutines.Continuation<? super androidx.compose.ui.graphics.ImageBitmap>);
+    method public suspend Object? renderComposableToBitmap(long canvasSize, kotlin.jvm.functions.Function0<kotlin.Unit> composableContent, kotlin.coroutines.Continuation<? super androidx.compose.ui.graphics.ImageBitmap?>);
   }
 
 }

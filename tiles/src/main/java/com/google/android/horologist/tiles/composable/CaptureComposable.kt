@@ -19,7 +19,6 @@ package com.google.android.horologist.tiles.composable
 import android.app.Application
 import android.app.Dialog
 import android.app.Presentation
-import android.content.Context
 import android.graphics.SurfaceTexture
 import android.hardware.display.DisplayManager
 import android.view.Display
@@ -83,17 +82,18 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
         private suspend fun <T> useVirtualDisplay(callback: suspend (display: Display) -> T): T? {
             val texture = SurfaceTexture(false)
             val surface = Surface(texture)
+            val outerContext = application.resources.displayMetrics
             val virtualDisplay =
                 application.getSystemService(DisplayManager::class.java).createVirtualDisplay(
                     "virtualDisplay",
-                    1,
-                    1,
-                    72,
+                    outerContext.widthPixels,
+                    outerContext.heightPixels,
+                    outerContext.densityDpi,
                     surface,
                     DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY,
                 ) ?: return null
 
-            val result = callback(virtualDisplay!!.display)
+            val result = callback(virtualDisplay.display)
             virtualDisplay.release()
             surface.release()
             texture.release()
@@ -105,8 +105,6 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
             composableContent: @Composable () -> Unit,
         ): ImageBitmap? {
             val bitmap = useVirtualDisplay { display ->
-                val density = Density(application)
-
                 val presentation = Presentation(application, display).apply {
                     window?.decorView?.let { view ->
                         view.setViewTreeLifecycleOwner(ProcessLifecycleOwner.get())
@@ -117,9 +115,7 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
                 coroutineScope {
                     try {
                         val result = captureComposable(
-                            context = application,
                             size = canvasSize,
-                            density = density,
                             presentation = presentation,
                             coroutineScope = this,
                         ) {
@@ -170,14 +166,14 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
          *  Be sure to invoke capture() within the composable content (e.g. in a LaunchedEffect) to perform the capture.
          *  This gives some level of control over when the capture occurs, so it's possible to wait for async resources */
         private fun captureComposable(
-            context: Context,
             size: DpSize,
-            density: Density = Density(density = 1f),
             presentation: Dialog,
             coroutineScope: CoroutineScope,
             content: @Composable () -> Unit,
         ): Deferred<ImageBitmap> {
-            val composeView = ComposeView(context).apply {
+            val density = Density(presentation.context)
+
+            val composeView = ComposeView(presentation.context).apply {
                 val intSize = with(density) { size.toSize().roundedToIntSize() }
                 require(intSize.width > 0 && intSize.height > 0) { "pixel size must not have zero dimension" }
 

@@ -17,6 +17,7 @@
 package com.google.android.horologist.components
 
 import android.app.Application
+import android.os.StrictMode
 import com.google.android.horologist.networks.InMemoryStatusLogger
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.status.NetworkRepository
@@ -36,6 +37,24 @@ class SampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        setStrictMode()
+
         SampleAppDI.inject(this)
+    }
+
+    private fun setStrictMode() {
+        StrictMode.setThreadPolicy(
+            StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()
+                .penaltyDeath()
+                .build(),
+        )
+        StrictMode.setVmPolicy(
+            StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .build(),
+        )
     }
 }

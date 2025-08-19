@@ -121,22 +121,28 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
         private suspend fun <T> useVirtualDisplay(callback: suspend (display: Display) -> T): T? {
             val texture = SurfaceTexture(false)
             val surface = Surface(texture)
-            val outerContext = application.resources.displayMetrics
-            val virtualDisplay =
-                application.getSystemService(DisplayManager::class.java).createVirtualDisplay(
-                    "virtualDisplay",
-                    outerContext.widthPixels,
-                    outerContext.heightPixels,
-                    outerContext.densityDpi,
-                    surface,
-                    DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY,
-                ) ?: return null
 
-            val result = withContext(Dispatchers.Main) { callback(virtualDisplay.display) }
-            virtualDisplay.release()
-            surface.release()
-            texture.release()
-            return result
+            try {
+                val outerContext = application.resources.displayMetrics
+                val virtualDisplay =
+                    application.getSystemService(DisplayManager::class.java).createVirtualDisplay(
+                        "virtualDisplay",
+                        outerContext.widthPixels,
+                        outerContext.heightPixels,
+                        outerContext.densityDpi,
+                        surface,
+                        DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY,
+                    ) ?: return null
+
+                try {
+                    return withContext(Dispatchers.Main) { callback(virtualDisplay.display) }
+                } finally {
+                    virtualDisplay.release()
+                }
+            } finally {
+                surface.release()
+                texture.release()
+            }
         }
 
         private class EmptySavedStateRegistryOwner : SavedStateRegistryOwner {

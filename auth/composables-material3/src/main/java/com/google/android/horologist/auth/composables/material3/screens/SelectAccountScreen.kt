@@ -57,7 +57,7 @@ public fun SelectAccountScreen(
     val state = rememberTransformingLazyColumnState()
     val transformationSpec = rememberTransformationSpec()
 
-    val nameTextStyle = MaterialTheme.typography.titleMedium.copy(
+    val emailTextStyle = MaterialTheme.typography.labelSmall.copy(
         lineBreak = LineBreak(
             strategy = LineBreak.Strategy.Balanced,
             strictness = LineBreak.Strictness.Normal,
@@ -88,21 +88,22 @@ public fun SelectAccountScreen(
                             Image(
                                 it.rememberPainter(),
                                 contentDescription = null,
-                                modifier = Modifier.size(ButtonDefaults.ExtraLargeIconSize),
+                                modifier = Modifier.size(ButtonDefaults.LargeIconSize),
                             )
                         } ?: run {
                             Icon(
                                 defaultAvatar.rememberPainter(),
                                 contentDescription = null,
-                                modifier = Modifier.size(ButtonDefaults.ExtraLargeIconSize),
+                                modifier = Modifier.size(ButtonDefaults.LargeIconSize),
                             )
                         }
                     },
-                    contentPadding = ButtonDefaults.ButtonWithExtraLargeIconContentPadding,
+                    contentPadding = ButtonDefaults.ButtonWithLargeIconContentPadding,
                     colors = ButtonDefaults.filledTonalButtonColors(),
                     secondaryLabel = {
                         Text(
                             account.email,
+                            style = emailTextStyle,
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 1,
                         )
@@ -110,7 +111,9 @@ public fun SelectAccountScreen(
                 ) {
                     Text(
                         account.name,
-                        style = nameTextStyle,
+                        style = MaterialTheme.typography.titleMedium,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 2,
                         color = MaterialTheme.colorScheme.onBackground,
                     )
                 }

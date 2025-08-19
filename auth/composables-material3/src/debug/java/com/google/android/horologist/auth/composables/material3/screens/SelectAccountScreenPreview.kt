@@ -32,12 +32,12 @@ fun SelectAccountScreenPreview() {
                 AccountUiModel(
                     email = "timandrews123@example.com",
                     name = "Timothy Andrews",
-                    avatar = DrawableResPaintable(R.drawable.avatar_small_1),
+                    avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_1),
                 ),
                 AccountUiModel(
                     email = "thisisaverylongemailaccountsample@example.com",
                     name = "Kim Wong",
-                    avatar = DrawableResPaintable(R.drawable.avatar_small_2),
+                    avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_2),
                 ),
             ),
             onAccountClicked = { _, _ -> },
@@ -84,7 +84,7 @@ fun SelectAccountScreenOneLineAccountsPreview() {
                 AccountUiModel(
                     email = "timandrews123@example.com",
                     name = "Tim Andrews",
-                    avatar = DrawableResPaintable(R.drawable.avatar_small_1),
+                    avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_1),
                 ),
                 AccountUiModel(
                     email = "john@example.com",

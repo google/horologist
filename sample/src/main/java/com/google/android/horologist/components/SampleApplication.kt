@@ -51,8 +51,10 @@ class SampleApplication : Application() {
                 .penaltyDeath()
                 .build(),
         )
-        StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder()
-            .detectAll()
-            .build())
+        StrictMode.setVmPolicy(
+            StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .build(),
+        )
     }
 }

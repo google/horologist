@@ -87,7 +87,7 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
                 application.getSystemService(DisplayManager::class.java).createVirtualDisplay(
                     "virtualDisplay",
                     outerContext.widthPixels,
-                    outerContext.widthPixels,
+                    outerContext.heightPixels,
                     outerContext.densityDpi,
                     surface,
                     DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY,

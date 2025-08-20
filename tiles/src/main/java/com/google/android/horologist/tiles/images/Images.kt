@@ -19,6 +19,8 @@ package com.google.android.horologist.tiles.images
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.wear.protolayout.ResourceBuilders
 import androidx.wear.protolayout.ResourceBuilders.IMAGE_FORMAT_ARGB_8888
 import androidx.wear.protolayout.ResourceBuilders.IMAGE_FORMAT_RGB_565
@@ -90,3 +92,11 @@ public fun Bitmap.toImageResource(): ImageResource {
     )
         .build()
 }
+
+/**
+ * Convert a [ImageBitmap] to a ImageResource.
+ *
+ * Format will be one of IMAGE_FORMAT_ARGB_8888, IMAGE_FORMAT_RGB_565 or IMAGE_FORMAT_UNDEFINED,
+ * based on the bitmap.
+ */
+public fun ImageBitmap.toImageResource(): ImageResource = this.asAndroidBitmap().toImageResource()

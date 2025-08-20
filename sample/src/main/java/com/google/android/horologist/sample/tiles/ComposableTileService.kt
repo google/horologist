@@ -16,14 +16,13 @@
 
 package com.google.android.horologist.sample.tiles
 
-import android.graphics.Bitmap
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.FilledIconButton
@@ -39,6 +38,8 @@ import androidx.wear.tiles.TileBuilders.Tile
 import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.composable.ServiceComposableBitmapRenderer
 import com.google.android.horologist.tiles.images.toImageResource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.UUID
 
 class ComposableTileService : SuspendingTileService() {
@@ -80,14 +81,14 @@ class ComposableTileService : SuspendingTileService() {
                 if (circleComposeBitmap != null) {
                     addIdToImageMapping(
                         ComposeId,
-                        circleComposeBitmap.copy(Bitmap.Config.ARGB_8888, false).toImageResource(),
+                        circleComposeBitmap.toImageResource(),
                     )
                 }
             }
             .build()
     }
 
-    private suspend fun circleCompose(): Bitmap? =
+    private suspend fun circleCompose(): ImageBitmap? = withContext(Dispatchers.Default) {
         renderer.renderComposableToBitmap(DpSize(100.dp, 100.dp)) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Canvas(modifier = Modifier.fillMaxSize()) {
@@ -97,5 +98,6 @@ class ComposableTileService : SuspendingTileService() {
                     Text("\uD83D\uDC6A")
                 }
             }
-        }?.asAndroidBitmap()
+        }
+    }
 }

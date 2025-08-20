@@ -25,18 +25,21 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.ImageBitmapConfig
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.DpSize
 import androidx.concurrent.futures.await
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.view.captureToBitmapAsync
 import com.google.android.horologist.tiles.composable.ComposableBitmapRenderer
+import com.google.android.horologist.tiles.composable.convert
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.shadows.ShadowLooper
 
 class RobolectricComposableBitmapRenderer() : ComposableBitmapRenderer {
     override suspend fun renderComposableToBitmap(
         canvasSize: DpSize,
+        config: ImageBitmapConfig?,
         composableContent: @Composable () -> Unit,
     ): ImageBitmap {
         val scenario = ActivityScenario.launch(ComponentActivity::class.java)
@@ -54,6 +57,11 @@ class RobolectricComposableBitmapRenderer() : ComposableBitmapRenderer {
         shadowOf(getMainLooper()).idle()
         ShadowLooper.idleMainLooper()
 
-        return content.captureToBitmapAsync().await().asImageBitmap()
+        val rawBitmap = content.captureToBitmapAsync().await().asImageBitmap()
+        return if (config != null) {
+            rawBitmap.convert(config)
+        } else {
+            rawBitmap
+        }
     }
 }

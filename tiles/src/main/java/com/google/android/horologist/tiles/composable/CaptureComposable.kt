@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.ImageBitmapConfig
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.rememberGraphicsLayer
@@ -63,6 +64,7 @@ public interface ComposableBitmapRenderer {
 
     public suspend fun renderComposableToBitmap(
         canvasSize: DpSize,
+        config: ImageBitmapConfig? = ImageBitmapConfig.Rgb565,
         composableContent: @Composable () -> Unit,
     ): ImageBitmap?
 }
@@ -74,18 +76,13 @@ public interface ComposableBitmapRenderer {
  * Rebecca Frank's implementation https://gist.github.com/riggaroo/0e0072b3e85aa91443659031925fa47c
  *
  * Original source: https://gist.github.com/iamcalledrob/871568679ad58e64959b097d4ef30738
- * Adapted to use new GraphicsLayer commands (record and toBitmap())
- *     Usage example:
- *     val offscreenBitmapManager = OffscreenBitmapManager(context)
- *     val bitmap = offscreenBitmapManager.renderComposableToBitmap {
- *              ImageResult() // etc
- *              }
  */
 public class ServiceComposableBitmapRenderer(private val application: Application) :
     ComposableBitmapRenderer {
 
         override suspend fun renderComposableToBitmap(
             canvasSize: DpSize,
+            config: ImageBitmapConfig?,
             composableContent: @Composable () -> Unit,
         ): ImageBitmap? {
             val bitmap = useVirtualDisplay { display ->
@@ -112,7 +109,11 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
                     }
                 }
             }
-            return bitmap?.asAndroidBitmap()?.copy(Bitmap.Config.ARGB_8888, false)?.asImageBitmap()
+            return if (config != null && bitmap != null) {
+                bitmap.convert(config)
+            } else {
+                bitmap
+            }
         }
 
         private fun Size.roundedToIntSize(): IntSize =
@@ -231,3 +232,23 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
             }
         }
     }
+
+internal fun ImageBitmapConfig.toBitmapConfig(): Bitmap.Config {
+    return if (this == ImageBitmapConfig.Argb8888) {
+        Bitmap.Config.ARGB_8888
+    } else if (this == ImageBitmapConfig.Alpha8) {
+        Bitmap.Config.ALPHA_8
+    } else if (this == ImageBitmapConfig.Rgb565) {
+        Bitmap.Config.RGB_565
+    } else if (this == ImageBitmapConfig.F16) {
+        Bitmap.Config.RGBA_F16
+    } else if (this == ImageBitmapConfig.Gpu) {
+        Bitmap.Config.HARDWARE
+    } else {
+        Bitmap.Config.ARGB_8888
+    }
+}
+
+internal fun ImageBitmap.convert(config: ImageBitmapConfig): ImageBitmap {
+    return this.asAndroidBitmap().copy(config.toBitmapConfig(), false).asImageBitmap()
+}

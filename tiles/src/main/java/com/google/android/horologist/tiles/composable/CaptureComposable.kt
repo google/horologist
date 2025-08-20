@@ -19,6 +19,7 @@ package com.google.android.horologist.tiles.composable
 import android.app.Application
 import android.app.Dialog
 import android.app.Presentation
+import android.graphics.Bitmap
 import android.graphics.SurfaceTexture
 import android.hardware.display.DisplayManager
 import android.view.Display
@@ -31,6 +32,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.rememberGraphicsLayer
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.Density
@@ -48,8 +51,10 @@ import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * A renderer that renders a composable to a bitmap.
@@ -79,27 +84,6 @@ public interface ComposableBitmapRenderer {
 public class ServiceComposableBitmapRenderer(private val application: Application) :
     ComposableBitmapRenderer {
 
-        private suspend fun <T> useVirtualDisplay(callback: suspend (display: Display) -> T): T? {
-            val texture = SurfaceTexture(false)
-            val surface = Surface(texture)
-            val outerContext = application.resources.displayMetrics
-            val virtualDisplay =
-                application.getSystemService(DisplayManager::class.java).createVirtualDisplay(
-                    "virtualDisplay",
-                    outerContext.widthPixels,
-                    outerContext.heightPixels,
-                    outerContext.densityDpi,
-                    surface,
-                    DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY,
-                ) ?: return null
-
-            val result = callback(virtualDisplay.display)
-            virtualDisplay.release()
-            surface.release()
-            texture.release()
-            return result
-        }
-
         override suspend fun renderComposableToBitmap(
             canvasSize: DpSize,
             composableContent: @Composable () -> Unit,
@@ -128,11 +112,38 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
                     }
                 }
             }
-            return bitmap
+            return bitmap?.asAndroidBitmap()?.copy(Bitmap.Config.ARGB_8888, false)?.asImageBitmap()
         }
 
         private fun Size.roundedToIntSize(): IntSize =
             IntSize(width.toInt(), height.toInt())
+
+        private suspend fun <T> useVirtualDisplay(callback: suspend (display: Display) -> T): T? {
+            val texture = SurfaceTexture(false)
+            val surface = Surface(texture)
+
+            try {
+                val outerContext = application.resources.displayMetrics
+                val virtualDisplay =
+                    application.getSystemService(DisplayManager::class.java).createVirtualDisplay(
+                        "virtualDisplay",
+                        outerContext.widthPixels,
+                        outerContext.heightPixels,
+                        outerContext.densityDpi,
+                        surface,
+                        DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY,
+                    ) ?: return null
+
+                try {
+                    return withContext(Dispatchers.Main) { callback(virtualDisplay.display) }
+                } finally {
+                    virtualDisplay.release()
+                }
+            } finally {
+                surface.release()
+                texture.release()
+            }
+        }
 
         private class EmptySavedStateRegistryOwner : SavedStateRegistryOwner {
             private val controller = SavedStateRegistryController.create(this).apply {

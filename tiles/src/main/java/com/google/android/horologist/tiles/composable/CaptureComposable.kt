@@ -43,7 +43,6 @@ import androidx.compose.ui.unit.IntSize
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
@@ -77,7 +76,10 @@ public interface ComposableBitmapRenderer {
  *
  * Original source: https://gist.github.com/iamcalledrob/871568679ad58e64959b097d4ef30738
  */
-public class ServiceComposableBitmapRenderer(private val application: Application) :
+public class ServiceComposableBitmapRenderer(
+    private val application: Application,
+    private val lifecycleOwner: LifecycleOwner,
+) :
     ComposableBitmapRenderer {
 
         override suspend fun renderComposableToBitmap(
@@ -88,7 +90,7 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
             val bitmap = useVirtualDisplay { display ->
                 val presentation = Presentation(application, display).apply {
                     window?.decorView?.let { view ->
-                        view.setViewTreeLifecycleOwner(ProcessLifecycleOwner.get())
+                        view.setViewTreeLifecycleOwner(lifecycleOwner)
                         view.setViewTreeSavedStateRegistryOwner(EmptySavedStateRegistryOwner())
                     }
                 }
@@ -146,12 +148,12 @@ public class ServiceComposableBitmapRenderer(private val application: Applicatio
             }
         }
 
-        private class EmptySavedStateRegistryOwner : SavedStateRegistryOwner {
+        private inner class EmptySavedStateRegistryOwner : SavedStateRegistryOwner {
             private val controller = SavedStateRegistryController.create(this).apply {
                 performRestore(null)
             }
 
-            private val lifecycleOwner: LifecycleOwner = ProcessLifecycleOwner.get()
+            private val lifecycleOwner: LifecycleOwner = this@ServiceComposableBitmapRenderer.lifecycleOwner
 
             override val lifecycle: Lifecycle
                 get() =

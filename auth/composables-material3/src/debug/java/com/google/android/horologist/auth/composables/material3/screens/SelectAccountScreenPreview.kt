@@ -30,7 +30,11 @@ fun SelectAccountScreenPreview() {
         SelectAccountScreen(
             accounts = listOf(
                 AccountUiModel(
-                    email = "timandrews123@example.com",
+                    email = "john@example.com",
+                    name = "John Doe",
+                ),
+                AccountUiModel(
+                    email = "tim@example.com",
                     name = "Timothy Andrews",
                     avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_1),
                 ),
@@ -82,13 +86,13 @@ fun SelectAccountScreenOneLineAccountsPreview() {
         SelectAccountScreen(
             accounts = listOf(
                 AccountUiModel(
+                    email = "john@example.com",
+                    name = "John Doe",
+                ),
+                AccountUiModel(
                     email = "timandrews123@example.com",
                     name = "Tim Andrews",
                     avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_1),
-                ),
-                AccountUiModel(
-                    email = "john@example.com",
-                    name = "John Doe",
                 ),
             ),
             onAccountClicked = { _, _ -> },

@@ -22,11 +22,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.LineBreak
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
@@ -51,7 +53,7 @@ public fun SelectAccountScreen(
     onAccountClicked: (index: Int, account: AccountUiModel) -> Unit,
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_select_account_title),
-    defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
+    defaultAvatar: Paintable = Icons.Outlined.AccountCircle.asPaintable(),
     contentPadding: PaddingValues = defaultContentPadding(),
 ) {
     val state = rememberTransformingLazyColumnState()
@@ -84,28 +86,30 @@ public fun SelectAccountScreen(
                         .transformedHeight(this@item, transformationSpec),
                     transformation = SurfaceTransformation(transformationSpec),
                     icon = {
+                        val modifier = Modifier.size(ButtonDefaults.ExtraLargeIconSize)
                         account.avatar?.let {
                             Image(
                                 it.rememberPainter(),
                                 contentDescription = null,
-                                modifier = Modifier.size(ButtonDefaults.LargeIconSize),
+                                modifier = modifier
                             )
                         } ?: run {
                             Icon(
                                 defaultAvatar.rememberPainter(),
                                 contentDescription = null,
-                                modifier = Modifier.size(ButtonDefaults.LargeIconSize),
+                                modifier = modifier
                             )
                         }
                     },
-                    contentPadding = ButtonDefaults.ButtonWithLargeIconContentPadding,
+                    contentPadding = ButtonDefaults.ButtonWithExtraLargeIconContentPadding,
                     colors = ButtonDefaults.filledTonalButtonColors(),
                     secondaryLabel = {
                         Text(
                             account.email,
                             style = emailTextStyle,
                             overflow = TextOverflow.Ellipsis,
-                            maxLines = 1,
+                            maxLines = 2,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     },
                 ) {

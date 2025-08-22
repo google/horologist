@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
@@ -78,7 +79,7 @@ public interface ComposableBitmapRenderer {
  */
 public class ServiceComposableBitmapRenderer(
     private val application: Application,
-    private val lifecycleOwner: LifecycleOwner,
+    private val lifecycleOwner: LifecycleOwner = ProcessLifecycleOwner.get(),
 ) :
     ComposableBitmapRenderer {
 

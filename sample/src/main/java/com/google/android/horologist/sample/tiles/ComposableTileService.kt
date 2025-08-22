@@ -49,7 +49,7 @@ class ComposableTileService : SuspendingTileService() {
     override fun onCreate() {
         super.onCreate()
 
-        renderer = ServiceComposableBitmapRenderer(this.application)
+        renderer = ServiceComposableBitmapRenderer(this.application, this)
     }
 
     /** This method returns a Tile object, which describes the layout of the Tile. */

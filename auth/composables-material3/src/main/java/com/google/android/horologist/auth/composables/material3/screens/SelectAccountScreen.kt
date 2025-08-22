@@ -134,9 +134,11 @@ private fun defaultContentPadding(): PaddingValues {
 
     val horizontalPadding = (screenWidthDp * 0.052f)
     val topPadding = (screenHeightDp * 0.1f)
+    val bottomPadding = (screenHeightDp * 0.3646f)
     return PaddingValues(
         start = horizontalPadding,
         top = topPadding,
         end = horizontalPadding,
+        bottom = bottomPadding
     )
 }

@@ -21,14 +21,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.LineBreak
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
@@ -79,6 +77,7 @@ public fun SelectAccountScreen(
         }
         accounts.forEachIndexed { index, account ->
             item {
+                val hasAvatar = account.avatar != null
                 Button(
                     onClick = { onAccountClicked(index, account) },
                     modifier = Modifier
@@ -86,22 +85,27 @@ public fun SelectAccountScreen(
                         .transformedHeight(this@item, transformationSpec),
                     transformation = SurfaceTransformation(transformationSpec),
                     icon = {
-                        val modifier = Modifier.size(ButtonDefaults.ExtraLargeIconSize)
-                        account.avatar?.let {
+                        if(hasAvatar) {
                             Image(
-                                it.rememberPainter(),
+                                account.avatar.rememberPainter(),
                                 contentDescription = null,
-                                modifier = modifier
+                                modifier = Modifier
+                                    .size(ButtonDefaults.LargeIconSize)
                             )
-                        } ?: run {
+                        } else {
                             Icon(
                                 defaultAvatar.rememberPainter(),
                                 contentDescription = null,
-                                modifier = modifier
+                                modifier = Modifier
+                                    .size(ButtonDefaults.IconSize)
                             )
                         }
                     },
-                    contentPadding = ButtonDefaults.ButtonWithExtraLargeIconContentPadding,
+                    contentPadding = if(hasAvatar){
+                        ButtonDefaults.ButtonWithLargeIconContentPadding
+                    } else {
+                        ButtonDefaults.ContentPadding
+                    },
                     colors = ButtonDefaults.filledTonalButtonColors(),
                     secondaryLabel = {
                         Text(

@@ -139,7 +139,7 @@ public class ServiceComposableBitmapRenderer(
                     ) ?: return null
 
                 try {
-                    return withContext(Dispatchers.Main) { callback(virtualDisplay.display) }
+                    return withContext(Dispatchers.Main.immediate) { callback(virtualDisplay.display) }
                 } finally {
                     virtualDisplay.release()
                 }

@@ -85,23 +85,23 @@ public fun SelectAccountScreen(
                         .transformedHeight(this@item, transformationSpec),
                     transformation = SurfaceTransformation(transformationSpec),
                     icon = {
-                        if(hasAvatar) {
+                        if (hasAvatar) {
                             Image(
                                 account.avatar.rememberPainter(),
                                 contentDescription = null,
                                 modifier = Modifier
-                                    .size(ButtonDefaults.LargeIconSize)
+                                    .size(ButtonDefaults.LargeIconSize),
                             )
                         } else {
                             Icon(
                                 defaultAvatar.rememberPainter(),
                                 contentDescription = null,
                                 modifier = Modifier
-                                    .size(ButtonDefaults.IconSize)
+                                    .size(ButtonDefaults.IconSize),
                             )
                         }
                     },
-                    contentPadding = if(hasAvatar){
+                    contentPadding = if (hasAvatar) {
                         ButtonDefaults.ButtonWithLargeIconContentPadding
                     } else {
                         ButtonDefaults.ContentPadding
@@ -143,6 +143,6 @@ private fun defaultContentPadding(): PaddingValues {
         start = horizontalPadding,
         top = topPadding,
         end = horizontalPadding,
-        bottom = bottomPadding
+        bottom = bottomPadding,
     )
 }

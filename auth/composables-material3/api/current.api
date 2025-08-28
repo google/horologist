@@ -1,0 +1,27 @@
+// Signature format: 4.0
+package com.google.android.horologist.auth.composables.material3.models {
+
+  public final class AccountUiModel {
+    ctor public AccountUiModel(String email, String name, optional com.google.android.horologist.images.base.paintable.Paintable? avatar);
+    method public String component1();
+    method public String component2();
+    method public com.google.android.horologist.images.base.paintable.Paintable? component3();
+    method public com.google.android.horologist.auth.composables.material3.models.AccountUiModel copy(String email, String name, com.google.android.horologist.images.base.paintable.Paintable? avatar);
+    method public com.google.android.horologist.images.base.paintable.Paintable? getAvatar();
+    method public String getEmail();
+    method public String getName();
+    property public final com.google.android.horologist.images.base.paintable.Paintable? avatar;
+    property public final String email;
+    property public final String name;
+  }
+
+}
+
+package com.google.android.horologist.auth.composables.material3.screens {
+
+  public final class SelectAccountScreenKt {
+    method @androidx.compose.runtime.Composable public static void SelectAccountScreen(java.util.List<com.google.android.horologist.auth.composables.material3.models.AccountUiModel> accounts, kotlin.jvm.functions.Function2<? super java.lang.Integer,? super com.google.android.horologist.auth.composables.material3.models.AccountUiModel,kotlin.Unit> onAccountClicked, optional androidx.compose.ui.Modifier modifier, optional String title, optional com.google.android.horologist.images.base.paintable.Paintable defaultAvatar, optional androidx.compose.foundation.layout.PaddingValues contentPadding);
+  }
+
+}
+

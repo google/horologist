@@ -45,6 +45,9 @@ import com.google.android.horologist.images.base.paintable.Paintable
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/select_account_screen.png" height="120" width="120"/>
  */
+@Deprecated(
+    message = "Please use SelectAccountScreen in the composables-material3 module",
+)
 @Composable
 public fun SelectAccountScreen(
     accounts: List<AccountUiModel>,

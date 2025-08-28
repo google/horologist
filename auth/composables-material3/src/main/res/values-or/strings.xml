@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+<!--
+ Copyright 2024 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_auth_error_message">କିଛି ତ୍ରୁଟି ହୋଇଛି। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।</string>
+  <string name="horologist_signedin_confirmation_greeting">ହାଏ, %s</string>
+  <string name="horologist_signedin_confirmation_greeting_no_name">ହାଏ!</string>
+  <string name="horologist_signin_prompt_title">ସାଇନ ଇନ କରନ୍ତୁ</string>
+  <string name="horologist_sign_in_chip_label">ସାଇନ ଇନ କରନ୍ତୁ</string>
+  <string name="horologist_guest_mode_chip_label">ଆକାଉଣ୍ଟ ବିନା ବ୍ୟବହାର</string>
+  <string name="horologist_other_options_chip_label">ଅନ୍ୟ ବିକଳ୍ପଗୁଡ଼ିକ</string>
+  <string name="horologist_create_account_chip_label">ଆକାଉଣ୍ଟ ତିଆରି କରନ୍ତୁ</string>
+  <string name="horologist_select_account_title">ଆକାଉଣ୍ଟ ଚୟନ କରନ୍ତୁ</string>
+  <string name="horologist_signin_placeholder_message">ସାଇନ ଇନ କରାଯାଉଛି…</string>
+</resources>

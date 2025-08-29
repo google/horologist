@@ -88,6 +88,7 @@ public fun SignedInConfirmationDialog(
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
+@Deprecated("Please use SignedInConfirmationDialog from the material3 module")
 public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,

@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.auth.composables.material3.screens
 
-import android.R.attr.maxLines
-import android.R.attr.name
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,12 +25,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
@@ -47,26 +44,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.dialog.DialogDefaults
-import androidx.wear.compose.material3.ButtonDefaults
-import androidx.wear.compose.material3.ConfirmationDialog
-import androidx.wear.compose.material3.ConfirmationDialogDefaults
 import androidx.wear.compose.material3.Dialog
-import androidx.wear.compose.material3.FilledTonalButton
-import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.MaterialTheme
-import androidx.wear.compose.material3.SuccessConfirmationDialog
 import androidx.wear.compose.material3.Text
-import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.composables.material3.R
 import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
-import com.google.android.horologist.auth.composables.material3.theme.HorologistMaterialTheme
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.images.base.paintable.DrawableResPaintable
+import com.google.android.horologist.compose.layout.fillMaxRectangle
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
 import java.time.Duration
@@ -105,7 +95,8 @@ public fun SignedInConfirmationScreen(
             modifier = modifier,
             name = name,
             email = email,
-            avatar = avatar ?: defaultAvatar,
+            avatar = avatar,
+            defaultAvatar = defaultAvatar,
         )
     }
 }
@@ -139,7 +130,8 @@ internal fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
-    avatar: Paintable
+    avatar: Paintable? = null,
+    defaultAvatar: Paintable = Icons.Outlined.AccountCircle.asPaintable(),
 ) {
     val configuration = LocalConfiguration.current
     val topPadding = (configuration.screenHeightDp * TOP_PADDING_SCREEN_PERCENTAGE).dp
@@ -164,7 +156,9 @@ internal fun SignedInConfirmationDialogContent(
                 modifier = Modifier
                     .padding(4.dp)
                     .size(96.dp)
-                    .clip(MaterialShapes.Pill.toShape()),
+                    .clip(MaterialShapes.Pill.toShape())
+                    .background(MaterialTheme.colorScheme.surfaceContainer)
+                ,
                 contentAlignment = Alignment.Center,
             ) {
                 if (avatar != null) {
@@ -174,15 +168,13 @@ internal fun SignedInConfirmationDialogContent(
                         contentDescription = null,
                         contentScale = ContentScale.FillBounds,
                     )
-                } else if (hasName) {
-                    Text(
-                        text = name!!.first().uppercase(),
+                } else {
+                    Icon(
+                        painter = defaultAvatar.rememberPainter(),
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        contentDescription = null,
                         modifier = Modifier
-                            .align(Alignment.Center)
-                            .fillMaxWidth(),
-                        color = Color(AVATAR_TEXT_COLOR),
-                        fontSize = 24.sp,
-                        textAlign = TextAlign.Center,
+                            .size(32.dp)
                     )
                 }
             }
@@ -201,7 +193,7 @@ internal fun SignedInConfirmationDialogContent(
                     .fillMaxWidth(),
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center,
-                overflow = TextOverflow.Clip,
+                overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 style = MaterialTheme.typography.displayMedium,
             )
@@ -209,6 +201,15 @@ internal fun SignedInConfirmationDialogContent(
             email?.let {
                 val emailHorizontalPadding =
                     (configuration.screenWidthDp * EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE).dp
+                val emailTextStyle = MaterialTheme.typography.bodyMedium.copy(
+                    // linebreak specific to email strings
+                    lineBreak = LineBreak(
+                        strategy = LineBreak.Strategy.Balanced,
+                        strictness = LineBreak.Strictness.Normal,
+                        wordBreak = LineBreak.WordBreak.Default,
+                    ),
+                    textAlign = TextAlign.Center,
+                )
                 Text(
                     text = email,
                     modifier = Modifier
@@ -220,9 +221,9 @@ internal fun SignedInConfirmationDialogContent(
                         .fillMaxWidth(),
                     color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center,
-                    overflow = TextOverflow.Clip,
+                    overflow = TextOverflow.Ellipsis,
                     maxLines = 2,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = emailTextStyle
                 )
             }
         }

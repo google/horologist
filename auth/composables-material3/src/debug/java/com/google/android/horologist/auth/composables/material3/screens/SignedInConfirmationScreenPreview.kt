@@ -3,9 +3,6 @@ package com.google.android.horologist.auth.composables.material3.screens
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.wear.compose.material3.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.composables.material3.R
 import com.google.android.horologist.auth.composables.material3.theme.HorologistMaterialTheme
@@ -26,13 +23,37 @@ fun SignedInConfirmationScreenPreview() {
 
 @WearPreviewDevices
 @Composable
+fun SignedInConfirmationMMMScreenPreview() {
+    HorologistMaterialTheme {
+        SignedInConfirmationDialogContent(
+            modifier = Modifier.fillMaxSize(),
+            name = "MMMMMMMMM",
+            email = "MMMMMMMMMMMMMMMMMMMMMMMM",
+            avatar = DrawableResPaintable(R.drawable.avatar_small_3),
+        )
+    }
+}
+@WearPreviewDevices
+@Composable
 fun SignedInConfirmationScreenContentPreview() {
     HorologistMaterialTheme {
         SignedInConfirmationDialogContent(
             modifier = Modifier.fillMaxSize(),
-            name = "Timothy Andrews",
+            name = "Maggie",
+            email = "maggiesveryveryverylongworkemail@example.com",
+            avatar = DrawableResPaintable(R.drawable.avatar_small_3),
+        )
+    }
+}
+
+@WearPreviewDevices
+@Composable
+fun SignedInConfirmationNoAvatar() {
+    HorologistMaterialTheme {
+        SignedInConfirmationDialogContent(
+            modifier = Modifier.fillMaxSize(),
+            name = "Timothy",
             email = "timandrews123@example.com",
-            avatar = DrawableResPaintable(R.drawable.avatar_small_1),
         )
     }
 }
@@ -42,7 +63,7 @@ fun SignedInConfirmationScreenPreviewNoName() {
     SignedInConfirmationScreen(
         onDismissOrTimeout = {},
         email = "timandrews123@example.com",
-        avatar = DrawableResPaintable(R.drawable.avatar_small_1),
+        avatar = DrawableResPaintable(R.drawable.avatar_small_3),
     )
 }
 

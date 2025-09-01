@@ -15,7 +15,7 @@ fun SignedInConfirmationScreenPreview() {
         SignedInConfirmationDialogContent(
             modifier = Modifier.fillMaxSize(),
             name = "Maggie",
-            email = "maggiesworkaccount@gmail.com",
+
             avatar = DrawableResPaintable(R.drawable.avatar_small_3),
         )
     }

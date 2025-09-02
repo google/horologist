@@ -34,13 +34,13 @@ com-squareup-okhttp3 = "5.1.0"
 com-squareup-retrofit2 = "3.0.0"
 compose-material3 = "1.4.0-beta03"
 composesnapshot = "-"
-dependencyAnalysis = "3.0.1"
+dependencyAnalysis = "2.19.1"
 desugar_jdk_libs = "2.1.5"
 dokka = "2.0.0"
 googledagger = "2.57.1"
 gradlePlugin = "8.12.2"
 gradlePublishPlugin = "0.34.0"
-grpcStub = "1.75.0"
+grpcStub = "1.73.0"
 io-coil-kt = "2.7.0"
 junit = "4.13.2"
 kotlin = "2.2.10"
@@ -59,7 +59,7 @@ playServicesAuth = "21.4.0"
 playServicesOssLicenses = "17.2.2"
 # Stay on 4.26.1 due to https://github.com/firebase/firebase-android-sdk/issues/5997
 protobuf = "4.26.1"
-protobuf-gen-grpc-java = "1.75.0"
+protobuf-gen-grpc-java = "1.73.0"
 protobuf-gen-grpc-kotlin = "1.4.3:jdk8@jar"
 protobuf-gen-javalite = "3.0.0"
 roborazzi = "1.50.0"
@@ -185,10 +185,10 @@ grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 hilt-ext-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
 hilt-navigationcompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
-io-grpc-grpc-android = "io.grpc:grpc-android:1.75.0"
-io-grpc-grpc-binder = "io.grpc:grpc-binder:1.75.0"
+io-grpc-grpc-android = "io.grpc:grpc-android:1.73.0"
+io-grpc-grpc-binder = "io.grpc:grpc-binder:1.73.0"
 io-grpc-grpc-kotlin = "io.grpc:grpc-kotlin-stub:1.4.3"
-io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.75.0"
+io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.73.0"
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }

@@ -40,7 +40,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
@@ -48,21 +47,15 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.wear.compose.material.dialog.DialogDefaults
 import androidx.wear.compose.material3.Dialog
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
 import com.google.android.horologist.auth.composables.material3.R
 import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
 import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.fillMaxRectangle
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
-import java.time.Duration
 
-private const val AVATAR_BACKGROUND_COLOR = 0xFF4ECDE6
-private const val AVATAR_TEXT_COLOR = 0xFF202124
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052f
 private const val TOP_PADDING_SCREEN_PERCENTAGE = 0.012f
 private const val BOTTOM_PADDING_SCREEN_PERCENTAGE = 0.092f
@@ -81,7 +74,6 @@ public fun SignedInConfirmationScreen(
     email: String? = null,
     avatar: Paintable? = null,
     defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
-    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis),
 ) {
     var showConfirmation by remember { mutableStateOf(true) }
 
@@ -111,8 +103,7 @@ public fun SignedInConfirmationScreen(
 public fun SignedInConfirmationScreen(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
-    accountUiModel: AccountUiModel,
-    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis),
+    accountUiModel: AccountUiModel
 ) {
     SignedInConfirmationScreen(
         onDismissOrTimeout = onDismissOrTimeout,
@@ -120,7 +111,6 @@ public fun SignedInConfirmationScreen(
         name = accountUiModel.name,
         email = accountUiModel.email,
         avatar = accountUiModel.avatar,
-        duration = duration,
     )
 }
 
